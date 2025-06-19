@@ -740,20 +740,17 @@ trait GeneratesUserDoc
         // Executive Opportunities
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
             $this->yesOrNo($profile->career_planning_exec_interest ?? false));
+        $coachingStatus = match (true) {
+            $profile->career_planning_exec_interest => 'coaching_others',
+            $profile->career_planning_exec_coaching_status === 'COACHING' => 'coaching_others',
+            $profile->career_planning_exec_coaching_status === 'LEARNING' => 'has_coach',
+            $profile->career_planning_exec_coaching_status === 'BOTH' => 'coaching_and_learning',
+            $profile->career_planning_exec_coaching_status === 'not_participating' => 'not_participating',
+            default => 'not_provided'
+        };
 
-        $this->addLabelText(
-            $section,
-            $this->localize('gc_employee.exec_coaching_status'),
-            $profile->career_planning_exec_interest
-                ? $this->localize('gc_employee.coaching_others')
-                : ($profile->career_planning_exec_coaching_status
-                    ? $this->localize('gc_employee.have_coach')
-                    : ($profile->career_planning_exec_coaching_status
-                        ? $this->localize('gc_employee.coaching_and_learning')
-                        : $this->localize('gc_employee.not_participating')
-                    )
-                )
-        );
+        $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_status'),
+            $this->localize("gc_employee.$coachingStatus"));
 
         if (! empty($profile->career_planning_exec_coaching_interest)) {
             $section->addText($this->localize('gc_employee.exec_coaching_interest'));
