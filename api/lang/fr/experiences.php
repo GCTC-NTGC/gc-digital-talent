@@ -6,7 +6,7 @@ return [
     'community' => 'Participation de la collectivité',
     'education' => 'Éducation et certificats',
     'personal' => 'Apprentissage personnel',
-    'work' => 'Expérience professionnell',
+    'work' => 'Expérience professionnelle',
     // Labels
     'awarded_to' => 'Accordé à',
     'issuing_organization' => 'Organisation émettrice',
