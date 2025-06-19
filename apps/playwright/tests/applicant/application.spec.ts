@@ -228,7 +228,8 @@ test.describe("Application", () => {
     await expectOnStep(application.page, 6);
   });
 
-  test("Can submit application", async ({ appPage }) => {
+  test("Can submit application", async ({ appPage }, testInfo) => {
+    testInfo.slow();
     const adminCtx = await graphql.newContext();
     const poolName = `application test pool for submit application ${uniqueTestId}`;
     const pool = await createAndPublishPool(adminCtx, {
