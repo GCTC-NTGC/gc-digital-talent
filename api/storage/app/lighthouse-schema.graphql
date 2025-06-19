@@ -606,11 +606,10 @@ type Mutation {
   downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersCsv(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
+  downloadUsersThruPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
-  downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUserDoc(id: UUID!, anonymous: Boolean!): String
-  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
   downloadApplicationDoc(id: UUID!): String
 }
 

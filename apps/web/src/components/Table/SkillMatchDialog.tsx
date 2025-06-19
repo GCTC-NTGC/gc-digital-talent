@@ -148,7 +148,7 @@ const SkillMatchDialog = ({
               userId={userId}
             />
           )}
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer className="justify-start">
             <Dialog.Close>
               <Button color="primary" mode="inline">
                 {intl.formatMessage({

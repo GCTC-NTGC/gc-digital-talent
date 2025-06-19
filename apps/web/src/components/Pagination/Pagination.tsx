@@ -88,6 +88,7 @@ const Pagination = ({
   spacing,
   color,
   activeColor = "black",
+  className,
   ...rest
 }: PaginationProps) => {
   const intl = useIntl();
@@ -120,7 +121,7 @@ const Pagination = ({
   const currentPageSize = currentPage * pageSize;
 
   return (
-    <div className={pagination({ color, spacing })} {...rest}>
+    <div className={pagination({ color, spacing, class: className })} {...rest}>
       <div className="flex items-center gap-x-3">
         <span>
           {intl.formatMessage(

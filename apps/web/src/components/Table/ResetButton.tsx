@@ -6,15 +6,7 @@ const ResetButton = (props: Omit<HTMLProps<HTMLButtonElement>, "children">) => {
   const intl = useIntl();
   return (
     <button
-      data-h2-background-color="base(transparent) base:hover(gray.lightest) base:focus-visible(focus)"
-      data-h2-color="base(gray) base:hover(black) base:focus-visible(black)"
-      data-h2-radius="base(input)"
-      data-h2-cursor="base(pointer)"
-      data-h2-outline="base(none)"
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-flex-shrink="base(0)"
-      data-h2-padding="base(x.25)"
+      className="flex shrink-0 cursor-pointer items-center rounded bg-transparent p-1.5 text-gray outline-none hover:bg-gray-100 hover:text-black focus-visible:bg-focus focus-visible:text-black dark:hover:bg-gray-700 dark:hover:text-white"
       aria-label={intl.formatMessage({
         defaultMessage: "Reset search",
         id: "Yh/4po",
@@ -23,7 +15,7 @@ const ResetButton = (props: Omit<HTMLProps<HTMLButtonElement>, "children">) => {
       {...props}
       type="button"
     >
-      <XMarkIcon data-h2-height="base(1rem)" data-h2-width="base(1rem)" />
+      <XMarkIcon className="size-4" />
     </button>
   );
 };

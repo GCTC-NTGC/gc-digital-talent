@@ -12,12 +12,14 @@ interface DownloadCandidateCsvButtonProps {
   disabled?: boolean;
   isDownloading?: boolean;
   onClick: (withROD?: boolean) => void;
+  onClickDownloadUsers: () => void;
 }
 
 const DownloadCandidateCsvButton = ({
   inTable,
   isDownloading,
   onClick,
+  onClickDownloadUsers,
   disabled,
 }: DownloadCandidateCsvButtonProps) => {
   const intl = useIntl();
@@ -62,6 +64,17 @@ const DownloadCandidateCsvButton = ({
             id: "C1jirU",
             description:
               "Button label for download candidate csv with ROD data.",
+          })}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item
+          disabled={disabled}
+          onSelect={() => onClickDownloadUsers()}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Download users CSV",
+            id: "Vyao8B",
+            description:
+              "Button label to download users associated with selected candidates as CSV",
           })}
         </DropdownMenu.Item>
       </DropdownMenu.Content>

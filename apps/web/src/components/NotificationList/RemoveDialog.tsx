@@ -65,11 +65,7 @@ const RemoveDialog = forwardRef<
           })}
         </AlertDialog.Title>
         <AlertDialog.Description>
-          <p
-            data-h2-font-size="base(caption)"
-            data-h2-color="base(black.light)"
-            data-h2-margin-bottom="base(x.5)"
-          >
+          <p className="mb-3 text-sm text-gray-600 dark:text-gray-200">
             {date}
           </p>
           <div>{message}</div>
