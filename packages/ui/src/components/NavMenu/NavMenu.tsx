@@ -144,7 +144,7 @@ const useActiveLink = (
 };
 
 const navMenuLink = tv({
-  base: "font-normal text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 dark:text-white dark:hover:text-primary-200 dark:data-active:text-primary-100 data-active:[&_span]:no-underline",
+  base: "font-normal text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 data-active:hover:text-primary-700 dark:text-white dark:hover:text-primary-700 dark:data-active:text-primary-100 dark:data-active:hover:text-primary-700 data-active:[&_span]:no-underline",
   variants: {
     isSmallScreen: {
       true: "",
