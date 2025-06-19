@@ -17,7 +17,7 @@ return new class extends Migration
 
         Schema::table('pools', function (Blueprint $table) {
             // Add indexes for foreign keys
-            $table->index('user_id', 'idx_user_id');
+            $table->index('user_id', 'pools_user_id_index');
             $table->index('classification_id', 'idx_classification_id');
             $table->index('department_id', 'idx_department_id');
             $table->index('community_id', 'idx_community_id');
@@ -36,7 +36,7 @@ return new class extends Migration
 
         Schema::table('pools', function (Blueprint $table) {
             // Drop indexes
-            $table->dropIndex('idx_user_id');
+            $table->dropIndex('pools_user_id_index');
             $table->dropIndex('idx_classification_id');
             $table->dropIndex('idx_department_id');
             $table->dropIndex('idx_community_id');
