@@ -35,24 +35,20 @@ class PoolPolicy
             return true;
         }
 
-        // Otherwise, unauthenticated users shouldn't have access (draft).
-        if (! is_null($user)) {
-            // If user has elevated admin, can view all pools.
-            if ($user->isAbleTo('view-any-pool')) {
-                return true;
-            }
-
-            // Load team only when needed to check if team owns draft.
-            $pool->loadMissing(['team', 'community.team']);
-            $teamPermission = ! is_null($pool->team) && $user->isAbleTo('view-team-draftPool', $pool->team);
-            $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-draftPool', $pool->community->team);
-
-            if ($teamPermission || $communityPermission) {
-                return true;
-            }
+        if (is_null($user)) {
+            return false;
         }
 
-        return false;
+        if ($user->isAbleTo('view-any-pool')) {
+            return true;
+        }
+
+        // Check permissions for team and community.
+        $teamPermission = $pool->team && $user->isAbleToWithCache('view-team-draftPool', $pool->team);
+        $communityPermission = $pool->community->team && $user->isAbleToWithCache('view-team-draftPool', $pool->community->team);
+
+        // Return true if the user has permissions for either team or community.
+        return $teamPermission || $communityPermission;
     }
 
     /**

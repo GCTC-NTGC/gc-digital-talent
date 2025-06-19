@@ -30,27 +30,27 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        $roleTeams = $user->rolesTeams()->get();
-        $teamIds = $roleTeams->filter(function ($team) use ($user) {
-            return $user->isAbleTo('view-team-applicantProfile', $team);
-        })->pluck('id');
 
-        return $user->isAbleTo('view-any-user') ||
-            ($user->isAbleTo('view-own-user') && $user->id === $model->id) ||
-            ($user->isAbleTo('view-team-applicantProfile')
-                && $this->applicantHasAppliedToPoolInTeams(
-                    $model,
-                    $teamIds,
-                )
-            ) ||
-            count(
-                array_filter(
-                    $this->teamsUserHasSharedProfileWith($model),
-                    function (string $team) use ($user) {
-                        return $user->isAbleTo('view-team-communityTalent', $team);
-                    }
-                )
-            ) > 0;
+        // Early return for global permissions
+        if ($user->isAbleTo('view-any-user')) {
+            return true;
+        }
+
+        // Early return for own user permission
+        if ($user->isAbleTo('view-own-user') && $user->id === $model->id) {
+            return true;
+        }
+
+        // Get all profile teams
+        $roleTeams = $user->rolesTeams()->pluck('id')->toArray();
+        $sharedProfileTeams = $this->teamsUserHasSharedProfileWith($model);
+        $hasTeamPermission = $this->applicantHasAppliedToPoolInTeams($model, $roleTeams);
+
+        $hasCommunityPermission = ! empty(array_filter($sharedProfileTeams, function ($team) use ($user) {
+            return $user->isAbleToWithCache('view-team-communityTalent', $team);
+        }));
+
+        return $hasTeamPermission || $hasCommunityPermission;
     }
 
     /**
@@ -184,8 +184,7 @@ class UserPolicy
         return CommunityInterest::where('user_id', $user->id)
             ->where('consent_to_share_profile', true)
             ->join('teams', 'community_interests.community_id', '=', 'teams.teamable_id')
-            ->pluck('teams.name')
-            ->toArray();
+            ->pluck('teams.name')->toArray();
     }
 
     /*******************  ROLE CHECKING  *******************/

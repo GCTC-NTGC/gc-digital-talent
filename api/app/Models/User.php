@@ -11,6 +11,7 @@ use App\Enums\PriorityWeight;
 use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
+use App\Traits\HasCachedPermissions;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -105,6 +106,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use Authorizable;
     use CausesActivity;
     use EnrichedNotifiable;
+    use HasCachedPermissions;
     use HasFactory;
     use HasLocalizedEnums;
     use HasRelationships;
@@ -576,10 +578,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         static::roleAdded(function (User $user, string $role, $team) {
             self::logRoleChange('roleAdded', $user, $role, $team);
+            $user->clearPermissionCache($team);
         });
 
         static::roleRemoved(function (User $user, string $role, $team) {
             self::logRoleChange('roleRemoved', $user, $role, $team);
+            $user->clearPermissionCache($team);
         });
     }
 

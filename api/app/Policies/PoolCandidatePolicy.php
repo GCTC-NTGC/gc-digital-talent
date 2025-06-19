@@ -239,11 +239,9 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('view-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
-        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->team);
-        $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->community->team);
 
-        return $teamPermission || $communityPermission;
+        // Use helper method to check team/community permissions
+        return $this->hasTeamOrCommunityPermission($user, $poolCandidate, 'view-team-applicationAssessment');
     }
 
     public function updateAssessment(User $user, PoolCandidate $poolCandidate)
@@ -357,7 +355,7 @@ class PoolCandidatePolicy
         // Avoid dynamic resolution, rely on valid relationships
         $pool = $poolCandidate->pool;
 
-        return $pool->team && $user->isAbleTo($permission, $pool->team)
-            || $pool->community && $user->isAbleTo($permission, $pool->community->team);
+        return $pool->team && $user->isAbleToWithCache($permission, $pool->team)
+            || $pool->community && $user->isAbleToWithCache($permission, $pool->community->team);
     }
 }
