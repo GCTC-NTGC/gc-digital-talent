@@ -2,6 +2,6 @@
 
 return [
     'successful' => 'Démontrée',
-    'hold' => 'Non démontrée (en attente d’une évaluation plus poussée)',
+    'hold' => 'Non démontrée (candidat(e) avance à l’étape suivante)',
     'unsuccessful' => 'Non démontrée',
 ];

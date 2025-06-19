@@ -189,10 +189,10 @@ const commonMessages = defineMessages({
     id: "2wKf2U",
     description: "Text to trigger edit action",
   },
-  notSure: {
-    defaultMessage: "Not sure",
-    id: "GLRLYT",
-    description: "A decision has not been made",
+  pendingSecondOpinion: {
+    defaultMessage: "Pending second opinion",
+    id: "Rp+NHA",
+    description: "Pending second opinion",
   },
   anyLanguage: {
     defaultMessage: "Any language",
