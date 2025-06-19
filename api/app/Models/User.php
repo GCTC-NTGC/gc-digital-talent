@@ -576,12 +576,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         static::roleAdded(function (User $user, string $role, $team) {
             self::logRoleChange('roleAdded', $user, $role, $team);
-            $user->clearPermissionCache($team);
         });
 
         static::roleRemoved(function (User $user, string $role, $team) {
             self::logRoleChange('roleRemoved', $user, $role, $team);
-            $user->clearPermissionCache($team);
         });
     }
 
