@@ -379,7 +379,7 @@ type Pool implements HasRoleAssignments {
   owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
   name: LocalizedString
-  classification: Classification @belongsTo @cache
+  classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
@@ -404,7 +404,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "security_clearance")
   language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
-  workStream: WorkStream @belongsTo @cache
+  workStream: WorkStream @belongsTo
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: LocalizedPublishingGroup
     @rename(attribute: "publishing_group")
@@ -523,7 +523,7 @@ type PoolCandidateViewNotes {
 
 # group fields together that repeat use of viewStatus()
 type PoolCandidateViewStatus {
-  id: ID @cacheKey
+  id: ID
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
@@ -533,17 +533,17 @@ type PoolCandidateViewStatus {
   removalReasonOther: String @rename(attribute: "removal_reason_other")
   finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
   placedAt: DateTime @rename(attribute: "placed_at")
-  placedDepartment: Department @belongsTo @cache
+  placedDepartment: Department @belongsTo
 }
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo @canResolved(ability: "view") @cache
-  user: User! @belongsTo(relation: "user") @canResolved(ability: "view") @cache
+  pool: Pool! @belongsTo @canResolved(ability: "view")
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
-  category: PoolCandidateCategory @with(relation: "user") @cache
+  category: PoolCandidateCategory @with(relation: "user")
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
