@@ -477,7 +477,7 @@ export const ViewSearchRequest = ({
         subtitle={subTitle}
         crumbs={navigationCrumbs}
       />
-      <Container>
+      <Container className="mt-18">
         {wasEmpty && (
           <p data-h2-margin="base(0 0 x1 0)">
             {intl.formatMessage({
@@ -558,7 +558,7 @@ export const ViewSearchRequest = ({
         </div>
       </Container>
       <Container size="full">
-        <Heading level="h2" size="h4" className="mt-0">
+        <Heading level="h2" size="h4">
           {intl.formatMessage({
             defaultMessage: "Candidate results",
             id: "bQ4iDW",
@@ -578,7 +578,7 @@ export const ViewSearchRequest = ({
           </>
         )}
       </Container>
-      <Container>
+      <Container className="mb-18">
         <UpdateSearchRequest initialSearchRequest={searchRequest} />
       </Container>
     </>
