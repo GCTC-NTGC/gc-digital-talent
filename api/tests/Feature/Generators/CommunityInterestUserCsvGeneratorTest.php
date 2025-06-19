@@ -7,6 +7,9 @@ use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
+use Database\Seeders\SkillFamilySeeder;
+use Database\Seeders\SkillSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -15,10 +18,16 @@ use function PHPUnit\Framework\assertTrue;
 
 class CommunityInterestUserCsvGeneratorTest extends TestCase
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(RolePermissionSeeder::class);
+        $this->seed([
+            RolePermissionSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+        ]);
     }
 
     // test that a file can be generated
