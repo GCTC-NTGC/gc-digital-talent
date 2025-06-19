@@ -2390,10 +2390,3 @@ directive @whereHasConditions(
     """
     handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
 ) on ARGUMENT_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Tracing\TracingDirective
-"""
-Do not use this directive directly, it is automatically added to the schema
-when using the tracing extension.
-"""
-directive @tracing on FIELD_DEFINITION
