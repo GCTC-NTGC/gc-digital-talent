@@ -66,30 +66,32 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
     ];
 
     protected array $headerLocaleKeys = [
+        'process_number',
+        'process_name',
+        'first_name',
+        'last_name',
         'status',
         'category',
         'availability',
         'notes',
-        'current_province',
         'date_received',
         'expiry_date',
         'archival_date',
-        'first_name',
-        'last_name',
+        'current_province',
+        'current_city',
         'email',
         'preferred_communication_language',
         'preferred_spoken_interview_language',
         'preferred_written_exam_language',
-        'current_city',
         'armed_forces_status',
         'citizenship',
         'first_official_language',
+        'estimated_language_ability',
         'second_language_exam_completed',
         'second_language_exam_validity',
         'comprehension_level',
         'writing_level',
         'oral_interaction_level',
-        'estimated_language_ability',
         'government_employee',
         'department',
         'employee_type',
@@ -149,30 +151,32 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 })->flatten()->unique()->toArray();
 
                 $values = [
+                    $candidate->pool->process_number, // Process number
+                    $candidate->pool->name[$this->lang] ?? '', // Process name
+                    $candidate->user->first_name, // First name
+                    $candidate->user->last_name, // Last name
                     $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
                     $this->localizeEnum($candidate->user->priority, PriorityWeight::class),
                     $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
                     $this->sanitizeString($candidate->notes ?? ''), // Notes
-                    $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
                     $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
                     $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
                     $candidate->archived_at ? $candidate->archived_at->format('Y-m-d') : '', // Archival date
-                    $candidate->user->first_name, // First name
-                    $candidate->user->last_name, // Last name
+                    $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
+                    $candidate->user->current_city, // Current city
                     $candidate->user->email, // Email
                     $this->localizeEnum($candidate->user->preferred_lang, Language::class),
                     $this->localizeEnum($candidate->user->preferred_language_for_interview, Language::class),
                     $this->localizeEnum($candidate->user->preferred_language_for_exam, Language::class),
-                    $candidate->user->current_city, // Current city
                     $this->localizeEnum($candidate->user->armed_forces_status, ArmedForcesStatus::class),
                     $this->localizeEnum($candidate->user->citizenship, CitizenshipStatus::class),
                     $this->localizeEnum($candidate->user->first_official_language, Language::class),
-                    is_null($candidate->user->second_language_exam_completed) ? '' : $this->yesOrNo($candidate->user->second_language_exam_completed), // Bilingual evaluation
-                    $this->yesOrNo($candidate->user->second_language_exam_validity),
+                    $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class), // Estimated language ability
+                    $candidate->user->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
+                    is_null($candidate->user->second_language_exam_validity) ? '' : $this->yesOrNo($candidate->user->second_language_exam_validity), // Bilingual exam validity
                     $this->localizeEnum($candidate->user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
                     $this->localizeEnum($candidate->user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($candidate->user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
-                    $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class),
                     $this->yesOrNo($candidate->user->computed_is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
                     $this->localizeEnum($candidate->user->computed_gov_employee_type, GovEmployeeType::class),
@@ -184,10 +188,10 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                     $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
                     $candidate->user->location_exemptions, // Location exemptions
-                    $this->yesOrNo($candidate->user->is_woman), // Woman
+                    $candidate->user->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($candidate->user->indigenous_communities, IndigenousCommunity::class),
-                    $this->yesOrNo($candidate->user->is_visible_minority), // Visible minority
-                    $this->yesOrNo($candidate->user->has_disability), // Disability
+                    $candidate->user->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
+                    $candidate->user->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
                     $this->sanitizeEnum($candidate->education_requirement_option), // Education requirement
                     implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
                 ];
