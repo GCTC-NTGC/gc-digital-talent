@@ -838,7 +838,7 @@ export const queryResultToDefaultValues = (
 export interface ExperienceName extends SimpleAnyExperience {
   title?: Maybe<string>;
   organization?: Maybe<string>;
-  type?: Maybe<Partial<LocalizedEducationType>>;
+  type?: Maybe<Partial<LocalizedEducationType>> | string;
   areaOfStudy?: Maybe<string>;
   institution?: Maybe<string>;
   role?: Maybe<string>;
@@ -883,25 +883,41 @@ export const getExperienceName = <T extends ExperienceName>(
 
   if (isEducationExperience(experience)) {
     const { type, areaOfStudy, institution } = experience;
-    const educationType =
-      type?.value === EducationType.Other
-        ? intl.formatMessage({
-            defaultMessage: "Other type of education",
-            id: "wrKBLf",
-            description:
-              "First part of education experience title for other type",
-          })
-        : type?.label.localized;
-    return intl.formatMessage(
-      html
-        ? experienceMessages.educationAtHtml
-        : experienceMessages.educationAt,
-      {
-        educationType,
-        areaOfStudy,
-        institution,
-      },
-    );
+
+    // shape of type changed at some point from string to object. this is a imperfect solution.
+    let educationType;
+    if (typeof type !== "string") {
+      educationType =
+        type?.value === EducationType.Other
+          ? intl.formatMessage({
+              defaultMessage: "Other type of education",
+              id: "wrKBLf",
+              description:
+                "First part of education experience title for other type",
+            })
+          : type?.label.localized;
+      return intl.formatMessage(
+        html
+          ? experienceMessages.educationAtHtml
+          : experienceMessages.educationAt,
+        {
+          educationType,
+          areaOfStudy,
+          institution,
+        },
+      );
+    } else {
+      return intl.formatMessage(
+        html
+          ? experienceMessages.educationAtWithoutTypeHtml
+          : experienceMessages.educationAtWithoutType,
+        {
+          educationType,
+          areaOfStudy,
+          institution,
+        },
+      );
+    }
   }
 
   if (isWorkExperience(experience)) {
