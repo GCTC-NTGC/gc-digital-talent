@@ -755,10 +755,18 @@ trait GeneratesUserDoc
                 )
         );
 
-        $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_interest'),
-            $profile->career_planning_exec_coaching_interest ? $this->localize('gc_employee.interested_receiving')
-                    : $this->localize('gc_employee.interested_coaching')
-        );
+        if (! empty($profile->career_planning_exec_coaching_interest)) {
+            $section->addText($this->localize('gc_employee.exec_coaching_interest'));
+            $translationMap = [
+                'COACHING' => 'interested_coaching',
+                'LEARNING' => 'interested_receiving',
+            ];
+            foreach ($profile->career_planning_exec_coaching_interest as $interest) {
+                if (isset($translationMap[$interest])) {
+                    $section->addListItem($this->localize('gc_employee.'.$translationMap[$interest]));
+                }
+            }
+        }
 
         // Next Role
         $this->nextRoleSection($section, $profile, $headingRank + 1);
