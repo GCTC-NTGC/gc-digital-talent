@@ -352,10 +352,11 @@ class PoolCandidatePolicy
      */
     protected function hasTeamOrCommunityPermission(User $user, PoolCandidate $poolCandidate, string $permission): bool
     {
-        // Avoid dynamic resolution, rely on valid relationships
+        // Ensure relationships are eager-loaded to avoid N+1 queries
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
         $pool = $poolCandidate->pool;
 
-        return $pool->team && $user->isAbleToWithCache($permission, $pool->team)
-            || $pool->community && $user->isAbleToWithCache($permission, $pool->community->team);
+        return $pool->team && $user->isAbleToWithCache($permission, $pool->team->id)
+            || $pool->community && $user->isAbleToWithCache($permission, $pool->community->team->id);
     }
 }
