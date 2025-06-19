@@ -206,11 +206,7 @@ const ViewDepartmentPage = () => {
     },
     {
       url: routes.departmentAdvancedTools(departmentId),
-      label: intl.formatMessage({
-        defaultMessage: "Advanced tools",
-        id: "C6P305",
-        description: "Nav tab label to access advanced tools ",
-      }),
+      label: intl.formatMessage(adminMessages.advancedTools),
     },
   ];
 

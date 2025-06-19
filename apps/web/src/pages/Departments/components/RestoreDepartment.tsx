@@ -71,9 +71,9 @@ const RestoreDialog = ({
           <Button icon={DocumentArrowUpIcon} color="warning">
             {intl.formatMessage({
               defaultMessage: "Restore department",
-              id: "Cx9OvY",
+              id: "WNgaJf",
               description:
-                "Button to open a dialog to access restoring functionality",
+                "Button to trigger department restoring functionality",
             })}
           </Button>
         </div>

@@ -70,9 +70,9 @@ const ArchiveDialog = ({
           <Button icon={ArchiveBoxXMarkIcon} color="error">
             {intl.formatMessage({
               defaultMessage: "Archive department",
-              id: "qhA97E",
+              id: "H/0zee",
               description:
-                "Button to open a dialog to access archiving functionality",
+                "Button to trigger department archiving functionality",
             })}
           </Button>
         </div>

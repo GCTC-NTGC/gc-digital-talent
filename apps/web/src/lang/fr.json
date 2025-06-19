@@ -3243,10 +3243,6 @@
     "defaultMessage": "Le rôle de gestionnaire est nouveau pour vous? Vous souhaitez acquérir de l’expérience de recrutement et en savoir davantage sur les processus de ressources humaines?",
     "description": "Paragraph one, summary on getting hiring experience"
   },
-  "Cx9OvY": {
-    "defaultMessage": "Restaurez le ministère",
-    "description": "Button to open a dialog to access restoring functionality"
-  },
   "CxZGd2": {
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for government of canada email input in the request form"
@@ -4902,10 +4898,6 @@
   "KlvT7A": {
     "defaultMessage": "En savoir plus sur l’habilitation de sécurité",
     "description": "Info button label for pool application security clearance details."
-  },
-  "KoKXUw": {
-    "defaultMessage": "Outils avancés",
-    "description": "Heading for making major changes to a user"
   },
   "KoPFx4": {
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
@@ -11768,10 +11760,6 @@
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
     "description": "Instructions on how to manage notifications"
-  },
-  "qhA97E": {
-    "defaultMessage": "Archivez le ministère",
-    "description": "Button to open a dialog to access archiving functionality"
   },
   "qhws/V": {
     "defaultMessage": "Erreur : l'archivage du processus a échoué",

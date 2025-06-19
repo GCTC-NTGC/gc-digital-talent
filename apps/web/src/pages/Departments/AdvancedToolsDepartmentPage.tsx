@@ -19,6 +19,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import adminMessages from "~/messages/adminMessages";
 
 import { ArchiveDepartment } from "./components/ArchiveDepartment";
 import { RestoreDepartment } from "./components/RestoreDepartment";
@@ -52,11 +53,7 @@ export const AdvancedToolsDepartment = ({
           icon={Cog8ToothIcon}
           className="mt-0 mb-7 font-normal"
         >
-          {intl.formatMessage({
-            defaultMessage: "Advanced tools",
-            id: "KoKXUw",
-            description: "Heading for making major changes to a user",
-          })}
+          {intl.formatMessage(adminMessages.advancedTools)}
         </Heading>
       </div>
       <p className="mb-12">
@@ -137,11 +134,7 @@ const AdvancedToolsDepartmentPage = () => {
     },
     {
       url: routes.departmentAdvancedTools(departmentId),
-      label: intl.formatMessage({
-        defaultMessage: "Advanced tools",
-        id: "C6P305",
-        description: "Nav tab label to access advanced tools ",
-      }),
+      label: intl.formatMessage(adminMessages.advancedTools),
     },
   ];
 
