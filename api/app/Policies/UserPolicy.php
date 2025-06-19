@@ -184,7 +184,8 @@ class UserPolicy
         return CommunityInterest::where('user_id', $user->id)
             ->where('consent_to_share_profile', true)
             ->join('teams', 'community_interests.community_id', '=', 'teams.teamable_id')
-            ->pluck('teams.name')->toArray();
+            ->pluck('teams.name')
+            ->toArray();
     }
 
     /*******************  ROLE CHECKING  *******************/

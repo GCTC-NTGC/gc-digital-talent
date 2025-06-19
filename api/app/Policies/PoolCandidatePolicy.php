@@ -193,6 +193,7 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationStatus')) {
             return true;
         }
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->community->team);
 
@@ -205,6 +206,7 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->community->team);
 
