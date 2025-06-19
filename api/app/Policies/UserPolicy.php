@@ -47,7 +47,7 @@ class UserPolicy
         $hasTeamPermission = $this->applicantHasAppliedToPoolInTeams($model, $roleTeams);
 
         $hasCommunityPermission = ! empty(array_filter($sharedProfileTeams, function ($team) use ($user) {
-            return $user->isAbleToWithCache('view-team-communityTalent', $team);
+            return $user->isAbleTo('view-team-communityTalent', $team);
         }));
 
         return $hasTeamPermission || $hasCommunityPermission;

@@ -356,7 +356,7 @@ class PoolCandidatePolicy
         $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
         $pool = $poolCandidate->pool;
 
-        return $pool->team && $user->isAbleToWithCache($permission, $pool->team->id)
-            || $pool->community && $user->isAbleToWithCache($permission, $pool->community->team->id);
+        return $pool->team && $user->isAbleTo($permission, $pool->team->id)
+            || $pool->community && $user->isAbleTo($permission, $pool->community->team->id);
     }
 }
