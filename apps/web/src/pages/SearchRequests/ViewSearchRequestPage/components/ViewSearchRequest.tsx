@@ -559,7 +559,7 @@ export const ViewSearchRequest = ({
         </div>
       </AdminContentWrapper>
       <Container size="full">
-        <Heading level="h2" size="h4">
+        <Heading level="h2" size="h4" className="mt-0">
           {intl.formatMessage({
             defaultMessage: "Candidate results",
             id: "bQ4iDW",
