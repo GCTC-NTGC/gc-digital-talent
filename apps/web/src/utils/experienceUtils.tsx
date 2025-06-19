@@ -895,7 +895,7 @@ export const getExperienceName = <T extends ExperienceName>(
               description:
                 "First part of education experience title for other type",
             })
-          : type?.label.localized;
+          : getLocalizedName(type?.label, intl);
       return intl.formatMessage(
         html
           ? experienceMessages.educationAtHtml
