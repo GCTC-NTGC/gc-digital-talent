@@ -359,6 +359,6 @@ class PoolCandidatePolicy
         $pool = $poolCandidate->pool;
 
         return $pool->team && $user->isAbleTo($permission, $pool->team)
-            || $pool->community && $user->isAbleTo($permission, $pool->community->team);
+            || $pool->community && $pool->community->team && $user->isAbleTo($permission, $pool->community->team);
     }
 }
