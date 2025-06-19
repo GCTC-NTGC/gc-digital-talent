@@ -42,15 +42,26 @@ class UserPolicy
         }
 
         // Get all profile teams
-        $roleTeams = $user->rolesTeams()->pluck('teams.id')->toArray();
-        $sharedProfileTeams = $this->teamsUserHasSharedProfileWith($model);
-        $hasTeamPermission = $this->applicantHasAppliedToPoolInTeams($model, $roleTeams);
+        $teams = $user->rolesTeams()->get();
 
-        $hasCommunityPermission = ! empty(array_filter($sharedProfileTeams, function ($team) use ($user) {
-            return $user->isAbleTo('view-team-communityTalent', $team);
-        }));
+        $teamsWithApplicantProfile = $teams->filter(
+            fn ($team) => $user->isAbleTo('view-team-applicantProfile', $team)
+        )->pluck('id')->toArray();
 
-        return $hasTeamPermission || $hasCommunityPermission;
+        if (! empty($teamsWithApplicantProfile) && $this->applicantHasAppliedToPoolInTeams($model, $teamsWithApplicantProfile)) {
+            return true;
+        }
+
+        $teamsWithCommunityTalent = $teams->filter(
+            fn ($team) => $user->isAbleTo('view-team-communityTalent', $team)
+        )->pluck('id')->toArray();
+
+        if (! empty($teamsWithCommunityTalent) && $this->teamsUserHasSharedProfileWith($model, $teamsWithCommunityTalent)) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**
@@ -179,13 +190,14 @@ class UserPolicy
     /*******************  COMMUNITY TALENT QUERIES  *******************/
 
     // a community talent is a user with a community interest
-    protected function teamsUserHasSharedProfileWith(User $user)
+    protected function teamsUserHasSharedProfileWith(User $user, $teamIds)
     {
         return CommunityInterest::where('user_id', $user->id)
             ->where('consent_to_share_profile', true)
-            ->join('teams', 'community_interests.community_id', '=', 'teams.teamable_id')
-            ->pluck('teams.name')
-            ->toArray();
+            ->whereHas('community.team', function ($query) use ($teamIds) {
+                return $query->whereIn('id', $teamIds);
+            })
+            ->exists();
     }
 
     /*******************  ROLE CHECKING  *******************/
