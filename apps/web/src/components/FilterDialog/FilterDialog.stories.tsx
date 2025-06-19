@@ -40,11 +40,7 @@ const Template: StoryFn<typeof FilterDialog> = (args) => {
 
   return (
     <FilterDialog<FormValues> {...args} onSubmit={handleSubmit}>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="grid grid-cols-2 gap-6">
         <Combobox
           name="single"
           id="single"
@@ -58,7 +54,7 @@ const Template: StoryFn<typeof FilterDialog> = (args) => {
           boundingBox
           boundingBoxLabel="True/False"
         />
-        <div data-h2-grid-column="base(span 2)">
+        <div className="col-span-2">
           <Combobox
             name="multi"
             id="multi"

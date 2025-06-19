@@ -36,12 +36,7 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   }, [defaultValues?.experienceDescription, setValue, watchDescription]);
 
   return (
-    <div
-      data-h2-margin-top="base(x1)"
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1 0)"
-    >
+    <div className="mt-6 flex flex-col gap-y-6">
       <Input
         id="experienceTitle"
         label={labels.experienceTitle}
@@ -81,24 +76,22 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
         })}
         name="currentRole"
       />
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <DateInput
-            id="startDate"
-            legend={labels.startDate}
-            name="startDate"
-            round="floor"
-            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
-              },
-            }}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+      <div className="grid gap-6 xs:grid-cols-2">
+        <DateInput
+          id="startDate"
+          legend={labels.startDate}
+          name="startDate"
+          round="floor"
+          show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            max: {
+              value: strToFormDate(todayDate.toISOString()),
+              message: intl.formatMessage(errorMessages.mustNotBeFuture),
+            },
+          }}
+        />
+        <div>
           {!isCurrent && (
             <DateInput
               id="endDate"

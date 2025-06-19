@@ -29,7 +29,7 @@
     "@gc-digital-talent/logger": "workspace:*"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.7.1",
+    "@formatjs/cli": "^6.7.2",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/react": "^18.3.13",
@@ -42,7 +42,7 @@
     "react-intl": "^7.1.11",
     "react-router": "^7.6.2",
     "tsconfig": "workspace:*",
-    "tsx": "^4.20.1",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "yargs": "^18.0.0"
   }
