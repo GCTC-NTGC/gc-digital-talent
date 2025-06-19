@@ -24,7 +24,7 @@ const CommunityIcon = ({ community }: CommunityIconProps) => {
 
   if (!icon) return null;
 
-  return <img data-h2-height="base(3rem)" alt="" src={icon} />;
+  return <img className="h-12" alt="" src={icon} />;
 };
 
 export default CommunityIcon;

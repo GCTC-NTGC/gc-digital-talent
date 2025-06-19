@@ -535,6 +535,10 @@
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
   },
+  "0P591/": {
+    "defaultMessage": "Si la personne candidate n'est plus membre du personnel, cette mise en candidature doit être marquée comme « Non retenue ».",
+    "description": "Instruction if nominee is no longer a Government of Canada employee"
+  },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
@@ -1275,6 +1279,10 @@
     "defaultMessage": "Cette page concerne uniquement les fonctionnaires du gouvernement du Canada ci dessous.",
     "description": "About to list employee types"
   },
+  "3uD9Sb": {
+    "defaultMessage": "Télécharger la demande d'emploi",
+    "description": "Button label for downloading an application snapshots"
+  },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
@@ -1350,6 +1358,10 @@
   "4DfNUW": {
     "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
     "description": "Text explaining the average time spent on applications"
+  },
+  "4Ect9u": {
+    "defaultMessage": "Contactez l’autrice ou l’auteur de mise en candidature ou la personne déposante afin qu'elle fasse un suivi auprès de la personne candidate :",
+    "description": "Instruction to contact nominator or submitter for follow up"
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -3586,6 +3598,10 @@
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
+  },
+  "EadMpr": {
+    "defaultMessage": "Télécharger CSV candidat(e)s",
+    "description": "Button label to download selected candidates CSV"
   },
   "EbG039": {
     "defaultMessage": "Chef de file du numérique E X 4",
@@ -7182,6 +7198,10 @@
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
   },
+  "Vyao8B": {
+    "defaultMessage": "Télécharger CSV utilisateur(trice)s",
+    "description": "Button label to download users associated with selected candidates as CSV"
+  },
   "Vz719J": {
     "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",
     "description": "Sub title for the websites privacy policy"
@@ -8882,6 +8902,10 @@
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
   },
+  "e0M7vj": {
+    "defaultMessage": "Si la personne candidate est toujours membre du personnel du gouvernement du Canada, elle devra mettre à jour son expérience professionnelle sur la plateforme.",
+    "description": "Instruction if nominee is still a Government of Canada employee"
+  },
   "e0v7Fl": {
     "defaultMessage": "Options d'avancement",
     "description": "Title for advancement options section in nominations details step"
@@ -9038,6 +9062,10 @@
     "defaultMessage": "Gestion des comptes",
     "description": "Title for the account management."
   },
+  "eg8/kP": {
+    "defaultMessage": "Le profil de la personne candidate n'indique pas de poste actuel au sein du gouvernement du Canada.",
+    "description": "Description for the message displayed when there is no government experience for the current position"
+  },
   "egLb65": {
     "defaultMessage": "Continuez",
     "description": "An action button to proceed"
@@ -9053,10 +9081,6 @@
   "eickbr": {
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
-  },
-  "ekazTc": {
-    "defaultMessage": "Télécharger le profil",
-    "description": "Button text to download pool candidate profiles"
   },
   "elMgS2": {
     "defaultMessage": "Poste actuel",
@@ -9745,10 +9769,6 @@
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
   },
-  "hRtj0w": {
-    "defaultMessage": "Télécharger sans les coordonnées",
-    "description": "Button label for download user anonymous profile."
-  },
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
@@ -9848,10 +9868,6 @@
   "i0K4Sb": {
     "defaultMessage": "Postes en anglais uniquement",
     "description": "Message for the english positions option"
-  },
-  "i0N7DM": {
-    "defaultMessage": "Télécharger les renseignements complets",
-    "description": "Button label for download user profile."
   },
   "i131l/": {
     "defaultMessage": "Détails de base",
@@ -10064,6 +10080,10 @@
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
+  },
+  "j357Vx": {
+    "defaultMessage": "Télécharger DOCX",
+    "description": "Button text to download DOCX files"
   },
   "j3OROA": {
     "defaultMessage": "Les techniciens (<abbreviation>IT-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
@@ -10284,6 +10304,10 @@
   "jz/FoH": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
+  },
+  "k/V+39": {
+    "defaultMessage": "Aucune expérience gouvernementale actuelle trouvée",
+    "description": "Message displayed when there is no government experience for the current position"
   },
   "k1HxPf": {
     "defaultMessage": "Si vous éprouvez de la difficulté à configurer l’authentification à deux facteurs ou à l’utiliser pour vous connecter, <link>communiquez avec notre équipe de soutien</link>.",
@@ -10572,6 +10596,10 @@
   "lSSz6L": {
     "defaultMessage": "Gérer {notificationName}",
     "description": "Button text for managing a notification"
+  },
+  "lVOZ5k": {
+    "defaultMessage": "Télécharger le profil",
+    "description": "Button label for downloading user profiles"
   },
   "lVb1hs": {
     "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
@@ -12792,6 +12820,10 @@
   "wZKKk1": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>#</testId></strong> candidats qui répondent à vos critères.} one {Il y a actuellement environ <strong><testId>#</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>#</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
+  },
+  "wZP4RN": {
+    "defaultMessage": "Télécharger le profil sans les coordonnées",
+    "description": "Button label for downloading anonymized user profiles"
   },
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",

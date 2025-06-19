@@ -7,19 +7,21 @@ import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelect
 
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
-interface DownloadUsersDocButtonProps {
+interface DownloadAllCandidateTableCsvButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
-  onClick: (anonymous: boolean) => void;
+  onClickDownloadCandidates: () => void;
+  onClickDownloadUsers: () => void;
 }
 
-const DownloadUsersDocButton = ({
+const DownloadAllCandidateTableCsvButton = ({
   inTable,
   isDownloading,
-  onClick,
+  onClickDownloadCandidates,
+  onClickDownloadUsers,
   disabled,
-}: DownloadUsersDocButtonProps) => {
+}: DownloadAllCandidateTableCsvButtonProps) => {
   const intl = useIntl();
 
   return (
@@ -40,25 +42,33 @@ const DownloadUsersDocButton = ({
               })}
         >
           {intl.formatMessage({
-            defaultMessage: "Download profile",
-            id: "ekazTc",
-            description: "Button text to download pool candidate profiles",
+            defaultMessage: "Download CSV",
+            id: "mxOuYK",
+            description:
+              "Text label for button to download a csv file of items in a table.",
           })}
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(false)}>
+        <DropdownMenu.Item
+          disabled={disabled}
+          onSelect={() => onClickDownloadCandidates()}
+        >
           {intl.formatMessage({
-            defaultMessage: "Download with all information",
-            id: "i0N7DM",
-            description: "Button label for download user profile.",
+            defaultMessage: "Download candidates CSV",
+            id: "EadMpr",
+            description: "Button label to download selected candidates CSV",
           })}
         </DropdownMenu.Item>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(true)}>
+        <DropdownMenu.Item
+          disabled={disabled}
+          onSelect={() => onClickDownloadUsers()}
+        >
           {intl.formatMessage({
-            defaultMessage: "Download without contact information",
-            id: "hRtj0w",
-            description: "Button label for download user anonymous profile.",
+            defaultMessage: "Download users CSV",
+            id: "Vyao8B",
+            description:
+              "Button label to download users associated with selected candidates as CSV",
           })}
         </DropdownMenu.Item>
       </DropdownMenu.Content>
@@ -66,4 +76,4 @@ const DownloadUsersDocButton = ({
   );
 };
 
-export default DownloadUsersDocButton;
+export default DownloadAllCandidateTableCsvButton;
