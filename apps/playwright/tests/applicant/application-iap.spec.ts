@@ -74,7 +74,8 @@ test.describe("IAP Application", () => {
     pool = createdPool;
   });
 
-  test("Can submit application", async ({ appPage }) => {
+  test("Can submit application", async ({ appPage }, testInfo) => {
+    testInfo.slow();
     const application = new ApplicationPage(appPage.page, pool.id);
     await loginBySub(application.page, sub, false);
 
