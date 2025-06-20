@@ -48,12 +48,18 @@ class PoolPolicy
         // Load team only when needed to check if team owns draft.
         $pool->loadMissing(['team', 'community.team']);
 
-        // Check permissions for team and community.
-        $teamPermission = $pool->team && $user->isAbleTo('view-team-draftPool', $pool->team);
-        $communityPermission = $pool->community?->team && $user->isAbleTo('view-team-draftPool', $pool->community?->team);
+        // Check permissions for team.
+        if ($pool->team && $user->isAbleTo('view-team-draftPool', $pool->team)) {
+            return true;
+        }
 
-        // Return true if the user has permissions for either team or community.
-        return $teamPermission || $communityPermission;
+        // Check permissions for community.
+        if ($pool->community?->team && $user->isAbleTo('view-team-draftPool', $pool->community->team)) {
+            return true;
+        }
+
+        // All other checks failed so return false
+        return false;
     }
 
     /**
