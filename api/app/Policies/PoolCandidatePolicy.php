@@ -358,7 +358,7 @@ class PoolCandidatePolicy
         $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
         $pool = $poolCandidate->pool;
 
-        return $pool->team && $user->isAbleTo($permission, $pool->team)
-            || $pool->community && $pool->community->team && $user->isAbleTo($permission, $pool->community->team);
+        return ($pool->team && $user->isAbleTo($permission, $pool->team))
+            || ($pool->community?->team && $user->isAbleTo($permission, $pool->community->team));
     }
 }
