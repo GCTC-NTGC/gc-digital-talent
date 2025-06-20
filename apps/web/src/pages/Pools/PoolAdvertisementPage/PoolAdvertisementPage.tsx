@@ -70,9 +70,9 @@ import {
   ClassificationGroup,
   isClassificationGroup,
 } from "~/types/classificationGroup";
+import DataRow from "~/components/DataRow/DataRow";
 
 import Text from "./components/Text";
-import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";

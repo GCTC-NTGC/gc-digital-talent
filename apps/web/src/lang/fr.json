@@ -2023,6 +2023,10 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
+  "7L19hE": {
+    "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
+    "description": "Subtitle for training opportunity single page"
+  },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -4306,6 +4310,10 @@
   "IFKgSr": {
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
+  },
+  "IFTwDy": {
+    "defaultMessage": "Description du cours",
+    "description": "Heading for section course description"
   },
   "IH+bPG": {
     "defaultMessage": "Reçue",
@@ -13272,6 +13280,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "yjZ5Lz": {
+    "defaultMessage": "Informations sur le cours",
+    "description": "Heading for section course details"
   },
   "yl3eY6": {
     "defaultMessage": "Lieu (français)",
