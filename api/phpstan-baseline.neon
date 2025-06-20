@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Cannot unset property App\\Generators\\CsvGenerator\:\:\$spreadsheet because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: app/Generators/CsvGenerator.php
+		-
 			message: '#^Trait App\\Traits\\ExperienceFactoryWithSkills is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
