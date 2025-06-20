@@ -120,6 +120,10 @@ const AdvancedToolsDepartmentPage = () => {
         label: departmentName,
         url: routes.departmentView(departmentId),
       },
+      {
+        label: intl.formatMessage(adminMessages.advancedTools),
+        url: routes.departmentAdvancedTools(departmentId),
+      },
     ],
   });
 
