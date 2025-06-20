@@ -3751,10 +3751,6 @@
     "defaultMessage": "Voir sur GCpédia*",
     "description": "Link text displayed on the job poster template 'generic work description' field. With an asterisk for fine print."
   },
-  "FBSOkb": {
-    "defaultMessage": "Publié",
-    "description": "Title displayed on the Pool table published at column"
-  },
   "FDGVHB": {
     "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
     "description": "third 2024 key change rationale to the directive"
@@ -5334,10 +5330,6 @@
   "Mi+AuD": {
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
-  },
-  "MiyFrV": {
-    "defaultMessage": "Archivé",
-    "description": "Status is archived"
   },
   "MkUz+j": {
     "defaultMessage": "Ajoutez un membre",

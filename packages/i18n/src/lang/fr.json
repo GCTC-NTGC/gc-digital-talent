@@ -7,6 +7,14 @@
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
   },
+  "BcEpFb": {
+    "defaultMessage": "Publié",
+    "description": "Status is published"
+  },
+  "MiyFrV": {
+    "defaultMessage": "Archivé",
+    "description": "Status is archived"
+  },
   "+9VBmQ": {
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"

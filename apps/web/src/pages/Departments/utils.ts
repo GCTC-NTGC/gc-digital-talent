@@ -38,14 +38,6 @@ export function departmentStatusAccessor(
   intl: IntlShape,
 ) {
   return archivedAt
-    ? intl.formatMessage({
-        defaultMessage: "Archived",
-        id: "MiyFrV",
-        description: "Status is archived",
-      })
-    : intl.formatMessage({
-        defaultMessage: "Published",
-        id: "FBSOkb",
-        description: "Title displayed on the Pool table published at column",
-      });
+    ? intl.formatMessage(commonMessages.archived)
+    : intl.formatMessage(commonMessages.published);
 }
