@@ -1771,9 +1771,9 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
   },
-  "5uPSDe": {
+  "HdlbAP": {
     "defaultMessage": "Restaurer et activer {departmentName} dans la plateforme.",
-    "description": "Dialog subtitle "
+    "description": "Dialog subtitle"
   },
   "5wKh/o": {
     "defaultMessage": "Démontrée",
@@ -2391,8 +2391,8 @@
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the user form preferred written exam language  field."
   },
-  "99pUA+": {
-    "defaultMessage": "Ce ministère a été archivé le : ",
+  "sbV2hB": {
+    "defaultMessage": "Ce ministère a été archivé le",
     "description": "Label for archived date"
   },
   "9ALMEp": {
@@ -3055,7 +3055,7 @@
     "defaultMessage": "La plupart des offres d’emploi ne nécessiteront pas de note spéciale. Cette section est réservée à des circonstances particulières. Cette note spéciale peut notamment servir à indiquer si un processus peut être utilisé pour embaucher dans plusieurs classifications ou non et si le processus est limité aux candidatures d’un groupe visé par l’équité en matière d’emploi spécifique.",
     "description": "Describes the 'special note' section of a process' advertisement."
   },
-  "C6P305": {
+  "HXqsIc": {
     "defaultMessage": "Outils avancés",
     "description": "Nav tab label to access advanced tools "
   },
@@ -7874,7 +7874,7 @@
     "defaultMessage": "Décrire les expériences personnelles et liées au travail, aux études, à la collectivité et aux prix.",
     "description": "Display text for add experience form in breadcrumbs"
   },
-  "Yx8RCD": {
+  "qxCyZM": {
     "defaultMessage": "Le ministère a été archivé",
     "description": "Alert, department archived successfully"
   },
@@ -10881,8 +10881,8 @@
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
   },
-  "mWr4O0": {
-    "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}",
+  "wm5GrF": {
+    "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
     "description": "Validation text for department name input"
   },
   "mYnQH4": {
@@ -11249,9 +11249,9 @@
     "defaultMessage": "Annulez et revenez à l'éditeur de compétence",
     "description": "Button label to return to the skills table"
   },
-  "oCvKNa": {
+  "AFYUht": {
     "defaultMessage": "Archiver et désactiver {departmentName} de la plateforme.",
-    "description": "Dialog subtitle "
+    "description": "Dialog subtitle"
   },
   "oDDr9J": {
     "defaultMessage": "Créez un groupe de compétences",

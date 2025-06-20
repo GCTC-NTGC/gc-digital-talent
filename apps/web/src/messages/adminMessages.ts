@@ -236,8 +236,8 @@ const messages = defineMessages({
   },
   advancedTools: {
     defaultMessage: "Advanced tools",
-    id: "C6P305",
-    description: "Nav tab label to access advanced tools ",
+    id: "HXqsIc",
+    description: "Nav tab label to access advanced tools",
   },
 });
 

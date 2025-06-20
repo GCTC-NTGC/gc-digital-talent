@@ -6,7 +6,11 @@ import { useMutation } from "urql";
 
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -84,8 +88,8 @@ const RestoreDialog = ({
             {
               defaultMessage:
                 "Restore and enable {departmentName} on the platform.",
-              id: "5uPSDe",
-              description: "Dialog subtitle ",
+              id: "HdlbAP",
+              description: "Dialog subtitle",
             },
             { departmentName: departmentNameLocalized },
           )}
@@ -126,8 +130,8 @@ const RestoreDialog = ({
                         intl.formatMessage(
                           {
                             defaultMessage:
-                              "Value must match the department's full name: {name}",
-                            id: "mWr4O0",
+                              "Value must match the department's full name: {name}.",
+                            id: "wm5GrF",
                             description:
                               "Validation text for department name input",
                           },
@@ -206,10 +210,11 @@ export const RestoreDepartment = ({
       <div className="mb-7">
         <span>
           {intl.formatMessage({
-            defaultMessage: "This department was archived on: ",
-            id: "99pUA+",
+            defaultMessage: "This department was archived on",
+            id: "sbV2hB",
             description: "Label for archived date",
           })}
+          {intl.formatMessage(commonMessages.dividingColon)}
         </span>
         <span className="font-bold">{formattedDate}</span>
       </div>

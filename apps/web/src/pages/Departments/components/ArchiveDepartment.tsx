@@ -55,8 +55,8 @@ const ArchiveDialog = ({
       setOpen(false);
       toast.success(
         intl.formatMessage({
-          defaultMessage: "Department archived",
-          id: "Yx8RCD",
+          defaultMessage: "Department archived.",
+          id: "qxCyZM",
           description: "Alert, department archived successfully",
         }),
       );
@@ -83,8 +83,8 @@ const ArchiveDialog = ({
             {
               defaultMessage:
                 "Archive and disable {departmentName} from the platform.",
-              id: "oCvKNa",
-              description: "Dialog subtitle ",
+              id: "AFYUht",
+              description: "Dialog subtitle",
             },
             { departmentName: departmentNameLocalized },
           )}
@@ -125,8 +125,8 @@ const ArchiveDialog = ({
                         intl.formatMessage(
                           {
                             defaultMessage:
-                              "Value must match the department's full name: {name}",
-                            id: "mWr4O0",
+                              "Value must match the department's full name: {name}.",
+                            id: "wm5GrF",
                             description:
                               "Validation text for department name input",
                           },
