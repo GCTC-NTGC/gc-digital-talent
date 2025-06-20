@@ -1,42 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Cannot unset property App\\Generators\\CsvGenerator\:\:\$spreadsheet because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: app/Generators/CsvGenerator.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$last_sign_in_at\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Http/Controllers/AuthController.php
-
-		-
-			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$computed_gov_end_date\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/UserResource.php
-
-		-
-			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$computed_gov_position_type\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/UserResource.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Team\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 6
-			path: app/Models/Community.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Team\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Models/Pool.php
-
-		-
 			message: '#^Trait App\\Traits\\ExperienceFactoryWithSkills is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
