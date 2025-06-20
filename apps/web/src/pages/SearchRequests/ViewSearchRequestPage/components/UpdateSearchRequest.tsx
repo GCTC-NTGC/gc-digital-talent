@@ -143,7 +143,7 @@ const UpdateSearchRequestForm = ({
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleSaveNotes)}>
-            <Heading level="h2" size="h4">
+            <Heading level="h2" size="h4" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "Notes about this request",
                 id: "peTSHR",
