@@ -84,7 +84,7 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can archive and un-archive the department. Reuses deletion permissions
+     * Determine whether the user can archive and unarchive the department. Reuses deletion permissions.
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
