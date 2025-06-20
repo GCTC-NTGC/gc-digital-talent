@@ -187,7 +187,7 @@ const MainNavMenu = () => {
                     </div>
 
                     <a
-                      className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-secondary-200"
+                      className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-primary-200"
                       href={languageTogglePath}
                       lang={changeToLang === "en" ? "en" : "fr"}
                     >

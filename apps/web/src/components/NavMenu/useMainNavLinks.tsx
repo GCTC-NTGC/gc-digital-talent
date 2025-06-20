@@ -66,7 +66,7 @@ const useMainNavLinks = () => {
       href={paths.home()}
       icon={HomeIcon}
       label={intl.formatMessage(navigationMessages.home)}
-      className="sm:pl-0"
+      className="-ml-1"
     />
   );
 
