@@ -175,13 +175,11 @@ class UserPolicy
     {
         return PoolCandidate::where('user_id', $applicant->id)
             ->whereNotDraft()
-            ->whereHas('pool', function ($query) use ($teamIds) {
-                return $query->where(function ($query) use ($teamIds) {
-                    $query->orWhereHas('team', function ($query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    })->orWhereHas('community.team', function ($query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    });
+            ->where(function ($query) use ($teamIds) {
+                $query->whereHas('pool.team', function ($q) use ($teamIds) {
+                    $q->whereIn('id', $teamIds);
+                })->orWhereHas('pool.community.team', function ($q) use ($teamIds) {
+                    $q->whereIn('id', $teamIds);
                 });
             })
             ->exists();
