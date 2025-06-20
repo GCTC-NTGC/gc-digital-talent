@@ -141,8 +141,8 @@ export function groupBy<
  * @param x Not used, but important that it is typed _never_
  */
 
-export function assertUnreachable(_: never): never {
-  throw new Error("Didn't expect to be reachable.");
+export function assertUnreachable(value: never): never {
+  throw new Error(`Didn't expect to be reachable: [${JSON.stringify(value)}]`);
 }
 
 /*
