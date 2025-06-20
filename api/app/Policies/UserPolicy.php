@@ -30,27 +30,38 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        $roleTeams = $user->rolesTeams()->get();
-        $teamIds = $roleTeams->filter(function ($team) use ($user) {
-            return $user->isAbleTo('view-team-applicantProfile', $team);
-        })->pluck('id');
 
-        return $user->isAbleTo('view-any-user') ||
-            ($user->isAbleTo('view-own-user') && $user->id === $model->id) ||
-            ($user->isAbleTo('view-team-applicantProfile')
-                && $this->applicantHasAppliedToPoolInTeams(
-                    $model,
-                    $teamIds,
-                )
-            ) ||
-            count(
-                array_filter(
-                    $this->teamsUserHasSharedProfileWith($model),
-                    function (string $team) use ($user) {
-                        return $user->isAbleTo('view-team-communityTalent', $team);
-                    }
-                )
-            ) > 0;
+        // Early return for global permissions
+        if ($user->isAbleTo('view-any-user')) {
+            return true;
+        }
+
+        // Early return for own user permission
+        if ($user->id === $model->id && $user->isAbleTo('view-own-user')) {
+            return true;
+        }
+
+        // Get all profile teams
+        $teams = $user->rolesTeams()->get();
+
+        $teamsWithApplicantProfile = $teams->filter(
+            fn ($team) => $user->isAbleTo('view-team-applicantProfile', $team)
+        )->pluck('id')->toArray();
+
+        if (! empty($teamsWithApplicantProfile) && $this->applicantHasAppliedToPoolInTeams($model, $teamsWithApplicantProfile)) {
+            return true;
+        }
+
+        $teamsWithCommunityTalent = $teams->filter(
+            fn ($team) => $user->isAbleTo('view-team-communityTalent', $team)
+        )->pluck('id')->toArray();
+
+        if (! empty($teamsWithCommunityTalent) && $this->teamsUserHasSharedProfileWith($model, $teamsWithCommunityTalent)) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**
@@ -164,13 +175,11 @@ class UserPolicy
     {
         return PoolCandidate::where('user_id', $applicant->id)
             ->whereNotDraft()
-            ->whereHas('pool', function ($query) use ($teamIds) {
-                return $query->where(function ($query) use ($teamIds) {
-                    $query->orWhereHas('team', function ($query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    })->orWhereHas('community.team', function ($query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    });
+            ->where(function ($query) use ($teamIds) {
+                $query->whereHas('pool.team', function ($q) use ($teamIds) {
+                    $q->whereIn('id', $teamIds);
+                })->orWhereHas('pool.community.team', function ($q) use ($teamIds) {
+                    $q->whereIn('id', $teamIds);
                 });
             })
             ->exists();
@@ -179,13 +188,14 @@ class UserPolicy
     /*******************  COMMUNITY TALENT QUERIES  *******************/
 
     // a community talent is a user with a community interest
-    protected function teamsUserHasSharedProfileWith(User $user)
+    protected function teamsUserHasSharedProfileWith(User $user, $teamIds)
     {
         return CommunityInterest::where('user_id', $user->id)
             ->where('consent_to_share_profile', true)
-            ->join('teams', 'community_interests.community_id', '=', 'teams.teamable_id')
-            ->pluck('teams.name')
-            ->toArray();
+            ->whereHas('community.team', function ($query) use ($teamIds) {
+                return $query->whereIn('id', $teamIds);
+            })
+            ->exists();
     }
 
     /*******************  ROLE CHECKING  *******************/

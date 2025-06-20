@@ -1448,6 +1448,9 @@ type Query {
       @with(
         relations: [
           "user:id,first_name,last_name,email,preferred_lang"
+          "user.poolCandidates.pool.team"
+          "user.poolCandidates.pool.community.team"
+          "user.communityInterests.community.team"
           "pool:id,process_number"
           "skills:id,name"
         ]
