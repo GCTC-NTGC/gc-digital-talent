@@ -35,10 +35,12 @@ class PoolPolicy
             return true;
         }
 
+        // Otherwise, unauthenticated users shouldn't have access (draft).
         if (is_null($user)) {
             return false;
         }
 
+        // If user has elevated admin, can view all pools.
         if ($user->isAbleTo('view-any-pool')) {
             return true;
         }
