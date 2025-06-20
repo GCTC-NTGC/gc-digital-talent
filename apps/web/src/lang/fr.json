@@ -1771,10 +1771,6 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
   },
-  "HdlbAP": {
-    "defaultMessage": "Restaurer et activer {departmentName} dans la plateforme.",
-    "description": "Dialog subtitle"
-  },
   "5wKh/o": {
     "defaultMessage": "Démontrée",
     "description": "Option for assessment decision when candidate has successful assessment."
@@ -2391,10 +2387,6 @@
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the user form preferred written exam language  field."
   },
-  "sbV2hB": {
-    "defaultMessage": "Ce ministère a été archivé le",
-    "description": "Label for archived date"
-  },
   "9ALMEp": {
     "defaultMessage": "Informations complémentaires",
     "description": "Title for the about section of a pool advertisement"
@@ -2662,6 +2654,10 @@
   "ADPfNp": {
     "defaultMessage": "Valider dès maintenant",
     "description": "Button to start the email address verification process"
+  },
+  "AFYUht": {
+    "defaultMessage": "Archiver et désactiver {departmentName} de la plateforme.",
+    "description": "Dialog subtitle"
   },
   "AH2U9S": {
     "defaultMessage": "Gestionnaire P M 6",
@@ -3054,10 +3050,6 @@
   "C43ZgD": {
     "defaultMessage": "La plupart des offres d’emploi ne nécessiteront pas de note spéciale. Cette section est réservée à des circonstances particulières. Cette note spéciale peut notamment servir à indiquer si un processus peut être utilisé pour embaucher dans plusieurs classifications ou non et si le processus est limité aux candidatures d’un groupe visé par l’équité en matière d’emploi spécifique.",
     "description": "Describes the 'special note' section of a process' advertisement."
-  },
-  "HXqsIc": {
-    "defaultMessage": "Outils avancés",
-    "description": "Nav tab label to access advanced tools "
   },
   "C780XI": {
     "defaultMessage": "L’étape suivante consiste à s’assurer que votre parcours professionnel est aussi à jour que possible.",
@@ -4203,6 +4195,10 @@
     "defaultMessage": "Bassin demandé",
     "description": "Title for the pool block in the manager info section of the single search request view."
   },
+  "HXqsIc": {
+    "defaultMessage": "Outils avancés",
+    "description": "Nav tab label to access advanced tools "
+  },
   "HY0vjz": {
     "defaultMessage": "Supprimer le (la) candidat(e)",
     "description": "Title for action to remove a candidate infinitive"
@@ -4226,6 +4222,10 @@
   "Hd0nHP": {
     "defaultMessage": "(À déterminer)",
     "description": "Message displayed when a pool has no expiry date yet"
+  },
+  "HdlbAP": {
+    "defaultMessage": "Restaurer et activer {departmentName} dans la plateforme.",
+    "description": "Dialog subtitle"
   },
   "Hgd/PL": {
     "defaultMessage": "Retour à l'accueil",
@@ -7866,10 +7866,6 @@
     "defaultMessage": "Décrire les expériences personnelles et liées au travail, aux études, à la collectivité et aux prix.",
     "description": "Display text for add experience form in breadcrumbs"
   },
-  "qxCyZM": {
-    "defaultMessage": "Le ministère a été archivé",
-    "description": "Alert, department archived successfully"
-  },
   "YxqhQt": {
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
     "description": "Message on link that say to apply to a recruitment advertisement"
@@ -10873,10 +10869,6 @@
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
   },
-  "wm5GrF": {
-    "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
-    "description": "Validation text for department name input"
-  },
   "mYnQH4": {
     "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
     "description": "A process has no assessment plan"
@@ -11240,10 +11232,6 @@
   "oCL/sl": {
     "defaultMessage": "Annulez et revenez à l'éditeur de compétence",
     "description": "Button label to return to the skills table"
-  },
-  "AFYUht": {
-    "defaultMessage": "Archiver et désactiver {departmentName} de la plateforme.",
-    "description": "Dialog subtitle"
   },
   "oDDr9J": {
     "defaultMessage": "Créez un groupe de compétences",
@@ -11797,6 +11785,10 @@
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
   },
+  "qxCyZM": {
+    "defaultMessage": "Le ministère a été archivé",
+    "description": "Alert, department archived successfully"
+  },
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
     "description": "Breadcrumb title for the create community page link."
@@ -12076,6 +12068,10 @@
   "sapxcU": {
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
+  },
+  "sbV2hB": {
+    "defaultMessage": "Ce ministère a été archivé le",
+    "description": "Label for archived date"
   },
   "sde2Dj": {
     "defaultMessage": "Bienvenue",
@@ -12908,6 +12904,10 @@
   "wimmA1": {
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
+  },
+  "wm5GrF": {
+    "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
+    "description": "Validation text for department name input"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",

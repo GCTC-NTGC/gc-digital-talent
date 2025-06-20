@@ -7,14 +7,6 @@
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
   },
-  "BcEpFb": {
-    "defaultMessage": "Publié",
-    "description": "Status is published"
-  },
-  "MiyFrV": {
-    "defaultMessage": "Archivé",
-    "description": "Status is archived"
-  },
   "+9VBmQ": {
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
@@ -355,6 +347,10 @@
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
   },
+  "BcEpFb": {
+    "defaultMessage": "Publié",
+    "description": "Status is published"
+  },
   "C/2HT9": {
     "defaultMessage": "Cette clé de collectivité est déjà utilisé",
     "description": "Error message that the given community key is already in use"
@@ -586,6 +582,10 @@
   "MidGAP": {
     "defaultMessage": "Supprimer le lien",
     "description": "Label for removing a link in the rich text editor"
+  },
+  "MiyFrV": {
+    "defaultMessage": "Archivé",
+    "description": "Status is archived"
   },
   "Mm+Me1": {
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
