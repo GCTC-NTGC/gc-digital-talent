@@ -248,7 +248,7 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
     classifications {
       ...CreatePoolClassification
     }
-    departments {
+    departments(where: {}) {
       ...CreatePoolDepartment
     }
     communities {

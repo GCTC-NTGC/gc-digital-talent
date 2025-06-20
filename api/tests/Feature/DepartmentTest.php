@@ -15,6 +15,9 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertNull;
+
 class DepartmentTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -45,9 +48,9 @@ class DepartmentTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
+        $this->seed(RolePermissionSeeder::class);
 
         $this->community = Community::factory()->create(['name' => 'test-team']);
         $this->teamPool = Pool::factory()->create([
@@ -63,11 +66,12 @@ class DepartmentTest extends TestCase
             'base_user',
         ]);
 
-        $this->adminUser = User::create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
-        ]);
-        $this->adminUser->addRole('platform_admin');
+        $this->adminUser = User::factory()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
 
         $this->processOperatorUser = User::factory()
             ->asProcessOperator($this->teamPool->id)
@@ -99,7 +103,7 @@ class DepartmentTest extends TestCase
     public function testViewAnyDepartment()
     {
         $this->actingAs($this->baseUser, 'api')
-            ->graphQL('query { departments { id } }')
+            ->graphQL('query { departments(where: {}) { id } }')
             ->assertJsonFragment(['id' => $this->department->id]);
     }
 
@@ -318,5 +322,86 @@ class DepartmentTest extends TestCase
             ],
         ]);
 
+    }
+
+    // Exercise archiving a department and then reversing it
+    public function testArchivingAndUnArchiving()
+    {
+        $testDepartment = Department::factory()->create(['archived_at' => null]);
+        $user = User::factory()->asAdmin()->create();
+
+        $archiveMutation =
+            /** @lang GraphQL */
+            '
+            mutation ArchiveDepartment($id: ID!) {
+                archiveDepartment(id: $id) {
+                    id
+                }
+            }
+        ';
+        $unarchiveMutation =
+            /** @lang GraphQL */
+            '
+            mutation UnarchiveDepartment($id: ID!) {
+                unarchiveDepartment(id: $id) {
+                    id
+                }
+            }
+        ';
+
+        $this->actingAs($user, 'api')
+            ->graphQL($archiveMutation, ['id' => $testDepartment->id])
+            ->assertJsonFragment(['id' => $testDepartment->id]);
+
+        // department archived with non-null date
+        $testDepartment->refresh();
+        assertNotNull($testDepartment->archived_at);
+
+        $this->actingAs($user, 'api')
+            ->graphQL($unarchiveMutation, ['id' => $testDepartment->id])
+            ->assertJsonFragment(['id' => $testDepartment->id]);
+
+        // department un-archived with date nulled out
+        $testDepartment->refresh();
+        assertNull($testDepartment->archived_at);
+    }
+
+    // Test querying departments and fetching archived
+    public function testQueryingArchivedDepartments()
+    {
+        Department::truncate();
+        $archivedDepartment = Department::factory()->create(['archived_at' => config('constants.far_past_datetime')]);
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query departments($where: DepartmentFilterInput!) {
+                departments(where: $where) {
+                    id
+                }
+            }
+        ';
+
+        // null or false values do not retrieve the archived department
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['where' => []])
+            ->assertJsonFragment(['departments' => []]);
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['where' => [
+                'withArchived' => null,
+            ]])
+            ->assertJsonFragment(['departments' => []]);
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['where' => [
+                'withArchived' => false,
+            ]])
+            ->assertJsonFragment(['departments' => []]);
+
+        // set to true only time the department is fetched
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['where' => [
+                'withArchived' => true,
+            ]])
+            ->assertJsonFragment(['id' => $archivedDepartment->id]);
     }
 }

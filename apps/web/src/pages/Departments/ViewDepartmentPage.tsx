@@ -204,6 +204,10 @@ const ViewDepartmentPage = () => {
         description: "Nav tab label for department information",
       }),
     },
+    {
+      url: routes.departmentAdvancedTools(departmentId),
+      label: intl.formatMessage(adminMessages.advancedTools),
+    },
   ];
 
   return (

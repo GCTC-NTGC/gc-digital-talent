@@ -121,7 +121,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
     }
-    departments {
+    departments(where: {}) {
       id
       departmentNumber
       name {

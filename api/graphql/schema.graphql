@@ -698,6 +698,7 @@ type Department {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  archivedAt: DateTime @rename(attribute: "archived_at")
 }
 
 type WorkStream {
@@ -1356,6 +1357,10 @@ input CommunityInterestFilterInput {
   skills: [UUID] @scope
 }
 
+input DepartmentFilterInput {
+  withArchived: Boolean = false @scope
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -1470,7 +1475,9 @@ type Query {
     @all
     @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
-  departments: [Department]! @all @canModel(ability: "viewAny")
+  departments(where: DepartmentFilterInput!): [Department]!
+    @all
+    @canModel(ability: "viewAny")
   jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
     @find
     @canFind(ability: "view", find: "id")
@@ -2975,6 +2982,8 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+
+  # Department mutations
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard
@@ -2987,6 +2996,12 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  archiveDepartment(id: ID!): Department
+    @guard
+    @canFind(ability: "archiveAndUnarchive")
+  unarchiveDepartment(id: ID!): Department
+    @guard
+    @canFind(ability: "archiveAndUnarchive")
 
   # SearchRequest mutations
   createPoolCandidateSearchRequest(

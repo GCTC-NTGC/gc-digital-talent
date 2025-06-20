@@ -4,7 +4,7 @@ import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_DepartmentsQueryDocument = /* GraphQL */ `
   query Test_Departments {
-    departments {
+    departments(where: {}) {
       id
       departmentNumber
       name {

@@ -64,7 +64,7 @@ interface FormValues {
 
 export const EmployeeInformation_QueryFragment = graphql(/** GraphQL */ `
   fragment EmployeeInformation_QueryFragment on Query {
-    departments {
+    departments(where: {}) {
       id
       name {
         en

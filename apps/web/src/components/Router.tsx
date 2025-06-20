@@ -992,6 +992,13 @@ const createRoute = (locale: Locales) =>
                                   "../pages/Departments/UpdateDepartmentPage"
                                 ),
                             },
+                            {
+                              path: "advanced-tools",
+                              lazy: () =>
+                                import(
+                                  "../pages/Departments/AdvancedToolsDepartmentPage"
+                                ),
+                            },
                           ],
                         },
                       ],

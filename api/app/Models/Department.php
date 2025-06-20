@@ -25,6 +25,7 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property ?\Illuminate\Support\Carbon $archived_at
  */
 class Department extends Model
 {
@@ -68,6 +69,16 @@ class Department extends Model
         }
 
         $query->whereIn('id', $departmentIds);
+
+        return $query;
+    }
+
+    public static function scopeWithArchived(Builder $query, ?bool $withArchived): Builder
+    {
+        if (! $withArchived) {
+            $query->whereNull('archived_at')
+                ->orWhere('archived_at', '>', now());
+        }
 
         return $query;
     }

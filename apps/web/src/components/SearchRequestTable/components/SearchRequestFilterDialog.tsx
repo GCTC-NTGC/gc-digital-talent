@@ -38,7 +38,7 @@ const RequestFilterClassification_Fragment = graphql(/* GraphQL */ `
 
 const SearchRequestFilterData_Query = graphql(/* GraphQL */ `
   query SearchRequestFilterData {
-    departments {
+    departments(where: {}) {
       ...RequestFilterDepartment
     }
     classifications {
