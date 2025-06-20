@@ -37,7 +37,7 @@ class UserPolicy
         }
 
         // Early return for own user permission
-        if ($user->isAbleTo('view-own-user') && $user->id === $model->id) {
+        if ($user->id === $model->id && $user->isAbleTo('view-own-user')) {
             return true;
         }
 
