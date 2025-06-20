@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Generators;
 
 use App\Generators\UserZipGenerator;
 use App\Models\User;

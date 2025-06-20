@@ -84,6 +84,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $accepted_operational_requirements
  * @property ?string $computed_gov_employee_type
  * @property ?string $computed_gov_role
+ * @property ?string $computed_gov_position_type
+ * @property ?\Illuminate\Support\Carbon $computed_gov_end_date
  * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
@@ -98,6 +100,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
+ * @property ?\Illuminate\Support\Carbon $last_sign_in_at
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
