@@ -28,4 +28,11 @@ return [
     'essential_skills' => 'Essential skills',
     'nonessential_skills' => 'Asset skills',
     'work_streams' => 'Work streams',
+    'in' => 'in',
+    'from' => 'from',
+    'featured_skills' => 'Featured skills',
+    'en_only' => 'English-only positions',
+    'fr_only' => 'French-only positions',
+    'bilingual' => 'Bilingual positions',
+    'skill_showcase_text' => 'The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses, and skill growth opportunities. These lists can provide you with insight into a candidate\'s broader skillset and where they might be interested in learning new skills.',
 ];
