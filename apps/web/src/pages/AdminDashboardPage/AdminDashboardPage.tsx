@@ -10,6 +10,7 @@ import {
   Card,
   Chip,
   Chips,
+  Container,
   Heading,
   Link,
   Pending,
@@ -39,7 +40,6 @@ import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import adminMessages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
@@ -74,7 +74,7 @@ const RoleChips = ({ roles, intl }: RoleChipsProps) => {
   const uniqueRoles = uniqBy(roles, "name");
   const roleChips = uniqueRoles
     ? orderRoles(uniqueRoles, intl).map((role) => (
-        <Chip color="warning" key={role.id} data-h2-margin-right="base(x.25)">
+        <Chip color="warning" key={role.id} className="mr-1.5">
           {getLocalizedName(role.displayName, intl)}
         </Chip>
       ))
@@ -240,17 +240,13 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         )}
         subtitle={intl.formatMessage(subTitle)}
       />
-      <AdminContentWrapper>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-wrap="base(wrap)"
-          data-h2-gap="base(x2 x1.1)"
-        >
+      <Container className="my-18">
+        <div className="flex flex-wrap gap-x-6 gap-y-12">
           {recruitmentCollectionSorted.length > 0 && (
             <div>
               <Heading
                 size="h4"
-                data-h2-margin="base(0, 0, x1, 0)"
+                className="mt-0 mb-6"
                 icon={RocketLaunchIcon}
                 color="secondary"
               >
@@ -260,7 +256,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called recruitment",
                 })}
               </Heading>
-              <Card data-h2-min-width="base(x14.5)">
+              <Card className="min-w-87">
                 <Ul space="lg">
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label}>
@@ -276,9 +272,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           <div>
             <Heading
               size="h4"
-              data-h2-margin="base(0, 0, x1, 0)"
               icon={BookOpenIcon}
               color="primary"
+              className="mt-0 mb-6"
             >
               {intl.formatMessage({
                 defaultMessage: "Resources",
@@ -286,7 +282,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 description: "Card title for a 'resources' card",
               })}
             </Heading>
-            <Card data-h2-min-width="base(x14.5)">
+            <Card className="min-w-87">
               <Ul space="lg">
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label}>
@@ -302,9 +298,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             <div>
               <Heading
                 size="h4"
-                data-h2-margin="base(0, 0, x1, 0)"
                 icon={ComputerDesktopIcon}
                 color="error"
+                className="mt-0 mb-6"
               >
                 {intl.formatMessage({
                   defaultMessage: "Administration",
@@ -312,7 +308,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called administration",
                 })}
               </Heading>
-              <Card data-h2-min-width="base(x14.5)">
+              <Card className="min-w-87">
                 <Ul space="lg">
                   {administrationCollectionSorted.map((item) => (
                     <li key={item.label}>
@@ -326,12 +322,12 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             </div>
           )}
         </div>
-        <div data-h2-margin-top="base(x3)" data-h2-margin-bottom="base(x2)">
+        <div className="mt-18 mb-12">
           <Heading
             size="h4"
-            data-h2-margin="base(0, 0, x1, 0)"
             icon={CogIcon}
             color="warning"
+            className="mt-0 mb-6"
           >
             {intl.formatMessage({
               defaultMessage: "Your roles",
@@ -342,7 +338,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           </Heading>
           <RoleChips roles={ownRoles} intl={intl}></RoleChips>
         </div>
-      </AdminContentWrapper>
+      </Container>
     </>
   );
 };
