@@ -11,7 +11,7 @@ return [
     'awarded_to' => 'Accordé à',
     'issuing_organization' => 'Organisation émettrice',
     'awarded_scope' => 'Portée du prix',
-    'project' => 'Projet/produit',
+    'project' => 'Projet ou produit',
     'area_of_study' => 'Domaine d’études',
     'thesis_title' => 'Titre de la thèse',
     'learning_description' => 'Description de l’apprentissage',

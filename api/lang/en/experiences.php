@@ -11,7 +11,7 @@ return [
     'awarded_to' => 'Awarded to',
     'issuing_organization' => 'Issuing organization',
     'awarded_scope' => 'Award scope',
-    'project' => 'Project or /product',
+    'project' => 'Project or product',
     'area_of_study' => 'Area of study',
     'thesis_title' => 'Thesis title',
     'learning_description' => 'Learning description',
