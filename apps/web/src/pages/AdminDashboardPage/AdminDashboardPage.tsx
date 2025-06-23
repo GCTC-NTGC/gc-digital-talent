@@ -199,6 +199,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       href: adminRoutes.workStreamTable(),
       roles: [ROLE_NAME.PlatformAdmin],
     },
+    {
+      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
+      href: adminRoutes.jobPosterTemplateTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
     (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),

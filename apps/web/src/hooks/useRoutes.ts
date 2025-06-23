@@ -310,6 +310,10 @@ const getRoutes = (lang: Locales) => {
     jobPosterTemplate: (templateId: string) =>
       [baseUrl, "job-templates", templateId].join("/"),
 
+    // Admin job poster templates
+    jobPosterTemplateTable: () =>
+      [adminUrl, "settings", "job-templates"].join("/"),
+
     // Manager pages
     manager: () => managerUrl,
 
