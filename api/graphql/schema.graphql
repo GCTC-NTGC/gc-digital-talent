@@ -507,34 +507,6 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
-# group fields together that repeat use of viewNotes()
-type PoolCandidateViewNotes {
-  notes: String
-  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
-  veteranVerification: ClaimVerificationResult
-    @rename(attribute: "veteran_verification")
-  veteranVerificationExpiry: Date
-    @rename(attribute: "veteran_verification_expiry")
-  priorityVerification: ClaimVerificationResult
-    @rename(attribute: "priority_verification")
-  priorityVerificationExpiry: Date
-    @rename(attribute: "priority_verification_expiry")
-}
-
-# group fields together that repeat use of viewStatus()
-type PoolCandidateViewStatus {
-  status: LocalizedPoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
-  statusWeight: Int @rename(attribute: "status_weight")
-  removedAt: DateTime @rename(attribute: "removed_at")
-  removalReason: LocalizedCandidateRemovalReason
-    @rename(attribute: "removal_reason")
-  removalReasonOther: String @rename(attribute: "removal_reason_other")
-  finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
-  placedAt: DateTime @rename(attribute: "placed_at")
-  placedDepartment: Department @belongsTo
-}
-
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -546,20 +518,10 @@ type PoolCandidate {
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
-    )
   statusWeight: Int
     @rename(attribute: "status_weight")
     @canRoot(ability: "viewStatus")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
-    )
-  notes: String
-    @canRoot(ability: "viewNotes")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
-    )
+  notes: String @canRoot(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
@@ -567,27 +529,15 @@ type PoolCandidate {
   isBookmarked: Boolean
     @rename(attribute: "is_bookmarked")
     @canRoot(ability: "viewNotes")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
-    )
   removedAt: DateTime
     @rename(attribute: "removed_at")
     @canRoot(ability: "viewStatus")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
-    )
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
-    )
   removalReasonOther: String
     @rename(attribute: "removal_reason_other")
     @canRoot(ability: "viewStatus")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
-    )
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -613,46 +563,24 @@ type PoolCandidate {
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
-    )
   placedAt: DateTime
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
-    )
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
 
   # claim verification
   veteranVerification: ClaimVerificationResult
     @rename(attribute: "veteran_verification")
     @canRoot(ability: "viewNotes")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
-    )
   veteranVerificationExpiry: Date
     @rename(attribute: "veteran_verification_expiry")
     @canRoot(ability: "viewNotes")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
-    )
   priorityVerification: ClaimVerificationResult
     @rename(attribute: "priority_verification")
     @canRoot(ability: "viewNotes")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
-    )
   priorityVerificationExpiry: Date
     @rename(attribute: "priority_verification_expiry")
     @canRoot(ability: "viewNotes")
-    @deprecated(
-      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
-    )
-
-  # fields grouped by permission
-  viewNotes: PoolCandidateViewNotes @self @canRoot(ability: "viewNotes")
-  viewStatus: PoolCandidateViewStatus @self @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
