@@ -315,7 +315,7 @@ trait GeneratesUserDoc
             /** @var CommunityExperience $experience */
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
-            $this->addLabelText($section, 'Project or /product', $experience->project);
+            $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
         }
 
         if ($type === EducationExperience::class) {
