@@ -78,6 +78,26 @@ export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
+  fragment JobPlacementDialogCandidateTable on PaginationPoolCandidate {
+    id
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    placedDepartment {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
   fragment JobPlacementOptions on Query {
     placementTypes: localizedEnumStrings(enumName: "PlacementType") {

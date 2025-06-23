@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
@@ -19,14 +21,12 @@ import {
   PoolCandidatePoolNameOrderByInput,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidateSearchInput,
-  QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   CandidateSuspendedFilter,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
   LocalizedProvinceOrTerritory,
-  QueryPoolCandidatesPaginatedOrderByPoolColumn,
   Classification,
   LocalizedFinalDecision,
   InputMaybe,
@@ -222,7 +222,8 @@ export const bookmarkHeader = (intl: IntlShape) => (
 function transformSortStateToOrderByClause(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any {
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
@@ -269,7 +270,8 @@ function transformSortStateToOrderByClause(
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       pool: {
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: columnName as QueryPoolCandidatesPaginatedOrderByPoolColumn,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        column: columnName as any,
       },
     };
   }
@@ -286,7 +288,8 @@ function transformSortStateToOrderByClause(
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: {
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: columnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        column: columnName as any,
       },
     };
   }
@@ -320,7 +323,8 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] | undefined {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any[] | undefined {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
   // handle sort in orderByClaimVerification

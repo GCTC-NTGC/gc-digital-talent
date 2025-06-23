@@ -21,6 +21,20 @@ export const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const PoolCandidateCandidateTable_BookmarkFragment = graphql(
+  /* GraphQL */ `
+    fragment PoolCandidateTable_Bookmark on PaginationPoolCandidate {
+      id
+      isBookmarked
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
+  `,
+);
+
 const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
   mutation ToggleBookmark_Mutation($id: ID!) {
     togglePoolCandidateBookmark(id: $id)

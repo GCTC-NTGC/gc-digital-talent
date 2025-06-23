@@ -84,7 +84,7 @@ import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvBu
 import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
-  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
+  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedPerformant"]["data"][number];
 
 const columnHelper =
   createColumnHelper<CandidatesTableCandidatesPaginatedQueryDataType>();
@@ -167,10 +167,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $first: Int
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
-    $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
+    $sortingInput: [QueryPoolCandidatesPaginatedPerformantOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
   ) {
-    poolCandidatesPaginated(
+    poolCandidatesPaginatedPerformant(
       where: $where
       first: $first
       page: $page
@@ -181,9 +181,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         poolCandidate {
-          ...JobPlacementDialog
+          ...JobPlacementDialogCandidateTable
           id
-          ...PoolCandidate_Bookmark
+          ...PoolCandidateTable_Bookmark
           notes
           status {
             value
@@ -514,9 +514,9 @@ const PoolCandidatesTable = ({
 
   const filteredData: CandidatesTableCandidatesPaginatedQueryDataType[] =
     useMemo(() => {
-      const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+      const poolCandidates = data?.poolCandidatesPaginatedPerformant.data ?? [];
       return poolCandidates.filter(notEmpty);
-    }, [data?.poolCandidatesPaginated.data]);
+    }, [data?.poolCandidatesPaginatedPerformant.data]);
 
   const candidateIdsFromFilterData = filteredData.map(
     (iterator) => iterator.poolCandidate.id,
@@ -1037,7 +1037,7 @@ const PoolCandidatesTable = ({
         internal: false,
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
-        total: data?.poolCandidatesPaginated?.paginatorInfo.total,
+        total: data?.poolCandidatesPaginatedPerformant?.paginatorInfo.total,
         pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
