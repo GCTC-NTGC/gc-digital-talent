@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useParams } from "react-router";
 import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
 
-import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
+import { TableOfContents, Stepper, Loading, Container } from "@gc-digital-talent/ui";
 import {
   empty,
   isUuidError,
@@ -138,10 +138,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
         crumbs={crumbs}
         subtitle={currentPage?.subtitle}
       />
-      <div
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-        data-h2-margin-top="base(x3)"
-      >
+      <Container className="mt-18">
         <TableOfContents.Wrapper>
           <TableOfContents.Sidebar>
             <Stepper
@@ -154,7 +151,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
               steps={applicationStepsToStepperArgs(steps, application)}
             />
             {isIAP && (
-              <div data-h2-margin="base(x1 0)">
+              <div className="my-6">
                 <IapContactDialog />
               </div>
             )}
@@ -169,7 +166,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
             )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </ApplicationContextProvider>
   );
 };
@@ -212,7 +209,7 @@ const Layout = () => {
   return (
     <>
       {fetching || stale ? (
-        <Loading live="polite" data-h2-background-color="base(white.99)" />
+        <Loading live="polite" className="bg-white/99">
       ) : null}
       {data?.poolCandidate ? (
         <ApplicationPageWrapper query={data.poolCandidate} />
