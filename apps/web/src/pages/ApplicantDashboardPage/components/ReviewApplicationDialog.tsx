@@ -335,7 +335,7 @@ const ReviewApplicationDialog = ({
 
             <Separator decorative className="m-0 xs:col-span-2" />
 
-            <Accordion.Root type="multiple" className="m-0 xs:col-span-2">
+            <Accordion.Root type="multiple" className="xs:col-span-2">
               <Accordion.Item value="essential-skills">
                 <Accordion.Trigger>
                   <span>
@@ -368,7 +368,7 @@ const ReviewApplicationDialog = ({
                     // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   >{` (${nonessentialSkills.length ?? 0})`}</span>
                 </Accordion.Trigger>
-                <Accordion.Content className="-mt-3">
+                <Accordion.Content>
                   {nonessentialSkills.length ? (
                     <Ul>
                       {nonessentialSkills.map(({ id, name }) => (
