@@ -38,7 +38,7 @@ export default {
     apiResponses: {
       CandidatesTableCandidatesPaginated_Query: {
         data: {
-          poolCandidatesPaginated: {
+          poolCandidatesPaginatedPerformant: {
             data: mockPoolCandidatesWithSkillCount,
             paginatorInfo: mockPaginatorInfo,
           },
