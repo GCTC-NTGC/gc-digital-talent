@@ -395,7 +395,7 @@ const ReviewApplicationDialog = ({
               </>
             )}
           </div>
-          <Dialog.Footer className="flex-col gap-y-6 xs:flex-row xs:gap-x-6">
+          <Dialog.Footer className="flex flex-col gap-y-6 xs:flex-row xs:gap-x-6 xs:gap-y-0">
             <Link
               href={paths.application(application.id)}
               mode="solid"
