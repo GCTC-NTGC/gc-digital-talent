@@ -19,7 +19,7 @@ return [
     'at' => 'at',
     'with' => 'with',
     'not_provided' => 'Not provided',
-    'not_sure' => 'Not sure',
+    'pending_second_opinion' => 'Pending second opinion',
     'expected_end_date' => '(Expected end date)',
     'not_found' => 'Not found',
     'step' => 'Step',

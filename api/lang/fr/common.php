@@ -19,7 +19,7 @@ return [
     'at' => 'à',
     'with' => 'à',
     'not_provided' => 'Renseignements manquants',
-    'not_sure' => 'Pas certain',
+    'pending_second_opinion' => 'Second avis en attente',
     'expected_end_date' => '(Date de fin prévue)',
     'not_found' => 'Introuvable',
     'step' => 'Étape',

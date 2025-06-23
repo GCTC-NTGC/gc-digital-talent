@@ -2023,6 +2023,10 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
+  "7L19hE": {
+    "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
+    "description": "Subtitle for training opportunity single page"
+  },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -4306,6 +4310,10 @@
   "IFKgSr": {
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
+  },
+  "IFTwDy": {
+    "defaultMessage": "Description du cours",
+    "description": "Heading for section course description"
   },
   "IH+bPG": {
     "defaultMessage": "Reçue",
@@ -7422,6 +7430,10 @@
     "defaultMessage": "Vous avez été supprimé des résultats de la recherche pour {poolName}.",
     "description": "Alert displayed to the user when application card dialog submits successfully."
   },
+  "WyxGlF": {
+    "defaultMessage": "{areaOfStudy} de {institution}",
+    "description": "Study at institution without type"
+  },
   "X0YPib": {
     "defaultMessage": "Expériences relatives aux prix",
     "description": "Heading for award experiences in experience by type listing"
@@ -8873,6 +8885,10 @@
   "dxwgXw": {
     "defaultMessage": "communiquent des messages racistes, haineux, sexistes, homophobes ou diffamatoires, ou contiennent du matériel obscène ou pornographique ou y font allusion",
     "description": "Comments or contributions list item"
+  },
+  "dy98XL": {
+    "defaultMessage": "<strong>{areaOfStudy}</strong> de {institution}",
+    "description": "Study at institution without type, HTML"
   },
   "dycByE": {
     "defaultMessage": "« inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
@@ -13272,6 +13288,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "yjZ5Lz": {
+    "defaultMessage": "Informations sur le cours",
+    "description": "Heading for section course details"
   },
   "yl3eY6": {
     "defaultMessage": "Lieu (français)",

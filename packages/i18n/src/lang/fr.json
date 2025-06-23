@@ -419,10 +419,6 @@
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Name of Government information page"
   },
-  "GLRLYT": {
-    "defaultMessage": "Pas certain",
-    "description": "A decision has not been made"
-  },
   "Gc9PeN": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
     "description": "The operational requirement described as shift work."
@@ -734,6 +730,10 @@
   "Ro+gP0": {
     "defaultMessage": "Accueil",
     "description": "Name of Home page"
+  },
+  "Rp+NHA": {
+    "defaultMessage": "Second avis en attente",
+    "description": "Pending second opinion"
   },
   "S0w3o5": {
     "defaultMessage": "Complet",

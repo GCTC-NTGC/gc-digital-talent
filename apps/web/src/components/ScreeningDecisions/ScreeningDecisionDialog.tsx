@@ -445,7 +445,7 @@ export const ScreeningDecisionDialog = ({
           {hasBeenAssessed ? (
             <span>
               {initialValues?.assessmentDecision === "noDecision" ? (
-                <>{intl.formatMessage(commonMessages.notSure)}</>
+                <>{intl.formatMessage(commonMessages.pendingSecondOpinion)}</>
               ) : (
                 <>
                   <>

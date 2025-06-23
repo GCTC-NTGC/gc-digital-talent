@@ -309,6 +309,8 @@ const getRoutes = (lang: Locales) => {
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
     instructorLedTraining: () =>
       [baseUrl, "it-training-fund", "instructor-led-training"].join("/"),
+    instructorLedTrainingOpportunity: (id: string) =>
+      [baseUrl, "it-training-fund", "instructor-led-training", id].join("/"),
     certificationExamVouchers: () =>
       [baseUrl, "it-training-fund", "certification-exam-vouchers"].join("/"),
 

@@ -196,14 +196,16 @@ test.describe("Pool candidates", () => {
     await expect(
       appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
     ).toBeVisible();
-    await appPage.page.getByText("Not demonstrated (Hold for").click();
+    await appPage.page
+      .getByText("Not demonstrated (candidate advances to next step)")
+      .click();
     await appPage.page
       .getByRole("textbox", { name: "decision notes" })
       .fill("Reason");
     await appPage.page.getByRole("button", { name: "Save decision" }).click();
     await expect(
       appPage.page.getByRole("button", {
-        name: "Not demonstrated (Hold for",
+        name: "Not demonstrated (candidate advances to next step)",
       }),
     ).toBeVisible();
 
@@ -212,7 +214,9 @@ test.describe("Pool candidates", () => {
       appPage.page.getByLabel("Hold for assessment").locator("path"),
     ).toBeVisible();
     await appPage.page
-      .getByRole("button", { name: "Not demonstrated (Hold for" })
+      .getByRole("button", {
+        name: "Not demonstrated (candidate advances to next step)",
+      })
       .click();
     await appPage.page
       .getByLabel("Application screening -")

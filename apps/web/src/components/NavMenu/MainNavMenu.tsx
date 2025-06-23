@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-elements */
 import FocusLock from "react-focus-lock";
-import { m, AnimatePresence, useReducedMotion } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import {
   useEffect,
   useState,
@@ -69,16 +69,6 @@ const MainNavMenu = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen("sm");
-
-  const shouldReduceMotion = useReducedMotion();
-
-  const animConfig = shouldReduceMotion
-    ? {}
-    : {
-        initial: { transform: "translateY(0)" },
-        animate: { transform: "translateY(0)" },
-        exit: { transform: "translateY(0)" },
-      };
 
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
@@ -160,19 +150,15 @@ const MainNavMenu = () => {
   }, [isMenuOpen]);
 
   return (
-    <FocusLock returnFocus disabled={!showOverlay}>
-      <NavMenuProvider
-        open={isMenuOpen}
-        onOpenToggle={handleOpenToggle}
-        onOpenChange={setMenuOpen}
-      >
-        <AnimatePresence>
-          {showMenu ? (
-            <m.div
-              className="fixed right-4.5 bottom-21 left-4.5 z-10 max-h-[85vh] overflow-y-auto sm:sticky sm:top-0 sm:right-auto sm:bottom-auto sm:left-auto sm:w-full sm:overflow-y-visible md:max-h-none"
-              transition={{ duration: 0.2, ease: "easeInOut" }}
-              {...animConfig}
-            >
+    <div className="fixed right-4.5 bottom-21 left-4.5 z-7 max-h-[85vh] overflow-y-auto sm:sticky sm:top-[-1px] sm:right-auto sm:bottom-auto sm:left-auto sm:w-full sm:overflow-y-visible md:max-h-none">
+      <FocusLock returnFocus disabled={!showOverlay}>
+        <NavMenuProvider
+          open={isMenuOpen}
+          onOpenToggle={handleOpenToggle}
+          onOpenChange={setMenuOpen}
+        >
+          <div className="relative z-10">
+            {showMenu ? (
               <NavMenu.Root
                 onKeyDown={handleKeyDown}
                 aria-label={intl.formatMessage({
@@ -181,7 +167,7 @@ const MainNavMenu = () => {
                   description: "Label for the main navigation",
                 })}
                 data-state={isMenuOpen ? "open" : "closed"}
-                className="rounded-md bg-white py-6 sm:rounded-none sm:bg-gray-700 sm:py-6 dark:bg-gray-600 sm:dark:bg-gray-700"
+                className="rounded-md bg-white py-6 sm:rounded-none sm:bg-gray-700/90 sm:py-6 dark:bg-gray-600/90 sm:dark:bg-gray-700/90"
               >
                 <Container
                   center
@@ -201,7 +187,7 @@ const MainNavMenu = () => {
                     </div>
 
                     <a
-                      className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-secondary-200"
+                      className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-primary-200"
                       href={languageTogglePath}
                       lang={changeToLang === "en" ? "en" : "fr"}
                     >
@@ -339,58 +325,58 @@ const MainNavMenu = () => {
                   </NavMenu.List>
                 </Container>
               </NavMenu.Root>
-            </m.div>
-          ) : null}
-        </AnimatePresence>
-        <AnimatePresence>
-          {showOverlay && (
-            <m.div
-              onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-[6] overflow-auto bg-gray-700"
-              initial={{ opacity: 0.85 }}
-              animate={{ opacity: 0.85 }}
-              exit={{ opacity: 0.85 }}
-              transition={{ duration: 0.2 }}
-            />
-          )}
-        </AnimatePresence>
-      </NavMenuProvider>
-      {isSmallScreen && (
-        <div className="fixed right-4.5 bottom-4.5 z-10 flex gap-3">
-          <Button
-            color="black"
-            mode="solid"
-            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
-            onClick={() => {
-              if (isNotificationDialogOpen) {
-                setNotificationDialogOpen(false);
-                setMenuOpen(true);
-              } else {
-                setMenuOpen(!isMenuOpen);
-              }
-            }}
-          >
-            {isMenuOpen
-              ? intl.formatMessage(uiMessages.closeMenu)
-              : intl.formatMessage(uiMessages.openMenu)}
-          </Button>
-          {loggedIn && (
-            <NotificationDialog
+            ) : null}
+          </div>
+          <AnimatePresence>
+            {showOverlay && (
+              <m.div
+                onClick={() => setMenuOpen(false)}
+                className="fixed inset-0 z-[6] overflow-auto bg-gray-700"
+                initial={{ opacity: 0.85 }}
+                animate={{ opacity: 0.85 }}
+                exit={{ opacity: 0.85 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+          </AnimatePresence>
+        </NavMenuProvider>
+        {isSmallScreen && (
+          <div className="fixed right-4.5 bottom-4.5 z-10 flex gap-3">
+            <Button
               color="black"
-              open={isNotificationDialogOpen}
-              onOpenChange={() => {
-                if (isMenuOpen) {
-                  setMenuOpen(false);
-                  setNotificationDialogOpen(true);
+              mode="solid"
+              icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+              onClick={() => {
+                if (isNotificationDialogOpen) {
+                  setNotificationDialogOpen(false);
+                  setMenuOpen(true);
                 } else {
-                  setNotificationDialogOpen(!isNotificationDialogOpen);
+                  setMenuOpen(!isMenuOpen);
                 }
               }}
-            />
-          )}
-        </div>
-      )}
-    </FocusLock>
+            >
+              {isMenuOpen
+                ? intl.formatMessage(uiMessages.closeMenu)
+                : intl.formatMessage(uiMessages.openMenu)}
+            </Button>
+            {loggedIn && (
+              <NotificationDialog
+                color="black"
+                open={isNotificationDialogOpen}
+                onOpenChange={() => {
+                  if (isMenuOpen) {
+                    setMenuOpen(false);
+                    setNotificationDialogOpen(true);
+                  } else {
+                    setNotificationDialogOpen(!isNotificationDialogOpen);
+                  }
+                }}
+              />
+            )}
+          </div>
+        )}
+      </FocusLock>
+    </div>
   );
 };
 
