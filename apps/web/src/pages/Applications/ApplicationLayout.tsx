@@ -3,7 +3,12 @@ import { Outlet, useNavigate, useParams } from "react-router";
 import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
 
-import { TableOfContents, Stepper, Loading, Container } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  Stepper,
+  Loading,
+  Container,
+} from "@gc-digital-talent/ui";
 import {
   empty,
   isUuidError,
@@ -209,7 +214,7 @@ const Layout = () => {
   return (
     <>
       {fetching || stale ? (
-        <Loading live="polite" className="bg-white/99">
+        <Loading live="polite" className="bg-white/99" />
       ) : null}
       {data?.poolCandidate ? (
         <ApplicationPageWrapper query={data.poolCandidate} />
