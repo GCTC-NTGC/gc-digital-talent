@@ -589,6 +589,30 @@ type PoolCandidateWithSkillCount {
   skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
 }
 
+type PaginationPoolCandidate {
+  id: ID!
+  pool: Pool! @belongsTo
+  user: User! @belongsTo(relation: "user")
+  submittedAt: DateTime @rename(attribute: "submitted_at")
+  suspendedAt: DateTime @rename(attribute: "suspended_at")
+  status: LocalizedPoolCandidateStatus
+    @rename(attribute: "pool_candidate_status")
+  notes: String
+  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
+  category: PoolCandidateCategory @with(relation: "user")
+  assessmentStatus: AssessmentResultStatus
+    @rename(attribute: "computed_assessment_status")
+  finalDecision: LocalizedFinalDecision
+    @rename(attribute: "computed_final_decision")
+  placedDepartment: Department @belongsTo
+}
+
+type PaginationPoolCandidateWithSkillCount {
+  id: ID!
+  poolCandidate: PaginationPoolCandidate! @self
+  skillCount: Int @rename(attribute: "skill_count")
+}
+
 type CommunityInterestWithSkillCount {
   id: ID!
   communityInterest: CommunityInterest! @self
@@ -1384,6 +1408,46 @@ type Query {
         ]
       ) # Limit fields for eager loading
   ): [PoolCandidateWithSkillCount]!
+    @guard
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereNotDraft", "whereSkillCount", "whereAuthorizedToView"]
+      model: "App\\Models\\PoolCandidate"
+    )
+  poolCandidatesPaginatedPerformant(
+    where: PoolCandidateSearchInput
+    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
+    orderByClaimVerification: ClaimVerificationSort @scope
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: [
+              "priority_weight"
+              "first_name"
+              "email"
+              "preferred_lang"
+              "preferred_language_for_interview"
+              "preferred_language_for_exam"
+              "current_city"
+            ]
+          }
+          { relation: "pool", columns: ["process_number"] }
+        ]
+      )
+      @with(
+        relations: [
+          "user:id,first_name,last_name,email,preferred_lang"
+          "user.poolCandidates.pool.team"
+          "user.poolCandidates.pool.community.team"
+          "user.communityInterests.community.team"
+          "pool:id,process_number"
+          "skills:id,name"
+        ]
+      ) # Limit fields for eager loading
+  ): [PaginationPoolCandidateWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
