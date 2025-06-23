@@ -120,7 +120,7 @@ const FunctionalCommunityListItem = ({
       >
         {functionalCommunityListItemFragment?.community?.description
           ?.localized ? (
-          <span data-h2-color="base(black.light)">
+          <span className="text-gray-600 dark:text-gray-200">
             {
               functionalCommunityListItemFragment.community.description
                 .localized

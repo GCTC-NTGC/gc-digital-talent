@@ -216,27 +216,19 @@ const ReviewApplicationDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-          >
+          <div className="grid gap-6 xs:grid-cols-2">
             <StatusSummary
               label={status.label}
               description={status.description}
               color={status.color ?? "primary"}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             />
 
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
+            <Separator decorative className="m-0 xs:col-span-2" />
 
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.jobTitle)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.name?.localized ?? nullMessage}
             </FieldDisplay>
@@ -269,14 +261,14 @@ const ReviewApplicationDialog = ({
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.department)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.department?.name?.localized ?? nullMessage}
             </FieldDisplay>
             {status.value === applicationStatus.EXPIRED ? (
               <FieldDisplay
                 label={intl.formatMessage(commonMessages.deadlineToApply)}
-                data-h2-grid-column="p-tablet(span 2)"
+                className="xs:col-span-2"
                 hasError={deadlineToApply(pool.closingDate, status.value)}
               >
                 {pool?.closingDate
@@ -291,7 +283,7 @@ const ReviewApplicationDialog = ({
             ) : (
               <FieldDisplay
                 label={intl.formatMessage(commonMessages.received)}
-                data-h2-grid-column="p-tablet(span 2)"
+                className="xs:col-span-2"
               >
                 {application.submittedAt
                   ? formatDate({
@@ -302,21 +294,17 @@ const ReviewApplicationDialog = ({
                   : nullMessage}
               </FieldDisplay>
             )}
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
+            <Separator decorative className="m-0 xs:col-span-2" />
 
             <FieldDisplay
               label={intl.formatMessage(commonMessages.employmentLength)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.opportunityLength?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workLocation)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.isRemote
                 ? intl.formatMessage(commonMessages.remote)
@@ -324,13 +312,13 @@ const ReviewApplicationDialog = ({
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.securityClearance)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.securityClearance?.label?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(processMessages.processNumber)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool?.processNumber ?? nullMessage}
             </FieldDisplay>
@@ -340,30 +328,21 @@ const ReviewApplicationDialog = ({
                 id: "OEk0OP",
                 description: "Label for application ID",
               })}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {application.id}
             </FieldDisplay>
 
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
+            <Separator decorative className="m-0 xs:col-span-2" />
 
-            <Accordion.Root
-              type="multiple"
-              data-h2-margin="base(0)"
-              data-h2-grid-column="p-tablet(span 2)"
-            >
+            <Accordion.Root type="multiple" className="m-0 xs:col-span-2">
               <Accordion.Item value="essential-skills">
                 <Accordion.Trigger>
                   <span>
                     {intl.formatMessage(commonMessages.requiredSkills)}
                   </span>
                   <span
-                    data-h2-font-weight="base(normal)"
-                    data-h2-color="base(black.light)"
+                    className="font-normal text-gray-500 dark:text-gray-200"
                     // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   >{` (${essentialSkills.length ?? 0})`}</span>
                 </Accordion.Trigger>
@@ -385,12 +364,11 @@ const ReviewApplicationDialog = ({
                     {intl.formatMessage(commonMessages.optionalSkills)}
                   </span>
                   <span
-                    data-h2-font-weight="base(normal)"
-                    data-h2-color="base(black.light)"
+                    className="font-normal text-gray-500 dark:text-gray-200"
                     // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   >{` (${nonessentialSkills.length ?? 0})`}</span>
                 </Accordion.Trigger>
-                <Accordion.Content data-h2-margin-bottom="base(-x.5)">
+                <Accordion.Content className="-mt-3">
                   {nonessentialSkills.length ? (
                     <Ul>
                       {nonessentialSkills.map(({ id, name }) => (
@@ -405,12 +383,8 @@ const ReviewApplicationDialog = ({
             </Accordion.Root>
             {status.value === applicationStatus.SUCCESSFUL && (
               <>
-                <Separator
-                  decorative
-                  data-h2-grid-column="p-tablet(span 2)"
-                  data-h2-margin="base(0)"
-                />
-                <p data-h2-grid-column="p-tablet(span 2)">
+                <Separator decorative className="m-0 xs:col-span-2" />
+                <p className="xs:col-span-2">
                   {intl.formatMessage({
                     defaultMessage: `You can find the recruitment processes you've been qualified for in the "Recruitment processes" tool on your dashboard.`,
                     id: "/6obwT",
@@ -421,10 +395,7 @@ const ReviewApplicationDialog = ({
               </>
             )}
           </div>
-          <Dialog.Footer
-            data-h2-gap="base(x1 0) p-tablet(0 x1)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-          >
+          <Dialog.Footer className="flex-col gap-y-6 xs:flex-row xs:gap-x-6">
             <Link
               href={paths.application(application.id)}
               mode="solid"
