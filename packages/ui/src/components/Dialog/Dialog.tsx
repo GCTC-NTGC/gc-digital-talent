@@ -198,7 +198,7 @@ const footer = tv({
 
 interface DialogFooterProps extends HTMLProps<HTMLDivElement> {
   children: ReactNode;
-  className: string;
+  className?: string;
 }
 
 const Footer = ({ children, className, ...rest }: DialogFooterProps) => (
