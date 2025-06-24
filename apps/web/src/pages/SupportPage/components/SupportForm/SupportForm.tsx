@@ -52,19 +52,14 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   const intl = useIntl();
   return (
     <section>
-      <Heading
-        level="h2"
-        size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
+      <Heading level="h2" size="h3" className="mt-0 mb-6 font-normal">
         {intl.formatMessage({
           defaultMessage: "We've received your message.",
           id: "iiEGjW",
           description: "Support form success title",
         })}
       </Heading>
-      <p data-h2-margin="base(x1, 0, x.5, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "We'll do our best to get back to you with a response within the next two business days.",
@@ -72,7 +67,7 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
           description: "Support form success paragraph one",
         })}
       </p>
-      <p data-h2-margin="base(x.5, 0, x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Please check your email for a summary of your submission.",
@@ -80,7 +75,7 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
           description: "Support form success paragraph two",
         })}
       </p>
-      {/* <p data-h2-margin="base(x1, 0)">
+      {/* <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "In the meantime, feel free to check out our FAQs for further information.",
@@ -140,19 +135,14 @@ const SupportForm = ({
   };
   return showSupportForm ? (
     <section>
-      <Heading
-        level="h2"
-        size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
+      <Heading level="h2" size="h3" className="mt-0 mb-6 font-normal">
         {intl.formatMessage({
           defaultMessage: "Reach out to us",
           id: "oXYnZN",
           description: "Support form title",
         })}
       </Heading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Have a specific question? Want to provide feedback or report a bug? Send us a message using this form.",
@@ -160,100 +150,96 @@ const SupportForm = ({
           description: "Support form paragraph one",
         })}
       </p>
-      <div>
-        <FormProvider {...methods}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x.5 0)"
-          >
-            <Input
-              id="name"
-              name="name"
-              type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Your name",
-                id: "86Y8lx",
-                description: "Support form name field label",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              trackUnsaved={false}
-            />
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              label={intl.formatMessage(commonMessages.email)}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              trackUnsaved={false}
-            />
-            <Select
-              id="subject"
-              name="subject"
-              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              label={intl.formatMessage({
-                defaultMessage: "Reason for contact",
-                id: "jt5BWQ",
-                description: "Support form subject field label",
-              })}
-              options={[
-                {
-                  value: "question",
-                  label: intl.formatMessage({
-                    defaultMessage: "Question",
-                    id: "M/phlO",
-                    description:
-                      "Support form subject field question option label",
-                  }),
-                },
-                {
-                  value: "bug",
-                  label: intl.formatMessage({
-                    defaultMessage: "Bug report",
-                    id: "RKUtAJ",
-                    description: "Support form subject field bug option label",
-                  }),
-                },
-                {
-                  value: "feedback",
-                  label: intl.formatMessage({
-                    defaultMessage: "Feedback",
-                    id: "iuKEt+",
-                    description:
-                      "Support form subject field feedback option label",
-                  }),
-                },
-              ]}
-              doNotSort
-              trackUnsaved={false}
-            />
-            <TextArea
-              id="description"
-              name="description"
-              label={intl.formatMessage({
-                defaultMessage: "Details",
-                id: "ywkgJx",
-                description: "Support form details field label",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              trackUnsaved={false}
-            />
-            <div data-h2-align-self="base(flex-start)">
-              <Submit />
-            </div>
-          </form>
-        </FormProvider>
-      </div>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-y-3"
+        >
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            label={intl.formatMessage({
+              defaultMessage: "Your name",
+              id: "86Y8lx",
+              description: "Support form name field label",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            trackUnsaved={false}
+          />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            label={intl.formatMessage(commonMessages.email)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            trackUnsaved={false}
+          />
+          <Select
+            id="subject"
+            name="subject"
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            label={intl.formatMessage({
+              defaultMessage: "Reason for contact",
+              id: "jt5BWQ",
+              description: "Support form subject field label",
+            })}
+            options={[
+              {
+                value: "question",
+                label: intl.formatMessage({
+                  defaultMessage: "Question",
+                  id: "M/phlO",
+                  description:
+                    "Support form subject field question option label",
+                }),
+              },
+              {
+                value: "bug",
+                label: intl.formatMessage({
+                  defaultMessage: "Bug report",
+                  id: "RKUtAJ",
+                  description: "Support form subject field bug option label",
+                }),
+              },
+              {
+                value: "feedback",
+                label: intl.formatMessage({
+                  defaultMessage: "Feedback",
+                  id: "iuKEt+",
+                  description:
+                    "Support form subject field feedback option label",
+                }),
+              },
+            ]}
+            doNotSort
+            trackUnsaved={false}
+          />
+          <TextArea
+            id="description"
+            name="description"
+            label={intl.formatMessage({
+              defaultMessage: "Details",
+              id: "ywkgJx",
+              description: "Support form details field label",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            trackUnsaved={false}
+          />
+          <div className="self-start">
+            <Submit />
+          </div>
+        </form>
+      </FormProvider>
     </section>
   ) : (
     <SupportFormSuccess onFormToggle={onFormToggle} />
