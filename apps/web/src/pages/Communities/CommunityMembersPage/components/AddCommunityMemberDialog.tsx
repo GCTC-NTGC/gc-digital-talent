@@ -155,11 +155,7 @@ AddCommunityMemberDialogProps) => {
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-              >
+              <div className="flex flex-col gap-y-6">
                 <Combobox
                   id="userId"
                   name="userId"

@@ -72,7 +72,7 @@ const CreateCommunityPage = () => {
         overlap
         centered
       >
-        <div data-h2-margin-bottom="base(x3)">
+        <div className="mb-18">
           <CreateCommunityForm onSubmit={handleSubmit} />
         </div>
       </Hero>
