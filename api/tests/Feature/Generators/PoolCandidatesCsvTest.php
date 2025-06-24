@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Generators;
 
 use App\Generators\PoolCandidateCsvGenerator;
 use App\Models\PoolCandidate;
