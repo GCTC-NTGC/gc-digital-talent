@@ -550,7 +550,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                   }}
                 />
               </div>
-              <div className="flex flex-col flex-wrap items-start sm:flex-row sm:items-center">
+              <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
                 <Button
                   type="submit"
                   color="primary"
