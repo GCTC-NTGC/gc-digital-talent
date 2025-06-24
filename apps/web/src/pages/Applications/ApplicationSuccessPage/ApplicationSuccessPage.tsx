@@ -54,7 +54,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   return (
     <Alert.Root type="success" live={false}>
       <Alert.Title>{pageInfo.title}</Alert.Title>
-      <p data-h2-margin="base(x.5, 0)">
+      <p className="my-3">
         {intl.formatMessage(
           {
             defaultMessage: "Your application ID is: <strong>{id}</strong>",
@@ -67,7 +67,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         )}
       </p>
       {isIAP ? (
-        <p data-h2-margin="base(x.5 0 x1.5 0)">
+        <p className="mt-3 mb-9">
           {intl.formatMessage({
             defaultMessage:
               "Thank you for your interest in becoming an IT apprentice with the Government of Canada. Your lived experience, skills, passion and interests are warmly received and acknowledged. A member of the Office of Indigenous Initiatives team will contact you within the next three to five business days to discuss your application.",
@@ -78,7 +78,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         </p>
       ) : (
         <>
-          <p data-h2-margin="base(x.5 0 x.5 0)">
+          <p className="my-3">
             {intl.formatMessage({
               defaultMessage:
                 "We'll be in touch if your application matches the criteria outlined in the job advertisement. In the meantime, check out the following resources for further information on what might be next.",
@@ -97,9 +97,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                     ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
                     : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
                 }
-                data-h2-display="base(inline-block)"
-                data-h2-text-align="base(left)"
-                data-h2-vertical-align="base(top)"
+                className="inline-block text-left align-top"
               >
                 {intl.formatMessage({
                   defaultMessage: "Second language evaluation",
@@ -118,9 +116,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                     ? "https://www.tbs-sct.canada.ca/tbsf-fsct/ssac-cdfs-eng.asp"
                     : "https://www.tbs-sct.canada.ca/tbsf-fsct/ssac-cdfs-fra.asp"
                 }
-                data-h2-display="base(inline-block)"
-                data-h2-text-align="base(left)"
-                data-h2-vertical-align="base(top)"
+                className="inline-block text-left align-top"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -134,13 +130,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </Ul>
         </>
       )}
-      <p
-        data-h2-margin="base(x.5, 0)"
-        data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-gap="base(x1)"
-        data-h2-align-items="base(center)"
-      >
+      <p className="my-3 flex flex-wrap items-center gap-6">
         <Link
           href={
             locale === "fr"

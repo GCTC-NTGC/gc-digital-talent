@@ -253,17 +253,8 @@ export const ApplicationCareerTimeline = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-align-items="base(flex-start) p-tablet(center)"
-      >
-        <Heading
-          data-h2-margin="base(0)"
-          size="h3"
-          data-h2-font-weight="base(400)"
-        >
+      <div className="flex flex-col items-start justify-between xs:flex-row xs:items-center">
+        <Heading size="h3" className="mt-0 font-normal">
           {hasSomeExperience
             ? pageInfo.title
             : intl.formatMessage({
@@ -283,7 +274,7 @@ export const ApplicationCareerTimeline = ({
       </div>
       {hasSomeExperience ? (
         <>
-          <p data-h2-margin="base(x1, 0, x.5, 0)">
+          <p className="mt-6 mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "This step allows you to edit any career timeline information you’ve already added to your profile. Click on an item to expand it, revealing more details. If you haven’t added anything to your career timeline yet, you can do so from this page by selecting the “<strong>Add a new experience</strong>” link.",
@@ -292,7 +283,7 @@ export const ApplicationCareerTimeline = ({
                 "Application step to continue working on career timeline, paragraph one",
             })}
           </p>
-          <p data-h2-margin="base(x.5, 0)">
+          <p className="my-3">
             {intl.formatMessage({
               defaultMessage: "Your career timeline currently includes:",
               id: "ce3IeQ",
@@ -315,7 +306,7 @@ export const ApplicationCareerTimeline = ({
         </>
       ) : (
         <>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "Creating your career timeline is a little different on this platform. First and foremost, any work you do here will be saved to your profile so that you can reuse it on other applications down the road.",
@@ -324,7 +315,7 @@ export const ApplicationCareerTimeline = ({
                 "Application step to begin working on career timeline, paragraph one",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "Building your career timeline consists of describing <strong>work experiences</strong>, <strong>education</strong>, <strong>community participation</strong>, <strong>personal learning</strong>, and <strong>awards</strong> you’ve earned. In a later step, you’ll use these experiences to highlight your skills. You can start adding experiences to your career timeline using the “<strong>Add a new experience</strong>” link.",
@@ -356,11 +347,7 @@ export const ApplicationCareerTimeline = ({
         </div>
       </div>
       {hasSomeExperience ? (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+        <div className="flex flex-col gap-y-3">
           {hasExperiencesByType ? (
             experienceList.map((experience) => {
               return (
@@ -381,14 +368,14 @@ export const ApplicationCareerTimeline = ({
               );
             })
           ) : (
-            <Well data-h2-text-align="base(center)">
+            <Well className="text-center">
               <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
             </Well>
           )}
         </div>
       ) : (
         <Well>
-          <p data-h2-text-align="base(center)">
+          <p className="text-center">
             {intl.formatMessage({
               defaultMessage:
                 "You don’t have any career timeline experiences yet.",
@@ -419,13 +406,7 @@ export const ApplicationCareerTimeline = ({
           />
 
           <Separator />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x1)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-flex-direction="base(column) l-tablet(row)"
-            data-h2-align-items="base(flex-start) l-tablet(center)"
-          >
+          <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
             <Button
               type="submit"
               color="primary"
