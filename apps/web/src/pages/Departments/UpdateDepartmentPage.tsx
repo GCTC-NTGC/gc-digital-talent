@@ -162,32 +162,22 @@ export const UpdateDepartmentForm = ({
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
+          <Heading
+            level="h2"
+            color="secondary"
+            icon={IdentificationIcon}
+            center
+            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
           >
-            <Heading
-              level="h2"
-              color="secondary"
-              icon={IdentificationIcon}
-              data-h2-margin="base(0, 0, x1.5, 0)"
-              data-h2-font-weight="base(400)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Department information",
-                id: "eNTKLK",
-                description: "Heading for the 'create a department' form",
-              })}
-            </Heading>
-          </div>
+            {intl.formatMessage({
+              defaultMessage: "Department information",
+              id: "eNTKLK",
+              description: "Heading for the 'create a department' form",
+            })}
+          </Heading>
           <FormFields optionsQuery={optionsQuery} />
           <CardSeparator />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-gap="base(x1)"
-            data-h2-align-items="base(center)"
-          >
+          <div className="flex flex-col items-center gap-6 xs:flex-row">
             <Submit text={intl.formatMessage(formMessages.saveChanges)} />
             <Link
               color="warning"
@@ -289,7 +279,7 @@ const UpdateDepartmentPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <div data-h2-margin-bottom="base(x3)">
+        <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.department ? (
               <UpdateDepartmentForm
