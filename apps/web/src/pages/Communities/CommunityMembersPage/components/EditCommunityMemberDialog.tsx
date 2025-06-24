@@ -164,11 +164,7 @@ const EditCommunityMemberDialog = forwardRef<
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-              >
+              <div className="flex flex-col gap-y-6">
                 <input type="hidden" name="userId" value={user.id} />
                 <input type="hidden" name="communityId" value={community.id} />
                 <Combobox
