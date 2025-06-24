@@ -100,10 +100,7 @@ const CheckIconElement = (
 
   return (
     <CheckIcon
-      data-h2-width="base(x1)"
-      data-h2-display="base(inline-block)"
-      data-h2-vertical-align="base(bottom)"
-      data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+      className="mr-1.5 inline-block size-6 align-bottom xs:mr-3"
       aria-label={intl.formatMessage(
         {
           defaultMessage:
@@ -182,7 +179,7 @@ const assessmentStepCell = (
 const requirementTypeCell = ({ poolSkill, intl }: RequirementTypeCellProps) => {
   if (!poolSkill.type) return null;
   return poolSkill.type.value === PoolSkillType.Essential ? (
-    <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
+    <span className="font-bold text-secondary-600 dark:text-secondary-200">
       {getLocalizedName(poolSkill.type.label, intl)}
     </span>
   ) : (
