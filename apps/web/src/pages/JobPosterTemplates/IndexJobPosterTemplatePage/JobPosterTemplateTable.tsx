@@ -82,14 +82,6 @@ export const JobPosterTemplateTable = ({
         isRowTitle: true,
       },
     }),
-    // There is no status in the database as of now.  All table rows have an identical hardcoded value.
-    columnHelper.accessor(() => null, {
-      id: "status",
-      header: intl.formatMessage(commonMessages.status),
-      cell: () => (
-        <Chip color="success">{intl.formatMessage(labels.published)}</Chip>
-      ),
-    }),
     columnHelper.accessor((row) => row.classification?.group, {
       id: "classificationGroup",
       filterFn: "weakEquals",

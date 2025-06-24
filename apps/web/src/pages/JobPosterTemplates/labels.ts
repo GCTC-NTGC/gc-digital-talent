@@ -11,9 +11,4 @@ export default defineMessages({
     id: "UKw7sB",
     description: "Label displayed on the pool form stream/job title field.",
   },
-  published: {
-    defaultMessage: "Published",
-    id: "FBSOkb",
-    description: "Title displayed on the Pool table published at column",
-  },
 });
