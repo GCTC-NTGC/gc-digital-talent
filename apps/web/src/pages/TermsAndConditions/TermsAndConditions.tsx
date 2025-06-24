@@ -3,6 +3,7 @@ import uniqueId from "lodash/uniqueId";
 import { ReactNode } from "react";
 
 import {
+  Container,
   Flourish,
   Heading,
   Link,
@@ -304,8 +305,8 @@ export const Component = () => {
         subtitle={subtitle}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container>
+        <TableOfContents.Wrapper className="mt-18">
           <TableOfContents.Navigation>
             <TableOfContents.List>
               {Object.values(sections).map((section) => (
@@ -319,13 +320,10 @@ export const Component = () => {
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.usingFiles.id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(0, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-0 mb-6">
                 {sections.usingFiles.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -341,13 +339,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.providingContent.id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections.providingContent.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "wsNG8a",
@@ -366,13 +361,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.linkingToGov.id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections.linkingToGov.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Links to websites not under the control of the Government of Canada, including those to our social media accounts, are provided solely for the convenience of our website visitors. We are not responsible for the accuracy, currency or reliability of the content of such websites. The Government of Canada does not offer any guarantee in that regard and is not responsible for the information found through these links, and does not endorse the sites and their content.",
@@ -380,7 +372,7 @@ export const Component = () => {
                   description: "Paragraph describing linking to gov section",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -399,13 +391,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.ownershipAndUsage.id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections.ownershipAndUsage.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   id: "p8o9cO",
                   defaultMessage:
@@ -416,7 +405,7 @@ export const Component = () => {
               </p>
               <Ul space="lg">
                 <li>
-                  <p data-h2-font-weight="base(bold)">
+                  <p className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Non-commercial reproduction",
                       id: "PerY/b",
@@ -424,7 +413,7 @@ export const Component = () => {
                         "Non commercial reproduction list in ownership and usage section",
                     })}
                   </p>
-                  <p data-h2-margin="base(x.5, 0)">
+                  <p className="my-3">
                     {intl.formatMessage({
                       defaultMessage:
                         "Unless otherwise specified you may reproduce the materials in whole or in part for non-commercial purposes, and in any format, without charge or further permission, provided you do the following:",
@@ -461,10 +450,7 @@ export const Component = () => {
                   </Ul>
                 </li>
                 <li>
-                  <p
-                    data-h2-margin="base(x.5, 0)"
-                    data-h2-font-weight="base(bold)"
-                  >
+                  <p className="my-3 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Commercial reproduction",
                       id: "gMaDG/",
@@ -472,7 +458,7 @@ export const Component = () => {
                         "Commercial reproduction list in ownership and usage section",
                     })}
                   </p>
-                  <p data-h2-margin="base(x.5, 0)">
+                  <p className="my-3">
                     {intl.formatMessage({
                       defaultMessage:
                         "Unless otherwise specified, you may not reproduce materials on this site, in whole or in part, for the purposes of commercial redistribution without prior written permission from the copyright administrator. To obtain permission to reproduce Government of Canada materials on this site for commercial purposes, contact:",
@@ -505,7 +491,7 @@ export const Component = () => {
                       )}
                     </li>
                   </Ul>
-                  <p data-h2-margin-top="base(x.5)">
+                  <p className="mt-3">
                     {intl.formatMessage(
                       {
                         defaultMessage:
@@ -524,13 +510,10 @@ export const Component = () => {
               </Ul>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.trademarkNotice.id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections.trademarkNotice.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "zcr51k",
@@ -547,13 +530,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.accessibilityCommitment.id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections.accessibilityCommitment.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "4jMHwL",
@@ -572,13 +552,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.socialMedia.id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections.socialMedia.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   id: "nxAw/X",
                   defaultMessage:
@@ -586,7 +563,7 @@ export const Component = () => {
                   description: "Paragraph describing social media section",
                 })}
               </p>
-              <p data-h2-margin-bottom="base(x3)">
+              <p className="mb-18">
                 {intl.formatMessage({
                   id: "Tq0ZKw",
                   defaultMessage:
@@ -594,261 +571,189 @@ export const Component = () => {
                   description: "Paragraph describing social media section",
                 })}
               </p>
-              <div data-h2-margin-bottom="base:children[> div:not(:last-child)](x3)">
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "6f2bWo",
-                      defaultMessage: "Content and frequency",
-                      description: "Heading for content and frequency section",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage({
-                      id: "Lt7tcM",
-                      defaultMessage:
-                        "The Government of Canada uses social media accounts as an alternative method of interacting with Canadians and of sharing the content posted on its website, facilitating access to Government of Canada information and services, and providing stakeholders with an opportunity to interact in an informative and respectful environment.",
-                      description:
-                        "Paragraph for content and frequency section",
-                    })}
-                  </p>
-                  <p>
-                    {intl.formatMessage({
-                      id: "VIZAgj",
-                      defaultMessage:
-                        "Because social media platforms and their computer servers are managed by a third party, social media accounts are subject to downtime that may be out of the Government of Canada’s control. The government accepts no responsibility for platforms becoming unresponsive or unavailable.",
-                      description:
-                        "Paragraph for content and frequency section",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "L7Pe9h",
-                      defaultMessage: "Links to other websites and ads",
-                      description: "Heading for link to others section",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage({
-                      id: "hyBNpJ",
-                      defaultMessage:
-                        "Social media accounts may post or display links or ads for websites that are not under the control of the government of Canada. These links are provided solely for the convenience of users. The government is not responsible for the information found through these links or ads; neither does it endorse the sites or their content.",
-                      description: "Paragraph for link to others section",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "+lxGIT",
-                      defaultMessage: "Following, “liking” and subscribing",
-                      description: "Heading for following section",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage({
-                      id: "mSdBi1",
-                      defaultMessage:
-                        "The Government of Canada’s decision to follow, “like” or subscribe to another social media account does not imply an endorsement of that account, channel, page or site, and neither does sharing (re-tweeting, reposting or linking to) content from another user.",
-                      description: "Paragraph for following section",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "lPuC3S",
-                      defaultMessage: "Comments and interaction",
-                      description:
-                        "Heading for comments and interaction section",
-                    })}
-                  </Heading>
-                  <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      id: "zbmWLG",
-                      defaultMessage:
-                        "The Government of Canada will read comments and participate in discussions when appropriate. Your comments and contributions must be relevant and respectful.",
-                      description:
-                        "Paragraph for comments and interaction section",
-                    })}
-                  </p>
-                  <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      id: "8L9eJ3",
-                      defaultMessage:
-                        "The Government of Canada will not engage in partisan or political issues or respond to questions that violate these Terms and Conditions.",
-                      description:
-                        "Paragraph for comments and interaction section",
-                    })}
-                  </p>
-                  <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      id: "clzYpT",
-                      defaultMessage:
-                        "The Government of Canada reserves the right to remove comments and contributions, and to block users based on the following criteria:",
-                      description:
-                        "Paragraph for comments and interaction section",
-                    })}
-                  </p>
-                  <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      id: "I2CtZJ",
-                      defaultMessage: "The comments or contributions:",
-                      description: "Comments or contributions list title",
-                    })}
-                  </p>
-                  <Ul space="md">
-                    {comments.map((comment) => (
-                      <li key={uniqueId()} data-h2-margin-bottom="base(x.25)">
-                        {comment}
-                      </li>
-                    ))}
-                  </Ul>
-                  <p data-h2-margin-top="base(x.5)">
-                    {intl.formatMessage({
-                      id: "6yxxP6",
-                      defaultMessage:
-                        "The Government of Canada reserves the right to report users and/or their comments and contributions to third-party social media service providers to - prevent or remove the posting of content that is contrary to these Terms and Conditions, or to the Terms of Service/Use of the third-party social media platform.",
-                      description:
-                        "Paragraph of comments and interactions sections",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "9CAhAX",
-                      defaultMessage: "Accessibility of social media platforms",
-                      description:
-                        "Heading for comments and interaction section",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage({
-                      id: "TKONR6",
-                      defaultMessage:
-                        "Social media platforms are third-party service providers and are not bound by Government of Canada standards for web accessibility.",
-                      description:
-                        "Paragraph for comments and interaction section",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "FAEU2d",
-                      defaultMessage: "Copyright",
-                      description:
-                        "Heading for comments and interaction section",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        id: "sB7wVn",
-                        defaultMessage:
-                          "Information posted by the Government of Canada is subject to the <copyrightLink>Copyright Act</copyrightLink>.",
-                        description:
-                          "Paragraph for comments and interaction section",
-                      },
-                      {
-                        copyrightLink: (chunks: ReactNode) =>
-                          copyrightLink(locale, chunks),
-                      },
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "V0jG33",
-                      defaultMessage: "Privacy",
-                      description:
-                        "Heading for comments and interaction section",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage({
-                      id: "RmcS7J",
-                      defaultMessage:
-                        "Social media accounts are not Government of Canada websites and represent only their presence on third-party service providers.",
-                      description:
-                        "Paragraph for comments and interaction section",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(bold)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      id: "diSBjl",
-                      defaultMessage: "Official languages",
-                      description:
-                        "Heading for comments and interaction section",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        id: "cx7pV4",
-                        defaultMessage:
-                          "Many social media platforms have multiple language options and provide instructions on how to set your preferences. The Government of Canada respects the <langActLink>Official Languages Act</langActLink> and is committed to ensuring that our information is available in both French and English and that both versions are of equal quality.",
-                        description:
-                          "Paragraph for comments and interaction section",
-                      },
-                      {
-                        langActLink: (chunks: ReactNode) =>
-                          langActLink(locale, chunks),
-                      },
-                    )}
-                  </p>
-                </div>
-              </div>
+              <Heading level="h3" size="h4" className="mb-6 font-bold">
+                {intl.formatMessage({
+                  id: "6f2bWo",
+                  defaultMessage: "Content and frequency",
+                  description: "Heading for content and frequency section",
+                })}
+              </Heading>
+              <p className="my-3">
+                {intl.formatMessage({
+                  id: "Lt7tcM",
+                  defaultMessage:
+                    "The Government of Canada uses social media accounts as an alternative method of interacting with Canadians and of sharing the content posted on its website, facilitating access to Government of Canada information and services, and providing stakeholders with an opportunity to interact in an informative and respectful environment.",
+                  description: "Paragraph for content and frequency section",
+                })}
+              </p>
+              <p className="my-3">
+                {intl.formatMessage({
+                  id: "VIZAgj",
+                  defaultMessage:
+                    "Because social media platforms and their computer servers are managed by a third party, social media accounts are subject to downtime that may be out of the Government of Canada’s control. The government accepts no responsibility for platforms becoming unresponsive or unavailable.",
+                  description: "Paragraph for content and frequency section",
+                })}
+              </p>
+              <Heading level="h3" size="h4" className="mb-6 font-bold">
+                {intl.formatMessage({
+                  id: "L7Pe9h",
+                  defaultMessage: "Links to other websites and ads",
+                  description: "Heading for link to others section",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  id: "hyBNpJ",
+                  defaultMessage:
+                    "Social media accounts may post or display links or ads for websites that are not under the control of the government of Canada. These links are provided solely for the convenience of users. The government is not responsible for the information found through these links or ads; neither does it endorse the sites or their content.",
+                  description: "Paragraph for link to others section",
+                })}
+              </p>
+              <Heading level="h3" size="h4" className="mb-6 font-bold">
+                {intl.formatMessage({
+                  id: "+lxGIT",
+                  defaultMessage: "Following, “liking” and subscribing",
+                  description: "Heading for following section",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  id: "mSdBi1",
+                  defaultMessage:
+                    "The Government of Canada’s decision to follow, “like” or subscribe to another social media account does not imply an endorsement of that account, channel, page or site, and neither does sharing (re-tweeting, reposting or linking to) content from another user.",
+                  description: "Paragraph for following section",
+                })}
+              </p>
+              <Heading level="h3" size="h4" className="font-bold">
+                {intl.formatMessage({
+                  id: "lPuC3S",
+                  defaultMessage: "Comments and interaction",
+                  description: "Heading for comments and interaction section",
+                })}
+              </Heading>
+              <p className="mb-3">
+                {intl.formatMessage({
+                  id: "zbmWLG",
+                  defaultMessage:
+                    "The Government of Canada will read comments and participate in discussions when appropriate. Your comments and contributions must be relevant and respectful.",
+                  description: "Paragraph for comments and interaction section",
+                })}
+              </p>
+              <p className="mb-3">
+                {intl.formatMessage({
+                  id: "8L9eJ3",
+                  defaultMessage:
+                    "The Government of Canada will not engage in partisan or political issues or respond to questions that violate these Terms and Conditions.",
+                  description: "Paragraph for comments and interaction section",
+                })}
+              </p>
+              <p className="mb-3">
+                {intl.formatMessage({
+                  id: "clzYpT",
+                  defaultMessage:
+                    "The Government of Canada reserves the right to remove comments and contributions, and to block users based on the following criteria:",
+                  description: "Paragraph for comments and interaction section",
+                })}
+              </p>
+              <p className="mb-3">
+                {intl.formatMessage({
+                  id: "I2CtZJ",
+                  defaultMessage: "The comments or contributions:",
+                  description: "Comments or contributions list title",
+                })}
+              </p>
+              <Ul space="md">
+                {comments.map((comment) => (
+                  <li key={uniqueId()}>{comment}</li>
+                ))}
+              </Ul>
+              <p className="mb-3">
+                {intl.formatMessage({
+                  id: "6yxxP6",
+                  defaultMessage:
+                    "The Government of Canada reserves the right to report users and/or their comments and contributions to third-party social media service providers to - prevent or remove the posting of content that is contrary to these Terms and Conditions, or to the Terms of Service/Use of the third-party social media platform.",
+                  description:
+                    "Paragraph of comments and interactions sections",
+                })}
+              </p>
+              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+                {intl.formatMessage({
+                  id: "9CAhAX",
+                  defaultMessage: "Accessibility of social media platforms",
+                  description: "Heading for comments and interaction section",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  id: "TKONR6",
+                  defaultMessage:
+                    "Social media platforms are third-party service providers and are not bound by Government of Canada standards for web accessibility.",
+                  description: "Paragraph for comments and interaction section",
+                })}
+              </p>
+              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+                {intl.formatMessage({
+                  id: "FAEU2d",
+                  defaultMessage: "Copyright",
+                  description: "Heading for comments and interaction section",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage(
+                  {
+                    id: "sB7wVn",
+                    defaultMessage:
+                      "Information posted by the Government of Canada is subject to the <copyrightLink>Copyright Act</copyrightLink>.",
+                    description:
+                      "Paragraph for comments and interaction section",
+                  },
+                  {
+                    copyrightLink: (chunks: ReactNode) =>
+                      copyrightLink(locale, chunks),
+                  },
+                )}
+              </p>
+              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+                {intl.formatMessage({
+                  id: "V0jG33",
+                  defaultMessage: "Privacy",
+                  description: "Heading for comments and interaction section",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  id: "RmcS7J",
+                  defaultMessage:
+                    "Social media accounts are not Government of Canada websites and represent only their presence on third-party service providers.",
+                  description: "Paragraph for comments and interaction section",
+                })}
+              </p>
+              <Heading level="h3" size="h4" className="mt-18 mb-3 font-bold">
+                {intl.formatMessage({
+                  id: "diSBjl",
+                  defaultMessage: "Official languages",
+                  description: "Heading for comments and interaction section",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage(
+                  {
+                    id: "cx7pV4",
+                    defaultMessage:
+                      "Many social media platforms have multiple language options and provide instructions on how to set your preferences. The Government of Canada respects the <langActLink>Official Languages Act</langActLink> and is committed to ensuring that our information is available in both French and English and that both versions are of equal quality.",
+                    description:
+                      "Paragraph for comments and interaction section",
+                  },
+                  {
+                    langActLink: (chunks: ReactNode) =>
+                      langActLink(locale, chunks),
+                  },
+                )}
+              </p>
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
       <Flourish />
     </>
   );
