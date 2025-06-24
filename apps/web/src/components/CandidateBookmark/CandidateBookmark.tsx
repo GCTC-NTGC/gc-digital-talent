@@ -23,7 +23,7 @@ export const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
 
 export const PoolCandidateCandidateTable_BookmarkFragment = graphql(
   /* GraphQL */ `
-    fragment PoolCandidateTable_Bookmark on PaginationPoolCandidate {
+    fragment PoolCandidateTable_Bookmark on PoolCandidateAdminView {
       id
       isBookmarked
       user {

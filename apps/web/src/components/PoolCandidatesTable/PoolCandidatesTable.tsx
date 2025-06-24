@@ -84,7 +84,7 @@ import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvBu
 import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
-  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedPerformant"]["data"][number];
+  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
 
 const columnHelper =
   createColumnHelper<CandidatesTableCandidatesPaginatedQueryDataType>();
@@ -167,10 +167,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $first: Int
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
-    $sortingInput: [QueryPoolCandidatesPaginatedPerformantOrderByRelationOrderByClause!]
+    $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
   ) {
-    poolCandidatesPaginatedPerformant(
+    poolCandidatesPaginatedAdminView(
       where: $where
       first: $first
       page: $page
@@ -514,9 +514,9 @@ const PoolCandidatesTable = ({
 
   const filteredData: CandidatesTableCandidatesPaginatedQueryDataType[] =
     useMemo(() => {
-      const poolCandidates = data?.poolCandidatesPaginatedPerformant.data ?? [];
+      const poolCandidates = data?.poolCandidatesPaginatedAdminView.data ?? [];
       return poolCandidates.filter(notEmpty);
-    }, [data?.poolCandidatesPaginatedPerformant.data]);
+    }, [data?.poolCandidatesPaginatedAdminView.data]);
 
   const candidateIdsFromFilterData = filteredData.map(
     (iterator) => iterator.poolCandidate.id,
@@ -1037,7 +1037,7 @@ const PoolCandidatesTable = ({
         internal: false,
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
-        total: data?.poolCandidatesPaginatedPerformant?.paginatorInfo.total,
+        total: data?.poolCandidatesPaginatedAdminView?.paginatorInfo.total,
         pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });

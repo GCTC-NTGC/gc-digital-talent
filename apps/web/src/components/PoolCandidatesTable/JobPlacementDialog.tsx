@@ -79,7 +79,7 @@ export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
 `);
 
 export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
-  fragment JobPlacementDialogCandidateTable on PaginationPoolCandidate {
+  fragment JobPlacementDialogCandidateTable on PoolCandidateAdminView {
     id
     status {
       value
