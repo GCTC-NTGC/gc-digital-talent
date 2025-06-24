@@ -179,12 +179,7 @@ const CoreRequirementsSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-                data-h2-margin-bottom="base(x1)"
-              >
+              <div className="mb-6 flex flex-col gap-y-6">
                 <RadioGroup
                   idPrefix="locationOption"
                   legend={intl.formatMessage(processMessages.location)}
@@ -266,11 +261,7 @@ const CoreRequirementsSection = ({
                     />
                   </>
                 ) : undefined}
-                <div
-                  data-h2-display="base(grid)"
-                  data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
-                  data-h2-gap="base(x1)"
-                >
+                <div className="grid gap-6 sm:grid-cols-2">
                   <Select
                     id="languageRequirement"
                     label={intl.formatMessage(
@@ -287,7 +278,7 @@ const CoreRequirementsSection = ({
                       intl,
                     )}
                     disabled={formDisabled}
-                    data-h2-width="base(100%)"
+                    className="w-full"
                   />
                   <Select
                     id="securityRequirement"
@@ -305,7 +296,7 @@ const CoreRequirementsSection = ({
                       intl,
                     )}
                     disabled={formDisabled}
-                    data-h2-width="base(100%)"
+                    className="w-full"
                   />
                 </div>
               </div>

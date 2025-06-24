@@ -22,13 +22,9 @@ const Display = ({
 
   return (
     <>
-      {subtitle && <p data-h2-margin-bottom="base(x1)">{subtitle}</p>}
+      {subtitle && <p className="mb-6">{subtitle}</p>}
       {!isNull ? (
-        <div
-          data-h2-display="base(grid)"
-          data-h2-gap="base(x1)"
-          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-        >
+        <div className="grid gap-6 xs:grid-cols-2">
           <ToggleForm.FieldDisplay
             hasError={!specialNote?.en}
             label={intl.formatMessage(processMessages.specialNoteEn)}

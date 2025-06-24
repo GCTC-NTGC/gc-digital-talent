@@ -15,11 +15,7 @@ const Display = ({ pool }: DisplayProps<EditPoolClosingDateFragment>) => {
   const { closingDate } = pool;
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-    >
+    <div className="grid gap-6 xs:grid-cols-2">
       <ToggleForm.FieldDisplay
         hasError={!closingDate}
         label={intl.formatMessage(processMessages.closingDate)}
