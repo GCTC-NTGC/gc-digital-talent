@@ -454,19 +454,19 @@ type Query {
 
     "The offset from which items are returned."
     page: Int
-  ): PoolCandidateWithSkillCountPaginator!
-  poolCandidatesPaginatedPerformant(
+  ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
+  poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
-    orderBy: [QueryPoolCandidatesPaginatedPerformantOrderByRelationOrderByClause!]
+    orderBy: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
 
     "The offset from which items are returned."
     page: Int
-  ): PaginationPoolCandidateWithSkillCountPaginator!
+  ): PoolCandidateAdminViewWithSkillCountPaginator!
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!]
@@ -1052,7 +1052,7 @@ type PoolCandidateWithSkillCount {
   skillCount: Int
 }
 
-type PaginationPoolCandidate {
+type PoolCandidateAdminView {
   id: ID!
   pool: Pool!
   user: User!
@@ -1067,9 +1067,9 @@ type PaginationPoolCandidate {
   placedDepartment: Department
 }
 
-type PaginationPoolCandidateWithSkillCount {
+type PoolCandidateAdminViewWithSkillCount {
   id: ID!
-  poolCandidate: PaginationPoolCandidate!
+  poolCandidate: PoolCandidateAdminView!
   skillCount: Int
 }
 
@@ -2724,13 +2724,13 @@ type PoolCandidateWithSkillCountPaginator {
   data: [PoolCandidateWithSkillCount!]!
 }
 
-"A paginated list of PaginationPoolCandidateWithSkillCount items."
-type PaginationPoolCandidateWithSkillCountPaginator {
+"A paginated list of PoolCandidateAdminViewWithSkillCount items."
+type PoolCandidateAdminViewWithSkillCountPaginator {
   "Pagination information about the list of items."
   paginatorInfo: PaginatorInfo!
 
-  "A list of PaginationPoolCandidateWithSkillCount items."
-  data: [PaginationPoolCandidateWithSkillCount!]!
+  "A list of PoolCandidateAdminViewWithSkillCount items."
+  data: [PoolCandidateAdminViewWithSkillCount!]!
 }
 
 "A paginated list of PoolCandidateSearchRequest items."
@@ -2863,8 +2863,8 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
   pool: QueryPoolCandidatesPaginatedOrderByPool
 }
 
-"Allowed column names for Query.poolCandidatesPaginatedPerformant.orderBy."
-enum QueryPoolCandidatesPaginatedPerformantOrderByUserColumn {
+"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
+enum QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn {
   PRIORITY_WEIGHT
   FIRST_NAME
   EMAIL
@@ -2874,31 +2874,31 @@ enum QueryPoolCandidatesPaginatedPerformantOrderByUserColumn {
   CURRENT_CITY
 }
 
-"Aggregate specification for Query.poolCandidatesPaginatedPerformant.orderBy.user."
-input QueryPoolCandidatesPaginatedPerformantOrderByUser {
+"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.user."
+input QueryPoolCandidatesPaginatedAdminViewOrderByUser {
   "The aggregate function to apply to the column."
   aggregate: OrderByRelationWithColumnAggregateFunction!
 
   "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedPerformantOrderByUserColumn
+  column: QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn
 }
 
-"Allowed column names for Query.poolCandidatesPaginatedPerformant.orderBy."
-enum QueryPoolCandidatesPaginatedPerformantOrderByPoolColumn {
+"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
+enum QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn {
   PROCESS_NUMBER
 }
 
-"Aggregate specification for Query.poolCandidatesPaginatedPerformant.orderBy.pool."
-input QueryPoolCandidatesPaginatedPerformantOrderByPool {
+"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.pool."
+input QueryPoolCandidatesPaginatedAdminViewOrderByPool {
   "The aggregate function to apply to the column."
   aggregate: OrderByRelationWithColumnAggregateFunction!
 
   "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedPerformantOrderByPoolColumn
+  column: QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn
 }
 
-"Order by clause for Query.poolCandidatesPaginatedPerformant.orderBy."
-input QueryPoolCandidatesPaginatedPerformantOrderByRelationOrderByClause {
+"Order by clause for Query.poolCandidatesPaginatedAdminView.orderBy."
+input QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
   "The column that is used for ordering."
   column: String
 
@@ -2906,10 +2906,10 @@ input QueryPoolCandidatesPaginatedPerformantOrderByRelationOrderByClause {
   order: SortOrder!
 
   "Aggregate specification."
-  user: QueryPoolCandidatesPaginatedPerformantOrderByUser
+  user: QueryPoolCandidatesPaginatedAdminViewOrderByUser
 
   "Aggregate specification."
-  pool: QueryPoolCandidatesPaginatedPerformantOrderByPool
+  pool: QueryPoolCandidatesPaginatedAdminViewOrderByPool
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."

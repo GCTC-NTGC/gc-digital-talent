@@ -589,7 +589,7 @@ type PoolCandidateWithSkillCount {
   skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
 }
 
-type PaginationPoolCandidate {
+type PoolCandidateAdminView {
   id: ID!
   pool: Pool! @belongsTo
   user: User! @belongsTo(relation: "user")
@@ -607,9 +607,9 @@ type PaginationPoolCandidate {
   placedDepartment: Department @belongsTo
 }
 
-type PaginationPoolCandidateWithSkillCount {
+type PoolCandidateAdminViewWithSkillCount {
   id: ID!
-  poolCandidate: PaginationPoolCandidate! @self
+  poolCandidate: PoolCandidateAdminView! @self
   skillCount: Int @rename(attribute: "skill_count")
 }
 
@@ -1415,7 +1415,8 @@ type Query {
       scopes: ["whereNotDraft", "whereSkillCount", "whereAuthorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
-  poolCandidatesPaginatedPerformant(
+    @deprecated(reason: "To be replaced with more performant query")
+  poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
@@ -1447,7 +1448,7 @@ type Query {
           "skills:id,name"
         ]
       ) # Limit fields for eager loading
-  ): [PaginationPoolCandidateWithSkillCount]!
+  ): [PoolCandidateAdminViewWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
