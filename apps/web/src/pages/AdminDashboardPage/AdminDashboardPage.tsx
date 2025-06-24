@@ -241,7 +241,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         subtitle={intl.formatMessage(subTitle)}
       />
       <Container className="my-18">
-        <div className="flex flex-wrap gap-x-6 gap-y-12">
+        <div className="grid gap-x-6 gap-y-12 xs:grid-cols-3">
           {recruitmentCollectionSorted.length > 0 && (
             <div>
               <Heading
@@ -256,7 +256,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called recruitment",
                 })}
               </Heading>
-              <Card className="min-w-87">
+              <Card>
                 <Ul space="lg">
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label}>
@@ -282,7 +282,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 description: "Card title for a 'resources' card",
               })}
             </Heading>
-            <Card className="min-w-87">
+            <Card>
               <Ul space="lg">
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label}>
@@ -308,7 +308,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called administration",
                 })}
               </Heading>
-              <Card className="min-w-87">
+              <Card>
                 <Ul space="lg">
                   {administrationCollectionSorted.map((item) => (
                     <li key={item.label}>
