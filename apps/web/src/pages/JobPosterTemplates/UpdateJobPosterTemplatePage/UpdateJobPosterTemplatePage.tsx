@@ -1,0 +1,368 @@
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
+import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
+import {
+  BoltIcon,
+  ClipboardDocumentCheckIcon,
+  ClipboardDocumentIcon,
+  PuzzlePieceIcon,
+} from "@heroicons/react/24/outline";
+
+import {
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Scalars,
+} from "@gc-digital-talent/graphql";
+import {
+  Heading,
+  Pending,
+  TableOfContents,
+  ThrowNotFound,
+  Ul,
+} from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  NotFoundError,
+  UnauthorizedError,
+  useIsSmallScreen,
+} from "@gc-digital-talent/helpers";
+
+import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import profileMessages from "~/messages/profileMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import pageTitles from "~/messages/pageTitles";
+
+import messages from "./messages";
+import GoalsWorkStyleSection, {
+  EmployeeProfileGoalsWorkStyle_Fragment,
+} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
+import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
+import NextRoleSection, {
+  EmployeeProfileNextRole_Fragment,
+} from "./components/NextRoleSection/NextRoleSection";
+import CareerObjectiveSection, {
+  EmployeeProfileCareerObjective_Fragment,
+} from "./components/CareerObjective/CareerObjectiveSection";
+
+const SECTION_ID = {
+  JOB_DETAILS: "job-details-section",
+  KEY_TASKS: "key-tasks-section",
+  TECHNICAL_SKILLS: "technical-skills-section",
+  BEHAVIOURAL_SKILLS: "behavioural-skills-section",
+};
+
+const UpdateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
+  fragment UpdateJobPosterTemplateOptions on Query {
+    # ...EmployeeProfileCareerDevelopmentOptions
+    # ...EmployeeProfileNextRoleOptions
+    # ...EmployeeProfileCareerObjectiveOptions
+    __typename
+  }
+`);
+
+const UpdateJobPosterTemplate_Fragment = graphql(/** GraphQL */ `
+  fragment UpdateJobPosterTemplate on JobPosterTemplate {
+    #...EmployeeProfileCareerDevelopment
+    #...EmployeeProfileCareerObjective
+    #...EmployeeProfileNextRole
+    #...EmployeeProfileGoalsWorkStyle
+    id
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+interface UpdateJobPosterTemplateProps {
+  jobPosterTemplateQuery: FragmentType<typeof UpdateJobPosterTemplate_Fragment>;
+  optionsQuery: FragmentType<typeof UpdateJobPosterTemplateOptions_Fragment>;
+}
+
+const UpdateJobPosterTemplate = ({
+  jobPosterTemplateQuery,
+  optionsQuery,
+}: UpdateJobPosterTemplateProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const jobPosterTemplate = getFragment(
+    UpdateJobPosterTemplate_Fragment,
+    jobPosterTemplateQuery,
+  );
+  const options = getFragment(
+    UpdateJobPosterTemplateOptions_Fragment,
+    optionsQuery,
+  );
+  const isSmallScreen = useIsSmallScreen("sm");
+
+  const pageTitle = getLocalizedName(jobPosterTemplate.name, intl);
+
+  const subtitle = intl.formatMessage({
+    defaultMessage:
+      "Update, archive, or delete this job advertisement template from the template library.",
+    id: "F9a6fy",
+    description: "Subtitle for the update job poster template page",
+  });
+
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(pageTitles.adminDashboard),
+        url: paths.adminDashboard(),
+      },
+      {
+        label: intl.formatMessage(pageTitles.indexJobPosterTemplatePageShort),
+        url: paths.jobPosterTemplateTable(),
+      },
+      {
+        label: pageTitle,
+        url: paths.jobPosterTemplateUpdate(jobPosterTemplate.id),
+      },
+    ],
+  });
+
+  return (
+    <>
+      <SEO title={pageTitle} description={subtitle} />
+      <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <TableOfContents.Wrapper data-h2-padding-top="base(x3)">
+          <TableOfContents.Navigation>
+            <TableOfContents.List
+              data-h2-padding-left="base(x.5)"
+              data-h2-list-style-type="base(none)"
+            >
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={SECTION_ID.JOB_DETAILS}>
+                  {intl.formatMessage(messages.jobDetails)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x3 0)"
+            >
+              <TableOfContents.Section id={SECTION_ID.JOB_DETAILS}>
+                <Heading
+                  level="h2"
+                  icon={PuzzlePieceIcon}
+                  color="secondary"
+                  className="mx-0 mt-0 mb-6 font-normal"
+                  center={isSmallScreen}
+                >
+                  {intl.formatMessage(messages.jobDetails)}
+                </Heading>
+                <p className="mb-7.5">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "To get started, select the job's classification and level. Once that's set, you'll be prompted to fill out additional details about the job in both official languages.",
+                    id: "IZojK4",
+                    description:
+                      "Lead-in text for job poster template career template section",
+                  })}
+                </p>
+                {/* <CareerDevelopmentSection
+                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
+                  careerDevelopmentOptionsQuery={options}
+                /> */}
+              </TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.KEY_TASKS}>
+                <Heading
+                  level="h2"
+                  icon={ClipboardDocumentCheckIcon}
+                  color="primary"
+                  className="mx-0 mt-0 mb-6 font-normal"
+                  center={isSmallScreen}
+                >
+                  {intl.formatMessage(messages.keyTasks)}
+                </Heading>
+                <div className="mb-7.5 flex flex-col gap-3">
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The key tasks serve to inspire and guide managers as they use this template to create their job advertisements. Aim to provide 4 to 8 examples and remember to end each sentence with a period.",
+                      id: "iZpJ6T",
+                      description:
+                        "Lead-in text for job poster template key tasks section, paragraph 1",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "When writing example tasks, consider the following questions:",
+                      id: "yMsBez",
+                      description:
+                        "Lead-in text for job poster template key tasks section, paragraph 2",
+                    })}
+                  </p>
+                  <Ul space="md">
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "What will the day-to-day responsibilities of this position look like?",
+                        id: "Lv2AK7",
+                        description:
+                          "list item for job poster template key tasks section, paragraph 2",
+                      })}
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "What should the person in this role accomplish?",
+                        id: "YADotx",
+                        description:
+                          "list item for job poster template key tasks section, paragraph 2",
+                      })}
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "What contributions will the successful candidate be expected to make?",
+                        id: "JSE20b",
+                        description:
+                          "list item for job poster template key tasks section, paragraph 2",
+                      })}
+                    </li>
+                  </Ul>
+                </div>
+                {/* <CareerDevelopmentSection
+                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
+                  careerDevelopmentOptionsQuery={options}
+                /> */}
+              </TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.TECHNICAL_SKILLS}>
+                <Heading
+                  level="h2"
+                  icon={BoltIcon}
+                  color="error"
+                  className="mx-0 mt-0 mb-6 font-normal"
+                  center={isSmallScreen}
+                >
+                  {intl.formatMessage(messages.technicalSkills)}
+                </Heading>
+                <div className="mb-7.5 flex flex-col gap-3">
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Now consider what technical skills this role might need. Aim to include skills that are commonly requested for this type of role or are industry standard. In total, a template should aim to provide 8 to 12 skill examples for the manager to select from, but keep in mind that they will be free to add or remove skills as needed. As you add skills, the counter in each section will help you keep track of your total.",
+                      id: "rcFCSd",
+                      description:
+                        "Lead-in text for job poster template technical skills section, paragraph 1",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You can add a special note if you need to add a generic skill that requires an instruction to guide the user of the template.",
+                      id: "mob3ow",
+                      description:
+                        "Lead-in text for job poster template technical skills section, paragraph 2",
+                    })}
+                  </p>
+                </div>
+                {/* <NextRoleSection
+                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
+                  optionsQuery={options}
+                /> */}
+              </TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.BEHAVIOURAL_SKILLS}>
+                <Heading
+                  level="h2"
+                  icon={BoltIcon}
+                  color="warning"
+                  className="mx-0 mt-0 mb-6 font-normal"
+                  center={isSmallScreen}
+                >
+                  {intl.formatMessage(messages.behaviouralSkills)}
+                </Heading>
+                <div className="mb-7.5 flex flex-col gap-3">
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "With technical skills chosen, let’s look at behavioural skills. Select examples of behavioural skills based on what a potential candidate would need to succeed in the role. Don’t forget, in total, a template should aim to provide 8 to 12 skills for a manager to choose from. As you add skills, the counter will help you keep track of your total.",
+                      id: "z7UQ5V",
+                      description:
+                        "Lead-in text for job poster template behavioural skills section, paragraph 1",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You can add a special note if you want to add a generic skill with additional instructions to guide the user of the template.",
+                      id: "B6VbYI",
+                      description:
+                        "Lead-in text for job poster template behavioural skills section, paragraph 2",
+                    })}
+                  </p>
+                </div>
+                {/* <CareerObjectiveSection
+                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
+                  optionsQuery={options}
+                /> */}
+              </TableOfContents.Section>
+            </div>
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </div>
+    </>
+  );
+};
+
+const UpdateJobPosterTemplatePage_Query = graphql(/** GraphQL */ `
+  query UpdateJobPosterTemplatePage($id: UUID!) {
+    jobPosterTemplate(id: $id) {
+      ...UpdateJobPosterTemplate
+    }
+    ...UpdateJobPosterTemplateOptions
+  }
+`);
+
+interface RouteParams extends Record<string, string> {
+  jobPosterTemplateId: Scalars["ID"]["output"];
+}
+
+const UpdateJobPosterTemplatePage = () => {
+  const intl = useIntl();
+  const { jobPosterTemplateId } = useRequiredParams<RouteParams>(
+    "jobPosterTemplateId",
+  );
+  const [{ data, fetching, error }] = useQuery({
+    query: UpdateJobPosterTemplatePage_Query,
+    variables: { id: jobPosterTemplateId },
+  });
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.jobPosterTemplate ? (
+        <UpdateJobPosterTemplate
+          jobPosterTemplateQuery={data.jobPosterTemplate}
+          optionsQuery={data}
+        />
+      ) : (
+        <ThrowNotFound message={intl.formatMessage(commonMessages.notFound)} />
+      )}
+    </Pending>
+  );
+};
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <UpdateJobPosterTemplatePage />
+  </RequireAuth>
+);
+
+Component.displayName = "UpdateJobPosterTemplatePage";

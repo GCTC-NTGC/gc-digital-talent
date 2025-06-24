@@ -1123,25 +1123,18 @@ const createRoute = (locale: Locales) =>
                         //   lazy: () =>
                         //     import("../pages/Departments/CreateDepartmentPage"),
                         // },
-                        // {
-                        //   path: ":departmentId",
-                        //   children: [
-                        //     {
-                        //       index: true,
-                        //       lazy: () =>
-                        //         import(
-                        //           "../pages/Departments/ViewDepartmentPage"
-                        //         ),
-                        //     },
-                        //     {
-                        //       path: "edit",
-                        //       lazy: () =>
-                        //         import(
-                        //           "../pages/Departments/UpdateDepartmentPage"
-                        //         ),
-                        //     },
-                        //   ],
-                        // },
+                        {
+                          path: ":jobPosterTemplateId",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/JobPosterTemplates/UpdateJobPosterTemplatePage/UpdateJobPosterTemplatePage"
+                                ),
+                            },
+                          ],
+                        },
                       ],
                     },
                   ],

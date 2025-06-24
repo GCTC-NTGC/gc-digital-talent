@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Chip, Link, Pending } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
   JobPosterTemplateTableRowFragment,
@@ -74,7 +74,7 @@ export const JobPosterTemplateTable = ({
       sortingFn: normalizedText,
       header: intl.formatMessage(labels.jobTitle),
       cell: ({ row: { original: template } }) => (
-        <Link href={paths.jobPosterTemplateView(template.id)}>
+        <Link href={paths.jobPosterTemplateUpdate(template.id)}>
           {getLocalizedName(template.name, intl)}
         </Link>
       ),
