@@ -9,9 +9,9 @@ const breakpoints: Record<Breakpoint, string> = {
   lg: "100rem",
 };
 
-export function useIsSmallScreen(threshold: Breakpoint): boolean;
-export function useIsSmallScreen(threshold: string): boolean;
-export function useIsSmallScreen(threshold: string): boolean {
+function useIsSmallScreen(threshold: Breakpoint): boolean;
+function useIsSmallScreen(threshold: string): boolean;
+function useIsSmallScreen(threshold: string): boolean {
   const value = breakpoints[threshold as Breakpoint] ?? threshold;
   const query = `(max-width: ${value})`;
 

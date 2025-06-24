@@ -4,14 +4,11 @@ import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import PresentationChartLineIcon from "@heroicons/react/20/solid/PresentationChartLineIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
+import { tv } from "tailwind-variants";
 
-const sharedIconStyling = {
-  "data-h2-height": "base(x.75)",
-  "data-h2-width": "base(x.75)",
-  "data-h2-display": "base(inline-block)",
-  "data-h2-vertical-align": "base(text-bottom)",
-  "data-h2-margin-right": "base(x.25)",
-};
+const iconStyles = tv({
+  base: "mr-1.5 inline-block size-4.5 align-text-bottom",
+});
 
 interface MetaDataJobInterestProps {
   jobInterest: boolean | null | undefined;
@@ -25,8 +22,7 @@ export const MetaDataJobInterest = ({
   const interestedWork = (
     <span>
       <BriefcaseIcon
-        data-h2-color="base(success) base:dark(success.lighter)"
-        {...sharedIconStyling}
+        className={iconStyles({ class: "text-success dark:text-success-200" })}
       />
       {intl.formatMessage({
         defaultMessage: "Interested in work",
@@ -38,8 +34,7 @@ export const MetaDataJobInterest = ({
   const notInterestedWork = (
     <span>
       <XCircleIcon
-        data-h2-color="base(black.lighter) base:dark(black.5)"
-        {...sharedIconStyling}
+        className={iconStyles({ class: "text-gray-600 dark:text-gray-200" })}
       />
       {intl.formatMessage({
         defaultMessage: "Not interested in work",
@@ -52,10 +47,9 @@ export const MetaDataJobInterest = ({
   const missingWork = (
     <span>
       <ExclamationTriangleIcon
-        data-h2-color="base(error) base:dark(error.lighter)"
-        {...sharedIconStyling}
+        className={iconStyles({ class: "text-error dark:text-error-200" })}
       />
-      <span data-h2-color="base(error.darker) base:dark(error.lightest)">
+      <span className="text-error dark:text-error-200">
         {intl.formatMessage({
           defaultMessage: "Missing work info",
           id: "mT1G4k",
@@ -84,8 +78,7 @@ export const MetaDataTrainingInterest = ({
   const interestedTraining = (
     <span>
       <PresentationChartLineIcon
-        data-h2-color="base(success) base:dark(success.lighter)"
-        {...sharedIconStyling}
+        className={iconStyles({ class: "text-success dark:text-success-200" })}
       />
       {intl.formatMessage({
         defaultMessage: "Interested in training",
@@ -98,8 +91,7 @@ export const MetaDataTrainingInterest = ({
   const notInterestedTraining = (
     <span>
       <XCircleIcon
-        data-h2-color="base(black.lighter) base:dark(black.5)"
-        {...sharedIconStyling}
+        className={iconStyles({ class: "text-gray-600 dark:text-gray-200" })}
       />
       {intl.formatMessage({
         defaultMessage: "Not interested in training",
@@ -112,10 +104,9 @@ export const MetaDataTrainingInterest = ({
   const missingTraining = (
     <span>
       <ExclamationTriangleIcon
-        data-h2-color="base(error) base:dark(error.lighter)"
-        {...sharedIconStyling}
+        className={iconStyles({ class: "text-error dark:text-error-200" })}
       />
-      <span data-h2-color="base(error.darker) base:dark(error.lightest)">
+      <span className="text-error dark:text-error-200">
         {intl.formatMessage({
           defaultMessage: "Missing training info",
           id: "zGma0A",

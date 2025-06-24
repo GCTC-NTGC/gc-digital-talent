@@ -15,7 +15,6 @@ import {
   Button,
   Card,
   CardSeparator,
-  Dialog,
   Heading,
   Link,
   Loading,
@@ -31,7 +30,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -511,64 +509,26 @@ export const Component = () => {
                           data-h2-align-items="base(center)"
                         />
                         <CardSeparator />
-                        <Dialog.Root>
-                          <Dialog.Trigger>
-                            <Button mode="text" data-h2-font-weight="base(700)">
-                              {intl.formatMessage(
-                                {
-                                  defaultMessage:
-                                    "Learn more and apply <hidden>for {trainingOpportunityTitle}</hidden>",
-                                  id: "4t9lEL",
-                                  description:
-                                    "Button label to open a training opportunities dialog",
-                                },
-                                {
-                                  trainingOpportunityTitle: localizedTitle,
-                                },
-                              )}
-                            </Button>
-                          </Dialog.Trigger>
-                          <Dialog.Content>
-                            <Dialog.Header>{localizedTitle}</Dialog.Header>
-                            <Dialog.Body>
-                              <RichTextRenderer
-                                node={htmlToRichTextJSON(
-                                  getLocalizedName(
-                                    trainingOpportunity.description,
-                                    intl,
-                                  ),
-                                )}
-                              />
-                              <Dialog.Footer>
-                                <Link
-                                  href={getLocalizedName(
-                                    trainingOpportunity.applicationUrl,
-                                    intl,
-                                  )}
-                                  newTab
-                                  color="primary"
-                                  mode="solid"
-                                >
-                                  {intl.formatMessage({
-                                    defaultMessage: "Apply now",
-                                    id: "PH68o/",
-                                    description:
-                                      "Label for apply now button in instructor led training",
-                                  })}
-                                </Link>
-                                <Dialog.Close>
-                                  <Button
-                                    mode="text"
-                                    color="warning"
-                                    data-h2-font-weight="base(700)"
-                                  >
-                                    {intl.formatMessage(commonMessages.cancel)}
-                                  </Button>
-                                </Dialog.Close>
-                              </Dialog.Footer>
-                            </Dialog.Body>
-                          </Dialog.Content>
-                        </Dialog.Root>
+
+                        <Link
+                          href={paths.instructorLedTrainingOpportunity(
+                            trainingOpportunity.id,
+                          )}
+                          data-h2-font-weight="base(700)"
+                        >
+                          {intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "Learn more and apply <hidden>for {trainingOpportunityTitle}</hidden>",
+                              id: "4t9lEL",
+                              description:
+                                "Button label to open a training opportunities dialog",
+                            },
+                            {
+                              trainingOpportunityTitle: localizedTitle,
+                            },
+                          )}
+                        </Link>
                       </Card>
                     );
                   })}

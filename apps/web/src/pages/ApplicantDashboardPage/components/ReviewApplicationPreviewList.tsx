@@ -199,8 +199,8 @@ const ReviewApplicationPreviewList = ({
             })}
         </PreviewList.Root>
       ) : (
-        <Well data-h2-text-align="base(center)">
-          <p data-h2-font-weight="base(bold)">
+        <Well className="text-center">
+          <p className="font-bold">
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active applications at the moment.",

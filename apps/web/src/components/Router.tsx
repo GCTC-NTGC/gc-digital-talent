@@ -582,10 +582,22 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "instructor-led-training",
-                  lazy: () =>
-                    import(
-                      "../pages/InstructorLedTrainingPage/InstructorLedTrainingPage"
-                    ),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/InstructorLedTrainingPage/InstructorLedTrainingPage"
+                        ),
+                    },
+                    {
+                      path: ":id",
+                      lazy: () =>
+                        import(
+                          "../pages/TrainingOpportunities/TrainingOpportunityPage"
+                        ),
+                    },
+                  ],
                 },
                 {
                   path: "certification-exam-vouchers",

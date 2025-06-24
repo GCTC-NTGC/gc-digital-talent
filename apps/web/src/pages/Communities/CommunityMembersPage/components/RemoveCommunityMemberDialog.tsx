@@ -147,7 +147,7 @@ const RemoveCommunityMemberDialog = forwardRef<
         <Dialog.Body>
           {user.roles.length ? (
             <>
-              <p data-h2-margin-bottom="base(x1)">
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "They will lose all of the following community roles",

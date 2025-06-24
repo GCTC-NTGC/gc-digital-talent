@@ -69,6 +69,20 @@ class EmployeeProfile extends Model
         'eligible_retirement_year' => 'date',
     ];
 
+    protected $fillable = [
+        'career_planning_exec_interest',
+        'career_planning_lateral_move_interest',
+        'career_planning_lateral_move_time_frame',
+        'career_planning_promotion_move_interest',
+        'career_planning_promotion_move_time_frame',
+        'career_planning_mentorship_status',
+        'career_planning_mentorship_interest',
+        'eligible_retirement_year_known',
+        'eligible_retirement_year',
+        'career_planning_exec_interest',
+        'career_planning_promotion_move_organization_type',
+    ];
+
     /** @return BelongsTo<Community, $this> */
     public function nextRoleCommunity(): BelongsTo
     {
