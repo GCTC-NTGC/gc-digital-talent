@@ -36,6 +36,27 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         $section = $this->doc->addSection();
         $section->addTitle($this->localizeHeading('application_snapshot'), 1);
+        $section->addText($this->localize('headings.application_snapshot_description'));
+        $process = $this->candidate->pool->name[$this->lang] ?? '';
+        $processNumber = $this->candidate->pool->process_number ?? '';
+        $receivedDate = $this->candidate->submitted_at?->format('F jS, Y, g:i A') ?? '';
+
+        // Get classification details from pool
+        $classification = $this->candidate->pool->classification ?? null;
+
+        if ($classification) {
+            $group = $classification['group'] ?? '';
+            $level = $classification['level'] ?? '';
+            $name = $classification['name'][$this->lang] ?? '';
+
+            $classificationString = sprintf('%s%s%s', $group, $level ? str_pad($level, 2, '0', STR_PAD_LEFT) : '', $name ? ' '.$name : '');
+        }
+
+        $this->addLabelText($section, $this->localize('headings.process'), sprintf('%s (%s)', $process, $classificationString));
+        $this->addLabelText($section, $this->localize('headings.process_number'), $processNumber);
+        $this->addLabelText($section, $this->localize('headings.date_received'), $receivedDate);
+
+        $section->addTitle($this->localizeHeading('application_name'), 2);
         $candidate = $this->candidate;
         $candidate->load([
             'educationRequirementAwardExperiences',
@@ -79,7 +100,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         });
 
         $skillDetails = $this->getSkillDetails($candidate->pool->poolSkills, $experiences, $snapshot['experiences']);
-
+        $section->addTitle($this->localize('common.skill_requirements'), 2);
         $section->addTitle($this->localize('common.essential_skills'), 3);
         if (isset($skillDetails[PoolSkillType::ESSENTIAL->name])) {
             $this->generateSkillsDetails($section, $skillDetails[PoolSkillType::ESSENTIAL->name]);

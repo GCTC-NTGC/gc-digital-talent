@@ -91,6 +91,8 @@ return [
     'career_planning_work_style' => 'How you work best',
     // Section headings
     'application_snapshot' => 'Application snapshot',
+    'application_snapshot_description' => 'This document captures the applicant\'s information at the time of submission. Any changes made to the applicant\'s information after submission will not be reflected here.',
+    'application_name' => 'Applicant name',
     'candidate_profiles' => 'Candidate profiles',
     'candidate_profile' => 'Candidate profile',
     'user_profile' => 'User profile',
@@ -122,5 +124,6 @@ return [
     'digital_talent_processes' => 'GC Digital Talent processes',
     'off_platform_processes' => 'Off-platform processes (not verified)',
     'process_number' => 'Process number',
-    'process_name' => 'Process name',
+    'process' => 'Process',
+    'date_received' => 'Date received',
 ];

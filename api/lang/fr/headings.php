@@ -42,7 +42,7 @@ return [
     'location_exemptions' => 'Exemptions de lieux',
     'contract_duration' => 'Préférence pour la durée de l\'emploi',
     'accept_temporary' => 'Accepter les temporaires',
-    'accepted_operational_requirements' => 'Exigences de poste acceptables : ',
+    'accepted_operational_requirements' => 'Exigences de poste acceptables',
     'rejected_operational_requirements' => 'N\'envisagerait pas d\'accepter un emploi qui : ',
     'woman' => 'Femme',
     'indigenous' => 'Autochtone',
@@ -93,6 +93,8 @@ return [
     'career_planning_work_style' => 'Comment vous travaillez le mieux',
     // Section headings
     'application_snapshot' => 'Capture d\'écran de la candidature',
+    'application_snapshot_description' => 'Le présent document ne contient que les renseignements fournis lors de la présentation du dossier de candidature. Toute modification apportée aux renseignements fournis après la présentation de ce dernier ne sera pas indiquée ici.',
+    'application_name' => 'Nom du candidat ou de la candidate',
     'candidate_profiles' => 'Profils des candidats',
     'candidate_profile' => 'Profil des candidat',
     'user_profile' => 'Profil de l\'utilisateur',
@@ -124,5 +126,6 @@ return [
     'digital_talent_processes' => 'Processus de Talents numériques du GC',
     'off_platform_processes' => 'Processus hors plateforme (non verifiés)',
     'process_number' => 'Numéro de processus',
-    'process_name' => 'Nom du processus',
+    'process' => 'Processus',
+    'date_received' => 'Date de réception',
 ];

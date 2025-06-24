@@ -316,6 +316,7 @@ trait GeneratesUserDoc
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
         }
 
         if ($type === EducationExperience::class) {
