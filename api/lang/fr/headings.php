@@ -51,6 +51,7 @@ return [
     'education_requirement' => 'Exigence d’études',
     'education_requirement_experiences' => 'Expériences relatives aux exigences pédagogiques',
     'skills' => 'Compétences',
+    'featured_skills' => 'Compétences mises en évidence',
     // new columns
     'career_planning_lateral_move_interest' => 'Intérêt pour la mutation latérale',
     'career_planning_lateral_move_time_frame' => 'Délai cible pour une mutation latérale',
