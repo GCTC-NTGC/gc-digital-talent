@@ -315,7 +315,7 @@ export const UpdateCommunity = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} overlap centered>
-        <div data-h2-margin-bottom="base(x3)">
+        <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.community ? (
               <CommunityForm
