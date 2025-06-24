@@ -55,7 +55,7 @@ const ActiveRecruitmentSection = ({
             "Description of how the application process works, paragraph one",
         })}
       </p>
-      <p>
+      <p className="mb-6">
         {intl.formatMessage({
           id: "vNFHWp",
           defaultMessage:
