@@ -11,6 +11,7 @@ return [
     'current_city' => 'Ville',
     'current_location' => 'Lieu actuel',
     'date_received' => 'Date de réception',
+    'date_format' => 'j F Y, G \h i',
     'expiry_date' => 'Date d\'expiration',
     'archival_date' => 'Date d\'archivage',
     'first_name' => 'Prénom',

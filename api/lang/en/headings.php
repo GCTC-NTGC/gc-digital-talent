@@ -11,6 +11,7 @@ return [
     'current_city' => 'City',
     'current_location' => 'Current location',
     'date_received' => 'Date received',
+    'date_format' => 'F jS, Y, g:i A',
     'expiry_date' => 'Expiry date',
     'archival_date' => 'Archival date',
     'first_name' => 'First name',

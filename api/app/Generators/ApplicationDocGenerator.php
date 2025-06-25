@@ -41,7 +41,9 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section->addText($this->localize('headings.application_snapshot_description'));
         $process = $this->candidate->pool->name[$this->lang] ?? '';
         $processNumber = $this->candidate->pool->process_number ?? '';
-        $receivedDate = $this->candidate->submitted_at?->format('F jS, Y, g:i A') ?? '';
+        $formattedDate = $this->candidate->submitted_at?->locale($this->lang)
+            ->translatedFormat(__('headings.date_format')) ?? '';
+        $receivedDate = $formattedDate;
 
         // Get classification details from pool
         $classification = $this->candidate->pool->classification ?? null;
