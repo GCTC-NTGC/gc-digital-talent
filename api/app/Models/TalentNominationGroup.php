@@ -178,10 +178,14 @@ class TalentNominationGroup extends Model
         );
     }
 
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
         /** @var \App\Models\User | null */
         $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
 
         if ($user?->isAbleTo('view-team-talentNominationGroup')) {
             $communities = $user->rolesTeams()
@@ -220,5 +224,14 @@ class TalentNominationGroup extends Model
                 return $communityInterest && $communityInterest->consent_to_share_profile;
             }
         );
+    }
+
+    public static function scopeIsVerifiedGovEmployee(Builder $query): Builder
+    {
+        $query->whereHas('nominee', function ($query) {
+            $query->whereIsVerifiedGovEmployee();
+        });
+
+        return $query;
     }
 }

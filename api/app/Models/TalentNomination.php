@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Observers\TalentNominationObserver;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -220,5 +222,45 @@ class TalentNomination extends Model
     public function isOwn(User $user)
     {
         return $this->submitter_id === $user->id;
+    }
+
+    // scope the query to TalentNominations the current user can view
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null)
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
+
+        if ($user?->isAbleTo('view-team-talentNomination')) {
+            $query->where(function (Builder $query) use ($user) {
+
+                $allTeam = $user->rolesTeams()->get();
+                $teamIds = $allTeam->filter(function ($team) use ($user) {
+                    return $user->isAbleTo('view-team-talentNomination', $team);
+                })->pluck('id');
+
+                $query->whereHas('talentNominationEvent.community.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+
+            });
+
+            return;
+        }
+
+        // fallback
+        return $query->where('id', null);
+    }
+
+    public static function scopeIsVerifiedGovEmployee(Builder $query): Builder
+    {
+        $query->whereHas('nominee', function ($query) {
+            $query->whereIsVerifiedGovEmployee();
+        });
+
+        return $query;
     }
 }
