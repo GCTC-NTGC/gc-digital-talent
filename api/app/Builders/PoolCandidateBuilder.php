@@ -563,6 +563,8 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
+    // main authorization scope for viewing PoolCandidateAdminView
+    // calls needed scoping functions
     public function whereAuthorizedToViewPoolCandidateAdminView(): self
     {
         /** @var \App\Models\User | null */
@@ -583,6 +585,7 @@ class PoolCandidateBuilder extends Builder
             ->andAuthorizedToViewStatus($user, $allRoleTeams);
     }
 
+    // represents the functionality of PoolCandidatePolicy::view()
     private function andAuthorizedToViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         $now = Carbon::now()->toDateTimeString();
@@ -615,6 +618,7 @@ class PoolCandidateBuilder extends Builder
 
     }
 
+    // represents the functionality of PoolPolicy::view()
     private function andAuthorizedToViewRelatedPool(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-pool')) {
@@ -645,6 +649,7 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
+    // represents the functionality of UserPolicy::view()
     private function andAuthorizedToViewRelatedUser(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-user')) {
@@ -679,6 +684,7 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
+    // represents the functionality of PoolCandidatePolicy::viewNotes()
     private function andAuthorizedToViewNotes(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-applicationAssessment')) {
@@ -707,6 +713,7 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
+    // represents the functionality of PoolCandidatePolicy::viewStatus()
     private function andAuthorizedToViewStatus(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-applicationStatus')) {
