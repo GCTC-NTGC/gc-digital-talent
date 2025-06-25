@@ -18,11 +18,14 @@ type CardVariants = VariantProps<typeof card>;
 
 export interface CardProps
   extends CardVariants,
-    ComponentPropsWithoutRef<"div"> {}
+    ComponentPropsWithoutRef<"div"> {
+  as?: "article" | "div";
+}
 
-const Card = ({ space = "md", className, ...rest }: CardProps) => (
-  <div className={card({ space, class: className })} {...rest} />
-);
+const Card = ({ as = "div", space = "md", className, ...rest }: CardProps) => {
+  const El = as;
+  return <El className={card({ space, class: className })} {...rest} />;
+};
 
 const CardSeparator = (props: ComponentPropsWithoutRef<"hr" | "div">) => (
   <div className="CardSeparator">
