@@ -119,23 +119,14 @@ const AdditionalInformation = ({
   } as const;
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1.25)"
-    >
+    <div className="flex flex-col gap-7.5">
       {/* heading and description */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <Heading
           level="h2"
-          data-h2-font-weight="base(400)"
           icon={ClipboardDocumentCheckIcon}
           color="secondary"
-          data-h2-margin="base(0)"
+          className="mt-0 font-normal"
         >
           {intl.formatMessage({
             defaultMessage: "Additional information",
@@ -153,11 +144,7 @@ const AdditionalInformation = ({
         </p>
       </div>
       {/* form */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         {/* Some fields only appear if the interest is for the finance community */}
         {selectedCommunityId === financeCommunityId ? (
           <>

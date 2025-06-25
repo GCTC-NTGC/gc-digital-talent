@@ -52,23 +52,14 @@ const ReviewAndSubmit = ({
     )?.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1.25)"
-    >
+    <div className="flex flex-col gap-7.5">
       {/* heading and description */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <Heading
           level="h2"
-          data-h2-font-weight="base(400)"
           icon={DocumentMagnifyingGlassIcon}
           color="secondary"
-          data-h2-margin="base(0)"
+          className="mt-0 font-normal"
         >
           {intl.formatMessage(pageTitles.reviewAndSubmit)}
         </Heading>
@@ -82,17 +73,12 @@ const ReviewAndSubmit = ({
         </p>
       </div>
       {/* consent form */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <Heading
           level="h3"
-          data-h2-font-weight="base(400)"
           size="h4"
           color="primary"
-          data-h2-margin="base(0)"
+          className="mt-0 font-normal"
         >
           {intl.formatMessage({
             defaultMessage: "Consent to share your information",
@@ -101,11 +87,7 @@ const ReviewAndSubmit = ({
           })}
         </Heading>
         {/* consent statement */}
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x0.5)"
-        >
+        <div className="flex flex-col gap-3">
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -150,11 +132,7 @@ const ReviewAndSubmit = ({
         />
       </div>
       {/* submit button */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(flex-end)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex justify-end gap-6">
         {actions}
         <Submit
           disabled={formDisabled}

@@ -11,6 +11,7 @@ import {
   Card,
   CardSeparator,
   Ul,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -67,30 +68,20 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
+      <Heading
+        level="h2"
+        color="secondary"
+        icon={IdentificationIcon}
+        className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
       >
-        <Heading
-          level="h2"
-          color="secondary"
-          icon={IdentificationIcon}
-          data-h2-margin="base(0, 0, x1.5, 0)"
-          data-h2-font-weight="base(400)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Department information",
-            id: "eNTKLK",
-            description: "Heading for the 'create a department' form",
-          })}
-        </Heading>
-      </div>
+        {intl.formatMessage({
+          defaultMessage: "Department information",
+          id: "eNTKLK",
+          description: "Heading for the 'create a department' form",
+        })}
+      </Heading>
       <Card>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
-          data-h2-gap="base(x1)"
-        >
+        <div className="grid gap-6 xs:grid-cols-2">
           <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
             {department.name.en}
           </FieldDisplay>
@@ -132,13 +123,10 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
           </FieldDisplay>
         </div>
         <CardSeparator />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-        >
+        <div className="flex justify-center xs:justify-start">
           <Link
             href={paths.departmentUpdate(department.id)}
-            data-h2-font-weight="base(bold)"
+            className="font-bold"
           >
             {intl.formatMessage({
               defaultMessage: "Edit department information",
@@ -220,31 +208,28 @@ const ViewDepartmentPage = () => {
         crumbs={navigationCrumbs}
         navTabs={navTabs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
-          <Pending fetching={fetching} error={error}>
-            {departmentData?.department ? (
-              <ViewDepartmentForm query={departmentData?.department} />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Department {departmentId} not found.",
-                      id: "8Otaw9",
-                      description:
-                        "Message displayed for department not found.",
-                    },
-                    { departmentId },
-                  )}
-                </p>
-              </NotFound>
-            )}
-          </Pending>
-        </div>
-      </div>
+      <Container className="my-18">
+        <Pending fetching={fetching} error={error}>
+          {departmentData?.department ? (
+            <ViewDepartmentForm query={departmentData?.department} />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Department {departmentId} not found.",
+                    id: "8Otaw9",
+                    description: "Message displayed for department not found.",
+                  },
+                  { departmentId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </Container>
     </>
   );
 };
