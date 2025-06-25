@@ -158,29 +158,20 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} centered overlap>
-        <div data-h2-margin-bottom="base(x3)">
+        <div className="mb-18">
           <Card>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-justify-content="base(center) p-tablet(flex-start)"
+            <Heading
+              level="h2"
+              color="secondary"
+              icon={IdentificationIcon}
+              center
+              className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
             >
-              <Heading
-                color="secondary"
-                size="h2"
-                data-h2-margin-top="base(0)"
-                icon={IdentificationIcon}
-              >
-                {intl.formatMessage(messages.skillFamilyInfo)}
-              </Heading>
-            </div>
+              {intl.formatMessage(messages.skillFamilyInfo)}
+            </Heading>
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div
-                  data-h2-display="base(grid)"
-                  data-h2-grid-template-columns="p-tablet(1fr 1fr)"
-                  data-h2-gap="base(x1)"
-                  data-h2-margin-bottom="base(x1)"
-                >
+                <div className="mb-6 grid grid-cols-1 gap-6 xs:grid-cols-2">
                   <Input
                     id="name_en"
                     name="name.en"
@@ -228,11 +219,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                     }}
                   />
                 </div>
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x1)"
-                >
+                <div className="grid flex-col gap-6">
                   <Combobox
                     id="skills"
                     name="skills"
@@ -275,13 +262,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                   />
                 </div>
                 <CardSeparator />
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x1)"
-                  data-h2-flex-direction="base(column) p-tablet(row)"
-                  data-h2-align-items="base(center)"
-                  data-h2-text-align="base(center) p-tablet(inherit)"
-                >
+                <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-inherit">
                   <Submit
                     text={intl.formatMessage({
                       defaultMessage: "Create skill family",

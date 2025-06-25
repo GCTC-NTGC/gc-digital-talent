@@ -245,119 +245,103 @@ export const UpdateSkillFamily = ({
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} centered overlap>
-        <Card data-h2-margin-bottom="base(x3)">
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
-          >
-            <Heading
-              color="secondary"
-              size="h2"
-              data-h2-margin-top="base(0)"
-              icon={IdentificationIcon}
-            >
-              {intl.formatMessage(messages.skillFamilyInfo)}
-            </Heading>
-          </div>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="p-tablet(1fr 1fr)"
-                data-h2-gap="base(x1)"
+        <div className="mb-18">
+          <Card>
+            <div className="flex justify-center xs:justify-start">
+              <Heading
+                color="secondary"
+                size="h2"
+                className="mt-0"
+                icon={IdentificationIcon}
               >
-                <Input
-                  id="name_en"
-                  name="name.en"
-                  autoComplete="off"
-                  label={intl.formatMessage(adminMessages.nameEn)}
-                  type="text"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <Input
-                  id="name_fr"
-                  name="name.fr"
-                  autoComplete="off"
-                  label={intl.formatMessage(adminMessages.nameFr)}
-                  type="text"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <TextArea
-                  id="description_en"
-                  name="description.en"
-                  label={intl.formatMessage({
-                    defaultMessage: "Description (English)",
-                    id: "luZnRG",
-                    description:
-                      "Label displayed on the create a skill family form description (English) field.",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <TextArea
-                  id="description_fr"
-                  name="description.fr"
-                  label={intl.formatMessage({
-                    defaultMessage: "Description (French)",
-                    id: "Q0gIlv",
-                    description:
-                      "Label displayed on the create a skill family form description (French) field.",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-              <div
-                data-h2-margin="base(x1, 0)"
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1)"
-              >
-                <Combobox
-                  id="skills"
-                  name="skills"
-                  isMulti
-                  label={intl.formatMessage(adminMessages.skills)}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Select one or more skills",
-                    id: "GhszAa",
-                    description:
-                      "Placeholder displayed on the skill family form skills field.",
-                  })}
-                  options={skillOptions}
-                />
+                {intl.formatMessage(messages.skillFamilyInfo)}
+              </Heading>
+            </div>
+            <FormProvider {...methods}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="grid grid-cols-1 flex-col gap-6 xs:grid-cols-2">
+                  <Input
+                    id="name_en"
+                    name="name.en"
+                    autoComplete="off"
+                    label={intl.formatMessage(adminMessages.nameEn)}
+                    type="text"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                  <Input
+                    id="name_fr"
+                    name="name.fr"
+                    autoComplete="off"
+                    label={intl.formatMessage(adminMessages.nameFr)}
+                    type="text"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                  <TextArea
+                    id="description_en"
+                    name="description.en"
+                    label={intl.formatMessage({
+                      defaultMessage: "Description (English)",
+                      id: "luZnRG",
+                      description:
+                        "Label displayed on the create a skill family form description (English) field.",
+                    })}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                  <TextArea
+                    id="description_fr"
+                    name="description.fr"
+                    label={intl.formatMessage({
+                      defaultMessage: "Description (French)",
+                      id: "Q0gIlv",
+                      description:
+                        "Label displayed on the create a skill family form description (French) field.",
+                    })}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </div>
+                <div className="my-6 flex flex-col gap-6">
+                  <Combobox
+                    id="skills"
+                    name="skills"
+                    isMulti
+                    label={intl.formatMessage(adminMessages.skills)}
+                    placeholder={intl.formatMessage({
+                      defaultMessage: "Select one or more skills",
+                      id: "GhszAa",
+                      description:
+                        "Placeholder displayed on the skill family form skills field.",
+                    })}
+                    options={skillOptions}
+                  />
 
-                <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
-                  {skillFamily.key ??
-                    intl.formatMessage(commonMessages.notProvided)}
-                </FieldDisplay>
-              </div>
-              <CardSeparator />
-              <div
-                data-h2-display="base(flex)"
-                data-h2-gap="base(x1)"
-                data-h2-flex-direction="base(column) p-tablet(row)"
-                data-h2-align-items="base(center)"
-                data-h2-text-align="base(center) p-tablet(inherit)"
-              >
-                <Submit text={intl.formatMessage(formMessages.saveChanges)} />
-                <Link
-                  color="warning"
-                  mode="inline"
-                  href={paths.skillFamilyView(skillFamily.id)}
-                >
-                  {intl.formatMessage(commonMessages.cancel)}
-                </Link>
-              </div>
-            </form>
-          </FormProvider>
-        </Card>
+                  <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+                    {skillFamily.key ??
+                      intl.formatMessage(commonMessages.notProvided)}
+                  </FieldDisplay>
+                </div>
+                <CardSeparator />
+                <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-inherit">
+                  <Submit text={intl.formatMessage(formMessages.saveChanges)} />
+                  <Link
+                    color="warning"
+                    mode="inline"
+                    href={paths.skillFamilyView(skillFamily.id)}
+                  >
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Link>
+                </div>
+              </form>
+            </FormProvider>
+          </Card>
+        </div>
       </Hero>
     </>
   );
