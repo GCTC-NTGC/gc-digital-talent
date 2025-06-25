@@ -158,11 +158,9 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->assertPaginatedResponse($guest, 0, []);
     }
 
-    public function testApplicantViewsOnlyOwn(): void
+    public function testApplicantViewsNoOne(): void
     {
-        $this->assertPaginatedResponse($this->applicant, 1, [
-            $this->applicantPoolCandidate->id,
-        ]);
+        $this->assertPaginatedResponse($this->applicant, 0, []);
     }
 
     public function testPlatformAdminViewsExpected(): void
