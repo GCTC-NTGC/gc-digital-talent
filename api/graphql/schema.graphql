@@ -1455,7 +1455,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["whereNotDraft", "whereSkillCount", "whereAuthorizedToView"]
+      scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
       model: "App\\Models\\PoolCandidate"
     )
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
