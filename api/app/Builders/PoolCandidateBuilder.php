@@ -576,14 +576,14 @@ class PoolCandidateBuilder extends Builder
         $allRoleTeams = $user->rolesTeams()->get();
 
         return $this
-            ->poolCandidateAdminViewCandidate($user, $allRoleTeams)
-            ->poolCandidateAdminViewPool($user, $allRoleTeams)
-            ->poolCandidateAdminViewUser($user, $allRoleTeams)
-            ->poolCandidateAdminViewNotes($user, $allRoleTeams)
-            ->poolCandidateAdminViewStatus($user, $allRoleTeams);
+            ->andAuthorizedToViewCandidate($user, $allRoleTeams)
+            ->andAuthorizedToViewRelatedPool($user, $allRoleTeams)
+            ->andAuthorizedToViewRelatedUser($user, $allRoleTeams)
+            ->andAuthorizedToViewNotes($user, $allRoleTeams)
+            ->andAuthorizedToViewStatus($user, $allRoleTeams);
     }
 
-    private function poolCandidateAdminViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         $now = Carbon::now()->toDateTimeString();
 
@@ -615,7 +615,7 @@ class PoolCandidateBuilder extends Builder
 
     }
 
-    private function poolCandidateAdminViewPool(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewRelatedPool(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-pool')) {
             return $this;
@@ -645,7 +645,7 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
-    private function poolCandidateAdminViewUser(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewRelatedUser(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-user')) {
             return $this;
@@ -679,7 +679,7 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
-    private function poolCandidateAdminViewNotes(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewNotes(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-applicationAssessment')) {
             return $this;
@@ -707,7 +707,7 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
-    private function poolCandidateAdminViewStatus(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewStatus(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-applicationStatus')) {
             return $this;
