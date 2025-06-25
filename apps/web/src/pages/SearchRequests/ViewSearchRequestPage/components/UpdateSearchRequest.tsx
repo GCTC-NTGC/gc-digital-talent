@@ -3,7 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
-import { Heading, Link, Loading } from "@gc-digital-talent/ui";
+import { Heading, Link, Loading, Separator } from "@gc-digital-talent/ui";
 import {
   Select,
   Submit,
@@ -135,126 +135,113 @@ const UpdateSearchRequestForm = ({
   const navigateTo = useReturnPath(paths.searchRequestTable());
 
   return (
-    <div>
-      <div
-        data-h2-border-bottom="base(1px solid black.2)"
-        data-h2-margin="base(0, 0, x3, 0)"
-        data-h2-padding="base(0, 0, x3, 0)"
-      >
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleSaveNotes)}>
-            <Heading level="h2" size="h4" className="mt-0">
-              {intl.formatMessage({
-                defaultMessage: "Notes about this request",
-                id: "peTSHR",
+    <>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(handleSaveNotes)}>
+          <Heading level="h2" size="h4" className="mt-0">
+            {intl.formatMessage({
+              defaultMessage: "Notes about this request",
+              id: "peTSHR",
+              description:
+                "Heading for the notes about this request section of the single search request view.",
+            })}
+          </Heading>
+          <p className="my-3">
+            {intl.formatMessage({
+              defaultMessage:
+                "These notes are only available here and will not be shared with the candidates.",
+              id: "t79/r1",
+              description:
+                "Description for the notes about this request section of the single search request view.",
+            })}
+          </p>
+          <TextArea
+            id="adminNotes"
+            name="adminNotes"
+            label={intl.formatMessage({
+              defaultMessage: "Request notes",
+              id: "Pe1kas",
+              description:
+                "Label displayed on the search request form request notes field.",
+            })}
+            rows={8}
+          />
+          <div className="text-right">
+            <Submit
+              disabled={isSaving}
+              isSubmitting={isSaving}
+              text={intl.formatMessage({
+                defaultMessage: "Save notes",
+                id: "fzuAHN",
                 description:
-                  "Heading for the notes about this request section of the single search request view.",
+                  "Button label displayed on the search request form which saves the users personal notes.",
               })}
-            </Heading>
-            <p data-h2-padding="base(x.5, 0, x.5, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "These notes are only available here and will not be shared with the candidates.",
-                id: "t79/r1",
+              submittedText={intl.formatMessage({
+                defaultMessage: "Save notes",
+                id: "fzuAHN",
                 description:
-                  "Description for the notes about this request section of the single search request view.",
+                  "Button label displayed on the search request form which saves the users personal notes.",
               })}
-            </p>
-            <TextArea
-              id="adminNotes"
-              name="adminNotes"
-              label={intl.formatMessage({
-                defaultMessage: "Request notes",
-                id: "Pe1kas",
-                description:
-                  "Label displayed on the search request form request notes field.",
-              })}
-              rows={8}
             />
-            <div data-h2-text-align="base(right)">
+          </div>
+        </form>
+      </FormProvider>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(handleSaveStatus)}>
+          <Heading level="h2" size="h4">
+            {intl.formatMessage(commonMessages.status)}
+          </Heading>
+          <p className="my-3">
+            {intl.formatMessage({
+              defaultMessage:
+                "Track the progress of this request by setting the right status.",
+              id: "YIt7Su",
+              description: "Text describing the input to change request status",
+            })}
+          </p>
+          <div className="max-w-160">
+            <Select
+              id="status"
+              name="status"
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+              label={intl.formatMessage(commonMessages.status)}
+              options={localizedEnumToOptions(
+                sortPoolCandidateSearchStatus(statuses),
+                intl,
+              )}
+              doNotSort
+            />
+            <div className="mt-3 text-right">
               <Submit
                 disabled={isSaving}
                 isSubmitting={isSaving}
                 text={intl.formatMessage({
-                  defaultMessage: "Save notes",
-                  id: "fzuAHN",
+                  defaultMessage: "Save status change",
+                  id: "B6SqfX",
                   description:
-                    "Button label displayed on the search request form which saves the users personal notes.",
+                    "Button label displayed that saves the users status selection.",
                 })}
                 submittedText={intl.formatMessage({
-                  defaultMessage: "Save notes",
-                  id: "fzuAHN",
+                  defaultMessage: "Save status change",
+                  id: "B6SqfX",
                   description:
-                    "Button label displayed on the search request form which saves the users personal notes.",
+                    "Button label displayed that saves the users status selection.",
                 })}
               />
             </div>
-          </form>
-        </FormProvider>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleSaveStatus)}>
-            <Heading level="h2" size="h4">
-              {intl.formatMessage(commonMessages.status)}
-            </Heading>
-            <p data-h2-padding="base(x.5, 0, x.5, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Track the progress of this request by setting the right status.",
-                id: "YIt7Su",
-                description:
-                  "Text describing the input to change request status",
-              })}
-            </p>
-            <div data-h2-max-width="base(40rem)">
-              <Select
-                id="status"
-                name="status"
-                nullSelection={intl.formatMessage(
-                  uiMessages.nullSelectionOption,
-                )}
-                label={intl.formatMessage(commonMessages.status)}
-                options={localizedEnumToOptions(
-                  sortPoolCandidateSearchStatus(statuses),
-                  intl,
-                )}
-                doNotSort
-              />
-              <div
-                data-h2-text-align="base(right)"
-                data-h2-padding-top="base(x.5)"
-              >
-                <Submit
-                  disabled={isSaving}
-                  isSubmitting={isSaving}
-                  text={intl.formatMessage({
-                    defaultMessage: "Save status change",
-                    id: "B6SqfX",
-                    description:
-                      "Button label displayed that saves the users status selection.",
-                  })}
-                  submittedText={intl.formatMessage({
-                    defaultMessage: "Save status change",
-                    id: "B6SqfX",
-                    description:
-                      "Button label displayed that saves the users status selection.",
-                  })}
-                />
-              </div>
-            </div>
-          </form>
-        </FormProvider>
-      </div>
-      <div>
-        <Link href={navigateTo} mode="inline" color="warning">
-          {intl.formatMessage({
-            defaultMessage: "Back to requests",
-            id: "O8nHiQ",
-            description:
-              "Button label displayed on the search request form which returns the user back to requests.",
-          })}
-        </Link>
-      </div>
-    </div>
+          </div>
+        </form>
+      </FormProvider>
+      <Separator />
+      <Link href={navigateTo} mode="inline" color="warning">
+        {intl.formatMessage({
+          defaultMessage: "Back to requests",
+          id: "O8nHiQ",
+          description:
+            "Button label displayed on the search request form which returns the user back to requests.",
+        })}
+      </Link>
+    </>
   );
 };
 
