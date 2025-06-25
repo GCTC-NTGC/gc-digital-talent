@@ -3,7 +3,12 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
 
-import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Container,
+  Pending,
+  TableOfContents,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -103,9 +108,9 @@ const AccountSettingsPage = () => {
             subtitle={formattedSubTitle}
             crumbs={crumbs}
           />
-          <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+          <Container className="my-18">
             <TableOfContents.Wrapper>
-              <TableOfContents.Navigation data-h2-padding-top="base(x3)">
+              <TableOfContents.Navigation>
                 <TableOfContents.List>
                   {Object.values(sections).map((section) => {
                     return (
@@ -121,17 +126,17 @@ const AccountSettingsPage = () => {
               <TableOfContents.Content>
                 <TableOfContents.Section
                   id={sections.accountManagement.id}
-                  data-h2-margin-top="base(x2) p-tablet(x3)"
+                  className="mt-12 xs:mt-18"
                 >
                   <TableOfContents.Heading
                     size="h3"
                     icon={Cog8ToothIcon}
                     color="primary"
-                    data-h2-margin="base(0, 0, x1, 0)"
+                    className="mt-0 mb-6"
                   >
                     {sections.accountManagement.title}
                   </TableOfContents.Heading>
-                  <p data-h2-margin="base(0, 0, x1, 0)">
+                  <p className="mb-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "This section focuses on general account management and information related to how we link to your GCKey.",
@@ -144,17 +149,17 @@ const AccountSettingsPage = () => {
                 </TableOfContents.Section>
                 <TableOfContents.Section
                   id={sections.notificationSettings.id}
-                  data-h2-margin-top="base(x2) p-tablet(x3)"
+                  className="mt-12 xs:mt-18"
                 >
                   <TableOfContents.Heading
                     size="h3"
                     icon={Cog8ToothIcon}
                     color="secondary"
-                    data-h2-margin="base(0, 0, x1, 0)"
+                    className="mt-0 mb-6"
                   >
                     {sections.notificationSettings.title}
                   </TableOfContents.Heading>
-                  <p data-h2-margin="base(0, 0, x1, 0)">
+                  <p className="mb-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "The settings provided in this section allow you to control the types of notifications you receive and where they are delivered. Email notifications are delivered to the contact email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu.",
@@ -170,7 +175,7 @@ const AccountSettingsPage = () => {
                 </TableOfContents.Section>
               </TableOfContents.Content>
             </TableOfContents.Wrapper>
-          </div>
+          </Container>
         </>
       ) : (
         <ThrowNotFound
