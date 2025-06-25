@@ -89,24 +89,13 @@ const MoreActions = ({
   const [{ data, fetching }] = useQuery({ query: MoreActions_Query });
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5)"
-      data-h2-margin-bottom="base(x.5)"
-    >
-      <Card
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-justify-content="base(center)"
-        data-h2-gap="base(x.5)"
-        data-h2-padding="base(x.5)"
-      >
+    <div className="mb-3 flex flex-col gap-3">
+      <Card space="xs" className="flex flex-col justify-center gap-3">
         <CandidateNavigation
           candidateId={poolCandidate.id}
           candidateName={candidateName}
         />
-        <Separator orientation="horizontal" data-h2-margin="base(x.5, 0)" />
+        <Separator space="xs" orientation="horizontal" />
         {fetching ? (
           <Loading inline />
         ) : (
@@ -172,13 +161,8 @@ const MoreActions = ({
           </>
         )}
       </Card>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-text-align="base(center)"
-        data-h2-gap="base(x.5)"
-      >
-        <Card data-h2-flex="base(1)" data-h2-padding="base(x.5)">
+      <div className="flex flex-wrap gap-3 text-center">
+        <Card className="flex-1" space="xs">
           <Link
             href={paths.userProfile(poolCandidate.user.id)}
             icon={UserCircleIcon}
@@ -194,7 +178,7 @@ const MoreActions = ({
           </Link>
         </Card>
         {parsedSnapshot && (
-          <Card data-h2-flex="base(1)" data-h2-padding="base(x.5)">
+          <Card className="flex-1" space="xs">
             <DownloadButton
               id={poolCandidate.id}
               userId={poolCandidate.user.id}

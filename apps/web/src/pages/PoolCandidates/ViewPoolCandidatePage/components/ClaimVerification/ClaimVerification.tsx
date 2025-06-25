@@ -59,7 +59,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
           description: "Heading for additional information",
         })}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "Review the provided information to ensure it's accurate and up-to-date.",
