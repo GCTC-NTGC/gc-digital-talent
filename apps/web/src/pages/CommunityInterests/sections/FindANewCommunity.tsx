@@ -143,34 +143,21 @@ const FindANewCommunity = ({
   }
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1.25)"
-    >
+    <div className="flex flex-col gap-7.5">
       {/* heading and description */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <Heading
           level="h2"
-          data-h2-font-weight="base(400)"
           icon={UserGroupIcon}
           color="secondary"
-          data-h2-margin="base(0)"
+          className="mt-0 font-normal"
         >
           {intl.formatMessage(heading)}
         </Heading>
         <p>{intl.formatMessage(description)}</p>
       </div>
       {/* form */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         {/* The user only gets to pick the community if they are creating a new interest. */}
         {mode === "create" && (
           <Select
@@ -281,11 +268,7 @@ const FindANewCommunity = ({
             />
             {/* work stream section */}
             {workStreamOptions.length ? (
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x0.5)"
-              >
+              <div className="flex flex-col gap-3">
                 <span id={workStreamListDescription}>
                   {intl.formatMessage({
                     defaultMessage:
@@ -318,7 +301,7 @@ const FindANewCommunity = ({
           </>
         ) : (
           // no community selected
-          <Well data-h2-text-align="base(center)">
+          <Well className="text-center">
             {intl.formatMessage({
               defaultMessage:
                 "Please select a functional community to continue.",
