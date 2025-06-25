@@ -125,4 +125,6 @@ return [
     'off_platform_processes' => 'Processus hors plateforme (non verifiés)',
     'process_number' => 'Numéro de processus',
     'process_name' => 'Nom du processus',
+    'nominators' => 'Auteur(trice)s de mise en candidature',
+    'options' => 'Options',
 ];

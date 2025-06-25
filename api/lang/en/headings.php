@@ -123,4 +123,6 @@ return [
     'off_platform_processes' => 'Off-platform processes (not verified)',
     'process_number' => 'Process number',
     'process_name' => 'Process name',
+    'nominators' => 'Nominators',
+    'options' => 'Options',
 ];
