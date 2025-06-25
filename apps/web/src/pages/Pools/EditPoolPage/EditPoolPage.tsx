@@ -32,7 +32,6 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import {
   hasEmptyRequiredFields as poolNameError,
   isInNullState as educationRequirementIsNull,
