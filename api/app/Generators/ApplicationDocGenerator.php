@@ -183,7 +183,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 });
 
                 return [
-                    'title' => $experience['experience']->getTitle(),
+                    'title' => $experience['experience']->getTitle($this->lang),
                     'details' => $skill['details'] ?? '',
                 ];
             }, $experiencesWithDetails);
