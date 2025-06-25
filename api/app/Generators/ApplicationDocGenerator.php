@@ -92,8 +92,20 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 }
             }
         }
-        $experiences = Experience::hydrateSnapshot($snapshotExperiences);
-
+        // $experiences = Experience::hydrateSnapshot($snapshotExperiences);
+        $experienceTypeOrder = [
+            'community_experience',
+            'education_experience',
+            'work_experience',
+            'personal_experience',
+            'award_experience',
+        ];
+        $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
+            ->groupBy(fn ($exp) => $exp->getMorphClass())
+            ->sortBy(fn ($_, $type) => array_search($type, $experienceTypeOrder))
+            ->flatMap(fn ($group) => $group->sortByDesc('start_date'))
+            ->values()
+            ->all();
         $section->addTitle($user->getFullName(), 2);
 
         $section->addTitle($this->localizeHeading('education_requirement'), 3);
