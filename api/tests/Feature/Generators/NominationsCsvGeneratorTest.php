@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Generators\CommunityInterestUserCsvGenerator;
 use App\Generators\NominationsCsvGenerator;
 use App\Models\Community;
 use App\Models\CommunityInterest;
-use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
