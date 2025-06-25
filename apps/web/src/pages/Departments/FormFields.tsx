@@ -39,11 +39,7 @@ const FormFields = ({ optionsQuery }: FormFieldsProps) => {
   const options = getFragment(DepartmentFormOptions_Fragment, optionsQuery);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-      data-h2-gap="base(x1)"
-    >
+    <div className="grid gap-6 xs:grid-cols-2">
       <Input
         id="name_en"
         name="name.en"
@@ -84,7 +80,7 @@ const FormFields = ({ optionsQuery }: FormFieldsProps) => {
         }}
         min="0"
       />
-      <div data-h2-grid-column="p-tablet(span 2)">
+      <div className="xs:col-span-2">
         <Checklist
           idPrefix="departmentType"
           id="departmentType"

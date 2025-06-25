@@ -7,7 +7,7 @@ const StepDisabledPage = ({ returnUrl }: { returnUrl: string | undefined }) => {
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)">
+      <Heading className="mt-0">
         {intl.formatMessage({
           id: "9vQj8o",
           defaultMessage: "Uh oh, it looks like you jumped ahead!",

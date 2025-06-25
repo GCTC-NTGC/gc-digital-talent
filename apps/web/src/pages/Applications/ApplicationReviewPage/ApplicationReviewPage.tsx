@@ -174,15 +174,11 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
   const classificationGroup = application.pool.classification?.group;
   return (
     <section>
-      <Heading
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-font-weight="base(400)"
-        size="h3"
-      >
+      <Heading className="mt-0 mb-6 font-normal" size="h3">
         {pageInfo.title}
       </Heading>
-      <div data-h2-margin-bottom="base(x2)">
-        <p data-h2-margin="base(x1, 0, x.5, 0)">
+      <div className="mb-12">
+        <p className="mt-6 mb-3">
           {intl.formatMessage({
             defaultMessage:
               "Before continuing, it’s important that you understand the following notes about your application:",
@@ -241,7 +237,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             "Edit link text for career timeline section of the application review page.",
         })}
       >
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "This section summarizes your career timeline as it will be seen by hiring managers for these positions.",
@@ -250,11 +246,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               "Blurb for career timeline section of the application review page.",
           })}
         </p>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(100%)"
-          data-h2-gap="base(x.5)"
-        >
+        <div className="flex flex-col gap-y-3">
           {hasSomeExperience ? (
             experiences.map((experience) => (
               <ExperienceCard
@@ -266,8 +258,8 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               />
             ))
           ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
+            <Well className="text-center">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't added any experiences to your career timeline yet.",
@@ -294,7 +286,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             "Edit link text for education requirements section of the application review page.",
         })}
       >
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {classificationGroup === "EX"
             ? intl.formatMessage({
                 defaultMessage:
@@ -311,11 +303,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                   "Message on education requirements card on the application review page.",
               })}
         </p>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(100%)"
-          data-h2-gap="base(x.5)"
-        >
+        <div className="flex flex-col gap-y-3">
           {educationRequirementExperiences?.length > 0 ? (
             educationRequirementExperiences.map((experience) => (
               <ExperienceCard
@@ -330,8 +318,8 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             <div>
               {application.educationRequirementOption === null ||
               application.educationRequirementOption === undefined ? (
-                <Well>
-                  <p data-h2-text-align="base(center)">
+                <Well className="text-center">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "It looks like you haven't selected an education requirement yet.",
@@ -342,8 +330,8 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                   </p>
                 </Well>
               ) : (
-                <Well>
-                  <p data-h2-text-align="base(center)">
+                <Well className="text-center">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "It looks like you haven't added any experiences to your career timeline yet.",
@@ -372,7 +360,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             "Edit link text for skill requirements section of the application review page.",
         })}
       >
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "This section outlines your responses on how your experience meets the skill requirements for these positions.",
@@ -409,7 +397,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         >
           {screeningQuestionResponses.length > 0 ? (
             <div>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+              <p className="mt-6 mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "You’ve answered the following screening questions:",
@@ -421,10 +409,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <Ul space="lg">
                 {screeningQuestionResponses.map((response) => (
                   <li key={response.id}>
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.25)"
-                    >
+                    <p className="mb-1.5 font-bold">
                       {response.screeningQuestion?.question
                         ? response.screeningQuestion.question[locale]
                         : ""}
@@ -435,8 +420,8 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               </Ul>
             </div>
           ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
+            <Well className="text-center">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't answered any screening questions yet.",
@@ -462,7 +447,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         >
           {generalQuestionResponses.length > 0 ? (
             <div>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+              <p className="mt-6 mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "You've answered the following general questions:",
@@ -474,10 +459,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <Ul space="lg">
                 {generalQuestionResponses.map((response) => (
                   <li key={response.id}>
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.25)"
-                    >
+                    <p className="mb-1.5 font-bold">
                       {response.generalQuestion?.question
                         ? response.generalQuestion.question[locale]
                         : ""}
@@ -488,8 +470,8 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               </Ul>
             </div>
           ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
+            <Well className="text-center">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't answered any general questions yet.",
@@ -503,13 +485,8 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         </ReviewSection>
       )}
 
-      <section data-h2-margin="base(x3, 0, 0, 0)">
-        <Heading
-          level="h3"
-          size="h4"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(0, 0, x1, 0)"
-        >
+      <section className="mt-18">
+        <Heading level="h3" size="h4" className="mt-0 mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "Sign and submit",
             id: "fhgZRX",
@@ -520,7 +497,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         <div>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+              <p className="mt-6 mb-3">
                 {intl.formatMessage({
                   defaultMessage: `You made it! By signing your name, you confirm that:`,
                   id: "pH8wF2",
@@ -557,7 +534,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                   </p>
                 </li>
               </Ul>
-              <div data-h2-margin="base(x1 0)">
+              <div className="my-6">
                 <Input
                   id="signature"
                   label={intl.formatMessage({
@@ -573,13 +550,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                   }}
                 />
               </div>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-gap="base(x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-flex-direction="base(column) l-tablet(row)"
-                data-h2-align-items="base(flex-start) l-tablet(center)"
-              >
+              <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
                 <Button
                   type="submit"
                   color="primary"

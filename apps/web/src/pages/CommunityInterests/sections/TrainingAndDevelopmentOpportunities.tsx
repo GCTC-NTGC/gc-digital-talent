@@ -95,23 +95,14 @@ const TrainingAndDevelopmentOpportunities = ({
   });
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1.25)"
-    >
+    <div className="flex flex-col gap-7.5">
       {/* heading and description */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <Heading
           level="h2"
-          data-h2-font-weight="base(400)"
           icon={RectangleGroupIcon}
           color="secondary"
-          data-h2-margin="base(0)"
+          className="mt-0 font-normal"
         >
           {intl.formatMessage({
             defaultMessage: "Training and development opportunities",
@@ -131,26 +122,12 @@ const TrainingAndDevelopmentOpportunities = ({
         </p>
       </div>
       {/* list of programs */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1.5)"
-      >
+      <div className="flex flex-col gap-9">
         {developmentPrograms.map((developmentProgram, index) => (
-          <div
-            key={developmentProgram.id}
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1)"
-          >
+          <div key={developmentProgram.id} className="flex flex-col gap-6">
             {/* titles */}
             <div>
-              <Heading
-                level="h3"
-                size="h6"
-                data-h2-font-weight="base(bold)"
-                data-h2-margin="base(0)"
-              >
+              <Heading level="h3" size="h6" className="m-0 font-bold">
                 {developmentProgram.name?.localized ??
                   intl.formatMessage(commonMessages.notProvided)}
               </Heading>
@@ -161,11 +138,7 @@ const TrainingAndDevelopmentOpportunities = ({
             </div>
             {/* classification list */}
             {developmentProgram?.eligibleClassifications?.length ? (
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(row)"
-                data-h2-gap="base(x0.25)"
-              >
+              <div className="flex gap-1.5">
                 <span>
                   {intl.formatMessage({
                     defaultMessage: "Available to",
