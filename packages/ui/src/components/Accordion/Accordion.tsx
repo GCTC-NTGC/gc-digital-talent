@@ -53,11 +53,11 @@ const AccordionVariantContext = createContext<AccordionVariants>({
 type RootProps = AccordionVariants & RootPrimitiveProps;
 
 const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
-  ({ mode = "simple", size = "md", ...rest }, forwardedRef) => (
+  ({ mode = "simple", size = "md", className, ...rest }, forwardedRef) => (
     <AccordionVariantContext.Provider value={{ mode, size }}>
       <AccordionPrimitive.Root
         ref={forwardedRef}
-        className={root({ mode })}
+        className={root({ mode, class: className })}
         {...rest}
       />
     </AccordionVariantContext.Provider>

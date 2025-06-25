@@ -107,11 +107,7 @@ const TalentManagementTaskCard = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <TaskCard.Root
           icon={Cog8ToothIcon}
           title={intl.formatMessage({
@@ -123,10 +119,7 @@ const TalentManagementTaskCard = ({
           headingAs="h2"
         >
           <TaskCard.Item>
-            <Accordion.Root
-              type="multiple"
-              data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
-            >
+            <Accordion.Root type="multiple">
               <Accordion.Item value="your_talent_nominations">
                 <Accordion.Trigger
                   as="h3"
@@ -150,12 +143,7 @@ const TalentManagementTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={talentNominationMetaData} />
                 <Accordion.Content>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x1)"
-                    data-h2-padding-top="base(x.5)"
-                  >
+                  <div className="mt-3 flex flex-col gap-6">
                     {sortedNominations.length ? (
                       <PreviewList.Root>
                         {sortedNominations.map((talentNominationItem) => (
@@ -171,7 +159,7 @@ const TalentManagementTaskCard = ({
                         ))}
                       </PreviewList.Root>
                     ) : (
-                      <Well data-h2-text-align="base(center)">
+                      <Well className="text-center">
                         <p>
                           {intl.formatMessage({
                             defaultMessage:

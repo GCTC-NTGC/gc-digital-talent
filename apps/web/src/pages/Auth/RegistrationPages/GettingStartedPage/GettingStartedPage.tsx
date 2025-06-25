@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "urql";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useFormContext } from "react-hook-form";
 
-import { Button, Heading, Pending, Well } from "@gc-digital-talent/ui";
+import { Button, Card, Heading, Pending, Well } from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Checkbox,
@@ -77,32 +77,28 @@ export const GettingStartedFormFields = ({
   const result = getFragment(GettingStarted_QueryFragment, query);
 
   return (
-    <div>
-      <div data-h2-display="base(flex)" data-h2-margin="base(0, 0, x1, 0)">
-        <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
-          <Input
-            id="firstName"
-            name="firstName"
-            type="text"
-            label={labels.firstName}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        </div>
-        <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
-          <Input
-            id="lastName"
-            name="lastName"
-            type="text"
-            label={labels.lastName}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        </div>
+    <>
+      <div className="mb-6 grid gap-6 xs:grid-cols-2">
+        <Input
+          id="firstName"
+          name="firstName"
+          type="text"
+          label={labels.firstName}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+        <Input
+          id="lastName"
+          name="lastName"
+          type="text"
+          label={labels.lastName}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
       </div>
-      <div data-h2-margin="base(0, 0, x1, 0)">
+      <div className="mb-6">
         <RadioGroup
           idPrefix="required-lang-preferences"
           legend={labels.preferredLang}
@@ -115,7 +111,7 @@ export const GettingStartedFormFields = ({
           defaultSelected={Language.En}
         />
       </div>
-      <div data-h2-margin="base(0, 0, x0.25, 0)">
+      <div className="mb-1.5">
         <Input
           id="email"
           type="email"
@@ -126,7 +122,7 @@ export const GettingStartedFormFields = ({
           }}
         />
       </div>
-      <div data-h2-margin="base(0, 0, x1, 0)">
+      <div className="mb-6">
         <Well>
           <p>
             {intl.formatMessage({
@@ -148,7 +144,7 @@ export const GettingStartedFormFields = ({
           </p>
         </Well>
       </div>
-      <div data-h2-margin="base(0, 0, x0.25, 0)">
+      <div className="mb-1.5">
         <Checkbox
           id="emailConsent"
           name="emailConsent"
@@ -162,7 +158,7 @@ export const GettingStartedFormFields = ({
           })}
         />
       </div>
-      <div data-h2-margin="base(0, 0, x1, 0)">
+      <div className="mb-6">
         <Well>
           {intl.formatMessage({
             defaultMessage:
@@ -173,13 +169,7 @@ export const GettingStartedFormFields = ({
           })}
         </Well>
       </div>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x.25, x.5)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
-      >
+      <div className="flex flex-col flex-wrap items-start gap-x-3 gap-y-1.5 sm:flex-row sm:items-center">
         <Button
           mode="solid"
           color="primary"
@@ -208,7 +198,7 @@ export const GettingStartedFormFields = ({
           })}
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -292,13 +282,8 @@ export const GettingStartedForm = ({
         crumbs={crumbs}
         overlap
       >
-        <section data-h2-padding="base(0, 0, x3, 0)">
-          <div
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(rounded)"
-            data-h2-padding="base(x1) p-tablet(x2)"
-            data-h2-shadow="base(large)"
-          >
+        <section className="mb-18">
+          <Card className="xs:p-12">
             <BasicForm
               onSubmit={onSubmit}
               cacheKey={cacheKey}
@@ -314,12 +299,11 @@ export const GettingStartedForm = ({
                 size="h3"
                 icon={FlagIcon}
                 color="secondary"
-                data-h2-font-weight="base(400)"
-                data-h2-margin="base(0, 0, x1, 0)"
+                className="mt-0 mb-6 font-normal"
               >
                 {intl.formatMessage(specificTitle)}
               </Heading>
-              <p data-h2-padding="base(0, 0, x1, 0)">
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Before we take you to your profile, we need to collect some required information to complete your account set up.",
@@ -330,7 +314,7 @@ export const GettingStartedForm = ({
               </p>
               <GettingStartedFormFields labels={labels} query={query} />
             </BasicForm>
-          </div>
+          </Card>
         </section>
       </Hero>
     </>
