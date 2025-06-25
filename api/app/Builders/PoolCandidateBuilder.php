@@ -562,4 +562,176 @@ class PoolCandidateBuilder extends Builder
         // fall through - query will return nothing
         return $this->where('id', null);
     }
+
+    public function whereAuthorizedToViewPoolCandidateAdminView(): self
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $this->where('id', null);
+        }
+
+        // fetch all roleTeam relations in one place then reuse
+        $allRoleTeams = $user->rolesTeams()->get();
+
+        return $this
+            ->poolCandidateAdminViewCandidate($user, $allRoleTeams)
+            ->poolCandidateAdminViewPool($user, $allRoleTeams)
+            ->poolCandidateAdminViewUser($user, $allRoleTeams)
+            ->poolCandidateAdminViewNotes($user, $allRoleTeams)
+            ->poolCandidateAdminViewStatus($user, $allRoleTeams);
+    }
+
+    private function poolCandidateAdminViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        $now = Carbon::now()->toDateTimeString();
+
+        if ($user->isAbleTo('view-any-submittedApplication')) {
+            return $this->where('submitted_at', '<=', $now);
+        }
+
+        if ($user->isAbleTo('view-team-submittedApplication')) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-draftPool', $team);
+            })->pluck('id');
+
+            return $this->where(function (Builder $query) use ($teamIds, $now) {
+                $query->where('submitted_at', '<=', $now)
+                    ->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
+                        return $poolQuery->where(function (Builder $poolQuery) use ($teamIds) {
+                            $poolQuery->orWhereHas('team', function (Builder $poolQuery) use ($teamIds) {
+                                return $poolQuery->whereIn('id', $teamIds);
+                            })->orWhereHas('community.team', function (Builder $poolQuery) use ($teamIds) {
+                                return $poolQuery->whereIn('id', $teamIds);
+                            });
+                        });
+                    });
+            });
+        }
+
+        // fall through
+        return $this->where('id', null);
+
+    }
+
+    private function poolCandidateAdminViewPool(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-pool')) {
+            return $this;
+        }
+
+        if ($user->isAbleTo('view-team-draftPool')) {
+            $now = Carbon::now()->toDateTimeString();
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-draftPool', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($now, $teamIds) {
+                $poolQuery->orWhere('published_at', '<=', $now);
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+        }
+
+        // fall through
+        return $this->where('id', null);
+    }
+
+    private function poolCandidateAdminViewUser(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-user')) {
+            return $this;
+        }
+
+        if (
+            $user->isAbleTo('view-team-applicantProfile') ||
+            $user->isAbleTo('view-team-communityTalent')
+        ) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return
+                $user->isAbleTo('view-team-applicantProfile', $team) ||
+                $user->isAbleTo('view-team-communityTalent', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+
+        }
+
+        // fall through
+        return $this->where('id', null);
+    }
+
+    private function poolCandidateAdminViewNotes(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-applicationAssessment')) {
+            return $this;
+        }
+
+        if ($user->isAbleTo('view-team-applicationAssessment')) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-applicationAssessment', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+        }
+
+        // fall through
+        return $this->where('id', null);
+    }
+
+    private function poolCandidateAdminViewStatus(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-applicationStatus')) {
+            return $this;
+        }
+
+        if ($user->isAbleTo('view-team-applicationStatus')) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-applicationStatus', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+        }
+
+        // fall through
+        return $this->where('id', null);
+    }
 }
