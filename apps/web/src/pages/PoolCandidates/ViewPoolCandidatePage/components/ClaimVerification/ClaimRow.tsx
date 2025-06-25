@@ -3,7 +3,6 @@ import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIc
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { PropsWithoutRef, ReactNode, SVGProps } from "react";
-import { tv } from "tailwind-variants";
 
 import {
   ClaimVerificationResult,
