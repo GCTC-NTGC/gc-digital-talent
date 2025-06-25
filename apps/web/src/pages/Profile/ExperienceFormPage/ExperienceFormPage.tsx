@@ -13,6 +13,7 @@ import {
   Link,
   AlertDialog,
   TableOfContents,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -508,8 +509,8 @@ export const ExperienceForm = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <Hero title={pageTitle} subtitle={pageSubtitle} crumbs={crumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
               {!edit && (
@@ -586,13 +587,7 @@ export const ExperienceForm = ({
                 </TableOfContents.Section>
                 <Separator space="lg" />
                 {edit ? (
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-gap="base(x1)"
-                    data-h2-flex-wrap="base(wrap)"
-                    data-h2-flex-direction="base(column) l-tablet(row)"
-                    data-h2-align-items="base(flex-start) l-tablet(center)"
-                  >
+                  <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
                     <Submit
                       text={intl.formatMessage({
                         defaultMessage: "Save and return to my career timeline",
@@ -654,13 +649,7 @@ export const ExperienceForm = ({
                     </AlertDialog.Root>
                   </div>
                 ) : (
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-gap="base(x1)"
-                    data-h2-flex-wrap="base(wrap)"
-                    data-h2-flex-direction="base(column) l-tablet(row)"
-                    data-h2-align-items="base(flex-start) l-tablet(center)"
-                  >
+                  <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
                     <Button
                       type="submit"
                       mode="solid"
@@ -704,7 +693,7 @@ export const ExperienceForm = ({
             </FormProvider>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };
