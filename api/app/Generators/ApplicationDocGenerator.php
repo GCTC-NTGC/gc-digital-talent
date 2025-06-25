@@ -3,7 +3,9 @@
 namespace App\Generators;
 
 use App\Enums\EducationRequirementOption;
+use App\Enums\EducationType;
 use App\Enums\PoolSkillType;
+use App\Models\EducationExperience;
 use App\Models\Experience;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -96,7 +98,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $this->addLabelText($section, $this->localizeHeading('requirement_selection'), $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class));
         $candidate->educationRequirementExperiences->each(function ($educationExperience) use ($section) {
             /** @var \App\Models\EducationExperience $educationExperience */
-            $section->addListItem($educationExperience->getTitle($this->lang));
+            $section->addListItem($this->formatEducationTitle($educationExperience));
+
         });
 
         $skillDetails = $this->getSkillDetails($candidate->pool->poolSkills, $experiences, $snapshot['experiences']);
@@ -183,6 +186,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 return [
                     'title' => $experience['experience']->getTitle($this->lang),
                     'details' => $skill['details'] ?? '',
+                    'experience_obj' => $experience['experience'],
+                    'is_education' => $experience['experience'] instanceof \App\Models\EducationExperience,
                 ];
             }, $experiencesWithDetails);
 
@@ -212,9 +217,38 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $skills->each(function ($skillDetails) use ($section) {
             $section->addTitle($skillDetails['skill']['name'][$this->lang], 4);
             foreach ($skillDetails['experiences'] as $experience) {
-                $section->addTitle($experience['title'], 5);
+                $title = $experience['is_education']
+                    ? $this->formatEducationTitle($experience['experience_obj'])
+                    : $experience['title'];
+
+                $section->addTitle($title, 5);
                 $section->addText($experience['details']);
             }
         });
+    }
+
+    /**
+     * Format education title
+     */
+    private function formatEducationTitle(EducationExperience $educationExperience): string
+    {
+
+        $degreeType = $educationExperience->type
+        ? $this->localizeEnum($educationExperience->type, EducationType::class)
+        : null;
+        $titleComponents = [];
+        if ($degreeType) {
+            $titleComponents[] = $degreeType;
+        }
+        if ($educationExperience->area_of_study) {
+            $titleComponents[] = ($degreeType ? $this->localize('common.in').' ' : '')
+            .$educationExperience->area_of_study;
+        }
+        if ($educationExperience->institution) {
+            $titleComponents[] = $this->localize('common.from').' '.$educationExperience->institution;
+        }
+
+        return trim(implode(' ', $titleComponents)) ?: $educationExperience->getTitle($this->lang);
+
     }
 }
