@@ -53,7 +53,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
             </Field.Legend>
             <Field.BoundingBox>
               <div className="my-0.75">
-                <Field.Label className="flex items-start gap-x-1.5 font-normal">
+                <Field.Label className="flex items-center gap-x-1.5 text-base">
                   <input
                     ref={allColumnsRef}
                     {...{
@@ -61,8 +61,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                       checked: table.getIsAllColumnsVisible(),
                       onChange: table.getToggleAllColumnsVisibilityHandler(),
                     }}
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                  />{" "}
+                  />
                   {intl.formatMessage(adminMessages.toggleAll)}
                 </Field.Label>
               </div>
@@ -73,17 +72,16 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                   const header = getColumnHeader(column, "columnDialogHeader");
                   return (
                     <div key={column.id} className="my-0.75">
-                      <label>
+                      <Field.Label className="flex items-center gap-x-1.5 text-base">
                         <input
                           {...{
                             type: "checkbox",
                             checked: column.getIsVisible(),
                             onChange: column.getToggleVisibilityHandler(),
                           }}
-                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        />{" "}
+                        />
                         {header}
-                      </label>
+                      </Field.Label>
                     </div>
                   );
                 })}
