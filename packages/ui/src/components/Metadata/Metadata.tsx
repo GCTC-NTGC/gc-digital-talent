@@ -1,4 +1,5 @@
 import { Fragment, ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import Chip, { ChipProps } from "../Chip/Chip";
 
@@ -22,7 +23,11 @@ export type MetadataItemProps = MetaDataChip | MetaDataText;
 const MetadataItem = (props: MetadataItemProps) => {
   switch (props.type) {
     case "text":
-      return <span className="text-gray">{props.children}</span>;
+      return (
+        <span className="text-gray-600 dark:text-gray-100">
+          {props.children}
+        </span>
+      );
     case "chip":
       return (
         <span>
@@ -36,12 +41,18 @@ const MetadataItem = (props: MetadataItemProps) => {
   }
 };
 
-const Metadata = ({ metadata, ...rest }: { metadata: MetadataItemProps[] }) => {
+const metaWrapper = tv({
+  base: "flex flex-col items-start gap-3 text-sm xs:flex-row xs:flex-wrap xs:items-center",
+});
+
+interface MetadataProps {
+  metadata: MetadataItemProps[];
+  className?: string;
+}
+
+const Metadata = ({ metadata, className, ...rest }: MetadataProps) => {
   return (
-    <div
-      className="flex flex-col items-start gap-3 text-sm xs:flex-row xs:flex-wrap xs:items-center"
-      {...rest}
-    >
+    <div className={metaWrapper({ class: className })} {...rest}>
       {metadata.map((data, index) => (
         <Fragment key={data.key}>
           {index > 0 && (
