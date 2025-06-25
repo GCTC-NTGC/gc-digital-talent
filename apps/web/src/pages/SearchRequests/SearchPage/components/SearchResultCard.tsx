@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { ReactNode, Fragment } from "react";
 
-import { Button, Link, Separator } from "@gc-digital-talent/ui";
+import { Button, Card, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
@@ -104,20 +104,12 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
   );
 
   return (
-    <article
-      data-h2-background-color="base(foreground)"
-      data-h2-shadow="base(larger)"
-      data-h2-border-left="base(x.5 solid secondary)"
-      data-h2-margin="base(x1, 0, 0, 0)"
-      data-h2-radius="base(0, s, s, 0)"
-      data-h2-padding="base(x1)"
+    <Card
+      as="article"
+      className="rounded-l-none border-l-12 border-l-primary"
       aria-labelledby={`search_pool_${pool.id}`}
     >
-      <p
-        data-h2-font-size="base(h6)"
-        data-h2-font-weight="base(700)"
-        id={`search_pool_${pool.id}`}
-      >
+      <p className="text-lg font-bold lg:text-xl" id={`search_pool_${pool.id}`}>
         {getShortPoolTitleHtml(intl, {
           workStream: pool.workStream,
           name: pool.name,
@@ -125,11 +117,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           classification: pool.classification,
         })}
       </p>
-      <p
-        data-h2-margin="base(x.5, 0, x1, 0)"
-        data-h2-display="base(flex)"
-        data-h2-gap="base(0, x.5)"
-      >
+      <p className="mt-3 mb-6 flex gap-x-3">
         <span>
           {intl.formatMessage(
             {
@@ -157,10 +145,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         </span>
         {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         <span aria-hidden>&bull;</span>
-        <span
-          data-h2-font-weight="base(700)"
-          data-h2-color="base(secondary.darker)"
-        >
+        <span className="font-bold text-secondary-600 dark:text-secondary-200">
           {intl.formatMessage(
             {
               defaultMessage: `{candidateCount, plural,
@@ -178,7 +163,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           )}
         </span>
       </p>
-      <p data-h2-margin="base(x1, 0, x.25, 0)">
+      <p className="mt-6 mb-1.5">
         {intl.formatMessage({
           defaultMessage:
             "These essential skills were assessed during the process:",
@@ -187,18 +172,16 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             "Text showing the essentials skills assessed during the process",
         })}
       </p>
-      <p
-        data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-gap="base(0, x.5)"
-        data-h2-font-size="base(caption)"
-      >
+      <p className="flex flex-wrap gap-x-3 text-sm">
         {essentialSkills.length > 0
           ? essentialSkills.map((skill, index) => (
               <Fragment key={skill.id}>
                 {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {index !== 0 && <span aria-hidden>&bull;</span>}
-                <span key={skill.id} data-h2-color="base(black.light)">
+                <span
+                  key={skill.id}
+                  className="text-gray-600 dark:text-gray-200"
+                >
                   {getLocalizedName(skill?.name, intl)}
                 </span>
               </Fragment>
@@ -206,14 +189,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           : null}
       </p>
       <Separator space="sm" />
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(row)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(x1)"
-        data-h2-margin="base(x1, 0, 0, 0)"
-      >
+      <div className="mt-6 flex items-center gap-6">
         <Button
           color="primary"
           type="submit"
@@ -249,7 +225,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           })}
         </Link>
       </div>
-    </article>
+    </Card>
   );
 };
 

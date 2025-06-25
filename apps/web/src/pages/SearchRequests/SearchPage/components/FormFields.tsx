@@ -107,11 +107,7 @@ const FormFields = ({
             "Message describing the classification filter of the search form.",
         })}
       >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
+        <div className="flex flex-col gap-y-6">
           <Select
             id="classifications"
             label={intl.formatMessage({
@@ -165,7 +161,7 @@ const FormFields = ({
         })}
       >
         <SkillBrowser skills={skills || []} name="skills" />
-        <Field.Context data-h2-margin-top="base(x.25)">
+        <Field.Context className="mt-1.5">
           {intl.formatMessage({
             defaultMessage:
               "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected skills",
