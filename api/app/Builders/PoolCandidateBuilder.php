@@ -588,10 +588,8 @@ class PoolCandidateBuilder extends Builder
     // represents the functionality of PoolCandidatePolicy::view()
     private function andAuthorizedToViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
-        $now = Carbon::now()->toDateTimeString();
-
         if ($user->isAbleTo('view-any-submittedApplication')) {
-            return $this->where('submitted_at', '<=', $now);
+            return $this->whereNotNull('submitted_at');
         }
 
         if ($user->isAbleTo('view-team-submittedApplication')) {
@@ -599,8 +597,8 @@ class PoolCandidateBuilder extends Builder
                 return $user->isAbleTo('view-team-draftPool', $team);
             })->pluck('id');
 
-            return $this->where(function (Builder $query) use ($teamIds, $now) {
-                $query->where('submitted_at', '<=', $now)
+            return $this->where(function (Builder $query) use ($teamIds) {
+                $query->whereNotNull('submitted_at')
                     ->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
                         return $poolQuery->where(function (Builder $poolQuery) use ($teamIds) {
                             $poolQuery->orWhereHas('team', function (Builder $poolQuery) use ($teamIds) {
@@ -626,13 +624,12 @@ class PoolCandidateBuilder extends Builder
         }
 
         if ($user->isAbleTo('view-team-draftPool')) {
-            $now = Carbon::now()->toDateTimeString();
             $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
                 return $user->isAbleTo('view-team-draftPool', $team);
             })->pluck('id');
 
-            return $this->whereHas('pool', function ($poolQuery) use ($now, $teamIds) {
-                $poolQuery->orWhere('published_at', '<=', $now);
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhereNotNull('published_at');
                 $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
                     return $query->where(function (Builder $query) use ($teamIds) {
                         $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
