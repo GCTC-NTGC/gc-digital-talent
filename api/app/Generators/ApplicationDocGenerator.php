@@ -146,8 +146,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section->addTitle($this->localizeHeading('signature'), 2);
         $this->addLabelText($section, $this->localizeHeading('signed'), $candidate->signature);
 
-        $section->addPageBreak();
-
         return $this;
     }
 
