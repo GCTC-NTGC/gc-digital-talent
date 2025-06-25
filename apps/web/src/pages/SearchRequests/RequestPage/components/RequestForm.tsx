@@ -426,12 +426,7 @@ export const RequestForm = ({
 
   return (
     <section>
-      <Heading
-        level="h2"
-        size="h6"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(0, 0, x.5, 0)"
-      >
+      <Heading level="h2" size="h6" className="mt-0 mb-3 font-bold">
         {intl.formatMessage({
           defaultMessage: "Your contact information",
           id: "T8J2Lp",
@@ -439,7 +434,7 @@ export const RequestForm = ({
             "Form header for filling in contact information section.",
         })}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "To submit a request, please provide the following information so we can contact you.",
@@ -449,91 +444,76 @@ export const RequestForm = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <Input
-                id="fullName"
-                type="text"
-                name="fullName"
-                label={intl.formatMessage(commonMessages.fullName)}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <Select
-                id="department"
-                name="department"
-                label={intl.formatMessage({
-                  defaultMessage: "Department or hiring organization",
-                  id: "OgbLp1",
-                  description:
-                    "Label for department select input in the request form",
-                })}
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a department",
-                  id: "y827h2",
-                  description:
-                    "Null selection for department select input in the request form.",
-                })}
-                options={objectsToSortedOptions([...departments], intl)}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                label={intl.formatMessage({
-                  defaultMessage: "Government of Canada email",
-                  id: "CxZGd2",
-                  description:
-                    "Label for government of canada email input in the request form",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <Input
-                id="managerJobTitle"
-                type="text"
-                name="managerJobTitle"
-                label={intl.formatMessage({
-                  defaultMessage: "What is your job title?",
-                  id: "AgUBsQ",
-                  description: "Input label asking for the user's job title.",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <Input
-                id="hrAdvisorEmail"
-                type="email"
-                name="hrAdvisorEmail"
-                label={intl.formatMessage({
-                  defaultMessage: "HR advisor email",
-                  id: "VrLfLw",
-                  description:
-                    "Input label asking for the HR advisor's email address.",
-                })}
-              />
-            </div>
+          <div className="grid grid-cols-2 gap-6">
+            <Input
+              id="fullName"
+              type="text"
+              name="fullName"
+              label={intl.formatMessage(commonMessages.fullName)}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Select
+              id="department"
+              name="department"
+              label={intl.formatMessage({
+                defaultMessage: "Department or hiring organization",
+                id: "OgbLp1",
+                description:
+                  "Label for department select input in the request form",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a department",
+                id: "y827h2",
+                description:
+                  "Null selection for department select input in the request form.",
+              })}
+              options={objectsToSortedOptions([...departments], intl)}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              label={intl.formatMessage({
+                defaultMessage: "Government of Canada email",
+                id: "CxZGd2",
+                description:
+                  "Label for government of canada email input in the request form",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="managerJobTitle"
+              type="text"
+              name="managerJobTitle"
+              label={intl.formatMessage({
+                defaultMessage: "What is your job title?",
+                id: "AgUBsQ",
+                description: "Input label asking for the user's job title.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="hrAdvisorEmail"
+              type="email"
+              name="hrAdvisorEmail"
+              label={intl.formatMessage({
+                defaultMessage: "HR advisor email",
+                id: "VrLfLw",
+                description:
+                  "Input label asking for the HR advisor's email address.",
+              })}
+            />
           </div>
-          <Heading
-            level="h2"
-            size="h6"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x2, 0, x1, 0)"
-          >
+          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Reason for the talent request",
               id: "8EbhWx",
@@ -558,7 +538,7 @@ export const RequestForm = ({
               intl,
             )}
           />
-          <p data-h2-margin="base(x1 0)">
+          <p className="my-6">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -572,90 +552,71 @@ export const RequestForm = ({
               },
             )}
           </p>
-          <div>
-            <Heading
-              level="h2"
-              size="h6"
-              data-h2-font-weight="base(700)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Details about the job opportunity",
-                id: "FNgThS",
+          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+            {intl.formatMessage({
+              defaultMessage: "Details about the job opportunity",
+              id: "FNgThS",
+              description:
+                "Form header for filling in job opportunity information section.",
+            })}
+          </Heading>
+          <div className="grid grid-cols-2 gap-6">
+            <Checkbox
+              id="positionType"
+              name="positionType"
+              boundingBox
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "Will this position be supervising others?",
+                id: "tKyj1t",
                 description:
-                  "Form header for filling in job opportunity information section.",
+                  "Label for input asking whether a job opportunity will have supervising duties.",
               })}
-            </Heading>
-            <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <Checkbox
-                  id="positionType"
-                  name="positionType"
-                  boundingBox
-                  boundingBoxLabel={intl.formatMessage({
-                    defaultMessage: "Will this position be supervising others?",
-                    id: "tKyj1t",
-                    description:
-                      "Label for input asking whether a job opportunity will have supervising duties.",
-                  })}
-                  label={intl.formatMessage(
-                    talentRequestMessages.supervisoryPositionYes,
-                  )}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <Input
-                  id="jobTitle"
-                  type="text"
-                  name="jobTitle"
-                  label={intl.formatMessage({
-                    defaultMessage: "What is the job title for this position?",
-                    id: "7lCUIL",
-                    description:
-                      "Label for job title input in the request form",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-            </div>
-            <p data-h2-margin="base(x1, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "In this field please include any additional details and qualifications you are seeking from the candidates such as: programming languages, certifications, knowledge, or a specific work location.",
-                id: "Zzd/sJ",
-                description:
-                  "Blurb before additional comments textarea in the request form.",
-              })}
-            </p>
-            {candidateCount === 0 ? (
-              <p data-h2-margin="base(x1 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "If you are submitting a form that had zero estimated candidates, let us know more about this request in the comments.",
-                  id: "adM1fA",
-                  description:
-                    "Instructions to provide additional details when submitting a request with no candidates",
-                })}
-              </p>
-            ) : null}
-
-            <TextArea
-              id="additionalComments"
-              name="additionalComments"
               label={intl.formatMessage(
-                talentRequestMessages.additionalComments,
+                talentRequestMessages.supervisoryPositionYes,
               )}
-              rows={8}
+            />
+            <Input
+              id="jobTitle"
+              type="text"
+              name="jobTitle"
+              label={intl.formatMessage({
+                defaultMessage: "What is the job title for this position?",
+                id: "7lCUIL",
+                description: "Label for job title input in the request form",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </div>
-          <Heading
-            level="h2"
-            size="h6"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x2, 0, x1, 0)"
-          >
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "In this field please include any additional details and qualifications you are seeking from the candidates such as: programming languages, certifications, knowledge, or a specific work location.",
+              id: "Zzd/sJ",
+              description:
+                "Blurb before additional comments textarea in the request form.",
+            })}
+          </p>
+          {candidateCount === 0 ? (
+            <p className="my-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "If you are submitting a form that had zero estimated candidates, let us know more about this request in the comments.",
+                id: "adM1fA",
+                description:
+                  "Instructions to provide additional details when submitting a request with no candidates",
+              })}
+            </p>
+          ) : null}
+
+          <TextArea
+            id="additionalComments"
+            name="additionalComments"
+            label={intl.formatMessage(talentRequestMessages.additionalComments)}
+            rows={8}
+          />
+          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               id: "emx1cK",
@@ -667,7 +628,7 @@ export const RequestForm = ({
             selectedClassifications={selectedClassifications}
           />
           <Separator />
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
+          <p className="mb-6 font-bold">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -681,13 +642,7 @@ export const RequestForm = ({
               },
             )}
           </p>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(row)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-gap="base(x1)"
-            data-h2-align-items="base(center)"
-          >
+          <div className="flex flex-wrap items-center gap-6">
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Submit request",
