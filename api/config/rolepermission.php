@@ -142,6 +142,10 @@ return [
             'en' => 'Delete Any Department',
             'fr' => 'Supprimer tout ministère',
         ],
+        'archive-any-department' => [
+            'en' => 'Archive any Department',
+            'fr' => 'Archiver tout ministère',
+        ],
 
         'view-any-genericJobTitle' => [
             'en' => 'View Any Generic Job Title',
@@ -1063,7 +1067,7 @@ return [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
             'department' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete', 'archive'],
             ],
             'genericJobTitle' => [
                 'any' => ['create', 'view', 'update', 'delete'],

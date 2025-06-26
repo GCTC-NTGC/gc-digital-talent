@@ -329,7 +329,6 @@ class DepartmentTest extends TestCase
     public function testArchivingAndUnArchiving()
     {
         $testDepartment = Department::factory()->create(['archived_at' => null]);
-        $user = User::factory()->asAdmin()->create();
 
         $archiveMutation =
             /** @lang GraphQL */
@@ -350,7 +349,7 @@ class DepartmentTest extends TestCase
             }
         ';
 
-        $this->actingAs($user, 'api')
+        $this->actingAs($this->adminUser, 'api')
             ->graphQL($archiveMutation, ['id' => $testDepartment->id])
             ->assertJsonFragment(['id' => $testDepartment->id]);
 
@@ -358,7 +357,7 @@ class DepartmentTest extends TestCase
         $testDepartment->refresh();
         assertNotNull($testDepartment->archived_at);
 
-        $this->actingAs($user, 'api')
+        $this->actingAs($this->adminUser, 'api')
             ->graphQL($unarchiveMutation, ['id' => $testDepartment->id])
             ->assertJsonFragment(['id' => $testDepartment->id]);
 
