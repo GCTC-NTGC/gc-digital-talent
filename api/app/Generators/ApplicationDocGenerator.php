@@ -76,8 +76,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
-        $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
-
+        $snapshotExperiences = $snapshot['experiences'] ?? [];
         // the snapshot stores the department and classification models connected by relation
         // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
         foreach ($snapshotExperiences as &$experience) {
@@ -93,7 +92,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 }
             }
         }
-        // $experiences = Experience::hydrateSnapshot($snapshotExperiences);
         $experienceTypeOrder = [
             'community_experience',
             'education_experience',
@@ -101,12 +99,18 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             'personal_experience',
             'award_experience',
         ];
-        $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
-            ->groupBy(fn ($exp) => $exp->getMorphClass())
-            ->sortBy(fn ($_, $type) => array_search($type, $experienceTypeOrder))
+
+        $allExperiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
+            ->sortByDesc(function ($exp) {
+                return $exp->start_date;
+            });
+        $experiences = $allExperiences
+            ->groupBy(fn ($exp) => $exp?->getMorphClass() ?? '')
+            ->sortBy(fn ($_, $type) => array_search($type, $experienceTypeOrder) ?? PHP_INT_MAX)
             ->flatMap(fn ($group) => $group->sortByDesc('start_date'))
             ->values()
             ->all();
+
         $section->addTitle($user->getFullName(), 2);
 
         $section->addTitle($this->localizeHeading('education_requirement'), 3);
@@ -178,8 +182,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
     {
         $experiencesWithDetails = array_map(function ($experience) use ($snapshotExperiences) {
             $snapshotExperience = Arr::first($snapshotExperiences, function ($snapshot) use ($experience) {
-                return $snapshot['id'] == $experience->id;
-            });
+                return $snapshot['id'] && $snapshot['id'] == $experience->id;
+            }) ?? [];
 
             return [
                 'experience' => $experience,
@@ -194,15 +198,21 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         return $poolSkills->map(function ($poolSkill) use ($experiencesWithDetails) {
             $skillExperiences = array_map(function ($experience) use ($poolSkill) {
+                if (empty($experience['skillDetails'])) {
+                    return null;
+                }
                 $skill = Arr::first($experience['skillDetails'], function ($skill) use ($poolSkill) {
-                    return $skill['id'] === $poolSkill->skill_id;
+                    return isset($skill['id']) && $skill['id'] === $poolSkill->skill_id;
                 });
+                if (! $skill) {
+                    return null;
+                }
 
                 return [
                     'title' => $experience['experience']->getTitle($this->lang),
                     'details' => $skill['details'] ?? '',
                     'experience_obj' => $experience['experience'],
-                    'is_education' => $experience['experience'] instanceof \App\Models\EducationExperience,
+                    'is_education' => $experience['experience'] instanceof EducationExperience,
                 ];
             }, $experiencesWithDetails);
 
@@ -210,7 +220,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 'skill' => $poolSkill->skill->only(['id', 'name', 'category']),
                 'type' => $poolSkill->type,
                 'experiences' => Arr::where($skillExperiences, function ($experience) {
-                    return ! empty($experience['details']);
+                    return $experience && ! empty($experience['details']);
                 }),
             ];
 
@@ -232,7 +242,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $skills->each(function ($skillDetails) use ($section) {
             $section->addTitle($skillDetails['skill']['name'][$this->lang], 4);
             foreach ($skillDetails['experiences'] as $experience) {
-                $title = $experience['is_education']
+                $title = $experience['is_education'] && $experience['experience_obj'] instanceof EducationExperience
                     ? $this->formatEducationTitle($experience['experience_obj'])
                     : $experience['title'];
 
@@ -244,10 +254,16 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
     /**
      * Format education title
+     *
+     * @param  Experience  $educationExperience  The education experience to format
+     * @return string The formatted title
      */
-    private function formatEducationTitle(EducationExperience $educationExperience): string
+    private function formatEducationTitle(Experience $educationExperience): string
     {
 
+        if (! $educationExperience instanceof EducationExperience) {
+            return $educationExperience->getTitle($this->lang);
+        }
         $degreeType = $educationExperience->type
         ? $this->localizeEnum($educationExperience->type, EducationType::class)
         : null;
