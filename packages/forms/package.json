@@ -52,7 +52,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.19",
-    "@types/node": "^22.15.29",
+    "@types/node": "^24.0.4",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",
     "jest": "^30.0.3",
