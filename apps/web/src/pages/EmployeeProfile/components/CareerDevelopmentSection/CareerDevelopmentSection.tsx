@@ -343,7 +343,7 @@ const CareerDevelopmentSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div className="flex flex-col gap-y-6">
+              <div className="flex flex-col gap-6">
                 <RadioGroup
                   idPrefix="lateralMoveInterest"
                   legend={careerDevelopmentMessages.lateralMoveInterest}
@@ -626,7 +626,7 @@ const CareerDevelopmentSection = ({
                     careerDevelopmentMessages.execCoachingInterestContext
                   }
                 />
-                <div className="gpa-6 flex flex-wrap items-center">
+                <div className="flex flex-wrap items-center gap-6">
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
