@@ -106,7 +106,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             });
         $experiences = $allExperiences
             ->groupBy(fn ($exp) => $exp?->getMorphClass() ?? '')
-            ->sortBy(fn ($_, $type) => array_search($type, $experienceTypeOrder) ?? PHP_INT_MAX)
+            ->sortBy(fn ($_, $type) => array_search($type, $experienceTypeOrder) !== false ? array_search($type, $experienceTypeOrder) : PHP_INT_MAX)
             ->flatMap(fn ($group) => $group->sortByDesc('start_date'))
             ->values()
             ->all();
@@ -262,7 +262,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
     {
 
         if (! $educationExperience instanceof EducationExperience) {
-            return $educationExperience->getTitle($this->lang);
+            return $educationExperience->getTitle();
         }
         $degreeType = $educationExperience->type
         ? $this->localizeEnum($educationExperience->type, EducationType::class)
