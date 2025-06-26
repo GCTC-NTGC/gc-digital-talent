@@ -69,7 +69,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             'educationRequirementEducationExperiences',
             'educationRequirementPersonalExperiences',
             'educationRequirementWorkExperiences',
-            'pool' => ['poolSkills' => ['skill']],
+            'pool' => ['classification', 'poolSkills' => ['skill']],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'generalQuestionResponses' => ['generalQuestion'],
         ]);
