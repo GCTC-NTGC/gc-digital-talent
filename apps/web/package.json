@@ -93,7 +93,7 @@
     "eslint": "^9.20.1",
     "jest": "^30.0.3",
     "jest-axe": "^10.0.0",
-    "jest-diff": "^30.0.0",
+    "jest-diff": "^30.0.3",
     "jest-fail-on-console": "^3.3.0",
     "prettier": "^3.6.1",
     "ts-jest": "^29.3.4",
