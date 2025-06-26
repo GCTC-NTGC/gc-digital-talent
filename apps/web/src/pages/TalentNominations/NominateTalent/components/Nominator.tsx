@@ -78,7 +78,7 @@ const NominatorFieldOptions_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    departments(where: {}) {
+    departments {
       id
       name {
         localized

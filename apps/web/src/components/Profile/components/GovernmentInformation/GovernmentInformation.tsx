@@ -34,7 +34,7 @@ import Display from "./Display";
 const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
   query GetProfileFormOptions {
     ...GovernmentInfoEmployeeTypes
-    departments(where: {}) {
+    departments {
       ...GovernmentInfoDepartment
     }
     classifications {

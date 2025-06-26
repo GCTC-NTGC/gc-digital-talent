@@ -772,7 +772,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
     }
 
     # all departments to populate form dropdown
-    departments(where: {}) {
+    departments {
       ...PoolDepartment
     }
 

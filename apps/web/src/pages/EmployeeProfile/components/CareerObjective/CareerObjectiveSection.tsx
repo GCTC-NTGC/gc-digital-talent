@@ -86,7 +86,7 @@ const EmployeeProfileCareerObjectiveOptions_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    departments(where: {}) {
+    departments {
       id
       name {
         localized

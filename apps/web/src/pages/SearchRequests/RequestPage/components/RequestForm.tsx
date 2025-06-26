@@ -742,7 +742,7 @@ const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
 
 const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
   query RequestForm_SearchRequestData {
-    departments(where: {}) {
+    departments {
       ...RequestFormDepartment
     }
     skills {

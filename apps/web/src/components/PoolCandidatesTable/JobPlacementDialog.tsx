@@ -89,7 +89,7 @@ export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    departments(where: {}) {
+    departments {
       id
       name {
         en
