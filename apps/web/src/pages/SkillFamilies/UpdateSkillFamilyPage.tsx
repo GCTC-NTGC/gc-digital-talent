@@ -259,7 +259,7 @@ export const UpdateSkillFamily = ({
             </div>
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="grid grid-cols-1 flex-col gap-6 xs:grid-cols-2">
+                <div className="grid gap-6 xs:grid-cols-2">
                   <Input
                     id="name_en"
                     name="name.en"
