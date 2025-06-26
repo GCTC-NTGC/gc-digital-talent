@@ -393,7 +393,7 @@ class DepartmentTest extends TestCase
 
         // explicitly passing in true works the same
         $trueResponse = $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['withArchived' => true])
+            ->graphQL($query, ['withoutArchived' => true])
             ->assertJsonFragment(['id' => $activeDepartment->id]);
         assertSame(1, count($trueResponse->json('data.departments')));
 
