@@ -642,8 +642,10 @@ class PoolCandidateBuilder extends Builder
             });
         }
 
-        // fall through
-        return $this->where('id', null);
+        // fall through - this time to published pools rather than return nothing
+        return $this->whereHas('pool', function ($poolQuery) {
+            $poolQuery->orWhereNotNull('published_at');
+        });
     }
 
     // represents the functionality of UserPolicy::view()
