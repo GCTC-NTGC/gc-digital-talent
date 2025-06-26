@@ -206,8 +206,8 @@ importers:
         specifier: ^3.5.9
         version: 3.5.9
       '@types/lodash':
-        specifier: ^4.17.18
-        version: 4.17.18
+        specifier: ^4.17.19
+        version: 4.17.19
       '@types/react':
         specifier: ^18.3.13
         version: 18.3.13
@@ -386,8 +386,8 @@ importers:
         specifier: ^30.0.0
         version: 30.0.0
       '@types/lodash':
-        specifier: ^4.17.18
-        version: 4.17.18
+        specifier: ^4.17.19
+        version: 4.17.19
       '@types/node':
         specifier: ^22.15.29
         version: 22.15.29
@@ -553,8 +553,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config-custom
       '@types/lodash':
-        specifier: ^4.17.18
-        version: 4.17.18
+        specifier: ^4.17.19
+        version: 4.17.19
       eslint:
         specifier: ^9.20.1
         version: 9.21.0(jiti@2.4.2)
@@ -662,8 +662,8 @@ importers:
         specifier: ^30.0.0
         version: 30.0.0
       '@types/lodash':
-        specifier: ^4.17.18
-        version: 4.17.18
+        specifier: ^4.17.19
+        version: 4.17.19
       '@types/node':
         specifier: ^22.15.29
         version: 22.15.29
@@ -744,8 +744,8 @@ importers:
         specifier: workspace:*
         version: link:../jest-presets
       '@types/lodash':
-        specifier: ^4.17.18
-        version: 4.17.18
+        specifier: ^4.17.19
+        version: 4.17.19
       '@types/react':
         specifier: ^18.3.13
         version: 18.3.13
@@ -1201,8 +1201,8 @@ importers:
         specifier: ^30.0.0
         version: 30.0.0
       '@types/lodash':
-        specifier: ^4.17.18
-        version: 4.17.18
+        specifier: ^4.17.19
+        version: 4.17.19
       '@types/react':
         specifier: ^18.3.13
         version: 18.3.13
@@ -3756,8 +3756,8 @@ packages:
   '@types/linkify-it@5.0.0':
     resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
 
-  '@types/lodash@4.17.18':
-    resolution: {integrity: sha512-KJ65INaxqxmU6EoCiJmRPZC9H9RVWCRd349tXM2M3O5NA7cY6YL7c0bHAHQ93NOfTObEQ004kd2QVHs/r0+m4g==}
+  '@types/lodash@4.17.19':
+    resolution: {integrity: sha512-NYqRyg/hIQrYPT9lbOeYc3kIRabJDn/k4qQHIXUpx88CBDww2fD15Sg5kbXlW86zm2XEW4g0QxkTI3/Kfkc7xQ==}
 
   '@types/markdown-it@14.1.2':
     resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
@@ -11563,7 +11563,7 @@ snapshots:
 
   '@types/linkify-it@5.0.0': {}
 
-  '@types/lodash@4.17.18': {}
+  '@types/lodash@4.17.19': {}
 
   '@types/markdown-it@14.1.2':
     dependencies:
