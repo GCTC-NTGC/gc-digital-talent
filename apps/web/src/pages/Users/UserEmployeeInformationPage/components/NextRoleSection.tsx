@@ -7,7 +7,6 @@ import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { Field } from "@gc-digital-talent/forms";
 
 export const NextRole_Fragment = graphql(/* GraphQL */ `
   fragment NextRole on EmployeeProfile {
