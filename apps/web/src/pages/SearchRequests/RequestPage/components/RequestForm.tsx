@@ -444,7 +444,7 @@ export const RequestForm = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid gap-6 xs:grid-cols-2">
             <Input
               id="fullName"
               type="text"
