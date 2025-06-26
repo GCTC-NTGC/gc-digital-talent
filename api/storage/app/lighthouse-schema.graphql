@@ -386,7 +386,7 @@ type Query {
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
-  departments(where: DepartmentFilterInput!): [Department]!
+  departments(withoutArchived: Boolean = true): [Department]!
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
@@ -1644,10 +1644,6 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
-}
-
-input DepartmentFilterInput {
-  withArchived: Boolean = false
 }
 
 input ClassificationBelongsTo {

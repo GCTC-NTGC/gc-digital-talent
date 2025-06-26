@@ -1357,10 +1357,6 @@ input CommunityInterestFilterInput {
   skills: [UUID] @scope
 }
 
-input DepartmentFilterInput {
-  withArchived: Boolean = false @scope
-}
-
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -1478,9 +1474,9 @@ type Query {
     @all
     @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
-  departments(where: DepartmentFilterInput!): [Department]!
-    @all
-    @canModel(ability: "viewAny")
+  departments(
+    withoutArchived: Boolean = true @whereNull(key: "archived_at")
+  ): [Department]! @all @canModel(ability: "viewAny")
   jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
     @find
     @canFind(ability: "view", find: "id")

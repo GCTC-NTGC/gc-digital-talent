@@ -73,16 +73,6 @@ class Department extends Model
         return $query;
     }
 
-    public static function scopeWithArchived(Builder $query, ?bool $withArchived): Builder
-    {
-        if (! $withArchived) {
-            $query->whereNull('archived_at')
-                ->orWhere('archived_at', '>', now());
-        }
-
-        return $query;
-    }
-
     /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {

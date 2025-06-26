@@ -17,6 +17,7 @@ use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertSame;
 
 class DepartmentTest extends TestCase
 {
@@ -103,7 +104,7 @@ class DepartmentTest extends TestCase
     public function testViewAnyDepartment()
     {
         $this->actingAs($this->baseUser, 'api')
-            ->graphQL('query { departments(where: {}) { id } }')
+            ->graphQL('query { departments { id } }')
             ->assertJsonFragment(['id' => $this->department->id]);
     }
 
@@ -371,37 +372,45 @@ class DepartmentTest extends TestCase
     {
         Department::truncate();
         $archivedDepartment = Department::factory()->create(['archived_at' => config('constants.far_past_datetime')]);
+        $activeDepartment = Department::factory()->create(['archived_at' => null]);
 
         $query =
             /** @lang GraphQL */
             '
-            query departments($where: DepartmentFilterInput!) {
-                departments(where: $where) {
+            query departments($withoutArchived: Boolean) {
+                departments(withoutArchived: $withoutArchived) {
                     id
                 }
             }
         ';
 
-        // null or false values do not retrieve the archived department
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['where' => []])
-            ->assertJsonFragment(['departments' => []]);
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['where' => [
-                'withArchived' => null,
-            ]])
-            ->assertJsonFragment(['departments' => []]);
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['where' => [
-                'withArchived' => false,
-            ]])
-            ->assertJsonFragment(['departments' => []]);
+        // no argument causes it to default to filtering out archived, fetches active one
+        // this is due to default assigning to true
+        // default or main behavior
+        $baseResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, [])
+            ->assertJsonFragment(['id' => $activeDepartment->id]);
+        assertSame(1, count($baseResponse->json('data.departments')));
 
-        // set to true only time the department is fetched
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['where' => [
-                'withArchived' => true,
-            ]])
+        // explicitly passing in true works the same
+        $trueResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['withArchived' => true])
+            ->assertJsonFragment(['id' => $activeDepartment->id]);
+        assertSame(1, count($trueResponse->json('data.departments')));
+
+        // null value for variable fetches all, this is from how the base directive works
+        // special case for when you want to fetch all departments including archived
+        $nullResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['withoutArchived' => null])
+            ->assertJsonFragment(['id' => $activeDepartment->id])
             ->assertJsonFragment(['id' => $archivedDepartment->id]);
+        assertSame(2, count($nullResponse->json('data.departments')));
+
+        // set to false fetches only archived
+        // no use case for the time being
+        $falseResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['withoutArchived' => false])
+            ->assertJsonFragment(['id' => $archivedDepartment->id]);
+        assertSame(1, count($falseResponse->json('data.departments')));
     }
 }
