@@ -47,6 +47,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         // Get classification details from pool
         $classification = $this->candidate->pool->classification ?? null;
+        $classificationString = '';
 
         if ($classification) {
             $group = $classification['group'] ?? '';
