@@ -586,6 +586,7 @@ class PoolCandidateBuilder extends Builder
     }
 
     // represents the functionality of PoolCandidatePolicy::view()
+    // minus the view own ability as this is intended for admins not applicants
     private function andAuthorizedToViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-submittedApplication')) {
@@ -649,6 +650,7 @@ class PoolCandidateBuilder extends Builder
     }
 
     // represents the functionality of UserPolicy::view()
+    // minus the view own ability as this is intended for admins not applicants
     private function andAuthorizedToViewRelatedUser(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
     {
         if ($user->isAbleTo('view-any-user')) {
