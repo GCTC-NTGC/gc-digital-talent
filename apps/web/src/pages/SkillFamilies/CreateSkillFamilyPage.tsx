@@ -262,7 +262,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                   />
                 </div>
                 <CardSeparator />
-                <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-inherit">
+                <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
                   <Submit
                     text={intl.formatMessage({
                       defaultMessage: "Create skill family",
