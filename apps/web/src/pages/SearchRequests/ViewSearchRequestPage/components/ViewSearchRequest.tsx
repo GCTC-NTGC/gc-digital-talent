@@ -12,6 +12,7 @@ import {
   Heading,
   Link,
   Separator,
+  Container,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
@@ -22,7 +23,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
@@ -477,7 +477,7 @@ export const ViewSearchRequest = ({
         subtitle={subTitle}
         crumbs={navigationCrumbs}
       />
-      <AdminContentWrapper>
+      <Container className="mt-18">
         {wasEmpty && (
           <p data-h2-margin="base(0 0 x1 0)">
             {intl.formatMessage({
@@ -556,29 +556,31 @@ export const ViewSearchRequest = ({
             </div>
           </div>
         </div>
-        <div>
-          <Heading level="h2" size="h4">
+      </Container>
+      <Container size="full">
+        <Heading level="h2" size="h4">
+          {intl.formatMessage({
+            defaultMessage: "Candidate results",
+            id: "bQ4iDW",
+            description:
+              "Heading for the candidate results section of the single search request view.",
+          })}
+        </Heading>
+        {abstractFilter ? (
+          <SingleSearchRequestTableApi filter={abstractFilter} />
+        ) : (
+          <>
             {intl.formatMessage({
-              defaultMessage: "Candidate results",
-              id: "bQ4iDW",
-              description:
-                "Heading for the candidate results section of the single search request view.",
+              defaultMessage: "Request doesn't include a filter!",
+              id: "hmacO5",
+              description: "Null state for a request not including a filter.",
             })}
-          </Heading>
-          {abstractFilter ? (
-            <SingleSearchRequestTableApi filter={abstractFilter} />
-          ) : (
-            <>
-              {intl.formatMessage({
-                defaultMessage: "Request doesn't include a filter!",
-                id: "hmacO5",
-                description: "Null state for a request not including a filter.",
-              })}
-            </>
-          )}
-        </div>
+          </>
+        )}
+      </Container>
+      <Container className="mb-18">
         <UpdateSearchRequest initialSearchRequest={searchRequest} />
-      </AdminContentWrapper>
+      </Container>
     </>
   );
 };

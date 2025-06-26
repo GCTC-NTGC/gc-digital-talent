@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Flourish, Heading, Link } from "@gc-digital-talent/ui";
+import { Container, Flourish, Heading, Link } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -120,11 +120,11 @@ export const Component = () => {
   return (
     <>
       <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
-      <div data-h2-margin="base(x3)" data-h2-wrapper="base(center, small, x1)">
-        <Heading size="h3" data-h2-margin="base(0, 0, x1, 0)">
+      <Container size="sm" className="my-18">
+        <Heading size="h3" className="mt-0 mb-6">
           {pageTitle}
         </Heading>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -144,7 +144,7 @@ export const Component = () => {
             },
           )}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "Please do not provide additional personal information which is not required for this purpose.",
@@ -152,7 +152,7 @@ export const Component = () => {
             description: "Paragraph for privacy policy page",
           })}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -166,7 +166,7 @@ export const Component = () => {
             },
           )}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "Failure to provide personal information will result in your ineligibility for employment opportunities associated with this tool.",
@@ -174,7 +174,7 @@ export const Component = () => {
             description: "Paragraph for privacy policy page",
           })}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "You have the right to the correction of, the access to, and protection of your personal information under the Privacy Act and the right to complain to the Privacy Commissioner of Canada about the handling of your personal information.",
@@ -182,7 +182,7 @@ export const Component = () => {
             description: "Paragraph for privacy policy page",
           })}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -196,7 +196,7 @@ export const Component = () => {
             },
           )}
         </p>
-      </div>
+      </Container>
       <Flourish />
     </>
   );

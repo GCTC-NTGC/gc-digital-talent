@@ -192,14 +192,19 @@ const Header = ({ subtitle, children }: DialogHeaderProps) => (
   </>
 );
 
+const footer = tv({
+  base: "flex items-center gap-x-3",
+});
+
 interface DialogFooterProps extends HTMLProps<HTMLDivElement> {
   children: ReactNode;
+  className?: string;
 }
 
-const Footer = ({ children, ...rest }: DialogFooterProps) => (
+const Footer = ({ children, className, ...rest }: DialogFooterProps) => (
   <>
     <Separator space="sm" />
-    <div className="flex items-center gap-x-3" {...rest}>
+    <div className={footer({ class: className })} {...rest}>
       {children}
     </div>
   </>

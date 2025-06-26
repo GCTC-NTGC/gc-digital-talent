@@ -34,7 +34,7 @@ return [
     'department' => 'Department',
     'employee_type' => 'Employment type',
     'work_email' => 'Work email',
-    'classification' => 'Current classification',
+    'classification' => 'Current classification (substantive)',
     'priority_entitlement' => 'Priority entitlement',
     'priority_number' => 'Priority number',
     'work_location' => 'Work location',
@@ -51,6 +51,7 @@ return [
     'education_requirement' => 'Education requirement',
     'education_requirement_experiences' => 'Education requirement experiences',
     'skills' => 'Skills',
+    'featured_skills' => 'Featured skills',
     // new columns
     'career_planning_lateral_move_interest' => 'Interest in lateral movement',
     'career_planning_lateral_move_time_frame' => 'Target time frame for lateral movement',
@@ -118,4 +119,8 @@ return [
     'decision_details' => 'Decision details',
     'decision_notes' => 'Decision notes',
     'final_decision' => 'Final decision',
+    'digital_talent_processes' => 'GC Digital Talent processes',
+    'off_platform_processes' => 'Off-platform processes (not verified)',
+    'process_number' => 'Process number',
+    'process_name' => 'Process name',
 ];

@@ -19,18 +19,9 @@ const ReviewSection = ({
 }: ReviewSectionProps) => {
   const intl = useIntl();
   return (
-    <section data-h2-margin="base(x3, 0, 0, 0)">
-      <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-align-items="base(center)"
-      >
-        <Heading
-          level="h3"
-          size="h4"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(0)"
-        >
+    <section className="mt-18">
+      <div className="flex items-center justify-between">
+        <Heading level="h3" size="h4" className="m-0 font-bold">
           {title}
         </Heading>
         <Link mode="inline" href={path} aria-label={editLinkAriaLabel}>

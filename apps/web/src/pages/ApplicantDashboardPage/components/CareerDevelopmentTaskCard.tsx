@@ -160,7 +160,7 @@ const CareerDevelopmentTaskCard = ({
   ];
 
   const missingInfo = (
-    <p data-h2-color="base(error.darker) base:dark(error.lightest)">
+    <p className="text-error-500 dark:text-error-100">
       {intl.formatMessage({
         defaultMessage: "Missing information",
         id: "PnSSPo",
@@ -171,11 +171,7 @@ const CareerDevelopmentTaskCard = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <TaskCard.Root
           icon={Cog8ToothIcon}
           title={intl.formatMessage({
@@ -187,10 +183,7 @@ const CareerDevelopmentTaskCard = ({
           headingAs="h2"
         >
           <TaskCard.Item>
-            <Accordion.Root
-              type="multiple"
-              data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
-            >
+            <Accordion.Root type="multiple">
               <Accordion.Item value="your_career_planning">
                 <Accordion.Trigger
                   as="h3"
@@ -206,12 +199,7 @@ const CareerDevelopmentTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={careerPlanningMetaData} />
                 <Accordion.Content>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x1)"
-                    data-h2-padding-top="base(x.5)"
-                  >
+                  <div className="mt-3 flex flex-col gap-6">
                     <FieldDisplay
                       label={careerDevelopmentMessages.lateralMoveInterest}
                     >
@@ -327,10 +315,7 @@ const CareerDevelopmentTaskCard = ({
                         }
                       >
                         {promotionMoveOrganizationType ? (
-                          <ul
-                            data-h2-list-style="base(none)"
-                            data-h2-padding="base(0)"
-                          >
+                          <ul>
                             {unpackMaybes(
                               careerDevelopmentTaskCardOptions?.organizationTypeInterest,
                             ).map((x) => {
@@ -375,10 +360,7 @@ const CareerDevelopmentTaskCard = ({
             </Accordion.Root>
           </TaskCard.Item>
           <TaskCard.Item>
-            <Accordion.Root
-              type="multiple"
-              data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
-            >
+            <Accordion.Root type="multiple">
               <Accordion.Item value="your_functional_communities">
                 <Accordion.Trigger
                   as="h3"
@@ -399,12 +381,7 @@ const CareerDevelopmentTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={functionalCommunitiesMetaData} />
                 <Accordion.Content>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x1)"
-                    data-h2-padding-top="base(x.5)"
-                  >
+                  <div className="mt-3 flex flex-col gap-6">
                     {careerDevelopmentTaskCardFragment?.communityInterests
                       ?.length ? (
                       <PreviewList.Root>
@@ -424,8 +401,8 @@ const CareerDevelopmentTaskCard = ({
                         )}
                       </PreviewList.Root>
                     ) : (
-                      <Well data-h2-text-align="base(center)">
-                        <p data-h2-font-weight="base(bold)">
+                      <Well className="text-center">
+                        <p className="font-bold">
                           {intl.formatMessage({
                             defaultMessage:
                               "You haven't opted into any functional communities.",

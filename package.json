@@ -46,7 +46,7 @@
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
     "@hydrogen-css/hydrogen": "2.1.0",
-    "prettier-plugin-tailwindcss": "^0.6.12",
+    "prettier-plugin-tailwindcss": "^0.6.13",
     "turbo": "^2.5.4"
   }
 }

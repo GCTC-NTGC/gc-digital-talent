@@ -2023,6 +2023,10 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
+  "7L19hE": {
+    "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
+    "description": "Subtitle for training opportunity single page"
+  },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -3599,6 +3603,10 @@
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
   },
+  "EadMpr": {
+    "defaultMessage": "Télécharger CSV candidat(e)s",
+    "description": "Button label to download selected candidates CSV"
+  },
   "EbG039": {
     "defaultMessage": "Chef de file du numérique E X 4",
     "description": "EX-04 classification aria label including titles"
@@ -4302,6 +4310,10 @@
   "IFKgSr": {
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
+  },
+  "IFTwDy": {
+    "defaultMessage": "Description du cours",
+    "description": "Heading for section course description"
   },
   "IH+bPG": {
     "defaultMessage": "Reçue",
@@ -7194,6 +7206,10 @@
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
   },
+  "Vyao8B": {
+    "defaultMessage": "Télécharger CSV utilisateur(trice)s",
+    "description": "Button label to download users associated with selected candidates as CSV"
+  },
   "Vz719J": {
     "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",
     "description": "Sub title for the websites privacy policy"
@@ -7413,6 +7429,10 @@
   "Wyi02N": {
     "defaultMessage": "Vous avez été supprimé des résultats de la recherche pour {poolName}.",
     "description": "Alert displayed to the user when application card dialog submits successfully."
+  },
+  "WyxGlF": {
+    "defaultMessage": "{areaOfStudy} de {institution}",
+    "description": "Study at institution without type"
   },
   "X0YPib": {
     "defaultMessage": "Expériences relatives aux prix",
@@ -8865,6 +8885,10 @@
   "dxwgXw": {
     "defaultMessage": "communiquent des messages racistes, haineux, sexistes, homophobes ou diffamatoires, ou contiennent du matériel obscène ou pornographique ou y font allusion",
     "description": "Comments or contributions list item"
+  },
+  "dy98XL": {
+    "defaultMessage": "<strong>{areaOfStudy}</strong> de {institution}",
+    "description": "Study at institution without type, HTML"
   },
   "dycByE": {
     "defaultMessage": "« inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
@@ -13264,6 +13288,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "yjZ5Lz": {
+    "defaultMessage": "Informations sur le cours",
+    "description": "Heading for section course details"
   },
   "yl3eY6": {
     "defaultMessage": "Lieu (français)",
