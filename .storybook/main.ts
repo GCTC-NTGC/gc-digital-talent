@@ -1,27 +1,34 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 
-const webStories = "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
-const designStories =
-  "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
-let stories = [webStories, designStories];
+const webStories = "../apps/web/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
+const designFormsStories =
+  "../packages/forms/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
+const designToastStories =
+  "../packages/toast/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
+const designUiStories = "../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
+let stories = [
+  webStories,
+  designFormsStories,
+  designToastStories,
+  designUiStories,
+];
 // eslint-disable-next-line turbo/no-undeclared-env-vars
 const sbApp = process.env.SB_APP;
 if (sbApp) {
   if (sbApp === "web") {
     stories = [webStories];
   } else if (sbApp === "design") {
-    stories = [designStories];
+    stories = [designFormsStories, designToastStories, designUiStories];
   }
 }
 
 const main: StorybookConfig = {
   stories,
-  staticDirs: ["../src/assets"],
+  staticDirs: ["../apps/web/src/assets"],
   addons: [
     "@storybook/addon-a11y",
     "@storybook/addon-designs",
     "@storybook/addon-themes",
-    "@storybook/addon-essentials",
     "storybook-react-intl",
   ],
   core: {
