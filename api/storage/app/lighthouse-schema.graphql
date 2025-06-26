@@ -454,7 +454,19 @@ type Query {
 
     "The offset from which items are returned."
     page: Int
-  ): PoolCandidateWithSkillCountPaginator!
+  ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
+  poolCandidatesPaginatedAdminView(
+    where: PoolCandidateSearchInput
+    orderByPoolName: PoolCandidatePoolNameOrderByInput
+    orderByClaimVerification: ClaimVerificationSort
+    orderBy: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): PoolCandidateAdminViewWithSkillCountPaginator!
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!]
@@ -998,43 +1010,23 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
-type PoolCandidateViewNotes {
-  notes: String
-  isBookmarked: Boolean
-  veteranVerification: ClaimVerificationResult
-  veteranVerificationExpiry: Date
-  priorityVerification: ClaimVerificationResult
-  priorityVerificationExpiry: Date
-}
-
-type PoolCandidateViewStatus {
-  status: LocalizedPoolCandidateStatus
-  statusWeight: Int
-  removedAt: DateTime
-  removalReason: LocalizedCandidateRemovalReason
-  removalReasonOther: String
-  finalDecisionAt: DateTime
-  placedAt: DateTime
-  placedDepartment: Department
-}
-
 type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
   expiryDate: Date
   category: PoolCandidateCategory
-  status: LocalizedPoolCandidateStatus @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
-  statusWeight: Int @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
-  notes: String @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
+  status: LocalizedPoolCandidateStatus
+  statusWeight: Int
+  notes: String
   archivedAt: DateTime
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
-  isBookmarked: Boolean @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
-  removedAt: DateTime @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
-  removalReason: LocalizedCandidateRemovalReason @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
-  removalReasonOther: String @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
+  isBookmarked: Boolean
+  removedAt: DateTime
+  removalReason: LocalizedCandidateRemovalReason
+  removalReasonOther: String
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -1045,20 +1037,39 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
   finalDecision: LocalizedFinalDecision
-  finalDecisionAt: DateTime @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
-  placedAt: DateTime @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
+  finalDecisionAt: DateTime
+  placedAt: DateTime
   placedDepartment: Department
-  veteranVerification: ClaimVerificationResult @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
-  veteranVerificationExpiry: Date @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
-  priorityVerification: ClaimVerificationResult @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
-  priorityVerificationExpiry: Date @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
-  viewNotes: PoolCandidateViewNotes
-  viewStatus: PoolCandidateViewStatus
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
 }
 
 type PoolCandidateWithSkillCount {
   id: ID!
   poolCandidate: PoolCandidate!
+  skillCount: Int
+}
+
+type PoolCandidateAdminView {
+  id: ID!
+  pool: Pool!
+  user: User!
+  submittedAt: DateTime
+  suspendedAt: DateTime
+  status: LocalizedPoolCandidateStatus
+  notes: String
+  isBookmarked: Boolean
+  category: PoolCandidateCategory
+  assessmentStatus: AssessmentResultStatus
+  finalDecision: LocalizedFinalDecision
+  placedDepartment: Department
+}
+
+type PoolCandidateAdminViewWithSkillCount {
+  id: ID!
+  poolCandidate: PoolCandidateAdminView!
   skillCount: Int
 }
 
@@ -2713,6 +2724,15 @@ type PoolCandidateWithSkillCountPaginator {
   data: [PoolCandidateWithSkillCount!]!
 }
 
+"A paginated list of PoolCandidateAdminViewWithSkillCount items."
+type PoolCandidateAdminViewWithSkillCountPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of PoolCandidateAdminViewWithSkillCount items."
+  data: [PoolCandidateAdminViewWithSkillCount!]!
+}
+
 "A paginated list of PoolCandidateSearchRequest items."
 type PoolCandidateSearchRequestPaginator {
   "Pagination information about the list of items."
@@ -2841,6 +2861,55 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   pool: QueryPoolCandidatesPaginatedOrderByPool
+}
+
+"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
+enum QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn {
+  PRIORITY_WEIGHT
+  FIRST_NAME
+  EMAIL
+  PREFERRED_LANG
+  PREFERRED_LANGUAGE_FOR_INTERVIEW
+  PREFERRED_LANGUAGE_FOR_EXAM
+  CURRENT_CITY
+}
+
+"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.user."
+input QueryPoolCandidatesPaginatedAdminViewOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn
+}
+
+"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
+enum QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn {
+  PROCESS_NUMBER
+}
+
+"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.pool."
+input QueryPoolCandidatesPaginatedAdminViewOrderByPool {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn
+}
+
+"Order by clause for Query.poolCandidatesPaginatedAdminView.orderBy."
+input QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryPoolCandidatesPaginatedAdminViewOrderByUser
+
+  "Aggregate specification."
+  pool: QueryPoolCandidatesPaginatedAdminViewOrderByPool
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."
