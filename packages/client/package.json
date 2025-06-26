@@ -35,7 +35,7 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/jest": "^30.0.0",
-    "@types/lodash": "^4.17.18",
+    "@types/lodash": "^4.17.19",
     "@types/node": "^22.15.29",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",
