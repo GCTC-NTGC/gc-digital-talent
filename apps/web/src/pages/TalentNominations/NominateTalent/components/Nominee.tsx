@@ -213,7 +213,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
       <SubHeading level="h2" icon={UserCircleIcon}>
         {intl.formatMessage(messages.nomineeInfo)}
       </SubHeading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Now that we know a little about who is submitting the nomination, let’s collect some information about the nominee. We'll start by checking if they have a GC Digital Talent account using their work email.",
@@ -221,11 +221,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
           description: "Subtitle for nomination nominee step",
         })}
       </p>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <EmployeeSearchInput
           id="nominee"
           name="nominee"
