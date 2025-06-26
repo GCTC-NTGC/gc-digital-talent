@@ -158,11 +158,13 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->assertPaginatedResponse($guest, 0, []);
     }
 
+    // applicant cannot even view own
     public function testApplicantViewsNoOne(): void
     {
         $this->assertPaginatedResponse($this->applicant, 0, []);
     }
 
+    // views all submitted applications
     public function testPlatformAdminViewsExpected(): void
     {
         $this->assertPaginatedResponse($this->platformAdmin, 2, [
@@ -171,6 +173,7 @@ class PoolCandidateAdminViewTest extends TestCase
         ]);
     }
 
+    // views only applications in their community/team
     public function testCommunityAdminsViewExpected(): void
     {
         $this->assertPaginatedResponse($this->communityAdmin, 1, [
@@ -180,6 +183,7 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->assertPaginatedResponse($this->otherCommunityAdmin, 0, []);
     }
 
+    // views only applications in their pool/team
     public function testProcessOperatorsViewExpected(): void
     {
         $this->assertPaginatedResponse($this->processOperator, 1, [
@@ -189,6 +193,7 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->assertPaginatedResponse($this->otherProcessOperator, 0, []);
     }
 
+    // views only applications in their community/team
     public function testCommunityRecruitersViewExpected(): void
     {
         $this->assertPaginatedResponse($this->communityRecruiter, 1, [
@@ -210,6 +215,7 @@ class PoolCandidateAdminViewTest extends TestCase
         ]);
 
         // queried results same as before, platform admin could already view this candidate
+        // others still only see applicantPoolCandidate (if in their team)
         $this->assertPaginatedResponse($this->communityAdmin, 1, [
             $this->applicantPoolCandidate->id,
         ]);
@@ -252,6 +258,7 @@ class PoolCandidateAdminViewTest extends TestCase
             ]);
 
         // queried results same as before, platform admin could already view this candidate
+        // others still only see applicantPoolCandidate (if in their team)
         $this->assertPaginatedResponse($this->communityAdmin, 1, [
             $this->applicantPoolCandidate->id,
         ]);
@@ -282,6 +289,7 @@ class PoolCandidateAdminViewTest extends TestCase
                 'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
             ]);
 
+        // platform admin can see any submitted, the rest should not see any due to no overlap in teams
         $this->assertPaginatedResponse($this->communityAdmin, 0, []);
         $this->assertPaginatedResponse($this->otherCommunityAdmin, 0, []);
         $this->assertPaginatedResponse($this->processOperator, 0, []);
