@@ -86,15 +86,10 @@ const ManagerHomePage = () => {
           </>
         }
       >
-        <Heading level="h1" size="h2" data-h2-margin="base(0, 0, x0.5, 0)">
+        <Heading level="h1" size="h2" className="mt-0 mb-6">
           {intl.formatMessage(pageTitle)}
         </Heading>
-        <p
-          data-h2-font-size="base(h6, 1.4)"
-          data-h2-font-weight="base(300)"
-          data-h2-margin="base(x1, 0, x2, 0)"
-          data-h2-max-width="p-tablet(65%) l-tablet(50%)"
-        >
+        <p className="max-w-2/3 text-lg sm:max-w-1/2 lg:text-xl">
           {intl.formatMessage(pageSubtitle)}
         </p>
       </HomeHero>
@@ -102,10 +97,9 @@ const ManagerHomePage = () => {
         <Heading
           level="h2"
           size="h3"
-          data-h2-font-weight="base(400)"
           icon={SparklesIcon}
           color="secondary"
-          data-h2-margin="base(0)"
+          className="mt-0 font-normal"
         >
           {intl.formatMessage({
             defaultMessage: "What we can do for you",
@@ -113,12 +107,7 @@ const ManagerHomePage = () => {
             description: "Heading for the manager opportunities",
           })}
         </Heading>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
-          data-h2-gap="base(x2) p-tablet(x3)"
-          data-h2-padding="base(x2, 0, 0, 0)"
-        >
+        <div className="grid gap-12 pt-12 xs:grid-cols-2 xs:gap-18 sm:grid-cols-3">
           <CardFlat
             color="warning"
             title={intl.formatMessage(navigationMessages.findTalent)}
@@ -211,20 +200,8 @@ const ManagerHomePage = () => {
           </CardFlat>
         </div>
       </SkewedContainer>
-      <SkewedImageContainer
-        imgSrc={managerProfileHero}
-        imgProps={{
-          "data-h2-background-position":
-            "base(80% 110%) l-tablet(60% 50%) desktop(right 50%)",
-        }}
-      >
-        <p
-          data-h2-font-size="base(h6, 1.4)"
-          data-h2-font-weight="base(300)"
-          data-h2-color="base:all(white)"
-          data-h2-margin="base(0, 0, x2, 0)"
-          data-h2-max-width="p-tablet(50%)"
-        >
+      <SkewedImageContainer imgSrc={managerProfileHero}>
+        <p className="mb-12 text-lg text-white xs:max-w-1/2 lg:text-xl">
           {intl.formatMessage({
             defaultMessage:
               "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",
@@ -233,15 +210,9 @@ const ManagerHomePage = () => {
               "Description of how application profiles works for managers/executives.",
           })}
         </p>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x1)"
-          data-h2-justify-content="base(flex-start)"
-        >
-          <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
-            {intl.formatMessage(navigationMessages.createProfile)}
-          </CTALink>
-        </div>
+        <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
+          {intl.formatMessage(navigationMessages.createProfile)}
+        </CTALink>
       </SkewedImageContainer>
       <FlourishContainer
         show={["bottom"]}
@@ -252,8 +223,7 @@ const ManagerHomePage = () => {
         <Heading
           level="h2"
           size="h3"
-          data-h2-font-weight="base(400)"
-          data-h2-margin="base(0)"
+          className="mt-0 mb-3 font-normal"
           icon={CheckBadgeIcon}
           color="warning"
         >
@@ -263,12 +233,7 @@ const ManagerHomePage = () => {
             description: "Heading for featured items on the manager homepage",
           })}
         </Heading>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(repeat(3, minmax(0, 1fr)))"
-          data-h2-gap="base(x1)"
-          data-h2-padding="base(x2, 0, 0, 0)"
-        >
+        <div className="mt-12 grid gap-6 xs:grid-cols-3">
           <FeatureBlock
             content={{
               img: { path: peopleGatheredAroundLaptop },
@@ -279,7 +244,7 @@ const ManagerHomePage = () => {
               }),
               summary: (
                 <>
-                  <p data-h2-margin-bottom="base(x.5)">
+                  <p className="mb-3">
                     {intl.formatMessage({
                       defaultMessage:
                         "New to being a manager? Looking to gain some experience in hiring and learn more about HR processes?",

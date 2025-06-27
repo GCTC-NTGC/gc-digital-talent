@@ -7,7 +7,9 @@ import { useQuery } from "urql";
 
 import {
   Accordion,
+  Card,
   CardFlat,
+  Container,
   CTALink,
   Flourish,
   Heading,
@@ -77,15 +79,10 @@ export const HomePage = ({ pools }: HomePageProps) => {
           alt: "",
         }}
       >
-        <Heading level="h1" size="h2" data-h2-margin="base(0, 0, x0.5, 0)">
+        <Heading level="h1" size="h2" className="mt-0 mb-6">
           {intl.formatMessage(pageTitle)}
         </Heading>
-        <p
-          data-h2-font-size="base(h6, 1.4)"
-          data-h2-font-weight="base(300)"
-          data-h2-margin="base(x1, 0, 0, 0)"
-          data-h2-max-width="p-tablet(65%) l-tablet(50%)"
-        >
+        <p className="max-w-2/3 text-lg sm:max-w-1/2 lg:text-xl">
           {intl.formatMessage(subTitle)}
         </p>
       </HomeHero>
@@ -93,10 +90,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading
           level="h2"
           size="h3"
-          data-h2-font-weight="base(400)"
           icon={RocketLaunchIcon}
           color="primary"
-          data-h2-margin="base(0)"
+          className="mt-0 font-normal"
         >
           {intl.formatMessage({
             defaultMessage: "Executive recruitment processes",
@@ -104,7 +100,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             description: "Heading for the executive opportunities",
           })}
         </Heading>
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "This platform allows you to apply to recruitment processes that make it easy for senior executives and HR recruitment teams to find you. This page offers you a snapshot of our open recruitment processes. Come back and check this page often!",
@@ -114,24 +110,16 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </p>
         {pools.length > 0 ? (
-          <div data-h2-padding="base(x2, 0)">
-            <Ul unStyled>
-              {pools.map((pool) => (
-                <li key={pool.id}>
-                  <PoolCard poolQuery={pool} />
-                </li>
-              ))}
-            </Ul>
-          </div>
+          <Ul unStyled className="my-12">
+            {pools.map((pool) => (
+              <li key={pool.id}>
+                <PoolCard poolQuery={pool} />
+              </li>
+            ))}
+          </Ul>
         ) : (
-          <div
-            data-h2-padding="base(x1)"
-            data-h2-margin="base(x1, 0, x2, 0)"
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            data-h2-background="base(foreground)"
-          >
-            <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+          <Card className="my-12">
+            <Heading level="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
                 id: "g+JcDC",
@@ -147,25 +135,17 @@ export const HomePage = ({ pools }: HomePageProps) => {
                   "Message displayed when there are no executive opportunities available",
               })}
             </p>
-          </div>
+          </Card>
         )}
       </SkewedContainer>
-      <div
-        data-h2-background="base(background)"
-        data-h2-padding="base(x4, 0, x3, 0)"
-        data-h2-border-top="base:all(solid 1px gray.lighter)"
-        data-h2-margin-top="base(-x1) l-tablet(-x3)"
-        data-h2-position="base(relative)"
-        data-h2-z-index="base(3)"
-      >
-        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
+      <div className="relative z-[3] -mt-6 border-t border-t-gray-200 bg-gray-100 pt-24 pb-18 sm:-mt-18 dark:border-t-gray-600 dark:bg-gray-700">
+        <Container>
           <Heading
             level="h2"
             size="h3"
-            data-h2-font-weight="base(400)"
             icon={PuzzlePieceIcon}
             color="warning"
-            data-h2-margin-top="base(0)"
+            className="mt-0 font-normal"
           >
             {intl.formatMessage({
               defaultMessage: "What we can do for you",
@@ -173,12 +153,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               description: "Heading for the executive opportunities",
             })}
           </Heading>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
-            data-h2-gap="base(x2) p-tablet(x3)"
-            data-h2-padding="base(x2, 0)"
-          >
+          <div className="grid gap-12 py-12 xs:grid-cols-2 xs:gap-18 sm:grid-cols-3">
             <CardFlat
               color="error"
               title={intl.formatMessage({
@@ -281,22 +256,10 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </CardFlat>
           </div>
-        </div>
+        </Container>
       </div>
-      <SkewedImageContainer
-        imgSrc={executiveProfileHero}
-        imgProps={{
-          "data-h2-background-position":
-            "base(80% 110%) l-tablet(60% 50%) desktop(right 50%)",
-        }}
-      >
-        <p
-          data-h2-font-size="base(h6, 1.4)"
-          data-h2-font-weight="base(300)"
-          data-h2-color="base:all(white)"
-          data-h2-margin="base(0, 0, x2, 0)"
-          data-h2-max-width="p-tablet(50%)"
-        >
+      <SkewedImageContainer imgSrc={executiveProfileHero}>
+        <p className="mb-12 text-lg text-white xs:max-w-1/2 lg:text-xl">
           {intl.formatMessage({
             defaultMessage:
               "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",
@@ -305,15 +268,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
               "Description of how application profiles works for managers/executives.",
           })}
         </p>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x1)"
-          data-h2-justify-content="base(flex-start)"
-        >
-          <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
-            {intl.formatMessage(navigationMessages.createProfile)}
-          </CTALink>
-        </div>
+        <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
+          {intl.formatMessage(navigationMessages.createProfile)}
+        </CTALink>
       </SkewedImageContainer>
       <FlourishContainer
         show={["bottom"]}
@@ -324,8 +281,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading
           level="h2"
           size="h3"
-          data-h2-font-weight="base(400)"
-          data-h2-margin="base(0, 0, x0.5, 0)"
+          className="mt-0 mb-3 font-normal"
           icon={SparklesIcon}
           color="secondary"
         >
@@ -336,19 +292,14 @@ export const HomePage = ({ pools }: HomePageProps) => {
               "Heading for exposition section on the executive homepage",
           })}
         </Heading>
-        <Heading
-          level="h3"
-          size="h6"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x2, 0, x.5, 0)"
-        >
+        <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
           {intl.formatMessage({
             defaultMessage: "Who is EXposition for?",
             id: "XoGKAf",
             description: "Heading for EXposition eligibility",
           })}
         </Heading>
-        <p data-h2-margin="base(x.5, 0, 0, 0)">
+        <p className="my-3">
           {intl.formatMessage({
             defaultMessage:
               "Are you a leader looking to attract or promote high-potential talent within the digital (IM, IT or data fields) community? Do you have talented employees to nominate at the EX minus one to the EX-03 group and level? Are you from the human resources community and interested in interdepartmental opportunities for your digital workforce?",
@@ -356,7 +307,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             id: "hml0gm",
           })}
         </p>
-        <p data-h2-margin="base(x.5, 0, 0, 0)">
+        <p className="my-3">
           {intl.formatMessage({
             defaultMessage:
               "If your answer is yes to one or several of the previous questions, we have the solution you are looking for. Since 2019, we have built trust with hundreds of digital leaders from dozens of organizations across the Government of Canada to help talented employees optimize their skills, achieve their potential, develop new experiences, and engage in the succession planning process.",
@@ -364,12 +315,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             id: "80WTKY",
           })}
         </p>
-        <Heading
-          level="h3"
-          size="h6"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x2, 0, x.5, 0)"
-        >
+        <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
           {intl.formatMessage({
             defaultMessage:
               "Learn more about our four services and discover how we can help you achieve your goals!",
@@ -382,7 +328,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           mode="card"
           size="sm"
           collapsible
-          data-h2-margin="base(x1 0)"
+          className="my-6"
         >
           <Accordion.Item value="digital-community-support">
             <Accordion.Trigger as="h4">
@@ -466,7 +412,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
-        <p data-h2-margin-bottom="base(x3)">
+        <p className="mb-18">
           <Link
             external
             mode="solid"
