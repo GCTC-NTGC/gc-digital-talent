@@ -8,12 +8,7 @@ interface RequestConfirmationPrintDocumentProps {
 }
 
 const PageSection = ({ children }: { children: ReactNode }) => (
-  <div
-    data-h2-margin-bottom="base(2rem)"
-    data-h2-display="base(block)"
-    data-h2-break-inside="base(avoid) base:print(avoid)"
-    data-h2-break-after="base(avoid) base:print(avoid)"
-  >
+  <div className="mb-8 block break-inside-avoid break-after-avoid">
     {children}
   </div>
 );
@@ -26,14 +21,10 @@ const RequestConfirmationPrintDocument = forwardRef<
 
   return (
     <div style={{ display: "none" }}>
-      <div data-h2 ref={ref}>
-        <div
-          data-h2-font-family="base(sans) base:print(sans)"
-          data-h2-padding-bottom="base(1rem)"
-          data-h2-border-bottom="base(2px dashed black) base:print(2px dashed black)"
-        >
+      <div ref={ref}>
+        <div className="border-b-2 border-dashed border-b-black pb-4 font-sans">
           <PageSection>
-            <Heading level="h2" data-h2-font-weight="base(700)">
+            <Heading level="h2" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "We have received your request",
                 id: "7DYnwq",
@@ -55,7 +46,7 @@ const RequestConfirmationPrintDocument = forwardRef<
             </p>
           </PageSection>
           <PageSection>
-            <Heading level="h2" data-h2-font-weight="base(700)">
+            <Heading level="h2" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "What you can expect",
                 id: "N/Vcp3",
@@ -63,7 +54,7 @@ const RequestConfirmationPrintDocument = forwardRef<
                   "Heading for the section about user expectations for their request",
               })}
             </Heading>
-            <p data-h2-margin="base(0, 0, x1, 0)">
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
                   "You will receive a follow up on your request within the next 5 to 10 business days.",

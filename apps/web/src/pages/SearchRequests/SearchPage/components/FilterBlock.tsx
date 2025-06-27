@@ -21,16 +21,11 @@ const FilterBlock = ({
   return (
     <>
       {title && (
-        <Heading
-          id={id}
-          data-h2-font-size="base(h6, 1)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x2, 0, x.5, 0)"
-        >
+        <Heading id={id} className="tex-lg mt-12 mb-3 font-bold lg:text-xl">
           {title}
         </Heading>
       )}
-      <p data-h2-margin="base(x.5, 0, x1, 0)">{text}</p>
+      <p className="mt-3 mb-6">{text}</p>
       {children}
     </>
   );

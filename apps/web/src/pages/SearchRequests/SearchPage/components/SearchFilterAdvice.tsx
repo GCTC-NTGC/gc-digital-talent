@@ -139,7 +139,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
   }
 
   return (
-    <p data-h2-margin="base(x1, 0)">
+    <p className="my-6">
       {intl.formatMessage({
         defaultMessage:
           "To improve your results, try removing some of these filters:",

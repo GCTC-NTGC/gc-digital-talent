@@ -13,6 +13,7 @@ import {
   Link,
   Separator,
   Container,
+  Card,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
@@ -55,7 +56,7 @@ const ManagerInfo = ({
 
   return (
     <>
-      <Heading level="h2" size="h4" data-h2-margin-top="base(0)">
+      <Heading level="h2" size="h4" className="mt-0">
         {intl.formatMessage({
           defaultMessage: "Manager information",
           id: "eyR6B+",
@@ -63,149 +64,111 @@ const ManagerInfo = ({
             "Heading for the manager info section of the single search request view.",
         })}
       </Heading>
-      <div
-        data-h2-background-color="base(foreground)"
-        data-h2-radius="base(rounded)"
-        data-h2-shadow="base(larger)"
-      >
-        <div data-h2-padding="base(x1)">
-          <div
-            data-h2-flex-grid="base(stretch, x1, 0)"
-            style={{ overflowWrap: "break-word" }}
-          >
-            <div
-              data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid black.2)"
-            >
-              <div
-                data-h2-padding="base(0, x1, 0, 0)"
-                data-h2-height="base(100%)"
-              >
-                <FilterBlock
-                  title={intl.formatMessage(commonMessages.fullName)}
-                  content={fullName}
-                />
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Government email",
-                    id: "wLVo1I",
-                    description:
-                      "Title for the government email block in the manager info section of the single search request view.",
-                  })}
-                  content={
-                    email ? (
-                      <Link external href={`mailto:${email}`}>
-                        {email}
-                      </Link>
-                    ) : null
-                  }
-                />
-              </div>
-            </div>
-            <div
-              data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid black.2)"
-            >
-              <div
-                data-h2-padding="base(0, x1, 0, 0)"
-                data-h2-height="base(100%)"
-              >
-                <FilterBlock
-                  title={intl.formatMessage(commonMessages.department)}
-                  content={department?.name?.[locale]}
-                />
-                <FilterBlock
-                  title={intl.formatMessage(adminMessages.jobTitle)}
-                  content={
-                    managerJobTitle ??
-                    intl.formatMessage(adminMessages.noneProvided)
-                  }
-                />
-              </div>
-            </div>
-            <div
-              data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid black.2)"
-            >
-              <div
-                data-h2-padding="base(0, x1, 0, 0)"
-                data-h2-height="base(100%)"
-              >
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Date received",
-                    id: "m0Qcow",
-                    description:
-                      "Title displayed on the search request table requested date column.",
-                  })}
-                  content={
-                    requestedDate
-                      ? formatDate({
-                          date: parseDateTimeUtc(requestedDate),
-                          formatString: "PPP p",
-                          intl,
-                        })
-                      : null
-                  }
-                />
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "HR advisor email",
-                    id: "PD7anu",
-                    description:
-                      "Title for the government email block in the manager info section of the single search request view.",
-                  })}
-                  content={
-                    hrAdvisorEmail ? (
-                      <Link external href={`mailto:${hrAdvisorEmail}`}>
-                        {hrAdvisorEmail}
-                      </Link>
-                    ) : (
-                      intl.formatMessage(commonMessages.notApplicable)
-                    )
-                  }
-                />
-              </div>
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of4)">
-              <div
-                data-h2-padding="base(0, x1, 0, 0)"
-                data-h2-height="base(100%)"
-              >
-                <FilterBlock
-                  title={intl.formatMessage(commonMessages.status)}
-                  content={
-                    status?.label
-                      ? getLocalizedName(status.label, intl)
-                      : intl.formatMessage(commonMessages.notApplicable)
-                  }
-                />
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Status change",
-                    id: "IUoUqs",
-                    description:
-                      "Title for the request status last changed at date block.",
-                  })}
-                  content={
-                    statusChangedAt
-                      ? formatDate({
-                          date: parseDateTimeUtc(statusChangedAt),
-                          formatString: "PPP p",
-                          intl,
-                        })
-                      : intl.formatMessage({
-                          defaultMessage: "(Not changed)",
-                          id: "rfDHc0",
-                          description: "Null state, nothing changed yet.",
-                        })
-                  }
-                />
-              </div>
-            </div>
+      <Card>
+        <div className="grid grid-cols-4 gap-6">
+          <div className="border-r-black/20 xs:border-r dark:border-r-white/20">
+            <FilterBlock
+              title={intl.formatMessage(commonMessages.fullName)}
+              content={fullName}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Government email",
+                id: "wLVo1I",
+                description:
+                  "Title for the government email block in the manager info section of the single search request view.",
+              })}
+              content={
+                email ? (
+                  <Link external href={`mailto:${email}`}>
+                    {email}
+                  </Link>
+                ) : null
+              }
+            />
+          </div>
+          <div className="border-r-black/20 xs:border-r dark:border-r-white/20">
+            <FilterBlock
+              title={intl.formatMessage(commonMessages.department)}
+              content={department?.name?.[locale]}
+            />
+            <FilterBlock
+              title={intl.formatMessage(adminMessages.jobTitle)}
+              content={
+                managerJobTitle ??
+                intl.formatMessage(adminMessages.noneProvided)
+              }
+            />
+          </div>
+          <div className="border-r-black/20 xs:border-r dark:border-r-white/20">
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Date received",
+                id: "m0Qcow",
+                description:
+                  "Title displayed on the search request table requested date column.",
+              })}
+              content={
+                requestedDate
+                  ? formatDate({
+                      date: parseDateTimeUtc(requestedDate),
+                      formatString: "PPP p",
+                      intl,
+                    })
+                  : null
+              }
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "HR advisor email",
+                id: "PD7anu",
+                description:
+                  "Title for the government email block in the manager info section of the single search request view.",
+              })}
+              content={
+                hrAdvisorEmail ? (
+                  <Link external href={`mailto:${hrAdvisorEmail}`}>
+                    {hrAdvisorEmail}
+                  </Link>
+                ) : (
+                  intl.formatMessage(commonMessages.notApplicable)
+                )
+              }
+            />
+          </div>
+          <div>
+            <FilterBlock
+              title={intl.formatMessage(commonMessages.status)}
+              content={
+                status?.label
+                  ? getLocalizedName(status.label, intl)
+                  : intl.formatMessage(commonMessages.notApplicable)
+              }
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Status change",
+                id: "IUoUqs",
+                description:
+                  "Title for the request status last changed at date block.",
+              })}
+              content={
+                statusChangedAt
+                  ? formatDate({
+                      date: parseDateTimeUtc(statusChangedAt),
+                      formatString: "PPP p",
+                      intl,
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "(Not changed)",
+                      id: "rfDHc0",
+                      description: "Null state, nothing changed yet.",
+                    })
+              }
+            />
           </div>
         </div>
-      </div>
+      </Card>
     </>
   );
 };
@@ -479,7 +442,7 @@ export const ViewSearchRequest = ({
       />
       <Container className="mt-18">
         {wasEmpty && (
-          <p data-h2-margin="base(0 0 x1 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
@@ -491,71 +454,55 @@ export const ViewSearchRequest = ({
         )}
 
         <ManagerInfo searchRequest={searchRequest} />
-        <div>
-          <Heading level="h2" size="h4">
-            {intl.formatMessage({
-              defaultMessage: "Request information",
-              id: "/3mqz9",
-              description:
-                "Heading for the request information section of the single search request view.",
+
+        <Heading level="h2" size="h4">
+          {intl.formatMessage({
+            defaultMessage: "Request information",
+            id: "/3mqz9",
+            description:
+              "Heading for the request information section of the single search request view.",
+          })}
+        </Heading>
+        <Card>
+          <FilterBlock
+            title={intl.formatMessage({
+              defaultMessage: "Reason for talent request",
+              id: "enffKD",
+              description: "Label for the reason for submitting the request.",
             })}
-          </Heading>
-          <div
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(rounded)"
-            data-h2-shadow="base(larger)"
-            data-h2-padding="base(x1)"
-          >
+            content={getLocalizedName(reason?.label, intl, true)}
+          />
+          <Separator space="sm" />
+          <SearchRequestFilters filters={abstractFilter} />
+          <Separator space="sm" />
+
+          <div className="grid grid-cols-2 gap-6">
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Reason for talent request",
-                id: "enffKD",
-                description: "Label for the reason for submitting the request.",
+                defaultMessage: "Position job title",
+                id: "OI7Bc7",
+                description: "Label for an opportunity's job title.",
               })}
-              content={getLocalizedName(reason?.label, intl, true)}
+              content={jobTitle}
             />
-            <Separator space="sm" data-h2-margin-top="base(0)" />
-            <SearchRequestFilters filters={abstractFilter} />
-            <div
-              data-h2-padding="base(x1, 0, 0, 0)"
-              data-h2-border-top="base(1px solid black.2)"
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
-                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                  <FilterBlock
-                    title={intl.formatMessage({
-                      defaultMessage: "Position job title",
-                      id: "OI7Bc7",
-                      description: "Label for an opportunity's job title.",
-                    })}
-                    content={jobTitle}
-                  />
-                </div>
-                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                  <FilterBlock
-                    title={intl.formatMessage({
-                      defaultMessage: "Type of position",
-                      id: "nZT/WM",
-                      description: "Label for an opportunity's position type.",
-                    })}
-                    content={
-                      positionType?.label
-                        ? getLocalizedName(positionType.label, intl)
-                        : intl.formatMessage(adminMessages.noneProvided)
-                    }
-                  />
-                </div>
-              </div>
-              <FilterBlock
-                title={intl.formatMessage(
-                  talentRequestMessages.additionalComments,
-                )}
-                content={additionalComments}
-              />
-            </div>
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Type of position",
+                id: "nZT/WM",
+                description: "Label for an opportunity's position type.",
+              })}
+              content={
+                positionType?.label
+                  ? getLocalizedName(positionType.label, intl)
+                  : intl.formatMessage(adminMessages.noneProvided)
+              }
+            />
           </div>
-        </div>
+          <FilterBlock
+            title={intl.formatMessage(talentRequestMessages.additionalComments)}
+            content={additionalComments}
+          />
+        </Card>
       </Container>
       <Container size="full">
         <Heading level="h2" size="h4">
