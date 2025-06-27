@@ -56,12 +56,10 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
       className="mt-6 flex flex-wrap items-center gap-3 bg-transparent bg-linear-90 from-secondary/10 to-primary/10 text-white dark:bg-transparent"
     >
       <p>
-        <span data-h2-font-size="base(caption)">
-          {user.currentCity ??
-            // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            intl.formatMessage(commonMessages.notFound)}
-          , {getLocalizedName(user.currentProvince?.label, intl)}
-        </span>
+        {user.currentCity ??
+          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+          intl.formatMessage(commonMessages.notFound)}
+        , {getLocalizedName(user.currentProvince?.label, intl)}
       </p>
       {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
@@ -72,69 +70,56 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
               external
               href={`tel:${user.telephone}`}
               aria-label={user.telephone.replace(/.{1}/g, "$& ")}
-              className="text-primary-200! hover:text-primary-300!"
+              color="primary"
+              size="sm"
             >
-              <span data-h2-font-size="base(caption)">{user.telephone}</span>
+              {user.telephone}
             </Link>
           </p>
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <span aria-hidden>&bull;</span>
         </>
       ) : null}
-      <Link
-        external
-        href={`mailto:${user.email}`}
-        className="text-primary-200! hover:text-primary-300!"
-      >
-        <span data-h2-font-size="base(caption)">{user.email}</span>
+      <Link external href={`mailto:${user.email}`} color="primary" size="sm">
+        {user.email}
       </Link>
       {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
+      <p>{getLocalizedName(user.citizenship?.label, intl)}</p>
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+      <span aria-hidden>&bull;</span>
       <p>
-        <span data-h2-font-size="base(caption)">
-          {getLocalizedName(user.citizenship?.label, intl)}
-        </span>
+        {intl.formatMessage({
+          defaultMessage: "General Communication",
+          id: "Y6X4Ok",
+          description: "Label for preferred language in profile details box.",
+        })}
+        {intl.formatMessage(commonMessages.dividingColon)}
+        {getLocalizedName(user.preferredLang?.label, intl)}
       </p>
       {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
       <p>
-        <span data-h2-font-size="base(caption)">
-          {intl.formatMessage({
-            defaultMessage: "General Communication",
-            id: "Y6X4Ok",
-            description: "Label for preferred language in profile details box.",
-          })}
-          {intl.formatMessage(commonMessages.dividingColon)}
-          {getLocalizedName(user.preferredLang?.label, intl)}
-        </span>
+        {intl.formatMessage({
+          defaultMessage: "Spoken Interviews",
+          id: "EUDRhe",
+          description:
+            "Label for preferred lang for interviews in profile details box.",
+        })}
+        {intl.formatMessage(commonMessages.dividingColon)}
+        {getLocalizedName(user.preferredLanguageForInterview?.label, intl)}
       </p>
       {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
       <p>
-        <span data-h2-font-size="base(caption)">
-          {intl.formatMessage({
-            defaultMessage: "Spoken Interviews",
-            id: "EUDRhe",
-            description:
-              "Label for preferred lang for interviews in profile details box.",
-          })}
-          {intl.formatMessage(commonMessages.dividingColon)}
-          {getLocalizedName(user.preferredLanguageForInterview?.label, intl)}
-        </span>
-      </p>
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      <span aria-hidden>&bull;</span>
-      <p>
-        <span data-h2-font-size="base(caption)">
-          {intl.formatMessage({
-            defaultMessage: "Written Exams",
-            id: "sYdl0V",
-            description:
-              "Label for preferred lang for exams in profile details box.",
-          })}
-          {intl.formatMessage(commonMessages.dividingColon)}
-          {getLocalizedName(user.preferredLanguageForExam?.label, intl)}
-        </span>
+        {intl.formatMessage({
+          defaultMessage: "Written Exams",
+          id: "sYdl0V",
+          description:
+            "Label for preferred lang for exams in profile details box.",
+        })}
+        {intl.formatMessage(commonMessages.dividingColon)}
+        {getLocalizedName(user.preferredLanguageForExam?.label, intl)}
       </p>
     </Well>
   );
