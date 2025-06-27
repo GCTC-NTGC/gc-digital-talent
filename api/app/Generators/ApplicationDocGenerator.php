@@ -46,7 +46,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $receivedDate = $formattedDate;
 
         // Get classification details from pool
-        $classification = $this->candidate->pool->classification ?? null;
+        $classification = $this->getClassificationDetails();
         $classificationString = '';
 
         if ($classification) {
@@ -69,7 +69,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             'educationRequirementEducationExperiences',
             'educationRequirementPersonalExperiences',
             'educationRequirementWorkExperiences',
-            'pool' => ['classification', 'poolSkills' => ['skill']],
+            'pool' => ['poolSkills' => ['skill']],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'generalQuestionResponses' => ['generalQuestion'],
         ]);
@@ -281,5 +281,21 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         return trim(implode(' ', $titleComponents)) ?: $educationExperience->getTitle($this->lang);
 
+    }
+
+    /**
+     * Helper function to retrieve classification details from the candidate's pool
+     *
+     * @return array|null Classification details or null if not available
+     */
+    protected function getClassificationDetails(): ?array
+    {
+        if (! $this->candidate->relationLoaded('pool')) {
+            return null;
+        }
+
+        return $this->candidate->pool->classification ?
+        $this->candidate->pool->classification->only(['id', 'group', 'level', 'name'])
+        : null;
     }
 }
