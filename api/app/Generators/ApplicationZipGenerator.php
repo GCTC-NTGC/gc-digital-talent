@@ -19,7 +19,7 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
             'educationRequirementEducationExperiences',
             'educationRequirementPersonalExperiences',
             'educationRequirementWorkExperiences',
-            'pool' => ['poolSkills', 'poolSkills.skill'],
+            'pool' => ['classification', 'poolSkills', 'poolSkills.skill'],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'generalQuestionResponses' => ['generalQuestion'],
         ])
