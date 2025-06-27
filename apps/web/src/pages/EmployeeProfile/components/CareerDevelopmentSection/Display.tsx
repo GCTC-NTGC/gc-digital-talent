@@ -88,11 +88,7 @@ const Display = ({
   ).map((interest) => String(interest.value));
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="flex flex-col gap-y-6">
       {hasEmptyRequiredFields({
         lateralMoveInterest,
         promotionMoveInterest,
