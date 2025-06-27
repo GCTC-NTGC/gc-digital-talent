@@ -562,4 +562,184 @@ class PoolCandidateBuilder extends Builder
         // fall through - query will return nothing
         return $this->where('id', null);
     }
+
+    // main authorization scope for viewing PoolCandidateAdminView
+    // calls needed scoping functions
+    public function whereAuthorizedToViewPoolCandidateAdminView(): self
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $this->where('id', null);
+        }
+
+        // fetch all roleTeam relations in one place then reuse
+        $allRoleTeams = $user->rolesTeams()->get();
+
+        return $this
+            ->andAuthorizedToViewCandidate($user, $allRoleTeams)
+            ->andAuthorizedToViewRelatedPool($user, $allRoleTeams)
+            ->andAuthorizedToViewRelatedUser($user, $allRoleTeams)
+            ->andAuthorizedToViewNotes($user, $allRoleTeams)
+            ->andAuthorizedToViewStatus($user, $allRoleTeams);
+    }
+
+    // represents the functionality of PoolCandidatePolicy::view()
+    // minus the view own ability as this is intended for admins not applicants
+    private function andAuthorizedToViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-submittedApplication')) {
+            return $this->whereNotNull('submitted_at');
+        }
+
+        if ($user->isAbleTo('view-team-submittedApplication')) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-draftPool', $team);
+            })->pluck('id');
+
+            return $this->where(function (Builder $query) use ($teamIds) {
+                $query->whereNotNull('submitted_at')
+                    ->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
+                        return $poolQuery->where(function (Builder $poolQuery) use ($teamIds) {
+                            $poolQuery->orWhereHas('team', function (Builder $poolQuery) use ($teamIds) {
+                                return $poolQuery->whereIn('id', $teamIds);
+                            })->orWhereHas('community.team', function (Builder $poolQuery) use ($teamIds) {
+                                return $poolQuery->whereIn('id', $teamIds);
+                            });
+                        });
+                    });
+            });
+        }
+
+        // fall through
+        return $this->where('id', null);
+
+    }
+
+    // represents the functionality of PoolPolicy::view()
+    private function andAuthorizedToViewRelatedPool(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-pool')) {
+            return $this;
+        }
+
+        if ($user->isAbleTo('view-team-draftPool')) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-draftPool', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhereNotNull('published_at');
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+        }
+
+        // fall through - this time to published pools rather than return nothing
+        return $this->whereHas('pool', function ($poolQuery) {
+            $poolQuery->orWhereNotNull('published_at');
+        });
+    }
+
+    // represents the functionality of UserPolicy::view()
+    // minus the view own ability as this is intended for admins not applicants
+    private function andAuthorizedToViewRelatedUser(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-user')) {
+            return $this;
+        }
+
+        if (
+            $user->isAbleTo('view-team-applicantProfile') ||
+            $user->isAbleTo('view-team-communityTalent')
+        ) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return
+                $user->isAbleTo('view-team-applicantProfile', $team) ||
+                $user->isAbleTo('view-team-communityTalent', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+
+        }
+
+        // fall through
+        return $this->where('id', null);
+    }
+
+    // represents the functionality of PoolCandidatePolicy::viewNotes()
+    private function andAuthorizedToViewNotes(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-applicationAssessment')) {
+            return $this;
+        }
+
+        if ($user->isAbleTo('view-team-applicationAssessment')) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-applicationAssessment', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+        }
+
+        // fall through
+        return $this->where('id', null);
+    }
+
+    // represents the functionality of PoolCandidatePolicy::viewStatus()
+    private function andAuthorizedToViewStatus(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    {
+        if ($user->isAbleTo('view-any-applicationStatus')) {
+            return $this;
+        }
+
+        if ($user->isAbleTo('view-team-applicationStatus')) {
+            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
+                return $user->isAbleTo('view-team-applicationStatus', $team);
+            })->pluck('id');
+
+            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
+                    return $query->where(function (Builder $query) use ($teamIds) {
+                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                });
+            });
+        }
+
+        // fall through
+        return $this->where('id', null);
+    }
 }

@@ -105,14 +105,10 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
 
   return (
     <>
-      <Heading
-        size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
+      <Heading size="h3" className="mt-0 mb-6 font-normal">
         {pageInfo.title}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -125,7 +121,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
           },
         )}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {isIAP
           ? intl.formatMessage({
               defaultMessage:
@@ -142,7 +138,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
                 "Description of how the skills-based hiring platform assess candidates.",
             })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "<strong>To get started, review your profile.</strong> If you haven’t created your profile yet, no problem! You can add all the necessary information in the next step.",
@@ -152,13 +148,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         })}
       </p>
       <Separator />
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x1)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
-      >
+      <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
         <form onSubmit={handleNavigation}>
           <Button type="submit" color="primary" disabled={fetching}>
             {intl.formatMessage({

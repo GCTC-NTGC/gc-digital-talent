@@ -35,15 +35,11 @@ const KeyTasks = ({ jobPosterTemplateQuery }: KeyTasksProps) => {
         icon={ClipboardDocumentIcon}
         size="h2"
         color="primary"
-        data-h2-margin="base(0, 0, x1, 0)"
+        className="mt-0 mb-6"
       >
         {intl.formatMessage(sections.keyTasks.longTitle)}
       </Heading>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex-col gap-6">
         <div>
           {intl.formatMessage({
             defaultMessage:

@@ -184,7 +184,7 @@ const GoalsWorkStyleSection = ({
             })}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {intl.formatMessage({
           defaultMessage: "Your goals and work style",
@@ -204,18 +204,14 @@ const GoalsWorkStyleSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1)"
-              >
+              <div className="flex flex-col gap-y-6">
                 <TextArea
                   id="aboutYou"
                   label={intl.formatMessage(employeeProfileMessages.aboutYou)}
                   name="aboutYou"
                   wordLimit={wordCountLimits[locale]}
                 />
-                <CardSeparator data-h2-margin="base(0)" />
+                <CardSeparator space="none" />
                 <TextArea
                   id="learningGoals"
                   label={intl.formatMessage(
@@ -224,20 +220,15 @@ const GoalsWorkStyleSection = ({
                   name="learningGoals"
                   wordLimit={wordCountLimits[locale]}
                 />
-                <CardSeparator data-h2-margin="base(0)" />
+                <CardSeparator space="none" />
                 <TextArea
                   id="workStyle"
                   label={intl.formatMessage(employeeProfileMessages.workStyle)}
                   name="workStyle"
                   wordLimit={wordCountLimits[locale]}
                 />
-                <CardSeparator data-h2-margin="base(0)" />
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x1)"
-                  data-h2-align-items="base(center)"
-                  data-h2-flex-wrap="base(wrap)"
-                >
+                <CardSeparator space="none" />
+                <div className="flex flex-wrap items-center gap-6">
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({

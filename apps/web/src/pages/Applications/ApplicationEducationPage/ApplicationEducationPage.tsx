@@ -326,21 +326,12 @@ const ApplicationEducation = ({
 
   return (
     <>
-      <Heading
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-font-weight="base(400)"
-        size="h3"
-      >
+      <Heading size="h3" className="mt-0 mb-6 font-normal">
         {pageInfo.title}
       </Heading>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Heading
-            level="h3"
-            size="h6"
-            data-h2-margin="base(x2, 0, x.5, 0)"
-            data-h2-font-weight="base(700)"
-          >
+          <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
             {intl.formatMessage({
               defaultMessage: "Select which criteria you meet",
               id: "yJnGeT",
@@ -348,7 +339,7 @@ const ApplicationEducation = ({
                 "Heading for radio group section in application education page.",
             })}
           </Heading>
-          <p data-h2-margin="base(0, 0, x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. <strong>If both apply to you, select the education criteria.</strong>",
@@ -392,13 +383,7 @@ const ApplicationEducation = ({
             classificationGroup={classificationGroup}
           />
           <Separator />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x1)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-flex-direction="base(column) l-tablet(row)"
-            data-h2-align-items="base(flex-start) l-tablet(center)"
-          >
+          <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
             <Button
               type="submit"
               color="primary"

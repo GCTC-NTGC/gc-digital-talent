@@ -523,7 +523,7 @@ export const EditPoolForm = ({
       <Container className="my-18">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.List className="list-none pl-3">
+            <TableOfContents.List className="list-none">
               {[...Object.values(sectionMetadata)]
                 .filter((meta) => meta.inList !== false)
                 .map((meta) => (

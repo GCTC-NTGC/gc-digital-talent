@@ -320,7 +320,7 @@ const CareerDevelopmentSection = ({
             })}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {intl.formatMessage({
           defaultMessage: "Career development preferences",
@@ -343,11 +343,7 @@ const CareerDevelopmentSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1)"
-              >
+              <div className="flex flex-col gap-6">
                 <RadioGroup
                   idPrefix="lateralMoveInterest"
                   legend={careerDevelopmentMessages.lateralMoveInterest}
@@ -409,7 +405,7 @@ const CareerDevelopmentSection = ({
                     />
                   </>
                 )}
-                <Separator data-h2-margin="base(0)" decorative />
+                <Separator space="none" decorative />
                 <RadioGroup
                   idPrefix="promotionMoveInterest"
                   legend={careerDevelopmentMessages.promotionMoveInterest}
@@ -471,7 +467,7 @@ const CareerDevelopmentSection = ({
                     />
                   </>
                 )}
-                <Separator data-h2-margin="base(0)" decorative />
+                <Separator space="none" decorative />
 
                 <Checklist
                   idPrefix="learningOpportunitiesInterest"
@@ -488,7 +484,7 @@ const CareerDevelopmentSection = ({
                     ),
                   }))}
                 />
-                <Separator data-h2-margin="base(0)" decorative />
+                <Separator space="none" decorative />
                 <RadioGroup
                   idPrefix="eligibleRetirementYearKnown"
                   legend={careerDevelopmentMessages.eligibleRetirementYearKnown}
@@ -541,7 +537,7 @@ const CareerDevelopmentSection = ({
                     show={[DATE_SEGMENT.Year]}
                   />
                 )}
-                <Separator data-h2-margin="base(0)" decorative />
+                <Separator space="none" decorative />
                 <RadioGroup
                   idPrefix="mentorshipStatus"
                   name="mentorshipStatus"
@@ -630,12 +626,7 @@ const CareerDevelopmentSection = ({
                     careerDevelopmentMessages.execCoachingInterestContext
                   }
                 />
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x1)"
-                  data-h2-align-items="base(center)"
-                  data-h2-flex-wrap="base(wrap)"
-                >
+                <div className="flex flex-wrap items-center gap-6">
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
