@@ -235,8 +235,8 @@ const FormFields = ({
                 "Text blurb, asking about classification and level in the government info form",
             })}
           </p>
-          <div className="flex flex-col xs:flex-row">
-            <div className="w-full sm:mb-12">
+          <div className="flex flex-col gap-6 xs:flex-row">
+            <div className="w-full">
               <Select
                 id="currentClassificationGroup"
                 label={labels.currentClassificationGroup}
@@ -251,7 +251,7 @@ const FormFields = ({
               />
             </div>
             {notEmpty(groupSelection) && (
-              <div style={{ width: "100%" }}>
+              <div className="w-full">
                 <Select
                   id="currentClassificationLevel"
                   label={labels.currentClassificationLevel}

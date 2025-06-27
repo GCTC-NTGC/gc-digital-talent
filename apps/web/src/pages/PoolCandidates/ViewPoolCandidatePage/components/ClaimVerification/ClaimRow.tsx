@@ -82,14 +82,14 @@ interface VerificationIconProps
 
 const VerificationIcon = ({ result, ...rest }: VerificationIconProps) => {
   if (result === ClaimVerificationResult.Accepted) {
-    return <CheckCircleIcon data-h2-color="base(success)" {...rest} />;
+    return <CheckCircleIcon className="size-6 text-success" {...rest} />;
   }
 
   if (result === ClaimVerificationResult.Rejected) {
-    return <XCircleIcon data-h2-color="base(error)" {...rest} />;
+    return <XCircleIcon className="size-6 text-error" {...rest} />;
   }
 
-  return <InformationCircleIcon data-h2-color="base(warning)" {...rest} />;
+  return <InformationCircleIcon className="size-6 text-warning" {...rest} />;
 };
 
 interface ClaimRowProps {
@@ -103,24 +103,15 @@ const ClaimRow = ({ result, title, expiry, children }: ClaimRowProps) => {
   if (!result) return null;
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-gap="base(x1)"
-      data-h2-flex-wrap="base(wrap)"
-    >
-      <VerificationIcon
-        result={result}
-        data-h2-height="base(x1)"
-        data-h2-width="base(x1)"
-      />
+    <div className="flex flex-wrap items-center gap-6">
+      <VerificationIcon result={result} />
       <div>
-        <Heading level="h3" size="h5" data-h2-margin-top="base(0)">
+        <Heading level="h3" size="h5" className="mt-0">
           {title}
         </Heading>
         <VerificationMessage result={result} expiry={expiry} />
       </div>
-      <div data-h2-margin-left="base(auto)">{children}</div>
+      <div className="ml-auto">{children}</div>
     </div>
   );
 };

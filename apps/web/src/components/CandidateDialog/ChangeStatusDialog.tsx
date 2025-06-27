@@ -158,6 +158,24 @@ const ChangeStatusDialogForm = ({
   const intl = useIntl();
   const options = getFragment(ChangeStatusFormOptions_Fragment, optionsQuery);
 
+  // we are progressively removing statuses from the manual status picker.
+  const poolCandidateLegacyStatuses = [
+    "DRAFT_EXPIRED",
+    "DRAFT",
+    "EXPIRED",
+    "NEW_APPLICATION",
+    "REMOVED",
+    "SCREENED_OUT_APPLICATION",
+    "SCREENED_OUT_ASSESSMENT",
+    "SCREENED_OUT_NOT_INTERESTED",
+    "SCREENED_OUT_NOT_RESPONSIVE",
+    "UNDER_ASSESSMENT",
+  ];
+
+  const poolCandidateStatusesFiltered = options?.poolCandidateStatuses?.filter(
+    (e) => !poolCandidateLegacyStatuses.includes(e.value),
+  );
+
   const methods = useForm<FormValues>({
     defaultValues: { status: selectedCandidate.status?.value },
   });
@@ -315,7 +333,7 @@ const ChangeStatusDialogForm = ({
               required: intl.formatMessage(errorMessages.required),
             }}
             options={localizedEnumToOptions(
-              options?.poolCandidateStatuses,
+              poolCandidateStatusesFiltered,
               intl,
             )}
           />

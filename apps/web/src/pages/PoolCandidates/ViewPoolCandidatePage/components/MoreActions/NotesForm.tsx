@@ -53,17 +53,11 @@ const Display = ({ notes }: { notes?: Maybe<string> }) => {
         label={intl.formatMessage(adminMessages.notes)}
       >
         {hasNotes && (
-          <div
-            data-h2-margin-top="base(x.5)"
-            data-h2-max-height="base(10rem)"
-            data-h2-overflow-y="base(auto)"
-          >
-            {notes}
-          </div>
+          <div className="mt-6 max-h-40 overflow-y-auto">{notes}</div>
         )}
       </ToggleForm.FieldDisplay>
       {hasNotes ? (
-        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
+        <ToggleForm.Trigger className="mt-3">
           {intl.formatMessage({
             defaultMessage: "Edit notes",
             id: "CTl5IT",
@@ -71,7 +65,7 @@ const Display = ({ notes }: { notes?: Maybe<string> }) => {
           })}
         </ToggleForm.Trigger>
       ) : (
-        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
+        <ToggleForm.Trigger className="mt-3">
           {intl.formatMessage({
             defaultMessage: "Add notes",
             id: "w0IA+c",
@@ -158,9 +152,7 @@ const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
           <FormProvider {...methods}>
             <form
               onSubmit={handleSubmit(handleFormSubmit)}
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x.5)"
+              className="flex flex-col gap-3"
             >
               <TextArea
                 id="notes"
@@ -168,13 +160,7 @@ const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
                 label={intl.formatMessage(adminMessages.notes)}
                 rows={8}
               />
-
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-text-align="base(center)"
-                data-h2-gap="base(x.5)"
-              >
+              <div className="flex flex-wrap gap-3 text-center">
                 <Submit
                   text={intl.formatMessage(formMessages.saveChanges)}
                   color="primary"

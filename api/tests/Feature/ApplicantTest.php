@@ -1591,8 +1591,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginated {
-                poolCandidatesPaginated (orderBy: [
+            query poolCandidatesPaginatedAdminView {
+                poolCandidatesPaginatedAdminView (orderBy: [
                     { column: "status_weight", order: ASC }
                     { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
@@ -1606,7 +1606,7 @@ class ApplicantTest extends TestCase
             '
             )->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             ['id' => $candidateFour->id],
                             ['id' => $candidateTwo->id],
@@ -1622,8 +1622,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginated {
-                poolCandidatesPaginated (orderBy: [
+            query poolCandidatesPaginatedAdminView {
+                poolCandidatesPaginatedAdminView (orderBy: [
                     { column: "status_weight", order: ASC }
                     { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
@@ -1662,8 +1662,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginated(where: $where) {
+            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginatedAdminView(where: $where) {
                     paginatorInfo {
                         total
                     }
@@ -1675,7 +1675,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'paginatorInfo' => [
                             'total' => 60,
                         ],
@@ -1688,8 +1688,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginated(where: $where) {
+            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginatedAdminView(where: $where) {
                     paginatorInfo {
                         total
                     }
@@ -1718,7 +1718,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'paginatorInfo' => [
                             'total' => 60,
                         ],
@@ -1822,8 +1822,8 @@ class ApplicantTest extends TestCase
         ]);
 
         $query = /** @lang GraphQL */ '
-            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginated(where: $where) {
+            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginatedAdminView(where: $where) {
                     paginatorInfo {
                         total
                     }
@@ -1833,7 +1833,7 @@ class ApplicantTest extends TestCase
 
         $expectedJson = [
             'data' => [
-                'poolCandidatesPaginated' => [
+                'poolCandidatesPaginatedAdminView' => [
                     'paginatorInfo' => [
                         'total' => 2,
                     ],
@@ -1906,7 +1906,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'paginatorInfo' => [
                             'total' => 5,
                         ],
