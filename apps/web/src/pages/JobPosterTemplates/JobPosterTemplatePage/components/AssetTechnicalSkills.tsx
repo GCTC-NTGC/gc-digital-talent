@@ -79,19 +79,10 @@ const AssetTechnicalSkills = ({
 
   return (
     <>
-      <Heading
-        icon={BoltIcon}
-        size="h2"
-        color="success"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
+      <Heading icon={BoltIcon} size="h2" color="success" className="mt-0 mb-6">
         {intl.formatMessage(sections.assetTechnicalSkills.longTitle)}
       </Heading>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <div>
           {intl.formatMessage({
             defaultMessage:
@@ -101,15 +92,8 @@ const AssetTechnicalSkills = ({
               "Description displayed on the job poster template 'asset technical skills' section.",
           })}
         </div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x0.15)"
-        >
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(flex-end)"
-          >
+        <div className="flex flex-col gap-1">
+          <div className="flex justify-end">
             <Button
               mode="inline"
               color="primary"
@@ -152,10 +136,7 @@ const AssetTechnicalSkills = ({
             ))}
           </Accordion.Root>
           {note ? (
-            <Card
-              data-h2-font-size="base(caption)"
-              data-h2-color="base(black.light)"
-            >
+            <Card className="text-sm text-gray-500 dark:text-gray-200">
               {note}
             </Card>
           ) : null}
