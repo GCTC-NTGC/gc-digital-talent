@@ -1,7 +1,17 @@
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
-const Content = ({ children, ...rest }: { children?: ReactNode }) => (
-  <div className="col-span-3" {...rest}>
+interface ContentProps {
+  children?: ReactNode;
+  className?: string;
+}
+
+const content = tv({
+  base: "col-span-3",
+});
+
+const Content = ({ children, className, ...rest }: ContentProps) => (
+  <div className={content({ class: className })} {...rest}>
     {children}
   </div>
 );

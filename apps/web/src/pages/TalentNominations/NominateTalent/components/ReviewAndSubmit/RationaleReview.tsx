@@ -58,13 +58,13 @@ const RationaleReview = ({ rationaleQuery }: RationaleReviewProps) => {
         {intl.formatMessage(messages.rationale)}
       </ReviewHeading>
       <FieldDisplay
-        data-h2-margin-bottom="base(x1)"
+        className="mb-6"
         label={intl.formatMessage(labels.nominationRationale)}
       >
         {talentNomination?.nominationRationale ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
-        data-h2-margin-bottom="base(x1)"
+        className="mb-6"
         label={intl.formatMessage(labels.leadershipCompetencies)}
       >
         {skills.length > 0 ? (

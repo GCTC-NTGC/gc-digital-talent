@@ -167,7 +167,7 @@ const AdvancementSection = ({
         />
       ) : null}
       {selectedAdvancementDecision == null ? (
-        <Well data-h2-text-align="base(center)">
+        <Well className="text-center">
           {intl.formatMessage(formMessages.decisionNullState)}
         </Well>
       ) : null}

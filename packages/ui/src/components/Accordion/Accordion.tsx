@@ -192,7 +192,16 @@ const Trigger = forwardRef<
   AccordionHeaderProps
 >(
   (
-    { as = "h2", subtitle, icon, context, titleProps, children, ...rest },
+    {
+      as = "h2",
+      subtitle,
+      icon,
+      context,
+      titleProps,
+      children,
+      className,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const Heading = as;
@@ -202,6 +211,7 @@ const Trigger = forwardRef<
       mode,
       size,
       hasContext: !!context,
+      class: className,
     });
 
     return (
@@ -410,7 +420,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
 };
 
 const content = tv({
-  base: "pb-6 text-black dark:text-white",
+  base: "pr-6 pb-6 text-black dark:text-white",
   variants: {
     mode: {
       simple: "",
@@ -459,11 +469,11 @@ const content = tv({
 const Content = forwardRef<
   ElementRef<typeof AccordionPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ children, ...rest }, forwardedRef) => {
+>(({ children, className, ...rest }, forwardedRef) => {
   const { mode, size } = useContext(AccordionVariantContext);
   return (
     <AccordionPrimitive.Content
-      className={content({ mode, size })}
+      className={content({ mode, size, class: className })}
       ref={forwardedRef}
       {...rest}
     >

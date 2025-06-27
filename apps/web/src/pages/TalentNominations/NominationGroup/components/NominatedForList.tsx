@@ -51,7 +51,7 @@ const NominatedForList = ({
 
   return (
     <Ul unStyled space="md">
-      <li>
+      <li className="flex items-center">
         <ComputedIcon
           count={advancementNominationCount ?? 0}
           decision={advancementDecision?.value}
@@ -69,7 +69,7 @@ const NominatedForList = ({
           },
         )}
       </li>
-      <li>
+      <li className="flex items-center">
         <ComputedIcon
           count={lateralMovementNominationCount ?? 0}
           decision={lateralMovementDecision?.value}
@@ -87,7 +87,7 @@ const NominatedForList = ({
           },
         )}
       </li>
-      <li>
+      <li className="flex items-center">
         <ComputedIcon
           count={developmentProgramsNominationCount ?? 0}
           decision={developmentProgramsDecision?.value}

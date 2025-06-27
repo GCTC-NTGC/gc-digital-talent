@@ -95,13 +95,9 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
       >
         {intl.formatMessage(messages.nominatorInfo)}
       </ReviewHeading>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr 1fr)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="grid grid-cols-2 gap-6">
         <FieldDisplay
-          data-h2-grid-column="base(span 2)"
+          className="col-span-2"
           label={intl.formatMessage(labels.yourRole)}
         >
           {talentNomination?.submitter?.id === talentNomination?.nominator?.id

@@ -166,13 +166,9 @@ const NominationDetailsReview = ({
       >
         {intl.formatMessage(messages.nominationDetails)}
       </ReviewHeading>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr 1fr)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="grid grid-cols-2 gap-6">
         <FieldDisplay
-          data-h2-grid-column="base(span 2)"
+          className="col-span-2"
           label={intl.formatMessage(labels.nominationOptions)}
         >
           {types.length > 0 ? (
@@ -225,7 +221,7 @@ const NominationDetailsReview = ({
           <>
             {lateralMoveOptions.length > 0 && (
               <FieldDisplay
-                data-h2-grid-column="base(span 2)"
+                className="col-span-2"
                 label={intl.formatMessage(labels.lateralMovementOptions)}
               >
                 <Ul unStyled space="md">
@@ -239,7 +235,7 @@ const NominationDetailsReview = ({
             )}
             {talentNomination.lateralMovementOptionsOther && (
               <FieldDisplay
-                data-h2-grid-column="base(span 2)"
+                className="col-span-2"
                 label={intl.formatMessage(labels.otherLateralMovement)}
               >
                 {talentNomination.lateralMovementOptionsOther}
@@ -251,7 +247,7 @@ const NominationDetailsReview = ({
           <>
             {developmentPrograms.length > 0 && (
               <FieldDisplay
-                data-h2-grid-column="base(span 2)"
+                className="col-span-2"
                 label={intl.formatMessage({
                   defaultMessage: "Development program recommendations",
                   id: "DHIa69",
@@ -269,7 +265,7 @@ const NominationDetailsReview = ({
             )}
             {talentNomination.developmentProgramOptionsOther && (
               <FieldDisplay
-                data-h2-grid-column="base(span 2)"
+                className="col-span-2"
                 label={intl.formatMessage(labels.otherDevelopmentProgram)}
               >
                 {talentNomination.developmentProgramOptionsOther}

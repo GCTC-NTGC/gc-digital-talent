@@ -136,12 +136,12 @@ const Layout = ({ query }: LayoutProps) => {
       />
       <AdminContentWrapper table>
         <Sidebar.Wrapper>
-          <Sidebar.Sidebar data-h2-order="l-tablet(2)">
+          <Sidebar.Sidebar className="sm:order-2">
             <NominationGroupSidebar
               talentNominationGroupQuery={talentNominationGroup}
             />
           </Sidebar.Sidebar>
-          <Sidebar.Content data-h2-order="l-tablet(1)">
+          <Sidebar.Content className="sm:order-1">
             <Outlet />
           </Sidebar.Content>
         </Sidebar.Wrapper>

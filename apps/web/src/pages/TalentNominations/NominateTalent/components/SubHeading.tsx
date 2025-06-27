@@ -23,8 +23,7 @@ const SubHeading = ({ preventAutoFocus, ...rest }: SubHeadingProps) => {
       ref={headingRef}
       level="h2"
       color="secondary"
-      data-h2-margin-top="base(0)"
-      data-h2-font-weight="base(400)"
+      className="mt-0 font-normal"
       {...rest}
     />
   );

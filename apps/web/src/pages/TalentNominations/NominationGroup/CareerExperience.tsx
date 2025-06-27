@@ -53,32 +53,18 @@ const TalentNominationGroupCareerExperience = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Card data-h2-border-radius="base(6px 6px 0 0)" data-h2-padding="base(0)">
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-          data-h2-margin-bottom="base(x1)"
-        >
-          <CurrentPositionExperiences
-            query={nomineeData?.user}
-            shareProfile={shareProfile}
-          />
-        </div>
+      <Card className="mb-6 flex flex-col gap-y-3">
+        <CurrentPositionExperiences
+          query={nomineeData?.user}
+          shareProfile={shareProfile}
+        />
       </Card>
-      <Card>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-          data-h2-margin-bottom="base(x1)"
-        >
-          <FullCareerExperiences
-            userQuery={nomineeData?.user}
-            talentNominationGroupQuery={talentNominationGroup}
-            shareProfile={shareProfile}
-          />
-        </div>
+      <Card className="mb-6 flex flex-col gap-y-3">
+        <FullCareerExperiences
+          userQuery={nomineeData?.user}
+          talentNominationGroupQuery={talentNominationGroup}
+          shareProfile={shareProfile}
+        />
       </Card>
     </Pending>
   );

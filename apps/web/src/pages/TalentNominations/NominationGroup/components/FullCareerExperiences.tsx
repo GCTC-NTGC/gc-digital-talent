@@ -129,10 +129,7 @@ const FullCareerExperiences = ({
     footer =
       workStreamsWithNoExperiences.length > 0 ? (
         <>
-          <p
-            data-h2-font-weight="base(bold)"
-            data-h2-margin-bottom="base(x.15)"
-          >
+          <p className="mb-1.25 font-bold">
             {intl.formatMessage({
               defaultMessage: "Work streams with no experience",
               id: "PNTlS7",
@@ -170,18 +167,13 @@ const FullCareerExperiences = ({
   return (
     <>
       {/* heading section */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-      >
+      <div className="flex items-center justify-between">
         <div>
           <Heading
             level="h2"
             icon={NewspaperIcon}
             color="warning"
-            data-h2-font-weight="base(400)"
-            data-h2-margin="base(0)"
+            className="m-0 font-normal"
           >
             {intl.formatMessage({
               defaultMessage: "Full career",
@@ -208,7 +200,7 @@ const FullCareerExperiences = ({
         )}
       </div>
 
-      <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
+      <p className="mt-3 mb-6">
         {intl.formatMessage({
           defaultMessage:
             "This section allows you to browse the nominee’s full career experience. By default, experience is organized by type, however you can choose to see how much experience the nominee has in a particular work stream or type of department using the options provided",
@@ -219,12 +211,8 @@ const FullCareerExperiences = ({
       <div>
         {/* If can share profile, show controls. Otherwise, show error well */}
         {shareProfile ? (
-          <div
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            data-h2-gap="base(x1)"
-          >
-            <p data-h2-margin="base(0)" id={showExperienceByLabelId}>
+          <div className="flex items-center gap-6">
+            <p id={showExperienceByLabelId}>
               {intl.formatMessage({
                 defaultMessage: "Show experience by:",
                 id: "KR4kRt",
@@ -236,9 +224,8 @@ const FullCareerExperiences = ({
               mode="inline"
               color="primary"
               onClick={() => setSelectedView("type")}
-              data-h2-font-weight={
-                selectedView === "type" ? "base(700)" : "base(400)"
-              } // Bold when selected
+              // Bold when selected
+              className={selectedView === "type" ? "font-bold" : "font-normal"}
               aria-pressed={selectedView === "type"}
               aria-describedby={showExperienceByLabelId}
             >
@@ -253,9 +240,8 @@ const FullCareerExperiences = ({
               mode="inline"
               color="primary"
               onClick={() => setSelectedView("workStream")} // Set view to "workStream"
-              data-h2-font-weight={
-                selectedView === "workStream" ? "base(700)" : "base(400)"
-              } // Bold when selected
+              // Bold when selected
+              className={selectedView === "type" ? "font-bold" : "font-normal"}
               aria-pressed={selectedView === "workStream"}
               aria-describedby={showExperienceByLabelId}
             >
@@ -268,8 +254,8 @@ const FullCareerExperiences = ({
             </Button>
           </div>
         ) : (
-          <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
-            <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
+          <Well className="mb-9" color="error">
+            <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
                   "This nominee has not agreed to share their information with your community",
@@ -297,7 +283,7 @@ const FullCareerExperiences = ({
               mode="card"
               value={openSections}
               onValueChange={setOpenSections} // Sync state with Accordion
-              data-h2-margin="base(0, 0)"
+              className="m-0"
             >
               {accordionSections.map(
                 ({ id, title, subtitle, experiences: sectionExperiences }) => (
@@ -308,11 +294,7 @@ const FullCareerExperiences = ({
                     </Accordion.Trigger>
                     <Accordion.Content>
                       <div>
-                        <div
-                          data-h2-display="base(flex)"
-                          data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x.5 0)"
-                        >
+                        <div className="flex flex-col gap-y-3">
                           {unpackMaybes(
                             sectionExperiences.map((experience) => {
                               return (
@@ -333,11 +315,7 @@ const FullCareerExperiences = ({
             </Accordion.Root>
             {footer ? (
               <>
-                <CardSeparator
-                  data-h2-margin-top="base(x1)"
-                  data-h2-margin-bottom="base(x1)"
-                  space="none"
-                />
+                <CardSeparator space="sm" />
                 {footer}
               </>
             ) : null}

@@ -148,13 +148,12 @@ const CommentsForm = ({
       id="comments-form"
       open={isEditing}
       onOpenChange={setIsEditing}
-      data-h2-gap="base(x1, 0, 0, 0)"
     >
       <ToggleSection.InitialContent>
         <RichTextRenderer
           node={htmlToRichTextJSON(nominationGroup.comments ?? "")}
         />
-        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
+        <ToggleForm.Trigger>
           <Button mode="inline" type="button" color="secondary">
             {intl.formatMessage({
               defaultMessage: "Edit comments",
@@ -169,21 +168,14 @@ const CommentsForm = ({
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(handleFormSubmit)}
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1)"
+            className="flex flex-col gap-6"
           >
             <RichTextInput
               id="comments"
               name="comments"
               label={intl.formatMessage(adminMessages.comments)}
             />
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-wrap="base(wrap)"
-              data-h2-text-align="base(center)"
-              data-h2-gap="base(x.5)"
-            >
+            <div className="flex flex-wrap gap-3 text-center">
               <Submit
                 text={intl.formatMessage({
                   defaultMessage: "Save comments",

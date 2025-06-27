@@ -168,14 +168,12 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="black" mode="inline" data-h2-padding="base(0)">
-          <span data-h2-text-decoration="base(underline)">
-            {getNominatorName(
-              nomination.nominator,
-              nomination.nominatorFallbackName,
-              intl,
-            )}
-          </span>
+        <Button color="black" mode="text" className="font-bold">
+          {getNominatorName(
+            nomination.nominator,
+            nomination.nominatorFallbackName,
+            intl,
+          )}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -201,12 +199,7 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
           )}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-            data-h2-overflow-wrap="base(anywhere)"
-          >
+          <div className="grid gap-6 wrap-anywhere xs:grid-cols-2">
             <FieldDisplay label={intl.formatMessage(messages.nominatorName)}>
               {getNominatorName(
                 nomination.nominator,
@@ -257,8 +250,8 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
             nomination.submitter?.id,
           ) && (
             <>
-              <Separator space="none" data-h2-margin="base(x1 0)" />
-              <p data-h2-margin-bottom="base(x1)">
+              <Separator decorative />
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Someone else submitted this nomination on behalf of the nominator. Their information can be found here.",
@@ -267,12 +260,7 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
                     "Information in dialog about submitter being different from nominator",
                 })}
               </p>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-                data-h2-gap="base(x1)"
-                data-h2-overflow-wrap="base(anywhere)"
-              >
+              <div className="grid gap-6 wrap-anywhere xs:grid-cols-2">
                 <FieldDisplay
                   label={intl.formatMessage(messages.submitterName)}
                 >
@@ -322,10 +310,7 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
               </div>
             </>
           )}
-          <Dialog.Footer
-            data-h2-gap="base(x1 0) p-tablet(0 x1)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-          >
+          <Dialog.Footer>
             <Dialog.Close>
               <Button color="primary" mode="solid">
                 {intl.formatMessage(commonMessages.close)}
