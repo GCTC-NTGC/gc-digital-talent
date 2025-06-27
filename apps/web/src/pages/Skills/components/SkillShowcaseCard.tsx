@@ -63,24 +63,12 @@ const SkillShowcaseCard = ({
       index={index}
       remove={<RemoveDialog index={index} onRemove={handleRemove} />}
     >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.5)"
-        data-h2-margin-top="base(x.5)"
-      >
-        <span
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-          role="presentation"
-        >
-          <span data-h2-font-weight="base(700)">
+      <div className="mt-3 flex flex-col gap-3">
+        <span className="flex justify-between" role="presentation">
+          <span className="font-bold">
             {getLocalizedName(getSkill(item.skill)?.name ?? undefined, intl)}
           </span>
-          <span
-            data-h2-font-weight="base(400)"
-            data-h2-color="base(black.light)"
-          >
+          <span className="text-gray-600 dark:text-gray-200">
             {item.skillLevel
               ? intl.formatMessage(
                   getSkillLevelName(

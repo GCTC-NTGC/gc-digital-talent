@@ -212,36 +212,22 @@ export const UpdateSkillForm = ({
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1 0)"
-      >
-        <Card>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card className="mb-18">
+          <Heading
+            level="h2"
+            color="secondary"
+            icon={IdentificationIcon}
+            center
+            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
           >
-            <Heading
-              level="h2"
-              color="secondary"
-              icon={IdentificationIcon}
-              data-h2-margin="base(0, 0, x1.5, 0)"
-              data-h2-font-weight="base(400)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Skill information",
-                id: "aIEKtJ",
-                description: "Heading for the 'edit a skill' form",
-              })}
-            </Heading>
-          </div>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-          >
+            {intl.formatMessage({
+              defaultMessage: "Skill information",
+              id: "aIEKtJ",
+              description: "Heading for the 'edit a skill' form",
+            })}
+          </Heading>
+          <div className="grid gap-6 xs:grid-cols-2">
             <Input
               id="name_en"
               name="name.en"
@@ -324,7 +310,7 @@ export const UpdateSkillForm = ({
               })}
               type="text"
             />
-            <div data-h2-grid-column="p-tablet(span 2)">
+            <div className="xs:col-span-2">
               <Select
                 id="category"
                 name="category"
@@ -341,7 +327,7 @@ export const UpdateSkillForm = ({
                 options={localizedEnumToOptions(data?.categories, intl)}
               />
             </div>
-            <div data-h2-grid-column="p-tablet(span 2)">
+            <div className="xs:grid-cols-2">
               <Combobox
                 id="families"
                 name="families"
@@ -356,19 +342,14 @@ export const UpdateSkillForm = ({
                 options={skillFamilyOptions}
               />
             </div>
-            <div data-h2-grid-column="p-tablet(span 2)">
+            <div className="xs:grid-cols-2">
               <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
                 {initialSkill.key}
               </FieldDisplay>
             </div>
           </div>
           <CardSeparator />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-gap="base(x1)"
-            data-h2-align-items="base(center)"
-          >
+          <div className="flex flex-col items-center gap-6 xs:flex-row">
             <Submit text={intl.formatMessage(formMessages.saveChanges)} />
             <Link
               color="warning"
@@ -491,33 +472,31 @@ export const UpdateSkill = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <div data-h2-margin-bottom="base(x3)">
-          <Pending fetching={fetching} error={error}>
-            {data?.skill ? (
-              <UpdateSkillForm
-                skillQuery={data?.skill}
-                familiesQuery={unpackMaybes(data?.skillFamilies)}
-                optionsQuery={data}
-                handleUpdateSkill={handleUpdateSkill}
-              />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Skill {skillId} not found.",
-                      id: "953EAy",
-                      description: "Message displayed for skill not found.",
-                    },
-                    { skillId },
-                  )}
-                </p>
-              </NotFound>
-            )}
-          </Pending>
-        </div>
+        <Pending fetching={fetching} error={error}>
+          {data?.skill ? (
+            <UpdateSkillForm
+              skillQuery={data?.skill}
+              familiesQuery={unpackMaybes(data?.skillFamilies)}
+              optionsQuery={data}
+              handleUpdateSkill={handleUpdateSkill}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Skill {skillId} not found.",
+                    id: "953EAy",
+                    description: "Message displayed for skill not found.",
+                  },
+                  { skillId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
       </Hero>
     </>
   );
