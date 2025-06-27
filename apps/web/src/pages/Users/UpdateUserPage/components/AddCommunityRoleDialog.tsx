@@ -179,7 +179,7 @@ const AddCommunityRoleDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddRoles)}>
-              <div className="flex- flex gap-y-6">
+              <div className="flex flex-col gap-y-6">
                 <Select
                   id="community"
                   name="community"
