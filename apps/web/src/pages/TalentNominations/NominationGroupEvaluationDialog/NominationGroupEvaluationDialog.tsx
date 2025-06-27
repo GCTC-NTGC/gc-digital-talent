@@ -5,7 +5,6 @@ import { SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
 import {
-  ButtonProps,
   Dialog,
   IconButton,
   IconButtonProps,
@@ -18,8 +17,6 @@ import {
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-
-import { HydrogenAttributes } from "~/types/hydrogen";
 
 import { dialogMessages, formMessages } from "./messages";
 import { convertFormValuesToMutationInput, FormValues } from "./form";

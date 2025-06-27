@@ -15,7 +15,6 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatClassificationString } from "~/utils/poolUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { departmentTypeToInput } from "~/pages/Departments/utils";
 
 import { formMessages } from "../messages";
 import nominationLabels from "../../NominateTalent/labels";
