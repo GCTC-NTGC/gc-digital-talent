@@ -19,7 +19,7 @@ import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
 import hero4Portrait from "~/assets/img/hero-4-portrait.webp";
 import hero4Tablet from "~/assets/img/hero-4-tablet-portrait.webp";
 
-import HomeHero from "../../../components/HomeHero";
+import HomeHero from "../../components/HomeHero";
 
 const landscapeRandomize = (index?: number) => {
   const imageSets = {
