@@ -413,7 +413,7 @@ const UpdateUserPage = () => {
                 authInfo={data.user?.authInfo}
                 onUpdateSub={handleUpdateUserSub}
               />
-              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+              <Heading level="h2" size="h3" className="font-bold">
                 {intl.formatMessage(adminMessages.rolesAndPermissions)}
               </Heading>
               <UserRoleTable
@@ -434,7 +434,7 @@ const UpdateUserPage = () => {
                 availableRoles={availableRoles}
                 onUpdateUserRoles={handleUpdateUserRoles}
               />
-              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+              <Heading level="h2" size="h3" className="font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Advanced tools",
                   id: "KoKXUw",
