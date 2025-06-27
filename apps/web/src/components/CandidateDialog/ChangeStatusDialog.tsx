@@ -158,6 +158,7 @@ const ChangeStatusDialogForm = ({
   const intl = useIntl();
   const options = getFragment(ChangeStatusFormOptions_Fragment, optionsQuery);
 
+  // we are progressively removing statuses from the manual status picker.
   const poolCandidateLegacyStatuses = [
     "DRAFT_EXPIRED",
     "DRAFT",
