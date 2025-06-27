@@ -49,6 +49,8 @@ const ManagerHomePage = () => {
         description={intl.formatMessage(pageSubtitle)}
       />
       <HomeHero
+        title={intl.formatMessage(pageTitle)}
+        subtitle={intl.formatMessage(pageSubtitle)}
         img={{
           sources: [
             {
@@ -85,14 +87,7 @@ const ManagerHomePage = () => {
             </CTALink>
           </>
         }
-      >
-        <Heading level="h1" size="h2" className="mt-0 mb-6">
-          {intl.formatMessage(pageTitle)}
-        </Heading>
-        <p className="max-w-2/3 text-lg sm:max-w-1/2 lg:text-xl">
-          {intl.formatMessage(pageSubtitle)}
-        </p>
-      </HomeHero>
+      />
       <SkewedContainer>
         <Heading
           level="h2"

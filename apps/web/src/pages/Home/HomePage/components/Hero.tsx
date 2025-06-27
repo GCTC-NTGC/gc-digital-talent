@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 
-import { CTALink, Heading } from "@gc-digital-talent/ui";
+import { CTALink } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -58,6 +58,13 @@ const Hero = ({ defaultImage }: HeroProps) => {
   const getHeroImage = landscapeRandomize(defaultImage);
   return (
     <HomeHero
+      title={intl.formatMessage(commonMessages.projectTitle)}
+      subtitle={intl.formatMessage({
+        defaultMessage:
+          "Whether you're thinking about joining government or already an employee, hoping to hire or considering a new role, this is the place to come to be part of the GC digital community.",
+        id: "DzCUmx",
+        description: "Description of the application on the homepage",
+      })}
       img={{
         sources: [
           {
@@ -91,24 +98,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
           </CTALink>
         </>
       }
-    >
-      <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
-        {intl.formatMessage(commonMessages.projectTitle)}
-      </Heading>
-      <p
-        data-h2-font-size="base(h6, 1.4)"
-        data-h2-font-weight="base(300)"
-        data-h2-margin="base(x1, 0, x2, 0)"
-        data-h2-max-width="p-tablet(65%) l-tablet(50%)"
-      >
-        {intl.formatMessage({
-          defaultMessage:
-            "Whether you're thinking about joining government or already an employee, hoping to hire or considering a new role, this is the place to come to be part of the GC digital community.",
-          id: "DzCUmx",
-          description: "Description of the application on the homepage",
-        })}
-      </p>
-    </HomeHero>
+    />
   );
 };
 

@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
 
-import { Container } from "@gc-digital-talent/ui";
+import { Container, Heading } from "@gc-digital-talent/ui";
 
 interface HomeHeroProps {
-  children: ReactNode;
   callToAction?: ReactNode;
+  title: string;
+  subtitle?: string;
   img: {
     sources: {
       srcset: string;
@@ -18,11 +19,21 @@ interface HomeHeroProps {
 const HomeHero = ({
   img: { sources, src, alt },
   callToAction,
-  children,
+  title,
+  subtitle,
 }: HomeHeroProps) => (
   <div className="relative overflow-hidden bg-[#000] pt-18 pb-24 xs:pt-24 sm:pt-36 sm:pb-36">
     <Container className="relative z-[1]">
-      <div className="text-center text-white xs:text-left">{children}</div>
+      <div className="text-center text-white xs:text-left">
+        <Heading level="h1" size="h2" className="mt-0 mb-6">
+          {title}
+        </Heading>
+        {subtitle && (
+          <p className="max-w-2/3 text-lg sm:max-w-1/2 lg:text-xl">
+            {subtitle}
+          </p>
+        )}
+      </div>
       {callToAction ? (
         <div className="mt-12 flex flex-wrap items-start justify-center gap-6 xs:flex-nowrap xs:justify-start">
           {callToAction}

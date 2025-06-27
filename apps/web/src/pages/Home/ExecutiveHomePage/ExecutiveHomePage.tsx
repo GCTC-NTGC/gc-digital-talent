@@ -64,6 +64,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
         description={intl.formatMessage(subTitle)}
       />
       <HomeHero
+        title={intl.formatMessage(pageTitle)}
+        subtitle={intl.formatMessage(subTitle)}
         img={{
           sources: [
             {
@@ -78,14 +80,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           src: executiveHeroLandscape,
           alt: "",
         }}
-      >
-        <Heading level="h1" size="h2" className="mt-0 mb-6">
-          {intl.formatMessage(pageTitle)}
-        </Heading>
-        <p className="max-w-2/3 text-lg sm:max-w-1/2 lg:text-xl">
-          {intl.formatMessage(subTitle)}
-        </p>
-      </HomeHero>
+      />
       <SkewedContainer>
         <Heading
           level="h2"
