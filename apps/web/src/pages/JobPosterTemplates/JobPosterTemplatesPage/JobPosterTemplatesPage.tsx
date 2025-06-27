@@ -415,8 +415,8 @@ const JobPosterTemplatesPage = () => {
               <>
                 {filteredJobPosterTemplates.length ? (
                   <>
-                    <div className="mb-1.5 flex flex-col justify-between gap-1.5 sm:flex-row">
-                      <div className="flex gap-x-1.5">
+                    <div className="mb-1.5 flex flex-col items-center justify-between gap-1.5 sm:flex-row">
+                      <div className="flex items-center gap-x-1.5">
                         <span id="sortBy">
                           {intl.formatMessage(formMessages.sortBy)}
                           {intl.formatMessage(commonMessages.dividingColon)}
