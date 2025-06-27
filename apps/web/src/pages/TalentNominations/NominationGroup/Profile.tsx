@@ -77,23 +77,13 @@ const TalentNominationGroupProfile = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Card
-        data-h2-background-color="base(transparent)"
-        style={{ borderRadius: "6px 6px 0 0" }}
-      >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-justify-content="base(space-between)"
-          data-h2-gap="base(x1 0) l-tablet(0 x.5)"
-        >
+      <Card className="rounded-l-none bg-transparent">
+        <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={UserCircleIcon}
             level="h2"
             color="secondary"
-            data-h2-margin="base(0)"
-            data-h2-font-weight="base(400)"
+            className="mt-0 font-normal"
           >
             {intl.formatMessage({
               defaultMessage: "Profile and career plan",
@@ -122,7 +112,7 @@ const TalentNominationGroupProfile = ({
             </Button>
           )}
         </div>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "The following sections can be expanded to show information about the nominee’s profile, their interest in this community, and their career goals.",
@@ -133,7 +123,7 @@ const TalentNominationGroupProfile = ({
         </p>
         {!shareProfile && (
           <Well color="error">
-            <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
+            <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
                   "This nominee has not agreed to share their information with your community",
@@ -159,8 +149,7 @@ const TalentNominationGroupProfile = ({
           size="sm"
           value={openSections}
           onValueChange={setOpenSections}
-          data-h2-margin-top="base(0)"
-          style={{ borderRadius: "0 0 6px 6px" }}
+          className="mt-0 rounded-l-none"
         >
           <BasicInformation
             sectionKey={SECTION_KEY.BASIC}
