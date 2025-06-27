@@ -77,7 +77,7 @@ const TalentNominationGroupProfile = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Card className="rounded-l-none bg-transparent">
+      <Card className="rounded-b-none bg-transparent">
         <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={UserCircleIcon}
@@ -149,7 +149,7 @@ const TalentNominationGroupProfile = ({
           size="sm"
           value={openSections}
           onValueChange={setOpenSections}
-          className="mt-0 rounded-l-none"
+          className="mt-0 rounded-t-none"
         >
           <BasicInformation
             sectionKey={SECTION_KEY.BASIC}

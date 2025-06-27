@@ -420,7 +420,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
 };
 
 const content = tv({
-  base: "pb-6 text-black dark:text-white",
+  base: "pr-6 pb-6 text-black dark:text-white",
   variants: {
     mode: {
       simple: "",
