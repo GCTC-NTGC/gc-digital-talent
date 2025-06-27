@@ -2,7 +2,7 @@ import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import { Card, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
+import { Card, Container, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -37,71 +37,67 @@ const NotificationsPage = () => {
         subtitle={intl.formatMessage(notificationMessages.description)}
         crumbs={breadcrumbs}
       />
-      <section data-h2-margin="base(x3, 0)">
-        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-          <Sidebar.Wrapper>
-            <Sidebar.Sidebar>
-              <Card>
-                <Heading level="h2" size="h6" data-h2-margin-top="base(0)">
-                  {intl.formatMessage({
-                    defaultMessage: "Notification settings",
-                    id: "5H61KV",
-                    description: "Title for managing notification settings",
-                  })}
-                </Heading>
-                <p data-h2-margin="base(x.5 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "You can manage the types of notifications along with how they are delivered to you on your account settings page.",
-                    id: "Af4zOR",
-                    description:
-                      "Describing where to go to manage notification settings",
-                  })}
-                </p>
-                <p>
-                  <Link
-                    href={`${paths.accountSettings()}#notification-settings`}
-                    icon={Cog8ToothIcon}
-                    mode="inline"
-                    color="secondary"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Update settings",
-                      id: "uzqiPj",
-                      description: "Link text for the account settings page",
-                    })}
-                  </Link>
-                </p>
-              </Card>
-            </Sidebar.Sidebar>
-            <Sidebar.Content>
-              <Heading
-                level="h2"
-                icon={BellAlertIcon}
-                color="secondary"
-                data-h2-font-weight="base(400)"
-                data-h2-margin-top="base(0)"
-              >
+      <Container className="my-18">
+        <Sidebar.Wrapper>
+          <Sidebar.Sidebar>
+            <Card>
+              <Heading level="h2" size="h6" className="mt-0">
                 {intl.formatMessage({
-                  defaultMessage: "Notification history",
-                  id: "ipDTrs",
-                  description: "Title for list of a users notifications",
+                  defaultMessage: "Notification settings",
+                  id: "5H61KV",
+                  description: "Title for managing notification settings",
                 })}
               </Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
-                    "This page provides a complete overview of your notification history. From here you can review, pin, and delete notifications from your account. If you'd like to manage which notifications you receive and their format, you can do so from your account settings page.",
-                  id: "vW/JGo",
+                    "You can manage the types of notifications along with how they are delivered to you on your account settings page.",
+                  id: "Af4zOR",
                   description:
-                    "Description of the list of a users notifications",
+                    "Describing where to go to manage notification settings",
                 })}
               </p>
-              <NotificationList paginate />
-            </Sidebar.Content>
-          </Sidebar.Wrapper>
-        </div>
-      </section>
+              <p>
+                <Link
+                  href={`${paths.accountSettings()}#notification-settings`}
+                  icon={Cog8ToothIcon}
+                  mode="inline"
+                  color="secondary"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Update settings",
+                    id: "uzqiPj",
+                    description: "Link text for the account settings page",
+                  })}
+                </Link>
+              </p>
+            </Card>
+          </Sidebar.Sidebar>
+          <Sidebar.Content>
+            <Heading
+              level="h2"
+              icon={BellAlertIcon}
+              color="secondary"
+              className="mt-0 font-normal"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Notification history",
+                id: "ipDTrs",
+                description: "Title for list of a users notifications",
+              })}
+            </Heading>
+            <p className="my-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "This page provides a complete overview of your notification history. From here you can review, pin, and delete notifications from your account. If you'd like to manage which notifications you receive and their format, you can do so from your account settings page.",
+                id: "vW/JGo",
+                description: "Description of the list of a users notifications",
+              })}
+            </p>
+            <NotificationList paginate />
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
+      </Container>
     </>
   );
 };

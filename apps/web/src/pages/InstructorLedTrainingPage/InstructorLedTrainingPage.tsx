@@ -15,6 +15,7 @@ import {
   Button,
   Card,
   CardSeparator,
+  Container,
   Heading,
   Link,
   Loading,
@@ -113,7 +114,7 @@ const externalLinkAccessor = ({
       href={href}
       color="primary"
       external
-      {...(bold ? { "data-h2-font-weight": "base(700)" } : {})}
+      {...(bold ? { className: "font-bold" } : {})}
     >
       {chunks}
     </Link>
@@ -144,7 +145,7 @@ function getMetadata(
             description: "Label for application deadline meta data",
           })}
           {intl.formatMessage(commonMessages.dividingColon)}
-          <span data-h2-font-weight="base(bold)">
+          <span className="font-bold">
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.registrationDeadline),
               formatString: "PPP",
@@ -168,7 +169,7 @@ function getMetadata(
             description: "Label for training date meta data",
           })}
           {intl.formatMessage(commonMessages.dividingColon)}
-          <span data-h2-font-weight="base(bold)">
+          <span className="font-bold">
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingStart),
               formatString: "PPP",
@@ -192,7 +193,7 @@ function getMetadata(
             description: "Label for training dates meta data",
           })}
           {intl.formatMessage(commonMessages.dividingColon)}
-          <span data-h2-font-weight="base(bold)">
+          <span className="font-bold">
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingStart),
               formatString: "PPP",
@@ -260,14 +261,14 @@ function useLangSearchParam(): UseLangSearchParamReturn {
 
 const selectedFilterStyle: Record<string, string> = {
   mode: "inline",
-  color: "secondary",
-  "data-h2-text-decoration": "base(none)",
+  color: "primary",
+  className: "no-underline",
 };
 
 const unselectedFilterStyle: Record<string, string> = {
   mode: "inline",
   color: "black",
-  "data-h2-font-weight": "base(bold)",
+  className: "font-bold",
 };
 
 export const Component = () => {
@@ -320,236 +321,214 @@ export const Component = () => {
         crumbs={crumbs}
         centered
       />
-      <div data-h2-padding="base(x3, 0)">
-        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-          <div data-h2-margin-bottom="base(x3)">
-            <Heading
-              size="h3"
-              icon={CalendarDaysIcon}
-              color="warning"
-              data-h2-margin-bottom="base(x1)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Available IT training opportunities",
-                id: "hAy7cB",
-                description:
-                  "Title for available it training opportunities section",
-              })}
-            </Heading>
-            <p data-h2-margin-bottom="base(x.5)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Explore and take advantage of instructor-led training opportunities for Government of Canada IT employees. We’ll continually add new courses, focusing on the government’s most in-demand skills and IT domains.",
-                id: "3qkzyD",
-                description:
-                  "First paragraph of it training opportunities section",
-              })}
-            </p>
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "The training opportunities on this page are supported by the <itTrainingFundLink><abbreviation>IT</abbreviation> Community Training and Development Fund</itTrainingFundLink> and are available only to <abbreviation>IT</abbreviation>-classified employees who are covered by the <itCollectiveAgreementLink><abbreviation>IT</abbreviation> collective agreement.</itCollectiveAgreementLink>",
-                  id: "6c89Fd",
-                  description:
-                    "Second paragraph of it training opportunities section",
-                },
-                {
-                  itTrainingFundLink: (chunks: ReactNode) =>
-                    externalLinkAccessor({
-                      href: paths.itTrainingFund(),
-                      chunks,
-                      bold: true,
-                    }),
-                  itCollectiveAgreementLink: (chunks: ReactNode) =>
-                    externalLinkAccessor({
-                      href:
-                        locale === "en"
-                          ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
-                          : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
-                      chunks,
-                    }),
-                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
-                },
-              )}
-            </p>
-          </div>
-          <div data-h2-margin-bottom="base(x3)">
-            <Heading
-              size="h3"
-              icon={UserCircleIcon}
-              color="error"
-              data-h2-margin-bottom="base(x1)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Apply and share your profile",
-                id: "WPS1Ic",
-                description: "Title for apply and share your profile section",
-              })}
-            </Heading>
-            <p data-h2-margin-bottom="base(x.5)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "To express your interest, complete the application form and agree to share your GC Digital Talent profile. Your profile helps us confirm your employment status, classification, identification with employment equity groups, and required experience. Before you apply, take a moment to review and update your information or create a profile if you don’t have one yet.",
-                id: "bjwTpe",
-                description: "First paragraph of apply and share section",
-              })}
-            </p>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "We’ll select participants based on eligibility, necessary skills or experience, and representation of employment equity groups in the GC’s IT workforce. We’ll contact you within 8 business days of the application closing date. If you’re selected, you’ll then have 3 business days to confirm your participation.",
-                id: "pcAgJh",
-                description: "Second paragraph of apply and share section",
-              })}
-            </p>
-          </div>
-          <div
-            role="group"
-            aria-labelledby="langFilter"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(row)"
-            data-h2-gap="base(x0.5)"
-            data-h2-margin-bottom="base(x.5)"
-          >
-            <span id="langFilter">
-              {intl.formatMessage({
-                defaultMessage: "Filter by",
-                id: "dekUfM",
-                description: "Label for a set of filters",
-              })}
-              {intl.formatMessage(commonMessages.dividingColon)}
-            </span>
-            <Button
-              aria-pressed={opportunityLanguage === null}
-              onClick={() => setOpportunityLanguage(null)}
-              {...(opportunityLanguage === null
-                ? selectedFilterStyle
-                : unselectedFilterStyle)}
-            >
-              {intl.formatMessage({
-                defaultMessage: "View all",
-                id: "vXcg28",
-                description: "Filter by option on instructor training page.",
-              })}
-            </Button>
-            <Button
-              aria-pressed={opportunityLanguage === CourseLanguage.English}
-              onClick={() => setOpportunityLanguage(CourseLanguage.English)}
-              {...(opportunityLanguage === CourseLanguage.English
-                ? selectedFilterStyle
-                : unselectedFilterStyle)}
-            >
-              {intl.formatMessage({
-                defaultMessage: "English only",
-                id: "YTN8A8",
-                description: "Filter by option on instructor training page.",
-              })}
-            </Button>
-            <Button
-              aria-pressed={opportunityLanguage === CourseLanguage.French}
-              onClick={() => setOpportunityLanguage(CourseLanguage.French)}
-              {...(opportunityLanguage === CourseLanguage.French
-                ? selectedFilterStyle
-                : unselectedFilterStyle)}
-            >
-              {intl.formatMessage({
-                defaultMessage: "French only",
-                id: "wBU9X4",
-                description: "Filter by option on instructor training page.",
-              })}
-            </Button>
-          </div>
-          {fetching ? (
-            <Loading inline />
-          ) : (
-            <>
-              {trainingOpportunities.length > 0 ? (
-                <>
-                  {trainingOpportunities.map((trainingOpportunity) => {
-                    const localizedTitle = getLocalizedName(
-                      trainingOpportunity.title,
-                      intl,
-                    );
-                    return (
-                      <Card
-                        key={trainingOpportunity.id}
-                        data-h2-margin-bottom="base(x1)"
-                      >
-                        <div
-                          data-h2-display="base(flex)"
-                          data-h2-flex-direction="base(column) l-tablet(row)"
-                          data-h2-justify-content="base(center) l-tablet(flex-start)"
-                          data-h2-align-items="base(center)"
-                          data-h2-gap="base(x.75) l-tablet(x.5)"
-                          data-h2-margin-bottom="base(x.5)"
-                        >
-                          <Heading
-                            icon={
-                              trainingOpportunity.pinned
-                                ? PinnedIcon
-                                : CalendarIcon
-                            }
-                            level="h4"
-                            size="h5"
-                            data-h2-font-weight="base(700)"
-                            data-h2-margin="base(0)"
-                            data-h2-text-align="base(center) l-tablet(initial)"
-                          >
-                            {localizedTitle}
-                          </Heading>
-                          <CourseLanguageChip
-                            courseLanguage={
-                              trainingOpportunity.courseLanguage?.value
-                            }
-                          />
-                        </div>
-                        <Metadata
-                          metadata={getMetadata(intl, trainingOpportunity)}
-                          data-h2-align-items="base(center)"
-                        />
-                        <CardSeparator />
-
-                        <Link
-                          href={paths.instructorLedTrainingOpportunity(
-                            trainingOpportunity.id,
-                          )}
-                          data-h2-font-weight="base(700)"
-                        >
-                          {intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "Learn more and apply <hidden>for {trainingOpportunityTitle}</hidden>",
-                              id: "4t9lEL",
-                              description:
-                                "Button label to open a training opportunities dialog",
-                            },
-                            {
-                              trainingOpportunityTitle: localizedTitle,
-                            },
-                          )}
-                        </Link>
-                      </Card>
-                    );
-                  })}
-                </>
-              ) : (
-                <Well data-h2-padding="base(x.5)">
-                  <p data-h2-text-align="base(center)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "There are currently no upcoming training events. Check back later.",
-                      id: "l4d7/6",
-                      description:
-                        "Null message for instructor led training list",
-                    })}
-                  </p>
-                </Well>
-              )}
-            </>
+      <Container className="my-18">
+        <Heading
+          size="h3"
+          icon={CalendarDaysIcon}
+          color="warning"
+          className="mt-0 mb-6"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Available IT training opportunities",
+            id: "hAy7cB",
+            description:
+              "Title for available it training opportunities section",
+          })}
+        </Heading>
+        <p className="mb-3">
+          {intl.formatMessage({
+            defaultMessage:
+              "Explore and take advantage of instructor-led training opportunities for Government of Canada IT employees. We’ll continually add new courses, focusing on the government’s most in-demand skills and IT domains.",
+            id: "3qkzyD",
+            description: "First paragraph of it training opportunities section",
+          })}
+        </p>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "The training opportunities on this page are supported by the <itTrainingFundLink><abbreviation>IT</abbreviation> Community Training and Development Fund</itTrainingFundLink> and are available only to <abbreviation>IT</abbreviation>-classified employees who are covered by the <itCollectiveAgreementLink><abbreviation>IT</abbreviation> collective agreement.</itCollectiveAgreementLink>",
+              id: "6c89Fd",
+              description:
+                "Second paragraph of it training opportunities section",
+            },
+            {
+              itTrainingFundLink: (chunks: ReactNode) =>
+                externalLinkAccessor({
+                  href: paths.itTrainingFund(),
+                  chunks,
+                  bold: true,
+                }),
+              itCollectiveAgreementLink: (chunks: ReactNode) =>
+                externalLinkAccessor({
+                  href:
+                    locale === "en"
+                      ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
+                      : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
+                  chunks,
+                }),
+              abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
+            },
           )}
+        </p>
+        <Heading
+          size="h3"
+          icon={UserCircleIcon}
+          color="error"
+          className="mt-18 mb-6"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Apply and share your profile",
+            id: "WPS1Ic",
+            description: "Title for apply and share your profile section",
+          })}
+        </Heading>
+        <p className="mb-3">
+          {intl.formatMessage({
+            defaultMessage:
+              "To express your interest, complete the application form and agree to share your GC Digital Talent profile. Your profile helps us confirm your employment status, classification, identification with employment equity groups, and required experience. Before you apply, take a moment to review and update your information or create a profile if you don’t have one yet.",
+            id: "bjwTpe",
+            description: "First paragraph of apply and share section",
+          })}
+        </p>
+        <p className="mb-3">
+          {intl.formatMessage({
+            defaultMessage:
+              "We’ll select participants based on eligibility, necessary skills or experience, and representation of employment equity groups in the GC’s IT workforce. We’ll contact you within 8 business days of the application closing date. If you’re selected, you’ll then have 3 business days to confirm your participation.",
+            id: "pcAgJh",
+            description: "Second paragraph of apply and share section",
+          })}
+        </p>
+        <div
+          role="group"
+          aria-labelledby="langFilter"
+          className="mt-18 mb-3 flex gap-3"
+        >
+          <span id="langFilter">
+            {intl.formatMessage({
+              defaultMessage: "Filter by",
+              id: "dekUfM",
+              description: "Label for a set of filters",
+            })}
+            {intl.formatMessage(commonMessages.dividingColon)}
+          </span>
+          <Button
+            aria-pressed={opportunityLanguage === null}
+            onClick={() => setOpportunityLanguage(null)}
+            {...(opportunityLanguage === null
+              ? selectedFilterStyle
+              : unselectedFilterStyle)}
+          >
+            {intl.formatMessage({
+              defaultMessage: "View all",
+              id: "vXcg28",
+              description: "Filter by option on instructor training page.",
+            })}
+          </Button>
+          <Button
+            aria-pressed={opportunityLanguage === CourseLanguage.English}
+            onClick={() => setOpportunityLanguage(CourseLanguage.English)}
+            {...(opportunityLanguage === CourseLanguage.English
+              ? selectedFilterStyle
+              : unselectedFilterStyle)}
+          >
+            {intl.formatMessage({
+              defaultMessage: "English only",
+              id: "YTN8A8",
+              description: "Filter by option on instructor training page.",
+            })}
+          </Button>
+          <Button
+            aria-pressed={opportunityLanguage === CourseLanguage.French}
+            onClick={() => setOpportunityLanguage(CourseLanguage.French)}
+            {...(opportunityLanguage === CourseLanguage.French
+              ? selectedFilterStyle
+              : unselectedFilterStyle)}
+          >
+            {intl.formatMessage({
+              defaultMessage: "French only",
+              id: "wBU9X4",
+              description: "Filter by option on instructor training page.",
+            })}
+          </Button>
         </div>
-      </div>
+        {fetching ? (
+          <Loading inline />
+        ) : (
+          <>
+            {trainingOpportunities.length > 0 ? (
+              <>
+                {trainingOpportunities.map((trainingOpportunity) => {
+                  const localizedTitle = getLocalizedName(
+                    trainingOpportunity.title,
+                    intl,
+                  );
+                  return (
+                    <Card key={trainingOpportunity.id} className="mb-6">
+                      <div className="mb-3 flex flex-col items-center justify-center gap-4.5 sm:flex-row sm:justify-start sm:gap-3">
+                        <Heading
+                          icon={
+                            trainingOpportunity.pinned
+                              ? PinnedIcon
+                              : CalendarIcon
+                          }
+                          level="h4"
+                          size="h5"
+                          className="m-0 text-center font-bold sm:text-left"
+                        >
+                          {localizedTitle}
+                        </Heading>
+                        <CourseLanguageChip
+                          courseLanguage={
+                            trainingOpportunity.courseLanguage?.value
+                          }
+                        />
+                      </div>
+                      <Metadata
+                        metadata={getMetadata(intl, trainingOpportunity)}
+                        className="text-center"
+                      />
+                      <CardSeparator />
+
+                      <Link
+                        href={paths.instructorLedTrainingOpportunity(
+                          trainingOpportunity.id,
+                        )}
+                        className="font-bold"
+                      >
+                        {intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "Learn more and apply <hidden>for {trainingOpportunityTitle}</hidden>",
+                            id: "4t9lEL",
+                            description:
+                              "Button label to open a training opportunities dialog",
+                          },
+                          {
+                            trainingOpportunityTitle: localizedTitle,
+                          },
+                        )}
+                      </Link>
+                    </Card>
+                  );
+                })}
+              </>
+            ) : (
+              <Well className="text-center">
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "There are currently no upcoming training events. Check back later.",
+                    id: "l4d7/6",
+                    description:
+                      "Null message for instructor led training list",
+                  })}
+                </p>
+              </Well>
+            )}
+          </>
+        )}
+      </Container>
     </>
   );
 };

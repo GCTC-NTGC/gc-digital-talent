@@ -4,7 +4,7 @@ import AdjustmentsHorizontalIcon from "@heroicons/react/24/outline/AdjustmentsHo
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 
-import { Link, TableOfContents, Ul } from "@gc-digital-talent/ui";
+import { Container, Link, TableOfContents, Ul } from "@gc-digital-talent/ui";
 import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -36,7 +36,7 @@ const researchAndDevelopmentLink = (locale: Locales, chunks: ReactNode) => (
 );
 
 const Text = ({ children }: { children: ReactNode }) => (
-  <p data-h2-margin="base(x1 0)">{children}</p>
+  <p className="my-6">{children}</p>
 );
 
 interface Section {
@@ -103,8 +103,8 @@ export const Component = () => {
           description: "Subtitle for the inclusivity and equity page",
         })}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
               {Object.values(sections).map((section) => (
@@ -122,7 +122,7 @@ export const Component = () => {
                 size="h3"
                 icon={LightBulbIcon}
                 color="primary"
-                data-h2-margin-top="base(0)"
+                className="mt-0"
               >
                 {sections.importance.title}
               </TableOfContents.Heading>
@@ -281,7 +281,7 @@ export const Component = () => {
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };
