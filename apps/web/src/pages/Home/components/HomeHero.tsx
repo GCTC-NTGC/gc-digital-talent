@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { Container } from "@gc-digital-talent/ui";
+
 interface HomeHeroProps {
   children: ReactNode;
   callToAction?: ReactNode;
@@ -18,37 +20,16 @@ const HomeHero = ({
   callToAction,
   children,
 }: HomeHeroProps) => (
-  <div
-    data-h2-background-color="base(#000)"
-    data-h2-position="base(relative)"
-    data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
-    data-h2-padding-bottom="p-tablet(calc(x4 + 3%)) l-tablet(calc(x6 + 3%))"
-    data-h2-overflow="base(hidden)"
-  >
-    <div
-      data-h2-position="base(relative)"
-      data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      data-h2-layer="base(1, relative)"
-    >
-      <div
-        data-h2-color="base:all(white)"
-        data-h2-text-align="base(center) p-tablet(left)"
-      >
-        {children}
-      </div>
+  <div className="relative overflow-hidden bg-[#000] pt-18 pb-24 xs:pt-24 sm:pt-36 sm:pb-36">
+    <Container className="relative z-[1]">
+      <div className="text-center text-white xs:text-left">{children}</div>
       {callToAction ? (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(flex-start)"
-          data-h2-gap="base(x1)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-          data-h2-flex-wrap="base(wrap) p-tablet(initial)"
-        >
+        <div className="mt-12 flex flex-wrap items-start justify-center gap-6 xs:flex-nowrap xs:justify-start">
           {callToAction}
         </div>
       ) : null}
-    </div>
-    <div data-h2-padding-top="base(x3) p-tablet(0)">
+    </Container>
+    <div className="pt-18 xs:pt-0">
       <picture>
         {sources.map(({ srcset, media }) => (
           <source key={`${srcset}${media}`} srcSet={srcset} media={media} />
@@ -56,13 +37,7 @@ const HomeHero = ({
         <img
           src={src}
           alt={alt}
-          data-h2-height="p-tablet(100%)"
-          data-h2-margin-bottom="base(-x2) p-tablet(0)"
-          data-h2-position="base(relative) p-tablet(absolute)"
-          data-h2-top="p-tablet(0)"
-          data-h2-left="p-tablet(auto) l-tablet(50%)"
-          data-h2-right="p-tablet(0px) l-tablet(auto)"
-          data-h2-width="base(100%) p-tablet(auto)"
+          className="relative -mb-12 w-full xs:absolute xs:top-0 xs:right-0 xs:left-auto xs:mb-0 xs:h-full xs:w-auto sm:right-auto sm:left-1/2"
         />
       </picture>
     </div>
