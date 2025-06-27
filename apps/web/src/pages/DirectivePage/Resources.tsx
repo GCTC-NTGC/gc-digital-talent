@@ -19,7 +19,7 @@ const Resources = () => {
           icon={FolderOpenIcon}
           size="h3"
           color="warning"
-          data-h2-margin="base(x3, 0, x1, 0)"
+          className="mt-18 mb-6"
         >
           {intl.formatMessage({
             defaultMessage: "Resources",
@@ -28,46 +28,22 @@ const Resources = () => {
               "Heading for section for the group-specific resources section.",
           })}
         </Heading>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
-          data-h2-gap="base(x1)"
-          data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
-        >
-          <Card
-            data-h2-overflow="base(hidden)"
-            data-h2-padding="base(0)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-          >
-            <div
-              data-h2-display="base(block) base:children[>span](block)"
-              data-h2-padding="base(x1)"
-              data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
-              data-h2-color="base:all(white)"
-            >
-              <span data-h2-font-size="base(h6, 1)">
+        <div className="grid gap-6 xs:my-12 xs:grid-cols-2 sm:grid-cols-3">
+          <Card className="flex flex-col overflow-hidden p-0">
+            <div className="block bg-gray-700 p-6 text-white">
+              <Heading level="h3" size="h6" className="my-0">
                 {intl.formatMessage({
                   defaultMessage: "Digital initiative managers",
                   id: "Tvsi5A",
                   description: "Title for group-specific resource card",
                 })}
-              </span>
+              </Heading>
             </div>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-flex-grow="base(1)"
-            >
+            <div className="flex grow flex-col justify-between">
               <div>
-                <img
-                  src={managers}
-                  alt=""
-                  data-h2-display="base(none) p-tablet(block)"
-                />
+                <img src={managers} alt="" className="hidden xs:block" />
 
-                <p data-h2-padding="base(0 x1)">
+                <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "This implementation guidance is designed to support digital initiative managers and leads in fulfilling their responsibilities under the <cite>Directive on Digital Talent</cite>. It explains why the directive is needed and what is required.",
@@ -77,10 +53,10 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-padding="base(x1)">
+              <div className="p-6">
                 <Link
                   mode="text"
-                  data-h2-font-weight="base(bold)"
+                  className="font-bold"
                   block
                   external
                   download
@@ -102,39 +78,20 @@ const Resources = () => {
               </div>
             </div>
           </Card>
-          <Card
-            data-h2-overflow="base(hidden)"
-            data-h2-padding="base(0)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-          >
-            <div
-              data-h2-display="base(block) base:children[>span](block)"
-              data-h2-padding="base(x1)"
-              data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
-              data-h2-color="base:all(white)"
-            >
-              <span data-h2-font-size="base(h6, 1)">
+          <Card className="flex flex-col overflow-hidden p-0">
+            <div className="block bg-gray-700 p-6 text-white">
+              <Heading level="h3" size="h6" className="my-0">
                 {intl.formatMessage({
                   defaultMessage: "Human resources advisors",
                   id: "x+kUrO",
                   description: "Title for group-specific resource card",
                 })}
-              </span>
+              </Heading>
             </div>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-flex-grow="base(1)"
-            >
+            <div className="flex grow flex-col justify-between">
               <div>
-                <img
-                  src={hr}
-                  alt=""
-                  data-h2-display="base(none) p-tablet(block)"
-                />
-                <p data-h2-padding="base(0 x1)">
+                <img src={hr} alt="" className="hidden xs:block" />
+                <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the <cite>Directive on Digital Talent</cite> and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. This implementation guidance is designed to help HR advisors in carrying out these responsibilities.",
@@ -144,10 +101,10 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-padding="base(x1)">
+              <div className="p-6">
                 <Link
                   mode="text"
-                  data-h2-font-weight="base(bold)"
+                  className="font-bold"
                   block
                   external
                   download
@@ -169,39 +126,20 @@ const Resources = () => {
               </div>
             </div>
           </Card>
-          <Card
-            data-h2-overflow="base(hidden)"
-            data-h2-padding="base(0)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-          >
-            <div
-              data-h2-display="base(block) base:children[>span](block)"
-              data-h2-padding="base(x1)"
-              data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
-              data-h2-color="base:all(white)"
-            >
-              <span data-h2-font-size="base(h6, 1)">
+          <Card className="flex flex-col overflow-hidden p-0">
+            <div className="block bg-gray-700 p-6 text-white">
+              <Heading level="h3" size="h6" className="my-0">
                 {intl.formatMessage({
                   defaultMessage: "Procurement officers",
                   id: "n92mcX",
                   description: "Title for procurement officer resource card",
                 })}
-              </span>
+              </Heading>
             </div>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-flex-grow="base(1)"
-            >
+            <div className="flex grow flex-col justify-between">
               <div>
-                <img
-                  src={procurement}
-                  alt=""
-                  data-h2-display="base(none) p-tablet(block)"
-                />
-                <p data-h2-margin="base(x1)">
+                <img src={procurement} alt="" className="hidden xs:block" />
+                <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to business owners. This resource is designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
@@ -211,10 +149,10 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-padding="base(x1)">
+              <div className="p-6">
                 <Link
                   mode="text"
-                  data-h2-font-weight="base(bold)"
+                  className="font-bold"
                   block
                   external
                   download
