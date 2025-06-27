@@ -10,7 +10,7 @@ export const ListItem = ({ children, ...rest }: ListItemProps) => (
 );
 
 const list = tv({
-  base: "list-inside list-disc pl-6",
+  base: "list-inside list-disc pl-0",
   variants: {
     space: {
       sm: "my-1.5",
