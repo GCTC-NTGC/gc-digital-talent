@@ -22,14 +22,14 @@ const HomeHero = ({
   title,
   subtitle,
 }: HomeHeroProps) => (
-  <div className="relative overflow-hidden bg-[#000] pt-18 pb-24 xs:pt-24 sm:pt-36 sm:pb-36">
+  <div className="relative overflow-hidden bg-[#000] pt-18 pb-24 xs:pt-24 sm:pt-36 sm:pb-36 md:pt-48 md:pb-56">
     <Container className="relative z-[1]">
       <div className="text-center text-white xs:text-left">
         <Heading level="h1" size="h2" className="mt-0 mb-6">
           {title}
         </Heading>
         {subtitle && (
-          <p className="max-w-2/3 text-lg sm:max-w-1/2 lg:text-xl">
+          <p className="text-lg xs:max-w-2/3 sm:max-w-1/2 lg:text-xl">
             {subtitle}
           </p>
         )}
@@ -48,7 +48,7 @@ const HomeHero = ({
         <img
           src={src}
           alt={alt}
-          className="relative -mb-12 w-full xs:absolute xs:top-0 xs:right-0 xs:left-auto xs:mb-0 xs:h-full xs:w-auto sm:right-auto sm:left-1/2"
+          className="relative -mb-24 w-full xs:absolute xs:top-0 xs:right-0 xs:left-auto xs:mb-0 xs:h-full xs:w-auto sm:right-auto sm:left-1/2"
         />
       </picture>
     </div>
