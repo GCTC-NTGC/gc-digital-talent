@@ -97,7 +97,7 @@ const RemoveProcessRoleDialog = ({
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(0, 0 ,x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage: "You are about to remove this member:",
               id: "95aNQ1",
@@ -105,11 +105,11 @@ const RemoveProcessRoleDialog = ({
             })}
           </p>
           <Ul>
-            <li data-h2-font-weight="base(bold)">
+            <li className="font-bold">
               <span>{userName}</span>
             </li>
           </Ul>
-          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "From the following process:",
               id: "7+HKOE",
@@ -117,11 +117,11 @@ const RemoveProcessRoleDialog = ({
             })}
           </p>
           <Ul>
-            <li data-h2-font-weight="base(bold)">
+            <li className="font-bold">
               <span>{poolDisplayName}</span>
             </li>
           </Ul>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "The user will lose all the following process roles:",
@@ -137,7 +137,7 @@ const RemoveProcessRoleDialog = ({
               </Chip>
             ))}
           </Chips>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>

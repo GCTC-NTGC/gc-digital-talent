@@ -214,13 +214,11 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="secondary">
-          <span data-h2-text-decoration="base(underline)">
-            {intl.formatMessage({
-              defaultMessage: "Add user to pool",
-              id: "4Irijj",
-              description: "Button to add user to pool on the view-user page",
-            })}
-          </span>
+          {intl.formatMessage({
+            defaultMessage: "Add user to pool",
+            id: "4Irijj",
+            description: "Button to add user to pool on the view-user page",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -242,10 +240,10 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
             })}
           </p>
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          <p data-h2-font-weight="base(800)">
+          <p className="mb-6 font-bold">
             - {getFullNameHtml(firstName, lastName, intl)}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage: "Choose pool:",
               id: "K3LEpl",
@@ -255,10 +253,10 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
-              <div data-h2-margin="base(x.5, 0, x.125, 0)">
+              <div className="mb-1.25">
                 <PoolFilterInput excludeIds={currentPools} />
               </div>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Set an expiry date for this candidate on this pool:",
@@ -267,7 +265,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
                     "Third section of text on the add user to pool dialog",
                 })}
               </p>
-              <div data-h2-margin="base(x.5, 0, x.125, 0)">
+              <div className="mt-3 mb-1.25">
                 <DateInput
                   id="addToPoolDialog-expiryDate"
                   legend={intl.formatMessage({
