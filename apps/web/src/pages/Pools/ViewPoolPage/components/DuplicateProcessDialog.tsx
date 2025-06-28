@@ -88,7 +88,7 @@ const DuplicateProcessDialog = ({
       <Dialog.Content>
         <Dialog.Header>{title}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 id: "G7ICNn",
@@ -103,7 +103,7 @@ const DuplicateProcessDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleDuplicate)}>
-              <p data-h2-margin-bottom="base(x1)">
+              <p className="mb-6">
                 {intl.formatMessage({
                   id: "KP50uT",
                   defaultMessage:
@@ -113,7 +113,7 @@ const DuplicateProcessDialog = ({
                 })}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <div data-h2-margin-bottom="base(x1)">
+              <div className="mb-6">
                 <Select
                   id="department"
                   label={intl.formatMessage({
@@ -136,7 +136,7 @@ const DuplicateProcessDialog = ({
                 />
               </div>
 
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   id: "AZEoFk",
                   defaultMessage:
@@ -145,7 +145,7 @@ const DuplicateProcessDialog = ({
                     "Text explaining what will happen when duplicating a process",
                 })}
               </p>
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   id: "3Rad8l",
                   defaultMessage:

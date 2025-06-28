@@ -80,12 +80,7 @@ const SecurityClearanceDialog = () => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x.5)"
-            data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(flex-start)"
-          >
+          <div className="flex flex-col items-start gap-3">
             <p>
               {intl.formatMessage({
                 defaultMessage:
@@ -95,7 +90,7 @@ const SecurityClearanceDialog = () => {
                   "First paragraph for the security clearance dialog",
               })}
             </p>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "The time it takes to complete security screening can vary from a few days to several months. Higher levels of security screening and more complex cases tend to take longer.",
@@ -104,11 +99,7 @@ const SecurityClearanceDialog = () => {
                   "Second paragraph for the security clearance dialog",
               })}
             </p>
-            <Heading
-              level={headingLevel}
-              size="h6"
-              data-h2-margin-top="base(0)"
-            >
+            <Heading level={headingLevel} size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "Levels of security screening",
                 id: "ZZLwb5",
@@ -116,7 +107,7 @@ const SecurityClearanceDialog = () => {
                   "Heading for the security clearance levels section",
               })}
             </Heading>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "The required level of security screening depends on the job and is determined by the sensitivity of the information you'll handle and the location of your office. There are three levels of security screening, each with an enhanced option:",
@@ -150,11 +141,7 @@ const SecurityClearanceDialog = () => {
                 })}
               </li>
             </Ul>
-            <Heading
-              level={headingLevel}
-              size="h6"
-              data-h2-margin-top="base(0)"
-            >
+            <Heading level={headingLevel} size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "Obtaining your security status or clearance",
                 id: "FxB6Km",
@@ -186,7 +173,7 @@ const SecurityClearanceDialog = () => {
                   "Second paragraph for the obtaining security clearance section",
               })}
             </p>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "Reliability status and secret clearance are valid for up to 10 years, while top secret clearance is valid for up to 5 years.",
@@ -195,11 +182,7 @@ const SecurityClearanceDialog = () => {
                   "Third paragraph for the obtaining security clearance section",
               })}
             </p>
-            <Heading
-              level={headingLevel}
-              size="h6"
-              data-h2-margin-top="base(0)"
-            >
+            <Heading level={headingLevel} size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More information",
                 id: "dCmN+g",

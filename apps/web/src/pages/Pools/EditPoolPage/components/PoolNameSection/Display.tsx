@@ -67,14 +67,9 @@ const Display = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="mb-6 grid gap-6 xs:grid-cols-2">
         <ToggleForm.FieldDisplay
-          data-h2-grid-column="p-tablet(1 / span 2)"
+          className="xs:col-span-2"
           hasError={!areaOfSelection}
           label={intl.formatMessage(processMessages.areaOfSelection)}
         >
@@ -82,36 +77,27 @@ const Display = ({
         </ToggleForm.FieldDisplay>
         {areaOfSelection ? (
           <ToggleForm.FieldDisplay
-            data-h2-grid-column="p-tablet(1 / span 2)"
+            className="xs:col-span-2"
             label={intl.formatMessage(selectionLimitationLabelMessage)}
           >
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x0.25)"
-              data-h2-margin-top="base(x0.25)"
-            >
+            <div className="mt-1.5 flex flex-col gap-1.5">
               {possibleEmployeeLimitations?.map((singleSelectionLimitation) => {
                 return (
                   <div
                     key={singleSelectionLimitation.value}
-                    data-h2-display="base(flex)"
-                    data-h2-gap="base(x0.25)"
-                    data-h2-align-items="base(center)"
+                    className="flex items-center gap-1.5"
                   >
                     {poolSelectionLimitationValues.includes(
                       singleSelectionLimitation.value,
                     ) ? (
                       <CheckCircleIcon
-                        data-h2-height="base(x0.75)"
-                        data-h2-color="base(success) base:dark(success.lighter)"
+                        className="h-4.5 text-success dark:text-success-200"
                         aria-hidden="false"
                         aria-label={intl.formatMessage(commonMessages.selected)}
                       />
                     ) : (
                       <XCircleIcon
-                        data-h2-height="base(x0.75)"
-                        data-h2-color="base(background.darker)"
+                        className="size-4.5 text-gray-600 dark:text-gray-200"
                         aria-hidden="false"
                         aria-label={intl.formatMessage(
                           commonMessages.notSelected,
@@ -128,7 +114,7 @@ const Display = ({
         {poolSelectionLimitationValues.includes(
           PoolSelectionLimitation.CanadianCitizens,
         ) ? (
-          <Well color="warning" data-h2-grid-column="p-tablet(1 / span 2)">
+          <Well color="warning" className="xs:col-span-2">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -174,11 +160,7 @@ const Display = ({
           {name?.fr ?? notProvided}
         </ToggleForm.FieldDisplay>
       </div>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="mb-6 grid gap-6">
         <ToggleForm.FieldDisplay
           hasError={!department}
           label={intl.formatMessage(commonMessages.department)}

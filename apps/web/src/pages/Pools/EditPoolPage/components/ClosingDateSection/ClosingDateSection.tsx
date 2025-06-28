@@ -153,7 +153,7 @@ const ClosingDateSection = ({
             sectionTitle={sectionMetadata.title}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
@@ -165,7 +165,7 @@ const ClosingDateSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div data-h2-margin-bottom="base(x1)">
+              <div className="mb-6">
                 <DateInput
                   id="endDate"
                   legend={intl.formatMessage(processMessages.closingDate)}

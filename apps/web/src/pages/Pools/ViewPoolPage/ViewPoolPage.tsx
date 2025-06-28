@@ -2,7 +2,14 @@ import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
 
-import { Pending, NotFound, Link, Heading, Chip } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  NotFound,
+  Link,
+  Heading,
+  Chip,
+  Container,
+} from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
@@ -22,7 +29,6 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
 import {
   getAdvertisementStatus,
@@ -184,309 +190,284 @@ export const ViewPool = ({
   return (
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
-      <div data-h2-wrapper="base(left, large, 0)">
-        <Heading
-          level="h2"
-          icon={UserGroupIcon}
-          color="secondary"
-          data-h2-margin-top="base(0)"
-        >
-          {pageTitle}
-        </Heading>
-        <p data-h2-margin="base(x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "From here you can duplicate, delete or submit your process for publication. Your process can be published once the advertisement information and assessment plan are complete.",
-            id: "k2RLxv",
-            description:
-              "Description of the actions that can be taken on the process information admin page",
-          })}
-        </p>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) l-tablet(repeat(2, 1fr))"
-          data-h2-gap="base(x1 0) l-tablet(x1)"
-        >
-          <ProcessCard.Root>
-            <ProcessCard.Header>
-              <Heading level="h3" size="h6" data-h2-margin="base(0)">
-                {intl.formatMessage({
-                  defaultMessage: "Advertisement information",
-                  id: "yM04jy",
-                  description:
-                    "Title for advertisement information of a process",
-                })}
-              </Heading>
-              {advertisementBadge.label && (
-                <Chip
-                  color={advertisementBadge.color}
-                  data-h2-flex-shrink="base(0)"
-                >
-                  {typeof advertisementBadge.label === "string"
-                    ? advertisementBadge.label
-                    : intl.formatMessage(advertisementBadge.label)}
-                </Chip>
-              )}
-            </ProcessCard.Header>
-            <p data-h2-margin="base(x1 0)">
+      <Heading
+        level="h2"
+        icon={UserGroupIcon}
+        color="secondary"
+        className="mt-0"
+      >
+        {pageTitle}
+      </Heading>
+      <p className="my-6">
+        {intl.formatMessage({
+          defaultMessage:
+            "From here you can duplicate, delete or submit your process for publication. Your process can be published once the advertisement information and assessment plan are complete.",
+          id: "k2RLxv",
+          description:
+            "Description of the actions that can be taken on the process information admin page",
+        })}
+      </p>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <ProcessCard.Root>
+          <ProcessCard.Header>
+            <Heading level="h3" size="h6" className="mt-0">
               {intl.formatMessage({
-                defaultMessage:
-                  "Define the process information such as classification, impact, and skill requirements.",
-                id: "LY898b",
-                description:
-                  "Information about what an advertisement represents",
+                defaultMessage: "Advertisement information",
+                id: "yM04jy",
+                description: "Title for advertisement information of a process",
               })}
-            </p>
-            <p data-h2-margin="base(x1 0)">
-              {intl.formatMessage(processMessages.processNumber)}
-              {intl.formatMessage(commonMessages.dividingColon)}
-              {pool.processNumber ?? (
-                <span data-h2-color="base(error.darkest)">
-                  {intl.formatMessage(commonMessages.notProvided)}
-                </span>
-              )}
-            </p>
-            <ProcessCard.Footer>
-              {canEdit && (
-                <Link
-                  mode="inline"
-                  color={
-                    pool.status?.value === PoolStatus.Published
-                      ? "error"
-                      : "primary"
-                  }
-                  href={paths.poolUpdate(pool.id)}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit advertisement",
-                    id: "80mwrF",
-                    description:
-                      "Link text to edit a specific pool advertisement",
-                  })}
-                </Link>
-              )}
+            </Heading>
+            {advertisementBadge.label && (
+              <Chip color={advertisementBadge.color} className="shrink-0">
+                {typeof advertisementBadge.label === "string"
+                  ? advertisementBadge.label
+                  : intl.formatMessage(advertisementBadge.label)}
+              </Chip>
+            )}
+          </ProcessCard.Header>
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "Define the process information such as classification, impact, and skill requirements.",
+              id: "LY898b",
+              description: "Information about what an advertisement represents",
+            })}
+          </p>
+          <p className="my-6">
+            {intl.formatMessage(processMessages.processNumber)}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {pool.processNumber ?? (
+              <span className="text-error-700 dark:text-error-100">
+                {intl.formatMessage(commonMessages.notProvided)}
+              </span>
+            )}
+          </p>
+          <ProcessCard.Footer>
+            {canEdit && (
               <Link
                 mode="inline"
-                color="primary"
-                href={
-                  advertisementStatus === "submitted"
-                    ? paths.pool(pool.id)
-                    : paths.poolPreview(pool.id)
+                color={
+                  pool.status?.value === PoolStatus.Published
+                    ? "error"
+                    : "primary"
                 }
-                newTab
+                href={paths.poolUpdate(pool.id)}
               >
-                {advertisementStatus === "submitted"
-                  ? intl.formatMessage({
-                      defaultMessage: "View advertisement",
-                      id: "8gyWTT",
-                      description:
-                        "Link text to view a specific pool advertisement",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Preview advertisement",
-                      id: "AhZlU1",
-                      description:
-                        "Link text to preview a specific pool advertisement",
-                    })}
-              </Link>
-            </ProcessCard.Footer>
-          </ProcessCard.Root>
-          <ProcessCard.Root>
-            <ProcessCard.Header>
-              <Heading level="h3" size="h6" data-h2-margin="base(0)">
-                {intl.formatMessage(messages.assessmentPlan)}
-              </Heading>
-              {assessmentBadge.label && (
-                <Chip
-                  color={assessmentBadge.color}
-                  data-h2-flex-shrink="base(0)"
-                >
-                  {typeof assessmentBadge.label === "string"
-                    ? assessmentBadge.label
-                    : intl.formatMessage(assessmentBadge.label)}
-                </Chip>
-              )}
-            </ProcessCard.Header>
-            <p data-h2-margin="base(x1 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Define the assessments used to evaluate each skill in the advertisement.",
-                id: "Fs444j",
-                description:
-                  "Information about what an assessment plan represents",
-              })}
-            </p>
-            <ProcessCard.Footer>
-              <Link
-                mode="inline"
-                color="primary"
-                href={paths.assessmentPlanBuilder(pool.id)}
-              >
-                {assessmentStatus === "submitted"
-                  ? intl.formatMessage({
-                      defaultMessage: "View assessment plan",
-                      id: "1X7JVN",
-                      description:
-                        "Link text to view a specific pool assessment",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Edit assessment plan",
-                      id: "Q3adCp",
-                      description:
-                        "Link text to edit a specific pool assessment",
-                    })}
-              </Link>
-            </ProcessCard.Footer>
-          </ProcessCard.Root>
-          <ProcessCard.Root data-h2-grid-column="l-tablet(span 2)">
-            <ProcessCard.Header>
-              <Heading level="h3" size="h6" data-h2-margin="base(0 0 x1 0)">
                 {intl.formatMessage({
-                  defaultMessage: "Process status",
-                  id: "KJDxM1",
+                  defaultMessage: "Edit advertisement",
+                  id: "80mwrF",
                   description:
-                    "Title for card for actions related to changing the status of a process",
+                    "Link text to edit a specific pool advertisement",
                 })}
-              </Heading>
-              {processBadge.label && (
-                <Chip
-                  color={processBadge.color}
-                  icon={processBadge.icon}
-                  data-h2-flex-shrink="base(0)"
-                >
-                  {typeof processBadge.label === "string"
-                    ? processBadge.label
-                    : intl.formatMessage(processBadge.label)}
-                </Chip>
+              </Link>
+            )}
+            <Link
+              mode="inline"
+              color="primary"
+              href={
+                advertisementStatus === "submitted"
+                  ? paths.pool(pool.id)
+                  : paths.poolPreview(pool.id)
+              }
+              newTab
+            >
+              {advertisementStatus === "submitted"
+                ? intl.formatMessage({
+                    defaultMessage: "View advertisement",
+                    id: "8gyWTT",
+                    description:
+                      "Link text to view a specific pool advertisement",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Preview advertisement",
+                    id: "AhZlU1",
+                    description:
+                      "Link text to preview a specific pool advertisement",
+                  })}
+            </Link>
+          </ProcessCard.Footer>
+        </ProcessCard.Root>
+        <ProcessCard.Root>
+          <ProcessCard.Header>
+            <Heading level="h3" size="h6" className="mt-0">
+              {intl.formatMessage(messages.assessmentPlan)}
+            </Heading>
+            {assessmentBadge.label && (
+              <Chip color={assessmentBadge.color} className="shrink-0">
+                {typeof assessmentBadge.label === "string"
+                  ? assessmentBadge.label
+                  : intl.formatMessage(assessmentBadge.label)}
+              </Chip>
+            )}
+          </ProcessCard.Header>
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "Define the assessments used to evaluate each skill in the advertisement.",
+              id: "Fs444j",
+              description:
+                "Information about what an assessment plan represents",
+            })}
+          </p>
+          <ProcessCard.Footer>
+            <Link
+              mode="inline"
+              color="primary"
+              href={paths.assessmentPlanBuilder(pool.id)}
+            >
+              {assessmentStatus === "submitted"
+                ? intl.formatMessage({
+                    defaultMessage: "View assessment plan",
+                    id: "1X7JVN",
+                    description: "Link text to view a specific pool assessment",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Edit assessment plan",
+                    id: "Q3adCp",
+                    description: "Link text to edit a specific pool assessment",
+                  })}
+            </Link>
+          </ProcessCard.Footer>
+        </ProcessCard.Root>
+        <ProcessCard.Root className="sm:col-span-2">
+          <ProcessCard.Header>
+            <Heading level="h3" size="h6" className="mt-0 mb-6">
+              {intl.formatMessage({
+                defaultMessage: "Process status",
+                id: "KJDxM1",
+                description:
+                  "Title for card for actions related to changing the status of a process",
+              })}
+            </Heading>
+            {processBadge.label && (
+              <Chip
+                color={processBadge.color}
+                icon={processBadge.icon}
+                className="shrink-0"
+              >
+                {typeof processBadge.label === "string"
+                  ? processBadge.label
+                  : intl.formatMessage(processBadge.label)}
+              </Chip>
+            )}
+          </ProcessCard.Header>
+          {pool.status?.value === PoolStatus.Published && (
+            <p className="my-6">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "This process is <heavySecondary>open</heavySecondary> and accepting applications until <heavySecondary>{closingDate}</heavySecondary>.",
+                  id: "JlTf/G",
+                  description:
+                    "Message displayed to admins when a process is published",
+                },
+                {
+                  closingDate,
+                },
               )}
-            </ProcessCard.Header>
-            {pool.status?.value === PoolStatus.Published && (
-              <p data-h2-margin="base(x1 0)">
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "This process is <heavySecondary>open</heavySecondary> and accepting applications until <heavySecondary>{closingDate}</heavySecondary>.",
-                    id: "JlTf/G",
-                    description:
-                      "Message displayed to admins when a process is published",
-                  },
-                  {
-                    closingDate,
-                  },
-                )}
+            </p>
+          )}
+          {[PoolStatus.Archived, PoolStatus.Closed].includes(
+            pool.status?.value ?? PoolStatus.Draft,
+          ) && (
+            <p className="my-6">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "This process <heavyRed>closed</heavyRed> on <heavyRed>{closingDate}</heavyRed> and is no longer accepting applications.",
+                  id: "nKCUhO",
+                  description:
+                    "Message displayed to admins when a process is closed or archived",
+                },
+                {
+                  closingDate,
+                },
+              )}
+            </p>
+          )}
+          {pool.status?.value === PoolStatus.Draft ? (
+            <>
+              <p className="my-6">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This process is in <heavyWarning>draft</heavyWarning> and has not been advertised yet.",
+                  id: "VYzAZy",
+                  description:
+                    "Message displayed to admins when a process is in draft mode",
+                })}
               </p>
+              <p className="my-6 text-gray-600 dark:text-gray-200">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Publish your advertisement to start receiving applications.",
+                  id: "dImJqI",
+                  description:
+                    "Instructions on a draft process on how to start getting applicants",
+                })}
+              </p>
+            </>
+          ) : (
+            <p className="my-6 text-gray-600 dark:text-gray-200">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "{count, plural, =0 {0 total applicants} one {# total applicant} other {# total applicants}}",
+                  id: "HYUyl0",
+                  description: "The number of applicants to a specific process",
+                },
+                {
+                  count: pool.poolCandidatesCount ?? 0,
+                },
+              )}
+            </p>
+          )}
+          <ProcessCard.Footer>
+            {pool.status?.value === PoolStatus.Draft && canPublish && (
+              <PublishProcessDialog
+                {...commonDialogProps}
+                closingDate={pool.closingDate}
+                onPublish={onPublish}
+                isReadyToPublish={isReadyToPublish}
+              />
             )}
-            {[PoolStatus.Archived, PoolStatus.Closed].includes(
+            {!canPublish && pool.status?.value === PoolStatus.Draft && (
+              <SubmitForPublishingDialog isReadyToPublish={isReadyToPublish} />
+            )}
+            {[PoolStatus.Closed, PoolStatus.Published].includes(
               pool.status?.value ?? PoolStatus.Draft,
-            ) && (
-              <p data-h2-margin="base(x1 0)">
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "This process <heavyRed>closed</heavyRed> on <heavyRed>{closingDate}</heavyRed> and is no longer accepting applications.",
-                    id: "nKCUhO",
-                    description:
-                      "Message displayed to admins when a process is closed or archived",
-                  },
-                  {
-                    closingDate,
-                  },
-                )}
-              </p>
-            )}
-            {pool.status?.value === PoolStatus.Draft ? (
-              <>
-                <p data-h2-margin="base(x1 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "This process is in <heavyWarning>draft</heavyWarning> and has not been advertised yet.",
-                    id: "VYzAZy",
-                    description:
-                      "Message displayed to admins when a process is in draft mode",
-                  })}
-                </p>
-                <p
-                  data-h2-margin="base(x1 0)"
-                  data-h2-color="base(black.light)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Publish your advertisement to start receiving applications.",
-                    id: "dImJqI",
-                    description:
-                      "Instructions on a draft process on how to start getting applicants",
-                  })}
-                </p>
-              </>
-            ) : (
-              <p data-h2-margin="base(x1 0)" data-h2-color="base(black.light)">
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "{count, plural, =0 {0 total applicants} one {# total applicant} other {# total applicants}}",
-                    id: "HYUyl0",
-                    description:
-                      "The number of applicants to a specific process",
-                  },
-                  {
-                    count: pool.poolCandidatesCount ?? 0,
-                  },
-                )}
-              </p>
-            )}
-            <ProcessCard.Footer>
-              {pool.status?.value === PoolStatus.Draft && canPublish && (
-                <PublishProcessDialog
+            ) &&
+              canPublish && (
+                <ChangeDateDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
-                  onPublish={onPublish}
-                  isReadyToPublish={isReadyToPublish}
+                  onExtend={onExtend}
+                  onClose={onClose}
                 />
               )}
-              {!canPublish && pool.status?.value === PoolStatus.Draft && (
-                <SubmitForPublishingDialog
-                  isReadyToPublish={isReadyToPublish}
-                />
-              )}
-              {[PoolStatus.Closed, PoolStatus.Published].includes(
-                pool.status?.value ?? PoolStatus.Draft,
-              ) &&
-                canPublish && (
-                  <ChangeDateDialog
-                    {...commonDialogProps}
-                    closingDate={pool.closingDate}
-                    onExtend={onExtend}
-                    onClose={onClose}
-                  />
-                )}
-              {canDuplicate && (
-                <DuplicateProcessDialog
-                  {...commonDialogProps}
-                  departmentsQuery={departmentsQuery}
-                  onDuplicate={onDuplicate}
-                />
-              )}
-              {pool.status?.value === PoolStatus.Closed && canArchive && (
-                <ArchiveProcessDialog
-                  {...commonDialogProps}
-                  onArchive={onArchive}
-                />
-              )}
-              {pool.status?.value === PoolStatus.Archived && canArchive && (
-                <UnarchiveProcessDialog
-                  {...commonDialogProps}
-                  onUnarchive={onUnarchive}
-                />
-              )}
-              {pool.status?.value === PoolStatus.Draft && canDelete && (
-                <DeleteProcessDialog
-                  {...commonDialogProps}
-                  onDelete={onDelete}
-                />
-              )}
-            </ProcessCard.Footer>
-          </ProcessCard.Root>
-        </div>
+            {canDuplicate && (
+              <DuplicateProcessDialog
+                {...commonDialogProps}
+                departmentsQuery={departmentsQuery}
+                onDuplicate={onDuplicate}
+              />
+            )}
+            {pool.status?.value === PoolStatus.Closed && canArchive && (
+              <ArchiveProcessDialog
+                {...commonDialogProps}
+                onArchive={onArchive}
+              />
+            )}
+            {pool.status?.value === PoolStatus.Archived && canArchive && (
+              <UnarchiveProcessDialog
+                {...commonDialogProps}
+                onUnarchive={onUnarchive}
+              />
+            )}
+            {pool.status?.value === PoolStatus.Draft && canDelete && (
+              <DeleteProcessDialog {...commonDialogProps} onDelete={onDelete} />
+            )}
+          </ProcessCard.Footer>
+        </ProcessCard.Root>
       </div>
     </>
   );
@@ -517,7 +498,7 @@ const ViewPoolPage = () => {
   });
 
   return (
-    <AdminContentWrapper>
+    <Container className="my-18">
       <Pending fetching={fetching} error={error}>
         {poolId && data?.pool ? (
           <ViewPool
@@ -563,7 +544,7 @@ const ViewPoolPage = () => {
           </NotFound>
         )}
       </Pending>
-    </AdminContentWrapper>
+    </Container>
   );
 };
 

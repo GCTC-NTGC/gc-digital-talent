@@ -114,11 +114,11 @@ const EducationRequirementsSection = ({
         color={icon.color}
         level="h2"
         size="h3"
-        data-h2-margin-top="base(0)"
+        className="mt-0"
       >
         {sectionMetadata.title}
       </Heading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -136,8 +136,8 @@ const EducationRequirementsSection = ({
         )}
       </p>
       {isNull ? (
-        <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
-          <Heading data-h2-margin-top="base(0)" data-h2-font-size="base(copy)">
+        <Well className="my-6 text-center">
+          <Heading className="mt-0" size="h6">
             {intl.formatMessage({
               defaultMessage:
                 "Select a classification to view education requirements.",

@@ -528,14 +528,9 @@ const AssessmentDetailsDialog = ({
             <form onSubmit={handleSubmit(submitForm)}>
               <input type="hidden" {...methods.register("id")} />
               <input type="hidden" {...methods.register("poolId")} />
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-                data-h2-margin="base(x1, 0, x2, 0)"
-              >
+              <div className="mt-6 mb-12 flex flex-col gap-y-6">
                 <div>
-                  <div data-h2-font-weight="base(700)">
+                  <div className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Basic details",
                       id: "i131l/",
@@ -543,7 +538,7 @@ const AssessmentDetailsDialog = ({
                         "title of 'basic details' section of the 'assessment details' dialog",
                     })}
                   </div>
-                  <div data-h2-margin-top="base(x.25)">
+                  <div className="mt-1.5">
                     {intl.formatMessage({
                       defaultMessage:
                         "Select the method that best describes how your organization plans to assess these skills. You can rename this assessment if necessary.",
@@ -570,33 +565,28 @@ const AssessmentDetailsDialog = ({
                 />
 
                 {dialogMode === "regular" ? (
-                  <div data-h2-flex-grid="base(flex-start, x2, x1)">
-                    <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                      <Input
-                        id="assessmentTitleEn"
-                        name="assessmentTitleEn"
-                        type="text"
-                        label={intl.formatMessage(labels.assessmentTitleEn)}
-                      />
-                      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                    </div>{" "}
-                    <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                      <Input
-                        id="assessmentTitleFr"
-                        name="assessmentTitleFr"
-                        type="text"
-                        label={intl.formatMessage(labels.assessmentTitleFr)}
-                      />
-                    </div>
+                  <div className="grid gap-6 xs:grid-cols-2">
+                    <Input
+                      id="assessmentTitleEn"
+                      name="assessmentTitleEn"
+                      type="text"
+                      label={intl.formatMessage(labels.assessmentTitleEn)}
+                    />
+                    <Input
+                      id="assessmentTitleFr"
+                      name="assessmentTitleFr"
+                      type="text"
+                      label={intl.formatMessage(labels.assessmentTitleFr)}
+                    />
                   </div>
                 ) : null}
                 {dialogMode === "screening_question" ? (
                   <>
                     <div>
-                      <div data-h2-font-weight="base(700)">
+                      <div className="font-bold">
                         {intl.formatMessage(processMessages.screeningQuestions)}
                       </div>
-                      <div data-h2-margin-top="base(x.25)">
+                      <div className="mt-1.5">
                         {intl.formatMessage({
                           defaultMessage:
                             "This assessment requires at least one question, please add it here.",
@@ -607,7 +597,7 @@ const AssessmentDetailsDialog = ({
                       </div>
                     </div>
                     <Repeater.Root
-                      data-h2-margin-bottom="base(1rem)"
+                      className="mb-4"
                       name="screeningQuestionFieldArray"
                       showAdd={canAddScreeningQuestions}
                       onAdd={() => {
@@ -663,11 +653,7 @@ const AssessmentDetailsDialog = ({
                               type="hidden"
                               name={`screeningQuestionFieldArray.${index}.sortOrder`}
                             />
-                            <div
-                              data-h2-display="base(grid)"
-                              data-h2-grid-template-columns="base(1fr 1fr)"
-                              data-h2-gap="base(0 x1)"
-                            >
+                            <div className="grid grid-cols-2 gap-x-6">
                               <div>
                                 <TextArea
                                   id={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
@@ -711,10 +697,7 @@ const AssessmentDetailsDialog = ({
                         ))}
                         {!canAddScreeningQuestions && (
                           <Well>
-                            <p
-                              data-h2-font-weight="base(700)"
-                              data-h2-margin-bottom="base(x.5)"
-                            >
+                            <p className="mb-3 font-bold">
                               {intl.formatMessage({
                                 defaultMessage:
                                   "You have reached the maximum amount (3) of screening questions per poster.",
@@ -739,8 +722,8 @@ const AssessmentDetailsDialog = ({
                   </>
                 ) : null}
 
-                <div data-h2-display="base(grid)" data-h2-gap="base(x.25)">
-                  <div data-h2-font-weight="base(700)">
+                <div className="grid gap-1.5">
+                  <div className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Skill selection",
                       id: "lmD1ef",
@@ -758,15 +741,8 @@ const AssessmentDetailsDialog = ({
                     })}
                   </div>
                   {missingEssentialSkills.length ? (
-                    <Well
-                      color="warning"
-                      data-h2-margin-top="base(x.25)"
-                      data-h2-padding="base(x.5)"
-                    >
-                      <p
-                        data-h2-margin-bottom="base(x.5)"
-                        data-h2-font-size="base(caption)"
-                      >
+                    <Well color="warning" fontSize="caption">
+                      <p className="mb-1.5">
                         {intl.formatMessage({
                           defaultMessage:
                             "The following skills are missing at least 1 assessment",

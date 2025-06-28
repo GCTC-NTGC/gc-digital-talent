@@ -61,12 +61,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x.5)"
-            data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(flex-start)"
-          >
+          <div className="flex flex-col items-start gap-3">
             <p>
               {intl.formatMessage({
                 defaultMessage:
@@ -82,11 +77,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                 id: "IOtzp7",
                 description: "Second paragraph for pool deadlines dialog",
               })}
-              <span
-                data-h2-display="base(block)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x.5 0 0 x.75)"
-              >
+              <span className="mt-3 mb-4.5 block font-bold">
                 {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {`${intl.formatMessage(
                   {
@@ -119,11 +110,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                 id: "kzd/yK",
                 description: "Third paragraph for pool deadlines dialog",
               })}
-              <span
-                data-h2-display="base(block)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x.5 0 0 x.75)"
-              >
+              <span className="mt-3 mb-4.5 block font-bold">
                 {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {`${intl.formatMessage(
                   {

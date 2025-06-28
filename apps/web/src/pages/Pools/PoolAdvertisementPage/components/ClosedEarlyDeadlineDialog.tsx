@@ -29,12 +29,7 @@ const ClosedEarlyDeadlineDialog = () => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x.5)"
-            data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(flex-start)"
-          >
+          <div className="flex flex-col items-start gap-3">
             <p>
               {intl.formatMessage({
                 defaultMessage:

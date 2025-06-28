@@ -228,11 +228,11 @@ const OrganizeSection = ({
       <Heading
         level="h3"
         id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
-        data-h2-margin-top="base(0)"
+        className="mt-0"
       >
         {intl.formatMessage(sectionTitle)}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Use this section to define which assessments will be used as part of your assessment process. Make sure every essential skill is assessed at least once to complete your assessment plan.",
@@ -241,7 +241,7 @@ const OrganizeSection = ({
             "Introduction to the organize section in the assessment plan builder, paragraph 1",
         })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "You can also change the order in which you plan to perform these evaluations. The only exceptions are the “Application screening” and the “Screening questions (at the time of application)” assessments which will always be the first and second steps in any assessment process.",
@@ -261,7 +261,7 @@ const OrganizeSection = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p>
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "Every skill you have identified on your poster needs to be assessed through at least one method. In cases where you are relying on claims made by a candidate (e.g. the initial application) you need to select an additional assessment method to test or validate the applicant's claim to have a skill. In most cases this will mean that you have two to three additional assessment methods beyond the initial application.",
@@ -270,7 +270,7 @@ const OrganizeSection = ({
                   "First paragraph of first answer of the Frequently Asked Questions for logging in",
               })}
             </p>
-            <p data-h2-margin-top="base(x.5)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "You do not need to assess each essential criteria through each assessment method. For example, technical skills claims from applicants are often best validated through some form of exam or technical interview question, while behavioural skills are often best validated through interview or reference check.",
@@ -314,7 +314,7 @@ const OrganizeSection = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <div data-h2-margin="base(x1 0)">
+      <div className="my-6">
         <CardRepeater.Root<
           Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">
         >
@@ -363,14 +363,10 @@ const OrganizeSection = ({
           ))}
         </CardRepeater.Root>
       </div>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x1)"
-        data-h2-flex-direction="base(column)"
-      >
+      <div className="flex flex-col gap-6">
         {steps.length >= ASSESSMENT_STEPS_MANY_STEPS ? (
           <Well color="warning">
-            <p data-h2-font-weight="base(700)">
+            <p className="font-bold">
               {steps.length === ASSESSMENT_STEPS_MAX_STEPS
                 ? intl.formatMessage({
                     defaultMessage: "You are at the limit!",
@@ -403,7 +399,7 @@ const OrganizeSection = ({
         ) : null}
         {steps.length <= ASSESSMENT_STEPS_FEW_STEPS ? (
           <Well color="warning">
-            <p data-h2-font-weight="base(700)">
+            <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "You have too few assessments",
                 id: "ypxaI2",

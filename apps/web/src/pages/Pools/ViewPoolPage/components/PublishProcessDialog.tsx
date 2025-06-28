@@ -58,7 +58,7 @@ const PublishProcessDialog = ({
       <Dialog.Content>
         <Dialog.Header>{title}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 id: "FDZh4D",
@@ -71,7 +71,7 @@ const PublishProcessDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "This will make your advertisement available to applicants to submit applications.",
@@ -79,7 +79,7 @@ const PublishProcessDialog = ({
               description: "Second paragraph for publish process dialog",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "This process is set to automatically close on:",
               id: "o4EnIo",

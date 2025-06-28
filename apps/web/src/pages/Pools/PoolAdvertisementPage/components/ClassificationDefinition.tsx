@@ -11,7 +11,7 @@ const LevelOne = () => {
   const intl = useIntl();
 
   return (
-    <Text data-h2-margin="base(0)">
+    <Text className="my-0">
       {intl.formatMessage(
         {
           defaultMessage:
@@ -31,7 +31,7 @@ const LevelTwo = () => {
   const intl = useIntl();
 
   return (
-    <Text data-h2-margin="base(0)">
+    <Text className="my-0">
       {intl.formatMessage(
         {
           defaultMessage:
@@ -52,7 +52,7 @@ const LevelThreeLead = () => {
 
   return (
     <>
-      <Text data-h2-margin-top="base(0)">
+      <Text className="mt-0">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -65,7 +65,7 @@ const LevelThreeLead = () => {
           },
         )}
       </Text>
-      <Text data-h2-margin-bottom="base(0)">
+      <Text className="mb-0">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -87,7 +87,7 @@ const LevelThreeAdvisor = () => {
 
   return (
     <>
-      <Text data-h2-margin-top="base(0)">
+      <Text className="mt-0">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -100,7 +100,7 @@ const LevelThreeAdvisor = () => {
           },
         )}
       </Text>
-      <Text data-h2-margin-bottom="base(0)">
+      <Text className="mb-0">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -122,7 +122,7 @@ const LevelFourManager = () => {
 
   return (
     <>
-      <Text data-h2-margin-top="base(0)">
+      <Text className="mt-0">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -135,7 +135,7 @@ const LevelFourManager = () => {
           },
         )}
       </Text>
-      <Text data-h2-margin-bottom="base(0)">
+      <Text className="mb-0">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -157,7 +157,7 @@ const LevelFourAdvisor = (): JSX.Element => {
 
   return (
     <>
-      <Text data-h2-margin-top="base(0)">
+      <Text className="mt-0">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -170,7 +170,7 @@ const LevelFourAdvisor = (): JSX.Element => {
           },
         )}
       </Text>
-      <Text data-h2-margin-bottom="base(0)">
+      <Text className="mb-0">
         {intl.formatMessage(
           {
             defaultMessage:

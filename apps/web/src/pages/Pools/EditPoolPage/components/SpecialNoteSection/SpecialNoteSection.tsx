@@ -174,7 +174,7 @@ const SpecialNoteSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div data-h2-margin-bottom="base(x1)">
+              <div className="mb-6">
                 <Checkbox
                   id="has-special-note"
                   name="hasSpecialNote"
@@ -196,12 +196,7 @@ const SpecialNoteSection = ({
                 />
               </div>
               {watchHasSpecialNote && (
-                <div
-                  data-h2-display="base(grid)"
-                  data-h2-gap="base(x1)"
-                  data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                  data-h2-margin="base(x1, 0)"
-                >
+                <div className="mb-6 grid gap-6 sm:grid-cols-2">
                   <RichTextInput
                     id="whatToExpectEn"
                     label={intl.formatMessage({
