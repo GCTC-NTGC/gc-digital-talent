@@ -56,6 +56,7 @@ const Select = ({
   "aria-describedby": describedBy,
   trackUnsaved = true,
   doNotSort = false,
+  className,
   ...rest
 }: SelectProps) => {
   const {
@@ -91,7 +92,7 @@ const Select = ({
         aria-invalid={isInvalid}
         defaultValue=""
         {...register(name, rules)}
-        className={select({ state: fieldState })}
+        className={select({ state: fieldState, class: className })}
         {...rest}
       >
         <option
