@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Alert, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Alert, Container, Heading, Link, Well } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
@@ -50,16 +50,8 @@ export const Component = () => {
         subtitle={formattedPageSubtitle}
         crumbs={crumbs}
       />
-      <section
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-        data-h2-margin="base(x3)"
-      >
-        <Alert.Root
-          type="info"
-          dismissible
-          live={false}
-          data-h2-margin="base(0, 0, x2, 0)"
-        >
+      <Container className="my-18">
+        <Alert.Root type="info" dismissible live={false} className="mt-0 mb-12">
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -75,18 +67,16 @@ export const Component = () => {
           csvDownload
           isPublic
         />
-        <Well id="cant-find-a-skill" data-h2-margin-top="base(x3)">
+        <Well id="cant-find-a-skill" className="mt-18">
           <Heading
             level="h2"
             size="h6"
             id="cant-find-a-skill"
-            data-h2-font-weight="base(bold)"
-            data-h2-margin-top="base(0)"
-            data-h2-margin-bottom="base(x1)"
+            className="mt-0 mb-6 font-bold"
           >
             {intl.formatMessage(skillBrowserMessages.showSkillInfo)}
           </Heading>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "If you can't find a skill, try broadening your filters or searching for the skill's name using other industry terms.",
@@ -111,7 +101,7 @@ export const Component = () => {
             )}
           </p>
         </Well>
-      </section>
+      </Container>
     </>
   );
 };

@@ -14,6 +14,7 @@ import {
   Button,
   Dialog,
   Ul,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -71,8 +72,8 @@ const NullExperienceMessage = ({
 }: NullExperienceMessageProps) => {
   const intl = useIntl();
   return (
-    <Well data-h2-text-align="base(center)">
-      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+    <Well className="text-center">
+      <p className="mb-3 font-bold">
         {hasExperiences
           ? intl.formatMessage({
               defaultMessage:
@@ -358,8 +359,8 @@ export const UpdateUserSkillForm = ({
     <>
       <SEO title={pageTitle} description={formattedSubTitle} />
       <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
@@ -381,11 +382,11 @@ export const UpdateUserSkillForm = ({
               <TableOfContents.Heading
                 icon={LightBulbIcon}
                 color="primary"
-                data-h2-margin="base(0 0 x1 0)"
+                className="mt-0"
               >
                 {sections.skillLevel.title}
               </TableOfContents.Heading>
-              <p>
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "As your skill level grows, you can use this form to update your self-evaluated skill level. You’ll find both the Government’s definition of the skill, as well as explanations for each skill level to help you make your choice.",
@@ -394,11 +395,8 @@ export const UpdateUserSkillForm = ({
                 })}
               </p>
               {skillDescription && (
-                <Well data-h2-margin="base(x1 0)">
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
+                <Well className="my-6">
+                  <p className="mb-3 font-bold">
                     {intl.formatMessage(
                       {
                         defaultMessage: "Remember, {skillName} is defined as",
@@ -423,20 +421,11 @@ export const UpdateUserSkillForm = ({
                     : undefined,
                 }}
               >
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x1 0)"
-                  data-h2-margin="base(x1, 0, x2, 0)"
-                >
+                <div className="mt-6 mb-12 flex flex-col gap-y-6">
                   <UserSkillFormFields
                     category={skill.category.value ?? SkillCategory.Technical}
                   />
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-wrap="base(wrap)"
-                    data-h2-gap="base(x1)"
-                  >
+                  <div className="flex flex-wrap gap-6">
                     <Button type="submit" color="primary" disabled={mutating}>
                       {intl.formatMessage(formMessages.saveChanges)}
                     </Button>
@@ -536,7 +525,7 @@ export const UpdateUserSkillForm = ({
                                 })}
                               </li>
                             </Ul>
-                            <Dialog.Footer data-h2-justify-content="base(flex-start)">
+                            <Dialog.Footer>
                               <Button
                                 color="error"
                                 onClick={handleDelete}
@@ -578,11 +567,11 @@ export const UpdateUserSkillForm = ({
               <TableOfContents.Heading
                 icon={BookmarkSquareIcon}
                 color="error"
-                data-h2-margin="base(x3 0 x1 0)"
+                className="mt-18 mb-6"
               >
                 {sections.featuredExperiences.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Any experience you've added to your career timeline that features this skill can be managed in this section. You can also link this skill to other experiences using the button provided.",
@@ -592,11 +581,7 @@ export const UpdateUserSkillForm = ({
                 })}
               </p>
               {availableExperiences.length ? (
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-justify-content="base(flex-end)"
-                  data-h2-margin="base(x.5 0)"
-                >
+                <div className="my-3 flex justify-end">
                   <ExperienceSkillFormDialog
                     skill={skill}
                     availableExperiencesQuery={availableExperiences}
@@ -614,11 +599,7 @@ export const UpdateUserSkillForm = ({
                 </div>
               ) : null}
               {linkedExperiences?.length ? (
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x.5 0)"
-                >
+                <div className="flex flex-col gap-y-3">
                   {linkedExperiences.map((experience) => (
                     <ExperienceCard
                       key={experience.id}
@@ -638,7 +619,7 @@ export const UpdateUserSkillForm = ({
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

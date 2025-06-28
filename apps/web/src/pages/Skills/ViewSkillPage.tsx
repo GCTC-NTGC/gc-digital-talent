@@ -12,6 +12,7 @@ import {
   Chips,
   CardSeparator,
   Card,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -87,30 +88,21 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
+      <Heading
+        level="h2"
+        color="secondary"
+        icon={IdentificationIcon}
+        center
+        className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
       >
-        <Heading
-          level="h2"
-          color="secondary"
-          icon={IdentificationIcon}
-          data-h2-margin="base(0, 0, x1.5, 0)"
-          data-h2-font-weight="base(400)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Skill information",
-            id: "08IbRz",
-            description: "Heading for the 'view a skill' form",
-          })}
-        </Heading>
-      </div>
+        {intl.formatMessage({
+          defaultMessage: "Skill information",
+          id: "08IbRz",
+          description: "Heading for the 'view a skill' form",
+        })}
+      </Heading>
       <Card>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
-          data-h2-gap="base(x1)"
-        >
+        <div className="grid gap-6 xs:grid-cols-2">
           <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
             {skill.name.en}
           </FieldDisplay>
@@ -145,14 +137,14 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
             {skill.keywords?.fr ??
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
-          <div data-h2-grid-column="p-tablet(span 2)">
+          <div className="xs:col-span-2">
             <FieldDisplay label={intl.formatMessage(adminMessages.category)}>
               <Chip color="secondary">
                 {getLocalizedName(skill.category.label, intl)}
               </Chip>
             </FieldDisplay>
           </div>
-          <div data-h2-grid-column="p-tablet(span 2)">
+          <div className="xs:col-span-2">
             <FieldDisplay
               label={intl.formatMessage(adminMessages.skillFamilies)}
             >
@@ -169,21 +161,15 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
               )}
             </FieldDisplay>
           </div>
-          <div data-h2-grid-column="p-tablet(span 2)">
+          <div className="xs:col-span-2">
             <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
               {skill.key}
             </FieldDisplay>
           </div>
         </div>
         <CardSeparator />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-        >
-          <Link
-            href={paths.skillUpdate(skill.id)}
-            data-h2-font-weight="base(bold)"
-          >
+        <div className="self-start">
+          <Link href={paths.skillUpdate(skill.id)} className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Edit skill information",
               id: "eJPU4G",
@@ -257,30 +243,28 @@ const ViewSkillPage = () => {
         crumbs={navigationCrumbs}
         navTabs={navTabs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
-          <Pending fetching={fetching} error={error}>
-            {skillData?.skill ? (
-              <ViewSkillForm query={skillData?.skill} />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Skill {skillId} not found.",
-                      id: "953EAy",
-                      description: "Message displayed for skill not found.",
-                    },
-                    { skillId: skillId },
-                  )}
-                </p>
-              </NotFound>
-            )}
-          </Pending>
-        </div>
-      </div>
+      <Container className="my-18">
+        <Pending fetching={fetching} error={error}>
+          {skillData?.skill ? (
+            <ViewSkillForm query={skillData?.skill} />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Skill {skillId} not found.",
+                    id: "953EAy",
+                    description: "Message displayed for skill not found.",
+                  },
+                  { skillId: skillId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </Container>
     </>
   );
 };

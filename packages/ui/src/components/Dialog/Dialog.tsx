@@ -193,7 +193,7 @@ const Header = ({ subtitle, children }: DialogHeaderProps) => (
 );
 
 const footer = tv({
-  base: "flex items-center gap-x-3",
+  base: "flex flex-col items-center gap-3 xs:flex-row",
 });
 
 interface DialogFooterProps extends HTMLProps<HTMLDivElement> {
