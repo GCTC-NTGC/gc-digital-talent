@@ -81,7 +81,7 @@ const Featured = () => {
       key: "hiring-indigenous-talent",
       title: intl.formatMessage(commonMessages.iapTitle),
       summary: (
-        <p data-h2-margin-bottom="base(x1)">
+        <p className="mb-6">
           {intl.formatMessage({
             defaultMessage:
               "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
@@ -110,8 +110,7 @@ const Featured = () => {
       <Heading
         level="h2"
         size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0)"
+        className="mt-0 mb-12 font-normal"
         color="success"
         icon={MagnifyingGlassCircleIcon}
       >
@@ -121,12 +120,7 @@ const Featured = () => {
           description: "Heading for featured items on the homepage",
         })}
       </Heading>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) p-tablet(1fr) l-tablet(repeat(3, 1fr))"
-        data-h2-gap="base(x1)"
-        data-h2-padding="base(x2, 0, 0, 0)"
-      >
+      <div className="grid gap-6 sm:grid-cols-3">
         {featured.map((item) => (
           <FeatureBlock key={item.key} content={item} />
         ))}

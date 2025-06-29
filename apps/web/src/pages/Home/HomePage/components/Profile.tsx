@@ -15,19 +15,9 @@ const Profile = () => {
   return (
     <SkewedImageContainer
       imgSrc={profileHeroImg}
-      imgProps={{
-        "data-h2-background-position":
-          "base(100% 110%) l-tablet(calc(50% + 20rem) 50%)",
-      }}
+      imgProps={{ className: "bg-right" }}
     >
-      <p
-        data-h2-font-size="base(h6, 1.4)"
-        data-h2-font-weight="base(300)"
-        data-h2-color="base:all(white)"
-        data-h2-margin="base(0, 0, x2, 0)"
-        data-h2-max-width="base(100%) p-tablet(100%) l-tablet(50%)"
-        data-h2-text-align="base(center) p-tablet(left)"
-      >
+      <p className="mb-12 text-lg text-white xs:max-w-1/2 lg:text-xl">
         {intl.formatMessage({
           defaultMessage:
             "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job now or just thinking about the future, your profile is your path to getting found by hiring managers.",
@@ -35,15 +25,9 @@ const Profile = () => {
           description: "Description of how application profiles work.",
         })}
       </p>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x1)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
-      >
-        <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
-          {intl.formatMessage(navigationMessages.createProfile)}
-        </CTALink>
-      </div>
+      <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
+        {intl.formatMessage(navigationMessages.createProfile)}
+      </CTALink>
     </SkewedImageContainer>
   );
 };

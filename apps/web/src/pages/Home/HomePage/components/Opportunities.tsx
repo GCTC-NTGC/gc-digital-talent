@@ -18,10 +18,9 @@ const Opportunities = () => {
       <Heading
         level="h2"
         size="h3"
-        data-h2-font-weight="base(400)"
         icon={SparklesIcon}
         color="secondary"
-        data-h2-margin="base(0)"
+        className="mt-0 mb-12 font-normal"
       >
         {intl.formatMessage({
           defaultMessage: "Build your digital career",
@@ -29,12 +28,7 @@ const Opportunities = () => {
           description: "Heading for the recruitment opportunities",
         })}
       </Heading>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) p-tablet(1fr) l-tablet(repeat(3, minmax(0, 1fr)))"
-        data-h2-gap="base(x2) p-tablet(x3)"
-        data-h2-padding="base(x2, 0, 0, 0)"
-      >
+      <div className="grid gap-12 xs:gap-18 sm:grid-cols-3">
         <CardFlat
           color="warning"
           title={intl.formatMessage({
@@ -85,7 +79,7 @@ const Opportunities = () => {
             },
           ]}
         >
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "Find pre-qualified talent for your team or plan your own next career move.",
