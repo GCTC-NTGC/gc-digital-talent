@@ -1,11 +1,12 @@
 import { ReactNode } from "react";
 
-import { Container, Heading } from "@gc-digital-talent/ui";
+import { Container, Heading, HeadingRank } from "@gc-digital-talent/ui";
 
 interface HomeHeroProps {
   callToAction?: ReactNode;
   title: string;
   subtitle?: string;
+  titleSize?: HeadingRank;
   img: {
     sources: {
       srcset: string;
@@ -21,11 +22,12 @@ const HomeHero = ({
   callToAction,
   title,
   subtitle,
+  titleSize,
 }: HomeHeroProps) => (
   <div className="relative overflow-hidden bg-[#000] pt-18 pb-24 xs:pt-24 xs:pb-30 sm:pt-36 sm:pb-36 md:pt-36 md:pb-48">
     <Container className="relative z-[1]">
       <div className="text-center text-white xs:text-left">
-        <Heading level="h1" className="mt-0 mb-6">
+        <Heading level="h1" size={titleSize} className="mt-0 mb-6">
           {title}
         </Heading>
         {subtitle && (

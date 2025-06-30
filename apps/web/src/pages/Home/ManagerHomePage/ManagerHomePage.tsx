@@ -50,6 +50,7 @@ const ManagerHomePage = () => {
       />
       <HomeHero
         title={intl.formatMessage(pageTitle)}
+        titleSize="h2"
         subtitle={intl.formatMessage(pageSubtitle)}
         img={{
           sources: [
