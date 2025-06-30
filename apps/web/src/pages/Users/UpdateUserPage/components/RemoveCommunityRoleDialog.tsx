@@ -97,7 +97,7 @@ const RemoveCommunityRoleDialog = ({
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(0, 0 ,x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage: "You are about to remove this member:",
               id: "95aNQ1",
@@ -105,11 +105,11 @@ const RemoveCommunityRoleDialog = ({
             })}
           </p>
           <Ul>
-            <li data-h2-font-weight="base(bold)">
+            <li className="font-bold">
               <span>{userName}</span>
             </li>
           </Ul>
-          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "From the following community:",
               id: "hJDRa/",
@@ -117,11 +117,11 @@ const RemoveCommunityRoleDialog = ({
             })}
           </p>
           <Ul>
-            <li data-h2-font-weight="base(bold)">
+            <li className="font-bold">
               <span>{communityDisplayName}</span>
             </li>
           </Ul>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "The user will lose all the following community roles:",
@@ -137,7 +137,7 @@ const RemoveCommunityRoleDialog = ({
               </Chip>
             ))}
           </Chips>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>

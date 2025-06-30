@@ -154,7 +154,7 @@ const AddProcessRoleDialog = ({
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(0, 0 ,x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "You are about to add roles for the following member:",
@@ -163,11 +163,11 @@ const AddProcessRoleDialog = ({
             })}
           </p>
           <Ul>
-            <li data-h2-font-weight="base(bold)">
+            <li className="font-bold">
               <span>{userName}</span>
             </li>
           </Ul>
-          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "Select the process and roles you want to add",
               id: "CcLolQ",
@@ -177,11 +177,7 @@ const AddProcessRoleDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddRoles)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-              >
+              <div className="flex flex-col gap-y-6">
                 <Combobox
                   id="pool"
                   name="pool"

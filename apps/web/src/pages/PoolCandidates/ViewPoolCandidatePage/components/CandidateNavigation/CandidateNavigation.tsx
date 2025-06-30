@@ -52,12 +52,7 @@ const CandidateNavigation = ({
   };
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-align-items="base(center)"
-      data-h2-grid-template-columns="base(x1 auto x1)"
-      data-h2-gap="base(x.5)"
-    >
+    <div className="grid grid-cols-[1.5rem_auto_1.5rem] items-center gap-3">
       {previousCandidate && (
         <IconLink
           href={paths.poolCandidateApplication(previousCandidate)}
@@ -66,16 +61,12 @@ const CandidateNavigation = ({
           {...commonLinkProps}
         />
       )}
-      <div data-h2-text-align="base(center)" data-h2-grid-column="base(2)">
-        <p data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
+      <div className="col-start-2 text-center">
+        <p className="font-bold text-secondary-500 dark:text-secondary-200">
           {candidateName}
         </p>
         {stepName && (
-          <p
-            data-h2-color="base(black.70)"
-            data-h2-font-size="base(caption)"
-            data-h2-margin-top="base(x.25)"
-          >
+          <p className="mt-1.5 text-sm text-black/70 dark:text-white/70">
             {stepName}
           </p>
         )}

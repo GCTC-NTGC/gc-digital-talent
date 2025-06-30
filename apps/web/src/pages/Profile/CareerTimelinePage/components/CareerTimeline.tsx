@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Container, Heading } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   AwardExperience,
@@ -85,39 +85,30 @@ const CareerTimeline = ({ experiencesQuery, userId }: CareerTimelineProps) => {
         subtitle={formattedSubtitle}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
-          <Heading
-            icon={BookmarkSquareIcon}
-            color="error"
-            size="h3"
-            data-h2-margin="base(0, 0, x1, 0)"
-            data-h2-font-weight="base(400)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Manage your career timeline",
-              id: "eZYP/W",
-              description:
-                "Titles for a page section to manage your career timeline",
-            })}
-          </Heading>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This section is similar to your traditional resume. This is where you can describe your experiences across work, school, and life. You'll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-              id: "0m3FMH",
-              description:
-                "Descriptive paragraph for the career timeline page.",
-            })}
-          </p>
-          <div data-h2-margin-top="base(x1)">
-            <CareerTimelineSection
-              experiencesQuery={experiences}
-              userId={userId}
-            />
-          </div>
-        </div>
-      </div>
+      <Container className="my-18">
+        <Heading
+          icon={BookmarkSquareIcon}
+          color="error"
+          size="h3"
+          className="mt-0 mb-6 font-normal"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Manage your career timeline",
+            id: "eZYP/W",
+            description:
+              "Titles for a page section to manage your career timeline",
+          })}
+        </Heading>
+        <p className="mb-6">
+          {intl.formatMessage({
+            defaultMessage:
+              "This section is similar to your traditional resume. This is where you can describe your experiences across work, school, and life. You'll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
+            id: "0m3FMH",
+            description: "Descriptive paragraph for the career timeline page.",
+          })}
+        </p>
+        <CareerTimelineSection experiencesQuery={experiences} userId={userId} />
+      </Container>
     </>
   );
 };

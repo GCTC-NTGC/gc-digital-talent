@@ -7,6 +7,7 @@ const card = tv({
   base: "rounded-md bg-white text-black shadow-xl dark:bg-gray-600 dark:text-white",
   variants: {
     space: {
+      xs: "p-3 [&>.CardSeparator]:-mx-3",
       sm: "p-4 [&>.CardSeparator]:-mx-4",
       md: "p-6 [&>.CardSeparator]:-mx-6",
       lg: "p-6 sm:p-9 [&>.CardSeparator]:-mx-6 sm:[&>.CardSeparator]:-mx-9",
