@@ -97,7 +97,7 @@ const NominationDetailsReview = ({
   if (talentNomination?.nominateForAdvancement) {
     types = [
       {
-        key: "nominationForAdvacement",
+        key: "nominationForAdvancement",
         name: intl.formatMessage(labels.advancement),
       },
     ];
