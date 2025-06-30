@@ -1,18 +1,10 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
-import {
-  BoltIcon,
-  ClipboardDocumentCheckIcon,
-  ClipboardDocumentIcon,
-  PuzzlePieceIcon,
-} from "@heroicons/react/24/outline";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
+import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 
-import {
-  commonMessages,
-  getLocalizedName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
   getFragment,
@@ -27,33 +19,17 @@ import {
   Ul,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  NotFoundError,
-  UnauthorizedError,
-  useIsSmallScreen,
-} from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import pageTitles from "~/messages/pageTitles";
 
 import messages from "./messages";
-import GoalsWorkStyleSection, {
-  EmployeeProfileGoalsWorkStyle_Fragment,
-} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
-import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
-import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
-import NextRoleSection, {
-  EmployeeProfileNextRole_Fragment,
-} from "./components/NextRoleSection/NextRoleSection";
-import CareerObjectiveSection, {
-  EmployeeProfileCareerObjective_Fragment,
-} from "./components/CareerObjective/CareerObjectiveSection";
+import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection";
 
 const SECTION_ID = {
   JOB_DETAILS: "job-details-section",
@@ -64,19 +40,13 @@ const SECTION_ID = {
 
 const UpdateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment UpdateJobPosterTemplateOptions on Query {
-    # ...EmployeeProfileCareerDevelopmentOptions
-    # ...EmployeeProfileNextRoleOptions
-    # ...EmployeeProfileCareerObjectiveOptions
-    __typename
+    ...UpdateJobPosterTemplateJobDetailsOptions
   }
 `);
 
 const UpdateJobPosterTemplate_Fragment = graphql(/** GraphQL */ `
   fragment UpdateJobPosterTemplate on JobPosterTemplate {
-    #...EmployeeProfileCareerDevelopment
-    #...EmployeeProfileCareerObjective
-    #...EmployeeProfileNextRole
-    #...EmployeeProfileGoalsWorkStyle
+    ...UpdateJobPosterTemplateJobDetails
     id
     name {
       en
@@ -86,27 +56,26 @@ const UpdateJobPosterTemplate_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface UpdateJobPosterTemplateProps {
-  jobPosterTemplateQuery: FragmentType<typeof UpdateJobPosterTemplate_Fragment>;
+  initialDataQuery: FragmentType<typeof UpdateJobPosterTemplate_Fragment>;
   optionsQuery: FragmentType<typeof UpdateJobPosterTemplateOptions_Fragment>;
 }
 
 const UpdateJobPosterTemplate = ({
-  jobPosterTemplateQuery,
+  initialDataQuery: initialDataQuery,
   optionsQuery,
 }: UpdateJobPosterTemplateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobPosterTemplate = getFragment(
+  const initialData = getFragment(
     UpdateJobPosterTemplate_Fragment,
-    jobPosterTemplateQuery,
+    initialDataQuery,
   );
   const options = getFragment(
     UpdateJobPosterTemplateOptions_Fragment,
     optionsQuery,
   );
-  const isSmallScreen = useIsSmallScreen("sm");
 
-  const pageTitle = getLocalizedName(jobPosterTemplate.name, intl);
+  const pageTitle = getLocalizedName(initialData.name, intl);
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -127,7 +96,7 @@ const UpdateJobPosterTemplate = ({
       },
       {
         label: pageTitle,
-        url: paths.jobPosterTemplateUpdate(jobPosterTemplate.id),
+        url: paths.jobPosterTemplateUpdate(initialData.id),
       },
     ],
   });
@@ -162,7 +131,7 @@ const UpdateJobPosterTemplate = ({
                   icon={PuzzlePieceIcon}
                   color="secondary"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  center={isSmallScreen}
+                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.jobDetails)}
                 </Heading>
@@ -175,10 +144,10 @@ const UpdateJobPosterTemplate = ({
                       "Lead-in text for job poster template career template section",
                   })}
                 </p>
-                {/* <CareerDevelopmentSection
-                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
-                  careerDevelopmentOptionsQuery={options}
-                /> */}
+                <JobDetailsSection
+                  initialDataQuery={initialData}
+                  optionsQuery={options}
+                />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.KEY_TASKS}>
                 <Heading
@@ -186,7 +155,7 @@ const UpdateJobPosterTemplate = ({
                   icon={ClipboardDocumentCheckIcon}
                   color="primary"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  center={isSmallScreen}
+                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.keyTasks)}
                 </Heading>
@@ -250,7 +219,7 @@ const UpdateJobPosterTemplate = ({
                   icon={BoltIcon}
                   color="error"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  center={isSmallScreen}
+                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.technicalSkills)}
                 </Heading>
@@ -285,7 +254,7 @@ const UpdateJobPosterTemplate = ({
                   icon={BoltIcon}
                   color="warning"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  center={isSmallScreen}
+                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.behaviouralSkills)}
                 </Heading>
@@ -349,7 +318,7 @@ const UpdateJobPosterTemplatePage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.jobPosterTemplate ? (
         <UpdateJobPosterTemplate
-          jobPosterTemplateQuery={data.jobPosterTemplate}
+          initialDataQuery={data.jobPosterTemplate}
           optionsQuery={data}
         />
       ) : (
