@@ -83,7 +83,7 @@ const CurrentPositionExperiences = ({
         icon={FlagIcon}
         level="h2"
         color="secondary"
-        className="m-9 mb-0 font-normal"
+        className="mt-0 mb-3 font-normal"
       >
         {intl.formatMessage({
           defaultMessage: "Current position",
@@ -91,7 +91,7 @@ const CurrentPositionExperiences = ({
           description: "Heading for current position",
         })}
       </Heading>
-      <p className="mt-3 mb-6">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "This section shows the candidate's current role. If it's an acting role, the candidate's substantive role will also appear here if they've provided it. Select individual experiences to see more details.",
