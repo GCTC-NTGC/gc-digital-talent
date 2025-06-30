@@ -106,7 +106,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </p>
         {pools.length > 0 ? (
-          <Ul unStyled className="my-18">
+          <Ul unStyled className="my-24">
             {pools.map((pool) => (
               <li key={pool.id}>
                 <PoolCard poolQuery={pool} />
