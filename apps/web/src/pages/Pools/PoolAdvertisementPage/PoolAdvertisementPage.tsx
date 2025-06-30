@@ -807,6 +807,19 @@ export const PoolPoster = ({
                   value={securityClearance}
                   suffix={<SecurityClearanceDialog />}
                 />
+                {pool.processNumber && (
+                  <DataRow
+                    label={
+                      intl.formatMessage({
+                        defaultMessage: "Selection process number",
+                        id: "H6seW1",
+                        description:
+                          "Label for pool advertisement selection process number",
+                      }) + intl.formatMessage(commonMessages.dividingColon)
+                    }
+                    value={pool.processNumber}
+                  />
+                )}
               </Card>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.minEducation.id}>
