@@ -2665,7 +2665,7 @@ input UpdateJobPosterTemplateInput {
   workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput
-  keywords: LocalizedStringInput
+  keywords: LocalizedKeywordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
   essentialBehaviouralSkillsNotes: LocalizedStringInput
   nonessentialTechnicalSkillsNotes: LocalizedStringInput

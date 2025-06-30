@@ -2834,7 +2834,7 @@ input UpdateJobPosterTemplateInput @validator {
   workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput
-  keywords: LocalizedStringInput
+  keywords: LocalizedKeywordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
     @rename(attribute: "essential_technical_skills_notes")
   essentialBehaviouralSkillsNotes: LocalizedStringInput

@@ -5,16 +5,8 @@ import { useMutation } from "urql";
 import { useEffect, useId } from "react";
 import uniqBy from "lodash/uniqBy";
 
+import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import {
-  Button,
-  CardSeparator,
-  Separator,
-  ToggleSection,
-} from "@gc-digital-talent/ui";
-import {
-  Checklist,
-  DATE_SEGMENT,
-  DateInput,
   Input,
   localizedEnumToOptions,
   Option,
@@ -39,9 +31,8 @@ import {
   UpdateJobPosterTemplateInput,
   SupervisoryStatus,
 } from "@gc-digital-talent/graphql";
-import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -209,8 +200,8 @@ const formValuesToMutationInput = ({
       fr: workDescriptionFr,
     },
     keywords: {
-      en: keywordsEn,
-      fr: keywordsFr,
+      en: keywordsEn?.split(",").map((s) => s.trim()),
+      fr: keywordsFr?.split(",").map((s) => s.trim()),
     },
     classification: {
       connect: classificationLevel, // the ID for the group-level is in the level input
@@ -269,11 +260,10 @@ const JobDetailsSection = ({
   }));
 
   const isNull = true; // hasAllEmptyFields(employeeProfile);
-  const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
+  const { isEditing, setIsEditing } = useToggleSectionInfo({
     isNull,
     emptyRequired: false, //hasEmptyRequiredFields(employeeProfile),
     fallbackIcon: QuestionMarkCircleIcon,
-    optional: true,
   });
 
   const handleError = () => {
@@ -290,7 +280,7 @@ const JobDetailsSection = ({
   const methods = useForm<FormValues>({
     defaultValues: initialDataToFormValues(initialData),
   });
-  const { watch, resetField, handleSubmit } = methods;
+  const { watch, resetField, handleSubmit, reset: resetForm } = methods;
 
   const watchGroupSelection = watch("classificationGroup");
 
@@ -335,7 +325,7 @@ const JobDetailsSection = ({
             }),
           );
           setIsEditing(false);
-          methods.reset(formValues);
+          resetForm();
         } else {
           handleError();
         }
@@ -552,7 +542,12 @@ const JobDetailsSection = ({
                   isSubmitting={fetching}
                 />
                 <ToggleSection.Close>
-                  <Button mode="inline" type="button" color="warning">
+                  <Button
+                    mode="inline"
+                    type="button"
+                    color="warning"
+                    onClick={() => resetForm()}
+                  >
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </ToggleSection.Close>
