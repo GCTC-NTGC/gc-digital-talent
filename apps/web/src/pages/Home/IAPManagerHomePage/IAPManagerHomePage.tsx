@@ -154,9 +154,9 @@ export const Component = () => {
           <div className="xs:-mt-21 sm:-mt-24">
             <div className="rounded-3xl bg-white p-12 xs:p-15 sm:p-18 dark:bg-gray-700">
               {/* about the program section */}
-              <div className="grid gap-18 pb-12 xs:grid-cols-7">
+              <div className="grid pb-12 xs:grid-cols-7 xs:gap-x-18">
                 <div className="xs:col-span-3">
-                  <div className="relative xs:h-full xs:w-full">
+                  <div className="relative xs:size-full">
                     <TopRightFrame className="absolute -top-6 -right-6 w-4/5" />
                     <img
                       src={section1Img}
@@ -442,7 +442,7 @@ export const Component = () => {
       <Container>
         <div className="p-12 xs:p-15 sm:p-18">
           {/* ready for IT section */}
-          <div className="grid grid-cols-2 gap-18">
+          <div className="grid gap-6 xs:grid-cols-2 xs:gap-18">
             <div className="xs:order-1">
               <Heading className="mt-0 mb-6 text-center text-3xl text-primary-600 xs:text-left lg:text-4xl dark:text-primary-200">
                 {intl.formatMessage({
@@ -566,8 +566,8 @@ export const Component = () => {
           </div>
 
           {/* commitment and graduates section */}
-          <div className="relative z-[2] mt-18 mb-36">
-            <div className="grid gap-18 xs:grid-cols-7">
+          <div className="relative z-[2] mt-18">
+            <div className="grid gap-6 xs:grid-cols-7 xs:gap-18">
               <div className="pb-12 xs:col-span-3 xs:pb-18 sm:pb-30">
                 <div className="relative">
                   <Triangle className="absolute -top-6 -right-6 w-4/5 -scale-x-100 text-primary-600 dark:text-primary-200" />
