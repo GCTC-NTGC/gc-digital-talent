@@ -106,7 +106,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </p>
         {pools.length > 0 ? (
-          <Ul unStyled className="my-12">
+          <Ul unStyled className="my-18">
             {pools.map((pool) => (
               <li key={pool.id}>
                 <PoolCard poolQuery={pool} />
@@ -114,7 +114,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             ))}
           </Ul>
         ) : (
-          <Card className="my-12">
+          <Card className="my-6">
             <Heading level="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
