@@ -22,13 +22,16 @@ use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
+use App\Models\Experience;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestion;
+use App\Models\User;
 use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -144,8 +147,30 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->poolIds[] = $candidate->pool_id;
                 }
 
-                $department = $candidate->user->department()->first();
-                $preferences = $candidate->user->getOperationalRequirements();
+                // pull data from application snapshot
+                // mirrors logic found in ApplicationDocGenerator
+                $snapshot = $candidate->profile_snapshot;
+                $userHydrated = User::hydrateSnapshot($snapshot);
+                $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
+                // the snapshot stores the department and classification models connected by relation
+                // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
+                foreach ($snapshotExperiences as &$experience) {
+                    if ($experience['__typename'] === 'WorkExperience') {
+                        if (isset($experience['department'])) {
+                            $experience['departmentId'] = $experience['department']['id'];
+                        }
+                        if (isset($experience['classification'])) {
+                            $experience['classificationId'] = $experience['classification']['id'];
+                        }
+                        if (isset($experience['workStreams'])) {
+                            $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
+                        }
+                    }
+                }
+                $experiencesHydrated = Experience::hydrateSnapshot($snapshotExperiences);
+
+                $department = $userHydrated->department()->first();
+                $preferences = $userHydrated->getOperationalRequirements();
                 $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
                     return $experience->getTitle();
                 })->flatten()->unique()->toArray();
@@ -153,53 +178,56 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 $values = [
                     $candidate->pool->process_number, // Process number
                     $candidate->pool->name[$this->lang] ?? '', // Process name
-                    $candidate->user->first_name, // First name
-                    $candidate->user->last_name, // Last name
+                    $userHydrated->first_name, // First name
+                    $userHydrated->last_name, // Last name
                     $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
-                    $this->localizeEnum($candidate->user->priority, PriorityWeight::class),
+                    $this->localizeEnum($userHydrated->priority, PriorityWeight::class),
                     $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
                     $this->sanitizeString($candidate->notes ?? ''), // Notes
                     $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
                     $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
                     $candidate->archived_at ? $candidate->archived_at->format('Y-m-d') : '', // Archival date
-                    $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
-                    $candidate->user->current_city, // Current city
-                    $candidate->user->email, // Email
-                    $this->localizeEnum($candidate->user->preferred_lang, Language::class),
-                    $this->localizeEnum($candidate->user->preferred_language_for_interview, Language::class),
-                    $this->localizeEnum($candidate->user->preferred_language_for_exam, Language::class),
-                    $this->localizeEnum($candidate->user->armed_forces_status, ArmedForcesStatus::class),
-                    $this->localizeEnum($candidate->user->citizenship, CitizenshipStatus::class),
-                    $this->localizeEnum($candidate->user->first_official_language, Language::class),
-                    $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class), // Estimated language ability
-                    $candidate->user->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
-                    is_null($candidate->user->second_language_exam_validity) ? '' : $this->yesOrNo($candidate->user->second_language_exam_validity), // Bilingual exam validity
-                    $this->localizeEnum($candidate->user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
-                    $this->localizeEnum($candidate->user->written_level, EvaluatedLanguageAbility::class), // Writing level
-                    $this->localizeEnum($candidate->user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
-                    $this->yesOrNo($candidate->user->computed_is_gov_employee), // Government employee
+                    $this->localizeEnum($userHydrated->current_province, ProvinceOrTerritory::class), // Current province
+                    $userHydrated->current_city, // Current city
+                    $userHydrated->email, // Email
+                    $this->localizeEnum($userHydrated->preferred_lang, Language::class),
+                    $this->localizeEnum($userHydrated->preferred_language_for_interview, Language::class),
+                    $this->localizeEnum($userHydrated->preferred_language_for_exam, Language::class),
+                    $this->localizeEnum($userHydrated->armed_forces_status, ArmedForcesStatus::class),
+                    $this->localizeEnum($userHydrated->citizenship, CitizenshipStatus::class),
+                    $this->localizeEnum($userHydrated->first_official_language, Language::class),
+                    $this->localizeEnum($userHydrated->estimated_language_ability, EstimatedLanguageAbility::class), // Estimated language ability
+                    $userHydrated->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
+                    is_null($userHydrated->second_language_exam_validity) ? '' : $this->yesOrNo($userHydrated->second_language_exam_validity), // Bilingual exam validity
+                    $this->localizeEnum($userHydrated->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
+                    $this->localizeEnum($userHydrated->written_level, EvaluatedLanguageAbility::class), // Writing level
+                    $this->localizeEnum($userHydrated->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
+                    $this->yesOrNo($userHydrated->computed_is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
-                    $this->localizeEnum($candidate->user->computed_gov_employee_type, GovEmployeeType::class),
-                    $candidate->user->work_email, // Work email
-                    $candidate->user->getClassification(), // Current classification
-                    $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement
-                    $candidate->user->priority_number ?? '', // Priority number
-                    $candidate->user->position_duration ? $this->yesOrNo($candidate->user->wouldAcceptTemporary()) : '', // Accept temporary
+                    $this->localizeEnum($userHydrated->computed_gov_employee_type, GovEmployeeType::class),
+                    $userHydrated->work_email, // Work email
+                    $userHydrated->getClassification(), // Current classification
+                    $this->yesOrNo($userHydrated->has_priority_entitlement), // Priority entitlement
+                    $userHydrated->priority_number ?? '', // Priority number
+                    $userHydrated->position_duration ? $this->yesOrNo($userHydrated->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                    $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
-                    $candidate->user->location_exemptions, // Location exemptions
-                    $candidate->user->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
-                    $this->localizeEnumArray($candidate->user->indigenous_communities, IndigenousCommunity::class),
-                    $candidate->user->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
-                    $candidate->user->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
+                    $this->localizeEnumArray($userHydrated->location_preferences, WorkRegion::class),
+                    $userHydrated->location_exemptions, // Location exemptions
+                    $userHydrated->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
+                    $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),
+                    $userHydrated->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
+                    $userHydrated->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
                     $this->sanitizeEnum($candidate->education_requirement_option), // Education requirement
                     implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
                 ];
 
-                $userSkills = $candidate->user->userSkills->map(function ($userSkill) {
-                    return $userSkill->skill->name[$this->lang] ?? '';
-                });
-                $values[] = implode(', ', $userSkills->toArray());
+                // Skills claimed through UserSkills field, from snapshot
+                $usersSkillsNames = [];
+                $snapshotUserSkills = $snapshot['userSkills'] ?? [];
+                foreach ($snapshotUserSkills as $snapshotUserSkill) {
+                    array_push($usersSkillsNames, $snapshotUserSkill['skill']['name'][$this->lang]);
+                }
+                $values[] = implode(', ', $usersSkillsNames);
 
                 $poolGeneralQuestionIds = $candidate->pool->generalQuestions->pluck('id')->toArray();
                 $candidateGeneralQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
@@ -225,20 +253,54 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     }
                 }
 
+                // PoolSkill section
+                // collect pool's skills and all skills claimed in snapshotted experiences
                 $poolSkillIds = $candidate->pool->poolSkills->pluck('skill_id')->toArray();
-                $candidateSkillIds = $candidate->user->userSkills->pluck('skill_id')->toArray();
-                foreach ($poolSkillIds as $skillId) {
-                    if (in_array($skillId, $candidateSkillIds)) {
-                        $userSkill = $candidate->user->userSkills->where('skill_id', $skillId)->first();
+                $usersSkillIds = [];
+                foreach ($snapshotExperiences as $snapshotExperience) {
+                    $skills = $snapshotExperience['skills'] ?? [];
+                    foreach ($skills as $skill) {
+                        array_push($usersSkillIds, $skill['id']);
+                    }
+                }
+                array_unique($usersSkillIds);
 
+                foreach ($poolSkillIds as $skillId) {
+                    // execute if the skill was claimed by the user
+                    if (in_array($skillId, $usersSkillIds)) {
+                        $experienceSkillArray = [];
+                        // iterate through each snapshotted experience
+                        foreach ($snapshotExperiences as $snapshotExperience) {
+
+                            // find the hydrated experience model for the snapshotted experience, then you can execute ->getTitle()
+                            $experienceModelFound = Arr::first($experiencesHydrated, function ($hydratedExperience) use ($snapshotExperience) {
+                                return $snapshotExperience['id'] == $hydratedExperience->id;
+                            });
+
+                            // search for the iterated skill, returns array of something or empty
+                            $skillFoundArray = array_filter(
+                                $snapshotExperience['skills'],
+                                function ($skill) use ($skillId) {
+                                    return $skill['id'] === $skillId;
+                                }
+                            );
+
+                            // if not empty, append onto accumulator
+                            if (! empty($skillFoundArray)) {
+                                $skillFound = $skillFoundArray[0];
+                                array_push(
+                                    $experienceSkillArray,
+                                    $experienceModelFound && $skillFound['experienceSkillRecord'] && $skillFound['experienceSkillRecord']['details'] ?
+                                    $experienceModelFound->getTitle().': '.$skillFound['experienceSkillRecord']['details'] :
+                                    $experienceModelFound->getTitle().': '.Lang::get('common.not_found', [], $this->lang),
+                                );
+                            }
+                        }
+
+                        // pass in accumulator
                         $this->poolSkills[$skillId][] = [
                             'candidate' => $currentCandidate,
-                            'value' => implode("\r\n", $userSkill->experiences
-                                ->map(function ($experience) use ($userSkill) {
-                                    $skill = $experience->skills->where('id', $userSkill->skill_id)->first();
-
-                                    return $experience->getTitle().': '.$skill->experience_skill->details;
-                                })->toArray()),
+                            'value' => implode("\r\n", $experienceSkillArray),
                         ];
                     }
                 }
@@ -512,27 +574,6 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 'poolSkills.skill',
                 'assessmentSteps',
                 'assessmentSteps.poolSkills',
-            ],
-            'user' => [
-                'department',
-                'currentClassification',
-                'userSkills',
-                'userSkills.skill',
-                'userSkills.awardExperiences',
-                'userSkills.awardExperiences.skills',
-                'userSkills.communityExperiences',
-                'userSkills.communityExperiences.skills',
-                'userSkills.educationExperiences',
-                'userSkills.educationExperiences.skills',
-                'userSkills.personalExperiences',
-                'userSkills.personalExperiences.skills',
-                'userSkills.workExperiences',
-                'userSkills.workExperiences.skills',
-                'awardExperiences.userSkills.skill',
-                'communityExperiences.userSkills.skill',
-                'educationExperiences.userSkills.skill',
-                'personalExperiences.userSkills.skill',
-                'workExperiences.userSkills.skill',
             ],
         ]);
 
