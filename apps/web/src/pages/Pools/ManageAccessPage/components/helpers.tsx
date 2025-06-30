@@ -33,11 +33,7 @@ export const actionCell = (
   pool: ManageAccessPagePoolFragmentType,
   canRemoveRole: boolean,
 ) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-wrap="base(wrap)"
-    data-h2-gap="base(x.25)"
-  >
+  <div className="flex flex-wrap gap-1.5">
     <RemovePoolMembershipDialog
       user={user}
       pool={pool}
@@ -59,7 +55,7 @@ export function emailLinkCell(
   }
 
   return (
-    <span data-h2-font-style="base(italic)">
+    <span className="italic">
       {intl.formatMessage({
         defaultMessage: "No email provided",
         id: "1JCjTP",

@@ -71,11 +71,7 @@ const PoolFilterDialog = ({
       options={{ defaultValues: initialValues }}
       {...{ resetValues, onSubmit }}
     >
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-      >
+      <div className="grid gap-6 xs:grid-cols-2">
         <Combobox
           id="publishingGroups"
           name="publishingGroups"

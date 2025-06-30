@@ -141,7 +141,7 @@ const AboutUsSection = ({
         color={icon.color}
         level="h3"
         size="h4"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={!canEdit}
@@ -163,12 +163,7 @@ const AboutUsSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                data-h2-margin="base(x1, 0)"
-              >
+              <div className="my-6 grid gap-6 sm:grid-cols-2">
                 <RichTextInput
                   id="aboutUsEn"
                   label={intl.formatMessage(processMessages.aboutUsEn)}

@@ -194,7 +194,7 @@ const deriveAreaOfSelectionMessages = (
         }),
         body: (
           <>
-            <p>
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "This opportunity is reserved for persons with Canadian citizenship*.",
@@ -203,10 +203,7 @@ const deriveAreaOfSelectionMessages = (
                   "Body p1 of a note describing that a pool is only open to canadian citizens",
               })}
             </p>
-            <p
-              data-h2-margin-top="base(x0.5)"
-              data-h2-font-size="base(caption)"
-            >
+            <p className="text-sm">
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -277,20 +274,13 @@ const AreaOfSelectionWell = ({ poolQuery }: AreaOfSelectionWellProps) => {
   }
 
   return (
-    <Well data-h2-margin="base(x1 0)" color="warning">
-      <Heading
-        level="h3"
-        size="h6"
-        data-h2-margin-top="base(0)"
-        data-h2-font-size="base(body)"
-      >
+    <Well className="my-6" color="warning">
+      <Heading level="h3" size="h6" className="mt-0">
         {areaOfSelectionMessages.title}
       </Heading>
       {areaOfSelectionMessages.body}
       {areaOfSelectionMessages.finePrint ? (
-        <div data-h2-font-size="base(caption)" data-h2-margin-top="base(x0.5)">
-          {areaOfSelectionMessages.finePrint}
-        </div>
+        <div className="mt-3">{areaOfSelectionMessages.finePrint}</div>
       ) : null}
     </Well>
   );
