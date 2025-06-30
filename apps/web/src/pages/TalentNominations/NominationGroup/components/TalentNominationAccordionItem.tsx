@@ -403,7 +403,7 @@ const TalentNominationAccordionItem = ({
                     )}
                   >
                     {lateralMovementListItems.length > 0 ? (
-                      <Ul space="sm">
+                      <Ul space="sm" unStyled>
                         {lateralMovementListItems.map((item) => (
                           <li key={item.key}>
                             <BoolCheckIcon value={item.value}>
@@ -461,7 +461,7 @@ const TalentNominationAccordionItem = ({
                     label={intl.formatMessage(formMessages.developmentPrograms)}
                   >
                     {developmentProgramListItems.length > 0 ? (
-                      <Ul space="sm">
+                      <Ul space="sm" unStyled>
                         {developmentProgramListItems.map((item) => (
                           <li key={item.key}>
                             <BoolCheckIcon value={item.value}>
