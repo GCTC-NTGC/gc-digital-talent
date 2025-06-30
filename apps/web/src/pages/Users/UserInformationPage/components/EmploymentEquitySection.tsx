@@ -1,15 +1,13 @@
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
+import { tv } from "tailwind-variants";
 
 import { Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { BasicUserInformationProps } from "../types";
 
-const iconStyles = {
-  "data-h2-display": "base(inline-block)",
-  "data-h2-width": "base(1rem)",
-};
+const iconStyles = tv({ base: "inline-block size-4" });
 
 const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
@@ -30,8 +28,8 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
             "Text on view-user page that the user isn't part of any employment equity groups",
         })}
       {isIndigenous && (
-        <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon {...iconStyles} />
+        <div className="py-0.25">
+          <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
@@ -42,8 +40,8 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
         </div>
       )}
       {user.hasDisability && (
-        <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon {...iconStyles} />
+        <div className="py-0.25">
+          <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
@@ -55,8 +53,8 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
         </div>
       )}
       {user.isVisibleMinority && (
-        <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon {...iconStyles} />
+        <div className="py-0.25">
+          <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
@@ -68,8 +66,8 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
         </div>
       )}
       {user.isWoman && (
-        <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon {...iconStyles} />
+        <div className="py-0.25">
+          <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({

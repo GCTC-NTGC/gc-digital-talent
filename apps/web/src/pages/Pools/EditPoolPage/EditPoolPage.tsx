@@ -524,10 +524,7 @@ export const EditPoolForm = ({
         <div data-h2-wrapper="base(left, large, 0)">
           <TableOfContents.Wrapper>
             <TableOfContents.Navigation>
-              <TableOfContents.List
-                data-h2-padding-left="base(x.5)"
-                data-h2-list-style-type="base(none)"
-              >
+              <TableOfContents.List data-h2-list-style-type="base(none)">
                 {[...Object.values(sectionMetadata)]
                   .filter((meta) => meta.inList !== false)
                   .map((meta) => (

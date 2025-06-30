@@ -30,7 +30,7 @@ const AccountManagement = () => {
           })}
         </Accordion.Trigger>
         <Accordion.Content>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "GC Digital Talent partners with the Government of Canada's credential service, GCKey, to provide you with account access using a single username and password. You can manage your username and password on the GCKey website, and those changes will automatically work when signing in to the GC Digital Talent platform.",

@@ -53,11 +53,7 @@ const SkillFilterDialog = ({
       {...{ onSubmit, resetValues }}
       options={{ defaultValues: initialValues }}
     >
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="grid gap-6">
         <Combobox
           id="skillFamilies"
           name="skillFamilies"

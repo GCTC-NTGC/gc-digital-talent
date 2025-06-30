@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { useQuery } from "urql";
 
 import {
+  Container,
   Flourish,
   Loading,
   TableOfContents,
@@ -76,8 +77,8 @@ export const Component = () => {
   return (
     <>
       <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
               {sections.map((section) => (
@@ -95,11 +96,11 @@ export const Component = () => {
                 size="h3"
                 icon={MegaphoneOutlineIcon}
                 color="primary"
-                data-h2-margin-top="base(0)"
+                className="mt-0"
               >
                 {sections[0].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Events found in this section are currently accepting nominations.",
@@ -110,11 +111,7 @@ export const Component = () => {
               {fetching ? (
                 <Loading inline />
               ) : activeEvents.length > 0 ? (
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x.25)"
-                >
+                <div className="flex flex-col gap-1.5">
                   {activeEvents.map((item) => (
                     <TalentNominationEventCard
                       key={item.id}
@@ -123,11 +120,8 @@ export const Component = () => {
                   ))}
                 </div>
               ) : (
-                <Well data-h2-text-align="base(center)">
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
+                <Well className="text-center">
+                  <p className="mb-3 font-bold">
                     {intl.formatMessage({
                       defaultMessage:
                         "There aren't any active events at the moment.",
@@ -150,7 +144,7 @@ export const Component = () => {
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
       <Flourish />
     </>
   );

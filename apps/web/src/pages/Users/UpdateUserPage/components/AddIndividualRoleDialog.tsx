@@ -112,7 +112,7 @@ const AddIndividualRoleDialog = ({
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(0, 0 ,x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 defaultMessage:

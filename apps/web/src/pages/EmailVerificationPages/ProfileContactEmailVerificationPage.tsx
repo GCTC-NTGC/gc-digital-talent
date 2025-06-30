@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType } from "@gc-digital-talent/graphql";
+import { Card, Container } from "@gc-digital-talent/ui";
 
 // importing from a shared file, not the page itself
 // eslint-disable-next-line no-restricted-imports
@@ -60,24 +61,16 @@ const ProfileContactEmailVerificationPage = () => {
         subtitle={intl.formatMessage(subTitle)}
         crumbs={crumbs}
       />
-      <div
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-        data-h2-padding="base(x1, 0)"
-      >
-        <div
-          data-h2-padding="base(x2) "
-          data-h2-background="base(foreground)"
-          data-h2-radius="p-tablet(rounded)"
-          data-h2-shadow="base(large)"
-        >
+      <Container className="my-6">
+        <Card>
           <EmailVerificationApi
             emailAddress={emailAddress}
             onVerificationSuccess={handleVerificationSuccess}
             emailType={EmailType.Contact}
             onSkip={handleSkip}
           />
-        </div>
-      </div>
+        </Card>
+      </Container>
     </>
   );
 };

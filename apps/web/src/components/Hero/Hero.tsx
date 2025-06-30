@@ -200,7 +200,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
         )}
         {additionalContent ? (
           <>
-            <Container size="lg" className="z-[3]">
+            <Container size="lg" className="relative z-[3]">
               {additionalContent}
             </Container>
           </>

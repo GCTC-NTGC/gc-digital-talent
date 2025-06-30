@@ -84,7 +84,7 @@ import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvBu
 import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
-  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
+  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
 
 const columnHelper =
   createColumnHelper<CandidatesTableCandidatesPaginatedQueryDataType>();
@@ -167,10 +167,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $first: Int
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
-    $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
+    $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
   ) {
-    poolCandidatesPaginated(
+    poolCandidatesPaginatedAdminView(
       where: $where
       first: $first
       page: $page
@@ -181,26 +181,22 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         poolCandidate {
-          ...JobPlacementDialog
+          ...JobPlacementDialogCandidateTable
           id
-          ...PoolCandidate_Bookmark
-          viewNotes {
-            notes
-          }
-          viewStatus {
-            status {
-              value
-              label {
-                en
-                fr
-              }
+          ...PoolCandidateTable_Bookmark
+          notes
+          status {
+            value
+            label {
+              en
+              fr
             }
-            placedDepartment {
-              id
-              name {
-                en
-                fr
-              }
+          }
+          placedDepartment {
+            id
+            name {
+              en
+              fr
             }
           }
           category {
@@ -518,9 +514,9 @@ const PoolCandidatesTable = ({
 
   const filteredData: CandidatesTableCandidatesPaginatedQueryDataType[] =
     useMemo(() => {
-      const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+      const poolCandidates = data?.poolCandidatesPaginatedAdminView.data ?? [];
       return poolCandidates.filter(notEmpty);
-    }, [data?.poolCandidatesPaginated.data]);
+    }, [data?.poolCandidatesPaginatedAdminView.data]);
 
   const candidateIdsFromFilterData = filteredData.map(
     (iterator) => iterator.poolCandidate.id,
@@ -767,8 +763,7 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { viewStatus } }) =>
-        getLocalizedName(viewStatus?.status?.label, intl),
+      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
@@ -782,8 +777,7 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { viewStatus } }) =>
-        getLocalizedName(viewStatus?.status?.label, intl),
+      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -801,11 +795,7 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       (row) =>
-        getLocalizedName(
-          row.poolCandidate.viewStatus?.placedDepartment?.name,
-          intl,
-          true,
-        ),
+        getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
       {
         id: "placedDepartment",
         header: intl.formatMessage(tableMessages.placedDepartment),
@@ -825,25 +815,22 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.candidacyStatus),
       },
     ),
-    columnHelper.accessor(
-      ({ poolCandidate: { viewNotes } }) => viewNotes?.notes,
-      {
-        id: "notes",
-        header: intl.formatMessage(adminMessages.notes),
-        sortingFn: normalizedText,
-        cell: ({
-          row: {
-            original: { poolCandidate },
-          },
-        }) =>
-          notesCell(
-            intl,
-            poolCandidate.viewNotes?.notes,
-            poolCandidate.user.firstName,
-            poolCandidate.user.lastName,
-          ),
-      },
-    ),
+    columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
+      id: "notes",
+      header: intl.formatMessage(adminMessages.notes),
+      sortingFn: normalizedText,
+      cell: ({
+        row: {
+          original: { poolCandidate },
+        },
+      }) =>
+        notesCell(
+          intl,
+          poolCandidate.notes,
+          poolCandidate.user.firstName,
+          poolCandidate.user.lastName,
+        ),
+    }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         getLocalizedName(user.preferredLang?.label, intl),
@@ -1050,7 +1037,7 @@ const PoolCandidatesTable = ({
         internal: false,
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
-        total: data?.poolCandidatesPaginated?.paginatorInfo.total,
+        total: data?.poolCandidatesPaginatedAdminView?.paginatorInfo.total,
         pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
