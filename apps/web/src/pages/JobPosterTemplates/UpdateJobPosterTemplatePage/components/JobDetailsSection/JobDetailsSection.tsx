@@ -50,7 +50,7 @@ const descriptionWordCountLimits: Record<Locales, number> = {
   fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
 } as const;
 
-const InitialData_Fragment = graphql(/* GraphQL */ `
+export const InitialData_Fragment = graphql(/* GraphQL */ `
   fragment UpdateJobPosterTemplateJobDetails on JobPosterTemplate {
     id
     name {
@@ -63,6 +63,10 @@ const InitialData_Fragment = graphql(/* GraphQL */ `
     }
     supervisoryStatus {
       value
+      label {
+        en
+        fr
+      }
     }
     workDescription {
       en
@@ -79,6 +83,16 @@ const InitialData_Fragment = graphql(/* GraphQL */ `
     }
     workStream {
       id
+      name {
+        en
+        fr
+      }
+      community {
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -259,7 +273,7 @@ const JobDetailsSection = ({
     label: workStream.name?.localized,
   }));
 
-  const isNull = true; // hasAllEmptyFields(employeeProfile);
+  const isNull = false; // hasAllEmptyFields(employeeProfile);
   const { isEditing, setIsEditing } = useToggleSectionInfo({
     isNull,
     emptyRequired: false, //hasEmptyRequiredFields(employeeProfile),
@@ -357,11 +371,9 @@ const JobDetailsSection = ({
                 description: "Null message for job details form",
               })}
             />
-          ) : // <Display
-          //   employeeProfileQuery={employeeProfileQuery}
-          //   careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
-          // />
-          null}
+          ) : (
+            <Display initialDataQuery={initialDataQuery} />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
