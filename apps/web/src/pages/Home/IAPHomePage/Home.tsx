@@ -142,7 +142,7 @@ export const Home = ({ query }: HomeProps) => {
           <Container>
             <div className="relative xs:-top-18 sm:-top-24">
               <div className="rounded-3xl bg-white xs:p-12 sm:p-18 dark:bg-gray-700">
-                <div className="grid gap-18 xs:grid-cols-7">
+                <div className="grid gap-6 xs:grid-cols-7 xs:gap-18">
                   <div className="xs:col-span-3">
                     <div className="relative xs:size-full">
                       <div className="absolute -right-6 -mt-9 size-48 rounded-full bg-primary/10 dark:bg-primary-300/30" />
@@ -217,7 +217,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* Learn section */}
         <div>
           <Container>
-            <div className="grid gap-18 xs:grid-cols-7 xs:p-12 sm:p-18">
+            <div className="grid gap-6 xs:grid-cols-7 xs:gap-18 xs:p-12 sm:p-18">
               <div className="xs:order-2 xs:col-span-3">
                 <div className="relative xs:size-full">
                   <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
@@ -291,7 +291,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* Who section */}
         <div className="relative z-[2] mt-12">
           <Container>
-            <div className="grid gap-18 xs:grid-cols-7 xs:p-12 sm:p-18">
+            <div className="grid gap-6 xs:grid-cols-7 xs:gap-18 xs:p-12 sm:p-18">
               <div className="xs:col-span-3">
                 <div className="relative xs:size-full">
                   <Triangle className="absolute -top-8 -left-8 z-[1] w-[120%] text-secondary xs:-top-12 xs:-left-12 dark:text-secondary-300" />
@@ -490,7 +490,7 @@ export const Home = ({ query }: HomeProps) => {
                 })}
               </p>
             </div>
-            <div className="grid gap-18 sm:grid-cols-3">
+            <div className="grid gap-6 xs:gap-18 sm:grid-cols-3">
               <div>
                 <Step
                   position="1"
@@ -593,7 +593,7 @@ export const Home = ({ query }: HomeProps) => {
                 })}
               </p>
             </div>
-            <div className="grid gap-18 xs:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 xs:grid-cols-2 xs:gap-18 lg:grid-cols-4">
               <div>
                 <Card
                   Icon={People}
@@ -681,7 +681,7 @@ export const Home = ({ query }: HomeProps) => {
                     <img
                       src={iconWatermark}
                       alt=""
-                      className="absolute -right-12 -bottom-30 w-[120%] opacity-40 xs:-right-24 xs:-bottom-42 xs:w-100 lg:w-140"
+                      className="absolute -right-12 -bottom-30 w-[120%] max-w-[initial] opacity-40 xs:-right-24 xs:-bottom-42 xs:w-100 lg:w-140"
                     />
                   </div>
                   <div className="relative grid gap-12 xs:grid-cols-2 xs:gap-0 sm:grid-cols-5 lg:grid-cols-2">
@@ -713,7 +713,7 @@ export const Home = ({ query }: HomeProps) => {
                     </div>
                     <div className="relative sm:col-span-2 lg:col-span-1">
                       <img
-                        className="absolute block xs:-right-12 xs:-bottom-18 sm:-right-18 sm:-bottom-30"
+                        className="block xs:absolute xs:-right-12 xs:-bottom-18 sm:-right-18 sm:-bottom-30"
                         src={indigenousWoman}
                         alt={intl.formatMessage({
                           defaultMessage:
