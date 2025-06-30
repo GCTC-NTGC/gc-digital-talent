@@ -27,24 +27,24 @@ import NominationGroupEvaluationDialog, {
 
 const statusBox = tv({
   slots: {
-    base: "flex max-w-fit items-center justify-between gap-x-3 overflow-hidden rounded-md p-3",
+    base: "flex min-w-max items-center justify-between gap-x-3 overflow-hidden rounded-md border p-3 sm:w-3/4",
     btnWrapper: "-m-3 ml-0 flex items-center justify-center p-3 text-center",
     btn: "",
   },
   variants: {
     status: {
       approved: {
-        base: "bg-success-100 text-success-600",
+        base: "border-success-700 bg-success-100 text-success-600",
         btnWrapper: "bg-success-700",
         btn: "text-success-100 dark:text-success-100",
       },
       inProgress: {
-        base: "bg-primary-100 text-primary-700",
+        base: "border-primary-700 bg-primary-100 text-primary-700",
         btnWrapper: "bg-primary-700",
         btn: "text-primary-100 dark:text-primary-100",
       },
       rejected: {
-        base: "bg-error-100 text-error-600",
+        base: "border-error-700 bg-error-100 text-error-600",
         btnWrapper: "bg-error-700",
         btn: "text-error-100 dark:text-error-100",
       },
@@ -167,7 +167,7 @@ const NominationGroupSidebar = ({
           {talentNominationGroup.nominee?.department?.name?.localized ??
             intl.formatMessage(commonMessages.notProvided)}
         </p>
-        <div className="self-start">
+        <div className="w-full self-start">
           <div className={statusBase()}>
             <span className="block grow font-bold">
               {talentNominationGroup.status?.label.localized ??
