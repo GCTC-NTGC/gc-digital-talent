@@ -104,7 +104,7 @@ export const Home = ({ query }: HomeProps) => {
                 "Indigenous Apprenticeship hero image text alternative",
             })}
           />
-          <div className="relative z-[2] -mb-12 w-full bg-linear-to-b from-primary-700 from-90% to-transparent px-12 pt-7 pb-18 xs:-mb-27 xs:from-60% xs:pt-12 xs:pb-6 sm:-mb-36 sm:from-30% sm:pb-0 md:mb-0 md:h-0 md:overflow-visible md:bg-transparent md:p-0">
+          <div className="relative z-[2] -mb-12 w-full bg-linear-to-b from-primary-700 from-90% to-transparent px-12 pt-7 pb-18 xs:-mb-27 xs:from-60% xs:pt-12 xs:pb-6 sm:-mb-37 sm:from-30% sm:pb-0 md:mb-0 md:h-0 md:overflow-visible md:bg-transparent md:p-0">
             <div className="mx-auto max-w-138 xs:flex xs:items-center xs:gap-6 xs:pl-6 md:mt-12 md:max-w-168">
               <img
                 src={logoImg}
