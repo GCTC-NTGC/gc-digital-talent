@@ -65,8 +65,8 @@ const ManagerInfo = ({
         })}
       </Heading>
       <Card>
-        <div className="grid grid-cols-4 gap-6">
-          <div className="border-r-black/20 xs:border-r dark:border-r-white/20">
+        <div className="grid gap-6 wrap-break-word xs:grid-cols-2 md:grid-cols-4">
+          <div className="border-r-black/20 xs:border-r xs:pr-6 dark:border-r-white/20">
             <FilterBlock
               title={intl.formatMessage(commonMessages.fullName)}
               content={fullName}
@@ -476,7 +476,7 @@ export const ViewSearchRequest = ({
           <SearchRequestFilters filters={abstractFilter} />
           <Separator space="sm" />
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid gap-6 sm:grid-cols-2">
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Position job title",
