@@ -65,8 +65,8 @@ const ManagerInfo = ({
         })}
       </Heading>
       <Card>
-        <div className="grid gap-6 wrap-break-word xs:grid-cols-4">
-          <div className="border-r-black/20 xs:border-r xs:pr-6 dark:border-r-white/20">
+        <div className="grid gap-6 wrap-break-word sm:grid-cols-4">
+          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
             <FilterBlock
               title={intl.formatMessage(commonMessages.fullName)}
               content={fullName}
@@ -87,7 +87,7 @@ const ManagerInfo = ({
               }
             />
           </div>
-          <div className="border-r-black/20 xs:border-r dark:border-r-white/20">
+          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
             <FilterBlock
               title={intl.formatMessage(commonMessages.department)}
               content={department?.name?.[locale]}
@@ -100,7 +100,7 @@ const ManagerInfo = ({
               }
             />
           </div>
-          <div className="border-r-black/20 xs:border-r dark:border-r-white/20">
+          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Date received",
