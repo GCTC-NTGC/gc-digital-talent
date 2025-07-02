@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 import { Container, Flourish } from "@gc-digital-talent/ui";
 
 const imgStyles = tv({
-  base: "absolute -top-12 h-[calc(100%+3rem)] w-full skew-y-3 bg-size-[auto_50vh] bg-no-repeat xs:bg-size-[auto_60vh] sm:bg-size-[auto_110%]",
+  base: "absolute -top-12 h-[calc(100%+3rem)] w-full skew-y-3 bg-[size:auto_50vh] bg-no-repeat xs:bg-[size:auto_60vh] sm:bg-[size:auto_110%]",
 });
 
 interface SkewedImageContainerProps {
