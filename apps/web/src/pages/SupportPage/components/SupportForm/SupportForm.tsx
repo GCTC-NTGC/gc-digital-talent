@@ -75,14 +75,6 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
           description: "Support form success paragraph two",
         })}
       </p>
-      {/* <p className="my-6">
-        {intl.formatMessage({
-          defaultMessage:
-            "In the meantime, feel free to check out our FAQs for further information.",
-          id: "QX1l/C",
-          description: "Support form success paragraph three",
-        })}
-      </p> */}
       <Button
         color="primary"
         onClick={() => {
