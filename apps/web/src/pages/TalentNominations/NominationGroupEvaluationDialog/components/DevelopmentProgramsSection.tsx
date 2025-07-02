@@ -122,17 +122,8 @@ const DevelopmentProgramsSection = ({
   });
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-    >
-      <Heading
-        level="h3"
-        size="h6"
-        data-h2-margin="base(0)"
-        data-h2-font-weight="base(normal)"
-      >
+    <div className="flex flex-col gap-6">
+      <Heading level="h3" size="h6" className="m-0 font-normal">
         {intl.formatMessage({
           defaultMessage: "Nomination for development programs",
           id: "9oEgJL",
@@ -228,7 +219,7 @@ const DevelopmentProgramsSection = ({
         />
       ) : null}
       {selectedDevelopmentProgramsDecision == null ? (
-        <Well data-h2-text-align="base(center)">
+        <Well className="text-center">
           {intl.formatMessage(formMessages.decisionNullState)}
         </Well>
       ) : null}

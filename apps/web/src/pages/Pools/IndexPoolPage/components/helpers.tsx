@@ -95,7 +95,7 @@ export function emailLinkAccessor(
     );
   }
   return (
-    <span data-h2-font-style="base(italic)">
+    <span className="italic">
       {intl.formatMessage({
         defaultMessage: "No email provided",
         id: "1JCjTP",
@@ -306,7 +306,7 @@ export const poolBookmarkCell = (
 
 export const poolBookmarkHeader = (intl: IntlShape) => (
   <BookmarkIcon
-    data-h2-width="base(x1)"
+    className="size-6"
     aria-label={intl.formatMessage(tableMessages.bookmark)}
   />
 );

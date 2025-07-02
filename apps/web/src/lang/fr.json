@@ -4123,6 +4123,10 @@
     "defaultMessage": "Inscription",
     "description": "Breadcrumb for the registration pages"
   },
+  "H6seW1": {
+    "defaultMessage": "Numéro du processus de sélection",
+    "description": "Label for pool advertisement selection process number"
+  },
   "HBljcn": {
     "defaultMessage": "Nom (anglais)",
     "description": "Title for name in English"

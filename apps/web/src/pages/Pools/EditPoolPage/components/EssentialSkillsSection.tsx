@@ -113,11 +113,11 @@ const EssentialSkillsSection = ({
         color={icon.color}
         level="h3"
         size="h4"
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
-      <p data-h2-margin="base(x1 0)">{subtitle}</p>
+      <p className="my-6">{subtitle}</p>
       <SkillTable
         caption={sectionMetadata.title}
         data={essentialSkills}

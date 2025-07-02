@@ -15,7 +15,7 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
   ({ active, ...rest }, ref) => (
     <Button
       ref={ref}
-      mode="text"
+      mode="inline"
       type="button"
       color={active ? "secondary" : "white"}
       fixedColor

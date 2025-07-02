@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
@@ -6,6 +7,18 @@ import NoSymbolIcon from "@heroicons/react/24/solid/NoSymbolIcon";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { TalentNominationGroupDecision } from "@gc-digital-talent/graphql";
+
+const iconStyles = tv({
+  base: "mr-1.5 mb-1 inline-block size-4 align-text-bottom",
+  variants: {
+    color: {
+      black: "text-gray-600 dark:text-gray-200",
+      success: "text-success dark:text-success-200",
+      error: "text-error dark:text-error-200",
+      secondary: "text-secondary-500 dark:text-secondary",
+    },
+  },
+});
 
 interface ComputedIconProps {
   count: number;
@@ -15,22 +28,12 @@ interface ComputedIconProps {
 const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   const intl = useIntl();
 
-  const sharedIconStyling = {
-    "data-h2-height": "base(x.70)",
-    "data-h2-width": "base(x.70)",
-    "data-h2-display": "base(inline-block)",
-    "data-h2-vertical-align": "base(text-bottom)",
-    "data-h2-margin-right": "base(x.25)",
-    "data-h2-margin-bottom": "base(x.125)",
-  };
-
   if (count === 0) {
     return (
       <NoSymbolIcon
-        data-h2-color="base(black.lighter) base:dark(black.5)"
         aria-hidden="false"
         aria-label={intl.formatMessage(commonMessages.notApplicable)}
-        {...sharedIconStyling}
+        className={iconStyles({ color: "black" })}
       />
     );
   }
@@ -38,10 +41,9 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   if (decision === TalentNominationGroupDecision.Approved) {
     return (
       <CheckCircleIcon
-        data-h2-color="base(success) base:dark(success.lighter)"
+        className={iconStyles({ color: "success" })}
         aria-hidden="false"
         aria-label={intl.formatMessage(commonMessages.approved)}
-        {...sharedIconStyling}
       />
     );
   }
@@ -49,20 +51,18 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   if (decision === TalentNominationGroupDecision.Rejected) {
     return (
       <XCircleIcon
-        data-h2-color="base(error) base:dark(error.lighter)"
+        className={iconStyles({ color: "error" })}
         aria-hidden="false"
         aria-label={intl.formatMessage(commonMessages.notSupported)}
-        {...sharedIconStyling}
       />
     );
   }
 
   return (
     <QuestionMarkCircleIcon
-      data-h2-color="base(secondary.dark) base:dark(secondary)"
+      className={iconStyles({ color: "secondary" })}
       aria-hidden="false"
       aria-label={intl.formatMessage(commonMessages.inProgress)}
-      {...sharedIconStyling}
     />
   );
 };

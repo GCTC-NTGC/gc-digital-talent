@@ -30,7 +30,7 @@ const Instructions = () => {
           description: "Heading for instructions step of a talent nomination",
         })}
       </SubHeading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Welcome to the talent nomination form. This form allows you to nominate a candidate for advancement, lateral movement, or development opportunities unique to their area of work.",
@@ -39,7 +39,7 @@ const Instructions = () => {
             "Paragraph one, instructions on how to submit a nomination",
         })}
       </p>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Nominations must be sponsored by a C-suite level executive working in the candidate’s domain and will be triaged by the associated functional community team. Once confirmed, the candidate will be entered in that community’s talent management system for the current year.",
@@ -48,7 +48,7 @@ const Instructions = () => {
             "Paragraph two, instructions on how to submit a nomination",
         })}
       </p>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:

@@ -57,11 +57,7 @@ const NomineeReview = ({ nomineeQuery }: NomineeReviewProps) => {
       >
         {intl.formatMessage(messages.nomineeInfo)}
       </ReviewHeading>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr 1fr)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="grid grid-cols-2 gap-6">
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Nominee's name",

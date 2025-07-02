@@ -51,13 +51,9 @@ const GeneralQuestionCard = ({
         />
       }
     >
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-      >
+      <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+          <p className="mb-3 font-bold">
             {intl.formatMessage(labels.questionEn)}
           </p>
           <p>
@@ -66,7 +62,7 @@ const GeneralQuestionCard = ({
           </p>
         </div>
         <div>
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+          <p className="mb-3 font-bold">
             {intl.formatMessage(labels.questionFr)}
           </p>
           <p>

@@ -41,7 +41,7 @@ const SkillLevelDialog = () => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+          <Heading level="h3" size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Behavioural skill levels",
               id: "yKQGy8",
@@ -49,7 +49,7 @@ const SkillLevelDialog = () => {
                 "Heading for the skills level definitions of behavioural skills",
             })}
           </Heading>
-          <p data-h2-margin="base(x.25 0)">
+          <p className="my-1.5">
             {intl.formatMessage({
               defaultMessage:
                 "Behavioural skills refer to the key interpersonal and personal attributes that are necessary for specific jobs across the organization. These competencies generally refer to the way a person acts, communicates and interacts with others. They consist of the following levels",
@@ -83,7 +83,7 @@ const SkillLevelDialog = () => {
                 "Heading for the skills level definitions of technical skills",
             })}
           </Heading>
-          <p data-h2-margin="base(x.25 0)">
+          <p className="my-1.5">
             {intl.formatMessage({
               defaultMessage:
                 "Technical skills refer to the technical knowledge and abilities that are relevant to specific jobs or roles across the organization. Technical skills are usually acquired through specific learning or work experience in applying the knowledge and skill. They consist of the following levels",
