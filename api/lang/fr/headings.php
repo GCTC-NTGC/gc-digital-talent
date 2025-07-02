@@ -109,7 +109,7 @@ return [
     'dei' => 'Diversité, équité et inclusion',
     'career_timeline' => 'Parcours professionnel',
     'screening_questions' => 'Questions de sélection',
-    'general_questions' => 'Questions générale',
+    'general_questions' => 'Questions générales',
     'skill_showcase' => 'Vitrine de compétences',
     'top_skills' => 'Meilleures compétences',
     'skills_to_improve' => 'Compétences à améliorer',
