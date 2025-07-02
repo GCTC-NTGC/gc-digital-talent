@@ -124,11 +124,7 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
       })}
       subTitle={
         talentNomination.talentNominationEvent.closeDate ? (
-          <p
-            data-h2-margin="base(x.5 0)"
-            data-h2-color="base(black.light)"
-            data-h2-font-size="base(caption)"
-          >
+          <p className="my-3 text-sm text-gray-600 dark:text-gray-200">
             {intl.formatMessage({
               defaultMessage: "Nomination deadline",
               id: "Mt3GfT",

@@ -170,11 +170,7 @@ const DetailsFields = ({
   }, [advancementReference, resetField]);
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="flex flex-col gap-6">
       <Checklist
         idPrefix="nominationOptions"
         name="nominationOptions"
@@ -224,7 +220,7 @@ const DetailsFields = ({
         ]}
       />
       {noOptionsSelected ? (
-        <Well data-h2-text-align="base(center)">
+        <Well className="text-center">
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -236,17 +232,9 @@ const DetailsFields = ({
           </p>
         </Well>
       ) : (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1)"
-        >
+        <div className="flex flex-col gap-6">
           {advancement && (
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x1)"
-            >
+            <div className="flex flex-col gap-6">
               <div>
                 <Heading level="h3" size="h6">
                   {intl.formatMessage({
@@ -310,11 +298,7 @@ const DetailsFields = ({
               )}
               {!advancementReferenceUnset && advancementReferenceNotFound && (
                 <>
-                  <div
-                    data-h2-display="base(grid)"
-                    data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-                    data-h2-gap="base(x1)"
-                  >
+                  <div className="grid gap-6 sm:grid-cols-2">
                     <Input
                       type="text"
                       id="advancementReferenceFallbackName"
@@ -381,11 +365,7 @@ const DetailsFields = ({
             </div>
           )}
           {lateralMovement && (
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x1)"
-            >
+            <div className="flex flex-col gap-6">
               <div>
                 <Heading level="h3" size="h6">
                   {intl.formatMessage(labels.lateralMovementOptions)}
@@ -450,11 +430,7 @@ const DetailsFields = ({
             </div>
           )}
           {developmentProgram && (
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x1)"
-            >
+            <div className="flex flex-col gap-6">
               <div>
                 <Heading level="h3" size="h6">
                   {intl.formatMessage({
@@ -728,7 +704,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
       <SubHeading icon={RectangleGroupIcon}>
         {intl.formatMessage(messages.nominationDetails)}
       </SubHeading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Now, we'll look at the details of the nomination you'd like to submit.",

@@ -53,13 +53,8 @@ const NominationNavigation = () => {
   };
 
   return (
-    <Card
-      data-h2-display="base(grid)"
-      data-h2-align-items="base(center)"
-      data-h2-grid-template-columns="base(1fr auto 1fr)"
-      data-h2-padding="base(0)"
-    >
-      <span data-h2-flex-shrink="base(0)">
+    <Card className="grid grid-cols-[1fr_auto_1fr] items-center p-0">
+      <span className="shrink-0">
         {previousNomination && (
           <Link
             href={paths.talentNominationGroup(eventId, previousNomination)}
@@ -79,9 +74,9 @@ const NominationNavigation = () => {
         orientation="vertical"
         space="none"
         decorative
-        data-h2-flex-shrink="base(1)"
+        className="shrink"
       />
-      <span data-h2-flex-shrink="base(0)">
+      <span className="shrink-0">
         {nextNomination && (
           <Link
             href={paths.talentNominationGroup(eventId, nextNomination)}

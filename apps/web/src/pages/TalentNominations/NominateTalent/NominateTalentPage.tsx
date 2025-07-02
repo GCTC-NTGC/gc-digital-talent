@@ -3,7 +3,12 @@ import { useQuery } from "urql";
 import { useEffect } from "react";
 import { useLocation, useSearchParams, type Location } from "react-router";
 
-import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Container,
+  Pending,
+  TableOfContents,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -180,10 +185,7 @@ const NominateTalentPage = () => {
             subtitle={intl.formatMessage(subTitle)}
             crumbs={crumbs}
           />
-          <div
-            data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-            data-h2-margin-top="base(x3)"
-          >
+          <Container className="my-18">
             <TableOfContents.Wrapper>
               <TableOfContents.Sidebar>
                 <Navigation navigationQuery={data.talentNomination} />
@@ -210,7 +212,7 @@ const NominateTalentPage = () => {
                 <Success successQuery={data.talentNomination} />
               </TableOfContents.Content>
             </TableOfContents.Wrapper>
-          </div>
+          </Container>
         </>
       ) : (
         <ThrowNotFound />
