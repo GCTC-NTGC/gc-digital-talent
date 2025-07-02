@@ -279,8 +279,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
                             // search for the iterated skill, returns array of one or empty
                             // array_values reindexes the array
-                            $skillFoundArray =
-                            array_values(
+                            $skillFoundArray = array_values(
                                 array_filter(
                                     $snapshotExperience['skills'],
                                     function ($skill) use ($poolsSkillId) {

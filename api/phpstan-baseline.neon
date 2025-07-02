@@ -5,6 +5,13 @@ parameters:
 			identifier: unset.possiblyHookedProperty
 			count: 1
 			path: app/Generators/CsvGenerator.php
+
+		-
+			message: '#^Call to function array_unique\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 1
+			path: app/Generators/PoolCandidateCsvGenerator.php
+
 		-
 			message: '#^Trait App\\Traits\\ExperienceFactoryWithSkills is used zero times and is not analysed\.$#'
 			identifier: trait.unused
