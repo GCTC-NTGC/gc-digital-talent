@@ -93,21 +93,29 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             }
         }
         $experienceTypeOrder = [
+            'award_experience',
             'community_experience',
             'education_experience',
-            'work_experience',
             'personal_experience',
-            'award_experience',
+            'work_experience',
         ];
 
-        $allExperiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
-            ->sortByDesc(function ($exp) {
-                return $exp->start_date;
-            });
-        $experiences = $allExperiences
+        $sortByCurrentThenDate = function ($exp) {
+            $isCurrent = is_null($exp->end_date) || $exp->end_date >= now();
+
+            return [
+                $isCurrent ? 1 : 0,
+                $isCurrent ? $exp->start_date : $exp->end_date ?? $exp->start_date,
+            ];
+        };
+
+        $sortGroupByType = fn ($_, $type) => array_search($type, $experienceTypeOrder) ?? PHP_INT_MAX;
+
+        $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
+            ->sortByDesc($sortByCurrentThenDate)
             ->groupBy(fn ($exp) => $exp?->getMorphClass() ?? '')
-            ->sortBy(fn ($_, $type) => array_search($type, $experienceTypeOrder) !== false ? array_search($type, $experienceTypeOrder) : PHP_INT_MAX)
-            ->flatMap(fn ($group) => $group->sortByDesc('start_date'))
+            ->sortBy($sortGroupByType)
+            ->flatMap(fn ($group) => $group->sortByDesc($sortByCurrentThenDate))
             ->values()
             ->all();
 
