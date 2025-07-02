@@ -64,17 +64,8 @@ const LanguageSelector = () => {
   };
 
   return (
-    <div
-      data-h2-background-color="base(secondary)"
-      data-h2-color="base:all(white)"
-      data-h2-padding="base(x.5)"
-    >
-      <div
-        data-h2-align-items="base(center)"
-        data-h2-display="base(flex)"
-        data-h2-gap="base(0, x.75)"
-        data-h2-justify-content="base(center)"
-      >
+    <div className="bg-secondary p-3 text-white">
+      <div className="flex items-center justify-center gap-x-4.5">
         <p>
           {intl.formatMessage({
             id: "uoX7ou",
@@ -114,12 +105,7 @@ const LanguageSelector = () => {
         </DropdownMenu.Root>
       </div>
       {locale && (
-        <div
-          data-h2-align-items="base(center)"
-          data-h2-display="base(flex)"
-          data-h2-gap="base(0, x.75)"
-          data-h2-justify-content="base(center)"
-        >
+        <div className="flex items-center justify-center gap-x-4.5">
           <Button mode="inline" color="white" onClick={unsetLocale} fixedColor>
             {intl.formatMessage({
               defaultMessage: "Go back to English",
