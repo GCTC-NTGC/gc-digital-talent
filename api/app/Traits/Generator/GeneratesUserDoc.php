@@ -281,11 +281,32 @@ trait GeneratesUserDoc
                     default => 'work'
                 };
 
+                if ($typeKey === 'award') {
+                    $sortedGroup = $group->sortBy('awarded_date', SORT_DESC, SORT_NUMERIC);
+                } else {
+                    $sortedGroup = $group->sortBy([
+                        function ($a, $b) {
+                            if (! isset($a['end_date'])) {
+                                if (! isset($b['end_date'])) {
+                                    return 0;
+                                }
+
+                                return -1;
+                            } elseif (! isset($b['end_date'])) {
+                                return 1;
+                            }
+
+                            return $b['end_date'] <=> $a['end_date'];
+                        },
+                        ['start_date', SORT_DESC, SORT_NUMERIC],
+                    ]);
+                }
+
                 $section->addTitle($this->localize('experiences.'.$typeKey), $headingRank + 1);
 
                 $subHeadingRank = $headingRank + 2;
 
-                $group->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
+                $sortedGroup->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
                     $this->experience($section, $experience, $type, $withSkills, $subHeadingRank);
                 });
             }
