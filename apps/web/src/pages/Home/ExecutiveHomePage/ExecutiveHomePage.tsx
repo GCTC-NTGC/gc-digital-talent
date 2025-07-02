@@ -254,7 +254,13 @@ export const HomePage = ({ pools }: HomePageProps) => {
           </div>
         </Container>
       </div>
-      <SkewedImageContainer imgSrc={executiveProfileHero}>
+      <SkewedImageContainer
+        imgSrc={executiveProfileHero}
+        imgProps={{
+          className:
+            "bg-position-[80%_110%] sm:bg-position-[50%_60%] lg:bg-position-[right_50%]",
+        }}
+      >
         <p className="mb-12 text-lg text-white xs:max-w-1/2 lg:text-xl">
           {intl.formatMessage({
             defaultMessage:

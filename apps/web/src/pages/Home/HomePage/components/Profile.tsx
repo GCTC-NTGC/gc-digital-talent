@@ -15,7 +15,10 @@ const Profile = () => {
   return (
     <SkewedImageContainer
       imgSrc={profileHeroImg}
-      imgProps={{ className: "bg-right" }}
+      imgProps={{
+        className:
+          "bg-position-[100%_110%] sm:bg-position-[calc(50%+20rem)_50%]",
+      }}
     >
       <p className="mb-12 text-lg text-white xs:max-w-1/2 lg:text-xl">
         {intl.formatMessage({

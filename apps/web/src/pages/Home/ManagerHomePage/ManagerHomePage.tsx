@@ -196,7 +196,13 @@ const ManagerHomePage = () => {
           </CardFlat>
         </div>
       </SkewedContainer>
-      <SkewedImageContainer imgSrc={managerProfileHero}>
+      <SkewedImageContainer
+        imgSrc={managerProfileHero}
+        imgProps={{
+          className:
+            "bg-position-[80%_110%] sm:bg-position-[60%_50%] lg:bg-position-[right_50%]",
+        }}
+      >
         <p className="mb-12 text-lg text-white xs:max-w-1/2 lg:text-xl">
           {intl.formatMessage({
             defaultMessage:
