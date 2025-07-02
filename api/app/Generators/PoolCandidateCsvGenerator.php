@@ -255,19 +255,19 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
                 // PoolSkill section
                 // collect pool's skills and all skills claimed in snapshotted experiences
-                $poolSkillIds = $candidate->pool->poolSkills->pluck('skill_id')->toArray();
-                $usersSkillIds = [];
+                $poolsSkillsIds = $candidate->pool->poolSkills->pluck('skill_id')->toArray();
+                $usersSkillsIds = [];
                 foreach ($snapshotExperiences as $snapshotExperience) {
                     $skills = $snapshotExperience['skills'] ?? [];
                     foreach ($skills as $skill) {
-                        array_push($usersSkillIds, $skill['id']);
+                        array_push($usersSkillsIds, $skill['id']);
                     }
                 }
-                array_unique($usersSkillIds);
+                array_unique($usersSkillsIds);
 
-                foreach ($poolSkillIds as $skillId) {
+                foreach ($poolsSkillsIds as $poolsSkillId) {
                     // execute if the skill was claimed by the user
-                    if (in_array($skillId, $usersSkillIds)) {
+                    if (in_array($poolsSkillId, $usersSkillsIds)) {
                         $experienceSkillArray = [];
                         // iterate through each snapshotted experience
                         foreach ($snapshotExperiences as $snapshotExperience) {
@@ -277,12 +277,16 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                                 return $snapshotExperience['id'] == $hydratedExperience->id;
                             });
 
-                            // search for the iterated skill, returns array of something or empty
-                            $skillFoundArray = array_filter(
-                                $snapshotExperience['skills'],
-                                function ($skill) use ($skillId) {
-                                    return $skill['id'] === $skillId;
-                                }
+                            // search for the iterated skill, returns array of one or empty
+                            // array_values reindexes the array
+                            $skillFoundArray =
+                            array_values(
+                                array_filter(
+                                    $snapshotExperience['skills'],
+                                    function ($skill) use ($poolsSkillId) {
+                                        return $skill['id'] === $poolsSkillId;
+                                    }
+                                )
                             );
 
                             // if not empty, append onto accumulator
@@ -298,7 +302,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                         }
 
                         // pass in accumulator
-                        $this->poolSkills[$skillId][] = [
+                        $this->poolSkills[$poolsSkillId][] = [
                             'candidate' => $currentCandidate,
                             'value' => implode("\r\n", $experienceSkillArray),
                         ];
