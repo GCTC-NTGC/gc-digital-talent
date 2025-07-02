@@ -33,6 +33,9 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
   const titleEn = `${classificationString} ${name?.en}`.trim();
   const subtitleEn = `${supervisoryStatus?.label.en} in the ${workStream?.community?.name?.en}, ${workStream?.name?.en}`;
 
+  const titleFr = `${classificationString} ${name?.fr}`.trim();
+  const subtitleFr = `${supervisoryStatus?.label.fr} au ${workStream?.community?.name?.fr}, ${workStream?.name?.fr}`;
+
   return (
     <div className="grid gap-6 sm:grid-cols-2">
       <div className="flex flex-col gap-6">
@@ -66,7 +69,37 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
           </Chips>
         ) : null}
       </div>
-      <div className="flex flex-col gap-6">french</div>
+      <div className="flex flex-col gap-6">
+        <p className="font-bold">
+          {intl.formatMessage({
+            defaultMessage: "French job details",
+            id: "87zpH7",
+            description: "Title for the French job details section",
+          })}
+        </p>
+        <div>
+          <p className="font-bold text-primary-600">{titleFr ?? notProvided}</p>
+          <p className="text-sm text-gray-600">{subtitleFr}</p>
+        </div>
+        <p>{description?.fr ?? notProvided}</p>
+        {workDescription?.fr ? (
+          <Link
+            external
+            newTab
+            href={workDescription.fr}
+            className="text-black"
+          >
+            {workDescription.fr}
+          </Link>
+        ) : null}
+        {keywords?.fr?.length ? (
+          <Chips>
+            {keywords.fr.map((keyword) => (
+              <Chip key={keyword}>{keyword}</Chip>
+            ))}
+          </Chips>
+        ) : null}
+      </div>
     </div>
   );
 };
