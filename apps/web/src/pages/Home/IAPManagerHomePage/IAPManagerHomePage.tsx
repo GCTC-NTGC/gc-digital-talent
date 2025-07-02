@@ -249,7 +249,7 @@ export const Component = () => {
               </div>
 
               {/* how the program works section */}
-              <div className="grid gap-18 pt-12 xs:grid-cols-7">
+              <div className="grid gap-6 pt-12 xs:grid-cols-7 xs:gap-18">
                 <div className="xs:col-span-4">
                   <Heading className="mt-0 text-center text-3xl text-primary-700 xs:text-left lg:text-4xl dark:text-primary-200">
                     {intl.formatMessage({
@@ -566,7 +566,7 @@ export const Component = () => {
           </div>
 
           {/* commitment and graduates section */}
-          <div className="relative z-[2] mt-18">
+          <div className="relative z-[2] mt-24">
             <div className="grid gap-6 xs:grid-cols-7 xs:gap-18">
               <div className="pb-12 xs:col-span-3 xs:pb-18 sm:pb-30">
                 <div className="relative">
