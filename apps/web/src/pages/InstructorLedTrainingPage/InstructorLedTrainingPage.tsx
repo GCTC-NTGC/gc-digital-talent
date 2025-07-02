@@ -486,7 +486,7 @@ export const Component = () => {
                       </div>
                       <Metadata
                         metadata={getMetadata(intl, trainingOpportunity)}
-                        className="text-center"
+                        className="items-center"
                       />
                       <CardSeparator />
 
