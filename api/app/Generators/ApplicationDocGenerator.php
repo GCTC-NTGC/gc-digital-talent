@@ -92,12 +92,13 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 }
             }
         }
-        $experienceTypeOrder = [
-            'award_experience',
-            'community_experience',
-            'education_experience',
-            'personal_experience',
-            'work_experience',
+
+        $classToKeyMap = [
+            \App\Models\AwardExperience::class => 'award_experience',
+            \App\Models\CommunityExperience::class => 'community_experience',
+            \App\Models\EducationExperience::class => 'education_experience',
+            \App\Models\PersonalExperience::class => 'personal_experience',
+            \App\Models\WorkExperience::class => 'work_experience',
         ];
 
         $sortByCurrentThenDate = function ($exp) {
@@ -105,16 +106,14 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
             return [
                 $isCurrent ? 1 : 0,
-                $isCurrent ? $exp->start_date : $exp->end_date ?? $exp->start_date,
+                $isCurrent ? $exp->start_date : ($exp->end_date ?? $exp->start_date),
             ];
         };
 
-        $sortGroupByType = fn ($_, $type) => array_search($type, $experienceTypeOrder) ?? PHP_INT_MAX;
-
         $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
             ->sortByDesc($sortByCurrentThenDate)
-            ->groupBy(fn ($exp) => $exp?->getMorphClass() ?? '')
-            ->sortBy($sortGroupByType)
+            ->groupBy(fn ($exp) => isset($classToKeyMap[$exp->getMorphClass()]) ? $classToKeyMap[$exp->getMorphClass()] : '')
+            ->sortBy(fn ($_group, $typeKey) => $typeKey)
             ->flatMap(fn ($group) => $group->sortByDesc($sortByCurrentThenDate))
             ->values()
             ->all();
