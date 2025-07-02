@@ -134,7 +134,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           </Card>
         )}
       </SkewedContainer>
-      <div className="relative z-[3] -mt-6 border-t border-t-gray-200 bg-gray-100 pt-24 pb-18 sm:-mt-18 dark:border-t-gray-600 dark:bg-gray-700">
+      <div className="relative z-[3] -my-6 border-t border-t-gray-200 bg-gray-100 py-24 sm:-my-18 dark:border-t-gray-600 dark:bg-gray-700">
         <Container>
           <Heading
             level="h2"
@@ -149,7 +149,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               description: "Heading for the executive opportunities",
             })}
           </Heading>
-          <div className="grid gap-12 py-12 xs:grid-cols-2 xs:gap-18 sm:grid-cols-3">
+          <div className="grid gap-12 pt-12 pb-18 xs:grid-cols-2 xs:gap-18 sm:grid-cols-3">
             <CardFlat
               color="error"
               title={intl.formatMessage({
