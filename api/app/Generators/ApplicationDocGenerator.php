@@ -48,6 +48,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             'generalQuestionResponses' => ['generalQuestion'],
         ]);
 
+        // pull data from application snapshot
+        // mirrors logic found in PoolCandidateCsvGenerator
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
         $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
