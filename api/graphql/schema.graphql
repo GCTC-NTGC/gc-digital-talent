@@ -2062,7 +2062,7 @@ input UpdateDepartmentInput {
 }
 
 input DepartmentBelongsTo {
-  connect: ID
+  connect: ID @rules(apply: ["App\\Rules\\DepartmentNotArchived"])
   disconnect: Boolean
 }
 
