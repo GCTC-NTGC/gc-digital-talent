@@ -560,7 +560,7 @@ export const RequestForm = ({
                 "Form header for filling in job opportunity information section.",
             })}
           </Heading>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid gap-6 xs:grid-cols-2">
             <Checkbox
               id="positionType"
               name="positionType"
