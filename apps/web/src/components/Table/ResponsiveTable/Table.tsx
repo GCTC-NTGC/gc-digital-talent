@@ -161,7 +161,7 @@ const cellStyles = tv({
     isRowTitle: {
       true: {
         base: "order-1 grow",
-        val: "text-lg font-bold text-primary-600 sm:font-normal sm:text-inherit lg:text-xl dark:text-primary-200 sm:dark:text-inherit",
+        val: "text-lg font-bold text-primary-600 sm:text-base sm:font-normal sm:text-inherit dark:text-primary-200 sm:dark:text-inherit",
       },
     },
     shouldShrink: {
