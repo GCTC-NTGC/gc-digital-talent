@@ -12,6 +12,7 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import {
+  Container,
   Heading,
   Pending,
   TableOfContents,
@@ -105,13 +106,10 @@ const UpdateJobPosterTemplate = ({
     <>
       <SEO title={pageTitle} description={subtitle} />
       <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-padding-top="base(x3)">
+      <Container>
+        <TableOfContents.Wrapper className="pt-18">
           <TableOfContents.Navigation>
-            <TableOfContents.List
-              data-h2-padding-left="base(x.5)"
-              data-h2-list-style-type="base(none)"
-            >
+            <TableOfContents.List className="list-none pl-3">
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={SECTION_ID.JOB_DETAILS}>
                   {intl.formatMessage(messages.jobDetails)}
@@ -120,11 +118,7 @@ const UpdateJobPosterTemplate = ({
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x3 0)"
-            >
+            <div className="flex flex-col gap-x-0 gap-y-18">
               <TableOfContents.Section id={SECTION_ID.JOB_DETAILS}>
                 <Heading
                   level="h2"
@@ -286,7 +280,7 @@ const UpdateJobPosterTemplate = ({
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

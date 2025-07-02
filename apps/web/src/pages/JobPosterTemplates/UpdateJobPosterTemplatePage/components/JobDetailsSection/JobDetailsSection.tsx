@@ -173,11 +173,6 @@ const initialDataToFormValues = ({
   classificationLevel: classification?.id ?? null,
 });
 
-interface JobDetailsSectionProps {
-  initialDataQuery: FragmentType<typeof InitialData_Fragment>;
-  optionsQuery: FragmentType<typeof Options_Fragment>;
-}
-
 const formValuesToMutationInput = ({
   id,
   jobTitleEn,
@@ -222,6 +217,11 @@ const formValuesToMutationInput = ({
     },
   };
 };
+
+interface JobDetailsSectionProps {
+  initialDataQuery: FragmentType<typeof InitialData_Fragment>;
+  optionsQuery: FragmentType<typeof Options_Fragment>;
+}
 
 const JobDetailsSection = ({
   initialDataQuery,
@@ -349,17 +349,13 @@ const JobDetailsSection = ({
 
   return (
     <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
-      <ToggleSection.Header
-        toggle={
-          <Trigger>
-            {intl.formatMessage({
-              defaultMessage: "Edit job details",
-              id: "iZZMzR",
-              description: "Trigger to edit the job details",
-            })}
-          </Trigger>
-        }
-      ></ToggleSection.Header>
+      <Trigger className="flex flex-row justify-end">
+        {intl.formatMessage({
+          defaultMessage: "Edit job details",
+          id: "iZZMzR",
+          description: "Trigger to edit the job details",
+        })}
+      </Trigger>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
@@ -536,12 +532,7 @@ const JobDetailsSection = ({
                 </div>
               </div>
               <CardSeparator decorative orientation="horizontal" />
-              <div
-                data-h2-display="base(flex)"
-                data-h2-gap="base(x1)"
-                data-h2-align-items="base(center)"
-                data-h2-flex-wrap="base(wrap)"
-              >
+              <div className="flex flex-wrap items-center gap-6">
                 <Submit
                   text={intl.formatMessage(formMessages.saveChanges)}
                   aria-label={intl.formatMessage({

@@ -39,13 +39,13 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
   return (
     <div className="grid gap-6 sm:grid-cols-2">
       <div className="flex flex-col gap-6">
-        <p className="font-bold">
+        <h3 className="font-bold">
           {intl.formatMessage({
             defaultMessage: "English job details",
             id: "elnOtk",
             description: "Title for the English job details section",
           })}
-        </p>
+        </h3>
         <div>
           <p className="font-bold text-primary-600">{titleEn ?? notProvided}</p>
           <p className="text-sm text-gray-600">{subtitleEn}</p>
@@ -70,13 +70,13 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         ) : null}
       </div>
       <div className="flex flex-col gap-6">
-        <p className="font-bold">
+        <h3 className="font-bold">
           {intl.formatMessage({
             defaultMessage: "French job details",
             id: "87zpH7",
             description: "Title for the French job details section",
           })}
-        </p>
+        </h3>
         <div>
           <p className="font-bold text-primary-600">{titleFr ?? notProvided}</p>
           <p className="text-sm text-gray-600">{subtitleFr}</p>
