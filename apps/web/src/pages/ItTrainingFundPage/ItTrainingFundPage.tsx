@@ -147,7 +147,7 @@ export const Component = () => {
             },
           )}
         </p>
-        <div className="my-9 grid gap-12 xs:grid-cols-2 xs:gap-18 sm:grid-cols-3">
+        <div className="my-9 grid items-start gap-12 xs:grid-cols-2 xs:gap-18 sm:grid-cols-3">
           <CardFlat
             color="warning"
             title={intl.formatMessage({
