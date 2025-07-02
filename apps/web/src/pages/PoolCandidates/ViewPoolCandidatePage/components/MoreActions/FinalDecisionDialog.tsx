@@ -267,7 +267,7 @@ const FinalDecisionDialog = ({
               description: "Text describing a dialog's purpose",
             })}
           </p>
-          <Heading level="h3" size="h6" data-h2-margin-bottom="base(x.5)">
+          <Heading level="h3" size="h6" className="mb-3">
             {intl.formatMessage({
               defaultMessage: "Assessment summary",
               id: "DrG5Pl",
@@ -281,7 +281,7 @@ const FinalDecisionDialog = ({
           />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <Heading level="h3" size="h6" data-h2-margin-bottom="base(x.5)">
+              <Heading level="h3" size="h6" className="mb-3">
                 {intl.formatMessage({
                   defaultMessage: "Final decision",
                   id: "VYOVUJ",
@@ -346,7 +346,7 @@ const FinalDecisionDialog = ({
                       }),
                     },
                   ]}
-                  data-h2-margin-top="base(x1)"
+                  className="mt-6"
                 />
               )}
               {finalAssessmentDecisionValue === "qualified" && (
@@ -377,10 +377,10 @@ const FinalDecisionDialog = ({
                       message: intl.formatMessage(errorMessages.futureDate),
                     },
                   }}
-                  data-h2-margin-top="base(x1)"
+                  className="mt-6"
                 />
               )}
-              <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
+              <FormChangeNotifyWell className="mt-6" />
               <Dialog.Footer>
                 <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Dialog.Close>

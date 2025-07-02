@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import {
   Scalars,
   graphql,
@@ -307,17 +307,14 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
 
   return (
     <>
-      <div
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-        data-h2-text-align="base(right)"
-      >
+      <Container className="text-right">
         <DownloadDocxButton
           disabled={downloadingDoc}
           onClickProfile={() => handleDocDownload(false)}
           onClickAnonymousProfile={() => handleDocDownload(true)}
           isDownloading={downloadingDoc}
         />
-      </div>
+      </Container>
       <UserProfile user={user} headingLevel="h3" />
     </>
   );

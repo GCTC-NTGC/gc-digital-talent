@@ -7,7 +7,7 @@ const EmployeeSearchWell = () => {
 
   return (
     <Well>
-      <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+      <Heading level="h3" size="h6" className="mt-0">
         {intl.formatMessage({
           defaultMessage: "See incorrect or outdated information?",
           id: "68Yf3f",

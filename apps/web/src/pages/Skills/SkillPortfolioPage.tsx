@@ -3,7 +3,12 @@ import { OperationContext, useQuery } from "urql";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
-import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  Pending,
+  Link,
+  Container,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, graphql } from "@gc-digital-talent/graphql";
@@ -89,8 +94,8 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
     <>
       <SEO title={pageTitle} description={pageDescription} />
       <Hero title={pageTitle} subtitle={pageDescription} crumbs={crumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
@@ -110,11 +115,11 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
               <TableOfContents.Heading
                 icon={BoltIcon}
                 color="primary"
-                data-h2-margin="base(0, 0, x1, 0)"
+                className="mt-0"
               >
                 {sections.manage.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "This section allows you to manage all the skills linked to your profile, experiences, and showcase. Select a skill's name to manage further details including your level and related career experiences.",
@@ -132,11 +137,11 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
               <TableOfContents.Heading
                 icon={ChartPieIcon}
                 color="error"
-                data-h2-margin-top="base(x3)"
+                className="mt-18"
               >
                 {sections.showcase.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Your skill showcase allows you to curate lists of skills from your portfolio that present a more focused and personalized story about your strengths and areas of interest. While your skills portfolio serves as a central place to manage all the skills you add to your profile, the showcase is paired with your job applications. It's shared with recruiters and managers to give them a fuller picture of your talents.",
@@ -154,7 +159,7 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

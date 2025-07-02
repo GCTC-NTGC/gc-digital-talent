@@ -71,30 +71,26 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
         icon={QueueListIcon}
         size="h2"
         color="secondary"
-        data-h2-margin="base(0, 0, x1, 0)"
+        className="mt-0 mb-6"
       >
         {intl.formatMessage(sections.basicDetails.title)}
       </Heading>
-      <Card data-h2-padding="base(x1.5)">
+      <Card space="lg">
         {/* Fieldset */}
-        <div
-          data-h2-display="base(grid)"
-          data-h2-gap="base(x1)"
-          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
-        >
+        <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
           <FieldDisplay
             label={intl.formatMessage({
               defaultMessage: "Job title",
               id: "HBuWZ0",
               description: "Title for job title for a position",
             })}
-            data-h2-grid-column="p-tablet(span 2) l-tablet(span 3)"
+            className="xs:col-span-2 sm:col-span-3"
           >
             {getLocalizedName(jobPosterTemplate.name, intl)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage(commonMessages.description)}
-            data-h2-grid-column="p-tablet(span 2) l-tablet(span 3)"
+            className="xs:col-span-2 sm:col-span-3"
           >
             {getLocalizedName(jobPosterTemplate.description, intl)}
           </FieldDisplay>
@@ -143,7 +139,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
           >
             {workDescriptionUrl ? (
               <Link href={workDescriptionUrl} external newTab>
-                <span data-h2-font-weight="base(bold)">
+                <span className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "View on GCPedia*",
                     id: "FAioB7",
@@ -167,11 +163,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
             {jobPosterTemplate.referenceId}
           </FieldDisplay>
         </div>
-        <div
-          data-h2-color="base(black.light)"
-          data-h2-font-size="base(caption)"
-          data-h2-margin-top="base(x1)"
-        >
+        <div className="mt-6 text-sm text-gray-500 dark:text-gray-200">
           {intl.formatMessage({
             defaultMessage:
               "* Please note that this resource is only available to Government of Canada employees on official networks.",

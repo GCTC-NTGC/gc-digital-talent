@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { tv, VariantProps } from "tailwind-variants";
 
-import { Accordion, Card, Heading, Separator } from "@gc-digital-talent/ui";
+import { Accordion, Card, CardSeparator, Heading } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   getFragment,
@@ -15,19 +16,43 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
-import { HydrogenAttributes } from "~/types/hydrogen";
 
 import NominatedForList from "./NominatedForList";
 import NominatorList from "./NominatorList";
 import NominationNavigation from "./NominationNavigation/NominationNavigation";
 import CommentsForm from "./CommentsForm";
-import NominationGroupEvaluationDialog from "../../NominationGroupEvaluationDialog/NominationGroupEvaluationDialog";
+import NominationGroupEvaluationDialog, {
+  NominationGroupEvaluationDialogProps,
+} from "../../NominationGroupEvaluationDialog/NominationGroupEvaluationDialog";
 
-// return a new object consisting of a single entry from a set of attributes
-const extractHydrogenEntry = <T extends HydrogenAttributes>(
-  attributes: T,
-  key: keyof T,
-): { [key]: unknown } => ({ [key]: attributes[key] });
+const statusBox = tv({
+  slots: {
+    base: "flex min-w-max items-center justify-between gap-x-3 overflow-hidden rounded-md border p-3 sm:w-3/4",
+    btnWrapper: "-m-3 ml-0 flex items-center justify-center p-3 text-center",
+    btn: "",
+  },
+  variants: {
+    status: {
+      approved: {
+        base: "border-success-700 bg-success-100 text-success-600",
+        btnWrapper: "bg-success-700",
+        btn: "text-success-100 dark:text-success-100",
+      },
+      inProgress: {
+        base: "border-primary-700 bg-primary-100 text-primary-700",
+        btnWrapper: "bg-primary-700",
+        btn: "text-primary-100 dark:text-primary-100",
+      },
+      rejected: {
+        base: "border-error-700 bg-error-100 text-error-600",
+        btnWrapper: "bg-error-700",
+        btn: "text-error-100 dark:text-error-100",
+      },
+    },
+  },
+});
+
+type StatusBoxVariants = VariantProps<typeof statusBox>;
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
@@ -94,174 +119,92 @@ const NominationGroupSidebar = ({
     talentNominationGroupQuery,
   );
 
-  // set the styling colours of the status bar and button
-  let statusTextboxColours;
-  let statusButtonColours;
-  const approvedStatusTextboxColours = {
-    "data-h2-background-color":
-      "base(success.lightest) base:dark(success.lightest)",
-    "data-h2-border-color": "base(success.darker) base:dark(success.darker)",
-    "data-h2-color": "base(success.darker) base:dark(success.darker)",
-  };
-  const approvedStatusButtonColours = {
-    "data-h2-background-color":
-      "base(success.darkest) base:dark(success.darkest)",
-    "data-h2-color": "base(success.lightest) base:dark(success.lightest)",
-  };
-
-  const inProgressStatusTextboxColours = {
-    "data-h2-background-color":
-      "base(secondary.lightest) base:dark(secondary.lightest)",
-    "data-h2-border-color": "base(secondary.dark) base:dark(secondary.dark)",
-    "data-h2-color": "base(secondary.darkest) base:dark(secondary.darkest)",
-  };
-  const inProgressStatusButtonColours = {
-    "data-h2-background-color":
-      "base(secondary.darkest) base:dark(secondary.darkest)",
-    "data-h2-color": "base(secondary.lightest) base:dark(secondary.lightest)",
-  };
-
-  const rejectedStatusTextboxColours = {
-    "data-h2-background-color":
-      "base(error.lightest) base:dark(error.lightest)",
-    "data-h2-border-color": "base(error.darker) base:dark(error.darker)",
-    "data-h2-color": "base(error.darker) base:dark(error.darker)",
-  };
-  const rejectedStatusButtonColours = {
-    "data-h2-background-color": "base(error.darkest) base:dark(error.darkest)",
-    "data-h2-color": "base(error.lightest) base:dark(error.lightest)",
-  };
-
-  statusTextboxColours = approvedStatusTextboxColours;
-  statusButtonColours = approvedStatusButtonColours;
+  let status: StatusBoxVariants["status"] = "approved";
+  let triggerColor: NominationGroupEvaluationDialogProps["triggerColor"] =
+    "success";
   if (
     talentNominationGroup.status?.value ===
     TalentNominationGroupStatus.InProgress
   ) {
-    statusTextboxColours = inProgressStatusTextboxColours;
-    statusButtonColours = inProgressStatusButtonColours;
+    status = "inProgress";
+    triggerColor = "primary";
   } else if (
     talentNominationGroup.status?.value === TalentNominationGroupStatus.Rejected
   ) {
-    statusTextboxColours = rejectedStatusTextboxColours;
-    statusButtonColours = rejectedStatusButtonColours;
+    status = "rejected";
+    triggerColor = "error";
   }
 
+  const {
+    base: statusBase,
+    btn: statusBtn,
+    btnWrapper: statusWrap,
+  } = statusBox({ status });
+
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-padding="base(0)"
-      data-h2-gap="base(x.5)"
-    >
-      <Card
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-justify-content="base(center)"
-        data-h2-padding="base(0)"
-      >
-        <div
-          data-h2-padding="base(x1.25 x1.25 0 x1.25)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-        >
-          <p
-            data-h2-padding-bottom="base(x.25)"
-            data-h2-color="base(black.light)"
-          >
-            {!!talentNominationGroup.nominee?.classification?.group &&
-            !!talentNominationGroup.nominee.classification.level
-              ? getClassificationName(
-                  {
-                    group: talentNominationGroup.nominee.classification.group,
-                    level: talentNominationGroup.nominee.classification.level,
-                  },
-                  intl,
-                )
-              : intl.formatMessage(commonMessages.notProvided)}
-          </p>
-          <Heading
-            size="h6"
-            data-h2-margin="base(0)"
-            data-h2-padding-bottom="base(x.5)"
-          >
-            {getFullNameLabel(
-              talentNominationGroup.nominee?.firstName,
-              talentNominationGroup.nominee?.lastName,
-              intl,
-            )}
-          </Heading>
-          <p data-h2-padding-bottom="base(x1)">
-            {talentNominationGroup.nominee?.department?.name?.localized ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </p>
-          <div data-h2-display="base(flex)">
-            <div
-              data-h2-padding="base(x.5 x4 x.5 x.5) p-tablet(x.5 x7 x.5 x.5) l-tablet(x.5 x1 x.5 x.5) desktop(x.5 x2 x.5 x.5)"
-              data-h2-width="base(50%) l-tablet(75%)"
-              data-h2-radius="base(x.375 0 0 x.375)"
-              data-h2-background-color={
-                statusTextboxColours["data-h2-background-color"]
-              }
-              data-h2-border="base(1px solid)"
-              data-h2-border-color={
-                statusTextboxColours["data-h2-border-color"]
-              }
-            >
-              <span
-                data-h2-margin-top="base(x.1)"
-                data-h2-font-weight="base(700)"
-                data-h2-vertical-align="base(middle)"
-                data-h2-color={statusTextboxColours["data-h2-color"]}
-              >
-                {talentNominationGroup.status?.label.localized ??
-                  intl.formatMessage(commonMessages.notAvailable)}
-              </span>
-            </div>
-            <div
-              data-h2-padding="base(x.375 x.375 x.375 x.375)"
-              data-h2-radius="base(0 x.375 x.375 0)"
-              data-h2-background-color={
-                statusButtonColours["data-h2-background-color"]
-              }
-            >
+    <>
+      <Card className="mb-3 flex flex-col justify-center pb-3">
+        <p className="mb-1.5 text-sm text-gray-600 dark:text-gray-200">
+          {!!talentNominationGroup.nominee?.classification?.group &&
+          !!talentNominationGroup.nominee.classification.level
+            ? getClassificationName(
+                {
+                  group: talentNominationGroup.nominee.classification.group,
+                  level: talentNominationGroup.nominee.classification.level,
+                },
+                intl,
+              )
+            : intl.formatMessage(commonMessages.notProvided)}
+        </p>
+        <Heading size="h6" className="mt-0 mb-3">
+          {getFullNameLabel(
+            talentNominationGroup.nominee?.firstName,
+            talentNominationGroup.nominee?.lastName,
+            intl,
+          )}
+        </Heading>
+        <p className="mb-6">
+          {talentNominationGroup.nominee?.department?.name?.localized ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </p>
+        <div className="w-full self-start">
+          <div className={statusBase()}>
+            <span className="block grow font-bold">
+              {talentNominationGroup.status?.label.localized ??
+                intl.formatMessage(commonMessages.notAvailable)}
+            </span>
+            <div className={statusWrap()}>
               <NominationGroupEvaluationDialog
-                triggerButtonStyle={extractHydrogenEntry(
-                  statusButtonColours,
-                  "data-h2-color",
-                )}
+                triggerColor={triggerColor}
+                triggerClassName={statusBtn()}
                 talentNominationGroupId={talentNominationGroup.id}
               />
             </div>
           </div>
         </div>
-        <Separator data-h2-margin="base(x1 0)" decorative space="none" />
-        <div data-h2-padding="base(0 x1.25 x1 x1.25)">
-          <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Nominated by",
-              id: "ULsL3v",
-              description: "Nominated by header",
-            })}
-          </p>
+        <CardSeparator decorative space="sm" />
+        <p className="font-bold">
+          {intl.formatMessage({
+            defaultMessage: "Nominated by",
+            id: "ULsL3v",
+            description: "Nominated by header",
+          })}
+        </p>
+        <div className="self-start">
           <NominatorList
             query={unpackMaybes(talentNominationGroup.nominations)}
           />
-          <p
-            data-h2-font-weight="base(700)"
-            data-h2-padding-top="base(x1)"
-            data-h2-padding-bottom="base(x.25)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Nominated for",
-              id: "OODa6h",
-              description: "Nominated for header",
-            })}
-          </p>
-          <NominatedForList
-            nominationGroupSidebarForListQuery={talentNominationGroup}
-          />
         </div>
+        <p className="mt-6 mb-1.5 font-bold">
+          {intl.formatMessage({
+            defaultMessage: "Nominated for",
+            id: "OODa6h",
+            description: "Nominated for header",
+          })}
+        </p>
+        <NominatedForList
+          nominationGroupSidebarForListQuery={talentNominationGroup}
+        />
         <Accordion.Root
           type="single"
           size="sm"
@@ -269,11 +212,8 @@ const NominationGroupSidebar = ({
           onValueChange={(value: AccordionStates) => setAccordionState(value)}
           collapsible
         >
-          <Separator decorative space="none" />
-          <Accordion.Item
-            value="nominee-contact-information"
-            data-h2-padding="base(x.5 x1.25 x.5 x1.25)"
-          >
+          <CardSeparator decorative space="xs" />
+          <Accordion.Item value="nominee-contact-information">
             <Accordion.Trigger as="h3">
               {intl.formatMessage({
                 defaultMessage: "Nominee contact information",
@@ -282,12 +222,7 @@ const NominationGroupSidebar = ({
               })}
             </Accordion.Trigger>
             <Accordion.Content>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr)) l-tablet(repeat(1, 1fr))"
-                data-h2-gap="base(x1)"
-                data-h2-overflow-wrap="base(anywhere)"
-              >
+              <div className="grid gap-6 wrap-anywhere xs:grid-cols-2 sm:grid-cols-1">
                 <FieldDisplay
                   label={intl.formatMessage(commonMessages.workEmail)}
                 >
@@ -306,22 +241,19 @@ const NominationGroupSidebar = ({
               </div>
             </Accordion.Content>
           </Accordion.Item>
-          <Separator decorative space="none" />
-          <Accordion.Item
-            value="comments"
-            data-h2-padding="base(x.5 x1.25 x.5 x1.25)"
-          >
-            <Accordion.Trigger as="h3">
+          <CardSeparator decorative space="xs" />
+          <Accordion.Item value="comments">
+            <Accordion.Trigger as="h3" className="pb-0">
               {intl.formatMessage(adminMessages.comments)}
             </Accordion.Trigger>
-            <Accordion.Content>
+            <Accordion.Content className="pt-3">
               <CommentsForm nominationGroup={talentNominationGroup} />
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
       </Card>
       <NominationNavigation />
-    </div>
+    </>
   );
 };
 

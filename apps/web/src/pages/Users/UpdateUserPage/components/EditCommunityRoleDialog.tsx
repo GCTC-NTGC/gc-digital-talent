@@ -115,7 +115,7 @@ const EditCommunityRoleDialog = ({
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(0, 0 ,x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "You are about to edit roles for the following member:",
@@ -124,11 +124,11 @@ const EditCommunityRoleDialog = ({
             })}
           </p>
           <Ul>
-            <li data-h2-font-weight="base(bold)">
+            <li className="font-bold">
               <span>{userName}</span>
             </li>
           </Ul>
-          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "From the following community:",
               id: "hJDRa/",
@@ -136,11 +136,11 @@ const EditCommunityRoleDialog = ({
             })}
           </p>
           <Ul>
-            <li data-h2-font-weight="base(bold)">
+            <li className="font-bold">
               <span>{communityDisplayName}</span>
             </li>
           </Ul>
-          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "Select the roles you want to keep",
               id: "47YSK0",

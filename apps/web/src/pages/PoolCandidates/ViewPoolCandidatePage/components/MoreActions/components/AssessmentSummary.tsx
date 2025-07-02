@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import PauseIcon from "@heroicons/react/24/solid/PauseCircleIcon";
+import { tv } from "tailwind-variants";
 
 import {
   AssessmentDecision,
@@ -14,6 +15,17 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
+
+const tableIcon = tv({
+  base: "mr-3 flex size-6 py-1.5 align-bottom",
+  variants: {
+    color: {
+      success: "text-success",
+      error: "text-error",
+      warning: "text-warning",
+    },
+  },
+});
 
 interface AssessmentSummaryProps {
   essentialSkills: Skill[];
@@ -31,25 +43,13 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
   const intl = useIntl();
 
   return (
-    <tr
-      data-h2-border-bottom="base(3px solid black.20)"
-      data-h2-margin-bottom="base(x.5)"
-    >
-      <th
-        scope="col"
-        data-h2-padding="base(x.25 0 x.25 x1)"
-        data-h2-display="base(flex)"
-      >
+    <tr className="mb-3 border-b-3 border-b-black/20 dark:border-b-white/20">
+      <th scope="col" className="flex py-1.5 pr-6">
         {tableTitle}
       </th>
       <th scope="col">
         <CheckIcon
-          data-h2-width="base(x1)"
-          data-h2-display="base(flex)"
-          data-h2-vertical-align="base(bottom)"
-          data-h2-margin="base(0, x.5, 0, 0)"
-          data-h2-padding="base(x.25 0)"
-          data-h2-color="base(success)"
+          className={tableIcon({ color: "success" })}
           aria-hidden="false"
           aria-label={intl.formatMessage({
             defaultMessage: "Demonstrated",
@@ -61,12 +61,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
       </th>
       <th scope="col">
         <XCircleIcon
-          data-h2-width="base(x1)"
-          data-h2-display="base(flex)"
-          data-h2-vertical-align="base(bottom)"
-          data-h2-margin="base(0, x.5, 0, 0)"
-          data-h2-padding="base(x.25 0)"
-          data-h2-color="base(error)"
+          className={tableIcon({ color: "error" })}
           aria-hidden="false"
           aria-label={intl.formatMessage({
             defaultMessage: "Not demonstrated",
@@ -78,12 +73,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
       </th>
       <th scope="col">
         <PauseIcon
-          data-h2-width="base(x1)"
-          data-h2-display="base(flex)"
-          data-h2-vertical-align="base(bottom)"
-          data-h2-margin="base(0, x.5, 0, 0)"
-          data-h2-padding="base(x.25 0)"
-          data-h2-color="base(warning)"
+          className={tableIcon({ color: "warning" })}
           aria-hidden="false"
           aria-label={intl.formatMessage({
             defaultMessage: "Not demonstrated (Hold for further assessment)",
@@ -107,14 +97,10 @@ const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
     <tbody>
       {data.map((row) => (
         <tr key={row.name}>
-          <td data-h2-padding="base(x.25 0 x.25 x1)">{row.name}</td>
-          <td data-h2-padding="base(x.25 0 x.25 x.25)">
-            {row.results.successful}
-          </td>
-          <td data-h2-padding="base(x.25 0 x.25 x.25)">
-            {row.results.unsuccessful}
-          </td>
-          <td data-h2-padding="base(x.25 0 x.25 x.25)">{row.results.hold}</td>
+          <td className="py-1.5 pl-6">{row.name}</td>
+          <td className="p-1.5 pr-0">{row.results.successful}</td>
+          <td className="p-1.5 pr-0">{row.results.unsuccessful}</td>
+          <td className="p-1.5 pr-0">{row.results.hold}</td>
         </tr>
       ))}
     </tbody>
@@ -221,8 +207,8 @@ const AssessmentSummary = ({
 
   return (
     <>
-      <table data-h2-background="base(background)">
-        <caption data-h2-visually-hidden="base(invisible)">
+      <table className="bg-gray-100 dark:bg-gray-700">
+        <caption className="sr-only">
           {intl.formatMessage({
             defaultMessage: "Essential criteria",
             description: "Essential criteria heading",
@@ -241,11 +227,8 @@ const AssessmentSummary = ({
         <TableBody data={educationEssentialSkillsTableData} />
       </table>
       {nonessentialSkillsTableData.length > 0 && (
-        <table
-          data-h2-margin-top="base(x1)"
-          data-h2-background="base(background)"
-        >
-          <caption data-h2-visually-hidden="base(invisible)">
+        <table className="mt-6 bg-gray-100 dark:bg-gray-700">
+          <caption className="sr-only">
             {intl.formatMessage({
               defaultMessage: "Asset criteria",
               description: "Asset criteria heading",

@@ -56,7 +56,7 @@ export function communityActionCell(
   communityRoles: Role[],
 ) {
   return (
-    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+    <div className="flex gap-1.5">
       <EditCommunityRoleDialog
         initialRoles={communityAssignment.roles}
         user={user}
@@ -76,7 +76,7 @@ export function communityActionCell(
 
 export function communityCell(displayName: string, href: string) {
   return (
-    <Link href={href} data-h2-font-weight="base(700)">
+    <Link href={href} className="font-bold">
       {displayName}
     </Link>
   );
@@ -100,7 +100,7 @@ export function processActionCell(
   processRoles: Role[],
 ) {
   return (
-    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+    <div className="flex gap-1.5">
       <EditProcessRoleDialog
         initialRoles={poolAssignment.roles}
         user={user}
@@ -120,7 +120,7 @@ export function processActionCell(
 
 export function processCell(displayName: string, href: string) {
   return (
-    <Link href={href} data-h2-font-weight="base(700)">
+    <Link href={href} className="font-bold">
       {displayName}
     </Link>
   );

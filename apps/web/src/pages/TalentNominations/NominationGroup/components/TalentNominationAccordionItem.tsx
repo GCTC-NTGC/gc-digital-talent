@@ -302,259 +302,225 @@ const TalentNominationAccordionItem = ({
         ]}
       />
       <Accordion.Content>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1)"
-          data-h2-padding-top="base(x.5)"
-        >
-          {/* fields only rendered if nominated for advancement */}
-          {talentNomination.nominateForAdvancement ? (
-            <Accordion.Root mode="simple" type="multiple">
-              <Accordion.Item value="Secondary reference for advancement">
-                <Accordion.Trigger
-                  as="h4"
-                  subtitle={intl.formatMessage({
-                    defaultMessage:
-                      "A nomination for advancement requires that the nominator provide a secondary reference. If the reference's work email matched a profile on the platform, we used their most recent information. If we couldn't find a match, the nominator provided basic contact information.",
-                    id: "t3lsT1",
-                    description: "Trigger subtitle for advancement reference",
-                  })}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Secondary reference for advancement",
-                    id: "Lwz/VQ",
-                    description: "Trigger title for advancement reference",
-                  })}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <div
-                    data-h2-display="base(grid)"
-                    data-h2-gap="base(x1)"
-                    data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-                    data-h2-padding-top="base(x.5)"
+        {/* fields only rendered if nominated for advancement */}
+        {talentNomination.nominateForAdvancement ? (
+          <Accordion.Root mode="simple" type="multiple">
+            <Accordion.Item value="Secondary reference for advancement">
+              <Accordion.Trigger
+                as="h4"
+                subtitle={intl.formatMessage({
+                  defaultMessage:
+                    "A nomination for advancement requires that the nominator provide a secondary reference. If the reference's work email matched a profile on the platform, we used their most recent information. If we couldn't find a match, the nominator provided basic contact information.",
+                  id: "t3lsT1",
+                  description: "Trigger subtitle for advancement reference",
+                })}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Secondary reference for advancement",
+                  id: "Lwz/VQ",
+                  description: "Trigger title for advancement reference",
+                })}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div className="grid gap-6 xs:grid-cols-2">
+                  <FieldDisplay
+                    label={intl.formatMessage(nominationLabels.referencesName)}
                   >
-                    <FieldDisplay
-                      label={intl.formatMessage(
-                        nominationLabels.referencesName,
-                      )}
-                    >
-                      {(advancementReferenceIsAUser
-                        ? getFullNameLabel(
-                            talentNomination.advancementReference?.firstName,
-                            talentNomination.advancementReference?.lastName,
-                            intl,
-                          )
-                        : talentNomination.advancementReferenceFallbackName) ??
-                        intl.formatMessage(commonMessages.notFound)}
-                    </FieldDisplay>
-                    <FieldDisplay
-                      label={intl.formatMessage(
-                        nominationLabels.referencesWorkEmail,
-                      )}
-                    >
-                      {(advancementReferenceIsAUser
-                        ? talentNomination.advancementReference?.workEmail
-                        : talentNomination.advancementReferenceFallbackWorkEmail) ??
-                        intl.formatMessage(commonMessages.notFound)}
-                    </FieldDisplay>
-                    <FieldDisplay
-                      label={intl.formatMessage(
-                        nominationLabels.referencesClassification,
-                      )}
-                    >
-                      {(advancementReferenceIsAUser
-                        ? formatMaybeClassificationString(
-                            talentNomination.advancementReference
-                              ?.classification,
-                          )
-                        : formatMaybeClassificationString(
-                            talentNomination.advancementReferenceFallbackClassification,
-                          )) ?? intl.formatMessage(commonMessages.notFound)}
-                    </FieldDisplay>
-                    <FieldDisplay
-                      label={intl.formatMessage(
-                        nominationLabels.referencesDepartment,
-                      )}
-                    >
-                      {(advancementReferenceIsAUser
-                        ? talentNomination.advancementReference?.department
-                            ?.name.localized
-                        : talentNomination
-                            .advancementReferenceFallbackDepartment?.name
-                            .localized) ??
-                        intl.formatMessage(commonMessages.notFound)}
-                    </FieldDisplay>
-                  </div>
-                </Accordion.Content>
-              </Accordion.Item>
-            </Accordion.Root>
-          ) : null}
+                    {(advancementReferenceIsAUser
+                      ? getFullNameLabel(
+                          talentNomination.advancementReference?.firstName,
+                          talentNomination.advancementReference?.lastName,
+                          intl,
+                        )
+                      : talentNomination.advancementReferenceFallbackName) ??
+                      intl.formatMessage(commonMessages.notFound)}
+                  </FieldDisplay>
+                  <FieldDisplay
+                    label={intl.formatMessage(
+                      nominationLabels.referencesWorkEmail,
+                    )}
+                  >
+                    {(advancementReferenceIsAUser
+                      ? talentNomination.advancementReference?.workEmail
+                      : talentNomination.advancementReferenceFallbackWorkEmail) ??
+                      intl.formatMessage(commonMessages.notFound)}
+                  </FieldDisplay>
+                  <FieldDisplay
+                    label={intl.formatMessage(
+                      nominationLabels.referencesClassification,
+                    )}
+                  >
+                    {(advancementReferenceIsAUser
+                      ? formatMaybeClassificationString(
+                          talentNomination.advancementReference?.classification,
+                        )
+                      : formatMaybeClassificationString(
+                          talentNomination.advancementReferenceFallbackClassification,
+                        )) ?? intl.formatMessage(commonMessages.notFound)}
+                  </FieldDisplay>
+                  <FieldDisplay
+                    label={intl.formatMessage(
+                      nominationLabels.referencesDepartment,
+                    )}
+                  >
+                    {(advancementReferenceIsAUser
+                      ? talentNomination.advancementReference?.department?.name
+                          .localized
+                      : talentNomination.advancementReferenceFallbackDepartment
+                          ?.name.localized) ??
+                      intl.formatMessage(commonMessages.notFound)}
+                  </FieldDisplay>
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        ) : null}
 
-          {/* fields only rendered if nominated for lateral movement */}
-          {talentNomination.nominateForLateralMovement ? (
-            <Accordion.Root mode="simple" type="multiple">
-              <Accordion.Item value="Lateral movement options">
-                <Accordion.Trigger
-                  as="h4"
-                  subtitle={intl.formatMessage({
-                    defaultMessage:
-                      "A nomination for lateral movement requires the nominator to recommend one or more types of experience for the nominee.",
-                    id: "HhL+EB",
-                    description: "Trigger subtitle for lateral movement",
-                  })}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Lateral movement options",
-                    id: "ohS7IA",
-                    description: "Trigger title for lateral movement",
-                  })}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <div
-                    data-h2-display="base(grid)"
-                    data-h2-gap="base(x1)"
-                    data-h2-grid-template-columns="p-tablet(repeat(1, 1fr))"
-                    data-h2-padding-top="base(x.5)"
+        {/* fields only rendered if nominated for lateral movement */}
+        {talentNomination.nominateForLateralMovement ? (
+          <Accordion.Root mode="simple" type="multiple">
+            <Accordion.Item value="Lateral movement options">
+              <Accordion.Trigger
+                as="h4"
+                subtitle={intl.formatMessage({
+                  defaultMessage:
+                    "A nomination for lateral movement requires the nominator to recommend one or more types of experience for the nominee.",
+                  id: "HhL+EB",
+                  description: "Trigger subtitle for lateral movement",
+                })}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Lateral movement options",
+                  id: "ohS7IA",
+                  description: "Trigger title for lateral movement",
+                })}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div className="grid gap-6 xs:grid-cols-2">
+                  <FieldDisplay
+                    label={intl.formatMessage(
+                      formMessages.lateralMovementOptions,
+                    )}
                   >
-                    <FieldDisplay
-                      label={intl.formatMessage(
-                        formMessages.lateralMovementOptions,
-                      )}
-                    >
-                      {lateralMovementListItems.map((item) => (
-                        <li
-                          key={item.key}
-                          data-h2-display="base(flex)"
-                          data-h2-align-items="base(flex-start)"
-                          data-h2-gap="base(x.25)"
-                          data-h2-margin-bottom="base(x.25)"
-                        >
-                          <BoolCheckIcon value={item.value}>
-                            {item.label}
-                          </BoolCheckIcon>
-                        </li>
-                      ))}
-                    </FieldDisplay>
-                    {/* only display the OTHER option if it is selected */}
-                    {lateralMovementOptionValuesInThisNomination.includes(
-                      TalentNominationLateralMovementOption.Other,
-                    ) ? (
-                      <FieldDisplay
-                        label={intl.formatMessage(commonMessages.other)}
-                      >
-                        {talentNomination.lateralMovementOptionsOther ? (
-                          <BoolCheckIcon value={true}>
-                            {talentNomination.lateralMovementOptionsOther}
-                          </BoolCheckIcon>
-                        ) : (
-                          intl.formatMessage(commonMessages.notFound)
-                        )}
-                      </FieldDisplay>
+                    {lateralMovementListItems.length > 0 ? (
+                      <Ul space="sm" unStyled>
+                        {lateralMovementListItems.map((item) => (
+                          <li key={item.key}>
+                            <BoolCheckIcon value={item.value}>
+                              {item.label}
+                            </BoolCheckIcon>
+                          </li>
+                        ))}
+                      </Ul>
                     ) : null}
-                  </div>
-                </Accordion.Content>
-              </Accordion.Item>
-            </Accordion.Root>
-          ) : null}
-
-          {/* fields only rendered if nominated for development programs */}
-          {talentNomination.nominateForDevelopmentPrograms ? (
-            <Accordion.Root mode="simple" type="multiple">
-              <Accordion.Item value="Development program recommendations">
-                <Accordion.Trigger
-                  as="h4"
-                  subtitle={intl.formatMessage({
-                    defaultMessage:
-                      "A nomination for development programs requires the nominator to select which of the training and development programs offered by the functional community would benefit the nominee.",
-                    id: "x1oBLr",
-                    description: "Trigger subtitle for development programs",
-                  })}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Development program recommendations",
-                    id: "nF//P1",
-                    description: "Trigger title for development programs",
-                  })}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <div
-                    data-h2-display="base(grid)"
-                    data-h2-gap="base(x1)"
-                    data-h2-grid-template-columns="p-tablet(repeat(1, 1fr))"
-                    data-h2-padding-top="base(x.5)"
-                  >
+                  </FieldDisplay>
+                  {/* only display the OTHER option if it is selected */}
+                  {lateralMovementOptionValuesInThisNomination.includes(
+                    TalentNominationLateralMovementOption.Other,
+                  ) ? (
                     <FieldDisplay
-                      label={intl.formatMessage(
-                        formMessages.developmentPrograms,
-                      )}
+                      label={intl.formatMessage(commonMessages.other)}
                     >
-                      {developmentProgramListItems.map((item) => (
-                        <li
-                          key={item.key}
-                          data-h2-display="base(flex)"
-                          data-h2-align-items="base(flex-start)"
-                          data-h2-gap="base(x.25)"
-                          data-h2-margin-bottom="base(x.25)"
-                        >
-                          <BoolCheckIcon value={item.value}>
-                            {item.label}
-                          </BoolCheckIcon>
-                        </li>
-                      ))}
-                    </FieldDisplay>
-                    {/* only display the OTHER option if it is selected */}
-                    {talentNomination.developmentProgramOptionsOther ? (
-                      <FieldDisplay
-                        label={intl.formatMessage(commonMessages.other)}
-                      >
+                      {talentNomination.lateralMovementOptionsOther ? (
                         <BoolCheckIcon value={true}>
-                          {talentNomination.developmentProgramOptionsOther}
+                          {talentNomination.lateralMovementOptionsOther}
                         </BoolCheckIcon>
-                      </FieldDisplay>
+                      ) : (
+                        intl.formatMessage(commonMessages.notFound)
+                      )}
+                    </FieldDisplay>
+                  ) : null}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        ) : null}
+
+        {/* fields only rendered if nominated for development programs */}
+        {talentNomination.nominateForDevelopmentPrograms ? (
+          <Accordion.Root mode="simple" type="multiple">
+            <Accordion.Item value="Development program recommendations">
+              <Accordion.Trigger
+                as="h4"
+                subtitle={intl.formatMessage({
+                  defaultMessage:
+                    "A nomination for development programs requires the nominator to select which of the training and development programs offered by the functional community would benefit the nominee.",
+                  id: "x1oBLr",
+                  description: "Trigger subtitle for development programs",
+                })}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Development program recommendations",
+                  id: "nF//P1",
+                  description: "Trigger title for development programs",
+                })}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div className="grid gap-6">
+                  <FieldDisplay
+                    label={intl.formatMessage(formMessages.developmentPrograms)}
+                  >
+                    {developmentProgramListItems.length > 0 ? (
+                      <Ul space="sm" unStyled>
+                        {developmentProgramListItems.map((item) => (
+                          <li key={item.key}>
+                            <BoolCheckIcon value={item.value}>
+                              {item.label}
+                            </BoolCheckIcon>
+                          </li>
+                        ))}
+                      </Ul>
                     ) : null}
-                  </div>
-                </Accordion.Content>
-              </Accordion.Item>
-            </Accordion.Root>
-          ) : null}
+                  </FieldDisplay>
+                  {/* only display the OTHER option if it is selected */}
+                  {talentNomination.developmentProgramOptionsOther ? (
+                    <FieldDisplay
+                      label={intl.formatMessage(commonMessages.other)}
+                    >
+                      <BoolCheckIcon value={true}>
+                        {talentNomination.developmentProgramOptionsOther}
+                      </BoolCheckIcon>
+                    </FieldDisplay>
+                  ) : null}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        ) : null}
 
-          <FieldDisplay label={intl.formatMessage(formMessages.rationale)}>
-            <p>
-              {talentNomination.nominationRationale ??
-                intl.formatMessage(commonMessages.notFound)}
-            </p>
-          </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(formMessages.rationale)}
+          className="my-6"
+        >
+          {talentNomination.nominationRationale ??
+            intl.formatMessage(commonMessages.notFound)}
+        </FieldDisplay>
 
-          {/* leadership competencies only displayed if enabled for the event */}
-          {talentNomination.talentNominationEvent
-            .includeLeadershipCompetencies ? (
-            <FieldDisplay
-              label={intl.formatMessage(
-                nominationLabels.leadershipCompetencies,
-              )}
-            >
-              {skillListItems.length > 0 ? (
-                <Ul space="md" className="mt-1.5">
-                  {skillListItems.map((skill) => (
-                    <li key={skill.key}>{skill.label}</li>
-                  ))}
-                </Ul>
-              ) : (
-                intl.formatMessage(commonMessages.notFound)
-              )}
-            </FieldDisplay>
-          ) : null}
-
+        {/* leadership competencies only displayed if enabled for the event */}
+        {talentNomination.talentNominationEvent
+          .includeLeadershipCompetencies ? (
           <FieldDisplay
-            label={intl.formatMessage(nominationLabels.additionalComments)}
+            className="my-6"
+            label={intl.formatMessage(nominationLabels.leadershipCompetencies)}
           >
-            <p>
-              {talentNomination.additionalComments ??
-                intl.formatMessage(commonMessages.notFound)}
-            </p>
+            {skillListItems.length > 0 ? (
+              <Ul space="md" className="mt-1.5">
+                {skillListItems.map((skill) => (
+                  <li key={skill.key}>{skill.label}</li>
+                ))}
+              </Ul>
+            ) : (
+              intl.formatMessage(commonMessages.notFound)
+            )}
           </FieldDisplay>
-        </div>
+        ) : null}
+
+        <FieldDisplay
+          label={intl.formatMessage(nominationLabels.additionalComments)}
+        >
+          {talentNomination.additionalComments ??
+            intl.formatMessage(commonMessages.notFound)}
+        </FieldDisplay>
       </Accordion.Content>
     </Accordion.Item>
   );

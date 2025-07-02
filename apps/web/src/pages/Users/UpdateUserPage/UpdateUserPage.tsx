@@ -185,13 +185,11 @@ export const UpdateUserForm = ({
   );
 
   return (
-    <section data-h2-wrapper="base(left, s)">
+    <section className="max-w-2xl">
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
+          className="flex flex-col gap-y-6"
         >
           <Input
             id="email"
@@ -294,7 +292,7 @@ export const UpdateUserForm = ({
             type="email"
             name="workEmail"
           />
-          <div data-h2-align-self="base(flex-start)">
+          <div className="self-start">
             <Submit />
           </div>
         </form>
@@ -415,7 +413,7 @@ const UpdateUserPage = () => {
                 authInfo={data.user?.authInfo}
                 onUpdateSub={handleUpdateUserSub}
               />
-              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+              <Heading level="h2" size="h3" className="font-bold">
                 {intl.formatMessage(adminMessages.rolesAndPermissions)}
               </Heading>
               <UserRoleTable
@@ -436,7 +434,7 @@ const UpdateUserPage = () => {
                 availableRoles={availableRoles}
                 onUpdateUserRoles={handleUpdateUserRoles}
               />
-              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+              <Heading level="h2" size="h3" className="font-bold">
                 {intl.formatMessage(adminMessages.advancedTools)}
               </Heading>
               <DeleteUserSection

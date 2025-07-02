@@ -68,7 +68,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         level="h2"
         icon={CalendarIcon}
         color="secondary"
-        data-h2-margin-top="base(0)"
+        className="mt-0"
       >
         {intl.formatMessage({
           defaultMessage: "Event details",
@@ -76,7 +76,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           description: "Subheading for nomination event details",
         })}
       </Heading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Review and edit the details of this talent management event.",
@@ -84,137 +84,129 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           description: "Description for the details of a nomination event",
         })}
       </p>
-      <Card>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-          data-h2-gap="base(x1)"
+      <Card className="grid gap-6 sm:grid-cols-2">
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Event name (English)",
+            id: "gXF4Rj",
+            description: "Label for nomination event name in English",
+          })}
         >
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Event name (English)",
-              id: "gXF4Rj",
-              description: "Label for nomination event name in English",
-            })}
-          >
-            {talentEvent.name.en ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Event name (French)",
-              id: "BisYQJ",
-              description: "Label for nomination event name in French",
-            })}
-          >
-            {talentEvent.name.fr ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Event description (English)",
-              id: "axPXQ9",
-              description: "Label for nomination event description in English",
-            })}
-          >
-            {talentEvent.description?.en ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Event description (French)",
-              id: "e7vPeZ",
-              description: "Label for nomination event description in French",
-            })}
-          >
-            {talentEvent.description?.fr ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "More information link (English)",
-              id: "dgQIEG",
-              description:
-                "Label for nomination event more information link in English",
-            })}
-          >
-            {talentEvent.learnMoreUrl?.en ? (
-              <Link
-                mode="text"
-                external
-                newTab
-                href={talentEvent.learnMoreUrl.en}
-                data-h2-word-break="base(break-all)"
-              >
-                {talentEvent.learnMoreUrl.en}
-              </Link>
-            ) : (
-              intl.formatMessage(commonMessages.notProvided)
-            )}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "More information link (French)",
-              id: "4q/R7/",
-              description:
-                "Label for nomination event more information link in French",
-            })}
-          >
-            {talentEvent.learnMoreUrl?.fr ? (
-              <Link
-                mode="text"
-                external
-                newTab
-                href={talentEvent.learnMoreUrl.fr}
-                data-h2-word-break="base(break-all)"
-              >
-                {talentEvent.learnMoreUrl.fr}
-              </Link>
-            ) : (
-              intl.formatMessage(commonMessages.notProvided)
-            )}
-          </FieldDisplay>
-        </div>
-        <CardSeparator space="sm" decorative />
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-          data-h2-gap="base(x1)"
+          {talentEvent.name.en ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Event name (French)",
+            id: "BisYQJ",
+            description: "Label for nomination event name in French",
+          })}
         >
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Nomination opening date",
-              id: "JhEMHT",
-              description:
-                "Label for nomination event date to start accepting nominations",
-            })}
-          >
-            {talentEvent.openDate
-              ? formatDate({
-                  date: parseDateTimeUtc(talentEvent.openDate),
-                  formatString: "MMMM d, yyyy",
-                  intl,
-                })
-              : intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Nomination closing date",
-              id: "pq/4js",
-              description:
-                "Label for nomination event date to stop accepting nominations",
-            })}
-          >
-            {talentEvent.closeDate
-              ? formatDate({
-                  date: parseDateTimeUtc(talentEvent.closeDate),
-                  formatString: "MMMM d, yyyy",
-                  intl,
-                })
-              : intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
+          {talentEvent.name.fr ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Event description (English)",
+            id: "axPXQ9",
+            description: "Label for nomination event description in English",
+          })}
+        >
+          {talentEvent.description?.en ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Event description (French)",
+            id: "e7vPeZ",
+            description: "Label for nomination event description in French",
+          })}
+        >
+          {talentEvent.description?.fr ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "More information link (English)",
+            id: "dgQIEG",
+            description:
+              "Label for nomination event more information link in English",
+          })}
+        >
+          {talentEvent.learnMoreUrl?.en ? (
+            <Link
+              mode="text"
+              external
+              newTab
+              href={talentEvent.learnMoreUrl.en}
+              className="break-all"
+            >
+              {talentEvent.learnMoreUrl.en}
+            </Link>
+          ) : (
+            intl.formatMessage(commonMessages.notProvided)
+          )}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "More information link (French)",
+            id: "4q/R7/",
+            description:
+              "Label for nomination event more information link in French",
+          })}
+        >
+          {talentEvent.learnMoreUrl?.fr ? (
+            <Link
+              mode="text"
+              external
+              newTab
+              href={talentEvent.learnMoreUrl.fr}
+              className="break-all"
+            >
+              {talentEvent.learnMoreUrl.fr}
+            </Link>
+          ) : (
+            intl.formatMessage(commonMessages.notProvided)
+          )}
+        </FieldDisplay>
+        <div className="sm:col-span-2">
+          <CardSeparator space="none" decorative />
         </div>
-        <CardSeparator space="sm" decorative />
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Nomination opening date",
+            id: "JhEMHT",
+            description:
+              "Label for nomination event date to start accepting nominations",
+          })}
+        >
+          {talentEvent.openDate
+            ? formatDate({
+                date: parseDateTimeUtc(talentEvent.openDate),
+                formatString: "MMMM d, yyyy",
+                intl,
+              })
+            : intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Nomination closing date",
+            id: "pq/4js",
+            description:
+              "Label for nomination event date to stop accepting nominations",
+          })}
+        >
+          {talentEvent.closeDate
+            ? formatDate({
+                date: parseDateTimeUtc(talentEvent.closeDate),
+                formatString: "MMMM d, yyyy",
+                intl,
+              })
+            : intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <div className="sm:col-span-2">
+          <CardSeparator space="none" decorative />
+        </div>
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Relevant development programs",
@@ -222,6 +214,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             description:
               "Label for development programs relevant to a nomination event",
           })}
+          className="sm:col-span-2"
         >
           {developmentPrograms.length > 0 ? (
             <Ul>

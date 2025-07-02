@@ -20,8 +20,8 @@ const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
   const readOnly = !editor?.isEditable;
 
   return (
-    <div className="flex justify-between gap-3 rounded-t-md border border-b-0 border-gray-700 bg-black p-3 pt-1.5 dark:border-gray">
-      <div className="flex gap-3">
+    <div className="flex flex-col justify-between gap-3 rounded-t-md border border-b-0 border-gray-700 bg-black p-3 pt-1.5 @xs:flex-row dark:border-gray">
+      <div className="flex flex-wrap gap-3">
         <MenuButton
           active={editor?.isActive("bulletList") ?? false}
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
@@ -44,7 +44,7 @@ const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
           </MenuButton>
         )}
       </div>
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         <MenuButton
           onClick={() => editor?.chain().focus().undo().run()}
           disabled={readOnly || !editor?.can().undo()}

@@ -529,13 +529,7 @@ export const UserInformation = ({
             <TableOfContents.Heading
               icon={item.titleIcon}
               as="h3"
-              {...(index > 0
-                ? {
-                    "data-h2-margin": "base(x3, 0, x1, 0)",
-                  }
-                : {
-                    "data-h2-margin": "base(0, 0, x1, 0)",
-                  })}
+              className={`mb-6 ${index > 0 ? "mt-18" : "mt-0"}`}
             >
               {item.title}
             </TableOfContents.Heading>

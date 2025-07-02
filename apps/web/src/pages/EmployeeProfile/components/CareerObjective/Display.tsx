@@ -61,11 +61,7 @@ const Display = ({
     !careerObjectiveCommunity?.id && !!careerObjectiveCommunityOther;
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="flex flex-col gap-y-6">
       {hasAnyEmptyFields({
         careerObjectiveClassification,
         careerObjectiveTargetRole,
@@ -85,14 +81,10 @@ const Display = ({
               description: "Message for unanswered questions in this section",
             })}
           </Well>
-          <CardSeparator data-h2-margin="base(0)" />
+          <CardSeparator space="none" />
         </>
       )}
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr)) "
-      >
+      <div className="grid gap-6 xs:grid-cols-2">
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(
             employeeProfileMessages.targetClassificationGroup,
@@ -139,7 +131,7 @@ const Display = ({
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.community)}
-          data-h2-grid-column="l-tablet(span 2)"
+          className="sm:col-span-2"
         >
           {handleCareerObjectiveCommunity(
             careerObjectiveCommunity?.name?.localized,
@@ -150,7 +142,7 @@ const Display = ({
         {isCommunityOther ? (
           <ToggleForm.FieldDisplay
             label={intl.formatMessage(messages.otherCommunity)}
-            data-h2-grid-column="l-tablet(span 2)"
+            className="sm:col-span-2"
           >
             {careerObjectiveCommunityOther}
           </ToggleForm.FieldDisplay>
@@ -160,7 +152,7 @@ const Display = ({
         careerObjectiveWorkStreams?.length ? (
           <ToggleForm.FieldDisplay
             label={intl.formatMessage(employeeProfileMessages.workStreams)}
-            data-h2-grid-column="l-tablet(span 2)"
+            className="sm:col-span-2"
           >
             {careerObjectiveWorkStreams?.length ? (
               <Ul space="sm">
@@ -175,7 +167,7 @@ const Display = ({
         ) : null}
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.departments)}
-          data-h2-grid-column="l-tablet(span 2)"
+          className="sm:col-span-2"
         >
           {careerObjectiveDepartments?.length ? (
             <Ul space="sm">
@@ -191,7 +183,7 @@ const Display = ({
           label={intl.formatMessage(
             employeeProfileMessages.additionalInformationCareerObjective,
           )}
-          data-h2-grid-column="l-tablet(span 2)"
+          className="sm:col-span-2"
         >
           {careerObjectiveAdditionalInformation ?? notProvided}
         </ToggleForm.FieldDisplay>

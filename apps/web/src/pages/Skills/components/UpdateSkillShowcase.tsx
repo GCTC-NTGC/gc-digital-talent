@@ -10,6 +10,7 @@ import {
   Link,
   BreadcrumbsProps,
   ButtonProps,
+  Container,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -305,8 +306,8 @@ const UpdateSkillShowcase = ({
         subtitle={pageInfo.description}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
@@ -321,13 +322,13 @@ const UpdateSkillShowcase = ({
               <TableOfContents.Heading
                 icon={pageInfo.icon}
                 color="primary"
-                data-h2-margin-top="base(0)"
+                className="mt-0"
               >
                 {pageInfo.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">{pageInfo.blurb}</p>
+              <p className="my-6">{pageInfo.blurb}</p>
               <div>
-                <div data-h2-margin-bottom="base(1rem)">
+                <div className="mb-6">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
                     disabled={isBusy || disabled}
                     items={initialData.userSkills.map((userSkill) => ({
@@ -376,7 +377,7 @@ const UpdateSkillShowcase = ({
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

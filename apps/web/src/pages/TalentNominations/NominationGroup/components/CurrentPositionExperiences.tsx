@@ -9,7 +9,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
-import { Heading, Separator, Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Heading, Ul, Well } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
@@ -65,53 +65,6 @@ const CurrentPositionExperiences = ({
       })
     : intl.formatMessage(commonMessages.notProvided);
 
-  const NullMessage = intl.formatMessage({
-    defaultMessage: "No current government experience found",
-    id: "k/V+39",
-    description:
-      "Message displayed when there is no government experience for the current position",
-  });
-  const NullMessageDescription = intl.formatMessage({
-    defaultMessage:
-      "The nominee’s profile doesn’t show a current Government of Canada position.",
-    id: "eg8/kP",
-    description:
-      "Description for the message displayed when there is no government experience for the current position",
-  });
-  const NullMessageDetails = (
-    <>
-      <p data-h2-margin="base(x.5 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "Contact the nominator or submitter so they can follow up with the nominee:",
-          id: "4Ect9u",
-          description:
-            "Instruction to contact nominator or submitter for follow up",
-        })}
-      </p>
-      <ul style={{ listStyleType: "disc", marginLeft: "1.5em" }}>
-        <li>
-          {intl.formatMessage({
-            defaultMessage:
-              "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
-            id: "e0M7vj",
-            description:
-              "Instruction if nominee is still a Government of Canada employee",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage:
-              "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
-            id: "0P591/",
-            description:
-              "Instruction if nominee is no longer a Government of Canada employee",
-          })}
-        </li>
-      </ul>
-    </>
-  );
-
   const currentWorkExperiences = unpackMaybes(data?.experiences).filter(
     (exp) => isGovWorkExperience(exp) && isCurrentExperience(exp?.endDate),
   );
@@ -130,8 +83,7 @@ const CurrentPositionExperiences = ({
         icon={FlagIcon}
         level="h2"
         color="secondary"
-        data-h2-margin="base(x1.5 x1.5 0 x1.5)"
-        data-h2-font-weight="base(400)"
+        className="mt-0 mb-3 font-normal"
       >
         {intl.formatMessage({
           defaultMessage: "Current position",
@@ -139,7 +91,7 @@ const CurrentPositionExperiences = ({
           description: "Heading for current position",
         })}
       </Heading>
-      <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "This section shows the candidate's current role. If it's an acting role, the candidate's substantive role will also appear here if they've provided it. Select individual experiences to see more details.",
@@ -147,23 +99,58 @@ const CurrentPositionExperiences = ({
           description: "Description for the career page current role section",
         })}
       </p>
-      {shareProfile && (
-        <Separator data-h2-margin="base(0 0 x1 0)" space="none" />
-      )}
+      {shareProfile && <CardSeparator className="mb-6" space="none" />}
 
       {shareProfile && !empty(data) && (
-        <div data-h2-margin="base(0 x1.5)">
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x.5 0)"
-          >
+        <div>
+          <div className="flex flex-col gap-y-3">
             {sorted.length === 0 && (
-              <Well className="mx-9 mb-10.5" color="error">
-                <p data-h2-font-weight="base(700)">{NullMessage}</p>
+              <Well className="mb-10.5" color="error">
+                <p className="font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "No current government experience found",
+                    id: "k/V+39",
+                    description:
+                      "Message displayed when there is no government experience for the current position",
+                  })}
+                </p>
                 <p>
-                  {NullMessageDescription}
-                  {NullMessageDetails}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The nominee’s profile doesn’t show a current Government of Canada position.",
+                    id: "eg8/kP",
+                    description:
+                      "Description for the message displayed when there is no government experience for the current position",
+                  })}
+                  <p className="my-3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Contact the nominator or submitter so they can follow up with the nominee:",
+                      id: "4Ect9u",
+                      description:
+                        "Instruction to contact nominator or submitter for follow up",
+                    })}
+                  </p>
+                  <Ul>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
+                        id: "e0M7vj",
+                        description:
+                          "Instruction if nominee is still a Government of Canada employee",
+                      })}
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
+                        id: "0P591/",
+                        description:
+                          "Instruction if nominee is no longer a Government of Canada employee",
+                      })}
+                    </li>
+                  </Ul>
                 </p>
               </Well>
             )}
@@ -178,8 +165,8 @@ const CurrentPositionExperiences = ({
         </div>
       )}
       {!shareProfile && (
-        <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
-          <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
+        <Well className="mb-9" color="error">
+          <p className="mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage:
                 "This nominee has not agreed to share their information with your community",
@@ -197,12 +184,9 @@ const CurrentPositionExperiences = ({
           </p>
         </Well>
       )}
-      {shareProfile && <Separator data-h2-margin="base(x1 0)" space="none" />}
+      {shareProfile && <CardSeparator space="sm" />}
       {shareProfile && (
-        <p
-          data-h2-color="base(black.light)"
-          data-h2-margin="base(0 x1.5 x1.75 x1.5)"
-        >
+        <p className="text-gray-600 dark:text-gray-200">
           {intl.formatMessage(
             {
               defaultMessage:

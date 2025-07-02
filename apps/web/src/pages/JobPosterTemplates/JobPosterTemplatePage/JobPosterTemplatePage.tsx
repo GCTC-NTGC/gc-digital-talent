@@ -9,6 +9,7 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import {
+  Container,
   Link,
   Pending,
   Separator,
@@ -93,121 +94,109 @@ const JobPosterTemplate = ({
         subtitle={formattedPageSubtitle}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-margin-top="base(x2.5)">
-          <TableOfContents.Wrapper>
-            <TableOfContents.Navigation>
-              <TableOfContents.List>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.basicDetails.id}>
-                    {intl.formatMessage(sections.basicDetails.title)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.keyTasks.id}>
-                    {intl.formatMessage(sections.keyTasks.shortTitle)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={sections.essentialTechnicalSkills.id}
-                  >
-                    {intl.formatMessage(
-                      sections.essentialTechnicalSkills.shortTitle,
-                    )}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={sections.essentialBehaviouralSkills.id}
-                  >
-                    {intl.formatMessage(
-                      sections.essentialBehaviouralSkills.shortTitle,
-                    )}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={sections.assetTechnicalSkills.id}
-                  >
-                    {intl.formatMessage(
-                      sections.assetTechnicalSkills.shortTitle,
-                    )}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              </TableOfContents.List>
-              {/* The download links will be added in a later issue */}
-              {/* eslint-disable-next-line no-constant-binary-expression */}
-              {false && (
-                <>
-                  <Separator color="base:all(gray.lighter)" space="sm" />
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x1)"
-                  >
-                    <Link
-                      href="#"
-                      icon={ArrowDownOnSquareIcon}
-                      data-h2-font-weight="base(bold)"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Download (EN)",
-                        id: "+Ln2X/",
-                        description: "Link to download a file in English",
-                      })}
-                    </Link>
-                    <Link
-                      href="#"
-                      icon={ArrowDownOnSquareIcon}
-                      data-h2-font-weight="base(bold)"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Download (FR)",
-                        id: "v1obWV",
-                        description: "Link to download a file in French",
-                      })}
-                    </Link>
-                  </div>
-                </>
-              )}
-            </TableOfContents.Navigation>
-            <TableOfContents.Content>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x3)"
-              >
-                <TableOfContents.Section id={sections.basicDetails.id}>
-                  <BasicDetails jobPosterTemplateQuery={jobPosterTemplate} />
-                </TableOfContents.Section>
-                <TableOfContents.Section id={sections.keyTasks.id}>
-                  <KeyTasks jobPosterTemplateQuery={jobPosterTemplate} />
-                </TableOfContents.Section>
-                <TableOfContents.Section
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
+          <TableOfContents.Navigation>
+            <TableOfContents.List>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.basicDetails.id}>
+                  {intl.formatMessage(sections.basicDetails.title)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.keyTasks.id}>
+                  {intl.formatMessage(sections.keyTasks.shortTitle)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
                   id={sections.essentialTechnicalSkills.id}
                 >
-                  <EssentialTechnicalSkills
-                    jobPosterTemplateQuery={jobPosterTemplate}
-                  />
-                </TableOfContents.Section>
-                <TableOfContents.Section
+                  {intl.formatMessage(
+                    sections.essentialTechnicalSkills.shortTitle,
+                  )}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
                   id={sections.essentialBehaviouralSkills.id}
                 >
-                  <EssentialBehaviouralSkills
-                    jobPosterTemplateQuery={jobPosterTemplate}
-                  />
-                </TableOfContents.Section>
-                <TableOfContents.Section id={sections.assetTechnicalSkills.id}>
-                  <AssetTechnicalSkills
-                    jobPosterTemplateQuery={jobPosterTemplate}
-                  />
-                </TableOfContents.Section>
-              </div>
-            </TableOfContents.Content>
-          </TableOfContents.Wrapper>
-        </div>
-      </div>
+                  {intl.formatMessage(
+                    sections.essentialBehaviouralSkills.shortTitle,
+                  )}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sections.assetTechnicalSkills.id}
+                >
+                  {intl.formatMessage(sections.assetTechnicalSkills.shortTitle)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
+            {/* The download links will be added in a later issue */}
+            {/* eslint-disable-next-line no-constant-binary-expression */}
+            {false && (
+              <>
+                <Separator space="sm" />
+                <div className="flex flex-col gap-6">
+                  <Link
+                    href="#"
+                    icon={ArrowDownOnSquareIcon}
+                    className="font-bold"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Download (EN)",
+                      id: "+Ln2X/",
+                      description: "Link to download a file in English",
+                    })}
+                  </Link>
+                  <Link
+                    href="#"
+                    icon={ArrowDownOnSquareIcon}
+                    className="font-bold"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Download (FR)",
+                      id: "v1obWV",
+                      description: "Link to download a file in French",
+                    })}
+                  </Link>
+                </div>
+              </>
+            )}
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            <div className="flex flex-col gap-18">
+              <TableOfContents.Section id={sections.basicDetails.id}>
+                <BasicDetails jobPosterTemplateQuery={jobPosterTemplate} />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sections.keyTasks.id}>
+                <KeyTasks jobPosterTemplateQuery={jobPosterTemplate} />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={sections.essentialTechnicalSkills.id}
+              >
+                <EssentialTechnicalSkills
+                  jobPosterTemplateQuery={jobPosterTemplate}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={sections.essentialBehaviouralSkills.id}
+              >
+                <EssentialBehaviouralSkills
+                  jobPosterTemplateQuery={jobPosterTemplate}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sections.assetTechnicalSkills.id}>
+                <AssetTechnicalSkills
+                  jobPosterTemplateQuery={jobPosterTemplate}
+                />
+              </TableOfContents.Section>
+            </div>
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </Container>
     </>
   );
 };

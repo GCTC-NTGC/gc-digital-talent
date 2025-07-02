@@ -9,6 +9,7 @@ import debounce from "lodash/debounce";
 import {
   Button,
   Card,
+  Container,
   Heading,
   Link,
   Loading,
@@ -297,7 +298,7 @@ const JobPosterTemplatesPage = () => {
         subtitle={intl.formatMessage(pageMessages.description)}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+      <Container>
         <Heading
           level="h2"
           size="h3"
@@ -310,7 +311,7 @@ const JobPosterTemplatesPage = () => {
             description: "Heading for the form to filter job poster templates",
           })}
         </Heading>
-        <p data-h2-margin="base(x1 0 x2 0)">
+        <p className="mt-6 mb-12">
           {intl.formatMessage({
             defaultMessage:
               "This library contains a series of templates for common jobs across the communities that GC Digital Talent supports. The templates include suggested information and recommendations for elements such as the job title and common tasks in the role, as well as essential and optional skills. Browse the full list or use the search bar and filters to find templates that align with the job’s specific details.",
@@ -322,11 +323,7 @@ const JobPosterTemplatesPage = () => {
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
             <FormProvider {...methods}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1)"
-              >
+              <div className="flex flex-col gap-6">
                 <Input
                   id="keyword"
                   name="keyword"
@@ -418,17 +415,8 @@ const JobPosterTemplatesPage = () => {
               <>
                 {filteredJobPosterTemplates.length ? (
                   <>
-                    <div
-                      data-h2-margin-bottom="base(x.25)"
-                      data-h2-display="base(flex)"
-                      data-h2-flex-direction="base(column) l-tablet(row)"
-                      data-h2-gap="base(x.25)"
-                      data-h2-justify-content="base(space-between)"
-                    >
-                      <div
-                        data-h2-display="base(flex)"
-                        data-h2-column-gap="base(x.25)"
-                      >
+                    <div className="mb-1.5 flex flex-col items-center justify-between gap-1.5 sm:flex-row">
+                      <div className="flex items-center gap-x-1.5">
                         <span id="sortBy">
                           {intl.formatMessage(formMessages.sortBy)}
                           {intl.formatMessage(commonMessages.dividingColon)}
@@ -464,7 +452,7 @@ const JobPosterTemplatesPage = () => {
                           })}
                         </Link>
                       </div>
-                      <span data-h2-font-weight="base(700)">
+                      <span className="font-bold">
                         {intl.formatMessage(
                           {
                             defaultMessage:
@@ -544,7 +532,7 @@ const JobPosterTemplatesPage = () => {
                     )}
                   </>
                 ) : (
-                  <Well data-h2-text-align="base(center)">
+                  <Well className="text-center">
                     <p>
                       {intl.formatMessage({
                         defaultMessage: "No job advertisement templates found.",
@@ -559,7 +547,7 @@ const JobPosterTemplatesPage = () => {
             )}
           </Sidebar.Content>
         </Sidebar.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

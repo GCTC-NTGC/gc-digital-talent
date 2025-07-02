@@ -84,7 +84,7 @@ const ControlledInput = ({
   }, [editor, editorProps, fieldState]);
 
   return (
-    <div>
+    <div className="@container">
       <MenuBar allowHeadings={allowHeadings} {...{ editor }} />
       <div className="text-black">
         <EditorContent {...{ content, editor }} />

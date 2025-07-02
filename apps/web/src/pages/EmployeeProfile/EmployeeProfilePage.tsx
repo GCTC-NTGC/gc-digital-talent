@@ -5,6 +5,7 @@ import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
+  Container,
   Heading,
   Pending,
   TableOfContents,
@@ -164,13 +165,10 @@ const EmployeeProfile = ({
     <>
       <SEO title={pageTitle} description={subtitle} />
       <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-padding-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.List
-              data-h2-padding-left="base(x.5)"
-              data-h2-list-style-type="base(none)"
-            >
+            <TableOfContents.List className="list-none">
               <TableOfContents.ListItem>
                 <StatusItem
                   asListItem={false}
@@ -183,10 +181,7 @@ const EmployeeProfile = ({
                       : commonMessages.complete,
                   )}
                 />
-                <TableOfContents.List
-                  data-h2-padding-left="base(x.5)"
-                  data-h2-list-style-type="base(none)"
-                >
+                <TableOfContents.List className="list-none pl-3">
                   <TableOfContents.ListItem>
                     <StatusItem
                       asListItem={false}
@@ -284,19 +279,14 @@ const EmployeeProfile = ({
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x3 0)"
-            >
+            <div className="flex flex-col gap-y-18">
               <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
                 <Heading
                   level="h2"
                   icon={ChartBarSquareIcon}
                   color="primary"
-                  data-h2-margin-top="base(0)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-text-align="base(center) l-tablet(initial)"
+                  className="mt-0 font-normal sm:text-left"
+                  center
                 >
                   {intl.formatMessage(commonMessages.careerPlanning)}
                 </Heading>
@@ -336,7 +326,7 @@ const EmployeeProfile = ({
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

@@ -10,6 +10,7 @@ import {
   Pending,
   TableOfContents,
   Heading,
+  Container,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -31,7 +32,6 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import {
   hasEmptyRequiredFields as poolNameError,
   isInNullState as educationRequirementIsNull,
@@ -520,234 +520,189 @@ export const EditPoolForm = ({
   return (
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
-      <AdminContentWrapper>
-        <div data-h2-wrapper="base(left, large, 0)">
-          <TableOfContents.Wrapper>
-            <TableOfContents.Navigation>
-              <TableOfContents.List
-                data-h2-padding-left="base(x.5)"
-                data-h2-list-style-type="base(none)"
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
+          <TableOfContents.Navigation>
+            <TableOfContents.List className="list-none">
+              {[...Object.values(sectionMetadata)]
+                .filter((meta) => meta.inList !== false)
+                .map((meta) => (
+                  <TableOfContents.ListItem key={meta.id}>
+                    <StatusItem
+                      asListItem={false}
+                      title={meta.shortTitle ?? meta.title}
+                      status={
+                        meta.hasError ? "error" : (meta.status ?? "success")
+                      }
+                      scrollTo={meta.id}
+                    />
+                  </TableOfContents.ListItem>
+                ))}
+            </TableOfContents.List>
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            <div className="flex flex-col gap-y-18">
+              <TableOfContents.Section id={sectionMetadata.basicInfo.id}>
+                <div className="flex flex-col gap-y-18">
+                  <div>
+                    <Heading
+                      level="h2"
+                      size="h3"
+                      icon={sectionMetadata.basicInfo.icon}
+                      color={sectionMetadata.basicInfo.color}
+                      className="mt-0 mb-6"
+                    >
+                      {sectionMetadata.basicInfo.title}
+                    </Heading>
+                    <p>{sectionMetadata.basicInfo.subtitle}</p>
+                  </div>
+                  <PoolNameSection
+                    poolQuery={pool}
+                    classificationsQuery={classifications}
+                    departmentsQuery={departments}
+                    sectionMetadata={sectionMetadata.poolName}
+                    onSave={onSave}
+                  />
+                  <ClosingDateSection
+                    poolQuery={pool}
+                    sectionMetadata={sectionMetadata.closingDate}
+                    onSave={onSave}
+                  />
+                </div>
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sectionMetadata.coreRequirements.id}>
+                <CoreRequirementsSection
+                  poolQuery={pool}
+                  sectionMetadata={sectionMetadata.coreRequirements}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sectionMetadata.specialNote.id}>
+                <SpecialNoteSection
+                  poolQuery={pool}
+                  sectionMetadata={sectionMetadata.specialNote}
+                  onSave={onSave}
+                  onUpdatePublished={onUpdatePublished}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={sectionMetadata.educationRequirements.id}
               >
-                {[...Object.values(sectionMetadata)]
-                  .filter((meta) => meta.inList !== false)
-                  .map((meta) => (
-                    <TableOfContents.ListItem key={meta.id}>
-                      <StatusItem
-                        asListItem={false}
-                        title={meta.shortTitle ?? meta.title}
-                        status={
-                          meta.hasError ? "error" : (meta.status ?? "success")
-                        }
-                        scrollTo={meta.id}
-                      />
-                    </TableOfContents.ListItem>
-                  ))}
-              </TableOfContents.List>
-            </TableOfContents.Navigation>
-            <TableOfContents.Content>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x3 0)"
+                <EducationRequirementsSection
+                  poolQuery={pool}
+                  sectionMetadata={sectionMetadata.educationRequirements}
+                  changeTargetId={sectionMetadata.basicInfo.id}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={sectionMetadata.skillRequirements.id}
               >
-                <TableOfContents.Section id={sectionMetadata.basicInfo.id}>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x3 0)"
-                  >
+                <div className="flex flex-col gap-y-18">
+                  <div>
+                    <Heading
+                      level="h2"
+                      size="h3"
+                      icon={sectionMetadata.skillRequirements.icon}
+                      color={sectionMetadata.skillRequirements.color}
+                      className="mt-0 mb-6"
+                    >
+                      {sectionMetadata.skillRequirements.title}
+                    </Heading>
+                    <p>{sectionMetadata.skillRequirements.subtitle}</p>
+                  </div>
+                  <EssentialSkillsSection
+                    poolQuery={pool}
+                    skills={skills}
+                    sectionMetadata={sectionMetadata.essentialSkills}
+                    poolSkillMutations={poolSkillMutations}
+                  />
+                  <AssetSkillsSection
+                    poolQuery={pool}
+                    skills={skills}
+                    sectionMetadata={sectionMetadata.assetSkills}
+                    poolSkillMutations={poolSkillMutations}
+                  />
+                </div>
+              </TableOfContents.Section>
+              <div className="flex flex-col gap-y-18">
+                <TableOfContents.Section id={sectionMetadata.aboutRole.id}>
+                  <div className="flex flex-col gap-y-18">
                     <div>
                       <Heading
                         level="h2"
                         size="h3"
-                        icon={sectionMetadata.basicInfo.icon}
-                        color={sectionMetadata.basicInfo.color}
-                        data-h2-margin="base(0)"
+                        icon={sectionMetadata.aboutRole.icon}
+                        color={sectionMetadata.aboutRole.color}
+                        className="mt-0 mb-6"
                       >
-                        {sectionMetadata.basicInfo.title}
+                        {sectionMetadata.aboutRole.title}
                       </Heading>
-                      <p data-h2-margin-top="base(x1)">
-                        {sectionMetadata.basicInfo.subtitle}
-                      </p>
+                      <p>{sectionMetadata.aboutRole.subtitle}</p>
                     </div>
-                    <PoolNameSection
+                    <YourImpactSection
                       poolQuery={pool}
-                      classificationsQuery={classifications}
-                      departmentsQuery={departments}
-                      sectionMetadata={sectionMetadata.poolName}
+                      sectionMetadata={sectionMetadata.yourImpact}
                       onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
                     />
-                    <ClosingDateSection
+                    <WorkTasksSection
                       poolQuery={pool}
-                      sectionMetadata={sectionMetadata.closingDate}
+                      sectionMetadata={sectionMetadata.workTasks}
                       onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
+                    />
+                    <AboutUsSection
+                      poolQuery={pool}
+                      sectionMetadata={sectionMetadata.aboutUs}
+                      onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
                     />
                   </div>
-                </TableOfContents.Section>
-                <TableOfContents.Section
-                  id={sectionMetadata.coreRequirements.id}
-                >
-                  <CoreRequirementsSection
-                    poolQuery={pool}
-                    sectionMetadata={sectionMetadata.coreRequirements}
-                    onSave={onSave}
-                  />
-                </TableOfContents.Section>
-                <TableOfContents.Section id={sectionMetadata.specialNote.id}>
-                  <SpecialNoteSection
-                    poolQuery={pool}
-                    sectionMetadata={sectionMetadata.specialNote}
-                    onSave={onSave}
-                    onUpdatePublished={onUpdatePublished}
-                  />
-                </TableOfContents.Section>
-                <TableOfContents.Section
-                  id={sectionMetadata.educationRequirements.id}
-                >
-                  <EducationRequirementsSection
-                    poolQuery={pool}
-                    sectionMetadata={sectionMetadata.educationRequirements}
-                    changeTargetId={sectionMetadata.basicInfo.id}
-                  />
-                </TableOfContents.Section>
-                <TableOfContents.Section
-                  id={sectionMetadata.skillRequirements.id}
-                >
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x3 0)"
-                  >
-                    <div>
-                      <Heading
-                        level="h2"
-                        size="h3"
-                        icon={sectionMetadata.skillRequirements.icon}
-                        color={sectionMetadata.skillRequirements.color}
-                        data-h2-margin="base(0)"
-                      >
-                        {sectionMetadata.skillRequirements.title}
-                      </Heading>
-                      <p data-h2-margin-top="base(x1)">
-                        {sectionMetadata.skillRequirements.subtitle}
-                      </p>
-                    </div>
-                    <EssentialSkillsSection
-                      poolQuery={pool}
-                      skills={skills}
-                      sectionMetadata={sectionMetadata.essentialSkills}
-                      poolSkillMutations={poolSkillMutations}
-                    />
-                    <AssetSkillsSection
-                      poolQuery={pool}
-                      skills={skills}
-                      sectionMetadata={sectionMetadata.assetSkills}
-                      poolSkillMutations={poolSkillMutations}
-                    />
-                  </div>
-                </TableOfContents.Section>
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x3 0)"
-                >
-                  <TableOfContents.Section id={sectionMetadata.aboutRole.id}>
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-flex-direction="base(column)"
-                      data-h2-gap="base(x3 0)"
-                    >
-                      <div>
-                        <Heading
-                          level="h2"
-                          size="h3"
-                          icon={sectionMetadata.aboutRole.icon}
-                          color={sectionMetadata.aboutRole.color}
-                          data-h2-margin="base(0)"
-                        >
-                          {sectionMetadata.aboutRole.title}
-                        </Heading>
-                        <p data-h2-margin-top="base(x1)">
-                          {sectionMetadata.aboutRole.subtitle}
-                        </p>
-                      </div>
-                      <YourImpactSection
-                        poolQuery={pool}
-                        sectionMetadata={sectionMetadata.yourImpact}
-                        onSave={onSave}
-                        onUpdatePublished={onUpdatePublished}
-                      />
-                      <WorkTasksSection
-                        poolQuery={pool}
-                        sectionMetadata={sectionMetadata.workTasks}
-                        onSave={onSave}
-                        onUpdatePublished={onUpdatePublished}
-                      />
-                      <AboutUsSection
-                        poolQuery={pool}
-                        sectionMetadata={sectionMetadata.aboutUs}
-                        onSave={onSave}
-                        onUpdatePublished={onUpdatePublished}
-                      />
-                    </div>
-                  </TableOfContents.Section>
-                </div>
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x3 0)"
-                >
-                  <TableOfContents.Section
-                    id={sectionMetadata.commonQuestions.id}
-                  >
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-flex-direction="base(column)"
-                      data-h2-gap="base(x3 0)"
-                    >
-                      <div>
-                        <Heading
-                          level="h2"
-                          size="h3"
-                          icon={sectionMetadata.commonQuestions.icon}
-                          color={sectionMetadata.commonQuestions.color}
-                          data-h2-margin="base(0)"
-                        >
-                          {sectionMetadata.commonQuestions.title}
-                        </Heading>
-                        <p data-h2-margin-top="base(x1)">
-                          {sectionMetadata.commonQuestions.subtitle}
-                        </p>
-                      </div>
-                      <WhatToExpectSection
-                        poolQuery={pool}
-                        sectionMetadata={sectionMetadata.whatToExpect}
-                        onSave={onSave}
-                        onUpdatePublished={onUpdatePublished}
-                      />
-                      <WhatToExpectAdmissionSection
-                        poolQuery={pool}
-                        sectionMetadata={sectionMetadata.whatToExpectAdmission}
-                        onSave={onSave}
-                        onUpdatePublished={onUpdatePublished}
-                      />
-                    </div>
-                  </TableOfContents.Section>
-                </div>
-                <TableOfContents.Section
-                  id={sectionMetadata.generalQuestions.id}
-                >
-                  <GeneralQuestionsSection
-                    poolQuery={pool}
-                    sectionMetadata={sectionMetadata.generalQuestions}
-                    onSave={onSave}
-                  />
                 </TableOfContents.Section>
               </div>
-            </TableOfContents.Content>
-          </TableOfContents.Wrapper>
-        </div>
-      </AdminContentWrapper>
+              <div className="flex flex-col gap-y-18">
+                <TableOfContents.Section
+                  id={sectionMetadata.commonQuestions.id}
+                >
+                  <div className="flex flex-col gap-y-18">
+                    <div>
+                      <Heading
+                        level="h2"
+                        size="h3"
+                        icon={sectionMetadata.commonQuestions.icon}
+                        color={sectionMetadata.commonQuestions.color}
+                        className="mt-0 mb-6"
+                      >
+                        {sectionMetadata.commonQuestions.title}
+                      </Heading>
+                      <p>{sectionMetadata.commonQuestions.subtitle}</p>
+                    </div>
+                    <WhatToExpectSection
+                      poolQuery={pool}
+                      sectionMetadata={sectionMetadata.whatToExpect}
+                      onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
+                    />
+                    <WhatToExpectAdmissionSection
+                      poolQuery={pool}
+                      sectionMetadata={sectionMetadata.whatToExpectAdmission}
+                      onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
+                    />
+                  </div>
+                </TableOfContents.Section>
+              </div>
+              <TableOfContents.Section id={sectionMetadata.generalQuestions.id}>
+                <GeneralQuestionsSection
+                  poolQuery={pool}
+                  sectionMetadata={sectionMetadata.generalQuestions}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+            </div>
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </Container>
     </>
   );
 };

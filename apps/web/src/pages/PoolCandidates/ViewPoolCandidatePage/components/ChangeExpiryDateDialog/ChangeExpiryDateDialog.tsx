@@ -163,7 +163,7 @@ const ChangeExpiryDateDialog = ({
                   description: "Help text for setting a candidate expiry date",
                 })}
               />
-              <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
+              <FormChangeNotifyWell className="mt-6" />
               <Dialog.Footer>
                 <Button type="submit" color="primary" disabled={fetching}>
                   {intl.formatMessage(applicationMessages.saveContinue)}

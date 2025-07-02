@@ -36,10 +36,9 @@ const ActiveRecruitmentSection = ({
       <Heading
         level="h2"
         size="h3"
-        data-h2-font-weight="base(400)"
         icon={RocketLaunchIcon}
         color="primary"
-        data-h2-margin="base(0, 0, x1, 0)"
+        className="mt-0 mb-6 font-normal"
       >
         {intl.formatMessage({
           defaultMessage: "Active talent recruitment processes",
@@ -47,7 +46,7 @@ const ActiveRecruitmentSection = ({
           description: "Title for the current jobs recruiting candidates",
         })}
       </Heading>
-      <p data-h2-margin="base(x.5, 0)">
+      <p className="my-3">
         {intl.formatMessage({
           id: "C7sYnb",
           defaultMessage:
@@ -56,7 +55,7 @@ const ActiveRecruitmentSection = ({
             "Description of how the application process works, paragraph one",
         })}
       </p>
-      <p>
+      <p className="mb-6">
         {intl.formatMessage({
           id: "vNFHWp",
           defaultMessage:
@@ -65,17 +64,15 @@ const ActiveRecruitmentSection = ({
             "Description of how the application process works, paragraph two",
         })}
       </p>
-      <div data-h2-padding="base(x1, 0, 0, 0)">
-        {sortedPools.length ? (
-          <Ul unStyled>
-            {sortedPools.map((pool) => (
-              <li key={pool.id}>
-                <PoolCard poolQuery={pool} />
-              </li>
-            ))}
-          </Ul>
-        ) : null}
-      </div>
+      {sortedPools.length ? (
+        <Ul unStyled className="mt-6">
+          {sortedPools.map((pool) => (
+            <li key={pool.id}>
+              <PoolCard poolQuery={pool} />
+            </li>
+          ))}
+        </Ul>
+      ) : null}
     </>
   );
 };

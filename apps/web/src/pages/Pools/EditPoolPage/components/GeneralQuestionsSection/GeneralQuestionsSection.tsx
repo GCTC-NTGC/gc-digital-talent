@@ -86,7 +86,7 @@ const GeneralQuestionsSection = ({
       <TableOfContents.Heading icon={QuestionMarkCircleIcon} color="secondary">
         {sectionMetadata.title}
       </TableOfContents.Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "This section allows you to <strong>optionally</strong> add up to 10 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
@@ -95,7 +95,7 @@ const GeneralQuestionsSection = ({
             "Helper message indicating what general questions are and how they differ from screening questions",
         })}
       </p>
-      <div data-h2-margin="base(x1 0)">
+      <div className="my-6">
         <CardRepeater.Root<GeneralQuestion>
           items={questions}
           disabled={formDisabled}
@@ -114,8 +114,8 @@ const GeneralQuestionsSection = ({
         </CardRepeater.Root>
       </div>
       {questions.length === 0 ? (
-        <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+        <Well className="my-6 text-center">
+          <p className="mb-3 font-bold">
             {intl.formatMessage({
               defaultMessage: "You haven't added any questions yet.",
               id: "jXUnrt",
