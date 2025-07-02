@@ -1,19 +1,22 @@
+import { ComponentPropsWithoutRef } from "react";
 import { m, useReducedMotion } from "motion/react";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 import { tv } from "tailwind-variants";
 
-import { IconProps } from "@gc-digital-talent/ui";
-
 const icon = tv({
-  base: "mr-0",
+  base: "mr-0 inline-flex",
 });
 
-const SpinnerIcon = ({ className, ...rest }: IconProps) => {
+const Icon = m.create(ArrowPathIcon);
+
+const SpinnerIcon = ({
+  className,
+  ...rest
+}: ComponentPropsWithoutRef<typeof Icon>) => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <m.span
-      className="mr-1.5 inline-flex"
+    <Icon
       {...(!shouldReduceMotion && {
         animate: {
           rotate: [0, 360],
@@ -25,9 +28,9 @@ const SpinnerIcon = ({ className, ...rest }: IconProps) => {
           repeatDelay: 0,
         },
       })}
-    >
-      <ArrowPathIcon className={icon({ class: className })} {...rest} />
-    </m.span>
+      className={icon({ class: className })}
+      {...rest}
+    />
   );
 };
 
