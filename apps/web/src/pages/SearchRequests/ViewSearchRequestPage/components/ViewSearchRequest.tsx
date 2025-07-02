@@ -65,7 +65,7 @@ const ManagerInfo = ({
         })}
       </Heading>
       <Card>
-        <div className="grid gap-6 wrap-break-word xs:grid-cols-2 md:grid-cols-4">
+        <div className="grid gap-6 wrap-break-word xs:grid-cols-4">
           <div className="border-r-black/20 xs:border-r xs:pr-6 dark:border-r-white/20">
             <FilterBlock
               title={intl.formatMessage(commonMessages.fullName)}
@@ -504,7 +504,7 @@ export const ViewSearchRequest = ({
           />
         </Card>
       </Container>
-      <Container size="full">
+      <Container size="full" className="mb-18">
         <Heading level="h2" size="h4">
           {intl.formatMessage({
             defaultMessage: "Candidate results",
