@@ -15,7 +15,7 @@ const Quote = ({ content, author }: QuoteProps) => (
       <div className="text-right">
         <CloseQuote className="inline-block w-12 xs:w-18" />
       </div>
-      <figcaption className="text-text-xl m-12 mx-36 mb-0 font-bold xs:mt-12 sm:text-2xl lg:text-3xl">
+      <figcaption className="text-text-xl m-12 mb-0 font-bold xs:mx-36 xs:mt-12 sm:text-2xl lg:text-3xl">
         {hyphen}
         {author}
       </figcaption>
