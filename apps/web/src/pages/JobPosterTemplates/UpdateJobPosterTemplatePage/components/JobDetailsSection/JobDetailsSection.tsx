@@ -122,8 +122,8 @@ const Options_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const UpdateEmployeeProfileCareerDevelopment_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateJobPosterTemplate(
+const UpdateJobPosterTemplateJobDetails_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateJobPosterTemplateJobDetails(
     $jobPosterTemplate: UpdateJobPosterTemplateInput!
   ) {
     updateJobPosterTemplate(jobPosterTemplate: $jobPosterTemplate) {
@@ -232,7 +232,7 @@ const JobDetailsSection = ({
   const keywordDescriptionParagraphId = useId();
 
   const [{ fetching }, executeMutation] = useMutation(
-    UpdateEmployeeProfileCareerDevelopment_Mutation,
+    UpdateJobPosterTemplateJobDetails_Mutation,
   );
 
   const initialData = getFragment(InitialData_Fragment, initialDataQuery);

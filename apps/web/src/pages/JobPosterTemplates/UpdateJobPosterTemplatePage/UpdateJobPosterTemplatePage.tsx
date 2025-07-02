@@ -31,6 +31,7 @@ import pageTitles from "~/messages/pageTitles";
 
 import messages from "./messages";
 import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection";
+import KeyTasksSection from "./components/KeyTasksSection/KeyTasksSection";
 
 const SECTION_ID = {
   JOB_DETAILS: "job-details-section",
@@ -48,6 +49,7 @@ const UpdateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
 const UpdateJobPosterTemplate_Fragment = graphql(/** GraphQL */ `
   fragment UpdateJobPosterTemplate on JobPosterTemplate {
     ...UpdateJobPosterTemplateJobDetails
+    ...UpdateJobPosterTemplateKeyTasks
     id
     name {
       en
@@ -115,6 +117,11 @@ const UpdateJobPosterTemplate = ({
                   {intl.formatMessage(messages.jobDetails)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={SECTION_ID.KEY_TASKS}>
+                  {intl.formatMessage(messages.keyTasks)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
@@ -125,7 +132,6 @@ const UpdateJobPosterTemplate = ({
                   icon={PuzzlePieceIcon}
                   color="secondary"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.jobDetails)}
                 </Heading>
@@ -149,7 +155,6 @@ const UpdateJobPosterTemplate = ({
                   icon={ClipboardDocumentCheckIcon}
                   color="primary"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.keyTasks)}
                 </Heading>
@@ -202,10 +207,7 @@ const UpdateJobPosterTemplate = ({
                     </li>
                   </Ul>
                 </div>
-                {/* <CareerDevelopmentSection
-                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
-                  careerDevelopmentOptionsQuery={options}
-                /> */}
+                <KeyTasksSection initialDataQuery={initialData} />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.TECHNICAL_SKILLS}>
                 <Heading
@@ -213,7 +215,6 @@ const UpdateJobPosterTemplate = ({
                   icon={BoltIcon}
                   color="error"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.technicalSkills)}
                 </Heading>
@@ -248,7 +249,6 @@ const UpdateJobPosterTemplate = ({
                   icon={BoltIcon}
                   color="warning"
                   className="mx-0 mt-0 mb-6 font-normal"
-                  // center={isSmallScreen}
                 >
                   {intl.formatMessage(messages.behaviouralSkills)}
                 </Heading>
