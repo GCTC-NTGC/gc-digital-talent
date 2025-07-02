@@ -203,7 +203,7 @@ const ManagerHomePage = () => {
             "bg-position-[80%_110%] sm:bg-position-[60%_50%] lg:bg-position-[right_50%]",
         }}
       >
-        <p className="mb-12 text-lg text-white xs:max-w-1/2 lg:text-xl">
+        <p className="mb-12 text-lg text-white sm:max-w-1/2 lg:text-xl">
           {intl.formatMessage({
             defaultMessage:
               "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",
