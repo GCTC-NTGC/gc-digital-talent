@@ -396,7 +396,7 @@ export const Component = () => {
         }}
       >
         <div className="bg-secondary-500/90 py-24 text-white dark:bg-secondary-600/90">
-          <Heading level="h2" size="h4" className="mb-12 text-center">
+          <Heading level="h2" size="h4" className="mt-0 mb-12 text-center">
             {intl.formatMessage({
               defaultMessage: "What we're hearing",
               id: "okRYhl",
