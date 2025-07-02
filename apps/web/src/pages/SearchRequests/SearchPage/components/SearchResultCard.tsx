@@ -145,7 +145,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         </span>
         {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         <span aria-hidden>&bull;</span>
-        <span className="font-bold text-secondary-600 dark:text-secondary-200">
+        <span className="font-bold text-primary-600 dark:text-primary-200">
           {intl.formatMessage(
             {
               defaultMessage: `{candidateCount, plural,
