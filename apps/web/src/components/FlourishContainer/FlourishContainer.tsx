@@ -83,11 +83,7 @@ const FlourishContainer = ({
           />
         )}
       </div>
-      <Container
-        className="relative px-6 py-18 xs:px-12 xs:pt-35 xs:pb-24 sm:pt-42 sm:pb-36"
-        size="lg"
-        center
-      >
+      <Container className="relative py-18 xs:pt-35 xs:pb-24 sm:pt-42 sm:pb-36">
         {children}
       </Container>
     </div>
