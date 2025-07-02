@@ -27,6 +27,7 @@ import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants
 
 import Display from "./Display";
 import { labels } from "./labels";
+import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 
 const TEXT_AREA_MAX_WORDS_EN = 120;
 
@@ -100,10 +101,10 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
 
   const initialData = getFragment(InitialData_Fragment, initialDataQuery);
 
-  const isNull = false; // hasAllEmptyFields(employeeProfile);
+  const isNull = hasAllEmptyFields(initialData);
   const { isEditing, setIsEditing } = useToggleSectionInfo({
     isNull,
-    emptyRequired: false, //hasEmptyRequiredFields(employeeProfile),
+    emptyRequired: hasEmptyRequiredFields(initialData),
     fallbackIcon: QuestionMarkCircleIcon,
   });
 
