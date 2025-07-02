@@ -261,7 +261,7 @@ function useLangSearchParam(): UseLangSearchParamReturn {
 
 const selectedFilterStyle: Record<string, string> = {
   mode: "inline",
-  color: "primary",
+  color: "secondary",
   className: "no-underline",
 };
 
