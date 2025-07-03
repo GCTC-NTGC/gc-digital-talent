@@ -103,7 +103,7 @@ const ChangeDateDialog = ({
       <Dialog.Content>
         <Dialog.Header>{title}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 id: "t4+h/N",
@@ -122,7 +122,7 @@ const ChangeDateDialog = ({
                 id="type"
                 idPrefix="type"
                 name="type"
-                data-h2-margin-bottom="base(x1)"
+                className="mb-6"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -175,7 +175,7 @@ const ChangeDateDialog = ({
                 />
               ) : (
                 <>
-                  <p data-h2-margin-bottom="base(x1)">
+                  <p className="mb-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "Please write the reason why this process is closing early.",
@@ -184,7 +184,7 @@ const ChangeDateDialog = ({
                         "Helper message for closing the process early",
                     })}
                   </p>
-                  <div data-h2-margin-bottom="base(x1)">
+                  <div className="mb-6">
                     <TextArea
                       id="reason"
                       label={intl.formatMessage({
@@ -201,10 +201,7 @@ const ChangeDateDialog = ({
                     />
                   </div>
                   <Well color="warning">
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.5)"
-                    >
+                    <p className="mb-3 font-bold">
                       {intl.formatMessage(commonMessages.warning)}
                     </p>
                     <p>

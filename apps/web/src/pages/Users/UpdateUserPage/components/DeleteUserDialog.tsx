@@ -87,9 +87,9 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
             })}
           </p>
           <Ul className="my-3">
-            <li data-h2-font-weight="base(700)">{userNameHtml}</li>
+            <li className="font-bold">{userNameHtml}</li>
           </Ul>
-          <p data-h2-margin="base(0, 0, x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage: "Please write the user's full name to confirm:",
               id: "YexsZi",
@@ -98,11 +98,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddRoles)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-              >
+              <div className="flex flex-col gap-y-6">
                 <Input
                   id="name"
                   name="name"

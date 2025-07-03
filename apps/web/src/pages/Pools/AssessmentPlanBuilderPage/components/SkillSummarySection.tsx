@@ -38,11 +38,11 @@ const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
       <Heading
         level="h3"
         id={PAGE_SECTION_ID.SKILL_SUMMARY}
-        data-h2-margin="base(x3, 0, x1, 0)"
+        className="mt-18 mb-6"
       >
         {intl.formatMessage(sectionTitle)}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Overview of all skills and assessments planned for this process.",
@@ -63,7 +63,7 @@ const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p>
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "On the initial application, only technical information is collected from the applicants, except for a few very special behavioural skills. This means that as the reviewer, when you see the application information, you'll only have experience data related to the technical skills and a few very specific behavioural skills. This is done for two reasons.",
@@ -72,7 +72,7 @@ const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
                   "First paragraph of first answer of the Frequently Asked Questions for logging in",
               })}
             </p>
-            <p data-h2-margin-top="base(x.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "Firstly, asking for too much information on a job application can drive away strong candidates who feel the process is too cumbersome. You'll need to find a balance between how much you want to ask for and how long it will take an applicant to complete the process if you want the chance to recruit top candidates.",
@@ -81,7 +81,7 @@ const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
                   "Second paragraph of first answer of the Frequently Asked Questions for logging in",
               })}
             </p>
-            <p data-h2-margin-top="base(x.5)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "Secondly, after a year-long live pilot test, managers reported that they didn't find the self-reported information on behavioural skills to be useful. Instead, they found other forms of assessment (such as reference checks and interviews) to be far better predictors than long paragraphs about how collaborative, positive or inclusive a candidate self-assessed as being.",
@@ -93,7 +93,7 @@ const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <div data-h2-margin-top="base(x1)">
+      <div className="mt-6">
         <SkillSummaryTable
           poolSkillsQuery={unpackMaybes(pool.poolSkills)}
           assessmentStepsQuery={unpackMaybes(pool.assessmentSteps)}

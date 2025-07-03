@@ -21,15 +21,8 @@ const ReviewHeading = ({ children, link }: ReviewHeadingProps) => {
   const paths = useRoutes();
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column) p-tablet(row)"
-      data-h2-align-items="base(center)"
-      data-h2-gap="base(x1)"
-      data-h2-margin-bottom="base(x1)"
-      data-h2-justify-content="base(space-between)"
-    >
-      <Heading level="h3" size="h4" data-h2-margin="base(0)">
+    <div className="mb-6 flex flex-col items-center justify-between gap-6 xs:flex-row">
+      <Heading level="h3" size="h4" className="mt-0">
         {children}
       </Heading>
       <Link

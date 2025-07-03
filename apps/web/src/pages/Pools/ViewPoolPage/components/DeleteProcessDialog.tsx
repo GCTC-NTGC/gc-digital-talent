@@ -41,7 +41,7 @@ const DeleteProcessDialog = ({
       <Dialog.Content>
         <Dialog.Header>{title}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 id: "bozF1y",
@@ -54,7 +54,7 @@ const DeleteProcessDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               id: "Mtiz1l",
               defaultMessage:

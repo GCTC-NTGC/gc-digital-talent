@@ -38,7 +38,7 @@ const NotificationChecklist = ({
     {
       value: "email",
       label: (
-        <span data-h2-visually-hidden="p-tablet(invisible)">
+        <span className="xs:sr-only">
           {intl.formatMessage(commonMessages.email)}
         </span>
       ),
@@ -46,7 +46,7 @@ const NotificationChecklist = ({
     {
       value: "inApp",
       label: (
-        <span data-h2-visually-hidden="p-tablet(invisible)">
+        <span className="xs:sr-only">
           {intl.formatMessage(commonMessages.inApp)}
         </span>
       ),
@@ -55,35 +55,16 @@ const NotificationChecklist = ({
 
   if (disabled) {
     return (
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="p-tablet(4fr 1fr)"
-        data-h2-gap="base(x1)"
-        data-h2-align-items="base(center)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="mb-6 grid items-center gap-6 xs:grid-cols-[4fr_1fr]">
         <div>
-          <p
-            data-h2-font-weight="base(bold)"
-            data-h2-padding-bottom="base(x.5)"
-          >
-            {legend}
-          </p>
-          <p data-h2-font-size="base(caption)">{subtitle}</p>
+          <p className="mb-3 font-bold">{legend}</p>
+          <p className="text-sm">{subtitle}</p>
         </div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="p-tablet(space-between)"
-        >
+        <div className="flex xs:justify-between">
           {notificationOptions.map(({ value, label }) => {
             const key = `${id}-${value}`;
             return (
-              <span
-                key={key}
-                data-h2-padding="base(x.25 x.75 x.25 x.5)"
-                data-h2-display="base(flex)"
-                data-h2-gap="base(x.25)"
-              >
+              <span key={key} className="flex gap-3 py-1.5 pr-4.5 pl-3">
                 <CheckIcon
                   aria-label={intl.formatMessage({
                     defaultMessage: "System notifications are always enabled.",
@@ -92,16 +73,9 @@ const NotificationChecklist = ({
                       "Aria label for system notification icons in notification settings.",
                   })}
                   aria-hidden="false"
-                  data-h2-height="base(x1)"
-                  data-h2-width="base(x1)"
-                  data-h2-border="base(thin solid black.light)"
-                  data-h2-radius="base(input)"
-                  data-h2-vertical-align="base(middle)"
-                  data-h2-color="base(gray)"
+                  className="size-6 rounded-md border border-gray-500 align-middle text-gray dark:border-gray-300"
                 />
-                <span data-h2-visually-hidden="p-tablet(invisible)">
-                  {label}
-                </span>
+                <span className="xs:sr-only">{label}</span>
               </span>
             );
           })}
@@ -111,33 +85,17 @@ const NotificationChecklist = ({
   }
 
   return (
-    <Field.Wrapper data-h2-margin-bottom="base(x1)">
+    <Field.Wrapper className="mb-6">
       <Field.Fieldset id={id}>
-        <Field.Legend
-          required={false}
-          data-h2-visually-hidden="base(invisible)"
-        >
+        <Field.Legend required={false} className="sr-only">
           {legend}
         </Field.Legend>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="p-tablet(4fr 1fr)"
-          data-h2-gap="base(x1)"
-          data-h2-align-items="base(center)"
-        >
+        <div className="grid items-center gap-6 xs:grid-cols-[4fr_1fr]">
           <div>
-            <p
-              data-h2-font-weight="base(bold)"
-              data-h2-padding-bottom="base(x.5)"
-            >
-              {legend}
-            </p>
-            <p data-h2-font-size="base(caption)">{subtitle}</p>
+            <p className="mb-3 font-bold">{legend}</p>
+            <p className="font-bold">{subtitle}</p>
           </div>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="p-tablet(space-between)"
-          >
+          <div className="flex xs:justify-between">
             {notificationOptions.map(({ value, label }) => {
               const checkboxId = `${id}-${value}`;
               return (
@@ -283,25 +241,14 @@ const NotificationSettings = ({
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Card>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-padding-bottom="base(x1)"
-          >
-            <div
-              data-h2-display="base(none) p-tablet(grid)"
-              data-h2-grid-template-columns="p-tablet(4fr 1fr)"
-              data-h2-gap="base(x1)"
-            >
+          <div className="mb-6 flex flex-col">
+            <div className="hidden gap-6 xs:grid xs:grid-cols-[4fr_1fr]">
               <div>{/* For grid template columns */}</div>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-justify-content="base(space-between)"
-              >
-                <p aria-hidden data-h2-width="base(54px)">
+              <div className="flex justify-between">
+                <p aria-hidden className="w-12">
                   {intl.formatMessage(commonMessages.email)}
                 </p>
-                <p aria-hidden data-h2-width="base(54px)">
+                <p aria-hidden className="w-12">
                   {intl.formatMessage(commonMessages.inApp)}
                 </p>
               </div>
@@ -310,7 +257,7 @@ const NotificationSettings = ({
               <NotificationChecklist key={props.id} {...props} />
             ))}
           </div>
-          <div data-h2-align-self="base(flex-start)">
+          <div className="self-start">
             <Submit text={intl.formatMessage(formMessages.saveChanges)} />
           </div>
         </Card>

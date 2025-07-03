@@ -9,6 +9,7 @@ import {
   Pending,
   Link,
   ThrowNotFound,
+  Container,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -145,8 +146,8 @@ export const SkillShowcase = ({
     <>
       <SEO title={pageTitle} description={formattedSubTitle} />
       <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container className="my-18">
+        <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
@@ -176,22 +177,16 @@ export const SkillShowcase = ({
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.topSkills.id}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-justify-content="base(space-between)"
-                data-h2-flex-direction="base(column) p-tablet(row)"
-                data-h2-margin="base(x1.75 0 x1 0) l-tablet(0 0 x1 0)"
-              >
+              <div className="mt-9 mb-6 flex flex-col items-center justify-between xs:flex-row sm:mt-0">
                 <TableOfContents.Heading
                   icon={BoltIcon}
                   color="warning"
-                  data-h2-margin="base(0)"
+                  className="mt-0"
                 >
                   {sections.topSkills.title}
                 </TableOfContents.Heading>
               </div>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "This section allows you to feature the skills that you're strongest in. You're able to specify up to 5 behavioural skills and up to 10 technical skills to help create a holistic picture of your talent. The skills you showcase here help potential hiring managers better understand your core strengths and how you might fit their team's needs.",
@@ -200,12 +195,7 @@ export const SkillShowcase = ({
                     "Description of the top skills section and how to use it.",
                 })}
               </p>
-              <div
-                data-h2-margin="base(x1 0 x3 0)"
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
-                data-h2-gap="base(x.5)"
-              >
+              <div className="mb-18 grid gap-3 sm:grid-cols-2">
                 <SkillRankCard
                   editable
                   type="top"
@@ -260,22 +250,16 @@ export const SkillShowcase = ({
               </div>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.improveSkills.id}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-justify-content="base(space-between)"
-                data-h2-flex-direction="base(column) p-tablet(row)"
-                data-h2-margin="base(x3 0 x1 0)"
-              >
+              <div className="mt-18 mb-6 flex flex-col items-center justify-between xs:flex-row">
                 <TableOfContents.Heading
                   icon={Cog8ToothIcon}
                   color="secondary"
-                  data-h2-margin="base(0)"
+                  className="mt-0"
                 >
                   {sections.improveSkills.title}
                 </TableOfContents.Heading>
               </div>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Where your top skills highlight your strengths, this section allows you to provide us with a bit of insight on the skills you're actively working to improve. These skills don't necessarily have to be weaknesses - if you’re interested in improving the skill through experience or training, include it here.",
@@ -284,12 +268,7 @@ export const SkillShowcase = ({
                     "Description of the skills to improve section and how to use it.",
                 })}
               </p>
-              <div
-                data-h2-margin="base(x1 0 x3 0)"
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
-                data-h2-gap="base(x.5)"
-              >
+              <div className="mb-18 grid gap-3 xs:grid-cols-2">
                 <SkillRankCard
                   editable
                   type="improve"
@@ -346,7 +325,7 @@ export const SkillShowcase = ({
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

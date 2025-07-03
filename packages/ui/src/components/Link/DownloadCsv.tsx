@@ -12,7 +12,7 @@ interface CsvHeader {
 export interface DownloadCsvProps
   extends Pick<
     LinkProps,
-    "color" | "mode" | "block" | "type" | "icon" | "size"
+    "color" | "mode" | "block" | "type" | "icon" | "size" | "fixedColor"
   > {
   headers: CsvHeader[];
   data: ICsvProps["datas"];
@@ -26,6 +26,7 @@ const DownloadCsv = ({
   mode = "solid",
   block = false,
   size = "md",
+  fixedColor,
   disabled,
   icon,
   headers,
@@ -41,7 +42,9 @@ const DownloadCsv = ({
     block,
     size,
     disabled,
+    fixedColor,
   });
+
   return (
     <CsvDownloader
       className={base()}

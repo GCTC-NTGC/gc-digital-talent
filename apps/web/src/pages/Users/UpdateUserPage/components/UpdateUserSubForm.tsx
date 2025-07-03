@@ -53,8 +53,8 @@ const UpdateUserSubForm = ({
   };
 
   return (
-    <section data-h2-wrapper="base(left, s)">
-      <Heading level="h3" size="h4" data-h2-margin-bottom="base(x1)">
+    <section className="max-w-2xl">
+      <Heading level="h3" size="h4">
         {intl.formatMessage({
           defaultMessage: "Update subject",
           id: "NuT+Rx",
@@ -64,9 +64,7 @@ const UpdateUserSubForm = ({
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(handleUpdateSub)}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
+          className="flex flex-col gap-y-6"
         >
           <Input
             id="sub"
@@ -88,7 +86,7 @@ const UpdateUserSubForm = ({
                 "Additional context describing the purpose of the users's 'subject' field.",
             })}
           />
-          <div data-h2-align-self="base(flex-start)">
+          <div className="self-start">
             <Submit />
           </div>
         </form>

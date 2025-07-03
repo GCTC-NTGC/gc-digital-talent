@@ -497,7 +497,7 @@ const CareerObjectiveSection = ({
             })}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {intl.formatMessage({
           defaultMessage: "Your career objective",
@@ -517,30 +517,16 @@ const CareerObjectiveSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1)"
-              >
+              <div className="flex flex-col gap-y-6">
                 {/* Classification subsection */}
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x.5)"
-                >
+                <div className="flex flex-col gap-y-3">
                   <p id={classificationDescriptionId}>
                     {intl.formatMessage(
                       employeeProfileMessages.targetClassification,
                     )}
                   </p>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column) p-tablet(row)"
-                  >
-                    <div
-                      data-h2-padding="p-tablet(0, x2, 0, 0)"
-                      data-h2-width="base(100%)"
-                    >
+                  <div className="flex flex-col xs:flex-row">
+                    <div className="mb-12 w-full">
                       <Select
                         id="classificationGroup"
                         label={intl.formatMessage(commonMessages.group)}
@@ -686,7 +672,7 @@ const CareerObjectiveSection = ({
                   </>
                 ) : (
                   // no community selected
-                  <Well data-h2-text-align="base(center)">
+                  <Well className="text-center">
                     {intl.formatMessage({
                       defaultMessage:
                         "Please select a functional community to continue.",
@@ -715,12 +701,7 @@ const CareerObjectiveSection = ({
                   wordLimit={wordCountLimits[locale]}
                   disabled={fetching}
                 />
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x1)"
-                  data-h2-align-items="base(center)"
-                  data-h2-flex-wrap="base(wrap)"
-                >
+                <div className="flex flex-wrap items-center gap-6">
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({

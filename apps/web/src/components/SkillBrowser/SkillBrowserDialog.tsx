@@ -201,7 +201,7 @@ const SkillBrowserDialog = ({
                   newTab
                   href={`${paths.skills()}#cant-find-a-skill`}
                   mode="inline"
-                  className="ml-auto"
+                  className="xs:ml-auto"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Can't find a skill?",

@@ -141,7 +141,7 @@ const RevertFinalDecisionDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+          <div className="grid gap-6">
             <p>
               {intl.formatMessage(
                 {
@@ -162,7 +162,7 @@ const RevertFinalDecisionDialog = ({
               )}
             </p>
             {!isQualified && (
-              <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
+              <div className="grid gap-3">
                 <p>
                   {intl.formatMessage({
                     defaultMessage: "For the following reason",
@@ -172,12 +172,12 @@ const RevertFinalDecisionDialog = ({
                   })}
                   {intl.formatMessage(commonMessages.dividingColon)}
                 </p>
-                <p data-h2-font-weight="base(bold)">
+                <p className="font-bold">
                   {getLocalizedName(status?.label, intl)}
                 </p>
               </div>
             )}
-            <p {...(!isQualified && { "data-h2-font-weight": "base(bold)" })}>
+            <p {...(!isQualified && { className: "font-bold" })}>
               {intl.formatMessage({
                 defaultMessage:
                   "Do you wish to revert this decision and set candidate status to “Under assessment”?",

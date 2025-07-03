@@ -24,7 +24,7 @@ export const THEMES: Record<ThemeKey, Record<ThemeMode, string>> = {
   },
 };
 
-interface WithThemeFromHydrogenConfig {
+interface WithThemeFromTailwindConfig {
   themes: Record<string, string>;
   defaultTheme: string;
 }
@@ -48,10 +48,10 @@ const ThemeSetter = ({ theme }: ThemeSetterProps) => {
 
 // Note: Type matches documentation
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
+const withThemeFromTailwind = <TRenderer extends Renderer = any>({
   themes,
   defaultTheme,
-}: WithThemeFromHydrogenConfig): DecoratorFunction<TRenderer> => {
+}: WithThemeFromTailwindConfig): DecoratorFunction<TRenderer> => {
   initializeThemeState(Object.keys(themes), defaultTheme);
   return (storyFn, context) => {
     const selectedTheme = pluckThemeFromContext(context);
@@ -81,7 +81,7 @@ const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
   };
 };
 
-const withHydrogenTheme = withThemeFromHydrogen({
+const withTailwindTheme = withThemeFromTailwind({
   themes: {
     [THEMES.default.light]: "default light",
     [THEMES.default.dark]: "default dark",
@@ -91,4 +91,4 @@ const withHydrogenTheme = withThemeFromHydrogen({
   defaultTheme: THEMES.default.light,
 });
 
-export default withHydrogenTheme;
+export default withTailwindTheme;

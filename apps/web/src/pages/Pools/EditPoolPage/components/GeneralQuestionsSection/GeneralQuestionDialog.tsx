@@ -119,11 +119,7 @@ const GeneralQuestionDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <input type="hidden" {...methods.register("id")} />
-              <div
-                data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-              >
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <TextArea
                     id="questionEn"
@@ -149,7 +145,7 @@ const GeneralQuestionDialog = ({
                   />
                 </div>
               </div>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer className="justify-start">
                 <Button
                   type="submit"
                   color="primary"

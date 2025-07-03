@@ -13,8 +13,5 @@
 
 /storybook-static/*
 
-# Hydrogen
-src/assets/css/hydrogen
-
 # Code Coverage
 src/js/tests/coverage

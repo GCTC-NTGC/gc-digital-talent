@@ -11,7 +11,7 @@ import {
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
 } from "@gc-digital-talent/graphql";
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
@@ -20,7 +20,6 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AssessmentStepTracker, {
   AssessmentStepTracker_CandidateFragment,
 } from "~/components/AssessmentStepTracker/AssessmentStepTracker";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
@@ -160,7 +159,7 @@ const ScreeningAndEvaluationPage = () => {
   }, [lastPage]);
 
   return (
-    <AdminContentWrapper table data-h2-margin-top="base(-x3)">
+    <Container size="full" className="my-6">
       <Pending fetching={fetching} error={error}>
         {data?.pool ? (
           <AssessmentStepTracker
@@ -173,7 +172,7 @@ const ScreeningAndEvaluationPage = () => {
           <ThrowNotFound />
         )}
       </Pending>
-    </AdminContentWrapper>
+    </Container>
   );
 };
 

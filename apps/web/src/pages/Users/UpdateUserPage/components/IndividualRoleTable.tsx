@@ -74,7 +74,7 @@ const IndividualRoleTable = ({
 
   return (
     <>
-      <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
+      <Heading className="mt-12 mb-3" level="h3" size="h4">
         {pageTitle}
       </Heading>
       <Table<Role>

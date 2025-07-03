@@ -1,10 +1,12 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import {
   Card,
   CardFlat,
+  Container,
   Flourish,
   Heading,
   Link,
@@ -34,13 +36,14 @@ import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 
-const getFlourishStyles = (isTop: boolean) => ({
-  "data-h2-position": "base(absolute)",
-  "data-h2-width": "base(25vw)",
-  "data-h2-location": isTop
-    ? "base(0, 0, auto, auto)"
-    : "base(auto, auto, 0, 0)",
-  "data-h2-z-index": "base(-1)",
+const flourish = tv({
+  base: "absolute z-[1] w-[25vw]",
+  variants: {
+    isTop: {
+      true: "top-0 right-0",
+      false: "bottom-0 left-0",
+    },
+  },
 });
 
 const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
@@ -137,40 +140,18 @@ export const Component = () => {
         crumbs={crumbs}
       />
 
-      <div
-        data-h2-background-color="base(background)"
-        data-h2-color="base(black)"
-        data-h2-border-bottom="base(1px solid black.50)"
-        data-h2-position="base(relative)"
-        data-h2-padding="base(x3, 0)"
-        className="overflow-hidden"
-      >
+      <div className="relative overflow-hidden py-18">
         <img
           alt=""
           src={mode === "dark" ? flourishTopDark : flourishTopLight}
-          {...getFlourishStyles(true)}
+          className={flourish({ isTop: true })}
         />
-        <div
-          data-h2-position="base(relative)"
-          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-          style={{ zIndex: 1 }}
-        >
-          <div>
-            <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
-          </div>
-          <Card data-h2-margin="base(x1, 0, 0, 0)">
-            <div
-              data-h2-display="p-tablet(flex)"
-              data-h2-gap="base(x3)"
-              data-h2-align-items="base(center)"
-              data-h2-justify-content="base(space-between)"
-            >
+        <Container className="relative z-[2]">
+          <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
+          <Card className="mt-6">
+            <div className="items-center justify-between gap-18 xs:flex">
               <div>
-                <Heading
-                  level="h2"
-                  size="h6"
-                  data-h2-margin="base(0, 0, x.5, 0)"
-                >
+                <Heading level="h2" size="h6" className="m-t0 mb-3">
                   {areOpportunitiesShowing
                     ? intl.formatMessage({
                         defaultMessage: "More opportunities are coming soon!",
@@ -204,10 +185,7 @@ export const Component = () => {
                       })}
                 </p>
               </div>
-              <div
-                data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)"
-                data-h2-flex-shrink="base(0)"
-              >
+              <div className="mt-6 shrink-0 xs:mt-0">
                 <Link
                   color="primary"
                   mode="solid"
@@ -219,23 +197,16 @@ export const Component = () => {
               </div>
             </div>
           </Card>
-        </div>
+        </Container>
         <img
           alt=""
           src={mode === "dark" ? flourishBottomDark : flourishBottomLight}
-          {...getFlourishStyles(false)}
+          className={flourish({ isTop: false })}
         />
       </div>
-      <div data-h2-background-color="base(white)" data-h2-padding="base(x3, 0)">
-        <div
-          data-h2-position="base(relative)"
-          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-        >
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
-            data-h2-gap="base(x2) p-tablet(x3)"
-          >
+      <div className="border-t border-t-black/50 bg-white py-18 text-black dark:border-t-white/50 dark:bg-gray-700 dark:text-white">
+        <Container className="relative">
+          <div className="grid gap-12 xs:grid-cols-2 xs:gap-18">
             <CardFlat
               color="secondary"
               title={intl.formatMessage(
@@ -312,7 +283,7 @@ export const Component = () => {
               </p>
             </CardFlat>
           </div>
-        </div>
+        </Container>
       </div>
       <Flourish />
     </Pending>

@@ -142,34 +142,25 @@ export const CreateWorkStreamForm = ({
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <Card data-h2-margin-bottom="base(x3)">
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
+        <Card className="mb-18">
+          <Heading
+            level="h2"
+            color="secondary"
+            icon={IdentificationIcon}
+            center
+            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
           >
-            <Heading
-              level="h2"
-              color="secondary"
-              icon={IdentificationIcon}
-              data-h2-margin="base(0, 0, x1.5, 0)"
-              data-h2-font-weight="base(400)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Work stream information",
-                id: "0bf24C",
-                description: "Heading for the 'create a work stream' form",
-              })}
-            </Heading>
-          </div>
+            {intl.formatMessage({
+              defaultMessage: "Work stream information",
+              id: "0bf24C",
+              description: "Heading for the 'create a work stream' form",
+            })}
+          </Heading>
           <BasicForm<FormValues>
             onSubmit={handleSubmit}
             options={{ defaultValues: { talentSearchable: true } }}
           >
-            <div
-              data-h2-display="base(grid)"
-              data-h2-gap="base(x1)"
-              data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-            >
+            <div className="grid gap-6 xs:grid-cols-2">
               <Input
                 id="name.en"
                 label={intl.formatMessage(adminMessages.nameEn)}
@@ -188,7 +179,7 @@ export const CreateWorkStreamForm = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
-              <div data-h2-grid-column="p-tablet(span 2)">
+              <div className="xs:col-span-2">
                 <p id="plainLanguageNameHelp">
                   {intl.formatMessage({
                     defaultMessage:
@@ -226,7 +217,7 @@ export const CreateWorkStreamForm = ({
                 }}
                 aria-describedby="plainLanguageNameHelp"
               />
-              <div data-h2-grid-column="p-tablet(span 2)">
+              <div className="xs:col-span-2">
                 <Select
                   id="community"
                   name="community"
@@ -240,44 +231,44 @@ export const CreateWorkStreamForm = ({
                   options={communityOptions}
                 />
               </div>
-              <SwitchInput
-                id="talentSearchable"
-                name="talentSearchable"
-                label={intl.formatMessage(commonMessages.onFindTalent)}
-              />
-              <Input
-                id="key"
-                name="key"
-                label={intl.formatMessage(adminMessages.key)}
-                context={intl.formatMessage({
-                  defaultMessage:
-                    "The 'key' is a string that uniquely identifies a work stream. It should be based on the work streams English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular work stream, so it cannot be changed later.",
-                  id: "uWZgYM",
-                  description:
-                    "Additional context describing the purpose of the work streams 'key' field.",
-                })}
-                type="text"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                  pattern: {
-                    value: /^[a-z]+(_[a-z]+)*$/i,
-                    message: intl.formatMessage({
-                      defaultMessage:
-                        "Please use only letters and underscores.",
-                      id: "r4sAvp",
-                      description: "Description for rule pattern on key field",
-                    }),
-                  },
-                }}
-              />
+              <div className="xs:col-span-2">
+                <SwitchInput
+                  id="talentSearchable"
+                  name="talentSearchable"
+                  label={intl.formatMessage(commonMessages.onFindTalent)}
+                />
+              </div>
+              <div className="xs:col-span-2">
+                <Input
+                  id="key"
+                  name="key"
+                  label={intl.formatMessage(adminMessages.key)}
+                  context={intl.formatMessage({
+                    defaultMessage:
+                      "The 'key' is a string that uniquely identifies a work stream. It should be based on the work streams English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular work stream, so it cannot be changed later.",
+                    id: "uWZgYM",
+                    description:
+                      "Additional context describing the purpose of the work streams 'key' field.",
+                  })}
+                  type="text"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                    pattern: {
+                      value: /^[a-z]+(_[a-z]+)*$/i,
+                      message: intl.formatMessage({
+                        defaultMessage:
+                          "Please use only letters and underscores.",
+                        id: "r4sAvp",
+                        description:
+                          "Description for rule pattern on key field",
+                      }),
+                    },
+                  }}
+                />
+              </div>
             </div>
             <CardSeparator />
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column) p-tablet(row)"
-              data-h2-gap="base(x1)"
-              data-h2-align-items="base(center)"
-            >
+            <div className="flex flex-col items-center gap-6 xs:flex-row">
               <Submit
                 text={intl.formatMessage({
                   defaultMessage: "Create work stream",

@@ -41,7 +41,7 @@ const ArchiveProcessDialog = ({
       <Dialog.Content>
         <Dialog.Header>{title}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 id: "JESKii",
@@ -54,7 +54,7 @@ const ArchiveProcessDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               id: "iA1Q8d",
               defaultMessage:

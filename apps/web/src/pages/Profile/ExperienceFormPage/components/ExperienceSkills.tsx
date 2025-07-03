@@ -74,19 +74,14 @@ const ExperienceSkills = ({
 
   return (
     <section>
-      <Heading
-        level="h3"
-        size="h4"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x3, 0, x1, 0)"
-      >
+      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Link featured skills",
           id: "/I7wrY",
           description: "Title for skills on Experience form",
         })}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Featured skills allow you to highlight how you used or developed particularly important skillsets during your experience. When applying to an opportunity on the platform, you’ll be asked to link the essential skills required for that job to your experiences in the same way, allowing you to build a holistic picture of your skill development. Skills you link during an application will also appear here for later editing.",
@@ -167,14 +162,8 @@ const ExperienceSkills = ({
         </Accordion.Item>
       </Accordion.Root>
       {derivedType ? (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x.5)"
-          data-h2-flex-direction="base(column)"
-          data-h2-flex-wrap="p-tablet(wrap)"
-          data-h2-margin-top="base(x1)"
-        >
-          <div data-h2-align-self="base(flex-end)">
+        <div className="mt-6 flex flex-col gap-3 xs:flex-wrap">
+          <div className="self-end">
             <SkillBrowserDialog
               trigger={{
                 label: intl.formatMessage({
@@ -195,12 +184,8 @@ const ExperienceSkills = ({
               onDelete={handleRemoveSkill}
             />
           ) : (
-            <Well>
-              <p
-                data-h2-margin-bottom="base(x.5)"
-                data-h2-text-align="base(center)"
-                data-h2-font-weight="base(bold)"
-              >
+            <Well className="mt-6 text-center">
+              <p className="mb-3 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "You haven't featured any skills on this experience yet.",
@@ -209,7 +194,7 @@ const ExperienceSkills = ({
                     "Primary message to user when no skills have been attached to experience.",
                 })}
               </p>
-              <p data-h2-text-align="base(center)">
+              <p>
                 {intl.formatMessage({
                   defaultMessage: `You can use the "Add a skill" button provided to feature skills here.`,
                   id: "kUkyuI",

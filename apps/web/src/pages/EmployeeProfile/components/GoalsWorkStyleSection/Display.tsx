@@ -21,12 +21,7 @@ const Display = ({
   );
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-      data-h2-overflow-wrap="base(anywhere)"
-    >
+    <div className="flex flex-col gap-6 wrap-anywhere">
       {hasAnyEmptyFields({
         aboutYou,
         learningGoals,
@@ -47,13 +42,13 @@ const Display = ({
       >
         {aboutYou ?? nullField}
       </ToggleForm.FieldDisplay>
-      <CardSeparator data-h2-margin="base(0)" />
+      <CardSeparator space="none" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
         {learningGoals ?? nullField}
       </ToggleForm.FieldDisplay>
-      <CardSeparator data-h2-margin="base(0)" />
+      <CardSeparator space="none" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >

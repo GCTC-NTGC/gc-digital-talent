@@ -19,19 +19,19 @@ import {
   PoolCandidatePoolNameOrderByInput,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidateSearchInput,
-  QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
-  QueryPoolCandidatesPaginatedOrderByUserColumn,
+  QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
   CandidateSuspendedFilter,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
   LocalizedProvinceOrTerritory,
-  QueryPoolCandidatesPaginatedOrderByPoolColumn,
   Classification,
   LocalizedFinalDecision,
   InputMaybe,
   LocalizedString,
   ClaimVerificationSort,
+  QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
+  QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -222,7 +222,7 @@ export const bookmarkHeader = (intl: IntlShape) => (
 function transformSortStateToOrderByClause(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
+): QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
@@ -269,7 +269,8 @@ function transformSortStateToOrderByClause(
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       pool: {
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: columnName as QueryPoolCandidatesPaginatedOrderByPoolColumn,
+        column:
+          columnName as QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
       },
     };
   }
@@ -286,7 +287,8 @@ function transformSortStateToOrderByClause(
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: {
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: columnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
+        column:
+          columnName as QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
       },
     };
   }
@@ -303,7 +305,7 @@ function transformSortStateToOrderByClause(
       user: undefined,
     };
   }
-  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
+  // input cannot be optional for QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause
   // default final sort is column candidateName,
 
   return {
@@ -311,7 +313,8 @@ function transformSortStateToOrderByClause(
     order: SortOrder.Asc,
     user: {
       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-      column: "FIRST_NAME" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+      column:
+        "FIRST_NAME" as QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
     },
   };
 }
@@ -320,7 +323,9 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] | undefined {
+):
+  | QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[]
+  | undefined {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
   // handle sort in orderByClaimVerification

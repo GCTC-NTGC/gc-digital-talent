@@ -29,7 +29,7 @@ const DeleteUserSection = ({ user, onDeleteUser }: DeleteUserSectionProps) => {
           description: "Heading for section to delete a user",
         })}
       </Heading>
-      <p data-h2-padding="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             'This will change the status of a user to "Archived". This will prevent the user from appearing anywhere on the platform. <strong>This action cannot be undone</strong>.',

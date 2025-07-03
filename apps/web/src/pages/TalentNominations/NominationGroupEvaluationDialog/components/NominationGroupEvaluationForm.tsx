@@ -91,17 +91,9 @@ const NominationGroupEvaluationForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1.25)"
-        >
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x0.5)"
-          >
-            <p>
+        <div className="flex flex-col gap-y-6">
+          <div>
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "Ready to submit the evaluation of this nomination? Please complete the form for the selected nomination options.",
@@ -110,7 +102,7 @@ const NominationGroupEvaluationForm = ({
                   "Introduction for form to evaluate a nomination group",
               })}
             </p>
-            <p>
+            <p className="mb-3">
               {intl.formatMessage(
                 {
                   defaultMessage: "{nomineeName} has been nominated for",
@@ -149,7 +141,7 @@ const NominationGroupEvaluationForm = ({
           </div>
           {isNominatedForAdvancement ? (
             <>
-              <Separator data-h2-margin="base(0)" decorative />
+              <Separator space="none" decorative />
               <AdvancementSection
                 talentNominationGroupQuery={talentNominationGroup}
               />
@@ -157,7 +149,7 @@ const NominationGroupEvaluationForm = ({
           ) : null}
           {isNominatedForLateralMovement ? (
             <>
-              <Separator data-h2-margin="base(0)" decorative />
+              <Separator space="none" decorative />
               <LateralMovementSection
                 talentNominationGroupQuery={talentNominationGroup}
                 talentNominationGroupOptionsQuery={talentNominationGroupOptions}
@@ -166,7 +158,7 @@ const NominationGroupEvaluationForm = ({
           ) : null}
           {isNominatedForDevelopmentPrograms ? (
             <>
-              <Separator data-h2-margin="base(0)" decorative />
+              <Separator space="none" decorative />
               <DevelopmentProgramsSection
                 talentNominationGroupQuery={talentNominationGroup}
               />

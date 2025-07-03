@@ -145,7 +145,7 @@ const WorkTasksSection = ({
             sectionTitle={sectionMetadata.title}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
@@ -157,12 +157,7 @@ const WorkTasksSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                data-h2-margin-bottom="base(x1)"
-              >
+              <div className="mb-6 grid gap-6 sm:grid-cols-2">
                 <RichTextInput
                   id="YourWorkEn"
                   label={intl.formatMessage({

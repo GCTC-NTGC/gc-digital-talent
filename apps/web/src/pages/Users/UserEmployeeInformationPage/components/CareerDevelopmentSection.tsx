@@ -27,6 +27,7 @@ import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
 } from "~/components/CareerDevelopmentPreferences/utils";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 export const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopment on EmployeeProfile {
@@ -222,31 +223,20 @@ const CareerDevelopmentSection = ({
   ).map((interest) => String(interest.value));
 
   return (
-    <Card
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-    >
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.lateralMoveInterest}
-        </span>
+    <Card className="flex flex-col gap-6">
+      <FieldDisplay label={careerDevelopmentMessages.lateralMoveInterest}>
         {empty(employeeProfile.lateralMoveInterest)
           ? intl.formatMessage(commonMessages.notProvided)
           : lateralMoveInterestMessage}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.lateralMoveTimeFrame}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay label={careerDevelopmentMessages.lateralMoveTimeFrame}>
         {employeeProfile.lateralMoveTimeFrame
           ? employeeProfile.lateralMoveTimeFrame.label.localized
           : intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.lateralMoveOrganizationType}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={careerDevelopmentMessages.lateralMoveOrganizationType}
+      >
         {employeeProfile.lateralMoveOrganizationType ? (
           <Ul unStyled space="md">
             {unpackMaybes(
@@ -282,28 +272,21 @@ const CareerDevelopmentSection = ({
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
-      </div>
+      </FieldDisplay>
       <CardSeparator space="xs" />
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.promotionMoveInterest}
-        </span>
+      <FieldDisplay label={careerDevelopmentMessages.promotionMoveInterest}>
         {empty(employeeProfile.promotionMoveInterest)
           ? intl.formatMessage(commonMessages.notProvided)
           : promotionMoveInterestMessage}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.promotionMoveTimeFrame}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay label={careerDevelopmentMessages.promotionMoveTimeFrame}>
         {employeeProfile.promotionMoveTimeFrame
           ? employeeProfile.promotionMoveTimeFrame.label.localized
           : intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.promotionMoveOrganizationType}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={careerDevelopmentMessages.promotionMoveOrganizationType}
+      >
         {employeeProfile.promotionMoveOrganizationType ? (
           <Ul unStyled space="md">
             {unpackMaybes(
@@ -339,12 +322,11 @@ const CareerDevelopmentSection = ({
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
-      </div>
+      </FieldDisplay>
       <CardSeparator space="xs" />
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.learningOpportunitiesInterest}
-        </span>
+      <FieldDisplay
+        label={careerDevelopmentMessages.learningOpportunitiesInterest}
+      >
         {employeeProfile.learningOpportunitiesInterest ? (
           <Ul unStyled space="md">
             {unpackMaybes(
@@ -383,20 +365,16 @@ const CareerDevelopmentSection = ({
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
-      </div>
+      </FieldDisplay>
       <CardSeparator space="xs" />
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.eligibleRetirementYearKnown}
-        </span>
+      <FieldDisplay
+        label={careerDevelopmentMessages.eligibleRetirementYearKnown}
+      >
         {empty(employeeProfile.eligibleRetirementYearKnown)
           ? intl.formatMessage(commonMessages.notProvided)
           : eligibleRetirementYearKnownMessage}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.eligibleRetirementYear}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay label={careerDevelopmentMessages.eligibleRetirementYear}>
         {employeeProfile.eligibleRetirementYear
           ? formatDate({
               date: formDateStringToDate(
@@ -406,22 +384,16 @@ const CareerDevelopmentSection = ({
               intl,
             })
           : intl.formatMessage(commonMessages.notProvided)}
-      </div>
+      </FieldDisplay>
       <CardSeparator space="xs" />
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.mentorshipStatus}
-        </span>
+      <FieldDisplay label={careerDevelopmentMessages.mentorshipStatus}>
         {employeeProfile.mentorshipStatus
           ? intl.formatMessage(
               displayMentorshipStatus(employeeProfile.mentorshipStatus),
             )
           : intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.mentorshipInterest}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay label={careerDevelopmentMessages.mentorshipInterest}>
         {employeeProfile.mentorshipInterest ? (
           <Ul unStyled space="md">
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
@@ -442,28 +414,19 @@ const CareerDevelopmentSection = ({
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
-      </div>
+      </FieldDisplay>
       <CardSeparator space="xs" />
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.execInterest}
-        </span>
+      <FieldDisplay label={careerDevelopmentMessages.execInterest}>
         {empty(employeeProfile.execInterest)
           ? intl.formatMessage(commonMessages.notProvided)
           : execInterestMessage}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.execCoachingStatus}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay label={careerDevelopmentMessages.execCoachingStatus}>
         {intl.formatMessage(
           displayExecCoachingStatus(employeeProfile.execCoachingStatus),
         )}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {careerDevelopmentMessages.execCoachingInterest}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay label={careerDevelopmentMessages.execCoachingInterest}>
         {employeeProfile.execCoachingInterest ? (
           <Ul unStyled space="md">
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
@@ -484,7 +447,7 @@ const CareerDevelopmentSection = ({
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
-      </div>
+      </FieldDisplay>
     </Card>
   );
 };

@@ -101,7 +101,7 @@ const ReinstateCandidateDialog = ({
       <Dialog.Content>
         <Dialog.Header>{intl.formatMessage(title)}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -120,18 +120,18 @@ const ReinstateCandidateDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "For the following reason",
               id: "4cN/oN",
               description: "Lead in text for a decisions reason",
             })}
             {intl.formatMessage(commonMessages.dividingColon)}
-            <span data-h2-font-weight="base(700)">
+            <span className="font-bold">
               {getLocalizedName(candidate.removalReason?.label, intl)}
             </span>
           </p>
-          <p data-h2-margin="base(x1 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 'Do you wish to revert this decision and set the candidate status to "Under assessment"?',
@@ -140,7 +140,6 @@ const ReinstateCandidateDialog = ({
             })}
           </p>
           <FormChangeNotifyWell />
-
           <Dialog.Footer>
             <Button
               color="primary"

@@ -152,20 +152,8 @@ const AdvancedFilters = () => {
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0 x.5)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-margin="base(x2 0 x.5 0)"
-      >
-        <Heading
-          level="h3"
-          size="h6"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(0)"
-        >
+      <div className="mt-12 mb-3 flex flex-wrap items-center justify-between gap-x-3">
+        <Heading level="h3" size="h6" className="m-0 font-bold">
           {intl.formatMessage({
             defaultMessage: "Advanced filters",
             id: "eozWFc",

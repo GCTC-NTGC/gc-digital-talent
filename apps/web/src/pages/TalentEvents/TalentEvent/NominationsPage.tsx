@@ -229,15 +229,10 @@ const TalentEventNominationsPage = () => {
 
   return (
     <>
-      <Heading
-        icon={EnvelopeOpenIcon}
-        color="secondary"
-        data-h2-margin-top="base(0)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <Heading icon={EnvelopeOpenIcon} color="secondary" className="mt-0 mb-6">
         {intl.formatMessage(messages.talentNominations)}
       </Heading>
-      <p data-h2-margin-bottom="base(x1.5)">
+      <p className="mb-9">
         {intl.formatMessage({
           defaultMessage:
             "View and manage all the nominations received for this talent management event.",

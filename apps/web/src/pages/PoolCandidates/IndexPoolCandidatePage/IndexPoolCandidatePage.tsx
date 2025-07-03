@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending } from "@gc-digital-talent/ui";
+import { Container, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
@@ -15,7 +15,6 @@ import SEO from "~/components/SEO/SEO";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
@@ -62,9 +61,9 @@ export const IndexPoolCandidatePage = () => {
         })}
         description={formattedSubTitle}
       />
-      <AdminContentWrapper table>
+      <Container className="my-18" size="full">
         <Pending fetching={fetching} error={error}>
-          <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
+          <p className="my-6">{formattedSubTitle}</p>
           <PoolCandidatesTable
             hidePoolFilter
             initialFilterInput={{
@@ -82,7 +81,7 @@ export const IndexPoolCandidatePage = () => {
             title={pageTitle}
           />
         </Pending>
-      </AdminContentWrapper>
+      </Container>
     </>
   );
 };

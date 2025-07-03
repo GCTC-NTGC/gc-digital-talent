@@ -23,21 +23,15 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
 
   return (
     <>
-      <Heading level="h4" size="h6" data-h2-margin-top="base(x2)">
+      <Heading level="h4" size="h6" className="mt-12">
         {getLocalizedName(skill.name, intl)}
       </Heading>
       {skill.description && (
-        <p data-h2-margin-bottom="base(x1)">
-          {getLocalizedName(skill.description, intl)}
-        </p>
+        <p className="mb-6">{getLocalizedName(skill.description, intl)}</p>
       )}
-      <Separator data-h2-background-color="base(tertiary)" space="sm" />
+      <Separator className="bg-error" space="sm" />
       {skillExperiences.length ? (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+        <div className="flex flex-col gap-y-3">
           {skillExperiences.map((experience) => (
             <ExperienceCard
               id={`skill-${skill.id}-experience-${experience.id}`}

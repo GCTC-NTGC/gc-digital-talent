@@ -10,13 +10,12 @@
   "packageManager": "pnpm@10.5.2",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "h2-build && turbo run build --filter @gc-digital-talent/web",
-    "build:fresh": "h2-build && turbo run build --filter @gc-digital-talent/web --force",
-    "build:css": "h2-build",
+    "build": "turbo run build --filter @gc-digital-talent/web",
+    "build:fresh": "turbo run build --filter @gc-digital-talent/web --force",
     "codegen": "turbo run codegen --filter @gc-digital-talent/graphql",
     "clean": "turbo run clean",
-    "dev": "h2-build && turbo run dev --filter @gc-digital-talent/web",
-    "dev:fresh": "h2-build && turbo run dev --filter @gc-digital-talent/web --force",
+    "dev": "turbo run dev --filter @gc-digital-talent/web",
+    "dev:fresh": "turbo run dev --filter @gc-digital-talent/web --force",
     "check-intl:i18n": "turbo run check-intl --filter @gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml",
     "check-intl:web": "turbo run check-intl --filter @gc-digital-talent/i18n -- --dir $INIT_CWD --en ./apps/web/src/lang/en.json --fr ./apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ./apps/web/src/lang/untranslated.json --whitelist ./apps/web/src/lang/whitelist.yml",
     "check-intl-merge:i18n": "turbo run check-intl --filter @gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml --merge-fr ./packages/i18n/src/lang/newTranslations.json",
@@ -45,7 +44,6 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
-    "@hydrogen-css/hydrogen": "2.1.0",
     "prettier-plugin-tailwindcss": "^0.6.13",
     "turbo": "^2.5.4"
   }

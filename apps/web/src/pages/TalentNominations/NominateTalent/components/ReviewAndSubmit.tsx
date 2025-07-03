@@ -63,7 +63,7 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
         <SubHeading level="h2" icon={DocumentMagnifyingGlassIcon}>
           {intl.formatMessage(pageTitles.reviewAndSubmit)}
         </SubHeading>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "Please review all the information collected as a part of your nomination form before submitting. Each section contains a link to edit the associated step, should you need to make changes.",

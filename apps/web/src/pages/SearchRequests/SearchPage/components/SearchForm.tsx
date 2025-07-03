@@ -6,6 +6,8 @@ import { ReactNode, useState, useEffect } from "react";
 
 import {
   Button,
+  Card,
+  Container,
   Heading,
   Link,
   Loading,
@@ -44,7 +46,7 @@ const testId = (chunks: ReactNode) => (
 );
 
 const styledCount = (chunks: ReactNode) => (
-  <span data-h2-font-weight="base(700)" data-h2-color="base(secondary.dark)">
+  <span className="font-bold text-primary-500 dark:text-primary-300">
     {chunks}
   </span>
 );
@@ -169,24 +171,12 @@ export const SearchForm = ({
     );
 
   return (
-    <div
-      data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      data-h2-margin-bottom="base(x3)"
-    >
+    <Container className="my-18">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr) p-tablet(1fr x15)"
-            data-h2-gap="base(x2)"
-          >
+          <div className="grid gap-12 xs:grid-cols-[1fr_22rem]">
             <div>
-              <Heading
-                data-h2-margin="base(x3, 0, x1, 0)"
-                data-h2-font-weight="base(400)"
-                level="h2"
-                size="h3"
-              >
+              <Heading level="h2" size="h3" className="font-normal">
                 {intl.formatMessage({
                   defaultMessage: "How to use this tool",
                   id: "HvD7jI",
@@ -194,7 +184,7 @@ export const SearchForm = ({
                     "Heading displayed in the How To area of the hero section of the Search page.",
                 })}
               </Heading>
-              <p>
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. All candidates in pools were assessed and successfully qualified.",
@@ -203,7 +193,7 @@ export const SearchForm = ({
                     "Content displayed in the find talent page explaining the page and what it offers to users.",
                 })}
               </p>
-              <p data-h2-margin-top="base(x.5)">
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Use the filters to specify your requirements. We will show you an estimated number of qualified candidates who match your criteria as you enter your information. Select “Request candidates” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
@@ -218,7 +208,7 @@ export const SearchForm = ({
                 workStreams={workStreams}
               />
             </div>
-            <div data-h2-display="base(none) p-tablet(block)">
+            <div className="hidden sm:block">
               <EstimatedCandidates
                 candidateCount={candidateCount}
                 updatePending={fetching}
@@ -255,7 +245,7 @@ export const SearchForm = ({
               <SearchFilterAdvice filters={applicantFilter} />
               {results?.length && candidateCount > 0 ? (
                 <>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     <Button
                       color="secondary"
                       type="submit"
@@ -271,10 +261,7 @@ export const SearchForm = ({
                       })}
                     </Button>
                   </p>
-                  <p
-                    data-h2-font-size="base(h4)"
-                    data-h2-margin="base(x1.5, 0, x.25, 0)"
-                  >
+                  <p className="mt-9 mb-1.5 text-2xl lg:text-3xl">
                     {intl.formatMessage({
                       defaultMessage: "Or request candidates by pool",
                       id: "l1f8zy",
@@ -283,23 +270,10 @@ export const SearchForm = ({
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
                   </p>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                  >
+                  <div className="flex flex-col gap-y-6">
                     {selectedClassificationIsIT1 && (
-                      <div
-                        data-h2-background-color="base(foreground)"
-                        data-h2-shadow="base(larger)"
-                        data-h2-border-left="base(x.5 solid tertiary)"
-                        data-h2-margin="base(x1, 0, 0, 0)"
-                        data-h2-radius="base(0, s, s, 0)"
-                        data-h2-padding="base(x1)"
-                      >
-                        <p
-                          data-h2-font-size="base(h6)"
-                          data-h2-font-weight="base(700)"
-                        >
+                      <Card className="rounded-l-none border-l-12 border-l-error">
+                        <p className="text-lg font-bold lg:text-xl">
                           {intl.formatMessage({
                             defaultMessage:
                               "Have you considered hiring an Indigenous IT apprentice?",
@@ -308,11 +282,7 @@ export const SearchForm = ({
                               "Title for IT Apprenticeship Program for Indigenous Peoples search card",
                           })}
                         </p>
-                        <p
-                          data-h2-margin="base(x.5, 0, x1, 0)"
-                          data-h2-display="base(flex)"
-                          data-h2-gap="base(0, x.5)"
-                        >
+                        <p className="mt-5 mb-6 flex gap-x-3">
                           {intl.formatMessage({
                             defaultMessage:
                               "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers Indigenous peoples face when it comes to finding employment in the Government of Canada's digital workforce. Become a hiring partner today and discover how you can strengthen your team with Indigenous IT talent and help build a more inclusive public service. Your participation contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
@@ -322,14 +292,7 @@ export const SearchForm = ({
                           })}
                         </p>
                         <Separator space="sm" />
-                        <div
-                          data-h2-display="base(flex)"
-                          data-h2-flex-direction="base(row)"
-                          data-h2-flex-wrap="base(wrap)"
-                          data-h2-align-items="base(center)"
-                          data-h2-gap="base(x1)"
-                          data-h2-margin="base(x1, 0, 0, 0)"
-                        >
+                        <div className="mt-6 flex flex-wrap items-center gap-6">
                           <Link
                             mode="solid"
                             color="error"
@@ -355,7 +318,7 @@ export const SearchForm = ({
                             })}
                           </Link>
                         </div>
-                      </div>
+                      </Card>
                     )}
                     {results.map(({ pool, candidateCount: resultsCount }) => (
                       <SearchResultCard
@@ -373,7 +336,7 @@ export const SearchForm = ({
           )}
         </form>
       </FormProvider>
-    </div>
+    </Container>
   );
 };
 

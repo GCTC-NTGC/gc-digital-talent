@@ -1,6 +1,7 @@
 import { useState, Fragment } from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import { tv } from "tailwind-variants";
 
 import {
   FragmentType,
@@ -33,6 +34,15 @@ import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
 import DownloadButton from "../MoreActions/DownloadButton";
+
+const questionHeading = tv({
+  base: "text-base lg:text-base",
+  variants: {
+    first: {
+      true: "mt-0",
+    },
+  },
+});
 
 export const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationInformation_PoolFragment on Pool {
@@ -154,31 +164,16 @@ const ApplicationInformation = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="l-tablet(flex-end)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
         {/** Note: Change to `margin-bottom` when application screening is added  */}
-        <Heading
-          icon={UserCircleIcon}
-          color="secondary"
-          data-h2-margin="base(0)"
-        >
+        <Heading icon={UserCircleIcon} color="secondary" className="m-0">
           {intl.formatMessage({
             defaultMessage: "Application information",
             id: "R/z71a",
             description: "Heading for the information of an application",
           })}
         </Heading>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(flex-end)"
-          data-h2-gap="base(0 x.5)"
-        >
+        <div className="flex items-end gap-3">
           {application && snapshot && (
             <DownloadButton id={application.id} userId={snapshot.id} />
           )}
@@ -201,7 +196,7 @@ const ApplicationInformation = ({
           </Button>
         </div>
       </div>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -250,10 +245,7 @@ const ApplicationInformation = ({
                   <Heading
                     level="h4"
                     size="h6"
-                    data-h2-font-size="base(body)"
-                    {...(index === 0 && {
-                      "data-h2-margin-top": "base(0)",
-                    })}
+                    className={questionHeading({ first: index === 0 })}
                   >
                     {getLocalizedName(
                       response.screeningQuestion?.question,
@@ -277,10 +269,7 @@ const ApplicationInformation = ({
                   <Heading
                     level="h4"
                     size="h6"
-                    data-h2-font-size="base(body)"
-                    {...(index === 0 && {
-                      "data-h2-margin-top": "base(0)",
-                    })}
+                    className={questionHeading({ first: index === 0 })}
                   >
                     {getLocalizedName(response.generalQuestion?.question, intl)}
                   </Heading>
@@ -394,7 +383,7 @@ const ApplicationInformation = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-bottom="base(x1)">
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage: "The applicant has confirmed that:",
                 id: "iYD0eJ",
@@ -413,7 +402,7 @@ const ApplicationInformation = ({
                 {intl.formatMessage(applicationMessages.confirmationTrue)}
               </li>
             </Ul>
-            <Heading level="h4" size="h6" data-h2-font-size="base(body)">
+            <Heading level="h4" size="h6" className="text-base lg:text-base">
               {intl.formatMessage({
                 defaultMessage: "Signed",
                 id: "fEcEv3",

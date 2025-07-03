@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 
 import {
   commonMessages,
@@ -11,6 +12,16 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
+
+const grid = tv({
+  base: "grid gap-6 xs:grid-cols-2",
+  variants: {
+    four: {
+      true: "sm:grid-cols-4",
+      false: "sm:grid-cols-3",
+    },
+  },
+});
 
 const Display = ({
   pool,
@@ -25,20 +36,8 @@ const Display = ({
 
   return (
     <>
-      {subtitle && <p data-h2-margin-bottom="base(x1)">{subtitle}</p>}
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        {...(location?.[locale]
-          ? {
-              "data-h2-grid-template-columns":
-                "p-tablet(repeat(2, 1fr)) l-tablet(repeat(4, 1fr))",
-            }
-          : {
-              "data-h2-grid-template-columns":
-                "p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))",
-            })}
-      >
+      {subtitle && <p className="mb-6">{subtitle}</p>}
+      <div className={grid({ four: !!location?.[locale] })}>
         <ToggleForm.FieldDisplay
           hasError={!language}
           label={intl.formatMessage(processMessages.languageRequirement)}

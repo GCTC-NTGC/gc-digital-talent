@@ -14,9 +14,7 @@ import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/
 import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
 import frCompiled from "../apps/web/src/lang/frCompiled.json";
 
-import "../apps/web/src/assets/css/hydrogen.css";
-import "../apps/web/src/assets/css/app.css";
-import "../apps/web/src/assets/css/tailwind.css";
+import "../src/assets/css/tailwind.css";
 
 const messages = {
   en: null,
