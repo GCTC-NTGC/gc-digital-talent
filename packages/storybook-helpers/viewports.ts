@@ -17,7 +17,7 @@ type DimensionTuple = [number, number]; // [width, height];
 
 /**
  *
- * Widths come from `hydrogen.config.json` media key ({x}em * 16 = {x}px)
+ * Widths come from `tailwind.css` media key ({x}em * 16 = {x}px)
  * Height from most popular screen sizes, matching closest width value
  *
  * */

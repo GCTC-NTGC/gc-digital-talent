@@ -7,7 +7,6 @@ import tailwindcss from "@tailwindcss/vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
-import { hydrogen_watch } from "@hydrogen-css/hydrogen";
 
 dotenv.config({ path: "./.env" });
 
@@ -64,14 +63,6 @@ const gitVersionPlugin = () => {
     }),
   };
 };
-
-const hydrogenPlugin = (): Plugin => ({
-  name: "hydrogen-vite-plugin:serve",
-  apply: "serve",
-  buildStart() {
-    hydrogen_watch();
-  },
-});
 
 export default defineConfig(({ command }) => ({
   publicDir: "./public",
@@ -135,7 +126,6 @@ export default defineConfig(({ command }) => ({
       include: "**/*.{tsx}",
     }),
     gitVersionPlugin(),
-    hydrogenPlugin(),
     tailwindcss(),
     createHtmlPlugin({
       entry: "src/main.tsx",

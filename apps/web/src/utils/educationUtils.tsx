@@ -248,7 +248,7 @@ export const getEducationRequirementOptions = (
               "Radio group option for education requirement filter in application education form.",
           }),
           contentBelow: (
-            <p data-h2-margin="base(0, 0, x.5, 0)">
+            <p className="pb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "Combination of experience, training or education.",
@@ -301,7 +301,7 @@ export const getEducationRequirementOptions = (
               }),
           contentBelow: (
             <>
-              <p data-h2-margin-bottom="base(x.5)">
+              <p className="mb-3">
                 {intl.formatMessage(applicationMessages.appliedWorkExperience)}
               </p>
               <Ul space="md">
