@@ -207,7 +207,7 @@ const AssessmentSummary = ({
 
   return (
     <>
-      <table className="bg-gray-100 dark:bg-gray-700">
+      <table className="w-full bg-gray-100 dark:bg-gray-700">
         <caption className="sr-only">
           {intl.formatMessage({
             defaultMessage: "Essential criteria",
@@ -227,7 +227,7 @@ const AssessmentSummary = ({
         <TableBody data={educationEssentialSkillsTableData} />
       </table>
       {nonessentialSkillsTableData.length > 0 && (
-        <table className="mt-6 bg-gray-100 dark:bg-gray-700">
+        <table className="mt-6 w-full bg-gray-100 dark:bg-gray-700">
           <caption className="sr-only">
             {intl.formatMessage({
               defaultMessage: "Asset criteria",
