@@ -263,7 +263,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                         array_push($usersSkillsIds, $skill['id']);
                     }
                 }
-                array_unique($usersSkillsIds);
+                $usersSkillsIds = array_unique($usersSkillsIds);
 
                 foreach ($poolsSkillsIds as $poolsSkillId) {
                     // execute if the skill was claimed by the user
@@ -279,14 +279,15 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
                             // search for the iterated skill, returns array of one or empty
                             // array_values reindexes the array
-                            $skillFoundArray = array_values(
-                                array_filter(
-                                    $snapshotExperience['skills'],
-                                    function ($skill) use ($poolsSkillId) {
-                                        return $skill['id'] === $poolsSkillId;
-                                    }
-                                )
-                            );
+                            $skillFoundArray =
+                                array_values(
+                                    array_filter(
+                                        $snapshotExperience['skills'],
+                                        function ($skill) use ($poolsSkillId) {
+                                            return $skill['id'] === $poolsSkillId;
+                                        }
+                                    )
+                                );
 
                             // if not empty, append onto accumulator
                             if (! empty($skillFoundArray)) {
