@@ -61,7 +61,7 @@
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.58.1",
     "react-intl": "^7.1.11",
-    "react-router": "^7.6.2",
+    "react-router": "^7.6.3",
     "react-to-print": "^3.1.1",
     "tailwindcss": "^4.1.10",
     "tailwind-variants": "^1.0.0",
