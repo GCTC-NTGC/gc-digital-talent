@@ -70,10 +70,13 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                 .filter((c) => c.getCanHide())
                 .map((column) => {
                   const header = getColumnHeader(column, "columnDialogHeader");
+                  const id = `toggle-${column.id}`;
                   return (
                     <div key={column.id} className="my-0.75">
                       <Field.Label className="flex items-center gap-x-1.5 text-base">
                         <input
+                          id={id}
+                          name={id}
                           {...{
                             type: "checkbox",
                             checked: column.getIsVisible(),
