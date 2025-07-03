@@ -292,12 +292,18 @@ const JobDetailsSection = ({
     );
   };
 
+  const initialFormValues = initialDataToFormValues(initialData);
   const methods = useForm<FormValues>({
-    defaultValues: initialDataToFormValues(initialData),
+    defaultValues: initialFormValues,
   });
   const { watch, resetField, handleSubmit, reset: resetForm } = methods;
 
   const watchGroupSelection = watch("classificationGroup");
+
+  const handleOpenChange = (open: boolean) => {
+    resetForm(initialFormValues);
+    setIsEditing(open);
+  };
 
   /**
    * Reset classification level when group changes
@@ -340,7 +346,6 @@ const JobDetailsSection = ({
             }),
           );
           setIsEditing(false);
-          resetForm();
         } else {
           handleError();
         }
@@ -349,7 +354,7 @@ const JobDetailsSection = ({
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root open={isEditing} onOpenChange={handleOpenChange}>
       <Trigger className="flex flex-row justify-end">
         {intl.formatMessage({
           defaultMessage: "Edit job details",
@@ -546,12 +551,7 @@ const JobDetailsSection = ({
                   isSubmitting={fetching}
                 />
                 <ToggleSection.Close>
-                  <Button
-                    mode="inline"
-                    type="button"
-                    color="warning"
-                    onClick={() => resetForm()}
-                  >
+                  <Button mode="inline" type="button" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </ToggleSection.Close>

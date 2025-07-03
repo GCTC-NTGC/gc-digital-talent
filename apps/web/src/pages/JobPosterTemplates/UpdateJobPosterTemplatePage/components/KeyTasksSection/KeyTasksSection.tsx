@@ -119,10 +119,16 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
     );
   };
 
+  const initialFormValues = initialDataToFormValues(initialData);
   const methods = useForm<FormValues>({
-    defaultValues: initialDataToFormValues(initialData),
+    defaultValues: initialFormValues,
   });
   const { handleSubmit, reset: resetForm } = methods;
+
+  const handleOpenChange = (open: boolean) => {
+    resetForm(initialFormValues);
+    setIsEditing(open);
+  };
 
   const handleSave: SubmitHandler<FormValues> = async (
     formValues: FormValues,
@@ -143,7 +149,6 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
             }),
           );
           setIsEditing(false);
-          resetForm();
         } else {
           handleError();
         }
@@ -152,7 +157,7 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root open={isEditing} onOpenChange={handleOpenChange}>
       <Trigger className="flex flex-row justify-end">
         {intl.formatMessage({
           defaultMessage: "Edit key tasks",
@@ -216,12 +221,7 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
                   isSubmitting={fetching}
                 />
                 <ToggleSection.Close>
-                  <Button
-                    mode="inline"
-                    type="button"
-                    color="warning"
-                    onClick={() => resetForm()}
-                  >
+                  <Button mode="inline" type="button" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </ToggleSection.Close>

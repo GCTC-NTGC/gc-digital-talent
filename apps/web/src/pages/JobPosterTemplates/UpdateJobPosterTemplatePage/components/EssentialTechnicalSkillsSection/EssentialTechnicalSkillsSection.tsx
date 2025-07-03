@@ -159,11 +159,18 @@ const EssentialTechnicalSkillsSection = ({
     );
   };
 
+  const initialFormValues = initialDataToFormValues(initialData);
   const methods = useForm<FormValues>({
-    defaultValues: initialDataToFormValues(initialData),
+    defaultValues: initialFormValues,
   });
   const { watch, handleSubmit, resetField, reset: resetForm } = methods;
+
   const watchIsSpecialNoteRequired = watch("isSpecialNoteRequired");
+
+  const handleOpenChange = (open: boolean) => {
+    resetForm(initialFormValues);
+    setIsEditing(open);
+  };
 
   /**
    * Reset fields when they disappear
@@ -202,7 +209,6 @@ const EssentialTechnicalSkillsSection = ({
             }),
           );
           setIsEditing(false);
-          resetForm();
         } else {
           handleError();
         }
@@ -211,7 +217,7 @@ const EssentialTechnicalSkillsSection = ({
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root open={isEditing} onOpenChange={handleOpenChange}>
       <Trigger className="flex flex-row justify-end">
         {intl.formatMessage({
           defaultMessage: "Edit essential technical skills",
@@ -291,12 +297,7 @@ const EssentialTechnicalSkillsSection = ({
                   isSubmitting={fetching}
                 />
                 <ToggleSection.Close>
-                  <Button
-                    mode="inline"
-                    type="button"
-                    color="warning"
-                    onClick={() => resetForm()}
-                  >
+                  <Button mode="inline" type="button" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </ToggleSection.Close>
