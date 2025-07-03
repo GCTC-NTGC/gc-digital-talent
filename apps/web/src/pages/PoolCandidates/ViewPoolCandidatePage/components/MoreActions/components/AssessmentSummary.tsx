@@ -44,7 +44,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
 
   return (
     <tr className="mb-3 border-b-3 border-b-black/20 dark:border-b-white/20">
-      <th scope="col" className="flex py-1.5 pr-6">
+      <th scope="col" className="flex px-6 py-1.5">
         {tableTitle}
       </th>
       <th scope="col">
@@ -207,7 +207,7 @@ const AssessmentSummary = ({
 
   return (
     <>
-      <table className="bg-gray-100 dark:bg-gray-700">
+      <table className="w-full bg-gray-100 dark:bg-gray-700">
         <caption className="sr-only">
           {intl.formatMessage({
             defaultMessage: "Essential criteria",
@@ -227,7 +227,7 @@ const AssessmentSummary = ({
         <TableBody data={educationEssentialSkillsTableData} />
       </table>
       {nonessentialSkillsTableData.length > 0 && (
-        <table className="mt-6 bg-gray-100 dark:bg-gray-700">
+        <table className="mt-6 w-full bg-gray-100 dark:bg-gray-700">
           <caption className="sr-only">
             {intl.formatMessage({
               defaultMessage: "Asset criteria",

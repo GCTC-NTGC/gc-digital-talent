@@ -862,7 +862,7 @@ export const getExperienceName = <T extends ExperienceName>(
 ) => {
   if (isAwardExperience(experience) || isPersonalExperience(experience)) {
     return html ? (
-      <span data-h2-font-weight="base(700)">{experience.title}</span>
+      <span className="font-bold">{experience.title}</span>
     ) : (
       experience.title
     );

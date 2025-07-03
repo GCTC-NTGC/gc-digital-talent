@@ -22,7 +22,7 @@ export interface ThemeState {
   /** Full mode stores three values to determine the current setting */
   fullMode: ThemeMode;
   /**
-   * Mode omits "pref" and is used by hydrogen that only supports light/dark
+   * Mode omits "pref" and is used by tailwind that only supports light/dark
    * where pref will fallback to one based on users `prefers-color-scheme`
    * */
   mode: Omit<ThemeMode, "pref">;
@@ -108,9 +108,7 @@ const ThemeProvider = ({
   );
 
   useEffect(() => {
-    const hydrogen = document.querySelectorAll(
-      themeSelector ?? "html[data-h2], body[data-h2]",
-    );
+    const element = document.querySelectorAll(themeSelector ?? "html");
     let themeString: string | undefined = "";
 
     if (computedMode && key) {
@@ -123,10 +121,8 @@ const ThemeProvider = ({
       themeString = undefined;
     }
 
-    hydrogen.forEach((item) => {
+    element.forEach((item) => {
       if (item instanceof HTMLElement) {
-        //  NOTE: We are setting DOM attrs here so it should be fine
-        item.dataset.h2 = themeString;
         item.classList.value = themeString ?? "";
       }
     });

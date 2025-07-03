@@ -15,7 +15,6 @@ import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
 import frCompiled from "../src/lang/frCompiled.json";
 
 import "../src/assets/css/hydrogen.css";
-import "../src/assets/css/app.css";
 import "../src/assets/css/tailwind.css";
 
 const messages = {

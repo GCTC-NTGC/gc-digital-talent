@@ -73,7 +73,7 @@ export const getFullNameHtml = (
 ): ReactNode => {
   if (!firstName && !lastName) {
     return (
-      <span data-h2-font-style="base(italic)">
+      <span className="italic">
         {intl.formatMessage(commonMessages.noNameProvided)}
       </span>
     );
@@ -81,7 +81,7 @@ export const getFullNameHtml = (
   if (!firstName) {
     return (
       <>
-        <span data-h2-font-style="base(italic)">
+        <span className="italic">
           {intl.formatMessage({
             defaultMessage: "No first name provided",
             id: "ZLPqdF",
@@ -96,7 +96,7 @@ export const getFullNameHtml = (
     return (
       <>
         {firstName}{" "}
-        <span data-h2-font-style="base(italic)">
+        <span className="italic">
           {intl.formatMessage({
             defaultMessage: "No last name provided",
             id: "r7lf0k",
