@@ -13,7 +13,9 @@ export const JobPosterTemplateSkills_Fragment = graphql(/* GraphQL */ `
     templateSkills: skills {
       id
       pivot {
-        requiredLevel
+        requiredLevel {
+          value
+        }
         type {
           value
         }
@@ -50,7 +52,7 @@ export function convertTemplateSkillToPoolSkillFragment(
   const poolSkillFragment = makeFragmentData(
     {
       id: templateSkill.id,
-      requiredLevel: templateSkill.pivot?.requiredLevel,
+      requiredLevel: templateSkill.pivot?.requiredLevel?.value,
       skill: templateSkill.skill,
     },
     PoolSkillAccordion_Fragment,

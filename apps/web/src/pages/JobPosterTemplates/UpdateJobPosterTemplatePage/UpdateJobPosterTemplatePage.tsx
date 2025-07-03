@@ -32,6 +32,7 @@ import pageTitles from "~/messages/pageTitles";
 import messages from "./messages";
 import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection";
 import KeyTasksSection from "./components/KeyTasksSection/KeyTasksSection";
+import EssentialTechnicalSkillsSection from "./components/EssentialTechnicalSkillsSection/EssentialTechnicalSkillsSection";
 
 const SECTION_ID = {
   JOB_DETAILS: "job-details-section",
@@ -43,6 +44,7 @@ const SECTION_ID = {
 const UpdateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment UpdateJobPosterTemplateOptions on Query {
     ...UpdateJobPosterTemplateJobDetailsOptions
+    ...UpdateJobPosterTemplateEssentialTechnicalSkillsOptions
   }
 `);
 
@@ -50,6 +52,7 @@ const UpdateJobPosterTemplate_Fragment = graphql(/** GraphQL */ `
   fragment UpdateJobPosterTemplate on JobPosterTemplate {
     ...UpdateJobPosterTemplateJobDetails
     ...UpdateJobPosterTemplateKeyTasks
+    ...UpdateJobPosterTemplateEssentialTechnicalSkills
     id
     name {
       en
@@ -120,6 +123,11 @@ const UpdateJobPosterTemplate = ({
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={SECTION_ID.KEY_TASKS}>
                   {intl.formatMessage(messages.keyTasks)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={SECTION_ID.TECHNICAL_SKILLS}>
+                  {intl.formatMessage(messages.technicalSkills)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
@@ -238,10 +246,10 @@ const UpdateJobPosterTemplate = ({
                     })}
                   </p>
                 </div>
-                {/* <NextRoleSection
-                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
+                <EssentialTechnicalSkillsSection
+                  initialDataQuery={initialData}
                   optionsQuery={options}
-                /> */}
+                />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.BEHAVIOURAL_SKILLS}>
                 <Heading

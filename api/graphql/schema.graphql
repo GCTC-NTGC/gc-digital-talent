@@ -1115,7 +1115,7 @@ type LocalizedKeywords {
 
 type JobPosterTemplateSkillPivot {
   type: LocalizedPoolSkillType!
-  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
+  requiredLevel: LocalizedSkillLevel @rename(attribute: "required_skill_level")
 }
 
 type JobPosterTemplateSkill {

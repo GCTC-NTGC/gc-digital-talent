@@ -1477,7 +1477,7 @@ type LocalizedKeywords {
 
 type JobPosterTemplateSkillPivot {
   type: LocalizedPoolSkillType!
-  requiredLevel: SkillLevel
+  requiredLevel: LocalizedSkillLevel
 }
 
 type JobPosterTemplateSkill {
