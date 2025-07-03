@@ -169,7 +169,9 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             intl.formatMessage(commonMessages.notProvided)
           )}
         </FieldDisplay>
-        <CardSeparator space="sm" decorative className="sm:col-span-2" />
+        <div className="sm:col-span-2">
+          <CardSeparator space="none" decorative />
+        </div>
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Nomination opening date",
@@ -202,7 +204,9 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               })
             : intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
-        <CardSeparator space="sm" decorative className="sm:col-span-2" />
+        <div className="sm:col-span-2">
+          <CardSeparator space="none" decorative />
+        </div>
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Relevant development programs",

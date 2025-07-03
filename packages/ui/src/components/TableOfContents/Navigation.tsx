@@ -34,7 +34,7 @@ const pickCurrentSection = (
   // Failing that, select the section whose edge is closest to the center
   return (
     sections.reverse().find(isEntirelyOnScreen) ?? // reverse the list to look from the bottom of the screen, and find the first fully visible section
-    sortBy(sections, distanceFromCenter).at(0) // sort by distance from the center (ascending) and take the lowest
+    sortBy(sections, distanceFromCenter)?.[0] // sort by distance from the center (ascending) and take the lowest
   );
 };
 

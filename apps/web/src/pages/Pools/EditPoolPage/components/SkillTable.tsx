@@ -39,11 +39,7 @@ const ActionCell = (
   const localizedName = getLocalizedName(name, intl);
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-wrap="base(wrap)"
-      data-h2-gap="base(x.25)"
-    >
+    <div className="flex flex-wrap gap-1.5">
       <SkillBrowserDialog
         context="pool"
         defaultOpen={isOpen}

@@ -12,7 +12,7 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Pending, Link } from "@gc-digital-talent/ui";
+import { Pending, Link, Container } from "@gc-digital-talent/ui";
 import {
   graphql,
   CreatePoolInput,
@@ -21,7 +21,6 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -165,14 +164,10 @@ export const CreatePoolForm = ({
   }));
 
   return (
-    <div data-h2-wrapper="base(left, small, 0)">
+    <div className="my-18 sm:max-w-2xl">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1 0)"
-          >
+          <div className="flex flex-col gap-y-6">
             <Select
               id="classification"
               label={intl.formatMessage(messages.groupAndLevel)}
@@ -215,11 +210,7 @@ export const CreatePoolForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <div
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x1)"
-              data-h2-align-items="base(center)"
-            >
+            <div className="flex items-center gap-6">
               <Submit
                 color="secondary"
                 text={intl.formatMessage({
@@ -327,7 +318,7 @@ const CreatePoolPage = () => {
         subtitle={formattedSubTitle}
         crumbs={navigationCrumbs}
       />
-      <AdminContentWrapper>
+      <Container>
         <Pending fetching={fetching} error={error}>
           <CreatePoolForm
             userId={data?.me?.id ?? ""}
@@ -337,7 +328,7 @@ const CreatePoolPage = () => {
             handleCreatePool={handleCreatePool}
           />
         </Pending>
-      </AdminContentWrapper>
+      </Container>
     </>
   );
 };

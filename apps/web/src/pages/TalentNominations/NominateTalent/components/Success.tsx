@@ -55,7 +55,7 @@ const Success = ({ successQuery }: SuccessProps) => {
           description: "Heading for success step of a talent nomination",
         })}
       </SubHeading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -73,7 +73,7 @@ const Success = ({ successQuery }: SuccessProps) => {
           },
         )}
       </p>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -91,7 +91,7 @@ const Success = ({ successQuery }: SuccessProps) => {
           },
         )}
       </p>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         <Link href={paths.applicantDashboard()} mode="solid" color="primary">
           {intl.formatMessage(navigationMessages.returnToDashboard)}
         </Link>

@@ -102,8 +102,8 @@ const UpdatePublishedProcessDialog = ({
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
-          <Well color="warning" data-h2-margin-bottom="base(x1)">
-            <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+          <Well color="warning" className="mb-6">
+            <Heading level="h3" size="h6" className="mt-0">
               {intl.formatMessage(commonMessages.warning)}
             </Heading>
             <p>
@@ -115,7 +115,7 @@ const UpdatePublishedProcessDialog = ({
                   "Warning message when attempting to update a published process advertisement",
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
-              <span data-h2-font-weight="base(700)">{title}</span>
+              <span className="font-bold">{title}</span>
             </p>
           </Well>
           <FormProvider {...methods}>

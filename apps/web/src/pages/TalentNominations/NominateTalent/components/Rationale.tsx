@@ -105,7 +105,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
       <SubHeading level="h2" icon={ChatBubbleBottomCenterTextIcon}>
         {intl.formatMessage(messages.rationale)}
       </SubHeading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {talentNomination?.talentNominationEvent.includeLeadershipCompetencies
           ? intl.formatMessage({
               defaultMessage:
@@ -122,11 +122,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
                 "Subtitle for nomination rationale step without leadership competencies",
             })}
       </p>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <TextArea
           id="nominationRationale"
           name="nominationRationale"

@@ -23,6 +23,7 @@ import {
   Separator,
   IconLink,
   Ul,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -518,10 +519,7 @@ export const PoolPoster = ({
     <>
       <SEO title={poolTitle} description={formattedSubTitle} />
       <Hero title={poolTitle} subtitle={formattedSubTitle} crumbs={links} />
-      <div
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-        data-h2-margin-top="base(x3)"
-      >
+      <Container className="my-18">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
@@ -557,12 +555,8 @@ export const PoolPoster = ({
               </TableOfContents.ListItem>
             </TableOfContents.List>
             <ApplicationLink {...applicationLinkProps} />
-            <Text
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x.25)"
-              data-h2-flex-wrap="base(wrap)"
-            >
-              <span data-h2-font-weight="base(700)">
+            <Text className="flex flex-wrap gap-1.5">
+              <span className="font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Share",
                   id: "E2nMR3",
@@ -619,27 +613,18 @@ export const PoolPoster = ({
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.employmentDetails.id}>
-              <div
-                data-h2-align-items="base(baseline)"
-                data-h2-display="base(flex)"
-                data-h2-gap="base(x.5 x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-margin-bottom="base(x1)"
-              >
-                <div data-h2-flex-grow="base(1)">
+              <div className="mb-6 flex flex-wrap items-baseline gap-x-6 gap-y-3">
+                <div className="grow">
                   <TableOfContents.Heading
                     size="h3"
                     icon={MapIcon}
                     color="primary"
-                    data-h2-margin="base(0)"
+                    className="mt-0"
                   >
                     {sections.employmentDetails.title}
                   </TableOfContents.Heading>
                 </div>
-                <div
-                  data-h2-flex-shrink="base(0)"
-                  data-h2-margin-top="base(x.75) p-tablet(0)"
-                >
+                <div className="mt-4.5 shrink-0 xs:mt-0">
                   <ApplicationLink
                     {...applicationLinkProps}
                     linkProps={{ mode: "inline", color: "primary" }}
@@ -647,13 +632,8 @@ export const PoolPoster = ({
                 </div>
               </div>
               {showSpecialNote && (
-                <Well data-h2-margin="base(x1 0)">
-                  <Heading
-                    level="h3"
-                    size="h6"
-                    data-h2-margin-top="base(0)"
-                    data-h2-font-size="base(body)"
-                  >
+                <Well className="my-6">
+                  <Heading level="h3" size="h6" className="mt-0 text-base">
                     {intl.formatMessage({
                       defaultMessage: "Special note for this process",
                       id: "cbwWa0",
@@ -807,6 +787,19 @@ export const PoolPoster = ({
                   value={securityClearance}
                   suffix={<SecurityClearanceDialog />}
                 />
+                {pool.processNumber && (
+                  <DataRow
+                    label={
+                      intl.formatMessage({
+                        defaultMessage: "Selection process number",
+                        id: "H6seW1",
+                        description:
+                          "Label for pool advertisement selection process number",
+                      }) + intl.formatMessage(commonMessages.dividingColon)
+                    }
+                    value={pool.processNumber}
+                  />
+                )}
               </Card>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.minEducation.id}>
@@ -814,11 +807,11 @@ export const PoolPoster = ({
                 size="h3"
                 icon={AcademicCapIcon}
                 color="secondary"
-                data-h2-margin="base(x3, 0, x1, 0)"
+                className="mt-18 mb-6"
               >
                 {sections.minEducation.title}
               </TableOfContents.Heading>
-              <Text data-h2-margin-bottom="base(x1)">
+              <Text className="mb-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -838,24 +831,18 @@ export const PoolPoster = ({
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.skillRequirements.id}>
-              <div
-                data-h2-align-items="base(baseline)"
-                data-h2-display="base(flex)"
-                data-h2-gap="base(x.5 x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-margin-bottom="base(x1)"
-              >
-                <div data-h2-flex-grow="base(1)">
+              <div className="mb-6 flex flex-wrap items-baseline gap-x-6 gap-y-3">
+                <div className="grow">
                   <TableOfContents.Heading
                     size="h3"
                     icon={BoltIcon}
                     color="warning"
-                    data-h2-margin="base(x3, 0, 0, 0)"
+                    className="mt-18 mb-0"
                   >
                     {sections.skillRequirements.title}
                   </TableOfContents.Heading>
                 </div>
-                <div data-h2-flex-shrink="base(0)">
+                <div className="shrink-0">
                   <Button
                     mode="inline"
                     color="primary"
@@ -907,7 +894,7 @@ export const PoolPoster = ({
                 type="multiple"
                 mode="card"
                 size="sm"
-                data-h2-margin-top="base(x1)"
+                className="mt-6"
                 value={skillsValue}
                 onValueChange={setSkillsValue}
               >
@@ -932,18 +919,13 @@ export const PoolPoster = ({
                 size="h3"
                 icon={ClipboardDocumentIcon}
                 color="error"
-                data-h2-margin="base(x3, 0, x1, 0)"
+                className="mt-18 mb-6"
               >
                 {sections.aboutRole.title}
               </TableOfContents.Heading>
               {pool.yourImpact && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Heading level="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Your impact",
                       id: "MOpG7g",
@@ -960,12 +942,7 @@ export const PoolPoster = ({
               )}
               {pool.keyTasks && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Heading level="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Common tasks in this role",
                       id: "ATO0GK",
@@ -982,12 +959,7 @@ export const PoolPoster = ({
               )}
               {showAboutUs && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Heading level="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "About us",
                       id: "LTpCFL",
@@ -1004,24 +976,18 @@ export const PoolPoster = ({
               )}
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.moreInfo.id}>
-              <div
-                data-h2-align-items="base(baseline)"
-                data-h2-display="base(flex)"
-                data-h2-gap="base(x.5 x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-margin-bottom="base(x1)"
-              >
-                <div data-h2-flex-grow="base(1)">
+              <div className="mb-6 flex flex-wrap items-baseline gap-x-6 gap-y-3">
+                <div className="grow">
                   <TableOfContents.Heading
                     size="h3"
                     icon={QuestionMarkCircleIcon}
                     color="success"
-                    data-h2-margin="base(x3, 0, 0, 0)"
+                    className="m-t18 mb-0"
                   >
                     {sections.moreInfo.title}
                   </TableOfContents.Heading>
                 </div>
-                <div data-h2-flex-shrink="base(0)">
+                <div className="shrink-0">
                   <Button
                     mode="inline"
                     color="primary"
@@ -1095,7 +1061,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
+                    <Text className="my-0">
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -1125,7 +1091,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
+                    <Text className="my-0">
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -1213,7 +1179,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
+                    <Text className="my-0">
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -1259,7 +1225,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
+                    <Text className="m-y0">
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -1323,7 +1289,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
+                    <Text className="my-0">
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -1347,7 +1313,7 @@ export const PoolPoster = ({
                 size="h3"
                 icon={RocketLaunchIcon}
                 color="primary"
-                data-h2-margin="base(x3, 0, x1, 0)"
+                className="mt-18 mb-6"
               >
                 {sections.startAnApplication.title}
               </TableOfContents.Heading>
@@ -1386,10 +1352,7 @@ export const PoolPoster = ({
             {pool.processNumber && (
               <>
                 <Separator orientation="horizontal" space="sm" decorative />
-                <p
-                  data-h2-text-align="base(right)"
-                  data-h2-color="base(black.light)"
-                >
+                <p className="text-right text-gray-600 dark:text-gray-200">
                   {intl.formatMessage({
                     defaultMessage: "Selection process number",
                     id: "LdlxBV",
@@ -1402,7 +1365,7 @@ export const PoolPoster = ({
             )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

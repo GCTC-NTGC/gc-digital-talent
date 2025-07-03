@@ -20,8 +20,8 @@ describe("Profile snapshot tests", () => {
     const frontendQueryLines = normalizeQuery(frontendQuery.split("\n"));
     // expect that the outer layer will be different so remove it from test
     if (
-      frontendQueryLines.at(0)?.trim() === "fragment UserProfile on User {" &&
-      frontendQueryLines.at(-1)?.trim() === "}"
+      frontendQueryLines[0]?.trim() === "fragment UserProfile on User {" &&
+      frontendQueryLines[-1]?.trim() === "}"
     ) {
       frontendQueryLines.splice(0, 1);
       frontendQueryLines.splice(-1, 1);
@@ -34,11 +34,10 @@ describe("Profile snapshot tests", () => {
     const backendQueryLines = normalizeQuery(backendQuery.split("\n"));
     // expect that the outer two layers will be different so remove them from test
     if (
-      backendQueryLines.at(0)?.trim() ===
-        "query getProfile($userId: UUID!) {" &&
-      backendQueryLines.at(1)?.trim() === "user(id: $userId) {" &&
-      backendQueryLines.at(-2)?.trim() === "}" &&
-      backendQueryLines.at(-1)?.trim() === "}"
+      backendQueryLines[0]?.trim() === "query getProfile($userId: UUID!) {" &&
+      backendQueryLines[1]?.trim() === "user(id: $userId) {" &&
+      backendQueryLines[-2]?.trim() === "}" &&
+      backendQueryLines[-1]?.trim() === "}"
     ) {
       backendQueryLines.splice(0, 2);
       backendQueryLines.splice(-2, 2);

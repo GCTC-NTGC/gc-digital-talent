@@ -142,7 +142,7 @@ const WhatToExpectSection = ({
             sectionTitle={sectionMetadata.title}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
@@ -154,11 +154,7 @@ const WhatToExpectSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-              >
+              <div className="grid gap-6 sm:grid-cols-2">
                 <RichTextInput
                   id="whatToExpectEn"
                   label={intl.formatMessage({

@@ -22,12 +22,7 @@ const Actions = () => {
   return (
     <>
       <Separator decorative orientation="horizontal" />
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(x1)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-      >
+      <div className="flex flex-col items-center gap-6 xs:flex-row">
         {prev && (
           <Link
             href={`${paths.talentNomination(id)}?step=${prev}`}
@@ -47,7 +42,7 @@ const Actions = () => {
           type="submit"
           mode="inline"
           color="secondary"
-          data-h2-margin-left="base(0) p-tablet(auto)"
+          className="ml-0 xs:ml-auto"
           {...intentProps}
           onClick={() => setValue("intent", "save-draft")}
         >

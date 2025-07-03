@@ -8,6 +8,7 @@ import {
   ThrowNotFound,
   Button,
   Link,
+  Container,
 } from "@gc-digital-talent/ui";
 import { Scalars } from "@gc-digital-talent/graphql";
 
@@ -90,8 +91,8 @@ export const Component = () => {
         subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <Alert.Root type="success" live={false} data-h2-margin="base(x3, 0)">
+      <Container className="my-18">
+        <Alert.Root type="success" live={false} className="mb-18">
           <Alert.Title>
             {intl.formatMessage({
               defaultMessage: "We have received your request",
@@ -100,7 +101,7 @@ export const Component = () => {
                 "Paragraph one, message to user the request was received",
             })}
           </Alert.Title>
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -112,12 +113,7 @@ export const Component = () => {
               { requestId },
             )}
           </p>
-          <Heading
-            level="h3"
-            data-h2-font-size="base(body)"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x1, 0, x.5, 0)"
-          >
+          <Heading level="h3" size="h6" className="mt-6 mb-3 font-bold">
             {intl.formatMessage({
               defaultMessage: "What you can expect",
               id: "N/Vcp3",
@@ -125,7 +121,7 @@ export const Component = () => {
                 "Heading for the section about user expectations for their request",
             })}
           </Heading>
-          <p data-h2-margin="base(0, 0, x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "You will receive a follow up on your request within the next 5 to 10 business days.",
@@ -147,13 +143,7 @@ export const Component = () => {
               },
             )}
           </p>
-          <div
-            data-h2-display="print(none) base(flex)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-align-items="base(center)"
-            data-h2-gap="base(x1)"
-            data-h2-flex-direction="base(row)"
-          >
+          <div className="flex flex-wrap items-center gap-6 print:hidden">
             <Button mode="solid" color="primary" onClick={() => handlePrint()}>
               {intl.formatMessage({
                 defaultMessage: "Print this information",
@@ -175,7 +165,7 @@ export const Component = () => {
             </Link>
           </div>
         </Alert.Root>
-      </div>
+      </Container>
     </>
   ) : (
     <ThrowNotFound />
