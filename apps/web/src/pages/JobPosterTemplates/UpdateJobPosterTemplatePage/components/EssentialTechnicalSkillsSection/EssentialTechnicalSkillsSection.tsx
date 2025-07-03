@@ -163,7 +163,13 @@ const EssentialTechnicalSkillsSection = ({
   const methods = useForm<FormValues>({
     defaultValues: initialFormValues,
   });
-  const { watch, handleSubmit, resetField, reset: resetForm } = methods;
+  const {
+    watch,
+    handleSubmit,
+    resetField,
+    setValue,
+    reset: resetForm,
+  } = methods;
 
   const watchIsSpecialNoteRequired = watch("isSpecialNoteRequired");
 
@@ -177,17 +183,14 @@ const EssentialTechnicalSkillsSection = ({
    * to avoid confusing users about unsaved changes
    */
   useEffect(() => {
-    const resetDirtyField = (name: keyof FormValues) => {
-      resetField(name, {
-        keepDirty: false,
-      });
-    };
-
-    if (!watchIsSpecialNoteRequired) {
-      resetDirtyField("specialNoteEn");
-      resetDirtyField("specialNoteFr");
+    if (watchIsSpecialNoteRequired) {
+      resetField("specialNoteEn");
+      resetField("specialNoteFr");
+    } else {
+      setValue("specialNoteEn", null);
+      setValue("specialNoteFr", null);
     }
-  }, [resetField, watchIsSpecialNoteRequired]);
+  }, [resetField, setValue, watchIsSpecialNoteRequired]);
 
   const handleSave: SubmitHandler<FormValues> = async (
     formValues: FormValues,
