@@ -48,12 +48,7 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
   );
   const startDate = useWatch<FormValues>({ name: "trainingStartDate" });
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-      data-h2-gap="base(x1)"
-      data-h2-align-items="base(flex-end)"
-    >
+    <div className="grid items-end gap-6 xs:grid-cols-2">
       <Input
         id="titleEn"
         name="titleEn"

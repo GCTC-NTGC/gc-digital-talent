@@ -110,34 +110,23 @@ const UpdateTrainingOpportunityForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
+        <Card className="mb-18">
+          <Heading
+            level="h2"
+            color="secondary"
+            icon={IdentificationIcon}
+            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
           >
-            <Heading
-              level="h2"
-              color="secondary"
-              icon={IdentificationIcon}
-              data-h2-margin="base(0, 0, x1.5, 0)"
-              data-h2-font-weight="base(400)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Training opportunity information",
-                id: "bwoJyk",
-                description:
-                  "Heading for the opportunity form information section",
-              })}
-            </Heading>
-          </div>
+            {intl.formatMessage({
+              defaultMessage: "Training opportunity information",
+              id: "bwoJyk",
+              description:
+                "Heading for the opportunity form information section",
+            })}
+          </Heading>
           <TrainingOpportunityForm query={formOptionsQuery} />
           <CardSeparator />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-gap="base(x1)"
-            data-h2-align-items="base(center)"
-          >
+          <div className="flex flex-col items-center gap-6 xs:flex-row">
             <Submit text={intl.formatMessage(formMessages.saveChanges)} />
             <Link
               color="warning"
@@ -238,25 +227,21 @@ const UpdateTrainingOpportunityPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <div data-h2-margin-bottom="base(x3)">
-          <Pending fetching={fetching} error={error}>
-            {data?.trainingOpportunity ? (
-              <UpdateTrainingOpportunityForm
-                trainingOpportunityQuery={data.trainingOpportunity}
-                handleUpdateTrainingOpportunity={
-                  handleUpdateTrainingOpportunity
-                }
-                formOptionsQuery={data}
-              />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>{intl.formatMessage(commonMessages.notFound)}</p>
-              </NotFound>
-            )}
-          </Pending>
-        </div>
+        <Pending fetching={fetching} error={error}>
+          {data?.trainingOpportunity ? (
+            <UpdateTrainingOpportunityForm
+              trainingOpportunityQuery={data.trainingOpportunity}
+              handleUpdateTrainingOpportunity={handleUpdateTrainingOpportunity}
+              formOptionsQuery={data}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>{intl.formatMessage(commonMessages.notFound)}</p>
+            </NotFound>
+          )}
+        </Pending>
       </Hero>
     </>
   );

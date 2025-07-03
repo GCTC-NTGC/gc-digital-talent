@@ -185,7 +185,7 @@ const TrainingOpportunitiesTable = ({
           opportunity.id ? (
             <Link
               href={paths.trainingOpportunityView(opportunity.id)}
-              data-h2-font-weight="base(700)"
+              className="font-bold"
             >
               {getLocalizedName(opportunity.title, intl)}
             </Link>
