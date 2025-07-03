@@ -272,3 +272,10 @@
     @apply border-t-focus;
   }
 }
+
+/**
+* Tailwind override
+*/
+abbr:hover {
+  cursor: help;
+}
