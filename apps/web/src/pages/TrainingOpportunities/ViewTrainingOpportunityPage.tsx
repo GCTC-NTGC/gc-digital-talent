@@ -11,6 +11,7 @@ import {
   CardSeparator,
   Pending,
   Chip,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -54,30 +55,21 @@ export const ViewTrainingOpportunityForm = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
+      <Heading
+        level="h2"
+        color="secondary"
+        icon={IdentificationIcon}
+        center
+        className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
       >
-        <Heading
-          level="h2"
-          color="secondary"
-          icon={IdentificationIcon}
-          data-h2-margin="base(0, 0, x1.5, 0)"
-          data-h2-font-weight="base(400)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Training opportunity information",
-            id: "bwoJyk",
-            description: "Heading for the opportunity form information section",
-          })}
-        </Heading>
-      </div>
+        {intl.formatMessage({
+          defaultMessage: "Training opportunity information",
+          id: "bwoJyk",
+          description: "Heading for the opportunity form information section",
+        })}
+      </Heading>
       <Card>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
-          data-h2-gap="base(x1)"
-        >
+        <div className="grid gap-6 xs:grid-cols-2">
           <FieldDisplay label={intl.formatMessage(formLabels.titleEn)}>
             {trainingOpportunity.title?.en}
           </FieldDisplay>
@@ -150,13 +142,10 @@ export const ViewTrainingOpportunityForm = ({
           </FieldDisplay>
         </div>
         <CardSeparator />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-        >
+        <div className="flex justify-center xs:justify-start">
           <Link
             href={paths.trainingOpportunityUpdate(trainingOpportunityId)}
-            data-h2-font-weight="base(bold)"
+            className="font-bold"
           >
             {intl.formatMessage({
               defaultMessage: "Edit training opportunity information",
@@ -226,11 +215,9 @@ const ViewTrainingOpportunityPage = ({
         crumbs={navigationCrumbs}
         navTabs={navTabs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
-          <ViewTrainingOpportunityForm query={trainingOpportunity} />
-        </div>
-      </div>
+      <Container className="my-18">
+        <ViewTrainingOpportunityForm query={trainingOpportunity} />
+      </Container>
     </>
   );
 };
