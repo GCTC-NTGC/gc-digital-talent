@@ -5,7 +5,6 @@ parameters:
 			identifier: unset.possiblyHookedProperty
 			count: 1
 			path: app/Generators/CsvGenerator.php
-
 		-
 			message: '#^Trait App\\Traits\\ExperienceFactoryWithSkills is used zero times and is not analysed\.$#'
 			identifier: trait.unused
