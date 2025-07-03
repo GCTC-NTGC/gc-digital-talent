@@ -46,8 +46,8 @@ importers:
         specifier: ^4.10.3
         version: 4.10.3
       dotenv:
-        specifier: ^16.5.0
-        version: 16.5.0
+        specifier: ^17.0.1
+        version: 17.0.1
       eslint:
         specifier: ^9.20.1
         version: 9.21.0(jiti@2.4.2)
@@ -218,8 +218,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.31.1)(tsx@4.20.3)(yaml@2.8.0))
       dotenv:
-        specifier: ^16.5.0
-        version: 16.5.0
+        specifier: ^17.0.1
+        version: 17.0.1
       eslint:
         specifier: ^9.20.1
         version: 9.21.0(jiti@2.4.2)
@@ -4972,8 +4972,12 @@ packages:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
 
-  dotenv@16.5.0:
-    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
+  dotenv@16.6.1:
+    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
+    engines: {node: '>=12'}
+
+  dotenv@17.0.1:
+    resolution: {integrity: sha512-GLjkduuAL7IMJg/ZnOPm9AnWKJ82mSE2tzXLaJ/6hD6DhwGfZaXG77oB8qbReyiczNxnbxQKyh0OE5mXq0bAHA==}
     engines: {node: '>=12'}
 
   downshift@9.0.9:
@@ -9574,7 +9578,7 @@ snapshots:
       '@whatwg-node/fetch': 0.10.8
       chalk: 4.1.2
       debug: 4.4.1
-      dotenv: 16.5.0
+      dotenv: 16.6.1
       graphql: 16.11.0
       graphql-request: 6.1.0(graphql@16.11.0)
       http-proxy-agent: 7.0.2
@@ -12805,7 +12809,9 @@ snapshots:
 
   dotenv@16.0.3: {}
 
-  dotenv@16.5.0: {}
+  dotenv@16.6.1: {}
+
+  dotenv@17.0.1: {}
 
   downshift@9.0.9(react@18.3.1):
     dependencies:
@@ -17072,7 +17078,7 @@ snapshots:
       colorette: 2.0.20
       connect-history-api-fallback: 1.6.0
       consola: 2.15.3
-      dotenv: 16.5.0
+      dotenv: 16.6.1
       dotenv-expand: 8.0.3
       ejs: 3.1.10
       fast-glob: 3.3.2
