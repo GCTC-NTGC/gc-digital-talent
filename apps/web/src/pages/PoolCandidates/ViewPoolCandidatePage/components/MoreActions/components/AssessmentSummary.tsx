@@ -44,7 +44,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
 
   return (
     <tr className="mb-3 border-b-3 border-b-black/20 dark:border-b-white/20">
-      <th scope="col" className="flex py-1.5 pr-6">
+      <th scope="col" className="flex px-6 py-1.5">
         {tableTitle}
       </th>
       <th scope="col">
