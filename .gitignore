@@ -2,9 +2,6 @@
 node_modules
 dist
 
-# Hydrogen logging
-hydrogen-logs
-
 .jekyll-cache
 .turbo
 .env
