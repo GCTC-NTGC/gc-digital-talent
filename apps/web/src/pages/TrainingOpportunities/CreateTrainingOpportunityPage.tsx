@@ -87,16 +87,12 @@ const CreateTrainingOpportunityForm = ({
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
-          >
+          <div className="xs:justify-flex-start flex justify-center">
             <Heading
               level="h2"
               color="secondary"
               icon={IdentificationIcon}
-              data-h2-margin="base(0, 0, x1.5, 0)"
-              data-h2-font-weight="base(400)"
+              className="mb-9 font-normal"
             >
               {intl.formatMessage({
                 defaultMessage: "Training opportunity information",
@@ -108,12 +104,7 @@ const CreateTrainingOpportunityForm = ({
           </div>
           <TrainingOpportunityForm query={formOptionsQuery} />
           <CardSeparator />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-gap="base(x1)"
-            data-h2-align-items="base(center)"
-          >
+          <div className="flex-column flex items-center gap-6 xs:flex-row">
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Create training opportunity",
@@ -201,7 +192,7 @@ const CreateTrainingOpportunityPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <div data-h2-margin-bottom="base(x3)">
+        <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data ? (
               <CreateTrainingOpportunityForm
