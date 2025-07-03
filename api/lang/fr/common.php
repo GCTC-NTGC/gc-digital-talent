@@ -32,9 +32,9 @@ return [
     'from' => 'de',
     'featured_skills' => 'Compétences mises en évidence',
     // position types
-    'en_only' => 'Anglais ',
-    'fr_only' => 'Français',
-    'bilingual' => 'Bilingue',
+    'en_only' => 'Postes en anglais uniquement',
+    'fr_only' => 'Postes en français uniquement',
+    'bilingual' => 'Postes bilingues',
     'skill_showcase_text' => 'La vitrine de compétences permet aux utilisateurs de présenter des listes qui mettent en valeur leurs points forts, leurs points faibles ainsi que leurs occasions de développement. Ces listes offrent un aperçu global de leurs compétences et indiquent les domaines dans lesquels ils souhaitent progresser ou acquérir de nouvelles compétences.',
     'user_processes_text_1' => 'Aperçu des processus de recrutement pour lesquels',
     'user_processes_text_2' => 'a été qualifié(e).',
