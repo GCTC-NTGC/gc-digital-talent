@@ -9,6 +9,7 @@ use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\CitizenshipStatus;
+use App\Enums\EducationRequirementOption;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\FinalDecision;
@@ -217,7 +218,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),
                     $userHydrated->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
                     $userHydrated->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
-                    $this->sanitizeEnum($candidate->education_requirement_option), // Education requirement
+                    $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class), // Education requirement
                     implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
                 ];
 
