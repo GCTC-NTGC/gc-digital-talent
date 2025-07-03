@@ -61,7 +61,6 @@ services:
       - ./.npmrc:/var/www/html/.npmrc
       - ./node_modules:/var/www/html/node_modules
       - ./turbo.json:/var/www/html/turbo.json
-      - ./hydrogen.config.json:/var/www/html/hydrogen.config.json
 
   # We proxy the auth server through apache, so it's at localhost.
   # E.g., http://localhost:8000/oxauth/.well-known/openid-configuration
