@@ -55,20 +55,18 @@ export const ViewTrainingOpportunityForm = ({
 
   return (
     <>
-      <div className="xs:justify-flex-start flex justify-center">
-        <Heading
-          level="h2"
-          color="secondary"
-          icon={IdentificationIcon}
-          className="mb-9 font-normal"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Training opportunity information",
-            id: "bwoJyk",
-            description: "Heading for the opportunity form information section",
-          })}
-        </Heading>
-      </div>
+      <Heading
+        level="h2"
+        color="secondary"
+        icon={IdentificationIcon}
+        className="mb-9 font-normal xs:justify-start xs:text-left"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Training opportunity information",
+          id: "bwoJyk",
+          description: "Heading for the opportunity form information section",
+        })}
+      </Heading>
       <Card>
         <div className="grid gap-6 xs:grid-cols-2">
           <FieldDisplay label={intl.formatMessage(formLabels.titleEn)}>
@@ -143,7 +141,7 @@ export const ViewTrainingOpportunityForm = ({
           </FieldDisplay>
         </div>
         <CardSeparator />
-        <div className="xs:justify-flex-start flex justify-center">
+        <div className="flex justify-center xs:justify-start">
           <Link
             href={paths.trainingOpportunityUpdate(trainingOpportunityId)}
             className="font-bold"

@@ -86,25 +86,23 @@ const CreateTrainingOpportunityForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card>
-          <div className="xs:justify-flex-start flex justify-center">
-            <Heading
-              level="h2"
-              color="secondary"
-              icon={IdentificationIcon}
-              className="mb-9 font-normal"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Training opportunity information",
-                id: "bwoJyk",
-                description:
-                  "Heading for the opportunity form information section",
-              })}
-            </Heading>
-          </div>
+        <Card className="mb-18">
+          <Heading
+            level="h2"
+            color="secondary"
+            icon={IdentificationIcon}
+            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Training opportunity information",
+              id: "bwoJyk",
+              description:
+                "Heading for the opportunity form information section",
+            })}
+          </Heading>
           <TrainingOpportunityForm query={formOptionsQuery} />
           <CardSeparator />
-          <div className="flex-column flex items-center gap-6 xs:flex-row">
+          <div className="flex flex-col items-center gap-6 xs:flex-row">
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Create training opportunity",
@@ -192,24 +190,20 @@ const CreateTrainingOpportunityPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <div className="mb-18">
-          <Pending fetching={fetching} error={error}>
-            {data ? (
-              <CreateTrainingOpportunityForm
-                formOptionsQuery={data}
-                handleCreateTrainingOpportunity={
-                  handleCreateTrainingOpportunity
-                }
-              />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>{intl.formatMessage(commonMessages.notFound)}</p>
-              </NotFound>
-            )}
-          </Pending>
-        </div>
+        <Pending fetching={fetching} error={error}>
+          {data ? (
+            <CreateTrainingOpportunityForm
+              formOptionsQuery={data}
+              handleCreateTrainingOpportunity={handleCreateTrainingOpportunity}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>{intl.formatMessage(commonMessages.notFound)}</p>
+            </NotFound>
+          )}
+        </Pending>
       </Hero>
     </>
   );
