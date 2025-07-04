@@ -419,6 +419,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
+    departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
   };
 }
@@ -475,6 +476,7 @@ export function transformFormValuesToFilterState(
       ? stringToEnumCandidateSuspended(data.suspendedStatus)
       : undefined,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+    departments: data.departments,
     publishingGroups: data.publishingGroups as PublishingGroup[],
     appliedClassifications: data.classifications.map((classification) => {
       const splitString = classification.split("-");
@@ -516,5 +518,6 @@ export const addSearchToPoolCandidateFilterInput = (
     isGovEmployee: fancyFilterState?.isGovEmployee,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
+    departments: fancyFilterState?.departments,
   };
 };

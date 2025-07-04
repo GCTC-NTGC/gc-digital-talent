@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { OperationContext, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
+import { col } from "motion/react-client";
 
 import {
   notEmpty,
@@ -262,6 +263,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             lookingForFrench
             lookingForBilingual
             currentCity
+            department {
+              id
+              name {
+                localized
+              }
+            }
             currentProvince {
               value
               label {
@@ -357,6 +364,7 @@ const defaultState = {
     poolCandidateStatus: [],
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
+    departments: [],
   },
 };
 
@@ -901,6 +909,17 @@ const PoolCandidatesTable = ({
       {
         id: "currentLocation",
         header: intl.formatMessage(tableMessages.currentLocation),
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { department },
+        },
+      }) => department?.name.localized,
+      {
+        id: "department",
+        header: intl.formatMessage(tableMessages.employeeDepartment),
       },
     ),
     columnHelper.accessor(
