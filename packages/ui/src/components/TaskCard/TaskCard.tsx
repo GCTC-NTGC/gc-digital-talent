@@ -24,7 +24,7 @@ const heading = tv({
   },
   variants: {
     hasIcon: {
-      true: { base: "xs:flex xs:items-start xs:gap-x-3" },
+      true: { base: "xs:flex xs:items-center xs:gap-x-3" },
     },
   },
 });
