@@ -19,8 +19,8 @@ const Item = ({ children }: ItemProps) => {
 
 const heading = tv({
   slots: {
-    base: "my-0 grow-2 text-center text-2xl text-balance xs:text-left lg:text-3xl",
-    icon: "hidden size-7 shrink-0 stroke-[1.6] xs:inline-block",
+    base: "my-0 grow-2 text-center text-2xl/[1.1] text-balance xs:text-left lg:text-3xl/[1.1]",
+    icon: "hidden size-6 shrink-0 stroke-[1.6] xs:inline-block",
   },
   variants: {
     hasIcon: {
