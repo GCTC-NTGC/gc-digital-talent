@@ -14,6 +14,7 @@ const defaultFormValues: FormValues = {
   publishingGroups: [],
   classifications: [],
   stream: [],
+  departments: [],
   languageAbility: "",
   workRegion: [],
   operationalRequirement: [],
