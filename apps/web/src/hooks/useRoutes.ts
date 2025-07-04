@@ -153,6 +153,14 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "settings", "departments", departmentId].join("/"),
     departmentUpdate: (departmentId: string) =>
       [adminUrl, "settings", "departments", departmentId, "edit"].join("/"),
+    departmentAdvancedTools: (departmentId: string) =>
+      [
+        adminUrl,
+        "settings",
+        "departments",
+        departmentId,
+        "advanced-tools",
+      ].join("/"),
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),

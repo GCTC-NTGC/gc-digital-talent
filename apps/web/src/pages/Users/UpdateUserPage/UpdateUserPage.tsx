@@ -435,11 +435,7 @@ const UpdateUserPage = () => {
                 onUpdateUserRoles={handleUpdateUserRoles}
               />
               <Heading level="h2" size="h3" className="font-bold">
-                {intl.formatMessage({
-                  defaultMessage: "Advanced tools",
-                  id: "KoKXUw",
-                  description: "Heading for making major changes to a user",
-                })}
+                {intl.formatMessage(adminMessages.advancedTools)}
               </Heading>
               <DeleteUserSection
                 user={data.user}
