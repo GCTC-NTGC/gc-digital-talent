@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, Transition, Variants } from "motion/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
@@ -78,12 +78,12 @@ type ToggleProps = Omit<HTMLButtonProps, "children"> & {
   isOpen?: boolean;
 };
 
-const transition = {
+const transition: Transition = {
   type: "tween",
   duration: 0.1,
 };
 
-const iconVariants = {
+const iconVariants: Variants = {
   open: {
     rotate: 180,
     transition,

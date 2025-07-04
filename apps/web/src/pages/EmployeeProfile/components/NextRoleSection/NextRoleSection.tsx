@@ -521,8 +521,8 @@ const NextRoleSection = ({
                       employeeProfileMessages.targetClassification,
                     )}
                   </p>
-                  <div className="flex flex-col xs:flex-row">
-                    <div className="mb-12 w-full">
+                  <div className="flex flex-col gap-6 xs:flex-row">
+                    <div className="w-full">
                       <Select
                         id="classificationGroup"
                         label={intl.formatMessage(commonMessages.group)}
