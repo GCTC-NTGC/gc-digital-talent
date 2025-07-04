@@ -1563,6 +1563,7 @@ input PoolCandidateSearchInput {
   name: String
   notes: String
   isGovEmployee: Boolean
+  departments: [UUID!]
   priorityWeight: [PriorityWeight]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter

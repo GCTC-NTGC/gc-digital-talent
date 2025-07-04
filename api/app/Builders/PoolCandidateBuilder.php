@@ -100,6 +100,22 @@ class PoolCandidateBuilder extends Builder
 
     }
 
+    /**
+     * Scope users department
+     *
+     * Restrict a query by a specific candidates (users) department
+     */
+    public function whereDepartmentsIn(?array $departmentIds): self
+    {
+        if (empty($departmentIds)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($departmentIds) {
+            return $query->whereDepartmentsIn($departmentIds);
+        });
+    }
+
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
     {
         if (empty($operationalRequirements)) {
