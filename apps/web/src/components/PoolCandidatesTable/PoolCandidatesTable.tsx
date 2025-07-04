@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-table";
 import { OperationContext, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
-import { col } from "motion/react-client";
 
 import {
   notEmpty,
