@@ -14,6 +14,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -523,6 +524,20 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this;
+    }
+
+    public function orderByEmployeeDepartment(?string $order): self
+    {
+
+        if (! $order) {
+            return $this;
+        }
+
+        $locale = App::getLocale();
+        $column = "name->$locale";
+
+        return $this->withMax('user.department', $column)
+            ->orderBy("user_department_max_{$locale}", $order);
     }
 
     /**

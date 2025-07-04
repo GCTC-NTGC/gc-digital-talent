@@ -1382,6 +1382,7 @@ type Query {
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
+    orderByEmployeeDepartment: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1402,7 +1403,7 @@ type Query {
       )
       @with(
         relations: [
-          "user:id,first_name,last_name,email,preferred_lang"
+          "user:id,first_name,last_name,email,preferred_lang.computed_department"
           "user.poolCandidates.pool.team"
           "user.poolCandidates.pool.community.team"
           "user.communityInterests.community.team"
@@ -1423,6 +1424,7 @@ type Query {
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
+    orderByEmployeeDepartment: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [

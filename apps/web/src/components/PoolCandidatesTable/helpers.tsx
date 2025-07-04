@@ -328,8 +328,10 @@ export function getSortOrder(
   | undefined {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
-  // handle sort in orderByClaimVerification
-  if (sortingRules?.find((rule) => rule.id === "priority")) {
+  // handle sort in orderByClaimVerification and departments
+  if (
+    sortingRules?.find((rule) => ["priority", "department"].includes(rule.id))
+  ) {
     return undefined;
   }
 
@@ -374,6 +376,16 @@ export function getPoolNameSort(
     locale: locale ?? "en",
     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
   };
+}
+
+export function getDepartmentSort(
+  sortingRules?: SortingState,
+): SortOrder | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "department");
+
+  if (!sortingRule) return undefined;
+
+  return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
 }
 
 export function transformPoolCandidateSearchInputToFormValues(

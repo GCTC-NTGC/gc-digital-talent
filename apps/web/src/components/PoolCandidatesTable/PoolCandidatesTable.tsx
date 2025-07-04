@@ -69,6 +69,7 @@ import {
   getPoolNameSort,
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
+  getDepartmentSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -513,6 +514,7 @@ const PoolCandidatesTable = ({
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      orderByEmployeeDepartment: getDepartmentSort(sortState),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
         doNotUseBookmark,
