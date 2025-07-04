@@ -109,7 +109,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'career_planning_work_style',
 
         'digital_talent_processes',
-        'off_platform_processes',
+        'off_platform_processes_not_verified',
     ];
 
     public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
