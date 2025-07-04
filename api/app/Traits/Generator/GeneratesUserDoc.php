@@ -322,6 +322,9 @@ trait GeneratesUserDoc
         if ($type === EducationExperience::class) {
             /** @var EducationExperience $experience */
             $degreeType = $experience->type ? $this->localizeEnum($experience->type, EducationType::class) : null;
+            if ($experience->type === EducationType::OTHER->name) {
+                $degreeType = $this->localize('experiences.other_type_of_education');
+            }
             $titleComponents = [];
             if ($degreeType) {
                 $titleComponents[] = $degreeType;
