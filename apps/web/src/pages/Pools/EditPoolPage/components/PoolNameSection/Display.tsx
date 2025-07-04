@@ -1,20 +1,13 @@
 import { MessageDescriptor, useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import { ReactNode } from "react";
 
-import {
-  commonMessages,
-  getLocale,
-  getLocalizedName,
-  Locales,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   EditPoolNameFragment,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { Link, Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { getClassificationName } from "~/utils/poolUtils";
@@ -24,11 +17,6 @@ import { DisplayProps } from "../../types";
 import { SelectionLimitationDefinition } from "./PoolNameSection";
 import CitizensNote from "./CitizensNote";
 
-const pseaUrl: Record<Locales, string> = {
-  en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
-  fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
-} as const;
-
 const Display = ({
   pool,
   possibleEmployeeLimitations,
@@ -36,7 +24,6 @@ const Display = ({
   possibleEmployeeLimitations: SelectionLimitationDefinition[];
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {
     areaOfSelection,
