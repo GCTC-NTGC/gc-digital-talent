@@ -171,6 +171,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
+    $orderByEmployeeDepartment: SortOrder
   ) {
     poolCandidatesPaginatedAdminView(
       where: $where
@@ -179,6 +180,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
+      orderByEmployeeDepartment: $orderByEmployeeDepartment
     ) {
       data {
         id

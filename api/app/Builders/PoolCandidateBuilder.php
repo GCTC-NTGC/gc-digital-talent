@@ -534,10 +534,11 @@ class PoolCandidateBuilder extends Builder
         }
 
         $locale = App::getLocale();
-        $column = "name->$locale";
 
-        return $this->withMax('user.department', $column)
-            ->orderBy("user_department_max_{$locale}", $order);
+        return $this
+            ->leftJoin('users', 'pool_candidates.user_id', '=', 'users.id')
+            ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
+            ->orderByRaw("departments.name->>'$locale' $order");
     }
 
     /**
