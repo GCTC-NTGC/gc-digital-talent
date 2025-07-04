@@ -329,6 +329,7 @@ class DepartmentTest extends TestCase
     public function testArchivingAndUnArchiving()
     {
         $testDepartment = Department::factory()->create(['archived_at' => null]);
+        $originalName = $testDepartment->name;
 
         $archiveMutation =
             /** @lang GraphQL */
@@ -356,6 +357,15 @@ class DepartmentTest extends TestCase
         // department archived with non-null date
         $testDepartment->refresh();
         assertNotNull($testDepartment->archived_at);
+        // name updated, English and French
+        assertSame(
+            $testDepartment->name['en'],
+            $originalName['en'].' (Archived)',
+        );
+        assertSame(
+            $testDepartment->name['fr'],
+            $originalName['fr'].' (Archivé)',
+        );
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($unarchiveMutation, ['id' => $testDepartment->id])
@@ -364,6 +374,15 @@ class DepartmentTest extends TestCase
         // department un-archived with date nulled out
         $testDepartment->refresh();
         assertNull($testDepartment->archived_at);
+        // name matches original, English and French
+        assertSame(
+            $testDepartment->name['en'],
+            $originalName['en'],
+        );
+        assertSame(
+            $testDepartment->name['fr'],
+            $originalName['fr'],
+        );
     }
 
     // Test querying departments and fetching archived
