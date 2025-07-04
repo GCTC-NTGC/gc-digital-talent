@@ -282,21 +282,21 @@ trait GeneratesUserDoc
                 };
 
                 if ($typeKey === 'award') {
-                    $sortedGroup = $group->sortBy('awarded_date', SORT_DESC, SORT_NUMERIC);
+                    $sortedGroup = $group->sortByDesc('awarded_date');
                 } else {
                     $sortedGroup = $group->sortBy([
                         function ($a, $b) {
                             if (! isset($a['end_date'])) {
                                 if (! isset($b['end_date'])) {
                                     return 0;
+                                } else {
+                                    return -1;
                                 }
-
-                                return -1;
                             } elseif (! isset($b['end_date'])) {
                                 return 1;
+                            } else {
+                                return $b['end_date'] <=> $a['end_date'];
                             }
-
-                            return $b['end_date'] <=> $a['end_date'];
                         },
                         ['start_date', SORT_DESC, SORT_NUMERIC],
                     ]);
