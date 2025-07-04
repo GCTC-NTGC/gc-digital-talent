@@ -10,7 +10,6 @@ use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Community;
-use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -681,18 +680,15 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
         ]);
 
-        $department = Department::factory()->create();
         $expectedCandidate = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
-            'user_id' => User::factory()->create([
-                'computed_department' => $department->id,
-            ]),
+            'user_id' => User::factory()->asGovEmployee(),
         ]);
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
                 'where' => [
-                    'departments' => [$department->id],
+                    'departments' => [$expectedCandidate->user->department->id],
                 ],
             ])->assertJsonFragment([
                 'data' => [
