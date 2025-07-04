@@ -13,5 +13,6 @@ export interface FormValues {
   suspendedStatus: string;
   publishingGroups: string[];
   govEmployee: string;
+  departments: string[];
   community: string;
 }

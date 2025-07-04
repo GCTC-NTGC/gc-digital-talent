@@ -659,4 +659,48 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
     }
+
+    public function testScopeDepartmentsIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        $expectedCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'user_id' => User::factory()->asGovEmployee(),
+        ]);
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'departments' => [$expectedCandidate->user->department->id],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
 }
