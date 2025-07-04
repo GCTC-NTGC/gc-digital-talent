@@ -10,6 +10,7 @@ use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -658,5 +659,52 @@ class PoolCandidateSearchTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    public function testScopeDepartmentsIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        $department = Department::factory()->create();
+        $expectedCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'user_id' => User::factory()->create([
+                'computed_department' => $department->id,
+            ]),
+        ]);
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'departments' => [$department->id],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
     }
 }
