@@ -55,7 +55,7 @@ export const parameters = {
     defaultRichTextElements,
   },
   viewport: {
-    viewports: VIEWPORTS,
+    options: VIEWPORTS,
   },
 };
 
