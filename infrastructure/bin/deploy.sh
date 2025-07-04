@@ -49,7 +49,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 source ~/.bash_profile
-nvm install v20.11.0
+nvm install v22.17.0
 #nvm install-latest-pnpm
 npm install -g pnpm@10.5.2
 
