@@ -22,6 +22,7 @@ import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
 import { SelectionLimitationDefinition } from "./PoolNameSection";
+import CitizensNote from "./CitizensNote";
 
 const pseaUrl: Record<Locales, string> = {
   en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
@@ -114,24 +115,7 @@ const Display = ({
         {poolSelectionLimitationValues.includes(
           PoolSelectionLimitation.CanadianCitizens,
         ) ? (
-          <Well color="warning" className="xs:col-span-2">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "By selecting “Only Canadian citizens can apply”, you’re confirming that this job opportunity is with a department or agency that is not subject to the <a><italic>Public Service Employment Act</italic></a>.",
-                id: "4f81Y1",
-                description:
-                  "Warning message when selecting the only-canadian-citizens limitation option",
-              },
-              {
-                a: (chunks: ReactNode) => (
-                  <Link href={pseaUrl[locale]} color="warning" newTab external>
-                    {chunks}
-                  </Link>
-                ),
-              },
-            )}
-          </Well>
+          <CitizensNote />
         ) : null}
         <ToggleForm.FieldDisplay
           hasError={!classification}
