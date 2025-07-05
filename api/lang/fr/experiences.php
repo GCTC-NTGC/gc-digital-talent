@@ -39,4 +39,5 @@ return [
     // Values
     'senior_management_true' => 'Il s\'agissait d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
     'senior_management_false' => 'Il ne s\'agissait pas d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
+    'other_type_of_education' => 'Autre type d\'études',
 ];

@@ -39,4 +39,5 @@ return [
     // Values
     'senior_management_true' => 'This was a chief or deputy chief (C-suite) role.',
     'senior_management_false' => 'This was not a chief or deputy chief (C-suite) role.',
+    'other_type_of_education' => 'Other type of education',
 ];
