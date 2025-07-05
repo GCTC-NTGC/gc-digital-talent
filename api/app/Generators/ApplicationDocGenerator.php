@@ -92,7 +92,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 }
             }
         }
-
+        // map experience classes to their type keys
         $classToKeyMap = [
             \App\Models\AwardExperience::class => 'award_experience',
             \App\Models\CommunityExperience::class => 'community_experience',
@@ -100,22 +100,34 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             \App\Models\PersonalExperience::class => 'personal_experience',
             \App\Models\WorkExperience::class => 'work_experience',
         ];
-
+        // sort experiences by current experience first, then by date
         $sortByCurrentThenDate = function ($exp) {
+            // check if the experience is current
             $isCurrent = is_null($exp->end_date) || $exp->end_date >= now();
 
+            // return sort
             return [
+                // first sort: 1 is current, 0 for past
                 $isCurrent ? 1 : 0,
+                // second sort: current sort by start date, past sort by end date or start date if no end date
                 $isCurrent ? $exp->start_date : ($exp->end_date ?? $exp->start_date),
             ];
         };
 
+        // multi step sorting pipeline
         $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
+        // sort all experience by current experience first, then past experience, then by date
             ->sortByDesc($sortByCurrentThenDate)
+            // organize into groups by type using the class to key map
             ->groupBy(fn ($exp) => isset($classToKeyMap[$exp->getMorphClass()]) ? $classToKeyMap[$exp->getMorphClass()] : '')
+            // sort the groups alphabetically by type key
             ->sortBy(fn ($_group, $typeKey) => $typeKey)
+            // re-sort experiences in each group with current date logic
             ->flatMap(fn ($group) => $group->sortByDesc($sortByCurrentThenDate))
+            // clean up
+            // reset the keys to be sequential
             ->values()
+            // return as an array
             ->all();
 
         $section->addTitle($user->getFullName(), 2);
