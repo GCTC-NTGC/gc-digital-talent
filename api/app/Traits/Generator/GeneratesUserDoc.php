@@ -593,8 +593,8 @@ trait GeneratesUserDoc
             'workExperiences',
             'userSkills',
             'employeeProfile',
-            'poolCandidates' => function ($query) {
-                $query->whereAuthorizedToView(['userId' => $this->userId]);
+            'poolCandidates' => function ($query) use ($user) {
+                $query->whereAuthorizedToView(['userId' => $user->id]);
             },
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
