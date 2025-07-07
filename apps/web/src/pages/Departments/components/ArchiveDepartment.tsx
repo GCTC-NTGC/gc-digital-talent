@@ -179,7 +179,7 @@ export const ArchiveDepartment = ({
   return (
     <>
       <div className="flex justify-center sm:justify-start">
-        <Heading level="h2" color="secondary" className="mt-0 mb-7 font-bold">
+        <Heading level="h3" color="secondary" className="mt-0 mb-7 font-bold">
           {intl.formatMessage({
             defaultMessage: "Archive department",
             id: "v8putB",
