@@ -685,7 +685,6 @@ trait GeneratesUserDoc
         // Off platform processes
         $section->addTitle($this->localize('headings.off_platform_processes'), $headingRank + 1);
         $section->addText($this->localize('common.off_platform_processes_text'));
-        $section->addText(''); // Add a blank line for spacing
         $this->addLabelText($section, $this->localizeHeading('off_platform_process_information'), $user->off_platform_recruitment_processes);
     }
 
