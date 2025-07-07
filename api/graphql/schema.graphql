@@ -1470,7 +1470,7 @@ type Query {
     @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
   departments(
-    withoutArchived: Boolean = true @whereNull(key: "archived_at")
+    whereArchived: Boolean = false @whereNotNull(key: "archived_at")
   ): [Department]! @all @canModel(ability: "viewAny")
   jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
     @find

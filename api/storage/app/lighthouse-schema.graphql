@@ -386,7 +386,7 @@ type Query {
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
-  departments(withoutArchived: Boolean = true): [Department]!
+  departments(whereArchived: Boolean = false): [Department]!
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest

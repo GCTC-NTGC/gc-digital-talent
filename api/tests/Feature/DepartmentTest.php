@@ -395,39 +395,39 @@ class DepartmentTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query departments($withoutArchived: Boolean) {
-                departments(withoutArchived: $withoutArchived) {
+            query departments($whereArchived: Boolean) {
+                departments(whereArchived: $whereArchived) {
                     id
                 }
             }
         ';
 
         // no argument causes it to default to filtering out archived, fetches active one
-        // this is due to default assigning to true
+        // this is due to default assigning to false
         // default or main behavior
         $baseResponse = $this->actingAs($this->baseUser, 'api')
             ->graphQL($query, [])
             ->assertJsonFragment(['id' => $activeDepartment->id]);
         assertSame(1, count($baseResponse->json('data.departments')));
 
-        // explicitly passing in true works the same
+        // explicitly passing in false works the same
         $trueResponse = $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['withoutArchived' => true])
+            ->graphQL($query, ['whereArchived' => false])
             ->assertJsonFragment(['id' => $activeDepartment->id]);
         assertSame(1, count($trueResponse->json('data.departments')));
 
         // null value for variable fetches all, this is from how the base directive works
         // special case for when you want to fetch all departments including archived
         $nullResponse = $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['withoutArchived' => null])
+            ->graphQL($query, ['whereArchived' => null])
             ->assertJsonFragment(['id' => $activeDepartment->id])
             ->assertJsonFragment(['id' => $archivedDepartment->id]);
         assertSame(2, count($nullResponse->json('data.departments')));
 
-        // set to false fetches only archived
+        // set to true fetches only archived
         // no use case for the time being
         $falseResponse = $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, ['withoutArchived' => false])
+            ->graphQL($query, ['whereArchived' => true])
             ->assertJsonFragment(['id' => $archivedDepartment->id]);
         assertSame(1, count($falseResponse->json('data.departments')));
     }

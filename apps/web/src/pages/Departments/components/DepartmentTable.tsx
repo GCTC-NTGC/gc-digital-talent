@@ -193,8 +193,8 @@ export const DepartmentTable = ({
 };
 
 const Departments_Query = graphql(/* GraphQL */ `
-  query Departments($withoutArchived: Boolean) {
-    departments(withoutArchived: $withoutArchived) {
+  query Departments($whereArchived: Boolean) {
+    departments(whereArchived: $whereArchived) {
       ...DepartmentTableRow
     }
   }
@@ -204,7 +204,7 @@ const DepartmentTableApi = ({ title }: { title: string }) => {
   const [{ data, fetching, error }] = useQuery({
     query: Departments_Query,
     variables: {
-      withoutArchived: null, // explicit null value results in the Lighthouse directive not doing a thing
+      whereArchived: null, // explicit null value results in the Lighthouse directive not doing a thing
     },
   });
 
