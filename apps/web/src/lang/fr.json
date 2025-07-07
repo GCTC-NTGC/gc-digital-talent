@@ -5831,6 +5831,10 @@
     "defaultMessage": "Avancement",
     "description": "Label for the advancement nomination type"
   },
+  "PKntBk": {
+    "defaultMessage": "Cet utilisateur n'a aucun processus de recrutement actif pour I'instant.",
+    "description": "Notice when there are no recruitment processes"
+  },
   "PN3PMn": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
     "description": "The directives digital talent and development component"
