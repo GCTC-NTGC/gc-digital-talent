@@ -151,10 +151,9 @@ const RecruitmentProcessPreviewList = ({
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage:
-                "You don't have any active recruitment processes at the moment.",
-              id: "vVAqzB",
-              description:
-                "Title for notice when there are no recruitment processes",
+                "This user doesn't have any active recruitment processes at the moment.",
+              id: "PKntBk",
+              description: "Notice when there are no recruitment processes",
             })}
           </p>
         </Well>
