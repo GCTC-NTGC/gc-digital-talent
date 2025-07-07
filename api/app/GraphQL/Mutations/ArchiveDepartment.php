@@ -16,8 +16,8 @@ final class ArchiveDepartment
         /** @var Department|null $department */
         $department = Department::find($args['id']);
         if ($department) {
-            $departmentArchivedNameEnglish = $department->name['en'].' (Archived)';
-            $departmentArchivedNameFrench = $department->name['fr'].' (Archivé)';
+            $departmentArchivedNameEnglish = $department->name['en'].' (archived)';
+            $departmentArchivedNameFrench = $department->name['fr'].' (archivé)';
 
             $department->archived_at = Carbon::now();
             $department->name = [

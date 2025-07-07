@@ -15,8 +15,8 @@ final class UnarchiveDepartment
         /** @var Department|null $department */
         $department = Department::find($args['id']);
         if ($department) {
-            $departmentNameEnglish = str_ireplace(' (Archived)', '', $department->name['en']);
-            $departmentNameFrench = str_ireplace(' (Archivé)', '', $department->name['fr']);
+            $departmentNameEnglish = str_ireplace(' (archived)', '', $department->name['en']);
+            $departmentNameFrench = str_ireplace(' (archivé)', '', $department->name['fr']);
 
             $department->archived_at = null;
             $department->name = [

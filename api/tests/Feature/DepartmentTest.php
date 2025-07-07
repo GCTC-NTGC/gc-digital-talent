@@ -360,11 +360,11 @@ class DepartmentTest extends TestCase
         // name updated, English and French
         assertSame(
             $testDepartment->name['en'],
-            $originalName['en'].' (Archived)',
+            $originalName['en'].' (archived)',
         );
         assertSame(
             $testDepartment->name['fr'],
-            $originalName['fr'].' (Archivé)',
+            $originalName['fr'].' (archivé)',
         );
 
         $this->actingAs($this->adminUser, 'api')
