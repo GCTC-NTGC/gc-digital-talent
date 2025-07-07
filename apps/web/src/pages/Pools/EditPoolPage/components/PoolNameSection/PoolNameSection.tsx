@@ -51,6 +51,7 @@ import {
 } from "./utils";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
+import CitizensNote from "./CitizensNote";
 
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {
@@ -269,7 +270,10 @@ const PoolNameSection = ({
   const { handleSubmit, watch, resetField } = methods;
 
   // hooks to watch, needed for conditional rendering
-  const [selectedAreaOfSelection] = watch(["areaOfSelection"]);
+  const [selectedAreaOfSelection, selectionLimitations] = watch([
+    "areaOfSelection",
+    "selectionLimitations",
+  ]);
 
   /**
    * Reset un-rendered fields
@@ -406,6 +410,10 @@ const PoolNameSection = ({
                     />
                   </div>
                 ) : null}
+
+                {selectionLimitations?.includes(
+                  PoolSelectionLimitation.CanadianCitizens,
+                ) && <CitizensNote />}
 
                 <Select
                   id="classification"
