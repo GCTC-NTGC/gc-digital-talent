@@ -32,12 +32,18 @@ import {
   ClaimVerificationSort,
   QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
+  PoolCandidate,
+  FinalDecision,
+  PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { getCandidateStatusChip } from "~/utils/poolCandidate";
+import {
+  getApplicationStatusChip,
+  getCandidateStatusChip,
+} from "~/utils/poolCandidate";
 import {
   stringToEnumCandidateExpiry,
   stringToEnumCandidateSuspended,
@@ -204,6 +210,31 @@ export const finalDecisionCell = (
     intl,
   );
   return <Chip color={color}>{label}</Chip>;
+};
+
+export const publicFacingStatusCell = (
+  submittedAt: PoolCandidate["submittedAt"],
+  closingDate: Pool["closingDate"],
+  removedAt: PoolCandidate["removedAt"],
+  finalDecisionAt: PoolCandidate["finalDecisionAt"],
+  finalDecision: Maybe<FinalDecision> | undefined,
+  areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
+  assessmentStatus: PoolCandidate["assessmentStatus"],
+  screeningQuestions: Pool["screeningQuestions"],
+  intl: IntlShape,
+) => {
+  const { label } = getApplicationStatusChip(
+    submittedAt,
+    closingDate,
+    removedAt,
+    finalDecisionAt,
+    finalDecision,
+    areaOfSelection,
+    assessmentStatus,
+    screeningQuestions,
+    intl,
+  );
+  return label;
 };
 
 export const bookmarkCell = (
