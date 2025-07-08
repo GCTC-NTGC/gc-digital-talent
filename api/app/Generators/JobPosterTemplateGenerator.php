@@ -2,9 +2,12 @@
 
 namespace App\Generators;
 
+use App\Enums\SkillLevel;
 use App\Enums\SupervisoryStatus;
 use App\Models\JobPosterTemplate;
 use App\Traits\Generator\GeneratesDoc;
+use Illuminate\Support\Str;
+use PhpOffice\PhpWord\Element\Section;
 
 class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorInterface
 {
@@ -46,13 +49,56 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
         $this->addLabelLink($section, $this->localizeHeading('work_description'),
             [
                 'href' => $this->jobPoster->work_description[$this->lang],
-                'text' => $this->localize('gcpedia.view'),
+                'text' => $this->localize('job_poster_template.gcpedia_view'),
             ],
-            $this->localize('gcpedia.note')
+            $this->localize('job_poster_template.gcpedia_note')
         );
 
         $this->addLabelText($section, $this->localizeHeading('reference_id'), $this->jobPoster->reference_id);
 
+        // Key tasks
+        $section->addTitle($this->localizeHeading('key_tasks_examples'), 2);
+        $section->addText($this->localize('job_poster_template.key_tasks_note'));
+        $this->addHtml($section, $this->jobPoster->tasks[$this->lang]);
+
+        $this->addSkillSection($section, $this->localizeHeading('essential_technical_skills_examples'), 'essential', 'technical');
+        $this->addSkillSection($section, $this->localizeHeading('essential_behavioural_skills_examples'), 'essential', 'behavioural');
+        $this->addSkillSection($section, $this->localizeHeading('nonessential_technical_skills_examples'), 'nonessential', 'technical');
+
         return $this;
+    }
+
+    private function addSkillSection(Section $section, string $title, string $type, string $category)
+    {
+
+        $property = sprintf('%s_%s_skills', $type, $category);
+        $relation = Str::camel($property);
+        $noteProperty = sprintf('%s_notes', $property);
+
+        $section->addTitle($title, 2);
+        if ($techNote = $this->jobPoster->$noteProperty[$this->lang]) {
+            // NOTE: We are adding the footnote after the title
+            // this is not ideal but it doesn't seem as though
+            // we cannot properly add a footnote to a title
+            $titleRun = $section->addTextRun();
+            $footnote = $titleRun->addFootnote();
+            $footnote->addText($techNote);
+        }
+
+        $section->addText($this->localize('job_poster_template.'.$noteProperty));
+
+        $skills = $this->jobPoster->$relation;
+        foreach ($skills as $skill) {
+            $section->addTitle($skill->name[$this->lang], 3);
+
+            if ($skill->pivot->required_skill_level) {
+                $this->addLabelText($section, $this->localize('job_poster_template.level'), $this->localizeEnum($skill->pivot->required_skill_level, SkillLevel::class));
+                $definitionKey = sprintf('skill_level.definition.%s.%s', $category, strtolower($skill->pivot->required_skill_level));
+                $this->addLabelText($section, $this->localize('job_poster_template.level_definition'), $this->localize($definitionKey));
+            }
+            $this->addLabelText($section, $this->localize('job_poster_template.skill_definition'), $skill->description[$this->lang]);
+
+        }
+
     }
 }

@@ -4,6 +4,7 @@ namespace App\Traits\Generator;
 
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\TextRun;
+use PhpOffice\PhpWord\Shared\Html;
 
 trait GeneratesDoc
 {
@@ -53,6 +54,13 @@ trait GeneratesDoc
         if ($text) {
             $footnote = $run->addFootnote();
             $footnote->addText($text); // Fixed bug: was $footnote->addText($footnote);
+        }
+    }
+
+    protected function addHtml(Section $section, ?string $html)
+    {
+        if ($html) {
+            Html::addHtml($section, $html, false, false);
         }
     }
 }
