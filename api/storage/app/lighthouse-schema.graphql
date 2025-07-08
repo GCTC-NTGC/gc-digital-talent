@@ -936,6 +936,7 @@ type Pool implements HasRoleAssignments {
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
   screeningQuestions: [ScreeningQuestion]
+  screeningQuestionsCount: Int
   closingDate: DateTime
   closingReason: String
   publishedAt: DateTime

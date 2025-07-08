@@ -418,6 +418,7 @@ type Pool implements HasRoleAssignments {
   screeningQuestions: [ScreeningQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
+  screeningQuestionsCount: Int @count(relation: "screeningQuestions")
   closingDate: DateTime @rename(attribute: "closing_date")
   closingReason: String @rename(attribute: "closing_reason")
   publishedAt: DateTime @rename(attribute: "published_at")
