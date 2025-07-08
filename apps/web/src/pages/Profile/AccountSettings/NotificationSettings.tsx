@@ -55,16 +55,16 @@ const NotificationChecklist = ({
 
   if (disabled) {
     return (
-      <div className="mb-6 grid items-center gap-6 xs:grid-cols-[4fr_1fr]">
+      <div className="mb-6 grid items-center gap-3 xs:grid-cols-[4fr_1fr]">
         <div>
           <p className="mb-3 font-bold">{legend}</p>
           <p className="text-sm">{subtitle}</p>
         </div>
-        <div className="flex xs:justify-between">
+        <div className="xs:flex xs:flex-row xs:justify-around sm:flex-row sm:pr-2 sm:pl-2">
           {notificationOptions.map(({ value, label }) => {
             const key = `${id}-${value}`;
             return (
-              <span key={key} className="flex gap-3 py-1.5 pr-4.5 pl-3">
+              <span key={key} className="flex gap-3 py-1.5 pl-2 xs:pl-0">
                 <CheckIcon
                   aria-label={intl.formatMessage({
                     defaultMessage: "System notifications are always enabled.",
@@ -90,23 +90,24 @@ const NotificationChecklist = ({
         <Field.Legend required={false} className="sr-only">
           {legend}
         </Field.Legend>
-        <div className="grid items-center gap-6 xs:grid-cols-[4fr_1fr]">
+        <div className="grid items-center gap-3 xs:grid-cols-[4fr_1fr]">
           <div>
             <p className="mb-3 font-bold">{legend}</p>
             <p className="font-bold">{subtitle}</p>
           </div>
-          <div className="flex xs:justify-between">
+          <div className="xs:flex xs:flex-row xs:justify-around sm:flex-row sm:pr-2 sm:pl-2">
             {notificationOptions.map(({ value, label }) => {
               const checkboxId = `${id}-${value}`;
               return (
-                <Checkbox
-                  key={checkboxId}
-                  id={checkboxId}
-                  name={name}
-                  label={label}
-                  value={value}
-                  inCheckList
-                />
+                <div key={checkboxId} className="flex gap-3 py-1.5">
+                  <Checkbox
+                    id={checkboxId}
+                    name={name}
+                    label={label}
+                    value={value}
+                    inCheckList
+                  />
+                </div>
               );
             })}
           </div>
@@ -242,9 +243,9 @@ const NotificationSettings = ({
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Card>
           <div className="mb-6 flex flex-col">
-            <div className="hidden gap-6 xs:grid xs:grid-cols-[4fr_1fr]">
+            <div className="hidden gap-3 xs:grid xs:grid-cols-[4fr_1fr]">
               <div>{/* For grid template columns */}</div>
-              <div className="flex justify-between">
+              <div className="flex justify-around">
                 <p aria-hidden className="w-12">
                   {intl.formatMessage(commonMessages.email)}
                 </p>
