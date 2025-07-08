@@ -112,6 +112,17 @@ return [
     'skills_to_improve' => 'Compétences à améliorer',
     'signature' => 'Signature',
     'signed' => 'Signée',
+
+    // Job poster template
+    'basic_details' => 'Détails de base',
+    'job_title' => 'Titre du poste',
+    'reference_id' => 'Identifiant de référence',
+    'description' => 'Description ',
+    'classification' => 'Classification',
+    'work_stream' => 'Flux de travail',
+    'role_type' => 'Type de poste',
+    'work_description' => 'Description générique du travail',
+
     // Other
     'general_question' => 'Question générale',
     'screening_question' => 'Question de sélection',

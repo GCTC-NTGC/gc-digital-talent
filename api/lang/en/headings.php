@@ -110,6 +110,17 @@ return [
     'skills_to_improve' => 'Skills to improve',
     'signature' => 'Signature',
     'signed' => 'Signed',
+
+    // Job poster template
+    'basic_details' => 'Basic details',
+    'job_title' => 'Job title',
+    'reference_id' => 'Reference ID',
+    'description' => 'Description',
+    'classification' => 'Classification',
+    'work_stream' => 'Workstream',
+    'role_type' => 'Type of role',
+    'work_description' => 'Generic work description',
+
     // Other
     'general_question' => 'General question',
     'screening_question' => 'Screening question',
