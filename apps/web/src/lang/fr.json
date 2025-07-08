@@ -4727,6 +4727,10 @@
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for publish pool dialog"
   },
+  "K/01hq": {
+    "defaultMessage": "Énoncé de confidentialité",
+    "description": "Label for the privacy link in the Footer."
+  },
   "K0Zkdw": {
     "defaultMessage": "Compétences constituant un atout",
     "description": "Title for optional skills"
@@ -7165,10 +7169,6 @@
   "Vc44L9": {
     "defaultMessage": "Renseignements supplémentaires sur votre prochain type de poste",
     "description": "Additional information about your next role"
-  },
-  "VcOlXA": {
-    "defaultMessage": "Énoncé de confidentialité",
-    "description": "Label for the privacy link in the Footer."
   },
   "Vck6JW": {
     "defaultMessage": "<strong>Description</strong> : bons pour examens de certification en ligne attestant les compétences reconnues liées à des domaines clés des TI.",

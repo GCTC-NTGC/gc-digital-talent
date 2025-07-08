@@ -19,7 +19,7 @@ test.describe("Footer", () => {
           .getByRole("link", { name: /terms and conditions/i }),
       ).toHaveAttribute("href", "/en/terms-and-conditions");
     });
-    test("links to Privacy Policy", async ({ page }) => {
+    test("links to Privacy policy", async ({ page }) => {
       await expect(
         page
           .getByRole("navigation", { name: /policy and feedback/i })
@@ -59,7 +59,7 @@ test.describe("Footer", () => {
           .getByRole("link", { name: /avis/i }),
       ).toHaveAttribute("href", "/fr/terms-and-conditions");
     });
-    test("links to Privacy Policy (French)", async ({ page }) => {
+    test("links to Privacy policy (French)", async ({ page }) => {
       await expect(
         page
           .getByRole("navigation", { name: /politique et rétroaction/i })

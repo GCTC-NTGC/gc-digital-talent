@@ -38,8 +38,8 @@ const Footer = () => {
     {
       href: paths.privacyPolicy(),
       children: intl.formatMessage({
-        defaultMessage: "Privacy Policy",
-        id: "VcOlXA",
+        defaultMessage: "Privacy policy",
+        id: "K/01hq",
         description: "Label for the privacy link in the Footer.",
       }),
     },

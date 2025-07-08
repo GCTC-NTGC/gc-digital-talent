@@ -17,7 +17,7 @@ test.describe("Static pages", () => {
       expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
-  test.describe("Privacy Policy", () => {
+  test.describe("Privacy policy", () => {
     test("has heading", async ({ page }) => {
       await page.goto("/en/privacy-policy");
       await expect(
