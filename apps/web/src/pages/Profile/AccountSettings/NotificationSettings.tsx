@@ -56,11 +56,11 @@ const NotificationChecklist = ({
   if (disabled) {
     return (
       <div className="mb-6 grid items-center xs:grid-cols-[4fr_1fr]">
-        <div>
+        <div className="py-1.5">
           <p className="mb-3 font-bold">{legend}</p>
           <p className="text-sm">{subtitle}</p>
         </div>
-        <div className="xs:flex xs:flex-row xs:justify-around sm:flex-row sm:pr-2 sm:pl-2">
+        <div className="pr-1 xs:flex xs:flex-row xs:justify-around sm:flex-row">
           {notificationOptions.map(({ value, label }) => {
             const key = `${id}-${value}`;
             return (
@@ -95,11 +95,11 @@ const NotificationChecklist = ({
             <p className="mb-3 font-bold">{legend}</p>
             <p className="font-bold">{subtitle}</p>
           </div>
-          <div className="xs:flex xs:flex-row xs:justify-around sm:flex-row sm:pr-2 sm:pl-2">
+          <div className="xs:flex xs:flex-row xs:justify-around sm:flex-row">
             {notificationOptions.map(({ value, label }) => {
               const checkboxId = `${id}-${value}`;
               return (
-                <div key={checkboxId} className="flex gap-3 py-1.5">
+                <div key={checkboxId} className="flex">
                   <Checkbox
                     id={checkboxId}
                     name={name}
