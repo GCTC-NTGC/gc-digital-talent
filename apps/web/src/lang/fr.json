@@ -11,6 +11,10 @@
     "defaultMessage": "Ces informations permettent aux candidates et candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
     "description": "Describes the 'what to expect after applying' section of a process' advertisement."
   },
+  "+12z1r": {
+    "defaultMessage": "Le ministère a été restauré.",
+    "description": "Alert, department restored successfully"
+  },
   "+2/ksA": {
     "defaultMessage": "Développement de carrière",
     "description": "Card title for career development"
@@ -1391,6 +1395,10 @@
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
     "description": "Aria text for icon indicating a skill to assessment step connection."
   },
+  "4Nx4Xn": {
+    "defaultMessage": "Nom du ministère",
+    "description": "Label for the department name input"
+  },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
@@ -2651,6 +2659,10 @@
     "defaultMessage": "Valider dès maintenant",
     "description": "Button to start the email address verification process"
   },
+  "AFYUht": {
+    "defaultMessage": "Archiver et désactiver {departmentName} de la plateforme.",
+    "description": "Dialog subtitle"
+  },
   "AH2U9S": {
     "defaultMessage": "Gestionnaire P M 6",
     "description": "PM-06 classification aria label including titles"
@@ -3511,6 +3523,10 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} one {# expérience professionnelle} other {# expériences professionnelles}}",
     "description": "list a number of work experiences"
   },
+  "E8q/Zm": {
+    "defaultMessage": "L’archivage de ce ministère le supprimera des options pouvant être sélectionnées dans l’ensemble de la plateforme. Tout ce qui l’utilise déjà ne changera pas.",
+    "description": "Descriptive text for department archiving"
+  },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
@@ -3730,10 +3746,6 @@
   "FAioB7": {
     "defaultMessage": "Voir sur GCpédia*",
     "description": "Link text displayed on the job poster template 'generic work description' field. With an asterisk for fine print."
-  },
-  "FBSOkb": {
-    "defaultMessage": "Publié",
-    "description": "Title displayed on the Pool table published at column"
   },
   "FDGVHB": {
     "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
@@ -4063,6 +4075,10 @@
     "defaultMessage": "Poursuivre la demande<hidden> pour {poolName}</hidden>",
     "description": "Label for continue application link"
   },
+  "GkX/KN": {
+    "defaultMessage": "Avertissement! Il s’agit d’actions sensibles qui affecteront l’ensemble de la plateforme. Veuillez donc faire preuve d’une extrême prudence si vous modifiez ces paramètres.",
+    "description": "Warning that you are making changes of possibly very high impact"
+  },
   "GndGRz": {
     "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
@@ -4098,6 +4114,10 @@
   "H+g+uL": {
     "defaultMessage": "Date d’expiration du statut prioritaire",
     "description": "Label for a priority status claim expiration date"
+  },
+  "H/0zee": {
+    "defaultMessage": "Archivez le ministère",
+    "description": "Button to trigger department archiving functionality"
   },
   "H/aUwM": {
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
@@ -4183,6 +4203,10 @@
     "defaultMessage": "Bassin demandé",
     "description": "Title for the pool block in the manager info section of the single search request view."
   },
+  "HXqsIc": {
+    "defaultMessage": "Outils avancés",
+    "description": "Nav tab label to access advanced tools "
+  },
   "HY0vjz": {
     "defaultMessage": "Supprimer le (la) candidat(e)",
     "description": "Title for action to remove a candidate infinitive"
@@ -4206,6 +4230,10 @@
   "Hd0nHP": {
     "defaultMessage": "(À déterminer)",
     "description": "Message displayed when a pool has no expiry date yet"
+  },
+  "HdlbAP": {
+    "defaultMessage": "Restaurer et activer {departmentName} dans la plateforme.",
+    "description": "Dialog subtitle"
   },
   "Hgd/PL": {
     "defaultMessage": "Retour à l'accueil",
@@ -4298,6 +4326,10 @@
   "IBLDnY": {
     "defaultMessage": "Commentaires supplémentaires",
     "description": "Label for additional comments on a nomination's rationale"
+  },
+  "ICKgvh": {
+    "defaultMessage": "Inscrivez le nom complet du ministère pour confirmer cette action.",
+    "description": "Sentence explaining how to archive/restore a department"
   },
   "ID6PLP": {
     "defaultMessage": "<strong>Non</strong>, c’est une compétence que j’ai utilisée dans le passé.",
@@ -4874,10 +4906,6 @@
   "KlvT7A": {
     "defaultMessage": "En savoir plus sur l’habilitation de sécurité",
     "description": "Info button label for pool application security clearance details."
-  },
-  "KoKXUw": {
-    "defaultMessage": "Outils avancés",
-    "description": "Heading for making major changes to a user"
   },
   "KoPFx4": {
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
@@ -7082,6 +7110,10 @@
     "defaultMessage": "En savoir plus<hidden> sur la Gestion de la collectivité numérique</hidden>",
     "description": "Link text for Digital Community Management"
   },
+  "VC9Tuf": {
+    "defaultMessage": "Cette action supprimera le ministère des archives et le restaurera dans la plateforme. Tous ses renseignements précédents pourront à nouveau être consultés.",
+    "description": "Descriptive text for department restoring"
+  },
   "VD/o5X": {
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
@@ -7305,6 +7337,10 @@
   "WLcP98": {
     "defaultMessage": "Le « sujet » est une chaîne de caractères qui établit de manière unique l’identité de connexion d’un utilisateur.",
     "description": "Additional context describing the purpose of the users's 'subject' field."
+  },
+  "WNgaJf": {
+    "defaultMessage": "Restaurez le ministère",
+    "description": "Button to trigger department restoring functionality"
   },
   "WPS1Ic": {
     "defaultMessage": "Présentez une demande et partagez votre profil",
@@ -11701,6 +11737,10 @@
     "defaultMessage": "Candidat rétabli avec succès",
     "description": "Success message for reinstating a candidate"
   },
+  "qUkDNj": {
+    "defaultMessage": "Restauration du ministère",
+    "description": "Heading for restoring a department"
+  },
   "qWew0O": {
     "defaultMessage": "La mise en candidature a été créée avec succès",
     "description": "Toast for successful nomination creation"
@@ -11768,6 +11808,10 @@
   "qvfSHZ": {
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
+  },
+  "qxCyZM": {
+    "defaultMessage": "Le ministère a été archivé",
+    "description": "Alert, department archived successfully"
   },
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
@@ -12048,6 +12092,10 @@
   "sapxcU": {
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
+  },
+  "sbV2hB": {
+    "defaultMessage": "Ce ministère a été archivé le",
+    "description": "Label for archived date"
   },
   "sde2Dj": {
     "defaultMessage": "Bienvenue",
@@ -12541,6 +12589,10 @@
     "defaultMessage": "Investir dans l’avenir des talents des TI",
     "description": "Heading for section describing investing in future talent"
   },
+  "v8putB": {
+    "defaultMessage": "Archivage du ministère",
+    "description": "Heading for archiving a department"
+  },
   "v9A5Cb": {
     "defaultMessage": "Lieu actuel",
     "description": "Legend for users current location"
@@ -12876,6 +12928,10 @@
   "wimmA1": {
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
+  },
+  "wm5GrF": {
+    "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
+    "description": "Validation text for department name input"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",

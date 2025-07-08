@@ -652,6 +652,7 @@ type Department {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  archivedAt: DateTime @rename(attribute: "archived_at")
 }
 
 type WorkStream {
@@ -1468,7 +1469,9 @@ type Query {
     @all
     @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
-  departments: [Department]! @all @canModel(ability: "viewAny")
+  departments(
+    whereArchived: Boolean = false @whereNotNull(key: "archived_at")
+  ): [Department]! @all @canModel(ability: "viewAny")
   jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
     @find
     @canFind(ability: "view", find: "id")
@@ -2059,7 +2062,7 @@ input UpdateDepartmentInput {
 }
 
 input DepartmentBelongsTo {
-  connect: ID
+  connect: ID @rules(apply: ["App\\Rules\\DepartmentNotArchived"])
   disconnect: Boolean
 }
 
@@ -2973,6 +2976,8 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+
+  # Department mutations
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard
@@ -2985,6 +2990,12 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  archiveDepartment(id: ID!): Department
+    @guard
+    @canFind(ability: "archiveAndUnarchive")
+  unarchiveDepartment(id: ID!): Department
+    @guard
+    @canFind(ability: "archiveAndUnarchive")
 
   # SearchRequest mutations
   createPoolCandidateSearchRequest(
