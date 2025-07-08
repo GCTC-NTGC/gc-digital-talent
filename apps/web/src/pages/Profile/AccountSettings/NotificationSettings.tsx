@@ -55,7 +55,7 @@ const NotificationChecklist = ({
 
   if (disabled) {
     return (
-      <div className="mb-6 grid items-center gap-3 xs:grid-cols-[4fr_1fr]">
+      <div className="mb-6 grid items-center xs:grid-cols-[4fr_1fr]">
         <div>
           <p className="mb-3 font-bold">{legend}</p>
           <p className="text-sm">{subtitle}</p>
@@ -90,7 +90,7 @@ const NotificationChecklist = ({
         <Field.Legend required={false} className="sr-only">
           {legend}
         </Field.Legend>
-        <div className="grid items-center gap-3 xs:grid-cols-[4fr_1fr]">
+        <div className="grid items-center xs:grid-cols-[4fr_1fr]">
           <div>
             <p className="mb-3 font-bold">{legend}</p>
             <p className="font-bold">{subtitle}</p>
