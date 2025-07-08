@@ -37,16 +37,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section = $this->doc->addSection();
         $section->addTitle($this->localizeHeading('application_snapshot'), 1);
         $candidate = $this->candidate;
-        $candidate->load([
-            'educationRequirementAwardExperiences',
-            'educationRequirementCommunityExperiences',
-            'educationRequirementEducationExperiences',
-            'educationRequirementPersonalExperiences',
-            'educationRequirementWorkExperiences',
-            'pool' => ['poolSkills' => ['skill']],
-            'screeningQuestionResponses' => ['screeningQuestion'],
-            'generalQuestionResponses' => ['generalQuestion'],
-        ]);
 
         // pull data from application snapshot
         // mirrors logic found in PoolCandidateCsvGenerator
