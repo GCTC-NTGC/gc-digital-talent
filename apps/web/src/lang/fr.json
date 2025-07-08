@@ -2499,10 +2499,6 @@
     "defaultMessage": "Il s’agissait d’un rôle comme membre du personnel ou comme entrepreneur(euse) dans un ministère ou un organisme fédéral ou une société d’État.",
     "description": "Description for the goc employment category option in work experience"
   },
-  "9XgUGm": {
-    "defaultMessage": "Télécharger",
-    "description": "Button text to download an applicants application or profile"
-  },
   "9Y3w6l": {
     "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
     "description": "Message for unanswered questions in this section"

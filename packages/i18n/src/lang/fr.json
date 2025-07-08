@@ -1,4 +1,8 @@
 {
+  "TsltMU": {
+    "defaultMessage": "Télécharger",
+    "description": "Button text to download a resource"
+  },
   "+6/qCF": {
     "defaultMessage": "Supprimer",
     "description": "Button text for a dismissible chip"

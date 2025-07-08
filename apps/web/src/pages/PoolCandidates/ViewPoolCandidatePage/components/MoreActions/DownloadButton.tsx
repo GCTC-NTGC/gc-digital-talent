@@ -8,6 +8,7 @@ import { Scalars } from "@gc-digital-talent/graphql";
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useApplicationDownloads from "~/hooks/useApplicationDownloads";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface DownloadButtonProps {
   id: Scalars["UUID"]["output"];
@@ -43,12 +44,7 @@ const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
           utilityIcon={ChevronDownIcon}
           icon={isDownloading ? SpinnerIcon : ArrowDownTrayIcon}
         >
-          {intl.formatMessage({
-            defaultMessage: "Download",
-            id: "9XgUGm",
-            description:
-              "Button text to download an applicants application or profile",
-          })}
+          {intl.formatMessage(commonMessages.download)}
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
