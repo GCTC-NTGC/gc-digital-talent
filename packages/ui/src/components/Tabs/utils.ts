@@ -10,7 +10,7 @@ export const list = tv({
 });
 
 export const trigger = tv({
-  base: "group/tabTrigger relative z-[1] mt-1.5 inline-flex rounded-t border border-gray bg-gray-100 dark:bg-gray-700 outline-none hover:mt-0 data-[state=active]:border-b-transparent data-[state=active]:font-bold data-[state=inactive]:underline",
+  base: "group/tabTrigger relative z-[1] mt-1.5 inline-flex rounded-t border border-gray bg-gray-100 outline-none hover:mt-0 data-[state=active]:border-b-transparent data-[state=active]:font-bold data-[state=inactive]:underline dark:bg-gray-700",
 });
 
 export const inner = tv({
