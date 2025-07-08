@@ -14,8 +14,6 @@ body:
     attributes:
       label: 🔤 Copy
       description: Describe the update or addition to the copy that you are proposing.
-    validations:
-      required: true
   - type: textarea
     id: details
     attributes:

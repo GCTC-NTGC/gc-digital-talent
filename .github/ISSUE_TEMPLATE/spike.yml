@@ -1,5 +1,5 @@
 name: "Spike"
-description: Learn more about something we cannot yet estimate.
+description: Conduct research or prototype an aspect of a solution to prove its viability.
 title: "🦔 "
 projects: ["GCTC-NTGC/8"]
 type: "Spike"
@@ -13,15 +13,11 @@ body:
     attributes:
       label: 🦔 Spike
       description: Describe the spike.
-    validations:
-      required: true
   - type: textarea
     id: questions-to-answer
     attributes:
       label: ❓ Questions to answer
       description: What specific questions need to have been answered for this task to be considered complete?
-    validations:
-      required: true
   - type: textarea
     id: timebox
     attributes:
