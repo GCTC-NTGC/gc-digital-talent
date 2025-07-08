@@ -6851,6 +6851,10 @@
     "defaultMessage": "Expérience inconnue",
     "description": "Title for unknown experiences"
   },
+  "U/Ugr6": {
+    "defaultMessage": "Avis",
+    "description": "Label for the terms and conditions link in the Footer."
+  },
   "U/ji+A": {
     "defaultMessage": "Candidature créée",
     "description": "Application created successfully"
@@ -7913,10 +7917,6 @@
   "ZEmZm4": {
     "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
     "description": "Label for annual budget allocation field"
-  },
-  "ZGpncy": {
-    "defaultMessage": "Avis",
-    "description": "Label for the terms and conditions link in the Footer."
   },
   "ZKss5S": {
     "defaultMessage": "Afin que nous puissions mieux vous appuyer au fil de votre parcours d'embauche d'un apprentis en TI, veuillez nous laisser savoir si vous avez",
