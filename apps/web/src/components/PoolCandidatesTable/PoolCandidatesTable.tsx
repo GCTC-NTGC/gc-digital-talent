@@ -68,6 +68,7 @@ import {
   getPoolNameSort,
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
+  publicFacingStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -207,6 +208,17 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
+          finalDecisionAt
+          finalDecision {
+            value
+          }
+          assessmentStatus {
+            assessmentStepStatuses {
+              step
+            }
+            overallAssessmentStatus
+            currentStep
+          }
           pool {
             id
             processNumber
@@ -232,6 +244,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 en
                 fr
               }
+            }
+            closingDate
+            areaOfSelection {
+              value
+            }
+            screeningQuestions {
+              id
             }
           }
           finalDecision {
@@ -272,6 +291,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           }
           submittedAt
           suspendedAt
+          removedAt
         }
         skillCount
       }
@@ -774,6 +794,33 @@ const PoolCandidatesTable = ({
             },
           },
         }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          submittedAt,
+          assessmentStatus,
+          removedAt,
+          finalDecisionAt,
+          finalDecision,
+          pool: { closingDate, areaOfSelection, screeningQuestions },
+        },
+      }) =>
+        publicFacingStatusCell(
+          submittedAt,
+          closingDate,
+          removedAt,
+          finalDecisionAt,
+          finalDecision?.value,
+          areaOfSelection?.value,
+          assessmentStatus,
+          screeningQuestions,
+          intl,
+        ),
+      {
+        id: "publicFacingStatus",
+        header: intl.formatMessage(tableMessages.publicFacingStatus),
       },
     ),
     columnHelper.accessor(
