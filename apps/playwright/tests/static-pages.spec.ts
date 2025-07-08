@@ -1,7 +1,7 @@
 import { test, expect } from "~/fixtures";
 
 test.describe("Static pages", () => {
-  test.describe("Terms & Conditions", () => {
+  test.describe("Terms and conditions", () => {
     test("has heading", async ({ page }) => {
       await page.goto("/en/terms-and-conditions");
       await expect(
@@ -17,7 +17,7 @@ test.describe("Static pages", () => {
       expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
-  test.describe("Privacy Policy", () => {
+  test.describe("Privacy policy", () => {
     test("has heading", async ({ page }) => {
       await page.goto("/en/privacy-policy");
       await expect(
