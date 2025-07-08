@@ -607,6 +607,9 @@ type PoolCandidateAdminView {
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   placedDepartment: Department @belongsTo
+  closingDate: DateTime @rename(attribute: "closing_date")
+  removedAt: DateTime @rename(attribute: "removed_at")
+  finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
 }
 
 type PoolCandidateAdminViewWithSkillCount {

@@ -1067,6 +1067,9 @@ type PoolCandidateAdminView {
   assessmentStatus: AssessmentResultStatus
   finalDecision: LocalizedFinalDecision
   placedDepartment: Department
+  closingDate: DateTime
+  removedAt: DateTime
+  finalDecisionAt: DateTime
 }
 
 type PoolCandidateAdminViewWithSkillCount {
