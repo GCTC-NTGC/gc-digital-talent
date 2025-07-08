@@ -152,7 +152,7 @@ trait GeneratesUserDoc
             $listRun = $section->addListItemRun();
             $listRun->addText($this->localizeHeading('oral_interaction_level'), $this->strong);
             if ($user->comprehension_level) {
-                $listRun->addText($this->colon().$user->written_level);
+                $listRun->addText($this->colon().$user->oral_interaction_level);
             }
 
         } elseif ($user->estimated_language_ability) {
