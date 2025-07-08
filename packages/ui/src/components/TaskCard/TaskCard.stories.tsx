@@ -1,6 +1,7 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
+import { color } from "motion/react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
@@ -44,6 +45,20 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
         </TaskCard.Item>
       </TaskCard.Root>
     ))}
+    <TaskCard.Root
+      headingColor="primary"
+      {...args}
+      link={{ label: "Locked link", href: "" }}
+      title="Locked (primary)"
+      locked
+    >
+      <TaskCard.Item>
+        <Well>{faker.lorem.words()}</Well>
+      </TaskCard.Item>
+      <TaskCard.Item>
+        <Well>{faker.lorem.paragraph()}</Well>
+      </TaskCard.Item>
+    </TaskCard.Root>
   </div>
 );
 export const Default = Template.bind({});
