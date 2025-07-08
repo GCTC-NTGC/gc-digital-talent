@@ -60,5 +60,5 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 🚢 Definition of Ready |
+        ### 🚢 Definition of Ready
         Ensure the issue meets the criteria in our [Definition of Ready](../blob/main/documentation/definition-of-ready.md) before it can be accepted for development.
