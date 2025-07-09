@@ -820,6 +820,7 @@ const PoolCandidatesTable = ({
         id: "candidateFacingStatus",
         header: intl.formatMessage(tableMessages.candidateFacingStatus),
         enableSorting: false,
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
