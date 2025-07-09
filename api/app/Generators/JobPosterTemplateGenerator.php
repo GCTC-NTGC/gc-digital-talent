@@ -39,7 +39,6 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
             1
         );
 
-        // Basic Details section
         $section->addTitle($this->localizeHeading('basic_details'), 2);
         $this->addLabelText($section, $this->localizeHeading('job_title'), $this->jobPoster->name[$this->lang]);
         $this->addLabelText($section, $this->localizeHeading('description'), $this->jobPoster->description[$this->lang]);
@@ -56,26 +55,25 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
 
         $this->addLabelText($section, $this->localizeHeading('reference_id'), $this->jobPoster->reference_id);
 
-        // Key tasks
         $section->addTitle($this->localizeHeading('key_tasks_examples'), 2);
         $section->addText($this->localize('job_poster_template.key_tasks_note'));
         $this->addHtml($section, $this->jobPoster->tasks[$this->lang]);
 
-        $this->addSkillSection($section, $this->localizeHeading('essential_technical_skills_examples'), 'essential', 'technical');
-        $this->addSkillSection($section, $this->localizeHeading('essential_behavioural_skills_examples'), 'essential', 'behavioural');
-        $this->addSkillSection($section, $this->localizeHeading('nonessential_technical_skills_examples'), 'nonessential', 'technical');
+        $this->addSkillSection($section, 'essential', 'technical');
+        $this->addSkillSection($section, 'essential', 'behavioural');
+        $this->addSkillSection($section, 'nonessential', 'technical');
 
         return $this;
     }
 
-    private function addSkillSection(Section $section, string $title, string $type, string $category)
+    private function addSkillSection(Section $section, string $type, string $category)
     {
 
         $property = sprintf('%s_%s_skills', $type, $category);
         $relation = Str::camel($property);
         $noteProperty = sprintf('%s_notes', $property);
 
-        $section->addTitle($title, 2);
+        $section->addTitle($this->localizeHeading(sprintf('%s_examples', $property)), 2);
         if ($techNote = $this->jobPoster->$noteProperty[$this->lang]) {
             // NOTE: We are adding the footnote after the title
             // this is not ideal but it doesn't seem as though
