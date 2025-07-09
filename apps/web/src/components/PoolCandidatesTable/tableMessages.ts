@@ -52,6 +52,12 @@ const messages = defineMessages({
     description:
       "Title displayed on the Pool Candidates table placed department column",
   },
+  employeeDepartment: {
+    defaultMessage: "Employee department",
+    id: "9J1ror",
+    description:
+      "Title displayed on the Pool Candidates table employee department column",
+  },
   bookmark: {
     defaultMessage: "Bookmarked",
     id: "7g4Mvc",
