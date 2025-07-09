@@ -1,6 +1,5 @@
 import { OperationContext, useQuery } from "urql";
 import { useIntl } from "react-intl";
-import ArrowDownOnSquareIcon from "@heroicons/react/20/solid/ArrowDownOnSquareIcon";
 
 import {
   FragmentType,
@@ -10,7 +9,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   Container,
-  Link,
   Pending,
   Separator,
   TableOfContents,
