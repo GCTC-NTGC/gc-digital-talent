@@ -10,5 +10,5 @@ return [
     'level' => 'Niveau',
     'level_definition' => 'Définition du niveau',
     'skill_definition' => 'Définition de la compétence',
-
+    'special_note' => 'Note spéciale',
 ];
