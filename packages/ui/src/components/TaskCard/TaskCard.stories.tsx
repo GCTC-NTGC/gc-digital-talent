@@ -46,7 +46,20 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
     ))}
     <TaskCard.Root
       headingColor="primary"
-      {...args}
+      icon={UsersIcon}
+      link={{ label: "Locked link", href: "" }}
+      title="Locked (primary + icon)"
+      locked
+    >
+      <TaskCard.Item>
+        <Well>{faker.lorem.words()}</Well>
+      </TaskCard.Item>
+      <TaskCard.Item>
+        <Well>{faker.lorem.paragraph()}</Well>
+      </TaskCard.Item>
+    </TaskCard.Root>
+    <TaskCard.Root
+      headingColor="primary"
       link={{ label: "Locked link", href: "" }}
       title="Locked (primary)"
       locked

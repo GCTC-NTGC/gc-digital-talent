@@ -34,15 +34,20 @@ interface TaskCardHeadingProps {
   icon?: IconType;
   headingAs?: HeadingLevel;
   children?: ReactNode;
+  locked?: boolean;
 }
 
 // a custom heading that is somewhat different from our standard heading component
 const TaskCardHeading = ({
   icon,
   headingAs = "h3",
+  locked,
   children,
 }: TaskCardHeadingProps) => {
-  const Icon = icon;
+  let Icon = icon;
+  if (icon && locked) {
+    Icon = LockClosedIcon;
+  }
   const CustomHeading = headingAs;
   const { base, icon: iconStyles } = heading({ hasIcon: !!icon });
   return (
@@ -125,10 +130,7 @@ const Root = ({
   return (
     <div className={base()}>
       <div className={header()}>
-        <TaskCardHeading
-          icon={locked ? LockClosedIcon : icon}
-          headingAs={headingAs}
-        >
+        <TaskCardHeading {...{ icon, headingAs, locked }}>
           {title}
         </TaskCardHeading>
         {link ? (
