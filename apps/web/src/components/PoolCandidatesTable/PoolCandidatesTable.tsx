@@ -821,6 +821,7 @@ const PoolCandidatesTable = ({
       {
         id: "candidateFacingStatus",
         header: intl.formatMessage(tableMessages.candidateFacingStatus),
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
