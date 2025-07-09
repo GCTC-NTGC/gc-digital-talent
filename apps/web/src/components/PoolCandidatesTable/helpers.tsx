@@ -220,7 +220,7 @@ export const publicFacingStatusCell = (
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
-  screeningQuestions: Pool["screeningQuestions"],
+  screeningQuestions: Pool["screeningQuestionsCount"],
   intl: IntlShape,
 ) => {
   const { label } = getApplicationStatusChip(
