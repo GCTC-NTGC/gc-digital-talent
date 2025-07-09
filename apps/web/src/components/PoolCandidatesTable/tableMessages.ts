@@ -40,11 +40,11 @@ const messages = defineMessages({
     description:
       "Title displayed on the Pool Candidates table final decision column",
   },
-  publicFacingStatus: {
-    defaultMessage: "Public facing status",
-    id: "MJWt6k",
+  candidateFacingStatus: {
+    defaultMessage: "Candidate-facing status",
+    id: "1rnUt3",
     description:
-      "Title displayed on the Pool Candidates table public facing status column",
+      "Title displayed on the Pool Candidates table candidate-facing status column",
   },
   jobPlacement: {
     defaultMessage: "Job placement",

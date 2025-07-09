@@ -68,7 +68,7 @@ import {
   getPoolNameSort,
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
-  publicFacingStatusCell,
+  candidateFacingStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -807,7 +807,7 @@ const PoolCandidatesTable = ({
           pool: { closingDate, areaOfSelection, screeningQuestions },
         },
       }) =>
-        publicFacingStatusCell(
+        candidateFacingStatusCell(
           submittedAt,
           closingDate,
           removedAt,
@@ -819,8 +819,8 @@ const PoolCandidatesTable = ({
           intl,
         ),
       {
-        id: "publicFacingStatus",
-        header: intl.formatMessage(tableMessages.publicFacingStatus),
+        id: "candidateFacingStatus",
+        header: intl.formatMessage(tableMessages.candidateFacingStatus),
       },
     ),
     columnHelper.accessor(

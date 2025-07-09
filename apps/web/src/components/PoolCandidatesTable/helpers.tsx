@@ -212,7 +212,7 @@ export const finalDecisionCell = (
   return <Chip color={color}>{label}</Chip>;
 };
 
-export const publicFacingStatusCell = (
+export const candidateFacingStatusCell = (
   submittedAt: PoolCandidate["submittedAt"],
   closingDate: Pool["closingDate"],
   removedAt: PoolCandidate["removedAt"],
