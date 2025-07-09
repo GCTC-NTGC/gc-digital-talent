@@ -68,34 +68,30 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
 
     private function addSkillSection(Section $section, string $type, string $category)
     {
-
         $property = sprintf('%s_%s_skills', $type, $category);
-        $relation = Str::camel($property);
         $noteProperty = sprintf('%s_notes', $property);
+        $relation = Str::camel($property);
 
-        $section->addTitle($this->localizeHeading(sprintf('%s_examples', $property)), 2);
-        if ($techNote = $this->jobPoster->$noteProperty[$this->lang]) {
-            // NOTE: We are adding the footnote after the title
-            // this is not ideal but it doesn't seem as though
-            // we cannot properly add a footnote to a title
-            $titleRun = $section->addTextRun();
-            $footnote = $titleRun->addFootnote();
-            $footnote->addText($techNote);
-        }
+        if ($skills = $this->jobPoster->$relation) {
+            $section->addTitle($this->localizeHeading(sprintf('%s_examples', $property)), 2);
 
-        $section->addText($this->localize('job_poster_template.'.$noteProperty));
-
-        $skills = $this->jobPoster->$relation;
-        foreach ($skills as $skill) {
-            $section->addTitle($skill->name[$this->lang], 3);
-
-            if ($skill->pivot->required_skill_level) {
-                $this->addLabelText($section, $this->localize('job_poster_template.level'), $this->localizeEnum($skill->pivot->required_skill_level, SkillLevel::class));
-                $definitionKey = sprintf('skill_level.definition.%s.%s', $category, strtolower($skill->pivot->required_skill_level));
-                $this->addLabelText($section, $this->localize('job_poster_template.level_definition'), $this->localize($definitionKey));
+            if ($note = $this->jobPoster->$noteProperty[$this->lang]) {
+                $this->addLabelText($section, $this->localize('job_poster_template.special_note'), $note);
             }
-            $this->addLabelText($section, $this->localize('job_poster_template.skill_definition'), $skill->description[$this->lang]);
 
+            $section->addText($this->localize('job_poster_template.'.$noteProperty));
+
+            foreach ($skills as $skill) {
+                $section->addTitle($skill->name[$this->lang], 3);
+
+                if ($skill->pivot->required_skill_level) {
+                    $this->addLabelText($section, $this->localize('job_poster_template.level'), $this->localizeEnum($skill->pivot->required_skill_level, SkillLevel::class));
+                    $definitionKey = sprintf('skill_level.definition.%s.%s', $category, strtolower($skill->pivot->required_skill_level));
+                    $this->addLabelText($section, $this->localize('job_poster_template.level_definition'), $this->localize($definitionKey));
+                }
+                $this->addLabelText($section, $this->localize('job_poster_template.skill_definition'), $skill->description[$this->lang]);
+
+            }
         }
 
     }

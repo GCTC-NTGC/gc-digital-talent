@@ -10,5 +10,5 @@ return [
     'level' => 'Level',
     'level_definition' => 'Level definition',
     'skill_definition' => 'Skill definition',
-
+    'special_note' => 'Special note',
 ];
