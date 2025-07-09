@@ -1,7 +1,6 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
-import { color } from "motion/react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
