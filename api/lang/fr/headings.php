@@ -122,6 +122,10 @@ return [
     'work_stream' => 'Flux de travail',
     'role_type' => 'Type de poste',
     'work_description' => 'Description générique du travail',
+    'key_tasks_examples' => 'Tâches principales - Exemples',
+    'essential_technical_skills_examples' => 'Compétences techniques essentielles – Exemples',
+    'essential_behavioural_skills_examples' => 'Compétences comportementales essentielles - Exemples',
+    'nonessential_technical_skills_examples' => 'Compétences techniques constituant un atout - Exemples',
 
     // Other
     'general_question' => 'Question générale',
