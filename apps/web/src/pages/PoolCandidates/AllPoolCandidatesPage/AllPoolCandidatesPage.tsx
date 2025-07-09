@@ -5,11 +5,11 @@ import {
   CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Container } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
@@ -38,7 +38,7 @@ export const AllPoolCandidatesPage = () => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
-      <AdminContentWrapper table>
+      <Container size="full" className="my-18">
         <PoolCandidatesTable
           title={formattedPageTitle}
           initialFilterInput={{
@@ -47,7 +47,7 @@ export const AllPoolCandidatesPage = () => {
           }}
           doNotUseBookmark
         />
-      </AdminContentWrapper>
+      </Container>
     </>
   );
 };

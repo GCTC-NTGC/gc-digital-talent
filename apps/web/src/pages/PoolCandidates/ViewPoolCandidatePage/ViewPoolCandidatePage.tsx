@@ -193,11 +193,7 @@ export const ViewPoolCandidate = ({
         crumbs={navigationCrumbs}
         status={
           <Chips>
-            <Chip
-              key="status"
-              color={statusChip.color}
-              data-h2-font-weight="base(700)"
-            >
+            <Chip key="status" color={statusChip.color}>
               {statusChip.label}
             </Chip>
             {poolCandidate.user.hasPriorityEntitlement ||
@@ -228,7 +224,7 @@ export const ViewPoolCandidate = ({
       <AdminContentWrapper table overflowScrollbar>
         <Sidebar.Wrapper>
           <Sidebar.Sidebar scrollbar>
-            <Heading size="h3" data-h2-margin-top="base(0)">
+            <Heading size="h3" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More actions",
                 id: "QaMkP7",
@@ -236,7 +232,7 @@ export const ViewPoolCandidate = ({
                   "Title for more actions sidebar on view pool candidate page",
               })}
             </Heading>
-            <p data-h2-margin="base(x1, 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Additional information, relevant to this candidate’s application.",
@@ -249,16 +245,8 @@ export const ViewPoolCandidate = ({
               poolCandidate={poolCandidate}
               jobPlacementOptions={jobPlacementOptions}
             />
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.5)"
-              data-h2-margin-bottom="base(x1)"
-              data-h2-padding="base(x1)"
-              data-h2-background-color="base(error.lightest.3)"
-            >
-              <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+            <div className="mb-6 flex flex-col items-start gap-3 bg-error-100/30 p-6 dark:bg-error-700/30">
+              <Heading level="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "Candidate status",
                   id: "ETrCOq",
@@ -286,14 +274,11 @@ export const ViewPoolCandidate = ({
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <div
-              data-h2-padding-top="l-tablet(x3)"
-              data-h2-margin-bottom="base(x1)"
-            >
+            <div className="mb-6 sm:pt-18">
               <Heading
                 icon={ExclamationTriangleIcon}
                 color="warning"
-                data-h2-margin="base(0, 0, x1, 0)"
+                className="mt-0 mb-6"
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
@@ -304,7 +289,7 @@ export const ViewPoolCandidate = ({
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
-              <div data-h2-margin-top="base(x2)">
+              <div className="mt-12">
                 <ErrorBoundary>
                   <ApplicationInformation
                     poolQuery={poolCandidate.pool}
@@ -312,7 +297,7 @@ export const ViewPoolCandidate = ({
                     applicationQuery={poolCandidate}
                   />
                 </ErrorBoundary>
-                <div data-h2-margin="base(x2 0)">
+                <div className="my-12">
                   <Accordion.Root type="single" mode="card" collapsible>
                     <Accordion.Item value="otherRecruitments">
                       <Accordion.Trigger>

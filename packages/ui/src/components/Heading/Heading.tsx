@@ -59,6 +59,12 @@ const heading = tv({
         icon: "text-black",
       },
     },
+    // Center align text
+    center: {
+      true: {
+        base: "justify-center text-center",
+      },
+    },
   },
 });
 
@@ -73,7 +79,7 @@ export interface HeadingProps
 
 const Heading = forwardRef<HeadingRef, HeadingProps>(
   (
-    { level = "h2", size, icon, color, children, className, ...rest },
+    { level = "h2", size, icon, color, center, children, className, ...rest },
     forwardedRef,
   ) => {
     const El = level;
@@ -82,6 +88,7 @@ const Heading = forwardRef<HeadingRef, HeadingProps>(
       size: size ?? level,
       hasIcon: !!icon,
       color,
+      center,
     });
 
     return (

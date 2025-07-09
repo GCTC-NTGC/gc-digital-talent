@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Container } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
@@ -31,9 +31,9 @@ export const PoolPage = () => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
-      <AdminContentWrapper table>
+      <Container size="full" className="my-18">
         <PoolTableApi title={formattedPageTitle} />
-      </AdminContentWrapper>
+      </Container>
     </>
   );
 };

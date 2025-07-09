@@ -1,7 +1,14 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Heading, Link, TableOfContents, Ul } from "@gc-digital-talent/ui";
+import {
+  Container,
+  Flourish,
+  Heading,
+  Link,
+  TableOfContents,
+  Ul,
+} from "@gc-digital-talent/ui";
 import { getLocale, Locales } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -274,8 +281,8 @@ export const Component = () => {
         })}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+      <Container>
+        <TableOfContents.Wrapper className="mt-18">
           <TableOfContents.Navigation>
             <TableOfContents.List>
               {sections.map((section) => (
@@ -288,7 +295,7 @@ export const Component = () => {
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <p data-h2-margin-bottom="base(x1)">
+            <p className="mb-6">
               {intl.formatMessage(
                 {
                   id: "fzqya3",
@@ -302,13 +309,10 @@ export const Component = () => {
               )}
             </p>
             <TableOfContents.Section id={sections[0].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections[0].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -324,13 +328,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[1].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections[1].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "5Cwvgi",
@@ -342,12 +343,7 @@ export const Component = () => {
                   { wcagLink },
                 )}
               </p>
-              <Heading
-                level="h3"
-                size="h4"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "Making our products accessible and usable by all",
@@ -356,7 +352,7 @@ export const Component = () => {
                     "Heading for the items we consider for accessibility.",
                 })}
               </Heading>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+              <p className="mt-6 mb-3">
                 {intl.formatMessage({
                   id: "ASYJlr",
                   defaultMessage:
@@ -463,12 +459,7 @@ export const Component = () => {
                   </Ul>
                 </li>
               </Ul>
-              <Heading
-                level="h3"
-                size="h4"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Testing with real users",
                   id: "7+GPYf",
@@ -489,13 +480,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[2].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections[2].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Despite all efforts to make our website fully accessible, if you encounter a problem we missed, or require a different format, we encourage you to contact us at:",
@@ -504,12 +492,12 @@ export const Component = () => {
                     "Lead in text for accessibility contact information",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 <Link external href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>
                   {TALENTSEARCH_SUPPORT_EMAIL}
                 </Link>
               </p>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "We try to reply to inquiries within five business days. We also welcome your feedback on our accessibility efforts.",
@@ -519,13 +507,10 @@ export const Component = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[3].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mt-18 mb-6">
                 {sections[3].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage(
                   {
                     id: "WSo3Y/",
@@ -541,7 +526,7 @@ export const Component = () => {
                   },
                 )}
               </p>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Not all complaints will go directly to the Accessibility Commissioner. There are some exceptions:",
@@ -612,7 +597,7 @@ export const Component = () => {
                   )}
                 </li>
               </Ul>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you are not happy with how we respond to your complaint, reach out to the CHRC at the coordinates below:",
@@ -692,7 +677,7 @@ export const Component = () => {
                   )}
                 </li>
               </Ul>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "This statement was prepared on November 8, 2022.",
@@ -704,12 +689,8 @@ export const Component = () => {
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
-      <div
-        data-h2-background-image="base(main-linear)"
-        data-h2-display="base(block)"
-        data-h2-height="base(x1)"
-      />
+      </Container>
+      <Flourish />
     </>
   );
 };

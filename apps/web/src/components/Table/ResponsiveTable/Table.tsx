@@ -17,13 +17,15 @@ import SortButton from "./SortButton";
 import { AddDef } from "./types";
 import { getColumnHeader } from "./utils";
 
+const wrapper = tv({ base: "relative overflow-hidden" });
+
 type WrapperProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
-const Wrapper = ({ children, ...rest }: WrapperProps) => (
-  <div role="region" {...rest}>
+const Wrapper = ({ children, className, ...rest }: WrapperProps) => (
+  <div role="region" className={wrapper({ class: className })} {...rest}>
     <div className="overflow-x-auto overflow-y-hidden rounded-md shadow-md">
       {children}
     </div>
@@ -159,7 +161,7 @@ const cellStyles = tv({
     isRowTitle: {
       true: {
         base: "order-1 grow",
-        val: "text-lg font-bold text-primary-600 sm:font-normal sm:text-inherit lg:text-xl dark:text-primary-200 sm:dark:text-inherit",
+        val: "text-lg font-bold text-primary-600 sm:text-base sm:font-normal sm:text-inherit dark:text-primary-200 sm:dark:text-inherit",
       },
     },
     shouldShrink: {

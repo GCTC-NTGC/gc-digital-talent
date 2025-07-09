@@ -146,13 +146,9 @@ const WhoCanApplyText = ({ poolQuery }: WhoCanApplyTextProps) => {
 
   return (
     <>
-      {body ? <Text data-h2-margin-top="base(0)">{body}</Text> : null}
+      {body ? <Text className="mt-0">{body}</Text> : null}
       {finePrint ? (
-        <Text
-          data-h2-margin-bottom="base(0)"
-          data-h2-font-size="base(caption)"
-          data-h2-color="base(black.70)"
-        >
+        <Text className="mb-0 text-sm text-black/70 dark:text-white/70">
           {finePrint}
         </Text>
       ) : null}

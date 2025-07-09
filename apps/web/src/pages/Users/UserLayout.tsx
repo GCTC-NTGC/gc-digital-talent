@@ -163,11 +163,7 @@ const UserHeader = ({ user }: UserHeaderProps) => {
         }))}
       />
       {userDeleted ? (
-        <Alert.Root
-          type="warning"
-          live={false}
-          data-h2-margin="base(0, 0, x2, 0)"
-        >
+        <Alert.Root type="warning" live={false} className="mt-0 mb-12">
           <p>
             {intl.formatMessage({
               defaultMessage: "This user has been deleted.",

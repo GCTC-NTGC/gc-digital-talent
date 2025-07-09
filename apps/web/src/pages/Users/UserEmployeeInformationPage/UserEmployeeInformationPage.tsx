@@ -142,19 +142,14 @@ export const UserEmployeeInformation = ({
         </TableOfContents.List>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
+        <div className="flex flex-col gap-y-6">
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
               level="h2"
               icon={FlagIcon}
               color="secondary"
-              data-h2-margin-top="base(0)"
-              data-h2-font-weight="base(400)"
-              data-h2-text-align="base(center) l-tablet(initial)"
+              center
+              className="mt-0 font-normal sm:justify-start sm:text-left"
             >
               {intl.formatMessage(commonMessages.communityInterest)}
             </Heading>
@@ -167,11 +162,7 @@ export const UserEmployeeInformation = ({
                   "Description for Community interest section of user employee information page",
               })}
             </p>
-            <Accordion.Root
-              type="multiple"
-              mode="card"
-              data-h2-margin="base(x1 0)"
-            >
+            <Accordion.Root type="multiple" mode="card" className="my-6">
               {employeeProfile.communityInterests?.map((communityInterest) => (
                 <Accordion.Item
                   value={communityInterest.id}
@@ -198,9 +189,7 @@ export const UserEmployeeInformation = ({
               level="h2"
               icon={ChartBarSquareIcon}
               color="secondary"
-              data-h2-margin-top="base(0)"
-              data-h2-font-weight="base(400)"
-              data-h2-text-align="base(center) l-tablet(initial)"
+              className="mt-0 font-normal sm:justify-start sm:text-left"
             >
               {intl.formatMessage(commonMessages.careerPlanning)}
             </Heading>
@@ -223,7 +212,7 @@ export const UserEmployeeInformation = ({
                   "Title for Career development preferences section of user employee information page",
               })}
             </Heading>
-            <p data-h2-margin="base(x1 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Find out about their interest in a variety of specific options related to recruitment, mentorship, and promotional opportunities.",
@@ -246,7 +235,7 @@ export const UserEmployeeInformation = ({
                   "Title for Next role section of user employee information page",
               })}
             </Heading>
-            <p data-h2-margin="base(x1 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "In this section, the employee can share in which role they see themselves next.",
@@ -266,7 +255,7 @@ export const UserEmployeeInformation = ({
                   "Title for Career objective section of user employee information page",
               })}
             </Heading>
-            <p data-h2-margin="base(x1 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "We ask employees to describe their ultimate career objective. This is what they've answered.",
@@ -286,7 +275,7 @@ export const UserEmployeeInformation = ({
                   "Title for Goals and work style section of user employee information page",
               })}
             </Heading>
-            <p data-h2-margin="base(x1 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Learn more about the employee and how they work.",

@@ -155,7 +155,7 @@ const NominatorFields = ({
 
   if (!role) {
     return (
-      <Well data-h2-text-align="base(center)">
+      <Well className="text-center">
         <p>
           {intl.formatMessage({
             defaultMessage: "Please indicate your role to continue.",
@@ -262,11 +262,7 @@ const NominatorFields = ({
       )}
       {!nominatorUnset && nominatorNotFound && (
         <>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-            data-h2-gap="base(x1)"
-          >
+          <div className="grid grid-cols-2 gap-6">
             <Input
               type="text"
               id="nominatorFallbackName"
@@ -451,7 +447,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
       <SubHeading level="h2" icon={DocumentCheckIcon}>
         {intl.formatMessage(messages.nominatorInfo)}
       </SubHeading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Let’s get started by learning a little about the nominator.",
@@ -459,11 +455,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
           description: "Subtitle for nomination nominator step",
         })}
       </p>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <HiddenInput name="submitter" />
         <RadioGroup
           idPrefix="role"

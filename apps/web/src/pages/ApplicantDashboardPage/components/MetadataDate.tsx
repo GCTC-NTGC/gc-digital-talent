@@ -30,14 +30,14 @@ export const ApplicationDate = ({
     status === applicationStatus.DRAFT ||
     status === applicationStatus.EXPIRED
   ) {
-    const deadlineToApplyStyles = deadlineToApply(closingDate, status)
-      ? {
-          "data-h2-color": "base(error.darker) base:dark(error.lightest)",
-        }
-      : {};
+    const deadlineClose = deadlineToApply(closingDate, status);
 
     return (
-      <span {...deadlineToApplyStyles}>
+      <span
+        className={
+          deadlineClose ? "text-error-600 dark:text-error-100" : undefined
+        }
+      >
         {intl.formatMessage({
           defaultMessage: "Deadline",
           id: "nIAA4Q",

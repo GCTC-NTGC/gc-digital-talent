@@ -79,14 +79,10 @@ const ApplicationCareerTimelineAdd = ({
 
   return (
     <>
-      <Heading
-        data-h2-margin-top="base(0)"
-        size="h3"
-        data-h2-font-weight="base(400)"
-      >
+      <Heading size="h3" className="mt-0 font-normal">
         {pageInfo.title}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "This form allows you to add a new experience to your career timeline. Get started by selecting the type of experience you'd like to add.",
@@ -106,7 +102,7 @@ const ApplicationCareerTimelineAdd = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-top="base(x1)">
+            <p className="mt-6">
               {intl.formatMessage({
                 defaultMessage:
                   "We all have a variety of accomplishments and experiences that shape our careers and skills. Share only what you would be comfortable to share at work. On this platform, you can add the following to your career timeline:",

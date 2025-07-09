@@ -6,6 +6,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 export const NextRole_Fragment = graphql(/* GraphQL */ `
   fragment NextRole on EmployeeProfile {
@@ -71,76 +72,67 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
   );
 
   return (
-    <Card
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-    >
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(
-            employeeProfileMessages.targetClassificationGroup,
-          )}
-        </span>
+    <Card className="grid gap-6 xs:grid-cols-2">
+      <FieldDisplay
+        label={intl.formatMessage(
+          employeeProfileMessages.targetClassificationGroup,
+        )}
+      >
         {employeeProfile.nextRoleClassification?.group ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(
-            employeeProfileMessages.targetClassificationLevel,
-          )}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(
+          employeeProfileMessages.targetClassificationLevel,
+        )}
+      >
         {employeeProfile.nextRoleClassification?.level
           ? employeeProfile.nextRoleClassification.level
               .toString()
               .padStart(2, "0")
           : intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.targetRole)}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.targetRole)}
+      >
         {employeeProfile.nextRoleTargetRoleOther ??
           employeeProfile.nextRoleTargetRole?.label.localized ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.seniorManagementStatus)}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(
+          employeeProfileMessages.seniorManagementStatus,
+        )}
+      >
         {employeeProfile.nextRoleIsCSuiteRole
           ? intl.formatMessage(employeeProfileMessages.isCSuiteRoleTitle)
           : intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.cSuiteRoleTitle)}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.cSuiteRoleTitle)}
+      >
         {employeeProfile.nextRoleIsCSuiteRole
           ? employeeProfile.nextRoleCSuiteRoleTitle?.label?.localized
           : intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.jobTitle)}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.jobTitle)}
+      >
         {employeeProfile.nextRoleJobTitle ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <div data-h2-grid-column="l-tablet(span 2)">
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.community)}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.community)}
+      >
         {employeeProfile.nextRoleCommunity?.name?.localized ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
+      </FieldDisplay>
       {employeeProfile.nextRoleCommunity?.workStreams?.length ||
       employeeProfile.nextRoleWorkStreams?.length ? (
-        <div data-h2-grid-column="l-tablet(span 2)">
-          <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-            {intl.formatMessage(employeeProfileMessages.workStreams)}
-          </span>
+        <FieldDisplay
+          label={intl.formatMessage(employeeProfileMessages.workStreams)}
+          className="xs:col-span-2"
+        >
           {employeeProfile.nextRoleWorkStreams?.length ? (
             <Ul space="sm">
               {employeeProfile.nextRoleWorkStreams.map((workStream) => (
@@ -150,12 +142,12 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
-        </div>
+        </FieldDisplay>
       ) : null}
-      <div data-h2-grid-column="l-tablet(span 2)">
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.departments)}
-        </span>
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.departments)}
+        className="xs:col-span-2"
+      >
         {employeeProfile.nextRoleDepartments?.length ? (
           <Ul space="sm">
             {employeeProfile.nextRoleDepartments.map((department) => (
@@ -165,16 +157,16 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
-      </div>
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(
-            employeeProfileMessages.additionalInformationNextRole,
-          )}
-        </span>
+      </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(
+          employeeProfileMessages.additionalInformationNextRole,
+        )}
+        className="xs:col-span-2"
+      >
         {employeeProfile.nextRoleAdditionalInformation ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
+      </FieldDisplay>
     </Card>
   );
 };

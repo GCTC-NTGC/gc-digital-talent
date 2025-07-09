@@ -6,7 +6,7 @@ import uniqBy from "lodash/uniqBy";
 import { useEffect } from "react";
 import HomeModernIcon from "@heroicons/react/24/outline/HomeModernIcon";
 
-import { Button, Heading, Pending, Well } from "@gc-digital-talent/ui";
+import { Button, Card, Heading, Pending, Well } from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Combobox,
@@ -181,8 +181,7 @@ export const EmployeeInformationFormFields = ({
         size="h3"
         icon={HomeModernIcon}
         color="secondary"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
+        className="mt-0 mb-6 font-normal"
       >
         {intl.formatMessage(specificTitle)}
       </Heading>
@@ -204,12 +203,7 @@ export const EmployeeInformationFormFields = ({
             "Message after main heading in employee information page - paragraph 2.",
         })}
       </p>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1 0)"
-        data-h2-margin="base(x1 0)"
-      >
+      <div className="my-6 flex flex-col gap-y-6">
         <RadioGroup
           idPrefix="govEmployeeYesNo"
           legend={labels.govEmployeeYesNo}
@@ -270,7 +264,7 @@ export const EmployeeInformationFormFields = ({
               doNotSort
             />
             <div>
-              <div data-h2-margin="base(0, 0, x0.25, 0)">
+              <div className="mb-1.5">
                 <Input
                   id="workEmail"
                   name="workEmail"
@@ -321,11 +315,7 @@ export const EmployeeInformationFormFields = ({
                   "Text blurb, asking about classification and level in the employee info page",
               })}
             </p>
-            <div
-              data-h2-display="base(grid)"
-              data-h2-gap="base(x1)"
-              data-h2-grid-template-columns="l-tablet(4fr 1fr)"
-            >
+            <div className="grid gap-6 sm:grid-cols-4">
               <Combobox
                 id="currentClassificationGroup"
                 label={labels.currentClassificationGroup}
@@ -353,13 +343,7 @@ export const EmployeeInformationFormFields = ({
         )}
       </div>
       {isGovEmployee ? (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x.25, x.5)"
-          data-h2-flex-wrap="base(wrap)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-align-items="base(flex-start) l-tablet(center)"
-        >
+        <div className="flex flex-col flex-wrap items-start gap-x-3 gap-y-1.5 sm:flex-row sm:items-center">
           <Button
             mode="solid"
             color="primary"
@@ -520,13 +504,8 @@ export const EmployeeInformationForm = ({
         crumbs={crumbs}
         overlap
       >
-        <section data-h2-padding="base(0, 0, x3, 0)">
-          <div
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(rounded)"
-            data-h2-padding="base(x1) p-tablet(x2)"
-            data-h2-shadow="base(large)"
-          >
+        <section className="mb-18">
+          <Card className="xs:p-12">
             <BasicForm
               onSubmit={handleSubmit}
               cacheKey={cacheKey}
@@ -539,7 +518,7 @@ export const EmployeeInformationForm = ({
             >
               <EmployeeInformationFormFields labels={labels} query={query} />
             </BasicForm>
-          </div>
+          </Card>
         </section>
       </Hero>
     </>

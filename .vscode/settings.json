@@ -67,7 +67,6 @@
     "composer.lock",
     "tsconfig.json",
     ".eslintrc",
-    "hydrogen.config.json"
   ],
   "jest.jestCommandLine": "test",
   "cSpell.ignoreRegExpList": [
@@ -114,6 +113,9 @@
     }
   },
   "tailwindCSS.experimental.classRegex": [
-    ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
+    [
+      "tv\\(([^)]*)\\)",
+      "[\"'`]([^\"'`]*)[\"'`]"
+    ]
   ]
 }

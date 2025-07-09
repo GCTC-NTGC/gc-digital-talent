@@ -10,11 +10,11 @@ export const list = tv({
 });
 
 export const trigger = tv({
-  base: "group/tabTrigger relative z-[1] mt-1.5 inline-flex rounded-t border border-gray bg-compat-background outline-none hover:mt-0 data-[state=active]:border-b-transparent data-[state=active]:font-bold data-[state=inactive]:underline",
+  base: "group/tabTrigger relative z-[1] mt-1.5 inline-flex rounded-t border border-gray bg-gray-100 outline-none hover:mt-0 data-[state=active]:border-b-transparent data-[state=active]:font-bold data-[state=inactive]:underline dark:bg-gray-700",
 });
 
 export const inner = tv({
-  base: "block rounded-t border-t-6 border-t-gray px-4.5 py-3 outline-none group-data-[state=active]/tabTrigger:border-t-secondary-500 group-data-[state=active]/tabTrigger:text-secondary-500 dark:group-data-[state=active]/tabTrigger:text-secondary-300 iap:group-data-[state=active]/tabTrigger:border-t-primary-500 iap:group-data-[state=active]/tabTrigger:text-primary-500 iap:dark:group-data-[state=active]/tabTrigger:border-t-primary-200 dark:iap:group-data-[state=active]/tabTrigger:text-primary-200",
+  base: "block rounded-t border-t-6 border-t-gray px-4.5 py-3 outline-none group-data-[state=active]/tabTrigger:border-t-secondary-500 group-data-[state=active]/tabTrigger:text-secondary-600 dark:group-data-[state=active]/tabTrigger:text-secondary-200 iap:group-data-[state=active]/tabTrigger:border-t-primary-500 iap:group-data-[state=active]/tabTrigger:text-primary-500 iap:dark:group-data-[state=active]/tabTrigger:border-t-primary-200 dark:iap:group-data-[state=active]/tabTrigger:text-primary-200",
 });
 
 export const divide = tv({

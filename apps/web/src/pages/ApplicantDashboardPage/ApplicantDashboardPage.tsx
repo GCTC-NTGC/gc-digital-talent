@@ -1,7 +1,12 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending, ResourceBlock, NotFound } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  ResourceBlock,
+  NotFound,
+  Container,
+} from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   graphql,
@@ -234,18 +239,10 @@ export const DashboardPage = ({
         })}
         crumbs={crumbs}
       />
-      <section data-h2-margin="base(x3, 0)">
-        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-gap="base(x1)"
-          >
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x1)"
-            >
+      <section className="my-18">
+        <Container>
+          <div className="flex flex-col gap-6 xs:flex-row">
+            <div className="flex flex-col gap-6">
               <ApplicationsProcessesTaskCard
                 applicationsProcessesTaskCardQuery={unpackMaybes(
                   currentUser?.poolCandidates,
@@ -268,13 +265,7 @@ export const DashboardPage = ({
                 />
               ) : null}
             </div>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x1)"
-              data-h2-max-width="p-tablet(x14)"
-              data-h2-flex-shrink="base(0)"
-            >
+            <div className="flex shrink-0 flex-col gap-6 xs:max-w-84">
               <ResourceBlock.Root
                 headingColor="warning"
                 headingAs="h2"
@@ -405,7 +396,7 @@ export const DashboardPage = ({
               </ResourceBlock.Root>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

@@ -18,7 +18,11 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
 
-import { SIZE_SORT_ORDER, yesNoAccessor } from "../utils";
+import {
+  departmentStatusAccessor,
+  SIZE_SORT_ORDER,
+  yesNoAccessor,
+} from "../utils";
 import labels from "../labels";
 
 const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
@@ -32,6 +36,7 @@ export const DepartmentTableRow_Fragment = graphql(/* GraphQL */ `
     isCentralAgency
     isScience
     isRegulatory
+    archivedAt
     name {
       en
       fr
@@ -134,6 +139,13 @@ export const DepartmentTable = ({
         return 0;
       },
     }),
+    columnHelper.accessor(
+      ({ archivedAt }) => departmentStatusAccessor(archivedAt, intl),
+      {
+        id: "status",
+        header: intl.formatMessage(commonMessages.status),
+      },
+    ),
   ] as ColumnDef<DepartmentTableRowFragment>[];
 
   const data = unpackMaybes(departments);
@@ -181,15 +193,20 @@ export const DepartmentTable = ({
 };
 
 const Departments_Query = graphql(/* GraphQL */ `
-  query Departments {
-    departments {
+  query Departments($whereArchived: Boolean) {
+    departments(whereArchived: $whereArchived) {
       ...DepartmentTableRow
     }
   }
 `);
 
 const DepartmentTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useQuery({ query: Departments_Query });
+  const [{ data, fetching, error }] = useQuery({
+    query: Departments_Query,
+    variables: {
+      whereArchived: null, // explicit null value results in the Lighthouse directive not doing a thing
+    },
+  });
 
   return (
     <Pending fetching={fetching} error={error}>

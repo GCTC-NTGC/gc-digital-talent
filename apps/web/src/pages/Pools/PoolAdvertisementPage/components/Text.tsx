@@ -1,9 +1,12 @@
 import { HTMLProps } from "react";
+import { tv } from "tailwind-variants";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 
-const Text = (props: TextProps) => (
-  <p data-h2-margin="base(x.5 0)" {...props} />
+const text = tv({ base: "my-3" });
+
+const Text = ({ className, ...rest }: TextProps) => (
+  <p className={text({ class: className })} {...rest} />
 );
 
 export default Text;

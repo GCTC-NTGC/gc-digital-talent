@@ -27,8 +27,8 @@ class PoolCandidateClaimSortingTest extends TestCase
     const QUERY =
         /** @lang GraphQL */
         '
-    query PoolCandidates($orderByClaimVerification: ClaimVerificationSort) {
-        poolCandidatesPaginated(orderByClaimVerification: $orderByClaimVerification) {
+    query PoolCandidatesPaginatedAdminView($orderByClaimVerification: ClaimVerificationSort) {
+        poolCandidatesPaginatedAdminView(orderByClaimVerification: $orderByClaimVerification) {
             data {
                 id
             }
@@ -172,7 +172,7 @@ class PoolCandidateClaimSortingTest extends TestCase
             ])
             ->assertExactJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'id' => $this->bookmarkedAcceptedPriority->id,
@@ -219,7 +219,7 @@ class PoolCandidateClaimSortingTest extends TestCase
             ])
             ->assertExactJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'id' => $this->bookmarkedNoClaims->id,
@@ -268,7 +268,7 @@ class PoolCandidateClaimSortingTest extends TestCase
             ])
             ->assertExactJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             // has same ordering value as unverifiedPriorityAndAcceptedVeteran
                             // [

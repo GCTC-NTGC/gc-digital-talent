@@ -99,7 +99,7 @@ const OffPlatformProcessesDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x.75)">
+          <p className="mb-4.5">
             {intl.formatMessage({
               defaultMessage:
                 "The information you provide here will be verified. You can add all the processes and pools you're qualified in. When possible, provide the following information:",
@@ -132,7 +132,7 @@ const OffPlatformProcessesDialog = ({
           </Ul>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
-              <div data-h2-margin="base(x.75, 0, x.125, 0)">
+              <div className="mt-4.5 mb-0.75">
                 <TextArea
                   id="offPlatformRecruitmentProcesses"
                   name="offPlatformRecruitmentProcesses"

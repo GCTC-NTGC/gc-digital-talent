@@ -65,11 +65,7 @@ const ApplicationsProcessesTaskCard = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <TaskCard.Root
           icon={WrenchScrewdriverIcon}
           title={intl.formatMessage({
@@ -81,10 +77,7 @@ const ApplicationsProcessesTaskCard = ({
           headingAs="h2"
         >
           <TaskCard.Item>
-            <Accordion.Root
-              type="multiple"
-              data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
-            >
+            <Accordion.Root type="multiple">
               <Accordion.Item value="your_job_applications">
                 <Accordion.Trigger
                   as="h3"
@@ -115,10 +108,7 @@ const ApplicationsProcessesTaskCard = ({
             </Accordion.Root>
           </TaskCard.Item>
           <TaskCard.Item>
-            <Accordion.Root
-              type="multiple"
-              data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
-            >
+            <Accordion.Root type="multiple">
               <Accordion.Item value="your_recruitment_processes">
                 <Accordion.Trigger
                   as="h3"

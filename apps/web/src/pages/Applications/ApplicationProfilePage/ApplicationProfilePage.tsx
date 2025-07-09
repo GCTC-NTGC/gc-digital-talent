@@ -92,11 +92,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
 
   return (
     <ProfileFormProvider>
-      <Heading
-        size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
+      <Heading size="h3" className="mt-0 mb-6 font-normal">
         {pageInfo.title}
       </Heading>
       <p>
@@ -107,19 +103,13 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           description: "Application step to complete your profile, description",
         })}
       </p>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
+      <div className="mt-18 flex flex-col gap-y-18">
         <PersonalInformation {...sectionProps} />
-      </div>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
         <WorkPreferences {...sectionProps} />
-      </div>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
-        <DiversityEquityInclusion {...sectionProps} />
-      </div>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
+        <div>
+          <DiversityEquityInclusion {...sectionProps} />
+        </div>
         <GovernmentInformation {...sectionProps} />
-      </div>
-      <div data-h2-margin="base(x2, 0, 0, 0)">
         <LanguageProfile
           {...sectionProps}
           application={{

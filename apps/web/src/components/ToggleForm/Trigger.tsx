@@ -7,6 +7,7 @@ const { useContext } = ToggleSection;
 
 interface TriggerProps {
   children: ReactNode;
+  className?: string;
 }
 
 const Trigger = ({ children, ...rest }: TriggerProps) => {

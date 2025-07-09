@@ -55,7 +55,7 @@ const mockClient = {
   executeQuery: () =>
     fromValue({
       data: {
-        poolCandidatesPaginated: {
+        poolCandidatesPaginatedAdminView: {
           data: [mockPoolCandidatesWithSkillCount[0]],
           paginatorInfo: mockPaginatorInfo,
         },

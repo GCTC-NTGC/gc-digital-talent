@@ -3,6 +3,7 @@ import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType } from "@gc-digital-talent/graphql";
+import { Card } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -51,19 +52,14 @@ const RegistrationContactEmailVerificationPage = () => {
       crumbs={crumbs}
       overlap
     >
-      <div
-        data-h2-padding="base(x2) "
-        data-h2-background="base(foreground)"
-        data-h2-radius="p-tablet(rounded)"
-        data-h2-shadow="base(large)"
-      >
+      <Card>
         <EmailVerificationApi
           emailAddress={emailAddress}
           onVerificationSuccess={handleVerificationSuccess}
           emailType={EmailType.Contact}
           onSkip={handleSkip}
         />
-      </div>
+      </Card>
     </Hero>
   );
 };

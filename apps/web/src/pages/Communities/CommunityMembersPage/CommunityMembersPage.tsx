@@ -4,7 +4,7 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -204,11 +204,9 @@ const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={communityName} crumbs={crumbs} navTabs={navTabs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x2, 0)">
-          <CommunityMembers communityQuery={community} />
-        </div>
-      </div>
+      <Container className="my-12">
+        <CommunityMembers communityQuery={community} />
+      </Container>
     </>
   );
 };

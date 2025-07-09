@@ -160,7 +160,7 @@ const ClaimVerificationDialog = ({
           {title}
         </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {isPriority
               ? intl.formatMessage(
                   {
@@ -188,7 +188,7 @@ const ClaimVerificationDialog = ({
                 idPrefix="result"
                 name="result"
                 legend={title}
-                data-h2-margin-bottom="base(x1)"
+                className="mb-6"
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 items={[
                   {

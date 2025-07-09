@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { useTheme } from "@gc-digital-talent/theme";
+import { Card, Container } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -10,14 +11,6 @@ import flourishTopDark from "~/assets/img/support_top_dark.webp";
 import supportHeroImg from "~/assets/img/support_header.webp";
 
 import SupportForm from "./components/SupportForm/SupportForm";
-
-const getFlourishStyles = (isTop: boolean) => ({
-  "data-h2-position": "base(absolute)",
-  "data-h2-height": "base(100%)",
-  "data-h2-location": isTop
-    ? "base(0, 0, auto, auto)"
-    : "base(auto, auto, 0, 0)",
-});
 
 export const Component = () => {
   const { mode } = useTheme();
@@ -51,29 +44,17 @@ export const Component = () => {
         })}
         crumbs={crumbs}
       />
-      <div
-        data-h2-position="base(relative)"
-        data-h2-padding="base(x3, 0)"
-        data-h2-background-color="base(background)"
-      >
+      <div className="relative py-18">
         <img
           alt=""
           src={mode === "dark" ? flourishTopDark : flourishTopLight}
-          {...getFlourishStyles(true)}
+          className="absolute top-0 right-0 h-full"
         />
-        <div
-          data-h2-position="base(relative)"
-          data-h2-wrapper="base(center, small, x1) p-tablet(center, small, x2)"
-        >
-          <div
-            data-h2-padding="base(x2)"
-            data-h2-radius="base(rounded)"
-            data-h2-shadow="base(large)"
-            data-h2-background-color="base(foreground)"
-          >
+        <Container size="sm" className="relative">
+          <Card className="p-12">
             <SupportForm />
-          </div>
-        </div>
+          </Card>
+        </Container>
       </div>
     </>
   );

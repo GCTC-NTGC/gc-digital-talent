@@ -149,11 +149,7 @@ const UpdateCommunityInterestForm = ({
             value={userId}
           />
           <Card space="lg">
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x2)"
-            >
+            <div className="flex flex-col gap-12">
               <FindANewCommunity
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
@@ -359,7 +355,7 @@ export const UpdateCommunityInterestPage = () => {
         overlap
       >
         {!!queryData && !!userAuthInfo?.id && !!queriedCommunityInterest ? (
-          <div data-h2-margin-bottom="base(x3)">
+          <div className="mb-18">
             <UpdateCommunityInterestForm
               formOptionsQuery={queryData}
               formDataQuery={queriedCommunityInterest}

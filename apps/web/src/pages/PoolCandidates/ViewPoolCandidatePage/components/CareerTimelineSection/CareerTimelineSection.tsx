@@ -46,21 +46,13 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
       <Heading icon={UserCircleIcon} color="error">
         {intl.formatMessage(navigationMessages.careerTimeline)}
       </Heading>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x.5)"
-        data-h2-margin-bottom="base(x.5)"
-        data-h2-flex-wrap="base(wrap)"
-      >
+      <div className="mb-3 flex flex-wrap gap-3">
         <ExperienceSortAndFilter
           initialFormValues={sortAndFilterValues}
           onChange={(formValues) => setSortAndFilterValues(formValues)}
         />
         {hasExperiences && (
-          <div
-            data-h2-align-self="base(flex-end)"
-            data-h2-margin-left="p-tablet(auto)"
-          >
+          <div className="self-end xs:ml-auto">
             <Button mode="inline" color="primary" onClick={toggleAllExpanded}>
               {intl.formatMessage(
                 hasExpanded
@@ -72,11 +64,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
         )}
       </div>
       {hasExperiences ? (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+        <div className="flex flex-col gap-y-3">
           {hasExperiencesByType ? (
             experienceList.map((experience) => (
               <ExperienceCard
@@ -99,14 +87,14 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
               />
             ))
           ) : (
-            <Well data-h2-text-align="base(center)">
+            <Well className="text-center">
               <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
             </Well>
           )}
         </div>
       ) : (
-        <Well>
-          <p data-h2-text-align="base(center)">
+        <Well className="text-center">
+          <p>
             {intl.formatMessage({
               defaultMessage: "No experiences found",
               id: "gHMj31",

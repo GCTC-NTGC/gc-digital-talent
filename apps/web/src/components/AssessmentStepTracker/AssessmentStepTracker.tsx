@@ -160,7 +160,7 @@ const AssessmentStepTracker = ({
                 />
                 {fetching ? (
                   <Well fontSize="caption" className="m-3">
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-1.5">
                       <SpinnerIcon className="w-3" />
                       <span>{intl.formatMessage(commonMessages.loading)}</span>
                     </div>

@@ -188,16 +188,8 @@ const ReviewTalentNominationDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1)"
-          >
-            <div
-              data-h2-display="base(grid)"
-              data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-              data-h2-gap="base(x1)"
-            >
+          <div className="flex flex-col gap-6">
+            <div className="grid gap-6 xs:grid-cols-2">
               <FieldDisplay
                 label={intl.formatMessage(talentNominationMessages.nomineeName)}
               >
@@ -244,11 +236,7 @@ const ReviewTalentNominationDialog = ({
               </FieldDisplay>
             </div>
             <Separator decorative space="none" />
-            <div
-              data-h2-display="base(grid)"
-              data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-              data-h2-gap="base(x1)"
-            >
+            <div className="grid gap-6 xs:grid-cols-2">
               <FieldDisplay
                 label={intl.formatMessage(talentNominationMessages.eventName)}
               >
@@ -293,11 +281,7 @@ const ReviewTalentNominationDialog = ({
               </FieldDisplay>
             </div>
             <Separator decorative space="none" />
-            <div
-              data-h2-display="base(grid)"
-              data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-              data-h2-gap="base(x1)"
-            >
+            <div className="grid gap-6 xs:grid-cols-2">
               <FieldDisplay
                 label={intl.formatMessage(
                   talentNominationMessages.nominatorName,
@@ -318,11 +302,7 @@ const ReviewTalentNominationDialog = ({
             {talentNomination.nominateForAdvancement && (
               <>
                 <Separator decorative space="none" />
-                <div
-                  data-h2-display="base(grid)"
-                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-                  data-h2-gap="base(x1)"
-                >
+                <div className="grid gap-6 xs:grid-cols-2">
                   <FieldDisplay
                     label={intl.formatMessage({
                       defaultMessage: "Reference’s name",
@@ -351,14 +331,10 @@ const ReviewTalentNominationDialog = ({
             {talentNomination.nominateForLateralMovement && (
               <>
                 <Separator decorative space="none" />
-                <div
-                  data-h2-display="base(grid)"
-                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-                  data-h2-gap="base(x1)"
-                >
+                <div className="grid gap-6 xs:grid-cols-2">
                   {lateralMoveOptions.length > 0 && (
                     <FieldDisplay
-                      data-h2-grid-column="base(span 2)"
+                      className="xs:col-span-2"
                       label={intl.formatMessage({
                         defaultMessage: "Lateral movement options",
                         id: "zLnqLc",
@@ -377,7 +353,7 @@ const ReviewTalentNominationDialog = ({
                   )}
                   {talentNomination.lateralMovementOptionsOther && (
                     <FieldDisplay
-                      data-h2-grid-column="base(span 2)"
+                      className="xs:cols-span-2"
                       label={intl.formatMessage({
                         defaultMessage: "Other lateral move option",
                         id: "BNSbyC",
@@ -394,14 +370,10 @@ const ReviewTalentNominationDialog = ({
             {talentNomination.nominateForDevelopmentPrograms && (
               <>
                 <Separator decorative space="none" />
-                <div
-                  data-h2-display="base(grid)"
-                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-                  data-h2-gap="base(x1)"
-                >
+                <div className="grid gap-6 xs:grid-cols-2">
                   {developmentPrograms.length > 0 && (
                     <FieldDisplay
-                      data-h2-grid-column="base(span 2)"
+                      className="xs:col-span-2"
                       label={intl.formatMessage({
                         defaultMessage: "Development program recommendations",
                         id: "DHIa69",
@@ -420,7 +392,7 @@ const ReviewTalentNominationDialog = ({
                   )}
                   {talentNomination.developmentProgramOptionsOther && (
                     <FieldDisplay
-                      data-h2-grid-column="base(span 2)"
+                      className="xs:col-span-2"
                       label={intl.formatMessage({
                         defaultMessage: "Other development program option",
                         id: "xidShX",
@@ -435,10 +407,7 @@ const ReviewTalentNominationDialog = ({
               </>
             )}
           </div>
-          <Dialog.Footer
-            data-h2-gap="base(x1 0) p-tablet(0 x1)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-          >
+          <Dialog.Footer className="flex-col gap-x-6 gap-y-6 xs:flex-row">
             <FooterButtons dialogVariant={dialogVariant} />
           </Dialog.Footer>
         </Dialog.Body>

@@ -51,6 +51,7 @@ import {
 } from "./utils";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
+import CitizensNote from "./CitizensNote";
 
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {
@@ -269,7 +270,10 @@ const PoolNameSection = ({
   const { handleSubmit, watch, resetField } = methods;
 
   // hooks to watch, needed for conditional rendering
-  const [selectedAreaOfSelection] = watch(["areaOfSelection"]);
+  const [selectedAreaOfSelection, selectionLimitations] = watch([
+    "areaOfSelection",
+    "selectionLimitations",
+  ]);
 
   /**
    * Reset un-rendered fields
@@ -347,7 +351,7 @@ const PoolNameSection = ({
             sectionTitle={sectionMetadata.title}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
@@ -366,13 +370,8 @@ const PoolNameSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                data-h2-margin-bottom="base(x1)"
-              >
-                <div data-h2-grid-column="l-tablet(1 / span 2)">
+              <div className="mb-6 grid gap-6 sm:grid-cols-2">
+                <div className="sm:col-span-2">
                   <RadioGroup
                     id="areaOfSelection"
                     idPrefix="areaOfSelection"
@@ -391,7 +390,7 @@ const PoolNameSection = ({
                 </div>
 
                 {selectedAreaOfSelection ? (
-                  <div data-h2-grid-column="l-tablet(1 / span 2)">
+                  <div className="sm:col-span-2">
                     <Checklist
                       id="selectionLimitations"
                       idPrefix="selectionLimitations"
@@ -411,6 +410,10 @@ const PoolNameSection = ({
                     />
                   </div>
                 ) : null}
+
+                {selectionLimitations?.includes(
+                  PoolSelectionLimitation.CanadianCitizens,
+                ) && <CitizensNote />}
 
                 <Select
                   id="classification"
@@ -462,11 +465,7 @@ const PoolNameSection = ({
                   disabled={formDisabled}
                 />
               </div>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-margin-bottom="base(x1)"
-              >
+              <div className="mb-6 grid gap-6">
                 <Select
                   id="department"
                   label={intl.formatMessage(commonMessages.department)}

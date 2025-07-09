@@ -39,4 +39,8 @@ return [
     'advancement' => 'Advancement',
     'lateral_movement' => 'Lateral movement',
     'development' => 'Development',
+    'user_processes_text_1' => 'Overview of recruitment processes in which',
+    'user_processes_text_2' => 'has been qualified.',
+    'digital_talent_processes_text' => 'These processes are run on the GC Digital Talent platform.',
+    'off_platform_processes_text' => 'Users can provide information about processes or pools from other Government of Canada platforms in which they’ve been qualified. This information has not been verified.',
 ];

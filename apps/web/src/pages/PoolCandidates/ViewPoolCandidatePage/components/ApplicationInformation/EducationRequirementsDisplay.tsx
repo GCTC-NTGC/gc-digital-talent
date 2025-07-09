@@ -86,7 +86,7 @@ const EducationRequirementsDisplay = ({
       </p>
       {application?.educationRequirementExperiences?.length ? (
         <>
-          <p data-h2-margin="base(x1 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "Demonstrated with the following experiences:",
               id: "tpTntk",

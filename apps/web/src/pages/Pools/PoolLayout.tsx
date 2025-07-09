@@ -164,7 +164,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
           (currentPage?.link.url.includes("edit") ||
             currentPage?.link.url.includes("plan")) &&
           badge.label && (
-            <Chip color={badge.color} data-h2-flex-shrink="base(0)">
+            <Chip color={badge.color} className="shrink-0">
               {typeof badge.label === "string"
                 ? badge.label
                 : intl.formatMessage(badge.label)}

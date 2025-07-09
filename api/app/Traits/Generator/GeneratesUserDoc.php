@@ -145,14 +145,14 @@ trait GeneratesUserDoc
 
             $listRun = $section->addListItemRun();
             $listRun->addText($this->localizeHeading('writing_level'), $this->strong);
-            if ($user->comprehension_level) {
+            if ($user->written_level) {
                 $listRun->addText($this->colon().$user->written_level);
             }
 
             $listRun = $section->addListItemRun();
             $listRun->addText($this->localizeHeading('oral_interaction_level'), $this->strong);
-            if ($user->comprehension_level) {
-                $listRun->addText($this->colon().$user->written_level);
+            if ($user->verbal_level) {
+                $listRun->addText($this->colon().$user->verbal_level);
             }
 
         } elseif ($user->estimated_language_ability) {
@@ -281,11 +281,32 @@ trait GeneratesUserDoc
                     default => 'work'
                 };
 
+                if ($typeKey === 'award') {
+                    $sortedGroup = $group->sortByDesc('awarded_date');
+                } else {
+                    $sortedGroup = $group->sortBy([
+                        function ($a, $b) {
+                            if (! isset($a['end_date'])) {
+                                if (! isset($b['end_date'])) {
+                                    return 0;
+                                } else {
+                                    return -1;
+                                }
+                            } elseif (! isset($b['end_date'])) {
+                                return 1;
+                            } else {
+                                return $b['end_date'] <=> $a['end_date'];
+                            }
+                        },
+                        ['start_date', SORT_DESC, SORT_NUMERIC],
+                    ]);
+                }
+
                 $section->addTitle($this->localize('experiences.'.$typeKey), $headingRank + 1);
 
                 $subHeadingRank = $headingRank + 2;
 
-                $group->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
+                $sortedGroup->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
                     $this->experience($section, $experience, $type, $withSkills, $subHeadingRank);
                 });
             }
@@ -572,6 +593,12 @@ trait GeneratesUserDoc
             'workExperiences',
             'userSkills',
             'employeeProfile',
+            'poolCandidates' => function ($query) use ($user) {
+                $query->whereAuthorizedToView(['userId' => $user->id]);
+            },
+            'poolCandidates.pool',
+            'poolCandidates.pool.classification',
+            'poolCandidates.pool.community',
         ]);
 
         $this->name($section, $user, $headingRank);
@@ -587,6 +614,7 @@ trait GeneratesUserDoc
 
         $this->experiences($section, $user->experiences, true, $headingRank + 1);
         $this->skillShowcase($section, $user, $headingRank + 1);
+        $this->recruitmentProcesses($section, $user, $headingRank + 1);
         $this->gcEmployeeProfile($section, $user, $headingRank + 1);
     }
 
@@ -630,6 +658,34 @@ trait GeneratesUserDoc
                 }
             });
         }
+    }
+
+    /**
+     * Generate a users recruitment processes they are part of
+     *
+     * @param  Section  $section  The section to add info to
+     * @param  User  $user  The user being generated
+     */
+    protected function recruitmentProcesses(Section $section, User $user, int $headingRank = 4)
+    {
+        $section->addTitle($this->localizeHeading('recruitment_processes'), $headingRank);
+        $section->addText($this->localize('common.user_processes_text_1').' '.$user->getFullName($this->anonymous).' '.$this->localize('common.user_processes_text_2'));
+
+        // Digital Talent processes
+        $section->addTitle($this->localizeHeading('digital_talent_processes'), $headingRank + 1);
+        $section->addText($this->localize('common.digital_talent_processes_text'));
+        $user->poolCandidates->each(function ($candidate) use ($section, $headingRank) {
+            $section->addTitle($candidate->pool->name[$this->lang] ?? '', $headingRank + 2);
+            $this->addLabelText($section, $this->localize('experiences.classification'), $candidate->pool->classification->displayName);
+            $this->addLabelText($section, $this->localizeHeading('process_number'), $candidate->pool->process_number);
+            $this->addLabelText($section, $this->localizeHeading('functional_community'), $candidate->pool->community->name[$this->lang] ?? '');
+            $this->addLabelText($section, $this->localizeHeading('availability'), $this->yesOrNo(isset($candidate->suspended_at)));
+        });
+
+        // Off platform processes
+        $section->addTitle($this->localize('headings.off_platform_processes'), $headingRank + 1);
+        $section->addText($this->localize('common.off_platform_processes_text'));
+        $this->addLabelText($section, $this->localizeHeading('off_platform_process_information'), $user->off_platform_recruitment_processes);
     }
 
     /**

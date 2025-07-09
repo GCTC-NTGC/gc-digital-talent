@@ -84,7 +84,7 @@ export const Default: StoryObj<typeof NominationGroupSidebar> = {
     ),
   },
   render: (args) => (
-    <aside data-h2-width="base(50%)">
+    <aside className="w-1/2">
       <NominationGroupSidebar {...args} />
     </aside>
   ),

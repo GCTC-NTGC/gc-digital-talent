@@ -392,7 +392,6 @@ describe("AssessmentStepTracker", () => {
     expect(filteredCandidates.length).toEqual(2);
     const attemptToFindFilteredCandidate = filteredCandidates.filter(
       (candidate) =>
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         candidate.status?.value === PoolCandidateStatus.ScreenedOutApplication,
     );
     expect(attemptToFindFilteredCandidate.length).toEqual(0);

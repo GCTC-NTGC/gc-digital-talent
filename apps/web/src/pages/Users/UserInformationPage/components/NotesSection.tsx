@@ -87,7 +87,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
 
   return (
     <>
-      <p data-h2-margin="base(x1, 0, x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "These notes are shared between all managers of this pool, but not to candidates.",
@@ -109,7 +109,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
           {user?.poolCandidates?.map((candidate) => {
             if (candidate) {
               return (
-                <div data-h2-padding="base(0, 0, x.5, 0)" key={candidate.id}>
+                <div className="mb-3" key={candidate.id}>
                   <TextArea
                     id={candidate.id}
                     name={candidate.id}

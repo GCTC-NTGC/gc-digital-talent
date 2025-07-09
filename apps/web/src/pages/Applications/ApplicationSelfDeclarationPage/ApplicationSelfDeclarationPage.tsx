@@ -165,14 +165,10 @@ export const ApplicationSelfDeclaration = ({
 
   return (
     <>
-      <Heading
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-font-weight="base(400)"
-        size="h3"
-      >
+      <Heading className="mt-0 mb-6 font-normal" size="h3">
         {pageInfo.title}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "We recognize the importance of Indigenous voices in the federal government. The program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada and are interested in joining the program!",
@@ -216,7 +212,7 @@ export const ApplicationSelfDeclaration = ({
           />
           <CommunitySelection labels={labels} />
 
-          <div data-h2-max-width="base(48rem)">
+          <div className="max-w-192">
             {isIndigenous && hasCommunities ? (
               <>
                 <p>
@@ -228,7 +224,7 @@ export const ApplicationSelfDeclaration = ({
                       "Disclaimer before signing Indigenous self-declaration form",
                   })}
                 </p>
-                <div data-h2-margin="base(x1 0)">
+                <div className="my-6">
                   <Input
                     type="text"
                     id="signature"
@@ -239,13 +235,7 @@ export const ApplicationSelfDeclaration = ({
                     }}
                   />
                 </div>
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x1)"
-                  data-h2-flex-wrap="base(wrap)"
-                  data-h2-flex-direction="base(column) l-tablet(row)"
-                  data-h2-align-items="base(flex-start) l-tablet(center)"
-                >
+                <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
                   <Button
                     type="submit"
                     color="primary"
@@ -285,7 +275,7 @@ export const ApplicationSelfDeclaration = ({
               </>
             ) : (
               <>
-                <p data-h2-margin="base(x1, 0)">
+                <p className="my-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "This program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada.",
@@ -294,7 +284,7 @@ export const ApplicationSelfDeclaration = ({
                       "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form.",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <p className="my-6">
                   {intl.formatMessage({
                     defaultMessage: "Not a member of an Indigenous group?",
                     id: "Xe90FW",
@@ -302,7 +292,7 @@ export const ApplicationSelfDeclaration = ({
                       "Lead in text for button to submit form and navigate to a different page when no Indigenous",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <p className="my-6">
                   {/* Form must have a submit button to satisfy https://www.w3.org/TR/2016/NOTE-WCAG20-TECHS-20161007/H32 */}
                   <Button
                     type="submit"
@@ -334,7 +324,7 @@ export const ApplicationSelfDeclaration = ({
           </div>
           <Separator />
           <HelpLink />
-          <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
+          <p className="my-6 font-bold">
             {intl.formatMessage(
               {
                 defaultMessage:

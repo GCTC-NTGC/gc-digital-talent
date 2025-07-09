@@ -118,7 +118,7 @@ const LanguageRequirementDialog = () => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <Heading level={headingLevel} size="h6" data-h2-margin-top="base(0)">
+          <Heading level={headingLevel} size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Language requirements on GC Digital Talent",
               id: "h1UJ1Q",
@@ -166,14 +166,14 @@ const LanguageRequirementDialog = () => {
             </DescriptionList.Item>
           </DescriptionList.Root>
 
-          <Heading level={headingLevel} size="h6" data-h2-margin-top="base(0)">
+          <Heading level={headingLevel} size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Bilingual positions",
               id: "i9ovz7",
               description: "Sub-heading for language requirements dialog",
             })}
           </Heading>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "You do not need to have your second language proficiency levels before applying for a bilingual position. You will be sent for testing as part of the hiring process.",
@@ -182,7 +182,7 @@ const LanguageRequirementDialog = () => {
                 "Description for bilingual positions in language requirements dialog",
             })}
           </p>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "If you are applying for a bilingual position, you must pass the language tests before you can be hired. If the position is bilingual, the manager cannot hire someone who does not meet the second language proficiency levels, no matter what other qualifications the candidate may have or how well they perform in the job competition. If you are interested in a bilingual job but are not bilingual, you are strongly encouraged to apply to other opportunities on the platform that meet your language abilities.",
@@ -191,7 +191,7 @@ const LanguageRequirementDialog = () => {
                 "Description for bilingual positions in language requirements dialog",
             })}
           </p>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -205,14 +205,14 @@ const LanguageRequirementDialog = () => {
               },
             )}
           </p>
-          <Heading level={headingLevel} size="h6" data-h2-margin-top="base(0)">
+          <Heading level={headingLevel} size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Second language proficiency",
               id: "fSeYdG",
               description: "Sub-heading for language requirements dialog",
             })}
           </Heading>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "The Government of Canada uses letter codes to describe second language proficiency. There are three proficiency levels for general qualifications",
@@ -247,7 +247,7 @@ const LanguageRequirementDialog = () => {
               })}
             </li>
           </Ul>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "Second language proficiency is also determined for three related skills",
@@ -282,7 +282,7 @@ const LanguageRequirementDialog = () => {
               })}
             </li>
           </Ul>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "To assess your second language proficiency, you will need to complete an evaluation for each of the three skills. After each evaluation, you will obtain a letter code indicating the proficiency level you demonstrated for that skill.",
@@ -291,7 +291,7 @@ const LanguageRequirementDialog = () => {
                 "Description for second language proficiency on language requirement dialog",
             })}
           </p>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "Language requirements for bilingual positions are summarized using one of the letter codes for each of the skills. The first letter refers to the required level for <strong>Reading</strong>, the second <strong>Writing</strong> and the third <strong>Speaking</strong>.",
@@ -300,7 +300,7 @@ const LanguageRequirementDialog = () => {
                 "Description for second language proficiency on language requirement dialog",
             })}
           </p>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "In practice, most bilingual positions are either B B B (intermediate) or C B C (advanced).",
@@ -309,7 +309,7 @@ const LanguageRequirementDialog = () => {
                 "Description for second language proficiency on language requirement dialog",
             })}
           </p>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "The Public Service Commission (PSC) is responsible for all second language evaluations for Government of Canada employment opportunities. You can read more about this topic on the PSC's website",

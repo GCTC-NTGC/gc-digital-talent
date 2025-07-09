@@ -12,6 +12,7 @@ import {
   Chip,
   Link,
   CardSeparator,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   Scalars,
@@ -103,29 +104,19 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
           },
         ]}
       />
-      <div
-        data-h2-margin="base(x3 0)"
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-        >
+      <Container className="my-18">
+        <div className="flex justify-center xs:justify-start">
           <Heading
             icon={IdentificationIcon}
             level="h2"
             color="secondary"
-            data-h2-margin-top="base(0)"
+            className="mt-0"
           >
             {subTitle}
           </Heading>
         </div>
         <Card>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="p-tablet(1fr 1fr)"
-            data-h2-gap="base(x1)"
-          >
+          <div className="grid gap-6 xs:grid-cols-2">
             <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
               {skillFamily.name?.en ??
                 intl.formatMessage(commonMessages.notProvided)}
@@ -146,7 +137,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
               {skillFamily.description?.fr ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
-            <div data-h2-grid-column="p-tablet(1 / 3)">
+            <div className="xs:col-span-2">
               <FieldDisplay label={intl.formatMessage(messages.skillsInFamily)}>
                 {skillObjectsLocalizedSorted &&
                 skillObjectsLocalizedSorted.length > 0 ? (
@@ -160,17 +151,15 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
                 )}
               </FieldDisplay>
             </div>
-            <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
-              {skillFamily.key ??
-                intl.formatMessage(commonMessages.notProvided)}
-            </FieldDisplay>
+            <div className="xs:col-span-2">
+              <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+                {skillFamily.key ??
+                  intl.formatMessage(commonMessages.notProvided)}
+              </FieldDisplay>
+            </div>
           </div>
           <CardSeparator />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
-            data-h2-text-align="base(center) p-tablet(left)"
-          >
+          <div className="flex justify-center text-center xs:justify-start xs:text-left">
             <Link
               color="primary"
               mode="inline"
@@ -184,7 +173,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
             </Link>
           </div>
         </Card>
-      </div>
+      </Container>
     </>
   );
 };

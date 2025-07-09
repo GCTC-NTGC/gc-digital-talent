@@ -98,60 +98,45 @@ const TalentNominationGroupDetails = ({
   };
 
   return (
-    <Card space="lg">
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1) l-tablet(x1.5)"
-      >
-        {/* heading section */}
-        <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-justify-content="base(space-between)"
+    <Card space="lg" className="flex flex-col gap-6 sm:gap-9">
+      {/* heading section */}
+      <div className="flex items-center justify-between">
+        <Heading
+          level="h2"
+          icon={ClipboardDocumentListIcon}
+          color="secondary"
+          className="mt-0 font-normal"
         >
-          <div>
-            <Heading
-              level="h2"
-              icon={ClipboardDocumentListIcon}
-              color="secondary"
-              data-h2-font-weight="base(400)"
-              data-h2-margin="base(0)"
-            >
-              {intl.formatMessage(detailTabMessages.nominationDetailsPageTitle)}
-            </Heading>
-          </div>
-          <div>
-            <Button
-              type="button"
-              mode="inline"
-              color="primary"
-              onClick={toggleExpandedNominationsValue}
-            >
-              {intl.formatMessage(
-                expandedNominationsValue.length > 0
-                  ? detailTabMessages.collapseNominations
-                  : detailTabMessages.expandNominations,
-              )}
-            </Button>
-          </div>
-        </div>
-        <Card.Separator />
-        <Accordion.Root
-          mode="simple"
-          type="multiple"
-          value={expandedNominationsValue}
-          onValueChange={setExpandedNominationsValue}
+          {intl.formatMessage(detailTabMessages.nominationDetailsPageTitle)}
+        </Heading>
+        <Button
+          type="button"
+          mode="inline"
+          color="primary"
+          onClick={toggleExpandedNominationsValue}
         >
-          {talentNominationGroup.nominations?.map((nomination) => (
-            <TalentNominationAccordionItem
-              key={nomination.id}
-              query={nomination}
-              optionsQuery={options}
-            />
-          ))}
-        </Accordion.Root>
+          {intl.formatMessage(
+            expandedNominationsValue.length > 0
+              ? detailTabMessages.collapseNominations
+              : detailTabMessages.expandNominations,
+          )}
+        </Button>
       </div>
+      <Card.Separator />
+      <Accordion.Root
+        mode="simple"
+        type="multiple"
+        value={expandedNominationsValue}
+        onValueChange={setExpandedNominationsValue}
+      >
+        {talentNominationGroup.nominations?.map((nomination) => (
+          <TalentNominationAccordionItem
+            key={nomination.id}
+            query={nomination}
+            optionsQuery={options}
+          />
+        ))}
+      </Accordion.Root>
     </Card>
   );
 };

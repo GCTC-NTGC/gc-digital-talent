@@ -123,12 +123,7 @@ const AddExperienceForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <ErrorSummary experienceType={type} />
-        <Heading
-          level="h3"
-          size="h4"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x3, 0, x1, 0)"
-        >
+        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
           {experienceFormLabels.selectType}
         </Heading>
         <Select
@@ -164,13 +159,7 @@ const AddExperienceForm = ({
         <ExperienceDetails organizationSuggestions={organizationSuggestions} />
         <TasksAndResponsibilities />
         <Separator />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x1)"
-          data-h2-flex-wrap="base(wrap)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-align-items="base(flex-start) l-tablet(center)"
-        >
+        <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
           <Button
             type="submit"
             mode="solid"

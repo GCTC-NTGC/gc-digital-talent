@@ -37,7 +37,7 @@ export const NominationMetaDataDate = ({
 
     if (isPast(closeDateEnd)) {
       return (
-        <span data-h2-color="base(error) base:dark(error.lightest)">
+        <span className="text-error-600 dark:text-error-100">
           {intl.formatMessage(commonMessages.deadline)}
           {intl.formatMessage(commonMessages.dividingColon)}
           {formatDate({

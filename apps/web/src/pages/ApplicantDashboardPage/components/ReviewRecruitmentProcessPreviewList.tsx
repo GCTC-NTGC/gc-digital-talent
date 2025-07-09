@@ -150,8 +150,8 @@ const ReviewRecruitmentProcessPreviewList = ({
           })}
         </PreviewList.Root>
       ) : (
-        <Well data-h2-text-align="base(center)">
-          <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.5)">
+        <Well className="text-center">
+          <p className="mb-3 font-bold">
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active recruitment processes at the moment.",
@@ -170,28 +170,15 @@ const ReviewRecruitmentProcessPreviewList = ({
           </p>
         </Well>
       )}
-      <div
-        data-h2-margin-top="base(x1)"
-        data-h2-padding-top="base(x1)"
-        data-h2-border-top="base:all(1px solid gray.light)"
-      >
-        <Heading
-          level="h3"
-          data-h2-font-size="base(body)"
-          data-h2-font-weight="base(bold)"
-          data-h2-margin-bottom="base(x.125)"
-        >
+      <div className="mt-6 border-t-gray-300 pt-6">
+        <Heading level="h3" size="h6" className="mb-0.75 font-bold">
           {intl.formatMessage({
             defaultMessage: "Off-platform recruitment processes",
             id: "tpXtAJ",
             description: "Off-platform section header",
           })}
         </Heading>
-        <p
-          data-h2-color="base(black.light)"
-          data-h2-font-size="base(caption)"
-          data-h2-margin-bottom="base(x1)"
-        >
+        <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
           {intl.formatMessage({
             defaultMessage:
               "If you're qualified in processes or pools on other Government of Canada platforms, you can tell us here. This information will be verified.",
@@ -199,7 +186,7 @@ const ReviewRecruitmentProcessPreviewList = ({
             description: "Off-platform section information",
           })}
         </p>
-        <p data-h2-margin-bottom="base(x1)">
+        <p className="mb-6">
           {offPlatformRecruitmentProcesses ??
             intl.formatMessage({
               defaultMessage:

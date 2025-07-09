@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "urql";
 import {
   Dialog,
   IconButton,
+  IconButtonProps,
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -16,8 +17,6 @@ import {
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-
-import { HydrogenAttributes } from "~/types/hydrogen";
 
 import { dialogMessages, formMessages } from "./messages";
 import { convertFormValuesToMutationInput, FormValues } from "./form";
@@ -47,13 +46,15 @@ const NominationGroupEvaluationDialog_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface NominationGroupEvaluationDialogProps {
-  triggerButtonStyle: HydrogenAttributes;
+export interface NominationGroupEvaluationDialogProps {
+  triggerColor: IconButtonProps["color"];
+  triggerClassName: string;
   talentNominationGroupId: string;
 }
 
 const NominationGroupEvaluationDialog = ({
-  triggerButtonStyle,
+  triggerColor,
+  triggerClassName,
   talentNominationGroupId,
 }: NominationGroupEvaluationDialogProps) => {
   const intl = useIntl();
@@ -102,8 +103,8 @@ const NominationGroupEvaluationDialog = ({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <IconButton
-          {...triggerButtonStyle}
-          data-h2-margin-top="base(x.1)"
+          color={triggerColor}
+          className={triggerClassName}
           icon={PencilSquareIcon}
           size="lg"
           label={intl.formatMessage(dialogMessages.title)}

@@ -4,6 +4,7 @@ import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { Card } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -58,19 +59,14 @@ const RegistrationWorkEmailVerificationPage = () => {
       crumbs={crumbs}
       overlap
     >
-      <div
-        data-h2-padding="base(x2) "
-        data-h2-background="base(foreground)"
-        data-h2-radius="p-tablet(rounded)"
-        data-h2-shadow="base(large)"
-      >
+      <Card>
         <EmailVerificationApi
           emailAddress={data?.me?.workEmail}
           onVerificationSuccess={handleVerificationSuccess}
           emailType={EmailType.Work}
           onSkip={handleSkip}
         />
-      </div>
+      </Card>
     </Hero>
   );
 };

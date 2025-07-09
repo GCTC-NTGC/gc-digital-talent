@@ -27,7 +27,7 @@ const CandidateStatusSection = ({
 
   return (
     <>
-      <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
+      <Heading level="h4" className="mt-12 mb-6">
         {titleString}
       </Heading>
       <UserCandidatesTable
@@ -37,7 +37,7 @@ const CandidateStatusSection = ({
       />
       {isAdmin && (
         <>
-          <h4 data-h2-margin="base(x2, 0, x1, 0)">
+          <h4 className="mt-12 mb-6">
             {intl.formatMessage({
               defaultMessage: "Add user to pool",
               id: "jtEouE",

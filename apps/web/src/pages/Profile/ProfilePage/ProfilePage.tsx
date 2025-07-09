@@ -1,7 +1,12 @@
 import { defineMessage, useIntl } from "react-intl";
 import { OperationContext, useMutation, useQuery } from "urql";
 
-import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  ThrowNotFound,
+  Pending,
+  Container,
+} from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -839,9 +844,9 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
         subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+      <Container className="my-18">
         <TableOfContents.Wrapper>
-          <TableOfContents.Navigation data-h2-padding-top="base(x3)">
+          <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
@@ -872,37 +877,27 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
               </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
-          <TableOfContents.Content data-h2-padding-top="base(x3)">
-            <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
-              <PersonalInformation {...sectionProps} />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.WORK_PREFERENCES}
-              data-h2-padding-top="base(x3)"
-            >
-              <WorkPreferences {...sectionProps} />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.DEI}
-              data-h2-padding-top="base(x3)"
-            >
-              <DiversityEquityInclusion {...sectionProps} />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.GOVERNMENT}
-              data-h2-padding-top="base(x3)"
-            >
-              <GovernmentInformation {...sectionProps} />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.LANGUAGE}
-              data-h2-padding-top="base(x3)"
-            >
-              <LanguageProfile {...sectionProps} />
-            </TableOfContents.Section>
+          <TableOfContents.Content>
+            <div className="flex flex-col gap-y-18">
+              <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
+                <PersonalInformation {...sectionProps} />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
+                <WorkPreferences {...sectionProps} />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
+                <DiversityEquityInclusion {...sectionProps} />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
+                <GovernmentInformation {...sectionProps} />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
+                <LanguageProfile {...sectionProps} />
+              </TableOfContents.Section>
+            </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
-      </div>
+      </Container>
     </>
   );
 };

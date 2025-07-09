@@ -86,7 +86,7 @@ export function emailLinkCell(
   }
 
   return (
-    <span data-h2-font-style="base(italic)">
+    <span className="italic">
       {intl.formatMessage({
         defaultMessage: "No email provided",
         id: "1JCjTP",

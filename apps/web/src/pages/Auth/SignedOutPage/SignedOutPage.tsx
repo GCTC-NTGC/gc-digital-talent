@@ -8,6 +8,7 @@ import {
   Heading,
   Link,
   Ul,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   LOGOUT_REASON_KEY,
@@ -135,16 +136,9 @@ export const Component = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
-      <div
-        data-h2-wrapper="base(center, small, x1) p-tablet(center, small, x2)"
-        data-h2-margin="base(x3, 0)"
-      >
+      <Container size="sm" className="my-18">
         {alert}
-        <Heading
-          data-h2-margin="base(x3, 0, x1, 0)"
-          size="h3"
-          data-h2-font-weight="base(400)"
-        >
+        <Heading size="h3" className="mt-18 mb-6 font-normal">
           {intl.formatMessage({
             defaultMessage: "Quick Links",
             id: "Igrveg",
@@ -152,7 +146,7 @@ export const Component = () => {
               "Title displayed for helpful links on logged out page.",
           })}
         </Heading>
-        <p>
+        <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
               "Not ready to leave just yet? Head back to the homepage, check out new opportunities, or learn more about some of the research behind this platform.",
@@ -161,45 +155,43 @@ export const Component = () => {
               "Description of the links presented on the logged out page.",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0, 0, 0)">
-          <Ul>
-            <li>
-              <Link href={paths.home()}>
-                {intl.formatMessage({
-                  defaultMessage: "Return home",
-                  id: "Hgd/PL",
-                  description: "Link text to return to the home page",
-                })}
-              </Link>
-            </li>
-            <li>
-              <Link href={paths.browsePools()}>
-                {intl.formatMessage({
-                  defaultMessage: "View open pools",
-                  id: "FtlwFY",
-                  description: "Link text to view all open pools",
-                })}
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/talent-cloud/report`} external>
-                {intl.formatMessage({
-                  defaultMessage: "Talent Cloud report",
-                  id: "L9mWLV",
-                  description: "Link text to read the report on talent cloud",
-                })}
-              </Link>
-            </li>
-          </Ul>
-        </div>
-      </div>
+        <Ul>
+          <li>
+            <Link href={paths.home()}>
+              {intl.formatMessage({
+                defaultMessage: "Return home",
+                id: "Hgd/PL",
+                description: "Link text to return to the home page",
+              })}
+            </Link>
+          </li>
+          <li>
+            <Link href={paths.browsePools()}>
+              {intl.formatMessage({
+                defaultMessage: "View open pools",
+                id: "FtlwFY",
+                description: "Link text to view all open pools",
+              })}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${locale}/talent-cloud/report`} external>
+              {intl.formatMessage({
+                defaultMessage: "Talent Cloud report",
+                id: "L9mWLV",
+                description: "Link text to read the report on talent cloud",
+              })}
+            </Link>
+          </li>
+        </Ul>
+      </Container>
       <AlertDialog.Root open={loggedIn}>
         <AlertDialog.Content>
           <AlertDialog.Title>
             {intl.formatMessage(authMessages.signOut)}
           </AlertDialog.Title>
           <AlertDialog.Description>
-            <p data-h2-font-size="base(h5, 1)">
+            <p className="text-xl/[1.1] lg:text-2xl/[1.1]">
               {intl.formatMessage({
                 defaultMessage: "Are you sure you would like to sign out?",
                 id: "mNNgEF",

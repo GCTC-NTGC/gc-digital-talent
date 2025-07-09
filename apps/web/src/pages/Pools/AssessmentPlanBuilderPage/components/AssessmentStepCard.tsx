@@ -117,7 +117,7 @@ const AssessmentStepCard = ({
         />
       }
     >
-      <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+      <Heading level="h4" size="h6" className="mt-0">
         {assessmentStepDisplayName(
           { type: assessmentStep.type, title: assessmentStep.title },
           intl,
@@ -125,14 +125,9 @@ const AssessmentStepCard = ({
       </Heading>
 
       {skillNames.length || isApplicationScreening ? (
-        <ul
-          data-h2-color="base(black.light)"
-          data-h2-font-size="base(caption)"
-          data-h2-padding-left="base(0)"
-          data-h2-margin-top="base(x.5)"
-        >
+        <ul className="mt-3 pl-0 text-sm text-gray-600 dark:text-gray-200">
           {isApplicationScreening && (
-            <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
+            <li className="inline pl-0">
               {intl.formatMessage(processMessages.educationRequirement)}
             </li>
           )}
@@ -140,13 +135,11 @@ const AssessmentStepCard = ({
             <Fragment key={skillName}>
               {skillIndex !== 0 || isApplicationScreening ? (
                 // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                <span data-h2-margin="base(0 x.5)" aria-hidden>
+                <span className="mx-3" aria-hidden>
                   &bull;
                 </span>
               ) : null}
-              <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
-                {skillName}
-              </li>
+              <li className="inline pl-0">{skillName}</li>
             </Fragment>
           ))}
         </ul>
@@ -168,7 +161,7 @@ const AssessmentStepCard = ({
         <Accordion.Root
           type="multiple"
           mode="simple"
-          data-h2-margin-top="base(x.5)"
+          className="mt-3"
           size="sm"
         >
           <Accordion.Item value="one">
@@ -176,11 +169,7 @@ const AssessmentStepCard = ({
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
-              <Heading
-                level="h6"
-                data-h2-font-size="base(copy)"
-                data-h2-margin-top="base(x.5)"
-              >
+              <Heading level="h6" className="mt-3">
                 {intl.formatMessage({
                   defaultMessage: "Questions in English",
                   id: "9cLJwl",
@@ -188,17 +177,14 @@ const AssessmentStepCard = ({
                     "Description for a list of questions in the English language",
                 })}
               </Heading>
-              <ol
-                data-h2-padding-left="base(0)"
-                data-h2-list-style-position="base(inside)"
-              >
+              <ol className="list-inside pl-0">
                 {screeningQuestions.map((screeningQuestion) => (
-                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
+                  <li key={screeningQuestion.id} className="mt-3">
                     {screeningQuestion.question?.en}
                   </li>
                 ))}
               </ol>
-              <Heading level="h6" data-h2-font-size="base(copy)">
+              <Heading level="h6">
                 {intl.formatMessage({
                   defaultMessage: "Questions in French",
                   id: "OyMDr3",
@@ -206,12 +192,9 @@ const AssessmentStepCard = ({
                     "Description for a list of questions in the French language",
                 })}
               </Heading>
-              <ol
-                data-h2-padding-left="base(0)"
-                data-h2-list-style-position="base(inside)"
-              >
+              <ol className="list-inside pl-0">
                 {screeningQuestions.map((screeningQuestion) => (
-                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
+                  <li key={screeningQuestion.id} className="mt-3">
                     {screeningQuestion.question?.fr}
                   </li>
                 ))}

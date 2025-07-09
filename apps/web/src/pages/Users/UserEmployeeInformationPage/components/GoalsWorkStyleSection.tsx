@@ -5,6 +5,7 @@ import { Card, CardSeparator } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 export const GoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment GoalsWorkStyle on EmployeeProfile {
@@ -29,35 +30,27 @@ const GoalsWorkStyleSection = ({
   );
 
   return (
-    <Card
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-      data-h2-overflow-wrap="base(anywhere)"
-    >
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.aboutYou)}
-        </span>
+    <Card className="flex flex-col gap-6 wrap-anywhere">
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.aboutYou)}
+      >
         {employeeProfile.aboutYou ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <CardSeparator data-h2-margin="base(0)" />
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.learningGoals)}
-        </span>
+      </FieldDisplay>
+      <CardSeparator space="none" />
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.learningGoals)}
+      >
         {employeeProfile.learningGoals ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
-      <CardSeparator data-h2-margin="base(0)" />
-      <div>
-        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
-          {intl.formatMessage(employeeProfileMessages.workStyle)}
-        </span>
+      </FieldDisplay>
+      <CardSeparator space="none" />
+      <FieldDisplay
+        label={intl.formatMessage(employeeProfileMessages.workStyle)}
+      >
         {employeeProfile.workStyle ??
           intl.formatMessage(commonMessages.notProvided)}
-      </div>
+      </FieldDisplay>
     </Card>
   );
 };
