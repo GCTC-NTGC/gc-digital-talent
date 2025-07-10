@@ -127,9 +127,9 @@ const SkillMatchDialogBody = ({
                     {
                       defaultMessage:
                         "{poolCandidateName} has added this skill to their skills portfolio, but it isn't linked to a career experience.",
-                      id: "hv+5DR",
+                      id: "EAy2CJ",
                       description:
-                        "Disclaimed in well for special case rendering",
+                        "Disclaimer in well for claimed skill special case rendering",
                     },
                     { poolCandidateName },
                   )
@@ -245,8 +245,8 @@ const SkillMatchDialog = ({
             {
               defaultMessage:
                 "{poolCandidateName} meets {skillsCount} out of {filteredSkillsTotal} skills",
-              id: "Vo94jB",
-              description: "Skills match subtitle",
+              id: "Fxs+ab",
+              description: "Skills match subtitle with candidate's name",
             },
             {
               poolCandidateName,
