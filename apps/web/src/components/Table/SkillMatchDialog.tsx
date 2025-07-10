@@ -2,17 +2,38 @@ import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
-import { Maybe, Skill, graphql, Scalars } from "@gc-digital-talent/graphql";
+import { Button, Dialog, Pending, Separator } from "@gc-digital-talent/ui";
+import {
+  Maybe,
+  Skill,
+  graphql,
+  Scalars,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import SkillTree from "~/components/SkillTree/SkillTree";
+import SkillTree, {
+  SkillTreeExperience_Fragment,
+} from "~/components/SkillTree/SkillTree";
+
+const arrayIncludesForSorting = (
+  skillIdToFind: string,
+  skillsIdArray: string[],
+): number => {
+  return skillsIdArray.includes(skillIdToFind) ? 0 : 1;
+};
 
 const SkillMatchDialog_Query = graphql(/* GraphQL */ `
   query SkillMatchDialog_Query($id: UUID!) {
     user(id: $id) {
       experiences {
         ...SkillTreeExperience
+      }
+      userSkills {
+        skill {
+          id
+        }
       }
     }
   }
@@ -22,12 +43,14 @@ interface SkillMatchDialogBodyProps {
   intl: IntlShape;
   filteredSkills: Skill[];
   userId: Scalars["ID"]["output"];
+  poolCandidateName: string;
 }
 
 const SkillMatchDialogBody = ({
   intl,
   filteredSkills,
   userId,
+  poolCandidateName,
 }: SkillMatchDialogBodyProps) => {
   const [{ data, fetching, error }] = useQuery({
     query: SkillMatchDialog_Query,
@@ -36,25 +59,89 @@ const SkillMatchDialogBody = ({
     },
   });
 
+  const experiencesUnpacked = unpackMaybes(data?.user?.experiences);
+  const userSkillsUnpacked = unpackMaybes(data?.user?.userSkills);
+
+  const experiencesFromFragment = getFragment(
+    SkillTreeExperience_Fragment,
+    experiencesUnpacked,
+  );
+  const userSkillsSkillIds = userSkillsUnpacked.map(
+    (userSkill) => userSkill.skill.id,
+  );
+
+  // claimed skills come from user->userSkills
+  // supported skills come from user->experiences[number].skills
+  const claimedSkills = filteredSkills.filter((skillToFind) =>
+    userSkillsSkillIds.includes(skillToFind.id),
+  );
+  const claimedSkillsIds = claimedSkills.map((skill) => skill.id);
+  const supportedSkills = filteredSkills.filter((skillToFind) =>
+    experiencesFromFragment.some((experience) => {
+      const experienceSkillIds = experience.skills
+        ? experience.skills?.map((skill) => skill.id)
+        : null;
+      if (experienceSkillIds) {
+        return experienceSkillIds.includes(skillToFind.id);
+      }
+      return false;
+    }),
+  );
+  const supportedSkillsIds = supportedSkills.map((skill) => skill.id);
+  const unclaimedSkills = filteredSkills.filter(
+    (skillToFind) => !userSkillsSkillIds.includes(skillToFind.id),
+  );
+
+  // sort, by claimed vs unclaimed, then by supported, lastly alphabetically
+  filteredSkills.sort((skillA, skillB) => {
+    const aName = getLocalizedName(skillA.name, intl);
+    const bName = getLocalizedName(skillB.name, intl);
+
+    return (
+      arrayIncludesForSorting(skillA.id, claimedSkillsIds) -
+        arrayIncludesForSorting(skillB.id, claimedSkillsIds) ||
+      arrayIncludesForSorting(skillA.id, supportedSkillsIds) -
+        arrayIncludesForSorting(skillB.id, supportedSkillsIds) ||
+      aName.localeCompare(bName)
+    );
+  });
+
   return (
     <Pending fetching={fetching} error={error} inline>
-      {filteredSkills.map((skill) => (
-        <SkillTree
-          key={skill.id}
-          headingAs="h3"
-          skill={skill}
-          experiencesQuery={unpackMaybes(data?.user?.experiences)}
-          showDisclaimer
-          disclaimerMessage={intl.formatMessage({
-            defaultMessage: "There are no experiences attached to this skill",
-            id: "pJqoQF",
-            description:
-              "Disclaimer displayed in the skill tree on the skill match dialog.",
-          })}
-          hideConnectButton
-          hideEdit
-        />
-      ))}
+      <>
+        {filteredSkills.map((skill) => (
+          <SkillTree
+            key={skill.id}
+            headingAs="h3"
+            skill={skill}
+            experiencesQuery={experiencesUnpacked}
+            showDisclaimer
+            disclaimerMessage={intl.formatMessage({
+              defaultMessage: "There are no experiences attached to this skill",
+              id: "pJqoQF",
+              description:
+                "Disclaimer displayed in the skill tree on the skill match dialog.",
+            })}
+            hideConnectButton
+            hideEdit
+          />
+        ))}
+        <Separator space="none" />
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "{poolCandidateName} has not claimed the following skills.",
+              id: "o+D0y8",
+              description: "Lead in for list of unclaimed skills",
+            },
+            { poolCandidateName },
+          )}
+        </p>
+        {unclaimedSkills.map((skill) => (
+          <p key={skill.id}>{getLocalizedName(skill.name, intl)}</p>
+        ))}
+      </>
     </Pending>
   );
 };
@@ -132,10 +219,24 @@ const SkillMatchDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>
+        <Dialog.Header
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage:
+                "{poolCandidateName} meets {skillsCount} out of {filteredSkillsTotal} skills",
+              id: "Vo94jB",
+              description: "Skills match subtitle",
+            },
+            {
+              poolCandidateName,
+              skillsCount,
+              filteredSkillsTotal,
+            },
+          )}
+        >
           {intl.formatMessage({
-            defaultMessage: "Skills matched in detail",
-            id: "qQZQj+",
+            defaultMessage: "Skills match",
+            id: "+PVO13",
             description:
               "Heading displayed on the candidate skill match dialog.",
           })}
@@ -146,6 +247,7 @@ const SkillMatchDialog = ({
               intl={intl}
               filteredSkills={filteredSkills}
               userId={userId}
+              poolCandidateName={poolCandidateName}
             />
           )}
           <Dialog.Footer className="justify-start">
