@@ -13,8 +13,6 @@ body:
     attributes:
       label: ✨ Feature Request
       description: Describe the feature that is being requested.
-    validations:
-      required: true
   - type: textarea
     id: details
     attributes:
@@ -53,17 +51,14 @@ body:
       placeholder: |
         - [ ] Criteria 1
         - [ ] Criteria 2
-  - type: checkboxes
-    id: definition-of-ready
-    attributes:
-      label: 🚢 Definition of Ready
-      description: Does this meet issue meet the criteria in our [Definition of Ready](../blob/main/documentation/definition-of-ready.md)?
-      options:
-        - label: This issue has met the criteria in our Definition of Ready
-          required: true
   - type: textarea
     id: blocking-issues
     attributes:
       label: 🛑 Blocking Issues
       description: Issues that block this issue.
       value: "Blocked by "
+  - type: markdown
+    attributes:
+      value: |
+        ### 🚢 Definition of Ready
+        Ensure the issue meets the criteria in our [Definition of Ready](../blob/main/documentation/definition-of-ready.md) before it can be accepted for development.

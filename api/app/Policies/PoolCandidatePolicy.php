@@ -339,11 +339,11 @@ class PoolCandidatePolicy
 
         $inputExpiryDate = $args['expiry_date'] ?? null;
 
-        // attempting to update just the expiry date, which falls to updateStatusLegacy()
+        // Attempting to update just the expiry date, which falls to updateDecision()
+        // For now, expiry date permission should follow the same permission as
+        // setting "qualified/unqualified" final decision.
         if ($inputExpiryDate) {
-
-            return $this->updateStatusLegacy($user, $poolCandidate);
-
+            return $this->updateDecision($user, $poolCandidate);
         }
 
         return false;

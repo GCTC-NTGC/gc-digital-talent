@@ -63,7 +63,6 @@ export const IndexPoolCandidatePage = () => {
       />
       <Container className="my-18" size="full">
         <Pending fetching={fetching} error={error}>
-          <p className="my-6">{formattedSubTitle}</p>
           <PoolCandidatesTable
             hidePoolFilter
             initialFilterInput={{

@@ -145,14 +145,14 @@ trait GeneratesUserDoc
 
             $listRun = $section->addListItemRun();
             $listRun->addText($this->localizeHeading('writing_level'), $this->strong);
-            if ($user->comprehension_level) {
+            if ($user->written_level) {
                 $listRun->addText($this->colon().$user->written_level);
             }
 
             $listRun = $section->addListItemRun();
             $listRun->addText($this->localizeHeading('oral_interaction_level'), $this->strong);
-            if ($user->comprehension_level) {
-                $listRun->addText($this->colon().$user->written_level);
+            if ($user->verbal_level) {
+                $listRun->addText($this->colon().$user->verbal_level);
             }
 
         } elseif ($user->estimated_language_ability) {
@@ -337,11 +337,15 @@ trait GeneratesUserDoc
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
         }
 
         if ($type === EducationExperience::class) {
             /** @var EducationExperience $experience */
             $degreeType = $experience->type ? $this->localizeEnum($experience->type, EducationType::class) : null;
+            if ($experience->type === EducationType::OTHER->name) {
+                $degreeType = $this->localize('experiences.other_type_of_education');
+            }
             $titleComponents = [];
             if ($degreeType) {
                 $titleComponents[] = $degreeType;

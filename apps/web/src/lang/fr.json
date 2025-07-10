@@ -839,6 +839,10 @@
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
   },
+  "1rnUt3": {
+    "defaultMessage": "Statut visible par le (la) candidat(e)",
+    "description": "Title displayed on the Pool Candidates table candidate-facing status column"
+  },
   "1ru8HO": {
     "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
     "description": "Description for the IT Apprenticeship Program for Indigenous Peoples"
