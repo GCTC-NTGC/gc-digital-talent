@@ -13,8 +13,6 @@ body:
     attributes:
       label: 🐛 Bug and Expected Behaviour
       description: Describe the issue you encountered. What should be happening?
-    validations:
-      required: true
   - type: textarea
     id: details
     attributes:

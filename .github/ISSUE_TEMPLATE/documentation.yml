@@ -2,8 +2,7 @@ name: "Documentation"
 description: Updates or addition to the documentation
 title: "✏️ "
 projects: ["GCTC-NTGC/8"]
-type: "Debt"
-labels: documentation
+type: "Documentation"
 body:
   - type: markdown
     attributes:
@@ -14,8 +13,6 @@ body:
     attributes:
       label: ✏️ Documentation
       description: Describe the update/addition that you are proposing.
-    validations:
-      required: true
   - type: textarea
     id: acceptance-criteria
     attributes:
