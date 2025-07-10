@@ -126,17 +126,10 @@ return [
     'final_decision' => 'Décision finale',
     'recruitment_processes' => 'Processus de recrutement',
     'digital_talent_processes' => 'Processus de Talents numériques du GC',
-<<<<<<< HEAD
-    'off_platform_processes' => 'Processus hors plateforme (non verifiés)',
-    'process_number' => 'Numéro de processus',
-    'process' => 'Processus',
-    'date_received' => 'Date de réception',
-=======
     'functional_community' => 'Collectivité fonctionnelle',
     'off_platform_processes' => 'Processus hors plateforme',
     'off_platform_processes_not_verified' => 'Processus hors plateforme (non verifiés)',
     'off_platform_process_information' => 'Renseignements sur les processus hors plateforme',
     'process_number' => 'Numéro du processus',
     'process_name' => 'Nom du processus',
->>>>>>> main
 ];
