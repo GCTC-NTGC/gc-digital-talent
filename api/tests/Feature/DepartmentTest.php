@@ -15,6 +15,10 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertSame;
+
 class DepartmentTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -45,9 +49,9 @@ class DepartmentTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
+        $this->seed(RolePermissionSeeder::class);
 
         $this->community = Community::factory()->create(['name' => 'test-team']);
         $this->teamPool = Pool::factory()->create([
@@ -63,11 +67,12 @@ class DepartmentTest extends TestCase
             'base_user',
         ]);
 
-        $this->adminUser = User::create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
-        ]);
-        $this->adminUser->addRole('platform_admin');
+        $this->adminUser = User::factory()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
 
         $this->processOperatorUser = User::factory()
             ->asProcessOperator($this->teamPool->id)
@@ -318,5 +323,112 @@ class DepartmentTest extends TestCase
             ],
         ]);
 
+    }
+
+    // Exercise archiving a department and then reversing it
+    public function testArchivingAndUnArchiving()
+    {
+        $testDepartment = Department::factory()->create(['archived_at' => null]);
+        $originalName = $testDepartment->name;
+
+        $archiveMutation =
+            /** @lang GraphQL */
+            '
+            mutation ArchiveDepartment($id: ID!) {
+                archiveDepartment(id: $id) {
+                    id
+                }
+            }
+        ';
+        $unarchiveMutation =
+            /** @lang GraphQL */
+            '
+            mutation UnarchiveDepartment($id: ID!) {
+                unarchiveDepartment(id: $id) {
+                    id
+                }
+            }
+        ';
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($archiveMutation, ['id' => $testDepartment->id])
+            ->assertJsonFragment(['id' => $testDepartment->id]);
+
+        // department archived with non-null date
+        $testDepartment->refresh();
+        assertNotNull($testDepartment->archived_at);
+        // name updated, English and French
+        assertSame(
+            $testDepartment->name['en'],
+            $originalName['en'].' (archived)',
+        );
+        assertSame(
+            $testDepartment->name['fr'],
+            $originalName['fr'].' (archivé)',
+        );
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($unarchiveMutation, ['id' => $testDepartment->id])
+            ->assertJsonFragment(['id' => $testDepartment->id]);
+
+        // department un-archived with date nulled out
+        $testDepartment->refresh();
+        assertNull($testDepartment->archived_at);
+        // name matches original, English and French
+        assertSame(
+            $testDepartment->name['en'],
+            $originalName['en'],
+        );
+        assertSame(
+            $testDepartment->name['fr'],
+            $originalName['fr'],
+        );
+    }
+
+    // Test querying departments and fetching archived
+    public function testQueryingArchivedDepartments()
+    {
+        Department::truncate();
+        $archivedDepartment = Department::factory()->create(['archived_at' => config('constants.far_past_datetime')]);
+        $activeDepartment = Department::factory()->create(['archived_at' => null]);
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query departments($whereArchived: Boolean) {
+                departments(whereArchived: $whereArchived) {
+                    id
+                }
+            }
+        ';
+
+        // no argument causes it to default to filtering out archived, fetches active one
+        // this is due to default assigning to false
+        // default or main behavior
+        $baseResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, [])
+            ->assertJsonFragment(['id' => $activeDepartment->id]);
+        assertSame(1, count($baseResponse->json('data.departments')));
+
+        // explicitly passing in false works the same
+        $trueResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['whereArchived' => false])
+            ->assertJsonFragment(['id' => $activeDepartment->id]);
+        assertSame(1, count($trueResponse->json('data.departments')));
+
+        // null value for variable fetches all, this is from how the base directive works
+        // special case for when you want to fetch all departments including archived
+        $nullResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['whereArchived' => null])
+            ->assertJsonFragment(['id' => $activeDepartment->id])
+            ->assertJsonFragment(['id' => $archivedDepartment->id]);
+        assertSame(2, count($nullResponse->json('data.departments')));
+
+        // set to true fetches only archived
+        // no use case for the time being
+        $falseResponse = $this->actingAs($this->baseUser, 'api')
+            ->graphQL($query, ['whereArchived' => true])
+            ->assertJsonFragment(['id' => $archivedDepartment->id]);
+        assertSame(1, count($falseResponse->json('data.departments')));
     }
 }

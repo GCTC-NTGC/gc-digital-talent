@@ -190,12 +190,12 @@ export const notesCell = (
   ) : null;
 
 export const finalDecisionCell = (
-  finalDecsion: Maybe<LocalizedFinalDecision> | undefined,
+  finalDecision: Maybe<LocalizedFinalDecision> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ) => {
   const { color, label } = getCandidateStatusChip(
-    finalDecsion,
+    finalDecision,
     assessmentStatus,
     intl,
   );

@@ -4,7 +4,7 @@
   "author": "",
   "license": "AGPL-3.0",
   "engines": {
-    "node": ">=20.11.0",
+    "node": ">=22.17.0",
     "pnpm": ">=10.5.2"
   },
   "packageManager": "pnpm@10.5.2",
@@ -44,7 +44,7 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
-    "prettier-plugin-tailwindcss": "^0.6.13",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "turbo": "^2.5.4"
   }
 }

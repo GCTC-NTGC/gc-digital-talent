@@ -234,6 +234,11 @@ const messages = defineMessages({
     id: "gk/x2T",
     description: "Label for comments",
   },
+  advancedTools: {
+    defaultMessage: "Advanced tools",
+    id: "HXqsIc",
+    description: "Nav tab label to access advanced tools",
+  },
 });
 
 export default messages;

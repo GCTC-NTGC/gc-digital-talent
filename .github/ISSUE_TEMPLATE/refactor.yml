@@ -1,8 +1,8 @@
-name: "Debt/Refactor"
+name: "Refactor"
 description: Something that needs to be improved or removed (without affecting expected functionality)
 title: "♻️ "
 projects: ["GCTC-NTGC/8"]
-type: "Debt"
+type: "Refactor"
 body:
   - type: markdown
     attributes:
@@ -11,10 +11,8 @@ body:
   - type: textarea
     id: description-and-expected-behaviour
     attributes:
-      label: ♻️ Debt/Refactor
+      label: ♻️ Refactor
       description: Describe the problem with the existing implementation.
-    validations:
-      required: true
   - type: textarea
     id: details
     attributes:

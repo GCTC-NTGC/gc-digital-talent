@@ -3,7 +3,10 @@
 namespace App\Generators;
 
 use App\Enums\EducationRequirementOption;
+use App\Enums\EducationType;
 use App\Enums\PoolSkillType;
+use App\Models\AwardExperience;
+use App\Models\EducationExperience;
 use App\Models\Experience;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -18,7 +21,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
     public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
     {
-        $candidate->loadMissing(['user' => ['first_name', 'last_name']]);
+        $candidate->loadMissing(['user' => ['first_name', 'last_name'], 'pool' => ['classification']]);
         $fileName = sprintf(
             '%s %s - Application - Candidature',
             $this->sanitizeFileNameString($candidate->user?->first_name),
@@ -36,6 +39,30 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         $section = $this->doc->addSection();
         $section->addTitle($this->localizeHeading('application_snapshot'), 1);
+        $section->addText($this->localize('headings.application_snapshot_description'));
+        $process = $this->candidate->pool->name[$this->lang] ?? '';
+        $processNumber = $this->candidate->pool->process_number ?? '';
+        $formattedDate = $this->candidate->submitted_at?->locale($this->lang)
+            ->translatedFormat(__('headings.date_format')) ?? '';
+        $receivedDate = $formattedDate;
+
+        // Get classification details from pool
+        $classification = $this->getClassificationDetails();
+        $classificationString = '';
+
+        if ($classification) {
+            $group = $classification['group'] ?? '';
+            $level = $classification['level'] ?? '';
+            $name = $classification['name'][$this->lang] ?? '';
+
+            $classificationString = sprintf('%s%s%s', $group, $level ? str_pad($level, 2, '0', STR_PAD_LEFT) : '', $name ? ' '.$name : '');
+        }
+
+        $this->addLabelText($section, $this->localize('headings.process'), sprintf('%s (%s)', $process, $classificationString));
+        $this->addLabelText($section, $this->localize('headings.process_number'), $processNumber);
+        $this->addLabelText($section, $this->localize('headings.date_received'), $receivedDate);
+
+        $section->addTitle($this->localizeHeading('application_name'), 2);
         $candidate = $this->candidate;
         $candidate->load([
             'educationRequirementAwardExperiences',
@@ -48,10 +75,11 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             'generalQuestionResponses' => ['generalQuestion'],
         ]);
 
+        // pull data from application snapshot
+        // mirrors logic found in PoolCandidateCsvGenerator
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
-        $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
-
+        $snapshotExperiences = $snapshot['experiences'] ?? [];
         // the snapshot stores the department and classification models connected by relation
         // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
         foreach ($snapshotExperiences as &$experience) {
@@ -67,7 +95,35 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 }
             }
         }
-        $experiences = Experience::hydrateSnapshot($snapshotExperiences);
+
+        $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
+        // group experiences by type i.e. award, community, education, personal, work
+            ->groupBy(fn ($exp) => get_class($exp))
+            // sort groups alphabetically
+            ->sortBy(fn ($_group, $class) => class_basename($class))
+            // loop through each group to sort experiences
+            ->flatMap(function ($group, $class) {
+                $sortedGroup = match ($class) {
+                    // sort AwardExperience by when award was given
+                    AwardExperience::class => $group->sortByDesc('awarded_date'),
+                    // default sort if experience is current first and then by date
+                    default => $group->sortByDesc(function ($exp) {
+                        $isCurrent = is_null($exp->end_date) || $exp->end_date >= now();
+
+                        // current experiences are first, then sort by start or end date
+                        return [
+                            $isCurrent ? 1 : 0,
+                            $isCurrent ? $exp->start_date : ($exp->end_date ?? $exp->start_date),
+                        ];
+                    }),
+                };
+
+                // return sorted group
+                return $sortedGroup;
+            })
+            // reset the keys to be sequential
+            ->values()
+            ->all();
 
         $section->addTitle($user->getFullName(), 2);
 
@@ -75,11 +131,12 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $this->addLabelText($section, $this->localizeHeading('requirement_selection'), $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class));
         $candidate->educationRequirementExperiences->each(function ($educationExperience) use ($section) {
             /** @var \App\Models\EducationExperience $educationExperience */
-            $section->addListItem($educationExperience->getTitle($this->lang));
+            $section->addListItem($this->formatEducationTitle($educationExperience));
+
         });
 
         $skillDetails = $this->getSkillDetails($candidate->pool->poolSkills, $experiences, $snapshot['experiences']);
-
+        $section->addTitle($this->localize('common.skill_requirements'), 2);
         $section->addTitle($this->localize('common.essential_skills'), 3);
         if (isset($skillDetails[PoolSkillType::ESSENTIAL->name])) {
             $this->generateSkillsDetails($section, $skillDetails[PoolSkillType::ESSENTIAL->name]);
@@ -125,8 +182,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section->addTitle($this->localizeHeading('signature'), 2);
         $this->addLabelText($section, $this->localizeHeading('signed'), $candidate->signature);
 
-        $section->addPageBreak();
-
         return $this;
     }
 
@@ -141,8 +196,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
     {
         $experiencesWithDetails = array_map(function ($experience) use ($snapshotExperiences) {
             $snapshotExperience = Arr::first($snapshotExperiences, function ($snapshot) use ($experience) {
-                return $snapshot['id'] == $experience->id;
-            });
+                return $snapshot['id'] && $snapshot['id'] == $experience->id;
+            }) ?? [];
 
             return [
                 'experience' => $experience,
@@ -157,13 +212,21 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         return $poolSkills->map(function ($poolSkill) use ($experiencesWithDetails) {
             $skillExperiences = array_map(function ($experience) use ($poolSkill) {
+                if (empty($experience['skillDetails'])) {
+                    return null;
+                }
                 $skill = Arr::first($experience['skillDetails'], function ($skill) use ($poolSkill) {
-                    return $skill['id'] === $poolSkill->skill_id;
+                    return isset($skill['id']) && $skill['id'] === $poolSkill->skill_id;
                 });
+                if (! $skill) {
+                    return null;
+                }
 
                 return [
-                    'title' => $experience['experience']->getTitle(),
+                    'title' => $experience['experience']->getTitle($this->lang),
                     'details' => $skill['details'] ?? '',
+                    'experience_obj' => $experience['experience'],
+                    'is_education' => $experience['experience'] instanceof EducationExperience,
                 ];
             }, $experiencesWithDetails);
 
@@ -171,7 +234,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 'skill' => $poolSkill->skill->only(['id', 'name', 'category']),
                 'type' => $poolSkill->type,
                 'experiences' => Arr::where($skillExperiences, function ($experience) {
-                    return ! empty($experience['details']);
+                    return $experience && ! empty($experience['details']);
                 }),
             ];
 
@@ -193,9 +256,60 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $skills->each(function ($skillDetails) use ($section) {
             $section->addTitle($skillDetails['skill']['name'][$this->lang], 4);
             foreach ($skillDetails['experiences'] as $experience) {
-                $section->addTitle($experience['title'], 5);
+                $title = $experience['is_education'] && $experience['experience_obj'] instanceof EducationExperience
+                    ? $this->formatEducationTitle($experience['experience_obj'])
+                    : $experience['title'];
+
+                $section->addTitle($title, 5);
                 $section->addText($experience['details']);
             }
         });
+    }
+
+    /**
+     * Format education title
+     *
+     * @param  Experience  $educationExperience  The education experience to format
+     * @return string The formatted title
+     */
+    private function formatEducationTitle(Experience $educationExperience): string
+    {
+
+        if (! $educationExperience instanceof EducationExperience) {
+            return $educationExperience->getTitle();
+        }
+        $degreeType = $educationExperience->type
+        ? $this->localizeEnum($educationExperience->type, EducationType::class)
+        : null;
+        $titleComponents = [];
+        if ($degreeType) {
+            $titleComponents[] = $degreeType;
+        }
+        if ($educationExperience->area_of_study) {
+            $titleComponents[] = ($degreeType ? $this->localize('common.in').' ' : '')
+            .$educationExperience->area_of_study;
+        }
+        if ($educationExperience->institution) {
+            $titleComponents[] = $this->localize('common.from').' '.$educationExperience->institution;
+        }
+
+        return trim(implode(' ', $titleComponents)) ?: $educationExperience->getTitle($this->lang);
+
+    }
+
+    /**
+     * Helper function to retrieve classification details from the candidate's pool
+     *
+     * @return array|null Classification details or null if not available
+     */
+    protected function getClassificationDetails(): ?array
+    {
+        if (! $this->candidate->relationLoaded('pool')) {
+            return null;
+        }
+
+        return $this->candidate->pool->classification ?
+        $this->candidate->pool->classification->only(['id', 'group', 'level', 'name'])
+        : null;
     }
 }
