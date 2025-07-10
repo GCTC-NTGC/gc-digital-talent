@@ -43,8 +43,8 @@ importers:
         specifier: ^4.10.3
         version: 4.10.3
       dotenv:
-        specifier: ^17.0.1
-        version: 17.0.1
+        specifier: ^17.2.0
+        version: 17.2.0
       eslint:
         specifier: ^9.20.1
         version: 9.21.0(jiti@2.4.2)
@@ -212,8 +212,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0(vite@6.3.5(@types/node@24.0.12)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.31.1)(tsx@4.20.3)(yaml@2.8.0))
       dotenv:
-        specifier: ^17.0.1
-        version: 17.0.1
+        specifier: ^17.2.0
+        version: 17.2.0
       eslint:
         specifier: ^9.20.1
         version: 9.21.0(jiti@2.4.2)
@@ -4890,8 +4890,8 @@ packages:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
-  dotenv@17.0.1:
-    resolution: {integrity: sha512-GLjkduuAL7IMJg/ZnOPm9AnWKJ82mSE2tzXLaJ/6hD6DhwGfZaXG77oB8qbReyiczNxnbxQKyh0OE5mXq0bAHA==}
+  dotenv@17.2.0:
+    resolution: {integrity: sha512-Q4sgBT60gzd0BB0lSyYD3xM4YxrXA9y4uBDof1JNYGzOXrQdQ6yX+7XIAqoFOGQFOTK1D3Hts5OllpxMDZFONQ==}
     engines: {node: '>=12'}
 
   downshift@9.0.9:
@@ -12078,7 +12078,7 @@ snapshots:
 
   dotenv@16.6.1: {}
 
-  dotenv@17.0.1: {}
+  dotenv@17.2.0: {}
 
   downshift@9.0.9(react@18.3.1):
     dependencies:
