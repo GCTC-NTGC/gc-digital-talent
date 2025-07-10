@@ -32,3 +32,12 @@ export const SIZE_SORT_ORDER = [
   DepartmentSize.Large,
   null,
 ];
+
+export function departmentStatusAccessor(
+  archivedAt: string | null | undefined,
+  intl: IntlShape,
+) {
+  return archivedAt
+    ? intl.formatMessage(commonMessages.archived)
+    : intl.formatMessage(commonMessages.published);
+}

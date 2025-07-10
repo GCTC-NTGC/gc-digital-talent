@@ -25,6 +25,7 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property ?\Illuminate\Support\Carbon $archived_at
  */
 class Department extends Model
 {

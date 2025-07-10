@@ -149,7 +149,7 @@ We use [Node.js](https://nodejs.org/en) to develop the frontend part of the app.
 Install nvm from GitHub.
 
 ```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 ```
 
 > [!IMPORTANT]

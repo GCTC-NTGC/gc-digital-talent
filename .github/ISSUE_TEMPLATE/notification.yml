@@ -4,17 +4,11 @@ title: "❗ "
 projects: ["GCTC-NTGC/8"]
 type: "Feature"
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
   - type: textarea
     id: description-feature
     attributes:
       label: ✨ Purpose
       description: What is this notification intended to convey, and why?
-    validations:
-      required: true
   - type: textarea
     id: trigger
     attributes:

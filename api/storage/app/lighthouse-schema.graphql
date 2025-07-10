@@ -386,7 +386,7 @@ type Query {
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
-  departments: [Department]!
+  departments(whereArchived: Boolean = false): [Department]!
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
@@ -541,6 +541,8 @@ type Mutation {
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
+  archiveDepartment(id: ID!): Department
+  unarchiveDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
@@ -934,6 +936,7 @@ type Pool implements HasRoleAssignments {
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
   screeningQuestions: [ScreeningQuestion]
+  screeningQuestionsCount: Int
   closingDate: DateTime
   closingReason: String
   publishedAt: DateTime
@@ -1065,6 +1068,9 @@ type PoolCandidateAdminView {
   assessmentStatus: AssessmentResultStatus
   finalDecision: LocalizedFinalDecision
   placedDepartment: Department
+  closingDate: DateTime
+  removedAt: DateTime
+  finalDecisionAt: DateTime
 }
 
 type PoolCandidateAdminViewWithSkillCount {
@@ -1107,6 +1113,7 @@ type Department {
   isScience: Boolean
   isRegulatory: Boolean
   pools: [Pool]
+  archivedAt: DateTime
 }
 
 type WorkStream {

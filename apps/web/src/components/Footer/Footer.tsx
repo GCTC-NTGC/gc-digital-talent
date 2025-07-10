@@ -30,16 +30,16 @@ const Footer = () => {
     {
       href: paths.termsAndConditions(),
       children: intl.formatMessage({
-        defaultMessage: "Terms & Conditions",
-        id: "ZGpncy",
+        defaultMessage: "Terms and conditions",
+        id: "U/Ugr6",
         description: "Label for the terms and conditions link in the Footer.",
       }),
     },
     {
       href: paths.privacyPolicy(),
       children: intl.formatMessage({
-        defaultMessage: "Privacy Policy",
-        id: "VcOlXA",
+        defaultMessage: "Privacy policy",
+        id: "K/01hq",
         description: "Label for the privacy link in the Footer.",
       }),
     },

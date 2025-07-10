@@ -116,6 +116,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Archive department",
+    "fr": [
+      "Archivez le ministère",
+      "Archivage du ministère"
+    ]
+  },
+  {
     "en": "Remove candidate",
     "fr": [
       "Supprimer le (la) candidat(e)",
@@ -183,6 +190,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Créez un ministère",
       "Créez le ministère"
+    ]
+  },
+  {
+    "en": "Restore department",
+    "fr": [
+      "Restaurez le ministère",
+      "Restauration du ministère"
     ]
   },
   {
