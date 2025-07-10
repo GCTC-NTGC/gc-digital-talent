@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { composeStories } from "@storybook/react";
+import { composeStories } from "@storybook/react-vite";
 import { ComponentProps } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
