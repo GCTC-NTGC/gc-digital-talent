@@ -127,4 +127,6 @@ return [
     'off_platform_process_information' => 'Off-platform process information',
     'process_number' => 'Process number',
     'process_name' => 'Process name',
+    'nominators' => 'Nominators',
+    'options' => 'Options',
 ];
