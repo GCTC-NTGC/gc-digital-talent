@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Button, Dialog, Pending, Separator } from "@gc-digital-talent/ui";
+import { Button, Dialog, Pending, Separator, Ul } from "@gc-digital-talent/ui";
 import {
   Maybe,
   Skill,
@@ -145,8 +145,8 @@ const SkillMatchDialogBody = ({
             hideEdit
           />
         ))}
-        <Separator space="none" />
-        <p>
+        <Separator className="mt-4" space="none" />
+        <p className="mt-6 mb-2">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -157,9 +157,11 @@ const SkillMatchDialogBody = ({
             { poolCandidateName },
           )}
         </p>
-        {unclaimedSkills.map((skill) => (
-          <p key={skill.id}>{getLocalizedName(skill.name, intl)}</p>
-        ))}
+        <Ul noIndent>
+          {unclaimedSkills.map((skill) => (
+            <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
+          ))}
+        </Ul>
       </>
     </Pending>
   );
