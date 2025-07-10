@@ -26,6 +26,7 @@ import {
   Button,
   NavMenu,
   Separator,
+  SeparatorProps,
   NavMenuProvider,
   Container,
 } from "@gc-digital-talent/ui";
@@ -43,24 +44,25 @@ import useMainNavLinks from "./useMainNavLinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import navMenuMessages from "./messages";
 
-const borderItem = tv({
-  base: "sm:border-x sm:border-white/20 sm:px-4.5",
-});
-
-const homeItem = tv({
-  base: "hidden sm:flex",
+const separator = tv({
+  base: "bg-black/20 dark:bg-white/20",
   variants: {
-    hidden: {
-      true: "sm:border-r sm:border-white/20 sm:pr-4.5",
+    vertical: {
+      true: "hidden h-6 sm:block",
+      false: "sm:hidden",
     },
   },
 });
 
-const MenuSeparator = () => (
+const MenuSeparator = ({ className, orientation }: SeparatorProps) => (
   <Separator
     decorative
-    space="none"
-    className="my-6 bg-black/20 sm:hidden dark:bg-black/50"
+    space="xs"
+    orientation={orientation}
+    className={separator({
+      class: className,
+      vertical: orientation === "vertical",
+    })}
   />
 );
 
@@ -133,11 +135,6 @@ const MainNavMenu = () => {
     usefulRoleAssignments.length === 1 &&
     usefulRoleAssignments[0].role?.name !== ROLE_NAME.Applicant;
 
-  const onlyHasApplicantRole =
-    navRole !== null &&
-    usefulRoleAssignments.length === 1 &&
-    usefulRoleAssignments[0].role?.name === ROLE_NAME.Applicant;
-
   const showRoleSwitcher = onlyHasOneRoleNotApplicant || hasMoreThanOneRole;
 
   const showMenu = !isSmallScreen || isMenuOpen;
@@ -167,14 +164,14 @@ const MainNavMenu = () => {
                   description: "Label for the main navigation",
                 })}
                 data-state={isMenuOpen ? "open" : "closed"}
-                className="rounded-md bg-white py-6 sm:rounded-none sm:bg-gray-700/90 sm:py-6 dark:bg-gray-600/90 sm:dark:bg-gray-700/90"
+                className="rounded-md bg-white pt-3 pb-1.5 sm:rounded-none sm:bg-gray-700/90 sm:py-0 dark:bg-gray-600 sm:dark:bg-gray-700/90"
               >
                 <Container
                   center
                   size={{ sm: "lg" }}
                   className="items-center px-0 sm:flex sm:justify-between sm:px-6"
                 >
-                  <div className="mx-6 flex items-center justify-between sm:m-0 sm:hidden">
+                  <div className="flex items-center justify-center gap-x-6 sm:m-0 sm:hidden">
                     <NavMenu.IconLink
                       ref={homeLinkRef}
                       href={paths.home()}
@@ -200,23 +197,17 @@ const MainNavMenu = () => {
                     </a>
                   </div>
 
-                  <MenuSeparator />
+                  <MenuSeparator orientation="horizontal" />
 
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-x-4.5">
-                    <NavMenu.List className="flex flex-col sm:flex-row sm:items-center sm:gap-x-4.5">
-                      <NavMenu.Item
-                        className={homeItem({
-                          hidden:
-                            !loggedIn ||
-                            onlyHasApplicantRole ||
-                            usefulRoleAssignments.length === 0,
-                        })}
-                      >
+                  <div className="flex flex-col sm:flex-row sm:items-center">
+                    <NavMenu.List type="main">
+                      <NavMenu.Item className="mr-1 -ml-1 hidden sm:flex sm:items-center">
                         {homeLink}
                       </NavMenu.Item>
+                      <MenuSeparator orientation="vertical" />
                       {showRoleSwitcher ? (
                         <>
-                          <NavMenu.Item className={borderItem()}>
+                          <NavMenu.Item>
                             <NavMenu.Trigger
                               color={isSmallScreen ? "black" : "white"}
                               fixedColor={!isSmallScreen}
@@ -244,9 +235,11 @@ const MainNavMenu = () => {
                       ) : null}
                     </NavMenu.List>
 
-                    {showRoleSwitcher && <MenuSeparator />}
+                    {showRoleSwitcher && (
+                      <MenuSeparator orientation="horizontal" />
+                    )}
 
-                    <NavMenu.List className="flex flex-col sm:flex-row">
+                    <NavMenu.List type="main">
                       {mainLinks}
                       {systemSettings && (
                         <NavMenu.Item>
@@ -288,32 +281,36 @@ const MainNavMenu = () => {
                     </NavMenu.List>
                   </div>
 
-                  <MenuSeparator />
+                  <MenuSeparator orientation="horizontal" />
 
-                  <NavMenu.List className="flex flex-col sm:flex-row sm:gap-x-4.5">
+                  <NavMenu.List type="main">
                     {accountLinks && (
-                      <NavMenu.Item className={borderItem()}>
-                        <NavMenu.Trigger
-                          color={isSmallScreen ? "black" : "white"}
-                          fixedColor={!isSmallScreen}
-                          block={false}
-                        >
-                          {intl.formatMessage({
-                            defaultMessage: "Your account",
-                            id: "CBedVL",
-                            description:
-                              "Nav menu trigger for account links sub menu",
-                          })}
-                        </NavMenu.Trigger>
-                        <NavMenu.Content>
-                          <NavMenu.List>{accountLinks}</NavMenu.List>
-                        </NavMenu.Content>
-                      </NavMenu.Item>
+                      <>
+                        <MenuSeparator orientation="vertical" />
+                        <NavMenu.Item>
+                          <NavMenu.Trigger
+                            color={isSmallScreen ? "black" : "white"}
+                            fixedColor={!isSmallScreen}
+                            block={false}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage: "Your account",
+                              id: "CBedVL",
+                              description:
+                                "Nav menu trigger for account links sub menu",
+                            })}
+                          </NavMenu.Trigger>
+                          <NavMenu.Content>
+                            <NavMenu.List>{accountLinks}</NavMenu.List>
+                          </NavMenu.Content>
+                        </NavMenu.Item>
+                      </>
                     )}
 
                     {loggedIn && (
                       <>
-                        <NavMenu.Item className="hidden sm:inline-flex">
+                        <MenuSeparator orientation="vertical" />
+                        <NavMenu.Item className="ml-1 hidden sm:inline-flex">
                           <NotificationDialog
                             open={isNotificationDialogOpen}
                             onOpenChange={setNotificationDialogOpen}
