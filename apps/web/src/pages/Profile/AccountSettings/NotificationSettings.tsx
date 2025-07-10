@@ -58,7 +58,7 @@ const NotificationChecklist = ({
       <div className="mb-6 grid items-center xs:grid-cols-[4fr_1fr]">
         <div className="py-1.5">
           <p className="mb-3 font-bold">{legend}</p>
-          <p className="text-sm font-bold">{subtitle}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-200">{subtitle}</p>
         </div>
         <div className="pr-1 xs:flex xs:flex-row xs:justify-around sm:flex-row">
           {notificationOptions.map(({ value, label }) => {
@@ -93,7 +93,9 @@ const NotificationChecklist = ({
         <div className="grid items-center xs:grid-cols-[4fr_1fr]">
           <div>
             <p className="mb-3 font-bold">{legend}</p>
-            <p className="font-bold">{subtitle}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-200">
+              {subtitle}
+            </p>
           </div>
           <div className="xs:flex xs:flex-row xs:justify-around sm:flex-row">
             {notificationOptions.map(({ value, label }) => {
