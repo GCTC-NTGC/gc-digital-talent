@@ -61,33 +61,38 @@ const SkillMatchDialogBody = ({
 
   const experiencesUnpacked = unpackMaybes(data?.user?.experiences);
   const userSkillsUnpacked = unpackMaybes(data?.user?.userSkills);
-
   const experiencesFromFragment = getFragment(
     SkillTreeExperience_Fragment,
     experiencesUnpacked,
   );
+
   const userSkillsSkillIds = userSkillsUnpacked.map(
     (userSkill) => userSkill.skill.id,
   );
 
   // claimed skills come from user->userSkills
   // supported skills come from user->experiences[number].skills
-  const claimedSkills = filteredSkills.filter((skillToFind) =>
-    userSkillsSkillIds.includes(skillToFind.id),
+  // claimed but unsupported = claimed subtract supported
+  // unclaimed = filtered subtract claimed
+  const claimedSkillsIds = filteredSkills
+    .filter((skillToFind) => userSkillsSkillIds.includes(skillToFind.id))
+    .map((skill) => skill.id);
+  const supportedSkillsIds = filteredSkills
+    .filter((skillToFind) =>
+      experiencesFromFragment.some((experience) => {
+        const experienceSkillIds = experience.skills
+          ? experience.skills?.map((skill) => skill.id)
+          : null;
+        if (experienceSkillIds) {
+          return experienceSkillIds.includes(skillToFind.id);
+        }
+        return false;
+      }),
+    )
+    .map((skill) => skill.id);
+  const claimedButUnsupportedSkillIds = claimedSkillsIds.filter(
+    (skillId) => !supportedSkillsIds.includes(skillId),
   );
-  const claimedSkillsIds = claimedSkills.map((skill) => skill.id);
-  const supportedSkills = filteredSkills.filter((skillToFind) =>
-    experiencesFromFragment.some((experience) => {
-      const experienceSkillIds = experience.skills
-        ? experience.skills?.map((skill) => skill.id)
-        : null;
-      if (experienceSkillIds) {
-        return experienceSkillIds.includes(skillToFind.id);
-      }
-      return false;
-    }),
-  );
-  const supportedSkillsIds = supportedSkills.map((skill) => skill.id);
   const unclaimedSkills = filteredSkills.filter(
     (skillToFind) => !userSkillsSkillIds.includes(skillToFind.id),
   );
@@ -116,12 +121,26 @@ const SkillMatchDialogBody = ({
             skill={skill}
             experiencesQuery={experiencesUnpacked}
             showDisclaimer
-            disclaimerMessage={intl.formatMessage({
-              defaultMessage: "There are no experiences attached to this skill",
-              id: "pJqoQF",
-              description:
-                "Disclaimer displayed in the skill tree on the skill match dialog.",
-            })}
+            disclaimerMessage={
+              claimedButUnsupportedSkillIds.includes(skill.id)
+                ? intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "{poolCandidateName} has added this skill to their skills portfolio, but it isn't linked to a career experience.",
+                      id: "hv+5DR",
+                      description:
+                        "Disclaimed in well for special case rendering",
+                    },
+                    { poolCandidateName },
+                  )
+                : intl.formatMessage({
+                    defaultMessage:
+                      "There are no experiences attached to this skill",
+                    id: "pJqoQF",
+                    description:
+                      "Disclaimer displayed in the skill tree on the skill match dialog.",
+                  })
+            }
             hideConnectButton
             hideEdit
           />
