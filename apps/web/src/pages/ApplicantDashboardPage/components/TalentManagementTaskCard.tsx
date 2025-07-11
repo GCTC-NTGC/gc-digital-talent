@@ -1,10 +1,12 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { ReactNode } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   AccordionMetaData,
+  Link,
   PreviewList,
   TaskCard,
   Well,
@@ -16,6 +18,15 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 
 import TalentNominationListItem from "./TalentNominationListItem";
+import PoolCandidateSearchRequestPreviewListItem from "./PoolCandidateSearchRequestPreviewListItem";
+
+const linkAccessor = (href: string, chunks: ReactNode) => {
+  return (
+    <Link href={href} color="black">
+      {chunks}
+    </Link>
+  );
+};
 
 // render creation date if nominee is null or present multiple times
 const shouldRenderCreatedDateComputation = (
@@ -49,6 +60,10 @@ const TalentManagementTaskCard_Fragment = graphql(/* GraphQL */ `
       }
 
       ...PreviewListItemTalentNomination
+    }
+    poolCandidateSearchRequests {
+      id
+      ...PreviewListItemSearchRequest
     }
   }
 `);
@@ -86,6 +101,16 @@ const TalentManagementTaskCard = ({
     },
   ];
 
+  const talentRequestMetaData: AccordionMetaData = [
+    {
+      key: "find-talent-key",
+      type: "link",
+      href: paths.search(),
+      color: "primary",
+      children: <>{intl.formatMessage(navigationMessages.newRequest)}</>,
+    },
+  ];
+
   const sortedNominations = unpackMaybes(
     talentManagementTaskCardFragment.talentNominationsAsSubmitter,
   )
@@ -104,6 +129,10 @@ const TalentManagementTaskCard = ({
       return aDeadline.getTime() - bDeadline.getTime();
     })
     .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
+
+  const poolCandidateSearchRequests = unpackMaybes(
+    talentManagementTaskCardFragment.poolCandidateSearchRequests,
+  );
 
   return (
     <>
@@ -185,6 +214,80 @@ const TalentManagementTaskCard = ({
               </Accordion.Item>
             </Accordion.Root>
           </TaskCard.Item>
+          <>
+            {poolCandidateSearchRequests.length > 0 && (
+              <TaskCard.Item>
+                <Accordion.Root type="multiple">
+                  <Accordion.Item value="your_talent_requests">
+                    <Accordion.Trigger
+                      as="h3"
+                      subtitle={intl.formatMessage(
+                        {
+                          defaultMessage: `When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active.`, // TODO: Update copy here
+                          id: "c/XQZ2",
+                          description:
+                            "Subtitle explaining your talent requests expandable within Talent management card",
+                        },
+                        {
+                          findTalentLink: (chunks: ReactNode) =>
+                            linkAccessor(paths.search(), chunks),
+                        },
+                      )}
+                    >
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "Your talent requests ({requestsCount})",
+                          id: "kgCPAc",
+                          description:
+                            "Title for a list of your talent requests with a count",
+                        },
+                        {
+                          requestsCount: poolCandidateSearchRequests.length,
+                        },
+                      )}
+                    </Accordion.Trigger>
+                    <Accordion.MetaData metadata={talentRequestMetaData} />
+                    <Accordion.Content>
+                      <div className="mt-3 flex flex-col gap-6">
+                        {poolCandidateSearchRequests?.length ? (
+                          <PreviewList.Root>
+                            {poolCandidateSearchRequests?.map((request) => (
+                              <PoolCandidateSearchRequestPreviewListItem
+                                key={request.id}
+                                poolCandidateSearchRequestQuery={request}
+                              />
+                            ))}
+                          </PreviewList.Root>
+                        ) : (
+                          <Well className="text-center">
+                            <p className="font-bold">
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "You don't have any active requests at the moment.",
+                                id: "3PwQT7",
+                                description:
+                                  "Title for notice when there are no pool candidate search requests",
+                              })}
+                            </p>
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  'You can start a new talent request using the "New request" button or navigating to the "Find talent" page from the main navigation.',
+                                id: "6jBrNA",
+                                description:
+                                  "Body for notice when there are no pool candidate search requests",
+                              })}
+                            </p>
+                          </Well>
+                        )}
+                      </div>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                </Accordion.Root>
+              </TaskCard.Item>
+            )}
+          </>
         </TaskCard.Root>
       </div>
     </>

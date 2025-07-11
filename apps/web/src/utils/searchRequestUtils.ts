@@ -4,8 +4,11 @@ import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   EquitySelections,
   Maybe,
+  PoolCandidateSearchPositionType,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
+
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 export const positionDurationToEmploymentDuration = (
   durations: Maybe<PositionDuration>[],
@@ -81,3 +84,16 @@ export const equitySelectionsToDescriptions = (
       ]
     : []),
 ];
+
+export const positionTypeToYesNoSupervisoryStatement = (
+  positionType: Maybe<PoolCandidateSearchPositionType> | undefined,
+  intl: IntlShape,
+): string | null => {
+  if (positionType == PoolCandidateSearchPositionType.TeamLead) {
+    return intl.formatMessage(talentRequestMessages.supervisoryPositionYes);
+  }
+  if (positionType == PoolCandidateSearchPositionType.IndividualContributor) {
+    return intl.formatMessage(talentRequestMessages.supervisoryPositionNo);
+  }
+  return null;
+};
