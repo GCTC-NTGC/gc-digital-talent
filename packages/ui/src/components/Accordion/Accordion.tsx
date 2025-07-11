@@ -309,6 +309,7 @@ const MetaDataItem = ({ datum }: MetaDataItemProps) => {
     case "button":
       return (
         <Button
+          type="button"
           mode="inline"
           color={datum.color ?? "primary"}
           size="sm"
