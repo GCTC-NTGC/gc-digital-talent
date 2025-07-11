@@ -183,7 +183,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -197,6 +197,7 @@ return [
         \Nuwave\Lighthouse\SoftDeletes\SoftDeletesServiceProvider::class,
         \Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
         \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
+        \Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider::class,
         // \Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,
         MLL\GraphiQL\GraphiQLServiceProvider::class,
         \Laravel\Tinker\TinkerServiceProvider::class,
