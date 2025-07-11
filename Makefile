@@ -53,5 +53,8 @@ phpstan:
 queue-work:
 	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
 
+reverb-start:
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan reverb:start"
+
 test:
 	$(DOCKER_API) "php artisan test $(CMD)"
