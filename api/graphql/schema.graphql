@@ -3371,3 +3371,7 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
+
+type Subscription {
+  notificationSent: Notification @broadcast
+}
