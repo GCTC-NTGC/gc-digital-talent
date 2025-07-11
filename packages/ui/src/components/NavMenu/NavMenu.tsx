@@ -39,25 +39,20 @@ type TriggerProps = ComponentPropsWithoutRef<
 const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,
   TriggerProps
->(
-  (
-    { children, mode = "inline", color, block = false, ...rest },
-    forwardedRef,
-  ) => (
-    <NavigationMenuPrimitive.Trigger
-      ref={forwardedRef}
-      asChild
-      onPointerMove={(event) => event.preventDefault()}
-      onPointerLeave={(event) => event.preventDefault()}
-      className="w-full px-3 py-2 text-left font-normal hover:text-primary-600 sm:py-4.5 sm:hover:text-primary-200 dark:hover:text-primary-100 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
-      {...rest}
-    >
-      <Button utilityIcon={ChevronDownIcon} mode={mode} color={color}>
-        {children}
-      </Button>
-    </NavigationMenuPrimitive.Trigger>
-  ),
-);
+>(({ children, mode = "inline", color, ...rest }, forwardedRef) => (
+  <NavigationMenuPrimitive.Trigger
+    ref={forwardedRef}
+    asChild
+    onPointerMove={(event) => event.preventDefault()}
+    onPointerLeave={(event) => event.preventDefault()}
+    className="w-full px-3 py-2 text-left font-normal hover:text-primary-600 sm:py-4.5 sm:hover:text-primary-200 dark:hover:text-primary-100 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
+    {...rest}
+  >
+    <Button utilityIcon={ChevronDownIcon} mode={mode} color={color}>
+      {children}
+    </Button>
+  </NavigationMenuPrimitive.Trigger>
+));
 
 const content = tv({
   base: "sm:absolute sm:left-1/2 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow-lg dark:sm:bg-gray-600",

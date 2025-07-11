@@ -44,6 +44,18 @@ import useMainNavLinks from "./useMainNavLinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import navMenuMessages from "./messages";
 
+const borderItem = tv({
+  base: "sm:flex",
+  variants: {
+    borderLeft: {
+      true: "before:hidden before:h-6 before:w-px before:self-center before:bg-black/20 sm:before:block before:sm:bg-white/20 before:dark:bg-white/20",
+    },
+    borderRight: {
+      true: "after:hidden after:h-6 after:w-px after:self-center after:bg-black/20 sm:after:block after:sm:bg-white/20 after:dark:bg-white/20",
+    },
+  },
+});
+
 const separator = tv({
   base: "bg-black/20 dark:bg-white/20",
   variants: {
@@ -201,13 +213,20 @@ const MainNavMenu = () => {
 
                   <div className="flex flex-col sm:flex-row sm:items-center">
                     <NavMenu.List type="main">
-                      <NavMenu.Item className="mr-1 -ml-1 hidden sm:flex sm:items-center">
+                      <NavMenu.Item
+                        className={borderItem({
+                          borderRight: true,
+                          class:
+                            "mr-1 -ml-1 hidden after:ml-3 sm:flex sm:items-center",
+                        })}
+                      >
                         {homeLink}
                       </NavMenu.Item>
-                      <MenuSeparator orientation="vertical" />
                       {showRoleSwitcher ? (
                         <>
-                          <NavMenu.Item>
+                          <NavMenu.Item
+                            className={borderItem({ borderRight: true })}
+                          >
                             <NavMenu.Trigger
                               color={isSmallScreen ? "black" : "white"}
                               fixedColor={!isSmallScreen}
@@ -286,7 +305,6 @@ const MainNavMenu = () => {
                   <NavMenu.List type="main">
                     {accountLinks && (
                       <>
-                        <MenuSeparator orientation="vertical" />
                         <NavMenu.Item>
                           <NavMenu.Trigger
                             color={isSmallScreen ? "black" : "white"}
@@ -309,8 +327,12 @@ const MainNavMenu = () => {
 
                     {loggedIn && (
                       <>
-                        <MenuSeparator orientation="vertical" />
-                        <NavMenu.Item className="ml-1 hidden sm:inline-flex">
+                        <NavMenu.Item
+                          className={borderItem({
+                            borderLeft: true,
+                            class: "hidden before:mr-3 sm:inline-flex",
+                          })}
+                        >
                           <NotificationDialog
                             open={isNotificationDialogOpen}
                             onOpenChange={setNotificationDialogOpen}
