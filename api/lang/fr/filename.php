@@ -6,4 +6,5 @@ return [
     'candidate' => 'candidat',
     'user' => 'utilisateur',
     'users' => 'utilisateurs',
+    'job_poster_template' => 'Modèle d’offre d’emploi',
 ];
