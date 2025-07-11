@@ -34,7 +34,7 @@ const filterExperienceSkills = <T extends ExperienceWithSkills>(
   };
 };
 
-const SkillTreeExperience_Fragment = graphql(/** GraphQL */ `
+export const SkillTreeExperience_Fragment = graphql(/** GraphQL */ `
   fragment SkillTreeExperience on Experience {
     id
     skills {
