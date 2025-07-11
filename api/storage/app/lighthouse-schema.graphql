@@ -627,6 +627,10 @@ type Mutation {
   downloadApplicationDoc(id: UUID!): String
 }
 
+type Subscription {
+  notificationSent: Notification
+}
+
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date
 
