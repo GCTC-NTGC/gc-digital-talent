@@ -65,7 +65,9 @@ import PreviewList, {
   type MetaDataProps as PreviewMetaData,
 } from "./components/PreviewList/PreviewList";
 import ResourceBlock from "./components/ResourceBlock";
-import Separator from "./components/Separator";
+import Separator, {
+  type SeparatorProps,
+} from "./components/Separator/Separator";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
@@ -120,6 +122,7 @@ export type {
   PendingProps,
   PreviewMetaData,
   ChipProps,
+  SeparatorProps,
   SidebarProps,
   SpoilerProps,
   StepperProps,

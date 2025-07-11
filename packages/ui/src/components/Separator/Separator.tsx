@@ -63,7 +63,7 @@ const separator = tv({
 
 type SeparatorVariants = VariantProps<typeof separator>;
 
-interface SeparatorProps
+export interface SeparatorProps
   extends SeparatorVariants,
     ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {}
 
