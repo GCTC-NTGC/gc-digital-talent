@@ -15,9 +15,9 @@ class NotificationSent extends GraphQLSubscription
 
     public function filter(Subscriber $subscriber, mixed $root): bool
     {
-        // Only send to the relevant user
+        /** @var App\Models\User $user */
         $user = $subscriber->context->user;
 
-        return isset($root['user_id']) && $user && $root['user_id'] === $user->id;
+        return $root?->user_id === $user?->id;
     }
 }

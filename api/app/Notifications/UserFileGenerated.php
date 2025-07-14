@@ -23,7 +23,7 @@ class UserFileGenerated extends Notification
      */
     public function via(User $notifiable): array
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**

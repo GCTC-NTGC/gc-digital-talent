@@ -628,7 +628,7 @@ type Mutation {
 }
 
 type Subscription {
-  notificationSent: Notification
+  notificationSent: UserNotification
 }
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
@@ -2670,6 +2670,13 @@ input UpdateJobPosterTemplateInput {
   nonessentialTechnicalSkillsNotes: LocalizedStringInput
   classification: ClassificationBelongsTo
   skills: UpdateJobPosterTemplateSkillsInput
+}
+
+type UserNotification {
+  id: String
+  type: String
+  userId: String
+  data: JSON
 }
 
 "Information about pagination using a fully featured paginator."

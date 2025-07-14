@@ -351,7 +351,7 @@ return [
         /*
          * Default subscription broadcaster.
          */
-        'broadcaster' => env('LIGHTHOUSE_BROADCASTER', 'pusher'),
+        'broadcaster' => env('LIGHTHOUSE_BROADCASTER', 'reverb'),
 
         /*
          * Subscription broadcasting drivers with config options.
@@ -369,6 +369,11 @@ return [
                 'driver' => 'echo',
                 'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
                 'routes' => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
+            ],
+            'reverb' => [
+                'driver' => 'pusher',
+                'connection' => 'reverb',
+                'routes' => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@reverb',
             ],
         ],
 

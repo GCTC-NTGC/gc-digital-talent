@@ -3372,6 +3372,14 @@ type Mutation {
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
 
+type UserNotification {
+  id: String
+  type: String
+  userId: String @rename(attribute: "user_id")
+  data: JSON
+}
+
 type Subscription {
-  notificationSent: Notification @broadcast
+  notificationSent: UserNotification
+    @subscription(class: "App\\GraphQL\\Subscriptions\\NotificationSent")
 }
