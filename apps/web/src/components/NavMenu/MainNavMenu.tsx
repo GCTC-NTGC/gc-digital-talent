@@ -360,7 +360,7 @@ const MainNavMenu = () => {
           </AnimatePresence>
         </NavMenuProvider>
         {isSmallScreen && (
-          <div className="fixed right-4.5 bottom-4.5 z-10 flex gap-3">
+          <div className="fixed right-4.5 bottom-4.5 z-30 flex gap-3">
             <Button
               color="black"
               mode="solid"
