@@ -11,7 +11,7 @@ map $upstream_http_cache_control $hdr_cache_control {
 }
 
 map $request_uri $csp_header {
-    default "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'nonce-$cspNonce' 'unsafe-inline'; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' 'nonce-$cspNonce' data:; frame-ancestors 'none'; report-uri /api/csp-report/; report-to csp;";
+    default "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'nonce-$cspNonce' 'unsafe-inline'; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' 'nonce-$cspNonce' data:; frame-ancestors 'none'; connect-src 'self' ws://$host wss://$host ws://$host:6001; report-uri /api/csp-report/; report-to csp;";
     ~^/robots.txt "default-src 'self'; style-src-attr 'unsafe-inline';";
 }
 
@@ -202,6 +202,11 @@ server {
         fastcgi_busy_buffers_size 64k;
     }
     location = /refresh {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
+    }
+    location = /broadcasting/auth {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;

@@ -1,11 +1,10 @@
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router";
-import { useSubscription } from "urql";
+import { configureEcho, useEchoNotification } from "@laravel/echo-react";
 
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Flourish } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -18,18 +17,24 @@ import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
 import { Project } from "../SEO/Favicon";
 
-const NotificationSent_Subscription = graphql(/** GraphQL */ `
-  subscription NotificationSent {
-    notificationSent {
-      id
-      ... on UserFileGeneratedNotification {
-        id
-        fileName
-        createdAt
-      }
-    }
-  }
-`);
+const getToken = () => localStorage.getItem("access_token") ?? "";
+
+console.log(getToken());
+
+configureEcho({
+  broadcaster: "reverb",
+  key: "gcdtReverbKey",
+  wsHost: "localhost",
+  wsPort: "6001",
+  forceTLS: false,
+  enabledTransports: ["ws"],
+  auth: {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      Accept: "application/json",
+    },
+  },
+});
 
 interface LayoutProps {
   project: Project;
@@ -46,29 +51,18 @@ const Layout = ({
 }: LayoutProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const auth = useAuthorization();
   useLayoutTheme("default");
 
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
 
-  const socket = new WebSocket(
-    "ws://localhost:6001/gcdtReverbKey?protocol=7&client=js&version=7.0.3",
-  );
+  const userId = auth.userAuthInfo?.id;
+  console.log(userId);
 
-  // Log successful connection
-  socket.onopen = () => {
-    console.log("✅ WebSocket connected");
-  };
-
-  // Log errors
-  socket.onerror = (err) => {
-    console.error("❌ WebSocket error:", err);
-  };
-
-  // Log disconnects
-  socket.onclose = (event) => {
-    console.log("⚠️ WebSocket closed:", event);
-  };
+  useEchoNotification(`App.Models.User.${userId}`, (notification) => {
+    console.log(notification);
+  });
 
   return (
     <>
