@@ -150,8 +150,8 @@ const SkillMatchDialogBody = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "{poolCandidateName} has not claimed the following skills.",
-              id: "o+D0y8",
+                "{poolCandidateName} has not claimed the following skills:",
+              id: "+huKPT",
               description: "Lead in for list of unclaimed skills",
             },
             { poolCandidateName },

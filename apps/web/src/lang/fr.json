@@ -107,6 +107,10 @@
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
   },
+  "+PVO13": {
+    "defaultMessage": "Correspondance des compétences",
+    "description": "Heading displayed on the candidate skill match dialog."
+  },
   "+RDFZH": {
     "defaultMessage": "Gérez vos renseignements d’employée ou d’employé du gouvernement, y compris vos préférences en matière de développement de carrière et les façons de travailler.",
     "description": "Description of the employee profile page"
@@ -166,6 +170,10 @@
   "+hRCVl": {
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
+  },
+  "+huKPT": {
+    "defaultMessage": "{poolCandidateName} n’a pas indiqué détenir les compétences suivantes :",
+    "description": "Lead in for list of unclaimed skills"
   },
   "+jIT2i": {
     "defaultMessage": "Exemple",
@@ -3535,6 +3543,10 @@
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
   },
+  "EAy2CJ": {
+    "defaultMessage": "{poolCandidateName} a ajouté cette compétence à son portfolio de compétences, sans toutefois établir de lien avec une expérience professionnelle.",
+    "description": "Disclaimer in well for claimed skill special case rendering"
+  },
   "EB70Il": {
     "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe.",
     "description": "Description of the top skills section and how to use it."
@@ -3902,6 +3914,10 @@
   "FxB6Km": {
     "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
     "description": "Heading for the obtaining security clearance section"
+  },
+  "Fxs+ab": {
+    "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences.",
+    "description": "Skills match subtitle with candidate's name"
   },
   "Fygh/q": {
     "defaultMessage": "Lien de parenté entre la personne déposante et l’autrice ou l’auteur de la mise en candidature",
