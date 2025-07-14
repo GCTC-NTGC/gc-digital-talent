@@ -55,7 +55,7 @@ const Trigger = forwardRef<
 ));
 
 const content = tv({
-  base: "sm:bg-whitesm:p-1.5 top-full sm:absolute sm:left-1/2 sm:z-20 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:shadow-lg dark:sm:bg-gray-600",
+  base: "top-full sm:absolute sm:left-1/2 sm:z-20 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:bg-white sm:p-1.5 sm:shadow-lg dark:sm:bg-gray-600",
 });
 
 const Content = forwardRef<
