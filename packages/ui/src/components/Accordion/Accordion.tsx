@@ -3,7 +3,7 @@
  */
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import {
+import React, {
   ComponentPropsWithoutRef,
   forwardRef,
   ElementRef,
@@ -11,6 +11,8 @@ import {
   Fragment,
   createContext,
   useContext,
+  ReactElement,
+  ComponentProps,
 } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
@@ -19,10 +21,11 @@ import { assertUnreachable } from "@gc-digital-talent/helpers";
 import type { HeadingRank, IconType } from "../../types";
 import Chip, { ChipVariants } from "../Chip/Chip";
 import Link, { LinkProps } from "../Link";
-import Button, { ButtonProps } from "../Button";
 import MetaDataStatusItem, {
-  AccordionMetaDataStatusItemProps,
+  MetaDataStatusItemProps,
 } from "./MetaDataStatusItem";
+import MetaDataButton from "./MetaDataButton";
+import { ButtonProps } from "../Button";
 
 const root = tv({
   base: "group flex flex-col",
@@ -264,6 +267,12 @@ interface AccordionMetaDataButton {
   children: ReactNode;
 }
 
+interface AccordionMetaDataButtonComponent {
+  key: string;
+  type: "button-component";
+  component: ReactElement<ComponentProps<typeof MetaDataButton>>;
+}
+
 interface AccordionMetaDataLink {
   key: string;
   type: "link";
@@ -280,7 +289,7 @@ interface AccordionMetaDataChip {
 }
 
 // status items have their own prop interface
-interface AccordionMetaDataStatusItem extends AccordionMetaDataStatusItemProps {
+interface AccordionMetaDataStatusItem extends MetaDataStatusItemProps {
   key: string;
   type: "status_item";
 }
@@ -288,6 +297,7 @@ interface AccordionMetaDataStatusItem extends AccordionMetaDataStatusItemProps {
 type AccordionMetaDataItem =
   | AccordionMetaDataText
   | AccordionMetaDataButton
+  | AccordionMetaDataButtonComponent
   | AccordionMetaDataLink
   | AccordionMetaDataChip
   | AccordionMetaDataStatusItem;
@@ -308,17 +318,17 @@ const MetaDataItem = ({ datum }: MetaDataItemProps) => {
       return <Chip color={datum?.color}>{datum.children}</Chip>;
     case "button":
       return (
-        <Button
-          type="button"
-          mode="inline"
-          color={datum.color ?? "primary"}
-          size="sm"
+        <MetaDataButton
+          color={datum.color}
           onClick={datum.onClick}
           key={datum.key}
         >
           {datum.children}
-        </Button>
+        </MetaDataButton>
       );
+    // can be used to insert an already-instantiated button component
+    case "button-component":
+      return <React.Fragment key={datum.key}>{datum.component}</React.Fragment>;
     case "link":
       return (
         <Link
@@ -340,13 +350,7 @@ const MetaDataItem = ({ datum }: MetaDataItemProps) => {
 };
 
 export interface AccordionMetaDataProps {
-  metadata: (
-    | AccordionMetaDataText
-    | AccordionMetaDataButton
-    | AccordionMetaDataLink
-    | AccordionMetaDataChip
-    | AccordionMetaDataStatusItem
-  )[];
+  metadata: AccordionMetaDataItem[];
 }
 
 export type AccordionMetaData = AccordionMetaDataProps["metadata"];
@@ -512,6 +516,7 @@ const Accordion = {
    * @desc Adds metadata below trigger.
    */
   MetaData,
+  MetaDataButton,
   /**
    * @name Content
    * @desc Contains the collapsible content for an item.
