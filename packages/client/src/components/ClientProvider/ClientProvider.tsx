@@ -9,8 +9,10 @@ import {
   fetchExchange,
   Provider,
   mapExchange,
+  subscriptionExchange,
 } from "urql";
 import { useIntl } from "react-intl";
+import Pusher from "pusher-js";
 
 import {
   ACCESS_TOKEN,
@@ -35,6 +37,7 @@ import {
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
 import { allowableClockSkewSeconds, apiHost, apiUri } from "../../constants";
+import createPusherSubscription from "../../exchanges/pusherSubscriptionExchange";
 
 const isTokenProbablyExpired = (accessToken: string | null): boolean => {
   let tokenProbablyExpired = false;
@@ -68,6 +71,24 @@ const ClientProvider = ({
   useEffect(() => {
     authRef.current = authContext;
   }, [authContext]);
+
+  const forwardToPusher = useMemo(() => {
+    const pusher = new Pusher("gcdtReverbKey", {
+      cluster: "mt1", // Should be a noop
+      wsHost: "localhost",
+      wsPort: 6001,
+      forceTLS: false,
+      enabledTransports: ["ws"],
+      authEndpoint: "http://localhost:8000/broadcasting/auth",
+      auth: {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+          "Content-Type": "application/json",
+        },
+      },
+    });
+    return createPusherSubscription(pusher, `${apiHost}${apiUri}`);
+  }, []);
 
   const internalClient = useMemo(() => {
     return (
@@ -171,12 +192,13 @@ const ClientProvider = ({
               },
             };
           }),
+          subscriptionExchange({ forwardSubscription: forwardToPusher }),
           specialErrorExchange({ intl }),
           fetchExchange,
         ],
       })
     );
-  }, [client, intl, locale, logger]);
+  }, [client, forwardToPusher, intl, locale, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

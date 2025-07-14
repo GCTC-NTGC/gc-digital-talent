@@ -1,10 +1,12 @@
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router";
-import { configureEcho, useEchoNotification } from "@laravel/echo-react";
+import { configureEcho } from "@laravel/echo-react";
+import { useSubscription } from "urql";
 
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Flourish } from "@gc-digital-talent/ui";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -17,24 +19,13 @@ import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
 import { Project } from "../SEO/Favicon";
 
-const getToken = () => localStorage.getItem("access_token") ?? "";
-
-console.log(getToken());
-
-configureEcho({
-  broadcaster: "reverb",
-  key: "gcdtReverbKey",
-  wsHost: "localhost",
-  wsPort: "6001",
-  forceTLS: false,
-  enabledTransports: ["ws"],
-  auth: {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-      Accept: "application/json",
-    },
-  },
-});
+const Notification_Subscription = graphql(/** GraphQL */ `
+  subscription Notification {
+    notificationSent {
+      id
+    }
+  }
+`);
 
 interface LayoutProps {
   project: Project;
@@ -53,16 +44,17 @@ const Layout = ({
   const locale = getLocale(intl);
   const auth = useAuthorization();
   useLayoutTheme("default");
+  const handleSubscription = (messages = [], response) => {
+    return [response.newMessages, ...messages];
+  };
 
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
-
-  const userId = auth.userAuthInfo?.id;
-  console.log(userId);
-
-  useEchoNotification(`App.Models.User.${userId}`, (notification) => {
-    console.log(notification);
-  });
+  const [res] = useSubscription(
+    { query: Notification_Subscription },
+    handleSubscription,
+  );
+  console.log({ res });
 
   return (
     <>
