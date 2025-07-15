@@ -2,10 +2,8 @@ import { SubscriptionForwarder } from "@urql/core";
 import Pusher, { Channel } from "pusher-js";
 import { print } from "graphql";
 
-type ForwardCallback = (...args: unknown[]) => void;
-
 interface LighthouseResponse {
-  data: unknown;
+  data: Record<string, unknown> | null | undefined;
   extensions?: {
     lighthouse_subscriptions?: {
       channel: string;
@@ -13,28 +11,27 @@ interface LighthouseResponse {
   };
 }
 
+interface LighouseSubscriptionPayload {
+  result: object;
+  more: boolean;
+}
+
+type LighouseSubscriptionHandler = (
+  payload: LighouseSubscriptionPayload,
+) => void;
+
 function createPusherSubscription(
   pusher: Pusher,
   subscriptionUrl: string,
 ): SubscriptionForwarder {
   return function (_request, operation) {
     return {
-      subscribe: ({
-        next,
-        error,
-        complete,
-      }: {
-        next: ForwardCallback;
-        error: ForwardCallback;
-        complete: ForwardCallback;
-      }) => {
+      subscribe: ({ next, error, complete }) => {
         const subscriptionId = String(operation.key);
 
-        let pusherChannelName: string | null = null;
-        let pusherChannel: Channel | null = null;
-        let boundHandler:
-          | ((payload: { result: object; more: boolean }) => void)
-          | null = null;
+        let channelName: string | undefined;
+        let channel: Channel | undefined;
+        let subscriptionHandler: LighouseSubscriptionHandler | undefined;
 
         const fetchBody = JSON.stringify({
           query: print(operation.query),
@@ -62,20 +59,18 @@ function createPusherSubscription(
         const fetchFn = operation.context.fetch ?? fetch;
 
         fetchFn(subscriptionUrl, mergedFetchOptions)
-          .then(async (fetchResult) => {
-            // Parse and emit the initial fetch result
+          .then((res) => res.json())
+          .then((res: LighthouseResponse) => {
+            channelName = res?.extensions?.lighthouse_subscriptions?.channel;
+
+            if (!channelName) {
+              return;
+            }
+
             try {
-              const jsonResult =
-                (await fetchResult.json()) as LighthouseResponse;
-              pusherChannelName =
-                jsonResult?.extensions?.lighthouse_subscriptions?.channel ??
-                fetchResult.headers.get("X-Subscription-ID") ??
-                subscriptionId;
+              channel = pusher.subscribe(channelName);
 
-              pusherChannel = pusher.subscribe(pusherChannelName);
-
-              boundHandler = (payload: { result: object; more: boolean }) => {
-                console.log("update", payload);
+              subscriptionHandler = (payload) => {
                 if (payload.result) {
                   next(payload.result);
                 }
@@ -84,19 +79,19 @@ function createPusherSubscription(
                 }
               };
 
-              pusherChannel.bind("update", boundHandler);
-              next(jsonResult);
-            } catch (parseError) {
-              error(parseError);
+              channel.bind("lighthouse-subscription", subscriptionHandler);
+              next(res);
+            } catch (err) {
+              error(err);
             }
           })
           .catch(error);
 
         return {
           unsubscribe: () => {
-            if (pusherChannel && boundHandler) {
-              pusherChannel.unbind("update", boundHandler);
-              pusher.unsubscribe(pusherChannelName!);
+            if (channel && subscriptionHandler && channelName) {
+              channel.unbind("lighthouse-subscription", subscriptionHandler);
+              pusher.unsubscribe(channelName);
             }
           },
         };

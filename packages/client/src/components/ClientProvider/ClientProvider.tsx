@@ -79,11 +79,11 @@ const ClientProvider = ({
       wsPort: 6001,
       forceTLS: false,
       enabledTransports: ["ws"],
-      authEndpoint: "http://localhost:8000/broadcasting/auth",
+      authEndpoint: "http://localhost:8000/graphql/subscriptions/auth",
       auth: {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-          "Content-Type": "application/json",
+          Accept: "application/json",
         },
       },
     });

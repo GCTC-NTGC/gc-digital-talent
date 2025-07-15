@@ -206,7 +206,7 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
-    location = /broadcasting/auth {
+    location = /graphql/subscriptions/auth {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
