@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 
 import { graphql, Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { useControllableState } from "@gc-digital-talent/ui";
 
 const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
   mutation ToggleBookmark_Mutation($id: ID!) {
@@ -14,6 +14,8 @@ const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
 interface UseCandidateBookmarkToggleArgs {
   id: Scalars["UUID"]["output"];
   defaultValue?: boolean;
+  value?: boolean;
+  onChange?: (newIsBookmarked: boolean) => void;
   showToast?: boolean;
 }
 
@@ -30,10 +32,16 @@ type UseCandidateBookmarkToggleReturn = [
 const useCandidateBookmarkToggle = ({
   id,
   defaultValue,
+  onChange,
+  value,
   showToast = true,
 }: UseCandidateBookmarkToggleArgs): UseCandidateBookmarkToggleReturn => {
   const intl = useIntl();
-  const [isBookmarked, setIsBookmarked] = useState(defaultValue ?? false);
+  const [isBookmarked, setIsBookmarked] = useControllableState({
+    defaultValue: defaultValue ?? false,
+    controlledProp: value,
+    onChange,
+  });
 
   const [{ fetching: isUpdating }, executeToggleBookmarkMutation] = useMutation(
     PoolCandidate_ToggleBookmarkMutation,
@@ -87,7 +95,7 @@ const useCandidateBookmarkToggle = ({
     }
   };
 
-  return [{ isBookmarked, isUpdating }, toggleBookmark];
+  return [{ isBookmarked: isBookmarked ?? false, isUpdating }, toggleBookmark];
 };
 
 export default useCandidateBookmarkToggle;
