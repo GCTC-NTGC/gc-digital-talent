@@ -1,12 +1,9 @@
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router";
-import { configureEcho } from "@laravel/echo-react";
-import { useSubscription } from "urql";
 
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Flourish } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -18,14 +15,7 @@ import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
 import { Project } from "../SEO/Favicon";
-
-const Notification_Subscription = graphql(/** GraphQL */ `
-  subscription Notification {
-    notificationSent {
-      id
-    }
-  }
-`);
+import NotificationTest from "./NotificationTest";
 
 interface LayoutProps {
   project: Project;
@@ -42,19 +32,10 @@ const Layout = ({
 }: LayoutProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const auth = useAuthorization();
   useLayoutTheme("default");
-  const handleSubscription = (messages = [], response) => {
-    return [response.newMessages, ...messages];
-  };
 
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
-  const [res] = useSubscription(
-    { query: Notification_Subscription },
-    handleSubscription,
-  );
-  console.log({ res });
 
   return (
     <>
@@ -71,6 +52,7 @@ const Layout = ({
           <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
         )}
         <main id="main">
+          <NotificationTest />
           <Outlet />
         </main>
         <Footer />
