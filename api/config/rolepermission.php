@@ -558,31 +558,31 @@ return [
 
         'update-any-platformAdminMembership' => [
             'en' => 'Add or remove the Platform Admin role from any user',
-            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de plateforme de n\'importe quel utilisateur',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de la plateforme de n\'importe quel utilisateur',
         ],
         'update-any-communityAdminMembership' => [
             'en' => 'Add or remove the Community Admin role from any user',
-            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de communauté de n\'importe quel utilisateur',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de la collectivité de n\'importe quel utilisateur',
         ],
         'update-team-communityAdminMembership' => [
             'en' => 'Add or remove the Community Admin role, for this community, to any user',
-            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de communauté, pour cette communauté, à n\'importe quel utilisateur',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de la collectivité, pour cette communauté, à n\'importe quel utilisateur',
         ],
         'update-any-communityRecruiterMembership' => [
             'en' => 'Add or remove the Community Recruiter role from any user',
-            'fr' => 'Ajouter ou supprimer le rôle de recruteur de communauté de n\'importe quel utilisateur',
+            'fr' => 'Ajouter ou supprimer le rôle de recruteur de la collectivité de n\'importe quel utilisateur',
         ],
         'update-team-communityRecruiterMembership' => [
             'en' => 'Add or remove the Community Recruiter role, for this community, to any user',
-            'fr' => 'Ajouter ou supprimer le rôle de recruteur de communauté, pour cette communauté, à n\'importe quel utilisateur',
+            'fr' => 'Ajouter ou supprimer le rôle de recruteur de la collectivité, pour cette communauté, à n\'importe quel utilisateur',
         ],
         'update-any-processOperatorMembership' => [
             'en' => 'Add or remove the Process Operator role from any user',
-            'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus de n\'importe quel utilisateur',
+            'fr' => 'Ajouter ou supprimer le rôle de responsable des processus de n\'importe quel utilisateur',
         ],
         'update-team-processOperatorMembership' => [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
-            'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
+            'fr' => 'Ajouter ou supprimer le rôle de responsable des processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
         ],
         'update-any-communityTalentCoordinatorMembership' => [
             'en' => 'Add or remove the Community Talent Coordinator role from any user',
@@ -729,7 +729,7 @@ return [
         'process_operator' => [
             'display_name' => [
                 'en' => 'Process Operator',
-                'fr' => 'Opérateur de processus',
+                'fr' => 'Responsable des processus',
             ],
             'description' => [
                 'en' => 'Runs a hiring process, all the way from editing the details of the poster and assessment plan, to assessing and qualifying candidates. Is specific to only a single process. Does not include the ability to publish the poster, create new posters, or add other operators.',
@@ -741,7 +741,7 @@ return [
         'community_recruiter' => [
             'display_name' => [
                 'en' => 'Community Recruiter',
-                'fr' => 'Recruteur de communauté',
+                'fr' => 'Recruteur de la collectivité',
             ],
             'description' => [
                 'en' => 'Can create new posters within their community and assign Process Operators to them. Can do anything Process Operators can do, on posters in their community. Can view the profiles of any user who has applied to a community process. Can view and respond to requests to the community.',
@@ -753,7 +753,7 @@ return [
         'community_admin' => [
             'display_name' => [
                 'en' => 'Community Administrator',
-                'fr' => 'Administrateur de communauté',
+                'fr' => 'Administrateur de la collectivité',
             ],
             'description' => [
                 'en' => 'Can do anything Community Recruiters can do, and can also publish pools in their community and assign Community Recruiters.',
@@ -765,7 +765,7 @@ return [
         'platform_admin' => [
             'display_name' => [
                 'en' => 'Platform Administrator',
-                'fr' => 'Administrateur de plateforme',
+                'fr' => 'Administrateur de la plateforme',
             ],
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), publishes pools, manages business data, and has the extraordinary ability to edit or delete other users.',
