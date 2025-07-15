@@ -14,8 +14,6 @@ body:
     attributes:
       label: ⌨ Accessibility and Expected Behaviour
       description: Describe the problem with the existing implementation. What should be happening?
-    validations:
-      required: true
   - type: textarea
     id: wcag
     attributes:

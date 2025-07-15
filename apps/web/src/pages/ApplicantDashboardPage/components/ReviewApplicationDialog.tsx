@@ -116,9 +116,7 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
           }
         }
       }
-      screeningQuestions {
-        id
-      }
+      screeningQuestionsCount
       opportunityLength {
         label {
           localized
@@ -174,7 +172,7 @@ const ReviewApplicationDialog = ({
     application.finalDecision?.value,
     pool.areaOfSelection?.value,
     application.assessmentStatus,
-    pool.screeningQuestions,
+    pool.screeningQuestionsCount,
     intl,
   );
 

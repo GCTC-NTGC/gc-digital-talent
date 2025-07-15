@@ -69,6 +69,7 @@ import {
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
+  candidateFacingStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -210,6 +211,17 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
+          finalDecisionAt
+          finalDecision {
+            value
+          }
+          assessmentStatus {
+            assessmentStepStatuses {
+              step
+            }
+            overallAssessmentStatus
+            currentStep
+          }
           pool {
             id
             processNumber
@@ -236,6 +248,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 fr
               }
             }
+            closingDate
+            areaOfSelection {
+              value
+            }
+            screeningQuestionsCount
           }
           finalDecision {
             value
@@ -281,6 +298,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           }
           submittedAt
           suspendedAt
+          removedAt
         }
         skillCount
       }
@@ -785,6 +803,35 @@ const PoolCandidatesTable = ({
             },
           },
         }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          submittedAt,
+          assessmentStatus,
+          removedAt,
+          finalDecisionAt,
+          finalDecision,
+          pool: { closingDate, areaOfSelection, screeningQuestionsCount },
+        },
+      }) =>
+        candidateFacingStatusCell(
+          submittedAt,
+          closingDate,
+          removedAt,
+          finalDecisionAt,
+          finalDecision?.value,
+          areaOfSelection?.value,
+          assessmentStatus,
+          screeningQuestionsCount,
+          intl,
+        ),
+      {
+        id: "candidateFacingStatus",
+        header: intl.formatMessage(tableMessages.candidateFacingStatus),
+        enableSorting: false,
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(

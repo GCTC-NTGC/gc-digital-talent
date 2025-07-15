@@ -765,7 +765,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'second_language_exam_completed' => 'secondLanguageExamCompleted',
             'second_language_exam_validity' => 'secondLanguageExamValidity',
             'comprehension_level' => 'comprehensionLevel',
-            'written_level' => 'comprehensionLevel',
+            'written_level' => 'writtenLevel',
             'verbal_level' => 'verbalLevel',
             'estimated_language_ability' => 'estimatedLanguageAbility',
             'computed_is_gov_employee' => 'isGovEmployee',
