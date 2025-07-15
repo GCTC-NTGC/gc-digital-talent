@@ -11529,10 +11529,6 @@
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in getting started form."
   },
-  "pJqoQF": {
-    "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
-    "description": "Disclaimer displayed in the skill tree on the skill match dialog."
-  },
   "pKOeNt": {
     "defaultMessage": "Télécharger le profil complet",
     "description": "Button label for downloading a full user profile"
