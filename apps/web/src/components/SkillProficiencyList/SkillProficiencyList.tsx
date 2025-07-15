@@ -55,7 +55,7 @@ export interface ListItem {
   skillCategory: SkillCategory | null;
 }
 
-interface SkillProficiencyListProps {
+export interface SkillProficiencyListProps {
   optionsQuery: FragmentType<typeof Options_Fragment>;
   filterOptionsSkillCategory: SkillCategory | null | undefined;
   listItems: (ListItem & { id: string })[]; // react hook form adds the ID field
@@ -68,8 +68,8 @@ interface SkillProficiencyListProps {
     skillId: string;
     skillLevel: SkillLevel;
   }) => Promise<void>;
-  onRemove: ({ index }: { index: number }) => void;
-  onCreate: ({
+  onRemove: ({ index }: { index: number }) => Promise<void>;
+  onAdd: ({
     skillId,
     skillLevel,
   }: {
@@ -85,7 +85,7 @@ const SkillProficiencyList = ({
   listItems,
   onEdit,
   onRemove,
-  onCreate,
+  onAdd,
   noToast = false,
 }: SkillProficiencyListProps) => {
   const intl = useIntl();
@@ -147,7 +147,7 @@ const SkillProficiencyList = ({
         skills={availableSkills}
         onSave={async (value) => {
           if (value.skill && value.skillLevel) {
-            await onCreate({
+            await onAdd({
               skillId: value.skill,
               skillLevel: value.skillLevel,
             });

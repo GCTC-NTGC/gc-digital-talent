@@ -24,7 +24,6 @@ import {
   getFragment,
   UpdateJobPosterTemplateInput,
   UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
-  SkillLevel,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -36,6 +35,7 @@ import Trigger from "~/components/ToggleForm/Trigger";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import SkillProficiencyList, {
   ListItem as SkillProficiencyListItem,
+  SkillProficiencyListProps,
 } from "~/components/SkillProficiencyList/SkillProficiencyList";
 
 import Display from "./Display";
@@ -284,6 +284,50 @@ const EssentialTechnicalSkillsSection = ({
       .catch(handleError);
   };
 
+  // a skill proficiency was edited in the list
+  const handleEditSkillProficiency: SkillProficiencyListProps["onEdit"] = ({
+    index,
+    skillId,
+    skillLevel,
+  }) => {
+    const matchingSkill = allSkills.find((skill) => skill.id === skillId);
+    const updatedItem: SkillProficiencyListItem = {
+      skillId,
+      skillName: matchingSkill?.name.localized ?? null,
+      skillLevel,
+      skillDefinition: matchingSkill?.description?.localized ?? null,
+      skillCategory: matchingSkill?.category.value ?? null,
+    };
+    updateSkillProficiency(index, updatedItem);
+    return Promise.resolve();
+  };
+
+  // a skill proficiency was removed from the list
+  const handleRemoveSkillProficiency: SkillProficiencyListProps["onRemove"] = ({
+    index,
+  }) => {
+    removeFromSkillProficiencies(index);
+    return Promise.resolve();
+  };
+
+  // a skill proficiency was added to the list
+  const handleAddSkillProficiency: SkillProficiencyListProps["onAdd"] = ({
+    skillId,
+    skillLevel,
+  }) => {
+    const matchingSkill = allSkills.find((skill) => skill.id === skillId);
+    const newItem: SkillProficiencyListItem = {
+      skillId,
+      skillName: matchingSkill?.name.localized ?? null,
+      skillLevel,
+      skillDefinition: matchingSkill?.description?.localized ?? null,
+      skillCategory: matchingSkill?.category.value ?? null,
+    };
+    const sortedIndex = insertionIndexBySkillName(skillProficiencies, newItem);
+    insertIntoSkillProficiencies(sortedIndex, newItem);
+    return Promise.resolve();
+  };
+
   return (
     <ToggleSection.Root open={isEditing} onOpenChange={handleOpenChange}>
       <Trigger className="flex flex-row justify-end">
@@ -316,51 +360,9 @@ const EssentialTechnicalSkillsSection = ({
                   optionsQuery={optionsData}
                   filterOptionsSkillCategory={SkillCategory.Technical}
                   listItems={skillProficiencies}
-                  onEdit={function ({
-                    index,
-                    skillId,
-                    skillLevel,
-                  }: {
-                    index: number;
-                    skillId: string;
-                    skillLevel: SkillLevel;
-                  }): Promise<void> {
-                    const matchingSkill = allSkills.find(
-                      (skill) => skill.id === skillId,
-                    );
-                    const updatedItem: SkillProficiencyListItem = {
-                      skillId,
-                      skillName: matchingSkill?.name.localized ?? null,
-                      skillLevel,
-                      skillDefinition:
-                        matchingSkill?.description?.localized ?? null,
-                      skillCategory: matchingSkill?.category.value ?? null,
-                    };
-                    updateSkillProficiency(index, updatedItem);
-                    return Promise.resolve();
-                  }}
-                  onRemove={function ({ index }: { index: number }): void {
-                    removeFromSkillProficiencies(index);
-                  }}
-                  onCreate={({ skillId, skillLevel }) => {
-                    const matchingSkill = allSkills.find(
-                      (skill) => skill.id === skillId,
-                    );
-                    const newItem: SkillProficiencyListItem = {
-                      skillId,
-                      skillName: matchingSkill?.name.localized ?? null,
-                      skillLevel,
-                      skillDefinition:
-                        matchingSkill?.description?.localized ?? null,
-                      skillCategory: matchingSkill?.category.value ?? null,
-                    };
-                    const sortedIndex = insertionIndexBySkillName(
-                      skillProficiencies,
-                      newItem,
-                    );
-                    insertIntoSkillProficiencies(sortedIndex, newItem);
-                    return Promise.resolve();
-                  }}
+                  onEdit={handleEditSkillProficiency}
+                  onRemove={handleRemoveSkillProficiency}
+                  onAdd={handleAddSkillProficiency}
                   noToast
                 />
                 <div>
