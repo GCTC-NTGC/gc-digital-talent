@@ -1,8 +1,14 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 import { useEffect } from "react";
+import sortBy from "lodash/sortBy";
 
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Checkbox, Submit, TextArea } from "@gc-digital-talent/forms";
@@ -18,17 +24,25 @@ import {
   getFragment,
   UpdateJobPosterTemplateInput,
   UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
+  SkillLevel,
+  SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import SkillProficiencyList, {
+  ListItem as SkillProficiencyListItem,
+} from "~/components/SkillProficiencyList/SkillProficiencyList";
 
 import Display from "./Display";
 import { labels } from "./labels";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
+import { isEssentialTechnicalSkill } from "./utils";
+import { insertionIndexBySkillName } from "../../utils";
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 
@@ -43,7 +57,11 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
     skills {
       id
       skill {
+        id
         name {
+          localized
+        }
+        description {
           localized
         }
         category {
@@ -55,6 +73,7 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
           value
         }
         requiredLevel {
+          value
           label {
             localized
           }
@@ -71,7 +90,19 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment UpdateJobPosterTemplateEssentialTechnicalSkillsOptions on Query {
-    __typename
+    skills {
+      id
+      name {
+        localized
+      }
+      description {
+        localized
+      }
+      category {
+        value
+      }
+    }
+    ...SkillProficiencyListOptions
   }
 `);
 
@@ -89,6 +120,7 @@ const UpdateJobPosterTemplateEssentialTechnicalSkills_Mutation = graphql(
 
 export interface FormValues {
   id: string | null;
+  skillProficiencies: SkillProficiencyListItem[] | null;
   isSpecialNoteRequired: boolean | null;
   specialNoteEn: string | null;
   specialNoteFr: string | null;
@@ -96,14 +128,35 @@ export interface FormValues {
 
 const initialDataToFormValues = ({
   id,
+  skills,
   essentialTechnicalSkillsNotes,
-}: UpdateJobPosterTemplateEssentialTechnicalSkillsFragment): FormValues => ({
-  id: id,
-  isSpecialNoteRequired:
-    !!essentialTechnicalSkillsNotes?.en || !!essentialTechnicalSkillsNotes?.fr,
-  specialNoteEn: essentialTechnicalSkillsNotes?.en ?? null,
-  specialNoteFr: essentialTechnicalSkillsNotes?.fr ?? null,
-});
+}: UpdateJobPosterTemplateEssentialTechnicalSkillsFragment): FormValues => {
+  const formValues = {
+    id: id,
+    skillProficiencies:
+      unpackMaybes(skills)
+        .filter(isEssentialTechnicalSkill)
+        .map<SkillProficiencyListItem>((templateSkill) => ({
+          skillId: templateSkill.skill.id,
+          skillName: templateSkill.skill.name.localized ?? null,
+          skillLevel: templateSkill.pivot?.requiredLevel?.value ?? null,
+          skillDefinition: templateSkill.skill.description?.localized ?? null,
+          skillCategory: templateSkill.skill.category.value,
+        })) ?? [],
+    isSpecialNoteRequired:
+      !!essentialTechnicalSkillsNotes?.en ||
+      !!essentialTechnicalSkillsNotes?.fr,
+    specialNoteEn: essentialTechnicalSkillsNotes?.en ?? null,
+    specialNoteFr: essentialTechnicalSkillsNotes?.fr ?? null,
+  };
+
+  formValues.skillProficiencies = sortBy(
+    formValues.skillProficiencies,
+    (sp) => sp.skillName,
+  );
+
+  return formValues;
+};
 
 const formValuesToMutationInput = ({
   id,
@@ -140,6 +193,7 @@ const EssentialTechnicalSkillsSection = ({
   const initialData = getFragment(InitialData_Fragment, initialDataQuery);
 
   const optionsData = getFragment(Options_Fragment, optionsQuery);
+  const allSkills = unpackMaybes(optionsData.skills);
 
   const isNull = hasAllEmptyFields(initialData);
   const { isEditing, setIsEditing } = useToggleSectionInfo({
@@ -164,6 +218,7 @@ const EssentialTechnicalSkillsSection = ({
     defaultValues: initialFormValues,
   });
   const {
+    control,
     watch,
     handleSubmit,
     resetField,
@@ -172,6 +227,16 @@ const EssentialTechnicalSkillsSection = ({
   } = methods;
 
   const watchIsSpecialNoteRequired = watch("isSpecialNoteRequired");
+
+  const {
+    fields: skillProficiencies,
+    insert: insertIntoSkillProficiencies,
+    remove: removeFromSkillProficiencies,
+    update: updateSkillProficiency,
+  } = useFieldArray({
+    control,
+    name: "skillProficiencies",
+  });
 
   const handleOpenChange = (open: boolean) => {
     resetForm(initialFormValues);
@@ -247,6 +312,57 @@ const EssentialTechnicalSkillsSection = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-6">
+                <SkillProficiencyList
+                  optionsQuery={optionsData}
+                  filterOptionsSkillCategory={SkillCategory.Technical}
+                  listItems={skillProficiencies}
+                  onEdit={function ({
+                    index,
+                    skillId,
+                    skillLevel,
+                  }: {
+                    index: number;
+                    skillId: string;
+                    skillLevel: SkillLevel;
+                  }): Promise<void> {
+                    const matchingSkill = allSkills.find(
+                      (skill) => skill.id === skillId,
+                    );
+                    const updatedItem: SkillProficiencyListItem = {
+                      skillId,
+                      skillName: matchingSkill?.name.localized ?? null,
+                      skillLevel,
+                      skillDefinition:
+                        matchingSkill?.description?.localized ?? null,
+                      skillCategory: matchingSkill?.category.value ?? null,
+                    };
+                    updateSkillProficiency(index, updatedItem);
+                    return Promise.resolve();
+                  }}
+                  onRemove={function ({ index }: { index: number }): void {
+                    removeFromSkillProficiencies(index);
+                  }}
+                  onCreate={({ skillId, skillLevel }) => {
+                    const matchingSkill = allSkills.find(
+                      (skill) => skill.id === skillId,
+                    );
+                    const newItem: SkillProficiencyListItem = {
+                      skillId,
+                      skillName: matchingSkill?.name.localized ?? null,
+                      skillLevel,
+                      skillDefinition:
+                        matchingSkill?.description?.localized ?? null,
+                      skillCategory: matchingSkill?.category.value ?? null,
+                    };
+                    const sortedIndex = insertionIndexBySkillName(
+                      skillProficiencies,
+                      newItem,
+                    );
+                    insertIntoSkillProficiencies(sortedIndex, newItem);
+                    return Promise.resolve();
+                  }}
+                  noToast
+                />
                 <div>
                   <Checkbox
                     id="isSpecialNoteRequired"

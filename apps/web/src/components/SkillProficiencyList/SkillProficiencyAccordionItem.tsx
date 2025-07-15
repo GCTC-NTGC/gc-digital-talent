@@ -7,7 +7,14 @@ import {
   getSkillLevelDefinition,
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
-import { SkillCategory, SkillLevel } from "@gc-digital-talent/graphql";
+import {
+  SkillCategory,
+  SkillLevel,
+  SkillProficiencyListOptionsFragment,
+} from "@gc-digital-talent/graphql";
+
+import SkillBrowserDialog from "../SkillBrowser/SkillBrowserDialog";
+import { FormValues as SkillBrowserDialogFormValues } from "../SkillBrowser/types";
 
 interface SkillProficiencyAccordionItemProps {
   skillId: string;
@@ -15,8 +22,20 @@ interface SkillProficiencyAccordionItemProps {
   skillLevel: SkillLevel | null;
   skillDefinition: string | null;
   skillCategory: SkillCategory | null;
-  onEdit: (() => void) | null;
+  onEdit:
+    | (({
+        skillId,
+        skillLevel,
+      }: {
+        skillId: string;
+        skillLevel: SkillLevel;
+      }) => Promise<void>)
+    | null;
   onRemove: (() => void) | null;
+  availableSkills: NonNullable<
+    SkillProficiencyListOptionsFragment["skills"][number]
+  >[];
+  noToast?: boolean;
 }
 
 const SkillProficiencyAccordionItem = ({
@@ -27,6 +46,8 @@ const SkillProficiencyAccordionItem = ({
   skillCategory,
   onEdit,
   onRemove,
+  availableSkills,
+  noToast = false,
 }: SkillProficiencyAccordionItemProps) => {
   const intl = useIntl();
 
@@ -63,17 +84,38 @@ const SkillProficiencyAccordionItem = ({
   if (onEdit) {
     metadata.push({
       key: "edit-level",
-      type: "button",
-      color: "primary",
-      onClick: onEdit,
-      children: (
-        <span>
-          {intl.formatMessage({
-            defaultMessage: "Edit level",
-            id: "mxBpqB",
-            description: "Label to edit the skill level",
-          })}
-        </span>
+      type: "button-component",
+      component: (
+        <SkillBrowserDialog
+          context="pool"
+          skills={availableSkills}
+          initialState={
+            {
+              skill: skillId,
+              details: skillDefinition ?? undefined,
+              skillLevel: skillLevel ?? undefined,
+              family: "all",
+            } satisfies SkillBrowserDialogFormValues
+          }
+          onSave={async (value) => {
+            if (value.skill && value.skillLevel) {
+              await onEdit({
+                skillId: value.skill,
+                skillLevel: value.skillLevel,
+              });
+            }
+          }}
+          customTrigger={
+            <Accordion.MetaDataButton>
+              {intl.formatMessage({
+                defaultMessage: "Edit level",
+                id: "mxBpqB",
+                description: "Label to edit the skill level",
+              })}
+            </Accordion.MetaDataButton>
+          }
+          noToast={noToast}
+        />
       ),
     });
   }

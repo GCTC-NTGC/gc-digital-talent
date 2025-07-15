@@ -47,7 +47,7 @@ export const Options_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface ListItem {
+export interface ListItem {
   skillId: string;
   skillName: string | null;
   skillLevel: SkillLevel | null;
@@ -58,7 +58,7 @@ interface ListItem {
 interface SkillProficiencyListProps {
   optionsQuery: FragmentType<typeof Options_Fragment>;
   filterOptionsSkillCategory: SkillCategory | null | undefined;
-  listItems: ListItem[];
+  listItems: (ListItem & { id: string })[]; // react hook form adds the ID field
   onEdit: ({
     index,
     skillId,
@@ -67,7 +67,7 @@ interface SkillProficiencyListProps {
     index: number;
     skillId: string;
     skillLevel: SkillLevel;
-  }) => void;
+  }) => Promise<void>;
   onRemove: ({ index }: { index: number }) => void;
   onCreate: ({
     skillId,
@@ -76,6 +76,7 @@ interface SkillProficiencyListProps {
     skillId: string;
     skillLevel: SkillLevel;
   }) => Promise<void>;
+  noToast?: boolean;
 }
 
 const SkillProficiencyList = ({
@@ -85,6 +86,7 @@ const SkillProficiencyList = ({
   onEdit,
   onRemove,
   onCreate,
+  noToast = false,
 }: SkillProficiencyListProps) => {
   const intl = useIntl();
 
@@ -107,7 +109,7 @@ const SkillProficiencyList = ({
           <Accordion.Root type="multiple" mode="card">
             {listItems.map((item, index) => (
               <SkillProficiencyAccordionItem
-                key={item.skillId}
+                key={item.id}
                 skillId={item.skillId}
                 skillName={item.skillName}
                 skillLevel={item.skillLevel}
@@ -115,15 +117,16 @@ const SkillProficiencyList = ({
                 skillCategory={item.skillCategory}
                 onEdit={
                   onEdit
-                    ? () =>
-                        onEdit({
+                    ? async ({ skillId, skillLevel }) =>
+                        await onEdit({
                           index,
-                          skillId: "0",
-                          skillLevel: SkillLevel.Beginner,
+                          skillId: skillId,
+                          skillLevel: skillLevel,
                         })
                     : null
                 }
                 onRemove={onRemove ? () => onRemove({ index }) : null}
+                availableSkills={availableSkills}
               />
             ))}
           </Accordion.Root>
@@ -159,6 +162,7 @@ const SkillProficiencyList = ({
             })}
           </Button>
         }
+        noToast={noToast}
       />
     </div>
   );
