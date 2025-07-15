@@ -38,9 +38,11 @@ class BroadcastGraphQLNotification
             'id' => $notification->id,
             'user_id' => $user->id,
             'type' => class_basename($notification),
+            // NOTE: Likely need to create an interface or something
+            // so we can reliably serialize notifications here
             'data' => $notification->toArray($user),
         ];
 
-        Subscription::broadcast('notificationSent', $payload);
+        Subscription::broadcast('notificationReceived', $payload);
     }
 }

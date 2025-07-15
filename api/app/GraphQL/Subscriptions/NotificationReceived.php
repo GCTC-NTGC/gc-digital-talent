@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Nuwave\Lighthouse\Schema\Types\GraphQLSubscription;
 use Nuwave\Lighthouse\Subscriptions\Subscriber;
 
-class NotificationSent extends GraphQLSubscription
+class NotificationReceived extends GraphQLSubscription
 {
     public function authorize(Subscriber $subscriber, Request $request): bool
     {

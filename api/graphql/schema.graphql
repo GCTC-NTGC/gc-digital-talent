@@ -3380,6 +3380,5 @@ type UserNotification {
 }
 
 type Subscription {
-  notificationSent: UserNotification
-    @subscription(class: "App\\GraphQL\\Subscriptions\\NotificationSent")
+  notificationReceived: UserNotification
 }

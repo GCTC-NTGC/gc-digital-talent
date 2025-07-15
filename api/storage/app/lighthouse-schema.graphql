@@ -628,7 +628,7 @@ type Mutation {
 }
 
 type Subscription {
-  notificationSent: UserNotification
+  notificationReceived: UserNotification
 }
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
