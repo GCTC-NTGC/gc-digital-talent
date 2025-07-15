@@ -4,32 +4,14 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 import { useQuery } from "urql";
 
-import {
-  FragmentType,
-  Maybe,
-  User,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import {
-  Button,
-  Card,
-  Heading,
-  Link,
-  Loading,
-  Separator,
-} from "@gc-digital-talent/ui";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  RECORD_DECISION_STATUSES,
-  REVERT_DECISION_STATUSES,
-} from "~/constants/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import JobPlacementDialog, {
   JobPlacementOptionsFragmentType,
-  PLACEMENT_TYPE_STATUSES,
 } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import {
   isQualifiedStatus,
@@ -94,7 +76,6 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     expiryDate
-    profileSnapshot
   }
 `);
 
@@ -118,7 +99,7 @@ const MoreActions = ({
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
   const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
     id: poolCandidate.id,
-    defaultValue: poolCandidate.isBookmarked,
+    defaultValue: poolCandidate.isBookmarked ?? false,
   });
 
   const candidateName = getFullNameLabel(
@@ -127,10 +108,7 @@ const MoreActions = ({
     intl,
   );
 
-  const parsedSnapshot = JSON.parse(
-    String(poolCandidate.profileSnapshot),
-  ) as Maybe<User>;
-  const [{ data, fetching }] = useQuery({ query: MoreActions_Query });
+  const [{ data }] = useQuery({ query: MoreActions_Query });
 
   const currentStep = poolCandidate.assessmentStatus?.currentStep
     ? poolCandidate.pool.assessmentSteps?.find(
@@ -140,6 +118,8 @@ const MoreActions = ({
     : null;
 
   const currentStepName =
+    // NOTE: Localized can be empty string so || is more suitable
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     currentStep?.title?.localized || currentStep?.type?.label?.localized;
 
   const status = poolCandidate.status?.value;

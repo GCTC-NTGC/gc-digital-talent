@@ -41,8 +41,8 @@ import {
   SUSPENDABLE_STATUSES,
   RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
+  PLACEMENT_TYPE_STATUSES,
 } from "~/constants/poolCandidate";
-import { PLACEMENT_TYPE_STATUSES } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import { NullableDecision } from "./assessmentResults";
 
