@@ -1775,10 +1775,6 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
   },
-  "5wKh/o": {
-    "defaultMessage": "Démontrée",
-    "description": "Option for assessment decision when candidate has successful assessment."
-  },
   "5zJ+/1": {
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
     "description": "Long title of the 'asset technical skills' section of the job poster template page"
@@ -3455,10 +3451,6 @@
     "defaultMessage": "Pour vous inscrire (ou vous authentifier) à Talents numériques du GC, vous devez utiliser CléGC.",
     "description": "A _what to expect_ point on the sign up page"
   },
-  "DrG5Pl": {
-    "defaultMessage": "Sommaire de l’évaluation",
-    "description": "Assessment summary"
-  },
   "DrR/rp": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
     "description": "Instructions for adding a member to a community."
@@ -4919,10 +4911,6 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Radio group option for education requirement filter in search form."
   },
-  "Kp3Bqu": {
-    "defaultMessage": "Critères essentiels",
-    "description": "Essential criteria heading"
-  },
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
@@ -5127,10 +5115,6 @@
     "defaultMessage": "Numéro du processus de sélection",
     "description": "Label for a process number"
   },
-  "Ldzk4k": {
-    "defaultMessage": "Critères constituent un atout",
-    "description": "Asset criteria heading"
-  },
   "Le97Ow": {
     "defaultMessage": "<languageEvaluationPageLink>Apprenez-en plus sur le choix d’une deuxième langue.</languageEvaluationPageLink>",
     "description": "Context message for estimated language ability in language information form."
@@ -5282,10 +5266,6 @@
   "MLrQQy": {
     "defaultMessage": "Emploi de fichiers situés sur des serveurs autres que ceux du gouvernement du Canada",
     "description": "Title for the using files section"
-  },
-  "MMtY88": {
-    "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
-    "description": "Option for assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "MNjEW5": {
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
@@ -9341,10 +9321,6 @@
   "fYe7jv": {
     "defaultMessage": "Catégorie (anglais)",
     "description": "Title for category in English"
-  },
-  "fcSR2I": {
-    "defaultMessage": "Non démontrée",
-    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
