@@ -39,7 +39,8 @@ const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
         <Button
           disabled={isDownloading}
           mode="inline"
-          color="primary"
+          color="black"
+          className="text-left"
           utilityIcon={ChevronDownIcon}
           icon={isDownloading ? SpinnerIcon : ArrowDownTrayIcon}
         >
@@ -51,7 +52,7 @@ const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
           })}
         </Button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" collisionPadding={2}>
+      <DropdownMenu.Content align="start" collisionPadding={2}>
         <DropdownMenu.Item
           disabled={isDownloading}
           onSelect={handleApplicationDocDownload}

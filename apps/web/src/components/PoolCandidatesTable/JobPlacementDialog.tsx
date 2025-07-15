@@ -270,13 +270,13 @@ const JobPlacementDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button
-          mode="inline"
+          mode="text"
           {...(context === "table"
             ? {
                 color: "black",
               }
             : {
-                color: "primary",
+                color: "secondary",
               })}
           className="text-left"
           aria-label={intl.formatMessage(
