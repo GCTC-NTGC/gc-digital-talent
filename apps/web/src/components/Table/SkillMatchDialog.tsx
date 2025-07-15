@@ -145,23 +145,27 @@ const SkillMatchDialogBody = ({
             hideEdit
           />
         ))}
-        <Separator className="mt-4" space="none" />
-        <p className="mt-6 mb-2">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "{poolCandidateName} has not claimed the following skills:",
-              id: "+huKPT",
-              description: "Lead in for list of unclaimed skills",
-            },
-            { poolCandidateName },
-          )}
-        </p>
-        <Ul noIndent>
-          {unclaimedSkills.map((skill) => (
-            <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
-          ))}
-        </Ul>
+        {unclaimedSkills.length !== 0 && (
+          <>
+            <Separator className="mt-4" space="none" />
+            <p className="mt-6 mb-2">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "{poolCandidateName} has not claimed the following skills:",
+                  id: "+huKPT",
+                  description: "Lead in for list of unclaimed skills",
+                },
+                { poolCandidateName },
+              )}
+            </p>
+            <Ul noIndent>
+              {unclaimedSkills.map((skill) => (
+                <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
+              ))}
+            </Ul>
+          </>
+        )}
       </>
     </Pending>
   );
