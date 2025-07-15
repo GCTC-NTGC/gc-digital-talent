@@ -81,7 +81,9 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
 
             $section->addText($this->localize('job_poster_template.'.$noteProperty));
 
-            foreach ($skills as $skill) {
+            $sorted = $skills->sortBy('name.'.$this->lang);
+
+            foreach ($sorted as $skill) {
                 $section->addTitle($skill->name[$this->lang], 3);
 
                 if ($skill->pivot->required_skill_level) {
