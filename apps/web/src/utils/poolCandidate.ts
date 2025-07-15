@@ -39,7 +39,10 @@ import {
   DRAFT_STATUSES,
   INACTIVE_STATUSES,
   SUSPENDABLE_STATUSES,
+  RECORD_DECISION_STATUSES,
+  REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
+import { PLACEMENT_TYPE_STATUSES } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import { NullableDecision } from "./assessmentResults";
 
@@ -74,6 +77,17 @@ export const isNotPlacedStatus = (
 export const isInactiveStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
+
+export const isRODStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean => (status ? RECORD_DECISION_STATUSES.includes(status) : false);
+
+export const isRevertableStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean =>
+  status
+    ? [...REVERT_DECISION_STATUSES, ...PLACEMENT_TYPE_STATUSES].includes(status)
+    : false;
 
 export const isSuspendedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
