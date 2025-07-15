@@ -72,8 +72,8 @@ const SkillMatchDialogBody = ({
 
   // claimed skills come from user->userSkills
   // supported skills come from user->experiences[number].skills
-  // claimed but unsupported = claimed subtract supported
   // unclaimed = filtered subtract claimed
+  // filtered skills to render = filtered subtract unclaimed
   const claimedSkillsIds = filteredSkills
     .filter((skillToFind) => userSkillsSkillIds.includes(skillToFind.id))
     .map((skill) => skill.id);
@@ -90,21 +90,19 @@ const SkillMatchDialogBody = ({
       }),
     )
     .map((skill) => skill.id);
-  const claimedButUnsupportedSkillIds = claimedSkillsIds.filter(
-    (skillId) => !supportedSkillsIds.includes(skillId),
-  );
   const unclaimedSkills = filteredSkills.filter(
     (skillToFind) => !userSkillsSkillIds.includes(skillToFind.id),
   );
+  const filteredSkillsToRender = filteredSkills.filter((skillToFind) =>
+    claimedSkillsIds.includes(skillToFind.id),
+  );
 
-  // sort, by claimed vs unclaimed, then by supported, lastly alphabetically
-  filteredSkills.sort((skillA, skillB) => {
+  // sort by supported or not then alphabetically
+  filteredSkillsToRender.sort((skillA, skillB) => {
     const aName = getLocalizedName(skillA.name, intl);
     const bName = getLocalizedName(skillB.name, intl);
 
     return (
-      arrayIncludesForSorting(skillA.id, claimedSkillsIds) -
-        arrayIncludesForSorting(skillB.id, claimedSkillsIds) ||
       arrayIncludesForSorting(skillA.id, supportedSkillsIds) -
         arrayIncludesForSorting(skillB.id, supportedSkillsIds) ||
       aName.localeCompare(bName)
@@ -114,33 +112,23 @@ const SkillMatchDialogBody = ({
   return (
     <Pending fetching={fetching} error={error} inline>
       <>
-        {filteredSkills.map((skill) => (
+        {filteredSkillsToRender.map((skill) => (
           <SkillTree
             key={skill.id}
             headingAs="h3"
             skill={skill}
             experiencesQuery={experiencesUnpacked}
             showDisclaimer
-            disclaimerMessage={
-              claimedButUnsupportedSkillIds.includes(skill.id)
-                ? intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "{poolCandidateName} has added this skill to their skills portfolio, but it isn't linked to a career experience.",
-                      id: "EAy2CJ",
-                      description:
-                        "Disclaimer in well for claimed skill special case rendering",
-                    },
-                    { poolCandidateName },
-                  )
-                : intl.formatMessage({
-                    defaultMessage:
-                      "There are no experiences attached to this skill",
-                    id: "pJqoQF",
-                    description:
-                      "Disclaimer displayed in the skill tree on the skill match dialog.",
-                  })
-            }
+            disclaimerMessage={intl.formatMessage(
+              {
+                defaultMessage:
+                  "{poolCandidateName} has added this skill to their skills portfolio, but it isn't linked to a career experience.",
+                id: "EAy2CJ",
+                description:
+                  "Disclaimer in well for claimed skill special case rendering",
+              },
+              { poolCandidateName },
+            )}
             hideConnectButton
             hideEdit
           />
