@@ -31,7 +31,7 @@ final class DownloadNominationsCsv
 
         try {
             $generator = new NominationsCsvGenerator(
-                fileName: sprintf('%s%s_%s', str_replace(' ', '', $talentNominationEventName), __('filename.nominations'), date('Y-m-d_His')),
+                fileName: sprintf('%s%s_%s', str_replace(' ', '', $talentNominationEventName), __('.nominations'), date('Y-m-d_His')),
                 talentNominationEventId: $talentNominationEventId,
                 dir: $user->id,
                 lang: App::getLocale(),
