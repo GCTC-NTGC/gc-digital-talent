@@ -405,7 +405,7 @@ export const getApplicationStatusChip = (
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
-  screeningQuestions: Pool["screeningQuestions"],
+  screeningQuestionsCount: Pool["screeningQuestionsCount"],
   intl: IntlShape,
 ): StatusChipWithDescription => {
   // Draft applications
@@ -481,7 +481,7 @@ export const getApplicationStatusChip = (
   // Partially assessed applications
   const currentStep = assessmentStatus?.currentStep ?? 0;
   const numberOfScreeningSteps =
-    screeningQuestions && screeningQuestions?.length > 0 ? 2 : 1;
+    screeningQuestionsCount && screeningQuestionsCount > 0 ? 2 : 1;
   const numberOfStepStatuses =
     assessmentStatus?.assessmentStepStatuses?.length ?? 0;
 

@@ -937,6 +937,7 @@ type Pool implements HasRoleAssignments {
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
   screeningQuestions: [ScreeningQuestion]
+  screeningQuestionsCount: Int
   closingDate: DateTime
   closingReason: String
   publishedAt: DateTime
@@ -1068,6 +1069,9 @@ type PoolCandidateAdminView {
   assessmentStatus: AssessmentResultStatus
   finalDecision: LocalizedFinalDecision
   placedDepartment: Department
+  closingDate: DateTime
+  removedAt: DateTime
+  finalDecisionAt: DateTime
 }
 
 type PoolCandidateAdminViewWithSkillCount {

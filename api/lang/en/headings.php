@@ -11,6 +11,7 @@ return [
     'current_city' => 'City',
     'current_location' => 'Current location',
     'date_received' => 'Date received',
+    'date_format' => 'F jS, Y, g:i A',
     'expiry_date' => 'Expiry date',
     'archival_date' => 'Archival date',
     'first_name' => 'First name',
@@ -91,6 +92,8 @@ return [
     'career_planning_work_style' => 'How you work best',
     // Section headings
     'application_snapshot' => 'Application snapshot',
+    'application_snapshot_description' => 'This document captures the applicant\'s information at the time of submission. Any changes made to the applicant\'s information after submission will not be reflected here.',
+    'application_name' => 'Applicant name',
     'candidate_profiles' => 'Candidate profiles',
     'candidate_profile' => 'Candidate profile',
     'user_profile' => 'User profile',
@@ -129,4 +132,6 @@ return [
     'process_name' => 'Process name',
     'nominators' => 'Nominators',
     'options' => 'Options',
+    'process' => 'Process',
+    'date_received' => 'Date received',
 ];

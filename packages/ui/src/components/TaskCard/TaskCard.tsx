@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode } from "react";
 import { tv, VariantProps } from "tailwind-variants";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
@@ -33,15 +34,20 @@ interface TaskCardHeadingProps {
   icon?: IconType;
   headingAs?: HeadingLevel;
   children?: ReactNode;
+  locked?: boolean;
 }
 
 // a custom heading that is somewhat different from our standard heading component
 const TaskCardHeading = ({
   icon,
   headingAs = "h3",
+  locked,
   children,
 }: TaskCardHeadingProps) => {
-  const Icon = icon;
+  let Icon = icon;
+  if (icon && locked) {
+    Icon = LockClosedIcon;
+  }
   const CustomHeading = headingAs;
   const { base, icon: iconStyles } = heading({ hasIcon: !!icon });
   return (
@@ -81,7 +87,21 @@ const root = tv({
           "border-b-error-700 bg-error-100 text-error-700 dark:border-b-error-100 dark:bg-error-700 dark:text-error-100",
       },
     },
+    locked: {
+      true: {},
+      false: {},
+    },
   },
+  compoundVariants: [
+    {
+      locked: true,
+      headingColor: ["primary", "secondary", "success", "warning", "error"],
+      class: {
+        header:
+          "border-b-gray-100 bg-gray-100 text-gray-700 dark:border-b-gray-100 dark:bg-gray-700 dark:text-gray-100",
+      },
+    },
+  ],
 });
 
 type RootVariants = VariantProps<typeof root>;
@@ -101,19 +121,24 @@ const Root = ({
   icon,
   title,
   headingColor = "primary",
+  locked = false,
   link,
   headingAs,
   children,
 }: RootProps) => {
-  const { base, header } = root({ headingColor });
+  const { base, header } = root({ headingColor, locked });
   return (
     <div className={base()}>
       <div className={header()}>
-        <TaskCardHeading icon={icon} headingAs={headingAs}>
+        <TaskCardHeading {...{ icon, headingAs, locked }}>
           {title}
         </TaskCardHeading>
         {link ? (
-          <Link color={headingColor} href={link.href} className="text-nowrap">
+          <Link
+            color={locked ? "black" : headingColor}
+            href={link.href}
+            className="text-nowrap"
+          >
             {link.label}
           </Link>
         ) : null}

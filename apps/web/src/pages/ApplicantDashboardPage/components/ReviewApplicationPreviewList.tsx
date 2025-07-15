@@ -49,9 +49,7 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
       areaOfSelection {
         value
       }
-      screeningQuestions {
-        id
-      }
+      screeningQuestionsCount
     }
   }
 `);
@@ -101,7 +99,7 @@ const ReviewApplicationPreviewList = ({
                 application.finalDecision?.value,
                 application.pool.areaOfSelection?.value,
                 application.assessmentStatus,
-                application.pool.screeningQuestions,
+                application.pool.screeningQuestionsCount,
                 intl,
               );
               return { application, status };
