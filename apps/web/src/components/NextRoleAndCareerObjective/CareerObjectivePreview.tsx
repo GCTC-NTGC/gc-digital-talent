@@ -94,7 +94,7 @@ const CareerObjectivePreview = ({
         description: "Title for career objective dialog",
       })}
       {intl.formatMessage(commonMessages.dividingColon)} {classificationName}{" "}
-      {employeeProfile?.careerObjectiveJobTitle ?? notProvided}
+      {employeeProfile?.careerObjectiveJobTitle}
     </>
   );
   // Functional community - target role - # of desired work streams - # of desired departments
