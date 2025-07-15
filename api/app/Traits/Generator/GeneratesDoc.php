@@ -41,7 +41,7 @@ trait GeneratesDoc
         $run = $section->addTextRun();
         $run->addText($label.$this->colon());
         if ($link !== null) {
-            $run->addLink($link['href'], $link['text']);
+            $run->addLink($link['href'], $link['text'], $this->linkStyle);
         }
         $this->appendFootnote($run, $footnote);
     }
