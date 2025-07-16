@@ -51,7 +51,6 @@ class NominationsCsvGenerator extends CsvGenerator implements FileGeneratorInter
         'oral_interaction_level',
         'estimated_language_ability',
         'government_employee',
-        'department',
         'employee_type',
         'work_email',
         'classification',
@@ -142,7 +141,6 @@ class NominationsCsvGenerator extends CsvGenerator implements FileGeneratorInter
                     $this->canShare($consentToShare, $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class)), // Oral interaction level
                     $this->canShare($consentToShare, $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class)),
                     $this->canShare($consentToShare, $this->yesOrNo($user->computed_is_gov_employee)), // Government employee
-                    $this->canShare($consentToShare, $department->name[$this->lang] ?? ''), // Department
                     $this->canShare($consentToShare, $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class)),
                     $this->canShare($consentToShare, $user->work_email), // Work email
                     $this->canShare($consentToShare, $user->getClassification()), // Current classification
