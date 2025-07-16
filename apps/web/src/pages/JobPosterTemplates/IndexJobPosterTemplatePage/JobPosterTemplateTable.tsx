@@ -45,8 +45,10 @@ export const JobPosterTemplateTableRow_Fragment = graphql(/* GraphQL */ `
       group
       level
     }
-    skills {
-      id
+    jobPosterTemplateSkills {
+      skill {
+        id
+      }
     }
   }
 `);
@@ -105,7 +107,7 @@ export const JobPosterTemplateTable = ({
       sortingFn: normalizedText,
       header: intl.formatMessage(commonMessages.role),
     }),
-    columnHelper.accessor((row) => row.skills?.length ?? 0, {
+    columnHelper.accessor((row) => row.jobPosterTemplateSkills?.length ?? 0, {
       id: "skillCount",
       sortingFn: numeric,
       header: intl.formatMessage(adminMessages.skills),

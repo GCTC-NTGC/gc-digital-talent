@@ -25,9 +25,12 @@ import {
   UpdateJobPosterTemplateInput,
   UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
   SkillCategory,
+  PoolSkillType,
+  CreateJobPosterTemplateSkillInput,
+  UpdateJobPosterTemplateSkillsInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -54,7 +57,7 @@ const specialNoteWordCountLimits: Record<Locales, number> = {
 export const InitialData_Fragment = graphql(/* GraphQL */ `
   fragment UpdateJobPosterTemplateEssentialTechnicalSkills on JobPosterTemplate {
     id
-    skills {
+    jobPosterTemplateSkills {
       id
       skill {
         id
@@ -68,15 +71,13 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
           value
         }
       }
-      pivot {
-        type {
-          value
-        }
-        requiredLevel {
-          value
-          label {
-            localized
-          }
+      type {
+        value
+      }
+      requiredLevel {
+        value
+        label {
+          localized
         }
       }
     }
@@ -128,20 +129,20 @@ export interface FormValues {
 
 const initialDataToFormValues = ({
   id,
-  skills,
+  jobPosterTemplateSkills,
   essentialTechnicalSkillsNotes,
 }: UpdateJobPosterTemplateEssentialTechnicalSkillsFragment): FormValues => {
   const formValues = {
     id: id,
     skillProficiencies:
-      unpackMaybes(skills)
+      unpackMaybes(jobPosterTemplateSkills)
         .filter(isEssentialTechnicalSkill)
-        .map<SkillProficiencyListItem>((templateSkill) => ({
-          skillId: templateSkill.skill.id,
-          skillName: templateSkill.skill.name.localized ?? null,
-          skillLevel: templateSkill.pivot?.requiredLevel?.value ?? null,
-          skillDefinition: templateSkill.skill.description?.localized ?? null,
-          skillCategory: templateSkill.skill.category.value,
+        .map<SkillProficiencyListItem>(({ skill, requiredLevel }) => ({
+          skillId: skill?.id ?? "", // the above filter should prevent this
+          skillName: skill?.name.localized ?? null,
+          skillLevel: requiredLevel?.value ?? null,
+          skillDefinition: skill?.description?.localized ?? null,
+          skillCategory: skill?.category.value ?? null,
         })) ?? [],
     isSpecialNoteRequired:
       !!essentialTechnicalSkillsNotes?.en ||
@@ -158,16 +159,38 @@ const initialDataToFormValues = ({
   return formValues;
 };
 
-const formValuesToMutationInput = ({
-  id,
-  specialNoteEn,
-  specialNoteFr,
-}: FormValues): UpdateJobPosterTemplateInput => {
+const formValuesToMutationInput = (
+  { id, skillProficiencies, specialNoteEn, specialNoteFr }: FormValues,
+  initialSkillProficiencies: UpdateJobPosterTemplateEssentialTechnicalSkillsFragment["jobPosterTemplateSkills"],
+): UpdateJobPosterTemplateInput => {
   if (!id) {
     throw new Error("Can not submit without an ID"); // should not be possible
   }
+
+  // remove all the existing job poster template skills for essential technical so we can readd them
+  const pivotIdsToDelete =
+    initialSkillProficiencies
+      ?.filter(isEssentialTechnicalSkill)
+      .map((p) => p.id)
+      .filter(notEmpty) ?? [];
+
+  // recreate all the skills of this type
+  const newJobPosterTemplateSkills = unpackMaybes(
+    skillProficiencies,
+  ).map<CreateJobPosterTemplateSkillInput>((p) => ({
+    skillId: p.skillId,
+    type: PoolSkillType.Essential,
+    requiredLevel: p.skillLevel,
+  }));
+
+  const jobPosterTemplateSkillsInput: UpdateJobPosterTemplateSkillsInput = {
+    create: newJobPosterTemplateSkills,
+    delete: pivotIdsToDelete,
+  };
+
   return {
     id: id,
+    jobPosterTemplateSkills: jobPosterTemplateSkillsInput,
     essentialTechnicalSkillsNotes: {
       en: specialNoteEn,
       fr: specialNoteFr,
@@ -260,7 +283,10 @@ const EssentialTechnicalSkillsSection = ({
   const handleSave: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const mutationInput = formValuesToMutationInput(formValues);
+    const mutationInput = formValuesToMutationInput(
+      formValues,
+      initialData.jobPosterTemplateSkills,
+    );
 
     return executeMutation({
       jobPosterTemplate: mutationInput,

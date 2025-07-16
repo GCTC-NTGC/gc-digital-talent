@@ -3,10 +3,12 @@ import { UpdateJobPosterTemplateEssentialTechnicalSkillsFragment } from "@gc-dig
 import { filterEssentialTechnicalSkills } from "./utils";
 
 export const hasAllEmptyFields = ({
-  skills,
+  jobPosterTemplateSkills,
   essentialTechnicalSkillsNotes,
 }: UpdateJobPosterTemplateEssentialTechnicalSkillsFragment): boolean => {
-  const essentialTechnicalSkills = filterEssentialTechnicalSkills(skills);
+  const essentialTechnicalSkills = filterEssentialTechnicalSkills(
+    jobPosterTemplateSkills,
+  );
   return (
     essentialTechnicalSkills.length === 0 &&
     !essentialTechnicalSkillsNotes?.en &&

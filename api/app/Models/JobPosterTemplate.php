@@ -8,7 +8,7 @@ use App\Enums\SkillCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class JobPosterTemplate
@@ -71,11 +71,10 @@ class JobPosterTemplate extends Model
         return $this->belongsTo(Classification::class);
     }
 
-    /** @return BelongsToMany<Skill, $this> */
-    public function skills(): BelongsToMany
+    /** @return HasMany<JobPosterTemplateSkill, $this> */
+    public function jobPosterTemplateSkills(): HasMany
     {
-        return $this->belongsToMany(Skill::class)
-            ->withPivot('type', 'required_skill_level');
+        return $this->hasMany(JobPosterTemplateSkill::class);
     }
 
     public function essentialTechnicalSkills(): BelongsToMany

@@ -16,13 +16,13 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
-  const { skills, essentialTechnicalSkillsNotes } = getFragment(
-    InitialData_Fragment,
-    initialDataQuery,
-  );
+  const { jobPosterTemplateSkills, essentialTechnicalSkillsNotes } =
+    getFragment(InitialData_Fragment, initialDataQuery);
 
-  const essentialTechnicalSkills = filterEssentialTechnicalSkills(skills);
-  essentialTechnicalSkills.sort(sortAlphaBy((s) => s.skill.name.localized));
+  const essentialTechnicalSkills = filterEssentialTechnicalSkills(
+    jobPosterTemplateSkills,
+  );
+  essentialTechnicalSkills.sort(sortAlphaBy((s) => s.skill?.name.localized));
 
   return (
     <div className="flex flex-col gap-6">
@@ -47,9 +47,9 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         <Ul space="md">
           {essentialTechnicalSkills.map((s) => (
             <li key={s.id}>
-              <p>{s.skill.name.localized}</p>
+              <p>{s.skill?.name.localized}</p>
               <p className="text-sm text-gray-500">
-                {s.pivot?.requiredLevel?.label.localized}
+                {s.requiredLevel?.label.localized}
               </p>
             </li>
           ))}
@@ -57,7 +57,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       ) : (
         notProvided
       )}
-      {essentialTechnicalSkillsNotes ? (
+      {essentialTechnicalSkillsNotes?.localized ? (
         <div className="flex flex-col gap-1">
           <h3 className="font-bold">
             {intl.formatMessage({
