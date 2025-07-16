@@ -3358,6 +3358,10 @@ type Mutation {
     ids: [UUID!]
     where: PoolCandidateSearchInput
   ): Boolean! @guard
+  downloadNominationsCsv(
+    ids: [UUID!]
+    talentNominationEventId: UUID!
+  ): Boolean! @guard
 
   # ZIP file downloads
   downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard

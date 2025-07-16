@@ -147,4 +147,6 @@ return [
     'off_platform_process_information' => 'Renseignements sur les processus hors plateforme',
     'process_number' => 'Numéro du processus',
     'process_name' => 'Nom du processus',
+    'nominators' => 'Auteur(trice)s de mise en candidature',
+    'options' => 'Options',
 ];

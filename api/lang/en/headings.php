@@ -144,6 +144,9 @@ return [
     'off_platform_processes_not_verified' => 'Off-platform processes (not verified)',
     'off_platform_process_information' => 'Off-platform process information',
     'process_number' => 'Process number',
+    'process_name' => 'Process name',
+    'nominators' => 'Nominators',
+    'options' => 'Options',
     'process' => 'Process',
     'date_received' => 'Date received',
 ];
