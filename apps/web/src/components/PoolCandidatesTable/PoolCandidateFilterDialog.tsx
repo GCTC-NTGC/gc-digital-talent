@@ -279,7 +279,7 @@ const PoolCandidateFilterDialog = ({
             description: "Label for the government employee field",
           })}
         />
-        <div className="xs:col-span-2">
+        <div className="xs:col-span-3">
           <Combobox
             id="departments"
             name="departments"
