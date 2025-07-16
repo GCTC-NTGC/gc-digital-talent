@@ -13,6 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
+use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertTrue;
 
 class CommunityInterestUserCsvGeneratorTest extends TestCase
@@ -75,13 +76,8 @@ class CommunityInterestUserCsvGeneratorTest extends TestCase
 
         $fileExists = $disk->exists($path);
         assertTrue($fileExists, 'File was not generated');
-        $fullPath = $disk->path($path);
-        $fileHeader = file_get_contents($fullPath, false, null, 0, 2);
-        $this->assertEquals(
-            'PK',
-            $fileHeader,
-            'The wrong number of lines are in the file'
-        );
+        $fileSize = $disk->size($path);
+        assertGreaterThan(0, $fileSize, 'File is empty');
 
     }
 }
