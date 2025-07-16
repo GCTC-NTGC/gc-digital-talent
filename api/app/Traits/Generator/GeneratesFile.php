@@ -106,4 +106,19 @@ trait GeneratesFile
     {
         return $this->localize('headings.'.$key);
     }
+
+    /**
+     * "Not available" message returned if condition not met
+     *
+     * @param  bool  $condition  The condition
+     * @param  string  $data  The data shown if condition met
+     */
+    public function canShare(bool $condition, string $data)
+    {
+        if ($condition) {
+            return $data;
+        }
+
+        return Lang::get('common.not_available', [], $this->lang);
+    }
 }
