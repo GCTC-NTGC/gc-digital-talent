@@ -1,9 +1,10 @@
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router";
+import { useState } from "react";
 
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { Flourish } from "@gc-digital-talent/ui";
+import { Flourish, useAnnouncer } from "@gc-digital-talent/ui";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -32,9 +33,20 @@ const Layout = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   useLayoutTheme("default");
+  const { announce } = useAnnouncer();
+  const [val, setVal] = useState<number>(0);
 
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
+
+  const handleClick = () => {
+    setVal((curr) => {
+      return curr + 1;
+    });
+
+    announce(`Clicked ${val + 1} times`);
+
+  }
 
   return (
     <>
@@ -51,6 +63,7 @@ const Layout = ({
           <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
         )}
         <main id="main">
+          <button onClick={handleClick}>Announce</button>
           <Outlet />
         </main>
         <Footer />

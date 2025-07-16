@@ -9,7 +9,7 @@ import {
 
 import { AriaMessage, createMessageQueue } from "./PriorityQueue";
 
-const TIMEOUT = 500;
+const TIMEOUT = 1000;
 
 interface AnnouncerContextValue {
   announce: (announcement: string, priority?: number) => void;
@@ -71,7 +71,8 @@ const Announcer = ({ children }: AnnouncerProps) => {
         el.innerText = messageQueue
           .all()
           .filter((msg) => msg.message.trim().length > 0)
-          .reduce((prev, curr) => `${prev}. ${curr.message}`, "");
+          .reduce((prev: string[], curr: AriaMessage) => ([...prev, curr.message]), [])
+          .join(". ") + ".";
 
         // Empty main container and add new message batch
         container.current.innerText = "";
@@ -113,6 +114,7 @@ const Announcer = ({ children }: AnnouncerProps) => {
       <div ref={container} aria-live="assertive" className="sr-only" />
     </AnnouncerContext.Provider>
   );
+
 };
 
 export default Announcer;
