@@ -89,7 +89,7 @@ const NextRolePreview = ({
         description: "Title for next role dialog",
       })}
       {intl.formatMessage(commonMessages.dividingColon)} {classificationName}{" "}
-      {employeeProfile?.nextRoleJobTitle ?? notProvided}
+      {employeeProfile?.nextRoleJobTitle}
     </>
   );
   // Functional community - target role - # of desired work streams - # of desired departments

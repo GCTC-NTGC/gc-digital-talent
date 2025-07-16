@@ -734,14 +734,17 @@ class PoolCandidatePolicyTest extends TestCase
     public function testUpdatePoolCandidateStatusParentOnlyExpiry()
     {
         // test policy again with just an expiry date
-        $this->assertFalse($this->processOperatorUser->can(
-            'updateStatus',
+        $this->assertTrue($this->processOperatorUser->can(
+            'updateDecision',
             [$this->poolCandidate, ['expiry_date' => '2000-01-01']]));
-        $this->assertFalse($this->communityRecruiterUser->can(
-            'updateStatus',
+        $this->assertTrue($this->communityRecruiterUser->can(
+            'updateDecision',
             [$this->poolCandidate, ['expiry_date' => '2000-01-01']]));
-        $this->assertFalse($this->communityAdminUser->can(
-            'updateStatus',
+        $this->assertTrue($this->communityAdminUser->can(
+            'updateDecision',
+            [$this->poolCandidate, ['expiry_date' => '2000-01-01']]));
+        $this->assertFalse($this->adminUser->can(
+            'updateDecision',
             [$this->poolCandidate, ['expiry_date' => '2000-01-01']]));
     }
 }

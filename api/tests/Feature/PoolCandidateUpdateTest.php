@@ -1365,4 +1365,53 @@ class PoolCandidateUpdateTest extends TestCase
             // ],
         ];
     }
+
+    public function testUpdateExpiryDatePermission()
+    {
+        $mutation = <<<'GRAPHQL'
+            mutation UpdateExpiryDate($id: UUID! $candidate: UpdatePoolCandidateStatusInput!) {
+                updatePoolCandidateStatus(id: $id, poolCandidate: $candidate) {
+                    expiryDate
+                }
+            }
+        GRAPHQL;
+
+        $past = config('constants.past_date');
+        $future = config('constants.far_future_date');
+
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->submitted_at = config('constants.past_datetime');
+        $this->poolCandidate->expiry_date = $future;
+        $this->poolCandidate->save();
+
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($mutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => [
+                    'expiryDate' => $past,
+                ],
+            ])->assertJsonFragment([
+                'expiryDate' => $past,
+            ]);
+
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($mutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => [
+                    'expiryDate' => $past,
+                ],
+            ])->assertJsonFragment([
+                'expiryDate' => $past,
+            ]);
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($mutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => [
+                    'expiryDate' => $past,
+                ],
+            ])->assertJsonFragment([
+                'expiryDate' => $past,
+            ]);
+    }
 }

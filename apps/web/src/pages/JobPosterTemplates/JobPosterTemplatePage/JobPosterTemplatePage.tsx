@@ -1,6 +1,5 @@
 import { OperationContext, useQuery } from "urql";
 import { useIntl } from "react-intl";
-import ArrowDownOnSquareIcon from "@heroicons/react/20/solid/ArrowDownOnSquareIcon";
 
 import {
   FragmentType,
@@ -10,7 +9,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   Container,
-  Link,
   Pending,
   Separator,
   TableOfContents,
@@ -32,6 +30,7 @@ import KeyTasks from "./components/KeyTasks";
 import EssentialTechnicalSkills from "./components/EssentialTechnicalSkills";
 import EssentialBehaviouralSkills from "./components/EssentialBehaviouralSkills";
 import AssetTechnicalSkills from "./components/AssetTechnicalSkills";
+import JobPosterDownloadButton from "./components/JobPosterDownloadButton";
 
 const JobPosterTemplateTopLevel_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateTopLevel on JobPosterTemplate {
@@ -134,37 +133,8 @@ const JobPosterTemplate = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
-            {/* The download links will be added in a later issue */}
-            {/* eslint-disable-next-line no-constant-binary-expression */}
-            {false && (
-              <>
-                <Separator space="sm" />
-                <div className="flex flex-col gap-6">
-                  <Link
-                    href="#"
-                    icon={ArrowDownOnSquareIcon}
-                    className="font-bold"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Download (EN)",
-                      id: "+Ln2X/",
-                      description: "Link to download a file in English",
-                    })}
-                  </Link>
-                  <Link
-                    href="#"
-                    icon={ArrowDownOnSquareIcon}
-                    className="font-bold"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Download (FR)",
-                      id: "v1obWV",
-                      description: "Link to download a file in French",
-                    })}
-                  </Link>
-                </div>
-              </>
-            )}
+            <Separator space="sm" />
+            <JobPosterDownloadButton id={jobPosterTemplate.id} />
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <div className="flex flex-col gap-18">

@@ -11,6 +11,7 @@ return [
     'current_city' => 'City',
     'current_location' => 'Current location',
     'date_received' => 'Date received',
+    'date_format' => 'F jS, Y, g:i A',
     'expiry_date' => 'Expiry date',
     'archival_date' => 'Archival date',
     'first_name' => 'First name',
@@ -91,6 +92,8 @@ return [
     'career_planning_work_style' => 'How you work best',
     // Section headings
     'application_snapshot' => 'Application snapshot',
+    'application_snapshot_description' => 'This document captures the applicant\'s information at the time of submission. Any changes made to the applicant\'s information after submission will not be reflected here.',
+    'application_name' => 'Applicant name',
     'candidate_profiles' => 'Candidate profiles',
     'candidate_profile' => 'Candidate profile',
     'user_profile' => 'User profile',
@@ -110,6 +113,21 @@ return [
     'skills_to_improve' => 'Skills to improve',
     'signature' => 'Signature',
     'signed' => 'Signed',
+
+    // Job poster template
+    'basic_details' => 'Basic details',
+    'job_title' => 'Job title',
+    'reference_id' => 'Reference ID',
+    'description' => 'Description',
+    'classification' => 'Classification',
+    'work_stream' => 'Workstream',
+    'role_type' => 'Type of role',
+    'work_description' => 'Generic work description',
+    'key_tasks_examples' => 'Key tasks – Examples',
+    'essential_technical_skills_examples' => 'Essential technical skills – Examples',
+    'essential_behavioural_skills_examples' => 'Essential behavioural skills – Examples',
+    'nonessential_technical_skills_examples' => 'Asset technical skills - Examples',
+
     // Other
     'general_question' => 'General question',
     'screening_question' => 'Screening question',
@@ -127,4 +145,8 @@ return [
     'off_platform_process_information' => 'Off-platform process information',
     'process_number' => 'Process number',
     'process_name' => 'Process name',
+    'nominators' => 'Nominators',
+    'options' => 'Options',
+    'process' => 'Process',
+    'date_received' => 'Date received',
 ];

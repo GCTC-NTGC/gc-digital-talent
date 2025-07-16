@@ -87,10 +87,6 @@
     "defaultMessage": "Compétence",
     "description": "Label for the skill select field"
   },
-  "+Ln2X/": {
-    "defaultMessage": "Téléchargez (EN)",
-    "description": "Link to download a file in English"
-  },
   "+MCd8X": {
     "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
     "description": "PSC second language evaluations list for language requirements dialog"
@@ -106,6 +102,10 @@
   "+PLUZ8": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
+  },
+  "+PVO13": {
+    "defaultMessage": "Correspondance des compétences",
+    "description": "Heading displayed on the candidate skill match dialog."
   },
   "+RDFZH": {
     "defaultMessage": "Gérez vos renseignements d’employée ou d’employé du gouvernement, y compris vos préférences en matière de développement de carrière et les façons de travailler.",
@@ -166,6 +166,10 @@
   "+hRCVl": {
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
+  },
+  "+huKPT": {
+    "defaultMessage": "{poolCandidateName} n’a pas indiqué détenir les compétences suivantes :",
+    "description": "Lead in for list of unclaimed skills"
   },
   "+jIT2i": {
     "defaultMessage": "Exemple",
@@ -1775,10 +1779,6 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
   },
-  "5wKh/o": {
-    "defaultMessage": "Démontrée",
-    "description": "Option for assessment decision when candidate has successful assessment."
-  },
   "5zJ+/1": {
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
     "description": "Long title of the 'asset technical skills' section of the job poster template page"
@@ -2502,10 +2502,6 @@
   "9XTtxd": {
     "defaultMessage": "Il s’agissait d’un rôle comme membre du personnel ou comme entrepreneur(euse) dans un ministère ou un organisme fédéral ou une société d’État.",
     "description": "Description for the goc employment category option in work experience"
-  },
-  "9XgUGm": {
-    "defaultMessage": "Télécharger",
-    "description": "Button text to download an applicants application or profile"
   },
   "9Y3w6l": {
     "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
@@ -3455,10 +3451,6 @@
     "defaultMessage": "Pour vous inscrire (ou vous authentifier) à Talents numériques du GC, vous devez utiliser CléGC.",
     "description": "A _what to expect_ point on the sign up page"
   },
-  "DrG5Pl": {
-    "defaultMessage": "Sommaire de l’évaluation",
-    "description": "Assessment summary"
-  },
   "DrR/rp": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
     "description": "Instructions for adding a member to a community."
@@ -3534,6 +3526,10 @@
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
+  },
+  "EAy2CJ": {
+    "defaultMessage": "{poolCandidateName} a ajouté cette compétence à son portfolio de compétences, sans toutefois établir de lien avec une expérience professionnelle.",
+    "description": "Disclaimer in well for claimed skill special case rendering"
   },
   "EB70Il": {
     "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe.",
@@ -3902,6 +3898,10 @@
   "FxB6Km": {
     "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
     "description": "Heading for the obtaining security clearance section"
+  },
+  "Fxs+ab": {
+    "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences.",
+    "description": "Skills match subtitle with candidate's name"
   },
   "Fygh/q": {
     "defaultMessage": "Lien de parenté entre la personne déposante et l’autrice ou l’auteur de la mise en candidature",
@@ -4919,10 +4919,6 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Radio group option for education requirement filter in search form."
   },
-  "Kp3Bqu": {
-    "defaultMessage": "Critères essentiels",
-    "description": "Essential criteria heading"
-  },
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
@@ -5127,10 +5123,6 @@
     "defaultMessage": "Numéro du processus de sélection",
     "description": "Label for a process number"
   },
-  "Ldzk4k": {
-    "defaultMessage": "Critères constituent un atout",
-    "description": "Asset criteria heading"
-  },
   "Le97Ow": {
     "defaultMessage": "<languageEvaluationPageLink>Apprenez-en plus sur le choix d’une deuxième langue.</languageEvaluationPageLink>",
     "description": "Context message for estimated language ability in language information form."
@@ -5282,10 +5274,6 @@
   "MLrQQy": {
     "defaultMessage": "Emploi de fichiers situés sur des serveurs autres que ceux du gouvernement du Canada",
     "description": "Title for the using files section"
-  },
-  "MMtY88": {
-    "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
-    "description": "Option for assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "MNjEW5": {
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
@@ -9342,10 +9330,6 @@
     "defaultMessage": "Catégorie (anglais)",
     "description": "Title for category in English"
   },
-  "fcSR2I": {
-    "defaultMessage": "Non démontrée",
-    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
-  },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the update a skill form description (English) field."
@@ -11513,10 +11497,6 @@
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in getting started form."
   },
-  "pJqoQF": {
-    "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
-    "description": "Disclaimer displayed in the skill tree on the skill match dialog."
-  },
   "pKOeNt": {
     "defaultMessage": "Télécharger le profil complet",
     "description": "Button label for downloading a full user profile"
@@ -11724,10 +11704,6 @@
   "qQYO+V": {
     "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
     "description": "Label for the 'Other role' input"
-  },
-  "qQZQj+": {
-    "defaultMessage": "L'adéquation des compétences en détail",
-    "description": "Heading displayed on the candidate skill match dialog."
   },
   "qQmKgl": {
     "defaultMessage": "La directive étant très performante, elle restera telle quelle.",
@@ -12576,10 +12552,6 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
-  },
-  "v1obWV": {
-    "defaultMessage": "Téléchargez (FR)",
-    "description": "Link to download a file in French"
   },
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
