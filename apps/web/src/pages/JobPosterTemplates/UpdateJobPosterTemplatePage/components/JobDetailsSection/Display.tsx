@@ -47,8 +47,12 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
           })}
         </h3>
         <div>
-          <p className="font-bold text-primary-600">{titleEn ?? notProvided}</p>
-          <p className="text-sm text-gray-600">{subtitleEn}</p>
+          <p className="font-bold text-primary-600 dark:text-primary-200">
+            {titleEn ?? notProvided}
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">
+            {subtitleEn}
+          </p>
         </div>
         <p>{description?.en ?? notProvided}</p>
         {workDescription?.en ? (
@@ -78,8 +82,12 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
           })}
         </h3>
         <div>
-          <p className="font-bold text-primary-600">{titleFr ?? notProvided}</p>
-          <p className="text-sm text-gray-600">{subtitleFr}</p>
+          <p className="font-bold text-primary-600 dark:text-primary-200">
+            {titleFr ?? notProvided}
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">
+            {subtitleFr}
+          </p>
         </div>
         <p>{description?.fr ?? notProvided}</p>
         {workDescription?.fr ? (
