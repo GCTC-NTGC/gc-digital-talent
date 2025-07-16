@@ -3811,6 +3811,10 @@
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
   },
+  "FTEdvi": {
+    "defaultMessage": "Télécharger Excel utilisateur(trice)s",
+    "description": "Button label to download users associated with selected candidates as Excel"
+  },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
     "description": "Second section of text on the change candidate status dialog"
@@ -7233,10 +7237,6 @@
   "Vw7bLe": {
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
-  },
-  "Vyao8B": {
-    "defaultMessage": "Télécharger CSV utilisateur(trice)s",
-    "description": "Button label to download users associated with selected candidates as CSV"
   },
   "Vz719J": {
     "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",
@@ -10973,10 +10973,6 @@
     "defaultMessage": "Retourner au portfolio de compétences",
     "description": "Link text to navigate from skill showcase to the skill portfolio page"
   },
-  "mxOuYK": {
-    "defaultMessage": "Télécharger CSV",
-    "description": "Text label for button to download a csv file of items in a table."
-  },
   "mzgZQs": {
     "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a pool."
@@ -13144,6 +13140,10 @@
   "y/F2My": {
     "defaultMessage": "Terminé une évaluation par la Commission de la fonction publique dans la deuxième langue officielle.",
     "description": "Message for official exam status field display"
+  },
+  "YO7woE": {
+    "defaultMessage": "Télécharger Excel",
+    "description": "Text label for button to download a excel file of items in a table."
   },
   "y1uo+J": {
     "defaultMessage": "Prochain(e) candidat(e)",
