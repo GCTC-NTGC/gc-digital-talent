@@ -68,11 +68,15 @@ const Announcer = ({ children }: AnnouncerProps) => {
       if (messageQueue.peek()) {
         const el = document.createElement("span");
         // Discard empty messages and stitch together as a string
-        el.innerText = messageQueue
-          .all()
-          .filter((msg) => msg.message.trim().length > 0)
-          .reduce((prev: string[], curr: AriaMessage) => ([...prev, curr.message]), [])
-          .join(". ") + ".";
+        el.innerText =
+          messageQueue
+            .all()
+            .filter((msg) => msg.message.trim().length > 0)
+            .reduce(
+              (prev: string[], curr: AriaMessage) => [...prev, curr.message],
+              [],
+            )
+            .join(". ") + ".";
 
         // Empty main container and add new message batch
         container.current.innerText = "";
@@ -114,7 +118,6 @@ const Announcer = ({ children }: AnnouncerProps) => {
       <div ref={container} aria-live="assertive" className="sr-only" />
     </AnnouncerContext.Provider>
   );
-
 };
 
 export default Announcer;
