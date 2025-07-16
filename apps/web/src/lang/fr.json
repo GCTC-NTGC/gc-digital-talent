@@ -7734,6 +7734,10 @@
     "defaultMessage": "Afficher la répartition <hidden> de{stepTitle}</hidden>",
     "description": "Button text to show the distribution of step statuses"
   },
+  "YO7woE": {
+    "defaultMessage": "Télécharger Excel",
+    "description": "Text label for button to download a excel file of items in a table."
+  },
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
@@ -13140,10 +13144,6 @@
   "y/F2My": {
     "defaultMessage": "Terminé une évaluation par la Commission de la fonction publique dans la deuxième langue officielle.",
     "description": "Message for official exam status field display"
-  },
-  "YO7woE": {
-    "defaultMessage": "Télécharger Excel",
-    "description": "Text label for button to download a excel file of items in a table."
   },
   "y1uo+J": {
     "defaultMessage": "Prochain(e) candidat(e)",
