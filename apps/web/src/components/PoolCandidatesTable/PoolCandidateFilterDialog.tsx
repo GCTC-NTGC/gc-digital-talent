@@ -293,7 +293,7 @@ const PoolCandidateFilterDialog = ({
             }))}
           />
         </div>
-        <div className="xs:col-span-2">
+        <div className="xs:col-span-3">
           <Select
             id="languageAbility"
             name="languageAbility"
@@ -303,7 +303,7 @@ const PoolCandidateFilterDialog = ({
             options={localizedEnumToOptions(data?.languageAbilities, intl)}
           />
         </div>
-        <div className="xs:col-span-2">
+        <div className="xs:col-span-3">
           <Select
             id="community"
             name="community"
