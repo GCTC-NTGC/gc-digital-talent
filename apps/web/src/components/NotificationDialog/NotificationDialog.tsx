@@ -6,7 +6,7 @@ import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { UseQueryExecute } from "urql";
 
-import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
   DialogPrimitive,
@@ -31,11 +31,7 @@ const Overlay = m.create(DialogPrimitive.Overlay);
 // This is to query to minimal amount of data to display the badge
 const NotificationCount_Query = graphql(/* GraphQL */ `
   query NotificationCount {
-    notifications(where: { onlyUnread: true }, first: 1) {
-      data {
-        id
-      }
-    }
+    notificationCount(where: { onlyUnread: true })
   }
 `);
 
@@ -179,7 +175,7 @@ const NotificationDialog = ({
     { query: NotificationCount_Query },
     60,
   );
-  const notificationCount = unpackMaybes(data?.notifications?.data).length;
+  const notificationCount: number = data?.notificationCount ?? 0;
   const buttonLabel = open
     ? intl.formatMessage({
         defaultMessage: "Close notifications",
