@@ -399,6 +399,7 @@ type Query {
   roles: [Role]!
   workStream(id: UUID!): WorkStream
   workStreams(talentSearchable: Boolean): [WorkStream]!
+  notificationCount(where: NotificationFilterInput): Int
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(where: TalentNominationEventsFilterInput): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent

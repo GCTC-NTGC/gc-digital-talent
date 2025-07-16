@@ -1512,6 +1512,8 @@ type Query {
   ): [Notification!]
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
+  notificationCount(where: NotificationFilterInput): Int
+    @count(model: "App\\Models\\Notification", scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(
