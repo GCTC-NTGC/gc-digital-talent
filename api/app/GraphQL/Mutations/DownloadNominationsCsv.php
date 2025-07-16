@@ -7,6 +7,7 @@ use App\Jobs\GenerateUserFile;
 use App\Models\TalentNominationEvent;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -31,7 +32,7 @@ final class DownloadNominationsCsv
 
         try {
             $generator = new NominationsCsvGenerator(
-                fileName: sprintf('%s%s_%s', str_replace(' ', '', $talentNominationEventName), __('.nominations'), date('Y-m-d_His')),
+                fileName: sprintf('%s_%s_%s', str_replace(' ', '', $talentNominationEventName), strtolower(Lang::get('common.nominations')), date('Y-m-d_His')),
                 talentNominationEventId: $talentNominationEventId,
                 dir: $user->id,
                 lang: App::getLocale(),
