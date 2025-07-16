@@ -113,6 +113,21 @@ return [
     'skills_to_improve' => 'Skills to improve',
     'signature' => 'Signature',
     'signed' => 'Signed',
+
+    // Job poster template
+    'basic_details' => 'Basic details',
+    'job_title' => 'Job title',
+    'reference_id' => 'Reference ID',
+    'description' => 'Description',
+    'classification' => 'Classification',
+    'work_stream' => 'Workstream',
+    'role_type' => 'Type of role',
+    'work_description' => 'Generic work description',
+    'key_tasks_examples' => 'Key tasks – Examples',
+    'essential_technical_skills_examples' => 'Essential technical skills – Examples',
+    'essential_behavioural_skills_examples' => 'Essential behavioural skills – Examples',
+    'nonessential_technical_skills_examples' => 'Asset technical skills - Examples',
+
     // Other
     'general_question' => 'General question',
     'screening_question' => 'Screening question',

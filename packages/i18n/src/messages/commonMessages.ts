@@ -264,6 +264,11 @@ const commonMessages = defineMessages({
     id: "jStpFw",
     description: "Name of Bilingual (English and French)",
   },
+  download: {
+    defaultMessage: "Download",
+    id: "TsltMU",
+    description: "Button text to download a resource",
+  },
   preparingDownload: {
     defaultMessage:
       "Preparing your file for download. You will receive a notification when it is ready.",

@@ -87,10 +87,6 @@
     "defaultMessage": "Compétence",
     "description": "Label for the skill select field"
   },
-  "+Ln2X/": {
-    "defaultMessage": "Téléchargez (EN)",
-    "description": "Link to download a file in English"
-  },
   "+MCd8X": {
     "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
     "description": "PSC second language evaluations list for language requirements dialog"
@@ -2498,10 +2494,6 @@
   "9XTtxd": {
     "defaultMessage": "Il s’agissait d’un rôle comme membre du personnel ou comme entrepreneur(euse) dans un ministère ou un organisme fédéral ou une société d’État.",
     "description": "Description for the goc employment category option in work experience"
-  },
-  "9XgUGm": {
-    "defaultMessage": "Télécharger",
-    "description": "Button text to download an applicants application or profile"
   },
   "9Y3w6l": {
     "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
@@ -12552,10 +12544,6 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
-  },
-  "v1obWV": {
-    "defaultMessage": "Téléchargez (FR)",
-    "description": "Link to download a file in French"
   },
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
