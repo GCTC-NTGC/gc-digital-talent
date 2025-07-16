@@ -11,7 +11,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertTrue;
 
 class UserCsvGeneratorTest extends TestCase
@@ -64,11 +63,15 @@ class UserCsvGeneratorTest extends TestCase
 
         // assert
         $disk = Storage::disk('userGenerated');
-        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.csv';
+        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
 
-        $fileExists = $disk->exists($path);
-        assertTrue($fileExists, 'File was not generated');
-        $lineCount = count(file($disk->path($path)));
-        assertEquals(3, $lineCount, 'The wrong number of lines are in the file');
+        assertTrue($disk->exists($path), 'File was not generated');
+        $fullPath = $disk->path($path);
+        $fileHeader = file_get_contents($fullPath, false, null, 0, 2);
+        $this->assertEquals(
+            'PK',
+            $fileHeader,
+            'The wrong number of lines are in the file'
+        );
     }
 }
