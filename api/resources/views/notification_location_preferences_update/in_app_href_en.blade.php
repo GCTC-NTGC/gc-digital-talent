@@ -1,1 +1,1 @@
-/en/applicant/personal-information#work-section
+/en/applicant/personal-information#work-preferences-section
