@@ -811,6 +811,10 @@
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
   },
+  "TsltMU": {
+    "defaultMessage": "Télécharger",
+    "description": "Button text to download a resource"
+  },
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"

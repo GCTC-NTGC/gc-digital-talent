@@ -115,6 +115,21 @@ return [
     'skills_to_improve' => 'Compétences à améliorer',
     'signature' => 'Signature',
     'signed' => 'Signée',
+
+    // Job poster template
+    'basic_details' => 'Détails de base',
+    'job_title' => 'Titre du poste',
+    'reference_id' => 'Identifiant de référence',
+    'description' => 'Description ',
+    'classification' => 'Classification',
+    'work_stream' => 'Flux de travail',
+    'role_type' => 'Type de poste',
+    'work_description' => 'Description générique du travail',
+    'key_tasks_examples' => 'Tâches principales - Exemples',
+    'essential_technical_skills_examples' => 'Compétences techniques essentielles – Exemples',
+    'essential_behavioural_skills_examples' => 'Compétences comportementales essentielles - Exemples',
+    'nonessential_technical_skills_examples' => 'Compétences techniques constituant un atout - Exemples',
+
     // Other
     'general_question' => 'Question générale',
     'screening_question' => 'Question de sélection',
@@ -132,4 +147,6 @@ return [
     'off_platform_process_information' => 'Renseignements sur les processus hors plateforme',
     'process_number' => 'Numéro du processus',
     'process_name' => 'Nom du processus',
+    'nominators' => 'Auteur(trice)s de mise en candidature',
+    'options' => 'Options',
 ];
