@@ -41,7 +41,6 @@ const Announcer = ({ children }: AnnouncerProps) => {
     if (cycle.current) {
       clearTimeout(cycle.current);
     }
-
     cycle.current = setTimeout(fn, TIMEOUT);
     return cycle.current;
   };
@@ -54,39 +53,24 @@ const Announcer = ({ children }: AnnouncerProps) => {
   };
 
   const queueMessage = useCallback(() => {
-    // Either a cycle is running or we have no target container
     if (cycle.current || !container.current) {
       return;
     }
 
     const nextCycle = () => {
-      // We have no container to render to
       if (!container.current) {
         return;
       }
 
-      if (messageQueue.peek()) {
+      const nextMsg = messageQueue.dequeue();
+      if (nextMsg && nextMsg.message.trim().length > 0) {
         const el = document.createElement("span");
-        // Discard empty messages and stitch together as a string
-        el.innerText =
-          messageQueue
-            .all()
-            .filter((msg) => msg.message.trim().length > 0)
-            .reduce(
-              (prev: string[], curr: AriaMessage) => [...prev, curr.message],
-              [],
-            )
-            .join(". ") + ".";
+        el.innerText = nextMsg.message;
 
-        // Empty main container and add new message batch
         container.current.innerText = "";
         container.current.appendChild(el);
 
-        // All messages have been announced to clear out our queue
-        messageQueue.clear();
-
-        // Boot up the next tick in the cycle
-        setCycle(() => nextCycle());
+        setCycle(nextCycle);
       } else {
         container.current.textContent = "";
         clearCycle();
