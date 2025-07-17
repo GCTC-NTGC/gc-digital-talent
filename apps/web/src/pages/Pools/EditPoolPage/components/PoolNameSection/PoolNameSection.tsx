@@ -454,7 +454,11 @@ const PoolNameSection = ({
                   id="specificTitleEn"
                   name="specificTitleEn"
                   type="text"
-                  label={intl.formatMessage(commonMessages.title)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Job title",
+                    id: "HBuWZ0",
+                    description: "Title for job title for a position",
+                  })}
                   appendLanguageToLabel={"en"}
                   disabled={formDisabled}
                 />
@@ -462,7 +466,11 @@ const PoolNameSection = ({
                   id="specificTitleFr"
                   name="specificTitleFr"
                   type="text"
-                  label={intl.formatMessage(commonMessages.title)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Job title",
+                    id: "HBuWZ0",
+                    description: "Title for job title for a position",
+                  })}
                   appendLanguageToLabel={"fr"}
                   disabled={formDisabled}
                 />
