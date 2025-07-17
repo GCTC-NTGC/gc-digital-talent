@@ -27,6 +27,7 @@ import FilterDialog, {
 } from "../FilterDialog/FilterDialog";
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
+import tableMessages from "./tableMessages";
 
 const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {
@@ -46,6 +47,12 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
       name {
         en
         fr
+      }
+    }
+    departments {
+      id
+      name {
+        localized
       }
     }
     operationalRequirements: localizedEnumStrings(
@@ -133,6 +140,7 @@ const PoolCandidateFilterDialog = ({
   const data = getFragment(PoolCandidateFilterDialog_Query, query);
 
   const classifications = unpackMaybes(data?.classifications);
+  const departments = unpackMaybes(data?.departments);
   const skills = unpackMaybes(data?.skills);
   const communities = unpackMaybes(data?.communities);
   const workStreams = unpackMaybes(data?.workStreams);
@@ -271,7 +279,21 @@ const PoolCandidateFilterDialog = ({
             description: "Label for the government employee field",
           })}
         />
-        <div className="xs:col-span-2">
+        <div className="xs:col-span-3">
+          <Combobox
+            id="departments"
+            name="departments"
+            isMulti
+            label={intl.formatMessage(tableMessages.employeeDepartment)}
+            options={departments.map((dept) => ({
+              value: dept.id,
+              label:
+                dept.name?.localized ??
+                intl.formatMessage(commonMessages.notFound),
+            }))}
+          />
+        </div>
+        <div className="xs:col-span-3">
           <Select
             id="languageAbility"
             name="languageAbility"
@@ -281,7 +303,7 @@ const PoolCandidateFilterDialog = ({
             options={localizedEnumToOptions(data?.languageAbilities, intl)}
           />
         </div>
-        <div className="xs:col-span-2">
+        <div className="xs:col-span-3">
           <Select
             id="community"
             name="community"
