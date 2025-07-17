@@ -2,18 +2,18 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\UserCsvGenerator;
+use App\Generators\UserExcelGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadUsersCsv
+final class DownloadUsersExcel
 {
     /**
      * Dispatches the generation of a
-     * csv containing pool candidates
+     * excel containing pool candidates
      *
      * @disregard P1003 We are not going to be using this var
      */
@@ -27,7 +27,7 @@ final class DownloadUsersCsv
         $filters = $args['where'] ?? null;
 
         try {
-            $generator = new UserCsvGenerator(
+            $generator = new UserExcelGenerator(
                 fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
@@ -42,7 +42,7 @@ final class DownloadUsersCsv
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting user csv generation '.$e->getMessage());
+            Log::error('Error starting user excel generation '.$e->getMessage());
 
             return false;
         }

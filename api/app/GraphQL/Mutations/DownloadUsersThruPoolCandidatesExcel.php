@@ -2,14 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\UsersThruPoolCandidatesCsvGenerator;
+use App\Generators\UsersThruPoolCandidatesExcelGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadUsersThruPoolCandidatesCsv
+final class DownloadUsersThruPoolCandidatesExcel
 {
     /**
      * Dispatches the generation of a
@@ -27,7 +27,7 @@ final class DownloadUsersThruPoolCandidatesCsv
         $filters = $args['where'] ?? null;
 
         try {
-            $generator = new UsersThruPoolCandidatesCsvGenerator(
+            $generator = new UsersThruPoolCandidatesExcelGenerator(
                 fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),

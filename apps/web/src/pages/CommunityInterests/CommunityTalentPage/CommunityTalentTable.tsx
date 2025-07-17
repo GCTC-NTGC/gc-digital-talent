@@ -261,8 +261,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     downloadingDoc,
     downloadZip,
     downloadingZip,
-    downloadCsv,
-    downloadingCsv,
+    downloadExcel,
+    downloadingExcel,
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
@@ -281,7 +281,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   };
 
   const handleCsvDownload = () => {
-    downloadCsv({
+    downloadExcel({
       ids: removeDuplicateIds(selectedRows),
     });
   };
@@ -647,12 +647,12 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleCsvDownloadAll,
-          downloading: downloadingCsv || downloadingAllCsv,
+          downloading: downloadingExcel || downloadingAllCsv,
         },
         csv: {
           enable: true,
           onClick: handleCsvDownload,
-          downloading: downloadingCsv || downloadingAllCsv,
+          downloading: downloadingExcel || downloadingAllCsv,
         },
         doc: {
           enable: true,

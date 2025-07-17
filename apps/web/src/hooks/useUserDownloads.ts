@@ -13,7 +13,7 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useAsyncFileDownload from "./useAsyncFileDownload";
 
-interface DownloadCsvArgs {
+interface DownloadExcelArgs {
   ids?: Scalars["UUID"]["output"][];
   where?: InputMaybe<UserFilterInput>;
 }
@@ -30,9 +30,9 @@ const DownloadUsersZip_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadUsersCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadUsersCsv($ids: [UUID!], $where: UserFilterInput) {
-    downloadUsersCsv(ids: $ids, where: $where)
+const DownloadUsersExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUsersExcel($ids: [UUID!], $where: UserFilterInput) {
+    downloadUsersExcel(ids: $ids, where: $where)
   }
 `);
 
@@ -44,8 +44,8 @@ const useUserDownloads = () => {
   const [{ fetching: downloadingZip }, executeZipMutation] = useMutation(
     DownloadUsersZip_Mutation,
   );
-  const [{ fetching: downloadingCsv }, executeCsvMutation] = useMutation(
-    DownloadUsersCsv_Mutation,
+  const [{ fetching: downloadingExcel }, executeExcelMutation] = useMutation(
+    DownloadUsersExcel_Mutation,
   );
   const [{ fetching: downloadingDoc }, executeDocMutation] = useMutation(
     DownloadUserDoc_Mutation,
@@ -99,8 +99,8 @@ const useUserDownloads = () => {
       .catch(handleDownloadRes);
   };
 
-  const downloadCsv = ({ ids, where }: DownloadCsvArgs) => {
-    executeCsvMutation({
+  const downloadExcel = ({ ids, where }: DownloadExcelArgs) => {
+    executeExcelMutation({
       ids,
       where,
     })
@@ -111,8 +111,8 @@ const useUserDownloads = () => {
   return {
     downloadZip,
     downloadingZip,
-    downloadCsv,
-    downloadingCsv,
+    downloadExcel,
+    downloadingExcel,
     downloadDoc,
     downloadingDoc: downloadingDoc || downloadingAsyncFile,
   };

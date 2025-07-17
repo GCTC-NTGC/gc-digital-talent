@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class UsersThruPoolCandidatesCsvGenerator extends CsvGenerator implements FileGeneratorInterface
+class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
     use Filterable;
     use GeneratesFile;

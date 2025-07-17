@@ -16,7 +16,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertTrue;
 
-class CommunityInterestUserCsvGeneratorTest extends TestCase
+class CommunityInterestUserExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -78,5 +78,6 @@ class CommunityInterestUserCsvGeneratorTest extends TestCase
         assertTrue($fileExists, 'File was not generated');
         $lineCount = count(file($disk->path($path)));
         assertEquals(3, $lineCount, 'The wrong number of lines are in the file');
+
     }
 }
