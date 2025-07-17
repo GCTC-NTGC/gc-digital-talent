@@ -14,6 +14,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Carbon\Carbon;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -40,7 +41,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         parent::setUp();
         Notify::spy(); // don't send any notifications
-        $this->seed(RolePermissionSeeder::class);
+        $this->seed([RolePermissionSeeder::class,  DepartmentSeeder::class]);
 
         $this->bootRefreshesSchemaCache();
 
