@@ -1,8 +1,8 @@
 import { defineMessages, useIntl } from "react-intl";
-import ArrowLeftCircleIcon from "@heroicons/react/20/solid/ArrowLeftCircleIcon";
-import ArrowRightCircleIcon from "@heroicons/react/20/solid/ArrowRightCircleIcon";
+import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
+import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIcon";
 
-import { IconLink, IconLinkProps } from "@gc-digital-talent/ui";
+import { Card, IconLinkProps, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -30,13 +30,9 @@ const messages = defineMessages({
 
 interface CandidateNavigationProps {
   candidateId: string;
-  candidateName: string;
 }
 
-const CandidateNavigation = ({
-  candidateId,
-  candidateName,
-}: CandidateNavigationProps) => {
+const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const candidateNavigation = usePoolCandidateNavigation(candidateId);
@@ -45,41 +41,45 @@ const CandidateNavigation = ({
     candidateNavigation;
 
   const commonLinkProps: Partial<IconLinkProps> = {
-    color: "secondary",
-    size: "lg",
-    className: "flex shrink-0",
+    color: "primary",
     state: { candidateIds, stepName },
   };
 
   return (
-    <div className="grid grid-cols-[1.5rem_auto_1.5rem] items-center gap-3">
-      {previousCandidate && (
-        <IconLink
-          href={paths.poolCandidateApplication(previousCandidate)}
-          icon={ArrowLeftCircleIcon}
-          label={intl.formatMessage(messages.previousCandidate)}
-          {...commonLinkProps}
-        />
-      )}
-      <div className="col-start-2 text-center">
-        <p className="font-bold text-secondary-500 dark:text-secondary-200">
-          {candidateName}
-        </p>
-        {stepName && (
-          <p className="mt-1.5 text-sm text-black/70 dark:text-white/70">
-            {stepName}
-          </p>
+    <Card
+      space="sm"
+      className="relative grid grid-cols-2 items-center justify-between gap-x-3"
+    >
+      <div>
+        {previousCandidate && (
+          <Link
+            href={paths.poolCandidateApplication(previousCandidate)}
+            icon={ChevronDoubleLeftIcon}
+            {...commonLinkProps}
+          >
+            {intl.formatMessage(messages.previousCandidate)}
+          </Link>
         )}
       </div>
-      {nextCandidate && (
-        <IconLink
-          href={paths.poolCandidateApplication(nextCandidate)}
-          icon={ArrowRightCircleIcon}
-          label={intl.formatMessage(messages.nextCandidate)}
-          {...commonLinkProps}
-        />
-      )}
-    </div>
+      <Separator
+        decorative
+        orientation="vertical"
+        space="none"
+        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2"
+      />
+      <div>
+        {nextCandidate && (
+          <Link
+            href={paths.poolCandidateApplication(nextCandidate)}
+            utilityIcon={ChevronDoubleRightIcon}
+            {...commonLinkProps}
+            className="flex justify-end"
+          >
+            {intl.formatMessage(messages.nextCandidate)}
+          </Link>
+        )}
+      </div>
+    </Card>
   );
 };
 

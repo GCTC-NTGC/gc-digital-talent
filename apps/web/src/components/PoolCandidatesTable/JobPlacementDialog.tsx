@@ -13,7 +13,6 @@ import {
 import {
   FragmentType,
   PlacementType,
-  PoolCandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -31,13 +30,7 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
-
-export const PLACEMENT_TYPE_STATUSES = [
-  PoolCandidateStatus.PlacedCasual,
-  PoolCandidateStatus.PlacedIndeterminate,
-  PoolCandidateStatus.PlacedTentative,
-  PoolCandidateStatus.PlacedTerm,
-];
+import { PLACEMENT_TYPE_STATUSES } from "~/constants/poolCandidate";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -270,13 +263,13 @@ const JobPlacementDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button
-          mode="inline"
+          mode="text"
           {...(context === "table"
             ? {
                 color: "black",
               }
             : {
-                color: "primary",
+                color: "secondary",
               })}
           className="text-left"
           aria-label={intl.formatMessage(

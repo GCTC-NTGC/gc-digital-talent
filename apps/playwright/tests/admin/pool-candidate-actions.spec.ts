@@ -287,7 +287,7 @@ test.describe("Pool candidates", () => {
       .getByRole("button", { name: "Removed", exact: true })
       .click();
     await expect(
-      appPage.page.getByText("Candidate has requested to be"),
+      appPage.page.getByText("Candidate has requested to be").first(),
     ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: "Reinstate candidate and" })

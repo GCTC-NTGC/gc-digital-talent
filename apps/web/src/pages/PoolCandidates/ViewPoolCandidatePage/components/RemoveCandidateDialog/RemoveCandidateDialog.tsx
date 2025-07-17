@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
+import MinusCircleIcon from "@heroicons/react/16/solid/MinusCircleIcon";
 
 import {
   CandidateRemovalReason,
@@ -133,7 +134,12 @@ const RemoveCandidateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="inline" color="error" block>
+        <Button
+          mode="inline"
+          className="text-left"
+          color="black"
+          icon={MinusCircleIcon}
+        >
           {intl.formatMessage({
             defaultMessage: "Remove candidate",
             id: "NWDow2",

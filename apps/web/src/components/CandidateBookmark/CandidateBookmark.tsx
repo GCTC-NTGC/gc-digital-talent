@@ -1,13 +1,12 @@
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
-import { IconButton, useControllableState } from "@gc-digital-talent/ui";
+import { IconButton } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
 
 export const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
   fragment PoolCandidate_Bookmark on PoolCandidate {
@@ -35,12 +34,6 @@ export const PoolCandidateCandidateTable_BookmarkFragment = graphql(
   `,
 );
 
-const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
-  mutation ToggleBookmark_Mutation($id: ID!) {
-    togglePoolCandidateBookmark(id: $id)
-  }
-`);
-
 interface CandidateBookmarkProps {
   candidateQuery: FragmentType<typeof PoolCandidate_BookmarkFragment>;
   onBookmarkChange?: (newIsBookmarked: boolean) => void;
@@ -56,60 +49,13 @@ const CandidateBookmark = ({
 }: CandidateBookmarkProps) => {
   const intl = useIntl();
   const candidate = getFragment(PoolCandidate_BookmarkFragment, candidateQuery);
-  const [isBookmarked, setIsBookmarked] = useControllableState<boolean>({
-    controlledProp: bookmarked,
-    defaultValue: candidate.isBookmarked ?? undefined,
-    onChange: onBookmarkChange,
-  });
-  // const candidate = getFragment(PoolCandidate_BookmarkFragment, query);
-  const [{ fetching: isUpdatingBookmark }, executeToggleBookmarkMutation] =
-    useMutation(PoolCandidate_ToggleBookmarkMutation);
-
-  const toggleBookmark = async () => {
-    if (candidate.id) {
-      await executeToggleBookmarkMutation({
-        id: candidate.id,
-      })
-        .then((res) => {
-          if (!res.error) {
-            const newIsBookmarked =
-              res.data?.togglePoolCandidateBookmark === true;
-            if (newIsBookmarked) {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Candidate successfully bookmarked.",
-                  id: "neIH5o",
-                  description:
-                    "Alert displayed to the user when they mark a candidate as bookmarked.",
-                }),
-              );
-            } else {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Candidate's bookmark removed successfully.",
-                  id: "glBoRl",
-                  description:
-                    "Alert displayed to the user when they un-mark a candidate as bookmarked.",
-                }),
-              );
-            }
-
-            setIsBookmarked(newIsBookmarked);
-          }
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage({
-              defaultMessage: "Error: failed to update a candidate's bookmark.",
-              id: "9QJRRw",
-              description:
-                "Alert displayed to the user when failing to (un-)bookmark a candidate.",
-            }),
-          );
-        });
-    }
-  };
-
+  const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
+    useCandidateBookmarkToggle({
+      id: candidate.id,
+      onChange: onBookmarkChange,
+      value: bookmarked,
+      defaultValue: candidate?.isBookmarked ?? false,
+    });
   return (
     <IconButton
       color={isBookmarked ? "secondary" : "black"}

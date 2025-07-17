@@ -1,28 +1,25 @@
 import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
+import UserCircleIcon from "@heroicons/react/16/solid/UserCircleIcon";
+import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
+import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 import { useQuery } from "urql";
 
-import {
-  FragmentType,
-  Maybe,
-  User,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import { Card, Link, Loading, Separator } from "@gc-digital-talent/ui";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  RECORD_DECISION_STATUSES,
-  REVERT_DECISION_STATUSES,
-} from "~/constants/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import JobPlacementDialog, {
   JobPlacementOptionsFragmentType,
-  PLACEMENT_TYPE_STATUSES,
 } from "~/components/PoolCandidatesTable/JobPlacementDialog";
-import { isQualifiedStatus, isRemovedStatus } from "~/utils/poolCandidate";
+import {
+  isQualifiedStatus,
+  isRemovedStatus,
+  isRevertableStatus,
+  isRODStatus,
+} from "~/utils/poolCandidate";
+import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import FinalDecisionDialog from "./FinalDecisionDialog";
@@ -32,6 +29,7 @@ import ReinstateCandidateDialog from "../ReinstateCandidateDialog/ReinstateCandi
 import ChangeExpiryDateDialog from "../ChangeExpiryDateDialog/ChangeExpiryDateDialog";
 import NotesForm from "./NotesForm";
 import DownloadButton from "./DownloadButton";
+import StatusLabel from "./StatusLabel";
 
 export const MoreActions_Fragment = graphql(/* GraphQL */ `
   fragment MoreActions on PoolCandidate {
@@ -55,8 +53,29 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    isBookmarked
+    assessmentStatus {
+      currentStep
+    }
+    removalReason {
+      label {
+        localized
+      }
+    }
+    pool {
+      assessmentSteps {
+        sortOrder
+        type {
+          label {
+            localized
+          }
+        }
+        title {
+          localized
+        }
+      }
+    }
     expiryDate
-    profileSnapshot
   }
 `);
 
@@ -78,115 +97,152 @@ const MoreActions = ({
   const intl = useIntl();
   const paths = useRoutes();
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
+  const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
+    id: poolCandidate.id,
+    defaultValue: poolCandidate.isBookmarked ?? false,
+  });
+
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,
     poolCandidate.user.lastName,
     intl,
   );
-  const parsedSnapshot = JSON.parse(
-    String(poolCandidate.profileSnapshot),
-  ) as Maybe<User>;
-  const [{ data, fetching }] = useQuery({ query: MoreActions_Query });
+
+  const [{ data }] = useQuery({ query: MoreActions_Query });
+
+  const currentStep = poolCandidate.assessmentStatus?.currentStep
+    ? poolCandidate.pool.assessmentSteps?.find(
+        (step) =>
+          step?.sortOrder === poolCandidate.assessmentStatus?.currentStep,
+      )
+    : null;
+
+  const currentStepName =
+    // NOTE: Localized can be empty string so || is more suitable
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    currentStep?.title?.localized || currentStep?.type?.label?.localized;
+
+  const status = poolCandidate.status?.value;
 
   return (
     <div className="mb-3 flex flex-col gap-3">
-      <Card space="xs" className="flex flex-col justify-center gap-3">
-        <CandidateNavigation
-          candidateId={poolCandidate.id}
-          candidateName={candidateName}
-        />
-        <Separator space="xs" orientation="horizontal" />
-        {fetching ? (
-          <Loading inline />
-        ) : (
-          <>
-            {poolCandidate.status &&
-            isRemovedStatus(poolCandidate.status.value) ? (
-              <span>
-                {intl.formatMessage(commonMessages.status)}
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
-              </span>
-            ) : (
-              <>
-                {poolCandidate.status &&
-                  RECORD_DECISION_STATUSES.includes(
-                    poolCandidate.status.value,
-                  ) && <FinalDecisionDialog poolCandidate={poolCandidate} />}
-                {poolCandidate.status &&
-                  [
-                    ...REVERT_DECISION_STATUSES,
-                    ...PLACEMENT_TYPE_STATUSES,
-                  ].includes(poolCandidate.status.value) && (
-                    <span>
-                      {intl.formatMessage(commonMessages.status)}
-                      {intl.formatMessage(commonMessages.dividingColon)}
-                      <RevertFinalDecisionDialog
-                        revertFinalDecisionQuery={poolCandidate}
-                      />
-                    </span>
-                  )}
-                {poolCandidate.status &&
-                  isQualifiedStatus(poolCandidate.status.value) && (
-                    <span>
-                      <span aria-hidden="true">
-                        {intl.formatMessage(commonMessages.expiryDate)}
-                        {intl.formatMessage(commonMessages.dividingColon)}
-                      </span>
-                      <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
-                    </span>
-                  )}
-                {poolCandidate.status &&
-                  isQualifiedStatus(poolCandidate.status.value) && (
-                    <span>
-                      <span aria-hidden="true">
-                        {intl.formatMessage(commonMessages.jobPlacement)}
-                        {intl.formatMessage(commonMessages.dividingColon)}
-                      </span>
-                      <JobPlacementDialog
-                        jobPlacementDialogQuery={poolCandidate}
-                        optionsQuery={jobPlacementOptions}
-                        context="view"
-                      />
-                    </span>
-                  )}
-                <span>
-                  <RemoveCandidateDialog
-                    removalQuery={poolCandidate}
-                    optionsQuery={data}
-                  />
-                </span>
-              </>
+      <Card space="sm" className="flex flex-col gap-3">
+        <div>
+          <Heading level="h2" size="h6" className="mt-0">
+            {candidateName}
+          </Heading>
+          {currentStepName && (
+            <p className="text-gray-600 dark:text-gray-200">
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Step {stepNumber}",
+                  id: "XofAAo",
+                  description: "Label for a candidates current assessment step",
+                },
+                { stepNumber: poolCandidate.assessmentStatus?.currentStep },
+              ) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                currentStepName}
+            </p>
+          )}
+        </div>
+
+        <Card.Separator space="xs" />
+
+        {isRODStatus(status) && (
+          <FinalDecisionDialog poolCandidate={poolCandidate} />
+        )}
+
+        {isRemovedStatus(status) && (
+          <div>
+            <StatusLabel>
+              <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
+            </StatusLabel>
+            {poolCandidate.removalReason?.label?.localized && (
+              <p className="text-sm text-gray-600 dark:text-gray-200">
+                {poolCandidate.removalReason.label.localized}
+              </p>
             )}
+          </div>
+        )}
+
+        {isRevertableStatus(status) && (
+          <StatusLabel>
+            <RevertFinalDecisionDialog
+              revertFinalDecisionQuery={poolCandidate}
+            />
+          </StatusLabel>
+        )}
+
+        {isQualifiedStatus(status) && (
+          <>
+            <StatusLabel
+              label={intl.formatMessage(commonMessages.expiryDate)}
+              ariaHidden
+            >
+              <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
+            </StatusLabel>
+            <StatusLabel
+              label={intl.formatMessage(commonMessages.jobPlacement)}
+              ariaHidden
+            >
+              <JobPlacementDialog
+                jobPlacementDialogQuery={poolCandidate}
+                optionsQuery={jobPlacementOptions}
+                context="view"
+              />
+            </StatusLabel>
           </>
         )}
+
+        <Card.Separator space="xs" />
+
+        <RemoveCandidateDialog
+          removalQuery={poolCandidate}
+          optionsQuery={data}
+        />
+
+        <Link
+          href={paths.userProfile(poolCandidate.user.id)}
+          icon={UserCircleIcon}
+          color="black"
+          mode="inline"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Profile",
+            id: "e12pvi",
+            description:
+              "Link label for view profile on view pool candidate page",
+          })}
+        </Link>
+
+        <DownloadButton id={poolCandidate.id} userId={poolCandidate.user.id} />
+
+        <Button
+          mode="inline"
+          color="black"
+          className="text-left"
+          icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
+          onClick={toggleBookmark}
+        >
+          {isBookmarked
+            ? intl.formatMessage({
+                defaultMessage: "Remove bookmark",
+                id: "27mGKw",
+                description: "Label for removing a bookmark",
+              })
+            : intl.formatMessage({
+                defaultMessage: "Add bookmark",
+                id: "L2xLV8",
+                description: "Label for adding a bookmark",
+              })}
+        </Button>
+
+        <Card.Separator space="xs" />
+
+        <NotesForm poolCandidate={poolCandidate} />
       </Card>
-      <div className="flex flex-wrap gap-3 text-center">
-        <Card className="flex-1" space="xs">
-          <Link
-            href={paths.userProfile(poolCandidate.user.id)}
-            icon={UserCircleIcon}
-            color="secondary"
-            mode="inline"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Profile",
-              id: "e12pvi",
-              description:
-                "Link label for view profile on view pool candidate page",
-            })}
-          </Link>
-        </Card>
-        {parsedSnapshot && (
-          <Card className="flex-1" space="xs">
-            <DownloadButton
-              id={poolCandidate.id}
-              userId={poolCandidate.user.id}
-            />
-          </Card>
-        )}
-      </div>
-      <NotesForm poolCandidate={poolCandidate} />
+      <CandidateNavigation candidateId={poolCandidate.id} />
     </div>
   );
 };
