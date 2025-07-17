@@ -54,8 +54,12 @@ describe("EditPoolPage", () => {
       screen.getByRole("button", { name: /save introduction/i }),
     );
 
-    await user.click(screen.getByRole("button", { name: /edit work tasks/i }));
-    await user.click(screen.getByRole("button", { name: /save work tasks/i }));
+    await user.click(
+      screen.getByRole("button", { name: /edit common tasks in this role/i }),
+    );
+    await user.click(
+      screen.getByRole("button", { name: /save common tasks in this role/i }),
+    );
 
     await user.click(
       screen.getByRole("button", { name: /edit core requirements/i }),
