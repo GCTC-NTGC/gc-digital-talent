@@ -47,6 +47,7 @@ import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/pro
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import processMessages from "~/messages/processMessages";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
@@ -438,19 +439,15 @@ export const EditPoolForm = ({
     yourImpact: {
       id: "your-impact",
       hasError: yourImpactError({ yourImpact: pool.yourImpact }),
-      title: intl.formatMessage({
-        defaultMessage: "Your impact",
-        id: "ry3jFR",
-        description: "Sub title for the pool introduction",
-      }),
+      title: intl.formatMessage(processMessages.yourImpact),
       inList: false,
     },
     workTasks: {
       id: "work-tasks",
       hasError: keyTasksError({ keyTasks: pool.keyTasks }),
       title: intl.formatMessage({
-        defaultMessage: "Work tasks",
-        id: "GXw2um",
+        defaultMessage: "Common tasks in this role",
+        id: "+HNZVA",
         description: "Sub title for the pool work tasks",
       }),
       inList: false,

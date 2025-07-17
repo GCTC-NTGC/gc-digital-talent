@@ -161,11 +161,12 @@ const WorkTasksSection = ({
                 <RichTextInput
                   id="YourWorkEn"
                   label={intl.formatMessage({
-                    defaultMessage: "English - Your work",
-                    id: "lb7SoP",
+                    defaultMessage: "Your work",
+                    id: "BrGYih",
                     description:
-                      "Label for the English - Your Work textarea in the edit pool page.",
+                      "Label for the Your Work textarea in the edit pool page.",
                   })}
+                  appendLanguageToLabel={"en"}
                   name="YourWorkEn"
                   wordLimit={TEXT_AREA_MAX_WORDS_EN}
                   readOnly={!canEdit}
@@ -173,11 +174,12 @@ const WorkTasksSection = ({
                 <RichTextInput
                   id="YourWorkFr"
                   label={intl.formatMessage({
-                    defaultMessage: "French - Your work",
-                    id: "8bJgxK",
+                    defaultMessage: "Your work",
+                    id: "BrGYih",
                     description:
-                      "Label for the French - Your Work textarea in the edit pool page.",
+                      "Label for the Your Work textarea in the edit pool page.",
                   })}
+                  appendLanguageToLabel={"fr"}
                   name="YourWorkFr"
                   wordLimit={TEXT_AREA_MAX_WORDS_FR}
                   readOnly={!canEdit}

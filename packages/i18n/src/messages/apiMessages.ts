@@ -239,36 +239,34 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
 
   // pool publishing validation
   EnglishWorkTasksRequired: {
-    defaultMessage: "You are missing a required field: English - Your work",
-    id: "tW4k56",
+    defaultMessage: "You are missing a required field: Your work (English)",
+    id: "+9xwcl",
     description: "Error message that Work Tasks in English must be filled",
   },
   FrenchWorkTasksRequired: {
-    defaultMessage: "You are missing a required field: French - Your work",
-    id: "euwgms",
+    defaultMessage: "You are missing a required field: Your work (French)",
+    id: "60p4Su",
     description: "Error message that Work Tasks in French must be filled",
   },
   EnglishYourImpactRequired: {
-    defaultMessage: "You are missing a required field: English - Your impact",
-    id: "juklNA",
+    defaultMessage: "You are missing a required field: Your impact (English)",
+    id: "xmzq/b",
     description: "Error message that Your Impact in English must be filled",
   },
   FrenchYourImpactRequired: {
-    defaultMessage: "You are missing a required field: French - Your impact",
-    id: "kg28xx",
+    defaultMessage: "You are missing a required field: Your impact (French)",
+    id: "exmV4s",
     description: "Error message that Your Impact in French must be filled",
   },
   EnglishSpecialNoteRequired: {
-    defaultMessage:
-      "You are missing a required field: English - Special note for this process",
-    id: "S2BTqm",
+    defaultMessage: "You are missing a required field: Special note (English)",
+    id: "1NOBzf",
     description:
       "Error message that Special note for this process in English must be filled",
   },
   FrenchSpecialNoteRequired: {
-    defaultMessage:
-      "You are missing a required field: French - Special note for this process",
-    id: "NQhU3F",
+    defaultMessage: "You are missing a required field: Special note (French)",
+    id: "ygMrNM",
     description:
       "Error message that Special note for this process in French must be filled",
   },

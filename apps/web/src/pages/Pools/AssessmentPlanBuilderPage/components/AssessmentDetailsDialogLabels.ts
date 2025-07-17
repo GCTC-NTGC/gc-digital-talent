@@ -9,21 +9,15 @@ const labels = defineMessages({
   },
   assessmentTitle: {
     defaultMessage: "Assessment title",
-    id: "tsPTRe",
+    id: "G9oyzn",
     description:
       "Label for assessment title input on the assessment details dialog",
   },
-  screeningQuestionEn: {
-    defaultMessage: "English - Question {questionNumber}",
-    id: "2op8I5",
+  screeningQuestion: {
+    defaultMessage: "Question {questionNumber}",
+    id: "y4JZuf",
     description:
-      "Label for 'English screening question' input on the assessment details dialog",
-  },
-  screeningQuestionFr: {
-    defaultMessage: "French - Question {questionNumber}",
-    id: "9i4kZp",
-    description:
-      "Label for 'English screening question' input on the assessment details dialog",
+      "Label for screening question input on the assessment details dialog",
   },
   essentialSkills: {
     defaultMessage: "Essential skills",

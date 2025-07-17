@@ -75,13 +75,13 @@
     "defaultMessage": "Le <crtcLink>Conseil de la radiodiffusion et des télécommunications canadiennes</crtcLink> (CRTC) traite les plaintes liées à la radiodiffusion et aux télécommunications en vertu de la <crtcActLink>Loi sur le Conseil de la radiodiffusion et des télécommunications canadiennes</crtcActLink>.",
     "description": "Description of complaints to the Canadian Radio-television and Telecommunications Commission"
   },
+  "+HNZVA": {
+    "defaultMessage": "Tâches courantes dans ce poste",
+    "description": "Sub title for the pool work tasks"
+  },
   "+JIfBy": {
     "defaultMessage": "Dans quel ministère ou organisme les apprentis travailleront-ils?",
     "description": "Learn more dialog question nine heading"
-  },
-  "+JMvBQ": {
-    "defaultMessage": "Anglais – Note spéciale pour ce processus",
-    "description": "Label for the English - Special note for this process textarea on edit pool page."
   },
   "+K/smr": {
     "defaultMessage": "Compétence",
@@ -987,6 +987,10 @@
     "defaultMessage": "Lieu de travail",
     "description": "Label for pool advertisement location requirement"
   },
+  "2cTfGX": {
+    "defaultMessage": "À quoi s’attendre",
+    "description": "Label for What to expect textarea in the edit pool page."
+  },
   "2cUBGT": {
     "defaultMessage": "Utilisateur introuvable.",
     "description": "Message displayed for user not found."
@@ -1042,10 +1046,6 @@
   "2ohWuK": {
     "defaultMessage": "Oui, l’évaluation de l’anglais a été effectuée",
     "description": "Completed an English language evaluation"
-  },
-  "2op8I5": {
-    "defaultMessage": "Anglais - Question {questionNumber}",
-    "description": "Label for 'English screening question' input on the assessment details dialog"
   },
   "2pY3lT": {
     "defaultMessage": "Numéro de processus",
@@ -2255,10 +2255,6 @@
     "defaultMessage": "remplissez le <questionsLink>formulaire pour questions et commentaires</questionsLink>",
     "description": "Commercial reproduction list item"
   },
-  "8bJgxK": {
-    "defaultMessage": "Français - Votre travail",
-    "description": "Label for the French - Your Work textarea in the edit pool page."
-  },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
     "description": "No preference for employment duration - will accept any"
@@ -2514,10 +2510,6 @@
   "9i2N/g": {
     "defaultMessage": "Modifier le compte utilisateur",
     "description": "Title for the user edit page"
-  },
-  "9i4kZp": {
-    "defaultMessage": "Français – Question {questionNumber}",
-    "description": "Label for 'English screening question' input on the assessment details dialog"
   },
   "9mrSt3": {
     "defaultMessage": "Description de l'événement",
@@ -2958,6 +2950,10 @@
   "BqeIyx": {
     "defaultMessage": "Compétences comportementales facultatives",
     "description": "Heading for optional behavioural skills section"
+  },
+  "BrGYih": {
+    "defaultMessage": "Tâches courantes dans ce poste",
+    "description": "Label for the Your Work textarea in the edit pool page."
   },
   "BruLeg": {
     "defaultMessage": "Erreur : échec de la création du compte.",
@@ -3436,7 +3432,7 @@
     "description": "Button text to apply for program"
   },
   "DwpF2q": {
-    "defaultMessage": "Votre incidence",
+    "defaultMessage": "Votre contribution",
     "description": "Label for a process impact"
   },
   "DxNuJ9": {
@@ -3903,6 +3899,10 @@
     "defaultMessage": "Ministère de placement",
     "description": "Label for the placed department field"
   },
+  "G9oyzn": {
+    "defaultMessage": "Titre de l’évaluation",
+    "description": "Label for assessment title input on the assessment details dialog"
+  },
   "GAYZpV": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an skills match dialog"
@@ -3986,10 +3986,6 @@
   "GXmpsW": {
     "defaultMessage": "Avant de poursuivre, il est important que vous compreniez les remarques suivantes concernant votre candidature :",
     "description": "Starting message for the application review page."
-  },
-  "GXw2um": {
-    "defaultMessage": "Tâches professionnelles",
-    "description": "Sub title for the pool work tasks"
   },
   "GYcxDu": {
     "defaultMessage": "Évaluée",
@@ -5083,6 +5079,10 @@
     "defaultMessage": "Renseignez-vous sur leur intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
     "description": "Description for Career development preferences section of user employee information page"
   },
+  "LlE+CS": {
+    "defaultMessage": "Note spéciale",
+    "description": "Label for Special note"
+  },
   "LpCMiC": {
     "defaultMessage": "Vérifiez votre adresse courriel de contact",
     "description": "Verify your contact email text"
@@ -5210,10 +5210,6 @@
   "MNjEW5": {
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
-  },
-  "MOpG7g": {
-    "defaultMessage": "Votre impact",
-    "description": "Title for impact section on a pool advertisement."
   },
   "MQB4IA": {
     "defaultMessage": "Sauvegardez et continuez",
@@ -5470,10 +5466,6 @@
   "Ney+Il": {
     "defaultMessage": "Nous avons trouvé un utilisateur dont l'adresse courriel est fournie, mais qui n'a pas confirmé son statut d'employée ou d'employé. À l'heure actuelle, seuls les membres du personnel vérifiés peuvent être nommés. L'utilisateur peut vérifier son statut d'employée ou d'employé en ouvrant une session dans la plateforme et en vérifiant son adresse courriel professionnelle.",
     "description": "Description of default message when user was found but not a verified employee"
-  },
-  "NfRLs/": {
-    "defaultMessage": "Anglais - Votre impact",
-    "description": "Label for the English - Your Impact textarea in the edit pool page."
   },
   "NflJW7": {
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
@@ -7706,10 +7698,6 @@
     "defaultMessage": "{skill} sélectionnée.",
     "description": "Message displayed when a skill was selected"
   },
-  "YcMhCm": {
-    "defaultMessage": "Français – Note spéciale pour ce processus",
-    "description": "Label for the French - Special note for this process textarea in the edit pool page."
-  },
   "YexsZi": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet :",
     "description": "Lead in text for the delete user form."
@@ -9170,10 +9158,6 @@
     "defaultMessage": "Cette revendication ne s’applique pas à ce processus.",
     "description": "Message when a claim does not apply to the specific process"
   },
-  "fPy7Mg": {
-    "defaultMessage": "Français - Votre impact",
-    "description": "Label for the French - Your Impact textarea in the edit pool page."
-  },
   "fQ7zxR": {
     "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for ability to remove two-factor authentication"
@@ -10517,10 +10501,6 @@
     "defaultMessage": "de faire preuve de diligence raisonnable quant à l'exactitude du contenu reproduit",
     "description": "Non commercial reproduction list item"
   },
-  "lb7SoP": {
-    "defaultMessage": "Anglais - Votre travail",
-    "description": "Label for the English - Your Work textarea in the edit pool page."
-  },
   "ldgukM": {
     "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajoutez une collectivité ».",
     "description": "Body for notice when there are no functional communities a user is a part of"
@@ -11076,10 +11056,6 @@
   "o6Vyr+": {
     "defaultMessage": "Retrait du formulaire de processus de recrutement spécifique au ministère",
     "description": "second 2024 key change to the directive"
-  },
-  "o7OKLq": {
-    "defaultMessage": "Anglais - À quoi s’attendre",
-    "description": "Label for the English - What to expect textarea in the edit pool page."
   },
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
@@ -11813,10 +11789,6 @@
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "ry3jFR": {
-    "defaultMessage": "Votre impact",
-    "description": "Sub title for the pool introduction"
-  },
   "ryeKXV": {
     "defaultMessage": "Cherchez les rôles dans des collectivités",
     "description": "Label for the community roles table search input"
@@ -12184,10 +12156,6 @@
   "trerKD": {
     "defaultMessage": "Type",
     "description": "Button to filter experiences by type"
-  },
-  "tsPTRe": {
-    "defaultMessage": "Titre de l’évaluation",
-    "description": "Label for assessment title input on the assessment details dialog"
   },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
@@ -13012,6 +12980,10 @@
   "y3+Iw5": {
     "defaultMessage": "Objectifs du Fonds",
     "description": "Heading for the fund objectives card"
+  },
+  "y4JZuf": {
+    "defaultMessage": "Question {questionNumber}",
+    "description": "Label for screening question input on the assessment details dialog"
   },
   "y5Pf0S": {
     "defaultMessage": "Soumission de l'évaluation réussie",
