@@ -677,14 +677,18 @@ class PoolCandidateSearchTest extends TestCase
         GRAPHQL;
 
         // Create 10 unexpected candidates
-        PoolCandidate::factory(10)->create([
-            'pool_id' => $this->pool->id,
-        ]);
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
 
-        $expectedCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'user_id' => User::factory()->asGovEmployee(),
-        ]);
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'user_id' => User::factory()->asGovEmployee(),
+            ]);
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
