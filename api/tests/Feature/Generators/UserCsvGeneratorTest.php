@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Generators;
 
-use App\Generators\UserCsvGenerator;
+use App\Generators\UserExcelGenerator;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
@@ -49,7 +49,7 @@ class UserCsvGeneratorTest extends TestCase
 
         // act
         $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
-        $generator = new UserCsvGenerator(
+        $generator = new UserExcelGenerator(
             fileName: $fileName,
             dir: 'test',
             lang: 'en',

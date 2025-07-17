@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Generators;
 
-use App\Generators\UsersThruPoolCandidatesCsvGenerator;
+use App\Generators\UsersThruPoolCandidatesExcelGenerator;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertTrue;
 
-class UsersThruPoolCandidatesCsvGeneratorTest extends TestCase
+class UsersThruPoolCandidatesExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -60,7 +60,7 @@ class UsersThruPoolCandidatesCsvGeneratorTest extends TestCase
 
         // act
         $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
-        $generator = new UsersThruPoolCandidatesCsvGenerator(
+        $generator = new UsersThruPoolCandidatesExcelGenerator(
             fileName: $fileName,
             dir: 'test',
             lang: 'en',
