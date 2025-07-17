@@ -907,6 +907,10 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
+  "27mGKw": {
+    "defaultMessage": "Retirer des favoris",
+    "description": "Label for removing a bookmark"
+  },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
@@ -4971,6 +4975,10 @@
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
   },
+  "L2xLV8": {
+    "defaultMessage": "Ajouter aux favoris",
+    "description": "Label for adding a bookmark"
+  },
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
     "description": "Message displayed when there are no job poster templates meeting a specific criteria"
@@ -7633,6 +7641,10 @@
   "XoGKAf": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition eligibility"
+  },
+  "XofAAo": {
+    "defaultMessage": "Étape {stepNumber}",
+    "description": "Label for a candidates current assessment step"
   },
   "XovI8x": {
     "defaultMessage": "Téléchargez toutes compétences (CSV)",
