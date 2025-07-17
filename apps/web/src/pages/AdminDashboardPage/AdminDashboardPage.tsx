@@ -136,7 +136,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [],
     },
     {
-      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
+      label: intl.formatMessage(navigationMessages.jobTemplatesLibrary),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },
@@ -200,7 +200,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [ROLE_NAME.PlatformAdmin],
     },
     {
-      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
+      label: intl.formatMessage(navigationMessages.jobTemplatesTable),
       href: adminRoutes.jobPosterTemplateTable(),
       roles: [ROLE_NAME.PlatformAdmin],
     },
