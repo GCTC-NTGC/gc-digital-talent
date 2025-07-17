@@ -445,11 +445,7 @@ export const EditPoolForm = ({
     workTasks: {
       id: "work-tasks",
       hasError: keyTasksError({ keyTasks: pool.keyTasks }),
-      title: intl.formatMessage({
-        defaultMessage: "Common tasks in this role",
-        id: "+HNZVA",
-        description: "Sub title for the pool work tasks",
-      }),
+      title: intl.formatMessage(processMessages.keyTasks),
       inList: false,
     },
     aboutUs: {

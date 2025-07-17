@@ -75,10 +75,6 @@
     "defaultMessage": "Le <crtcLink>Conseil de la radiodiffusion et des télécommunications canadiennes</crtcLink> (CRTC) traite les plaintes liées à la radiodiffusion et aux télécommunications en vertu de la <crtcActLink>Loi sur le Conseil de la radiodiffusion et des télécommunications canadiennes</crtcActLink>.",
     "description": "Description of complaints to the Canadian Radio-television and Telecommunications Commission"
   },
-  "+HNZVA": {
-    "defaultMessage": "Tâches courantes dans ce poste",
-    "description": "Sub title for the pool work tasks"
-  },
   "+JIfBy": {
     "defaultMessage": "Dans quel ministère ou organisme les apprentis travailleront-ils?",
     "description": "Learn more dialog question nine heading"
@@ -426,6 +422,10 @@
   "/voRGj": {
     "defaultMessage": "Afficher tous<hidden> les filtres avancés</hidden>",
     "description": "Button text to show all advanced filters"
+  },
+  "/xjFbf": {
+    "defaultMessage": "Tâches courantes dans ce poste",
+    "description": "Label for a process work tasks"
   },
   "/zVZCP": {
     "defaultMessage": "Collectivité des cadres",
@@ -2675,10 +2675,6 @@
     "defaultMessage": "Soumettre",
     "description": "Link text for submit step of a talent nomination"
   },
-  "ATO0GK": {
-    "defaultMessage": "Tâches courantes dans ce poste",
-    "description": "Title for key tasks on a pool advertisement."
-  },
   "AUtIo9": {
     "defaultMessage": "Foire aux questions (FAQ)",
     "description": "Heading for Frequently Asked Questions section on sign in page"
@@ -4762,10 +4758,6 @@
   "KJDxM1": {
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
-  },
-  "KLkZlS": {
-    "defaultMessage": "Tâches courantes dans ce poste",
-    "description": "Label for the Your Work textarea in the edit pool page."
   },
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",

@@ -939,12 +939,7 @@ export const PoolPoster = ({
               {pool.keyTasks && (
                 <>
                   <Heading level="h3" size="h4" className="mb-6 font-bold">
-                    {intl.formatMessage({
-                      defaultMessage: "Common tasks in this role",
-                      id: "ATO0GK",
-                      description:
-                        "Title for key tasks on a pool advertisement.",
-                    })}
+                    {intl.formatMessage(processMessages.keyTasks)}
                   </Heading>
                   <RichTextRenderer
                     node={htmlToRichTextJSON(

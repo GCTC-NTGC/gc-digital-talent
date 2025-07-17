@@ -51,6 +51,11 @@ const messages = defineMessages({
     id: "DwpF2q",
     description: "Label for a process impact",
   },
+  keyTasks: {
+    defaultMessage: "Common tasks in this role",
+    id: "/xjFbf",
+    description: "Label for a process work tasks",
+  },
   languageRequirement: {
     defaultMessage: "Language requirement",
     id: "9LgnbB",
