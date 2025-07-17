@@ -21,16 +21,6 @@ const messages = defineMessages({
     id: "0Z7Ux8",
     description: "Label for process employment duration",
   },
-  titleEn: {
-    defaultMessage: "Job title (English)",
-    id: "FMPqfb",
-    description: "Label for process English title",
-  },
-  titleFr: {
-    defaultMessage: "Job title (French)",
-    id: "r9cJmW",
-    description: "Label for process French title",
-  },
   processNumber: {
     defaultMessage: "Process number",
     id: "2pY3lT",
@@ -56,25 +46,10 @@ const messages = defineMessages({
     id: "3BeThz",
     description: "Label for a process' closing date in users local timezone",
   },
-  yourImpactEn: {
-    defaultMessage: "Your impact (English)",
-    id: "pmCge3",
-    description: "Label for a process' English impact",
-  },
-  yourImpactFr: {
-    defaultMessage: "Your impact (French)",
-    id: "uMU2Yg",
-    description: "Label for a process' French impact",
-  },
-  keyTasksEn: {
-    defaultMessage: "Work tasks (English)",
-    id: "0k6j4V",
-    description: "Label for a process' English work tasks",
-  },
-  keyTasksFr: {
-    defaultMessage: "Work tasks (French)",
-    id: "MotQKq",
-    description: "Label for a process' French work tasks",
+  yourImpact: {
+    defaultMessage: "Your impact",
+    id: "DwpF2q",
+    description: "Label for a process impact",
   },
   languageRequirement: {
     defaultMessage: "Language requirement",
@@ -88,48 +63,23 @@ const messages = defineMessages({
   },
   location: {
     defaultMessage: "Location",
-    id: "7VCuZQ",
-    description: "Label for a process' location requirement",
+    id: "uKBBDy",
+    description: "Label for a process location requirement",
   },
-  locationEn: {
-    defaultMessage: "Location (English)",
-    id: "IhaKpH",
-    description: "Label for a process' english location requirement",
+  whatToExpect: {
+    defaultMessage: "What to expect",
+    id: "tR+R11",
+    description: "Label for a process what to expect after applying",
   },
-  locationFr: {
-    defaultMessage: "Location (French)",
-    id: "yl3eY6",
-    description: "Label for a process' french location requirement",
+  specialNote: {
+    defaultMessage: "Special note",
+    id: "kCsQFc",
+    description: "Label for a process special note",
   },
-  whatToExpectEn: {
-    defaultMessage: "What to expect (English)",
-    id: "lNZ/UI",
-    description: "Label for a process' English what to expect after applying",
-  },
-  whatToExpectFr: {
-    defaultMessage: "What to expect (French)",
-    id: "XOeFdu",
-    description: "Label for a process' French what to expect after applying",
-  },
-  specialNoteEn: {
-    defaultMessage: "Special note (English)",
-    id: "1/yO7f",
-    description: "Label for a process' English special note",
-  },
-  specialNoteFr: {
-    defaultMessage: "Special note (French)",
-    id: "g7RC9u",
-    description: "Label for a process' French special note",
-  },
-  aboutUsEn: {
-    defaultMessage: "About us (English)",
-    id: "Jz0oC2",
-    description: "Label for a process' English about us",
-  },
-  aboutUsFr: {
-    defaultMessage: "About us (French)",
-    id: "2quQuW",
-    description: "Label for a process' French about us",
+  aboutUs: {
+    defaultMessage: "About us",
+    id: "e4ffK/",
+    description: "Label for a process about us",
   },
   screeningQuestions: {
     defaultMessage: "Screening questions",

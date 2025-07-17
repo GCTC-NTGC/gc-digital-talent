@@ -7,6 +7,7 @@ import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
+  appendLanguageName,
   commonMessages,
   errorMessages,
   uiMessages,
@@ -125,7 +126,8 @@ export const CreateClassification = () => {
                   id="name_en"
                   name="name.en"
                   autoComplete="off"
-                  label={intl.formatMessage(adminMessages.nameEn)}
+                  label={intl.formatMessage(commonMessages.name)}
+                  appendLanguageToLabel={"en"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -135,7 +137,8 @@ export const CreateClassification = () => {
                   id="name_fr"
                   name="name.fr"
                   autoComplete="off"
-                  label={intl.formatMessage(adminMessages.nameFr)}
+                  label={intl.formatMessage(commonMessages.name)}
+                  appendLanguageToLabel={"fr"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

@@ -11,6 +11,10 @@
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
+  "+RHG0o": {
+    "defaultMessage": "Titre",
+    "description": "The title"
+  },
   "/62GQm": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de complexité faible à modérée sous une supervision minimale et des tâches de complexité plus élevée sous une supervision et un mentorat modérés. Généralement associée à des postes intermédiaires.",
     "description": "The technical skill level definition for intermediate"
@@ -394,6 +398,10 @@
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
+  },
+  "E+zFTA": {
+    "defaultMessage": "(français)",
+    "description": "Name of French language formatted for appending"
   },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
@@ -1538,6 +1546,10 @@
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
+  },
+  "tyc8W0": {
+    "defaultMessage": "(anglais)",
+    "description": "Name of English language formatted for appending"
   },
   "u/+Nrd": {
     "defaultMessage": "Placement professionnel",

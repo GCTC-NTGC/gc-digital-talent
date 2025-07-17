@@ -454,14 +454,16 @@ const PoolNameSection = ({
                   id="specificTitleEn"
                   name="specificTitleEn"
                   type="text"
-                  label={intl.formatMessage(processMessages.titleEn)}
+                  label={intl.formatMessage(commonMessages.title)}
+                  appendLanguageToLabel={"en"}
                   disabled={formDisabled}
                 />
                 <Input
                   id="specificTitleFr"
                   name="specificTitleFr"
                   type="text"
-                  label={intl.formatMessage(processMessages.titleFr)}
+                  label={intl.formatMessage(commonMessages.title)}
+                  appendLanguageToLabel={"fr"}
                   disabled={formDisabled}
                 />
               </div>

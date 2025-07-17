@@ -7,17 +7,11 @@ const labels = defineMessages({
     description:
       "Label for 'Type of assessment' input on the assessment details dialog",
   },
-  assessmentTitleEn: {
-    defaultMessage: "Assessment title (English)",
-    id: "iFbBSU",
+  assessmentTitle: {
+    defaultMessage: "Assessment title",
+    id: "tsPTRe",
     description:
-      "Label for 'English assessment title' input on the assessment details dialog",
-  },
-  assessmentTitleFr: {
-    defaultMessage: "Assessment title (French)",
-    id: "lSHDBh",
-    description:
-      "Label for 'French assessment title' input on the assessment details dialog",
+      "Label for assessment title input on the assessment details dialog",
   },
   screeningQuestionEn: {
     defaultMessage: "English - Question {questionNumber}",
