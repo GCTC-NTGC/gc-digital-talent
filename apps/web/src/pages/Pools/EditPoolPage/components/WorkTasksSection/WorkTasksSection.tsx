@@ -161,8 +161,8 @@ const WorkTasksSection = ({
                 <RichTextInput
                   id="YourWorkEn"
                   label={intl.formatMessage({
-                    defaultMessage: "Your work",
-                    id: "BrGYih",
+                    defaultMessage: "Common tasks in this role",
+                    id: "KLkZlS",
                     description:
                       "Label for the Your Work textarea in the edit pool page.",
                   })}
@@ -174,8 +174,8 @@ const WorkTasksSection = ({
                 <RichTextInput
                   id="YourWorkFr"
                   label={intl.formatMessage({
-                    defaultMessage: "Your work",
-                    id: "BrGYih",
+                    defaultMessage: "Common tasks in this role",
+                    id: "KLkZlS",
                     description:
                       "Label for the Your Work textarea in the edit pool page.",
                   })}

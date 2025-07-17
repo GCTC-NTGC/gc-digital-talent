@@ -11,10 +11,6 @@
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
-  "+9xwcl": {
-    "defaultMessage": "Un champ obligatoire est vide : Tâches courantes dans ce poste (anglais)",
-    "description": "Error message that Work Tasks in English must be filled"
-  },
   "+RHG0o": {
     "defaultMessage": "Titre",
     "description": "The title"
@@ -230,10 +226,6 @@
   "6/U6rm": {
     "defaultMessage": "Décision finale relative à l’évaluation",
     "description": "Final assessment decision"
-  },
-  "60p4Su": {
-    "defaultMessage": "Un champ obligatoire est vide : Tâches courantes dans ce poste (français)",
-    "description": "Error message that Work Tasks in French must be filled"
   },
   "64H+pl": {
     "defaultMessage": "Je consens à travailler dans la région de Québec (excluant Gatineau).",
@@ -1291,6 +1283,10 @@
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
     "description": "Message displayed when user attempts to apply to a pool without connecting all essential skills."
   },
+  "lYBehZ": {
+    "defaultMessage": "Un champ obligatoire est vide : Tâches courantes dans ce poste (français)",
+    "description": "Error message that Work Tasks in French must be filled"
+  },
   "lYtXQJ": {
     "defaultMessage": "Souvent démontrée comme étant bien développée dans la plupart des situations quotidiennes auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress et dans des situations modérément difficiles.",
     "description": "The behavioural skill level definition for intermediate"
@@ -1326,6 +1322,10 @@
   "n+SiHy": {
     "defaultMessage": "Juillet",
     "description": "Name of the seventh month"
+  },
+  "n0c2W8": {
+    "defaultMessage": "Un champ obligatoire est vide: Tâches courantes dans ce poste (anglais)",
+    "description": "Error message that Work Tasks in English must be filled"
   },
   "n3Gt3n": {
     "defaultMessage": "Technologie de l’information",

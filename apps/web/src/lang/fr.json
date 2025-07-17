@@ -2951,10 +2951,6 @@
     "defaultMessage": "Compétences comportementales facultatives",
     "description": "Heading for optional behavioural skills section"
   },
-  "BrGYih": {
-    "defaultMessage": "Tâches courantes dans ce poste",
-    "description": "Label for the Your Work textarea in the edit pool page."
-  },
   "BruLeg": {
     "defaultMessage": "Erreur : échec de la création du compte.",
     "description": "Message displayed to user if account fails to get updated."
@@ -4758,6 +4754,10 @@
   "KJDxM1": {
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
+  },
+  "KLkZlS": {
+    "defaultMessage": "Tâches courantes dans ce poste",
+    "description": "Label for the Your Work textarea in the edit pool page."
   },
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",

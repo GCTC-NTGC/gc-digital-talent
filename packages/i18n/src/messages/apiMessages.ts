@@ -239,13 +239,15 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
 
   // pool publishing validation
   EnglishWorkTasksRequired: {
-    defaultMessage: "You are missing a required field: Your work (English)",
-    id: "+9xwcl",
+    defaultMessage:
+      "You are missing a required field: Common tasks in this role (English)",
+    id: "n0c2W8",
     description: "Error message that Work Tasks in English must be filled",
   },
   FrenchWorkTasksRequired: {
-    defaultMessage: "You are missing a required field: Your work (French)",
-    id: "60p4Su",
+    defaultMessage:
+      "You are missing a required field: Common tasks in this role (French)",
+    id: "lYBehZ",
     description: "Error message that Work Tasks in French must be filled",
   },
   EnglishYourImpactRequired: {
