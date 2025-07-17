@@ -29,7 +29,7 @@
     "@hookform/error-message": "^2.0.1",
     "@tiptap/extension-character-count": "^2.25.0",
     "@tiptap/extension-heading": "^2.25.0",
-    "@tiptap/extension-link": "^2.25.0",
+    "@tiptap/extension-link": "^3.0.7",
     "@tiptap/react": "^2.25.0",
     "@tiptap/starter-kit": "^2.25.0",
     "date-fns": "^3.6.0",
