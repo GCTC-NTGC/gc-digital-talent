@@ -179,8 +179,8 @@ const UserTable = ({ title }: UserTableProps) => {
     downloadingDoc,
     downloadZip,
     downloadingZip,
-    downloadCsv,
-    downloadingCsv,
+    downloadExcel,
+    downloadingExcel,
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
@@ -195,13 +195,13 @@ const UserTable = ({ title }: UserTableProps) => {
   };
 
   const handleCsvDownload = () => {
-    downloadCsv({
+    downloadExcel({
       ids: selectedRows,
     });
   };
 
   const handleCsvDownloadAll = () => {
-    downloadCsv({
+    downloadExcel({
       where: transformUserInput(
         filterState,
         searchState?.term,
@@ -439,12 +439,12 @@ const UserTable = ({ title }: UserTableProps) => {
         all: {
           enable: true,
           onClick: handleCsvDownloadAll,
-          downloading: downloadingCsv,
+          downloading: downloadingExcel,
         },
         csv: {
           enable: true,
           onClick: handleCsvDownload,
-          downloading: downloadingCsv,
+          downloading: downloadingExcel,
         },
         doc: {
           enable: true,
