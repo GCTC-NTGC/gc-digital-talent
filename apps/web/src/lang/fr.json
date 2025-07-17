@@ -1683,10 +1683,6 @@
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
   },
-  "5cW3Ns": {
-    "defaultMessage": "De plus amples renseignements ayant trait à la demande du candidat.",
-    "description": "Description for more actions sidebar on view pool candidate page"
-  },
   "5cll86": {
     "defaultMessage": "Date de publication (UTC)",
     "description": "A date at which data will be published, in the UTC time standard"
@@ -6158,10 +6154,6 @@
   "QZeoHp": {
     "defaultMessage": "Une fois que vous en aurez ajouté quelques-unes, vous pourrez compter cette compétence selon l’une ou plusieurs de vos expériences.",
     "description": "Instructions displayed when user has no experiences to feature on a skill."
-  },
-  "QaMkP7": {
-    "defaultMessage": "Autres mesures",
-    "description": "Title for more actions sidebar on view pool candidate page"
   },
   "QagkWo": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
