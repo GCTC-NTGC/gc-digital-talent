@@ -7,7 +7,6 @@ import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
-  appendLanguageName,
   commonMessages,
   errorMessages,
   uiMessages,
@@ -18,7 +17,6 @@ import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
