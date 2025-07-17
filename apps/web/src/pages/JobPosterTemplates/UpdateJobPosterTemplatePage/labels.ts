@@ -6,6 +6,11 @@ export const labels = defineMessages({
     id: "vW4ode",
     description: "Label for the essential technical skills notes",
   },
+  specialNoteNonessentialTechnicalSkills: {
+    defaultMessage: "Special note for asset technical skills",
+    id: "UYsWMr",
+    description: "Label for the nonessential technical skills notes",
+  },
   specialNoteIsRequired: {
     defaultMessage: "These skills require a special note.",
     id: "cuKJ1I",

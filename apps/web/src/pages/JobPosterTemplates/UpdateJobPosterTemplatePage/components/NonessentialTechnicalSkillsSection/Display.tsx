@@ -5,8 +5,8 @@ import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
-import { InitialData_Fragment } from "./EssentialTechnicalSkillsSection";
-import { filterEssentialTechnicalSkills } from "../../utils";
+import { InitialData_Fragment } from "./NonessentialTechnicalSkillsSection";
+import { filterNonessentialTechnicalSkills } from "../../utils";
 
 interface DisplayProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;
@@ -16,36 +16,36 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
-  const { jobPosterTemplateSkills, essentialTechnicalSkillsNotes } =
+  const { jobPosterTemplateSkills, nonessentialTechnicalSkillsNotes } =
     getFragment(InitialData_Fragment, initialDataQuery);
 
-  const essentialTechnicalSkills = filterEssentialTechnicalSkills(
+  const nonessentialTechnicalSkills = filterNonessentialTechnicalSkills(
     jobPosterTemplateSkills,
   );
-  essentialTechnicalSkills.sort(sortAlphaBy((s) => s.skill?.name.localized));
+  nonessentialTechnicalSkills.sort(sortAlphaBy((s) => s.skill?.name.localized));
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
         <h3 className="font-bold">
           {intl.formatMessage({
-            defaultMessage: "Essential technical skills",
-            id: "1KMmdT",
-            description: "Title for the essential technical skills",
+            defaultMessage: "Asset technical skills",
+            id: "XNzRga",
+            description: "Title for the nonessential technical skills",
           })}
         </h3>
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Essential technical skills should cover the core competencies of the role. The number of technical skills selected here, combined with the essential behavioural skills in the next section, contribute to the overall total of essential skills.",
-            id: "pfCFQ+",
-            description: "Lead in for a list of essential technical skills",
+              "Examples of asset technical skills will provide the user with a general understanding of the types of specialized work a person in this role can perform.",
+            id: "4WhB1k",
+            description: "Lead in for a list of nonessential technical skills",
           })}
         </p>
       </div>
-      {essentialTechnicalSkills?.length ? (
+      {nonessentialTechnicalSkills?.length ? (
         <Ul space="md">
-          {essentialTechnicalSkills.map((s) => (
+          {nonessentialTechnicalSkills.map((s) => (
             <li key={s.id}>
               <p>{s.skill?.name.localized}</p>
               <p className="text-sm text-gray-500 dark:text-gray-300">
@@ -57,7 +57,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       ) : (
         notProvided
       )}
-      {essentialTechnicalSkillsNotes?.localized ? (
+      {nonessentialTechnicalSkillsNotes?.localized ? (
         <div className="flex flex-col gap-1">
           <h3 className="font-bold">
             {intl.formatMessage({
@@ -66,7 +66,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
               description: "Title for a special note",
             })}
           </h3>
-          <p>{essentialTechnicalSkillsNotes.localized}</p>
+          <p>{nonessentialTechnicalSkillsNotes.localized}</p>
         </div>
       ) : null}
     </div>

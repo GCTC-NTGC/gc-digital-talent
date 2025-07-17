@@ -33,6 +33,7 @@ import messages from "./messages";
 import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection";
 import KeyTasksSection from "./components/KeyTasksSection/KeyTasksSection";
 import EssentialTechnicalSkillsSection from "./components/EssentialTechnicalSkillsSection/EssentialTechnicalSkillsSection";
+import NonessentialTechnicalSkillsSection from "./components/NonessentialTechnicalSkillsSection/NonessentialTechnicalSkillsSection";
 
 const SECTION_ID = {
   JOB_DETAILS: "job-details-section",
@@ -45,6 +46,7 @@ const UpdateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment UpdateJobPosterTemplateOptions on Query {
     ...UpdateJobPosterTemplateJobDetailsOptions
     ...UpdateJobPosterTemplateEssentialTechnicalSkillsOptions
+    ...UpdateJobPosterTemplateNonessentialTechnicalSkillsOptions
   }
 `);
 
@@ -53,6 +55,7 @@ const UpdateJobPosterTemplate_Fragment = graphql(/** GraphQL */ `
     ...UpdateJobPosterTemplateJobDetails
     ...UpdateJobPosterTemplateKeyTasks
     ...UpdateJobPosterTemplateEssentialTechnicalSkills
+    ...UpdateJobPosterTemplateNonessentialTechnicalSkills
     id
     name {
       en
@@ -246,7 +249,13 @@ const UpdateJobPosterTemplate = ({
                     })}
                   </p>
                 </div>
-                <EssentialTechnicalSkillsSection
+                <div className="mb-7.5">
+                  <EssentialTechnicalSkillsSection
+                    initialDataQuery={initialData}
+                    optionsQuery={options}
+                  />
+                </div>
+                <NonessentialTechnicalSkillsSection
                   initialDataQuery={initialData}
                   optionsQuery={options}
                 />

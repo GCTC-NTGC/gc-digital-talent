@@ -1,6 +1,6 @@
 import { UpdateJobPosterTemplateEssentialTechnicalSkillsFragment } from "@gc-digital-talent/graphql";
 
-import { filterEssentialTechnicalSkills } from "./utils";
+import { filterEssentialTechnicalSkills } from "../../utils";
 
 export const hasAllEmptyFields = ({
   jobPosterTemplateSkills,

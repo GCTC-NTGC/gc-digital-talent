@@ -21,3 +21,35 @@ export function insertionIndexBySkillName(
   const arrSortables = arr.map((x) => x.skillName ?? "");
   return insertionIndex(arrSortables, n.skillName ?? "");
 }
+
+import {
+  PoolSkillType,
+  SkillCategory,
+  UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment,
+  UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+
+export const isEssentialTechnicalSkill = (
+  s: NonNullable<
+    UpdateJobPosterTemplateEssentialTechnicalSkillsFragment["jobPosterTemplateSkills"]
+  >[number],
+): boolean =>
+  s.type.value === PoolSkillType.Essential &&
+  s.skill?.category.value === SkillCategory.Technical;
+
+export const filterEssentialTechnicalSkills = (
+  allSkills: UpdateJobPosterTemplateEssentialTechnicalSkillsFragment["jobPosterTemplateSkills"],
+) => unpackMaybes(allSkills).filter(isEssentialTechnicalSkill);
+
+export const isNonessentialTechnicalSkill = (
+  s: NonNullable<
+    UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment["jobPosterTemplateSkills"]
+  >[number],
+): boolean =>
+  s.type.value === PoolSkillType.Nonessential &&
+  s.skill?.category.value === SkillCategory.Technical;
+
+export const filterNonessentialTechnicalSkills = (
+  allSkills: UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment["jobPosterTemplateSkills"],
+) => unpackMaybes(allSkills).filter(isNonessentialTechnicalSkill);
