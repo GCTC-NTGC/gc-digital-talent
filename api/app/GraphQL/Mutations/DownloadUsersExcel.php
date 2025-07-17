@@ -13,7 +13,7 @@ final class DownloadUsersExcel
 {
     /**
      * Dispatches the generation of a
-     * csv containing pool candidates
+     * excel containing pool candidates
      *
      * @disregard P1003 We are not going to be using this var
      */
@@ -42,7 +42,7 @@ final class DownloadUsersExcel
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting user csv generation '.$e->getMessage());
+            Log::error('Error starting user excel generation '.$e->getMessage());
 
             return false;
         }

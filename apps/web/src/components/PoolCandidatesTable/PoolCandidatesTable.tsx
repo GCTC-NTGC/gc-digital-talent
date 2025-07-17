@@ -317,12 +317,12 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadUsersThruPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadUsersThruPoolCandidatesCsv(
+const DownloadUsersThruPoolCandidatesExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUsersThruPoolCandidatesExcel(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
   ) {
-    downloadUsersThruPoolCandidatesCsv(ids: $ids, where: $where)
+    downloadUsersThruPoolCandidatesExcel(ids: $ids, where: $where)
   }
 `);
 
@@ -417,8 +417,8 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesCsv_Mutation,
   );
 
-  const [{ fetching: downloadingUsersCsv }, downloadUsers] = useMutation(
-    DownloadUsersThruPoolCandidatesCsv_Mutation,
+  const [{ fetching: downloadingUsersExcel }, downloadUsers] = useMutation(
+    DownloadUsersThruPoolCandidatesExcel_Mutation,
   );
 
   const [{ fetching: downloadingUserDoc }, downloadUserDoc] = useMutation(
@@ -444,6 +444,7 @@ const PoolCandidatesTable = ({
     downloadingUsersZip ||
     downloadingApplicationDoc ||
     downloadingApplicationsZip ||
+    downloadingUsersExcel ||
     downloadingAsyncFile;
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
@@ -1043,7 +1044,7 @@ const PoolCandidatesTable = ({
                 <DownloadCandidateCsvButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersCsv}
+                  isDownloading={downloadingCsv || downloadingUsersExcel}
                   onClick={handleCsvDownload}
                   onClickDownloadUsers={handleUsersCsvDownload}
                 />
@@ -1055,7 +1056,7 @@ const PoolCandidatesTable = ({
                 <DownloadAllCandidateTableCsvButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersCsv}
+                  isDownloading={downloadingCsv || downloadingUsersExcel}
                   onClickDownloadCandidates={handleCsvDownload}
                   onClickDownloadUsers={handleUsersCsvDownload}
                 />

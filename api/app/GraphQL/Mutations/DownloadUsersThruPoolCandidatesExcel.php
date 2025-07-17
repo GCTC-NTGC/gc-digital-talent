@@ -2,18 +2,18 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\UserCsvGenerator;
+use App\Generators\UsersThruPoolCandidatesExcelGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadUsersCsv
+final class DownloadUsersThruPoolCandidatesExcel
 {
     /**
      * Dispatches the generation of a
-     * csv containing pool candidates
+     * csv containing users thru pool candidate model
      *
      * @disregard P1003 We are not going to be using this var
      */
@@ -27,7 +27,7 @@ final class DownloadUsersCsv
         $filters = $args['where'] ?? null;
 
         try {
-            $generator = new UserCsvGenerator(
+            $generator = new UsersThruPoolCandidatesExcelGenerator(
                 fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
