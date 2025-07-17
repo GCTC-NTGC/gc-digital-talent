@@ -1487,10 +1487,6 @@
     "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
-  "4ofR8F": {
-    "defaultMessage": "URL de la demande",
-    "description": "The application URL of the training opportunity"
-  },
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
@@ -9572,6 +9568,10 @@
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
+  },
+  "h3mdZ3": {
+    "defaultMessage": "URL de la demande",
+    "description": "The application URL of the training opportunity"
   },
   "h4E9+K": {
     "defaultMessage": "De quelle manière sera vérifié le statut?",

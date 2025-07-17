@@ -28,7 +28,7 @@ const formLabels = defineMessages({
   },
   applicationUrl: {
     defaultMessage: "Application URL",
-    id: "4ofR8F",
+    id: "h3mdZ3",
     description: "The application URL of the training opportunity",
   },
   pinned: {
