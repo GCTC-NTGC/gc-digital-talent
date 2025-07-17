@@ -618,7 +618,7 @@ type Mutation {
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
   downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
-  downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersCsv(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadUsersThruPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
   downloadNominationsCsv(ids: [UUID!], talentNominationEventId: UUID!): Boolean!

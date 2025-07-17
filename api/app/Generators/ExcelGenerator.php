@@ -4,13 +4,13 @@ namespace App\Generators;
 
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Csv;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterface
+abstract class ExcelGenerator extends FileGenerator implements FileGeneratorInterface
 {
     protected ?Spreadsheet $spreadsheet = null;
 
-    protected string $extension = 'csv';
+    protected string $extension = 'xlsx';
 
     public function __construct(public string $fileName, protected ?string $dir)
     {
@@ -36,12 +36,7 @@ abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterf
 
         try {
             $path = $this->getPath();
-            $writer = new Csv($this->spreadsheet);
-            $writer->setUseBOM(true);
-            $writer->setDelimiter(',');
-            $writer->setEnclosure('"');
-            $writer->setLineEnding("\r\n");
-            $writer->setSheetIndex(0);
+            $writer = new Xlsx($this->spreadsheet);
             $writer->save($path);
 
         } catch (\Throwable $e) {

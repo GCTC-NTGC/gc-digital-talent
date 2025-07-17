@@ -3349,7 +3349,7 @@ type Mutation {
     where: PoolCandidateSearchInput
     withROD: Boolean
   ): Boolean! @guard
-  downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
   downloadCommunityInterestUsersCsv(
     ids: [UUID!]
     where: CommunityInterestFilterInput
