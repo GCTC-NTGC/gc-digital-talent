@@ -16,7 +16,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertTrue;
 
-class CommunityInterestUserCsvGeneratorTest extends TestCase
+class CommunityInterestUserExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
 

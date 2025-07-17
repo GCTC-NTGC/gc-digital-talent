@@ -22,7 +22,6 @@ abstract class ExcelGenerator extends FileGenerator implements FileGeneratorInte
         // https://phpspreadsheet.readthedocs.io/en/latest/topics/creating-spreadsheet/#clearing-a-workbook-from-memory
         if ($this->spreadsheet) {
             $this->spreadsheet->disconnectWorksheets();
-            unset($this->spreadsheet);
         }
 
     }
