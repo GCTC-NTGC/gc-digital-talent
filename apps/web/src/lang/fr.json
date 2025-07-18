@@ -2391,6 +2391,10 @@
     "defaultMessage": "Intérêt pour les possibilités d'emploi",
     "description": "Label for the input for choosing interest level in a job opportunity"
   },
+  "9J1ror": {
+    "defaultMessage": "Ministère de l’employé",
+    "description": "Title displayed on the Pool Candidates table employee department column"
+  },
   "9Jkoms": {
     "defaultMessage": "Trouver du talent numérique",
     "description": "Title displayed on hero for Search and Request pages."
