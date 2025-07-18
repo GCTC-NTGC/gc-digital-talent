@@ -146,7 +146,8 @@ const SitewideAnnouncementForm = ({
           />
           <Input
             id="titleEn"
-            label={intl.formatMessage(labels.titleEn)}
+            label={intl.formatMessage(commonMessages.title)}
+            appendLanguageToLabel={"en"}
             name="titleEn"
             type="text"
             rules={{
@@ -155,7 +156,8 @@ const SitewideAnnouncementForm = ({
           />
           <Input
             id="titleFr"
-            label={intl.formatMessage(labels.titleFr)}
+            label={intl.formatMessage(commonMessages.title)}
+            appendLanguageToLabel={"fr"}
             name="titleFr"
             type="text"
             rules={{
@@ -164,7 +166,8 @@ const SitewideAnnouncementForm = ({
           />
           <RichTextInput
             id="messageEn"
-            label={intl.formatMessage(labels.messageEn)}
+            label={intl.formatMessage(labels.message)}
+            appendLanguageToLabel={"en"}
             name="messageEn"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -172,7 +175,8 @@ const SitewideAnnouncementForm = ({
           />
           <RichTextInput
             id="messageFr"
-            label={intl.formatMessage(labels.messageFr)}
+            label={intl.formatMessage(labels.message)}
+            appendLanguageToLabel={"fr"}
             name="messageFr"
             rules={{
               required: intl.formatMessage(errorMessages.required),

@@ -112,27 +112,35 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
         </Heading>
         <Card>
           <div className="grid gap-6 xs:grid-cols-2">
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"en"}
+            >
               {workStream.name?.en}
             </FieldDisplay>
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"fr"}
+            >
               {workStream.name?.fr}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage({
-                defaultMessage: "Plain language alternative (English)",
-                id: "yW8bEZ",
-                description: "Label for plain language alt english input",
+                defaultMessage: "Plain language alternative",
+                id: "vUZf8Y",
+                description: "Label for plain language alternative",
               })}
+              appendLanguageToLabel={"en"}
             >
               {workStream.plainLanguageName?.en}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage({
-                defaultMessage: "Plain language alternative (French)",
-                id: "OKCVhm",
-                description: "Label for plain language alt french input",
+                defaultMessage: "Plain language alternative",
+                id: "vUZf8Y",
+                description: "Label for plain language alternative",
               })}
+              appendLanguageToLabel={"fr"}
             >
               {workStream.plainLanguageName?.fr}
             </FieldDisplay>

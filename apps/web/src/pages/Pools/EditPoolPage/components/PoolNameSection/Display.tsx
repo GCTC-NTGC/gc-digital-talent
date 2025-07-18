@@ -120,13 +120,23 @@ const Display = ({
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!name?.en}
-          label={intl.formatMessage(processMessages.titleEn)}
+          label={intl.formatMessage({
+            defaultMessage: "Job title",
+            id: "HBuWZ0",
+            description: "Title for job title for a position",
+          })}
+          appendLanguageToLabel={"en"}
         >
           {name?.en ?? notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!name?.fr}
-          label={intl.formatMessage(processMessages.titleFr)}
+          label={intl.formatMessage({
+            defaultMessage: "Job title",
+            id: "HBuWZ0",
+            description: "Title for job title for a position",
+          })}
+          appendLanguageToLabel={"fr"}
         >
           {name?.fr ?? notProvided}
         </ToggleForm.FieldDisplay>

@@ -160,7 +160,8 @@ const CommunityForm = ({
               id="nameEn"
               name="nameEn"
               autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameEn)}
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"en"}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -170,7 +171,8 @@ const CommunityForm = ({
               id="nameFr"
               name="nameFr"
               autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameFr)}
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"fr"}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -178,7 +180,8 @@ const CommunityForm = ({
             />
             <TextArea
               id="descriptionEn"
-              label={intl.formatMessage(adminMessages.descriptionEn)}
+              label={intl.formatMessage(commonMessages.description)}
+              appendLanguageToLabel={"en"}
               name="descriptionEn"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -187,7 +190,8 @@ const CommunityForm = ({
             />
             <TextArea
               id="descriptionFr"
-              label={intl.formatMessage(adminMessages.descriptionFr)}
+              label={intl.formatMessage(commonMessages.description)}
+              appendLanguageToLabel={"fr"}
               name="descriptionFr"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -198,22 +202,24 @@ const CommunityForm = ({
               id="mandateAuthorityEn"
               name="mandateAuthorityEn"
               label={intl.formatMessage({
-                defaultMessage: "Mandate authority (English)",
-                id: "T9alkU",
+                defaultMessage: "Mandate authority",
+                id: "83aYHF",
                 description:
-                  "Label displayed on the community form mandate authority field in English.",
+                  "Label displayed on the community form mandate authority field",
               })}
+              appendLanguageToLabel={"en"}
               type="text"
             />
             <Input
               id="mandateAuthorityFr"
               name="mandateAuthorityFr"
               label={intl.formatMessage({
-                defaultMessage: "Mandate authority (French)",
-                id: "oWPn6I",
+                defaultMessage: "Mandate authority",
+                id: "83aYHF",
                 description:
-                  "Label displayed on the community form mandate authority field in French.",
+                  "Label displayed on the community form mandate authority field",
               })}
+              appendLanguageToLabel={"fr"}
               type="text"
             />
             <div className="xs:col-span-2">

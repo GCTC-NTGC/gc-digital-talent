@@ -49,6 +49,7 @@ const TextArea = ({
   whitespaceTrim = true,
   "aria-labelledby": labelledBy,
   "aria-describedby": describedBy,
+  appendLanguageToLabel,
   ...rest
 }: TextAreaProps) => {
   const {
@@ -91,7 +92,12 @@ const TextArea = ({
 
   return (
     <Field.Wrapper>
-      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+      <Field.Label
+        id={`${id}-label`}
+        htmlFor={id}
+        required={!!rules.required}
+        appendLanguageToLabel={appendLanguageToLabel}
+      >
         {label}
       </Field.Label>
       <div className="relative z-1">

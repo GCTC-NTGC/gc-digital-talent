@@ -26,11 +26,7 @@ const AboutSection = ({
       {(!!firstName || !!lastName) && (
         <p>
           <span className={label()}>
-            {intl.formatMessage({
-              defaultMessage: "Name",
-              id: "4QyHfC",
-              description: "Name label and colon",
-            })}
+            {intl.formatMessage(commonMessages.name)}
           </span>
           <span className={value()}>
             {getFullNameHtml(firstName, lastName, intl)}

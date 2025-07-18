@@ -23,7 +23,8 @@ const Display = ({
       <div className="grid gap-6 xs:grid-cols-2">
         <ToggleForm.FieldDisplay
           hasError={!yourImpact?.en}
-          label={intl.formatMessage(processMessages.yourImpactEn)}
+          label={intl.formatMessage(processMessages.yourImpact)}
+          appendLanguageToLabel={"en"}
         >
           {yourImpact?.en ? (
             <RichTextRenderer node={htmlToRichTextJSON(yourImpact?.en)} />
@@ -33,7 +34,8 @@ const Display = ({
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!yourImpact?.fr}
-          label={intl.formatMessage(processMessages.yourImpactFr)}
+          label={intl.formatMessage(processMessages.yourImpact)}
+          appendLanguageToLabel={"fr"}
         >
           {yourImpact?.fr ? (
             <RichTextRenderer node={htmlToRichTextJSON(yourImpact?.fr)} />

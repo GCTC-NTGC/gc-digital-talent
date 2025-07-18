@@ -214,11 +214,12 @@ const CoreRequirementsSection = ({
                       name="specificLocationEn"
                       type="text"
                       label={intl.formatMessage({
-                        defaultMessage: "Specific location (English)",
-                        id: "bEY1qp",
+                        defaultMessage: "Specific location",
+                        id: "nCfeIa",
                         description:
-                          "Label for a pool advertisements specific English Location",
+                          "Label for a pool advertisement specific location",
                       })}
+                      appendLanguageToLabel={"en"}
                       disabled={formDisabled}
                       maxLength={1023}
                       rules={{
@@ -239,11 +240,12 @@ const CoreRequirementsSection = ({
                       name="specificLocationFr"
                       type="text"
                       label={intl.formatMessage({
-                        defaultMessage: "Specific location (French)",
-                        id: "4tGRa+",
+                        defaultMessage: "Specific location",
+                        id: "nCfeIa",
                         description:
-                          "Label for a pool advertisements specific French Location",
+                          "Label for a pool advertisement specific location",
                       })}
+                      appendLanguageToLabel={"fr"}
                       disabled={formDisabled}
                       maxLength={1023}
                       rules={{

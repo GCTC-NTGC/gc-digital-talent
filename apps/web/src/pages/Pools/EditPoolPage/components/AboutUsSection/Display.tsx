@@ -24,7 +24,8 @@ const Display = ({ pool, subtitle }: DisplayProps<EditPoolAboutUsFragment>) => {
         <div className="grid gap-6 xs:grid-cols-2">
           <ToggleForm.FieldDisplay
             hasError={!aboutUs?.en}
-            label={intl.formatMessage(processMessages.aboutUsEn)}
+            label={intl.formatMessage(processMessages.aboutUs)}
+            appendLanguageToLabel={"en"}
           >
             {aboutUs?.en ? (
               <RichTextRenderer node={htmlToRichTextJSON(aboutUs?.en)} />
@@ -34,7 +35,8 @@ const Display = ({ pool, subtitle }: DisplayProps<EditPoolAboutUsFragment>) => {
           </ToggleForm.FieldDisplay>
           <ToggleForm.FieldDisplay
             hasError={!aboutUs?.fr}
-            label={intl.formatMessage(processMessages.aboutUsFr)}
+            label={intl.formatMessage(processMessages.aboutUs)}
+            appendLanguageToLabel={"fr"}
           >
             {aboutUs?.fr ? (
               <RichTextRenderer node={htmlToRichTextJSON(aboutUs?.fr)} />

@@ -36,6 +36,7 @@ const RichTextInput = ({
   trackUnsaved = true,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
+  appendLanguageToLabel,
 }: RichTextInputProps) => {
   const {
     control,
@@ -68,7 +69,12 @@ const RichTextInput = ({
 
   return (
     <Field.Wrapper>
-      <Field.Label id={labelId} htmlFor={id} required={!!rules.required}>
+      <Field.Label
+        id={labelId}
+        htmlFor={id}
+        required={!!rules.required}
+        appendLanguageToLabel={appendLanguageToLabel}
+      >
         {label}
       </Field.Label>
       <Controller

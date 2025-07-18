@@ -124,7 +124,8 @@ const GeneralQuestionDialog = ({
                   <TextArea
                     id="questionEn"
                     name="questionEn"
-                    label={intl.formatMessage(labels.questionEn)}
+                    label={intl.formatMessage(labels.question)}
+                    appendLanguageToLabel={"en"}
                     rows={TEXT_AREA_ROWS}
                     wordLimit={TEXT_AREA_MAX_WORDS}
                     rules={{
@@ -136,7 +137,8 @@ const GeneralQuestionDialog = ({
                   <TextArea
                     id="questionFr"
                     name="questionFr"
-                    label={intl.formatMessage(labels.questionFr)}
+                    label={intl.formatMessage(labels.question)}
+                    appendLanguageToLabel={"fr"}
                     rows={TEXT_AREA_ROWS}
                     wordLimit={TEXT_AREA_MAX_WORDS + 80} // Increase for FR text
                     rules={{

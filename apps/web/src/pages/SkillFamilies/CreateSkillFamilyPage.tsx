@@ -11,6 +11,7 @@ import {
   getLocale,
   errorMessages,
   getLocalizedName,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -176,7 +177,8 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                     id="name_en"
                     name="name.en"
                     autoComplete="off"
-                    label={intl.formatMessage(adminMessages.nameEn)}
+                    label={intl.formatMessage(commonMessages.name)}
+                    appendLanguageToLabel={"en"}
                     type="text"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
@@ -186,7 +188,8 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                     id="name_fr"
                     name="name.fr"
                     autoComplete="off"
-                    label={intl.formatMessage(adminMessages.nameFr)}
+                    label={intl.formatMessage(commonMessages.name)}
+                    appendLanguageToLabel={"fr"}
                     type="text"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
@@ -195,12 +198,8 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                   <TextArea
                     id="description_en"
                     name="description.en"
-                    label={intl.formatMessage({
-                      defaultMessage: "Description (English)",
-                      id: "luZnRG",
-                      description:
-                        "Label displayed on the create a skill family form description (English) field.",
-                    })}
+                    label={intl.formatMessage(commonMessages.description)}
+                    appendLanguageToLabel={"en"}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -208,12 +207,8 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                   <TextArea
                     id="description_fr"
                     name="description.fr"
-                    label={intl.formatMessage({
-                      defaultMessage: "Description (French)",
-                      id: "Q0gIlv",
-                      description:
-                        "Label displayed on the create a skill family form description (French) field.",
-                    })}
+                    label={intl.formatMessage(commonMessages.description)}
+                    appendLanguageToLabel={"fr"}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}

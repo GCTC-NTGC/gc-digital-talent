@@ -86,21 +86,24 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
         <div className="grid gap-6 xs:grid-cols-2">
           <FieldDisplay
             hasError={!community.name?.en}
-            label={intl.formatMessage(adminMessages.nameEn)}
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"en"}
           >
             {community.name?.en ??
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             hasError={!community.name?.fr}
-            label={intl.formatMessage(adminMessages.nameFr)}
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"fr"}
           >
             {community.name?.fr ??
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             hasError={!community.description?.en}
-            label={intl.formatMessage(adminMessages.descriptionEn)}
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"en"}
           >
             {community.description?.en ? (
               <RichTextRenderer
@@ -112,7 +115,8 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           </FieldDisplay>
           <FieldDisplay
             hasError={!community.description?.fr}
-            label={intl.formatMessage(adminMessages.descriptionFr)}
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"en"}
           >
             {community.description?.fr ? (
               <RichTextRenderer
@@ -124,22 +128,24 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Mandate authority (English)",
-              id: "T9alkU",
+              defaultMessage: "Mandate authority",
+              id: "83aYHF",
               description:
-                "Label displayed on the community form mandate authority field in English.",
+                "Label displayed on the community form mandate authority field",
             })}
+            appendLanguageToLabel={"en"}
           >
             {community.mandateAuthority?.en ??
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Mandate authority (French)",
-              id: "oWPn6I",
+              defaultMessage: "Mandate authority",
+              id: "83aYHF",
               description:
-                "Label displayed on the community form mandate authority field in French.",
+                "Label displayed on the community form mandate authority field",
             })}
+            appendLanguageToLabel={"fr"}
           >
             {community.mandateAuthority?.fr ??
               intl.formatMessage(commonMessages.notProvided)}

@@ -232,7 +232,8 @@ export const UpdateSkillForm = ({
               id="name_en"
               name="name.en"
               autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameEn)}
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"en"}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -242,7 +243,8 @@ export const UpdateSkillForm = ({
               id="name_fr"
               name="name.fr"
               autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameFr)}
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"fr"}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -251,12 +253,8 @@ export const UpdateSkillForm = ({
             <TextArea
               id="description_en"
               name="description.en"
-              label={intl.formatMessage({
-                defaultMessage: "Description (English)",
-                id: "fdKtYm",
-                description:
-                  "Label displayed on the update a skill form description (English) field.",
-              })}
+              label={intl.formatMessage(commonMessages.description)}
+              appendLanguageToLabel={"en"}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -264,12 +262,8 @@ export const UpdateSkillForm = ({
             <TextArea
               id="description_fr"
               name="description.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Description (French)",
-                id: "4EkI/1",
-                description:
-                  "Label displayed on the update a skill form description (French) field.",
-              })}
+              label={intl.formatMessage(commonMessages.description)}
+              appendLanguageToLabel={"fr"}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -278,11 +272,11 @@ export const UpdateSkillForm = ({
               id="keywords_en"
               name="keywords.en"
               label={intl.formatMessage({
-                defaultMessage: "Keywords (English)",
-                id: "FiylOa",
-                description:
-                  "Label displayed on the skill form keywords field in English.",
+                defaultMessage: "Keywords",
+                id: "IgzSRR",
+                description: "Label displayed on the skill form keywords field",
               })}
+              appendLanguageToLabel={"en"}
               context={intl.formatMessage({
                 defaultMessage:
                   "This field accepts a list of comma separated keywords associated with the skill.",
@@ -296,11 +290,11 @@ export const UpdateSkillForm = ({
               id="keywords_fr"
               name="keywords.fr"
               label={intl.formatMessage({
-                defaultMessage: "Keywords (French)",
-                id: "fOl4Ez",
-                description:
-                  "Label displayed on the skill form keywords field in French.",
+                defaultMessage: "Keywords",
+                id: "IgzSRR",
+                description: "Label displayed on the skill form keywords field",
               })}
+              appendLanguageToLabel={"fr"}
               context={intl.formatMessage({
                 defaultMessage:
                   "This field accepts a list of comma separated keywords associated with the skill.",

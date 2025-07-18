@@ -10,7 +10,7 @@ import {
   RichTextInput,
   Select,
 } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 
@@ -52,7 +52,8 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
       <Input
         id="titleEn"
         name="titleEn"
-        label={intl.formatMessage(formLabels.titleEn)}
+        label={intl.formatMessage(commonMessages.title)}
+        appendLanguageToLabel={"en"}
         type="text"
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -61,7 +62,8 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
       <Input
         id="titleFr"
         name="titleFr"
-        label={intl.formatMessage(formLabels.titleFr)}
+        label={intl.formatMessage(commonMessages.title)}
+        appendLanguageToLabel={"fr"}
         type="text"
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -147,7 +149,8 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
       />
       <RichTextInput
         id="descriptionEn"
-        label={intl.formatMessage(formLabels.descriptionEn)}
+        label={intl.formatMessage(commonMessages.description)}
+        appendLanguageToLabel={"en"}
         name="descriptionEn"
         allowHeadings
         rules={{
@@ -156,7 +159,8 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
       />
       <RichTextInput
         id="descriptionFr"
-        label={intl.formatMessage(formLabels.descriptionFr)}
+        label={intl.formatMessage(commonMessages.description)}
+        appendLanguageToLabel={"fr"}
         name="descriptionFr"
         allowHeadings
         rules={{
@@ -166,7 +170,8 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
       <Input
         id="applicationUrlEn"
         name="applicationUrlEn"
-        label={intl.formatMessage(formLabels.applicationUrlEn)}
+        label={intl.formatMessage(formLabels.applicationUrl)}
+        appendLanguageToLabel={"en"}
         type="url"
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -175,7 +180,8 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
       <Input
         id="applicationUrlFr"
         name="applicationUrlFr"
-        label={intl.formatMessage(formLabels.applicationUrlFr)}
+        label={intl.formatMessage(formLabels.applicationUrl)}
+        appendLanguageToLabel={"fr"}
         type="url"
         rules={{
           required: intl.formatMessage(errorMessages.required),

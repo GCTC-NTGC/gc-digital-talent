@@ -28,7 +28,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import { getClassificationName } from "~/utils/poolUtils";
-import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import messages from "./messages";
@@ -97,11 +96,17 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
         </Heading>
         <Card>
           <div className="grid gap-6 xs:grid-cols-2">
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"en"}
+            >
               {classification.name?.en ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"fr"}
+            >
               {classification.name?.fr ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>

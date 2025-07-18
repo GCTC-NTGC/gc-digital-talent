@@ -264,7 +264,8 @@ export const UpdateSkillFamily = ({
                     id="name_en"
                     name="name.en"
                     autoComplete="off"
-                    label={intl.formatMessage(adminMessages.nameEn)}
+                    label={intl.formatMessage(commonMessages.name)}
+                    appendLanguageToLabel={"en"}
                     type="text"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
@@ -274,7 +275,8 @@ export const UpdateSkillFamily = ({
                     id="name_fr"
                     name="name.fr"
                     autoComplete="off"
-                    label={intl.formatMessage(adminMessages.nameFr)}
+                    label={intl.formatMessage(commonMessages.name)}
+                    appendLanguageToLabel={"fr"}
                     type="text"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
@@ -283,12 +285,8 @@ export const UpdateSkillFamily = ({
                   <TextArea
                     id="description_en"
                     name="description.en"
-                    label={intl.formatMessage({
-                      defaultMessage: "Description (English)",
-                      id: "luZnRG",
-                      description:
-                        "Label displayed on the create a skill family form description (English) field.",
-                    })}
+                    label={intl.formatMessage(commonMessages.description)}
+                    appendLanguageToLabel={"en"}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -296,12 +294,8 @@ export const UpdateSkillFamily = ({
                   <TextArea
                     id="description_fr"
                     name="description.fr"
-                    label={intl.formatMessage({
-                      defaultMessage: "Description (French)",
-                      id: "Q0gIlv",
-                      description:
-                        "Label displayed on the create a skill family form description (French) field.",
-                    })}
+                    label={intl.formatMessage(commonMessages.description)}
+                    appendLanguageToLabel={"fr"}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}

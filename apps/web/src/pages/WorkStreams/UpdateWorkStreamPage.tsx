@@ -216,7 +216,8 @@ export const UpdateWorkStreamForm = ({
                 <Input
                   id="name_en"
                   name="name.en"
-                  label={intl.formatMessage(adminMessages.nameEn)}
+                  label={intl.formatMessage(commonMessages.name)}
+                  appendLanguageToLabel={"en"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -225,7 +226,8 @@ export const UpdateWorkStreamForm = ({
                 <Input
                   id="name_fr"
                   name="name.fr"
-                  label={intl.formatMessage(adminMessages.nameFr)}
+                  label={intl.formatMessage(commonMessages.name)}
+                  appendLanguageToLabel={"fr"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -235,10 +237,11 @@ export const UpdateWorkStreamForm = ({
                   id="plainLanguageName_en"
                   name="plainLanguageName.en"
                   label={intl.formatMessage({
-                    defaultMessage: "Plain language alternative (English)",
-                    id: "yW8bEZ",
-                    description: "Label for plain language alt english input",
+                    defaultMessage: "Plain language alternative",
+                    id: "vUZf8Y",
+                    description: "Label for plain language alternative",
                   })}
+                  appendLanguageToLabel={"en"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -248,10 +251,11 @@ export const UpdateWorkStreamForm = ({
                   id="plainLanguageName_fr"
                   name="plainLanguageName.fr"
                   label={intl.formatMessage({
-                    defaultMessage: "Plain language alternative (French)",
-                    id: "OKCVhm",
-                    description: "Label for plain language alt french input",
+                    defaultMessage: "Plain language alternative",
+                    id: "vUZf8Y",
+                    description: "Label for plain language alternative",
                   })}
+                  appendLanguageToLabel={"fr"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

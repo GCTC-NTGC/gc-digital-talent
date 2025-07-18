@@ -2,7 +2,11 @@ import { useIntl } from "react-intl";
 
 import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  appendLanguageName,
+  commonMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 
 import { labels } from "./utils";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
@@ -54,7 +58,12 @@ const GeneralQuestionCard = ({
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <p className="mb-3 font-bold">
-            {intl.formatMessage(labels.questionEn)}
+            {appendLanguageName({
+              label: intl.formatMessage(labels.question),
+              lang: "en",
+              intl,
+              formatted: true,
+            })}
           </p>
           <p>
             {generalQuestion.question?.en ??
@@ -63,7 +72,12 @@ const GeneralQuestionCard = ({
         </div>
         <div>
           <p className="mb-3 font-bold">
-            {intl.formatMessage(labels.questionFr)}
+            {appendLanguageName({
+              label: intl.formatMessage(labels.question),
+              lang: "fr",
+              intl,
+              formatted: true,
+            })}
           </p>
           <p>
             {generalQuestion.question?.fr ??

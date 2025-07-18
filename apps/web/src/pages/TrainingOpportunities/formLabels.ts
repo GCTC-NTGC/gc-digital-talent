@@ -1,16 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const formLabels = defineMessages({
-  titleEn: {
-    defaultMessage: "Title (English)",
-    id: "MHZ1CD",
-    description: "The title, in English",
-  },
-  titleFr: {
-    defaultMessage: "Title (French)",
-    id: "55Me4a",
-    description: "The title, in French",
-  },
   courseLanguage: {
     defaultMessage: "Course language",
     id: "Cvl9dd",
@@ -36,25 +26,10 @@ const formLabels = defineMessages({
     id: "bg8KBg",
     description: "The training end date of the training opportunity",
   },
-  descriptionEn: {
-    defaultMessage: "Description (English)",
-    id: "gASASB",
-    description: "Title for description in English.",
-  },
-  descriptionFr: {
-    defaultMessage: "Description (French)",
-    id: "DK2tnK",
-    description: "Title for description in French.",
-  },
-  applicationUrlEn: {
-    defaultMessage: "Application URL (English)",
-    id: "dzCyaO",
-    description: "The English application URL of the training opportunity",
-  },
-  applicationUrlFr: {
-    defaultMessage: "Application URL (French)",
-    id: "N5xj2X",
-    description: "The French application URL of the training opportunity",
+  applicationUrl: {
+    defaultMessage: "Application URL",
+    id: "h3mdZ3",
+    description: "The application URL of the training opportunity",
   },
   pinned: {
     defaultMessage: "Pinned",

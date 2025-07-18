@@ -22,6 +22,7 @@ import {
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
+import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import { PublishedEditableSectionProps, SectionProps } from "../../types";
@@ -160,24 +161,16 @@ const YourImpactSection = ({
               <div className="mb-6 grid gap-6 sm:grid-cols-2">
                 <RichTextInput
                   id="yourImpactEn"
-                  label={intl.formatMessage({
-                    defaultMessage: "English - Your impact",
-                    id: "NfRLs/",
-                    description:
-                      "Label for the English - Your Impact textarea in the edit pool page.",
-                  })}
+                  label={intl.formatMessage(processMessages.yourImpact)}
+                  appendLanguageToLabel={"en"}
                   name="yourImpactEn"
                   wordLimit={TEXT_AREA_MAX_WORDS_EN}
                   readOnly={!canEdit}
                 />
                 <RichTextInput
                   id="yourImpactFr"
-                  label={intl.formatMessage({
-                    defaultMessage: "French - Your impact",
-                    id: "fPy7Mg",
-                    description:
-                      "Label for the French - Your Impact textarea in the edit pool page.",
-                  })}
+                  label={intl.formatMessage(processMessages.yourImpact)}
+                  appendLanguageToLabel={"fr"}
                   name="yourImpactFr"
                   wordLimit={TEXT_AREA_MAX_WORDS_FR}
                   readOnly={!canEdit}

@@ -163,7 +163,8 @@ export const CreateWorkStreamForm = ({
             <div className="grid gap-6 xs:grid-cols-2">
               <Input
                 id="name.en"
-                label={intl.formatMessage(adminMessages.nameEn)}
+                label={intl.formatMessage(commonMessages.name)}
+                appendLanguageToLabel={"en"}
                 name="name.en"
                 type="text"
                 rules={{
@@ -172,7 +173,8 @@ export const CreateWorkStreamForm = ({
               />
               <Input
                 id="name.fr"
-                label={intl.formatMessage(adminMessages.nameFr)}
+                label={intl.formatMessage(commonMessages.name)}
+                appendLanguageToLabel={"fr"}
                 name="name.fr"
                 type="text"
                 rules={{
@@ -192,10 +194,11 @@ export const CreateWorkStreamForm = ({
               <Input
                 id="plainLanguageName.en"
                 label={intl.formatMessage({
-                  defaultMessage: "Plain language alternative (English)",
-                  id: "yW8bEZ",
-                  description: "Label for plain language alt english input",
+                  defaultMessage: "Plain language alternative",
+                  id: "vUZf8Y",
+                  description: "Label for plain language alternative",
                 })}
+                appendLanguageToLabel={"en"}
                 name="plainLanguageName.en"
                 type="text"
                 rules={{
@@ -206,10 +209,11 @@ export const CreateWorkStreamForm = ({
               <Input
                 id="plainLanguageName.fr"
                 label={intl.formatMessage({
-                  defaultMessage: "Plain language alternative (French)",
-                  id: "OKCVhm",
-                  description: "Label for plain language alt french input",
+                  defaultMessage: "Plain language alternative",
+                  id: "vUZf8Y",
+                  description: "Label for plain language alternative",
                 })}
+                appendLanguageToLabel={"fr"}
                 name="plainLanguageName.fr"
                 type="text"
                 rules={{

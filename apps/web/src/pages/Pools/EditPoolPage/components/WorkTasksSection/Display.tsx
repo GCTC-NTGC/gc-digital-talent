@@ -23,7 +23,8 @@ const Display = ({
       <div className="grid gap-6 xs:grid-cols-2">
         <ToggleForm.FieldDisplay
           hasError={!keyTasks?.en}
-          label={intl.formatMessage(processMessages.keyTasksEn)}
+          label={intl.formatMessage(processMessages.keyTasks)}
+          appendLanguageToLabel={"en"}
         >
           {keyTasks?.en ? (
             <RichTextRenderer node={htmlToRichTextJSON(keyTasks?.en)} />
@@ -33,7 +34,8 @@ const Display = ({
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!keyTasks?.fr}
-          label={intl.formatMessage(processMessages.keyTasksFr)}
+          label={intl.formatMessage(processMessages.keyTasks)}
+          appendLanguageToLabel={"fr"}
         >
           {keyTasks?.fr ? (
             <RichTextRenderer node={htmlToRichTextJSON(keyTasks?.fr)} />

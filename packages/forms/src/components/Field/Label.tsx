@@ -1,4 +1,7 @@
 import { DetailedHTMLProps, LabelHTMLAttributes, forwardRef } from "react";
+import { useIntl } from "react-intl";
+
+import { appendLanguageName, Locales } from "@gc-digital-talent/i18n";
 
 import Required from "./Required";
 import { labelStyles } from "./styles";
@@ -9,19 +12,33 @@ export interface LabelProps
     HTMLLabelElement
   > {
   required?: boolean;
+  appendLanguageToLabel?: Locales;
 }
 
 const Label = forwardRef<HTMLLabelElement, LabelProps>(
-  ({ required, children, className, ...rest }, forwardedRef) => (
-    <label
-      ref={forwardedRef}
-      className={labelStyles({ class: className })}
-      {...rest}
-    >
-      {children}
-      <Required required={required} />
-    </label>
-  ),
+  (
+    { required, appendLanguageToLabel, children, className, ...rest },
+    forwardedRef,
+  ) => {
+    const intl = useIntl();
+    return (
+      <label
+        ref={forwardedRef}
+        className={labelStyles({ class: className })}
+        {...rest}
+      >
+        {appendLanguageToLabel
+          ? appendLanguageName({
+              label: children,
+              lang: appendLanguageToLabel,
+              intl,
+              formatted: true,
+            })
+          : children}
+        <Required required={required} />
+      </label>
+    );
+  },
 );
 
 export default Label;

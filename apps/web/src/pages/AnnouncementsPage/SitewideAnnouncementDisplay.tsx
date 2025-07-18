@@ -77,19 +77,22 @@ const SitewideAnnouncementDisplay = ({
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!titleEn}
-        label={intl.formatMessage(labels.titleEn)}
+        label={intl.formatMessage(commonMessages.title)}
+        appendLanguageToLabel={"en"}
       >
         {titleEn ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!titleFr}
-        label={intl.formatMessage(labels.titleFr)}
+        label={intl.formatMessage(commonMessages.title)}
+        appendLanguageToLabel={"fr"}
       >
         {titleFr ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!messageEn}
-        label={intl.formatMessage(labels.messageEn)}
+        label={intl.formatMessage(labels.message)}
+        appendLanguageToLabel={"en"}
       >
         {messageEn ? (
           <RichTextRenderer node={htmlToRichTextJSON(messageEn)} />
@@ -99,7 +102,8 @@ const SitewideAnnouncementDisplay = ({
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!messageFr}
-        label={intl.formatMessage(labels.messageFr)}
+        label={intl.formatMessage(labels.message)}
+        appendLanguageToLabel={"fr"}
       >
         {messageFr ? (
           <RichTextRenderer node={htmlToRichTextJSON(messageFr)} />

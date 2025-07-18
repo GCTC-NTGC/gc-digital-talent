@@ -570,13 +570,15 @@ const AssessmentDetailsDialog = ({
                       id="assessmentTitleEn"
                       name="assessmentTitleEn"
                       type="text"
-                      label={intl.formatMessage(labels.assessmentTitleEn)}
+                      label={intl.formatMessage(labels.assessmentTitle)}
+                      appendLanguageToLabel={"en"}
                     />
                     <Input
                       id="assessmentTitleFr"
                       name="assessmentTitleFr"
                       type="text"
-                      label={intl.formatMessage(labels.assessmentTitleFr)}
+                      label={intl.formatMessage(labels.assessmentTitle)}
+                      appendLanguageToLabel={"fr"}
                     />
                   </div>
                 ) : null}
@@ -659,9 +661,10 @@ const AssessmentDetailsDialog = ({
                                   id={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
                                   name={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
                                   label={intl.formatMessage(
-                                    labels.screeningQuestionEn,
+                                    labels.screeningQuestion,
                                     { questionNumber: index + 1 },
                                   )}
+                                  appendLanguageToLabel={"en"}
                                   rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
                                   wordLimit={
                                     SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS
@@ -678,9 +681,10 @@ const AssessmentDetailsDialog = ({
                                   id={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
                                   name={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
                                   label={intl.formatMessage(
-                                    labels.screeningQuestionFr,
+                                    labels.screeningQuestion,
                                     { questionNumber: index + 1 },
                                   )}
+                                  appendLanguageToLabel={"fr"}
                                   rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
                                   wordLimit={
                                     SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS

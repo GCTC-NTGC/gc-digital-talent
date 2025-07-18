@@ -22,6 +22,7 @@ import {
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useUserCanEditPool from "~/hooks/useCanUserEditPool";
+import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import { PublishedEditableSectionProps, SectionProps } from "../../types";
@@ -160,24 +161,16 @@ const WorkTasksSection = ({
               <div className="mb-6 grid gap-6 sm:grid-cols-2">
                 <RichTextInput
                   id="YourWorkEn"
-                  label={intl.formatMessage({
-                    defaultMessage: "English - Your work",
-                    id: "lb7SoP",
-                    description:
-                      "Label for the English - Your Work textarea in the edit pool page.",
-                  })}
+                  label={intl.formatMessage(processMessages.keyTasks)}
+                  appendLanguageToLabel={"en"}
                   name="YourWorkEn"
                   wordLimit={TEXT_AREA_MAX_WORDS_EN}
                   readOnly={!canEdit}
                 />
                 <RichTextInput
                   id="YourWorkFr"
-                  label={intl.formatMessage({
-                    defaultMessage: "French - Your work",
-                    id: "8bJgxK",
-                    description:
-                      "Label for the French - Your Work textarea in the edit pool page.",
-                  })}
+                  label={intl.formatMessage(processMessages.keyTasks)}
+                  appendLanguageToLabel={"fr"}
                   name="YourWorkFr"
                   wordLimit={TEXT_AREA_MAX_WORDS_FR}
                   readOnly={!canEdit}
