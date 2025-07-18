@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput } from "@gc-digital-talent/forms";
 import {
