@@ -2327,6 +2327,10 @@
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "8nsSyc": {
+    "defaultMessage": "<strong>{skill}</strong> ({type})",
+    "description": "Formatted skill name and type"
+  },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
     "description": "Message displayed after a community is updated"
