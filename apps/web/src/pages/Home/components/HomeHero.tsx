@@ -2,7 +2,9 @@ import { ReactNode } from "react";
 
 import { Container, Heading, HeadingRank } from "@gc-digital-talent/ui";
 
-import Image, { ImgProps } from "./Image";
+import GradientImage, {
+  ImgProps,
+} from "~/components/GradientImage/GradientImage";
 
 interface HomeHeroProps {
   callToAction?: ReactNode;
@@ -19,15 +21,15 @@ const HomeHero = ({
   subtitle,
   titleSize,
 }: HomeHeroProps) => (
-  <div className="relative overflow-hidden bg-[#000]">
+  <GradientImage.Wrapper className="overflow-hidden bg-[#000]">
     <Container className="relative z-[1]">
-      <div className="relative z-10 w-full pt-18 pb-24 xs:max-w-fit xs:pt-24 xs:pb-30 sm:pt-36 sm:pb-36 md:pt-36 md:pb-47">
+      <GradientImage.Content className="pt-18 pb-24 xs:pt-24 xs:pb-30 sm:pt-36 sm:pb-36 md:pt-36 md:pb-47">
         <div className="text-center text-white xs:text-left">
           <Heading level="h1" size={titleSize} className="mt-0 mb-6">
             {title}
           </Heading>
           {subtitle && (
-            <p className="text-lg/snug font-light xs:max-w-2/3 sm:max-w-1/2 lg:text-xl/snug">
+            <p className="text-lg/snug font-light lg:text-xl/snug">
               {subtitle}
             </p>
           )}
@@ -37,12 +39,10 @@ const HomeHero = ({
             {callToAction}
           </div>
         ) : null}
-      </div>
-      <div className="relative z-0 -mx-6 w-[calc(100%+(var(--spacing)*12))] xs:absolute xs:inset-y-0 xs:left-1/2 xs:mx-0 xs:h-auto xs:max-w-1/2 xs:pb-0 sm:max-w-2/3">
-        <Image {...img} />
-      </div>
+      </GradientImage.Content>
+      <GradientImage.Image {...img} />
     </Container>
-  </div>
+  </GradientImage.Wrapper>
 );
 
 export default HomeHero;
