@@ -37,6 +37,9 @@ class EventServiceProvider extends ServiceProvider
         TalentNominationSubmitted::class => [
             SendTalentNominationSubmittedNotifications::class,
         ],
+        \Illuminate\Notifications\Events\NotificationSent::class => [
+            \App\Listeners\BroadcastGraphQLNotification::class,
+        ],
     ];
 
     /**

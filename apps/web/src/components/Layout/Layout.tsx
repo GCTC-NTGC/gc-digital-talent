@@ -15,6 +15,7 @@ import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
 import { Project } from "../SEO/Favicon";
+import NotificationTest from "./NotificationTest";
 
 interface LayoutProps {
   project: Project;
@@ -51,6 +52,7 @@ const Layout = ({
           <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
         )}
         <main id="main">
+          <NotificationTest />
           <Outlet />
         </main>
         <Footer />

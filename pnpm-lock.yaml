@@ -363,6 +363,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      pusher-js:
+        specifier: ^8.4.0
+        version: 8.4.0
       react-intl:
         specifier: ^7.1.11
         version: 7.1.11(react@18.3.1)(typescript@5.8.3)
@@ -6918,6 +6921,9 @@ packages:
   pure-rand@7.0.1:
     resolution: {integrity: sha512-oTUZM/NAZS8p7ANR3SHh30kXB+zK2r2BPcEn/awJIbOvq82WoMN4p62AWWp3Hhw50G0xMsw1mhIBLqHw64EcNQ==}
 
+  pusher-js@8.4.0:
+    resolution: {integrity: sha512-wp3HqIIUc1GRyu1XrP6m2dgyE9MoCsXVsWNlohj0rjSkLf+a0jLvEyVubdg58oMk7bhjBWnFClgp8jfAa6Ak4Q==}
+
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -7636,6 +7642,9 @@ packages:
   turbo@2.5.5:
     resolution: {integrity: sha512-eZ7wI6KjtT1eBqCnh2JPXWNUAxtoxxfi6VdBdZFvil0ychCOTxbm7YLRBi1JSt7U3c+u3CLxpoPxLdvr/Npr3A==}
     hasBin: true
+
+  tweetnacl@1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -14645,6 +14654,10 @@ snapshots:
 
   pure-rand@7.0.1: {}
 
+  pusher-js@8.4.0:
+    dependencies:
+      tweetnacl: 1.0.3
+
   queue-microtask@1.2.3: {}
 
   react-clientside-effect@1.2.7(react@18.3.1):
@@ -15446,6 +15459,8 @@ snapshots:
       turbo-linux-arm64: 2.5.5
       turbo-windows-64: 2.5.5
       turbo-windows-arm64: 2.5.5
+
+  tweetnacl@1.0.3: {}
 
   type-check@0.4.0:
     dependencies:

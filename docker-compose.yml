@@ -33,6 +33,7 @@ services:
       - ./infrastructure/conf/php-fpm-docker.conf:/usr/local/etc/php-fpm.d/docker.conf:ro
     ports:
       - 8000:8080
+      - 6001:6001
     environment:
       - ROBOTS_FILENAME=dev.robots.txt
       - WEBSITE_SITE_NAME=localhost
