@@ -6,46 +6,45 @@ import { CTALink } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import hero1Landscape from "~/assets/img/hero-1-landscape.webp";
-import hero1Portrait from "~/assets/img/hero-1-portrait.webp";
-import hero1Tablet from "~/assets/img/hero-1-tablet-portrait.webp";
-import hero2Landscape from "~/assets/img/hero-2-landscape.webp";
-import hero2Portrait from "~/assets/img/hero-2-portrait.webp";
-import hero2Tablet from "~/assets/img/hero-2-tablet-portrait.webp";
-import hero3Landscape from "~/assets/img/hero-3-landscape.webp";
-import hero3Portrait from "~/assets/img/hero-3-portrait.webp";
-import hero3Tablet from "~/assets/img/hero-3-tablet-portrait.webp";
-import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
-import hero4Portrait from "~/assets/img/hero-4-portrait.webp";
-import hero4Tablet from "~/assets/img/hero-4-tablet-portrait.webp";
+import hero1Square from "~/assets/img/home-hero-square-1.webp";
+import hero1Landscape from "~/assets/img/home-hero-landscape-1.webp";
+import hero2Square from "~/assets/img/home-hero-square-2.webp";
+import hero2Landscape from "~/assets/img/home-hero-landscape-2.webp";
+import hero3Square from "~/assets/img/home-hero-square-3.webp";
+import hero3Landscape from "~/assets/img/home-hero-landscape-3.webp";
+import hero4Square from "~/assets/img/home-hero-square-4.webp";
+import hero4Landscape from "~/assets/img/home-hero-landscape-4.webp";
 
 import HomeHero from "../../components/HomeHero";
 
-const landscapeRandomize = (index?: number) => {
-  const imageSets = {
-    "1": {
-      mobile: hero1Portrait,
-      tablet: hero1Tablet,
-      desktop: hero1Landscape,
+interface RandomImgProps {
+  sm: string;
+  src: string;
+  className?: string;
+}
+
+const landscapeRandomize = (index?: number): RandomImgProps => {
+  const imageSets: RandomImgProps[] = [
+    {
+      sm: hero1Square,
+      src: hero1Landscape,
     },
-    "2": {
-      mobile: hero2Portrait,
-      tablet: hero2Tablet,
-      desktop: hero2Landscape,
+    {
+      sm: hero2Square,
+      src: hero2Landscape,
+      className: "sm:object-bottom-right",
     },
-    "3": {
-      mobile: hero3Portrait,
-      tablet: hero3Tablet,
-      desktop: hero3Landscape,
+    {
+      sm: hero3Square,
+      src: hero3Landscape,
+      className: "sm:object-bottom",
     },
-    "4": {
-      mobile: hero4Portrait,
-      tablet: hero4Tablet,
-      desktop: hero4Landscape,
+    {
+      sm: hero4Square,
+      src: hero4Landscape,
     },
-  };
-  const values = Object.values(imageSets);
-  return values[index ?? Math.floor(Math.random() * values.length)];
+  ];
+  return imageSets[index ?? Math.floor(Math.random() * imageSets.length)];
 };
 
 export interface HeroProps {
@@ -55,7 +54,7 @@ export interface HeroProps {
 const Hero = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const getHeroImage = landscapeRandomize(defaultImage);
+  const img = landscapeRandomize(defaultImage);
   return (
     <HomeHero
       title={intl.formatMessage(commonMessages.projectTitle)}
@@ -66,17 +65,9 @@ const Hero = ({ defaultImage }: HeroProps) => {
         description: "Description of the application on the homepage",
       })}
       img={{
-        sources: [
-          {
-            media: "(max-width: 48rem)",
-            srcset: getHeroImage.mobile,
-          },
-          {
-            media: "(max-width: 67.5rem)",
-            srcset: getHeroImage.tablet,
-          },
-        ],
-        src: getHeroImage.desktop,
+        sources: { sm: img.src },
+        src: img.src,
+        className: img?.className,
         alt: intl.formatMessage({
           defaultMessage:
             "A diverse group of people, representing all races, genders, and backgrounds, gathered together in unity. Everyone is welcome here!",

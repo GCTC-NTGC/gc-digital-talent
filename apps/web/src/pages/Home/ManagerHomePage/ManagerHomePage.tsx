@@ -14,8 +14,7 @@ import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-import managerHeroPortrait from "~/assets/img/manager-hero-portrait.webp";
-import managerHeroTablet from "~/assets/img/manager-hero-tablet-portrait.webp";
+import managerHeroSquare from "~/assets/img/manager-hero-square.webp";
 import managerHeroLandscape from "~/assets/img/manager-hero-landscape.webp";
 import managerProfileHero from "~/assets/img/manager-profile-hero.webp";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
@@ -53,16 +52,7 @@ const ManagerHomePage = () => {
         titleSize="h2"
         subtitle={intl.formatMessage(pageSubtitle)}
         img={{
-          sources: [
-            {
-              srcset: managerHeroPortrait,
-              media: "(max-width: 48rem)",
-            },
-            {
-              srcset: managerHeroTablet,
-              media: "(max-width: 67.5rem)",
-            },
-          ],
+          sources: { sm: managerHeroSquare },
           src: managerHeroLandscape,
           alt: "",
         }}

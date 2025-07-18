@@ -30,9 +30,8 @@ import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 import PoolCard from "~/components/PoolCard/PoolCard";
 import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
-import executiveHeroPortrait from "~/assets/img/exec-hero-portrait.webp";
-import executiveHeroTablet from "~/assets/img/exec-hero-tablet-portrait.webp";
-import executiveHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
+import execHeroSquare from "~/assets/img/exec-hero-square.webp";
+import execHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
 
 import HomeHero from "../components/HomeHero";
@@ -68,17 +67,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
         subtitle={intl.formatMessage(subTitle)}
         titleSize="h2"
         img={{
-          sources: [
-            {
-              srcset: `${executiveHeroPortrait}`,
-              media: "(max-width: 48rem)",
-            },
-            {
-              srcset: `${executiveHeroTablet}`,
-              media: "(max-width: 67.5rem)",
-            },
-          ],
-          src: executiveHeroLandscape,
+          sources: { sm: execHeroSquare },
+          src: execHeroLandscape,
           alt: "",
         }}
       />
