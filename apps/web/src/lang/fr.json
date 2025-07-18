@@ -11973,6 +11973,10 @@
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description"
   },
+  "t+ykNn": {
+    "defaultMessage": "Tâches professionnelles",
+    "description": "Heading for work tasks"
+  },
   "t1JWwl": {
     "defaultMessage": "Veuillez indiquer si vous occupez également l'une des fonctions suivantes.",
     "description": "Description for the 'other roles' checkbox group"

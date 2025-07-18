@@ -445,7 +445,11 @@ export const EditPoolForm = ({
     workTasks: {
       id: "work-tasks",
       hasError: keyTasksError({ keyTasks: pool.keyTasks }),
-      title: intl.formatMessage(processMessages.keyTasks),
+      title: intl.formatMessage({
+        defaultMessage: "Work tasks",
+        id: "t+ykNn",
+        description: "Heading for work tasks",
+      }),
       inList: false,
     },
     aboutUs: {
