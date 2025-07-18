@@ -32,7 +32,8 @@ import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import execHeroSquare from "~/assets/img/exec-hero-square.webp";
 import execHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
-import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
+import execProfileSquare from "~/assets/img/exec-profile-square.webp";
+import execProfileLandScape from "~/assets/img/exec-profile-landscape.webp";
 
 import HomeHero from "../components/HomeHero";
 
@@ -245,13 +246,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
         </Container>
       </div>
       <SkewedImageContainer
-        imgSrc={executiveProfileHero}
-        imgProps={{
-          className:
-            "bg-position-[80%_110%] sm:bg-position-[50%_60%] lg:bg-position-[right_50%]",
-        }}
+        img={{ src: execProfileLandScape, sources: { sm: execProfileSquare } }}
       >
-        <p className="mb-12 text-lg text-white sm:max-w-1/2 lg:text-xl">
+        <p className="mb-12 text-lg lg:text-xl">
           {intl.formatMessage({
             defaultMessage:
               "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",

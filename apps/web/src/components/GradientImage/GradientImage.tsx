@@ -8,6 +8,7 @@ type PartialBreakpoints = Partial<Record<Breakpoint, string>>;
 
 export interface ImgProps extends ImgHTMLAttributes<HTMLImageElement> {
   sources?: PartialBreakpoints;
+  wrapperClassname?: string;
 }
 
 const sourceMediaMap = new Map<Breakpoint, string>([
@@ -41,14 +42,26 @@ const buildPictureSource = (
 };
 
 const image = tv({
-  base: "z-0 block size-full object-cover object-center xs:absolute xs:inset-0",
+  slots: {
+    wrapper:
+      "relative z-0 -mx-6 w-[calc(100%+(var(--spacing)*12))] xs:absolute xs:inset-y-0 xs:left-1/2 xs:mx-0 xs:h-auto xs:max-w-1/2 xs:pb-0 sm:max-w-2/3",
+    base: "z-0 block size-full object-cover object-center xs:absolute xs:inset-0",
+  },
 });
 
-const Image = ({ className, sources, alt, src, ...rest }: ImgProps) => {
+const Image = ({
+  className,
+  sources,
+  wrapperClassname,
+  alt,
+  src,
+  ...rest
+}: ImgProps) => {
   const pictureSources = buildPictureSource(sources);
+  const { base, wrapper } = image();
 
   return (
-    <div className="relative z-0 -mx-6 w-[calc(100%+(var(--spacing)*12))] xs:absolute xs:inset-y-0 xs:left-1/2 xs:mx-0 xs:h-auto xs:max-w-1/2 xs:pb-0 sm:max-w-2/3">
+    <div className={wrapper({ class: wrapperClassname })}>
       <div className="absolute inset-0 z-[1] -m-px size-[calc(100%+2px)] bg-linear-[180deg,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_10%,rgba(0,0,0,0)_100%] xs:bg-linear-[90deg,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_45%,_rgba(0,0,0,0)_55%,_rgba(0,0,0,1)_100%]" />
       <picture>
         {pictureSources?.length
@@ -58,8 +71,8 @@ const Image = ({ className, sources, alt, src, ...rest }: ImgProps) => {
           : null}
         <img
           src={src}
-          alt={alt}
-          className={image({ class: className })}
+          alt={alt ?? ""}
+          className={base({ class: className })}
           {...rest}
         />
       </picture>
