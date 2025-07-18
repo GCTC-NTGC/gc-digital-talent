@@ -372,7 +372,10 @@ export function getSortOrder(
       : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
-      ? [transformSortStateToOrderByClause(sortingRules, filterState)]
+      ? [
+          transformSortStateToOrderByClause(sortingRules, filterState),
+          { column: "id", order: SortOrder.Desc }, // final sort by id to handle non-unique columns
+        ]
       : []),
   ];
 }

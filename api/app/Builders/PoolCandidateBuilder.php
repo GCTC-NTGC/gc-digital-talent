@@ -520,7 +520,10 @@ class PoolCandidateBuilder extends Builder
         extract($args);
 
         if (isset($order) && isset($locale)) {
-            return $this->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
+            return
+            $this->withMax('pool', 'name->'.$locale)
+                ->orderBy('pool_max_name'.$locale, $order)
+                ->orderBy('submitted_at', 'ASC');
         }
 
         return $this;
@@ -538,7 +541,8 @@ class PoolCandidateBuilder extends Builder
         return $this
             ->leftJoin('users', 'pool_candidates.user_id', '=', 'users.id')
             ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
-            ->orderByRaw("departments.name->>'$locale' $order");
+            ->orderByRaw("departments.name->>'$locale' $order")
+            ->orderBy('submitted_at', 'ASC');
     }
 
     /**
