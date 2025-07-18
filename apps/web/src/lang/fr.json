@@ -9294,6 +9294,10 @@
     "defaultMessage": "Rétablir le candidat",
     "description": "Title for action to reinstate a candidate"
   },
+  "fPGs32": {
+    "defaultMessage": "{ordinal}. {label}",
+    "description": "Formatted ordinal and label"
+  },
   "fPIZn9": {
     "defaultMessage": "Détails additionnels",
     "description": "Label displayed on experience form/card for additional details input/section"
