@@ -65,7 +65,7 @@ export const btn = tv({
     },
     noUnderline: {
       true: { label: "no-underline", base: "no-underline" },
-      false: { label: "underline" },
+      false: { label: "underline underline-offset-2" },
     },
     // Do not change colour on dark mode (mainly for black/white)
     // For colours that show up on an fixed background colour
