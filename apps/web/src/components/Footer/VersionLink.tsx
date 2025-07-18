@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useIntl } from "react-intl";
 
 import { Link } from "@gc-digital-talent/ui";
@@ -22,8 +21,8 @@ const VersionLink = () => {
 
   return (
     <span>
-      {" "}
-      &mdash;{" "}
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+      <span className="mx-1">&mdash;</span>
       {intl.formatMessage({
         id: "C3fUwm",
         defaultMessage: "Version",
