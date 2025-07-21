@@ -3,7 +3,7 @@ import uniqBy from "lodash/unionBy";
 import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 import { useLocation } from "react-router";
 
-import { LinkProps, NavMenu } from "@gc-digital-talent/ui";
+import { NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   hasRole,
@@ -26,27 +26,7 @@ import {
   isNavRole,
   NAV_ROLES_BY_PRIVILEGE,
 } from "../NavContext/NavContextContainer";
-
-interface NavItemProps {
-  href: string;
-  title: string;
-  subMenu?: boolean;
-  state?: LinkProps["state"];
-}
-
-const NavItem = ({ href, title, subMenu, state, ...rest }: NavItemProps) => {
-  return (
-    <NavMenu.Item {...rest}>
-      <NavMenu.Link
-        type={subMenu ? "subMenuLink" : "link"}
-        // NOTE: Comes from react-router
-        {...{ state, href }}
-      >
-        {title}
-      </NavMenu.Link>
-    </NavMenu.Item>
-  );
-};
+import NavItem from "./MenuItem";
 
 /**
  * Builds the navigation structure depending on the current role and if the user is logged in
