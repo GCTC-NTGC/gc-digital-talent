@@ -1,8 +1,8 @@
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 
-test.describe("User CSV", () => {
-  test("Download user as CSV", async ({ appPage }) => {
+test.describe("User Excel", () => {
+  test("Download user as Excel", async ({ appPage }) => {
     await loginBySub(appPage.page, "admin@test.com", false);
     await appPage.page.goto("/en/admin/users");
     await appPage.page
