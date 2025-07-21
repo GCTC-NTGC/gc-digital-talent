@@ -29,6 +29,7 @@ const NotesSectionUser_Fragment = graphql(/** GraphQL */ `
           fr
         }
         workStream {
+          id
           name {
             en
             fr
@@ -36,6 +37,10 @@ const NotesSectionUser_Fragment = graphql(/** GraphQL */ `
         }
         publishingGroup {
           value
+          label {
+            en
+            fr
+          }
         }
         classification {
           group
@@ -126,7 +131,7 @@ const NotesSection = ({ userQuery }: NotesSectionProps) => {
           description: "Description of pool candidate notes field",
         })}
       </p>
-      {isEmpty(user.poolCandidates) ? (
+      {isEmpty(user?.poolCandidates) ? (
         <Well>
           {intl.formatMessage({
             defaultMessage: "This user is not in any pools yet",

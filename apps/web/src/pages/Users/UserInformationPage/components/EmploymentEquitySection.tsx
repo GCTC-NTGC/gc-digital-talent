@@ -29,14 +29,14 @@ const EmploymentEquitySection = ({
   const intl = useIntl();
   const user = getFragment(EmploymentEquityUser_Fragment, userQuery);
 
-  const isIndigenous = unpackMaybes(user.indigenousCommunities)?.length > 0;
+  const isIndigenous = unpackMaybes(user?.indigenousCommunities)?.length > 0;
 
   return (
     <Well>
       {!isIndigenous &&
-        !user.hasDisability &&
-        !user.isVisibleMinority &&
-        !user.isWoman &&
+        !user?.hasDisability &&
+        !user?.isVisibleMinority &&
+        !user?.isWoman &&
         intl.formatMessage({
           defaultMessage:
             "Has not identified as a member of any employment equity groups.",
@@ -56,7 +56,7 @@ const EmploymentEquitySection = ({
           })}
         </div>
       )}
-      {user.hasDisability && (
+      {user?.hasDisability && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
@@ -69,7 +69,7 @@ const EmploymentEquitySection = ({
           })}
         </div>
       )}
-      {user.isVisibleMinority && (
+      {user?.isVisibleMinority && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
@@ -82,7 +82,7 @@ const EmploymentEquitySection = ({
           })}
         </div>
       )}
-      {user.isWoman && (
+      {user?.isWoman && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
