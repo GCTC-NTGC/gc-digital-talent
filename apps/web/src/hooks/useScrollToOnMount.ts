@@ -5,7 +5,7 @@ interface UseScrollToOnMountOptions extends ScrollToOptions {
 }
 
 function useScrollToOnMount(
-  el: HTMLElement,
+  el: HTMLElement | null | undefined,
   {
     behavior = "instant",
     top = 0,
