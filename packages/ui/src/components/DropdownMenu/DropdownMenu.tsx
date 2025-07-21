@@ -17,7 +17,7 @@ const Trigger = forwardRef<
 ));
 
 const content = tv({
-  base: "rounded-md bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
+  base: "max-w-screen rounded-md bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
 });
 
 const StyledContent = forwardRef<
