@@ -102,19 +102,29 @@ export default defineMessages({
     id: "EtjQ8d",
     description: "Heading for the talent management page",
   },
-  indexJobPosterTemplatePageLong: {
-    defaultMessage: "Manage job templates",
-    id: "rpM/Sw",
-    description: "Long title for the index job poster template page",
-  },
   adminDashboard: {
     defaultMessage: "Admin dashboard",
     id: "ut37zJ",
     description: "Title for the admin dashboard",
   },
+  indexJobPosterTemplatePageLong: {
+    defaultMessage: "Manage job templates",
+    id: "rpM/Sw",
+    description: "Long title for the index job poster template page",
+  },
   indexJobPosterTemplatePageShort: {
     defaultMessage: "Job templates",
     id: "9HXOU+",
     description: "Short title for the index job poster template page",
+  },
+  createJobPosterTemplateLong: {
+    defaultMessage: "Create a job advertisement template",
+    id: "/vclbm",
+    description: "Long title for the create job poster template page",
+  },
+  createJobPosterTemplateShort: {
+    defaultMessage: "Create",
+    id: "P4BgMG",
+    description: "Short title for the create job poster template page",
   },
 });

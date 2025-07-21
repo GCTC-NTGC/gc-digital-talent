@@ -1118,11 +1118,13 @@ const createRoute = (locale: Locales) =>
                               "../pages/JobPosterTemplateAdminPages/IndexJobPosterTemplatePage/IndexJobPosterTemplatePage"
                             ),
                         },
-                        // {
-                        //   path: "create",
-                        //   lazy: () =>
-                        //     import("../pages/Departments/CreateDepartmentPage"),
-                        // },
+                        {
+                          path: "create",
+                          lazy: () =>
+                            import(
+                              "../pages/JobPosterTemplateAdminPages/CreateJobPosterTemplatePage/CreateJobPosterTemplatePage"
+                            ),
+                        },
                         {
                           path: ":jobPosterTemplateId",
                           children: [
