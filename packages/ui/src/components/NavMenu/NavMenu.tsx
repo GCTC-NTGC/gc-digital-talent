@@ -143,7 +143,7 @@ const useActiveLink = (
 };
 
 const navMenuLink = tv({
-  base: "items-center font-normal text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 data-active:hover:text-primary-600 data-active:focus-visible:text-black hover:data-icon:text-primary-700 dark:text-white dark:hover:text-primary-100 dark:data-active:text-primary-200 dark:data-active:hover:text-primary-200 dark:hover:data-icon:text-primary-700 data-active:[&_span]:no-underline",
+  base: "items-center font-normal text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 data-active:hover:text-primary-600 data-active:focus-visible:text-black hover:data-icon:text-primary-700 dark:text-white dark:hover:text-primary-100 dark:data-active:text-primary-200 dark:data-active:hover:text-primary-200 dark:hover:data-icon:text-primary-700 iap:data-active:hover:text-primary-100 data-active:[&_span]:no-underline",
   variants: {
     isSmallScreen: {
       true: "",
@@ -225,7 +225,7 @@ const IconLink = forwardRef<
 
 interface LinkProps
   extends NavMenuLinkTypeVariant,
-    Pick<BaseLinkProps, "color" | "icon" | "mode" | "href">,
+    Pick<BaseLinkProps, "color" | "icon" | "mode" | "href" | "end">,
     Omit<
       ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
       "color" | "href" | "type"
