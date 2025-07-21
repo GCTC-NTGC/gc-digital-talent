@@ -5,7 +5,7 @@ import { useMutation } from "urql";
 import { Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 
@@ -20,8 +20,41 @@ const AdminUpdatePoolCandidateNotes_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const NotesSection = ({ user }: BasicUserInformationProps) => {
+const NotesSectionUser_Fragment = graphql(/** GraphQL */ `
+  fragment NotesSectionUser on User {
+    poolCandidates {
+      id
+      notes
+      pool {
+        name {
+          en
+          fr
+        }
+        workStream {
+          name {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+        }
+        classification {
+          group
+          level
+        }
+      }
+    }
+  }
+`);
+
+interface NotesSectionProps {
+  userQuery?: FragmentType<typeof NotesSectionUser_Fragment>;
+}
+
+const NotesSection = ({ userQuery }: NotesSectionProps) => {
   const intl = useIntl();
+  const user = getFragment(NotesSectionUser_Fragment, userQuery);
 
   const [, executeMutation] = useMutation(
     AdminUpdatePoolCandidateNotes_Mutation,
