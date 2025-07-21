@@ -11,7 +11,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
-import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -55,7 +55,6 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
-  const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
   useLayoutTheme("iap");
 
@@ -81,11 +80,9 @@ export const Component = () => {
           <IAPSeo />
           <SkipLink />
           <div className="flex min-h-screen flex-col">
-            <div>
-              <Header />
-              <SitewideBanner />
-              <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
-            </div>
+            <Header />
+            <SitewideBanner />
+            <IAPNavMenu {...{ loggedIn }} />
             <main id="main">
               <Outlet />
             </main>

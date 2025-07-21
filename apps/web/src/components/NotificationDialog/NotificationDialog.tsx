@@ -241,7 +241,7 @@ const NotificationDialog = ({
                 notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
               }
               label={buttonLabel}
-              className="hover:text-primary-200 data-active:text-primary-200 sm:text-white dark:data-active:text-primary-100 sm:dark:text-white"
+              className="hover:text-primary-700 data-active:text-primary-200 sm:text-white dark:data-active:text-primary-100 sm:dark:text-white"
             />
           )}
         </DialogPrimitive.Trigger>

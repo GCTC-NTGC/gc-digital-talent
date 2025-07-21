@@ -66,7 +66,7 @@ const LanguageSelector = () => {
   return (
     <div className="bg-secondary p-3 text-white">
       <div className="flex items-center justify-center gap-x-4.5">
-        <p>
+        <p className="text-sm">
           {intl.formatMessage({
             id: "uoX7ou",
             defaultMessage: "This page is available in Indigenous languages",
@@ -76,7 +76,7 @@ const LanguageSelector = () => {
         </p>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Button color="primary" utilityIcon={ChevronDownIcon}>
+            <Button color="primary" utilityIcon={ChevronDownIcon} size="sm">
               {currentLocale ??
                 intl.formatMessage({
                   defaultMessage:
