@@ -115,13 +115,8 @@ export const Component = () => {
               external
               onClick={() => {
                 if (appInsights) {
-                  appInsights.trackEvent({
-                    name: "GCKey Login Initiated",
-                    properties: {
-                      from: window.location.pathname,
-                      locale: intl.locale,
-                    },
-                  });
+                   const userId = appInsights.context?.user?.id;
+appInsights.trackEvent({ name: "GCKey Login Initiated" }, { aiUserId: userId });
                 }
               }}
             >
@@ -425,13 +420,8 @@ export const Component = () => {
             external
             onClick={() => {
               if (appInsights) {
-                appInsights.trackEvent({
-                  name: "GCKey Login Initiated",
-                  properties: {
-                    from: window.location.pathname,
-                    locale: intl.locale,
-                  },
-                });
+                const userId = appInsights.context?.user?.id;
+appInsights.trackEvent({ name: "GCKey Login Initiated" }, { aiUserId: userId });
               }
             }}
           >
