@@ -1115,7 +1115,7 @@ const createRoute = (locale: Locales) =>
                           index: true,
                           lazy: () =>
                             import(
-                              "../pages/JobPosterTemplates/IndexJobPosterTemplatePage/IndexJobPosterTemplatePage"
+                              "../pages/JobPosterTemplateAdminPages/IndexJobPosterTemplatePage/IndexJobPosterTemplatePage"
                             ),
                         },
                         // {
@@ -1130,7 +1130,7 @@ const createRoute = (locale: Locales) =>
                               index: true,
                               lazy: () =>
                                 import(
-                                  "../pages/JobPosterTemplates/UpdateJobPosterTemplatePage/UpdateJobPosterTemplatePage"
+                                  "../pages/JobPosterTemplateAdminPages/UpdateJobPosterTemplatePage/UpdateJobPosterTemplatePage"
                                 ),
                             },
                           ],
