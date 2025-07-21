@@ -604,7 +604,7 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleUsersCsvDownload = () => {
+  const handleUsersExcelDownload = () => {
     downloadUsers({ ids: selectedRows })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
@@ -1068,7 +1068,7 @@ const PoolCandidatesTable = ({
                   disabled={!hasSelectedRows || downloadingAnyFile}
                   isDownloading={downloadingCsv || downloadingUsersExcel}
                   onClick={handleCsvDownload}
-                  onClickDownloadUsers={handleUsersCsvDownload}
+                  onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),
             }
@@ -1080,7 +1080,7 @@ const PoolCandidatesTable = ({
                   disabled={!hasSelectedRows || downloadingAnyFile}
                   isDownloading={downloadingCsv || downloadingUsersExcel}
                   onClickDownloadCandidates={handleCsvDownload}
-                  onClickDownloadUsers={handleUsersCsvDownload}
+                  onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),
             },

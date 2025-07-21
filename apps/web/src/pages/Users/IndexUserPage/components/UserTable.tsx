@@ -194,13 +194,13 @@ const UserTable = ({ title }: UserTableProps) => {
     }
   };
 
-  const handleCsvDownload = () => {
+  const handleExcelDownload = () => {
     downloadExcel({
       ids: selectedRows,
     });
   };
 
-  const handleCsvDownloadAll = () => {
+  const handleExcelDownloadAll = () => {
     downloadExcel({
       where: transformUserInput(
         filterState,
@@ -438,12 +438,12 @@ const UserTable = ({ title }: UserTableProps) => {
       download={{
         all: {
           enable: true,
-          onClick: handleCsvDownloadAll,
+          onClick: handleExcelDownloadAll,
           downloading: downloadingExcel,
         },
         csv: {
           enable: true,
-          onClick: handleCsvDownload,
+          onClick: handleExcelDownload,
           downloading: downloadingExcel,
         },
         doc: {

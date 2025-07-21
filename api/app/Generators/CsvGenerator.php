@@ -46,7 +46,7 @@ abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterf
 
         } catch (\Throwable $e) {
             // Log message and bubble it up
-            Log::error('Error saving xlsx: '.$this->fileName.' '.$e->getMessage());
+            Log::error('Error saving csv: '.$this->fileName.' '.$e->getMessage());
             throw $e;
         }
     }
