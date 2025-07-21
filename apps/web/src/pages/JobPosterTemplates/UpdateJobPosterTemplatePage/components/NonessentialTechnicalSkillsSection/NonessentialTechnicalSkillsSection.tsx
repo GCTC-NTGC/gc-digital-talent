@@ -342,17 +342,23 @@ const NonessentialTechnicalSkillsSection = ({
     skillId,
     skillLevel,
   }) => {
-    const matchingSkill = allSkills.find((skill) => skill.id === skillId);
-    const newItem: SkillProficiencyListItem = {
-      skillId,
-      skillName: matchingSkill?.name.localized ?? null,
-      skillLevel,
-      skillDefinition: matchingSkill?.description?.localized ?? null,
-      skillCategory: matchingSkill?.category.value ?? null,
-    };
-    const sortedIndex = insertionIndexBySkillName(skillProficiencies, newItem);
-    insertIntoSkillProficiencies(sortedIndex, newItem);
-    return Promise.resolve();
+    if (skillId) {
+      const matchingSkill = allSkills.find((skill) => skill.id === skillId);
+      const newItem: SkillProficiencyListItem = {
+        skillId,
+        skillName: matchingSkill?.name.localized ?? null,
+        skillLevel,
+        skillDefinition: matchingSkill?.description?.localized ?? null,
+        skillCategory: matchingSkill?.category.value ?? null,
+      };
+      const sortedIndex = insertionIndexBySkillName(
+        skillProficiencies,
+        newItem,
+      );
+      insertIntoSkillProficiencies(sortedIndex, newItem);
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error("No skill ID provided."));
   };
 
   return (
@@ -392,6 +398,7 @@ const NonessentialTechnicalSkillsSection = ({
                   onRemove={handleRemoveSkillProficiency}
                   onAdd={handleAddSkillProficiency}
                   noToast
+                  skillLevelIsRequired={false}
                 />
                 <div>
                   <Checkbox

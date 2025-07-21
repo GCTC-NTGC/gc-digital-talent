@@ -36,6 +36,7 @@ interface SkillProficiencyAccordionItemProps {
     SkillProficiencyListOptionsFragment["skills"][number]
   >[];
   noToast?: boolean;
+  skillLevelIsRequired?: boolean;
 }
 
 const SkillProficiencyAccordionItem = ({
@@ -48,6 +49,7 @@ const SkillProficiencyAccordionItem = ({
   onRemove,
   availableSkills,
   noToast = false,
+  skillLevelIsRequired = false,
 }: SkillProficiencyAccordionItemProps) => {
   const intl = useIntl();
 
@@ -87,7 +89,6 @@ const SkillProficiencyAccordionItem = ({
       type: "button-component",
       component: (
         <SkillBrowserDialog
-          context="pool"
           skills={availableSkills}
           initialState={
             {
@@ -115,6 +116,11 @@ const SkillProficiencyAccordionItem = ({
             </Accordion.MetaDataButton>
           }
           noToast={noToast}
+          context={
+            skillLevelIsRequired
+              ? "skill-proficiency-list-requiring-level"
+              : "skill-proficiency-list-not-requiring-level"
+          }
         />
       ),
     });

@@ -392,6 +392,7 @@ const EssentialTechnicalSkillsSection = ({
                   onRemove={handleRemoveSkillProficiency}
                   onAdd={handleAddSkillProficiency}
                   noToast
+                  skillLevelIsRequired={true}
                 />
                 <div>
                   <Checkbox

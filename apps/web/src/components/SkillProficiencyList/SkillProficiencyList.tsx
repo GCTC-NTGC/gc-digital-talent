@@ -65,18 +65,19 @@ export interface SkillProficiencyListProps {
     skillLevel,
   }: {
     index: number;
-    skillId: string;
-    skillLevel: SkillLevel;
+    skillId: string | null;
+    skillLevel: SkillLevel | null;
   }) => Promise<void>;
   onRemove: ({ index }: { index: number }) => Promise<void>;
   onAdd: ({
     skillId,
     skillLevel,
   }: {
-    skillId: string;
-    skillLevel: SkillLevel;
+    skillId: string | null;
+    skillLevel: SkillLevel | null;
   }) => Promise<void>;
   noToast?: boolean;
+  skillLevelIsRequired?: boolean;
 }
 
 const SkillProficiencyList = ({
@@ -87,6 +88,7 @@ const SkillProficiencyList = ({
   onRemove,
   onAdd,
   noToast = false,
+  skillLevelIsRequired = false,
 }: SkillProficiencyListProps) => {
   const intl = useIntl();
 
@@ -127,6 +129,7 @@ const SkillProficiencyList = ({
                 }
                 onRemove={onRemove ? () => onRemove({ index }) : null}
                 availableSkills={availableSkills}
+                skillLevelIsRequired={skillLevelIsRequired}
               />
             ))}
           </Accordion.Root>
@@ -143,15 +146,17 @@ const SkillProficiencyList = ({
       </>
 
       <SkillBrowserDialog
-        context="pool"
+        context={
+          skillLevelIsRequired
+            ? "skill-proficiency-list-requiring-level"
+            : "skill-proficiency-list-not-requiring-level"
+        }
         skills={availableSkills}
         onSave={async (value) => {
-          if (value.skill && value.skillLevel) {
-            await onAdd({
-              skillId: value.skill,
-              skillLevel: value.skillLevel,
-            });
-          }
+          await onAdd({
+            skillId: value.skill ?? null,
+            skillLevel: value.skillLevel ?? null,
+          });
         }}
         customTrigger={
           <Button icon={PlusCircleIcon} mode="placeholder" type="button">
