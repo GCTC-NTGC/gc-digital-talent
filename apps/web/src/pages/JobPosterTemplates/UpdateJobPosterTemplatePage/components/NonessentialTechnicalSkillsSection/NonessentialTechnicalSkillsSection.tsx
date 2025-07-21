@@ -317,16 +317,19 @@ const NonessentialTechnicalSkillsSection = ({
     skillId,
     skillLevel,
   }) => {
-    const matchingSkill = allSkills.find((skill) => skill.id === skillId);
-    const updatedItem: SkillProficiencyListItem = {
-      skillId,
-      skillName: matchingSkill?.name.localized ?? null,
-      skillLevel,
-      skillDefinition: matchingSkill?.description?.localized ?? null,
-      skillCategory: matchingSkill?.category.value ?? null,
-    };
-    updateSkillProficiency(index, updatedItem);
-    return Promise.resolve();
+    if (skillId) {
+      const matchingSkill = allSkills.find((skill) => skill.id === skillId);
+      const updatedItem: SkillProficiencyListItem = {
+        skillId,
+        skillName: matchingSkill?.name.localized ?? null,
+        skillLevel,
+        skillDefinition: matchingSkill?.description?.localized ?? null,
+        skillCategory: matchingSkill?.category.value ?? null,
+      };
+      updateSkillProficiency(index, updatedItem);
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error("No skill ID provided."));
   };
 
   // a skill proficiency was removed from the list

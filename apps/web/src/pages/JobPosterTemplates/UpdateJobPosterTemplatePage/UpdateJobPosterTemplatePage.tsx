@@ -34,6 +34,7 @@ import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection"
 import KeyTasksSection from "./components/KeyTasksSection/KeyTasksSection";
 import EssentialTechnicalSkillsSection from "./components/EssentialTechnicalSkillsSection/EssentialTechnicalSkillsSection";
 import NonessentialTechnicalSkillsSection from "./components/NonessentialTechnicalSkillsSection/NonessentialTechnicalSkillsSection";
+import EssentialBehaviouralSkillsSection from "./components/EssentialBehaviouralSkillsSection/EssentialBehaviouralSkillsSection";
 
 const SECTION_ID = {
   JOB_DETAILS: "job-details-section",
@@ -47,6 +48,7 @@ const UpdateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
     ...UpdateJobPosterTemplateJobDetailsOptions
     ...UpdateJobPosterTemplateEssentialTechnicalSkillsOptions
     ...UpdateJobPosterTemplateNonessentialTechnicalSkillsOptions
+    ...UpdateJobPosterTemplateEssentialBehaviouralSkillsOptions
   }
 `);
 
@@ -56,6 +58,7 @@ const UpdateJobPosterTemplate_Fragment = graphql(/** GraphQL */ `
     ...UpdateJobPosterTemplateKeyTasks
     ...UpdateJobPosterTemplateEssentialTechnicalSkills
     ...UpdateJobPosterTemplateNonessentialTechnicalSkills
+    ...UpdateJobPosterTemplateEssentialBehaviouralSkills
     id
     name {
       en
@@ -131,6 +134,11 @@ const UpdateJobPosterTemplate = ({
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={SECTION_ID.TECHNICAL_SKILLS}>
                   {intl.formatMessage(messages.technicalSkills)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={SECTION_ID.BEHAVIOURAL_SKILLS}>
+                  {intl.formatMessage(messages.behaviouralSkills)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
@@ -289,10 +297,10 @@ const UpdateJobPosterTemplate = ({
                     })}
                   </p>
                 </div>
-                {/* <CareerObjectiveSection
-                  employeeProfileQuery={jobPosterTemplate.employeeProfile}
+                <EssentialBehaviouralSkillsSection
+                  initialDataQuery={initialData}
                   optionsQuery={options}
-                /> */}
+                />
               </TableOfContents.Section>
             </div>
           </TableOfContents.Content>
