@@ -4,7 +4,7 @@ import { useQuery } from "urql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -12,6 +12,11 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
+
+import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
+import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
+import TechnicalSkillFrontMatter from "../components/TechnicalSkillFrontMatter";
+import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment CreateJobPosterTemplateOptions on Query {
@@ -32,7 +37,6 @@ const CreateJobPosterTemplate = ({
 }: CreateJobPosterTemplateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const options = getFragment(
     CreateJobPosterTemplateOptions_Fragment,
     optionsQuery,
@@ -67,10 +71,22 @@ const CreateJobPosterTemplate = ({
   return (
     <>
       <SEO title={pageTitle} description={subtitle} />
-      <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} centered />
-      <Container>
-        <div className="flex flex-col gap-x-0 gap-y-18"></div>
-      </Container>
+      <Hero
+        title={pageTitle}
+        subtitle={subtitle}
+        crumbs={crumbs}
+        centered
+        overlap
+      >
+        <Card className="mb-18">
+          <div className="flex flex-col gap-x-0 gap-y-18">
+            <JobDetailsFrontMatter />
+            <KeyTasksFrontMatter />
+            <TechnicalSkillFrontMatter />
+            <BehaviouralSkillsFrontMatter />
+          </div>
+        </Card>
+      </Hero>
     </>
   );
 };
