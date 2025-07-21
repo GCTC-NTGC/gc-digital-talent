@@ -5,6 +5,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftEndOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
+import { appInsights } from "@gc-digital-talent/app-insights";
 import {
   Accordion,
   Container,
@@ -107,7 +108,23 @@ export const Component = () => {
                   "Instructions on what to do if user doesn't know if they have a GCKey",
               })}
             </p>
-            <Link href={loginPath} mode="solid" color="primary" external>
+            <Link
+              href={loginPath}
+              mode="solid"
+              color="primary"
+              external
+              onClick={() => {
+                if (appInsights) {
+                  appInsights.trackEvent({
+                    name: "GCKey Login Initiated",
+                    properties: {
+                      from: window.location.pathname,
+                      locale: intl.locale,
+                    },
+                  });
+                }
+              }}
+            >
               {intl.formatMessage({
                 defaultMessage: "Continue to GCKey and sign in",
                 id: "4sLCWZ",
@@ -401,7 +418,23 @@ export const Component = () => {
         )}
         <Separator />
         <div className="flex items-center gap-6">
-          <Link href={loginPath} mode="solid" color="primary" external>
+          <Link
+            href={loginPath}
+            mode="solid"
+            color="primary"
+            external
+            onClick={() => {
+              if (appInsights) {
+                appInsights.trackEvent({
+                  name: "GCKey Login Initiated",
+                  properties: {
+                    from: window.location.pathname,
+                    locale: intl.locale,
+                  },
+                });
+              }
+            }}
+          >
             {intl.formatMessage({
               defaultMessage: "Continue to GCKey and sign in",
               id: "4sLCWZ",
