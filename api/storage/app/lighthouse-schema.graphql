@@ -447,6 +447,7 @@ type Query {
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
+    orderByEmployeeDepartment: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -459,6 +460,7 @@ type Query {
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
+    orderByEmployeeDepartment: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1572,6 +1574,7 @@ input PoolCandidateSearchInput {
   name: String
   notes: String
   isGovEmployee: Boolean
+  departments: [UUID!]
   priorityWeight: [PriorityWeight]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter

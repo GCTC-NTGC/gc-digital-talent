@@ -35,7 +35,7 @@
     "date-fns": "^3.6.0",
     "downshift": "^9.0.9",
     "lodash": "^4.17.21",
-    "motion": "^12.23.1",
+    "motion": "^12.23.6",
     "tailwind-variants": "^1.0.0"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.0.12",
+    "@types/node": "^24.0.14",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",
     "jest": "^30.0.4",

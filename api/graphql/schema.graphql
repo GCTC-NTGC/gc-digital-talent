@@ -1221,6 +1221,7 @@ input PoolCandidateSearchInput {
   name: String @scope(name: "whereName")
   notes: String @scope(name: "whereNotesLike")
   isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
   poolCandidateStatus: [PoolCandidateStatus] @scope(name: "whereStatusIn")
   expiryStatus: CandidateExpiryFilter @scope(name: "whereExpiryStatus")
@@ -1386,6 +1387,7 @@ type Query {
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
+    orderByEmployeeDepartment: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1406,7 +1408,7 @@ type Query {
       )
       @with(
         relations: [
-          "user:id,first_name,last_name,email,preferred_lang"
+          "user:id,first_name,last_name,email,preferred_lang.computed_department"
           "user.poolCandidates.pool.team"
           "user.poolCandidates.pool.community.team"
           "user.communityInterests.community.team"
@@ -1427,6 +1429,7 @@ type Query {
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
+    orderByEmployeeDepartment: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1447,7 +1450,7 @@ type Query {
       )
       @with(
         relations: [
-          "user:id,first_name,last_name,email,preferred_lang"
+          "user:id,first_name,last_name,email,preferred_lang,computed_department"
           "user.poolCandidates.pool.team"
           "user.poolCandidates.pool.community.team"
           "user.communityInterests.community.team"

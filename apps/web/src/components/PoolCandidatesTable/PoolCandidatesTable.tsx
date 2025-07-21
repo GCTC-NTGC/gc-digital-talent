@@ -68,6 +68,7 @@ import {
   getPoolNameSort,
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
+  getDepartmentSort,
   candidateFacingStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
@@ -170,6 +171,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
+    $orderByEmployeeDepartment: SortOrder
   ) {
     poolCandidatesPaginatedAdminView(
       where: $where
@@ -178,6 +180,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
+      orderByEmployeeDepartment: $orderByEmployeeDepartment
     ) {
       data {
         id
@@ -279,6 +282,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             lookingForFrench
             lookingForBilingual
             currentCity
+            department {
+              id
+              name {
+                localized
+              }
+            }
             currentProvince {
               value
               label {
@@ -375,6 +384,7 @@ const defaultState = {
     poolCandidateStatus: [],
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
+    departments: [],
   },
 };
 
@@ -524,6 +534,7 @@ const PoolCandidatesTable = ({
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      orderByEmployeeDepartment: getDepartmentSort(sortState),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
         doNotUseBookmark,
@@ -949,6 +960,17 @@ const PoolCandidatesTable = ({
       {
         id: "currentLocation",
         header: intl.formatMessage(tableMessages.currentLocation),
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { department },
+        },
+      }) => department?.name.localized,
+      {
+        id: "department",
+        header: intl.formatMessage(tableMessages.employeeDepartment),
       },
     ),
     columnHelper.accessor(
