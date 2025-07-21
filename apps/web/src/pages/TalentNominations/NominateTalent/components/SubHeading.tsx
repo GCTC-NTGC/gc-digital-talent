@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 import { Heading, HeadingProps, HeadingRef } from "@gc-digital-talent/ui";
 
 import useScrollToOnMount from "~/hooks/useScrollToOnMount";
@@ -9,8 +7,7 @@ interface SubHeadingProps extends HeadingProps {
 }
 
 const SubHeading = ({ preventAutoFocus, ...rest }: SubHeadingProps) => {
-  const headingRef = useRef<HeadingRef>(null);
-  useScrollToOnMount(headingRef.current, {
+  const headingRef = useScrollToOnMount<HeadingRef>({
     top: 0,
     left: 0,
     behavior: "instant",
