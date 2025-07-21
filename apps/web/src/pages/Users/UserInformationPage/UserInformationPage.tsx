@@ -30,6 +30,7 @@ import EmploymentEquitySection from "./components/EmploymentEquitySection";
 export const UserInfo_Fragment = graphql(/* GraphQL */ `
   fragment UserInfo on User {
     ...UserCandidatesTableRow
+    ...UserInfoAboutSection
     id
     email
     firstName
@@ -478,7 +479,7 @@ export const UserInformation = ({
         description: "Title of the 'About' section of the view-user page",
       }),
       titleIcon: UserIcon,
-      content: <AboutSection user={user} />,
+      content: <AboutSection userQuery={user} />,
     },
     {
       id: "candidate-status",
