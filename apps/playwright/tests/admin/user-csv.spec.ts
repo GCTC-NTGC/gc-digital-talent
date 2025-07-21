@@ -14,7 +14,7 @@ test.describe("User CSV", () => {
     await appPage.page
       .getByRole("button", { name: /select gul fields/i })
       .click();
-    await appPage.page.getByRole("button", { name: /download csv/i }).click();
+    await appPage.page.getByRole("button", { name: /download excel/i }).click();
 
     await expect(appPage.page.getByRole("alert")).toContainText(
       /preparing your file for download/i,
