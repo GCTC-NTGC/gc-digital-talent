@@ -21,11 +21,11 @@ import {
 import {
   graphql,
   PoolStatus,
-  User,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
-  UserInfoFragment as UserInfoFragmentType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -84,29 +84,38 @@ const AvailablePoolsToAddTo_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const AddToPoolDialogUser_Fragment = graphql(/** GraphQL */ `
+  fragment AddToPoolDialogUser on User {
+    id
+    firstName
+    lastName
+    poolCandidates {
+      pool {
+        id
+      }
+    }
+  }
+`);
+
 interface FormValues {
   pools: Pool["id"][];
   expiryDate: PoolCandidate["expiryDate"];
 }
 
-type UserInfoFragmentPoolCandidates =
-  NonNullable<UserInfoFragmentType>["poolCandidates"];
-
 interface AddToPoolDialogProps {
-  user: Pick<User, "id" | "firstName" | "lastName">;
-  poolCandidates: UserInfoFragmentPoolCandidates;
+  userQuery?: FragmentType<typeof AddToPoolDialogUser_Fragment>;
 }
 
-const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
+const AddToPoolDialog = ({ userQuery }: AddToPoolDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
-  const { id, firstName, lastName } = user;
+  const user = getFragment(AddToPoolDialogUser_Fragment, userQuery);
 
   const [{ fetching }, executeMutation] = useMutation(AddToPoolDialog_Mutation);
 
   const currentPools: string[] = [];
-  poolCandidates?.forEach((candidate) => {
+  user?.poolCandidates?.forEach((candidate) => {
     if (candidate?.pool?.id) {
       currentPools.push(candidate?.pool?.id);
     }
@@ -136,12 +145,16 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
       .filter(notEmpty);
 
     const promises = poolsToUpdate.map(async (pool) => {
+      if (!user?.id) {
+        throw new Error("No user ID.");
+      }
+
       return await requestMutation({
         pool: {
           connect: pool?.id,
         },
         user: {
-          connect: id,
+          connect: user.id,
         },
         expiryDate: formValues.expiryDate ?? emptyToNull(formValues.expiryDate),
       });
@@ -241,7 +254,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
           </p>
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p className="mb-6 font-bold">
-            - {getFullNameHtml(firstName, lastName, intl)}
+            - {getFullNameHtml(user?.firstName, user?.lastName, intl)}
           </p>
           <p className="mb-6">
             {intl.formatMessage({
