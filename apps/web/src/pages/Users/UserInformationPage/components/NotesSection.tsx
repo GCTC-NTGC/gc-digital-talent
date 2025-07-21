@@ -9,8 +9,6 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 
-import { BasicUserInformationProps } from "../types";
-
 const AdminUpdatePoolCandidateNotes_Mutation = graphql(/* GraphQL */ `
   mutation AdminUpdatePoolCandidateNotes($id: UUID!, $notes: String) {
     updatePoolCandidateNotes(id: $id, notes: $notes) {

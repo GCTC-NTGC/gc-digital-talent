@@ -4,13 +4,30 @@ import { tv } from "tailwind-variants";
 
 import { Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-
-import { BasicUserInformationProps } from "../types";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 const iconStyles = tv({ base: "inline-block size-4" });
 
-const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
+const EmploymentEquityUser_Fragment = graphql(/** GraphQL */ `
+  fragment EmploymentEquityUser on User {
+    hasDisability
+    isVisibleMinority
+    isWoman
+    indigenousCommunities {
+      value
+    }
+  }
+`);
+
+interface EmploymentEquitySectionProps {
+  userQuery?: FragmentType<typeof EmploymentEquityUser_Fragment>;
+}
+
+const EmploymentEquitySection = ({
+  userQuery,
+}: EmploymentEquitySectionProps) => {
   const intl = useIntl();
+  const user = getFragment(EmploymentEquityUser_Fragment, userQuery);
 
   const isIndigenous = unpackMaybes(user.indigenousCommunities)?.length > 0;
 
