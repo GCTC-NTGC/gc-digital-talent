@@ -9,6 +9,7 @@ import authMessages from "~/messages/authMessages";
 
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
+import HomeLink from "./HomeLink";
 
 const IAPNavMenu = () => {
   const intl = useIntl();
@@ -16,9 +17,15 @@ const IAPNavMenu = () => {
   const { pathname } = useLocation();
   const searchParams = `?from=${paths.iap()}&personality=iap`;
 
+  const homeLinkProps = {
+    href: paths.iap(),
+    label: intl.formatMessage(commonMessages.iapTitle),
+  };
+
   return (
     <Menu
       authParams={searchParams}
+      homeLink={homeLinkProps}
       accountLinks={
         <MenuItem
           key="signOut"
@@ -27,31 +34,22 @@ const IAPNavMenu = () => {
           state={{ from: pathname }}
         />
       }
-      homeLink={{
-        href: paths.iap(),
-        label: intl.formatMessage(commonMessages.iapTitle),
-      }}
     >
       <NavMenu.List type="main">
-        <NavMenu.Item>
-          <NavMenu.Link type="link" href={paths.iap()} end>
-            {intl.formatMessage(commonMessages.iapTitle)}
-          </NavMenu.Link>
-        </NavMenu.Item>
-        <NavMenu.Item>
-          <NavMenu.Link type="link" href={paths.iapManager()}>
-            {intl.formatMessage({
-              defaultMessage: "Hire an IT apprentice",
-              id: "39RER8",
-              description: "Page title for IAP manager homepage",
-            })}
-          </NavMenu.Link>
-        </NavMenu.Item>
-        <NavMenu.Item>
-          <NavMenu.Link type="link" href={paths.home()} end>
-            {intl.formatMessage(commonMessages.projectTitle)}
-          </NavMenu.Link>
-        </NavMenu.Item>
+        <HomeLink {...homeLinkProps} />
+        <MenuItem
+          href={paths.iapManager()}
+          title={intl.formatMessage({
+            defaultMessage: "Hire an IT apprentice",
+            id: "39RER8",
+            description: "Page title for IAP manager homepage",
+          })}
+        />
+        <MenuItem
+          href={paths.home()}
+          title={intl.formatMessage(commonMessages.projectTitle)}
+          end
+        />
       </NavMenu.List>
     </Menu>
   );

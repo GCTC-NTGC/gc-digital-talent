@@ -1,9 +1,7 @@
 import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
-import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 import { useLocation } from "react-router";
 
-import { NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   hasRole,
@@ -40,14 +38,6 @@ const useMainNavLinks = () => {
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
   const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
-
-  const Home = (
-    <NavMenu.IconLink
-      href={paths.home()}
-      icon={HomeIcon}
-      label={intl.formatMessage(navigationMessages.home)}
-    />
-  );
 
   const BrowseJobs = (
     <NavItem
@@ -322,7 +312,6 @@ const useMainNavLinks = () => {
   );
 
   const defaultLinks = {
-    homeLink: Home,
     roleLinks: roleLinksNoDuplicatesAndSorted,
     mainLinks: [FindTalent, BrowseJobs],
     accountLinks: loggedIn ? [SignOut] : null,

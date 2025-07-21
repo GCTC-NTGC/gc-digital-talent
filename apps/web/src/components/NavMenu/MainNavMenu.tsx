@@ -3,28 +3,25 @@ import { useIntl } from "react-intl";
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { NavMenu } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import useNavContext from "../NavContext/useNavContext";
 import useMainNavLinks from "./useMainNavLinks";
 import navMenuMessages from "./messages";
 import Menu, { borderItem } from "./Menu";
 import MenuSeparator from "./MenuSeparator";
+import HomeLink from "./HomeLink";
+import useRoutes from "~/hooks/useRoutes";
 
 const MainNavMenu = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen("sm");
-
+  const paths = useRoutes();
   const { navRole } = useNavContext();
   const { userAuthInfo } = useAuthorization();
 
-  const {
-    homeLink,
-    roleLinks,
-    mainLinks,
-    resourceLinks,
-    accountLinks,
-    systemSettings,
-  } = useMainNavLinks();
+  const { roleLinks, mainLinks, resourceLinks, accountLinks, systemSettings } =
+    useMainNavLinks();
 
   const usefulRoleAssignments =
     userAuthInfo?.roleAssignments
@@ -75,14 +72,10 @@ const MainNavMenu = () => {
       }
     >
       <NavMenu.List type="main">
-        <NavMenu.Item
-          className={borderItem({
-            borderRight: true,
-            class: "mr-1 -ml-1 hidden after:ml-3 sm:flex sm:items-center",
-          })}
-        >
-          {homeLink}
-        </NavMenu.Item>
+        <HomeLink
+          href={paths.home()}
+          label={intl.formatMessage(navigationMessages.home)}
+        />
         {showRoleSwitcher ? (
           <>
             <NavMenu.Item className={borderItem({ borderRight: true })}>
