@@ -22,13 +22,27 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     ];
 
     // decide if it is safe for the current user to use the given role
-    protected function isSafeToUseRole(string|array|BackedEnum $name): bool
+    protected function isSafeToUseRole(string|array|BackedEnum $name, bool $requireAll = false): bool
     {
         $name = Helper::standardize($name);
 
         $isProtectedRequest = Request::get('isProtectedRequest');
-        $isLimitedRole = in_array($name, $this::LIMITED_ROLES);
         $isNotRoutedRequest = is_null(Request::route());
+
+        $isLimitedRole = in_array($name, $this::LIMITED_ROLES);
+        if (is_array($name)) {
+            foreach ($name as $roleName) {
+                $isLimited = in_array($roleName, $this::LIMITED_ROLES);
+
+                if ($isLimited && ! $requireAll) {
+                    $isLimitedRole = true;
+                    break;
+                } elseif (! $isLimited && $requireAll) {
+                    $isLimitedRole = false;
+                    break;
+                }
+            }
+        }
 
         return
             $isProtectedRequest      // if it's a protected request then any role is safe to use
@@ -76,7 +90,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         mixed $team = null,
         bool $requireAll = false
     ): bool {
-        if (! $this->isSafeToUseRole($name)) {
+        if (! $this->isSafeToUseRole($name, $requireAll)) {
             Log::debug('Tried to unsafely use role '.json_encode($name));
 
             return false; // user effectively doesn't have role if it is unsafe to use it
