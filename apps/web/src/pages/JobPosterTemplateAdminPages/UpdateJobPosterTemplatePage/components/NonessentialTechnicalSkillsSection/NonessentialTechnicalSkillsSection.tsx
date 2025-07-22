@@ -1,33 +1,22 @@
 import { useIntl } from "react-intl";
-import {
-  FormProvider,
-  SubmitHandler,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
-import { useEffect } from "react";
 import sortBy from "lodash/sortBy";
 
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
-import { Checkbox, Submit, TextArea } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-  Locales,
-} from "@gc-digital-talent/i18n";
+import { Submit } from "@gc-digital-talent/forms";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
   FragmentType,
   getFragment,
   UpdateJobPosterTemplateInput,
   UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment,
-  SkillCategory,
   PoolSkillType,
   CreateJobPosterTemplateSkillInput,
   UpdateJobPosterTemplateSkillsInput,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -35,24 +24,14 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
-import SkillProficiencyList, {
-  ListItem as SkillProficiencyListItem,
-  SkillProficiencyListProps,
-} from "~/components/SkillProficiencyList/SkillProficiencyList";
+import { ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
 
+import NonessentialTechnicalSkillsForm, {
+  FormValues,
+} from "../../../components/NonessentialTechnicalSkillsForm";
 import Display from "./Display";
-import { labels } from "../../../components/labels";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 import { isNonessentialTechnicalSkill } from "../../utils";
-import { insertionIndexBySkillName } from "../../../components/utils";
-
-const TEXT_AREA_MAX_WORDS_EN = 100;
-
-const specialNoteWordCountLimits: Record<Locales, number> = {
-  en: TEXT_AREA_MAX_WORDS_EN,
-  fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
-} as const;
 
 export const InitialData_Fragment = graphql(/* GraphQL */ `
   fragment UpdateJobPosterTemplateNonessentialTechnicalSkills on JobPosterTemplate {
@@ -91,19 +70,7 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment UpdateJobPosterTemplateNonessentialTechnicalSkillsOptions on Query {
-    skills {
-      id
-      name {
-        localized
-      }
-      description {
-        localized
-      }
-      category {
-        value
-      }
-    }
-    ...SkillProficiencyListOptions
+    ...JobPosterTemplateNonessentialTechnicalSkillsFormOptions
   }
 `);
 
@@ -119,14 +86,6 @@ const UpdateJobPosterTemplateNonessentialTechnicalSkills_Mutation = graphql(
   `,
 );
 
-export interface FormValues {
-  id: string | null;
-  skillProficiencies: SkillProficiencyListItem[] | null;
-  isSpecialNoteRequired: boolean | null;
-  specialNoteEn: string | null;
-  specialNoteFr: string | null;
-}
-
 const initialDataToFormValues = ({
   id,
   jobPosterTemplateSkills,
@@ -134,7 +93,7 @@ const initialDataToFormValues = ({
 }: UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment): FormValues => {
   const formValues = {
     id: id,
-    skillProficiencies:
+    nonessentialTechnicalSkillProficiencies:
       unpackMaybes(jobPosterTemplateSkills)
         .filter(isNonessentialTechnicalSkill)
         .map<SkillProficiencyListItem>(({ skill, requiredLevel }) => ({
@@ -144,15 +103,17 @@ const initialDataToFormValues = ({
           skillDefinition: skill?.description?.localized ?? null,
           skillCategory: skill?.category.value ?? null,
         })) ?? [],
-    isSpecialNoteRequired:
+    isNonessentialTechnicalSkillsNoteRequired:
       !!nonessentialTechnicalSkillsNotes?.en ||
       !!nonessentialTechnicalSkillsNotes?.fr,
-    specialNoteEn: nonessentialTechnicalSkillsNotes?.en ?? null,
-    specialNoteFr: nonessentialTechnicalSkillsNotes?.fr ?? null,
+    nonessentialTechnicalSkillsNotesEn:
+      nonessentialTechnicalSkillsNotes?.en ?? null,
+    nonessentialTechnicalSkillsNotesFr:
+      nonessentialTechnicalSkillsNotes?.fr ?? null,
   };
 
-  formValues.skillProficiencies = sortBy(
-    formValues.skillProficiencies,
+  formValues.nonessentialTechnicalSkillProficiencies = sortBy(
+    formValues.nonessentialTechnicalSkillProficiencies,
     (sp) => sp.skillName,
   );
 
@@ -160,13 +121,14 @@ const initialDataToFormValues = ({
 };
 
 const formValuesToMutationInput = (
-  { id, skillProficiencies, specialNoteEn, specialNoteFr }: FormValues,
+  id: Scalars["UUID"]["input"],
+  {
+    nonessentialTechnicalSkillProficiencies,
+    nonessentialTechnicalSkillsNotesEn,
+    nonessentialTechnicalSkillsNotesFr,
+  }: FormValues,
   initialSkillProficiencies: UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment["jobPosterTemplateSkills"],
 ): UpdateJobPosterTemplateInput => {
-  if (!id) {
-    throw new Error("Can not submit without an ID"); // should not be possible
-  }
-
   // remove all the existing job poster template skills for nonessential technical so we can readd them
   const pivotIdsToDelete =
     initialSkillProficiencies
@@ -176,7 +138,7 @@ const formValuesToMutationInput = (
 
   // recreate all the skills of this type
   const newJobPosterTemplateSkills = unpackMaybes(
-    skillProficiencies,
+    nonessentialTechnicalSkillProficiencies,
   ).map<CreateJobPosterTemplateSkillInput>((p) => ({
     skillId: p.skillId,
     type: PoolSkillType.Nonessential,
@@ -192,8 +154,8 @@ const formValuesToMutationInput = (
     id: id,
     jobPosterTemplateSkills: jobPosterTemplateSkillsInput,
     nonessentialTechnicalSkillsNotes: {
-      en: specialNoteEn,
-      fr: specialNoteFr,
+      en: nonessentialTechnicalSkillsNotesEn,
+      fr: nonessentialTechnicalSkillsNotesFr,
     },
   };
 };
@@ -216,7 +178,6 @@ const NonessentialTechnicalSkillsSection = ({
   const initialData = getFragment(InitialData_Fragment, initialDataQuery);
 
   const optionsData = getFragment(Options_Fragment, optionsQuery);
-  const allSkills = unpackMaybes(optionsData.skills);
 
   const isNull = hasAllEmptyFields(initialData);
   const { isEditing, setIsEditing } = useToggleSectionInfo({
@@ -240,50 +201,18 @@ const NonessentialTechnicalSkillsSection = ({
   const methods = useForm<FormValues>({
     defaultValues: initialFormValues,
   });
-  const {
-    control,
-    watch,
-    handleSubmit,
-    resetField,
-    setValue,
-    reset: resetForm,
-  } = methods;
-
-  const watchIsSpecialNoteRequired = watch("isSpecialNoteRequired");
-
-  const {
-    fields: skillProficiencies,
-    insert: insertIntoSkillProficiencies,
-    remove: removeFromSkillProficiencies,
-    update: updateSkillProficiency,
-  } = useFieldArray({
-    control,
-    name: "skillProficiencies",
-  });
+  const { handleSubmit, reset: resetForm } = methods;
 
   const handleOpenChange = (open: boolean) => {
     resetForm(initialFormValues);
     setIsEditing(open);
   };
 
-  /**
-   * Reset fields when they disappear
-   * to avoid confusing users about unsaved changes
-   */
-  useEffect(() => {
-    if (watchIsSpecialNoteRequired) {
-      resetField("specialNoteEn");
-      resetField("specialNoteFr");
-    } else {
-      setValue("specialNoteEn", null);
-      setValue("specialNoteFr", null);
-    }
-  }, [resetField, setValue, watchIsSpecialNoteRequired]);
-
   const handleSave: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
     const mutationInput = formValuesToMutationInput(
+      initialData.id,
       formValues,
       initialData.jobPosterTemplateSkills,
     );
@@ -307,59 +236,6 @@ const NonessentialTechnicalSkillsSection = ({
         }
       })
       .catch(handleError);
-  };
-
-  // a skill proficiency was edited in the list
-  const handleEditSkillProficiency: SkillProficiencyListProps["onEdit"] = ({
-    index,
-    skillId,
-    skillLevel,
-  }) => {
-    if (skillId) {
-      const matchingSkill = allSkills.find((skill) => skill.id === skillId);
-      const updatedItem: SkillProficiencyListItem = {
-        skillId,
-        skillName: matchingSkill?.name.localized ?? null,
-        skillLevel,
-        skillDefinition: matchingSkill?.description?.localized ?? null,
-        skillCategory: matchingSkill?.category.value ?? null,
-      };
-      updateSkillProficiency(index, updatedItem);
-      return Promise.resolve();
-    }
-    return Promise.reject(new Error("No skill ID provided."));
-  };
-
-  // a skill proficiency was removed from the list
-  const handleRemoveSkillProficiency: SkillProficiencyListProps["onRemove"] = ({
-    index,
-  }) => {
-    removeFromSkillProficiencies(index);
-    return Promise.resolve();
-  };
-
-  // a skill proficiency was added to the list
-  const handleAddSkillProficiency: SkillProficiencyListProps["onAdd"] = ({
-    skillId,
-    skillLevel,
-  }) => {
-    if (skillId) {
-      const matchingSkill = allSkills.find((skill) => skill.id === skillId);
-      const newItem: SkillProficiencyListItem = {
-        skillId,
-        skillName: matchingSkill?.name.localized ?? null,
-        skillLevel,
-        skillDefinition: matchingSkill?.description?.localized ?? null,
-        skillCategory: matchingSkill?.category.value ?? null,
-      };
-      const sortedIndex = insertionIndexBySkillName(
-        skillProficiencies,
-        newItem,
-      );
-      insertIntoSkillProficiencies(sortedIndex, newItem);
-      return Promise.resolve();
-    }
-    return Promise.reject(new Error("No skill ID provided."));
   };
 
   return (
@@ -390,55 +266,7 @@ const NonessentialTechnicalSkillsSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div className="flex flex-col gap-6">
-                <SkillProficiencyList
-                  optionsQuery={optionsData}
-                  filterOptionsSkillCategory={SkillCategory.Technical}
-                  listItems={skillProficiencies}
-                  onEdit={handleEditSkillProficiency}
-                  onRemove={handleRemoveSkillProficiency}
-                  onAdd={handleAddSkillProficiency}
-                  noToast
-                  skillLevelIsRequired={false}
-                />
-                <div>
-                  <Checkbox
-                    id="isSpecialNoteRequired"
-                    name="isSpecialNoteRequired"
-                    label={intl.formatMessage(labels.specialNoteIsRequired)}
-                    boundingBox
-                    boundingBoxLabel={intl.formatMessage(
-                      labels.specialNoteNonessentialTechnicalSkills,
-                    )}
-                  />
-                </div>
-                {watchIsSpecialNoteRequired ? (
-                  <div className="grid gap-6 xs:grid-cols-1 sm:grid-cols-2">
-                    <div>
-                      <TextArea
-                        id="specialNoteEn"
-                        name="specialNoteEn"
-                        wordLimit={specialNoteWordCountLimits.en}
-                        label={intl.formatMessage(labels.specialNoteEn)}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <TextArea
-                        id="specialNoteFr"
-                        name="specialNoteFr"
-                        wordLimit={specialNoteWordCountLimits.fr}
-                        label={intl.formatMessage(labels.specialNoteFr)}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
-                      />
-                    </div>
-                  </div>
-                ) : null}
-              </div>
+              <NonessentialTechnicalSkillsForm optionsQuery={optionsData} />
               <CardSeparator decorative orientation="horizontal" />
               <div className="flex flex-wrap items-center gap-6">
                 <Submit

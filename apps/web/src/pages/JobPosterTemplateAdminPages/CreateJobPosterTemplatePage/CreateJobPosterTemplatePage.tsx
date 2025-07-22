@@ -44,11 +44,15 @@ import KeyTasksForm, {
 import EssentialTechnicalSkillsForm, {
   FormValues as EssentialTechnicalSkillsFormValues,
 } from "../components/EssentialTechnicalSkillsForm";
+import NonessentialTechnicalSkillsForm, {
+  FormValues as NonessentialTechnicalSkillsFormValues,
+} from "../components/NonessentialTechnicalSkillsForm";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment CreateJobPosterTemplateOptions on Query {
     ...JobPosterTemplateJobDetailsFormOptions
     ...JobPosterTemplateEssentialTechnicalSkillsFormOptions
+    ...JobPosterTemplateNonessentialTechnicalSkillsFormOptions
   }
 `);
 
@@ -65,7 +69,8 @@ const CreateJobPosterTemplate_Mutation = graphql(/* GraphQL */ `
 interface FormValues
   extends JobDetailsFormValues,
     KeyTasksFormValues,
-    EssentialTechnicalSkillsFormValues {}
+    EssentialTechnicalSkillsFormValues,
+    NonessentialTechnicalSkillsFormValues {}
 
 const formValuesToMutationInput = ({
   jobTitleEn,
@@ -84,12 +89,22 @@ const formValuesToMutationInput = ({
   essentialTechnicalSkillProficiencies,
   essentialTechnicalSkillsNotesEn,
   essentialTechnicalSkillsNotesFr,
+  nonessentialTechnicalSkillProficiencies,
+  nonessentialTechnicalSkillsNotesEn,
+  nonessentialTechnicalSkillsNotesFr,
 }: FormValues): CreateJobPosterTemplateInput => {
   const essentialTechnicalJobPosterTemplateSkills = unpackMaybes(
     essentialTechnicalSkillProficiencies,
   ).map<CreateJobPosterTemplateSkillInput>((p) => ({
     skillId: p.skillId,
     type: PoolSkillType.Essential,
+    requiredLevel: p.skillLevel,
+  }));
+  const nonessentialTechnicalJobPosterTemplateSkills = unpackMaybes(
+    nonessentialTechnicalSkillProficiencies,
+  ).map<CreateJobPosterTemplateSkillInput>((p) => ({
+    skillId: p.skillId,
+    type: PoolSkillType.Nonessential,
     requiredLevel: p.skillLevel,
   }));
 
@@ -122,11 +137,18 @@ const formValuesToMutationInput = ({
       fr: keyTasksFr,
     },
     jobPosterTemplateSkills: {
-      create: [...essentialTechnicalJobPosterTemplateSkills],
+      create: [
+        ...essentialTechnicalJobPosterTemplateSkills,
+        ...nonessentialTechnicalJobPosterTemplateSkills,
+      ],
     },
     essentialTechnicalSkillsNotes: {
       en: essentialTechnicalSkillsNotesEn,
       fr: essentialTechnicalSkillsNotesFr,
+    },
+    nonessentialTechnicalSkillsNotes: {
+      en: nonessentialTechnicalSkillsNotesEn,
+      fr: nonessentialTechnicalSkillsNotesFr,
     },
     // todo
     referenceId: "TODO",
@@ -242,6 +264,7 @@ const CreateJobPosterTemplate = ({
                 <CardSeparator />
                 <TechnicalSkillsFrontMatter />
                 <EssentialTechnicalSkillsForm optionsQuery={options} />
+                <NonessentialTechnicalSkillsForm optionsQuery={options} />
                 <CardSeparator />
                 <BehaviouralSkillsFrontMatter />
                 <Submit
