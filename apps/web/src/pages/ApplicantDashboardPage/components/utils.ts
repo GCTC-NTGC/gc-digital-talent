@@ -2,9 +2,9 @@ import { IntlShape } from "react-intl";
 import uniq from "lodash/uniq";
 
 import { PoolCandidateSearchStatus } from "@gc-digital-talent/graphql";
-import { assertUnreachable, uniqueItems } from "@gc-digital-talent/helpers";
+import { assertUnreachable, compareStrings } from "@gc-digital-talent/helpers";
 import { ChipProps } from "@gc-digital-talent/ui";
-import { commonMessages, Locales } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 // figure out what the chip should look like for a given status
 export function deriveChipSettings(
@@ -53,14 +53,11 @@ export function deriveChipSettings(
 export function deriveSingleString<T>(
   values: T[],
   localizedMapper: (item: T) => string,
-  locale: Locales,
 ): string {
   const localizedStrings = values.map(localizedMapper);
-  localizedStrings.sort((a, b) =>
-    a.localeCompare(b, locale, { sensitivity: "base" }),
-  );
+  localizedStrings.sort((a, b) => compareStrings(a, b, "asc"));
 
-  const uniqueStrings = uniqueItems(localizedStrings);
+  const uniqueStrings = uniq(localizedStrings);
   const joinedStrings = uniqueStrings.join(", ");
 
   return joinedStrings;

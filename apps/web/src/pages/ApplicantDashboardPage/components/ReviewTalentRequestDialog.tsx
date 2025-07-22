@@ -108,7 +108,6 @@ const ReviewTalentRequestDialogContent = ({
   request,
 }: ReviewTalentRequestDialogContentProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const nullMessage = intl.formatMessage({
     defaultMessage: "(None selected)",
     id: "+O6J4u",
@@ -151,11 +150,7 @@ const ReviewTalentRequestDialogContent = ({
             label={intl.formatMessage(talentRequestMessages.classification)}
           >
             {classifications.length > 0
-              ? deriveSingleString(
-                  classifications,
-                  formatClassificationString,
-                  locale,
-                )
+              ? deriveSingleString(classifications, formatClassificationString)
               : nullMessage}
           </FieldDisplay>
 
@@ -172,7 +167,6 @@ const ReviewTalentRequestDialogContent = ({
               ? deriveSingleString(
                   workStreams,
                   (stream) => stream.name?.localized ?? "",
-                  locale,
                 )
               : nullMessage}
           </FieldDisplay>
