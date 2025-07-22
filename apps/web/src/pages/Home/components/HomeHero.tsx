@@ -23,7 +23,7 @@ const HomeHero = ({
 }: HomeHeroProps) => (
   <GradientImage.Wrapper className="overflow-hidden bg-[#000]">
     <Container className="relative z-[1]">
-      <GradientImage.Content className="pt-18 pb-24 xs:pt-24 xs:pb-30 sm:pt-36 sm:pb-36 md:pt-36 md:pb-47">
+      <GradientImage.Content className="py-12 xs:pt-24 xs:pb-30 sm:pt-36 sm:pb-36 md:pt-36 md:pb-47">
         <div className="text-center text-white xs:text-left">
           <Heading level="h1" size={titleSize} className="mt-0 mb-6">
             {title}
