@@ -35,6 +35,9 @@ import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMa
 import JobDetailsForm, {
   FormValues as JobDetailsFormValues,
 } from "../components/JobDetailsForm";
+import KeyTasksForm, {
+  FormValues as KeyTasksFormValues,
+} from "../components/KeyTasksForm";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment CreateJobPosterTemplateOptions on Query {
@@ -52,7 +55,7 @@ const CreateJobPosterTemplate_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface CombinedFormsValues extends JobDetailsFormValues {}
+interface FormValues extends JobDetailsFormValues, KeyTasksFormValues {}
 
 const formValuesToMutationInput = ({
   jobTitleEn,
@@ -66,7 +69,9 @@ const formValuesToMutationInput = ({
   keywordsEn,
   keywordsFr,
   classificationLevel,
-}: CombinedFormsValues): CreateJobPosterTemplateInput => {
+  keyTasksEn,
+  keyTasksFr,
+}: FormValues): CreateJobPosterTemplateInput => {
   return {
     name: {
       en: jobTitleEn,
@@ -91,12 +96,12 @@ const formValuesToMutationInput = ({
     classification: {
       connect: classificationLevel, // the ID for the group-level is in the level input
     },
+    tasks: {
+      en: keyTasksEn,
+      fr: keyTasksFr,
+    },
     // todo
     referenceId: "",
-    tasks: {
-      en: "",
-      fr: "",
-    },
   };
 };
 
@@ -119,7 +124,7 @@ const CreateJobPosterTemplate = ({
     CreateJobPosterTemplate_Mutation,
   );
 
-  const methods = useForm<CombinedFormsValues>();
+  const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
   const handleError = () => {
@@ -133,9 +138,7 @@ const CreateJobPosterTemplate = ({
     );
   };
 
-  const handleSave: SubmitHandler<CombinedFormsValues> = async (
-    formValues: CombinedFormsValues,
-  ) => {
+  const handleSave: SubmitHandler<FormValues> = async (formValues) => {
     const mutationInput = formValuesToMutationInput(formValues);
 
     return executeMutation({
@@ -207,6 +210,7 @@ const CreateJobPosterTemplate = ({
                 <JobDetailsForm optionsQuery={options} />
                 <CardSeparator />
                 <KeyTasksFrontMatter />
+                <KeyTasksForm />
                 <TechnicalSkillFrontMatter />
                 <BehaviouralSkillsFrontMatter />
                 <Submit

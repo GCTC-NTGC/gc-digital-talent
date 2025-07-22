@@ -61,4 +61,14 @@ export const labels = defineMessages({
     id: "fpFSPQ",
     description: "Label for the keywords in French",
   },
+  keyTasksEn: {
+    defaultMessage: "Example key tasks <gray>(English)</gray>",
+    id: "4oeqWg",
+    description: "Label for the key tasks in English",
+  },
+  keyTasksFr: {
+    defaultMessage: "Example key tasks <gray>(French)</gray>",
+    id: "XWaUJT",
+    description: "Label for the key tasks in French",
+  },
 });

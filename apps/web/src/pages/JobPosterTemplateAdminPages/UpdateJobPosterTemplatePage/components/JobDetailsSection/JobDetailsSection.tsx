@@ -126,34 +126,32 @@ const formValuesToMutationInput = (
     keywordsFr,
     classificationLevel,
   }: FormValues,
-): UpdateJobPosterTemplateInput => {
-  return {
-    id: id,
-    name: {
-      en: jobTitleEn,
-      fr: jobTitleFr,
-    },
-    description: {
-      en: descriptionEn,
-      fr: descriptionFr,
-    },
-    supervisoryStatus: supervisoryStatus as SupervisoryStatus,
-    workStream: {
-      connect: workStreamId,
-    },
-    workDescription: {
-      en: workDescriptionEn,
-      fr: workDescriptionFr,
-    },
-    keywords: {
-      en: keywordsEn?.split(",").map((s) => s.trim()),
-      fr: keywordsFr?.split(",").map((s) => s.trim()),
-    },
-    classification: {
-      connect: classificationLevel, // the ID for the group-level is in the level input
-    },
-  };
-};
+): UpdateJobPosterTemplateInput => ({
+  id: id,
+  name: {
+    en: jobTitleEn,
+    fr: jobTitleFr,
+  },
+  description: {
+    en: descriptionEn,
+    fr: descriptionFr,
+  },
+  supervisoryStatus: supervisoryStatus as SupervisoryStatus,
+  workStream: {
+    connect: workStreamId,
+  },
+  workDescription: {
+    en: workDescriptionEn,
+    fr: workDescriptionFr,
+  },
+  keywords: {
+    en: keywordsEn?.split(",").map((s) => s.trim()),
+    fr: keywordsFr?.split(",").map((s) => s.trim()),
+  },
+  classification: {
+    connect: classificationLevel, // the ID for the group-level is in the level input
+  },
+});
 
 interface JobDetailsSectionProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;

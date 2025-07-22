@@ -4,37 +4,25 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import { useMutation } from "urql";
 
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
-import { RichTextInput, Submit } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-  Locales,
-} from "@gc-digital-talent/i18n";
+import { Submit } from "@gc-digital-talent/forms";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
   FragmentType,
   getFragment,
   UpdateJobPosterTemplateInput,
   UpdateJobPosterTemplateKeyTasksFragment,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
+import KeyTasksForm, { FormValues } from "../../../components/KeyTasksForm";
 import Display from "./Display";
-import { labels } from "./labels";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
-
-const TEXT_AREA_MAX_WORDS_EN = 120;
-
-const keyTasksWordCountLimits: Record<Locales, number> = {
-  en: TEXT_AREA_MAX_WORDS_EN,
-  fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
-} as const;
 
 export const InitialData_Fragment = graphql(/* GraphQL */ `
   fragment UpdateJobPosterTemplateKeyTasks on JobPosterTemplate {
@@ -56,37 +44,23 @@ const UpdateJobPosterTemplateKeyTasks_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export interface FormValues {
-  id: string | null;
-  keyTasksEn: string | null;
-  keyTasksFr: string | null;
-}
-
 const initialDataToFormValues = ({
-  id,
   tasks,
 }: UpdateJobPosterTemplateKeyTasksFragment): FormValues => ({
-  id: id,
   keyTasksEn: tasks?.en ?? null,
   keyTasksFr: tasks?.fr ?? null,
 });
 
-const formValuesToMutationInput = ({
-  id,
-  keyTasksEn,
-  keyTasksFr,
-}: FormValues): UpdateJobPosterTemplateInput => {
-  if (!id) {
-    throw new Error("Can not submit without an ID"); // should not be possible
-  }
-  return {
-    id: id,
-    tasks: {
-      en: keyTasksEn,
-      fr: keyTasksFr,
-    },
-  };
-};
+const formValuesToMutationInput = (
+  id: Scalars["UUID"]["input"],
+  { keyTasksEn, keyTasksFr }: FormValues,
+): UpdateJobPosterTemplateInput => ({
+  id: id,
+  tasks: {
+    en: keyTasksEn,
+    fr: keyTasksFr,
+  },
+});
 
 interface JobDetailsSectionProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;
@@ -133,7 +107,7 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
   const handleSave: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const mutationInput = formValuesToMutationInput(formValues);
+    const mutationInput = formValuesToMutationInput(initialData.id, formValues);
 
     return executeMutation({
       jobPosterTemplate: mutationInput,
@@ -183,30 +157,7 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div className="flex flex-col gap-6">
-                <div>
-                  <RichTextInput
-                    id="keyTasksEn"
-                    name="keyTasksEn"
-                    wordLimit={keyTasksWordCountLimits.en}
-                    label={intl.formatMessage(labels.keyTasksEn)}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-                <div>
-                  <RichTextInput
-                    id="keyTasksFr"
-                    name="keyTasksFr"
-                    wordLimit={keyTasksWordCountLimits.fr}
-                    label={intl.formatMessage(labels.keyTasksFr)}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-              </div>
+              <KeyTasksForm />
               <CardSeparator decorative orientation="horizontal" />
               <div className="flex flex-wrap items-center gap-6">
                 <Submit
