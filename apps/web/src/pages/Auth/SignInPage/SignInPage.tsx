@@ -115,8 +115,19 @@ export const Component = () => {
               external
               onClick={() => {
                 if (appInsights) {
-                   const userId = appInsights.context?.user?.id;
-appInsights.trackEvent({ name: "GCKey Login Initiated" }, { aiUserId: userId });
+                  const userId = appInsights.context?.user?.id;
+                  appInsights.trackEvent(
+                    { name: "GCKey Login Initiated" },
+                    {
+                      aiUserId: userId,
+                      pageUrl: window.location.href,
+                      path: window.location.pathname,
+                      timestamp: new Date().toISOString(),
+                      userAgent: navigator.userAgent,
+                      referrer: document.referrer || "none",
+                      gcKeyStatus: "initiated",
+                    },
+                  );
                 }
               }}
             >
@@ -421,7 +432,18 @@ appInsights.trackEvent({ name: "GCKey Login Initiated" }, { aiUserId: userId });
             onClick={() => {
               if (appInsights) {
                 const userId = appInsights.context?.user?.id;
-appInsights.trackEvent({ name: "GCKey Login Initiated" }, { aiUserId: userId });
+                appInsights.trackEvent(
+                  { name: "GCKey Login Initiated" },
+                  {
+                    aiUserId: userId,
+                    pageUrl: window.location.href,
+                    path: window.location.pathname,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    referrer: document.referrer || "none",
+                    gcKeyStatus: "success",
+                  },
+                );
               }
             }}
           >
