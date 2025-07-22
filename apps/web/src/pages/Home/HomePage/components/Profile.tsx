@@ -15,7 +15,11 @@ const Profile = () => {
 
   return (
     <SkewedImageContainer
-      img={{ src: homeProfileLandscape, sources: { sm: homeProfileSquare } }}
+      img={{
+        src: homeProfileLandscape,
+        sources: { sm: homeProfileSquare },
+        className: "object-right",
+      }}
     >
       <p className="mb-12 text-lg lg:text-xl">
         {intl.formatMessage({
