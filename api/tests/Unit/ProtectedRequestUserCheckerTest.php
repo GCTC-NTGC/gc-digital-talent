@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ProtectedRequestUserCheckerTest extends TestCase
@@ -36,82 +37,140 @@ class ProtectedRequestUserCheckerTest extends TestCase
         $this->testRoute = new RoutingRoute('get', '/test', fn () => null);
     }
 
-    /**
-     * @dataProvider userCheckerProvider
-     */
-    public function testHasPermission(string|array $permission, ?bool $isProtectedRequest, bool $expected)
+    #[DataProvider('userCheckerProvider')]
+    public function test_has_permission(array|string $permission, ?bool $requireAll, ?bool $isProtectedRequest, bool $expected)
     {
         Request::merge(['isProtectedRequest' => $isProtectedRequest]);
         Route::shouldReceive('current')->andReturn($this->testRoute);
         $checker = new ProtectedRequestUserChecker($this->adminUser);
-        $result = $checker->currentUserHasPermission($permission);
+        $actual = $checker->currentUserHasPermission(permission: $permission, requireAll: $requireAll);
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $actual);
     }
 
     public static function userCheckerProvider()
     {
-        /**
-         * [
-         *   string|array $permission - Permissions to be checked
-         *   ?bool $isProtectedRequest - If this is a protected request
-         *   bool $expected - The expected result of the check
-         * ]
-         */
+        $limited = 'view-any-skill';
+        $limitedArr = [$limited, 'view-any-skillFamily'];
+
+        $privileged = 'create-any-classification';
+        $privilegedArr = [$privileged, 'create-any-department'];
+
+        $mixed = [$limited, $privileged];
+
         return [
             // Single permission checks
             'limited permission unprotected' => [
-                'view-any-skill',
-                null,
-                true,
+                'permission' => $limited,
+                'requireAll' => false,
+                'isProtectedRequest' => null,
+                'expected' => true,
             ],
             'limited permission protected' => [
-                'view-any-skill',
-                true,
-                true,
-            ],
-            'privileged permission protected' => [
-                'create-any-classification',
-                true,
-                true,
+                'permission' => $limited,
+                'requireAll' => false,
+                'isProtectedRequest' => true,
+                'expected' => true,
             ],
             'privileged permission unprotected' => [
-                'create-any-classification',
-                null,
-                false,
+                'permission' => $privileged,
+                'requireAll' => false,
+                'isProtectedRequest' => null,
+                'expected' => false,
+            ],
+            'privileged permission protected' => [
+                'permission' => $privileged,
+                'requireAll' => false,
+                'isProtectedRequest' => true,
+                'expected' => true,
             ],
             'unknown permission unprotected' => [
-                'not-a-real-permission',
-                null,
-                false,
+                'permission' => 'not-a-real-permission',
+                'requireAll' => false,
+                'isProtectedRequest' => null,
+                'expected' => false,
             ],
 
-            // permission array checks checks
-            'limited permission array unprotected' => [
-                ['view-any-skill', 'view-any-skillFamily'],
-                null,
-                true,
+            // Array permission checks
+            'limited permission some array unprotected' => [
+                'permission' => $limitedArr,
+                'requireAll' => false,
+                'isProtectedRequest' => null,
+                'expected' => true,
             ],
-            'limited permission array protected' => [
-                ['view-any-skill', 'view-any-skillFamily'],
-                true,
-                true,
+            'limited permission some array protected' => [
+                'permission' => $limitedArr,
+                'requireAll' => false,
+                'isProtectedRequest' => true,
+                'expected' => true,
             ],
-            'privileged permission array protected' => [
-                ['create-any-classification', 'create-any-department'],
-                true,
-                true,
+            'privileged permission some array unprotected' => [
+                'permission' => $privilegedArr,
+                'requireAll' => false,
+                'isProtectedRequest' => null,
+                'expected' => false,
             ],
-            'privileged permission array unprotected' => [
-                ['create-any-classification', 'create-any-department'],
-                null,
-                false,
+            'privileged permission some array protected' => [
+                'permission' => $privilegedArr,
+                'requireAll' => false,
+                'isProtectedRequest' => true,
+                'expected' => true,
             ],
-            'unknown permission array unprotected' => [
-                ['not-a-real-permission', 'another-not-real-permission'],
-                null,
-                false,
+            'unknown permission some array unprotected' => [
+                'permission' => ['not-a-real-permission', 'another-not-real-permission'],
+                'requireAll' => false,
+                'isProtectedRequest' => null,
+                'expected' => false,
             ],
+            'limited permission all array unprotected' => [
+                'permission' => $limitedArr,
+                'requireAll' => true,
+                'isProtectedRequest' => null,
+                'expected' => true,
+            ],
+            'limited permission all array protected' => [
+                'permission' => $limitedArr,
+                'requireAll' => true,
+                'isProtectedRequest' => true,
+                'expected' => true,
+            ],
+            'privileged permission all array unprotected' => [
+                'permission' => $privilegedArr,
+                'requireAll' => true,
+                'isProtectedRequest' => null,
+                'expected' => false,
+            ],
+            'privileged permission all array protected' => [
+                'permission' => $privilegedArr,
+                'requireAll' => true,
+                'isProtectedRequest' => true,
+                'expected' => true,
+            ],
+            'mixed permission some array unprotected' => [
+                'permission' => $mixed,
+                'requireAll' => false,
+                'isProtectedRequest' => null,
+                'expected' => true,
+            ],
+            'mixed permission some array protected' => [
+                'permission' => $mixed,
+                'requireAll' => false,
+                'isProtectedRequest' => true,
+                'expected' => true,
+            ],
+            'mixed permission all array unprotected' => [
+                'permission' => $mixed,
+                'requireAll' => true,
+                'isProtectedRequest' => null,
+                'expected' => false,
+            ],
+            'mixed permission all array protected' => [
+                'permission' => $mixed,
+                'requireAll' => true,
+                'isProtectedRequest' => true,
+                'expected' => true,
+            ],
+
         ];
     }
 }
