@@ -37,7 +37,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     }
 
     // decide if it is safe for the current user to use the given permission
-    protected function isSafeToUsePermission(string|array|BackedEnum $permission): bool
+    protected function isSafeToUsePermission(string|array|BackedEnum $permission, bool $requireAll = false): bool
     {
         $permission = Helper::standardize($permission);
 
@@ -49,7 +49,21 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
               $query->whereIn('name', $this::LIMITED_ROLES);
           })->pluck('name')->toArray();
         });
+
         $isLimitedPermission = in_array($permission, $limitedPermissions);
+        if (is_array($permission)) {
+            foreach ($permission as $permissionName) {
+                $isLimited = in_array($permissionName, $limitedPermissions);
+
+                if ($isLimitedPermission && ! $requireAll) {
+                    $isLimitedPermission = true;
+                    break;
+                } elseif (! $isLimited && $requireAll) {
+                    $isLimitedPermission = false;
+                    break;
+                }
+            }
+        }
         $isNotRoutedRequest = is_null(Request::route());
 
         return $isProtectedRequest  // if it's a protected request then any permission is safe to use
@@ -76,7 +90,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         mixed $team = null,
         bool $requireAll = false
     ): bool {
-        if (! $this->isSafeToUsePermission($permission)) {
+        if (! $this->isSafeToUsePermission($permission, $requireAll)) {
             Log::debug('Tried to unsafely use permission '.json_encode($permission));
 
             return false; // user effectively doesn't have permission if it is unsafe to use it
