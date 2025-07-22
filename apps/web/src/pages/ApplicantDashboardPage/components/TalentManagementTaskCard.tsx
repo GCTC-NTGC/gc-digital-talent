@@ -22,7 +22,7 @@ import PoolCandidateSearchRequestPreviewListItem from "./PoolCandidateSearchRequ
 
 const linkAccessor = (href: string, chunks: ReactNode) => {
   return (
-    <Link href={href} color="black">
+    <Link href={href} color="black" size="sm">
       {chunks}
     </Link>
   );
@@ -223,7 +223,7 @@ const TalentManagementTaskCard = ({
                       as="h3"
                       subtitle={intl.formatMessage(
                         {
-                          defaultMessage: `When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active.`, // TODO: Update copy here
+                          defaultMessage: `When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active.`,
                           id: "c/XQZ2",
                           description:
                             "Subtitle explaining your talent requests expandable within Talent management card",
