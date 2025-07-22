@@ -5,6 +5,7 @@ namespace App\Checkers;
 use App\Models\Permission;
 use BackedEnum;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
@@ -30,20 +31,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         $isProtectedRequest = Request::get('isProtectedRequest');
         $isNotRoutedRequest = is_null(Route::current());
 
-        $isLimitedRole = in_array($name, $this::LIMITED_ROLES);
-        if (is_array($name)) {
-            foreach ($name as $roleName) {
-                $isLimited = in_array($roleName, $this::LIMITED_ROLES);
-
-                if ($isLimited && ! $requireAll) {
-                    $isLimitedRole = true;
-                    break;
-                } elseif (! $isLimited && $requireAll) {
-                    $isLimitedRole = false;
-                    break;
-                }
-            }
-        }
+        $isLimitedRole = $this->isLimited($name, $this::LIMITED_ROLES, $requireAll);
 
         return
             $isProtectedRequest      // if it's a protected request then any role is safe to use
@@ -65,20 +53,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
           })->pluck('name')->toArray();
         });
 
-        $isLimitedPermission = in_array($permission, $limitedPermissions);
-        if (is_array($permission)) {
-            foreach ($permission as $permissionName) {
-                $isLimited = in_array($permissionName, $limitedPermissions);
-
-                if ($isLimitedPermission && ! $requireAll) {
-                    $isLimitedPermission = true;
-                    break;
-                } elseif (! $isLimited && $requireAll) {
-                    $isLimitedPermission = false;
-                    break;
-                }
-            }
-        }
+        $isLimitedPermission = $this->isLimited($permission, $limitedPermissions, $requireAll);
         $isNotRoutedRequest = is_null(Route::current());
 
         return $isProtectedRequest  // if it's a protected request then any permission is safe to use
@@ -112,5 +87,18 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         }
 
         return parent::currentUserHasPermission($permission, $team, $requireAll);
+    }
+
+    private function isLimited(string|array|BackedEnum $needle, array $haystack, bool $requireAll = false)
+    {
+        $needleCollection = collect(Arr::wrap($needle));
+        $haystackCollection = collect($haystack);
+        $compareFn = fn (string $name) => $haystackCollection->contains($name);
+
+        if ($requireAll) {
+            return $needleCollection->every($compareFn);
+        }
+
+        return $needleCollection->some($compareFn);
     }
 }
