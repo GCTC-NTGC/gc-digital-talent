@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { ReactNode, useState } from "react";
 
 import {
   Accordion,
@@ -347,17 +348,16 @@ const ReviewTalentRequestDialogContent = ({
 };
 
 interface ReviewTalentRequestDialogProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
+  trigger: ReactNode;
 }
 
 const ReviewTalentRequestDialog = ({
-  open,
-  setOpen,
   id,
+  trigger,
 }: ReviewTalentRequestDialogProps) => {
   const intl = useIntl();
+  const [open, setOpen] = useState(false);
   const [{ data, fetching, error }] = useQuery({
     query: ReviewTalentRequestDialog_Query,
     variables: {
@@ -368,6 +368,7 @@ const ReviewTalentRequestDialog = ({
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger>{trigger}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({

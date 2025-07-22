@@ -70,7 +70,6 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   poolCandidateSearchRequestQuery,
 }: PoolCandidateSearchRequestPreviewListItemProps) => {
   const intl = useIntl();
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const request = getFragment(
     PreviewListItemPoolCandidateSearchRequest_Fragment,
     poolCandidateSearchRequestQuery,
@@ -139,16 +138,11 @@ const PoolCandidateSearchRequestPreviewListItem = ({
         title={title}
         metaData={metaDataProps}
         action={
-          <PreviewList.Button
-            label={title}
-            onClick={() => setDialogOpen(true)}
+          <ReviewTalentRequestDialog
+            id={request.id}
+            trigger={<PreviewList.Button label={title} />}
           />
         }
-      />
-      <ReviewTalentRequestDialog
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        id={request.id}
       />
     </>
   );
