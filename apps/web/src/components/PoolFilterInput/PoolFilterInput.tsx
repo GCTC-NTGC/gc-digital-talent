@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import { useState } from "react";
+import { RegisterOptions } from "react-hook-form";
 
 import { Combobox } from "@gc-digital-talent/forms";
 import type {
@@ -16,6 +17,7 @@ interface PoolFilterInputProps {
   name?: string;
   id?: string;
   label?: React.ReactNode;
+  rules?: RegisterOptions;
   filterInput?: TPoolFilterInput;
   includeIds?: Scalars["UUID"]["input"][];
   excludeIds?: Scalars["UUID"]["input"][];
@@ -25,6 +27,7 @@ const PoolFilterInput = ({
   includeIds,
   excludeIds,
   label,
+  rules,
   filterInput = {},
   name = "pools",
   id = "pools",
@@ -50,7 +53,7 @@ const PoolFilterInput = ({
 
   return (
     <Combobox
-      {...{ name, id }}
+      {...{ name, id, rules }}
       isMulti
       isExternalSearch
       label={label ?? intl.formatMessage(adminMessages.processes)}

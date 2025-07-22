@@ -267,7 +267,12 @@ const AddToPoolDialog = ({ userQuery }: AddToPoolDialogProps) => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
               <div className="mb-1.25">
-                <PoolFilterInput excludeIds={currentPools} />
+                <PoolFilterInput
+                  excludeIds={currentPools}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
               </div>
               <p className="mt-6">
                 {intl.formatMessage({
