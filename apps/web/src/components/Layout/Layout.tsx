@@ -50,7 +50,11 @@ const Layout = ({
         ) : (
           <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
         )}
-        <main id="main" className="h-full min-h-max grow">
+        <main
+          id="main"
+          // 10rem is header + nav height
+          className="flex min-h-[calc(100vh-10rem))] w-full grow flex-col"
+        >
           <Outlet />
         </main>
         <Footer />
