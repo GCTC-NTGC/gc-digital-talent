@@ -1,5 +1,4 @@
 import { IntlShape, useIntl } from "react-intl";
-import { useState } from "react";
 
 import {
   FragmentType,

@@ -2,7 +2,7 @@ import { IntlShape } from "react-intl";
 import uniq from "lodash/uniq";
 
 import { PoolCandidateSearchStatus } from "@gc-digital-talent/graphql";
-import { assertUnreachable } from "@gc-digital-talent/helpers";
+import { assertUnreachable, uniqueItems } from "@gc-digital-talent/helpers";
 import { ChipProps } from "@gc-digital-talent/ui";
 import { commonMessages, Locales } from "@gc-digital-talent/i18n";
 
@@ -60,7 +60,7 @@ export function deriveSingleString<T>(
     a.localeCompare(b, locale, { sensitivity: "base" }),
   );
 
-  const uniqueStrings = uniq(localizedStrings);
+  const uniqueStrings = uniqueItems(localizedStrings);
   const joinedStrings = uniqueStrings.join(", ");
 
   return joinedStrings;
