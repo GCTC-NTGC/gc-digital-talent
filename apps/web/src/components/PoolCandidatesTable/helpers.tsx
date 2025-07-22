@@ -359,8 +359,10 @@ export function getSortOrder(
   | undefined {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
-  // handle sort in orderByClaimVerification
-  if (sortingRules?.find((rule) => rule.id === "priority")) {
+  // handle sort in orderByClaimVerification and departments
+  if (
+    sortingRules?.find((rule) => ["priority", "department"].includes(rule.id))
+  ) {
     return undefined;
   }
 
@@ -407,6 +409,16 @@ export function getPoolNameSort(
   };
 }
 
+export function getDepartmentSort(
+  sortingRules?: SortingState,
+): SortOrder | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "department");
+
+  if (!sortingRule) return undefined;
+
+  return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
+}
+
 export function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
@@ -450,6 +462,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
+    departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
   };
 }
@@ -506,6 +519,7 @@ export function transformFormValuesToFilterState(
       ? stringToEnumCandidateSuspended(data.suspendedStatus)
       : undefined,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+    departments: data.departments,
     publishingGroups: data.publishingGroups as PublishingGroup[],
     appliedClassifications: data.classifications.map((classification) => {
       const splitString = classification.split("-");
@@ -547,5 +561,6 @@ export const addSearchToPoolCandidateFilterInput = (
     isGovEmployee: fancyFilterState?.isGovEmployee,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
+    departments: fancyFilterState?.departments,
   };
 };
