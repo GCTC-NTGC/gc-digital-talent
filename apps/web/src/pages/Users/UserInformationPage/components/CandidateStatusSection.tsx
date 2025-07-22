@@ -52,7 +52,7 @@ const CandidateStatusSection = ({
       />
       {isAdmin && (
         <>
-          <Heading level="h5" size="h6" className="mt-12 mb-6">
+          <Heading level="h4" className="mt-12 mb-6">
             {intl.formatMessage({
               defaultMessage: "Add user to pool",
               id: "jtEouE",
