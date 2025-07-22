@@ -47,12 +47,16 @@ import EssentialTechnicalSkillsForm, {
 import NonessentialTechnicalSkillsForm, {
   FormValues as NonessentialTechnicalSkillsFormValues,
 } from "../components/NonessentialTechnicalSkillsForm";
+import EssentialBehaviouralSkillsForm, {
+  FormValues as EssentialBehaviouralSkillsFormValues,
+} from "../components/EssentialBehaviouralSkillsForm";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment CreateJobPosterTemplateOptions on Query {
     ...JobPosterTemplateJobDetailsFormOptions
     ...JobPosterTemplateEssentialTechnicalSkillsFormOptions
     ...JobPosterTemplateNonessentialTechnicalSkillsFormOptions
+    ...JobPosterTemplateEssentialBehaviouralSkillsFormOptions
   }
 `);
 
@@ -70,7 +74,8 @@ interface FormValues
   extends JobDetailsFormValues,
     KeyTasksFormValues,
     EssentialTechnicalSkillsFormValues,
-    NonessentialTechnicalSkillsFormValues {}
+    NonessentialTechnicalSkillsFormValues,
+    EssentialBehaviouralSkillsFormValues {}
 
 const formValuesToMutationInput = ({
   jobTitleEn,
@@ -92,6 +97,9 @@ const formValuesToMutationInput = ({
   nonessentialTechnicalSkillProficiencies,
   nonessentialTechnicalSkillsNotesEn,
   nonessentialTechnicalSkillsNotesFr,
+  essentialBehaviouralSkillProficiencies,
+  essentialBehaviouralSkillsNotesEn,
+  essentialBehaviouralSkillsNotesFr,
 }: FormValues): CreateJobPosterTemplateInput => {
   const essentialTechnicalJobPosterTemplateSkills = unpackMaybes(
     essentialTechnicalSkillProficiencies,
@@ -105,6 +113,13 @@ const formValuesToMutationInput = ({
   ).map<CreateJobPosterTemplateSkillInput>((p) => ({
     skillId: p.skillId,
     type: PoolSkillType.Nonessential,
+    requiredLevel: p.skillLevel,
+  }));
+  const essentialBehaviouralJobPosterTemplateSkills = unpackMaybes(
+    essentialBehaviouralSkillProficiencies,
+  ).map<CreateJobPosterTemplateSkillInput>((p) => ({
+    skillId: p.skillId,
+    type: PoolSkillType.Essential,
     requiredLevel: p.skillLevel,
   }));
 
@@ -140,6 +155,7 @@ const formValuesToMutationInput = ({
       create: [
         ...essentialTechnicalJobPosterTemplateSkills,
         ...nonessentialTechnicalJobPosterTemplateSkills,
+        ...essentialBehaviouralJobPosterTemplateSkills,
       ],
     },
     essentialTechnicalSkillsNotes: {
@@ -149,6 +165,10 @@ const formValuesToMutationInput = ({
     nonessentialTechnicalSkillsNotes: {
       en: nonessentialTechnicalSkillsNotesEn,
       fr: nonessentialTechnicalSkillsNotesFr,
+    },
+    essentialBehaviouralSkillsNotes: {
+      en: essentialBehaviouralSkillsNotesEn,
+      fr: essentialBehaviouralSkillsNotesFr,
     },
     // todo
     referenceId: "TODO",
@@ -165,7 +185,7 @@ const CreateJobPosterTemplate = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const options = getFragment(
+  const optionsData = getFragment(
     CreateJobPosterTemplateOptions_Fragment,
     optionsQuery,
   );
@@ -257,16 +277,18 @@ const CreateJobPosterTemplate = ({
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-x-0 gap-y-9">
                 <JobDetailsFrontMatter />
-                <JobDetailsForm optionsQuery={options} />
+                <JobDetailsForm optionsQuery={optionsData} />
                 <CardSeparator />
                 <KeyTasksFrontMatter />
                 <KeyTasksForm />
                 <CardSeparator />
                 <TechnicalSkillsFrontMatter />
-                <EssentialTechnicalSkillsForm optionsQuery={options} />
-                <NonessentialTechnicalSkillsForm optionsQuery={options} />
+                <EssentialTechnicalSkillsForm optionsQuery={optionsData} />
+                <NonessentialTechnicalSkillsForm optionsQuery={optionsData} />
                 <CardSeparator />
                 <BehaviouralSkillsFrontMatter />
+                <EssentialBehaviouralSkillsForm optionsQuery={optionsData} />
+                <CardSeparator />
                 <Submit
                   text={intl.formatMessage({
                     defaultMessage: "Publish template",
