@@ -65,7 +65,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
         description: "Description of the application on the homepage",
       })}
       img={{
-        sources: { sm: img.src },
+        sources: { sm: img.sm },
         src: img.src,
         className: img?.className,
         alt: intl.formatMessage({
