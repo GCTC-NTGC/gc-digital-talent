@@ -1,22 +1,18 @@
-import { useEffect, useRef } from "react";
-
 import { Heading, HeadingProps, HeadingRef } from "@gc-digital-talent/ui";
+
+import useScrollToOnMount from "~/hooks/useScrollToOnMount";
 
 interface SubHeadingProps extends HeadingProps {
   preventAutoFocus?: boolean;
 }
 
 const SubHeading = ({ preventAutoFocus, ...rest }: SubHeadingProps) => {
-  const headingRef = useRef<HeadingRef>(null);
-
-  useEffect(() => {
-    if (headingRef.current && !preventAutoFocus) {
-      // Focus heading and scroll to top
-      headingRef.current.focus({ preventScroll: false });
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const headingRef = useScrollToOnMount<HeadingRef>({
+    top: 0,
+    left: 0,
+    behavior: "instant",
+    preventAutoFocus,
+  });
 
   return (
     <Heading
