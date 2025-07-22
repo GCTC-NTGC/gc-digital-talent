@@ -17,7 +17,7 @@ const KeyTasksFrontMatter = () => {
       >
         {intl.formatMessage(messages.keyTasks)}
       </Heading>
-      <div className="mb-7.5 flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <p>
           {intl.formatMessage({
             defaultMessage:

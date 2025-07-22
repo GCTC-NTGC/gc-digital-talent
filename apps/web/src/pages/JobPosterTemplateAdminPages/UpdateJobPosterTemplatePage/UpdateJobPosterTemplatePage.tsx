@@ -32,7 +32,7 @@ import NonessentialTechnicalSkillsSection from "./components/NonessentialTechnic
 import EssentialBehaviouralSkillsSection from "./components/EssentialBehaviouralSkillsSection/EssentialBehaviouralSkillsSection";
 import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
 import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
-import TechnicalSkillFrontMatter from "../components/TechnicalSkillFrontMatter";
+import TechnicalSkillsFrontMatter from "../components/TechnicalSkillsFrontMatter";
 import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
 
 const SECTION_ID = {
@@ -154,24 +154,31 @@ const UpdateJobPosterTemplate = ({
                   optionsQuery={options}
                 />
               </TableOfContents.Section>
-              <TableOfContents.Section id={SECTION_ID.KEY_TASKS}>
+              <TableOfContents.Section
+                id={SECTION_ID.KEY_TASKS}
+                className="flex flex-col gap-7.5"
+              >
                 <KeyTasksFrontMatter />
                 <KeyTasksSection initialDataQuery={initialData} />
               </TableOfContents.Section>
-              <TableOfContents.Section id={SECTION_ID.TECHNICAL_SKILLS}>
-                <TechnicalSkillFrontMatter />
-                <div className="mb-7.5">
-                  <EssentialTechnicalSkillsSection
-                    initialDataQuery={initialData}
-                    optionsQuery={options}
-                  />
-                </div>
+              <TableOfContents.Section
+                id={SECTION_ID.TECHNICAL_SKILLS}
+                className="flex flex-col gap-7.5"
+              >
+                <TechnicalSkillsFrontMatter />
+                <EssentialTechnicalSkillsSection
+                  initialDataQuery={initialData}
+                  optionsQuery={options}
+                />
                 <NonessentialTechnicalSkillsSection
                   initialDataQuery={initialData}
                   optionsQuery={options}
                 />
               </TableOfContents.Section>
-              <TableOfContents.Section id={SECTION_ID.BEHAVIOURAL_SKILLS}>
+              <TableOfContents.Section
+                id={SECTION_ID.BEHAVIOURAL_SKILLS}
+                className="flex flex-col gap-7.5"
+              >
                 <BehaviouralSkillsFrontMatter />
                 <EssentialBehaviouralSkillsSection
                   initialDataQuery={initialData}

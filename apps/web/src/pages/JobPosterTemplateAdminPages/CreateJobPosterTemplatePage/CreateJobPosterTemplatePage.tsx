@@ -6,9 +6,11 @@ import { useNavigate } from "react-router";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   CreateJobPosterTemplateInput,
+  CreateJobPosterTemplateSkillInput,
   FragmentType,
   getFragment,
   graphql,
+  PoolSkillType,
   SupervisoryStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -20,6 +22,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -30,7 +33,7 @@ import Hero from "~/components/Hero";
 
 import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
 import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
-import TechnicalSkillFrontMatter from "../components/TechnicalSkillFrontMatter";
+import TechnicalSkillsFrontMatter from "../components/TechnicalSkillsFrontMatter";
 import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
 import JobDetailsForm, {
   FormValues as JobDetailsFormValues,
@@ -38,10 +41,14 @@ import JobDetailsForm, {
 import KeyTasksForm, {
   FormValues as KeyTasksFormValues,
 } from "../components/KeyTasksForm";
+import EssentialTechnicalSkillsForm, {
+  FormValues as EssentialTechnicalSkillsFormValues,
+} from "../components/EssentialTechnicalSkillsForm";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment CreateJobPosterTemplateOptions on Query {
     ...JobPosterTemplateJobDetailsFormOptions
+    ...JobPosterTemplateEssentialTechnicalSkillsFormOptions
   }
 `);
 
@@ -55,7 +62,10 @@ const CreateJobPosterTemplate_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface FormValues extends JobDetailsFormValues, KeyTasksFormValues {}
+interface FormValues
+  extends JobDetailsFormValues,
+    KeyTasksFormValues,
+    EssentialTechnicalSkillsFormValues {}
 
 const formValuesToMutationInput = ({
   jobTitleEn,
@@ -71,7 +81,18 @@ const formValuesToMutationInput = ({
   classificationLevel,
   keyTasksEn,
   keyTasksFr,
+  essentialTechnicalSkillProficiencies,
+  essentialTechnicalSkillsNotesEn,
+  essentialTechnicalSkillsNotesFr,
 }: FormValues): CreateJobPosterTemplateInput => {
+  const essentialTechnicalJobPosterTemplateSkills = unpackMaybes(
+    essentialTechnicalSkillProficiencies,
+  ).map<CreateJobPosterTemplateSkillInput>((p) => ({
+    skillId: p.skillId,
+    type: PoolSkillType.Essential,
+    requiredLevel: p.skillLevel,
+  }));
+
   return {
     name: {
       en: jobTitleEn,
@@ -100,8 +121,15 @@ const formValuesToMutationInput = ({
       en: keyTasksEn,
       fr: keyTasksFr,
     },
+    jobPosterTemplateSkills: {
+      create: [...essentialTechnicalJobPosterTemplateSkills],
+    },
+    essentialTechnicalSkillsNotes: {
+      en: essentialTechnicalSkillsNotesEn,
+      fr: essentialTechnicalSkillsNotesFr,
+    },
     // todo
-    referenceId: "",
+    referenceId: "TODO",
   };
 };
 
@@ -211,7 +239,10 @@ const CreateJobPosterTemplate = ({
                 <CardSeparator />
                 <KeyTasksFrontMatter />
                 <KeyTasksForm />
-                <TechnicalSkillFrontMatter />
+                <CardSeparator />
+                <TechnicalSkillsFrontMatter />
+                <EssentialTechnicalSkillsForm optionsQuery={options} />
+                <CardSeparator />
                 <BehaviouralSkillsFrontMatter />
                 <Submit
                   text={intl.formatMessage({

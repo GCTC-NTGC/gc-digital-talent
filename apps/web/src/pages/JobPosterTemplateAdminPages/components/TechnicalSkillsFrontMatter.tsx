@@ -5,7 +5,7 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import messages from "../messages";
 
-const TechnicalSkillFrontMatter = () => {
+const TechnicalSkillsFrontMatter = () => {
   const intl = useIntl();
   return (
     <div>
@@ -17,7 +17,7 @@ const TechnicalSkillFrontMatter = () => {
       >
         {intl.formatMessage(messages.technicalSkills)}
       </Heading>
-      <div className="mb-7.5 flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <p>
           {intl.formatMessage({
             defaultMessage:
@@ -41,4 +41,4 @@ const TechnicalSkillFrontMatter = () => {
   );
 };
 
-export default TechnicalSkillFrontMatter;
+export default TechnicalSkillsFrontMatter;

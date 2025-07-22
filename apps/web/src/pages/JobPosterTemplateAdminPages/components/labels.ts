@@ -71,4 +71,34 @@ export const labels = defineMessages({
     id: "XWaUJT",
     description: "Label for the key tasks in French",
   },
+  specialNoteEssentialTechnicalSkills: {
+    defaultMessage: "Special note for essential technical skills",
+    id: "vW4ode",
+    description: "Label for the essential technical skills notes",
+  },
+  specialNoteNonessentialTechnicalSkills: {
+    defaultMessage: "Special note for asset technical skills",
+    id: "UYsWMr",
+    description: "Label for the nonessential technical skills notes",
+  },
+  specialNoteEssentialBehaviouralSkills: {
+    defaultMessage: "Special note for essential behavioural skills",
+    id: "JasIU3",
+    description: "Label for the essential behavioural skills notes",
+  },
+  specialNoteIsRequired: {
+    defaultMessage: "These skills require a special note.",
+    id: "cuKJ1I",
+    description: "Statement that a special note is required",
+  },
+  specialNoteEn: {
+    defaultMessage: "Special note <gray>(English)</gray>",
+    id: "MXlDMX",
+    description: "Label for the special note in English",
+  },
+  specialNoteFr: {
+    defaultMessage: "Special note <gray>(French)</gray>",
+    id: "1prcHv",
+    description: "Label for the special note in French",
+  },
 });

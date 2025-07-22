@@ -42,12 +42,10 @@ import SkillProficiencyList, {
 } from "~/components/SkillProficiencyList/SkillProficiencyList";
 
 import Display from "./Display";
-import { labels } from "../../labels";
+import { labels } from "../../../components/labels";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
-import {
-  isNonessentialTechnicalSkill,
-  insertionIndexBySkillName,
-} from "../../utils";
+import { isNonessentialTechnicalSkill } from "../../utils";
+import { insertionIndexBySkillName } from "../../../components/utils";
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 
