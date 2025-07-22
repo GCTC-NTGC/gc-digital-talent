@@ -2,7 +2,7 @@ import { useState } from "react";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Well } from "@gc-digital-talent/ui";
+import { AlertDialog, Button, Well } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Maybe } from "@gc-digital-talent/graphql";
 
@@ -31,13 +31,13 @@ const ConfirmationDialog = ({
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger>
+    <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialog.Trigger>
         <Button color="error" mode="inline" icon={TrashIcon} />
-      </Dialog.Trigger>
-      <Dialog.Content>
-        <Dialog.Header>{title}</Dialog.Header>
-        <Dialog.Body>
+      </AlertDialog.Trigger>
+      <AlertDialog.Content>
+        <AlertDialog.Title>{title}</AlertDialog.Title>
+        <AlertDialog.Description>
           <p className="mb-6">
             {intl.formatMessage({
               id: "P8DJDV",
@@ -56,19 +56,21 @@ const ConfirmationDialog = ({
                 "Final warning text to confirm the assessment to be deleted",
             })}
           </p>
-          <Dialog.Footer>
-            <Button color="error" onClick={handleRemove} icon={TrashIcon}>
-              {title}
-            </Button>
-            <Dialog.Close>
+          <AlertDialog.Footer>
+            <AlertDialog.Action>
+              <Button color="error" onClick={handleRemove} icon={TrashIcon}>
+                {title}
+              </Button>
+            </AlertDialog.Action>
+            <AlertDialog.Cancel>
               <Button color="warning" mode="inline">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Body>
-      </Dialog.Content>
-    </Dialog.Root>
+            </AlertDialog.Cancel>
+          </AlertDialog.Footer>
+        </AlertDialog.Description>
+      </AlertDialog.Content>
+    </AlertDialog.Root>
   );
 };
 
