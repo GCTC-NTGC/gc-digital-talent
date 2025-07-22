@@ -6,7 +6,9 @@ use App\Checkers\ProtectedRequestUserChecker;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertFalse;
@@ -17,6 +19,8 @@ class ProtectedRequestUserCheckerTest extends TestCase
     use RefreshDatabase;
 
     protected $adminUser;
+
+    protected RoutingRoute $testRoute;
 
     protected function setUp(): void
     {
@@ -31,6 +35,8 @@ class ProtectedRequestUserCheckerTest extends TestCase
                 'email' => 'platform-admin-user@test.com',
                 'sub' => 'platform-admin-user@test.com',
             ]);
+
+        $this->testRoute = new RoutingRoute('get', '/test', fn () => null);
     }
 
     public function testCanUseLimitedPermissionUnprotected()
@@ -71,10 +77,9 @@ class ProtectedRequestUserCheckerTest extends TestCase
 
     public function testCanNotUsePrivilegedPermissionUnprotected()
     {
-        $this->markTestSkipped('Enable to test the route protection logic.');
-
         // simulate an unprotected request context
         Request::merge(['isProtectedRequest' => null]);
+        Route::expects('current')->andReturn($this->testRoute);
         $checker = new ProtectedRequestUserChecker($this->adminUser);
 
         // a privileged permission can be used only in a protected request
@@ -133,10 +138,9 @@ class ProtectedRequestUserCheckerTest extends TestCase
 
     public function testCanNotUsePrivilegedArrayPermissionUnprotected()
     {
-        $this->markTestSkipped('Enable to test the route protection logic.');
-
         // simulate an unprotected request context
         Request::merge(['isProtectedRequest' => null]);
+        Route::expects('current')->andReturn($this->testRoute);
         $checker = new ProtectedRequestUserChecker($this->adminUser);
 
         // a privileged permission can be used only in a protected request
