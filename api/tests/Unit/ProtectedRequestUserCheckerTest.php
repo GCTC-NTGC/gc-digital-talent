@@ -94,4 +94,54 @@ class ProtectedRequestUserCheckerTest extends TestCase
 
         assertFalse($checker->currentUserHasPermission($unknownPermission));
     }
+
+    public function testCanUseLimitedArrayPermissionUnprotected()
+    {
+        // simulate a regular request context
+        Request::merge(['isProtectedRequest' => null]);
+        $checker = new ProtectedRequestUserChecker($this->adminUser);
+
+        // a limited permission can be used in an unprotected request
+        $limitedPermission = ['view-any-skill', 'view-any-skillFamily'];
+
+        assertTrue($checker->currentUserHasPermission($limitedPermission));
+    }
+
+    public function testCanUseLimitedArrayPermissionProtected()
+    {
+        // simulate a protected request context
+        Request::merge(['isProtectedRequest' => true]);
+        $checker = new ProtectedRequestUserChecker($this->adminUser);
+
+        // a limited permission can be used in an protected request
+        $limitedPermission = ['view-any-skill', 'view-any-skillFamily'];
+
+        assertTrue($checker->currentUserHasPermission($limitedPermission));
+    }
+
+    public function testCanUsePrivilegedArrayPermissionProtected()
+    {
+        // simulate a protected request context
+        Request::merge(['isProtectedRequest' => true]);
+        $checker = new ProtectedRequestUserChecker($this->adminUser);
+
+        // a privileged permission can be used only in a protected request
+        $privilegedPermission = ['create-any-classification', 'create-any-department'];
+
+        assertTrue($checker->currentUserHasPermission($privilegedPermission));
+    }
+
+    public function testCanNotUsePrivilegedArrayPermissionUnprotected()
+    {
+        $this->markTestSkipped('Enable to test the route protection logic.');
+
+        // simulate an unprotected request context
+        Request::merge(['isProtectedRequest' => null]);
+        $checker = new ProtectedRequestUserChecker($this->adminUser);
+
+        // a privileged permission can be used only in a protected request
+        $privilegedPermission = ['create-any-classification', 'create-any-department'];
+
+        assertFalse($checker->currentUserHasPermission($privilegedPermission));
+    }
 }
