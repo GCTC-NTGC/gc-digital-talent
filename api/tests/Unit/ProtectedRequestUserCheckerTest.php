@@ -38,7 +38,7 @@ class ProtectedRequestUserCheckerTest extends TestCase
     }
 
     #[DataProvider('userCheckerProvider')]
-    public function test_has_permission(array|string $permission, ?bool $requireAll, ?bool $isProtectedRequest, bool $expected)
+    public function testHasPermission(array|string $permission, ?bool $requireAll, ?bool $isProtectedRequest, bool $expected)
     {
         Request::merge(['isProtectedRequest' => $isProtectedRequest]);
         Route::shouldReceive('current')->andReturn($this->testRoute);
