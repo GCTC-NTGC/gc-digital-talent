@@ -5,13 +5,14 @@ import { NavMenu } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
+import useRoutes from "~/hooks/useRoutes";
+
 import useNavContext from "../NavContext/useNavContext";
 import useMainNavLinks from "./useMainNavLinks";
 import navMenuMessages from "./messages";
 import Menu, { borderItem } from "./Menu";
 import MenuSeparator from "./MenuSeparator";
 import HomeLink from "./HomeLink";
-import useRoutes from "~/hooks/useRoutes";
 
 const MainNavMenu = () => {
   const intl = useIntl();
