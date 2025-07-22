@@ -3819,6 +3819,10 @@
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
   },
+  "FTEdvi": {
+    "defaultMessage": "Télécharger Excel utilisateur(trice)s",
+    "description": "Button label to download users associated with selected candidates as Excel"
+  },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
     "description": "Second section of text on the change candidate status dialog"
@@ -7246,10 +7250,6 @@
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
   },
-  "Vyao8B": {
-    "defaultMessage": "Télécharger CSV utilisateur(trice)s",
-    "description": "Button label to download users associated with selected candidates as CSV"
-  },
   "Vz719J": {
     "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",
     "description": "Sub title for the websites privacy policy"
@@ -7745,6 +7745,10 @@
   "YNXjg7": {
     "defaultMessage": "Afficher la répartition <hidden> de{stepTitle}</hidden>",
     "description": "Button text to show the distribution of step statuses"
+  },
+  "YO7woE": {
+    "defaultMessage": "Télécharger Excel",
+    "description": "Text label for button to download a excel file of items in a table."
   },
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
@@ -10984,10 +10988,6 @@
   "mwVSMJ": {
     "defaultMessage": "Retourner au portfolio de compétences",
     "description": "Link text to navigate from skill showcase to the skill portfolio page"
-  },
-  "mxOuYK": {
-    "defaultMessage": "Télécharger CSV",
-    "description": "Text label for button to download a csv file of items in a table."
   },
   "mzgZQs": {
     "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",
