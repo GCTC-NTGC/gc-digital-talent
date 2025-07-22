@@ -3,6 +3,7 @@ import { useLocation } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { NavMenu } from "@gc-digital-talent/ui";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
@@ -15,6 +16,7 @@ const IAPNavMenu = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pathname } = useLocation();
+  const { loggedIn } = useAuthentication();
   const searchParams = `?from=${paths.iap()}&personality=iap`;
 
   const homeLinkProps = {
@@ -27,12 +29,14 @@ const IAPNavMenu = () => {
       authParams={searchParams}
       homeLink={homeLinkProps}
       accountLinks={
-        <MenuItem
-          key="signOut"
-          href={paths.loggedOut()}
-          title={intl.formatMessage(authMessages.signOut)}
-          state={{ from: pathname }}
-        />
+        loggedIn ? (
+          <MenuItem
+            key="signOut"
+            href={paths.loggedOut()}
+            title={intl.formatMessage(authMessages.signOut)}
+            state={{ from: pathname }}
+          />
+        ) : null
       }
     >
       <NavMenu.List type="main">
