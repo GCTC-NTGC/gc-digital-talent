@@ -144,7 +144,10 @@ const UpdateJobPosterTemplate = ({
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <div className="flex flex-col gap-x-0 gap-y-18">
-              <TableOfContents.Section id={SECTION_ID.JOB_DETAILS}>
+              <TableOfContents.Section
+                id={SECTION_ID.JOB_DETAILS}
+                className="flex flex-col gap-7.5"
+              >
                 <JobDetailsFrontMatter />
                 <JobDetailsSection
                   initialDataQuery={initialData}

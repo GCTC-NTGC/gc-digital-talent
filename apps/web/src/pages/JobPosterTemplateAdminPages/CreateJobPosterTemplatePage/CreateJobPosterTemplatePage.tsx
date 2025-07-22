@@ -12,7 +12,12 @@ import {
   SupervisoryStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Card,
+  CardSeparator,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -195,11 +200,12 @@ const CreateJobPosterTemplate = ({
         overlap
       >
         <Card className="mb-18">
-          <div className="flex flex-col gap-x-0 gap-y-18">
-            <FormProvider {...methods}>
-              <form onSubmit={handleSubmit(handleSave)}>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(handleSave)}>
+              <div className="flex flex-col gap-x-0 gap-y-9">
                 <JobDetailsFrontMatter />
                 <JobDetailsForm optionsQuery={options} />
+                <CardSeparator />
                 <KeyTasksFrontMatter />
                 <TechnicalSkillFrontMatter />
                 <BehaviouralSkillsFrontMatter />
@@ -218,9 +224,9 @@ const CreateJobPosterTemplate = ({
                   mode="solid"
                   isSubmitting={fetching}
                 />
-              </form>
-            </FormProvider>
-          </div>
+              </div>
+            </form>
+          </FormProvider>
         </Card>
       </Hero>
     </>

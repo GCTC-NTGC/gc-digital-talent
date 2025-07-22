@@ -17,7 +17,7 @@ const JobDetailsFrontMatter = () => {
       >
         {intl.formatMessage(messages.jobDetails)}
       </Heading>
-      <p className="mb-7.5">
+      <p>
         {intl.formatMessage({
           defaultMessage:
             "To get started, select the job's classification and level. Once that's set, you'll be prompted to fill out additional details about the job in both official languages.",
