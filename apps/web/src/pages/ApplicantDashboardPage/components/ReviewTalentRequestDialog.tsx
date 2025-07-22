@@ -9,6 +9,7 @@ import {
   Pending,
   Separator,
   ThrowNotFound,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -240,13 +241,13 @@ const ReviewTalentRequestDialogContent = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {request.applicantFilter?.skills?.length ? (
-                <ul>
+                <Ul>
                   {request.applicantFilter.skills.map((skill) => (
                     <li key={skill?.id}>
                       {skill?.name.localized ?? nullMessage}
                     </li>
                   ))}
-                </ul>
+                </Ul>
               ) : (
                 nullMessage
               )}
@@ -265,11 +266,11 @@ const ReviewTalentRequestDialogContent = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {equityDescriptions.length ? (
-                <ul>
+                <Ul>
                   {equityDescriptions.map((equityDescription) => (
                     <li key={equityDescription}>{equityDescription}</li>
                   ))}
-                </ul>
+                </Ul>
               ) : (
                 nullMessage
               )}
@@ -288,7 +289,7 @@ const ReviewTalentRequestDialogContent = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {request.applicantFilter?.locationPreferences?.length ? (
-                <ul>
+                <Ul>
                   {request.applicantFilter.locationPreferences.map(
                     (locationPreference) => (
                       <li key={locationPreference?.value}>
@@ -296,7 +297,7 @@ const ReviewTalentRequestDialogContent = ({
                       </li>
                     ),
                   )}
-                </ul>
+                </Ul>
               ) : (
                 nullMessage
               )}
@@ -317,7 +318,7 @@ const ReviewTalentRequestDialogContent = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {request.applicantFilter?.operationalRequirements?.length ? (
-                <ul>
+                <Ul>
                   {request.applicantFilter.operationalRequirements.map(
                     (operationalRequirement) => (
                       <li key={operationalRequirement?.value}>
@@ -325,7 +326,7 @@ const ReviewTalentRequestDialogContent = ({
                       </li>
                     ),
                   )}
-                </ul>
+                </Ul>
               ) : (
                 nullMessage
               )}
