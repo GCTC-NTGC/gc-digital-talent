@@ -5067,10 +5067,6 @@
     "defaultMessage": "Vous avez postulé à {poolName} sur Talents numériques du GC. L’état d’avancement de votre demande a été modifié. Pour voir son nouvel état, veuillez consulter votre profil.",
     "description": "Label for the application deadline approaching notification"
   },
-  "LIhwJ+": {
-    "defaultMessage": "Menu du compte",
-    "description": "Label for the user account navigation menu"
-  },
   "LIpK1v": {
     "defaultMessage": "Ma communauté ne figure pas dans la liste",
     "description": "Label for not represented community"
