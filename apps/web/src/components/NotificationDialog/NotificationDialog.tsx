@@ -95,7 +95,7 @@ const DialogPortalWithPresence = ({
                 <Heading
                   level="h2"
                   size="h5"
-                  color="secondary"
+                  color="primary"
                   icon={BellAlertIcon}
                   className="mt-0 leading-normal"
                 >
