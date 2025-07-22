@@ -15,7 +15,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertTrue;
 
-class UsersThruPoolCandidatesCsvGeneratorTest extends TestCase
+class UsersThruPoolCandidatesExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
 
