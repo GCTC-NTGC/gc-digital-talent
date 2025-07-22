@@ -224,23 +224,6 @@ export const ViewPoolCandidate = ({
       <AdminContentWrapper table overflowScrollbar>
         <Sidebar.Wrapper>
           <Sidebar.Sidebar scrollbar>
-            <Heading size="h3" className="mt-0">
-              {intl.formatMessage({
-                defaultMessage: "More actions",
-                id: "QaMkP7",
-                description:
-                  "Title for more actions sidebar on view pool candidate page",
-              })}
-            </Heading>
-            <p className="my-6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Additional information, relevant to this candidate’s application.",
-                id: "5cW3Ns",
-                description:
-                  "Description for more actions sidebar on view pool candidate page",
-              })}
-            </p>
             <MoreActions
               poolCandidate={poolCandidate}
               jobPlacementOptions={jobPlacementOptions}

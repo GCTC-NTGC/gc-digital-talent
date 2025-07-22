@@ -72,3 +72,10 @@ export const SUSPENDABLE_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,
   PoolCandidateStatus.PlacedCasual,
 ];
+
+export const PLACEMENT_TYPE_STATUSES = [
+  PoolCandidateStatus.PlacedCasual,
+  PoolCandidateStatus.PlacedIndeterminate,
+  PoolCandidateStatus.PlacedTentative,
+  PoolCandidateStatus.PlacedTerm,
+];
