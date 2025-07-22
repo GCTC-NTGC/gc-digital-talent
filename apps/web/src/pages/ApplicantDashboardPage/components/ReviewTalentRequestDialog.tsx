@@ -12,11 +12,7 @@ import {
   ThrowNotFound,
   Ul,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getEmploymentDuration,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getEmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   graphql,
   ReviewTalentRequestDialogQuery,
