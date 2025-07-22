@@ -50,7 +50,7 @@ const Layout = ({
         ) : (
           <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
         )}
-        <main id="main">
+        <main id="main" className="h-full min-h-max grow">
           <Outlet />
         </main>
         <Footer />
