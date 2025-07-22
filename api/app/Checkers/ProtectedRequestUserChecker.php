@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Laratrust\Checkers\User\UserDefaultChecker;
 use Laratrust\Helper;
 
@@ -27,7 +28,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         $name = Helper::standardize($name);
 
         $isProtectedRequest = Request::get('isProtectedRequest');
-        $isNotRoutedRequest = is_null(Request::route());
+        $isNotRoutedRequest = is_null(Route::current());
 
         $isLimitedRole = in_array($name, $this::LIMITED_ROLES);
         if (is_array($name)) {
@@ -78,7 +79,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
                 }
             }
         }
-        $isNotRoutedRequest = is_null(Request::route());
+        $isNotRoutedRequest = is_null(Route::current());
 
         return $isProtectedRequest  // if it's a protected request then any permission is safe to use
         || $isLimitedPermission     // if it's a limited (unprivileged) permission then it's always safe to use
