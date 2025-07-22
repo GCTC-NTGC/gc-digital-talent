@@ -1,10 +1,20 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { useMutation, useQuery } from "urql";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  CreateJobPosterTemplateInput,
+  FragmentType,
+  getFragment,
+  graphql,
+  SupervisoryStatus,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Submit } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -17,16 +27,73 @@ import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
 import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
 import TechnicalSkillFrontMatter from "../components/TechnicalSkillFrontMatter";
 import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
+import JobDetailsForm, {
+  FormValues as JobDetailsFormValues,
+} from "../components/JobDetailsForm";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment CreateJobPosterTemplateOptions on Query {
-    __typename
-    #...CreateJobPosterTemplateJobDetailsOptions
-    #...CreateJobPosterTemplateEssentialTechnicalSkillsOptions
-    #...CreateJobPosterTemplateNonessentialTechnicalSkillsOptions
-    #...CreateJobPosterTemplateEssentialBehaviouralSkillsOptions
+    ...JobPosterTemplateJobDetailsFormOptions
   }
 `);
+
+const CreateJobPosterTemplate_Mutation = graphql(/* GraphQL */ `
+  mutation CreateJobPosterTemplate(
+    $jobPosterTemplate: CreateJobPosterTemplateInput!
+  ) {
+    createJobPosterTemplate(jobPosterTemplate: $jobPosterTemplate) {
+      id
+    }
+  }
+`);
+
+interface CombinedFormsValues extends JobDetailsFormValues {}
+
+const formValuesToMutationInput = ({
+  jobTitleEn,
+  jobTitleFr,
+  descriptionEn,
+  descriptionFr,
+  supervisoryStatus,
+  workStreamId,
+  workDescriptionEn,
+  workDescriptionFr,
+  keywordsEn,
+  keywordsFr,
+  classificationLevel,
+}: CombinedFormsValues): CreateJobPosterTemplateInput => {
+  return {
+    name: {
+      en: jobTitleEn,
+      fr: jobTitleFr,
+    },
+    description: {
+      en: descriptionEn,
+      fr: descriptionFr,
+    },
+    supervisoryStatus: supervisoryStatus as SupervisoryStatus,
+    workStream: {
+      connect: workStreamId,
+    },
+    workDescription: {
+      en: workDescriptionEn,
+      fr: workDescriptionFr,
+    },
+    keywords: {
+      en: keywordsEn?.split(",").map((s) => s.trim()),
+      fr: keywordsFr?.split(",").map((s) => s.trim()),
+    },
+    classification: {
+      connect: classificationLevel, // the ID for the group-level is in the level input
+    },
+    // todo
+    referenceId: "",
+    tasks: {
+      en: "",
+      fr: "",
+    },
+  };
+};
 
 interface CreateJobPosterTemplateProps {
   optionsQuery: FragmentType<typeof CreateJobPosterTemplateOptions_Fragment>;
@@ -37,10 +104,59 @@ const CreateJobPosterTemplate = ({
 }: CreateJobPosterTemplateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const options = getFragment(
     CreateJobPosterTemplateOptions_Fragment,
     optionsQuery,
   );
+
+  const [{ fetching }, executeMutation] = useMutation(
+    CreateJobPosterTemplate_Mutation,
+  );
+
+  const methods = useForm<CombinedFormsValues>();
+  const { handleSubmit } = methods;
+
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Failed creating job poster template",
+        id: "4k82V+",
+        description:
+          "Message displayed when a user fails to update the job poster template",
+      }),
+    );
+  };
+
+  const handleSave: SubmitHandler<CombinedFormsValues> = async (
+    formValues: CombinedFormsValues,
+  ) => {
+    const mutationInput = formValuesToMutationInput(formValues);
+
+    return executeMutation({
+      jobPosterTemplate: mutationInput,
+    })
+      .then(async (result) => {
+        if (result.data?.createJobPosterTemplate?.id) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Job poster template created successfully!",
+              id: "GETrdQ",
+              description:
+                "Message displayed when a user successfully creates the job poster template",
+            }),
+          );
+          await navigate(
+            paths.jobPosterTemplateUpdate(
+              result.data.createJobPosterTemplate.id,
+            ),
+          );
+        } else {
+          handleError();
+        }
+      })
+      .catch(handleError);
+  };
 
   const pageTitle = intl.formatMessage(pageTitles.createJobPosterTemplateLong);
 
@@ -80,10 +196,30 @@ const CreateJobPosterTemplate = ({
       >
         <Card className="mb-18">
           <div className="flex flex-col gap-x-0 gap-y-18">
-            <JobDetailsFrontMatter />
-            <KeyTasksFrontMatter />
-            <TechnicalSkillFrontMatter />
-            <BehaviouralSkillsFrontMatter />
+            <FormProvider {...methods}>
+              <form onSubmit={handleSubmit(handleSave)}>
+                <JobDetailsFrontMatter />
+                <JobDetailsForm optionsQuery={options} />
+                <KeyTasksFrontMatter />
+                <TechnicalSkillFrontMatter />
+                <BehaviouralSkillsFrontMatter />
+                <Submit
+                  text={intl.formatMessage({
+                    defaultMessage: "Publish template",
+                    id: "QcPUyM",
+                    description: "Button to publish a job poster template",
+                  })}
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Save job details",
+                    id: "/1JrDR",
+                    description: "Text on a button to save th job details form",
+                  })}
+                  color="primary"
+                  mode="solid"
+                  isSubmitting={fetching}
+                />
+              </form>
+            </FormProvider>
           </div>
         </Card>
       </Hero>
