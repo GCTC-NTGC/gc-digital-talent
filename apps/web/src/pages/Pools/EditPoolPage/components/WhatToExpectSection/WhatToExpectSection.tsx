@@ -158,10 +158,10 @@ const WhatToExpectSection = ({
                 <RichTextInput
                   id="whatToExpectEn"
                   label={intl.formatMessage({
-                    defaultMessage: "English - What to expect",
-                    id: "o7OKLq",
+                    defaultMessage: "What to expect",
+                    id: "2cTfGX",
                     description:
-                      "Label for the English - What to expect textarea in the edit pool page.",
+                      "Label for What to expect textarea in the edit pool page.",
                   })}
                   name="whatToExpectEn"
                   wordLimit={TEXT_AREA_MAX_WORDS_EN}

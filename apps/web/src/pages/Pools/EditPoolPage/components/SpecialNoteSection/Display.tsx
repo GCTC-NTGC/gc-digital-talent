@@ -27,7 +27,8 @@ const Display = ({
         <div className="grid gap-6 xs:grid-cols-2">
           <ToggleForm.FieldDisplay
             hasError={!specialNote?.en}
-            label={intl.formatMessage(processMessages.specialNoteEn)}
+            label={intl.formatMessage(processMessages.specialNote)}
+            appendLanguageToLabel={"en"}
           >
             {specialNote?.en ? (
               <RichTextRenderer node={htmlToRichTextJSON(specialNote?.en)} />
@@ -37,7 +38,8 @@ const Display = ({
           </ToggleForm.FieldDisplay>
           <ToggleForm.FieldDisplay
             hasError={!specialNote?.fr}
-            label={intl.formatMessage(processMessages.specialNoteFr)}
+            label={intl.formatMessage(processMessages.specialNote)}
+            appendLanguageToLabel={"fr"}
           >
             {specialNote?.fr ? (
               <RichTextRenderer node={htmlToRichTextJSON(specialNote?.fr)} />

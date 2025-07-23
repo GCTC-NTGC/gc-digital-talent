@@ -61,13 +61,15 @@ const Display = ({
           <>
             <ToggleForm.FieldDisplay
               hasError={!hasLocation}
-              label={intl.formatMessage(processMessages.locationEn)}
+              label={intl.formatMessage(processMessages.location)}
+              appendLanguageToLabel={"en"}
             >
               {location?.en ?? notProvided}
             </ToggleForm.FieldDisplay>
             <ToggleForm.FieldDisplay
               hasError={!hasLocation}
-              label={intl.formatMessage(processMessages.locationFr)}
+              label={intl.formatMessage(processMessages.location)}
+              appendLanguageToLabel={"fr"}
             >
               {location?.fr ?? notProvided}
             </ToggleForm.FieldDisplay>
