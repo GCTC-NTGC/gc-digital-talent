@@ -42,23 +42,21 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
 
   return (
     <div className="grid gap-6 sm:grid-cols-2">
-      <div className="flex flex-col gap-6">
-        <h3 className="font-bold">
-          {intl.formatMessage({
-            defaultMessage: "English job details",
-            id: "elnOtk",
-            description: "Title for the English job details section",
-          })}
-        </h3>
-        <div>
-          <p className="font-bold text-primary-600 dark:text-primary-200">
-            {titleEn ?? notProvided}
-          </p>
-          <p className="text-sm text-gray-500 dark:text-gray-300">
-            {subtitleEn}
-          </p>
-        </div>
-        <p>{description?.en ?? notProvided}</p>
+      <h3 className="order-1 font-bold sm:order-1">
+        {intl.formatMessage({
+          defaultMessage: "English job details",
+          id: "elnOtk",
+          description: "Title for the English job details section",
+        })}
+      </h3>
+      <div className="order-2 sm:order-3">
+        <p className="font-bold text-primary-600 dark:text-primary-200">
+          {titleEn ?? notProvided}
+        </p>
+        <p className="text-sm text-gray-500 dark:text-gray-300">{subtitleEn}</p>
+      </div>
+      <p className="order-3 sm:order-5">{description?.en ?? notProvided}</p>
+      <div className="order-4 sm:order-7">
         {workDescription?.en ? (
           <Link
             external
@@ -69,6 +67,8 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
             {workDescription.en}
           </Link>
         ) : null}
+      </div>
+      <div className="order-5 sm:order-9">
         {keywords?.en?.length ? (
           <Chips>
             {keywords.en.map((keyword) => (
@@ -77,23 +77,21 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
           </Chips>
         ) : null}
       </div>
-      <div className="flex flex-col gap-6">
-        <h3 className="font-bold">
-          {intl.formatMessage({
-            defaultMessage: "French job details",
-            id: "87zpH7",
-            description: "Title for the French job details section",
-          })}
-        </h3>
-        <div>
-          <p className="font-bold text-primary-600 dark:text-primary-200">
-            {titleFr ?? notProvided}
-          </p>
-          <p className="text-sm text-gray-500 dark:text-gray-300">
-            {subtitleFr}
-          </p>
-        </div>
-        <p>{description?.fr ?? notProvided}</p>
+      <h3 className="order-6 font-bold sm:order-2">
+        {intl.formatMessage({
+          defaultMessage: "French job details",
+          id: "87zpH7",
+          description: "Title for the French job details section",
+        })}
+      </h3>
+      <div className="order-7 sm:order-4">
+        <p className="font-bold text-primary-600 dark:text-primary-200">
+          {titleFr ?? notProvided}
+        </p>
+        <p className="text-sm text-gray-500 dark:text-gray-300">{subtitleFr}</p>
+      </div>
+      <p className="order-8 sm:order-6">{description?.fr ?? notProvided}</p>
+      <div className="order-9 sm:order-8">
         {workDescription?.fr ? (
           <Link
             external
@@ -104,6 +102,8 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
             {workDescription.fr}
           </Link>
         ) : null}
+      </div>
+      <div className="order-10 sm:order-10">
         {keywords?.fr?.length ? (
           <Chips>
             {keywords.fr.map((keyword) => (
@@ -112,11 +112,12 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
           </Chips>
         ) : null}
       </div>
-      <div>
-        <FieldDisplay label={intl.formatMessage(labels.referenceId)}>
-          {referenceId ?? notProvided}
-        </FieldDisplay>
-      </div>
+      <FieldDisplay
+        label={intl.formatMessage(labels.referenceId)}
+        className="order-11"
+      >
+        {referenceId ?? notProvided}
+      </FieldDisplay>
     </div>
   );
 };
