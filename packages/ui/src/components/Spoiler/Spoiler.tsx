@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
@@ -25,6 +24,7 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
     <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex items-center gap-x-1.5">
         <div>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {!isOpen && <>{truncated}&hellip;</>}
           <Collapsible.Content>{text}</Collapsible.Content>
         </div>
