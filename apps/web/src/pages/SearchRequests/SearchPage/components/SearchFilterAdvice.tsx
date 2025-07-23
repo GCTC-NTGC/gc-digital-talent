@@ -124,7 +124,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     recommendations.push({
       key: "skillFilter",
       link: (
-        <ScrollToLink to="skillFilter" {...linkProps}>
+        <ScrollToLink to="skills" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage: "Skills selected ({skillCount})",
