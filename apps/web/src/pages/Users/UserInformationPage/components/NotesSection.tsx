@@ -5,11 +5,9 @@ import { useMutation } from "urql";
 import { Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-
-import { BasicUserInformationProps } from "../types";
 
 const AdminUpdatePoolCandidateNotes_Mutation = graphql(/* GraphQL */ `
   mutation AdminUpdatePoolCandidateNotes($id: UUID!, $notes: String) {
@@ -20,8 +18,46 @@ const AdminUpdatePoolCandidateNotes_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const NotesSection = ({ user }: BasicUserInformationProps) => {
+const NotesSectionUser_Fragment = graphql(/** GraphQL */ `
+  fragment NotesSectionUser on User {
+    poolCandidates {
+      id
+      notes
+      pool {
+        name {
+          en
+          fr
+        }
+        workStream {
+          id
+          name {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          group
+          level
+        }
+      }
+    }
+  }
+`);
+
+interface NotesSectionProps {
+  userQuery?: FragmentType<typeof NotesSectionUser_Fragment>;
+}
+
+const NotesSection = ({ userQuery }: NotesSectionProps) => {
   const intl = useIntl();
+  const user = getFragment(NotesSectionUser_Fragment, userQuery);
 
   const [, executeMutation] = useMutation(
     AdminUpdatePoolCandidateNotes_Mutation,
@@ -95,7 +131,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
           description: "Description of pool candidate notes field",
         })}
       </p>
-      {isEmpty(user.poolCandidates) ? (
+      {isEmpty(user?.poolCandidates) ? (
         <Well>
           {intl.formatMessage({
             defaultMessage: "This user is not in any pools yet",

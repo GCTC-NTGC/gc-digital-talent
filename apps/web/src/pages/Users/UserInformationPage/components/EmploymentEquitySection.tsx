@@ -4,22 +4,39 @@ import { tv } from "tailwind-variants";
 
 import { Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-
-import { BasicUserInformationProps } from "../types";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 const iconStyles = tv({ base: "inline-block size-4" });
 
-const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
-  const intl = useIntl();
+const EmploymentEquityUser_Fragment = graphql(/** GraphQL */ `
+  fragment EmploymentEquityUser on User {
+    hasDisability
+    isVisibleMinority
+    isWoman
+    indigenousCommunities {
+      value
+    }
+  }
+`);
 
-  const isIndigenous = unpackMaybes(user.indigenousCommunities)?.length > 0;
+interface EmploymentEquitySectionProps {
+  userQuery?: FragmentType<typeof EmploymentEquityUser_Fragment>;
+}
+
+const EmploymentEquitySection = ({
+  userQuery,
+}: EmploymentEquitySectionProps) => {
+  const intl = useIntl();
+  const user = getFragment(EmploymentEquityUser_Fragment, userQuery);
+
+  const isIndigenous = unpackMaybes(user?.indigenousCommunities)?.length > 0;
 
   return (
     <Well>
       {!isIndigenous &&
-        !user.hasDisability &&
-        !user.isVisibleMinority &&
-        !user.isWoman &&
+        !user?.hasDisability &&
+        !user?.isVisibleMinority &&
+        !user?.isWoman &&
         intl.formatMessage({
           defaultMessage:
             "Has not identified as a member of any employment equity groups.",
@@ -39,7 +56,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
           })}
         </div>
       )}
-      {user.hasDisability && (
+      {user?.hasDisability && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
@@ -52,7 +69,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
           })}
         </div>
       )}
-      {user.isVisibleMinority && (
+      {user?.isVisibleMinority && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
@@ -65,7 +82,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
           })}
         </div>
       )}
-      {user.isWoman && (
+      {user?.isWoman && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}

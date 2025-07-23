@@ -130,7 +130,7 @@ const UserCandidatesTableStrings_Query = graphql(/* GraphQL */ `
 `);
 
 interface UserCandidatesTableProps {
-  userQuery: FragmentType<typeof UserCandidatesTableRow_Fragment>;
+  userQuery?: FragmentType<typeof UserCandidatesTableRow_Fragment>;
   jobPlacementOptions: JobPlacementOptionsFragmentType;
   title: string;
 }
@@ -147,7 +147,7 @@ const UserCandidatesTable = ({
   });
 
   const user = getFragment(UserCandidatesTableRow_Fragment, userQuery);
-  const poolCandidatesUnpacked = unpackMaybes(user.poolCandidates);
+  const poolCandidatesUnpacked = unpackMaybes(user?.poolCandidates);
   type PoolCandidateSlice = (typeof poolCandidatesUnpacked)[number];
   const columnHelper = createColumnHelper<PoolCandidateSlice>();
 
@@ -173,15 +173,15 @@ const UserCandidatesTable = ({
       },
     }),
     columnHelper.accessor(
-      () => getFullNameLabel(user.firstName, user.lastName, intl),
+      () => getFullNameLabel(user?.firstName, user?.lastName, intl),
       {
         id: "candidateName",
         header: intl.formatMessage(tableMessages.candidateName),
         sortingFn: normalizedText,
         cell: ({ row: { original: poolCandidate } }) =>
           candidateNameCell(
-            user.firstName,
-            user.lastName,
+            user?.firstName,
+            user?.lastName,
             poolCandidate.id,
             paths,
             intl,
@@ -223,12 +223,12 @@ const UserCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      () => getLocalizedName(user.priority?.label, intl, true),
+      () => getLocalizedName(user?.priority?.label, intl, true),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
         cell: () =>
-          priorityCell(user.priorityWeight, stringsData?.priorities, intl),
+          priorityCell(user?.priorityWeight, stringsData?.priorities, intl),
       },
     ),
     columnHelper.accessor(
@@ -283,7 +283,7 @@ const UserCandidatesTable = ({
       header: intl.formatMessage(adminMessages.notes),
       sortingFn: normalizedText,
       cell: ({ row: { original: poolCandidate } }) =>
-        notesCell(intl, user.firstName, user.lastName, poolCandidate.notes),
+        notesCell(intl, user?.firstName, user?.lastName, poolCandidate.notes),
     }),
     columnHelper.accessor(({ submittedAt }) => accessors.date(submittedAt), {
       id: "dateReceived",

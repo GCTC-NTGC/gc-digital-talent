@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router";
 
-import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Flourish } from "@gc-digital-talent/ui";
 
@@ -33,9 +32,6 @@ const Layout = ({
   const locale = getLocale(intl);
   useLayoutTheme("default");
 
-  const { userAuthInfo } = useAuthorization();
-  const { loggedIn } = useAuthentication();
-
   return (
     <>
       <Favicon locale={locale} project={project} />
@@ -45,11 +41,7 @@ const Layout = ({
         <Header />
         <SitewideBanner />
         <Flourish />
-        {!iapPersonality ? (
-          <MainNavMenu />
-        ) : (
-          <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
-        )}
+        {!iapPersonality ? <MainNavMenu /> : <IAPNavMenu />}
         <main
           id="main"
           // 10rem is header + nav height

@@ -11,6 +11,7 @@ export interface LinkProps
   extends BaseButtonLinkProps,
     Omit<BaseLinkProps, "color"> {
   disabled?: boolean;
+  end?: boolean;
 }
 
 const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
