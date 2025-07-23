@@ -12,6 +12,7 @@ global-components:
   DescriptionList.Root: dl
   DescriptionList.Item: dt
   Heading: h*
+  Image: img
   Separator: hr
   Step: a
   Checkbox: input[type="checkbox"]
