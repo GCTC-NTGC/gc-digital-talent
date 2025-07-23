@@ -2,7 +2,7 @@ import { useState } from "react";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import { useIntl } from "react-intl";
 
-import { AlertDialog, Button, Well } from "@gc-digital-talent/ui";
+import { AlertDialog, Button, IconButton, Well } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Maybe } from "@gc-digital-talent/graphql";
 
@@ -33,7 +33,7 @@ const ConfirmationDialog = ({
   return (
     <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialog.Trigger>
-        <Button color="error" mode="inline" icon={TrashIcon} />
+        <IconButton color="error" icon={TrashIcon} />
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>{title}</AlertDialog.Title>
