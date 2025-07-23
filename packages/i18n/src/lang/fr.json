@@ -1635,6 +1635,10 @@
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
     "description": "Name of applicant dashboard page"
   },
+  "x/BiQS": {
+    "defaultMessage": "Questions",
+    "description": "Label for questions"
+  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"

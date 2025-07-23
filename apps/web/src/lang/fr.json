@@ -2487,10 +2487,6 @@
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
   },
-  "9cLJwl": {
-    "defaultMessage": "Questions en anglais",
-    "description": "Description for a list of questions in the English language"
-  },
   "9fEw/Y": {
     "defaultMessage": "Notes explicatives sur la décision",
     "description": "Label for demonstrated notes text area in the screening decision dialog."
@@ -5698,10 +5694,6 @@
   "Ovlh3a": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Sign in link text on the registration page."
-  },
-  "OyMDr3": {
-    "defaultMessage": "Questions en français",
-    "description": "Description for a list of questions in the French language"
   },
   "P/DHOG": {
     "defaultMessage": "Modèles d'emplois",
