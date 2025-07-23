@@ -975,6 +975,10 @@
     "defaultMessage": "Type d'emploi",
     "description": "Label for applicant's employment type"
   },
+  "2Pvhfl": {
+    "defaultMessage": "{time} le {date}.",
+    "description": "A datetime formatted as a certain time on a certain date"
+  },
   "2SSm+L": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
@@ -6826,10 +6830,6 @@
   "TjvnvR": {
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
-  },
-  "TomxAe": {
-    "defaultMessage": "{time} le {date}",
-    "description": "A datetime formatted as a certain time on a certain date"
   },
   "Tp7hml": {
     "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
