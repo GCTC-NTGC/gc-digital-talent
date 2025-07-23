@@ -29,10 +29,11 @@ const KeyTasksForm = () => {
           id="keyTasksEn"
           name="keyTasksEn"
           wordLimit={keyTasksWordCountLimits.en}
-          label={intl.formatMessage(labels.keyTasksEn)}
+          label={intl.formatMessage(labels.keyTasks)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          appendLanguageToLabel="en"
         />
       </div>
       <div>
@@ -40,10 +41,11 @@ const KeyTasksForm = () => {
           id="keyTasksFr"
           name="keyTasksFr"
           wordLimit={keyTasksWordCountLimits.fr}
-          label={intl.formatMessage(labels.keyTasksFr)}
+          label={intl.formatMessage(labels.keyTasks)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          appendLanguageToLabel="fr"
         />
       </div>
     </div>

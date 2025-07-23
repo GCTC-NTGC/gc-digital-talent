@@ -177,10 +177,11 @@ const EssentialTechnicalSkillsForm = ({
               id="essentialTechnicalSkillsNotesEn"
               name="essentialTechnicalSkillsNotesEn"
               wordLimit={specialNoteWordCountLimits.en}
-              label={intl.formatMessage(labels.specialNoteEn)}
+              label={intl.formatMessage(labels.specialNote)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              appendLanguageToLabel="en"
             />
           </div>
           <div>
@@ -188,10 +189,11 @@ const EssentialTechnicalSkillsForm = ({
               id="essentialTechnicalSkillsNotesFr"
               name="essentialTechnicalSkillsNotesFr"
               wordLimit={specialNoteWordCountLimits.fr}
-              label={intl.formatMessage(labels.specialNoteFr)}
+              label={intl.formatMessage(labels.specialNote)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              appendLanguageToLabel="fr"
             />
           </div>
         </div>

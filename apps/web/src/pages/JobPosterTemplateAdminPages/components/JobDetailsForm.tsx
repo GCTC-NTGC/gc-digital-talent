@@ -179,23 +179,25 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Input
           id="jobTitleEn"
-          label={intl.formatMessage(labels.jobTitleEn)}
+          label={intl.formatMessage(labels.jobTitle)}
           name="jobTitleEn"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
           type="text"
+          appendLanguageToLabel="en"
         />
       </div>
       <div>
         <Input
           id="jobTitleFr"
-          label={intl.formatMessage(labels.jobTitleFr)}
+          label={intl.formatMessage(labels.jobTitle)}
           name="jobTitleFr"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
           type="text"
+          appendLanguageToLabel="fr"
         />
       </div>
       <div className="sm:col-span-2">
@@ -214,10 +216,11 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
           id="descriptionEn"
           name="descriptionEn"
           wordLimit={descriptionWordCountLimits.en}
-          label={intl.formatMessage(labels.descriptionEn)}
+          label={intl.formatMessage(labels.description)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          appendLanguageToLabel="en"
         />
       </div>
       <div>
@@ -225,26 +228,29 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
           id="descriptionFr"
           name="descriptionFr"
           wordLimit={descriptionWordCountLimits.fr}
-          label={intl.formatMessage(labels.descriptionFr)}
+          label={intl.formatMessage(labels.description)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          appendLanguageToLabel="fr"
         />
       </div>
       <div className="sm:col-span-2">
         <Input
           id="workDescriptionEn"
-          label={intl.formatMessage(labels.workDescriptionEn)}
+          label={intl.formatMessage(labels.workDescription)}
           name="workDescriptionEn"
           type="url"
+          appendLanguageToLabel="en"
         />
       </div>
       <div className="sm:col-span-2">
         <Input
           id="workDescriptionFr"
-          label={intl.formatMessage(labels.workDescriptionFr)}
+          label={intl.formatMessage(labels.workDescription)}
           name="workDescriptionFr"
           type="url"
+          appendLanguageToLabel="fr"
         />
       </div>
       <div className="sm:col-span-2">
@@ -270,7 +276,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Input
           id="keywordsEn"
-          label={intl.formatMessage(labels.keywordsEn)}
+          label={intl.formatMessage(labels.keywords)}
           name="keywordsEn"
           type="text"
           context={intl.formatMessage({
@@ -280,12 +286,13 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
             description: "Context for the keywords inputs",
           })}
           aria-describedby={keywordDescriptionParagraphId}
+          appendLanguageToLabel="en"
         />
       </div>
       <div>
         <Input
           id="keywordsFr"
-          label={intl.formatMessage(labels.keywordsFr)}
+          label={intl.formatMessage(labels.keywords)}
           name="keywordsFr"
           type="text"
           context={intl.formatMessage({
@@ -295,6 +302,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
             description: "Context for the keywords inputs",
           })}
           aria-describedby={keywordDescriptionParagraphId}
+          appendLanguageToLabel="fr"
         />
       </div>
       <div>
