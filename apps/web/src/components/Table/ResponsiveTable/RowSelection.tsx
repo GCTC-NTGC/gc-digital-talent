@@ -287,10 +287,10 @@ const Actions = ({
                           })}
                         >
                           {intl.formatMessage({
-                            defaultMessage: "Download CSV",
-                            id: "mxOuYK",
+                            defaultMessage: "Download Excel",
+                            id: "YO7woE",
                             description:
-                              "Text label for button to download a csv file of items in a table.",
+                              "Text label for button to download a excel file of items in a table.",
                           })}
                         </Button>
                       )}

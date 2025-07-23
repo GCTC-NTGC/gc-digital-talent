@@ -1,16 +1,61 @@
 import { useIntl } from "react-intl";
 
 import { Link, Well } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { getLabels } from "~/components/Profile/components/LanguageProfile/utils";
 
-import { BasicUserInformationProps } from "../types";
+const UserInfoAboutSection_Fragment = graphql(/** GraphQL */ `
+  fragment UserInfoAboutSection on User {
+    firstName
+    lastName
+    email
+    telephone
+    currentCity
+    currentProvince {
+      label {
+        localized
+      }
+    }
+    preferredLang {
+      label {
+        localized
+      }
+    }
+    preferredLanguageForInterview {
+      label {
+        localized
+      }
+    }
+    preferredLanguageForExam {
+      label {
+        localized
+      }
+    }
+    armedForcesStatus {
+      label {
+        localized
+      }
+    }
+    citizenship {
+      label {
+        localized
+      }
+    }
+  }
+`);
 
-const AboutSection = ({ user }: BasicUserInformationProps) => {
+interface AboutSectionProps {
+  userQuery?: FragmentType<typeof UserInfoAboutSection_Fragment>;
+}
+
+const AboutSection = ({ userQuery }: AboutSectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
+  const user = getFragment(UserInfoAboutSection_Fragment, userQuery);
+
   return (
     <Well className="grid gap-6 wrap-anywhere xs:grid-cols-2 lg:grid-cols-3">
       <div>
@@ -18,43 +63,35 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
           {intl.formatMessage(commonMessages.name)}
           {intl.formatMessage(commonMessages.dividingColon)}
         </p>
-        <p>{getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p>{getFullNameHtml(user?.firstName, user?.lastName, intl)}</p>
       </div>
       <div>
         <p className="font-bold">
           {intl.formatMessage(commonMessages.email)}
           {intl.formatMessage(commonMessages.dividingColon)}
         </p>
-        <p>{user.email}</p>
+        <p>{user?.email ?? ""}</p>
       </div>
       <div>
         <p className="font-bold">
           {intl.formatMessage(commonMessages.preferredCommunicationLanguage)}
           {intl.formatMessage(commonMessages.dividingColon)}
         </p>
-        <p>{getLocalizedName(user.preferredLang?.label, intl)}</p>
+        <p>{user?.preferredLang?.label?.localized ?? ""}</p>
       </div>
       <div>
         <p className="font-bold">
           {labels.prefSpokenInterviewLang}
           {intl.formatMessage(commonMessages.dividingColon)}
         </p>
-        <p>
-          {getLocalizedName(
-            user.preferredLanguageForInterview?.label,
-            intl,
-            true,
-          )}
-        </p>
+        <p>{user?.preferredLanguageForInterview?.label.localized ?? ""}</p>
       </div>
       <div>
         <p className="font-bold">
           {labels.prefWrittenExamLang}
           {intl.formatMessage(commonMessages.dividingColon)}
         </p>
-        <p>
-          {getLocalizedName(user.preferredLanguageForExam?.label, intl, true)}
-        </p>
+        <p>{user?.preferredLanguageForExam?.label.localized ?? ""}</p>
       </div>
       <div>
         <p className="font-bold">
@@ -65,7 +102,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
           })}
         </p>
         <p>
-          {user.telephone ? (
+          {user?.telephone ? (
             <Link
               external
               href={`tel:${user.telephone}`}
@@ -78,7 +115,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
           )}
         </p>
       </div>
-      {(!!user.currentCity || !!user.currentProvince) && (
+      {(!!user?.currentCity || !!user?.currentProvince) && (
         <div>
           <p className="font-bold">
             {intl.formatMessage({
@@ -92,7 +129,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             {user.currentCity ?? ""}
             {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {user.currentCity && user.currentProvince?.label ? ", " : ""}
-            {getLocalizedName(user.currentProvince?.label, intl, true)}
+            {user?.currentProvince?.label.localized}
           </p>
         </div>
       )}
@@ -104,8 +141,8 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             description: "label for CAF status",
           })}
         </p>
-        {user.armedForcesStatus?.label && (
-          <p>{getLocalizedName(user.armedForcesStatus.label, intl)}</p>
+        {user?.armedForcesStatus?.label && (
+          <p>{user.armedForcesStatus.label.localized ?? ""}</p>
         )}
       </div>
       <div>
@@ -116,7 +153,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             description: "label for citizenship status",
           })}
         </p>
-        <p>{getLocalizedName(user.citizenship?.label, intl, true)}</p>
+        <p>{user?.citizenship?.label.localized}</p>
       </div>
     </Well>
   );

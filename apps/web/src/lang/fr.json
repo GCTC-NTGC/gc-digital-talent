@@ -899,6 +899,10 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
+  "27mGKw": {
+    "defaultMessage": "Retirer des favoris",
+    "description": "Label for removing a bookmark"
+  },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
@@ -1650,10 +1654,6 @@
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
-  },
-  "5cW3Ns": {
-    "defaultMessage": "De plus amples renseignements ayant trait à la demande du candidat.",
-    "description": "Description for more actions sidebar on view pool candidate page"
   },
   "5cll86": {
     "defaultMessage": "Date de publication (UTC)",
@@ -3759,6 +3759,10 @@
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
   },
+  "FTEdvi": {
+    "defaultMessage": "Télécharger Excel utilisateur(trice)s",
+    "description": "Button label to download users associated with selected candidates as Excel"
+  },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
     "description": "Second section of text on the change candidate status dialog"
@@ -4903,6 +4907,10 @@
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
   },
+  "L2xLV8": {
+    "defaultMessage": "Ajouter aux favoris",
+    "description": "Label for adding a bookmark"
+  },
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
     "description": "Message displayed when there are no job poster templates meeting a specific criteria"
@@ -4994,10 +5002,6 @@
   "LHv3/N": {
     "defaultMessage": "Vous avez postulé à {poolName} sur Talents numériques du GC. L’état d’avancement de votre demande a été modifié. Pour voir son nouvel état, veuillez consulter votre profil.",
     "description": "Label for the application deadline approaching notification"
-  },
-  "LIhwJ+": {
-    "defaultMessage": "Menu du compte",
-    "description": "Label for the user account navigation menu"
   },
   "LIpK1v": {
     "defaultMessage": "Ma communauté ne figure pas dans la liste",
@@ -6054,10 +6058,6 @@
   "QZeoHp": {
     "defaultMessage": "Une fois que vous en aurez ajouté quelques-unes, vous pourrez compter cette compétence selon l’une ou plusieurs de vos expériences.",
     "description": "Instructions displayed when user has no experiences to feature on a skill."
-  },
-  "QaMkP7": {
-    "defaultMessage": "Autres mesures",
-    "description": "Title for more actions sidebar on view pool candidate page"
   },
   "QagkWo": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
@@ -7146,10 +7146,6 @@
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
   },
-  "Vyao8B": {
-    "defaultMessage": "Télécharger CSV utilisateur(trice)s",
-    "description": "Button label to download users associated with selected candidates as CSV"
-  },
   "Vz719J": {
     "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",
     "description": "Sub title for the websites privacy policy"
@@ -7530,6 +7526,10 @@
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition eligibility"
   },
+  "XofAAo": {
+    "defaultMessage": "Étape {stepNumber}",
+    "description": "Label for a candidates current assessment step"
+  },
   "XovI8x": {
     "defaultMessage": "Téléchargez toutes compétences (CSV)",
     "description": "Text label for button to download a csv file of all skills."
@@ -7641,6 +7641,10 @@
   "YNXjg7": {
     "defaultMessage": "Afficher la répartition <hidden> de{stepTitle}</hidden>",
     "description": "Button text to show the distribution of step statuses"
+  },
+  "YO7woE": {
+    "defaultMessage": "Télécharger Excel",
+    "description": "Text label for button to download a excel file of items in a table."
   },
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
@@ -10808,10 +10812,6 @@
   "mwVSMJ": {
     "defaultMessage": "Retourner au portfolio de compétences",
     "description": "Link text to navigate from skill showcase to the skill portfolio page"
-  },
-  "mxOuYK": {
-    "defaultMessage": "Télécharger CSV",
-    "description": "Text label for button to download a csv file of items in a table."
   },
   "mzgZQs": {
     "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",

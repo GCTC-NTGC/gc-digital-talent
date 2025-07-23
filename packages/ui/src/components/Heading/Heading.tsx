@@ -41,10 +41,10 @@ const heading = tv({
     },
     color: {
       primary: {
-        icon: "text-primary",
+        icon: "text-primary iap:dark:text-primary-200",
       },
       secondary: {
-        icon: "text-secondary iap:dark:text-secondary-300",
+        icon: "text-secondary iap:dark:text-secondary-100",
       },
       success: {
         icon: "text-success",
