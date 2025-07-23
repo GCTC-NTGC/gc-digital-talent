@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
@@ -128,7 +127,9 @@ export const formattedPoolPosterTitle = ({
       </>
     ) : (
       <>
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         {title ?? ""} ({wrapAbbr(groupAndLevel, intl)}
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
