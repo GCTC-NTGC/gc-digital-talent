@@ -58,10 +58,8 @@ const DiversityEquityInclusionSection = ({
               id: "l1hUeU",
               description:
                 "Label preceding what groups the user identifies as part of, followed by a colon",
-              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            })}{" "}
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          </p>{" "}
+            })}
+          </p>
           {indigenousCommunities && indigenousCommunities.length > 0 && (
             <div className="items-center justify-between pt-6 xs:flex">
               <Ul>
