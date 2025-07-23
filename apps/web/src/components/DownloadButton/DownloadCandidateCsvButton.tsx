@@ -42,10 +42,10 @@ const DownloadCandidateCsvButton = ({
               })}
         >
           {intl.formatMessage({
-            defaultMessage: "Download CSV",
-            id: "mxOuYK",
+            defaultMessage: "Download Excel",
+            id: "YO7woE",
             description:
-              "Text label for button to download a csv file of items in a table.",
+              "Text label for button to download a excel file of items in a table.",
           })}
         </Button>
       </DropdownMenu.Trigger>
@@ -71,10 +71,10 @@ const DownloadCandidateCsvButton = ({
           onSelect={() => onClickDownloadUsers()}
         >
           {intl.formatMessage({
-            defaultMessage: "Download users CSV",
-            id: "Vyao8B",
+            defaultMessage: "Download users Excel",
+            id: "FTEdvi",
             description:
-              "Button label to download users associated with selected candidates as CSV",
+              "Button label to download users associated with selected candidates as Excel",
           })}
         </DropdownMenu.Item>
       </DropdownMenu.Content>
