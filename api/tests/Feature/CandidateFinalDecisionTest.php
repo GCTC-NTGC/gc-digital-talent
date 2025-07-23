@@ -48,9 +48,9 @@ class CandidateFinalDecisionTest extends TestCase
     {
         $this->candidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->candidate->computed_assessment_status = [
-            'currentStep' => $step,
             'overallAssessmentStatus' => $overallStatus,
         ];
+        $this->candidate->computed_assessment_step = $step;
         $decision = $this->candidate->computeFinalDecision();
         $this->assertEquals($expected, $decision);
     }
