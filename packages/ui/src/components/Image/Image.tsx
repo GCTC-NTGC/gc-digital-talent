@@ -5,6 +5,14 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 type Breakpoint = "xs" | "sm" | "md" | "lg";
 type PartialBreakpoints = Partial<Record<Breakpoint, string>>;
 
+/**
+ * NOTE:
+ *  Should match breakpoints defined in tailwind.css config
+ *  This is required because we cannot use css variables in
+ *  media queries
+ *
+ *  REF: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties
+ */
 const sourceMediaMap = new Map<Breakpoint, string>([
   ["xs", "(max-width: 48rem)"],
   ["sm", "(max-width: 67.5rem)"],
