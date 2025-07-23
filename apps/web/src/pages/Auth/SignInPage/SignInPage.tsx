@@ -441,7 +441,7 @@ export const Component = () => {
                     timestamp: new Date().toISOString(),
                     userAgent: navigator.userAgent,
                     referrer: document.referrer || "none",
-                    gcKeyStatus: "success",
+                    gcKeyStatus: "initiated",
                   },
                 );
               }

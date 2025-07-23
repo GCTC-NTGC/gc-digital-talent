@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { appInsights } from "@gc-digital-talent/app-insights";
 
 import {
   Pending,
@@ -173,13 +172,6 @@ export const DashboardPage = ({
   if (!currentUser) {
     throw new NotFoundError();
   }
-  else{
-     const userId = appInsights.context?.user?.id;
-    // track the event with Application Insights with ai user id
-    appInsights.trackEvent({ name: "GCKey Login Success" }, { aiUserId: userId });
-
-  }
-
 
   const displayTalentManagementTaskCard =
     !!currentUser?.talentNominationsAsSubmitter?.length &&
