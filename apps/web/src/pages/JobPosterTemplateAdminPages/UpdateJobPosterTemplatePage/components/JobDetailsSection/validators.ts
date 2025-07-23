@@ -8,6 +8,7 @@ export const hasAllEmptyFields = ({
   workDescription,
   keywords,
   classification,
+  referenceId,
 }: UpdateJobPosterTemplateJobDetailsFragment): boolean =>
   !name?.en &&
   !name?.fr &&
@@ -19,7 +20,8 @@ export const hasAllEmptyFields = ({
   !workDescription?.fr &&
   !keywords?.en &&
   !keywords?.fr &&
-  !classification?.id;
+  !classification?.id &&
+  !referenceId;
 
 export const hasEmptyRequiredFields = ({
   name,
@@ -27,6 +29,7 @@ export const hasEmptyRequiredFields = ({
   supervisoryStatus,
   workStream,
   classification,
+  referenceId,
 }: UpdateJobPosterTemplateJobDetailsFragment): boolean =>
   !name?.en ||
   !name?.fr ||
@@ -34,4 +37,5 @@ export const hasEmptyRequiredFields = ({
   !description?.fr ||
   !supervisoryStatus?.value ||
   !workStream?.id ||
-  !classification?.id;
+  !classification?.id ||
+  !referenceId;

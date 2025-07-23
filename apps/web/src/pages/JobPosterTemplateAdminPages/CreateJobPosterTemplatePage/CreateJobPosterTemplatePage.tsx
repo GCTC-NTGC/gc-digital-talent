@@ -90,6 +90,7 @@ const formValuesToMutationInput = ({
   keywordsEn,
   keywordsFr,
   classificationLevel,
+  referenceId,
   keyTasksEn,
   keyTasksFr,
   essentialTechnicalSkillProficiencies,
@@ -102,6 +103,10 @@ const formValuesToMutationInput = ({
   essentialBehaviouralSkillsNotesEn,
   essentialBehaviouralSkillsNotesFr,
 }: FormValues): CreateJobPosterTemplateInput => {
+  if (!referenceId) {
+    throw new Error("Reference ID can't be empty");
+  }
+
   const essentialTechnicalJobPosterTemplateSkills = unpackMaybes(
     essentialTechnicalSkillProficiencies,
   ).map<CreateJobPosterTemplateSkillInput>((p) => ({
@@ -148,6 +153,7 @@ const formValuesToMutationInput = ({
     classification: {
       connect: classificationLevel, // the ID for the group-level is in the level input
     },
+    referenceId: referenceId,
     tasks: {
       en: keyTasksEn,
       fr: keyTasksFr,
@@ -171,8 +177,6 @@ const formValuesToMutationInput = ({
       en: essentialBehaviouralSkillsNotesEn,
       fr: essentialBehaviouralSkillsNotesFr,
     },
-    // todo
-    referenceId: "TODO",
   };
 };
 

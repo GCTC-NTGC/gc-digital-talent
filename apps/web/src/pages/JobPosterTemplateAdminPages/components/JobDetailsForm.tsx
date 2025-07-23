@@ -70,6 +70,7 @@ export interface FormValues {
   keywordsFr: string | null;
   classificationGroup: Classification["group"] | null;
   classificationLevel: Classification["id"] | null;
+  referenceId: string | null;
 }
 
 interface JobDetailsFormProps {
@@ -294,6 +295,17 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
             description: "Context for the keywords inputs",
           })}
           aria-describedby={keywordDescriptionParagraphId}
+        />
+      </div>
+      <div>
+        <Input
+          id="referenceId"
+          label={intl.formatMessage(labels.referenceId)}
+          name="referenceId"
+          type="text"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
         />
       </div>
     </div>

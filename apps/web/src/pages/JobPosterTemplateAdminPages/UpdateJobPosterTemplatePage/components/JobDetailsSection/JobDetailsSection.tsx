@@ -69,6 +69,7 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    referenceId
   }
 `);
 
@@ -96,6 +97,7 @@ const initialDataToFormValues = ({
   workDescription,
   keywords,
   classification,
+  referenceId,
 }: UpdateJobPosterTemplateJobDetailsFragment): FormValues => ({
   jobTitleEn: name?.en ?? null,
   jobTitleFr: name?.fr ?? null,
@@ -109,6 +111,7 @@ const initialDataToFormValues = ({
   keywordsFr: (keywords?.fr ?? []).join(", "),
   classificationGroup: classification?.group ?? null,
   classificationLevel: classification?.id ?? null,
+  referenceId: referenceId ?? null,
 });
 
 const formValuesToMutationInput = (
@@ -125,6 +128,7 @@ const formValuesToMutationInput = (
     keywordsEn,
     keywordsFr,
     classificationLevel,
+    referenceId,
   }: FormValues,
 ): UpdateJobPosterTemplateInput => ({
   id: id,
@@ -151,6 +155,7 @@ const formValuesToMutationInput = (
   classification: {
     connect: classificationLevel, // the ID for the group-level is in the level input
   },
+  referenceId: referenceId,
 });
 
 interface JobDetailsSectionProps {

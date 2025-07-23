@@ -4,7 +4,10 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Chip, Chips, Link } from "@gc-digital-talent/ui";
 
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+
 import { InitialData_Fragment } from "./JobDetailsSection";
+import { labels } from "../../../components/labels";
 
 interface DisplayProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;
@@ -22,6 +25,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
     workDescription,
     keywords,
     classification,
+    referenceId,
   } = getFragment(InitialData_Fragment, initialDataQuery);
 
   // I don't want the name appended so not using the helper
@@ -107,6 +111,11 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
             ))}
           </Chips>
         ) : null}
+      </div>
+      <div>
+        <FieldDisplay label={intl.formatMessage(labels.referenceId)}>
+          {referenceId ?? notProvided}
+        </FieldDisplay>
       </div>
     </div>
   );
