@@ -201,11 +201,13 @@ export const currentLocationAccessor = (
 
 export const finalDecisionCell = (
   finalDecision: Maybe<LocalizedFinalDecision> | undefined,
+  assessmentStep: Maybe<number> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ) => {
   const { color, label } = getCandidateStatusChip(
     finalDecision,
+    assessmentStep,
     assessmentStatus,
     intl,
   );
@@ -219,6 +221,7 @@ export const candidateFacingStatusCell = (
   finalDecisionAt: PoolCandidate["finalDecisionAt"],
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
+  assessmentStep: PoolCandidate["assessmentStep"],
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestions: Pool["screeningQuestionsCount"],
   intl: IntlShape,
@@ -230,6 +233,7 @@ export const candidateFacingStatusCell = (
     finalDecisionAt,
     finalDecision,
     areaOfSelection,
+    assessmentStep,
     assessmentStatus,
     screeningQuestions,
     intl,
