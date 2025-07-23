@@ -15,6 +15,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
+  Button,
   Card,
   CardSeparator,
   Pending,
@@ -278,32 +279,43 @@ const CreateJobPosterTemplate = ({
               <div className="flex flex-col gap-x-0 gap-y-9">
                 <JobDetailsFrontMatter />
                 <JobDetailsForm optionsQuery={optionsData} />
-                <CardSeparator />
+                <CardSeparator className="my-0" />
                 <KeyTasksFrontMatter />
                 <KeyTasksForm />
-                <CardSeparator />
+                <CardSeparator className="my-0" />
                 <TechnicalSkillsFrontMatter />
                 <EssentialTechnicalSkillsForm optionsQuery={optionsData} />
                 <NonessentialTechnicalSkillsForm optionsQuery={optionsData} />
-                <CardSeparator />
+                <CardSeparator className="my-0" />
                 <BehaviouralSkillsFrontMatter />
                 <EssentialBehaviouralSkillsForm optionsQuery={optionsData} />
-                <CardSeparator />
-                <Submit
-                  text={intl.formatMessage({
-                    defaultMessage: "Publish template",
-                    id: "QcPUyM",
-                    description: "Button to publish a job poster template",
-                  })}
-                  aria-label={intl.formatMessage({
-                    defaultMessage: "Save job details",
-                    id: "/1JrDR",
-                    description: "Text on a button to save th job details form",
-                  })}
-                  color="primary"
-                  mode="solid"
-                  isSubmitting={fetching}
-                />
+                <CardSeparator className="my-0" />
+                <div className="flex flex-col items-center gap-6 md:flex-row">
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Publish template",
+                      id: "QcPUyM",
+                      description: "Button to publish a job poster template",
+                    })}
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Save job details",
+                      id: "/1JrDR",
+                      description:
+                        "Text on a button to save th job details form",
+                    })}
+                    color="primary"
+                    mode="solid"
+                    isSubmitting={fetching}
+                  />
+                  <Button
+                    type="button"
+                    mode="inline"
+                    color="warning"
+                    onClick={() => navigate(paths.jobPosterTemplateTable())}
+                  >
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </div>
               </div>
             </form>
           </FormProvider>
