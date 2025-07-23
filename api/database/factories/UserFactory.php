@@ -483,12 +483,12 @@ class UserFactory extends Factory
         if (empty($skills)) {
             $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->inRandomOrder()->take($count)->get();
+            })->take($count)->get();
             if (! $allSkills->count()) {
                 $allSkills = Skill::factory($count)->create();
             }
         }
-        $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
+        $skillSequence = $allSkills->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
         $userSkills = UserSkill::factory($count)->for($user)
             ->sequence(...$skillSequence)

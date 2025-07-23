@@ -3,12 +3,12 @@
 namespace Tests\Feature\Generators;
 
 use App\Generators\UserDocGenerator;
+use App\Models\Classification;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\User;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
-use Database\Seeders\SkillFamilySeeder;
-use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
@@ -37,10 +37,11 @@ class UserDocGeneratorTest extends TestCase
 
         $this->seed([
             RolePermissionSeeder::class,
-            SkillFamilySeeder::class,
-            SkillSeeder::class,
             CommunitySeeder::class,
         ]);
+
+        Department::factory()->create();
+        Classification::factory()->create();
 
         $community = Community::where('key', 'digital')->sole();
 
