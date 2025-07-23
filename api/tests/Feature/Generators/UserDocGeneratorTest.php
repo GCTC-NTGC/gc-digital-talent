@@ -24,15 +24,13 @@ class UserDocGeneratorTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected User $adminUser;
-
-    protected User $targetUser;
+    protected UserDocGenerator $generator;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->setUpFaker();
 
+        $this->setUpFaker();
         $this->faker->seed(0);
 
         $this->seed([
@@ -45,12 +43,12 @@ class UserDocGeneratorTest extends TestCase
 
         $community = Community::where('key', 'digital')->sole();
 
-        $this->adminUser = User::factory()
+        $adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
             ->create();
 
-        $this->targetUser = User::factory()
+        $targetUser = User::factory()
             ->asApplicant()
             ->asGovEmployee()
             ->withCommunityInterests([$community->id])
@@ -58,26 +56,26 @@ class UserDocGeneratorTest extends TestCase
             ->withSkillsAndExperiences()
             ->create();
 
+        $this->generator = new UserDocGenerator(
+            user: $targetUser,
+            anonymous: false,
+            dir: 'test',
+            lang: 'en'
+        );
+
+        $this->generator->setUserId($adminUser->id);
+
     }
 
     // test that a file can be generated
     public function test_can_generate_file(): void
     {
         // act
-        $generator = new UserDocGenerator(
-            user: $this->targetUser,
-            anonymous: false,
-            dir: 'test',
-            lang: 'en'
-        );
-
-        $generator->setUserId($this->adminUser->id);
-        $generator->generate()->write();
-        $fileName = $generator->getFileNameWithExtension();
+        $this->generator->generate()->write();
 
         // assert
+        $path = $this->generator->getRelativePath();
         $disk = Storage::disk('userGenerated');
-        $path = 'test'.DIRECTORY_SEPARATOR.$fileName;
 
         $fileExists = $disk->exists($path);
         assertTrue($fileExists, 'File was not generated');
@@ -85,21 +83,16 @@ class UserDocGeneratorTest extends TestCase
         assertGreaterThan(0, $fileSize, 'File is empty');
     }
 
-    public function test_user_profile_doc()
+    public function test_user_profile_doc_snapshot()
     {
-        $generator = new UserDocGenerator(user: $this->targetUser, anonymous: false, dir: 'test', lang: 'en');
-        $generator
-            ->setUserId($this->adminUser->id)
+        $this->generator
             ->setExtension('html')
             ->generate()
             ->write();
 
         $disk = Storage::disk('userGenerated');
-        $contents = $disk->get($generator->getRelativePath());
-
-        echo $generator->getPath();
+        $contents = $disk->get($this->generator->getRelativePath());
 
         $this->assertMatchesHtmlSnapshot($contents);
-
     }
 }
