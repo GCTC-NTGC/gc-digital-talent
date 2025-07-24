@@ -84,7 +84,7 @@ class UserDocGeneratorTest extends TestCase
     }
 
     // test that a file can be generated
-    public function test_can_generate_file(): void
+    public function testCanGenerateFile(): void
     {
         // act
         $this->generator->generate()->write();
@@ -99,7 +99,7 @@ class UserDocGeneratorTest extends TestCase
         assertGreaterThan(0, $fileSize, 'File is empty');
     }
 
-    public function test_user_profile_doc_snapshot()
+    public function testUserProfileDocSnapshot()
     {
         $this->generator
             ->setExtension('html')
