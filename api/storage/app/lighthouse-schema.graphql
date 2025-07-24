@@ -715,7 +715,7 @@ type User {
   indigenousCommunities: [LocalizedIndigenousCommunity]
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
-  locationPreferences: [LocalizedWorkRegion]
+  locationPreferences: [LocalizedWorkRegion] @deprecated(reason: "Superseded by flexibleWorkLocations")
   flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
