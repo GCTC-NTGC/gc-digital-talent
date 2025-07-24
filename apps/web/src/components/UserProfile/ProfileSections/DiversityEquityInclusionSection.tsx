@@ -146,8 +146,7 @@ const DiversityEquityInclusionSection = ({
                 <li>
                   {intl.formatMessage(getEmploymentEquityStatement("minority"))}
                 </li>
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-              )}{" "}
+              )}
               {hasDisability && (
                 <li>
                   {intl.formatMessage(
