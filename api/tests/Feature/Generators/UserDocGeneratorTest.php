@@ -7,7 +7,7 @@ use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\User;
-use Database\Seeders\CommunitySeeder;
+use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -33,15 +33,12 @@ class UserDocGeneratorTest extends TestCase
         $this->setUpFaker();
         $this->faker->seed(0);
 
-        $this->seed([
-            RolePermissionSeeder::class,
-            CommunitySeeder::class,
-        ]);
+        $this->seed(RolePermissionSeeder::class);
 
+        $community = Community::factory()->create();
         Department::factory()->create();
         Classification::factory()->create();
-
-        $community = Community::where('key', 'digital')->sole();
+        WorkStream::factory()->create();
 
         $adminUser = User::factory()
             ->asApplicant()
@@ -55,6 +52,25 @@ class UserDocGeneratorTest extends TestCase
             ->withEmployeeProfile()
             ->withSkillsAndExperiences()
             ->create();
+
+        // Faker seed makes skill ranks the same.
+        // This is not realistic data so we are forcing them
+        // to be different
+        $targetUser->userSkills()->with('skill')->get()
+            ->sortBy(fn ($userSkill) => $userSkill->skill->key)
+            ->values()
+            ->each(function ($userSkill, $index) {
+                if ($userSkill->top_skills_rank) {
+                    $userSkill->top_skills_rank = $index + 1;
+                    $userSkill->save();
+                }
+                if ($userSkill->improve_skills_rank) {
+                    $userSkill->improve_skills_rank = $index + 1;
+                    $userSkill->save();
+                }
+            });
+
+        $targetUser->refresh();
 
         $this->generator = new UserDocGenerator(
             user: $targetUser,
