@@ -147,73 +147,80 @@ const TalentManagementTaskCard = ({
           headingColor="success"
           headingAs="h2"
         >
-          <TaskCard.Item>
-            <Accordion.Root type="multiple">
-              <Accordion.Item value="your_talent_nominations">
-                <Accordion.Trigger
-                  as="h3"
-                  subtitle={intl.formatMessage({
-                    defaultMessage:
-                      "Nominate employees for advancement, lateral movement, or development programs. Track submission status or view previous nominations you've submitted.",
-                    id: "zCjdD9",
-                    description:
-                      "Subtitle explaining talent nominations expandable within Talent management card",
-                  })}
-                >
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Talent nominations ({nominationCount})",
-                      id: "pOazxP",
-                      description:
-                        "Collapsible header, Talent nominations and then count",
-                    },
-                    { nominationCount: nominationCount },
-                  )}
-                </Accordion.Trigger>
-                <Accordion.MetaData metadata={talentNominationMetaData} />
-                <Accordion.Content>
-                  <div className="mt-3 flex flex-col gap-6">
-                    {sortedNominations.length ? (
-                      <PreviewList.Root>
-                        {sortedNominations.map((talentNominationItem) => (
-                          <TalentNominationListItem
-                            key={talentNominationItem.id}
-                            headingAs="h4"
-                            displayCreatedDate={shouldRenderCreatedDateComputation(
-                              talentNominationItem.nominee?.id,
-                              allNomineeIds,
-                            )}
-                            talentNominationListItemQuery={talentNominationItem}
-                          />
-                        ))}
-                      </PreviewList.Root>
-                    ) : (
-                      <Well className="text-center">
-                        <p>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "<strong>You have no active nominations.</strong>",
-                            id: "a4Wc5h",
-                            description:
-                              "Notice's title when there are no nominations",
-                          })}
-                        </p>
-                        <p>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              'You can start a nomination by browsing the currently active talent management events using the "New nomination" link.',
-                            id: "73rG7Y",
-                            description:
-                              "Notice's text when there are no nominations",
-                          })}
-                        </p>
-                      </Well>
-                    )}
-                  </div>
-                </Accordion.Content>
-              </Accordion.Item>
-            </Accordion.Root>
-          </TaskCard.Item>
+          <>
+            {sortedNominations.length > 0 && (
+              <TaskCard.Item>
+                <Accordion.Root type="multiple">
+                  <Accordion.Item value="your_talent_nominations">
+                    <Accordion.Trigger
+                      as="h3"
+                      subtitle={intl.formatMessage({
+                        defaultMessage:
+                          "Nominate employees for advancement, lateral movement, or development programs. Track submission status or view previous nominations you've submitted.",
+                        id: "zCjdD9",
+                        description:
+                          "Subtitle explaining talent nominations expandable within Talent management card",
+                      })}
+                    >
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "Talent nominations ({nominationCount})",
+                          id: "pOazxP",
+                          description:
+                            "Collapsible header, Talent nominations and then count",
+                        },
+                        { nominationCount: nominationCount },
+                      )}
+                    </Accordion.Trigger>
+                    <Accordion.MetaData metadata={talentNominationMetaData} />
+                    <Accordion.Content>
+                      <div className="mt-3 flex flex-col gap-6">
+                        {sortedNominations.length ? (
+                          <PreviewList.Root>
+                            {sortedNominations.map((talentNominationItem) => (
+                              <TalentNominationListItem
+                                key={talentNominationItem.id}
+                                headingAs="h4"
+                                displayCreatedDate={shouldRenderCreatedDateComputation(
+                                  talentNominationItem.nominee?.id,
+                                  allNomineeIds,
+                                )}
+                                talentNominationListItemQuery={
+                                  talentNominationItem
+                                }
+                              />
+                            ))}
+                          </PreviewList.Root>
+                        ) : (
+                          <Well className="text-center">
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "<strong>You have no active nominations.</strong>",
+                                id: "a4Wc5h",
+                                description:
+                                  "Notice's title when there are no nominations",
+                              })}
+                            </p>
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  'You can start a nomination by browsing the currently active talent management events using the "New nomination" link.',
+                                id: "73rG7Y",
+                                description:
+                                  "Notice's text when there are no nominations",
+                              })}
+                            </p>
+                          </Well>
+                        )}
+                      </div>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                </Accordion.Root>
+              </TaskCard.Item>
+            )}
+          </>
           <>
             {poolCandidateSearchRequests.length > 0 && (
               <TaskCard.Item>
