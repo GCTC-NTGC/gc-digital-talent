@@ -483,7 +483,7 @@ class UserFactory extends Factory
         if (empty($skills)) {
             $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->take($count)->get();
+            })->inRandomOrder()->take($count)->get();
             if (! $allSkills->count()) {
                 $allSkills = Skill::factory($count)->create();
             }
