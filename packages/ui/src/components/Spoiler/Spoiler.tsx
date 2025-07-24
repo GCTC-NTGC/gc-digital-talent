@@ -5,6 +5,7 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Button from "../Button";
 import Collapsible from "../Collapsible";
+import HTMLEntity from "../HTMLEntity/HTMLEntity";
 
 export interface SpoilerProps {
   // Accessible name for the "read more" button
@@ -24,8 +25,12 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
     <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex items-center gap-x-1.5">
         <div>
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {!isOpen && <>{truncated}&hellip;</>}
+          {!isOpen && (
+            <>
+              {truncated}
+              <HTMLEntity name="&hellip;" />
+            </>
+          )}
           <Collapsible.Content>{text}</Collapsible.Content>
         </div>
         <Collapsible.Trigger asChild>

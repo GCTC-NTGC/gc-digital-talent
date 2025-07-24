@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Link } from "@gc-digital-talent/ui";
+import { HTMLEntity, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 const VersionLink = () => {
@@ -21,8 +21,7 @@ const VersionLink = () => {
 
   return (
     <span>
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      <span className="mx-1">&mdash;</span>
+      <HTMLEntity name="&mdash;" className="mx-1" aria-hidden />
       {intl.formatMessage({
         id: "C3fUwm",
         defaultMessage: "Version",
