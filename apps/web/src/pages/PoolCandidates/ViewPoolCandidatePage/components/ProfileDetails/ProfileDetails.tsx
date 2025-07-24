@@ -56,10 +56,9 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
       className="mt-6 flex flex-wrap items-center gap-3 bg-transparent bg-linear-90 from-secondary/10 to-primary/10 text-white dark:bg-transparent"
     >
       <p>
-        {user.currentCity ??
-          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-          intl.formatMessage(commonMessages.notFound)}
-        , {getLocalizedName(user.currentProvince?.label, intl)}
+        {user.currentCity ?? intl.formatMessage(commonMessages.notFound)}
+        <HTMLEntity name="&comma;" className="mr-1" />
+        {getLocalizedName(user.currentProvince?.label, intl)}
       </p>
       <HTMLEntity name="&bull;" aria-hidden />
       {user.telephone ? (

@@ -5,6 +5,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   AccordionMetaData,
+  HTMLEntity,
   PreviewList,
   TaskCard,
   Ul,
@@ -372,12 +373,17 @@ const CareerDevelopmentTaskCard = ({
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
                 >
-                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                  {`${intl.formatMessage({
+                  {intl.formatMessage({
                     defaultMessage: "Functional communities",
                     id: "OH0wqV",
                     description: "Functional communities expandable",
-                  })} (${careerDevelopmentTaskCardFragment?.communityInterests?.length ?? 0})`}
+                  })}
+                  <span className="ml-1">
+                    <HTMLEntity name="&lpar;" />
+                    {careerDevelopmentTaskCardFragment?.communityInterests
+                      ?.length ?? 0}
+                    <HTMLEntity name="&rpar;" />
+                  </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={functionalCommunitiesMetaData} />
                 <Accordion.Content>
