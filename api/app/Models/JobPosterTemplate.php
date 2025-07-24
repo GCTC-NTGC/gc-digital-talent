@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Casts\LocalizedString;
-use App\Enums\PoolSkillType;
-use App\Enums\SkillCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -75,27 +73,6 @@ class JobPosterTemplate extends Model
     public function jobPosterTemplateSkills(): HasMany
     {
         return $this->hasMany(JobPosterTemplateSkill::class);
-    }
-
-    public function essentialTechnicalSkills(): BelongsToMany
-    {
-        return $this->skills()
-            ->wherePivot('type', PoolSkillType::ESSENTIAL->name)
-            ->where('category', SkillCategory::TECHNICAL->name);
-    }
-
-    public function essentialBehaviouralSkills(): BelongsToMany
-    {
-        return $this->skills()
-            ->wherePivot('type', PoolSkillType::ESSENTIAL->name)
-            ->where('category', SkillCategory::BEHAVIOURAL->name);
-    }
-
-    public function nonessentialTechnicalSkills(): BelongsToMany
-    {
-        return $this->skills()
-            ->wherePivot('type', PoolSkillType::NONESSENTIAL->name)
-            ->where('category', SkillCategory::TECHNICAL->name);
     }
 
     /** @return BelongsTo<WorkStream, $this> */
