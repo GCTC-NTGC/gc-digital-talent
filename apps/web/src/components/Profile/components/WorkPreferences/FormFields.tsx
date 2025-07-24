@@ -195,9 +195,9 @@ const FormFields = ({
         </Field.Legend>
         <Checklist
           idPrefix="work-location"
-          legend={labels.workLocationPreferences}
-          name="locationPreferences"
-          id="locationPreferences"
+          legend={labels.flexibleWorkLocationOptions}
+          name="flexibleWorkLocations"
+          id="flexibleWorkLocations"
           items={localizedEnumToOptions(
             sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
               /* remove 'Telework' enum from checklist of options */
