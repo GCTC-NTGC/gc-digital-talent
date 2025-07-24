@@ -35,6 +35,11 @@ export const getLabels = (intl: IntlShape) => ({
     id: "ahK7mI",
     description: "Legend for the work location preferences section",
   }),
+  flexibleWorkLocationOptions: intl.formatMessage({
+    defaultMessage: "Flexible work location options",
+    id: "W2619r",
+    description: "Legend for the flexible work location preferences section",
+  }),
   locationExemptions: intl.formatMessage({
     defaultMessage:
       "Please indicate if there is a city that you would like to exclude from a region.",
@@ -58,8 +63,8 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
     ),
     currentProvince: data?.currentProvince?.value,
     currentCity: data?.currentCity,
-    locationPreferences: unpackMaybes(
-      data.locationPreferences?.map((pref) => pref?.value),
+    flexibleWorkLocations: unpackMaybes(
+      data.flexibleWorkLocations?.map((loc) => loc?.value),
     ),
     locationExemptions: data.locationExemptions,
   };
@@ -81,7 +86,7 @@ export const formValuesToSubmitData = (
       ? [PositionDuration.Permanent, PositionDuration.Temporary]
       : [PositionDuration.Permanent], // always accepting permanent, accepting temporary is what is variable
     acceptedOperationalRequirements: values.acceptedOperationalRequirements,
-    locationPreferences: values.locationPreferences,
+    flexibleWorkLocations: values.flexibleWorkLocations,
     locationExemptions: values.locationExemptions,
     currentCity: values.currentCity,
     currentProvince: values.currentProvince,

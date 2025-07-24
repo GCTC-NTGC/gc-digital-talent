@@ -13,7 +13,7 @@ import {
   OperationalRequirements,
   errorMessages,
   getOperationalRequirement,
-  sortWorkRegion,
+  sortFlexibleWorkLocations,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -22,7 +22,9 @@ import useDirtyFields from "../../hooks/useDirtyFields";
 
 const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {
-    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+    flexibleWorkLocation: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
+    ) {
       value
       label {
         en
@@ -130,11 +132,11 @@ const FormFields = ({
         </Field.Legend>
         <Checklist
           idPrefix="work-location"
-          legend={labels.workLocationPreferences}
-          name="locationPreferences"
-          id="locationPreferences"
+          legend={labels.flexibleWorkLocationOptions}
+          name="flexibleWorkLocations"
+          id="flexibleWorkLocations"
           items={localizedEnumToOptions(
-            sortWorkRegion(data?.workRegions),
+            sortFlexibleWorkLocations(data?.flexibleWorkLocation),
             intl,
           )}
           rules={{
