@@ -44,5 +44,5 @@ return [
     'digital_talent_processes_text' => 'These processes are run on the GC Digital Talent platform.',
     'off_platform_processes_text' => 'Users can provide information about processes or pools from other Government of Canada platforms in which they’ve been qualified. This information has not been verified.',
     'nominations' => 'Nominations',
-    'skill_requirements' => 'Skill requirements'
+    'skill_requirements' => 'Skill requirements',
 ];
