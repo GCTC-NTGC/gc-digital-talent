@@ -182,6 +182,13 @@ export const UserProfile_FragmentText = /** GraphQL */ `
         fr
       }
     }
+    flexibleWorkLocations {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
     acceptedOperationalRequirements {
       value
