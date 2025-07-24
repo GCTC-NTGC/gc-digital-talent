@@ -152,8 +152,7 @@ const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
                   color="error"
                 >
                   {field.label}
-                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                  {field.index ? ` ${field.index}` : null}
+                  {field.index ?? <span className="ml-1">{field.index}</span>}
                 </ScrollToLink>
                 {intl.formatMessage(commonMessages.dividingColon)}
                 <ErrorMessage name={field.name} />
