@@ -127,7 +127,10 @@ class UserFactory extends Factory
                 ],
                 3
             ),
-            'flexible_work_locations' => $this->faker->randomElements(array_column(FlexibleWorkLocation::cases(), 'name')),
+            'flexible_work_locations' => $this->faker->randomElements(
+                array_column(FlexibleWorkLocation::cases(), 'name'),
+                $this->faker->numberBetween(1, 3)
+            ),
             'location_exemptions' => "{$this->faker->city()}, {$this->faker->city()}, {$this->faker->city()}",
             'position_duration' => $this->faker->boolean() ?
                 array_column(PositionDuration::cases(), 'name')
