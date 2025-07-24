@@ -69,10 +69,16 @@ export const ViewTrainingOpportunityForm = ({
       </Heading>
       <Card>
         <div className="grid gap-6 xs:grid-cols-2">
-          <FieldDisplay label={intl.formatMessage(formLabels.titleEn)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.title)}
+            appendLanguageToLabel={"en"}
+          >
             {trainingOpportunity.title?.en}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(formLabels.titleFr)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.title)}
+            appendLanguageToLabel={"fr"}
+          >
             {trainingOpportunity.title?.fr}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(formLabels.courseLanguage)}>
@@ -115,7 +121,10 @@ export const ViewTrainingOpportunityForm = ({
             {trainingOpportunity.trainingEnd ??
               intl.formatMessage(adminMessages.noneProvided)}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(formLabels.descriptionEn)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"en"}
+          >
             {trainingOpportunity.description?.en ? (
               <RichTextRenderer
                 node={htmlToRichTextJSON(trainingOpportunity.description.en)}
@@ -124,7 +133,10 @@ export const ViewTrainingOpportunityForm = ({
               intl.formatMessage(adminMessages.noneProvided)
             )}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(formLabels.descriptionFr)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"fr"}
+          >
             {trainingOpportunity.description?.fr ? (
               <RichTextRenderer
                 node={htmlToRichTextJSON(trainingOpportunity.description.fr)}
@@ -133,10 +145,16 @@ export const ViewTrainingOpportunityForm = ({
               intl.formatMessage(adminMessages.noneProvided)
             )}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(formLabels.applicationUrlEn)}>
+          <FieldDisplay
+            label={intl.formatMessage(formLabels.applicationUrl)}
+            appendLanguageToLabel={"en"}
+          >
             {trainingOpportunity.applicationUrl?.en}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(formLabels.applicationUrlFr)}>
+          <FieldDisplay
+            label={intl.formatMessage(formLabels.applicationUrl)}
+            appendLanguageToLabel={"fr"}
+          >
             {trainingOpportunity.applicationUrl?.fr}
           </FieldDisplay>
         </div>

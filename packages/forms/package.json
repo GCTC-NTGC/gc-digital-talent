@@ -33,7 +33,7 @@
     "@tiptap/react": "^2.25.0",
     "@tiptap/starter-kit": "^2.25.0",
     "date-fns": "^3.6.0",
-    "downshift": "^9.0.9",
+    "downshift": "^9.0.10",
     "lodash": "^4.17.21",
     "motion": "^12.23.6",
     "tailwind-variants": "^1.0.0"
@@ -52,7 +52,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.0.14",
+    "@types/node": "^24.1.0",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",
     "jest": "^30.0.4",

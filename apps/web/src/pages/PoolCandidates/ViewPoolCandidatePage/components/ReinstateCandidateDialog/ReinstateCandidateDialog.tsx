@@ -94,7 +94,7 @@ const ReinstateCandidateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="text" color="warning" className="font-bold">
+        <Button mode="text" color="warning">
           {intl.formatMessage(commonMessages.removed)}
         </Button>
       </Dialog.Trigger>

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Generators;
 
-use App\Generators\UsersThruPoolCandidatesCsvGenerator;
+use App\Generators\UsersThruPoolCandidatesExcelGenerator;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -12,10 +12,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertTrue;
 
-class UsersThruPoolCandidatesCsvGeneratorTest extends TestCase
+class UsersThruPoolCandidatesExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -60,7 +60,7 @@ class UsersThruPoolCandidatesCsvGeneratorTest extends TestCase
 
         // act
         $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
-        $generator = new UsersThruPoolCandidatesCsvGenerator(
+        $generator = new UsersThruPoolCandidatesExcelGenerator(
             fileName: $fileName,
             dir: 'test',
             lang: 'en',
@@ -75,11 +75,11 @@ class UsersThruPoolCandidatesCsvGeneratorTest extends TestCase
 
         // assert
         $disk = Storage::disk('userGenerated');
-        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.csv';
+        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
 
         $fileExists = $disk->exists($path);
         assertTrue($fileExists, 'File was not generated');
-        $lineCount = count(file($disk->path($path)));
-        assertEquals(3, $lineCount, 'The wrong number of lines are in the file');
+        $fileSize = $disk->size($path);
+        assertGreaterThan(0, $fileSize, 'File is empty');
     }
 }

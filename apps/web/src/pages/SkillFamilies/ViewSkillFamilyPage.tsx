@@ -117,22 +117,30 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
         </div>
         <Card>
           <div className="grid gap-6 xs:grid-cols-2">
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"en"}
+            >
               {skillFamily.name?.en ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"fr"}
+            >
               {skillFamily.name?.fr ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(adminMessages.descriptionEn)}
+              label={intl.formatMessage(commonMessages.description)}
+              appendLanguageToLabel={"en"}
             >
               {skillFamily.description?.en ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(adminMessages.descriptionFr)}
+              label={intl.formatMessage(commonMessages.description)}
+              appendLanguageToLabel={"fr"}
             >
               {skillFamily.description?.fr ??
                 intl.formatMessage(commonMessages.notProvided)}

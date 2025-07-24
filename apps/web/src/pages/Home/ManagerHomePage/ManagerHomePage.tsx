@@ -14,10 +14,10 @@ import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-import managerHeroPortrait from "~/assets/img/manager-hero-portrait.webp";
-import managerHeroTablet from "~/assets/img/manager-hero-tablet-portrait.webp";
+import managerHeroSquare from "~/assets/img/manager-hero-square.webp";
 import managerHeroLandscape from "~/assets/img/manager-hero-landscape.webp";
-import managerProfileHero from "~/assets/img/manager-profile-hero.webp";
+import managerProfileSquare from "~/assets/img/manager-profile-square.webp";
+import managerProfileLandscape from "~/assets/img/manager-profile-landscape.webp";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
@@ -53,16 +53,7 @@ const ManagerHomePage = () => {
         titleSize="h2"
         subtitle={intl.formatMessage(pageSubtitle)}
         img={{
-          sources: [
-            {
-              srcset: managerHeroPortrait,
-              media: "(max-width: 48rem)",
-            },
-            {
-              srcset: managerHeroTablet,
-              media: "(max-width: 67.5rem)",
-            },
-          ],
+          sources: { sm: managerHeroSquare },
           src: managerHeroLandscape,
           alt: "",
         }}
@@ -197,13 +188,12 @@ const ManagerHomePage = () => {
         </div>
       </SkewedContainer>
       <SkewedImageContainer
-        imgSrc={managerProfileHero}
-        imgProps={{
-          className:
-            "bg-position-[80%_110%] sm:bg-position-[60%_50%] lg:bg-position-[right_50%]",
+        img={{
+          src: managerProfileLandscape,
+          sources: { sm: managerProfileSquare },
         }}
       >
-        <p className="mb-12 text-lg text-white sm:max-w-1/2 lg:text-xl">
+        <p className="mb-12 text-lg lg:text-xl">
           {intl.formatMessage({
             defaultMessage:
               "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",

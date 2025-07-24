@@ -1,8 +1,8 @@
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 
-test.describe("User CSV", () => {
-  test("Download user as CSV", async ({ appPage }) => {
+test.describe("User Excel", () => {
+  test("Download user as Excel", async ({ appPage }) => {
     await loginBySub(appPage.page, "admin@test.com", false);
     await appPage.page.goto("/en/admin/users");
     await appPage.page
@@ -14,7 +14,7 @@ test.describe("User CSV", () => {
     await appPage.page
       .getByRole("button", { name: /select gul fields/i })
       .click();
-    await appPage.page.getByRole("button", { name: /download csv/i }).click();
+    await appPage.page.getByRole("button", { name: /download excel/i }).click();
 
     await expect(appPage.page.getByRole("alert")).toContainText(
       /preparing your file for download/i,
