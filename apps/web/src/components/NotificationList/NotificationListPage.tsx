@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 import { Scalars, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Link, Loading, Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 
 import NotificationItem from "./NotificationItem";
 import NotificationPortal, {
