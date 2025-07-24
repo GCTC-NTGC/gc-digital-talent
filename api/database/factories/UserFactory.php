@@ -9,6 +9,7 @@ use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
@@ -126,6 +127,7 @@ class UserFactory extends Factory
                 ],
                 3
             ),
+            'flexible_work_locations' => $this->faker->randomElements(array_column(FlexibleWorkLocation::cases(), 'name')),
             'location_exemptions' => "{$this->faker->city()}, {$this->faker->city()}, {$this->faker->city()}",
             'position_duration' => $this->faker->boolean() ?
                 array_column(PositionDuration::cases(), 'name')
