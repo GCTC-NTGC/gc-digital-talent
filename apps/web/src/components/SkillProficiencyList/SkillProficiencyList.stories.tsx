@@ -16,7 +16,8 @@ import SkillProficiencyList, { Options_Fragment } from "./SkillProficiencyList";
 const allSkills = getStaticSkills();
 const optionsQuery = makeFragmentData({ skills: allSkills }, Options_Fragment);
 
-const items = allSkills.slice(0, 5).map((skill) => ({
+const items = allSkills.slice(0, 5).map((skill, index) => ({
+  id: index.toString(),
   skillId: skill.id,
   skillName: skill.name.en ?? null,
   skillLevel: faker.helpers.arrayElement<SkillLevel>(Object.values(SkillLevel)),
