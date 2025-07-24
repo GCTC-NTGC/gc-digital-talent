@@ -39,6 +39,7 @@ import IconButton, {
   type IconButtonProps,
 } from "./components/Button/IconButton";
 import IconLink, { type IconLinkProps } from "./components/Link/IconLink";
+import Image, { type ImgProps } from "./components/Image/Image";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -117,6 +118,7 @@ export type {
   IconType,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
+  ImgProps,
   MenuLinkProps,
   MetadataItemProps,
   LoadingProps,
@@ -169,6 +171,7 @@ export {
   HTMLEntity,
   IconButton,
   IconLink,
+  Image,
   Link,
   DownloadCsv,
   ScrollToLink,
