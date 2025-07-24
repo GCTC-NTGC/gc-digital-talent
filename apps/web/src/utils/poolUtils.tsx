@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
-import { ChipProps, IconType } from "@gc-digital-talent/ui";
+import { ChipProps, HTMLEntity, IconType } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -127,10 +127,10 @@ export const formattedPoolPosterTitle = ({
       </>
     ) : (
       <>
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        {title ?? ""} ({wrapAbbr(groupAndLevel, intl)}
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        {streamString ? ` ${streamString}` : ""})
+        {title ?? ""} <HTMLEntity name="&lpar;" />
+        {wrapAbbr(groupAndLevel, intl)}
+        {streamString ?? <span className="m1-1">{streamString}</span>}
+        <HTMLEntity name="&rpar;" />
       </>
     ),
     label: short

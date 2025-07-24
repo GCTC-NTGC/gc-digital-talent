@@ -3,6 +3,7 @@ import { JSX } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { HTMLEntity } from "@gc-digital-talent/ui";
 
 import { getNominatorName } from "~/utils/talentNominations";
 
@@ -24,8 +25,11 @@ const NominatorList_Fragment = graphql(/** GraphQL */ `
 const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
   return arr.reduce<JSX.Element[]>((prev, curr, i) => {
     if (i > 0) {
-      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-      prev.push(<span key={i}> , </span>);
+      prev.push(
+        <span key={i}>
+          <HTMLEntity name="&comma;" className="mx-1" />
+        </span>,
+      );
     }
     prev.push(curr);
     return prev;

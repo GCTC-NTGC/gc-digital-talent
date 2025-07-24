@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Link, Well } from "@gc-digital-talent/ui";
+import { HTMLEntity, Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -127,8 +127,11 @@ const AboutSection = ({ userQuery }: AboutSectionProps) => {
           </p>
           <p>
             {user.currentCity ?? ""}
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            {user.currentCity && user.currentProvince?.label ? ", " : ""}
+            {user.currentCity && user.currentProvince?.label ? (
+              <HTMLEntity name="&comma;" className="mr-1" />
+            ) : (
+              ""
+            )}
             {user?.currentProvince?.label.localized}
           </p>
         </div>
