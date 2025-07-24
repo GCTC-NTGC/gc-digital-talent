@@ -741,13 +741,13 @@ export const PoolPoster = ({
                           ? "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-fra.html#a8"
                           : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
                       }
-                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      label={`${intl.formatMessage({
-                        defaultMessage: "Learn more about employment durations",
-                        id: "zlHeEz",
+                      label={intl.formatMessage({
+                        defaultMessage:
+                          "Learn more about employment durations (opens in new tab)",
+                        id: "RuLbg4",
                         description:
                           "Link text for employment durations information",
-                      })} ${intl.formatMessage(uiMessages.newTab)}`}
+                      })}
                     />
                   }
                 />

@@ -6383,6 +6383,10 @@
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
   },
+  "RuLbg4": {
+    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi (s'ouvre dans un nouvel onglet)",
+    "description": "Link text for employment durations information"
+  },
   "RuTdam": {
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label text for employee profile c-suite role input"
@@ -13364,10 +13368,6 @@
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
     "description": "Lead text for the list of roles the user will lose"
-  },
-  "zlHeEz": {
-    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi",
-    "description": "Link text for employment durations information"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
