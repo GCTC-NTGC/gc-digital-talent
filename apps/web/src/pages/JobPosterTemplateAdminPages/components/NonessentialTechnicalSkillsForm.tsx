@@ -162,6 +162,11 @@ const NonessentialTechnicalSkillsForm = ({
         onAdd={handleAddSkillProficiency}
         noToast
         withLevel={false}
+        customAddText={intl.formatMessage({
+          defaultMessage: "Add an asset technical skill",
+          id: "pRXtR8",
+          description: "Button to add an asset technical skill",
+        })}
       />
       <div>
         <Checkbox

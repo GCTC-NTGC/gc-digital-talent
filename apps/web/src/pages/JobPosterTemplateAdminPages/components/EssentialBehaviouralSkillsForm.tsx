@@ -160,6 +160,11 @@ const EssentialBehaviouralSkillsForm = ({
         onAdd={handleAddSkillProficiency}
         noToast
         withLevel={true}
+        customAddText={intl.formatMessage({
+          defaultMessage: "Add an essential behavioural skill",
+          id: "n4F4nX",
+          description: "Button to add an essential behavioural skill",
+        })}
       />
       <div>
         <Checkbox

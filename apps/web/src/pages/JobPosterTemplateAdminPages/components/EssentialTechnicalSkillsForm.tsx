@@ -160,6 +160,11 @@ const EssentialTechnicalSkillsForm = ({
         onAdd={handleAddSkillProficiency}
         noToast
         withLevel={true}
+        customAddText={intl.formatMessage({
+          defaultMessage: "Add an essential technical skill",
+          id: "clhLJd",
+          description: "Button to add an essential technical skill",
+        })}
       />
       <div>
         <Checkbox

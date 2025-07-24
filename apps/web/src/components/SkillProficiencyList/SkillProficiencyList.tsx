@@ -78,6 +78,7 @@ export interface SkillProficiencyListProps {
   }) => Promise<void>;
   noToast?: boolean;
   withLevel?: boolean;
+  customAddText?: string;
 }
 
 const SkillProficiencyList = ({
@@ -89,6 +90,7 @@ const SkillProficiencyList = ({
   onAdd,
   noToast = false,
   withLevel = false,
+  customAddText,
 }: SkillProficiencyListProps) => {
   const intl = useIntl();
 
@@ -160,11 +162,12 @@ const SkillProficiencyList = ({
         }}
         customTrigger={
           <Button icon={PlusCircleIcon} mode="placeholder" type="button">
-            {intl.formatMessage({
-              defaultMessage: "Add a skill",
-              id: "+ZREDW",
-              description: "Button text to add a skill",
-            })}
+            {customAddText ??
+              intl.formatMessage({
+                defaultMessage: "Add a skill",
+                id: "+ZREDW",
+                description: "Button text to add a skill",
+              })}
           </Button>
         }
         noToast={noToast}
