@@ -673,14 +673,13 @@ export const PoolPoster = ({
                             : "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html#information-technology"
                         }
                         icon={InformationCircleIcon}
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        label={`${intl.formatMessage({
+                        label={intl.formatMessage({
                           defaultMessage:
-                            "Information technology (IT) work streams",
-                          id: "FZ5qdE",
+                            "Information technology (IT) work streams (opens in new tab)",
+                          id: "qLuX+k",
                           description:
                             "Link text to more information about information technology work streams",
-                        })} ${intl.formatMessage(uiMessages.newTab)}`}
+                        })}
                       />
                     ) : undefined
                   }

@@ -3787,10 +3787,6 @@
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
   },
-  "FZ5qdE": {
-    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI)",
-    "description": "Link text to more information about information technology work streams"
-  },
   "FcHUIQ": {
     "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par l'autrice ou l'auteur de la mise en candidature.",
     "description": "Statement of confirmation for reference check"
@@ -11516,6 +11512,10 @@
   "qGSEMx": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
+  },
+  "qLuX+k": {
+    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI) (s'ouvre dans un nouvel onglet)",
+    "description": "Link text to more information about information technology work streams"
   },
   "qN9zOb": {
     "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
