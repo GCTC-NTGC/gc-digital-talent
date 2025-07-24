@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'REMOTE' => 'REMOTE',
-    'HYBRID' => 'HYBRID',
-    'ONSITE' => 'ONSITE',
+    'remote' => 'REMOTE',
+    'hybrid' => 'HYBRID',
+    'onsite' => 'ONSITE',
 ];
