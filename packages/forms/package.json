@@ -33,7 +33,7 @@
     "@tiptap/react": "^2.25.0",
     "@tiptap/starter-kit": "^2.25.0",
     "date-fns": "^3.6.0",
-    "downshift": "^9.0.9",
+    "downshift": "^9.0.10",
     "lodash": "^4.17.21",
     "motion": "^12.23.6",
     "tailwind-variants": "^1.0.0"
