@@ -2,6 +2,8 @@ import { IntlShape } from "react-intl";
 
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 import { Skill } from "@gc-digital-talent/graphql";
+import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { getSkillFamilies } from "~/utils/csvUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -40,35 +42,91 @@ export const getSkillCsvHeaders = (
     },
     {
       id: "nameEn",
-      displayName: intl.formatMessage(adminMessages.nameEn),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(commonMessages.name),
+          lang: "en",
+          intl,
+          formatted: false,
+        }),
+      ),
     },
     {
       id: "categoryEn",
-      displayName: intl.formatMessage(adminMessages.categoryEn),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(adminMessages.category),
+          lang: "en",
+          intl,
+          formatted: false,
+        }),
+      ),
     },
     {
       id: "skillFamiliesEn",
-      displayName: intl.formatMessage(adminMessages.skillFamiliesEn),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(adminMessages.skillFamilies),
+          lang: "en",
+          intl,
+          formatted: true,
+        }),
+      ),
     },
     {
       id: "descriptionEn",
-      displayName: intl.formatMessage(adminMessages.descriptionEn),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(commonMessages.description),
+          lang: "en",
+          intl,
+          formatted: true,
+        }),
+      ),
     },
     {
       id: "nameFr",
-      displayName: intl.formatMessage(adminMessages.nameFr),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(commonMessages.name),
+          lang: "fr",
+          intl,
+          formatted: true,
+        }),
+      ),
     },
     {
       id: "categoryFr",
-      displayName: intl.formatMessage(adminMessages.categoryFr),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(adminMessages.category),
+          lang: "fr",
+          intl,
+          formatted: true,
+        }),
+      ),
     },
     {
       id: "skillFamiliesFr",
-      displayName: intl.formatMessage(adminMessages.skillFamiliesFr),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(adminMessages.skillFamilies),
+          lang: "fr",
+          intl,
+          formatted: true,
+        }),
+      ),
     },
     {
       id: "descriptionFr",
-      displayName: intl.formatMessage(adminMessages.descriptionFr),
+      displayName: nodeToString(
+        appendLanguageName({
+          label: intl.formatMessage(commonMessages.description),
+          lang: "fr",
+          intl,
+          formatted: true,
+        }),
+      ),
     },
   ];
 };

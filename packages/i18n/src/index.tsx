@@ -78,6 +78,7 @@ import {
   narrowEnumType,
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
+import { appendLanguageName } from "./utils/lang";
 
 export {
   richTextElements,
@@ -124,6 +125,7 @@ export {
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
+  appendLanguageName,
 };
 
 export {

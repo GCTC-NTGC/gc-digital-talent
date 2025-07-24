@@ -6,6 +6,8 @@ import {
 } from "react";
 import { RegisterOptions } from "react-hook-form";
 
+import { LabelProps } from "./components/Field";
+
 export type FieldLabels = Record<string, ReactNode>;
 
 export type FieldState = "unset" | "invalid" | "dirty";
@@ -36,6 +38,7 @@ export interface CommonInputProps {
   rules?: RegisterOptions;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  appendLanguageToLabel?: LabelProps["appendLanguageToLabel"];
 }
 
 export interface Option {

@@ -1,45 +1,14 @@
-import { HTMLAttributes, ImgHTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  Image as BaseImage,
+  ImgProps as BaseImgProps,
+} from "@gc-digital-talent/ui";
 
-type Breakpoint = "xs" | "sm" | "md" | "lg";
-type PartialBreakpoints = Partial<Record<Breakpoint, string>>;
-
-export interface ImgProps extends ImgHTMLAttributes<HTMLImageElement> {
-  sources?: PartialBreakpoints;
+export interface ImgProps extends BaseImgProps {
   wrapperClassname?: string;
 }
-
-const sourceMediaMap = new Map<Breakpoint, string>([
-  ["xs", "(max-width: 48rem)"],
-  ["sm", "(max-width: 67.5rem)"],
-  ["md", "(max-width: 80rem)"],
-  ["lg", "(max-width: 100rem)"],
-]);
-
-interface PictureSource {
-  srcSet: string;
-  media: string;
-}
-
-const buildPictureSource = (
-  sources?: PartialBreakpoints,
-): PictureSource[] | null => {
-  if (!sources) {
-    return null;
-  }
-
-  return Object.keys(sources)
-    .map((k) => {
-      const srcSet = sources[k as Breakpoint];
-      const media = sourceMediaMap.get(k as Breakpoint);
-      if (!media || !srcSet) return null;
-
-      return { srcSet, media };
-    })
-    .filter(notEmpty);
-};
 
 const image = tv({
   slots: {
@@ -49,33 +18,13 @@ const image = tv({
   },
 });
 
-const Image = ({
-  className,
-  sources,
-  wrapperClassname,
-  alt,
-  src,
-  ...rest
-}: ImgProps) => {
-  const pictureSources = buildPictureSource(sources);
+const Image = ({ className, wrapperClassname, ...rest }: ImgProps) => {
   const { base, wrapper } = image();
 
   return (
     <div className={wrapper({ class: wrapperClassname })}>
       <div className="absolute inset-0 z-[1] -m-px size-[calc(100%+2px)] bg-linear-[180deg,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_65%,rgba(0,0,0,0)_100%] xs:bg-linear-[90deg,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_45%,_rgba(0,0,0,0)_55%,_rgba(0,0,0,1)_100%]" />
-      <picture>
-        {pictureSources?.length
-          ? pictureSources?.map((sourceProps) => (
-              <source key={sourceProps.srcSet} {...sourceProps} />
-            ))
-          : null}
-        <img
-          src={src}
-          alt={alt ?? ""}
-          className={base({ class: className })}
-          {...rest}
-        />
-      </picture>
+      <BaseImage className={base({ class: className })} {...rest} />
     </div>
   );
 };

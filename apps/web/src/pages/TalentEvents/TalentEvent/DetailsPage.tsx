@@ -87,51 +87,55 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
       <Card className="grid gap-6 sm:grid-cols-2">
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Event name (English)",
-            id: "gXF4Rj",
-            description: "Label for nomination event name in English",
+            defaultMessage: "Event name",
+            id: "XFF/p+",
+            description: "Label for nomination event name",
           })}
+          appendLanguageToLabel={"en"}
         >
           {talentEvent.name.en ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Event name (French)",
-            id: "BisYQJ",
-            description: "Label for nomination event name in French",
+            defaultMessage: "Event name",
+            id: "XFF/p+",
+            description: "Label for nomination event name",
           })}
+          appendLanguageToLabel={"fr"}
         >
           {talentEvent.name.fr ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Event description (English)",
-            id: "axPXQ9",
-            description: "Label for nomination event description in English",
+            defaultMessage: "Event description",
+            id: "9mrSt3",
+            description: "Label for nomination event description",
           })}
+          appendLanguageToLabel={"en"}
         >
           {talentEvent.description?.en ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Event description (French)",
-            id: "e7vPeZ",
-            description: "Label for nomination event description in French",
+            defaultMessage: "Event description",
+            id: "9mrSt3",
+            description: "Label for nomination event description",
           })}
+          appendLanguageToLabel={"fr"}
         >
           {talentEvent.description?.fr ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "More information link (English)",
-            id: "dgQIEG",
-            description:
-              "Label for nomination event more information link in English",
+            defaultMessage: "More information link",
+            id: "uWNoOD",
+            description: "Label for nomination event more information link",
           })}
+          appendLanguageToLabel={"en"}
         >
           {talentEvent.learnMoreUrl?.en ? (
             <Link
@@ -149,11 +153,11 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "More information link (French)",
-            id: "4q/R7/",
-            description:
-              "Label for nomination event more information link in French",
+            defaultMessage: "More information link",
+            id: "uWNoOD",
+            description: "Label for nomination event more information link",
           })}
+          appendLanguageToLabel={"fr"}
         >
           {talentEvent.learnMoreUrl?.fr ? (
             <Link

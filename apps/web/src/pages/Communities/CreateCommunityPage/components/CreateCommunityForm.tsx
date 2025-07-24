@@ -13,7 +13,7 @@ import {
   Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
@@ -100,7 +100,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
         <div className="grid gap-6 xs:grid-cols-2">
           <Input
             id="name.en"
-            label={intl.formatMessage(adminMessages.nameEn)}
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"en"}
             name="name.en"
             autoComplete="off"
             type="text"
@@ -110,7 +111,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           />
           <Input
             id="name.fr"
-            label={intl.formatMessage(adminMessages.nameFr)}
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"fr"}
             name="name.fr"
             autoComplete="off"
             type="text"
@@ -120,7 +122,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           />
           <TextArea
             id="description.en"
-            label={intl.formatMessage(adminMessages.descriptionEn)}
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"en"}
             name="description.en"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -129,7 +132,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           />
           <TextArea
             id="description.fr"
-            label={intl.formatMessage(adminMessages.descriptionFr)}
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"fr"}
             name="description.fr"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -140,22 +144,24 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             id="mandateAuthority.en"
             name="mandateAuthority.en"
             label={intl.formatMessage({
-              defaultMessage: "Mandate authority (English)",
-              id: "T9alkU",
+              defaultMessage: "Mandate authority",
+              id: "83aYHF",
               description:
-                "Label displayed on the community form mandate authority field in English.",
+                "Label displayed on the community form mandate authority field",
             })}
+            appendLanguageToLabel={"en"}
             type="text"
           />
           <Input
             id="mandateAuthority.fr"
             name="mandateAuthority.fr"
             label={intl.formatMessage({
-              defaultMessage: "Mandate authority (French)",
-              id: "oWPn6I",
+              defaultMessage: "Mandate authority",
+              id: "83aYHF",
               description:
-                "Label displayed on the community form mandate authority field in French.",
+                "Label displayed on the community form mandate authority field",
             })}
+            appendLanguageToLabel={"fr"}
             type="text"
           />
           <div className="xs:col-span-2">
