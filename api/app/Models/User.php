@@ -625,44 +625,48 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
     }
 
-    public function getTopTechnicalSkillsRankingAttribute()
+    public function topTechnicalSkillsRanking(): HasMany
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        return $this->userSkills()
             ->whereNotNull('top_skills_rank')
-            ->where('skill.category', 'TECHNICAL')
-            ->sortBy('top_skills_rank');
+            ->whereHas('skill', function ($q) {
+                $q->where('category', 'TECHNICAL');
+            })
+            ->orderBy('top_skills_rank')
+            ->with('skill');
     }
 
-    public function getTopBehaviouralSkillsRankingAttribute()
+    public function topBehaviouralSkillsRanking(): HasMany
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        return $this->userSkills()
             ->whereNotNull('top_skills_rank')
-            ->where('skill.category', 'BEHAVIOURAL')
-            ->sortBy('top_skills_rank');
+            ->whereHas('skill', function ($q) {
+                $q->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('top_skills_rank')
+            ->with('skill');
     }
 
-    public function getImproveTechnicalSkillsRankingAttribute()
+    public function improveTechnicalSkillsRanking(): HasMany
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        return $this->userSkills()
             ->whereNotNull('improve_skills_rank')
-            ->where('skill.category', 'TECHNICAL')
-            ->sortBy('improve_skills_rank');
+            ->whereHas('skill', function ($q) {
+                $q->where('category', 'TECHNICAL');
+            })
+            ->orderBy('improve_skills_rank')
+            ->with('skill');
     }
 
-    public function getImproveBehaviouralSkillsRankingAttribute()
+    public function improveBehaviouralSkillsRanking(): HasMany
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        return $this->userSkills()
             ->whereNotNull('improve_skills_rank')
-            ->where('skill.category', 'BEHAVIOURAL')
-            ->sortBy('improve_skills_rank');
+            ->whereHas('skill', function ($q) {
+                $q->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('improve_skills_rank')
+            ->with('skill');
     }
 
     /**
