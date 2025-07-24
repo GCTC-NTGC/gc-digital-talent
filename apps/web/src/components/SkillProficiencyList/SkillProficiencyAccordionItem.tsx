@@ -36,7 +36,7 @@ interface SkillProficiencyAccordionItemProps {
     SkillProficiencyListOptionsFragment["skills"][number]
   >[];
   noToast?: boolean;
-  skillLevelIsRequired?: boolean;
+  withLevel?: boolean;
 }
 
 const SkillProficiencyAccordionItem = ({
@@ -49,7 +49,7 @@ const SkillProficiencyAccordionItem = ({
   onRemove,
   availableSkills,
   noToast = false,
-  skillLevelIsRequired = false,
+  withLevel = false,
 }: SkillProficiencyAccordionItemProps) => {
   const intl = useIntl();
 
@@ -108,18 +108,24 @@ const SkillProficiencyAccordionItem = ({
           }}
           customTrigger={
             <Accordion.MetaDataButton>
-              {intl.formatMessage({
-                defaultMessage: "Edit level",
-                id: "mxBpqB",
-                description: "Label to edit the skill level",
-              })}
+              {withLevel
+                ? intl.formatMessage({
+                    defaultMessage: "Edit level",
+                    id: "8zdTVe",
+                    description: "Label to edit the skill with level",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Edit",
+                    id: "duijly",
+                    description: "Label to edit the skill without level",
+                  })}
             </Accordion.MetaDataButton>
           }
           noToast={noToast}
           context={
-            skillLevelIsRequired
-              ? "skill-proficiency-list-requiring-level"
-              : "skill-proficiency-list-not-requiring-level"
+            withLevel
+              ? "skill-proficiency-list-with-level"
+              : "skill-proficiency-list-without-level"
           }
         />
       ),

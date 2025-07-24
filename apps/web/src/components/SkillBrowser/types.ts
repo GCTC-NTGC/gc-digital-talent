@@ -11,8 +11,8 @@ export type SkillBrowserDialogContext =
   | "experience"
   | "library"
   | "showcase"
-  | "skill-proficiency-list-requiring-level"
-  | "skill-proficiency-list-not-requiring-level";
+  | "skill-proficiency-list-with-level"
+  | "skill-proficiency-list-without-level";
 
 export interface FormValues {
   category?: SkillCategory | "all" | "";

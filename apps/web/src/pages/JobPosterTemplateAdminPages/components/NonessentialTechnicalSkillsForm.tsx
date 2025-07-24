@@ -159,7 +159,7 @@ const NonessentialTechnicalSkillsForm = ({
         onRemove={handleRemoveSkillProficiency}
         onAdd={handleAddSkillProficiency}
         noToast
-        skillLevelIsRequired={false}
+        withLevel={false}
       />
       <div>
         <Checkbox

@@ -157,7 +157,7 @@ const EssentialBehaviouralSkillsForm = ({
         onRemove={handleRemoveSkillProficiency}
         onAdd={handleAddSkillProficiency}
         noToast
-        skillLevelIsRequired={true}
+        withLevel={true}
       />
       <div>
         <Checkbox

@@ -149,11 +149,7 @@ const SkillBrowserDialog = ({
   );
   const shouldShowDetails = showDetails(skillInLibrary, context);
   const shouldShowDetailsPool =
-    context === "pool" ||
-    context === "skill-proficiency-list-requiring-level" ||
-    context === "skill-proficiency-list-not-requiring-level";
-  const detailsPoolSkillLevelIsRequired =
-    context === "pool" || context === "skill-proficiency-list-requiring-level";
+    context === "pool" || context === "skill-proficiency-list-with-level";
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
@@ -190,7 +186,6 @@ const SkillBrowserDialog = ({
                   category={
                     selectedSkill.category.value ?? SkillCategory.Technical
                   }
-                  skillLevelIsRequired={detailsPoolSkillLevelIsRequired}
                 />
               )}
               <Dialog.Footer>

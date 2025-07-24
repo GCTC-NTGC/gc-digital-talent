@@ -8,13 +8,9 @@ import { getSortedSkillLevels } from "~/utils/skillUtils";
 
 interface SkillDetailsPoolProps {
   category: SkillCategory;
-  skillLevelIsRequired: boolean;
 }
 
-const SkillDetailsPool = ({
-  category,
-  skillLevelIsRequired,
-}: SkillDetailsPoolProps) => {
+const SkillDetailsPool = ({ category }: SkillDetailsPoolProps) => {
   const intl = useIntl();
 
   const levelOptions = getSortedSkillLevels().map((skillLevel) => {
@@ -46,9 +42,7 @@ const SkillDetailsPool = ({
             description: "Label for required skill level select",
           })}
           rules={{
-            required: skillLevelIsRequired
-              ? intl.formatMessage(errorMessages.required)
-              : undefined,
+            required: intl.formatMessage(errorMessages.required),
           }}
           items={levelOptions}
         />

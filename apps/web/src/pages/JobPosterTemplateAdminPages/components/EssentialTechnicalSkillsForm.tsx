@@ -157,7 +157,7 @@ const EssentialTechnicalSkillsForm = ({
         onRemove={handleRemoveSkillProficiency}
         onAdd={handleAddSkillProficiency}
         noToast
-        skillLevelIsRequired={true}
+        withLevel={true}
       />
       <div>
         <Checkbox

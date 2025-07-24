@@ -77,7 +77,7 @@ export interface SkillProficiencyListProps {
     skillLevel: SkillLevel | null;
   }) => Promise<void>;
   noToast?: boolean;
-  skillLevelIsRequired?: boolean;
+  withLevel?: boolean;
 }
 
 const SkillProficiencyList = ({
@@ -88,7 +88,7 @@ const SkillProficiencyList = ({
   onRemove,
   onAdd,
   noToast = false,
-  skillLevelIsRequired = false,
+  withLevel = false,
 }: SkillProficiencyListProps) => {
   const intl = useIntl();
 
@@ -129,7 +129,7 @@ const SkillProficiencyList = ({
                 }
                 onRemove={onRemove ? () => onRemove({ index }) : null}
                 availableSkills={availableSkills}
-                skillLevelIsRequired={skillLevelIsRequired}
+                withLevel={withLevel}
               />
             ))}
           </Accordion.Root>
@@ -147,9 +147,9 @@ const SkillProficiencyList = ({
 
       <SkillBrowserDialog
         context={
-          skillLevelIsRequired
-            ? "skill-proficiency-list-requiring-level"
-            : "skill-proficiency-list-not-requiring-level"
+          withLevel
+            ? "skill-proficiency-list-with-level"
+            : "skill-proficiency-list-without-level"
         }
         skills={availableSkills}
         onSave={async (value) => {
