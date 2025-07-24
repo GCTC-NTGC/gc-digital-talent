@@ -48,9 +48,7 @@ class ApplicationPage extends AppPage {
       .fill("QA Testing");
 
     // conditional datalist attribute means this field could be a textbox or combobox
-    await this.page
-      .getByLabel("Institution *", { exact: true })
-      .fill("Playwright University");
+    await this.page.getByLabel(/institution/i).fill("Playwright University");
 
     const startDate = this.page.getByRole("group", {
       name: /start date/i,
