@@ -292,9 +292,9 @@ const FullCareerExperiences = ({
                     <Accordion.Trigger subtitle={subtitle ?? undefined}>
                       {title}
                       <span className="ml-1">
-                        <HTMLEntity name="&lpar;" />
+                        <HTMLEntity name="(" />
                         {sectionExperiences.length}
-                        <HTMLEntity name="&rpar;" />
+                        <HTMLEntity name=")" />
                       </span>
                     </Accordion.Trigger>
                     <Accordion.Content>

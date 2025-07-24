@@ -128,7 +128,7 @@ const AboutSection = ({ userQuery }: AboutSectionProps) => {
           <p>
             {user.currentCity ?? ""}
             {user.currentCity && user.currentProvince?.label ? (
-              <HTMLEntity name="&comma;" className="mr-1" />
+              <HTMLEntity name="," className="mr-1" />
             ) : (
               ""
             )}

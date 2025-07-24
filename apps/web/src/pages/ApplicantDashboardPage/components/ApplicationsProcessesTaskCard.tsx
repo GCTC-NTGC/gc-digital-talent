@@ -100,9 +100,9 @@ const ApplicationsProcessesTaskCard = ({
                     description: "Job applications expandable",
                   })}
                   <span className="ml-1">
-                    <HTMLEntity name="&lpar;" />
+                    <HTMLEntity name="(" />
                     {applicationsProcessesTaskCardFragment?.length ?? 0}
-                    <HTMLEntity name="&rpar;" />
+                    <HTMLEntity name=")" />
                   </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={jobApplicationsMetaData} />

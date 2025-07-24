@@ -151,7 +151,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
       </span>
       {recommendations.map(({ key, link }, index) => (
         <span key={key}>
-          {index > 0 && <HTMLEntity name="&comma;" className="mr-1" />}
+          {index > 0 && <HTMLEntity name="," className="mr-1" />}
           {link}
         </span>
       ))}

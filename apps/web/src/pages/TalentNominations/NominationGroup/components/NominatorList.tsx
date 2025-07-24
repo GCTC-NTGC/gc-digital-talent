@@ -27,7 +27,7 @@ const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
     if (i > 0) {
       prev.push(
         <span key={i}>
-          <HTMLEntity name="&comma;" className="mx-1" />
+          <HTMLEntity name="," className="mx-1" />
         </span>,
       );
     }

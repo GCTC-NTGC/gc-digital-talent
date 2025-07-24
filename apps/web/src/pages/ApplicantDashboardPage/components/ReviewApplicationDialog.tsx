@@ -341,9 +341,9 @@ const ReviewApplicationDialog = ({
                     {intl.formatMessage(commonMessages.requiredSkills)}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
-                    <HTMLEntity name="&lpar;" />
+                    <HTMLEntity name="(" />
                     {essentialSkills.length ?? 0}
-                    <HTMLEntity name="&rpar;" />
+                    <HTMLEntity name=")" />
                   </span>
                 </Accordion.Trigger>
                 <Accordion.Content>
@@ -364,9 +364,9 @@ const ReviewApplicationDialog = ({
                     {intl.formatMessage(commonMessages.optionalSkills)}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
-                    <HTMLEntity name="&lpar;" />
+                    <HTMLEntity name="(" />
                     {nonessentialSkills.length ?? 0}
-                    <HTMLEntity name="&rpar;" />
+                    <HTMLEntity name=")" />
                   </span>
                 </Accordion.Trigger>
                 <Accordion.Content>

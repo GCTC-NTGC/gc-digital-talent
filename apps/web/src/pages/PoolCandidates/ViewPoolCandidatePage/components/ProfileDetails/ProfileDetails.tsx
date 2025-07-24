@@ -57,7 +57,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
     >
       <p>
         {user.currentCity ?? intl.formatMessage(commonMessages.notFound)}
-        <HTMLEntity name="&comma;" className="mr-1" />
+        <HTMLEntity name="," className="mr-1" />
         {getLocalizedName(user.currentProvince?.label, intl)}
       </p>
       <HTMLEntity name="&bull;" aria-hidden />
