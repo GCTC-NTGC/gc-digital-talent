@@ -89,6 +89,22 @@ const logoutAndRefreshPage = ({
     localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
   }
 
+  // track the logout event in application insights
+  if (appInsights) {
+    const aiUserId = appInsights?.context?.user?.id || "unknown";
+    appInsights.trackEvent?.(
+      { name: "GCKey Logout" },
+      {
+        aiUserId,
+        url,
+        timestamp: new Date().toISOString(),
+        referrer,
+        source: "AuthenticationContainer",
+        gcKeyStatus: "logout",
+        logoutReason: logoutReason || "unknown",
+      },
+    );
+  }
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
 
   if (accessToken) {
