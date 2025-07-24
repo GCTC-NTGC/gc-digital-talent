@@ -163,6 +163,11 @@ type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFlexibleWorkLocation implements LocalizedEnumOption {
+  value: FlexibleWorkLocation!
+  label: LocalizedString!
+}
+
 type LocalizedGovContractorRoleSeniority implements LocalizedEnumOption {
   value: GovContractorRoleSeniority!
   label: LocalizedString!
@@ -711,6 +716,7 @@ type User {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1714,6 +1720,7 @@ input CreateUserInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1763,6 +1770,7 @@ input UpdateUserAsAdminInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1821,6 +1829,7 @@ input UpdateUserAsUserInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -3380,6 +3389,12 @@ enum FinanceChiefRole {
   HEAD_OF_HUMAN_RESOURCES
   HEAD_OF_PROCUREMENT
   OTHER
+}
+
+enum FlexibleWorkLocation {
+  REMOTE
+  HYBRID
+  ONSITE
 }
 
 enum GenericJobTitleKey {
