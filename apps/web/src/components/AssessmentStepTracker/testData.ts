@@ -55,8 +55,8 @@ export const priorityEntitlementCandidate: PoolCandidate = {
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
   priorityVerification: ClaimVerificationResult.Accepted,
+  assessmentStep: 2,
   assessmentStatus: {
-    currentStep: 2,
     assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
@@ -78,8 +78,8 @@ export const armedForcesCandidate: PoolCandidate = {
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
   veteranVerification: ClaimVerificationResult.Accepted,
+  assessmentStep: 2,
   assessmentStatus: {
-    currentStep: 2,
     assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
@@ -100,8 +100,8 @@ export const bookmarkedCandidate: PoolCandidate = {
   },
   isBookmarked: true,
   assessmentResults: [getAssessmentResult()],
+  assessmentStep: 2,
   assessmentStatus: {
-    currentStep: 2,
     assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
@@ -132,8 +132,8 @@ export const unassessedCandidate: PoolCandidate = {
       },
     },
   ],
+  assessmentStep: 1,
   assessmentStatus: {
-    currentStep: 1,
     assessmentStepStatuses: [],
   },
 };
@@ -142,8 +142,8 @@ export const lastByFirstName: PoolCandidate = {
   id: "last-by-first-name",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+  assessmentStep: 2,
   assessmentStatus: {
-    currentStep: 2,
     assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
@@ -164,8 +164,9 @@ export const firstByName: PoolCandidate = {
   id: "first-by-name",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+
+  assessmentStep: 2,
   assessmentStatus: {
-    currentStep: 2,
     assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
@@ -185,8 +186,8 @@ export const secondLastByStatus: PoolCandidate = {
   id: "second-last-by-status",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult(AssessmentDecision.Hold)],
+  assessmentStep: 1,
   assessmentStatus: {
-    currentStep: 1,
     assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
@@ -207,8 +208,8 @@ export const lastByStatus: PoolCandidate = {
   id: "last-by-status",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult(AssessmentDecision.Unsuccessful)],
+  assessmentStep: 1,
   assessmentStatus: {
-    currentStep: 1,
     overallAssessmentStatus: OverallAssessmentStatus.Disqualified,
     assessmentStepStatuses: [
       {

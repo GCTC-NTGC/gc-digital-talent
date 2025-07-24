@@ -1000,7 +1000,6 @@ type AssessmentStepDecision {
 type AssessmentResultStatus {
   assessmentStepStatuses: [AssessmentStepDecision]
   overallAssessmentStatus: OverallAssessmentStatus
-  currentStep: Int
 }
 
 type PoolSkill {
@@ -1043,6 +1042,7 @@ type PoolCandidate {
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
+  assessmentStep: Int
   finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
   placedAt: DateTime
@@ -1070,6 +1070,7 @@ type PoolCandidateAdminView {
   isBookmarked: Boolean
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
+  assessmentStep: Int
   finalDecision: LocalizedFinalDecision
   placedDepartment: Department
   closingDate: DateTime

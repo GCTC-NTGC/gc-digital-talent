@@ -187,6 +187,7 @@ const getFinalDecisionChipColor = (
  * since the candidate may or may not be ready for a final decision.
  */
 const computeInAssessmentStatusChip = (
+  assessmentStep: Maybe<number> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
@@ -212,9 +213,7 @@ const computeInAssessmentStatusChip = (
   }
 
   const currentStep =
-    typeof assessmentStatus?.currentStep === "undefined"
-      ? 1
-      : assessmentStatus.currentStep;
+    typeof assessmentStep === "undefined" ? 1 : assessmentStep;
 
   // currentStep of null means that the candidate has passed all steps and is tentatively qualified!
   if (currentStep === null) {
@@ -286,6 +285,7 @@ export interface StatusChipWithDescription extends StatusChip {
  */
 export const getCandidateStatusChip = (
   finalDecision: Maybe<LocalizedFinalDecision> | undefined,
+  assessmentStep: Maybe<number> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
@@ -293,7 +293,11 @@ export const getCandidateStatusChip = (
     finalDecision?.value === FinalDecision.ToAssess ||
     !finalDecision?.value
   ) {
-    return computeInAssessmentStatusChip(assessmentStatus, intl);
+    return computeInAssessmentStatusChip(
+      assessmentStep,
+      assessmentStatus,
+      intl,
+    );
   }
 
   return {
@@ -418,6 +422,7 @@ export const getApplicationStatusChip = (
   finalDecisionAt: PoolCandidate["finalDecisionAt"],
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
+  assessmentStep: PoolCandidate["assessmentStep"],
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestionsCount: Pool["screeningQuestionsCount"],
   intl: IntlShape,
@@ -493,7 +498,7 @@ export const getApplicationStatusChip = (
   }
 
   // Partially assessed applications
-  const currentStep = assessmentStatus?.currentStep ?? 0;
+  const currentStep = assessmentStep ?? 0;
   const numberOfScreeningSteps =
     screeningQuestionsCount && screeningQuestionsCount > 0 ? 2 : 1;
   const numberOfStepStatuses =

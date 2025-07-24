@@ -54,9 +54,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     isBookmarked
-    assessmentStatus {
-      currentStep
-    }
+    assessmentStep
     removalReason {
       label {
         localized
@@ -110,10 +108,9 @@ const MoreActions = ({
 
   const [{ data }] = useQuery({ query: MoreActions_Query });
 
-  const currentStep = poolCandidate.assessmentStatus?.currentStep
+  const currentStep = poolCandidate.assessmentStep
     ? poolCandidate.pool.assessmentSteps?.find(
-        (step) =>
-          step?.sortOrder === poolCandidate.assessmentStatus?.currentStep,
+        (step) => step?.sortOrder === poolCandidate.assessmentStep,
       )
     : null;
 
@@ -139,7 +136,7 @@ const MoreActions = ({
                   id: "XofAAo",
                   description: "Label for a candidates current assessment step",
                 },
-                { stepNumber: poolCandidate.assessmentStatus?.currentStep },
+                { stepNumber: poolCandidate.assessmentStep },
               ) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 currentStepName}

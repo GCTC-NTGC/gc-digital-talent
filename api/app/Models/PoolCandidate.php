@@ -59,6 +59,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?string $priority_verification
  * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
+ * @property ?int $computed_assessment_step
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
@@ -88,6 +89,7 @@ class PoolCandidate extends Model
         'veteran_verification_expiry' => 'date',
         'priority_verification_expiry' => 'date',
         'computed_assessment_status' => 'array',
+        'computed_assessment_step' => 'integer',
     ];
 
     /**
@@ -534,9 +536,11 @@ class PoolCandidate extends Model
         }
 
         return [
-            'currentStep' => $currentStep,
-            'overallAssessmentStatus' => $overallAssessmentStatus,
-            'assessmentStepStatuses' => $decisions,
+            $currentStep,
+            [
+                'overallAssessmentStatus' => $overallAssessmentStatus,
+                'assessmentStepStatuses' => $decisions,
+            ],
         ];
     }
 
@@ -609,10 +613,7 @@ class PoolCandidate extends Model
         };
 
         $assessmentStatus = $this->computed_assessment_status;
-        $currentStep = null;
-        if (isset($assessmentStatus)) {
-            $currentStep = $assessmentStatus['currentStep'];
-        }
+        $currentStep = $this->computed_assessment_step;
 
         if ($decision === FinalDecision::TO_ASSESS->name && $currentStep) {
             $weight = $weight + $currentStep * 10;

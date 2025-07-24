@@ -45,12 +45,12 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
     finalDecision {
       value
     }
+    assessmentStep
     assessmentStatus {
       assessmentStepStatuses {
         step
       }
       overallAssessmentStatus
-      currentStep
     }
     pool {
       id
@@ -171,6 +171,7 @@ const ReviewApplicationDialog = ({
     application.finalDecisionAt,
     application.finalDecision?.value,
     pool.areaOfSelection?.value,
+    application.assessmentStep,
     application.assessmentStatus,
     pool.screeningQuestionsCount,
     intl,
