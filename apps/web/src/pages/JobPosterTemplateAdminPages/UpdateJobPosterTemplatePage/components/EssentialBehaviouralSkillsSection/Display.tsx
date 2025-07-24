@@ -8,6 +8,7 @@ import { sortAlphaBy } from "@gc-digital-talent/helpers";
 import { InitialData_Fragment } from "./EssentialBehaviouralSkillsSection";
 import { filterEssentialBehaviouralSkills } from "../../utils";
 import messages from "../../../messages";
+import EssentialBehaviouralSkillsFrontMatter from "../../../components/EssentialBehaviouralSkillsFrontMatter";
 
 interface DisplayProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;
@@ -27,32 +28,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-1">
-        <h3 className="font-bold">
-          {intl.formatMessage({
-            defaultMessage: "Essential behavioural skills",
-            id: "msr1cl",
-            description: "Title for the essential behavioural skills",
-          })}
-        </h3>
-        <p className="mb-3">
-          {intl.formatMessage({
-            defaultMessage:
-              "We provide examples only of essential behavioural skills in the job advertisement templates.",
-            id: "6aCiD3",
-            description: "Lead in for a list of essential behavioural skills",
-          })}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "The number of behavioural skills selected here, combined with the essential technical skills in the previous section, contribute to the overall total of essential skills.",
-            id: "eUnUZo",
-            description:
-              "Lead in, paragraph 2, for a list of essential behavioural skills",
-          })}
-        </p>
-      </div>
+      <EssentialBehaviouralSkillsFrontMatter />
       {essentialBehaviouralSkills?.length ? (
         <Ul space="md">
           {essentialBehaviouralSkills.map((s) => (

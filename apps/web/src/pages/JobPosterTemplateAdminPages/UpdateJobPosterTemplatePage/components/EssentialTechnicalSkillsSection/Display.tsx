@@ -5,6 +5,7 @@ import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
+import EssentialTechnicalSkillsFrontMatter from "../../../components/EssentialTechnicalSkillsFrontMatter";
 import { InitialData_Fragment } from "./EssentialTechnicalSkillsSection";
 import { filterEssentialTechnicalSkills } from "../../utils";
 import messages from "../../../messages";
@@ -27,23 +28,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-1">
-        <h3 className="font-bold">
-          {intl.formatMessage({
-            defaultMessage: "Essential technical skills",
-            id: "1KMmdT",
-            description: "Title for the essential technical skills",
-          })}
-        </h3>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "Essential technical skills should cover the core competencies of the role. The number of technical skills selected here, combined with the essential behavioural skills in the next section, contribute to the overall total of essential skills.",
-            id: "pfCFQ+",
-            description: "Lead in for a list of essential technical skills",
-          })}
-        </p>
-      </div>
+      <EssentialTechnicalSkillsFrontMatter />
       {essentialTechnicalSkills?.length ? (
         <Ul space="md">
           {essentialTechnicalSkills.map((s) => (

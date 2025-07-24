@@ -20,6 +20,7 @@ import SkillProficiencyList, {
 
 import { labels } from "./labels";
 import { insertionIndexBySkillName } from "./utils";
+import EssentialTechnicalSkillsFrontMatter from "./EssentialTechnicalSkillsFrontMatter";
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 
@@ -149,6 +150,7 @@ const EssentialTechnicalSkillsForm = ({
 
   return (
     <div className="flex flex-col gap-6">
+      <EssentialTechnicalSkillsFrontMatter />
       <SkillProficiencyList
         optionsQuery={optionsData}
         filterOptionsSkillCategory={SkillCategory.Technical}
