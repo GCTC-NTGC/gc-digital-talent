@@ -96,12 +96,12 @@ const logoutAndRefreshPage = ({
       { name: "GCKey Logout" },
       {
         aiUserId,
-        url,
+        pageUrl: window.location.href,
         timestamp: new Date().toISOString(),
-        referrer,
+        referrer: document.referrer || "none",
         source: "AuthenticationContainer",
         gcKeyStatus: "logout",
-        logoutReason: logoutReason || "unknown",
+        logoutReason: logoutReason ?? "unknown",
       },
     );
   }
@@ -185,8 +185,6 @@ const AuthenticationContainer = ({
 
     // Log the successful GCKey login event
     logger.debug("Logging GCKey login success event");
-    // Capture the current URL for context
-    const url = window.location.href;
     const referrer = document.referrer || "none";
     if (appInsights) {
       const aiUserId = appInsights?.context?.user?.id || "unknown";
@@ -194,7 +192,7 @@ const AuthenticationContainer = ({
         { name: "GCKey Login Success" },
         {
           aiUserId,
-          url,
+          pageUrl: window.location.href,
           timestamp: new Date().toISOString(),
           referrer,
           source: "AuthenticationContainer",
