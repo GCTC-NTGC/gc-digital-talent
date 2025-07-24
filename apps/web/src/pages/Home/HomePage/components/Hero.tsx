@@ -68,6 +68,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
         sources: { sm: img.sm },
         src: img.src,
         className: img?.className,
+        fetchPriority: "high",
         alt: intl.formatMessage({
           defaultMessage:
             "A diverse group of people, representing all races, genders, and backgrounds, gathered together in unity. Everyone is welcome here!",
