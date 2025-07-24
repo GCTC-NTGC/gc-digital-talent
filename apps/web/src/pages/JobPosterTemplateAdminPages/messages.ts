@@ -21,4 +21,19 @@ export default defineMessages({
     id: "Lfi6Vf",
     description: "Title for a job poster template, behavioural skills section",
   },
+  specialNote: {
+    defaultMessage: "Special note",
+    id: "ZD0Tkx",
+    description: "Label for a job poster template special note on skills",
+  },
+  jobTitle: {
+    defaultMessage: "Job title",
+    id: "DSXNVN",
+    description: "Label for job title on a job poster template",
+  },
+  workStream: {
+    defaultMessage: "Work stream",
+    id: "nqKm0N",
+    description: "Label for work stream on a job poster template",
+  },
 });

@@ -18,7 +18,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText, numeric } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
 
-import labels from "../labels";
+import messages from "../messages";
 
 const columnHelper = createColumnHelper<JobPosterTemplateTableRowFragment>();
 
@@ -74,7 +74,7 @@ export const JobPosterTemplateTable = ({
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "jobTitle",
       sortingFn: normalizedText,
-      header: intl.formatMessage(labels.jobTitle),
+      header: intl.formatMessage(messages.jobTitle),
       cell: ({ row: { original: template } }) => (
         <Link href={paths.jobPosterTemplateUpdate(template.id)}>
           {getLocalizedName(template.name, intl)}
@@ -99,7 +99,7 @@ export const JobPosterTemplateTable = ({
       {
         id: "workStreamName",
         sortingFn: normalizedText,
-        header: intl.formatMessage(labels.workStream),
+        header: intl.formatMessage(messages.workStream),
       },
     ),
     columnHelper.accessor((row) => row.supervisoryStatus?.label.localized, {

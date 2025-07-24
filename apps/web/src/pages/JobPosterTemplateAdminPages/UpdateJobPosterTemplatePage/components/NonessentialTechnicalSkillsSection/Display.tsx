@@ -7,6 +7,7 @@ import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import { InitialData_Fragment } from "./NonessentialTechnicalSkillsSection";
 import { filterNonessentialTechnicalSkills } from "../../utils";
+import messages from "../../../messages";
 
 interface DisplayProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;
@@ -60,11 +61,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       {nonessentialTechnicalSkillsNotes?.localized ? (
         <div className="flex flex-col gap-1">
           <h3 className="font-bold">
-            {intl.formatMessage({
-              defaultMessage: "Special note",
-              id: "ZCgEiA",
-              description: "Title for a special note",
-            })}
+            {intl.formatMessage(messages.specialNote)}
           </h3>
           <p>{nonessentialTechnicalSkillsNotes.localized}</p>
         </div>

@@ -162,11 +162,6 @@ const JobDetailsSection = ({ initialDataQuery }: JobDetailsSectionProps) => {
               <div className="flex flex-wrap items-center gap-6">
                 <Submit
                   text={intl.formatMessage(formMessages.saveChanges)}
-                  aria-label={intl.formatMessage({
-                    defaultMessage: "Save job details",
-                    id: "/1JrDR",
-                    description: "Text on a button to save th job details form",
-                  })}
                   color="primary"
                   mode="solid"
                   isSubmitting={fetching}

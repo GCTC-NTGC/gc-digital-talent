@@ -301,12 +301,6 @@ const CreateJobPosterTemplate = ({
                       id: "QcPUyM",
                       description: "Button to publish a job poster template",
                     })}
-                    aria-label={intl.formatMessage({
-                      defaultMessage: "Save job details",
-                      id: "/1JrDR",
-                      description:
-                        "Text on a button to save th job details form",
-                    })}
                     color="primary"
                     mode="solid"
                     isSubmitting={fetching}
