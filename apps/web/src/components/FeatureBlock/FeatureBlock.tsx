@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import { Heading, Link, Image } from "@gc-digital-talent/ui";
 
 interface FeatureBlockProps {
   content: {
@@ -9,6 +9,8 @@ interface FeatureBlockProps {
     img: {
       path: string;
       position?: string;
+      width?: number;
+      height?: number;
     };
     link: {
       external?: boolean;
@@ -27,7 +29,8 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         </Heading>
       </div>
       <div>
-        <img
+        <Image
+          loading="lazy"
           src={content.img.path}
           alt={content.title}
           className="block h-auto w-full object-cover object-center"

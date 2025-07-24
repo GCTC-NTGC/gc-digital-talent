@@ -12,10 +12,12 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-
-import adminMessages from "~/messages/adminMessages";
 
 import labels from "./labels";
 
@@ -44,7 +46,8 @@ const FormFields = ({ optionsQuery }: FormFieldsProps) => {
         id="name_en"
         name="name.en"
         autoComplete="off"
-        label={intl.formatMessage(adminMessages.nameEn)}
+        label={intl.formatMessage(commonMessages.name)}
+        appendLanguageToLabel={"en"}
         type="text"
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -54,7 +57,8 @@ const FormFields = ({ optionsQuery }: FormFieldsProps) => {
         id="name_fr"
         name="name.fr"
         autoComplete="off"
-        label={intl.formatMessage(adminMessages.nameFr)}
+        label={intl.formatMessage(commonMessages.name)}
+        appendLanguageToLabel={"fr"}
         type="text"
         rules={{
           required: intl.formatMessage(errorMessages.required),

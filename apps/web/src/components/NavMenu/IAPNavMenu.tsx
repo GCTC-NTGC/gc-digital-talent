@@ -1,62 +1,61 @@
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router";
 
-import { MenuLink } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Maybe, UserAuthInfo } from "@gc-digital-talent/graphql";
+import { NavMenu } from "@gc-digital-talent/ui";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 
-import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
-import LogoutButton from "../Layout/LogoutButton";
-import NavMenu from "./NavMenu";
+import Menu from "./Menu";
+import MenuItem from "./MenuItem";
+import HomeLink from "./HomeLink";
 
-interface IAPNavMenuProps {
-  loggedIn?: boolean;
-  userAuthInfo?: Maybe<UserAuthInfo>;
-}
-
-const IAPNavMenu = ({ loggedIn, userAuthInfo }: IAPNavMenuProps) => {
+const IAPNavMenu = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { pathname } = useLocation();
+  const { loggedIn } = useAuthentication();
   const searchParams = `?from=${paths.iap()}&personality=iap`;
 
-  let authLinks = [
-    <MenuLink key="sign-in" to={`${paths.login()}${searchParams}`}>
-      {intl.formatMessage(authMessages.signIn)}
-    </MenuLink>,
-    <MenuLink key="sign-up" to={`${paths.register()}${searchParams}`}>
-      {intl.formatMessage(authMessages.signUp)}
-    </MenuLink>,
-  ];
-
-  if (loggedIn && userAuthInfo) {
-    authLinks = [
-      <SignOutConfirmation key="sign-out">
-        <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>
-      </SignOutConfirmation>,
-    ];
-  }
+  const homeLinkProps = {
+    href: paths.iap(),
+    label: intl.formatMessage(commonMessages.iapTitle),
+  };
 
   return (
-    <NavMenu
-      utilityItems={authLinks}
-      mainItems={[
-        <MenuLink key="iap-home" to={paths.iap()} end>
-          {intl.formatMessage(commonMessages.iapTitle)}
-        </MenuLink>,
-        <MenuLink key="iap-manager-home" to={paths.iapManager()}>
-          {intl.formatMessage({
+    <Menu
+      authParams={searchParams}
+      homeLink={homeLinkProps}
+      accountLinks={
+        loggedIn ? (
+          <MenuItem
+            key="signOut"
+            href={paths.loggedOut()}
+            title={intl.formatMessage(authMessages.signOut)}
+            state={{ from: pathname }}
+          />
+        ) : null
+      }
+    >
+      <NavMenu.List type="main">
+        <HomeLink {...homeLinkProps} />
+        <MenuItem
+          href={paths.iapManager()}
+          title={intl.formatMessage({
             defaultMessage: "Hire an IT apprentice",
             id: "39RER8",
             description: "Page title for IAP manager homepage",
           })}
-        </MenuLink>,
-        <MenuLink key="home" to={paths.home()} end>
-          {intl.formatMessage(commonMessages.projectTitle)}
-        </MenuLink>,
-      ]}
-    />
+        />
+        <MenuItem
+          href={paths.home()}
+          title={intl.formatMessage(commonMessages.projectTitle)}
+          end
+        />
+      </NavMenu.List>
+    </Menu>
   );
 };
 

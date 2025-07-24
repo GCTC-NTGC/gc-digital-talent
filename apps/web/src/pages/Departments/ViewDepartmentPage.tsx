@@ -82,10 +82,16 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
       </Heading>
       <Card>
         <div className="grid gap-6 xs:grid-cols-2">
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"en"}
+          >
             {department.name.en}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"fr"}
+          >
             {department.name.fr}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(labels.departmentNumber)}>
