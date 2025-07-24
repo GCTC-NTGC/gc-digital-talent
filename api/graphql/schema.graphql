@@ -105,6 +105,7 @@ type User {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+    @deprecated(reason: "Superseded by flexibleWorkLocations")
   flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
     @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
