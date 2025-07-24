@@ -8,6 +8,6 @@
     "ts-jest": "^29.3.4"
   },
   "devDependencies": {
-    "jest-environment-jsdom": "^30.0.4"
+    "jest-environment-jsdom": "^30.0.5"
   }
 }
