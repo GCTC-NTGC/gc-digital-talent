@@ -294,7 +294,7 @@ const CreateJobPosterTemplate = ({
                 <BehaviouralSkillsFrontMatter />
                 <EssentialBehaviouralSkillsForm optionsQuery={optionsData} />
                 <CardSeparator className="my-0" />
-                <div className="flex flex-col items-center gap-6 md:flex-row">
+                <div className="flex flex-col items-center gap-6 sm:flex-row">
                   <Submit
                     text={intl.formatMessage({
                       defaultMessage: "Publish template",

@@ -65,7 +65,7 @@ const NonessentialTechnicalSkillsForm = ({
   const methods = useFormContext<FormValues>();
   const { control, watch, resetField, setValue } = methods;
 
-  const watchIsSpecialNoteRequired = watch(
+  const watchIsNoteRequired = watch(
     "isNonessentialTechnicalSkillsNoteRequired",
   );
 
@@ -84,14 +84,14 @@ const NonessentialTechnicalSkillsForm = ({
    * to avoid confusing users about unsaved changes
    */
   useEffect(() => {
-    if (watchIsSpecialNoteRequired) {
+    if (watchIsNoteRequired) {
       resetField("nonessentialTechnicalSkillsNotesEn");
       resetField("nonessentialTechnicalSkillsNotesFr");
     } else {
       setValue("nonessentialTechnicalSkillsNotesEn", null);
       setValue("nonessentialTechnicalSkillsNotesFr", null);
     }
-  }, [resetField, setValue, watchIsSpecialNoteRequired]);
+  }, [resetField, setValue, watchIsNoteRequired]);
 
   const optionsData = getFragment(Options_Fragment, optionsQuery);
   const allSkills = unpackMaybes(optionsData.skills);
@@ -163,8 +163,8 @@ const NonessentialTechnicalSkillsForm = ({
       />
       <div>
         <Checkbox
-          id="isSpecialNoteRequired"
-          name="isSpecialNoteRequired"
+          id="isNonessentialTechnicalSkillsNoteRequired"
+          name="isNonessentialTechnicalSkillsNoteRequired"
           label={intl.formatMessage(labels.specialNoteIsRequired)}
           boundingBox
           boundingBoxLabel={intl.formatMessage(
@@ -172,12 +172,12 @@ const NonessentialTechnicalSkillsForm = ({
           )}
         />
       </div>
-      {watchIsSpecialNoteRequired ? (
+      {watchIsNoteRequired ? (
         <div className="grid gap-6 xs:grid-cols-1 sm:grid-cols-2">
           <div>
             <TextArea
-              id="specialNoteEn"
-              name="specialNoteEn"
+              id="nonessentialTechnicalSkillsNotesEn"
+              name="nonessentialTechnicalSkillsNotesEn"
               wordLimit={specialNoteWordCountLimits.en}
               label={intl.formatMessage(labels.specialNote)}
               rules={{
@@ -188,8 +188,8 @@ const NonessentialTechnicalSkillsForm = ({
           </div>
           <div>
             <TextArea
-              id="specialNoteFr"
-              name="specialNoteFr"
+              id="nonessentialTechnicalSkillsNotesFr"
+              name="nonessentialTechnicalSkillsNotesFr"
               wordLimit={specialNoteWordCountLimits.fr}
               label={intl.formatMessage(labels.specialNote)}
               rules={{
