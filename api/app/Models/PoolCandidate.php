@@ -14,7 +14,6 @@ use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
-use App\Enums\SkillCategory;
 use App\Observers\PoolCandidateObserver;
 use App\ValueObjects\ProfileSnapshot;
 use Illuminate\Database\Eloquent\Builder;
@@ -339,9 +338,7 @@ class PoolCandidate extends Model
      *               if result is HOLD THEN mark HOLD and continue loop (to look for failures)
      *               if result is null or undecided, THEN mark TO ASSESS and continue loop (to look for failures)
      *           else if skill is asset:
-     *               if skill is Technical AND user did not claim skill, THEN skip and continue loop
-     *               else if null or undecided THEN mark TO ASSESS and continue loop (to look for essential failures)
-     *               else mark nothing and continue, since the result doesn't actually matter
+     *               mark nothing and continue, since the result doesn't actually matter
      *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
      *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
      *       no decision for steps that are TO ASSESS but have no results so we can tell when they've been started
@@ -358,10 +355,8 @@ class PoolCandidate extends Model
         $this->load([
             'pool.assessmentSteps',
             'pool.assessmentSteps.poolSkills',
-            'pool.assessmentSteps.poolSkills.skill',
             'assessmentResults',
             'assessmentResults.poolSkill',
-            'user.userSkills',
         ]);
 
         foreach ($this->pool->assessmentSteps as $index => $step) {
@@ -394,38 +389,6 @@ class PoolCandidate extends Model
                         $hasOnHold = true;
 
                         continue;
-                    }
-                } else { // $poolSkill is an ASSET skill
-                    // Asset behavioural skills never need to be assessed
-                    if ($poolSkill->skill->category === SkillCategory::BEHAVIOURAL->name) {
-                        continue;
-                    }
-
-                    // We do not need to evaluate non-essential technical skills that are not on
-                    // the users snapshot, so skip the result check
-                    $isClaimed = false;
-                    $snapshot = $this->profile_snapshot;
-
-                    if ($snapshot) {
-                        $experiences = collect($snapshot['experiences']);
-
-                        $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
-                            foreach ($experience['skills'] as $skill) {
-                                if ($skill['id'] === $poolSkill->skill_id) {
-                                    return true;
-                                }
-                            }
-
-                            return false;
-                        });
-                    }
-
-                    if (! $isClaimed) {
-                        continue;
-                    }
-
-                    if (! $result || is_null($result->assessment_decision)) {
-                        $hasToAssess = true;
                     }
                 }
             }
