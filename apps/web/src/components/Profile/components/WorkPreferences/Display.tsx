@@ -109,12 +109,9 @@ const Display = ({
       </FieldDisplay>
       <div>
         <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Flexible work location options",
-            id: "W2619r",
-            description:
-              "Legend for the flexible work location preferences section",
-          })}
+          label={intl.formatMessage(
+            profileMessages.flexibleWorkLocationOptions,
+          )}
         />
         {locations?.length ? (
           <Ul>
