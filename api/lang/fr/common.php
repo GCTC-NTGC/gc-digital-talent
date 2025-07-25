@@ -45,4 +45,5 @@ return [
     'digital_talent_processes_text' => 'Ces processus sont effectués sur la plateforme Talents numériques du GC.',
     'off_platform_processes_text' => 'Les utilisateurs peuvent fournir des renseignements sur les processus ou les bassins d\'autres plateformes du gouvernement du Canada pour lesquels ils ont été qualifiés. Ces informations n\'ont pas été vérifiées.',
     'nominations' => 'Nominations',
+    'skill_requirements' => 'Exigences en matière de compétences',
 ];

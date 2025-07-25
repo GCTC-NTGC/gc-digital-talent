@@ -79,11 +79,8 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
     {
         $key = $this->emailType->name.'-email-verification-'.$user->id;
 
-        // once we get to PHP 8.3 this will provide a larger codespace using all the alphabetical chars:
-        // Random\Randomizer::getBytesFromString('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
-
-        $bytes = random_bytes(3); // three bytes = six hex chars
-        $code = strtoupper(bin2hex($bytes));
+        $randomizer = new \Random\Randomizer();
+        $code = $randomizer->getBytesFromString('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
 
         $token = [
             'code' => $code,

@@ -73,14 +73,9 @@ export const repeaterQuestionsToSubmitData = (
 };
 
 export const labels = defineMessages({
-  questionEn: {
-    defaultMessage: "Question (EN)",
-    id: "aCKQVB",
-    description: "Label for an English general question",
-  },
-  questionFr: {
-    defaultMessage: "Question (FR)",
-    id: "AJs1VQ",
-    description: "Label for an French general question",
+  question: {
+    defaultMessage: "Question",
+    id: "J6zrSf",
+    description: "Label for a general question",
   },
 });

@@ -17,7 +17,11 @@ const SkewedImageContainer = ({ children, img }: SkewedImageContainerProps) => (
         <GradientImage.Content className="pt-24 pb-12 xs:py-30 sm:py-42 sm:pb-36">
           {children}
         </GradientImage.Content>
-        <GradientImage.Image {...img} wrapperClassname="xs:-inset-y-3" />
+        <GradientImage.Image
+          loading="lazy"
+          wrapperClassname="xs:-inset-y-3"
+          {...img}
+        />
       </Container>
     </div>
     <Flourish className="absolute inset-0 top-auto z-20" />

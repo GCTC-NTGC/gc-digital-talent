@@ -186,6 +186,11 @@ const navigationMessages = defineMessages({
     id: "s3u05D",
     description: "Link text to create a new nomination",
   },
+  newRequest: {
+    defaultMessage: "New request",
+    id: "BGQaDq",
+    description: "Link to a page to start a new request",
+  },
 });
 
 export default navigationMessages;
