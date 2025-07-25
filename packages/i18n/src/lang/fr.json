@@ -15,6 +15,10 @@
     "defaultMessage": "Titre",
     "description": "The title"
   },
+  "+qUwFn": {
+    "defaultMessage": "Modèles d'emplois",
+    "description": "Name of job templates table page"
+  },
   "/62GQm": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de complexité faible à modérée sous une supervision minimale et des tâches de complexité plus élevée sous une supervision et un mentorat modérés. Généralement associée à des postes intermédiaires.",
     "description": "The technical skill level definition for intermediate"

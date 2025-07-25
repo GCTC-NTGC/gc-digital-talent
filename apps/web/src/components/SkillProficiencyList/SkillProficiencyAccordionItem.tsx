@@ -114,11 +114,7 @@ const SkillProficiencyAccordionItem = ({
                     id: "8zdTVe",
                     description: "Label to edit the skill with level",
                   })
-                : intl.formatMessage({
-                    defaultMessage: "Edit",
-                    id: "duijly",
-                    description: "Label to edit the skill without level",
-                  })}
+                : intl.formatMessage(commonMessages.edit)}
             </Accordion.MetaDataButton>
           }
           noToast={noToast}

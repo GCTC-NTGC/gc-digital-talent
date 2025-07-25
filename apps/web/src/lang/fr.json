@@ -51,6 +51,10 @@
     "defaultMessage": "Exigences linguistiques et compétences en langue seconde",
     "description": "Heading for the pool language requirements dialog"
   },
+  "+7z2/r": {
+    "defaultMessage": "Mots-clés",
+    "description": "The keywords for a job poster template"
+  },
   "+AUFyC": {
     "defaultMessage": "Apprentissage personnel",
     "description": "Title for personal learning section"
@@ -230,10 +234,6 @@
   "+wG2Ap": {
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
-  },
-  "IRFw3N": {
-    "defaultMessage": "Type de poste",
-    "description": "The type of role for a job poster template"
   },
   "/+naWC": {
     "defaultMessage": "À évaluer",
@@ -1543,10 +1543,6 @@
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
   },
-  "A8pdNo": {
-    "defaultMessage": "Compétences comportementales essentielles",
-    "description": "The essential behavioural skills of a job poster template"
-  },
   "4yXZLY": {
     "defaultMessage": "Options de nomination",
     "description": "Label for the nomination type(s)"
@@ -1642,6 +1638,10 @@
   "5PUycY": {
     "defaultMessage": "Sélectionnez un type",
     "description": "Default selection for the experience type field"
+  },
+  "5R6qqX": {
+    "defaultMessage": "Tâches principales",
+    "description": "The key tasks of a job poster template"
   },
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
@@ -2391,6 +2391,10 @@
     "defaultMessage": "Utilisez le bouton « Créez un volet de travail » pour commencer.",
     "description": "Instructions for adding a work stream item."
   },
+  "9HXOU+": {
+    "defaultMessage": "Modèles d'emplois",
+    "description": "Text for the breadcrumb navigation link"
+  },
   "9IMcqY": {
     "defaultMessage": "En fin de compte, il revient au comité de sélection ou au gestionnaire de déterminer le nombre approprié de méthodes d’évaluation. Si vous en avez plus de {maxSteps}, sélectionnez « évaluation supplémentaire » en dernier ressort, puis communiquez avec notre équipe. Nous pouvons vous expliquer la façon dont ces évaluations supplémentaires peuvent être gérées sur la plateforme.",
     "description": "First paragraph of second answer of the Frequently Asked Questions for logging in"
@@ -2594,6 +2598,10 @@
   "A2ycww": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
+  },
+  "A8pdNo": {
+    "defaultMessage": "Compétences comportementales essentielles",
+    "description": "The essential behavioural skills of a job poster template"
   },
   "A94Zgi": {
     "defaultMessage": "Découvrez les possibilités d’apprentissage offertes aux membres du personnel des TI pour acquérir des compétences et les perfectionner.",
@@ -3095,6 +3103,10 @@
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
   },
+  "CWC5/C": {
+    "defaultMessage": "Statut de supervision",
+    "description": "The supervisory status on a job poster template"
+  },
   "CWy2xr": {
     "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
     "description": "Text that appears before employment equity form options."
@@ -3531,10 +3543,6 @@
     "defaultMessage": "Types d'expérience que vous pouvez ajouter",
     "description": "Button text to open section describing experience types"
   },
-  "LzBy+E": {
-    "defaultMessage": "Description générique du travail",
-    "description": "The generic work description for a job poster template"
-  },
   "EJPdqH": {
     "defaultMessage": "* Veuillez noter qu'en indiquant votre intérêt pour les possibilités d'emplois ou de formation, vous acceptez de partager les renseignements de votre profil avec le personnel des ressources humaines et du recrutement du gouvernement du Canada au sein de cette collectivité.",
     "description": "Footnote for more information on interest in job and training opportunities"
@@ -3902,6 +3910,10 @@
   "G7ICNn": {
     "defaultMessage": "Vous êtes sur le point de reproduire ce processus : {poolName}",
     "description": "Text to confirm the process to be duplicated"
+  },
+  "G7uMOV": {
+    "defaultMessage": "Détails de base",
+    "description": "The basic details of a job poster template"
   },
   "G8JoCN": {
     "defaultMessage": "Ministère de placement",
@@ -4354,6 +4366,10 @@
   "IQiTZd": {
     "defaultMessage": "Intérêt pour les possibilités de mentorat",
     "description": "Label for an employee profile career development preference field"
+  },
+  "IRFw3N": {
+    "defaultMessage": "Type de poste",
+    "description": "The type of role for a job poster template"
   },
   "IReTZe": {
     "defaultMessage": "Modifier les rôles dans le processus",
@@ -5151,6 +5167,10 @@
     "defaultMessage": "Exigence d’études",
     "description": "Education requirement title"
   },
+  "LzBy+E": {
+    "defaultMessage": "Description générique du travail",
+    "description": "The generic work description for a job poster template"
+  },
   "LzJpQo": {
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
@@ -5266,6 +5286,10 @@
   "Mea0Vt": {
     "defaultMessage": "Entreprise ou organisme",
     "description": "Label for the contracting firm or agency text field"
+  },
+  "MgFV4w": {
+    "defaultMessage": "Note spéciale",
+    "description": "The skills special note for a job poster template"
   },
   "MgK9E0": {
     "defaultMessage": "Divers",
@@ -5806,6 +5830,10 @@
   "PQXvrU": {
     "defaultMessage": "Créer<hidden> un regroupement de compétences</hidden>",
     "description": "Breadcrumb title for the create skill family page link."
+  },
+  "PQyXaQ": {
+    "defaultMessage": "Classification",
+    "description": "The classification for a job poster template"
   },
   "PROKKo": {
     "defaultMessage": "Vous trouverez les échelles salariales et les échelons de la plupart des emplois du gouvernement du Canada dans <link1>les conventions collectives</link1>. Pour les postes non syndiqués, les échelles salariales sont disponibles sur le <link2>site Web du Secrétariat du Conseil du Trésor du Canada</link2>.",
@@ -6703,6 +6731,10 @@
     "defaultMessage": "Préférence pour la durée de l'emploi",
     "description": "Legend Text for required work preferences options in work preferences form"
   },
+  "TfYpv3": {
+    "defaultMessage": "Titre du poste",
+    "description": "The job title for a job poster template"
+  },
   "TfbBB7": {
     "defaultMessage": "Collectivité {communityId} introuvable.",
     "description": "Message displayed for community not found."
@@ -6930,10 +6962,6 @@
     "defaultMessage": "Retirer {userName} de la collectivité {communityName}.",
     "description": "Label for the dialog trigger to remove a user from a community"
   },
-  "voH+OJ": {
-    "defaultMessage": "Identifiant de référence",
-    "description": "The reference id for a job poster template"
-  },
   "UoUzWJ": {
     "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
     "description": "Subtitle for the 'review talent request' dialog"
@@ -6945,6 +6973,10 @@
   "UpwY5+": {
     "defaultMessage": "Pour vous aider, nous avons préparé d’autres conseils dans la prochaine section.",
     "description": "A _what to expect_ point on the sign up page"
+  },
+  "UsKyTo": {
+    "defaultMessage": "Compétences techniques",
+    "description": "The technical skills of a a job poster template"
   },
   "Usof4a": {
     "defaultMessage": "Nom de personne candidate",
@@ -8038,6 +8070,10 @@
     "defaultMessage": "Nom, coordonnées, équité en matière d'emploi, compétences linguistiques et préférences en matière de travail.",
     "description": "Helper instructions for an 'Personal information' card"
   },
+  "aEbSvx": {
+    "defaultMessage": "Compétences techniques constituant un atout",
+    "description": "The asset technical skills of a job poster template"
+  },
   "aElqQN": {
     "defaultMessage": "En indiquant que les possibilités d'emploi vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
     "description": "Context for the 'I'm interested in work opportunities within this community' radio option"
@@ -9082,6 +9118,10 @@
     "defaultMessage": "Renseignements sur le gestionnaire",
     "description": "Heading for the manager info section of the single search request view."
   },
+  "ezaaj5": {
+    "defaultMessage": "Volet de travail",
+    "description": "The work stream of a job poster template"
+  },
   "f/XJsH": {
     "defaultMessage": "La formation ou le perfectionnement m'intéresse",
     "description": "Message when user expresses interest in training or development opportunities"
@@ -9257,10 +9297,6 @@
   "fo51DL": {
     "defaultMessage": "Créer un volet de travail",
     "description": "Page title for the work stream creation page"
-  },
-  "yW+1fz": {
-    "defaultMessage": "Compétences techniques essentielles",
-    "description": "The essential technical skills of a job poster template"
   },
   "fqEh4+": {
     "defaultMessage": "Modifiez les informations sur le volet de travail",
@@ -9717,10 +9753,6 @@
     "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
     "description": "First paragraph for the closed early pool deadlines dialog"
   },
-  "aEbSvx": {
-    "defaultMessage": "Compétences techniques constituant un atout",
-    "description": "The asset technical skills of a job poster template"
-  },
   "hbcdJm": {
     "defaultMessage": "Notifications",
     "description": "Page title for the notifications page"
@@ -9744,10 +9776,6 @@
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
-  },
-  "5R6qqX": {
-    "defaultMessage": "Tâches principales",
-    "description": "The key tasks of a job poster template"
   },
   "hmacO5": {
     "defaultMessage": "La demande ne comprend pas de filtre!",
@@ -10109,6 +10137,10 @@
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
   },
+  "jQ+wCE": {
+    "defaultMessage": "Retirer une compétence",
+    "description": "Label to remove the skill"
+  },
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
@@ -10188,6 +10220,10 @@
   "js5ZcB": {
     "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
     "description": "Caption for the departmental-preference selection limitation"
+  },
+  "jsd+/T": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "The behavioural skills of a job poster template"
   },
   "jt5BWQ": {
     "defaultMessage": "Motif du contact",
@@ -12125,10 +12161,6 @@
     "defaultMessage": "L'équipe",
     "description": "Card title, team"
   },
-  "G7uMOV": {
-    "defaultMessage": "Détails de base",
-    "description": "The basic details of a job poster template"
-  },
   "tgPKAn": {
     "defaultMessage": "Nominations",
     "description": "Link text for the nominations of a specific talent nomination event"
@@ -12344,6 +12376,10 @@
   "uaVogJ": {
     "defaultMessage": "{name}<hidden> mise en candidature des talents</hidden>",
     "description": "Label for talent nomination review dialog button"
+  },
+  "ucT19y": {
+    "defaultMessage": "Description",
+    "description": "The description of a job poster template"
   },
   "uhoPHh": {
     "defaultMessage": "Réglementaire",
@@ -12568,6 +12604,10 @@
   "vmVdJt": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about cert exams"
+  },
+  "voH+OJ": {
+    "defaultMessage": "Identifiant de référence",
+    "description": "The reference id for a job poster template"
   },
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
@@ -13141,6 +13181,10 @@
     "defaultMessage": "Présentez une mise en candidature",
     "description": "Link text to navigate to talent nomination events list"
   },
+  "yW+1fz": {
+    "defaultMessage": "Compétences techniques essentielles",
+    "description": "The essential technical skills of a job poster template"
+  },
   "yWen8A": {
     "defaultMessage": "Format",
     "description": "The format of the training opportunity"
@@ -13468,41 +13512,5 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
-  },
-  "UsKyTo": {
-    "defaultMessage": "Compétences techniques",
-    "description": "The technical skills of a a job poster template"
-  },
-  "jsd+/T": {
-    "defaultMessage": "Compétences comportementales",
-    "description": "The behavioural skills of a job poster template"
-  },
-  "TfYpv3": {
-    "defaultMessage": "Titre du poste",
-    "description": "The job title for a job poster template"
-  },
-  "ucT19y": {
-    "defaultMessage": "Description",
-    "description": "The description of a job poster template"
-  },
-  "PQyXaQ": {
-    "defaultMessage": "Classification",
-    "description": "The classification for a job poster template"
-  },
-  "ezaaj5": {
-    "defaultMessage": "Volet de travail",
-    "description": "The work stream of a job poster template"
-  },
-  "CWC5/C": {
-    "defaultMessage": "Statut de supervision",
-    "description": "The supervisory status on a job poster template"
-  },
-  "MgFV4w": {
-    "defaultMessage": "Note spéciale",
-    "description": "The skills special note for a job poster template"
-  },
-  "+7z2/r": {
-    "defaultMessage": "Mots-clés",
-    "description": "The keywords for a job poster template"
   }
 }

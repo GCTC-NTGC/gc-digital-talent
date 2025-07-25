@@ -165,8 +165,9 @@ const SkillProficiencyList = ({
             {customAddText ??
               intl.formatMessage({
                 defaultMessage: "Add a skill",
-                id: "+ZREDW",
-                description: "Button text to add a skill",
+                id: "mS15HC",
+                description:
+                  "Button text to open the skill dialog and add a skill",
               })}
           </Button>
         }
