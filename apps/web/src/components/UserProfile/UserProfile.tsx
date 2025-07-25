@@ -14,7 +14,10 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { AdminUserProfileUserFragment } from "@gc-digital-talent/graphql";
+import type {
+  AdminUserProfileUserFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 
@@ -25,13 +28,21 @@ import GovernmentInformationSection from "./ProfileSections/GovernmentInformatio
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import SkillShowcaseSection from "./SkillShowcaseSection";
+import { FlexibleWorkLocationOptions_Fragment } from "../Profile/components/WorkPreferences/Display";
 
 interface UserProfileProps {
   user: AdminUserProfileUserFragment;
+  flexibleWorkOptionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
   headingLevel?: HeadingRank;
 }
 
-const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
+const UserProfile = ({
+  user,
+  flexibleWorkOptionsQuery,
+  headingLevel = "h2",
+}: UserProfileProps) => {
   const intl = useIntl();
   const {
     experiences,
@@ -141,7 +152,10 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             >
               {intl.formatMessage(navigationMessages.workPreferences)}
             </TableOfContents.Heading>
-            <WorkPreferencesSection user={user} />
+            <WorkPreferencesSection
+              user={user}
+              optionsQuery={flexibleWorkOptionsQuery}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section
             id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}

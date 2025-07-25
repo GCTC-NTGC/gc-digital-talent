@@ -17,6 +17,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/Display";
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
@@ -295,9 +296,15 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
 
 interface AdminUserProfileProps {
   userQuery: FragmentType<typeof AdminUserProfileUser_Fragment>;
+  flexibleWorkOptionsQuery: FragmentType<
+    typeof FlexibleWorkLocationOptions_Fragment
+  >;
 }
 
-export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
+export const AdminUserProfile = ({
+  userQuery,
+  flexibleWorkOptionsQuery,
+}: AdminUserProfileProps) => {
   const user = getFragment(AdminUserProfileUser_Fragment, userQuery);
   const { downloadDoc, downloadingDoc } = useUserDownloads();
 
@@ -315,7 +322,11 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
           isDownloading={downloadingDoc}
         />
       </Container>
-      <UserProfile user={user} headingLevel="h3" />
+      <UserProfile
+        user={user}
+        flexibleWorkOptionsQuery={flexibleWorkOptionsQuery}
+        headingLevel="h3"
+      />
     </>
   );
 };
@@ -325,6 +336,7 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
     user(id: $id, trashed: WITH) {
       ...AdminUserProfileUser
     }
+    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 
@@ -351,7 +363,10 @@ const AdminUserProfilePage = () => {
       />
       <Pending fetching={fetching} error={error}>
         {data?.user ? (
-          <AdminUserProfile userQuery={data?.user} />
+          <AdminUserProfile
+            userQuery={data?.user}
+            flexibleWorkOptionsQuery={data}
+          />
         ) : (
           <ThrowNotFound />
         )}

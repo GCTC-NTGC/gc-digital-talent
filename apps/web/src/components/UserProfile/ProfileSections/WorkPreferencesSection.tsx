@@ -3,17 +3,22 @@ import { useIntl } from "react-intl";
 import { Ul, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
-  getLocalizedName,
   getOperationalRequirement,
   OperationalRequirements,
 } from "@gc-digital-talent/i18n";
-import { User, PositionDuration } from "@gc-digital-talent/graphql";
-import { insertBetween, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  User,
+  PositionDuration,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { hasAllEmptyFields } from "~/validators/profile/workPreferences";
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/Display";
 
 import { styles } from "./styles";
 
@@ -22,33 +27,41 @@ interface WorkPreferencesSectionProps {
     User,
     | "acceptedOperationalRequirements"
     | "positionDuration"
-    | "locationPreferences"
+    | "flexibleWorkLocations"
     | "locationExemptions"
     | "currentCity"
     | "currentProvince"
   >;
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
-const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
+const WorkPreferencesSection = ({
+  user,
+  optionsQuery,
+}: WorkPreferencesSectionProps) => {
   const intl = useIntl();
   const {
     acceptedOperationalRequirements,
     positionDuration,
     currentCity,
     currentProvince,
-    locationPreferences,
+    flexibleWorkLocations,
     locationExemptions,
   } = user;
   const { well, label, value } = styles();
   const acceptedRequirements = unpackMaybes(
     acceptedOperationalRequirements,
   ).map((requirement) => requirement.value);
-  const regionPreferencesSquished = locationPreferences?.map((region) =>
-    getLocalizedName(region?.label, intl, true),
+
+  const locationOptions = unpackMaybes(
+    getFragment(FlexibleWorkLocationOptions_Fragment, optionsQuery)
+      ?.flexibleWorkLocation,
   );
-  const regionPreferences = regionPreferencesSquished
-    ? insertBetween(", ", regionPreferencesSquished)
-    : "";
+  const userLocations: string[] = unpackMaybes(flexibleWorkLocations).map(
+    (loc) => loc.value as string,
+  );
 
   return (
     <Well className={well()}>
@@ -98,16 +111,31 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           })}
         </span>
       </p>
-      <p>
-        <span className={label()}>
-          {intl.formatMessage({
-            defaultMessage: "Work location",
-            id: "JO2yLA",
-            description: "Work Location label, followed by colon",
-          })}
-        </span>
-        <span className={value()}>{regionPreferences}</span>
-      </p>
+      <div>
+        <p>
+          <span className={label()}>
+            {intl.formatMessage({
+              defaultMessage: "Flexible work location options",
+              id: "W2619r",
+              description:
+                "Legend for the flexible work location preferences section",
+            })}
+          </span>
+        </p>
+        <Ul unStyled noIndent inside>
+          {locationOptions.map((location) => (
+            <li key={location.value}>
+              <BoolCheckIcon
+                value={userLocations.includes(location.value)}
+                trueLabel={intl.formatMessage(commonMessages.interested)}
+                falseLabel={intl.formatMessage(commonMessages.notInterested)}
+              >
+                {location.label.localized}
+              </BoolCheckIcon>
+            </li>
+          ))}
+        </Ul>
+      </div>
       {!!locationExemptions && (
         <p>
           <span className={label()}>
