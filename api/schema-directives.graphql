@@ -1546,9 +1546,16 @@ directive @can(
 
 # Directive class: Nuwave\Lighthouse\Auth\CanFindDirective
 """
-Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
+Any constant literal value.
+See https://graphql.github.io/graphql-spec/draft/#sec-Input-Values.
 """
 scalar CanArgs
+
+"""
+Any constant literal value.
+See https://graphql.github.io/graphql-spec/draft/#sec-Input-Values.
+"""
+scalar CanReturnValue
 
 enum CanAction {
     """
@@ -1562,7 +1569,7 @@ enum CanAction {
     EXCEPTION_NOT_AUTHORIZED
 
     """
-    Return the value specified in `value` argument to conceal the real error.
+    Return the value specified in the `returnValue` directive argument to conceal the real error.
     """
     RETURN_VALUE
 }
@@ -1599,7 +1606,7 @@ directive @canFind(
   """
   Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
   """
-  returnValue: CanArgs
+  returnValue: CanReturnValue
 
   """
   Specify the name of the field argument that contains its primary key(s).
@@ -1658,7 +1665,7 @@ directive @canModel(
   """
   Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
   """
-  returnValue: CanArgs
+  returnValue: CanReturnValue
 
   """
   The model name to check against.
@@ -1701,7 +1708,7 @@ directive @canQuery(
   """
   Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
   """
-  returnValue: CanArgs
+  returnValue: CanReturnValue
 
   """
   Apply scopes to the underlying query.
@@ -1743,7 +1750,7 @@ directive @canResolved(
   """
   Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
   """
-  returnValue: CanArgs
+  returnValue: CanReturnValue
 ) repeatable on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Auth\CanRootDirective
@@ -1779,7 +1786,7 @@ directive @canRoot(
   """
   Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
   """
-  returnValue: CanArgs
+  returnValue: CanReturnValue
 ) repeatable on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Auth\GuardDirective

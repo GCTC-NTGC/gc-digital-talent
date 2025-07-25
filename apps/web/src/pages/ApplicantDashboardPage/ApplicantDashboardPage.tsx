@@ -141,6 +141,9 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     talentNominationsAsSubmitter {
       id
     }
+    poolCandidateSearchRequests {
+      id
+    }
     ...TalentManagementTaskCard
   }
 `);
@@ -174,8 +177,8 @@ export const DashboardPage = ({
   }
 
   const displayTalentManagementTaskCard =
-    !!currentUser?.talentNominationsAsSubmitter?.length &&
-    currentUser.talentNominationsAsSubmitter.length > 0;
+    !!currentUser?.talentNominationsAsSubmitter?.length ||
+    !!currentUser?.poolCandidateSearchRequests?.length;
 
   const personalInformationState =
     aboutSectionHasEmptyRequiredFields(currentUser) ||

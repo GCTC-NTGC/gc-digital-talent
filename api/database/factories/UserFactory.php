@@ -493,7 +493,7 @@ class UserFactory extends Factory
                 $allSkills = Skill::factory($count)->create();
             }
         }
-        $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
+        $skillSequence = $allSkills->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
         $userSkills = UserSkill::factory($count)->for($user)
             ->sequence(...$skillSequence)
