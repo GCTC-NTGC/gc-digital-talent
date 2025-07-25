@@ -735,6 +735,10 @@
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
   },
+  "1PYGkw": {
+    "defaultMessage": "Télécharger Excel profils",
+    "description": "Button label to download users associated with selected candidates as Excel"
+  },
   "1Q/4Yb": {
     "defaultMessage": "Publier une annonce",
     "description": "Title to publish an advertisement of a process"
@@ -830,10 +834,6 @@
   "1pFMSH": {
     "defaultMessage": "Remplir la Formulaire d’autodéclaration à l’intention des peuples autochtones",
     "description": "How it works, step 1 heading"
-  },
-  "1PYGkw": {
-    "defaultMessage": "Télécharger Excel profils",
-    "description": "Button label to download users associated with selected candidates as Excel"
   },
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
