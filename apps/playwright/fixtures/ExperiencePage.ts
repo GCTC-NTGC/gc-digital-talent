@@ -61,9 +61,13 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.page
-      .getByLabel(/organization/i)
-      .fill(input.organization ?? "test org");
+    let organization = this.page.getByRole("textbox", {
+      name: "Organization",
+    });
+    if ((await organization.count()) === 0) {
+      organization = this.page.getByRole("combobox", { name: "Organization" });
+    }
+    await organization.fill(input.organization ?? "test org");
 
     await this.page
       .getByRole("textbox", { name: /team, group, or division/i })
@@ -641,11 +645,9 @@ class ExperiencePage extends AppPage {
   }) {
     await this.page.getByRole("button", { name: "Add a skill" }).click();
 
-    await this.page.getByRole("combobox", { name: "Skill *" }).click();
+    await this.page.getByRole("combobox", { name: /skill/i }).click();
 
-    await this.page
-      .getByRole("combobox", { name: "Skill *" })
-      .fill(input.skill);
+    await this.page.getByRole("combobox", { name: /skill/i }).fill(input.skill);
 
     await this.page.getByRole("option", { name: input.skill }).click();
 
