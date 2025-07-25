@@ -47,6 +47,11 @@ export const getLabels = (intl: IntlShape) => ({
     description:
       "Location Exemptions field label for work location preference form",
   }),
+  locationExclusions: intl.formatMessage({
+    defaultMessage: "Location exclusions",
+    id: "+SoiCw",
+    description: "Location specifics label",
+  }),
 });
 
 export const dataToFormValues = (data: PartialUser): FormValues => {

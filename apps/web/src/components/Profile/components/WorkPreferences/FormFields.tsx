@@ -144,9 +144,10 @@ const FormFields = ({
             required: intl.formatMessage(errorMessages.required),
           }}
         />
+        <p>{labels.locationExemptions}</p>
         <TextArea
           id="location-exemptions"
-          label={labels.locationExemptions}
+          label={labels.locationExclusions}
           name="locationExemptions"
           aria-describedby="location-exemption-description"
         />
