@@ -97,7 +97,8 @@ class JobPosterTemplateFactory extends Factory
         return $this->afterCreating(function (JobPosterTemplate $template) use ($essentialTechnicalCount, $essentialBehaviouralCount, $nonessentialTechnicalCount) {
             $essentialTechnicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->inRandomOrder()->limit($essentialTechnicalCount)->get();
             $essentialTechnicalSkills->each(function (Skill $skill) use ($template) {
-                $template->skills()->attach($skill->id, [
+                $template->jobPosterTemplateSkills()->create([
+                    'skill_id' => $skill->id,
                     'type' => PoolSkillType::ESSENTIAL->name,
                     'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
                 ]);
@@ -105,7 +106,8 @@ class JobPosterTemplateFactory extends Factory
 
             $essentialBehaviouralSkills = Skill::where('category', SkillCategory::BEHAVIOURAL->name)->inRandomOrder()->limit($essentialBehaviouralCount)->get();
             $essentialBehaviouralSkills->each(function (Skill $skill) use ($template) {
-                $template->skills()->attach($skill->id, [
+                $template->jobPosterTemplateSkills()->create([
+                    'skill_id' => $skill->id,
                     'type' => PoolSkillType::ESSENTIAL->name,
                     'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
                 ]);
@@ -113,7 +115,8 @@ class JobPosterTemplateFactory extends Factory
 
             $nonessentialTechnicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->inRandomOrder()->limit($nonessentialTechnicalCount)->get();
             $nonessentialTechnicalSkills->each(function (Skill $skill) use ($template) {
-                $template->skills()->attach($skill->id, [
+                $template->jobPosterTemplateSkills()->create([
+                    'skill_id' => $skill->id,
                     'type' => PoolSkillType::NONESSENTIAL->name,
                     'required_skill_level' => null,
                 ]);

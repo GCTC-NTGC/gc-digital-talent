@@ -224,10 +224,10 @@ class JobPosterTemplateTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
             'template' => [
                 ...$input,
-                'skills' => [
-                    'connect' => [
+                'jobPosterTemplateSkills' => [
+                    'create' => [
                         [
-                            'id' => $this->template->skills[0]->id,
+                            'skillId' => $this->template->jobPosterTemplateSkills[0]->skill_id,
                             'type' => PoolSkillType::ESSENTIAL->name,
                             'requiredLevel' => null,
                         ],
@@ -243,10 +243,10 @@ class JobPosterTemplateTest extends TestCase
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
             'template' => [
                 ...$input,
-                'skills' => [
-                    'connect' => [
+                'jobPosterTemplateSkills' => [
+                    'create' => [
                         [
-                            'id' => $this->template->skills[0]->id,
+                            'skillId' => $this->template->jobPosterTemplateSkills[0]->skill_id,
                             'type' => PoolSkillType::ESSENTIAL->name,
                             'requiredLevel' => SkillLevel::ADVANCED->name,
                         ],
@@ -264,10 +264,10 @@ class JobPosterTemplateTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
             'template' => [
                 ...$input,
-                'skills' => [
-                    'connect' => [
+                'jobPosterTemplateSkills' => [
+                    'create' => [
                         [
-                            'id' => $this->template->skills[0]->id,
+                            'skillId' => $this->template->jobPosterTemplateSkills[0]->skill_id,
                             'type' => PoolSkillType::NONESSENTIAL->name,
                             'requiredLevel' => SkillLevel::ADVANCED->name,
                         ],
@@ -283,10 +283,10 @@ class JobPosterTemplateTest extends TestCase
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
             'template' => [
                 ...$input,
-                'skills' => [
-                    'connect' => [
+                'jobPosterTemplateSkills' => [
+                    'create' => [
                         [
-                            'id' => $this->template->skills[0]->id,
+                            'skillId' => $this->template->jobPosterTemplateSkills[0]->skill_id,
                             'type' => PoolSkillType::NONESSENTIAL->name,
                             'requiredLevel' => null,
                         ],
@@ -319,12 +319,12 @@ class JobPosterTemplateTest extends TestCase
             'workStream' => [
                 'connect' => $template->workStream->id,
             ],
-            'skills' => [
-                'connect' => $template->skills->map(function ($skill) {
+            'jobPosterTemplateSkills' => [
+                'create' => $template->jobPosterTemplateSkills->map(function ($jobPosterTemplateSkill) {
                     return [
-                        'id' => $skill->id,
-                        'requiredLevel' => $skill->required_skill_level,
-                        'type' => $skill->type,
+                        'skillId' => $jobPosterTemplateSkill->skill_id,
+                        'requiredLevel' => $jobPosterTemplateSkill->required_skill_level,
+                        'type' => $jobPosterTemplateSkill->type,
                     ];
                 }),
             ],

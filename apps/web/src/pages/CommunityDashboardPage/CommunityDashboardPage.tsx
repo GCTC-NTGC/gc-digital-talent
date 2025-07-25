@@ -141,7 +141,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [],
     },
     {
-      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
+      label: intl.formatMessage(navigationMessages.jobTemplatesLibrary),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },

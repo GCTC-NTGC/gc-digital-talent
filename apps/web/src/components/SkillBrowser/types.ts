@@ -10,7 +10,9 @@ export type SkillBrowserDialogContext =
   | "pool"
   | "experience"
   | "library"
-  | "showcase";
+  | "showcase"
+  | "skill-proficiency-list-with-level"
+  | "skill-proficiency-list-without-level";
 
 export interface FormValues {
   category?: SkillCategory | "all" | "";

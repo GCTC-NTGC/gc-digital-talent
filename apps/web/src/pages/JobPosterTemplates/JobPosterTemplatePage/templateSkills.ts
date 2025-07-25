@@ -10,13 +10,13 @@ import PoolSkillAccordion, {
 
 export const JobPosterTemplateSkills_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateSkills on JobPosterTemplate {
-    templateSkills: skills {
+    templateSkills: jobPosterTemplateSkills {
       id
-      pivot {
-        requiredLevel
-        type {
-          value
-        }
+      requiredLevel {
+        value
+      }
+      type {
+        value
       }
       skill {
         id
@@ -50,7 +50,7 @@ export function convertTemplateSkillToPoolSkillFragment(
   const poolSkillFragment = makeFragmentData(
     {
       id: templateSkill.id,
-      requiredLevel: templateSkill.pivot?.requiredLevel,
+      requiredLevel: templateSkill.requiredLevel?.value,
       skill: templateSkill.skill,
     },
     PoolSkillAccordion_Fragment,

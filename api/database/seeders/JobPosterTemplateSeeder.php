@@ -176,17 +176,17 @@ class JobPosterTemplateSeeder extends Seeder
             $skillsToSync = $skillModel->skills;
 
             // build key-value collection of ids and pivot data, then sync to model
-            $collectionToSync = [];
             foreach ($skillsToSync as $skillToSync) {
                 $skillObject = DB::table('skills')
                     ->where('key', $skillToSync->skill->key)
                     ->sole();
-                $collectionToSync[$skillObject->id] = [
+                $templateEloquentModel->jobPosterTemplateSkills()->create([
+                    'skill_id' => $skillObject->id,
                     'type' => $skillToSync->pivot->type->value,
                     'required_skill_level' => $skillToSync->pivot->requiredLevel,
-                ];
+                ]);
             }
-            $templateEloquentModel->skills()->sync($collectionToSync);
+
         }
     }
 }

@@ -67,15 +67,12 @@ function getIcon(status: NonNullable<StatusItemVariants["status"]>): IconType {
   return assertUnreachable(status);
 }
 
-export interface AccordionMetaDataStatusItemProps extends RequiredStatus {
+export interface MetaDataStatusItemProps extends RequiredStatus {
   label: string;
 }
 
 // based on the BoolCheckIcon component
-function MetaDataStatusItem({
-  label,
-  status,
-}: AccordionMetaDataStatusItemProps) {
+function MetaDataStatusItem({ label, status }: MetaDataStatusItemProps) {
   const Icon = getIcon(status);
   const { base, icon: iconStyles, label: labelStyles } = statusItem({ status });
 

@@ -12,6 +12,7 @@ import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
 import sections from "../sections";
 
@@ -79,27 +80,19 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
         {/* Fieldset */}
         <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Job title",
-              id: "HBuWZ0",
-              description: "Title for job title for a position",
-            })}
+            label={intl.formatMessage(jobPosterTemplateMessages.jobTitle)}
             className="xs:col-span-2 sm:col-span-3"
           >
             {getLocalizedName(jobPosterTemplate.name, intl)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage(commonMessages.description)}
+            label={intl.formatMessage(jobPosterTemplateMessages.description)}
             className="xs:col-span-2 sm:col-span-3"
           >
             {getLocalizedName(jobPosterTemplate.description, intl)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Classification",
-              id: "YmWKlv",
-              description: "Label for a process' classification",
-            })}
+            label={intl.formatMessage(jobPosterTemplateMessages.classification)}
           >
             {jobPosterTemplate.classification?.group &&
             jobPosterTemplate.classification?.level
@@ -110,32 +103,19 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
               : intl.formatMessage(commonMessages.notFound)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Work stream",
-              id: "UKw7sB",
-              description:
-                "Label displayed on the pool form stream/job title field.",
-            })}
+            label={intl.formatMessage(jobPosterTemplateMessages.workStream)}
           >
             {getLocalizedName(jobPosterTemplate.workStream?.name, intl)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Type of role",
-              id: "+yB0EH",
-              description:
-                "Label displayed on the job poster template 'type of role' field.",
-            })}
+            label={intl.formatMessage(jobPosterTemplateMessages.typeOfRole)}
           >
             {getLocalizedName(jobPosterTemplate.supervisoryStatus?.label, intl)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Generic work description",
-              id: "EJN/zZ",
-              description:
-                "Label displayed on the job poster template 'generic work description' field.",
-            })}
+            label={intl.formatMessage(
+              jobPosterTemplateMessages.genericWorkDescription,
+            )}
           >
             {workDescriptionUrl ? (
               <Link href={workDescriptionUrl} external newTab>
@@ -153,12 +133,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
             )}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Reference ID",
-              id: "UoOv/g",
-              description:
-                "Label displayed on the job poster template 'reference id' field.",
-            })}
+            label={intl.formatMessage(jobPosterTemplateMessages.referenceId)}
           >
             {jobPosterTemplate.referenceId}
           </FieldDisplay>

@@ -1108,6 +1108,37 @@ const createRoute = (locale: Locales) =>
                         },
                       ],
                     },
+                    {
+                      path: "job-templates",
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/JobPosterTemplateAdminPages/IndexJobPosterTemplatePage/IndexJobPosterTemplatePage"
+                            ),
+                        },
+                        {
+                          path: "create",
+                          lazy: () =>
+                            import(
+                              "../pages/JobPosterTemplateAdminPages/CreateJobPosterTemplatePage/CreateJobPosterTemplatePage"
+                            ),
+                        },
+                        {
+                          path: ":jobPosterTemplateId",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/JobPosterTemplateAdminPages/UpdateJobPosterTemplatePage/UpdateJobPosterTemplatePage"
+                                ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
                   ],
                 },
                 {
