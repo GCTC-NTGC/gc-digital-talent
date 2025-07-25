@@ -185,7 +185,7 @@ const Display = ({
         <div className="grid gap-6">
           {lookingForBilingual && (
             <>
-              <FieldDisplay label={labels.yourFirstOfficialLang}>
+              <FieldDisplay label={labels.firstOfficialLang}>
                 {firstOfficialLanguage?.label
                   ? getLocalizedName(firstOfficialLanguage.label, intl)
                   : notProvided}
