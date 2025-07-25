@@ -197,11 +197,7 @@ const EssentialTechnicalSkillsSection = ({
   const methods = useForm<FormValues>({
     defaultValues: initialFormValues,
   });
-  const {
-    handleSubmit,
-
-    reset: resetForm,
-  } = methods;
+  const { handleSubmit, reset: resetForm } = methods;
 
   const handleOpenChange = (open: boolean) => {
     resetForm(initialFormValues);
