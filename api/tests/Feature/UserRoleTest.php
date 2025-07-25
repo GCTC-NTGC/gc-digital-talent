@@ -383,7 +383,7 @@ class UserRoleTest extends TestCase
         $newRole = Role::factory()->create(['is_team_based' => true]);
         $oldCommunity = Community::factory()->create();
         $newCommunity = Community::factory()->create();
-        $otherUser = User::factory()->create()->syncRoles([$oldRole], $oldCommunity);
+        $otherUser = User::factory()->create()->syncRoles([$oldRole], $oldCommunity->team);
 
         $this->actingAs($this->baseUser, 'api')->graphQL(
             /** @lang GraphQL */
@@ -452,7 +452,7 @@ class UserRoleTest extends TestCase
                         'detach' => [
                             [
                                 'roleId' => $oldRole->id,
-                                'teamId' => $newCommunity->team->id,
+                                'teamId' => $oldCommunity->team->id,
                             ],
                         ],
                     ],
