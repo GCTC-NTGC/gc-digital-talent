@@ -121,7 +121,7 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
-    locationPreferences {
+    flexibleWorkLocations {
       value
       label {
         en
