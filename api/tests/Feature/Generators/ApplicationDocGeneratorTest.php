@@ -90,7 +90,7 @@ class ApplicationDocGeneratorTest extends TestCase
         assertGreaterThan(0, $fileSize, 'File is empty');
     }
 
-    // NOTE: Update with `-d --update-snapshot`
+    // NOTE: Update with `-d --update-snapshots`
     public function testApplicationDocSnapshot()
     {
         $this->generator
