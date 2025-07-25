@@ -29,7 +29,7 @@
     "@formatjs/ts-transformer": "^3.14.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@storybook/addon-a11y": "^9.0.18",
-    "@storybook/addon-designs": "^10.0.1",
+    "@storybook/addon-designs": "^10.0.2",
     "@storybook/addon-themes": "^9.0.18",
     "@storybook/builder-vite": "^9.0.18",
     "@storybook/react-vite": "^9.0.18",
