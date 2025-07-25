@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { StoryContext, StoryFn } from "@storybook/react";
+import { StoryContext, StoryFn } from "@storybook/react-vite";
 import { createMemoryRouter, RouterProvider } from "react-router";
 
 interface DefaultPath {
