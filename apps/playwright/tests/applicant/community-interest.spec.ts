@@ -50,7 +50,7 @@ test.describe("Community Interest", () => {
       }),
     ).toBeVisible();
 
-    await expect(appPage.page.getByText(/interested in work/)).toBeVisible();
+    await expect(appPage.page.getByText("Interested in work*")).toBeVisible();
     await expect(
       appPage.page.getByText("Not interested in training or development"),
     ).toBeVisible();
