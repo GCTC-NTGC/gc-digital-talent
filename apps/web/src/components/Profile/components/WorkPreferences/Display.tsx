@@ -4,7 +4,6 @@ import { empty, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getOperationalRequirement,
-  getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
@@ -111,9 +110,10 @@ const Display = ({
       <div>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Job locations",
-            id: "K+F5H7",
-            description: "Job locations label",
+            defaultMessage: "Flexible work location options",
+            id: "W2619r",
+            description:
+              "Legend for the flexible work location preferences section",
           })}
         />
         {locations?.length ? (
