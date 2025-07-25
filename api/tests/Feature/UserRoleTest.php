@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Community;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
@@ -132,11 +133,11 @@ class UserRoleTest extends TestCase
     public function testAdminCanSeeUsersTeams()
     {
         $role = Role::factory()->create(['is_team_based' => true]);
-        $teams = Team::factory()->count(3)->create();
+        $communities = Community::factory()->count(3)->create();
         $user = User::factory()->create();
 
-        $teams->each(function ($team) use ($user, $role) {
-            $user->syncRoles([$role], $team);
+        $communities->each(function ($community) use ($user, $role) {
+            $user->syncRoles([$role], $community->team);
         });
 
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -154,10 +155,10 @@ class UserRoleTest extends TestCase
               }
         ',
             ['id' => $user->id]
-        )->assertJsonFragment($teams->flatMap(function ($team) {
+        )->assertJsonFragment($communities->flatMap(function ($community) {
             return [
                 'team' => [
-                    'id' => $team->id,
+                    'id' => $community->team->id,
                 ],
             ];
         })->toArray());
@@ -212,9 +213,9 @@ class UserRoleTest extends TestCase
     {
         $oldRole = Role::where('name', 'process_operator')->sole();
         $newRole = Role::where('name', 'process_operator')->sole();
-        $oldTeam = Team::factory()->create();
-        $newTeam = Team::factory()->create();
-        $user = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
+        $oldCommunity = Community::factory()->create();
+        $newCommunity = Community::factory()->create();
+        $user = User::factory()->create()->syncRoles([$oldRole], $oldCommunity->team);
 
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
@@ -235,13 +236,13 @@ class UserRoleTest extends TestCase
                         'attach' => [
                             [
                                 'roleId' => $newRole->id,
-                                'teamId' => $newTeam->id,
+                                'teamId' => $newCommunity->team->id,
                             ],
                         ],
                         'detach' => [
                             [
                                 'roleId' => $oldRole->id,
-                                'teamId' => $oldTeam->id,
+                                'teamId' => $oldCommunity->team->id,
                             ],
                         ],
                     ],
@@ -250,7 +251,7 @@ class UserRoleTest extends TestCase
         )->assertJsonFragment([
             [
                 'role' => ['id' => $newRole->id],
-                'team' => ['id' => $newTeam->id],
+                'team' => ['id' => $newCommunity->team->id],
             ],
         ]);
     }
@@ -259,7 +260,7 @@ class UserRoleTest extends TestCase
     public function testAdminCannotAddNonTeamRoleWithATeam()
     {
         $role = Role::factory()->create(['is_team_based' => false]);
-        $team = Team::factory()->create();
+        $community = Community::factory()->create();
         $user = User::factory()->create();
 
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -281,7 +282,7 @@ class UserRoleTest extends TestCase
                         'attach' => [
                             [
                                 'roleId' => $role->id,
-                                'teamId' => $team->id,
+                                'teamId' => $community->team->id,
                             ],
                         ],
                     ],
@@ -380,9 +381,9 @@ class UserRoleTest extends TestCase
     {
         $oldRole = Role::factory()->create(['is_team_based' => true]);
         $newRole = Role::factory()->create(['is_team_based' => true]);
-        $oldTeam = Team::factory()->create();
-        $newTeam = Team::factory()->create();
-        $otherUser = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
+        $oldCommunity = Community::factory()->create();
+        $newCommunity = Community::factory()->create();
+        $otherUser = User::factory()->create()->syncRoles([$oldRole], $oldCommunity->team);
 
         $this->actingAs($this->baseUser, 'api')->graphQL(
             /** @lang GraphQL */
@@ -403,13 +404,13 @@ class UserRoleTest extends TestCase
                         'attach' => [
                             [
                                 'roleId' => $newRole->id,
-                                'teamId' => $newTeam->id,
+                                'teamId' => $newCommunity->team->id,
                             ],
                         ],
                         'detach' => [
                             [
                                 'roleId' => $oldRole->id,
-                                'teamId' => $oldTeam->id,
+                                'teamId' => $oldCommunity->team->id,
                             ],
                         ],
                     ],
@@ -423,8 +424,8 @@ class UserRoleTest extends TestCase
     {
         $oldRole = Role::factory()->create(['is_team_based' => true]);
         $newRole = Role::factory()->create(['is_team_based' => true]);
-        $oldTeam = Team::factory()->create();
-        $newTeam = Team::factory()->create();
+        $oldCommunity = Community::factory()->create();
+        $newCommunity = Community::factory()->create();
 
         $this->actingAs($this->baseUser, 'api')->graphQL(
             /** @lang GraphQL */
@@ -445,13 +446,13 @@ class UserRoleTest extends TestCase
                         'attach' => [
                             [
                                 'roleId' => $newRole->id,
-                                'teamId' => $newTeam->id,
+                                'teamId' => $newCommunity->team->id,
                             ],
                         ],
                         'detach' => [
                             [
                                 'roleId' => $oldRole->id,
-                                'teamId' => $oldTeam->id,
+                                'teamId' => $oldCommunity->team->id,
                             ],
                         ],
                     ],

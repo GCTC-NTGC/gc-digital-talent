@@ -4,8 +4,8 @@ namespace Tests\Feature\Notifications;
 
 use App\Enums\NotificationFamily;
 use App\Enums\PublishingGroup;
+use App\Models\Community;
 use App\Models\Pool;
-use App\Models\Team;
 use App\Models\User;
 use App\Notifications\NewJobPosted;
 use Database\Seeders\RolePermissionSeeder;
@@ -32,7 +32,7 @@ class TriggerNewJobPostedTest extends TestCase
         Notification::fake();
 
         $this->seed(RolePermissionSeeder::class);
-        Team::factory()->create();
+        Community::factory()->create();
 
         $this->adminUser = User::factory()
             ->asApplicant()

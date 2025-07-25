@@ -35,8 +35,6 @@ class PoolCandidatePolicyTest extends TestCase
 
     protected $communityTalentCoordinatorUser;
 
-    protected $team;
-
     protected $basePool;
 
     protected $teamPool;
@@ -69,7 +67,6 @@ class PoolCandidatePolicyTest extends TestCase
                 'sub' => 'applicant-user@test.com',
             ]);
 
-        $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->community = Community::factory()->create(['name' => ['en' => 'test-team EN', 'fr' => 'test-team FR']]);
         $this->otherCommunity = Community::factory()->create(['name' => ['en' => 'suspicious-team EN', 'fr' => 'suspicious-team FR']]);
 
