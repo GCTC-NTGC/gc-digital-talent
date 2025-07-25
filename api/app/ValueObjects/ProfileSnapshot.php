@@ -34,7 +34,7 @@ use RecursiveArrayIterator;
 
 class ProfileSnapshot implements Castable
 {
-    public static $VERSION = 1;
+    public static $VERSION = 2;
 
     public ?array $profile;
 
