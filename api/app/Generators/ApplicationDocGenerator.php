@@ -5,6 +5,7 @@ namespace App\Generators;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EducationType;
 use App\Enums\PoolSkillType;
+use App\Exceptions\MissingProfileSnapshotException;
 use App\Models\AwardExperience;
 use App\Models\EducationExperience;
 use App\Models\Experience;
@@ -34,6 +35,9 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
     public function generate(): self
     {
+        if (! $this->candidate->profile_snapshot) {
+            throw new MissingProfileSnapshotException($this->candidate->user->getFullName() ?? $this->candidate->id ?? __('errors.unknown_candidate'));
+        }
 
         $this->setup();
 
