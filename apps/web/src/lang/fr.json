@@ -1151,6 +1151,10 @@
     "defaultMessage": "Informations sur le volet de travail",
     "description": "Heading for the 'update a work stream' form"
   },
+  "3DIalV": {
+    "defaultMessage": "Télécharger CSV demandes d'emploi",
+    "description": "Button label to download selected candidates CSV"
+  },
   "3FAEil": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
@@ -3578,10 +3582,6 @@
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
-  },
-  "EadMpr": {
-    "defaultMessage": "Télécharger CSV candidat(e)s",
-    "description": "Button label to download selected candidates CSV"
   },
   "EbG039": {
     "defaultMessage": "Chef de file du numérique E X 4",

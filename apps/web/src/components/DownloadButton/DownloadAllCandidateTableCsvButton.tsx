@@ -55,8 +55,8 @@ const DownloadAllCandidateTableCsvButton = ({
           onSelect={() => onClickDownloadCandidates()}
         >
           {intl.formatMessage({
-            defaultMessage: "Download candidates CSV",
-            id: "EadMpr",
+            defaultMessage: "Download applications CSV",
+            id: "3DIalV",
             description: "Button label to download selected candidates CSV",
           })}
         </DropdownMenu.Item>
