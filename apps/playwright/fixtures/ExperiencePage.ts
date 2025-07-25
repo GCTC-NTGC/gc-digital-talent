@@ -645,9 +645,9 @@ class ExperiencePage extends AppPage {
   }) {
     await this.page.getByRole("button", { name: "Add a skill" }).click();
 
-    await this.page.getByRole("combobox", { name: /skill/i }).click();
+    await this.page.getByRole("combobox", { name: /Skill/ }).click();
 
-    await this.page.getByRole("combobox", { name: /skill/i }).fill(input.skill);
+    await this.page.getByRole("combobox", { name: /Skill/ }).fill(input.skill);
 
     await this.page.getByRole("option", { name: input.skill }).click();
 
