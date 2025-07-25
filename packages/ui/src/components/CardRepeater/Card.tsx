@@ -10,6 +10,7 @@ import { formMessages } from "@gc-digital-talent/i18n";
 
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
 import { Action, Edit, Remove } from "./Button";
+import HTMLEntity from "../HTMLEntity/HTMLEntity";
 
 interface ActionsProps {
   children: ReactNode;
@@ -22,13 +23,11 @@ const Actions = ({ children }: ActionsProps) => (
 const LockedIcon = () => <LockClosedIcon className="size-4.5" />;
 
 const DisabledAction = () => (
-  <span
-    aria-hidden
+  <HTMLEntity
+    name="&bull;"
     className="block size-6 rounded-full text-center align-middle text-gray"
-    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-  >
-    &bull;
-  </span>
+    aria-hidden
+  />
 );
 
 export const CARD_CLASS_NAME = "Card__Repeater";

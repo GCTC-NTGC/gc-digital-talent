@@ -17,6 +17,7 @@ import {
   CardSeparator,
   Container,
   Heading,
+  HTMLEntity,
   Link,
   Loading,
   Metadata,
@@ -198,10 +199,8 @@ function getMetadata(
               date: parseDateTimeUtc(trainingOpportunity.trainingStart),
               formatString: "PPP",
               intl,
-              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            })}{" "}
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            {"-"}{" "}
+            })}
+            <HTMLEntity name="&hyphen;" className="mx-1" />
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
               formatString: "PPP",

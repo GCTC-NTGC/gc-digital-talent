@@ -8,6 +8,7 @@ import {
   Skill,
   SkillFamily,
 } from "@gc-digital-talent/graphql";
+import { HTMLEntity } from "@gc-digital-talent/ui";
 
 export function categoryAccessor(
   category: Maybe<LocalizedSkillCategory>,
@@ -33,8 +34,10 @@ export function skillFamiliesCell(
       {familyName.length < maxCharacterCount ? (
         familyName
       ) : (
-        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-        <>{familyName.slice(0, maxCharacterCount)}&hellip;</>
+        <>
+          {familyName.slice(0, maxCharacterCount)}
+          <HTMLEntity name="&hellip;" />
+        </>
       )}
     </li>
   ));

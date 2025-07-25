@@ -6,7 +6,7 @@ import { Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-const iconStyles = tv({ base: "inline-block size-4" });
+const iconStyles = tv({ base: "mr-1 inline-block size-4" });
 
 const EmploymentEquityUser_Fragment = graphql(/** GraphQL */ `
   fragment EmploymentEquityUser on User {
@@ -47,8 +47,6 @@ const EmploymentEquitySection = ({
       {isIndigenous && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {"  "}
           {intl.formatMessage({
             defaultMessage: "Indigenous",
             id: "YoIRbn",
@@ -59,8 +57,6 @@ const EmploymentEquitySection = ({
       {user?.hasDisability && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {"  "}
           {intl.formatMessage({
             defaultMessage: "Person with disability",
             id: "4Zl/mp",
@@ -72,8 +68,6 @@ const EmploymentEquitySection = ({
       {user?.isVisibleMinority && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {"  "}
           {intl.formatMessage({
             defaultMessage: "Visible minority",
             id: "eickbr",
@@ -85,8 +79,6 @@ const EmploymentEquitySection = ({
       {user?.isWoman && (
         <div className="py-0.25">
           <CheckIcon className={iconStyles()} />
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {"  "}
           {intl.formatMessage({
             defaultMessage: "Woman",
             id: "3HJ51b",

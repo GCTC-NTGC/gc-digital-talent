@@ -23,6 +23,7 @@ import Button, { ButtonProps } from "../Button";
 import MetaDataStatusItem, {
   AccordionMetaDataStatusItemProps,
 } from "./MetaDataStatusItem";
+import HTMLEntity from "../HTMLEntity/HTMLEntity";
 
 const root = tv({
   base: "group flex flex-col",
@@ -404,13 +405,11 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       {metadata.map((datum, index) => (
         <Fragment key={datum.key}>
           {index > 0 && (
-            <span
-              aria-hidden="true"
+            <HTMLEntity
+              name="&bull;"
               className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
-              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            >
-              &bull;
-            </span>
+              aria-hidden
+            />
           )}
           <MetaDataItem datum={datum} />
         </Fragment>

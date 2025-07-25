@@ -2,6 +2,7 @@ import { Fragment, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import Chip, { ChipProps } from "../Chip/Chip";
+import HTMLEntity from "../HTMLEntity/HTMLEntity";
 
 interface MetaDataBase {
   children: ReactNode;
@@ -56,13 +57,11 @@ const Metadata = ({ metadata, className, ...rest }: MetadataProps) => {
       {metadata.map((data, index) => (
         <Fragment key={data.key}>
           {index > 0 && (
-            <span
-              aria-hidden="true"
+            <HTMLEntity
+              name="&bull;"
               className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
-              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            >
-              &bull;
-            </span>
+              aria-hidden
+            />
           )}
           <MetadataItem {...data} key={data.key} />
         </Fragment>

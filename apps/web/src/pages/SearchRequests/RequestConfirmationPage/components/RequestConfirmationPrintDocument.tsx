@@ -61,8 +61,8 @@ const RequestConfirmationPrintDocument = forwardRef<
                 id: "3rbRfI",
                 description:
                   "Description of when the user should expect a response to their request",
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-              })}{" "}
+              })}
+              <span className="mr-1"></span>
               {intl.formatMessage({
                 defaultMessage:
                   "If you have not heard from us or have any questions, please get in touch with us at: <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",

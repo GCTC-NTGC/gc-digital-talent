@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { LinkProps, ScrollToLink } from "@gc-digital-talent/ui";
+import { HTMLEntity, LinkProps, ScrollToLink } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 
@@ -124,7 +124,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     recommendations.push({
       key: "skillFilter",
       link: (
-        <ScrollToLink to="skillFilter" {...linkProps}>
+        <ScrollToLink to="skills" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage: "Skills selected ({skillCount})",
@@ -140,18 +140,18 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
 
   return (
     <p className="my-6">
-      {intl.formatMessage({
-        defaultMessage:
-          "To improve your results, try removing some of these filters:",
-        id: "zDzzb/",
-        description:
-          "Heading for total matching candidates in results section of search page.",
-        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-      })}{" "}
+      <span className="mr-1">
+        {intl.formatMessage({
+          defaultMessage:
+            "To improve your results, try removing some of these filters:",
+          id: "zDzzb/",
+          description:
+            "Heading for total matching candidates in results section of search page.",
+        })}
+      </span>
       {recommendations.map(({ key, link }, index) => (
         <span key={key}>
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {index > 0 && ", "}
+          {index > 0 && <HTMLEntity name="," className="mr-1" />}
           {link}
         </span>
       ))}

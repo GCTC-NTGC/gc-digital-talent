@@ -963,6 +963,10 @@
     "defaultMessage": "Type d'emploi",
     "description": "Label for applicant's employment type"
   },
+  "2Pvhfl": {
+    "defaultMessage": "{time} le {date}.",
+    "description": "A datetime formatted as a certain time on a certain date"
+  },
   "2SSm+L": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
@@ -2294,6 +2298,10 @@
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
+  },
+  "8nsSyc": {
+    "defaultMessage": "<strong>{skill}</strong> ({type})",
+    "description": "Formatted skill name and type"
   },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
@@ -3786,10 +3794,6 @@
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
-  },
-  "FZ5qdE": {
-    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI)",
-    "description": "Link text to more information about information technology work streams"
   },
   "FcHUIQ": {
     "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par l'autrice ou l'auteur de la mise en candidature.",
@@ -6387,6 +6391,10 @@
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
   },
+  "RuLbg4": {
+    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi (s'ouvre dans un nouvel onglet)",
+    "description": "Link text for employment durations information"
+  },
   "RuTdam": {
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label text for employee profile c-suite role input"
@@ -6726,10 +6734,6 @@
   "TjvnvR": {
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
-  },
-  "TomxAe": {
-    "defaultMessage": "{time} le {date}",
-    "description": "A datetime formatted as a certain time on a certain date"
   },
   "Tp7hml": {
     "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
@@ -9174,6 +9178,10 @@
     "defaultMessage": "Rétablir le candidat",
     "description": "Title for action to reinstate a candidate"
   },
+  "fPGs32": {
+    "defaultMessage": "{ordinal}. {label}",
+    "description": "Formatted ordinal and label"
+  },
   "fPIZn9": {
     "defaultMessage": "Détails additionnels",
     "description": "Label displayed on experience form/card for additional details input/section"
@@ -11541,6 +11549,10 @@
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
   },
+  "qLuX+k": {
+    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI) (s'ouvre dans un nouvel onglet)",
+    "description": "Link text to more information about information technology work streams"
+  },
   "qN9zOb": {
     "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -13400,10 +13412,6 @@
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
     "description": "Lead text for the list of roles the user will lose"
-  },
-  "zlHeEz": {
-    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi",
-    "description": "Link text for employment durations information"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",

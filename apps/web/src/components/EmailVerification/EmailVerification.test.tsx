@@ -127,7 +127,7 @@ describe("EmailVerification", () => {
     });
     expect(mutation.mock.calls).toHaveLength(1);
     const codeInput = screen.getByRole("textbox", {
-      name: "Verification code *",
+      name: /verification code/i,
     });
 
     await userEvent.type(codeInput, "123456");

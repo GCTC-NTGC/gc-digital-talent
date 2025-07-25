@@ -195,8 +195,7 @@ const AboutUsSection = ({
                     mode="solid"
                     isSubmitting={isSubmitting}
                   />
-                  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                )}{" "}
+                )}
                 {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}

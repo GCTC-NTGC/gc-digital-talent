@@ -4,7 +4,13 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useFormContext } from "react-hook-form";
 
-import { Button, Heading, IconButton, Well } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  HTMLEntity,
+  IconButton,
+  Well,
+} from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -175,13 +181,11 @@ const ExperienceWorkStreams = ({
                           />
                         }
                       />
-                      <span
+                      <HTMLEntity
+                        name="&bull;"
                         className="text-gray-100 dark:text-gray-500"
                         aria-hidden
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      >
-                        &bull;
-                      </span>
+                      />
                       <IconButton
                         type="button"
                         icon={TrashIcon}

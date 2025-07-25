@@ -7,6 +7,7 @@ import {
   Button,
   CardSeparator,
   Heading,
+  HTMLEntity,
   Ul,
   Well,
 } from "@gc-digital-talent/ui";
@@ -289,8 +290,12 @@ const FullCareerExperiences = ({
                 ({ id, title, subtitle, experiences: sectionExperiences }) => (
                   <Accordion.Item key={id} value={id}>
                     <Accordion.Trigger subtitle={subtitle ?? undefined}>
-                      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                      {title} ({sectionExperiences.length})
+                      {title}
+                      <span className="ml-1">
+                        <HTMLEntity name="(" />
+                        {sectionExperiences.length}
+                        <HTMLEntity name=")" />
+                      </span>
                     </Accordion.Trigger>
                     <Accordion.Content>
                       <div>

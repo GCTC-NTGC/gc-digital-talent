@@ -6,7 +6,7 @@ import {
   WorkExperience,
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
-import { Separator } from "@gc-digital-talent/ui";
+import { HTMLEntity, Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
@@ -73,10 +73,16 @@ const GovContent = ({
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
           >
-            {classification
-              ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
-              : intl.formatMessage(commonMessages.notAvailable)}
+            {classification ? (
+              <>
+                {classification.group}
+                <HTMLEntity name="&hyphen;" />
+                {classification.level < 10 ? "0" : ""}
+                {classification.level}
+              </>
+            ) : (
+              intl.formatMessage(commonMessages.notAvailable)
+            )}
           </ContentSection>
         </div>
       </>
@@ -113,10 +119,16 @@ const GovContent = ({
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
           >
-            {classification
-              ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
-              : intl.formatMessage(commonMessages.notAvailable)}
+            {classification ? (
+              <>
+                {classification.group}
+                <HTMLEntity name="&hyphen;" />
+                {classification.level < 10 ? "0" : ""}
+                {classification.level}
+              </>
+            ) : (
+              intl.formatMessage(commonMessages.notAvailable)
+            )}
           </ContentSection>
         </div>
       </>
@@ -144,10 +156,16 @@ const GovContent = ({
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
           >
-            {classification
-              ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
-              : intl.formatMessage(commonMessages.notAvailable)}
+            {classification ? (
+              <>
+                {classification.group}
+                <HTMLEntity name="&hyphen;" />
+                {classification.level < 10 ? "0" : ""}
+                {classification.level}
+              </>
+            ) : (
+              intl.formatMessage(commonMessages.notAvailable)
+            )}
           </ContentSection>
         </div>
       </>

@@ -78,11 +78,10 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                 description: "Second paragraph for pool deadlines dialog",
               })}
               <span className="mt-3 mb-4.5 block font-bold">
-                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                {`${intl.formatMessage(
+                {intl.formatMessage(
                   {
-                    defaultMessage: "{time} on {date}",
-                    id: "TomxAe",
+                    defaultMessage: "{time} on {date}.",
+                    id: "2Pvhfl",
                     description:
                       "A datetime formatted as a certain time on a certain date",
                   },
@@ -100,7 +99,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                       timeZone: "Canada/Pacific",
                     }),
                   },
-                )}.`}
+                )}
               </span>
             </p>
             <p>
@@ -111,11 +110,10 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                 description: "Third paragraph for pool deadlines dialog",
               })}
               <span className="mt-3 mb-4.5 block font-bold">
-                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                {`${intl.formatMessage(
+                {intl.formatMessage(
                   {
-                    defaultMessage: "{time} on {date}",
-                    id: "TomxAe",
+                    defaultMessage: "{time} on {date}.",
+                    id: "2Pvhfl",
                     description:
                       "A datetime formatted as a certain time on a certain date",
                   },
@@ -133,7 +131,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                       timeZone: localTimeZone,
                     }),
                   },
-                )}.`}
+                )}
               </span>
             </p>
             <p>

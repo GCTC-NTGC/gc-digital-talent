@@ -128,8 +128,8 @@ export const Component = () => {
               id: "3rbRfI",
               description:
                 "Description of when the user should expect a response to their request",
-              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            })}{" "}
+            })}
+            <span className="mr-1"></span>
             {intl.formatMessage(
               {
                 defaultMessage:

@@ -169,15 +169,17 @@ const ExperienceWorkStreamsEditDialog = ({
                         id: "L8iV5q",
                         description: "Instructions for selecting work streams",
                       })}
-                      {community &&
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        ` ${intl.formatMessage({
-                          defaultMessage:
-                            "To remove this functional community entirely, use the trash can button on the previous screen and save your changes.",
-                          id: "fM48Ck",
-                          description:
-                            "Instructions for deselecting work streams",
-                        })}`}
+                      {community && (
+                        <span className="ml-1">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "To remove this functional community entirely, use the trash can button on the previous screen and save your changes.",
+                            id: "fM48Ck",
+                            description:
+                              "Instructions for deselecting work streams",
+                          })}
+                        </span>
+                      )}
                     </p>
                     {workStreamItemsOfCommunity && (
                       <Checklist

@@ -8,7 +8,12 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
-import { Button, ButtonProps, DropdownMenu } from "@gc-digital-talent/ui";
+import {
+  Button,
+  ButtonProps,
+  DropdownMenu,
+  HTMLEntity,
+} from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
@@ -142,8 +147,7 @@ const Pagination = ({
         </span>
         {pageSizes && (
           <>
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            <span aria-hidden>&bull;</span>
+            <HTMLEntity name="&bull;" aria-hidden />
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
                 <Button
@@ -217,8 +221,11 @@ const Pagination = ({
 
           {paginationRange.map((pageNumber, index) => {
             if (pageNumber === DOTS) {
-              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-              return <li key={`dots-${index + 1}`}>&hellip;</li>;
+              return (
+                <li key={`dots-${index + 1}`}>
+                  <HTMLEntity name="&hellip;" />
+                </li>
+              );
             }
 
             const current = pageNumber === currentPage;

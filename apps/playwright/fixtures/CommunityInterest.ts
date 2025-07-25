@@ -25,7 +25,7 @@ class CommunityInterest extends ApplicantDashboardPage {
       .click();
 
     await this.page
-      .getByRole("group", { name: /interest in training and development /i })
+      .getByRole("group", { name: /interest in training and development/i })
       .getByRole("radio", {
         name: /i’m not interested in training opportunities right now./i,
       })

@@ -222,8 +222,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       {showHeader && (
         <span className="inline font-bold sm:hidden">
           {header}
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {intl.formatMessage(commonMessages.dividingColon)}{" "}
+          {intl.formatMessage(commonMessages.dividingColon)}
         </span>
       )}
       <span className={val()}>

@@ -61,9 +61,13 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.page
-      .getByLabel("Organization *", { exact: true })
-      .fill(input.organization ?? "test org");
+    let organization = this.page.getByRole("textbox", {
+      name: "Organization",
+    });
+    if ((await organization.count()) === 0) {
+      organization = this.page.getByRole("combobox", { name: "Organization" });
+    }
+    await organization.fill(input.organization ?? "test org");
 
     await this.page
       .getByRole("textbox", { name: /team, group, or division/i })
@@ -536,7 +540,7 @@ class ExperiencePage extends AppPage {
       .fill(input.title ?? "test role");
 
     await this.page
-      .getByLabel("Group, organization, or community *", { exact: true })
+      .getByLabel(/group, organization, or community/i)
       .fill(input?.organization ?? "test org");
 
     await this.page
@@ -574,7 +578,7 @@ class ExperiencePage extends AppPage {
       .selectOption({ label: "Me" });
 
     await this.page
-      .getByLabel("Issuing organization *", { exact: true })
+      .getByLabel(/issuing organization/i)
       .fill(input?.issuedBy ?? "test org");
 
     await this.page
@@ -604,7 +608,7 @@ class ExperiencePage extends AppPage {
       .fill(input?.areaOfStudy ?? "test area of study");
 
     await this.page
-      .getByLabel("Institution *", { exact: true })
+      .getByLabel(/institution/i)
       .fill(input?.areaOfStudy ?? "test institution");
 
     await this.page
@@ -641,11 +645,9 @@ class ExperiencePage extends AppPage {
   }) {
     await this.page.getByRole("button", { name: "Add a skill" }).click();
 
-    await this.page.getByRole("combobox", { name: "Skill *" }).click();
+    await this.page.getByRole("combobox", { name: /Skill/ }).click();
 
-    await this.page
-      .getByRole("combobox", { name: "Skill *" })
-      .fill(input.skill);
+    await this.page.getByRole("combobox", { name: /Skill/ }).fill(input.skill);
 
     await this.page.getByRole("option", { name: input.skill }).click();
 

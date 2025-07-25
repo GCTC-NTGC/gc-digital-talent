@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useIntl } from "react-intl";
 import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -153,7 +152,7 @@ const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
                   color="error"
                 >
                   {field.label}
-                  {field.index ? ` ${field.index}` : null}
+                  {field.index ?? <span className="ml-1">{field.index}</span>}
                 </ScrollToLink>
                 {intl.formatMessage(commonMessages.dividingColon)}
                 <ErrorMessage name={field.name} />

@@ -1,6 +1,6 @@
 import { IntlShape } from "react-intl";
 
-import { Link, Chip, Spoiler, Chips } from "@gc-digital-talent/ui";
+import { Link, Chip, Spoiler, Chips, HTMLEntity } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -37,8 +37,12 @@ export function classificationsCell(
         key={`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
         color="primary"
       >
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
+        <>
+          {classification.group}
+          <HTMLEntity name="&hyphen;" />
+          {classification.level < 10 ? "0" : ""}
+          {classification.level}
+        </>
       </Chip>
     );
   });

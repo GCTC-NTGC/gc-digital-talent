@@ -3,7 +3,7 @@ import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import { Locales, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Chip } from "@gc-digital-talent/ui";
+import { Link, Chip, HTMLEntity } from "@gc-digital-talent/ui";
 import {
   Classification,
   FragmentType,
@@ -77,8 +77,12 @@ export function classificationCell(
 
   return (
     <Chip color="primary">
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
+      <>
+        {classification.group}
+        <HTMLEntity name="&hyphen;" />
+        {classification.level < 10 ? "0" : ""}
+        {classification.level}
+      </>
     </Chip>
   );
 }

@@ -1,11 +1,10 @@
 import { DetailedHTMLProps, ButtonHTMLAttributes, forwardRef } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
-import { IconType } from "@gc-digital-talent/ui";
+import { HTMLEntity, IconType } from "@gc-digital-talent/ui";
 
 const DisabledIcon = () => (
-  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-  <span className="w-4.5 text-gray/50 dark:text-gray/50">&bull;</span>
+  <HTMLEntity name="&bull;" className="w-4.5 text-gray/50 dark:text-gray/50" />
 );
 
 const actionBtn = tv({

@@ -2,7 +2,13 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { ReactNode, Fragment } from "react";
 
-import { Button, Card, Link, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Card,
+  HTMLEntity,
+  Link,
+  Separator,
+} from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
@@ -143,8 +149,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             },
           )}
         </span>
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        <span aria-hidden>&bull;</span>
+        <HTMLEntity name="&bull;" aria-hidden />
         <span className="font-bold text-primary-600 dark:text-primary-200">
           {intl.formatMessage(
             {
@@ -176,8 +181,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         {essentialSkills.length > 0
           ? essentialSkills.map((skill, index) => (
               <Fragment key={skill.id}>
-                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                {index !== 0 && <span aria-hidden>&bull;</span>}
+                {index !== 0 && <HTMLEntity name="&bull;" aria-hidden />}
                 <span
                   key={skill.id}
                   className="text-gray-600 dark:text-gray-200"
