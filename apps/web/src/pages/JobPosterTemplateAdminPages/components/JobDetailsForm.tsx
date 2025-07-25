@@ -243,7 +243,9 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div className="sm:col-span-2">
         <Input
           id="workDescriptionEn"
-          label={intl.formatMessage(jobPosterTemplateMessages.workDescription)}
+          label={intl.formatMessage(
+            jobPosterTemplateMessages.genericWorkDescriptionLink,
+          )}
           name="workDescriptionEn"
           type="url"
           appendLanguageToLabel="en"
@@ -252,7 +254,9 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div className="sm:col-span-2">
         <Input
           id="workDescriptionFr"
-          label={intl.formatMessage(jobPosterTemplateMessages.workDescription)}
+          label={intl.formatMessage(
+            jobPosterTemplateMessages.genericWorkDescriptionLink,
+          )}
           name="workDescriptionFr"
           type="url"
           appendLanguageToLabel="fr"

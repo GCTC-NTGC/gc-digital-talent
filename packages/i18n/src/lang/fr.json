@@ -959,10 +959,6 @@
     "defaultMessage": "Je ne participe à aucun programme de mentorat.",
     "description": "The mentorship status described as not participating."
   },
-  "ZhOciS": {
-    "defaultMessage": "Modèles d'offres d'emploi",
-    "description": "Name of job advertisement templates page"
-  },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."

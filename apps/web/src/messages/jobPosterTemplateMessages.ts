@@ -3,136 +3,132 @@ import { defineMessages } from "react-intl";
 const messages = defineMessages({
   basicDetails: {
     defaultMessage: "Basic details",
-    id: "tcL+WV",
-    description:
-      "Title of the 'basic details' section of the job poster template page",
+    id: "G7uMOV",
+    description: "The basic details of a job poster template",
   },
   jobDetails: {
     defaultMessage: "Job details",
-    id: "BJ2sqj",
-    description: "Title for a job poster template, job details section",
+    id: "I78S4w",
+    description: "The job details of a job poster template",
   },
   keyTasks: {
     defaultMessage: "Key tasks",
-    id: "hkVnr1",
-    description:
-      "Short title of the 'key tasks' section of the job poster template page",
+    id: "5R6qqX",
+    description: "The key tasks of a job poster template",
   },
   technicalSkills: {
     defaultMessage: "Technical skills",
-    id: "XpvRJR",
-    description: "Title for a job poster template, technical skills section",
+    id: "UsKyTo",
+    description: "The technical skills of a a job poster template",
   },
   essentialTechnicalSkills: {
     defaultMessage: "Essential technical skills",
-    id: "fpm0Bt",
-    description:
-      "Short title of the 'essential technical skills' section of the job poster template page",
+    id: "yW+1fz",
+    description: "The essential technical skills of a job poster template",
   },
   assetTechnicalSkills: {
     defaultMessage: "Asset technical skills",
-    id: "haVipy",
-    description:
-      "Short title of the 'asset technical skills' section of the job poster template page",
+    id: "aEbSvx",
+    description: "The asset technical skills of a job poster template",
   },
   behaviouralSkills: {
     defaultMessage: "Behavioural skills",
-    id: "Lfi6Vf",
-    description: "Title for a job poster template, behavioural skills section",
+    id: "jsd+/T",
+    description: "The behavioural skills of a job poster template",
   },
   essentialBehaviouralSkills: {
     defaultMessage: "Essential behavioural skills",
-    id: "4wIDU6",
-    description:
-      "Short title of the 'essential behavioural skills' section of the job poster template page",
+    id: "A8pdNo",
+    description: "The essential behavioural skills of a job poster template",
   },
   jobTitle: {
     defaultMessage: "Job title",
-    id: "HBuWZ0",
-    description: "Title for job title for a position",
+    id: "TfYpv3",
+    description: "The job title for a job poster template",
   },
   description: {
     defaultMessage: "Description",
-    id: "i+8teP",
-    description: "Title for description",
+    id: "ucT19y",
+    description: "The description of a job poster template",
   },
   classification: {
     defaultMessage: "Classification",
-    id: "YmWKlv",
-    description: "Label for a process' classification",
+    id: "PQyXaQ",
+    description: "The classification for a job poster template",
   },
   classificationGroup: {
     defaultMessage: "Classification group",
-    id: "GQ/sVu",
-    description: "Label for the classification group",
+    id: "/KwgLQ",
+    description: "The classification group for a job poster template",
   },
   classificationLevel: {
     defaultMessage: "Classification level",
-    id: "lZGt+H",
-    description: "Label for the classification level",
+    id: "Y/MTuj",
+    description: "The classification level for a job poster template",
   },
   workStream: {
     defaultMessage: "Work stream",
-    id: "UKw7sB",
-    description: "Label displayed on the pool form stream/job title field.",
+    id: "ezaaj5",
+    description: "The work stream of a job poster template",
   },
   typeOfRole: {
     defaultMessage: "Type of role",
-    id: "+yB0EH",
-    description:
-      "Label displayed on the job poster template 'type of role' field.",
+    id: "IRFw3N",
+    description: "The type of role for a job poster template",
   },
   supervisoryStatus: {
     defaultMessage: "Supervisory status",
-    id: "m0w4m0",
-    description: "Label for supervisor status",
+    id: "CWC5/C",
+    description: "The supervisory status on a job poster template",
   },
   genericWorkDescription: {
     defaultMessage: "Generic work description",
-    id: "EJN/zZ",
-    description:
-      "Label displayed on the job poster template 'generic work description' field.",
+    id: "LzBy+E",
+    description: "The generic work description for a job poster template",
   },
-  workDescription: {
+  genericWorkDescriptionLink: {
     defaultMessage: "Generic work description link",
-    id: "tDSZob",
-    description: "Label for the work description link",
+    id: "TgAjTf",
+    description: "The work description link for a job poster template",
   },
   referenceId: {
     defaultMessage: "Reference ID",
-    id: "UoOv/g",
-    description:
-      "Label displayed on the job poster template 'reference id' field.",
+    id: "voH+OJ",
+    description: "The reference id for a job poster template",
   },
   specialNote: {
     defaultMessage: "Special note",
-    id: "ZD0Tkx",
-    description: "Label for a job poster template special note on skills",
+    id: "MgFV4w",
+    description: "The skills special note for a job poster template",
   },
   specialNoteEssentialTechnicalSkills: {
     defaultMessage: "Special note for essential technical skills",
-    id: "vW4ode",
-    description: "Label for the essential technical skills notes",
+    id: "QxTOLA",
+    description:
+      "The essential technical skills special note for a job poster template",
   },
   specialNoteNonessentialTechnicalSkills: {
     defaultMessage: "Special note for asset technical skills",
-    id: "UYsWMr",
-    description: "Label for the nonessential technical skills notes",
+    id: "Ynxi7g",
+    description:
+      "The nonessential technical skills special note for a job poster template",
   },
   specialNoteEssentialBehaviouralSkills: {
     defaultMessage: "Special note for essential behavioural skills",
-    id: "JasIU3",
-    description: "Label for the essential behavioural skills notes",
+    id: "kyOGve",
+    description:
+      "The essential behavioural skills special note for a job poster template",
   },
   specialNoteIsRequired: {
     defaultMessage: "These skills require a special note.",
-    id: "cuKJ1I",
-    description: "Statement that a special note is required",
+    id: "7yvOlL",
+    description:
+      "Statement that a special note on a job poster template is required",
   },
   keywords: {
     defaultMessage: "Keywords",
-    id: "oN+UFg",
-    description: "Label for the keywords",
+    id: "+7z2/r",
+    description: "The keywords for a job poster template",
   },
 });
 

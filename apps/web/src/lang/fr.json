@@ -231,9 +231,9 @@
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
-  "+yB0EH": {
+  "IRFw3N": {
     "defaultMessage": "Type de poste",
-    "description": "Label displayed on the job poster template 'type of role' field."
+    "description": "The type of role for a job poster template"
   },
   "/+naWC": {
     "defaultMessage": "À évaluer",
@@ -1543,9 +1543,9 @@
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
   },
-  "4wIDU6": {
+  "A8pdNo": {
     "defaultMessage": "Compétences comportementales essentielles",
-    "description": "Short title of the 'essential behavioural skills' section of the job poster template page"
+    "description": "The essential behavioural skills of a job poster template"
   },
   "4yXZLY": {
     "defaultMessage": "Options de nomination",
@@ -3531,9 +3531,9 @@
     "defaultMessage": "Types d'expérience que vous pouvez ajouter",
     "description": "Button text to open section describing experience types"
   },
-  "EJN/zZ": {
+  "LzBy+E": {
     "defaultMessage": "Description générique du travail",
-    "description": "Label displayed on the job poster template 'generic work description' field."
+    "description": "The generic work description for a job poster template"
   },
   "EJPdqH": {
     "defaultMessage": "* Veuillez noter qu'en indiquant votre intérêt pour les possibilités d'emplois ou de formation, vous acceptez de partager les renseignements de votre profil avec le personnel des ressources humaines et du recrutement du gouvernement du Canada au sein de cette collectivité.",
@@ -6930,9 +6930,9 @@
     "defaultMessage": "Retirer {userName} de la collectivité {communityName}.",
     "description": "Label for the dialog trigger to remove a user from a community"
   },
-  "UoOv/g": {
+  "voH+OJ": {
     "defaultMessage": "Identifiant de référence",
-    "description": "Label displayed on the job poster template 'reference id' field."
+    "description": "The reference id for a job poster template"
   },
   "UoUzWJ": {
     "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
@@ -9258,9 +9258,9 @@
     "defaultMessage": "Créer un volet de travail",
     "description": "Page title for the work stream creation page"
   },
-  "fpm0Bt": {
+  "yW+1fz": {
     "defaultMessage": "Compétences techniques essentielles",
-    "description": "Short title of the 'essential technical skills' section of the job poster template page"
+    "description": "The essential technical skills of a job poster template"
   },
   "fqEh4+": {
     "defaultMessage": "Modifiez les informations sur le volet de travail",
@@ -9717,9 +9717,9 @@
     "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
     "description": "First paragraph for the closed early pool deadlines dialog"
   },
-  "haVipy": {
+  "aEbSvx": {
     "defaultMessage": "Compétences techniques constituant un atout",
-    "description": "Short title of the 'asset technical skills' section of the job poster template page"
+    "description": "The asset technical skills of a job poster template"
   },
   "hbcdJm": {
     "defaultMessage": "Notifications",
@@ -9745,9 +9745,9 @@
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
   },
-  "hkVnr1": {
+  "5R6qqX": {
     "defaultMessage": "Tâches principales",
-    "description": "Short title of the 'key tasks' section of the job poster template page"
+    "description": "The key tasks of a job poster template"
   },
   "hmacO5": {
     "defaultMessage": "La demande ne comprend pas de filtre!",
@@ -12125,9 +12125,9 @@
     "defaultMessage": "L'équipe",
     "description": "Card title, team"
   },
-  "tcL+WV": {
+  "G7uMOV": {
     "defaultMessage": "Détails de base",
-    "description": "Title of the 'basic details' section of the job poster template page"
+    "description": "The basic details of a job poster template"
   },
   "tgPKAn": {
     "defaultMessage": "Nominations",
@@ -13468,5 +13468,41 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
+  },
+  "UsKyTo": {
+    "defaultMessage": "Compétences techniques",
+    "description": "The technical skills of a a job poster template"
+  },
+  "jsd+/T": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "The behavioural skills of a job poster template"
+  },
+  "TfYpv3": {
+    "defaultMessage": "Titre du poste",
+    "description": "The job title for a job poster template"
+  },
+  "ucT19y": {
+    "defaultMessage": "Description",
+    "description": "The description of a job poster template"
+  },
+  "PQyXaQ": {
+    "defaultMessage": "Classification",
+    "description": "The classification for a job poster template"
+  },
+  "ezaaj5": {
+    "defaultMessage": "Volet de travail",
+    "description": "The work stream of a job poster template"
+  },
+  "CWC5/C": {
+    "defaultMessage": "Statut de supervision",
+    "description": "The supervisory status on a job poster template"
+  },
+  "MgFV4w": {
+    "defaultMessage": "Note spéciale",
+    "description": "The skills special note for a job poster template"
+  },
+  "+7z2/r": {
+    "defaultMessage": "Mots-clés",
+    "description": "The keywords for a job poster template"
   }
 }
