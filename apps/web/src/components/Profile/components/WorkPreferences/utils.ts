@@ -35,11 +35,9 @@ export const getLabels = (intl: IntlShape) => ({
     id: "ahK7mI",
     description: "Legend for the work location preferences section",
   }),
-  flexibleWorkLocationOptions: intl.formatMessage({
-    defaultMessage: "Flexible work location options",
-    id: "W2619r",
-    description: "Legend for the flexible work location preferences section",
-  }),
+  flexibleWorkLocationOptions: intl.formatMessage(
+    profileMessages.flexibleWorkLocationOptions,
+  ),
   locationExemptions: intl.formatMessage({
     defaultMessage:
       "Please indicate if there is a city that you would like to exclude from a region.",

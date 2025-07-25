@@ -114,12 +114,7 @@ const WorkPreferencesSection = ({
       <div>
         <p>
           <span className={label()}>
-            {intl.formatMessage({
-              defaultMessage: "Flexible work location options",
-              id: "W2619r",
-              description:
-                "Legend for the flexible work location preferences section",
-            })}
+            {intl.formatMessage(profileMessages.flexibleWorkLocationOptions)}
           </span>
         </p>
         <Ul unStyled noIndent inside>

@@ -170,7 +170,7 @@ const WorkPreferences = ({
         {formatLocation({ city: currentCity, region: currentProvince, intl })}
       </FieldDisplay>
       <FieldDisplay
-        label={intl.formatMessage(profileMessages.workLocationPreferences)}
+        label={intl.formatMessage(profileMessages.flexibleWorkLocationOptions)}
       >
         {locations?.length ? (
           <Ul>
