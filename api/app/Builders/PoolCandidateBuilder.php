@@ -428,6 +428,18 @@ class PoolCandidateBuilder extends Builder
         ]);
     }
 
+    public function whereWorkStreamsIn(?array $streams): self
+    {
+        if (empty($streams)) {
+            return $this;
+        }
+
+        return $this->whereHas('pool', function (Builder $query) use ($streams) {
+            /** @var \App\Builders\PoolBuilder $query */
+            $query->whereWorkStreamsIn($streams);
+        });
+    }
+
     public function whereQualifiedStreamsIn(?array $streams): self
     {
         if (empty($streams)) {

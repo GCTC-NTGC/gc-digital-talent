@@ -431,10 +431,7 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.appliedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
-    stream:
-      input?.applicantFilter?.workStreams
-        ?.filter(notEmpty)
-        .map(({ id }) => id) ?? [],
+    stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
@@ -478,7 +475,6 @@ export function transformFormValuesToFilterState(
       languageAbility: data.languageAbility
         ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      workStreams: data.stream.map((id) => ({ id })),
       operationalRequirements: data.operationalRequirement
         .map((requirement) => {
           return stringToEnumOperational(requirement);
@@ -528,6 +524,7 @@ export function transformFormValuesToFilterState(
       const splitString = classification.split("-");
       return { group: splitString[0], level: Number(splitString[1]) };
     }),
+    workStreams: data.stream.map((id) => ({ id })),
   };
 }
 
@@ -564,6 +561,7 @@ export const addSearchToPoolCandidateFilterInput = (
     isGovEmployee: fancyFilterState?.isGovEmployee,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
+    workStreams: fancyFilterState?.workStreams,
     departments: fancyFilterState?.departments,
   };
 };
