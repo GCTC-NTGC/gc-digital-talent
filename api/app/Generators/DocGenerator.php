@@ -34,13 +34,15 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
 
         try {
             $path = $this->getPath();
-            $writer = IOFactory::createWriter($this->doc);
+            $writer = IOFactory::createWriter($this->doc, $this->extension === 'html' ? 'HTML' : 'Word2007');
             $writer->save($path);
         } catch (\Throwable $e) {
             Log::error('Error saving doc: '.$this->fileName.' '.$e->getMessage());
             throw $e;
         }
     }
+
+    public function writeHTML() {}
 
     /**
      * Creates the document for generation
@@ -59,5 +61,14 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
         $this->strong = ['bold' => true];
 
         $this->linkStyle = ['color' => '#003632', 'underline' => \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE];
+    }
+
+    public function setExtension(?string $ext)
+    {
+        if ($ext === 'html' || $ext === 'docx') {
+            $this->extension = $ext;
+        }
+
+        return $this;
     }
 }
