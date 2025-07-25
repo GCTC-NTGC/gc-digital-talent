@@ -6,7 +6,7 @@ import { errorMessages, Locales } from "@gc-digital-talent/i18n";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
-const TEXT_AREA_MAX_WORDS_EN = 120;
+const TEXT_AREA_MAX_WORDS_EN = 200;
 
 const keyTasksWordCountLimits: Record<Locales, number> = {
   en: TEXT_AREA_MAX_WORDS_EN,
