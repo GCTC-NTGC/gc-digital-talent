@@ -2,6 +2,7 @@
 
 namespace App\Generators;
 
+use App\Exceptions\MissingProfileSnapshotException;
 use App\Models\PoolCandidate;
 
 class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInterface
@@ -14,6 +15,7 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
     public function generate(): self
     {
         PoolCandidate::with([
+            'user',
             'educationRequirementAwardExperiences',
             'educationRequirementCommunityExperiences',
             'educationRequirementEducationExperiences',
@@ -27,10 +29,16 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
             ->whereAuthorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
-                    $generator = new ApplicationDocGenerator($candidate, $this->dir, $this->lang);
+                    try {
+                        $generator = new ApplicationDocGenerator($candidate, $this->dir, $this->lang);
 
-                    $this->incrementFileName($generator)->generate()->write();
-                    $this->addFile($generator);
+                        $this->incrementFileName($generator)->generate()->write();
+                        $this->addFile($generator);
+                    } catch (MissingProfileSnapshotException $e) {
+                        $this->addFailedFile($e->getMessage());
+                    } catch (\Exception $e) {
+                        $this->addFailedFile(__('errors.unknown').' '.$candidate->id);
+                    }
                 }
             });
 
