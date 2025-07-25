@@ -3,7 +3,7 @@ import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
 
-import messages from "../messages";
+import messages from "~/messages/jobPosterTemplateMessages";
 
 const TechnicalSkillsFrontMatter = () => {
   const intl = useIntl();

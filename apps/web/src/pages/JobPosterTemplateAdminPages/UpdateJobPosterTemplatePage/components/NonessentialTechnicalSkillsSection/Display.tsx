@@ -5,9 +5,10 @@ import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
+import messages from "~/messages/jobPosterTemplateMessages";
+
 import { InitialData_Fragment } from "./NonessentialTechnicalSkillsSection";
 import { filterNonessentialTechnicalSkills } from "../../utils";
-import messages from "../../../messages";
 import NonessentialTechnicalSkillsFrontMatter from "../../../components/NonessentialTechnicalSkillsFrontMatter";
 
 interface DisplayProps {

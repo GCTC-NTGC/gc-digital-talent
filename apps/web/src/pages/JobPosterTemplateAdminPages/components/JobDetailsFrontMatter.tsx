@@ -3,7 +3,7 @@ import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
 
-import messages from "../messages";
+import messages from "~/messages/jobPosterTemplateMessages";
 
 const JobDetailsFrontMatter = () => {
   const intl = useIntl();

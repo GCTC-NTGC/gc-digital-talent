@@ -3,7 +3,7 @@ import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDoc
 
 import { Heading, Ul } from "@gc-digital-talent/ui";
 
-import messages from "../messages";
+import messages from "~/messages/jobPosterTemplateMessages";
 
 const KeyTasksFrontMatter = () => {
   const intl = useIntl();

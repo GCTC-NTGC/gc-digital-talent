@@ -5,9 +5,9 @@ import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Chip, Chips, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import messages from "~/messages/jobPosterTemplateMessages";
 
 import { InitialData_Fragment } from "./JobDetailsSection";
-import { labels } from "../../../components/labels";
 
 interface DisplayProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;
@@ -113,7 +113,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         ) : null}
       </div>
       <FieldDisplay
-        label={intl.formatMessage(labels.referenceId)}
+        label={intl.formatMessage(messages.referenceId)}
         className="order-11"
       >
         {referenceId ?? notProvided}
