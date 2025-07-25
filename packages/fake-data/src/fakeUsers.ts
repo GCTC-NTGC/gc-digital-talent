@@ -16,6 +16,7 @@ import {
   PositionDuration,
   IndigenousCommunity,
   Maybe,
+  FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -292,6 +293,9 @@ export const fakeUser = (): User => {
     hasDiploma: faker.datatype.boolean(),
     locationPreferences: faker.helpers
       .arrayElements<WorkRegion>(Object.values(WorkRegion))
+      .map((pref) => toLocalizedEnum(pref)),
+    flexibleWorkLocations: faker.helpers
+      .arrayElements<FlexibleWorkLocation>(Object.values(FlexibleWorkLocation))
       .map((pref) => toLocalizedEnum(pref)),
     locationExemptions: faker.location.city(),
     acceptedOperationalRequirements: faker.helpers

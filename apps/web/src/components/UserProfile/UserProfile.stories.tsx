@@ -60,7 +60,7 @@ Null.args = {
   hasDisability: null,
   indigenousCommunities: null,
   isVisibleMinority: null,
-  locationPreferences: null,
+  flexibleWorkLocations: null,
   locationExemptions: null,
   acceptedOperationalRequirements: null,
   positionDuration: null,
