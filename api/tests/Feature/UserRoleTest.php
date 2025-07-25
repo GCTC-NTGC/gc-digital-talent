@@ -383,7 +383,49 @@ class UserRoleTest extends TestCase
         $newRole = Role::factory()->create(['is_team_based' => true]);
         $oldCommunity = Community::factory()->create();
         $newCommunity = Community::factory()->create();
-        $otherUser = User::factory()->create()->syncRoles([$oldRole], $oldCommunity->team);
+        $otherUser = User::factory()->create()->syncRoles([$oldRole], $oldCommunity);
+
+        $this->actingAs($this->baseUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            mutation updateUserRoles($updateUserRolesInput:UpdateUserRolesInput!) {
+                updateUserRoles(updateUserRolesInput:$updateUserRolesInput) {
+                    roleAssignments {
+                        role { id }
+                        team { id }
+                    }
+                }
+                }
+            ',
+            [
+                'updateUserRolesInput' => [
+                    'userId' => $otherUser->id,
+                    'roleAssignmentsInput' => [
+                        'attach' => [
+                            [
+                                'roleId' => $newRole->id,
+                                'teamId' => $newCommunity->team->id,
+                            ],
+                        ],
+                        'detach' => [
+                            [
+                                'roleId' => $oldRole->id,
+                                'teamId' => $oldCommunity->team->id,
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    // Create an applicant user. Assert that they cannot edit their own roles.
+    public function testApplicantCannotMutateOwnRoles()
+    {
+        $oldRole = Role::factory()->create(['is_team_based' => true]);
+        $newRole = Role::factory()->create(['is_team_based' => true]);
+        $oldCommunity = Community::factory()->create();
+        $newCommunity = Community::factory()->create();
 
         $this->actingAs($this->baseUser, 'api')->graphQL(
             /** @lang GraphQL */
@@ -410,7 +452,7 @@ class UserRoleTest extends TestCase
                         'detach' => [
                             [
                                 'roleId' => $oldRole->id,
-                                'teamId' => $oldCommunity->team->id,
+                                'teamId' => $newCommunity->team->id,
                             ],
                         ],
                     ],
