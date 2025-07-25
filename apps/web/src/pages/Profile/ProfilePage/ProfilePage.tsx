@@ -558,7 +558,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
-    locationPreferences {
+    flexibleWorkLocations {
       value
       label {
         en

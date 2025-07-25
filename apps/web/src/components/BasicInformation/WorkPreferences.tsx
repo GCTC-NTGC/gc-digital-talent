@@ -29,7 +29,7 @@ export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
       }
     }
     positionDuration
-    locationPreferences {
+    flexibleWorkLocations {
       value
       label {
         localized
@@ -85,13 +85,13 @@ const WorkPreferences = ({
   const {
     acceptedOperationalRequirements,
     positionDuration,
-    locationPreferences,
+    flexibleWorkLocations,
     locationExemptions,
     currentCity,
     currentProvince,
   } = workPreferences;
 
-  const locations = unpackMaybes(locationPreferences);
+  const locations = unpackMaybes(flexibleWorkLocations);
   const operationalRequirements = unpackMaybes(
     workPreferencesOptions.operationalRequirements,
   );
