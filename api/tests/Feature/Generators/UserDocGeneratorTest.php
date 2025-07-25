@@ -99,6 +99,7 @@ class UserDocGeneratorTest extends TestCase
         assertGreaterThan(0, $fileSize, 'File is empty');
     }
 
+    // NOTE: Update with `-d --update-snapshot`
     public function testUserProfileDocSnapshot()
     {
         $this->generator
