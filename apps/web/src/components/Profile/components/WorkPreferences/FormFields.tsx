@@ -20,7 +20,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 
-const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
+export const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {
     flexibleWorkLocation: localizedEnumStrings(
       enumName: "FlexibleWorkLocation"
@@ -29,6 +29,7 @@ const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
       label {
         en
         fr
+        localized
       }
     }
     provinceOrTerritories: localizedEnumStrings(
