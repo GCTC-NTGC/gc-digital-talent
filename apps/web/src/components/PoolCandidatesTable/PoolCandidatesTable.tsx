@@ -68,6 +68,7 @@ import {
   getPoolNameSort,
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
+  getDepartmentSort,
   candidateFacingStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
@@ -170,6 +171,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
+    $orderByEmployeeDepartment: SortOrder
   ) {
     poolCandidatesPaginatedAdminView(
       where: $where
@@ -178,6 +180,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
+      orderByEmployeeDepartment: $orderByEmployeeDepartment
     ) {
       data {
         id
@@ -279,6 +282,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             lookingForFrench
             lookingForBilingual
             currentCity
+            department {
+              id
+              name {
+                localized
+              }
+            }
             currentProvince {
               value
               label {
@@ -317,12 +326,12 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadUsersThruPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadUsersThruPoolCandidatesCsv(
+const DownloadUsersThruPoolCandidatesExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUsersThruPoolCandidatesExcel(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
   ) {
-    downloadUsersThruPoolCandidatesCsv(ids: $ids, where: $where)
+    downloadUsersThruPoolCandidatesExcel(ids: $ids, where: $where)
   }
 `);
 
@@ -375,6 +384,7 @@ const defaultState = {
     poolCandidateStatus: [],
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
+    departments: [],
   },
 };
 
@@ -417,8 +427,8 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesCsv_Mutation,
   );
 
-  const [{ fetching: downloadingUsersCsv }, downloadUsers] = useMutation(
-    DownloadUsersThruPoolCandidatesCsv_Mutation,
+  const [{ fetching: downloadingUsersExcel }, downloadUsers] = useMutation(
+    DownloadUsersThruPoolCandidatesExcel_Mutation,
   );
 
   const [{ fetching: downloadingUserDoc }, downloadUserDoc] = useMutation(
@@ -444,6 +454,7 @@ const PoolCandidatesTable = ({
     downloadingUsersZip ||
     downloadingApplicationDoc ||
     downloadingApplicationsZip ||
+    downloadingUsersExcel ||
     downloadingAsyncFile;
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
@@ -523,6 +534,7 @@ const PoolCandidatesTable = ({
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      orderByEmployeeDepartment: getDepartmentSort(sortState),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
         doNotUseBookmark,
@@ -592,7 +604,7 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleUsersCsvDownload = () => {
+  const handleUsersExcelDownload = () => {
     downloadUsers({ ids: selectedRows })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
@@ -951,6 +963,17 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { department },
+        },
+      }) => department?.name.localized,
+      {
+        id: "department",
+        header: intl.formatMessage(tableMessages.employeeDepartment),
+      },
+    ),
+    columnHelper.accessor(
       ({ poolCandidate: { submittedAt } }) => accessors.date(submittedAt),
       {
         id: "dateReceived",
@@ -1043,9 +1066,9 @@ const PoolCandidatesTable = ({
                 <DownloadCandidateCsvButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersCsv}
+                  isDownloading={downloadingCsv || downloadingUsersExcel}
                   onClick={handleCsvDownload}
-                  onClickDownloadUsers={handleUsersCsvDownload}
+                  onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),
             }
@@ -1055,9 +1078,9 @@ const PoolCandidatesTable = ({
                 <DownloadAllCandidateTableCsvButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersCsv}
+                  isDownloading={downloadingCsv || downloadingUsersExcel}
                   onClickDownloadCandidates={handleCsvDownload}
-                  onClickDownloadUsers={handleUsersCsvDownload}
+                  onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),
             },

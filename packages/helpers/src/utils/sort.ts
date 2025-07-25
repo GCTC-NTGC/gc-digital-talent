@@ -1,6 +1,6 @@
 type Order = "asc" | "desc";
 
-function compareStrings(
+export function compareStrings(
   a: string | undefined | null,
   b: string | undefined | null,
   order: Order,

@@ -160,6 +160,13 @@ class UserBuilder extends Builder
         return $this;
     }
 
+    public function whereDepartmentsIn(?array $departmentIds): self
+    {
+        return $this->whereHas('department', function ($query) use ($departmentIds) {
+            return $query->whereIn('id', $departmentIds);
+        });
+    }
+
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
     {
         // if no filters provided then return query unchanged

@@ -103,36 +103,48 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
       </Heading>
       <Card>
         <div className="grid gap-6 xs:grid-cols-2">
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"en"}
+          >
             {skill.name.en}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.name)}
+            appendLanguageToLabel={"fr"}
+          >
             {skill.name.fr}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.descriptionEn)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"en"}
+          >
             {skill.description?.en}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.descriptionFr)}>
+          <FieldDisplay
+            label={intl.formatMessage(commonMessages.description)}
+            appendLanguageToLabel={"fr"}
+          >
             {skill.description?.fr}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Keywords (English)",
-              id: "FiylOa",
-              description:
-                "Label displayed on the skill form keywords field in English.",
+              defaultMessage: "Keywords",
+              id: "IgzSRR",
+              description: "Label displayed on the skill form keywords field",
             })}
+            appendLanguageToLabel={"en"}
           >
             {skill.keywords?.en ??
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Keywords (French)",
-              id: "fOl4Ez",
-              description:
-                "Label displayed on the skill form keywords field in French.",
+              defaultMessage: "Keywords",
+              id: "IgzSRR",
+              description: "Label displayed on the skill form keywords field",
             })}
+            appendLanguageToLabel={"fr"}
           >
             {skill.keywords?.fr ??
               intl.formatMessage(commonMessages.notProvided)}

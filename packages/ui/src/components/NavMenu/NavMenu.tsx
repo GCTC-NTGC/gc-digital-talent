@@ -39,35 +39,23 @@ type TriggerProps = ComponentPropsWithoutRef<
 const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,
   TriggerProps
->(
-  (
-    { children, mode = "inline", color, block = false, ...rest },
-    forwardedRef,
-  ) => (
-    <div className="text-center sm:text-left">
-      <NavigationMenuPrimitive.Trigger
-        ref={forwardedRef}
-        asChild
-        onPointerMove={(event) => event.preventDefault()}
-        onPointerLeave={(event) => event.preventDefault()}
-        className="font-normal hover:text-primary-600 sm:hover:text-primary-200 dark:hover:text-primary-100 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
-        {...rest}
-      >
-        <Button
-          utilityIcon={ChevronDownIcon}
-          mode={mode}
-          color={color}
-          block={block}
-        >
-          {children}
-        </Button>
-      </NavigationMenuPrimitive.Trigger>
-    </div>
-  ),
-);
+>(({ children, mode = "inline", color, ...rest }, forwardedRef) => (
+  <NavigationMenuPrimitive.Trigger
+    ref={forwardedRef}
+    asChild
+    onPointerMove={(event) => event.preventDefault()}
+    onPointerLeave={(event) => event.preventDefault()}
+    className="w-full px-3 py-2 text-left font-normal hover:text-primary-600 sm:py-4.5 sm:hover:text-primary-200 dark:hover:text-primary-100 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
+    {...rest}
+  >
+    <Button utilityIcon={ChevronDownIcon} mode={mode} color={color} noUnderline>
+      {children}
+    </Button>
+  </NavigationMenuPrimitive.Trigger>
+));
 
 const content = tv({
-  base: "mt-6 sm:absolute sm:left-1/2 sm:mt-0 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600",
+  base: "top-full sm:absolute sm:left-1/2 sm:z-20 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:bg-white sm:p-1.5 sm:shadow-lg dark:sm:bg-gray-600",
 });
 
 const Content = forwardRef<
@@ -93,16 +81,27 @@ const Viewport = forwardRef<
 ));
 
 const list = tv({
-  base: "m-0 flex list-none flex-col items-center gap-4.5 p-0 sm:items-start",
+  base: "m-0 flex list-none flex-col p-0",
+  variants: {
+    type: {
+      main: "sm:flex-row sm:items-center",
+    },
+  },
 });
+
+type ListVariants = VariantProps<typeof list>;
+
+interface ListProps
+  extends ListVariants,
+    ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List> {}
 
 const List = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.List>,
-  ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
->(({ children, className, ...rest }, forwardedRef) => (
+  ListProps
+>(({ children, className, type, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.List
     ref={forwardedRef}
-    className={list({ class: className })}
+    className={list({ type, class: className })}
     {...rest}
   >
     {children}
@@ -115,7 +114,7 @@ const Item = forwardRef<
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    className="sm:relative data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline!"
+    className="w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline!"
     {...props}
   />
 ));
@@ -144,23 +143,35 @@ const useActiveLink = (
 };
 
 const navMenuLink = tv({
-  base: "font-normal text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 data-active:hover:text-primary-600 hover:data-[icon=true]:text-primary-700 dark:text-white dark:hover:text-primary-100 dark:data-active:text-primary-200 dark:data-active:hover:text-primary-200 dark:hover:data-[icon=true]:text-primary-700 data-active:[&_span]:no-underline",
+  base: "items-center font-normal text-black hover:text-primary-200 focus-visible:text-black data-active:font-bold data-active:text-primary-200 data-active:hover:text-primary data-active:focus-visible:text-black hover:data-icon:text-primary-700 dark:text-white dark:hover:text-primary-100 dark:data-active:text-primary-200 dark:data-active:hover:text-primary-200 dark:hover:data-icon:text-primary-700 iap:data-active:hover:text-primary-600 data-active:[&_span]:no-underline",
   variants: {
     isSmallScreen: {
       true: "",
       false: "",
+    },
+    isIcon: {
+      true: "",
+      false: "flex px-3 py-2 sm:py-4.5",
     },
     type: {
       link: "",
       subMenuLink: "",
     },
   },
+  defaultVariants: {
+    isIcon: false,
+  },
   compoundVariants: [
     {
       isSmallScreen: false,
       type: "link",
       class:
-        "text-white hover:text-primary-200 data-active:text-primary-200 hover:data-[icon=true]:text-primary-200 dark:data-active:text-primary-100 dark:hover:data-[icon=true]:text-primary-700",
+        "data-active text-white data-active:text-primary-200 hover:data-icon:text-primary-700 dark:data-active:text-primary-100 dark:hover:data-icon:text-primary-700",
+    },
+    {
+      type: "subMenuLink",
+      isIcon: false,
+      class: "py-1.5 pr-1.5 pl-6 sm:px-3 sm:py-3",
     },
   ],
 });
@@ -202,6 +213,7 @@ const IconLink = forwardRef<
         href={href}
         icon={icon}
         className={navMenuLink({
+          isIcon: true,
           isSmallScreen,
           type,
         })}
@@ -213,7 +225,7 @@ const IconLink = forwardRef<
 
 interface LinkProps
   extends NavMenuLinkTypeVariant,
-    Pick<BaseLinkProps, "color" | "icon" | "mode" | "href">,
+    Pick<BaseLinkProps, "color" | "icon" | "mode" | "href" | "end">,
     Omit<
       ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
       "color" | "href" | "type"
@@ -267,6 +279,7 @@ const Link = forwardRef<
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           state={state}
           className={navMenuLink({
+            isIcon: false,
             isSmallScreen,
             type,
           })}

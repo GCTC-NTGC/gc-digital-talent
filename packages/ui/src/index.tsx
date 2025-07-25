@@ -39,6 +39,7 @@ import IconButton, {
   type IconButtonProps,
 } from "./components/Button/IconButton";
 import IconLink, { type IconLinkProps } from "./components/Link/IconLink";
+import Image, { type ImgProps } from "./components/Image/Image";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -65,7 +66,9 @@ import PreviewList, {
   type MetaDataProps as PreviewMetaData,
 } from "./components/PreviewList/PreviewList";
 import ResourceBlock from "./components/ResourceBlock";
-import Separator from "./components/Separator";
+import Separator, {
+  type SeparatorProps,
+} from "./components/Separator/Separator";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
@@ -114,12 +117,14 @@ export type {
   IconType,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
+  ImgProps,
   MenuLinkProps,
   MetadataItemProps,
   LoadingProps,
   PendingProps,
   PreviewMetaData,
   ChipProps,
+  SeparatorProps,
   SidebarProps,
   SpoilerProps,
   StepperProps,
@@ -164,6 +169,7 @@ export {
   Heading,
   IconButton,
   IconLink,
+  Image,
   Link,
   DownloadCsv,
   ScrollToLink,

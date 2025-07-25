@@ -69,6 +69,7 @@ export default defineConfig(({ command }) => ({
   build: {
     outDir: "./dist",
     chunkSizeWarningLimit: 1000,
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -80,12 +81,6 @@ export default defineConfig(({ command }) => ({
           graphql: ["@gc-digital-talent/graphql"],
           react: ["react", "react-dom"],
           router: ["react-router", "react-router"],
-          tiptap: [
-            "@tiptap/react",
-            "@tiptap/starter-kit",
-            "@tiptap/extension-link",
-            "@tiptap/extension-character-count",
-          ],
         },
       },
     },

@@ -6,4 +6,5 @@ return [
     'candidate' => 'candidate',
     'users' => 'users',
     'user' => 'user',
+    'job_poster_template' => 'Job advertisement template',
 ];

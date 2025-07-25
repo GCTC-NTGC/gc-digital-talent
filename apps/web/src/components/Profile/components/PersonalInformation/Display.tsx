@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
-import { Button, Chip, Link } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
@@ -14,6 +14,8 @@ import {
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+
+import EmailVerificationStatus from "../EmailVerificationStatus";
 
 type PartialUser = Pick<
   User,
@@ -62,39 +64,6 @@ const Display = ({
     );
   };
 
-  const emailVerificationComponents = isEmailVerified ? (
-    <Chip color="success">
-      {intl.formatMessage({
-        defaultMessage: "Verified",
-        id: "GMglI5",
-        description: "The email address has been verified to be owned by user",
-      })}
-    </Chip>
-  ) : (
-    <>
-      <Chip color="error">
-        {intl.formatMessage({
-          defaultMessage: "Unverified",
-          id: "tUIvbq",
-          description:
-            "The email address has not been verified to be owned by user",
-        })}
-      </Chip>
-      <Button
-        type="button"
-        mode="inline"
-        color="error"
-        onClick={handleVerifyNowClick}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Verify now",
-          id: "ADPfNp",
-          description: "Button to start the email address verification process",
-        })}
-      </Button>
-    </>
-  );
-
   return (
     <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
       <FieldDisplay
@@ -117,14 +86,21 @@ const Display = ({
       >
         {lastName ?? notProvided}
       </FieldDisplay>
-      <div className="flex items-end gap-x-3 xs:col-span-2 sm:col-span-3">
+      <div className="xs:col-span-2 sm:col-span-3">
         <FieldDisplay
           hasError={!email}
           label={intl.formatMessage(commonMessages.email)}
         >
-          {email ?? notProvided}
+          <div className="flex items-center gap-3">
+            <span>{email ?? notProvided}</span>
+            {showEmailVerification ? (
+              <EmailVerificationStatus
+                isEmailVerified={!!isEmailVerified}
+                onClickVerify={handleVerifyNowClick}
+              />
+            ) : null}
+          </div>
         </FieldDisplay>
-        {showEmailVerification ? emailVerificationComponents : null}
       </div>
       <FieldDisplay
         hasError={!telephone}

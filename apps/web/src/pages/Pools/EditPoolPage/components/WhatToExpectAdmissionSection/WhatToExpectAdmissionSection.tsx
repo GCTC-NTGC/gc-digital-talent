@@ -164,11 +164,12 @@ const WhatToExpectAdmissionSection = ({
                 <RichTextInput
                   id="whatToExpectAdmissionEn"
                   label={intl.formatMessage({
-                    defaultMessage: "English - What to expect",
-                    id: "o7OKLq",
+                    defaultMessage: "What to expect",
+                    id: "2cTfGX",
                     description:
-                      "Label for the English - What to expect textarea in the edit pool page.",
+                      "Label for What to expect textarea in the edit pool page.",
                   })}
+                  appendLanguageToLabel={"en"}
                   name="whatToExpectAdmissionEn"
                   wordLimit={TEXT_AREA_MAX_WORDS_EN}
                   readOnly={!canEdit}
@@ -176,11 +177,12 @@ const WhatToExpectAdmissionSection = ({
                 <RichTextInput
                   id="whatToExpectAdmissionFr"
                   label={intl.formatMessage({
-                    defaultMessage: "French - What to expect",
-                    id: "zDHOiY",
+                    defaultMessage: "What to expect",
+                    id: "2cTfGX",
                     description:
-                      "Label for the French - What to expect textarea in the edit pool page.",
+                      "Label for What to expect textarea in the edit pool page.",
                   })}
+                  appendLanguageToLabel={"fr"}
                   name="whatToExpectAdmissionFr"
                   wordLimit={TEXT_AREA_MAX_WORDS_FR}
                   readOnly={!canEdit}

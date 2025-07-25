@@ -11,6 +11,10 @@
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
+  "+RHG0o": {
+    "defaultMessage": "Titre",
+    "description": "The title"
+  },
   "/62GQm": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de complexité faible à modérée sous une supervision minimale et des tâches de complexité plus élevée sous une supervision et un mentorat modérés. Généralement associée à des postes intermédiaires.",
     "description": "The technical skill level definition for intermediate"
@@ -98,6 +102,10 @@
   "1FNzD4": {
     "defaultMessage": "Date limite",
     "description": "Title for deadline"
+  },
+  "1NOBzf": {
+    "defaultMessage": "Un champ obligatoire est vide : Note spéciale (anglais)",
+    "description": "Error message that Special note for this process in English must be filled"
   },
   "1UX8RD": {
     "defaultMessage": "Adresse courriel de correspondance",
@@ -343,6 +351,10 @@
     "defaultMessage": "Le statut du candidat est irrégulier.",
     "description": "Message displayed to user after attempting to update a candidate with an unexpected status."
   },
+  "BGQaDq": {
+    "defaultMessage": "Nouvelle demande",
+    "description": "Link to a page to start a new request"
+  },
   "BXxvCZ": {
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
@@ -394,6 +406,10 @@
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
+  },
+  "E+zFTA": {
+    "defaultMessage": "(français)",
+    "description": "Name of French language formatted for appending"
   },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
@@ -599,10 +615,6 @@
     "defaultMessage": "Supprimer",
     "description": "Remove action"
   },
-  "NQhU3F": {
-    "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
-    "description": "Error message that Special note for this process in French must be filled"
-  },
   "NQspkZ": {
     "defaultMessage": "Tableau de bord de la collectivité",
     "description": "Name of the community dashboard page"
@@ -747,10 +759,6 @@
     "defaultMessage": "Complet",
     "description": "Simple status label for a complete item"
   },
-  "S2BTqm": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
-    "description": "Error message that Special note for this process in English must be filled"
-  },
   "S9BRBL": {
     "defaultMessage": "Durée (court terme, long terme)",
     "description": "Duration of a non-permanent length"
@@ -806,6 +814,10 @@
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
+  },
+  "TsltMU": {
+    "defaultMessage": "Télécharger",
+    "description": "Button text to download a resource"
   },
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",
@@ -1075,13 +1087,13 @@
     "defaultMessage": "Aucun renseignement n'a été fourni.",
     "description": "Sentence when some form of information not provided"
   },
-  "euwgms": {
-    "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
-    "description": "Error message that Work Tasks in French must be filled"
-  },
   "exPBiQ": {
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
     "description": "Error message title for repeater component."
+  },
+  "exmV4s": {
+    "defaultMessage": "Un champ obligatoire est vide : Votre contribution (français)",
+    "description": "Error message that Your Impact in French must be filled"
   },
   "fAj9+G": {
     "defaultMessage": "Avril",
@@ -1227,10 +1239,6 @@
     "defaultMessage": "Qualifié(e)",
     "description": "Title for qualified"
   },
-  "juklNA": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
-    "description": "Error message that Your Impact in English must be filled"
-  },
   "jwPlv1": {
     "defaultMessage": "Durée",
     "description": "Duration of a non-permanent length (short-form for limited space)"
@@ -1259,10 +1267,6 @@
     "defaultMessage": "Enum introuvable",
     "description": "Error message when human readable message not found"
   },
-  "kg28xx": {
-    "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
-    "description": "Error message that Your Impact in French must be filled"
-  },
   "kv960y": {
     "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un ministère central ou un organisme central.",
     "description": "The talent nomination lateral movement option description for central department"
@@ -1286,6 +1290,10 @@
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
     "description": "Message displayed when user attempts to apply to a pool without connecting all essential skills."
+  },
+  "lYBehZ": {
+    "defaultMessage": "Un champ obligatoire est vide : Tâches courantes dans ce poste (français)",
+    "description": "Error message that Work Tasks in French must be filled"
   },
   "lYtXQJ": {
     "defaultMessage": "Souvent démontrée comme étant bien développée dans la plupart des situations quotidiennes auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress et dans des situations modérément difficiles.",
@@ -1322,6 +1330,10 @@
   "n+SiHy": {
     "defaultMessage": "Juillet",
     "description": "Name of the seventh month"
+  },
+  "n0c2W8": {
+    "defaultMessage": "Un champ obligatoire est vide: Tâches courantes dans ce poste (anglais)",
+    "description": "Error message that Work Tasks in English must be filled"
   },
   "n3Gt3n": {
     "defaultMessage": "Technologie de l’information",
@@ -1531,13 +1543,13 @@
     "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
     "description": "The executive coaching interest status described as learning."
   },
-  "tW4k56": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
-    "description": "Error message that Work Tasks in English must be filled"
-  },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
+  },
+  "tyc8W0": {
+    "defaultMessage": "(anglais)",
+    "description": "Name of English language formatted for appending"
   },
   "u/+Nrd": {
     "defaultMessage": "Placement professionnel",
@@ -1627,6 +1639,10 @@
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
     "description": "Name of applicant dashboard page"
   },
+  "x/BiQS": {
+    "defaultMessage": "Questions",
+    "description": "Label for questions"
+  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"
@@ -1663,6 +1679,10 @@
     "defaultMessage": "En cours",
     "description": "In progress status"
   },
+  "xmzq/b": {
+    "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",
+    "description": "Error message that Your Impact in English must be filled"
+  },
   "y4oBW4": {
     "defaultMessage": "Décembre",
     "description": "Name of the twelfth month"
@@ -1670,6 +1690,10 @@
   "yHeFkO": {
     "defaultMessage": "Janvier",
     "description": "Name of the first month"
+  },
+  "ygMrNM": {
+    "defaultMessage": "Un champ obligatoire est vide : Note spéciale (français)",
+    "description": "Error message that Special note for this process in French must be filled"
   },
   "yuWHKJ": {
     "defaultMessage": "Par ordre de date (la plus récente étant en premier)",

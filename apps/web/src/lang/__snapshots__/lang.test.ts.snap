@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
@@ -21,6 +21,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Intérêt pour la formation",
       "La formation m'intéresse"
+    ]
+  },
+  {
+    "en": "What to expect",
+    "fr": [
+      "À quoi s’attendre",
+      "Prochaines étapes"
     ]
   },
   {

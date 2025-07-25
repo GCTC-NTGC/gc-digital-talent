@@ -264,6 +264,11 @@ const commonMessages = defineMessages({
     id: "jStpFw",
     description: "Name of Bilingual (English and French)",
   },
+  download: {
+    defaultMessage: "Download",
+    id: "TsltMU",
+    description: "Button text to download a resource",
+  },
   preparingDownload: {
     defaultMessage:
       "Preparing your file for download. You will receive a notification when it is ready.",
@@ -502,6 +507,26 @@ const commonMessages = defineMessages({
     defaultMessage: "Published",
     id: "BcEpFb",
     description: "Status is published",
+  },
+  title: {
+    defaultMessage: "Title",
+    id: "+RHG0o",
+    description: "The title",
+  },
+  englishLabel: {
+    defaultMessage: "(English)",
+    id: "tyc8W0",
+    description: "Name of English language formatted for appending",
+  },
+  frenchLabel: {
+    defaultMessage: "(French)",
+    id: "E+zFTA",
+    description: "Name of French language formatted for appending",
+  },
+  questions: {
+    defaultMessage: "Questions",
+    id: "x/BiQS",
+    description: "Label for questions",
   },
 });
 

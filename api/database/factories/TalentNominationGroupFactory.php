@@ -25,8 +25,6 @@ class TalentNominationGroupFactory extends Factory
             'advancement_notes' => $this->faker->optional->sentence(),
             'lateral_movement_decision' => $this->faker->optional->randomElement(array_column(TalentNominationGroupDecision::cases(), 'name')),
             'lateral_movement_notes' => $this->faker->optional->sentence(),
-            'development_program_decision' => $this->faker->optional->randomElement(array_column(TalentNominationGroupDecision::cases(), 'name')),
-            'development_program_notes' => $this->faker->optional->sentence(),
             // 'computed_status' => (calculated by observer call)
             'comments' => $this->faker->optional->paragraphs(3, true),
         ];

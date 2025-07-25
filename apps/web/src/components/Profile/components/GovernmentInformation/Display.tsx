@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
-import { Button, Chip } from "@gc-digital-talent/ui";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
@@ -11,6 +10,7 @@ import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import { PartialUser } from "./types";
+import EmailVerificationStatus from "../EmailVerificationStatus";
 
 interface DisplayProps {
   user: PartialUser;
@@ -64,39 +64,6 @@ const Display = ({
     await navigate(routes.verifyWorkEmail());
   };
 
-  const emailVerificationComponents = isWorkEmailVerified ? (
-    <Chip color="success">
-      {intl.formatMessage({
-        defaultMessage: "Verified",
-        id: "GMglI5",
-        description: "The email address has been verified to be owned by user",
-      })}
-    </Chip>
-  ) : (
-    <>
-      <Chip color="error">
-        {intl.formatMessage({
-          defaultMessage: "Unverified",
-          id: "tUIvbq",
-          description:
-            "The email address has not been verified to be owned by user",
-        })}
-      </Chip>
-      <Button
-        type="button"
-        mode="inline"
-        color="error"
-        onClick={handleVerifyNowClick}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Verify now",
-          id: "ADPfNp",
-          description: "Button to start the email address verification process",
-        })}
-      </Button>
-    </>
-  );
-
   return (
     <div className="flex flex-col gap-y-6">
       <FieldDisplay
@@ -137,21 +104,24 @@ const Display = ({
                 )
               : notProvided}
           </FieldDisplay>
-          <div className="flex items-end gap-3">
-            <FieldDisplay
-              hasError={!workEmail}
-              label={intl.formatMessage({
-                defaultMessage: "Work email",
-                id: "tj9Dz3",
-                description: "Work email label",
-              })}
-            >
-              {workEmail ?? notProvided}
-            </FieldDisplay>
-            {showEmailVerification && workEmail
-              ? emailVerificationComponents
-              : null}
-          </div>
+          <FieldDisplay
+            hasError={!workEmail}
+            label={intl.formatMessage({
+              defaultMessage: "Work email",
+              id: "tj9Dz3",
+              description: "Work email label",
+            })}
+          >
+            <div className="flex items-center gap-3">
+              <span>{workEmail ?? notProvided}</span>
+              {showEmailVerification && workEmail ? (
+                <EmailVerificationStatus
+                  isEmailVerified={!!isWorkEmailVerified}
+                  onClickVerify={handleVerifyNowClick}
+                />
+              ) : null}
+            </div>
+          </FieldDisplay>
         </>
       )}
       <FieldDisplay

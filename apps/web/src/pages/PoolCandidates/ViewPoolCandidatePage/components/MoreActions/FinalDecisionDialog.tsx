@@ -8,7 +8,6 @@ import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
   DisqualificationReason,
   FragmentType,
-  PoolSkillType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -19,12 +18,8 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
-import { groupPoolSkillByType } from "~/utils/skillUtils";
-
-import AssessmentSummary from "./components/AssessmentSummary";
 
 export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment FinalDecisionDialog on PoolCandidate {
@@ -37,63 +32,6 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
       }
     }
     expiryDate
-    pool {
-      poolSkills {
-        id
-        type {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        requiredLevel
-        skill {
-          id
-          key
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-    }
-    assessmentResults {
-      id
-      assessmentDecision {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      assessmentResultType
-      poolSkill {
-        id
-        skill {
-          id
-          key
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-    }
   }
 `);
 
@@ -237,16 +175,10 @@ const FinalDecisionDialog = ({
     }
   };
 
-  const skills = groupPoolSkillByType(poolCandidate.pool.poolSkills);
-  const essentialSkills = skills.get(PoolSkillType.Essential) ?? [];
-  const nonessentialSkills = skills.get(PoolSkillType.Nonessential) ?? [];
-  const assessmentResults =
-    poolCandidate?.assessmentResults?.filter(notEmpty) ?? [];
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button type="button" color="primary" mode="solid">
+        <Button type="button" color="primary" mode="solid" block>
           {intl.formatMessage({
             defaultMessage: "Record final decision",
             id: "ngHHmI",
@@ -267,18 +199,6 @@ const FinalDecisionDialog = ({
               description: "Text describing a dialog's purpose",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mb-3">
-            {intl.formatMessage({
-              defaultMessage: "Assessment summary",
-              id: "DrG5Pl",
-              description: "Assessment summary",
-            })}
-          </Heading>
-          <AssessmentSummary
-            essentialSkills={essentialSkills}
-            nonessentialSkills={nonessentialSkills}
-            assessmentResults={assessmentResults}
-          />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <Heading level="h3" size="h6" className="mb-3">

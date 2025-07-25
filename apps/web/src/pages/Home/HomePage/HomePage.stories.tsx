@@ -8,7 +8,7 @@ export default {
   component: Home,
 } as Meta;
 
-const Template: StoryFn<typeof Home> = () => <Home defaultImage={0} />;
+const Template: StoryFn<typeof Home> = () => <Home defaultImage={3} />;
 
 export const Default = Template.bind({});
 Default.parameters = {

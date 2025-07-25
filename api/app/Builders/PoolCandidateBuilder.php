@@ -14,6 +14,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -98,6 +99,22 @@ class PoolCandidateBuilder extends Builder
             PublishingGroup::OTHER->name,
         ]);
 
+    }
+
+    /**
+     * Scope users department
+     *
+     * Restrict a query by a specific candidates (users) department
+     */
+    public function whereDepartmentsIn(?array $departmentIds): self
+    {
+        if (empty($departmentIds)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($departmentIds) {
+            return $query->whereDepartmentsIn($departmentIds);
+        });
     }
 
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
@@ -503,10 +520,29 @@ class PoolCandidateBuilder extends Builder
         extract($args);
 
         if (isset($order) && isset($locale)) {
-            return $this->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
+            return
+            $this->withMax('pool', 'name->'.$locale)
+                ->orderBy('pool_max_name'.$locale, $order)
+                ->orderBy('submitted_at', 'ASC');
         }
 
         return $this;
+    }
+
+    public function orderByEmployeeDepartment(?string $order): self
+    {
+
+        if (! $order) {
+            return $this;
+        }
+
+        $locale = App::getLocale();
+
+        return $this
+            ->leftJoin('users', 'pool_candidates.user_id', '=', 'users.id')
+            ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
+            ->orderByRaw("departments.name->>'$locale' $order")
+            ->orderBy('submitted_at', 'ASC');
     }
 
     /**
