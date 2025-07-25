@@ -1195,6 +1195,10 @@
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
   },
+  "3PwQT7": {
+    "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
+    "description": "Title for notice when there are no pool candidate search requests"
+  },
   "3QGPJe": {
     "defaultMessage": "Non intéressé(e)",
     "description": "Status label for a qualified application the candidate has marked not interested"
@@ -1886,6 +1890,10 @@
   "6ft0/o": {
     "defaultMessage": "Voir et gérer l'historique de vos notifications",
     "description": "Subtitle for the notifications page"
+  },
+  "6jBrNA": {
+    "defaultMessage": "Vous pouvez lancer une nouvelle demande de talent en cliquant sur le bouton « Nouvelle demande » ou en accédant à la page « Trouver un talent » à partir du menu principal.",
+    "description": "Body for notice when there are no pool candidate search requests"
   },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
@@ -5215,6 +5223,10 @@
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
   },
+  "MOKBPl": {
+    "defaultMessage": "En attente de réponse",
+    "description": "Label for pool candidate search requests that are awaiting a response"
+  },
   "MQB4IA": {
     "defaultMessage": "Sauvegardez et continuez",
     "description": "Button text to save a form step and continue to the next one"
@@ -6926,6 +6938,10 @@
     "defaultMessage": "Identifiant de référence",
     "description": "Label displayed on the job poster template 'reference id' field."
   },
+  "UoUzWJ": {
+    "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
+    "description": "Subtitle for the 'review talent request' dialog"
+  },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
@@ -7674,6 +7690,10 @@
     "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
     "description": "Message that the employee was found for a search"
   },
+  "YYmuJo": {
+    "defaultMessage": "En cours d'examen",
+    "description": "Label for pool candidate search requests that are under review"
+  },
   "YZRjdG": {
     "defaultMessage": "Cela permettra de rendre ce bassin au public. Tous les utilisateurs associés à ce bassin pourront le voir dans les informations de leur profil.",
     "description": "Second paragraph for un-archive pool dialog"
@@ -8062,6 +8082,10 @@
     "defaultMessage": "Types d'organisations que vous envisageriez pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
+  "aYt7kT": {
+    "defaultMessage": "Ouvert le: {formattedDate}",
+    "description": "A formatted display of the date the pool candidate search request was opened"
+  },
   "aYyceB": {
     "defaultMessage": "Lien entre la personne candidate et l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominee's relation to the person nominating them"
@@ -8349,6 +8373,10 @@
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
     "description": "Button text to open section describing mentorship program"
+  },
+  "c/XQZ2": {
+    "defaultMessage": "Lorsque vous soumettez une demande de talents à l'aide de la fonctionnalité « <findTalentLink>Trouver des talents</findTalentLink> » , elle apparaîtra dans cette liste tant qu'elle sera active.",
+    "description": "Subtitle explaining your talent requests expandable within Talent management card"
   },
   "c/u1K+": {
     "defaultMessage": "Découvrez comment le gouvernement du Canada consolide la base de talents de la collectivité du numérique du GC.",
@@ -10333,6 +10361,10 @@
     "defaultMessage": "Signaler une page manquante",
     "description": "Link text to go report a missing page on the 404"
   },
+  "kgCPAc": {
+    "defaultMessage": "Vos demandes de talents ({requestsCount})",
+    "description": "Title for a list of your talent requests with a count"
+  },
   "kh9KTx": {
     "defaultMessage": "Annulez et revenez aux volets de travail",
     "description": "Link text to cancel updating a work stream"
@@ -10936,6 +10968,10 @@
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
+  },
+  "nYEPMG": {
+    "defaultMessage": "Non, il ne s'agit pas d'un poste de supervision",
+    "description": "Checkbox selection that confirms a job opportunity will not have supervising duties. "
   },
   "nYriNg": {
     "defaultMessage": "Statut mis à jour avec succès",
@@ -11621,6 +11657,10 @@
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
     "description": "Breadcrumb title for the create community page link."
   },
+  "r4IQ0h": {
+    "defaultMessage": "Non, il ne s'agit pas d'un poste de supervision",
+    "description": "Title for the 'review talent request' dialog"
+  },
   "r4sAvp": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres et des caractères de soulignement.",
     "description": "Description for rule pattern on key field"
@@ -12252,6 +12292,10 @@
   "uKBBDy": {
     "defaultMessage": "Lieu",
     "description": "Label for a process location requirement"
+  },
+  "uKKSqt": {
+    "defaultMessage": "{resultCount, plural, one {{resultCount} correspondance estimée} other {{resultCount} correspondances estimées}}",
+    "description": "Display of estimated matches to a pool candidate search request"
   },
   "uLncuU": {
     "defaultMessage": "Nom du (de la) candidat(e)",

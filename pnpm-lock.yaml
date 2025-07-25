@@ -133,8 +133,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
       react-hook-form:
-        specifier: ^7.60.0
-        version: 7.60.0(react@18.3.1)
+        specifier: ^7.61.1
+        version: 7.61.1(react@18.3.1)
       react-intl:
         specifier: ^7.1.11
         version: 7.1.11(react@18.3.1)(typescript@5.8.3)
@@ -587,7 +587,7 @@ importers:
         version: 2.2.0(react@18.3.1)
       '@hookform/error-message':
         specifier: ^2.0.1
-        version: 2.0.1(react-dom@19.1.0(react@18.3.1))(react-hook-form@7.60.0(react@18.3.1))(react@18.3.1)
+        version: 2.0.1(react-dom@19.1.0(react@18.3.1))(react-hook-form@7.61.1(react@18.3.1))(react@18.3.1)
       '@tiptap/extension-character-count':
         specifier: ^2.25.0
         version: 2.25.0(@tiptap/core@2.25.0(@tiptap/pm@2.25.0))(@tiptap/pm@2.25.0)
@@ -671,14 +671,14 @@ importers:
         specifier: ^30.0.5
         version: 30.0.5(@types/node@24.1.0)(esbuild-register@3.6.0(esbuild@0.25.8))(ts-node@10.9.2(@types/node@24.1.0)(typescript@5.8.3))
       jest-environment-jsdom:
-        specifier: ^30.0.4
-        version: 30.0.4
+        specifier: ^30.0.5
+        version: 30.0.5
       react:
         specifier: ^18.3.1
         version: 18.3.1
       react-hook-form:
-        specifier: ^7.60.0
-        version: 7.60.0(react@18.3.1)
+        specifier: ^7.61.1
+        version: 7.61.1(react@18.3.1)
       react-intl:
         specifier: ^7.1.11
         version: 7.1.11(react@18.3.1)(typescript@5.8.3)
@@ -873,8 +873,8 @@ importers:
         version: 29.3.4(@babel/core@7.28.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.0))(esbuild@0.25.8)(jest@30.0.5(@types/node@24.1.0)(esbuild-register@3.6.0(esbuild@0.25.8))(ts-node@10.9.2(@types/node@24.1.0)(typescript@5.8.3)))(typescript@5.8.3)
     devDependencies:
       jest-environment-jsdom:
-        specifier: ^30.0.4
-        version: 30.0.4
+        specifier: ^30.0.5
+        version: 30.0.5
 
   packages/logger:
     dependencies:
@@ -2291,8 +2291,8 @@ packages:
     resolution: {integrity: sha512-n5H8QLDJ47QqbCNn5SuFjCRDrOLEZ0h8vAHCK5RL9Ls7Xa8AQLa/YxAc9UjFqoEDM48muwtBGjtMY5cr0PLDCw==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
-  '@jest/environment-jsdom-abstract@30.0.4':
-    resolution: {integrity: sha512-pUKfqgr5Nki9kZ/3iV+ubDsvtPq0a0oNL6zqkKLM1tPQI8FBJeuWskvW1kzc5pOvqlgpzumYZveJ4bxhANY0hg==}
+  '@jest/environment-jsdom-abstract@30.0.5':
+    resolution: {integrity: sha512-gpWwiVxZunkoglP8DCnT3As9x5O8H6gveAOpvaJd2ATAoSh7ZSSCWbr9LQtUMvr8WD3VjG9YnDhsmkCK5WN1rQ==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
     peerDependencies:
       canvas: ^3.0.0
@@ -2300,10 +2300,6 @@ packages:
     peerDependenciesMeta:
       canvas:
         optional: true
-
-  '@jest/environment@30.0.4':
-    resolution: {integrity: sha512-5NT+sr7ZOb8wW7C4r7wOKnRQ8zmRWQT2gW4j73IXAKp5/PX1Z8MCStBLQDYfIG3n1Sw0NRfYGdp0iIPVooBAFQ==}
-    engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
   '@jest/environment@30.0.5':
     resolution: {integrity: sha512-aRX7WoaWx1oaOkDQvCWImVQ8XNtdv5sEWgk4gxR6NXb7WBUnL5sRak4WRzIQRZ1VTWPvV4VI4mgGjNL9TeKMYA==}
@@ -2319,10 +2315,6 @@ packages:
 
   '@jest/expect@30.0.5':
     resolution: {integrity: sha512-6udac8KKrtTtC+AXZ2iUN/R7dp7Ydry+Fo6FPFnDG54wjVMnb6vW/XNlf7Xj8UDjAE3aAVAsR4KFyKk3TCXmTA==}
-    engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
-
-  '@jest/fake-timers@30.0.4':
-    resolution: {integrity: sha512-qZ7nxOcL5+gwBO6LErvwVy5k06VsX/deqo2XnVUSTV0TNC9lrg8FC3dARbi+5lmrr5VyX5drragK+xLcOjvjYw==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
   '@jest/fake-timers@30.0.5':
@@ -4235,8 +4227,8 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  agent-base@7.1.3:
-    resolution: {integrity: sha512-jRR5wdylq8CkOe6hei19GGZnxM6rBGwFl3Bg0YItGDimvjGtAvdZk4Pu6Cl4u4Igsws4a1fd1Vq3ezrhn4KmFw==}
+  agent-base@7.1.4:
+    resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
   aggregate-error@3.1.0:
@@ -4785,6 +4777,9 @@ packages:
 
   decimal.js@10.5.0:
     resolution: {integrity: sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw==}
+
+  decimal.js@10.6.0:
+    resolution: {integrity: sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==}
 
   dedent@1.6.0:
     resolution: {integrity: sha512-F1Z+5UCFpmQUzJa11agbyPVMbpgT/qA3/SKyJ1jyBgm7dUcUEa8v9JwDkerSQXfakBwFljIxhOJqGkjUwZ9FSA==}
@@ -5997,8 +5992,8 @@ packages:
     resolution: {integrity: sha512-dKjRsx1uZ96TVyejD3/aAWcNKy6ajMaN531CwWIsrazIqIoXI9TnnpPlkrEYku/8rkS3dh2rbH+kMOyiEIv0xQ==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
-  jest-environment-jsdom@30.0.4:
-    resolution: {integrity: sha512-9WmS3oyCLFgs6DUJSoMpVb+AbH62Y2Xecw3XClbRgj6/Z+VjNeSLjrhBgVvTZ40njZTWeDHv8unp+6M/z8ADDg==}
+  jest-environment-jsdom@30.0.5:
+    resolution: {integrity: sha512-BmnDEoAH+jEjkPrvE9DTKS2r3jYSJWlN/r46h0/DBUxKrkgt2jAZ5Nj4wXLAcV1KWkRpcFqA5zri9SWzJZ1cCg==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
     peerDependencies:
       canvas: ^3.0.0
@@ -6989,8 +6984,8 @@ packages:
     peerDependencies:
       react: ^16.6.0 || ^17.0.0 || ^18.0.0
 
-  react-hook-form@7.60.0:
-    resolution: {integrity: sha512-SBrYOvMbDB7cV8ZfNpaiLcgjH/a1c7aK0lK+aNigpf4xWLO8q+o4tcvVurv3c4EOyzn/3dCsYt4GKD42VvJ/+A==}
+  react-hook-form@7.61.1:
+    resolution: {integrity: sha512-2vbXUFDYgqEgM2RcXcAT2PwDW/80QARi+PKmHy5q2KhuKvOlG8iIYgf7eIlIANR5trW9fJbP4r5aub3a4egsew==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -9169,11 +9164,11 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@hookform/error-message@2.0.1(react-dom@19.1.0(react@18.3.1))(react-hook-form@7.60.0(react@18.3.1))(react@18.3.1)':
+  '@hookform/error-message@2.0.1(react-dom@19.1.0(react@18.3.1))(react-hook-form@7.61.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 19.1.0(react@18.3.1)
-      react-hook-form: 7.60.0(react@18.3.1)
+      react-hook-form: 7.61.1(react@18.3.1)
 
   '@humanfs/core@0.19.1': {}
 
@@ -9258,23 +9253,16 @@ snapshots:
 
   '@jest/diff-sequences@30.0.1': {}
 
-  '@jest/environment-jsdom-abstract@30.0.4(jsdom@26.1.0)':
+  '@jest/environment-jsdom-abstract@30.0.5(jsdom@26.1.0)':
     dependencies:
-      '@jest/environment': 30.0.4
-      '@jest/fake-timers': 30.0.4
-      '@jest/types': 30.0.1
+      '@jest/environment': 30.0.5
+      '@jest/fake-timers': 30.0.5
+      '@jest/types': 30.0.5
       '@types/jsdom': 21.1.7
       '@types/node': 24.1.0
-      jest-mock: 30.0.2
-      jest-util: 30.0.2
+      jest-mock: 30.0.5
+      jest-util: 30.0.5
       jsdom: 26.1.0
-
-  '@jest/environment@30.0.4':
-    dependencies:
-      '@jest/fake-timers': 30.0.4
-      '@jest/types': 30.0.1
-      '@types/node': 24.1.0
-      jest-mock: 30.0.2
 
   '@jest/environment@30.0.5':
     dependencies:
@@ -9297,15 +9285,6 @@ snapshots:
       jest-snapshot: 30.0.5
     transitivePeerDependencies:
       - supports-color
-
-  '@jest/fake-timers@30.0.4':
-    dependencies:
-      '@jest/types': 30.0.1
-      '@sinonjs/fake-timers': 13.0.5
-      '@types/node': 24.1.0
-      jest-message-util: 30.0.2
-      jest-mock: 30.0.2
-      jest-util: 30.0.2
 
   '@jest/fake-timers@30.0.5':
     dependencies:
@@ -11396,7 +11375,7 @@ snapshots:
   acorn@8.15.0:
     optional: true
 
-  agent-base@7.1.3: {}
+  agent-base@7.1.4: {}
 
   aggregate-error@3.1.0:
     dependencies:
@@ -12012,6 +11991,8 @@ snapshots:
       ms: 2.1.3
 
   decimal.js@10.5.0: {}
+
+  decimal.js@10.6.0: {}
 
   dedent@1.6.0: {}
 
@@ -13125,14 +13106,14 @@ snapshots:
 
   http-proxy-agent@7.0.2:
     dependencies:
-      agent-base: 7.1.3
+      agent-base: 7.1.4
       debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
 
   https-proxy-agent@7.0.6:
     dependencies:
-      agent-base: 7.1.3
+      agent-base: 7.1.4
       debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
@@ -13622,10 +13603,10 @@ snapshots:
       jest-util: 30.0.5
       pretty-format: 30.0.5
 
-  jest-environment-jsdom@30.0.4:
+  jest-environment-jsdom@30.0.5:
     dependencies:
-      '@jest/environment': 30.0.4
-      '@jest/environment-jsdom-abstract': 30.0.4(jsdom@26.1.0)
+      '@jest/environment': 30.0.5
+      '@jest/environment-jsdom-abstract': 30.0.5(jsdom@26.1.0)
       '@types/jsdom': 21.1.7
       '@types/node': 24.1.0
       jsdom: 26.1.0
@@ -13948,7 +13929,7 @@ snapshots:
     dependencies:
       cssstyle: 4.6.0
       data-urls: 5.0.0
-      decimal.js: 10.5.0
+      decimal.js: 10.6.0
       html-encoding-sniffer: 4.0.0
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
@@ -14753,7 +14734,7 @@ snapshots:
       react-fast-compare: 3.2.2
       shallowequal: 1.1.0
 
-  react-hook-form@7.60.0(react@18.3.1):
+  react-hook-form@7.61.1(react@18.3.1):
     dependencies:
       react: 18.3.1
 

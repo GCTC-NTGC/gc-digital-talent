@@ -351,6 +351,10 @@
     "defaultMessage": "Le statut du candidat est irrégulier.",
     "description": "Message displayed to user after attempting to update a candidate with an unexpected status."
   },
+  "BGQaDq": {
+    "defaultMessage": "Nouvelle demande",
+    "description": "Link to a page to start a new request"
+  },
   "BXxvCZ": {
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
