@@ -831,6 +831,10 @@
     "defaultMessage": "Remplir la Formulaire d’autodéclaration à l’intention des peuples autochtones",
     "description": "How it works, step 1 heading"
   },
+  "1PYGkw": {
+    "defaultMessage": "Télécharger Excel profils",
+    "description": "Button label to download users associated with selected candidates as Excel"
+  },
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
@@ -3762,10 +3766,6 @@
   "FSvySJ": {
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
-  },
-  "FTEdvi": {
-    "defaultMessage": "Télécharger Excel utilisateur(trice)s",
-    "description": "Button label to download users associated with selected candidates as Excel"
   },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
