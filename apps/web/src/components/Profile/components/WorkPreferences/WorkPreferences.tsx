@@ -28,6 +28,7 @@ import Display from "./Display";
 const WorkPreferencesForm_Query = graphql(/* GraphQL */ `
   query WorkPreferencesForm_Query {
     ...WorkPreferencesFormOptions
+    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 

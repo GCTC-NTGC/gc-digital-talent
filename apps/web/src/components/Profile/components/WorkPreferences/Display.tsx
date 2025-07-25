@@ -8,6 +8,7 @@ import {
 import {
   FragmentType,
   getFragment,
+  graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { FieldLabels } from "@gc-digital-talent/forms";
@@ -19,13 +20,27 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { PartialUser } from "./types";
-import { WorkPreferencesFormOptions_Fragment } from "./FormFields";
+
+export const FlexibleWorkLocationOptions_Fragment = graphql(/* GraphQL */ `
+  fragment FlexibleWorkLocationOptionsFragment on Query {
+    flexibleWorkLocation: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+  }
+`);
 
 interface DisplayProps {
   user: PartialUser;
   labels: FieldLabels;
   optionsQuery:
-    | FragmentType<typeof WorkPreferencesFormOptions_Fragment>
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
     | undefined;
 }
 
@@ -56,7 +71,7 @@ const Display = ({
   );
 
   const locationOptions = unpackMaybes(
-    getFragment(WorkPreferencesFormOptions_Fragment, optionsQuery)
+    getFragment(FlexibleWorkLocationOptions_Fragment, optionsQuery)
       ?.flexibleWorkLocation,
   );
 
