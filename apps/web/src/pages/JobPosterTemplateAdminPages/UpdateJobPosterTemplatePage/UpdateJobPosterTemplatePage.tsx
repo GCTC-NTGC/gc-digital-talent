@@ -23,8 +23,8 @@ import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import pageTitles from "~/messages/pageTitles";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
-import messages from "../messages";
 import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection";
 import KeyTasksSection from "./components/KeyTasksSection/KeyTasksSection";
 import EssentialTechnicalSkillsSection from "./components/EssentialTechnicalSkillsSection/EssentialTechnicalSkillsSection";
@@ -122,22 +122,26 @@ const UpdateJobPosterTemplate = ({
             <TableOfContents.List className="list-none pl-3">
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={SECTION_ID.JOB_DETAILS}>
-                  {intl.formatMessage(messages.jobDetails)}
+                  {intl.formatMessage(jobPosterTemplateMessages.jobDetails)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={SECTION_ID.KEY_TASKS}>
-                  {intl.formatMessage(messages.keyTasks)}
+                  {intl.formatMessage(jobPosterTemplateMessages.keyTasks)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={SECTION_ID.TECHNICAL_SKILLS}>
-                  {intl.formatMessage(messages.technicalSkills)}
+                  {intl.formatMessage(
+                    jobPosterTemplateMessages.technicalSkills,
+                  )}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={SECTION_ID.BEHAVIOURAL_SKILLS}>
-                  {intl.formatMessage(messages.behaviouralSkills)}
+                  {intl.formatMessage(
+                    jobPosterTemplateMessages.behaviouralSkills,
+                  )}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>

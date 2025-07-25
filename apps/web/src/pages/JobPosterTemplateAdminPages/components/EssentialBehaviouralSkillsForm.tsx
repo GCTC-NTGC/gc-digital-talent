@@ -17,8 +17,8 @@ import SkillProficiencyList, {
   ListItem as SkillProficiencyListItem,
   SkillProficiencyListProps,
 } from "~/components/SkillProficiencyList/SkillProficiencyList";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
-import { labels } from "./labels";
 import { insertionIndexBySkillName } from "./utils";
 import EssentialBehaviouralSkillsFrontMatter from "./EssentialBehaviouralSkillsFrontMatter";
 
@@ -170,10 +170,12 @@ const EssentialBehaviouralSkillsForm = ({
         <Checkbox
           id="isEssentialBehaviouralSkillsNoteRequired"
           name="isEssentialBehaviouralSkillsNoteRequired"
-          label={intl.formatMessage(labels.specialNoteIsRequired)}
+          label={intl.formatMessage(
+            jobPosterTemplateMessages.specialNoteIsRequired,
+          )}
           boundingBox
           boundingBoxLabel={intl.formatMessage(
-            labels.specialNoteEssentialBehaviouralSkills,
+            jobPosterTemplateMessages.specialNoteEssentialBehaviouralSkills,
           )}
         />
       </div>
@@ -184,7 +186,7 @@ const EssentialBehaviouralSkillsForm = ({
               id="essentialBehaviouralSkillsNotesEn"
               name="essentialBehaviouralSkillsNotesEn"
               wordLimit={specialNoteWordCountLimits.en}
-              label={intl.formatMessage(labels.specialNote)}
+              label={intl.formatMessage(jobPosterTemplateMessages.specialNote)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -196,7 +198,7 @@ const EssentialBehaviouralSkillsForm = ({
               id="essentialBehaviouralSkillsNotesFr"
               name="essentialBehaviouralSkillsNotesFr"
               wordLimit={specialNoteWordCountLimits.fr}
-              label={intl.formatMessage(labels.specialNote)}
+              label={intl.formatMessage(jobPosterTemplateMessages.specialNote)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

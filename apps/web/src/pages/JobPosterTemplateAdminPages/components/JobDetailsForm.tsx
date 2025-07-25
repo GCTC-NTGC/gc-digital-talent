@@ -22,8 +22,7 @@ import {
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import { splitAndJoin } from "~/utils/nameUtils";
-
-import { labels } from "./labels";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
 const TEXT_AREA_MAX_WORDS_EN = 65;
 
@@ -150,7 +149,9 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Select
           id="classificationGroup"
-          label={intl.formatMessage(labels.classificationGroup)}
+          label={intl.formatMessage(
+            jobPosterTemplateMessages.classificationGroup,
+          )}
           name="classificationGroup"
           nullSelection={intl.formatMessage(
             uiMessages.nullSelectionOptionGroup,
@@ -164,7 +165,9 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Select
           id="classificationLevel"
-          label={intl.formatMessage(labels.classificationLevel)}
+          label={intl.formatMessage(
+            jobPosterTemplateMessages.classificationLevel,
+          )}
           name="classificationLevel"
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -179,7 +182,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Input
           id="jobTitleEn"
-          label={intl.formatMessage(labels.jobTitle)}
+          label={intl.formatMessage(jobPosterTemplateMessages.jobTitle)}
           name="jobTitleEn"
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -191,7 +194,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Input
           id="jobTitleFr"
-          label={intl.formatMessage(labels.jobTitle)}
+          label={intl.formatMessage(jobPosterTemplateMessages.jobTitle)}
           name="jobTitleFr"
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -204,7 +207,9 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
         <RadioGroup
           idPrefix="supervisoryStatus"
           name="supervisoryStatus"
-          legend={intl.formatMessage(labels.supervisoryStatus)}
+          legend={intl.formatMessage(
+            jobPosterTemplateMessages.supervisoryStatus,
+          )}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -216,7 +221,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
           id="descriptionEn"
           name="descriptionEn"
           wordLimit={descriptionWordCountLimits.en}
-          label={intl.formatMessage(labels.description)}
+          label={intl.formatMessage(jobPosterTemplateMessages.description)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -228,7 +233,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
           id="descriptionFr"
           name="descriptionFr"
           wordLimit={descriptionWordCountLimits.fr}
-          label={intl.formatMessage(labels.description)}
+          label={intl.formatMessage(jobPosterTemplateMessages.description)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -238,7 +243,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div className="sm:col-span-2">
         <Input
           id="workDescriptionEn"
-          label={intl.formatMessage(labels.workDescription)}
+          label={intl.formatMessage(jobPosterTemplateMessages.workDescription)}
           name="workDescriptionEn"
           type="url"
           appendLanguageToLabel="en"
@@ -247,7 +252,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div className="sm:col-span-2">
         <Input
           id="workDescriptionFr"
-          label={intl.formatMessage(labels.workDescription)}
+          label={intl.formatMessage(jobPosterTemplateMessages.workDescription)}
           name="workDescriptionFr"
           type="url"
           appendLanguageToLabel="fr"
@@ -256,7 +261,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div className="sm:col-span-2">
         <Select
           id="workStreamId"
-          label={intl.formatMessage(labels.workStream)}
+          label={intl.formatMessage(jobPosterTemplateMessages.workStream)}
           name="workStreamId"
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -276,7 +281,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Input
           id="keywordsEn"
-          label={intl.formatMessage(labels.keywords)}
+          label={intl.formatMessage(jobPosterTemplateMessages.keywords)}
           name="keywordsEn"
           type="text"
           context={intl.formatMessage({
@@ -292,7 +297,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Input
           id="keywordsFr"
-          label={intl.formatMessage(labels.keywords)}
+          label={intl.formatMessage(jobPosterTemplateMessages.keywords)}
           name="keywordsFr"
           type="text"
           context={intl.formatMessage({
@@ -308,7 +313,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
       <div>
         <Input
           id="referenceId"
-          label={intl.formatMessage(labels.referenceId)}
+          label={intl.formatMessage(jobPosterTemplateMessages.referenceId)}
           name="referenceId"
           type="text"
           rules={{

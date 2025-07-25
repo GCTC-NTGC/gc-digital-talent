@@ -4,8 +4,7 @@ import { RichTextInput } from "@gc-digital-talent/forms";
 import { errorMessages, Locales } from "@gc-digital-talent/i18n";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
-
-import { labels } from "./labels";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
 const TEXT_AREA_MAX_WORDS_EN = 120;
 
@@ -29,7 +28,7 @@ const KeyTasksForm = () => {
           id="keyTasksEn"
           name="keyTasksEn"
           wordLimit={keyTasksWordCountLimits.en}
-          label={intl.formatMessage(labels.keyTasks)}
+          label={intl.formatMessage(jobPosterTemplateMessages.keyTasks)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -41,7 +40,7 @@ const KeyTasksForm = () => {
           id="keyTasksFr"
           name="keyTasksFr"
           wordLimit={keyTasksWordCountLimits.fr}
-          label={intl.formatMessage(labels.keyTasks)}
+          label={intl.formatMessage(jobPosterTemplateMessages.keyTasks)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
