@@ -101,6 +101,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
+ * @property array $flexible_work_locations
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -132,6 +133,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'preferred_language_for_interview' => LanguageCode::class,
         'preferred_language_for_exam' => LanguageCode::class,
         'first_official_language' => LanguageCode::class,
+        'flexible_work_locations' => 'array',
     ];
 
     protected $fillable = [

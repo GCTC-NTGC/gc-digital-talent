@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
 import {
+  CheckboxOption,
   Checklist,
   Field,
   Input,
@@ -13,20 +14,28 @@ import {
   OperationalRequirements,
   errorMessages,
   getOperationalRequirement,
-  sortWorkRegion,
+  sortFlexibleWorkLocations,
 } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 
-const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
+export const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {
-    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+    flexibleWorkLocation: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
+    ) {
       value
       label {
         en
         fr
+        localized
       }
     }
     provinceOrTerritories: localizedEnumStrings(
@@ -50,6 +59,50 @@ const FormFields = ({
   const intl = useIntl();
   const data = getFragment(WorkPreferencesFormOptions_Fragment, optionsQuery);
   useDirtyFields("work");
+
+  // taking the enum collection from the API request
+  // turn them into options, append a content-below node
+  const formOptionsWithContentBelow: CheckboxOption[] =
+    sortFlexibleWorkLocations(data?.flexibleWorkLocation).map((loc) => {
+      if (loc.value === (FlexibleWorkLocation.Remote as string)) {
+        return {
+          value: loc.value,
+          label: loc.label.localized,
+          contentBelow: intl.formatMessage({
+            defaultMessage: "I'm willing to work 100% remotely.",
+            id: "WoFBmk",
+            description: "Checklist option explanatory note",
+          }),
+        };
+      }
+      if (loc.value === (FlexibleWorkLocation.Hybrid as string)) {
+        return {
+          value: loc.value,
+          label: loc.label.localized,
+          contentBelow: intl.formatMessage({
+            defaultMessage:
+              "I'm willing to work on-site for a minimum of 3 days per week, with the rest being remote.",
+            id: "47D8AR",
+            description: "Checklist option explanatory note",
+          }),
+        };
+      }
+      if (loc.value === (FlexibleWorkLocation.Onsite as string)) {
+        return {
+          value: loc.value,
+          label: loc.label.localized,
+          contentBelow: intl.formatMessage({
+            defaultMessage: "I'm willing to work on-site full-time.",
+            id: "JcSzqF",
+            description: "Checklist option explanatory note",
+          }),
+        };
+      }
+      return {
+        value: loc.value,
+        label: loc.label.localized,
+      };
+    });
 
   return (
     <div className="flex flex-col gap-6">
@@ -130,20 +183,18 @@ const FormFields = ({
         </Field.Legend>
         <Checklist
           idPrefix="work-location"
-          legend={labels.workLocationPreferences}
-          name="locationPreferences"
-          id="locationPreferences"
-          items={localizedEnumToOptions(
-            sortWorkRegion(data?.workRegions),
-            intl,
-          )}
+          legend={labels.flexibleWorkLocationOptions}
+          name="flexibleWorkLocations"
+          id="flexibleWorkLocations"
+          items={formOptionsWithContentBelow}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
         />
+        <p>{labels.locationExemptions}</p>
         <TextArea
           id="location-exemptions"
-          label={labels.locationExemptions}
+          label={labels.locationExclusions}
           name="locationExemptions"
           aria-describedby="location-exemption-description"
         />

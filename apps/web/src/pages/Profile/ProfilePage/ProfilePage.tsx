@@ -182,6 +182,13 @@ export const UserProfile_FragmentText = /** GraphQL */ `
         fr
       }
     }
+    flexibleWorkLocations {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
     acceptedOperationalRequirements {
       value
@@ -551,7 +558,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
-    locationPreferences {
+    flexibleWorkLocations {
       value
       label {
         en

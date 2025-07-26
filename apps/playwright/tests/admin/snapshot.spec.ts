@@ -2,6 +2,7 @@ import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
+  FlexibleWorkLocation,
   PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
@@ -56,6 +57,11 @@ test.describe("Snapshot", () => {
         hasPriorityEntitlement: true,
         priorityNumber: "123",
         locationPreferences: [WorkRegion.Atlantic],
+        flexibleWorkLocations: [
+          FlexibleWorkLocation.Remote,
+          FlexibleWorkLocation.Hybrid,
+          FlexibleWorkLocation.Onsite,
+        ],
         positionDuration: [PositionDuration.Permanent],
         personalExperiences: {
           create: [

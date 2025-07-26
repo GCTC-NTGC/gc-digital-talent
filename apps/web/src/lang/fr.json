@@ -4583,10 +4583,6 @@
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
   },
-  "JO2yLA": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Work Location label, followed by colon"
-  },
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
     "description": "Title for the Digital Community Management"
@@ -4694,10 +4690,6 @@
   "Jzhd0N": {
     "defaultMessage": "Décision en attente",
     "description": "Message displayed when candidate is qualified or disqualified according to assessment results, but a final decision is yet to be made."
-  },
-  "K+F5H7": {
-    "defaultMessage": "Lieux de travail",
-    "description": "Job locations label"
   },
   "K+roYh": {
     "defaultMessage": "Date de clôture",
@@ -8701,10 +8693,6 @@
   "dcV5qH": {
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
     "description": "Text that appears in Employment equity dialogs explaining the act is under review."
-  },
-  "dcvRbO": {
-    "defaultMessage": "Veuillez indiquer s'il y a une ville que vous aimeriez exclure d'une région.",
-    "description": "Location Exemptions field label for work location preference form"
   },
   "deE+LO": {
     "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
