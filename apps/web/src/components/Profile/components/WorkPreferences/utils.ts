@@ -40,8 +40,8 @@ export const getLabels = (intl: IntlShape) => ({
   ),
   locationExemptions: intl.formatMessage({
     defaultMessage:
-      "Please indicate if there is a city that you would like to exclude from a region.",
-    id: "dcvRbO",
+      "Indicate if there is a city that you would like to exclude from a region.",
+    id: "4Rs1gk",
     description:
       "Location Exemptions field label for work location preference form",
   }),
