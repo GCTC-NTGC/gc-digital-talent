@@ -55,9 +55,6 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
       }
       requiredLevel {
         value
-        label {
-          localized
-        }
       }
     }
     essentialTechnicalSkillsNotes {

@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
+import {
+  FragmentType,
+  getFragment,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -35,9 +39,16 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
           {essentialTechnicalSkills.map((s) => (
             <li key={s.id}>
               <p>{s.skill?.name.localized}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-300">
-                {s.requiredLevel?.label.localized}
-              </p>
+              {s.requiredLevel?.value ? (
+                <p className="text-sm text-gray-500 dark:text-gray-300">
+                  {intl.formatMessage(
+                    getSkillLevelName(
+                      s.requiredLevel.value,
+                      SkillCategory.Technical,
+                    ),
+                  )}
+                </p>
+              ) : null}
             </li>
           ))}
         </Ul>
