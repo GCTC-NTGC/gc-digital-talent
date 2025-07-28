@@ -292,7 +292,10 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable userQuery={poolCandidate.user} />
+                        <PoolStatusTable
+                          currentPoolId={poolCandidate.pool.id}
+                          userQuery={poolCandidate.user}
+                        />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>

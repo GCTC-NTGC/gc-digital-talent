@@ -121,8 +121,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       motion:
-        specifier: ^12.23.9
-        version: 12.23.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^12.23.11
+        version: 12.23.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -616,8 +616,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       motion:
-        specifier: ^12.23.9
-        version: 12.23.9(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
+        specifier: ^12.23.11
+        version: 12.23.11(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -949,8 +949,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       motion:
-        specifier: ^12.23.9
-        version: 12.23.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^12.23.11
+        version: 12.23.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-helmet-async:
         specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
@@ -1155,8 +1155,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       motion:
-        specifier: ^12.23.9
-        version: 12.23.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^12.23.11
+        version: 12.23.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-csv-downloader:
         specifier: ^3.3.0
         version: 3.3.0(react@18.3.1)
@@ -5372,8 +5372,8 @@ packages:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
     engines: {node: '>=12.20.0'}
 
-  framer-motion@12.23.9:
-    resolution: {integrity: sha512-TqEHXj8LWfQSKqfdr5Y4mYltYLw96deu6/K9kGDd+ysqRJPNwF9nb5mZcrLmybHbU7gcJ+HQar41U3UTGanbbQ==}
+  framer-motion@12.23.11:
+    resolution: {integrity: sha512-VzNi+exyI3bn7Pzvz1Fjap1VO9gQu8mxrsSsNamMidsZ8AA8W2kQsR+YQOciEUbMtkKAWIbPHPttfn5e9jqqJQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -6487,8 +6487,8 @@ packages:
   motion-utils@12.23.6:
     resolution: {integrity: sha512-eAWoPgr4eFEOFfg2WjIsMoqJTW6Z8MTUCgn/GZ3VRpClWBdnbjryiA3ZSNLyxCTmCQx4RmYX6jX1iWHbenUPNQ==}
 
-  motion@12.23.9:
-    resolution: {integrity: sha512-5PDgsbNtZ4cpfew3STYL0p06rIiy8vOveQuQBXUAa2+m1WMzjf65DXYn6eo88dM2s+XLxAQq3ZiOjcnKMACEtQ==}
+  motion@12.23.11:
+    resolution: {integrity: sha512-AHv/2SivIz9fjvND8wwN2LldDTuwkPyTSWecAY/xzB1/2eF7zxvh9JRkf8aF4eGoGsy1e2YKp+CQC5yxcssnEw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -12882,7 +12882,7 @@ snapshots:
     dependencies:
       fetch-blob: 3.2.0
 
-  framer-motion@12.23.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@12.23.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       motion-dom: 12.23.9
       motion-utils: 12.23.6
@@ -12891,7 +12891,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  framer-motion@12.23.9(react-dom@19.1.0(react@18.3.1))(react@18.3.1):
+  framer-motion@12.23.11(react-dom@19.1.0(react@18.3.1))(react@18.3.1):
     dependencies:
       motion-dom: 12.23.9
       motion-utils: 12.23.6
@@ -14270,17 +14270,17 @@ snapshots:
 
   motion-utils@12.23.6: {}
 
-  motion@12.23.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  motion@12.23.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      framer-motion: 12.23.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      framer-motion: 12.23.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tslib: 2.8.1
     optionalDependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  motion@12.23.9(react-dom@19.1.0(react@18.3.1))(react@18.3.1):
+  motion@12.23.11(react-dom@19.1.0(react@18.3.1))(react@18.3.1):
     dependencies:
-      framer-motion: 12.23.9(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
+      framer-motion: 12.23.11(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
       tslib: 2.8.1
     optionalDependencies:
       react: 18.3.1
