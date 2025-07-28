@@ -37,9 +37,9 @@ class FileGenerator
     }
 
     /**
-     * Get  the path to eventually write the file to
+     * Get the path to eventually write the file to
      *
-     * @param  ?string  $disk  Name of the disk we want to save file to
+     * @param  ?string  $diskName  Name of the disk we want to save file to
      */
     public function getPath(?string $diskName = 'userGenerated'): string
     {
@@ -48,6 +48,11 @@ class FileGenerator
         return $disk->path($this->getRelativePath());
     }
 
+    /**
+     * Get the current disk for this file
+     *
+     * @param  ?string  $diskName  Name of the disk we want to save file to
+     */
     public function getDisk(?string $diskName = 'userGenerated'): FilesystemAdapter
     {
         /**
