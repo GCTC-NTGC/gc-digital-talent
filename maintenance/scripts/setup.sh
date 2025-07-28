@@ -43,7 +43,7 @@ else
   php artisan migrate:fresh --seed
 fi
 php artisan lighthouse:print-schema --write
-php artisan config:clear
+php artisan optimize:clear
 chown -R www-data ./storage ./vendor
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 

@@ -55,3 +55,6 @@ queue-work:
 
 test:
 	$(DOCKER_API) "php artisan test $(CMD)"
+
+optimize-api:
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan optimize"
