@@ -9,7 +9,7 @@ final class MissingProfileSnapshotException extends Exception
 {
     public function __construct(string $message)
     {
-        parent::__construct(sprintf(__('errors.missing_snapshot'), $message));
+        parent::__construct($message);
     }
 
     /**

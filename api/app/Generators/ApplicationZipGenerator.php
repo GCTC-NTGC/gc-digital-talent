@@ -37,7 +37,7 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
                     } catch (MissingProfileSnapshotException $e) {
                         $this->addFailedFile($e->getMessage());
                     } catch (\Exception $e) {
-                        $this->addFailedFile(__('errors.unknown').' '.$candidate->id);
+                        $this->addFailedFile(__('errors.unknown'));
                     }
                 }
             });
