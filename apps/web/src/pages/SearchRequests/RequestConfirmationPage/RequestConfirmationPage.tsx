@@ -122,21 +122,13 @@ export const Component = () => {
             })}
           </Heading>
           <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "You will receive a follow up on your request within the next 5 to 10 business days.",
-              id: "3rbRfI",
-              description:
-                "Description of when the user should expect a response to their request",
-            })}
-            <span className="mr-1"></span>
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "If you have not heard from us or have any questions, please get in touch with us at: <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
-                id: "TsUcCM",
+                  "You will receive a follow up on your request within the next 5 to 10 business days. If you have not heard from us or have any questions, please get in touch with us at: <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
+                id: "LxXURC",
                 description:
-                  "Description of how a user can contact someone for answers/information on their existing request",
+                  "Description of expected follow up time and contact information for an existing request",
               },
               {
                 mailLink,

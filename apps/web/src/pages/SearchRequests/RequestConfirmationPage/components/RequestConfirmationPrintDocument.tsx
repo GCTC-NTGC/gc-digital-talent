@@ -57,18 +57,10 @@ const RequestConfirmationPrintDocument = forwardRef<
             <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
-                  "You will receive a follow up on your request within the next 5 to 10 business days.",
-                id: "3rbRfI",
+                  "You will receive a follow up on your request within the next 5 to 10 business days. If you have not heard from us or have any questions, please get in touch with us at: <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
+                id: "auSzlQ",
                 description:
-                  "Description of when the user should expect a response to their request",
-              })}
-              <span className="mr-1"></span>
-              {intl.formatMessage({
-                defaultMessage:
-                  "If you have not heard from us or have any questions, please get in touch with us at: <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
-                id: "Uea7/1",
-                description:
-                  "Description of how a user can contact someone for answers/information on their existing request",
+                  "Description of expected follow up time and contact information for an existing request",
               })}
             </p>
           </PageSection>
