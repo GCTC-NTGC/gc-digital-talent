@@ -186,7 +186,9 @@ const EssentialTechnicalSkillsForm = ({
               id="essentialTechnicalSkillsNotesEn"
               name="essentialTechnicalSkillsNotesEn"
               wordLimit={specialNoteWordCountLimits.en}
-              label={intl.formatMessage(jobPosterTemplateMessages.specialNote)}
+              label={intl.formatMessage(
+                jobPosterTemplateMessages.specialNoteEssentialTechnicalSkillsWithHidden,
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -198,7 +200,9 @@ const EssentialTechnicalSkillsForm = ({
               id="essentialTechnicalSkillsNotesFr"
               name="essentialTechnicalSkillsNotesFr"
               wordLimit={specialNoteWordCountLimits.fr}
-              label={intl.formatMessage(jobPosterTemplateMessages.specialNote)}
+              label={intl.formatMessage(
+                jobPosterTemplateMessages.specialNoteEssentialTechnicalSkillsWithHidden,
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

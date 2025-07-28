@@ -186,7 +186,9 @@ const EssentialBehaviouralSkillsForm = ({
               id="essentialBehaviouralSkillsNotesEn"
               name="essentialBehaviouralSkillsNotesEn"
               wordLimit={specialNoteWordCountLimits.en}
-              label={intl.formatMessage(jobPosterTemplateMessages.specialNote)}
+              label={intl.formatMessage(
+                jobPosterTemplateMessages.specialNoteEssentialBehaviouralSkillsWithHidden,
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -198,7 +200,9 @@ const EssentialBehaviouralSkillsForm = ({
               id="essentialBehaviouralSkillsNotesFr"
               name="essentialBehaviouralSkillsNotesFr"
               wordLimit={specialNoteWordCountLimits.fr}
-              label={intl.formatMessage(jobPosterTemplateMessages.specialNote)}
+              label={intl.formatMessage(
+                jobPosterTemplateMessages.specialNoteEssentialBehaviouralSkillsWithHidden,
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

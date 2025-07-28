@@ -96,14 +96,16 @@ const messages = defineMessages({
     id: "voH+OJ",
     description: "The reference id for a job poster template",
   },
-  specialNote: {
-    defaultMessage: "Special note",
-    id: "MgFV4w",
-    description: "The skills special note for a job poster template",
-  },
   specialNoteEssentialTechnicalSkills: {
     defaultMessage: "Special note for essential technical skills",
     id: "QxTOLA",
+    description:
+      "The essential technical skills special note for a job poster template",
+  },
+  specialNoteEssentialTechnicalSkillsWithHidden: {
+    defaultMessage:
+      "Special note<hidden> for essential technical skills</hidden>",
+    id: "9pb6tO",
     description:
       "The essential technical skills special note for a job poster template",
   },
@@ -113,9 +115,22 @@ const messages = defineMessages({
     description:
       "The nonessential technical skills special note for a job poster template",
   },
+  specialNoteNonessentialTechnicalSkillsWithHidden: {
+    defaultMessage: "Special note<hidden> for asset technical skills</hidden>",
+    id: "1gzcvC",
+    description:
+      "The nonessential technical skills special note for a job poster template",
+  },
   specialNoteEssentialBehaviouralSkills: {
     defaultMessage: "Special note for essential behavioural skills",
     id: "kyOGve",
+    description:
+      "The essential behavioural skills special note for a job poster template",
+  },
+  specialNoteEssentialBehaviouralSkillsWithHidden: {
+    defaultMessage:
+      "Special note<hidden> for essential behavioural skills</hidden>",
+    id: "bhXSKc",
     description:
       "The essential behavioural skills special note for a job poster template",
   },
