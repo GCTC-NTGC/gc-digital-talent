@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Well } from "@gc-digital-talent/ui";
+import { HTMLEntity, Link, Well } from "@gc-digital-talent/ui";
 
 const ApplicationProfileDetails_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationProfileDetails on User {
@@ -56,13 +56,11 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
       className="mt-6 flex flex-wrap items-center gap-3 bg-transparent bg-linear-90 from-secondary/10 to-primary/10 text-white dark:bg-transparent"
     >
       <p>
-        {user.currentCity ??
-          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-          intl.formatMessage(commonMessages.notFound)}
-        , {getLocalizedName(user.currentProvince?.label, intl)}
+        {user.currentCity ?? intl.formatMessage(commonMessages.notFound)}
+        <HTMLEntity name="," className="mr-1" />
+        {getLocalizedName(user.currentProvince?.label, intl)}
       </p>
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      <span aria-hidden>&bull;</span>
+      <HTMLEntity name="&bull;" aria-hidden />
       {user.telephone ? (
         <>
           <p>
@@ -76,18 +74,15 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
               {user.telephone}
             </Link>
           </p>
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          <span aria-hidden>&bull;</span>
+          <HTMLEntity name="&bull;" aria-hidden />
         </>
       ) : null}
       <Link external href={`mailto:${user.email}`} color="primary" size="sm">
         {user.email}
       </Link>
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      <span aria-hidden>&bull;</span>
+      <HTMLEntity name="&bull;" aria-hidden />
       <p>{getLocalizedName(user.citizenship?.label, intl)}</p>
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      <span aria-hidden>&bull;</span>
+      <HTMLEntity name="&bull;" aria-hidden />
       <p>
         {intl.formatMessage({
           defaultMessage: "General Communication",
@@ -97,8 +92,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
         {intl.formatMessage(commonMessages.dividingColon)}
         {getLocalizedName(user.preferredLang?.label, intl)}
       </p>
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      <span aria-hidden>&bull;</span>
+      <HTMLEntity name="&bull;" aria-hidden />
       <p>
         {intl.formatMessage({
           defaultMessage: "Spoken Interviews",
@@ -109,8 +103,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
         {intl.formatMessage(commonMessages.dividingColon)}
         {getLocalizedName(user.preferredLanguageForInterview?.label, intl)}
       </p>
-      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-      <span aria-hidden>&bull;</span>
+      <HTMLEntity name="&bull;" aria-hidden />
       <p>
         {intl.formatMessage({
           defaultMessage: "Written Exams",

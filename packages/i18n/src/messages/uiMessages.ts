@@ -131,6 +131,11 @@ const uiMessages = defineMessages({
     id: "nICORU",
     description: "Null selection og group for select input.",
   },
+  countAndTotal: {
+    defaultMessage: "({count}/{total})",
+    id: "nqYfCF",
+    description: "Label for count and total",
+  },
 });
 
 export default uiMessages;
