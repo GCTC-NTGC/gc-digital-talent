@@ -9,6 +9,7 @@ import {
   Pending,
   TableOfContents,
   ThrowNotFound,
+  Well,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -162,27 +163,42 @@ export const UserEmployeeInformation = ({
                   "Description for Community interest section of user employee information page",
               })}
             </p>
-            <Accordion.Root type="multiple" mode="card" className="my-6">
-              {employeeProfile.communityInterests?.map((communityInterest) => (
-                <Accordion.Item
-                  value={communityInterest.id}
-                  key={communityInterest.id}
-                >
-                  <Accordion.Trigger as="h3">
-                    {communityInterest.community?.name?.localized ??
-                      intl.formatMessage(commonMessages.notAvailable)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <CommunityInterest
-                      communityInterestQuery={communityInterest}
-                      communityInterestOptionsQuery={
-                        communityInterestOptionsQuery
-                      }
-                    />
-                  </Accordion.Content>
-                </Accordion.Item>
-              ))}
-            </Accordion.Root>
+            {employeeProfile?.communityInterests?.length &&
+            employeeProfile.communityInterests.length > 0 ? (
+              <Accordion.Root type="multiple" mode="card" className="my-6">
+                {employeeProfile.communityInterests?.map(
+                  (communityInterest) => (
+                    <Accordion.Item
+                      value={communityInterest.id}
+                      key={communityInterest.id}
+                    >
+                      <Accordion.Trigger as="h3">
+                        {communityInterest.community?.name?.localized ??
+                          intl.formatMessage(commonMessages.notAvailable)}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <CommunityInterest
+                          communityInterestQuery={communityInterest}
+                          communityInterestOptionsQuery={
+                            communityInterestOptionsQuery
+                          }
+                        />
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ),
+                )}
+              </Accordion.Root>
+            ) : (
+              <Well className="my-6">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This employee hasn’t added any functional communities to their profile.",
+                  id: "14DTOr",
+                  description:
+                    "Description for Community interest section null state",
+                })}
+              </Well>
+            )}
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
             <Heading
