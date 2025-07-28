@@ -14,7 +14,6 @@ use App\Models\User;
 use App\Traits\Generator\GeneratesUserDoc;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Element\Section;
 
 class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInterface
@@ -39,7 +38,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         if (! $this->candidate->profile_snapshot) {
             $msg = __('errors.application.missing_snapshot.unknown', [], $this->lang);
             $failedCandidate = $this->candidate->user->getFullName() ?? $this->candidate->id;
-            Log::debug($failedCandidate);
             if ($failedCandidate) {
                 $msg = __('errors.application.missing_snapshot.known', ['candidate' => $failedCandidate], $this->lang);
             }
