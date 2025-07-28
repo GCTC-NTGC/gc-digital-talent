@@ -1,4 +1,4 @@
-export interface HTMLEntityProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface HTMLEntityProps extends React.HTMLAttributes<HTMLSpanElement> {
   name: string;
 }
 
