@@ -32,6 +32,7 @@
     "web-token/jwt-library": "^4.0"
   },
   "require-dev": {
+    "beyondcode/laravel-server-timing": "^1.6",
     "brianium/paratest": "^7.4",
     "fakerphp/faker": "^1.9.1",
     "larastan/larastan": "^3.0.2",
