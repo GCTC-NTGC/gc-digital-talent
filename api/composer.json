@@ -10,6 +10,7 @@
   "license": "AGPL-3.0",
   "require": {
     "php": "^8.4",
+    "beyondcode/laravel-server-timing": "^1.6",
     "devnoiseconsulting/laravel-scout-postgres-tsvector": "^9.2",
     "doctrine/dbal": "^3.1",
     "guzzlehttp/guzzle": "^7.4",
@@ -32,7 +33,6 @@
     "web-token/jwt-library": "^4.0"
   },
   "require-dev": {
-    "beyondcode/laravel-server-timing": "^1.6",
     "brianium/paratest": "^7.4",
     "fakerphp/faker": "^1.9.1",
     "larastan/larastan": "^3.0.2",
