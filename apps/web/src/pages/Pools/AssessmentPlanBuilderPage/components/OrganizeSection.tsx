@@ -61,6 +61,11 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
     }
     assessmentSteps {
       id
+      title {
+        en
+        fr
+        localized
+      }
       type {
         value
         label {
@@ -134,10 +139,10 @@ const OrganizeSection = ({
     })
     .filter(notEmpty);
 
-  const remove = (index: number) => {
+  const remove = async (index: number) => {
     const { id } = steps[index];
 
-    executeDeleteMutation({ id })
+    await executeDeleteMutation({ id })
       .then((res) => {
         if (res.data?.deleteAssessmentStep?.id) {
           return Promise.resolve();
