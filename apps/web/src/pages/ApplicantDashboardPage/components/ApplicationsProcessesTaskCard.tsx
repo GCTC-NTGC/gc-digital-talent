@@ -2,7 +2,12 @@ import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Accordion, AccordionMetaData, TaskCard } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  AccordionMetaData,
+  HTMLEntity,
+  TaskCard,
+} from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -89,12 +94,16 @@ const ApplicationsProcessesTaskCard = ({
                       "Subtitle explaining job applications expandable within applications and processes card",
                   })}
                 >
-                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                  {`${intl.formatMessage({
+                  {intl.formatMessage({
                     defaultMessage: "Job applications",
                     id: "aBGEsG",
                     description: "Job applications expandable",
-                  })} (${applicationsProcessesTaskCardFragment?.length ?? 0})`}
+                  })}
+                  <span className="ml-1">
+                    <HTMLEntity name="(" />
+                    {applicationsProcessesTaskCardFragment?.length ?? 0}
+                    <HTMLEntity name=")" />
+                  </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={jobApplicationsMetaData} />
                 <Accordion.Content>
