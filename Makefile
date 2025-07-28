@@ -1,4 +1,4 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer
+.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
 
 DOCKER_RUN=docker compose run --rm maintenance bash
 DOCKER_API=docker compose run --rm -w /var/www/html/api maintenance sh -c
