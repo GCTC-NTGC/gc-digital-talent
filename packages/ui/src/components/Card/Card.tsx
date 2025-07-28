@@ -2,6 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 import Separator from "../Separator";
+import { SeparatorProps } from "../Separator/Separator";
 
 const card = tv({
   base: "rounded-md bg-white text-black shadow-xl dark:bg-gray-600 dark:text-white",
@@ -28,7 +29,7 @@ const Card = ({ as = "div", space = "md", className, ...rest }: CardProps) => {
   return <El className={card({ space, class: className })} {...rest} />;
 };
 
-const CardSeparator = (props: ComponentPropsWithoutRef<"hr" | "div">) => (
+const CardSeparator = (props: SeparatorProps) => (
   <div className="CardSeparator">
     <Separator decorative orientation="horizontal" space="none" {...props} />
   </div>

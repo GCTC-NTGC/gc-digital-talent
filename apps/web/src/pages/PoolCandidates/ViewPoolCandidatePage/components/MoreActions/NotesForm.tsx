@@ -144,7 +144,8 @@ const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
       open={isEditing}
       onOpenChange={setIsEditing}
     >
-      <ToggleSection.Content>
+      {/** Note: Empty className simply removes the default styles */}
+      <ToggleSection.Content className="">
         <ToggleSection.InitialContent>
           <Display notes={poolCandidate.notes} />
         </ToggleSection.InitialContent>

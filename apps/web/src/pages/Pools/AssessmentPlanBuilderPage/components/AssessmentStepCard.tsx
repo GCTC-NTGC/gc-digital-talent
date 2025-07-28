@@ -3,7 +3,12 @@ import { useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { formMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  appendLanguageName,
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import {
   Accordion,
   CardRepeater,
@@ -172,11 +177,11 @@ const AssessmentStepCard = ({
             </Accordion.Trigger>
             <Accordion.Content>
               <Heading level="h6" className="mt-3">
-                {intl.formatMessage({
-                  defaultMessage: "Questions in English",
-                  id: "9cLJwl",
-                  description:
-                    "Description for a list of questions in the English language",
+                {appendLanguageName({
+                  label: intl.formatMessage(commonMessages.questions),
+                  lang: "en",
+                  intl,
+                  formatted: true,
                 })}
               </Heading>
               <ol className="list-inside pl-0">
@@ -187,11 +192,11 @@ const AssessmentStepCard = ({
                 ))}
               </ol>
               <Heading level="h6">
-                {intl.formatMessage({
-                  defaultMessage: "Questions in French",
-                  id: "OyMDr3",
-                  description:
-                    "Description for a list of questions in the French language",
+                {appendLanguageName({
+                  label: intl.formatMessage(commonMessages.questions),
+                  lang: "fr",
+                  intl,
+                  formatted: true,
                 })}
               </Heading>
               <ol className="list-inside pl-0">

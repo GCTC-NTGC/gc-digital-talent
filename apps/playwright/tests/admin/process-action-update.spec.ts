@@ -105,10 +105,10 @@ test.describe("Update pool", () => {
     });
 
     await questionDialog
-      .getByRole("textbox", { name: /question \(en\)/i })
+      .getByRole("textbox", { name: /question \(english\)/i })
       .fill("Question 1 EN");
     await questionDialog
-      .getByRole("textbox", { name: /question \(fr\)/i })
+      .getByRole("textbox", { name: /question \(french\)/i })
       .fill("Question 1 FR");
 
     await questionDialog
@@ -130,10 +130,10 @@ test.describe("Update pool", () => {
     });
 
     await questionDialog
-      .getByRole("textbox", { name: /question \(en\)/i })
+      .getByRole("textbox", { name: /question \(english\)/i })
       .fill("Question 2 EN");
     await questionDialog
-      .getByRole("textbox", { name: /question \(fr\)/i })
+      .getByRole("textbox", { name: /question \(french\)/i })
       .fill("Question 2 FR");
 
     await questionDialog

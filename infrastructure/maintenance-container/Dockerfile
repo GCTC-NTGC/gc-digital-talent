@@ -15,7 +15,7 @@ RUN apt-get update \
   && apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php8.4 php8.4-mbstring php8.4-xml php8.4-pgsql php8.4-zip php8.4-curl php8.4-bcmath php8.4-gd \
+  && apt-get install -y php8.4 php8.4-mbstring php8.4-xml php8.4-pgsql php8.4-zip php8.4-curl php8.4-bcmath php8.4-gd php8.4-intl \
   && apt-get install --yes --no-install-recommends git postgresql-client \
   && apt-get clean
 

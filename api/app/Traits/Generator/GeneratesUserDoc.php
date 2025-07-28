@@ -546,7 +546,7 @@ trait GeneratesUserDoc
                 $section->addText($this->localize('common.featured_skills'));
             }
 
-            $experience->userSkills->each(function ($userSkill) use ($section) {
+            $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
                 $skillRun = $section->addListItemRun();
                 /** @var UserSkill $userSkill */
                 $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);

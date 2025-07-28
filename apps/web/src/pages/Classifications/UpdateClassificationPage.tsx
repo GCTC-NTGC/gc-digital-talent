@@ -32,7 +32,6 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
@@ -185,7 +184,8 @@ export const UpdateClassificationForm = ({
                   id="name_en"
                   name="name.en"
                   autoComplete="off"
-                  label={intl.formatMessage(adminMessages.nameEn)}
+                  label={intl.formatMessage(commonMessages.name)}
+                  appendLanguageToLabel={"en"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -195,7 +195,8 @@ export const UpdateClassificationForm = ({
                   id="name_fr"
                   name="name.fr"
                   autoComplete="off"
-                  label={intl.formatMessage(adminMessages.nameFr)}
+                  label={intl.formatMessage(commonMessages.name)}
+                  appendLanguageToLabel={"fr"}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

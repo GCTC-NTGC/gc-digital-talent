@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Models\Community;
 use App\Models\Pool;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,10 +28,6 @@ class PoolPolicyTest extends TestCase
     protected $communityTalentCoordinatorUser;
 
     protected $adminUser;
-
-    protected $team;
-
-    protected $otherTeam;
 
     protected $community;
 
@@ -62,7 +57,6 @@ class PoolPolicyTest extends TestCase
                 'sub' => 'applicant-user@test.com',
             ]);
 
-        $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->community = Community::factory()->create();
         $this->otherCommunity = Community::factory()->create();
 
@@ -105,8 +99,6 @@ class PoolPolicyTest extends TestCase
             ->create([
                 'email' => 'talent-coordinator@test.com',
             ]);
-
-        $this->otherTeam = Team::factory()->create();
 
         $this->unOwnedPool = Pool::factory([
             'community_id' => $this->otherCommunity->id,

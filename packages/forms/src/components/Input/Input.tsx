@@ -43,6 +43,7 @@ const Input = ({
   trackUnsaved = true,
   maxLength = 255,
   className,
+  appendLanguageToLabel,
   ...rest
 }: InputProps) => {
   const intl = useIntl();
@@ -74,7 +75,12 @@ const Input = ({
 
   return (
     <Field.Wrapper>
-      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+      <Field.Label
+        id={`${id}-label`}
+        htmlFor={id}
+        required={!!rules.required}
+        appendLanguageToLabel={appendLanguageToLabel}
+      >
         {label}
       </Field.Label>
       <input
