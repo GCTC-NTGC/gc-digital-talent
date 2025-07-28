@@ -1204,6 +1204,7 @@ input ApplicantFilterInput {
     @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "whereQualifiedClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  # should be considered qualifiedWorkStreams
   workStreams: [IdInput] @scope(name: "whereQualifiedStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
     @scope(name: "whereHasPoolCandidateCommunity")
@@ -1227,6 +1228,9 @@ input PoolCandidateSearchInput {
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
     @scope(name: "whereAppliedClassificationsIn")
+  # Filters applicants based on the stream of pools there are in
+  # There is also a stream field as part of ApplicantFilterInput however it includes scoping for availability.
+  workStreams: [IdInput] @scope(name: "whereWorkStreamsIn")
   processNumber: String @scope(name: "whereProcessNumber")
 }
 

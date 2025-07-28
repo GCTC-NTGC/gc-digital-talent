@@ -1577,6 +1577,7 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
+  workStreams: [IdInput]
   processNumber: String
 }
 

@@ -55,7 +55,15 @@ class FileGenerator
             File::makeDirectory($disk->path($this->dir));
         }
 
-        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->getFileNameWithExtension()));
+        return $disk->path($this->getRelativePath());
+    }
+
+    /**
+     * Get a relative path to be used by the disk
+     */
+    public function getRelativePath()
+    {
+        return sprintf('%s%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', DIRECTORY_SEPARATOR.$this->getFileNameWithExtension());
     }
 
     /**
