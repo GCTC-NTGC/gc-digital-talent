@@ -108,6 +108,7 @@ export const JobPosterTemplateTable = ({
     }),
     columnHelper.accessor((row) => row.jobPosterTemplateSkills?.length ?? 0, {
       id: "skillCount",
+      filterFn: "weakEquals",
       sortingFn: numeric,
       header: intl.formatMessage(adminMessages.skills),
     }),
