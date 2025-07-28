@@ -10,6 +10,7 @@ import {
   getFragment,
   graphql,
   PoolStatusTable_PoolCandidateFragment as PoolStatusTablePoolCandidateFragmentType,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -84,10 +85,14 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface PoolStatusTableProps {
+  currentPoolId?: Scalars["ID"]["output"];
   userQuery: FragmentType<typeof PoolStatusTable_Fragment>;
 }
 
-const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
+const PoolStatusTable = ({
+  currentPoolId,
+  userQuery,
+}: PoolStatusTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const user = getFragment(PoolStatusTable_Fragment, userQuery);
@@ -215,7 +220,16 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
     }),
   ] as ColumnDef<PoolStatusTablePoolCandidateFragmentType>[];
 
-  const data = user.poolCandidates?.filter(notEmpty) ?? [];
+  let data;
+  if (currentPoolId) {
+    data =
+      user.poolCandidates
+        ?.filter(notEmpty)
+        .filter((poolCandidates) => poolCandidates.pool.id != currentPoolId) ??
+      [];
+  } else {
+    data = user.poolCandidates?.filter(notEmpty) ?? [];
+  }
 
   return (
     <Table<PoolStatusTablePoolCandidateFragmentType>
