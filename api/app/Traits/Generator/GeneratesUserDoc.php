@@ -26,6 +26,7 @@ use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
+use App\Enums\OverallAssessmentStatus;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\SkillLevel;
@@ -672,13 +673,22 @@ trait GeneratesUserDoc
      */
     protected function recruitmentProcesses(Section $section, User $user, int $headingRank = 4)
     {
+        // filter for qualified recruitments thru field computed_assessment_status
+        $qualifiedCandidates = $user->poolCandidates->filter(
+            function (\App\Models\PoolCandidate $candidate) {
+                return
+                $candidate->computed_assessment_status &&
+                $candidate->computed_assessment_status['overallAssessmentStatus'] &&
+                $candidate->computed_assessment_status['overallAssessmentStatus'] === OverallAssessmentStatus::QUALIFIED->name;
+            });
+
         $section->addTitle($this->localizeHeading('recruitment_processes'), $headingRank);
         $section->addText($this->localize('common.user_processes_text_1').' '.$user->getFullName($this->anonymous).' '.$this->localize('common.user_processes_text_2'));
 
         // Digital Talent processes
         $section->addTitle($this->localizeHeading('digital_talent_processes'), $headingRank + 1);
         $section->addText($this->localize('common.digital_talent_processes_text'));
-        $user->poolCandidates->each(function ($candidate) use ($section, $headingRank) {
+        $qualifiedCandidates->each(function ($candidate) use ($section, $headingRank) {
             $section->addTitle($candidate->pool->name[$this->lang] ?? '', $headingRank + 2);
             $this->addLabelText($section, $this->localize('experiences.classification'), $candidate->pool->classification->displayName);
             $this->addLabelText($section, $this->localizeHeading('process_number'), $candidate->pool->process_number);
