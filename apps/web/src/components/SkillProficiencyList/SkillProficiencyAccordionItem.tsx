@@ -150,7 +150,7 @@ const SkillProficiencyAccordionItem = ({
       <Accordion.Trigger as="h3">{skillName}</Accordion.Trigger>
       <Accordion.MetaData metadata={metadata} />
       <Accordion.Content>
-        <p className="mb-6">
+        <div className="mb-6">
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Skill definition",
@@ -158,10 +158,10 @@ const SkillProficiencyAccordionItem = ({
               description: "Label for the definition of a specific skill",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          {skillDefinition}
-        </p>
+          <p>{skillDefinition}</p>
+        </div>
 
-        <p>
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Level definition",
@@ -169,8 +169,11 @@ const SkillProficiencyAccordionItem = ({
               description: "Label for the definition of a specific skill level",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          {skillLevelDefinition ?? intl.formatMessage(commonMessages.notFound)}
-        </p>
+          <p>
+            {skillLevelDefinition ??
+              intl.formatMessage(commonMessages.notFound)}
+          </p>
+        </div>
       </Accordion.Content>
     </Accordion.Item>
   );
