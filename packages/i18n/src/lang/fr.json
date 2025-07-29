@@ -59,6 +59,10 @@
     "defaultMessage": "Date",
     "description": "Label to identify a date element"
   },
+  "0AhbED": {
+    "defaultMessage": "Exigences en matière de compétences",
+    "description": "Label for skill requirements"
+  },
   "0ClMl1": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"

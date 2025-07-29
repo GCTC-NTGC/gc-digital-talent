@@ -528,6 +528,11 @@ const commonMessages = defineMessages({
     id: "x/BiQS",
     description: "Label for questions",
   },
+  skillRequirements: {
+    defaultMessage: "Skill requirements",
+    id: "0AhbED",
+    description: "Label for skill requirements",
+  },
 });
 
 export default commonMessages;

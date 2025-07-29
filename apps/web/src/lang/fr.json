@@ -9609,10 +9609,6 @@
     "defaultMessage": "Exigences linguistiques sur la plateforme Talents numériques du GC",
     "description": "Sub-heading for language requirements dialog"
   },
-  "h2h7Df": {
-    "defaultMessage": "Exigences relatives aux compétences",
-    "description": "Title for the skills section of a pool advertisement"
-  },
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
@@ -12104,10 +12100,6 @@
   "tL6hvG": {
     "defaultMessage": "Modifier une collectivité",
     "description": "Short title for the edit community interest page"
-  },
-  "tON7JL": {
-    "defaultMessage": "Exigences en matière de compétences",
-    "description": "Title for skill requirements"
   },
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
