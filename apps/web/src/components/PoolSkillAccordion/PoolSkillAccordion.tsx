@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import { Accordion } from "@gc-digital-talent/ui";
+import { Accordion, HTMLEntity } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocalizedName,
@@ -63,8 +63,7 @@ const AccordionSubtitle = ({
     )}
     {screeningTime && (
       <>
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        <span className="hidden xs:inline">&bull;</span>
+        <HTMLEntity name="&bull;" className="hidden xs:inline" />
         <span>{screeningTime}</span>
       </>
     )}

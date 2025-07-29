@@ -967,6 +967,10 @@
     "defaultMessage": "Type d'emploi",
     "description": "Label for applicant's employment type"
   },
+  "2Pvhfl": {
+    "defaultMessage": "{time} le {date}.",
+    "description": "A datetime formatted as a certain time on a certain date"
+  },
   "2SSm+L": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
@@ -1274,10 +1278,6 @@
   "3qzYUJ": {
     "defaultMessage": "Il s'agit d'un rôle de cadre supérieur.",
     "description": "Label text for employee profile, is c-suite"
-  },
-  "3rbRfI": {
-    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
-    "description": "Description of when the user should expect a response to their request"
   },
   "3tu/Mv": {
     "defaultMessage": "« réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
@@ -2298,6 +2298,10 @@
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
+  },
+  "8nsSyc": {
+    "defaultMessage": "<strong>{skill}</strong> ({type})",
+    "description": "Formatted skill name and type"
   },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
@@ -3799,10 +3803,6 @@
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
   },
-  "FZ5qdE": {
-    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI)",
-    "description": "Link text to more information about information technology work streams"
-  },
   "FcHUIQ": {
     "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par l'autrice ou l'auteur de la mise en candidature.",
     "description": "Statement of confirmation for reference check"
@@ -5163,6 +5163,10 @@
     "defaultMessage": "Création de la collectivité réussie!",
     "description": "Message displayed after a community is created"
   },
+  "LxXURC": {
+    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables. Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
+    "description": "Description of expected follow up time and contact information for an existing request"
+  },
   "Ly2bBb": {
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
     "description": "Alert displayed to user when an error occurs while editing a team member's roles"
@@ -6419,6 +6423,10 @@
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
   },
+  "RuLbg4": {
+    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi (s'ouvre dans un nouvel onglet)",
+    "description": "Link text for employment durations information"
+  },
   "RuTdam": {
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label text for employee profile c-suite role input"
@@ -6763,10 +6771,6 @@
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
   },
-  "TomxAe": {
-    "defaultMessage": "{time} le {date}",
-    "description": "A datetime formatted as a certain time on a certain date"
-  },
   "Tp7hml": {
     "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
     "description": "GCKey answer for who to contact about GCKey, contact availability"
@@ -6782,10 +6786,6 @@
   "TrbPjE": {
     "defaultMessage": "Vous êtes sur le point de désarchiver ce processus : {poolName}",
     "description": "Text to confirm the process to be un-archived"
-  },
-  "TsUcCM": {
-    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
-    "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
   "TtJCR6": {
     "defaultMessage": "Mettez à jour vos préférences",
@@ -6922,10 +6922,6 @@
   "UduzGA": {
     "defaultMessage": "Enregistrer l’introduction",
     "description": "Text on a button to save the pool introduction"
-  },
-  "Uea7/1": {
-    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
-    "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
   "UfjJ9P": {
     "defaultMessage": "Expérience professionnelle",
@@ -8194,6 +8190,10 @@
     "defaultMessage": "Groupe de compétences {skillFamilyId} non trouvé.",
     "description": "Message displayed for skillFamily not found."
   },
+  "auSzlQ": {
+    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables. Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
+    "description": "Description of expected follow up time and contact information for an existing request"
+  },
   "awEvCF": {
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the Pool Candidates table name column."
@@ -9221,6 +9221,10 @@
   "fP0gCn": {
     "defaultMessage": "Rétablir le candidat",
     "description": "Title for action to reinstate a candidate"
+  },
+  "fPGs32": {
+    "defaultMessage": "{ordinal}. {label}",
+    "description": "Formatted ordinal and label"
   },
   "fPIZn9": {
     "defaultMessage": "Détails additionnels",
@@ -11585,6 +11589,10 @@
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
   },
+  "qLuX+k": {
+    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI) (s'ouvre dans un nouvel onglet)",
+    "description": "Link text to more information about information technology work streams"
+  },
   "qN9zOb": {
     "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -13452,10 +13460,6 @@
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
     "description": "Lead text for the list of roles the user will lose"
-  },
-  "zlHeEz": {
-    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi",
-    "description": "Link text for employment durations information"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",

@@ -132,8 +132,7 @@ const SkillAccordion = ({
         )}
         {type?.label && status?.label ? (
           <p>
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            {getLocalizedName(type.label, intl)}{" "}
+            <span className="mr-1">{getLocalizedName(type.label, intl)}</span>
             <span className={text({ italic: true })}>
               {getLocalizedName(status.label, intl)}
             </span>

@@ -36,7 +36,8 @@
     "downshift": "^9.0.10",
     "lodash": "^4.17.21",
     "motion": "^12.23.11",
-    "tailwind-variants": "^1.0.0"
+    "tailwind-merge": "^3.3.1",
+    "tailwind-variants": "^2.0.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",

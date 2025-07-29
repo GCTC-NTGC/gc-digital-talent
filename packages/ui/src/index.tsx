@@ -94,6 +94,7 @@ import {
 } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard/TaskCard";
+import HTMLEntity from "./components/HTMLEntity/HTMLEntity";
 
 export type {
   Color,
@@ -167,6 +168,7 @@ export {
   DropdownMenu,
   Flourish,
   Heading,
+  HTMLEntity,
   IconButton,
   IconLink,
   Image,

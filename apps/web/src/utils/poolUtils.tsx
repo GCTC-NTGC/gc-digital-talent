@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
@@ -15,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
-import { ChipProps, IconType } from "@gc-digital-talent/ui";
+import { ChipProps, HTMLEntity, IconType } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -128,8 +127,10 @@ export const formattedPoolPosterTitle = ({
       </>
     ) : (
       <>
-        {title ?? ""} ({wrapAbbr(groupAndLevel, intl)}
-        {streamString ? ` ${streamString}` : ""})
+        {title ?? ""} <HTMLEntity name="&lpar;" />
+        {wrapAbbr(groupAndLevel, intl)}
+        {streamString ?? <span className="m1-1">{streamString}</span>}
+        <HTMLEntity name="&rpar;" />
       </>
     ),
     label: short

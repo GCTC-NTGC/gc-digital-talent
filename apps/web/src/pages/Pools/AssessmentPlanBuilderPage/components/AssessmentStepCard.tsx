@@ -12,6 +12,7 @@ import {
 import {
   Accordion,
   CardRepeater,
+  HTMLEntity,
   Heading,
   Well,
   useCardRepeaterContext,
@@ -141,10 +142,7 @@ const AssessmentStepCard = ({
           {skillNames.map((skillName, skillIndex) => (
             <Fragment key={skillName}>
               {skillIndex !== 0 || isApplicationScreening ? (
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                <span className="mx-3" aria-hidden>
-                  &bull;
-                </span>
+                <HTMLEntity name="&bull;" className="mx-3" aria-hidden />
               ) : null}
               <li className="inline pl-0">{skillName}</li>
             </Fragment>
