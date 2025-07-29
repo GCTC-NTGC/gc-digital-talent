@@ -675,6 +675,10 @@
     "defaultMessage": "Ce rôle nécessitait la gestion d'un budget dédié ou un pouvoir de signature délégué pour un budget.",
     "description": "Label displayed for budget management"
   },
+  "14DTOr": {
+    "defaultMessage": "Ce membre du personnel n'a ajouté aucune collectivité fonctionnelle à son profil.",
+    "description": "Description for Community interest section null state"
+  },
   "14ZYuD": {
     "defaultMessage": "la participation au processus de gestion des talents est <strong>obligatoire</strong> pour l'ensemble des cadres de la gestion financière, ainsi que pour les dirigeantes et dirigeants principaux des finances, et les dirigeantes et dirigeants adjoints principaux des finances, qui n'occupent pas un poste du groupe EX.",
     "description": "Employee group list item description"
