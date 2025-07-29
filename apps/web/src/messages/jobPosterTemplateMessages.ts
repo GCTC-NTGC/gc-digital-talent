@@ -96,6 +96,11 @@ const messages = defineMessages({
     id: "voH+OJ",
     description: "The reference id for a job poster template",
   },
+  specialNote: {
+    defaultMessage: "Special note",
+    id: "MgFV4w",
+    description: "The skills special note for a job poster template",
+  },
   specialNoteEssentialTechnicalSkills: {
     defaultMessage: "Special note for essential technical skills",
     id: "QxTOLA",
