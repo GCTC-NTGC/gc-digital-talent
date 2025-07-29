@@ -76,7 +76,8 @@ class UserDocGeneratorTest extends TestCase
             user: $targetUser,
             anonymous: false,
             dir: 'test',
-            lang: 'en'
+            lang: 'en',
+            authenticatedUser: $adminUser,
         );
 
         $this->generator->setUserId($adminUser->id);

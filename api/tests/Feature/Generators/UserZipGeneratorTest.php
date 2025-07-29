@@ -54,7 +54,8 @@ class UserZipGeneratorTest extends TestCase
             anonymous: false,
             dir: 'test',
             fileName: $fileName,
-            lang: 'en'
+            lang: 'en',
+            authenticatedUser: $adminUser,
         );
 
         $generator->setUserId($adminUser->id);
