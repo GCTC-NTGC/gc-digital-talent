@@ -586,7 +586,7 @@ trait GeneratesUserDoc
     /**
      * Generate all sections for a user
      */
-    protected function generateUser(Section $section, User $user, $headingRank = 2)
+    protected function generateUser(Section $section, User $user, ?int $headingRank, User $authenticatedUser)
     {
         $user->loadMissing([
             'department',
@@ -598,8 +598,8 @@ trait GeneratesUserDoc
             'workExperiences',
             'userSkills',
             'employeeProfile',
-            'poolCandidates' => function ($query) use ($user) {
-                $query->whereAuthorizedToView(['userId' => $user->id]);
+            'poolCandidates' => function ($query) use ($authenticatedUser) {
+                $query->whereAuthorizedToView(['userId' => $authenticatedUser->id]);
             },
             'poolCandidates.pool',
             'poolCandidates.pool.classification',

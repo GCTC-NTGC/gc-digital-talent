@@ -32,6 +32,7 @@ final class DownloadUsersZip
                 dir: $user->id,
                 fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
                 lang: App::getLocale(),
+                authenticatedUser: $user,
             );
 
             $generator->setUserId($user->id);

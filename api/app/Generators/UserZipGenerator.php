@@ -6,9 +6,15 @@ use App\Models\User;
 
 class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
 {
-    public function __construct(protected array $ids, protected bool $anonymous, public string $fileName, public ?string $dir, protected ?string $lang)
-    {
-        parent::__construct($fileName, $dir);
+    public function __construct(
+        protected array $ids,
+        protected bool $anonymous,
+        public string $fileName,
+        public ?string $dir,
+        protected ?string $lang,
+        protected User $authenticatedUser,
+    ) {
+        parent::__construct($fileName, $dir, $authenticatedUser);
     }
 
     public function generate(): self
@@ -31,7 +37,8 @@ class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
                         user: $user,
                         anonymous: $this->anonymous,
                         dir: $this->dir,
-                        lang: $this->lang
+                        lang: $this->lang,
+                        authenticatedUser: $this->authenticatedUser,
                     );
 
                     $this->incrementFileName($generator)->generate()->write();
