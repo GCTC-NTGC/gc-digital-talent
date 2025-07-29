@@ -29,7 +29,7 @@ return new class extends Migration
                 SET computed_assessment_status = jsonb_set(
                     COALESCE(computed_assessment_status, '{}'::jsonb),
                     '{currentStep}',
-                    to_jsonb(computed_assessment_step)
+                    COALESCE(to_jsonb(computed_assessment_step), 'null'::jsonb)
                 )
         SQL);
 
