@@ -588,6 +588,10 @@ trait GeneratesUserDoc
      */
     protected function generateUser(Section $section, User $user, ?int $headingRank, User $authenticatedUser)
     {
+        if (is_null($headingRank)) {
+            $headingRank = 2;
+        }
+
         $user->loadMissing([
             'department',
             'currentClassification',
