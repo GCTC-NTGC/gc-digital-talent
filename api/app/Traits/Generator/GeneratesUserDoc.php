@@ -16,6 +16,7 @@ use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FinalDecision;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
@@ -26,7 +27,6 @@ use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
-use App\Enums\OverallAssessmentStatus;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\SkillLevel;
@@ -673,13 +673,14 @@ trait GeneratesUserDoc
      */
     protected function recruitmentProcesses(Section $section, User $user, int $headingRank = 4)
     {
-        // filter for qualified recruitments thru field computed_assessment_status
+        // filter for qualified recruitments similar to frontend in `RecruitmentProcesses.tsx`
+        // based off final_decision_at AND computed_final_decision
         $qualifiedCandidates = $user->poolCandidates->filter(
             function (\App\Models\PoolCandidate $candidate) {
                 return
-                $candidate->computed_assessment_status &&
-                $candidate->computed_assessment_status['overallAssessmentStatus'] &&
-                $candidate->computed_assessment_status['overallAssessmentStatus'] === OverallAssessmentStatus::QUALIFIED->name;
+                ! is_null($candidate->final_decision_at) &&
+                $candidate->computed_final_decision &&
+                in_array($candidate->computed_final_decision, FinalDecision::applicableToQualifiedRecruitment());
             });
 
         $section->addTitle($this->localizeHeading('recruitment_processes'), $headingRank);
