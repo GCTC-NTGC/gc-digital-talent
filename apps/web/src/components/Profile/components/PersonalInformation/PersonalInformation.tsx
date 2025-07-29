@@ -129,7 +129,6 @@ const PersonalInformation = ({
             <Loading inline />
           ) : (
             <BasicForm
-              labels={labels}
               onSubmit={handleSubmit}
               options={{
                 defaultValues: dataToFormValues(user),
