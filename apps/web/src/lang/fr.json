@@ -6107,10 +6107,6 @@
     "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
     "description": "Label for advancement nomination is rejected"
   },
-  "Qibs21": {
-    "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
-    "description": "Sub title for  skill requirements"
-  },
   "QjOom4": {
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
@@ -9609,10 +9605,6 @@
     "defaultMessage": "Exigences linguistiques sur la plateforme Talents numériques du GC",
     "description": "Sub-heading for language requirements dialog"
   },
-  "h2h7Df": {
-    "defaultMessage": "Exigences relatives aux compétences",
-    "description": "Title for the skills section of a pool advertisement"
-  },
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
@@ -12105,10 +12097,6 @@
     "defaultMessage": "Modifier une collectivité",
     "description": "Short title for the edit community interest page"
   },
-  "tON7JL": {
-    "defaultMessage": "Exigences en matière de compétences",
-    "description": "Title for skill requirements"
-  },
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
@@ -13428,6 +13416,10 @@
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
+  },
+  "znWT8z": {
+    "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
+    "description": "Subtitle for skill requirements"
   },
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
