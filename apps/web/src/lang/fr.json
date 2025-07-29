@@ -675,6 +675,10 @@
     "defaultMessage": "Ce rôle nécessitait la gestion d'un budget dédié ou un pouvoir de signature délégué pour un budget.",
     "description": "Label displayed for budget management"
   },
+  "14DTOr": {
+    "defaultMessage": "Ce membre du personnel n'a ajouté aucune collectivité fonctionnelle à son profil.",
+    "description": "Description for Community interest section null state"
+  },
   "14ZYuD": {
     "defaultMessage": "la participation au processus de gestion des talents est <strong>obligatoire</strong> pour l'ensemble des cadres de la gestion financière, ainsi que pour les dirigeantes et dirigeants principaux des finances, et les dirigeantes et dirigeants adjoints principaux des finances, qui n'occupent pas un poste du groupe EX.",
     "description": "Employee group list item description"
@@ -966,6 +970,10 @@
   "2Oubfe": {
     "defaultMessage": "Type d'emploi",
     "description": "Label for applicant's employment type"
+  },
+  "2Pvhfl": {
+    "defaultMessage": "{time} le {date}.",
+    "description": "A datetime formatted as a certain time on a certain date"
   },
   "2SSm+L": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
@@ -1274,10 +1282,6 @@
   "3qzYUJ": {
     "defaultMessage": "Il s'agit d'un rôle de cadre supérieur.",
     "description": "Label text for employee profile, is c-suite"
-  },
-  "3rbRfI": {
-    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
-    "description": "Description of when the user should expect a response to their request"
   },
   "3tu/Mv": {
     "defaultMessage": "« réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
@@ -2298,6 +2302,10 @@
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
+  },
+  "8nsSyc": {
+    "defaultMessage": "<strong>{skill}</strong> ({type})",
+    "description": "Formatted skill name and type"
   },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
@@ -3791,10 +3799,6 @@
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
   },
-  "FZ5qdE": {
-    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI)",
-    "description": "Link text to more information about information technology work streams"
-  },
   "FcHUIQ": {
     "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par l'autrice ou l'auteur de la mise en candidature.",
     "description": "Statement of confirmation for reference check"
@@ -5147,6 +5151,10 @@
     "defaultMessage": "Création de la collectivité réussie!",
     "description": "Message displayed after a community is created"
   },
+  "LxXURC": {
+    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables. Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
+    "description": "Description of expected follow up time and contact information for an existing request"
+  },
   "Ly2bBb": {
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
     "description": "Alert displayed to user when an error occurs while editing a team member's roles"
@@ -6099,10 +6107,6 @@
     "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
     "description": "Label for advancement nomination is rejected"
   },
-  "Qibs21": {
-    "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
-    "description": "Sub title for  skill requirements"
-  },
   "QjOom4": {
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
@@ -6394,6 +6398,10 @@
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
+  },
+  "RuLbg4": {
+    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi (s'ouvre dans un nouvel onglet)",
+    "description": "Link text for employment durations information"
   },
   "RuTdam": {
     "defaultMessage": "Titre du rôle de cadre supérieur",
@@ -6735,10 +6743,6 @@
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
   },
-  "TomxAe": {
-    "defaultMessage": "{time} le {date}",
-    "description": "A datetime formatted as a certain time on a certain date"
-  },
   "Tp7hml": {
     "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
     "description": "GCKey answer for who to contact about GCKey, contact availability"
@@ -6754,10 +6758,6 @@
   "TrbPjE": {
     "defaultMessage": "Vous êtes sur le point de désarchiver ce processus : {poolName}",
     "description": "Text to confirm the process to be un-archived"
-  },
-  "TsUcCM": {
-    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
-    "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
   "TtJCR6": {
     "defaultMessage": "Mettez à jour vos préférences",
@@ -6894,10 +6894,6 @@
   "UduzGA": {
     "defaultMessage": "Enregistrer l’introduction",
     "description": "Text on a button to save the pool introduction"
-  },
-  "Uea7/1": {
-    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
-    "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
   "UfjJ9P": {
     "defaultMessage": "Expérience professionnelle",
@@ -8162,6 +8158,10 @@
     "defaultMessage": "Groupe de compétences {skillFamilyId} non trouvé.",
     "description": "Message displayed for skillFamily not found."
   },
+  "auSzlQ": {
+    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables. Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
+    "description": "Description of expected follow up time and contact information for an existing request"
+  },
   "awEvCF": {
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the Pool Candidates table name column."
@@ -9186,6 +9186,10 @@
     "defaultMessage": "Rétablir le candidat",
     "description": "Title for action to reinstate a candidate"
   },
+  "fPGs32": {
+    "defaultMessage": "{ordinal}. {label}",
+    "description": "Formatted ordinal and label"
+  },
   "fPIZn9": {
     "defaultMessage": "Détails additionnels",
     "description": "Label displayed on experience form/card for additional details input/section"
@@ -9600,10 +9604,6 @@
   "h1UJ1Q": {
     "defaultMessage": "Exigences linguistiques sur la plateforme Talents numériques du GC",
     "description": "Sub-heading for language requirements dialog"
-  },
-  "h2h7Df": {
-    "defaultMessage": "Exigences relatives aux compétences",
-    "description": "Title for the skills section of a pool advertisement"
   },
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
@@ -11125,6 +11125,10 @@
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
   },
+  "oGA8Cz": {
+    "defaultMessage": "Qu’il s’agisse d’un poste de cadre débutant ou d’un poste de dirigeant principal de l'information au sein du gouvernement du Canada, vous êtes au bon endroit pour franchir une nouvelle étape dans le leadership numérique.",
+    "description": "Description of the executive community"
+  },
   "oGNR16": {
     "defaultMessage": "<link>Communiquez avec notre équipe de soutien</link> dès que possible si vous rencontrez un problème technique qui pourrait vous empêcher de présenter votre demande. Vous pouvez soumettre un billet à tout moment pour nous aviser des difficultés que vous rencontrez. Il est important que vous agissiez dès qu’un problème survient afin que nous puissions consigner son heure exacte, même s'il se produit en dehors des heures normales de travail.",
     "description": "Text explaining the importance of reporting technical issues"
@@ -11552,6 +11556,10 @@
   "qGSEMx": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
+  },
+  "qLuX+k": {
+    "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI) (s'ouvre dans un nouvel onglet)",
+    "description": "Link text to more information about information technology work streams"
   },
   "qN9zOb": {
     "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
@@ -12088,10 +12096,6 @@
   "tL6hvG": {
     "defaultMessage": "Modifier une collectivité",
     "description": "Short title for the edit community interest page"
-  },
-  "tON7JL": {
-    "defaultMessage": "Exigences en matière de compétences",
-    "description": "Title for skill requirements"
   },
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
@@ -12973,10 +12977,6 @@
     "defaultMessage": "Personne candidate",
     "description": "Label or header"
   },
-  "xnNnwu": {
-    "defaultMessage": "Qu’il s’agisse d’un poste de cadre débutant ou d’un poste de DPI au sein du gouvernement du Canada, vous êtes au bon endroit pour franchir une nouvelle étape dans le leadership numérique.",
-    "description": "Description of the executive community"
-  },
   "xnlBSd": {
     "defaultMessage": "Erreur : la mise à jour du processus a échoué",
     "description": "Message displayed to user after pool fails to get updated."
@@ -13413,13 +13413,13 @@
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
     "description": "Lead text for the list of roles the user will lose"
   },
-  "zlHeEz": {
-    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi",
-    "description": "Link text for employment durations information"
-  },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
+  },
+  "znWT8z": {
+    "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
+    "description": "Subtitle for skill requirements"
   },
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
