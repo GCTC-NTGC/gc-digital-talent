@@ -1,17 +1,19 @@
 import { useIntl } from "react-intl";
 
+import { Heading } from "@gc-digital-talent/ui";
+
 const EssentialTechnicalSkillsFrontMatter = () => {
   const intl = useIntl();
 
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="font-bold">
+      <Heading level="h3" size="h6" className="m-0">
         {intl.formatMessage({
           defaultMessage: "Essential technical skills",
           id: "1KMmdT",
           description: "Title for the essential technical skills",
         })}
-      </h3>
+      </Heading>
       <p>
         {intl.formatMessage({
           defaultMessage:

@@ -6,7 +6,7 @@ import {
   getFragment,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
-import { Ul } from "@gc-digital-talent/ui";
+import { Heading, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import messages from "~/messages/jobPosterTemplateMessages";
@@ -57,9 +57,9 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       )}
       {essentialTechnicalSkillsNotes?.localized ? (
         <div className="flex flex-col gap-1">
-          <h3 className="font-bold">
+          <Heading level="h3" size="h6" className="m-0">
             {intl.formatMessage(messages.specialNote)}
-          </h3>
+          </Heading>
           <p>{essentialTechnicalSkillsNotes.localized}</p>
         </div>
       ) : null}
