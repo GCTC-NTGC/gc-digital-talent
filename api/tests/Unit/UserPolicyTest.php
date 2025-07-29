@@ -35,8 +35,6 @@ class UserPolicyTest extends TestCase
 
     protected $communityTalentCoordinator;
 
-    protected $team;
-
     protected $pool;
 
     protected $community;
@@ -70,9 +68,6 @@ class UserPolicyTest extends TestCase
                 'sub' => 'other-applicant-user@test.com',
             ]);
 
-        $this->team = Team::factory()->create([
-            'name' => 'test-team',
-        ]);
         $this->pool = Pool::factory()->create();
         $this->community = Community::factory()->create();
         $this->otherCommunity = Community::factory()->create();

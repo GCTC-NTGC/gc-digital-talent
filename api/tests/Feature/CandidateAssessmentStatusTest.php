@@ -112,7 +112,7 @@ class CandidateAssessmentStatusTest extends TestCase
         ];
     }
 
-    public function testDefaultAssessmentStatus(): void
+    public function test_default_assessment_status(): void
     {
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($this->query, $this->queryVars)
@@ -129,7 +129,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testSuccessPassesFirstStep(): void
+    public function test_success_passes_first_step(): void
     {
         $stepOne = $this->pool->assessmentSteps->where('sort_order', 1)->first();
 
@@ -170,7 +170,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testHoldPassesFirstStep(): void
+    public function test_hold_passes_first_step(): void
     {
         $stepOne = $this->pool->assessmentSteps->where('sort_order', 1)->first();
 
@@ -203,7 +203,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testUnsuccessfulEducationDisqualifies(): void
+    public function test_unsuccessful_education_disqualifies(): void
     {
         $stepOne = $this->pool->assessmentSteps->where('sort_order', 1)->first();
 
@@ -236,7 +236,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testUnsuccessfulEssentialSkillDisqualifies(): void
+    public function test_unsuccessful_essential_skill_disqualifies(): void
     {
         $technicalSkill = Skill::factory()->create([
             'category' => SkillCategory::TECHNICAL->name,
@@ -277,7 +277,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testFinalStepHoldStillNeedsAssessment(): void
+    public function test_final_step_hold_still_needs_assessment(): void
     {
 
         $steps = $this->pool->assessmentSteps;
@@ -324,7 +324,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testSucceedsAllQualifies(): void
+    public function test_succeeds_all_qualifies(): void
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -370,7 +370,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testFailedEssentialSkillMissingEducation()
+    public function test_failed_essential_skill_missing_education()
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -404,7 +404,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testNoEssentialSkillOrEducationIsSuccess()
+    public function test_no_essential_skill_or_education_is_success()
     {
 
         $pool = Pool::factory()
@@ -469,7 +469,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testOutOfOrderAssessmentsDoNotIncrementStep()
+    public function test_out_of_order_assessments_do_not_increment_step()
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -502,31 +502,25 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testAllSkillsMustPassToIncrementStep()
+    public function test_only_essential_skills_must_pass_to_increment_step()
     {
-
         $pool = Pool::factory()
             ->published()
             ->create([
                 'community_id' => $this->community->id,
             ]);
 
-        $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(3)->get();
+        $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(2)->get();
         $poolSkillOne = PoolSkill::create([
             'pool_id' => $pool->id,
             'skill_id' => $technicalSkills[0]->id,
             'type' => PoolSkillType::ESSENTIAL->name,
         ]);
 
-        // Non-essential skills must also be assessed if a user claims them
+        // Non-essential skills never need to be assessed
         $poolSkillTwo = PoolSkill::create([
             'pool_id' => $pool->id,
             'skill_id' => $technicalSkills[1]->id,
-            'type' => PoolSkillType::NONESSENTIAL->name,
-        ]);
-        $poolSkillThree = PoolSkill::create([
-            'pool_id' => $pool->id,
-            'skill_id' => $technicalSkills[2]->id,
             'type' => PoolSkillType::NONESSENTIAL->name,
         ]);
 
@@ -540,21 +534,6 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
 
         $user = User::factory()->create();
-        UserSkill::factory()->create([
-            'user_id' => $user->id,
-            'skill_id' => $poolSkillTwo->skill_id,
-        ]);
-        // Skill is not considered claimed unless it has an attached experience
-        $userSkill = UserSkill::factory()->create([
-            'user_id' => $user->id,
-            'skill_id' => $poolSkillThree->skill_id,
-        ]);
-        $experience = WorkExperience::factory()->create([
-            'user_id' => $user->id,
-        ]);
-        $experience->userSkills()->sync([
-            $userSkill->id => ['details' => 'first skill'],
-        ]);
 
         $candidate = PoolCandidate::factory()->withSnapshot()->create([
             'user_id' => $user->id,
@@ -580,36 +559,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'pool_skill_id' => $poolSkillOne->id,
             ]);
 
-        // Only one skill assessed so keep on step one with "to assess"
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($this->query, ['id' => $candidate->id])
-            ->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'assessmentStep' => 1,
-                        'assessmentStatus' => [
-                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
-                            'assessmentStepStatuses' => [
-                                [
-                                    'step' => $stepOne->id,
-                                    'decision' => null,
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-
-        AssessmentResult::factory()
-            ->withResultType(AssessmentResultType::SKILL)
-            ->create([
-                'assessment_step_id' => $stepOne->id,
-                'pool_candidate_id' => $candidate->id,
-                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
-                'pool_skill_id' => $poolSkillThree->id,
-            ]);
-        //
-        // Both claimed skills are now assessed so we can increment the step
+        // Only the essential skill must be assessed so we can increment the step already
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($this->query, ['id' => $candidate->id])
             ->assertJson([
@@ -630,7 +580,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testNonEssentialAssessmentDisqualifiedPasses()
+    public function test_non_essential_assessment_disqualified_passes()
     {
 
         $pool = Pool::factory()
@@ -646,7 +596,7 @@ class CandidateAssessmentStatusTest extends TestCase
             'type' => PoolSkillType::NONESSENTIAL->name,
         ]);
 
-        // Non-essential technical skills must also be assessed if a user claims them
+        // Non-essential technical skills need not be assessed even if a user claims them
         $poolSkillTwo = PoolSkill::create([
             'pool_id' => $pool->id,
             'skill_id' => $technicalSkills[1]->id,
@@ -684,27 +634,19 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
             ]);
 
-        AssessmentResult::factory()
-            ->withResultType(AssessmentResultType::SKILL)
-            ->create([
-                'assessment_step_id' => $assessmentStep->id,
-                'pool_candidate_id' => $candidate->id,
-                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
-                'pool_skill_id' => $poolSkillOne->id,
-            ]);
-
+        // Non-essential skills don't need to be assessed, so we are already qualified
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($this->query, ['id' => $candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'currentStep' => null,
                         'assessmentStatus' => [
-                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
                                 [
                                     'step' => $assessmentStep->id,
-                                    'decision' => null,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                             ],
                         ],
@@ -727,13 +669,13 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'currentStep' => null,
                         'assessmentStatus' => [
-                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
                                 [
                                     'step' => $assessmentStep->id,
-                                    'decision' => null,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                             ],
                         ],
@@ -766,7 +708,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testStepWithNoSkillsAlwaysPasses()
+    public function test_step_with_no_skills_always_passes()
     {
 
         $pool = Pool::factory()
@@ -818,7 +760,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testApplicationScreeningStepEducationResult()
+    public function test_application_screening_step_education_result()
     {
         // pool with two steps, both steps associated with one technical pool skill
         $pool = Pool::factory()
@@ -923,7 +865,7 @@ class CandidateAssessmentStatusTest extends TestCase
      * except for a single skill in the final step which is Unsuccessful,
      * then the overall status is Disqualified.
      */
-    public function testUnsuccessfulEssentialInFinalStepMeansDisqualified(): void
+    public function test_unsuccessful_essential_in_final_step_means_disqualified(): void
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -980,7 +922,7 @@ class CandidateAssessmentStatusTest extends TestCase
     /** Event ComputeCandidateAssessmentStatus can change the pool_candidate_status field
      * Assert it is changed when the initial status is NEW_APPLICATION and unchanged otherwise
      */
-    public function testComputeCandidateAssessmentStatusUpdatesPoolCandidateStatus(): void
+    public function test_compute_candidate_assessment_status_updates_pool_candidate_status(): void
     {
         $step = $this->pool->assessmentSteps[0];
         $statuses = array_merge(

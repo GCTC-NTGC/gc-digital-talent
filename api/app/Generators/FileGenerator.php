@@ -2,6 +2,7 @@
 
 namespace App\Generators;
 
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,11 +37,23 @@ class FileGenerator
     }
 
     /**
-     * Get  the path to eventually write the file to
+     * Get the path to eventually write the file to
      *
-     * @param  ?string  $disk  Name of the disk we want to save file to
+     * @param  ?string  $diskName  Name of the disk we want to save file to
      */
-    public function getPath(?string $disk = 'userGenerated'): string
+    public function getPath(?string $diskName = 'userGenerated'): string
+    {
+        $disk = $this->getDisk($diskName);
+
+        return $disk->path($this->getRelativePath());
+    }
+
+    /**
+     * Get the current disk for this file
+     *
+     * @param  ?string  $diskName  Name of the disk we want to save file to
+     */
+    public function getDisk(?string $diskName = 'userGenerated'): FilesystemAdapter
     {
         /**
          * We don't actually put the file with
@@ -48,14 +61,21 @@ class FileGenerator
          * but for now, the writer does it directly
          * so we need to manually create the directory if
          * it doesn't exist
-         *
-         * @var \Illuminate\Filesystem\FilesystemManager */
-        $disk = Storage::disk($disk);
+         */
+        $disk = Storage::disk($diskName);
         if ($this->dir && ! $disk->exists($this->dir)) {
             File::makeDirectory($disk->path($this->dir));
         }
 
-        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->getFileNameWithExtension()));
+        return $disk;
+    }
+
+    /**
+     * Get a relative path to be used by the disk
+     */
+    public function getRelativePath()
+    {
+        return sprintf('%s%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', DIRECTORY_SEPARATOR.$this->getFileNameWithExtension());
     }
 
     /**

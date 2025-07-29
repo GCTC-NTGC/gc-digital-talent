@@ -107,13 +107,20 @@ const AssessmentResult = ({
             href={paths.poolCandidateApplication(result.poolCandidate.id)}
             state={{ candidateIds, stepName }}
           >
-            {result.ordinal}
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            {". "}
-            {getFullNameLabel(
-              result.poolCandidate.user.firstName,
-              result.poolCandidate.user.lastName,
-              intl,
+            {intl.formatMessage(
+              {
+                defaultMessage: "{ordinal}. {label}",
+                id: "fPGs32",
+                description: "Formatted ordinal and label",
+              },
+              {
+                ordinal: result.ordinal,
+                label: getFullNameLabel(
+                  result.poolCandidate.user.firstName,
+                  result.poolCandidate.user.lastName,
+                  intl,
+                ),
+              },
             )}
           </Link>
         </span>

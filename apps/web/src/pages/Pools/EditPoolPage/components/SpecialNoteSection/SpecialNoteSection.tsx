@@ -200,11 +200,11 @@ const SpecialNoteSection = ({
                   <RichTextInput
                     id="whatToExpectEn"
                     label={intl.formatMessage({
-                      defaultMessage: "English - Special note for this process",
-                      id: "+JMvBQ",
-                      description:
-                        "Label for the English - Special note for this process textarea on edit pool page.",
+                      defaultMessage: "Special note",
+                      id: "LlE+CS",
+                      description: "Label for Special note",
                     })}
+                    appendLanguageToLabel={"en"}
                     name="specialNoteEn"
                     wordLimit={TEXT_AREA_MAX_WORDS_EN}
                     readOnly={!canEdit}
@@ -212,11 +212,11 @@ const SpecialNoteSection = ({
                   <RichTextInput
                     id="whatToExpectFr"
                     label={intl.formatMessage({
-                      defaultMessage: "French - Special note for this process",
-                      id: "YcMhCm",
-                      description:
-                        "Label for the French - Special note for this process textarea in the edit pool page.",
+                      defaultMessage: "Special note",
+                      id: "LlE+CS",
+                      description: "Label for Special note",
                     })}
+                    appendLanguageToLabel={"fr"}
                     name="specialNoteFr"
                     wordLimit={TEXT_AREA_MAX_WORDS_FR}
                     readOnly={!canEdit}

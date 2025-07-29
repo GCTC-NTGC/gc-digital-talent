@@ -38,8 +38,17 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
           <Card key={id}>
             <div className="flex justify-between">
               <p className="font-bold">
-                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                {index + 1}. {name[locale]}
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "{ordinal}. {label}",
+                    id: "fPGs32",
+                    description: "Formatted ordinal and label",
+                  },
+                  {
+                    ordinal: index + 1,
+                    label: name[locale],
+                  },
+                )}
               </p>
               <Button
                 color="error"

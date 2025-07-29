@@ -166,14 +166,16 @@ const AboutUsSection = ({
               <div className="my-6 grid gap-6 sm:grid-cols-2">
                 <RichTextInput
                   id="aboutUsEn"
-                  label={intl.formatMessage(processMessages.aboutUsEn)}
+                  label={intl.formatMessage(processMessages.aboutUs)}
+                  appendLanguageToLabel={"en"}
                   name="aboutUsEn"
                   wordLimit={TEXT_AREA_MAX_WORDS_EN}
                   readOnly={!canEdit}
                 />
                 <RichTextInput
                   id="aboutUsFr"
-                  label={intl.formatMessage(processMessages.aboutUsFr)}
+                  label={intl.formatMessage(processMessages.aboutUs)}
+                  appendLanguageToLabel={"fr"}
                   name="aboutUsFr"
                   wordLimit={TEXT_AREA_MAX_WORDS_FR}
                   readOnly={!canEdit}
@@ -193,8 +195,7 @@ const AboutUsSection = ({
                     mode="solid"
                     isSubmitting={isSubmitting}
                   />
-                  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                )}{" "}
+                )}
                 {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}

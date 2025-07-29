@@ -2,10 +2,8 @@
 - KaisAC # 'Métis' Label for Métis community
 - kUHaE/ # 'Inuk' Label for Inuk community
 - zAl7ZH # 'Michif' Name of Michif language
-- m0JFE/ # 'Code' Title for the application's profile snapshot
 - w/qZsH # 'Classification' Label displayed on the pool form classification field.
 - YmWKlv # 'Classification'
-- wHX/8C # 'Admin' Title tag for Admin site
 - hS+J7B # 'Admin' Title tag for Admin site
 - ZE77nf # Canada.ca
 - gpcHeU # Canada.ca
@@ -13,20 +11,15 @@
 - 9Aa5c0 # 'Notes - {poolName}' Label for the notes field for a specific pool
 - GVeb32 # 'Mi'kmaw' Name of Mi'kmaw language
 - /sBGov # 'Question {number}' - Question is same, number is untranslated
+- y4JZuf # 'Question {questionNumber}' - Question is same, number is untranslated
 - kvpRgN # 'Classifications' - Title for classifications
 - EK+25s # 'Notes' - Notes in adminMessages constant
 - vPPz4w # 'EXposition' - Brand name
 - 7tv7ct # 'EXposition' - Brand name
-- HX/Tj+ # 'Secret' - Secret screening level
-- Raho+z # 'Questionnaire' - Heading for the Questionnaire section on the digital services contracting questionnaire
-- a5FZSP # 'Variable' - Contract start timeframe is variable
 - C3fUwm # 'Version' - App version number in the footer
 - nzF0AE # 'P' - Short code for priority entitlement
 - Yy+JXc # Justification
-- AJs1VQ # Question (FR)
-- aCKQVB # Question (EN)
 - hbcdJm # Notifications
-- IhPS6D # Important
 - CdJQ7z # Administration
 - yWen8A # Format - The format of the training opportunity
 - d1FYv4 # Classification
@@ -36,3 +29,7 @@
 - tgPKAn # Nominations
 - trerKD # Type
 - M/phlO # Question
+- 8nsSyc # <strong>{skill}</strong> ({type})
+- fPGs32 # {ordinal}. {label}
+- J6zrSf # Question
+- Ms61e+ # Message
