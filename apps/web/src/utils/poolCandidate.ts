@@ -126,6 +126,7 @@ const isDisqualifiedFinalDecision = (
     : false;
 };
 
+// if changing below, also check `FinalDecision.php` enum
 export const isQualifiedFinalDecision = (
   status: Maybe<FinalDecision> | undefined,
 ): boolean => {
