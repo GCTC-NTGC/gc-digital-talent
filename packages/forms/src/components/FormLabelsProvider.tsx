@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useRef } from "react";
 
 const numberRegex = /(\d+)/g;
 
-export const normalizeName = (name: string): string => {
+const normalizeName = (name: string): string => {
   let normalized = name;
   // This is a root error for a field array
   if (name.includes(".root")) {

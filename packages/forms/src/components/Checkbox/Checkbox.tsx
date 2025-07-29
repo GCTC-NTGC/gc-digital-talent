@@ -8,7 +8,7 @@ import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { checkboxRadioStyles, inputStateStyles } from "../../styles";
 import useFieldState from "../../hooks/useFieldState";
-import { useFormLabels, useRegisterFormLabel } from "../FormLabelsProvider";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const checkbox = tv({
   extend: checkboxRadioStyles,

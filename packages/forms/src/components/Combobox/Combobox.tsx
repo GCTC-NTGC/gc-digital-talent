@@ -18,7 +18,7 @@ import {
 import { BaseProps, ComboboxValue } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
-import { useFormLabels, useRegisterFormLabel } from "../FormLabelsProvider";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {
