@@ -21,7 +21,7 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
             $lastName,
         );
 
-        parent::__construct($fileName, $dir, $authenticatedUser);
+        parent::__construct($fileName, $dir);
     }
 
     public function generate(): self

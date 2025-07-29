@@ -20,7 +20,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 {
     use GeneratesUserDoc;
 
-    public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
+    public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang, protected User $authenticatedUser)
     {
         $candidate->loadMissing(['user' => ['first_name', 'last_name'], 'pool' => ['classification']]);
         $fileName = sprintf(

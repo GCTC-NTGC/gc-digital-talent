@@ -14,7 +14,7 @@ class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
         protected ?string $lang,
         protected User $authenticatedUser,
     ) {
-        parent::__construct($fileName, $dir, $authenticatedUser);
+        parent::__construct($fileName, $dir);
     }
 
     public function generate(): self
