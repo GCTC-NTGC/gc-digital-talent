@@ -9,7 +9,6 @@ import {
   Skill,
   SkillCategory,
   User,
-  WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -54,7 +53,6 @@ test.describe("Application", () => {
         lookingForEnglish: true,
         isGovEmployee: false,
         hasPriorityEntitlement: false,
-        locationPreferences: [WorkRegion.Ontario],
         flexibleWorkLocations: [
           FlexibleWorkLocation.Remote,
           FlexibleWorkLocation.Hybrid,

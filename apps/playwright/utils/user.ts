@@ -1,7 +1,6 @@
 import {
   Language,
   ProvinceOrTerritory,
-  WorkRegion,
   PositionDuration,
   CitizenshipStatus,
   ArmedForcesStatus,
@@ -29,7 +28,6 @@ export const defaultUser: Partial<CreateUserInput> = {
   lookingForEnglish: true,
   isGovEmployee: true,
   hasPriorityEntitlement: false,
-  locationPreferences: [WorkRegion.Atlantic],
   flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
   positionDuration: [PositionDuration.Permanent],
   citizenship: CitizenshipStatus.Citizen,

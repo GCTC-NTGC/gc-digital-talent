@@ -14,6 +14,7 @@ use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
@@ -22,7 +23,6 @@ use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkExperienceGovEmployeeType;
-use App\Enums\WorkRegion;
 use App\Http\Resources\UserResource;
 use App\Models\Pool;
 use App\Models\User;
@@ -54,7 +54,7 @@ class ProfileSnapshot implements Castable
                 'estimatedLanguageAbility' => EstimatedLanguageAbility::class,
                 'firstOfficialLanguage' => Language::class,
                 'govEmployeeType' => GovEmployeeType::class,
-                'locationPreferences' => WorkRegion::class,
+                'flexibleWorkLocations' => FlexibleWorkLocation::class,
                 'preferredLang' => Language::class,
                 'preferredLanguageForInterview' => Language::class,
                 'preferredLanguageForExam' => Language::class,

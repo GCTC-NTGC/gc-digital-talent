@@ -7,7 +7,6 @@ import {
   ProvinceOrTerritory,
   Skill,
   SkillCategory,
-  WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
@@ -56,7 +55,6 @@ test.describe("Pool candidates", () => {
         isGovEmployee: false,
         hasPriorityEntitlement: true,
         priorityNumber: "123",
-        locationPreferences: [WorkRegion.Atlantic],
         flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
         positionDuration: [PositionDuration.Permanent],
         personalExperiences: {
