@@ -44,6 +44,23 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     isVerifiedGovEmployee
     hasPriorityEntitlement
     priorityNumber
+    telephone
+    email
+    preferredLang {
+      value
+    }
+    preferredLanguageForInterview {
+      value
+    }
+    preferredLanguageForExam {
+      value
+    }
+    citizenship {
+      value
+    }
+    armedForcesStatus {
+      value
+    }
     employeeProfile {
       ...CareerDevelopmentTaskCard
       lateralMoveInterest
@@ -185,8 +202,8 @@ export const DashboardPage = ({
     governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
     languageInformationSectionHasEmptyRequiredFields(currentUser) ||
     workPreferencesSectionHasEmptyRequiredFields(currentUser)
-      ? "complete"
-      : "incomplete";
+      ? "incomplete"
+      : "complete";
 
   const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
     currentUser?.employeeProfile ?? {},
