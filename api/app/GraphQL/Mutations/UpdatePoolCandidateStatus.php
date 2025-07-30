@@ -28,6 +28,7 @@ final readonly class UpdatePoolCandidateStatus
                 PoolCandidateStatus::EXPIRED->name,
                 PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
                 PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                PoolCandidateStatus::UNDER_CONSIDERATION->name,
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
                 PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name,
