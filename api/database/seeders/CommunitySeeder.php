@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Community;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class CommunitySeeder extends Seeder
@@ -14,50 +15,55 @@ class CommunitySeeder extends Seeder
      */
     public function run()
     {
-        $communities = [
-            [
-                'key' => 'digital',
-                'name' => [
-                    'en' => 'Digital Community',
-                    'fr' => 'Communauté numérique',
-                ],
-                'description' => [
-                    'en' => null,
-                    'fr' => null,
-                ],
-            ],
-            [
-                'key' => 'atip',
-                'name' => [
-                    'en' => 'Access to Information and Privacy (ATIP)',
-                    'fr' => 'Demande d\'accès à l\'information et de protection des renseignements personnels (AIPRP)',
-                ],
-                'description' => [
-                    'en' => null,
-                    'fr' => null,
-                ],
-            ],
-            [
-                'key' => 'finance',
-                'name' => [
-                    'en' => 'Financial Management Community',
-                    'fr' => 'Collectivité de la gestion financière',
-                ],
-                'description' => [
-                    'en' => 'The Financial Management Community connects financial management professionals (CT-FINs and executives) within the Government of Canada to enhance their skills and grow in their careers through career planning, development programs, and learning.',
-                    'fr' => 'La collectivité de la gestion financière relie les professionnels de la gestion financière (CT-FIN et cadres) au sein du gouvernement du Canada afin d\'améliorer leurs compétences et de progresser dans leur carrière par le biais de la planification de carrière, de programmes de développement et de l\'apprentissage.',
-                ],
-            ],
-        ];
 
-        foreach ($communities as $community) {
+        /* To recreate the JSON file, run this GraphQL query:
+            query Communities {
+                communities {
+                    key
+                    name {
+                        en
+                        fr
+                    }
+                    description {
+                        en
+                        fr
+                    }
+                    mandateAuthority {
+                        en
+                        fr
+                    }
+                }
+            }
+
+        Sort by key. You can use VS Code extension "Thinker.sort-json" to sort the results for a good commit diff.
+        */
+
+        $fileContents = file_get_contents(base_path('database/seeders/CommunitySeeder.data.json'));
+        if (! $fileContents) {
+            throw new Exception('Failed to load JSON file');
+        }
+        $fileJson = json_decode($fileContents);
+        if (! $fileJson) {
+            throw new Exception('Failed to decode JSON file');
+        }
+        $models = $fileJson->data->communities;
+
+        foreach ($models as $model) {
             Community::updateOrCreate(
+                ['key' => $model->key],
                 [
-                    'key' => $community['key'],
-                ],
-                [
-                    'name' => $community['name'],
-                    'description' => $community['description'],
+                    'name' => [
+                        'en' => $model->name?->en,
+                        'fr' => $model->name?->fr,
+                    ],
+                    'description' => [
+                        'en' => $model->description?->en,
+                        'fr' => $model->description?->fr,
+                    ],
+                    'mandate_authority' => [
+                        'en' => $model->mandateAuthority?->en,
+                        'fr' => $model->mandateAuthority?->fr,
+                    ],
                 ]
             );
         }
