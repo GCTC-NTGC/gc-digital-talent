@@ -25,10 +25,9 @@ final readonly class DownloadJobPosterTemplateDoc
                 jobPoster: $targetPoster,
                 dir: $user->id,
                 lang: App::getLocale(),
-                authenticatedUser: $user,
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             $generator->generate()->write();
 

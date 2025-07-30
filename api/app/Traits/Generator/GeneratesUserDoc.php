@@ -585,7 +585,7 @@ trait GeneratesUserDoc
     /**
      * Generate all sections for a user
      */
-    protected function generateUser(Section $section, User $user, ?int $headingRank, User $authenticatedUser)
+    protected function generateUser(Section $section, User $user, ?int $headingRank)
     {
         if (is_null($headingRank)) {
             $headingRank = 2;
@@ -601,10 +601,10 @@ trait GeneratesUserDoc
             'workExperiences',
             'userSkills',
             'employeeProfile',
-            'poolCandidates' => function ($query) use ($authenticatedUser) {
+            'poolCandidates' => function ($query) {
                 /** @var \App\Builders\PoolCandidateBuilder $query */
                 $query
-                    ->whereAuthorizedToView(['userId' => $authenticatedUser->id])
+                    ->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
                     ->whereQualified();
             },
             'poolCandidates.pool',

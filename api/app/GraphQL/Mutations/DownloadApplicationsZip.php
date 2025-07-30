@@ -30,10 +30,9 @@ final class DownloadApplicationsZip
                 fileName: sprintf('%s_%s', __('filename.candidates'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
-                authenticatedUser: $user,
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             GenerateUserFile::dispatch($generator, $user);
 

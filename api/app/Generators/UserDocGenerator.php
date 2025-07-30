@@ -9,7 +9,7 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
 {
     use GeneratesUserDoc;
 
-    public function __construct(protected User $user, protected bool $anonymous, public ?string $dir, protected ?string $lang, protected User $authenticatedUser)
+    public function __construct(protected User $user, protected bool $anonymous, public ?string $dir, protected ?string $lang)
     {
         $lastName = $this->sanitizeFileNameString($user->last_name);
         if ($anonymous) {
@@ -31,7 +31,7 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         $section = $this->doc->addSection();
         $section->addTitle($this->localizeHeading('user_profile'), 1);
 
-        $this->generateUser($section, $this->user, null, $this->authenticatedUser);
+        $this->generateUser($section, $this->user, null);
 
         return $this;
     }

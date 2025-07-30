@@ -612,7 +612,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         /** @var Builder<\App\Models\PoolCandidate> $query */
-        $query->whereAuthorizedToView(['userId' => $this->userId])->whereNotDraft();
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])->whereNotDraft();
 
         return $query;
     }

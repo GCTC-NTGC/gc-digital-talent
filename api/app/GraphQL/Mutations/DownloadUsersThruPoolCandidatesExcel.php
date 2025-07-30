@@ -34,7 +34,7 @@ final class DownloadUsersThruPoolCandidatesExcel
             );
 
             $generator
-                ->setUserId($user->id)
+                ->setAuthenticatedUserId($user->id)
                 ->setIds($ids)
                 ->setFilters($filters);
 

@@ -34,10 +34,9 @@ final readonly class DownloadApplicationDoc
                 candidate: $targetApplicant,
                 dir: $user->id,
                 lang: App::getLocale(),
-                authenticatedUser: $user,
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             $generator->generate()->write();
 

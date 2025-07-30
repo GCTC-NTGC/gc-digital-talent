@@ -31,10 +31,9 @@ final readonly class DownloadUserDoc
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
                 dir: $user->id,
                 lang: App::getLocale(),
-                authenticatedUser: $user,
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             $generator->generate()->write();
 

@@ -72,7 +72,7 @@ class ApplicationDocGeneratorTest extends TestCase
             authenticatedUser: $adminUser,
         );
 
-        $this->generator->setUserId($adminUser->id);
+        $this->generator->setAuthenticatedUserId($adminUser->id);
     }
 
     // test that a file can be generated

@@ -12,7 +12,6 @@ class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
         public string $fileName,
         public ?string $dir,
         protected ?string $lang,
-        protected User $authenticatedUser,
     ) {
         parent::__construct($fileName, $dir);
     }
@@ -30,7 +29,7 @@ class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
             'userSkills' => ['skill'],
         ])
             ->whereIn('id', $this->ids)
-            ->whereAuthorizedToView(['userId' => $this->userId])
+            ->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->chunk(200, function ($users) {
                 foreach ($users as $user) {
                     $generator = new UserDocGenerator(
@@ -38,8 +37,9 @@ class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
                         anonymous: $this->anonymous,
                         dir: $this->dir,
                         lang: $this->lang,
-                        authenticatedUser: $this->authenticatedUser,
                     );
+
+                    $generator->setAuthenticatedUserId($this->authenticatedUserId);
 
                     $this->incrementFileName($generator)->generate()->write();
                     $this->addFile($generator);

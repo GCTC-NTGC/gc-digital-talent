@@ -5,7 +5,6 @@ namespace App\Generators;
 use App\Enums\SkillLevel;
 use App\Enums\SupervisoryStatus;
 use App\Models\JobPosterTemplate;
-use App\Models\User;
 use App\Traits\Generator\GeneratesDoc;
 use Illuminate\Support\Str;
 use PhpOffice\PhpWord\Element\Section;
@@ -14,7 +13,7 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
 {
     use GeneratesDoc;
 
-    public function __construct(protected JobPosterTemplate $jobPoster, public ?string $dir, protected ?string $lang, protected User $authenticatedUser)
+    public function __construct(protected JobPosterTemplate $jobPoster, public ?string $dir, protected ?string $lang)
     {
         $fileName = sprintf(
             '%s - %s',

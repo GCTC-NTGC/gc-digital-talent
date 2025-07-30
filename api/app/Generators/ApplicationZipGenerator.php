@@ -4,11 +4,10 @@ namespace App\Generators;
 
 use App\Exceptions\MissingProfileSnapshotException;
 use App\Models\PoolCandidate;
-use App\Models\User;
 
 class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInterface
 {
-    public function __construct(protected array $ids, public string $fileName, public ?string $dir, protected ?string $lang, protected User $authenticatedUser)
+    public function __construct(protected array $ids, public string $fileName, public ?string $dir, protected ?string $lang)
     {
         parent::__construct($fileName, $dir);
     }
@@ -27,11 +26,11 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
             'generalQuestionResponses' => ['generalQuestion'],
         ])
             ->whereIn('id', $this->ids)
-            ->whereAuthorizedToView(['userId' => $this->userId])
+            ->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
                     try {
-                        $generator = new ApplicationDocGenerator($candidate, $this->dir, $this->lang, $this->authenticatedUser);
+                        $generator = new ApplicationDocGenerator($candidate, $this->dir, $this->lang);
 
                         $this->incrementFileName($generator)->generate()->write();
                         $this->addFile($generator);

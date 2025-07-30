@@ -206,7 +206,7 @@ class NominationsCsvGenerator extends CsvGenerator implements FileGeneratorInter
 
         /** @var Builder<TalentNominationGroup> $query */
         $query
-            ->authorizedToView(['userId' => $this->userId])
+            ->authorizedToView(['userId' => $this->authenticatedUserId])
             ->isVerifiedGovEmployee();
 
         return $query;
