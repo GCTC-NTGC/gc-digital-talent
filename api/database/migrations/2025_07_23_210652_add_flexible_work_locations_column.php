@@ -23,22 +23,16 @@ return new class extends Migration
                         case
                             when location_preferences ?? 'TELEWORK'
                                 and (jsonb_array_length(location_preferences) = 1)
-                                then :teleworkOnly::jsonb
+                                then jsonb_build_array('REMOTE')::jsonb
                             when location_preferences ?? 'TELEWORK'
                                 and (jsonb_array_length(location_preferences) > 1)
-                                then :teleworkHybridRegion::jsonb
+                                then jsonb_build_array('REMOTE', 'HYBRID', 'ONSITE')::jsonb
                             when (NOT location_preferences ?? 'TELEWORK')
                                 and (jsonb_array_length(location_preferences) > 0)
-                                then :regionOnly::jsonb
-                            else  :base::jsonb
+                                then jsonb_build_array('ONSITE')::jsonb
+                            else  jsonb_build_array()::jsonb
                         end
             SQL,
-            [
-                'teleworkOnly' => json_encode(['REMOTE']),
-                'teleworkHybridRegion' => json_encode(['REMOTE', 'HYBRID', 'ONSITE']),
-                'regionOnly' => json_encode(['ONSITE']),
-                'base' => json_encode([]),
-            ]
         );
     }
 
