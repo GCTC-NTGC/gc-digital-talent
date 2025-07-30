@@ -46,7 +46,7 @@ export const IndexJobPosterTemplatePage = () => {
         subtitle={formattedPageSubtitle}
         crumbs={navigationCrumbs}
       />
-      <Container className="my-18">
+      <Container className="my-18" size="full">
         <div className="flex flex-col gap-6">
           <div>
             <Heading
