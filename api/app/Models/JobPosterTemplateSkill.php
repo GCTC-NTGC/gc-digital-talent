@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * Class JobPosterTemplateSkill
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $type
  * @property string $required_skill_level
  */
-class JobPosterTemplateSkill extends Model
+class JobPosterTemplateSkill extends Pivot
 {
     /**
      * The table associated with the model.

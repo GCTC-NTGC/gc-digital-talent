@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array $essential_technical_skills_notes
  * @property array $essential_behavioural_skills_notes
  * @property array $nonessential_technical_skills_notes
- * @property ?\Illuminate\Database\Eloquent\Relations\Pivot $skills
+ * @property ?\Illuminate\Database\Eloquent\Relations\Pivot $jobPosterTemplateSkills
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
