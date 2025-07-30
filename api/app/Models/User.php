@@ -78,7 +78,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?bool $has_disability
  * @property ?bool $is_visible_minority
  * @property ?bool $has_diploma
- * @property ?array $location_preferences
  * @property ?string $location_exemptions
  * @property ?array $position_duration
  * @property array $accepted_operational_requirements

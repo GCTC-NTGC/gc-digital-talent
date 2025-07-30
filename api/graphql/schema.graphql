@@ -1672,7 +1672,6 @@ input CreateUserInput {
 
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   flexibleWorkLocations: [FlexibleWorkLocation]
     @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -1747,7 +1746,6 @@ input UpdateUserAsAdminInput @validator {
 
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   flexibleWorkLocations: [FlexibleWorkLocation]
     @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -1829,7 +1827,7 @@ input UpdateUserAsUserInput @validator {
 
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+
   flexibleWorkLocations: [FlexibleWorkLocation]
     @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
