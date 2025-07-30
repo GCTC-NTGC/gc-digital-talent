@@ -40,7 +40,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
             <li key={s.id}>
               <p>{s.skill?.name.localized}</p>
               {s.requiredLevel?.value ? (
-                <p className="text-sm text-gray-500 dark:text-gray-300">
+                <p className="text-sm text-gray-500 dark:text-gray-200">
                   {intl.formatMessage(
                     getSkillLevelName(
                       s.requiredLevel.value,

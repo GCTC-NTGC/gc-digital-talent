@@ -53,7 +53,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         <p className="font-bold text-primary-600 dark:text-primary-200">
           {titleEn ?? notProvided}
         </p>
-        <p className="text-sm text-gray-500 dark:text-gray-300">{subtitleEn}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-200">{subtitleEn}</p>
       </div>
       <p className="order-3 sm:order-5">{description?.en ?? notProvided}</p>
       <div className="order-4 sm:order-7">
@@ -88,7 +88,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         <p className="font-bold text-primary-600 dark:text-primary-200">
           {titleFr ?? notProvided}
         </p>
-        <p className="text-sm text-gray-500 dark:text-gray-300">{subtitleFr}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-200">{subtitleFr}</p>
       </div>
       <p className="order-8 sm:order-6">{description?.fr ?? notProvided}</p>
       <div className="order-9 sm:order-8">
