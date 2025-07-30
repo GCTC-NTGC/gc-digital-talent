@@ -81,8 +81,8 @@ const FormFields = ({
           label: loc.label.localized,
           contentBelow: intl.formatMessage({
             defaultMessage:
-              "I'm willing to work on-site for a minimum of 3 days per week, with the rest being remote.",
-            id: "47D8AR",
+              "I'm willing to work on-site at a department-designated location for a minimum of 3 days, with the rest being remote.",
+            id: "4BJrSM",
             description: "Checklist option explanatory note",
           }),
         };
@@ -92,8 +92,9 @@ const FormFields = ({
           value: loc.value,
           label: loc.label.localized,
           contentBelow: intl.formatMessage({
-            defaultMessage: "I'm willing to work on-site full-time.",
-            id: "JcSzqF",
+            defaultMessage:
+              "I'm willing to work 100% on-site at a department-designated location.",
+            id: "XNNBCv",
             description: "Checklist option explanatory note",
           }),
         };
