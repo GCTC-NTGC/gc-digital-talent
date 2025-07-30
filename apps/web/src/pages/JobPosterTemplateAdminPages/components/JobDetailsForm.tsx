@@ -1,7 +1,5 @@
 import { useIntl } from "react-intl";
-import uniqBy from "lodash/uniqBy";
-import { useEffect, useId } from "react";
-import { useFormContext } from "react-hook-form";
+import { useId } from "react";
 
 import {
   Input,
@@ -21,8 +19,8 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
-import { splitAndJoin } from "~/utils/nameUtils";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
+import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
 const TEXT_AREA_MAX_WORDS_EN = 65;
 
@@ -34,12 +32,7 @@ const descriptionWordCountLimits: Record<Locales, number> = {
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateJobDetailsFormOptions on Query {
     classifications {
-      id
-      group
-      level
-      name {
-        localized
-      }
+      ...ClassificationInput
     }
     supervisoryStatuses: localizedEnumStrings(enumName: "SupervisoryStatus") {
       value
@@ -67,8 +60,9 @@ export interface FormValues {
   workDescriptionFr: string | null;
   keywordsEn: string | null;
   keywordsFr: string | null;
+  classification: string | null;
   classificationGroup: Classification["group"] | null;
-  classificationLevel: Classification["id"] | null;
+  classificationLevel: Classification["level"] | null;
   referenceId: string | null;
 }
 
@@ -82,103 +76,34 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
 
   const optionsData = getFragment(Options_Fragment, optionsQuery);
 
-  const classifications = unpackMaybes(optionsData?.classifications);
-
-  const methods = useFormContext<FormValues>();
-  const { watch, resetField } = methods;
-
-  const watchGroupSelection = watch("classificationGroup");
-
-  /**
-   * Reset classification level when group changes
-   * because level options change
-   */
-  useEffect(() => {
-    resetField("classificationLevel", {
-      keepDirty: false,
-    });
-  }, [resetField, watchGroupSelection]);
-
-  const classGroupsWithDupes: {
-    label: string;
-    ariaLabel: string;
-  }[] = classifications.map((classification) => {
-    return {
-      label:
-        classification.group ||
-        intl.formatMessage({
-          defaultMessage: "Error: classification group not found.",
-          id: "YA/7nb",
-          description: "Error message if classification group is not defined.",
-        }),
-      ariaLabel: `${classification.name?.localized} ${splitAndJoin(
-        classification.group,
-      )}`,
-    };
-  });
-
-  const noDupes = uniqBy(classGroupsWithDupes, "label");
-  const groupOptions = noDupes.map(({ label, ariaLabel }) => {
-    return {
-      value: label,
-      label,
-      ariaLabel,
-    };
-  });
-
   const workStreams = unpackMaybes(optionsData.workStreams);
   const workStreamOptions = workStreams.map<Option>((workStream) => ({
     value: workStream.id,
     label: workStream.name?.localized,
   }));
 
-  // generate classification levels from the selected group
-  const levelOptions = classifications
-    .filter((x) => x.group === watchGroupSelection)
-    .map((iterator) => {
-      return {
-        value: iterator.id.toString(), // change the value to id for the query
-        label: iterator.level.toString().padStart(2, "0"),
-        numericValue: iterator.level, // just used for sorting
-      };
-    })
-    .sort((a, b) => a.numericValue - b.numericValue);
-
   return (
     <div className="grid gap-6 xs:grid-cols-1 sm:grid-cols-2">
-      <div>
-        <Select
-          id="classificationGroup"
-          label={intl.formatMessage(
+      <ClassificationInput
+        name={"classification"}
+        label={{
+          group: intl.formatMessage(
             jobPosterTemplateMessages.classificationGroup,
-          )}
-          name="classificationGroup"
-          nullSelection={intl.formatMessage(
-            uiMessages.nullSelectionOptionGroup,
-          )}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          options={groupOptions}
-        />
-      </div>
-      <div>
-        <Select
-          id="classificationLevel"
-          label={intl.formatMessage(
+          ),
+          level: intl.formatMessage(
             jobPosterTemplateMessages.classificationLevel,
-          )}
-          name="classificationLevel"
-          rules={{
+          ),
+        }}
+        classificationsQuery={unpackMaybes(optionsData.classifications)}
+        rules={{
+          group: {
             required: intl.formatMessage(errorMessages.required),
-          }}
-          nullSelection={intl.formatMessage(
-            uiMessages.nullSelectionOptionLevel,
-          )}
-          options={levelOptions}
-          doNotSort
-        />
-      </div>
+          },
+          level: {
+            required: intl.formatMessage(errorMessages.required),
+          },
+        }}
+      />
       <div>
         <Input
           id="jobTitleEn"

@@ -89,7 +89,7 @@ const formValuesToMutationInput = ({
   workDescriptionFr,
   keywordsEn,
   keywordsFr,
-  classificationLevel,
+  classification,
   referenceId,
   keyTasksEn,
   keyTasksFr,
@@ -151,7 +151,7 @@ const formValuesToMutationInput = ({
       fr: keywordsFr?.split(",").map((s) => s.trim()),
     },
     classification: {
-      connect: classificationLevel, // the ID for the group-level is in the level input
+      connect: classification,
     },
     referenceId: referenceId,
     tasks: {

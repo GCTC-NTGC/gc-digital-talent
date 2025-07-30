@@ -109,8 +109,9 @@ const initialDataToFormValues = ({
   workDescriptionFr: workDescription?.fr ?? null,
   keywordsEn: (keywords?.en ?? []).join(", "),
   keywordsFr: (keywords?.fr ?? []).join(", "),
+  classification: classification?.id ?? null,
   classificationGroup: classification?.group ?? null,
-  classificationLevel: classification?.id ?? null,
+  classificationLevel: classification?.level ?? null,
   referenceId: referenceId ?? null,
 });
 
@@ -127,7 +128,7 @@ const formValuesToMutationInput = (
     workDescriptionFr,
     keywordsEn,
     keywordsFr,
-    classificationLevel,
+    classification,
     referenceId,
   }: FormValues,
 ): UpdateJobPosterTemplateInput => ({
@@ -153,7 +154,7 @@ const formValuesToMutationInput = (
     fr: keywordsFr?.split(",").map((s) => s.trim()),
   },
   classification: {
-    connect: classificationLevel, // the ID for the group-level is in the level input
+    connect: classification,
   },
   referenceId: referenceId,
 });
