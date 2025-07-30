@@ -16,7 +16,6 @@ use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
-use App\Enums\FinalDecision;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
@@ -603,7 +602,10 @@ trait GeneratesUserDoc
             'userSkills',
             'employeeProfile',
             'poolCandidates' => function ($query) use ($authenticatedUser) {
-                $query->whereAuthorizedToView(['userId' => $authenticatedUser->id]);
+                /** @var \App\Builders\PoolCandidateBuilder $query */
+                $query
+                    ->whereAuthorizedToView(['userId' => $authenticatedUser->id])
+                    ->whereQualified();
             },
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
@@ -677,23 +679,13 @@ trait GeneratesUserDoc
      */
     protected function recruitmentProcesses(Section $section, User $user, int $headingRank = 4)
     {
-        // filter for qualified recruitments similar to frontend in `RecruitmentProcesses.tsx`
-        // based off final_decision_at AND computed_final_decision
-        $qualifiedCandidates = $user->poolCandidates->filter(
-            function (\App\Models\PoolCandidate $candidate) {
-                return
-                ! is_null($candidate->final_decision_at) &&
-                $candidate->computed_final_decision &&
-                in_array($candidate->computed_final_decision, FinalDecision::applicableToQualifiedRecruitment());
-            });
-
         $section->addTitle($this->localizeHeading('recruitment_processes'), $headingRank);
         $section->addText($this->localize('common.user_processes_text_1').' '.$user->getFullName($this->anonymous).' '.$this->localize('common.user_processes_text_2'));
 
         // Digital Talent processes
         $section->addTitle($this->localizeHeading('digital_talent_processes'), $headingRank + 1);
         $section->addText($this->localize('common.digital_talent_processes_text'));
-        $qualifiedCandidates->each(function ($candidate) use ($section, $headingRank) {
+        $user->poolCandidates->each(function ($candidate) use ($section, $headingRank) {
             $section->addTitle($candidate->pool->name[$this->lang] ?? '', $headingRank + 2);
             $this->addLabelText($section, $this->localize('experiences.classification'), $candidate->pool->classification->displayName);
             $this->addLabelText($section, $this->localizeHeading('process_number'), $candidate->pool->process_number);
