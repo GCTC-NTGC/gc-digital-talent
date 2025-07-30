@@ -69,7 +69,6 @@ class ApplicationDocGeneratorTest extends TestCase
             candidate: $application,
             dir: 'test',
             lang: 'en',
-            authenticatedUser: $adminUser,
         );
 
         $this->generator->setAuthenticatedUserId($adminUser->id);

@@ -55,10 +55,9 @@ class UserZipGeneratorTest extends TestCase
             dir: 'test',
             fileName: $fileName,
             lang: 'en',
-            authenticatedUser: $adminUser,
         );
 
-        $generator->setUserId($adminUser->id);
+        $generator->setAuthenticatedUserId($adminUser->id);
         $generator->generate()->write();
         $fileName = $generator->getFileNameWithExtension();
 

@@ -60,7 +60,6 @@ class ApplicationZipGeneratorTest extends TestCase
             fileName: $fileName,
             dir: 'test',
             lang: 'en',
-            authenticatedUser: $adminUser,
         );
 
         $generator->setAuthenticatedUserId($adminUser->id);
