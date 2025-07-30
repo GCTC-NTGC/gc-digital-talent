@@ -48,18 +48,33 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     email
     preferredLang {
       value
+      label {
+        localized
+      }
     }
     preferredLanguageForInterview {
       value
+      label {
+        localized
+      }
     }
     preferredLanguageForExam {
       value
+      label {
+        localized
+      }
     }
     citizenship {
       value
+      label {
+        localized
+      }
     }
     armedForcesStatus {
       value
+      label {
+        localized
+      }
     }
     employeeProfile {
       ...CareerDevelopmentTaskCard
