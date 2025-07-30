@@ -66,7 +66,6 @@ class DevelopmentProgramSeeder extends Seeder
         $allClassifications = Classification::all(['id', 'group', 'level']);
 
         foreach ($models as $model) {
-            $communityId = $allCommunities->sole('key', $model->community->key)->id;
             // turn classification group and levels into an array of IDs to sync
             $classificationIds = array_map(function ($classificationFromModel) use ($allClassifications) {
                 return $allClassifications->sole(
@@ -75,26 +74,24 @@ class DevelopmentProgramSeeder extends Seeder
                 )->id;
             }, $model->eligibleClassifications);
 
-            // complex where conditions preclude the use of updateOrCreate
-            DevelopmentProgram::where('community_id', $communityId)
-                ->where('name->en', $model->name?->en)
-                ->firstOr(fn () => DevelopmentProgram::factory()->create(
-                    [
-                        'community_id' => $communityId,
-                        'name' => [
-                            'en' => $model->name?->en,
-                            'fr' => $model->name?->fr,
-                        ],
-                        'description_for_nominations' => [
-                            'en' => $model->descriptionForNominations?->en,
-                            'fr' => $model->descriptionForNominations?->fr,
-                        ],
-                        'description_for_profile' => [
-                            'en' => $model->descriptionForProfile?->en,
-                            'fr' => $model->descriptionForProfile?->fr,
-                        ],
-                    ]
-                )->eligibleClassifications()->sync($classificationIds));
+            DevelopmentProgram::updateOrCreate(
+                ['name->en' => $model->name?->en], // this should be a key field
+                [
+                    'community_id' => $allCommunities->sole('key', $model->community->key)->id,
+                    'name' => [
+                        'en' => $model->name?->en,
+                        'fr' => $model->name?->fr,
+                    ],
+                    'description_for_nominations' => [
+                        'en' => $model->descriptionForNominations?->en,
+                        'fr' => $model->descriptionForNominations?->fr,
+                    ],
+                    'description_for_profile' => [
+                        'en' => $model->descriptionForProfile?->en,
+                        'fr' => $model->descriptionForProfile?->fr,
+                    ],
+                ]
+            )->eligibleClassifications()->sync($classificationIds);
         }
     }
 }
