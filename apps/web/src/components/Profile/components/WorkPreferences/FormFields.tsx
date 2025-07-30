@@ -182,6 +182,15 @@ const FormFields = ({
         <Field.Legend className="mb-6 text-lg font-bold lg:text-xl">
           {labels.workLocationPreferences}
         </Field.Legend>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Select the flexible work location options you're interested in. Keep in mind that most Government of Canada jobs are hybrid.",
+            id: "ejzPh7",
+            description:
+              "Flexible work locations field label for work location preference form",
+          })}
+        </p>
         <Checklist
           idPrefix="work-location"
           legend={labels.flexibleWorkLocationOptions}

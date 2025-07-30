@@ -9034,6 +9034,10 @@
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
   },
+  "ejzPh7": {
+    "defaultMessage": "Veuillez sélectionner les possibilités souples qui vous intéressent quant au lieu de travail. N’oubliez pas que la plupart des emplois au gouvernement du Canada font l’objet d’un modèle de travail hybride.",
+    "description": "Flexible work locations field label for work location preference form"
+  },
   "elMgS2": {
     "defaultMessage": "Poste actuel",
     "description": "Heading for current position"
