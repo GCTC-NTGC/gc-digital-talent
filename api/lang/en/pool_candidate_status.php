@@ -16,6 +16,7 @@ return [
     'qualified_available' => 'Qualified available',
     'qualified_unavailable' => 'Qualified unavailable',
     'qualified_withdrew' => 'Qualified withdrew',
+    'under_consideration' => 'Under consideration',
     'placed_tentative' => 'Offer in progress',
     'placed_casual' => 'Placed casual',
     'placed_term' => 'Placed term',
