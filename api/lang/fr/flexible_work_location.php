@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'remote' => 'REMOTE',
-    'hybrid' => 'HYBRID',
-    'onsite' => 'ONSITE',
+    'remote' => 'Travail à distance',
+    'hybrid' => 'Travail hybride',
+    'onsite' => 'Travail sur place',
 ];
