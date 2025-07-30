@@ -256,7 +256,7 @@ const JobPlacementDialog = ({
   });
 
   const underConsideration = options?.placementTypes?.find(
-    (placementType) => placementType.value === PlacementType.UnderConsideration,
+    (pt) => pt.value === PlacementType.UnderConsideration.toString(),
   );
 
   let label = intl.formatMessage(commonMessages.notAvailable);
