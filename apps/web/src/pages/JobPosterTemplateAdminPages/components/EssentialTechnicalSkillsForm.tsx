@@ -158,7 +158,6 @@ const EssentialTechnicalSkillsForm = ({
         onEdit={handleEditSkillProficiency}
         onRemove={handleRemoveSkillProficiency}
         onAdd={handleAddSkillProficiency}
-        noToast
         withLevel={true}
         customAddText={intl.formatMessage({
           defaultMessage: "Add an essential technical skill",

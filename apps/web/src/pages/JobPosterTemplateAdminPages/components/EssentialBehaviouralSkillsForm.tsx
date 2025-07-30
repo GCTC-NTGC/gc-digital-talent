@@ -158,7 +158,6 @@ const EssentialBehaviouralSkillsForm = ({
         onEdit={handleEditSkillProficiency}
         onRemove={handleRemoveSkillProficiency}
         onAdd={handleAddSkillProficiency}
-        noToast
         withLevel={true}
         customAddText={intl.formatMessage({
           defaultMessage: "Add an essential behavioural skill",

@@ -160,7 +160,6 @@ const NonessentialTechnicalSkillsForm = ({
         onEdit={handleEditSkillProficiency}
         onRemove={handleRemoveSkillProficiency}
         onAdd={handleAddSkillProficiency}
-        noToast
         withLevel={false}
         customAddText={intl.formatMessage({
           defaultMessage: "Add an asset technical skill",
