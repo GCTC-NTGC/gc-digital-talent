@@ -4,7 +4,7 @@
       {
         "description": {
           "en": "IM work stream - Technical skill family for ATIP (PM/AS classification)",
-          "fr": "IM - groupe de compétences techniques pour le volet de travail ATIP"
+          "fr": "IM - famille de compétences techniques pour le volet de travail ATIP"
         },
         "key": "atip",
         "name": {
@@ -102,6 +102,17 @@
       },
       {
         "description": {
+          "en": "Financial Management develops, manages, and communicates financial policies, systems, and strategies; provides strategic advice on the financial implications of programs and policies; establishes and monitors internal controls, and ensures effective financial reporting and safeguards to support organizational goals and objectives.",
+          "fr": "La gestion financière élabore, gère et communique les politiques, systèmes et stratégies financières ; fournit des conseils stratégiques sur les implications financières des programmes et des politiques ; établit et surveille les contrôles internes, et veille à l'efficacité des rapports financiers et des mesures de protection pour soutenir les objectifs et buts organisationnels."
+        },
+        "key": "financial_management",
+        "name": {
+          "en": "Financial Management",
+          "fr": "Gestion financière"
+        }
+      },
+      {
+        "description": {
           "en": "IM-Information Architecture develops, manages and communicates information architectures that establish, shape information systems and products, to support usability, findability, and the understanding of structured and unstructured data, along with guides the development and maintenance of information architecture artefacts on how they contribute to the achievement of a business’ strategy and delivery of the expected business outcomes.",
           "fr": "IM-Information Architecture développe, gère et communique des architectures d'information qui établissent, façonnent des systèmes et des produits d'information, pour soutenir la facilité d'utilisation, la trouvabilité et la compréhension des données structurées et non structurées, et guide le développement et la maintenance des artefacts d'architecture d'information sur la manière dont ils contribuent. à la réalisation de la stratégie d’une entreprise et à l’obtention des résultats commerciaux attendus."
         },
@@ -158,12 +169,12 @@
       {
         "description": {
           "en": "IT generic work stream - Enterprise Architecture",
-          "fr": "Flux de travail générique de TI - Architecture informatique"
+          "fr": "Flux de travail générique  - Architecture intégrée de la numérique"
         },
         "key": "it_architecture",
         "name": {
           "en": "Enterprise Architecture",
-          "fr": "Architecture d'entreprise"
+          "fr": "Architecture intégrée"
         }
       },
       {
@@ -180,12 +191,12 @@
       {
         "description": {
           "en": "IT generic work stream - Business Line Advisory Services",
-          "fr": "Flux de travail générique de TI - Services de conseil aux entreprises numériques"
+          "fr": "Flux de travail générique - Services consultatifs auprès des secteurs de la numérique"
         },
         "key": "it_project_management",
         "name": {
           "en": "Digital Business Line Advisory Services",
-          "fr": "Services de conseil aux entreprises numériques"
+          "fr": "Services consultatifs auprès des secteurs de la numérique"
         }
       },
       {
@@ -273,7 +284,7 @@
         "key": "technical_advising",
         "name": {
           "en": "IT Planning and Reporting",
-          "fr": "Planification et reddition de comptes pour l'informatique"
+          "fr": "Planification et établissement de rapports en matière de la numérique"
         }
       },
       {
@@ -312,7 +323,7 @@
       {
         "description": {
           "en": "Technical skills family - Working in Government",
-          "fr": "Groupe de compétences techniques - Travailler au sein du gouvernement"
+          "fr": "Famille de compétences techniques - Travailler au sein du gouvernement"
         },
         "key": "working_in_government",
         "name": {
