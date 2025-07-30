@@ -103,9 +103,9 @@ class FileGenerator
      *
      * @param  string  $authenticatedUserId  The authenticated user to scope the generator to
      */
-    public function setAuthenticatedUserId(string $id)
+    public function setAuthenticatedUserId(string $authenticatedUserId)
     {
-        $this->authenticatedUserId = $id;
+        $this->authenticatedUserId = $authenticatedUserId;
 
         return $this;
     }
