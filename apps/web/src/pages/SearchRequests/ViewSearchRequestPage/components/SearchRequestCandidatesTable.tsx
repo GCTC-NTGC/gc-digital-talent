@@ -59,7 +59,6 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       PoolCandidateStatus.QualifiedAvailable,
       PoolCandidateStatus.PlacedCasual,
       PoolCandidateStatus.PlacedTentative,
-      PoolCandidateStatus.UnderConsideration,
     ],
   };
 };
