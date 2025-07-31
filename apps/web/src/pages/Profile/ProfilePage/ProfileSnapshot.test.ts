@@ -15,8 +15,7 @@ function normalizeQuery(q: string[]): string[] {
 }
 
 describe("Profile snapshot tests", () => {
-  // remove .skip in #12648.
-  test.skip("Should have frontend and backend queries matching", async () => {
+  test("Should have frontend and backend queries matching", async () => {
     const frontendQueryLines = normalizeQuery(frontendQuery.split("\n"));
     // expect that the outer layer will be different so remove it from test
     if (

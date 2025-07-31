@@ -44,7 +44,8 @@ const subTitle = defineMessage(pageMessages.subTitle);
 // should match the getProfile query from api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql
 // eslint-disable-next-line camelcase
 export const UserProfile_FragmentText = /** GraphQL */ `
-  fragment UserProfile on User {
+query getProfile($userId: UUID!) {
+  user(id: $userId) {
     id
     firstName
     lastName
@@ -146,6 +147,15 @@ export const UserProfile_FragmentText = /** GraphQL */ `
         fr
       }
     }
+    govPositionType {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    govEndDate
+    govRole
     department {
       id
       departmentNumber
@@ -162,6 +172,8 @@ export const UserProfile_FragmentText = /** GraphQL */ `
         en
         fr
       }
+      maxSalary
+      minSalary
     }
     isWoman
     hasDisability
@@ -175,13 +187,6 @@ export const UserProfile_FragmentText = /** GraphQL */ `
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
-    locationPreferences {
-      value
-      label {
-        en
-        fr
-      }
-    }
     flexibleWorkLocations {
       value
       label {
@@ -420,10 +425,25 @@ export const UserProfile_FragmentText = /** GraphQL */ `
             fr
           }
         }
+        supervisoryPosition
+        supervisedEmployees
+        supervisedEmployeesNumber
+        budgetManagement
+        annualBudgetAllocation
+        seniorManagementStatus
+        cSuiteRoleTitle {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        otherCSuiteRoleTitle
       }
     }
     isProfileComplete
   }
+}
 `;
 
 export const UserProfile_Fragment = graphql(/** GraphQL */ `
