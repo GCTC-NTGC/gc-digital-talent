@@ -15,7 +15,7 @@ const actionBtn = tv({
   variants: {
     disabled: {
       true: {
-        base: "cursor-default text-gray-500 dark:text-gray-300",
+        base: "cursor-default text-gray-500 dark:text-gray-200",
       },
       false: {
         base: "hover:bg-gray-100 focus-visible:bg-focus focus-visible:text-black dark:hover:bg-gray-700",

@@ -248,7 +248,7 @@ const NotificationItem = ({
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           </div>
-          <p className="col-start-2 row-start-1 text-sm/none text-gray-500 dark:text-gray-300">
+          <p className="col-start-2 row-start-1 text-sm/none text-gray-500 dark:text-gray-200">
             {createdAt}
           </p>
         </div>
