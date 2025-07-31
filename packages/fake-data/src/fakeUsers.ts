@@ -8,7 +8,6 @@ import {
   EstimatedLanguageAbility,
   Classification,
   OperationalRequirement,
-  WorkRegion,
   GovEmployeeType,
   Department,
   CitizenshipStatus,
@@ -143,9 +142,6 @@ const generateUser = (
 
     // Applicant info
     hasDiploma: faker.datatype.boolean(),
-    locationPreferences: faker.helpers
-      .arrayElements<WorkRegion>(Object.values(WorkRegion))
-      .map((pref) => toLocalizedEnum(pref)),
     flexibleWorkLocations: faker.helpers
       .arrayElements<FlexibleWorkLocation>(Object.values(FlexibleWorkLocation))
       .map((pref) => toLocalizedEnum(pref)),
@@ -294,9 +290,6 @@ export const fakeUser = (): User => {
 
     // Applicant info
     hasDiploma: faker.datatype.boolean(),
-    locationPreferences: faker.helpers
-      .arrayElements<WorkRegion>(Object.values(WorkRegion))
-      .map((pref) => toLocalizedEnum(pref)),
     flexibleWorkLocations: faker.helpers
       .arrayElements<FlexibleWorkLocation>(Object.values(FlexibleWorkLocation))
       .map((pref) => toLocalizedEnum(pref)),
