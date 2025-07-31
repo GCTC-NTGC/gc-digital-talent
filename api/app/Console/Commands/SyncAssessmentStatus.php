@@ -33,7 +33,7 @@ class SyncAssessmentStatus extends Command
                 [$currentStep, $assessmentStatus] = $candidate->computeAssessmentStatus();
 
                 $candidate->computed_assessment_status = $assessmentStatus;
-                $candidate->computed_assessment_step = $currentStep;
+                $candidate->assessment_step = $currentStep;
 
                 $candidate->save();
 

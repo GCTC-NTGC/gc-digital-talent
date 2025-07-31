@@ -13,10 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->integer('computed_assessment_step')->nullable()->default(1);
+            $table->integer('assessment_step')->nullable()->default(1);
         });
 
-        DB::statement("UPDATE pool_candidates SET computed_assessment_step = (computed_assessment_status->>'currentStep')::int WHERE computed_assessment_status IS NOT NULL");
+        DB::statement("UPDATE pool_candidates SET assessment_step = (computed_assessment_status->>'currentStep')::int WHERE computed_assessment_status IS NOT NULL");
     }
 
     /**
@@ -29,12 +29,12 @@ return new class extends Migration
                 SET computed_assessment_status = jsonb_set(
                     COALESCE(computed_assessment_status, '{}'::jsonb),
                     '{currentStep}',
-                    COALESCE(to_jsonb(computed_assessment_step), 'null'::jsonb)
+                    COALESCE(to_jsonb(assessment_step), 'null'::jsonb)
                 )
         SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->dropColumn('computed_assessment_step');
+            $table->dropColumn('assessment_step');
         });
 
     }

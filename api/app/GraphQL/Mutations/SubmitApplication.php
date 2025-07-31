@@ -53,7 +53,7 @@ final class SubmitApplication
         [$currentStep, $assessmentStatus] = $application->computeAssessmentStatus();
 
         $application->computed_assessment_status = $assessmentStatus;
-        $application->computed_assessment_step = $currentStep;
+        $application->assessment_step = $currentStep;
 
         $application->save();
 

@@ -32,7 +32,7 @@ class ComputeCandidateAssessmentStatus
 
         [$currentStep, $assessmentStatus] = $candidate->computeAssessmentStatus();
 
-        $candidate->computed_assessment_step = $currentStep;
+        $candidate->assessment_step = $currentStep;
         $candidate->computed_assessment_status = $assessmentStatus;
 
         if ($candidate->pool_candidate_status === PoolCandidateStatus::NEW_APPLICATION->name) {
