@@ -162,9 +162,6 @@ export const UpdateUserAsAdmin_Mutation = graphql(/* GraphQL */ `
       indigenousDeclarationSignature
 
       hasDiploma
-      locationPreferences {
-        value
-      }
       locationExemptions
       acceptedOperationalRequirements {
         value
