@@ -583,10 +583,6 @@
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de Talents numériques du GC. À partir d’ici, il est possible de recruter et gérer des talents, trouver des ressources et ajuster les paramètres de la plateforme.",
     "description": "Subtitle for the admin dashboard page"
   },
-  "0YpfAG": {
-    "defaultMessage": "Placement de talents",
-    "description": "Title for candidates tab for a process"
-  },
   "0Z7Ux8": {
     "defaultMessage": "Durée de l'emploi",
     "description": "Label for process employment duration"
@@ -7617,6 +7613,10 @@
   "YEYD5j": {
     "defaultMessage": "Créer<hidden> une possibilité de formation</hidden>",
     "description": "Breadcrumb title for the create training opportunity page link."
+  },
+  "YFEaeG": {
+    "defaultMessage": "Candidats",
+    "description": "Title for candidates tab for a process"
   },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
