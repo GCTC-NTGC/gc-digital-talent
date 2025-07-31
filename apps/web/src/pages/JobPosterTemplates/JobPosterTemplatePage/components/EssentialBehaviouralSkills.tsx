@@ -59,8 +59,8 @@ const EssentialBehaviouralSkills = ({
       jobPosterTemplate,
     ).templateSkills?.filter(
       (templateSkill) =>
-        templateSkill.pivot?.type.value == PoolSkillType.Essential &&
-        templateSkill.skill.category.value == SkillCategory.Behavioural,
+        templateSkill.type.value == PoolSkillType.Essential &&
+        templateSkill.skill?.category.value == SkillCategory.Behavioural,
     ) ?? [];
 
   // the accordion is made for PoolSkills, not JobPosterTemplateSkills

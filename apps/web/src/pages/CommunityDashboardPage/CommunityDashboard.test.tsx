@@ -69,7 +69,7 @@ describe("Render community dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job advertisement templates",
+        name: "Job templates library",
       }),
     ).toBeInTheDocument();
     expect(
