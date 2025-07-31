@@ -1717,6 +1717,7 @@ input CreateUserInput {
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
   flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
