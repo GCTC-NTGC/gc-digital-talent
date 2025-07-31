@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class JobPosterTemplate
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array $essential_technical_skills_notes
  * @property array $essential_behavioural_skills_notes
  * @property array $nonessential_technical_skills_notes
- * @property ?\Illuminate\Database\Eloquent\Relations\Pivot $skills
+ * @property ?\Illuminate\Database\Eloquent\Relations\Pivot $jobPosterTemplateSkills
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
@@ -71,32 +72,37 @@ class JobPosterTemplate extends Model
         return $this->belongsTo(Classification::class);
     }
 
-    /** @return BelongsToMany<Skill, $this> */
-    public function skills(): BelongsToMany
+    /** @return HasMany<JobPosterTemplateSkill, $this> */
+    public function jobPosterTemplateSkills(): HasMany
     {
-        return $this->belongsToMany(Skill::class)
-            ->withPivot('type', 'required_skill_level');
+        return $this->hasMany(JobPosterTemplateSkill::class);
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function essentialTechnicalSkills(): BelongsToMany
     {
-        return $this->skills()
+        return $this->belongsToMany(Skill::class, 'job_poster_template_skill')
             ->wherePivot('type', PoolSkillType::ESSENTIAL->name)
-            ->where('category', SkillCategory::TECHNICAL->name);
+            ->where('category', SkillCategory::TECHNICAL->name)
+            ->withPivot('required_skill_level');
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function essentialBehaviouralSkills(): BelongsToMany
     {
-        return $this->skills()
+        return $this->belongsToMany(Skill::class, 'job_poster_template_skill')
             ->wherePivot('type', PoolSkillType::ESSENTIAL->name)
-            ->where('category', SkillCategory::BEHAVIOURAL->name);
+            ->where('category', SkillCategory::BEHAVIOURAL->name)
+            ->withPivot('required_skill_level');
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function nonessentialTechnicalSkills(): BelongsToMany
     {
-        return $this->skills()
+        return $this->belongsToMany(Skill::class, 'job_poster_template_skill')
             ->wherePivot('type', PoolSkillType::NONESSENTIAL->name)
-            ->where('category', SkillCategory::TECHNICAL->name);
+            ->where('category', SkillCategory::TECHNICAL->name)
+            ->withPivot('required_skill_level');
     }
 
     /** @return BelongsTo<WorkStream, $this> */

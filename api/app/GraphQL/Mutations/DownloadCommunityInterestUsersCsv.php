@@ -34,7 +34,7 @@ final class DownloadCommunityInterestUsersCsv
             );
 
             $generator
-                ->setUserId($user->id)
+                ->setAuthenticatedUserId($user->id)
                 ->setIds($ids)
                 ->setFilters($filters);
 

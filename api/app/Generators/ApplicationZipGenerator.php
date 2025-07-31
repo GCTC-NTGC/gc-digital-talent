@@ -26,7 +26,7 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
             'generalQuestionResponses' => ['generalQuestion'],
         ])
             ->whereIn('id', $this->ids)
-            ->whereAuthorizedToView(['userId' => $this->userId])
+            ->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
                     try {

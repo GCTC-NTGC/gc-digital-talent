@@ -283,7 +283,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'employeeProfile.nextRoleDepartments',
             'employeeProfile.careerObjectiveDepartments',
             'poolCandidates' => function ($query) {
-                $query->whereAuthorizedToView(['userId' => $this->userId]);
+                $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId]);
             },
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
@@ -294,7 +294,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'skills' => 'skillsAdditive',
         ]);
 
-        $query->whereAuthorizedToView(['userId' => $this->userId]);
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId]);
 
         return $query;
 

@@ -15,6 +15,10 @@
     "defaultMessage": "Titre",
     "description": "The title"
   },
+  "+qUwFn": {
+    "defaultMessage": "Modèles d'emplois",
+    "description": "Name of job templates table page"
+  },
   "/62GQm": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de complexité faible à modérée sous une supervision minimale et des tâches de complexité plus élevée sous une supervision et un mentorat modérés. Généralement associée à des postes intermédiaires.",
     "description": "The technical skill level definition for intermediate"
@@ -835,6 +839,10 @@
     "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
     "description": "Casual selection for government employee type."
   },
+  "Ux22rt": {
+    "defaultMessage": "Bibliothèque de modèles d’emploi",
+    "description": "Name of job templates library (previously job advertisement templates) page"
+  },
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
@@ -962,10 +970,6 @@
   "ZMVV2z": {
     "defaultMessage": "Je ne participe à aucun programme de mentorat.",
     "description": "The mentorship status described as not participating."
-  },
-  "ZhOciS": {
-    "defaultMessage": "Modèles d'offres d'emploi",
-    "description": "Name of job advertisement templates page"
   },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",

@@ -1,23 +1,15 @@
 import { defineMessage } from "react-intl";
 
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
+
 const sections = {
   basicDetails: {
     id: "basic-details",
-    title: defineMessage({
-      defaultMessage: "Basic details",
-      id: "tcL+WV",
-      description:
-        "Title of the 'basic details' section of the job poster template page",
-    }),
+    title: jobPosterTemplateMessages.basicDetails,
   },
   keyTasks: {
     id: "key-tasks",
-    shortTitle: defineMessage({
-      defaultMessage: "Key tasks",
-      id: "hkVnr1",
-      description:
-        "Short title of the 'key tasks' section of the job poster template page",
-    }),
+    shortTitle: jobPosterTemplateMessages.keyTasks,
     longTitle: defineMessage({
       defaultMessage: "Key tasks - Examples",
       id: "/Bih8t",
@@ -27,12 +19,7 @@ const sections = {
   },
   essentialTechnicalSkills: {
     id: "essential-technical-skills",
-    shortTitle: defineMessage({
-      defaultMessage: "Essential technical skills",
-      id: "fpm0Bt",
-      description:
-        "Short title of the 'essential technical skills' section of the job poster template page",
-    }),
+    shortTitle: jobPosterTemplateMessages.essentialTechnicalSkills,
     longTitle: defineMessage({
       defaultMessage: "Essential technical skills - Examples",
       id: "6qXF7s",
@@ -42,12 +29,7 @@ const sections = {
   },
   essentialBehaviouralSkills: {
     id: "essential-behavioural-skills",
-    shortTitle: defineMessage({
-      defaultMessage: "Essential behavioural skills",
-      id: "4wIDU6",
-      description:
-        "Short title of the 'essential behavioural skills' section of the job poster template page",
-    }),
+    shortTitle: jobPosterTemplateMessages.essentialBehaviouralSkills,
     longTitle: defineMessage({
       defaultMessage: "Essential behavioural skills - Examples",
       id: "KwJigi",
@@ -57,12 +39,7 @@ const sections = {
   },
   assetTechnicalSkills: {
     id: "asset-technical-skills",
-    shortTitle: defineMessage({
-      defaultMessage: "Asset technical skills",
-      id: "haVipy",
-      description:
-        "Short title of the 'asset technical skills' section of the job poster template page",
-    }),
+    shortTitle: jobPosterTemplateMessages.assetTechnicalSkills,
     longTitle: defineMessage({
       defaultMessage: "Asset technical skills - Examples",
       id: "5zJ+/1",
