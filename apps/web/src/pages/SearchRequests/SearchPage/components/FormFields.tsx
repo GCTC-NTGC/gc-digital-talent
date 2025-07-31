@@ -246,6 +246,7 @@ const FormFields = ({
           trackUnsaved={false}
         />
       </FilterBlock>
+      {/* update apps/playwright/tests/search-workflows.spec.ts when changing the below, or else */}
       <FilterBlock
         id="locationPreferencesFilter"
         title={intl.formatMessage({
@@ -261,6 +262,7 @@ const FormFields = ({
             "Message describing the work location filter in the search form.",
         })}
       >
+        {/* update apps/playwright/tests/search-workflows.spec.ts when changing the above, or else */}
         <Checklist
           idPrefix="locationPreferences"
           id="locationPreferences"
