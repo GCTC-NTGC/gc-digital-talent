@@ -1515,10 +1515,6 @@
     "defaultMessage": "Le gouvernement du Canada est déterminé à observer une norme d’accessibilité élevée conformément à la <accessibilityLink>Norme sur l’accessibilité des sites Web</accessibilityLink> et la <optimizeLink>Norme sur l’optimisation des sites Web et des applications pour appareils mobiles</optimizeLink>. Communiquez avec nous si vous éprouvez des difficultés à utiliser nos pages Web, nos applications ou nos applications mobiles axées sur l’appareil, ou si vous désirez obtenir des documents en médias substituts comme le caractère ordinaire, le Braille ou un autre format approprié.",
     "description": "Paragraph describing accessibility commitment section"
   },
-  "Hv8BFK": {
-    "defaultMessage": "La création d’un modèle d’offre d’emploi a échoué.",
-    "description": "Message displayed when a user fails to update the job poster template"
-  },
   "4lRUZt": {
     "defaultMessage": "Vous êtes sur le point de modifier l’information publiée dans l’annonce suivante",
     "description": "Warning message when attempting to update a published process advertisement"
@@ -1610,10 +1606,6 @@
   "53MCSe": {
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
     "description": "Description for bilingual positions in language requirements dialog"
-  },
-  "w/JEr7": {
-    "defaultMessage": "Tâches principals (français)",
-    "description": "Title for the French key tasks section"
   },
   "55IkTu": {
     "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
@@ -2227,10 +2219,6 @@
     "defaultMessage": "En savoir plus",
     "description": "Heading for the about section of the homepage"
   },
-  "Bftenr": {
-    "defaultMessage": "Détails de l’emploi (français)",
-    "description": "Title for the French job details section"
-  },
   "88dH+F": {
     "defaultMessage": "Revenir à la dernière étape sur laquelle je travaillais",
     "description": "Button text to return back to the last step"
@@ -2582,6 +2570,10 @@
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
+  },
+  "9euxER": {
+    "defaultMessage": "Le modèle d’offre d’emploi a été créé avec succès.",
+    "description": "Message displayed when a user successfully creates the job poster template"
   },
   "9fEw/Y": {
     "defaultMessage": "Notes explicatives sur la décision",
@@ -2971,6 +2963,10 @@
     "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles",
     "description": "List item one, things designers consider for accessibility"
   },
+  "BG2E8g": {
+    "defaultMessage": "Tâches principales (anglais)",
+    "description": "Title for the English key tasks section"
+  },
   "BG9koi": {
     "defaultMessage": "Maintenant que nous en savons un peu plus sur la personne qui présente la candidature, recueillons quelques renseignements sur la personne dont la candidature est présentée. Nous commencerons par vérifier si elle dispose d'un compte sur Talents numériques du GC en utilisant son adresse courriel professionnelle.",
     "description": "Subtitle for nomination nominee step"
@@ -3034,6 +3030,10 @@
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
+  },
+  "Bftenr": {
+    "defaultMessage": "Détails de l’emploi (français)",
+    "description": "Title for the French job details section"
   },
   "BhWVby": {
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
@@ -3811,10 +3811,6 @@
     "defaultMessage": "Prochain type de poste de {firstName}",
     "description": "Title for next role dialog"
   },
-  "eOrKX2": {
-    "defaultMessage": "Consultez ou mettez à jour ce modèle d’offre d’emploi.",
-    "description": "Subtitle for the update job poster template page"
-  },
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
@@ -3963,10 +3959,6 @@
     "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
     "description": "Heading for the obtaining security clearance section"
   },
-  "BG2E8g": {
-    "defaultMessage": "Tâches principales (anglais)",
-    "description": "Title for the English key tasks section"
-  },
   "Fxs+ab": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences.",
     "description": "Skills match subtitle with candidate's name"
@@ -4050,10 +4042,6 @@
   "GDCKBX": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for goals and work style section"
-  },
-  "9euxER": {
-    "defaultMessage": "Le modèle d’offre d’emploi a été créé avec succès.",
-    "description": "Message displayed when a user successfully creates the job poster template"
   },
   "GEULvE": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} one {# expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
@@ -4335,6 +4323,10 @@
     "defaultMessage": "Charger d'autres résultats",
     "description": "Button text to load the next set of results"
   },
+  "Hv8BFK": {
+    "defaultMessage": "La création d’un modèle d’offre d’emploi a échoué.",
+    "description": "Message displayed when a user fails to update the job poster template"
+  },
   "HvD7jI": {
     "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
@@ -4519,10 +4511,6 @@
     "defaultMessage": "Information sur le processus",
     "description": "Page title for the individual pool page"
   },
-  "Ivx6xY": {
-    "defaultMessage": "Fournissez les renseignements de base pour cet emploi.",
-    "description": "Lead-in text for job poster template career template section"
-  },
   "Ia+zNM": {
     "defaultMessage": "Consentement notification par courriel",
     "description": "Legend text for email notification consent checkbox in getting started form"
@@ -4598,6 +4586,10 @@
   "Ivvi/F": {
     "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
     "description": "Question about techniques used for a skill"
+  },
+  "Ivx6xY": {
+    "defaultMessage": "Fournissez les renseignements de base pour cet emploi.",
+    "description": "Lead-in text for job poster template career template section"
   },
   "Iw+DU/": {
     "defaultMessage": "Modifier les compétences techniques pour améliorer",
@@ -7646,6 +7638,10 @@
     "defaultMessage": "Consultez notre base de données pour trouver des talents entièrement qualifiés, prêts à être embauchés sans autre processus concurrentiel. Travaillez avec notre équipe pour mettre la dernière main à vos documents de ressources humaines afin que vous puissiez faire une offre et mettre les talents en place rapidement et facilement.",
     "description": "Description for the digital government talent search"
   },
+  "XKGw16": {
+    "defaultMessage": "Réfléchissez maintenant aux compétences techniques que le ou la titulaire du poste pourrait devoir posséder. Essayez d’inclure des compétences qui sont couramment demandées pour ce type d’emploi ou qui sont la norme dans l’industrie. Un modèle devrait viser à fournir en tout 8 à 12 exemples de compétences parmi lesquelles les gestionnaires pourront choisir, mais n’oubliez pas qu’ils seront libres d’ajouter ou de retirer des compétences au besoin.",
+    "description": "Lead-in text for job poster template technical skills section, paragraph 1"
+  },
   "XKjVO0": {
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
@@ -7838,6 +7834,10 @@
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
     "description": "Learn more dialog question two paragraph one"
   },
+  "YHlvRQ": {
+    "defaultMessage": "Après avoir choisi les compétences techniques, examinons les compétences comportementales. Sélectionnez des exemples de compétences comportementales qu’une personne candidate potentielle doit posséder pour réussir dans son rôle. N’oubliez pas qu’un modèle doit viser à fournir en tout 8 à 12 compétences parmi lesquelles un ou une gestionnaire peut choisir.",
+    "description": "Lead-in text for job poster template behavioural skills section, paragraph 1"
+  },
   "YImugL": {
     "defaultMessage": "Processus actifs de recrutement de talents",
     "description": "Title for the current jobs recruiting candidates"
@@ -7889,6 +7889,10 @@
   "YVhQ4t": {
     "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
     "description": "Message displayed to user after experience fails to be deleted."
+  },
+  "YVsrRv": {
+    "defaultMessage": "Créez un modèle comprenant des recommandations sur le titre d’emploi, les tâches courantes et les compétences.",
+    "description": "Subtitle for the create job poster template page"
   },
   "YVuyjO": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
@@ -8437,10 +8441,6 @@
   "bBz/OJ": {
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
     "description": "List item four, things developers consider for accessibility"
-  },
-  "YVsrRv": {
-    "defaultMessage": "Créez un modèle comprenant des recommandations sur le titre d’emploi, les tâches courantes et les compétences.",
-    "description": "Subtitle for the create job poster template page"
   },
   "bCZOr9": {
     "defaultMessage": "Classification de la personne de référence",
@@ -9198,6 +9198,10 @@
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
     "description": "Text for final sign in step."
   },
+  "eOrKX2": {
+    "defaultMessage": "Consultez ou mettez à jour ce modèle d’offre d’emploi.",
+    "description": "Subtitle for the update job poster template page"
+  },
   "eP8dfW": {
     "defaultMessage": "Voir l’utilisateur",
     "description": "Title for the user information page"
@@ -9281,10 +9285,6 @@
   "elMgS2": {
     "defaultMessage": "Poste actuel",
     "description": "Heading for current position"
-  },
-  "uM3mmt": {
-    "defaultMessage": "Détails de l’emploi (anglais)",
-    "description": "Title for the English job details section"
   },
   "emx1cK": {
     "defaultMessage": "Résumé des filtres",
@@ -12077,10 +12077,6 @@
     "defaultMessage": "Modifications apportées aux procédures obligatoires en 2024",
     "description": "Heading for section describing the 2024 changes to the directive"
   },
-  "XKGw16": {
-    "defaultMessage": "Réfléchissez maintenant aux compétences techniques que le ou la titulaire du poste pourrait devoir posséder. Essayez d’inclure des compétences qui sont couramment demandées pour ce type d’emploi ou qui sont la norme dans l’industrie. Un modèle devrait viser à fournir en tout 8 à 12 exemples de compétences parmi lesquelles les gestionnaires pourront choisir, mais n’oubliez pas qu’ils seront libres d’ajouter ou de retirer des compétences au besoin.",
-    "description": "Lead-in text for job poster template technical skills section, paragraph 1"
-  },
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
     "description": "An introduction to a list of experiences associated with a skill"
@@ -12617,6 +12613,10 @@
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the User table Candidate name column."
   },
+  "uM3mmt": {
+    "defaultMessage": "Détails de l’emploi (anglais)",
+    "description": "Title for the English job details section"
+  },
   "uNKq32": {
     "defaultMessage": "Erreur : la mise à jour du volet de travail a échoué.",
     "description": "Message displayed to user after work stream fails to get updated."
@@ -12936,6 +12936,10 @@
   "w+L6oa": {
     "defaultMessage": "Par date",
     "description": "Tab title for experiences sorted by date in applicant profile."
+  },
+  "w/JEr7": {
+    "defaultMessage": "Tâches principals (français)",
+    "description": "Title for the French key tasks section"
   },
   "w/qZsH": {
     "defaultMessage": "Classification",
@@ -13640,10 +13644,6 @@
   "z6omvn": {
     "defaultMessage": "ne respectent pas les principes de la Charte canadienne des droits et libertés, Loi constitutionnelle de 1982",
     "description": "Comments or contributions list item"
-  },
-  "YHlvRQ": {
-    "defaultMessage": "Après avoir choisi les compétences techniques, examinons les compétences comportementales. Sélectionnez des exemples de compétences comportementales qu’une personne candidate potentielle doit posséder pour réussir dans son rôle. N’oubliez pas qu’un modèle doit viser à fournir en tout 8 à 12 compétences parmi lesquelles un ou une gestionnaire peut choisir.",
-    "description": "Lead-in text for job poster template behavioural skills section, paragraph 1"
   },
   "z7m8Nt": {
     "defaultMessage": "Nous allons maintenant examiner les détails de la candidature que vous souhaitez présenter.",
