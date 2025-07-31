@@ -33,10 +33,10 @@ final readonly class DownloadApplicationDoc
             $generator = new ApplicationDocGenerator(
                 candidate: $targetApplicant,
                 dir: $user->id,
-                lang: App::getLocale()
+                lang: App::getLocale(),
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             $generator->generate()->write();
 

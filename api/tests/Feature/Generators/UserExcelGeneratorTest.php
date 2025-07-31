@@ -56,7 +56,7 @@ class UserExcelGeneratorTest extends TestCase
         );
 
         $generator
-            ->setUserId($adminUser->id)
+            ->setAuthenticatedUserId($adminUser->id)
             ->setIds([$targetUser1->id, $targetUser2->id])
             ->setFilters([]);
 

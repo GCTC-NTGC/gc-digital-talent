@@ -9,7 +9,7 @@ class FileGenerator
 {
     protected ?string $lang;
 
-    protected ?string $userId;
+    protected ?string $authenticatedUserId;
 
     protected string $extension = '';
 
@@ -87,13 +87,13 @@ class FileGenerator
     }
 
     /**
-     * Set the user ID for the generator scopes
+     * Set the authenticated user ID for the generator scopes
      *
-     * @param  string  $userId  The user to scope the generator to
+     * @param  string  $authenticatedUserId  The authenticated user to scope the generator to
      */
-    public function setUserId(string $userId)
+    public function setAuthenticatedUserId(string $authenticatedUserId)
     {
-        $this->userId = $userId;
+        $this->authenticatedUserId = $authenticatedUserId;
 
         return $this;
     }

@@ -36,7 +36,7 @@ final class DownloadPoolCandidatesCsv
             );
 
             $generator
-                ->setUserId($user->id)
+                ->setAuthenticatedUserId($user->id)
                 ->setIds($ids)
                 ->setFilters($filters);
 

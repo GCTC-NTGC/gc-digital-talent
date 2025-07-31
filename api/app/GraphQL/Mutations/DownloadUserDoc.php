@@ -33,7 +33,7 @@ final readonly class DownloadUserDoc
                 lang: App::getLocale(),
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             $generator->generate()->write();
 
