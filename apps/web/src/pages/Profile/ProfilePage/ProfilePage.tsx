@@ -187,13 +187,6 @@ query getProfile($userId: UUID!) {
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
-    locationPreferences {
-      value
-      label {
-        en
-        fr
-      }
-    }
     flexibleWorkLocations {
       value
       label {
