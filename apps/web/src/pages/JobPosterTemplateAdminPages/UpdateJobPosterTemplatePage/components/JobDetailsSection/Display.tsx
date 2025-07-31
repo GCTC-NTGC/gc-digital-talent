@@ -1,11 +1,12 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Chip, Chips, Heading, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import messages from "~/messages/jobPosterTemplateMessages";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
 import { InitialData_Fragment } from "./JobDetailsSection";
 
@@ -43,10 +44,11 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
   return (
     <div className="grid gap-6 sm:grid-cols-2">
       <Heading level="h3" size="h6" className="order-1 m-0 sm:order-1">
-        {intl.formatMessage({
-          defaultMessage: "Job details (English)",
-          id: "uM3mmt",
-          description: "Title for the English job details section",
+        {appendLanguageName({
+          label: intl.formatMessage(jobPosterTemplateMessages.jobDetails),
+          lang: "en",
+          intl,
+          formatted: false,
         })}
       </Heading>
       <div className="order-2 sm:order-3">
@@ -78,10 +80,11 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         ) : null}
       </div>
       <Heading level="h3" size="h6" className="order-6 m-0 sm:order-2">
-        {intl.formatMessage({
-          defaultMessage: "Job details (French)",
-          id: "Bftenr",
-          description: "Title for the French job details section",
+        {appendLanguageName({
+          label: intl.formatMessage(jobPosterTemplateMessages.jobDetails),
+          lang: "fr",
+          intl,
+          formatted: false,
         })}
       </Heading>
       <div className="order-7 sm:order-4">

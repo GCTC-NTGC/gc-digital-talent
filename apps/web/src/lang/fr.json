@@ -2963,10 +2963,6 @@
     "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles",
     "description": "List item one, things designers consider for accessibility"
   },
-  "BG2E8g": {
-    "defaultMessage": "Tâches principales (anglais)",
-    "description": "Title for the English key tasks section"
-  },
   "BG9koi": {
     "defaultMessage": "Maintenant que nous en savons un peu plus sur la personne qui présente la candidature, recueillons quelques renseignements sur la personne dont la candidature est présentée. Nous commencerons par vérifier si elle dispose d'un compte sur Talents numériques du GC en utilisant son adresse courriel professionnelle.",
     "description": "Subtitle for nomination nominee step"
@@ -3030,10 +3026,6 @@
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
-  },
-  "Bftenr": {
-    "defaultMessage": "Détails de l’emploi (français)",
-    "description": "Title for the French job details section"
   },
   "BhWVby": {
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
@@ -12613,10 +12605,6 @@
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the User table Candidate name column."
   },
-  "uM3mmt": {
-    "defaultMessage": "Détails de l’emploi (anglais)",
-    "description": "Title for the English job details section"
-  },
   "uNKq32": {
     "defaultMessage": "Erreur : la mise à jour du volet de travail a échoué.",
     "description": "Message displayed to user after work stream fails to get updated."
@@ -12936,10 +12924,6 @@
   "w+L6oa": {
     "defaultMessage": "Par date",
     "description": "Tab title for experiences sorted by date in applicant profile."
-  },
-  "w/JEr7": {
-    "defaultMessage": "Tâches principals (français)",
-    "description": "Title for the French key tasks section"
   },
   "w/qZsH": {
     "defaultMessage": "Classification",

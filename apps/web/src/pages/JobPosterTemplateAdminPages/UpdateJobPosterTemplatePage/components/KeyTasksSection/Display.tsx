@@ -1,9 +1,11 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 import { Heading } from "@gc-digital-talent/ui";
+
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
 import { InitialData_Fragment } from "./KeyTasksSection";
 
@@ -21,10 +23,11 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
     <div className="grid gap-6 sm:grid-cols-2">
       <div className="flex flex-col gap-6">
         <Heading level="h3" size="h6" className="m-0">
-          {intl.formatMessage({
-            defaultMessage: "Key tasks (English)",
-            id: "BG2E8g",
-            description: "Title for the English key tasks section",
+          {appendLanguageName({
+            label: intl.formatMessage(jobPosterTemplateMessages.keyTasks),
+            lang: "en",
+            intl,
+            formatted: false,
           })}
         </Heading>
         {tasks?.en ? (
@@ -35,10 +38,11 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       </div>
       <div className="flex flex-col gap-6">
         <Heading level="h3" size="h6" className="m-0">
-          {intl.formatMessage({
-            defaultMessage: "Key tasks (French)",
-            id: "w/JEr7",
-            description: "Title for the French key tasks section",
+          {appendLanguageName({
+            label: intl.formatMessage(jobPosterTemplateMessages.keyTasks),
+            lang: "fr",
+            intl,
+            formatted: false,
           })}
         </Heading>
         {tasks?.fr ? (
