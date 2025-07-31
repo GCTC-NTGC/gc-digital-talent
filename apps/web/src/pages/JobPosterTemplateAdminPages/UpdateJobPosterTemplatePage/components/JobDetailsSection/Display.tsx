@@ -5,7 +5,6 @@ import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Chip, Chips, Heading, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import messages from "~/messages/jobPosterTemplateMessages";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
 import { InitialData_Fragment } from "./JobDetailsSection";
@@ -116,7 +115,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         ) : null}
       </div>
       <FieldDisplay
-        label={intl.formatMessage(messages.referenceId)}
+        label={intl.formatMessage(jobPosterTemplateMessages.referenceId)}
         className="order-11"
       >
         {referenceId ?? notProvided}
