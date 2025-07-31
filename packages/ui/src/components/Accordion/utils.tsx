@@ -1,10 +1,23 @@
+import { action } from "@storybook/addon-actions";
+
 import { AccordionMetaDataProps } from "./Accordion";
+import MetaDataButton from "./MetaDataButton";
 
 export const testMetaData: AccordionMetaDataProps["metadata"] = [
   {
     key: "button-id",
     type: "button",
     children: "Button label",
+  },
+  {
+    key: "button-component-id",
+    type: "button-component",
+    component: (
+      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+      <MetaDataButton onClick={action("MetaDataButton.onClick")}>
+        Button component
+      </MetaDataButton>
+    ),
   },
   {
     key: "link-id",
