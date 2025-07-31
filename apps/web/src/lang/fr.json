@@ -7814,13 +7814,13 @@
     "defaultMessage": "Créer<hidden> une possibilité de formation</hidden>",
     "description": "Breadcrumb title for the create training opportunity page link."
   },
-  "YFRIVD": {
-    "defaultMessage": "Modifier les compétences comportementales essentielles",
-    "description": "Trigger to edit the essential behavioural skills"
-  },
   "YFEaeG": {
     "defaultMessage": "Candidats",
     "description": "Title for candidates tab for a process"
+  },
+  "YFRIVD": {
+    "defaultMessage": "Modifier les compétences comportementales essentielles",
+    "description": "Trigger to edit the essential behavioural skills"
   },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
