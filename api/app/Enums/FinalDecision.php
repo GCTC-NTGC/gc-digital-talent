@@ -23,6 +23,18 @@ enum FinalDecision
     case TO_ASSESS;
     case TO_ASSESS_REMOVED;
 
+    // for use in computing qualified recruitment candidacies
+    // FinalDecision::QUALIFIED_PENDING intentionally omitted
+    public static function applicableToQualifiedRecruitment(): array
+    {
+        return [
+            FinalDecision::QUALIFIED->name,
+            FinalDecision::QUALIFIED_EXPIRED->name,
+            FinalDecision::QUALIFIED_PLACED->name,
+            FinalDecision::QUALIFIED_REMOVED->name,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'final_decision';
