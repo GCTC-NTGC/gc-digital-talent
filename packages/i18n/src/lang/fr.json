@@ -835,6 +835,10 @@
     "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
     "description": "Casual selection for government employee type."
   },
+  "Ux22rt": {
+    "defaultMessage": "Bibliothèque de modèles d’emploi",
+    "description": "Name of job templates library (previously job advertisement templates) page"
+  },
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
