@@ -836,6 +836,17 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { department },
+        },
+      }) => department?.name.localized,
+      {
+        id: "department",
+        header: intl.formatMessage(tableMessages.employeeDepartment),
+      },
+    ),
+    columnHelper.accessor(
       ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "jobPlacement",
@@ -960,17 +971,6 @@ const PoolCandidatesTable = ({
       {
         id: "currentLocation",
         header: intl.formatMessage(tableMessages.currentLocation),
-      },
-    ),
-    columnHelper.accessor(
-      ({
-        poolCandidate: {
-          user: { department },
-        },
-      }) => department?.name.localized,
-      {
-        id: "department",
-        header: intl.formatMessage(tableMessages.employeeDepartment),
       },
     ),
     columnHelper.accessor(
