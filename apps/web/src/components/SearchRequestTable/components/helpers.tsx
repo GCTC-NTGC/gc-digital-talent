@@ -39,7 +39,7 @@ export function classificationsCell(
       >
         <>
           {classification.group}
-          <HTMLEntity name="&dash;" />
+          <HTMLEntity name="&hyphen;" />
           {classification.level < 10 ? "0" : ""}
           {classification.level}
         </>
