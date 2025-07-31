@@ -200,7 +200,7 @@ function getMetadata(
               formatString: "PPP",
               intl,
             })}
-            <HTMLEntity name="&hyphen;" className="mx-1" />
+            <HTMLEntity name="&dash;" className="mx-1" />
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
               formatString: "PPP",
