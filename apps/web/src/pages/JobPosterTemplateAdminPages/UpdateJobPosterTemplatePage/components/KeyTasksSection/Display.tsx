@@ -22,8 +22,8 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       <div className="flex flex-col gap-6">
         <Heading level="h3" size="h6" className="m-0">
           {intl.formatMessage({
-            defaultMessage: "English key tasks",
-            id: "FxP6EJ",
+            defaultMessage: "Key tasks (English)",
+            id: "BG2E8g",
             description: "Title for the English key tasks section",
           })}
         </Heading>
@@ -36,8 +36,8 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       <div className="flex flex-col gap-6">
         <Heading level="h3" size="h6" className="m-0">
           {intl.formatMessage({
-            defaultMessage: "French key tasks",
-            id: "54+ZUk",
+            defaultMessage: "Key tasks (French)",
+            id: "w/JEr7",
             description: "Title for the French key tasks section",
           })}
         </Heading>

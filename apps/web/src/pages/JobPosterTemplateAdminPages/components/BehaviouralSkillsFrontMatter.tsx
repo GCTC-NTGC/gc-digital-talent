@@ -21,8 +21,8 @@ const BehaviouralSkillsFrontMatter = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "With technical skills chosen, let’s look at behavioural skills. Select examples of behavioural skills based on what a potential candidate would need to succeed in the role. Don’t forget, in total, a template should aim to provide 8 to 12 skills for a manager to choose from. As you add skills, the counter will help you keep track of your total.",
-            id: "z7UQ5V",
+              "With technical skills chosen, let's look at behavioural skills. Select examples of behavioural skills based on what a potential candidate would need to succeed in the role. Don't forget, in total, a template should aim to provide 8 to 12 skills for a manager to choose from.",
+            id: "YHlvRQ",
             description:
               "Lead-in text for job poster template behavioural skills section, paragraph 1",
           })}

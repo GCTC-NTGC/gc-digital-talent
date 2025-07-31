@@ -44,8 +44,8 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
     <div className="grid gap-6 sm:grid-cols-2">
       <Heading level="h3" size="h6" className="order-1 m-0 sm:order-1">
         {intl.formatMessage({
-          defaultMessage: "English job details",
-          id: "elnOtk",
+          defaultMessage: "Job details (English)",
+          id: "uM3mmt",
           description: "Title for the English job details section",
         })}
       </Heading>
@@ -79,8 +79,8 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
       </div>
       <Heading level="h3" size="h6" className="order-6 m-0 sm:order-2">
         {intl.formatMessage({
-          defaultMessage: "French job details",
-          id: "87zpH7",
+          defaultMessage: "Job details (French)",
+          id: "Bftenr",
           description: "Title for the French job details section",
         })}
       </Heading>

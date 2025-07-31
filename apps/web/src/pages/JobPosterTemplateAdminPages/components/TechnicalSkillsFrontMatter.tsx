@@ -21,8 +21,8 @@ const TechnicalSkillsFrontMatter = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Now consider what technical skills this role might need. Aim to include skills that are commonly requested for this type of role or are industry standard. In total, a template should aim to provide 8 to 12 skill examples for the manager to select from, but keep in mind that they will be free to add or remove skills as needed. As you add skills, the counter in each section will help you keep track of your total.",
-            id: "rcFCSd",
+              "Now consider what technical skills this role might need. Aim to include skills that are commonly requested for this type of role or are industry standard. In total, a template should aim to provide 8 to 12 skill examples for the manager to select from, but keep in mind that they will be free to add or remove skills as needed.",
+            id: "XKGw16",
             description:
               "Lead-in text for job poster template technical skills section, paragraph 1",
           })}

@@ -19,9 +19,8 @@ const JobDetailsFrontMatter = () => {
       </Heading>
       <p>
         {intl.formatMessage({
-          defaultMessage:
-            "To get started, select the job's classification and level. Once that's set, you'll be prompted to fill out additional details about the job in both official languages.",
-          id: "IZojK4",
+          defaultMessage: "Provide the basic details for this job.",
+          id: "Ivx6xY",
           description:
             "Lead-in text for job poster template career template section",
         })}

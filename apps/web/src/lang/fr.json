@@ -1515,7 +1515,7 @@
     "defaultMessage": "Le gouvernement du Canada est déterminé à observer une norme d’accessibilité élevée conformément à la <accessibilityLink>Norme sur l’accessibilité des sites Web</accessibilityLink> et la <optimizeLink>Norme sur l’optimisation des sites Web et des applications pour appareils mobiles</optimizeLink>. Communiquez avec nous si vous éprouvez des difficultés à utiliser nos pages Web, nos applications ou nos applications mobiles axées sur l’appareil, ou si vous désirez obtenir des documents en médias substituts comme le caractère ordinaire, le Braille ou un autre format approprié.",
     "description": "Paragraph describing accessibility commitment section"
   },
-  "4k82V+": {
+  "Hv8BFK": {
     "defaultMessage": "La création d’un modèle d’offre d’emploi a échoué.",
     "description": "Message displayed when a user fails to update the job poster template"
   },
@@ -1611,7 +1611,7 @@
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
     "description": "Description for bilingual positions in language requirements dialog"
   },
-  "54+ZUk": {
+  "w/JEr7": {
     "defaultMessage": "Tâches principals (français)",
     "description": "Title for the French key tasks section"
   },
@@ -2227,7 +2227,7 @@
     "defaultMessage": "En savoir plus",
     "description": "Heading for the about section of the homepage"
   },
-  "87zpH7": {
+  "Bftenr": {
     "defaultMessage": "Détails de l’emploi (français)",
     "description": "Title for the French job details section"
   },
@@ -3811,7 +3811,7 @@
     "defaultMessage": "Prochain type de poste de {firstName}",
     "description": "Title for next role dialog"
   },
-  "F9a6fy": {
+  "eOrKX2": {
     "defaultMessage": "Consultez ou mettez à jour ce modèle d’offre d’emploi.",
     "description": "Subtitle for the update job poster template page"
   },
@@ -3963,7 +3963,7 @@
     "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
     "description": "Heading for the obtaining security clearance section"
   },
-  "FxP6EJ": {
+  "BG2E8g": {
     "defaultMessage": "Tâches principales (anglais)",
     "description": "Title for the English key tasks section"
   },
@@ -4051,7 +4051,7 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for goals and work style section"
   },
-  "GETrdQ": {
+  "9euxER": {
     "defaultMessage": "Le modèle d’offre d’emploi a été créé avec succès.",
     "description": "Message displayed when a user successfully creates the job poster template"
   },
@@ -4519,7 +4519,7 @@
     "defaultMessage": "Information sur le processus",
     "description": "Page title for the individual pool page"
   },
-  "IZojK4": {
+  "Ivx6xY": {
     "defaultMessage": "Fournissez les renseignements de base pour cet emploi.",
     "description": "Lead-in text for job poster template career template section"
   },
@@ -8438,7 +8438,7 @@
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
     "description": "List item four, things developers consider for accessibility"
   },
-  "bC7MK4": {
+  "YVsrRv": {
     "defaultMessage": "Créez un modèle comprenant des recommandations sur le titre d’emploi, les tâches courantes et les compétences.",
     "description": "Subtitle for the create job poster template page"
   },
@@ -9282,7 +9282,7 @@
     "defaultMessage": "Poste actuel",
     "description": "Heading for current position"
   },
-  "elnOtk": {
+  "uM3mmt": {
     "defaultMessage": "Détails de l’emploi (anglais)",
     "description": "Title for the English job details section"
   },
@@ -12077,7 +12077,7 @@
     "defaultMessage": "Modifications apportées aux procédures obligatoires en 2024",
     "description": "Heading for section describing the 2024 changes to the directive"
   },
-  "rcFCSd": {
+  "XKGw16": {
     "defaultMessage": "Réfléchissez maintenant aux compétences techniques que le ou la titulaire du poste pourrait devoir posséder. Essayez d’inclure des compétences qui sont couramment demandées pour ce type d’emploi ou qui sont la norme dans l’industrie. Un modèle devrait viser à fournir en tout 8 à 12 exemples de compétences parmi lesquelles les gestionnaires pourront choisir, mais n’oubliez pas qu’ils seront libres d’ajouter ou de retirer des compétences au besoin.",
     "description": "Lead-in text for job poster template technical skills section, paragraph 1"
   },
@@ -13641,7 +13641,7 @@
     "defaultMessage": "ne respectent pas les principes de la Charte canadienne des droits et libertés, Loi constitutionnelle de 1982",
     "description": "Comments or contributions list item"
   },
-  "z7UQ5V": {
+  "YHlvRQ": {
     "defaultMessage": "Après avoir choisi les compétences techniques, examinons les compétences comportementales. Sélectionnez des exemples de compétences comportementales qu’une personne candidate potentielle doit posséder pour réussir dans son rôle. N’oubliez pas qu’un modèle doit viser à fournir en tout 8 à 12 compétences parmi lesquelles un ou une gestionnaire peut choisir.",
     "description": "Lead-in text for job poster template behavioural skills section, paragraph 1"
   },

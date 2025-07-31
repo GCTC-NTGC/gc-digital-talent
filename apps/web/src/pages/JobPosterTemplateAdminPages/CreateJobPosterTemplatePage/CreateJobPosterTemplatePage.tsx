@@ -205,8 +205,8 @@ const CreateJobPosterTemplate = ({
   const handleError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Failed creating job poster template",
-        id: "4k82V+",
+        defaultMessage: "Failed creating job advertisement template",
+        id: "Hv8BFK",
         description:
           "Message displayed when a user fails to update the job poster template",
       }),
@@ -223,8 +223,9 @@ const CreateJobPosterTemplate = ({
         if (result.data?.createJobPosterTemplate?.id) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Job poster template created successfully!",
-              id: "GETrdQ",
+              defaultMessage:
+                "Job advertisement template created successfully!",
+              id: "9euxER",
               description:
                 "Message displayed when a user successfully creates the job poster template",
             }),
@@ -245,8 +246,8 @@ const CreateJobPosterTemplate = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Draft or publish a job advertisement template to the template library.",
-    id: "bC7MK4",
+      "Create a template including recommendations for the job title, common tasks, and skills.",
+    id: "YVsrRv",
     description: "Subtitle for the create job poster template page",
   });
 

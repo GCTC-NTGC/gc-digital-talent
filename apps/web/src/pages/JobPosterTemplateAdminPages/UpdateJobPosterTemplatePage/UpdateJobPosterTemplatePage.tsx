@@ -89,9 +89,8 @@ const UpdateJobPosterTemplate = ({
   const pageTitle = getLocalizedName(initialData.name, intl);
 
   const subtitle = intl.formatMessage({
-    defaultMessage:
-      "Update, archive, or delete this job advertisement template from the template library.",
-    id: "F9a6fy",
+    defaultMessage: "View or update this job advertisement template.",
+    id: "eOrKX2",
     description: "Subtitle for the update job poster template page",
   });
 
