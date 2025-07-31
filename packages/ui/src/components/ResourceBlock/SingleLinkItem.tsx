@@ -1,4 +1,4 @@
-import ArrowSmallRightIcon from "@heroicons/react/20/solid/ArrowSmallRightIcon";
+import ArrowLongRightIcon from "@heroicons/react/16/solid/ArrowLongRightIcon";
 import { ReactNode } from "react";
 
 import Link, { LinkProps } from "../Link";
@@ -41,8 +41,7 @@ const SingleLinkItem = ({
           href={href}
           color="black"
           className="font-bold"
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          utilityIcon={ArrowSmallRightIcon}
+          utilityIcon={ArrowLongRightIcon}
         >
           {title}
         </Link>
