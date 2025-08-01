@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
 
-import { Container, Link, Pending } from "@gc-digital-talent/ui";
+import { Container, Link, Pending, Image } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import {
   graphql,
@@ -147,8 +147,11 @@ export const Home = ({ query }: HomeProps) => {
                     <div className="relative xs:size-full">
                       <div className="absolute -right-6 -mt-9 size-48 rounded-full bg-primary/10 dark:bg-primary-300/30" />
                       <div className="absolute -bottom-18 -left-33 size-90 rounded-full bg-secondary/10 dark:bg-secondary-300/30" />
-                      <img
+                      <Image
                         src={womanSmiling}
+                        width={420}
+                        height={630}
+                        loading="lazy"
                         alt={intl.formatMessage({
                           defaultMessage:
                             "Indigenous woman wearing a jean jacket which contains several different pins.",
@@ -158,8 +161,11 @@ export const Home = ({ query }: HomeProps) => {
                         })}
                         className="relative min-h-[60vh] object-cover xs:size-full xs:min-h-[initial]"
                       />
-                      <img
+                      <Image
                         src={feathers}
+                        width={625}
+                        height={251}
+                        loading="lazy"
                         alt={intl.formatMessage({
                           defaultMessage: "Two feathers tied together.",
                           id: "0D8Efk",
@@ -221,7 +227,10 @@ export const Home = ({ query }: HomeProps) => {
               <div className="xs:order-2 xs:col-span-3">
                 <div className="relative xs:size-full">
                   <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
-                  <img
+                  <Image
+                    height={500}
+                    width={500}
+                    loading="lazy"
                     src={manOnComputer}
                     alt={intl.formatMessage({
                       defaultMessage: "Indigenous man working at a computer.",
@@ -231,8 +240,11 @@ export const Home = ({ query }: HomeProps) => {
                     })}
                     className="relative size-full min-h-[60vh] object-cover xs:min-h-[initial]"
                   />
-                  <img
+                  <Image
                     src={gloves}
+                    width={420}
+                    height={462}
+                    loading="lazy"
                     alt={intl.formatMessage({
                       defaultMessage: "Métis style gloves with floral beading.",
                       id: "aPLL9Z",
@@ -295,8 +307,11 @@ export const Home = ({ query }: HomeProps) => {
               <div className="xs:col-span-3">
                 <div className="relative xs:size-full">
                   <Triangle className="absolute -top-8 -left-8 z-[1] w-[120%] text-secondary xs:-top-12 xs:-left-12 dark:text-secondary-300" />
-                  <img
+                  <Image
                     src={applicant}
+                    width={500}
+                    height={500}
+                    loading="lazy"
                     alt={intl.formatMessage({
                       defaultMessage:
                         "Indigenous woman smiling, wearing a brown sweater and glasses.",
@@ -306,8 +321,11 @@ export const Home = ({ query }: HomeProps) => {
                     })}
                     className="relative z-[2] min-h-[60vh] object-cover xs:size-full xs:min-h-[initial]"
                   />
-                  <img
+                  <Image
                     src={ulu}
+                    width={540}
+                    height={341}
+                    loading="lazy"
                     alt={intl.formatMessage({
                       defaultMessage: "Ulu, an Inuit tool used by Inuit women.",
                       id: "IIZNzj",
@@ -352,8 +370,11 @@ export const Home = ({ query }: HomeProps) => {
                     },
                   )}
                 </p>
-                <img
+                <Image
                   src={ulu}
+                  width={540}
+                  height={341}
+                  loading="lazy"
                   alt={intl.formatMessage({
                     defaultMessage: "Ulu, an Inuit tool used by Inuit women.",
                     id: "IIZNzj",
@@ -398,8 +419,11 @@ export const Home = ({ query }: HomeProps) => {
             <div>
               <div className="grid grid-cols-1 grid-rows-2 shadow-xl xs:grid-cols-[1fr_2fr] xs:grid-rows-1 sm:grid-cols-2 lg:grid-cols-[4fr_3fr]">
                 <div className="relative xs:col-start-1">
-                  <img
+                  <Image
                     src={lowerBack}
+                    width={710}
+                    height={635}
+                    loading="lazy"
                     alt={intl.formatMessage({
                       defaultMessage: "Male Traditional dancer in regalia.",
                       id: "9VPBwR",
@@ -678,8 +702,11 @@ export const Home = ({ query }: HomeProps) => {
                 </div>
                 <div className="bg-secondary-300 p-12 pb-0 text-center xs:py-18 xs:text-left sm:px-18 sm:py-30 dark:bg-secondary-500">
                   <div className="absolute top-0 right-0 size-full overflow-hidden">
-                    <img
+                    <Image
                       src={iconWatermark}
+                      width={94}
+                      height={87}
+                      loading="lazy"
                       alt=""
                       className="absolute -right-12 -bottom-30 w-[120%] max-w-[initial] opacity-40 xs:-right-24 xs:-bottom-42 xs:w-100 lg:w-140"
                     />
@@ -712,9 +739,12 @@ export const Home = ({ query }: HomeProps) => {
                       <AccommodationsDialog />
                     </div>
                     <div className="relative sm:col-span-2 lg:col-span-1">
-                      <img
+                      <Image
                         className="block xs:absolute xs:-right-12 xs:-bottom-18 sm:-right-18 sm:-bottom-30"
                         src={indigenousWoman}
+                        width={500}
+                        height={525}
+                        loading="lazy"
                         alt={intl.formatMessage({
                           defaultMessage:
                             "Indigenous woman wearing a red shirt working on a laptop.",

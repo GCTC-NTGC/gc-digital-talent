@@ -9,6 +9,7 @@ import {
   Container,
   CTALink,
   Heading,
+  Image,
   Link,
   Ul,
   Well,
@@ -158,8 +159,11 @@ export const Component = () => {
                 <div className="xs:col-span-3">
                   <div className="relative xs:size-full">
                     <TopRightFrame className="absolute -top-6 -right-6 w-4/5" />
-                    <img
+                    <Image
                       src={section1Img}
+                      width={420}
+                      height={629}
+                      loading="lazy"
                       alt={intl.formatMessage({
                         defaultMessage:
                           "Indigenous woman exchanging virtually with apprentices on a laptop.",
@@ -169,8 +173,11 @@ export const Component = () => {
                       })}
                       className="relative mx-auto my-0 block h-full min-h-[60vh] w-full object-cover xs:min-h-[initial]"
                     />
-                    <img
+                    <Image
                       src={section1FlourishImg}
+                      width={153}
+                      height={450}
+                      loading="lazy"
                       alt={intl.formatMessage({
                         defaultMessage:
                           "traditional handmade artwork of a beaded flower and leaves.",
@@ -357,8 +364,11 @@ export const Component = () => {
                   <div className="relative xs:h-full xs:w-full">
                     <div className="dark:primary-300/10 absolute -top-24 -right-36 size-72 rounded-full bg-primary-500/10 sm:-right-24 sm:size-96 lg:-top-36 lg:-right-36 lg:size-128" />
                     <div className="relative">
-                      <img
+                      <Image
                         src={section2Img}
+                        width={420}
+                        height={629}
+                        loading="lazy"
                         alt={intl.formatMessage({
                           defaultMessage:
                             "Indigenous man working with his policy team using a laptop.",
@@ -368,8 +378,11 @@ export const Component = () => {
                         })}
                         className="relative mx-auto my-0 block object-cover"
                       />
-                      <img
+                      <Image
                         src={section2FlourishImg}
+                        width={420}
+                        height={312}
+                        loading="lazy"
                         alt={intl.formatMessage({
                           defaultMessage:
                             "Hummingbird in flight, which represents the messenger of joy in many Indigenous communities",
@@ -571,8 +584,11 @@ export const Component = () => {
               <div className="pb-12 xs:col-span-3 xs:pb-18 sm:pb-30">
                 <div className="relative">
                   <Triangle className="absolute -top-6 -right-6 w-4/5 -scale-x-100 text-primary-600 dark:text-primary-200" />
-                  <img
+                  <Image
                     src={section5Img}
+                    width={420}
+                    height={629}
+                    loading="lazy"
                     alt={intl.formatMessage({
                       defaultMessage:
                         "Indigenous woman taking a break from her program delivery work on a laptop.",
@@ -582,8 +598,11 @@ export const Component = () => {
                     })}
                     className="relative mx-auto my-0 block size-full min-h-128 object-cover object-[50%_10%] xs:min-h-[initial]"
                   />
-                  <img
+                  <Image
                     src={section5FlourishImg}
+                    width={420}
+                    height={239}
+                    loading="lazy"
                     alt={intl.formatMessage({
                       defaultMessage:
                         "Indigenous talking stick, which represents respect in many Indigenous communities.",
