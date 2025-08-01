@@ -193,6 +193,16 @@ const FormFields = ({
         <Field.Legend className="mb-6 text-lg font-bold lg:text-xl">
           {labels.workLocationPreferences}
         </Field.Legend>
+        <Checklist
+          idPrefix="work-location"
+          legend={labels.workLocationPreferences}
+          name="locationPreferences"
+          id="locationPreferences"
+          items={localizedEnumToOptions(
+            sortWorkRegion(data?.workRegions),
+            intl,
+          )}
+        />
         <p>
           {intl.formatMessage({
             defaultMessage:

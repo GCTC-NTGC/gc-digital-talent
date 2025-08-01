@@ -4,6 +4,7 @@ import { empty, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getOperationalRequirement,
+  getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
@@ -107,6 +108,26 @@ const Display = ({
       <FieldDisplay label={labels.currentLocation}>
         {formatLocation({ city: currentCity, region: currentProvince, intl })}
       </FieldDisplay>
+      <div>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Job locations",
+            id: "K+F5H7",
+            description: "Job locations label",
+          })}
+        />
+        {locations?.length ? (
+          <Ul>
+            {locations.map((location) => (
+              <li key={location.value}>
+                {intl.formatMessage(getWorkRegionsDetailed(location.value))}
+              </li>
+            ))}
+          </Ul>
+        ) : (
+          notProvided
+        )}
+      </div>
       <div>
         <FieldDisplay
           label={intl.formatMessage(

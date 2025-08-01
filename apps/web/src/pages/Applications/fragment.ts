@@ -134,6 +134,13 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       indigenousDeclarationSignature
       isVisibleMinority
       hasDiploma
+      locationPreferences {
+        value
+        label {
+          en
+          fr
+        }
+      }
       flexibleWorkLocations {
         value
         label {

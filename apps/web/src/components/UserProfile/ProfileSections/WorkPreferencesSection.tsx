@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Ul, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
+  getLocalizedName,
   getOperationalRequirement,
   OperationalRequirements,
 } from "@gc-digital-talent/i18n";

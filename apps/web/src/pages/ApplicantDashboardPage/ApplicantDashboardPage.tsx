@@ -150,6 +150,13 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       }
     }
     positionDuration
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     flexibleWorkLocations {
       value
       label {
