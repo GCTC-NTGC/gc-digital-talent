@@ -640,6 +640,7 @@ class PoolCandidatePolicyTest extends TestCase
         }
 
         $placedStatuses = [
+            PoolCandidateStatus::UNDER_CONSIDERATION->name,
             PoolCandidateStatus::PLACED_TENTATIVE->name,
             PoolCandidateStatus::PLACED_CASUAL->name,
             PoolCandidateStatus::PLACED_TERM->name,

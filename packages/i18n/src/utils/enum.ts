@@ -267,6 +267,7 @@ export function sortOpportunityLength(
 export function sortPlacementType(placementTypes?: MaybeLocalizedEnums) {
   return sortLocalizedEnums(
     [
+      PlacementType.UnderConsideration,
       PlacementType.PlacedTentative,
       PlacementType.PlacedCasual,
       PlacementType.PlacedTerm,

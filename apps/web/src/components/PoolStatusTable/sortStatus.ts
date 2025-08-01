@@ -10,6 +10,7 @@ const sortOrder = [
   PoolCandidateStatus.PlacedTerm,
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedTentative,
+  PoolCandidateStatus.UnderConsideration,
   PoolCandidateStatus.QualifiedAvailable,
   PoolCandidateStatus.QualifiedUnavailable,
   PoolCandidateStatus.QualifiedWithdrew,

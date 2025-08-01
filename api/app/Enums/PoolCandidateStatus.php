@@ -21,6 +21,7 @@ enum PoolCandidateStatus
     case QUALIFIED_AVAILABLE;
     case QUALIFIED_UNAVAILABLE;
     case QUALIFIED_WITHDREW;
+    case UNDER_CONSIDERATION;
     case PLACED_TENTATIVE;
     case PLACED_CASUAL;
     case PLACED_TERM;
@@ -40,6 +41,7 @@ enum PoolCandidateStatus
     public static function placedGroup(): array
     {
         return [
+            PoolCandidateStatus::UNDER_CONSIDERATION->name,
             PoolCandidateStatus::PLACED_CASUAL->name,
             PoolCandidateStatus::PLACED_INDETERMINATE->name,
             PoolCandidateStatus::PLACED_TENTATIVE->name,

@@ -150,6 +150,7 @@ class CandidateFinalDecisionTest extends TestCase
             'Placed indeterminate' => [PoolCandidateStatus::PLACED_INDETERMINATE->name, $qualifiedPlaced],
             'Placed term' => [PoolCandidateStatus::PLACED_TERM->name, $qualifiedPlaced],
             'Placed tentative' => [PoolCandidateStatus::PLACED_TENTATIVE->name, $qualifiedPlaced],
+            'Under consideration' => [PoolCandidateStatus::UNDER_CONSIDERATION->name, $qualifiedPlaced],
 
             // Disqualified
             'Screened out assessment' => [PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name, $disqualified],
