@@ -8,6 +8,7 @@ import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { checkboxRadioStyles, inputStateStyles } from "../../styles";
 import useFieldState from "../../hooks/useFieldState";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const checkbox = tv({
   extend: checkboxRadioStyles,
@@ -57,6 +58,7 @@ const Checkbox = ({
     formState: { errors },
   } = useFormContext();
   const shouldReduceMotion = useReducedMotion();
+  useRegisterFormLabel(name, label);
   const { label: labelStyles, input: inputStyles } = checkbox({
     inCheckList,
     shouldReduceMotion: shouldReduceMotion ?? false,

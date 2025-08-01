@@ -8,6 +8,7 @@ import { nodeToString } from "@gc-digital-talent/helpers";
 import { CommonInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import Field from "../Field";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 export type SwitchInputProps = SwitchProps & {
   id: CommonInputProps["id"];
@@ -28,6 +29,7 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
       watch,
       formState: { errors, defaultValues },
     } = useFormContext<Record<string, boolean>>();
+    useRegisterFormLabel(name, label);
     const value = watch(name);
     const defaultValue = Boolean(defaultValues?.[name]);
     const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
