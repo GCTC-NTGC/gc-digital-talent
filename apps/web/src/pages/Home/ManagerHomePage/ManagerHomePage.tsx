@@ -41,6 +41,11 @@ const pageSubtitle = defineMessage({
 const ManagerHomePage = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const commonFeatureImgProps = {
+    height: 300,
+    loading: "lazy",
+    width: 400,
+  };
 
   return (
     <>
@@ -228,7 +233,10 @@ const ManagerHomePage = () => {
         <div className="mt-12 grid gap-6 xs:grid-cols-3">
           <FeatureBlock
             content={{
-              img: { path: peopleGatheredAroundLaptop },
+              img: {
+                path: peopleGatheredAroundLaptop,
+                ...commonFeatureImgProps,
+              },
               title: intl.formatMessage({
                 defaultMessage: "Get hiring experience",
                 id: "SfhT1q",
@@ -278,7 +286,7 @@ const ManagerHomePage = () => {
           />
           <FeatureBlock
             content={{
-              img: { path: peopleSittingOnCouch },
+              img: { path: peopleSittingOnCouch, ...commonFeatureImgProps },
               title: intl.formatMessage({
                 defaultMessage: "Apply for manager jobs",
                 id: "HHtv+9",
@@ -303,7 +311,7 @@ const ManagerHomePage = () => {
           />
           <FeatureBlock
             content={{
-              img: { path: peopleSittingInLine },
+              img: { path: peopleSittingInLine, ...commonFeatureImgProps },
               title: intl.formatMessage({
                 defaultMessage: "Ready for an executive role?",
                 id: "7TwG/b",
