@@ -66,8 +66,8 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      assessmentStep
       assessmentStatus {
-        currentStep
         overallAssessmentStatus
       }
       placedDepartment {
@@ -239,6 +239,7 @@ const UserCandidatesTable = ({
         cell: ({ row: { original: poolCandidate } }) =>
           finalDecisionCell(
             poolCandidate.finalDecision,
+            poolCandidate.assessmentStep,
             poolCandidate.assessmentStatus,
             intl,
           ),

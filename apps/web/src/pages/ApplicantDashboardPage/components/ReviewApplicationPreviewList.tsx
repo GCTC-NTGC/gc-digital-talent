@@ -27,12 +27,12 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     finalDecision {
       value
     }
+    assessmentStep
     assessmentStatus {
       assessmentStepStatuses {
         step
       }
       overallAssessmentStatus
-      currentStep
     }
     pool {
       id
@@ -98,6 +98,7 @@ const ReviewApplicationPreviewList = ({
                 application.finalDecisionAt,
                 application.finalDecision?.value,
                 application.pool.areaOfSelection?.value,
+                application.assessmentStep,
                 application.assessmentStatus,
                 application.pool.screeningQuestionsCount,
                 intl,

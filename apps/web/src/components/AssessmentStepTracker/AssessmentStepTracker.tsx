@@ -57,8 +57,8 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
       }
       hasPriorityEntitlement
     }
+    assessmentStep
     assessmentStatus {
-      currentStep
       assessmentStepStatuses {
         decision
         step

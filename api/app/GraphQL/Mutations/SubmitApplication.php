@@ -50,9 +50,10 @@ final class SubmitApplication
 
         $application->setApplicationSnapshot(false);
 
-        $assessmentStatus = $application->computeAssessmentStatus();
+        [$currentStep, $assessmentStatus] = $application->computeAssessmentStatus();
 
         $application->computed_assessment_status = $assessmentStatus;
+        $application->assessment_step = $currentStep;
 
         $application->save();
 

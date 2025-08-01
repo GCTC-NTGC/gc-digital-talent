@@ -68,10 +68,10 @@ const generatePoolCandidate = (
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
+    assessmentStep: 1,
     assessmentStatus: {
       assessmentStepStatuses: [],
       overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
-      currentStep: 1,
     },
     finalDecision: toLocalizedEnum(
       faker.helpers.arrayElement<FinalDecision>(Object.values(FinalDecision)),
