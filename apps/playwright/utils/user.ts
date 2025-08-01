@@ -9,6 +9,7 @@ import {
   UpdateUserAsUserInput,
   Scalars,
   FlexibleWorkLocation,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
@@ -28,6 +29,7 @@ export const defaultUser: Partial<CreateUserInput> = {
   lookingForEnglish: true,
   isGovEmployee: true,
   hasPriorityEntitlement: false,
+  locationPreferences: [WorkRegion.Atlantic],
   flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
   positionDuration: [PositionDuration.Permanent],
   citizenship: CitizenshipStatus.Citizen,

@@ -1148,6 +1148,7 @@ class UserTest extends TestCase
         // Create initial set of 5 users with incomplete profiles.
         User::factory()->count(5)->create([
             'current_province' => null,
+            'location_preferences' => null,
             'flexible_work_locations' => [],
             'looking_for_english' => null,
             'looking_for_french' => null,
@@ -1157,6 +1158,7 @@ class UserTest extends TestCase
         // Create some partially complete users.
         User::factory()->count(2)->create([
             'current_province' => 'ONTARIO',
+            'location_preferences' => null,
             'flexible_work_locations' => [],
             'looking_for_english' => false,
             'looking_for_french' => true,
@@ -1178,6 +1180,7 @@ class UserTest extends TestCase
         User::factory()->count(3)
             ->create([
                 'current_province' => 'ONTARIO',
+                'location_preferences' => ['PRAIRIE'],
                 'flexible_work_locations' => [FlexibleWorkLocation::HYBRID->name],
                 'looking_for_english' => null,
                 'looking_for_french' => true,

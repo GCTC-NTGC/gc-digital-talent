@@ -30,6 +30,12 @@ export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
       }
     }
     positionDuration
+    locationPreferences {
+      value
+      label {
+        localized
+      }
+    }
     flexibleWorkLocations {
       value
       label {
@@ -95,12 +101,14 @@ const WorkPreferences = ({
   const {
     acceptedOperationalRequirements,
     positionDuration,
+    locationPreferences,
     flexibleWorkLocations,
     locationExemptions,
     currentCity,
     currentProvince,
   } = workPreferences;
 
+  const locations = unpackMaybes(locationPreferences);
   const userLocations: string[] = unpackMaybes(flexibleWorkLocations).map(
     (loc) => loc.value as string,
   );
@@ -184,6 +192,18 @@ const WorkPreferences = ({
       <FieldDisplay label={intl.formatMessage(profileMessages.currentLocation)}>
         {formatLocation({ city: currentCity, region: currentProvince, intl })}
       </FieldDisplay>
+      <FieldDisplay
+        label={intl.formatMessage(profileMessages.workLocationPreferences)}
+      ></FieldDisplay>
+      {locations?.length ? (
+        <Ul>
+          {locations.map((location) => (
+            <li key={location.value}>{location?.label.localized}</li>
+          ))}
+        </Ul>
+      ) : (
+        notProvided
+      )}
       <FieldDisplay
         label={intl.formatMessage(profileMessages.flexibleWorkLocationOptions)}
       >

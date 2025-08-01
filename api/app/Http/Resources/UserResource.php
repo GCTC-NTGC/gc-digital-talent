@@ -12,6 +12,7 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkRegion;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -106,6 +107,7 @@ class UserResource extends JsonResource
             'indigenousCommunities' => $this->localizeEnumArray($this->indigenous_communities, IndigenousCommunity::class),
             'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
             'hasDiploma' => $this->has_diploma,
+            'locationPreferences' => $this->localizeEnumArray($this->location_preferences, WorkRegion::class),
             'flexibleWorkLocations' => $this->localizeEnumArray($this->flexible_work_locations, FlexibleWorkLocation::class),
             'locationExemptions' => $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->localizeEnumArray($this->accepted_operational_requirements, OperationalRequirement::class),

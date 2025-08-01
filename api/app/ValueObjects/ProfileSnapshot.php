@@ -23,6 +23,7 @@ use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkExperienceGovEmployeeType;
+use App\Enums\WorkRegion;
 use App\Http\Resources\UserResource;
 use App\Models\Pool;
 use App\Models\User;
@@ -33,7 +34,7 @@ use RecursiveArrayIterator;
 
 class ProfileSnapshot implements Castable
 {
-    public static $VERSION = 2;
+    public static $VERSION = 1;
 
     public ?array $profile;
 
@@ -54,6 +55,7 @@ class ProfileSnapshot implements Castable
                 'estimatedLanguageAbility' => EstimatedLanguageAbility::class,
                 'firstOfficialLanguage' => Language::class,
                 'govEmployeeType' => GovEmployeeType::class,
+                'locationPreferences' => WorkRegion::class,
                 'flexibleWorkLocations' => FlexibleWorkLocation::class,
                 'preferredLang' => Language::class,
                 'preferredLanguageForInterview' => Language::class,

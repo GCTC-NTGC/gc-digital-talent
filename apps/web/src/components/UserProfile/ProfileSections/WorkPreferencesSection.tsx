@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Ul, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
+  getLocalizedName,
   getOperationalRequirement,
   OperationalRequirements,
 } from "@gc-digital-talent/i18n";
@@ -12,7 +13,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { insertBetween, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { hasAllEmptyFields } from "~/validators/profile/workPreferences";
 import profileMessages from "~/messages/profileMessages";
@@ -27,6 +28,7 @@ interface WorkPreferencesSectionProps {
     User,
     | "acceptedOperationalRequirements"
     | "positionDuration"
+    | "locationPreferences"
     | "flexibleWorkLocations"
     | "locationExemptions"
     | "currentCity"
@@ -47,6 +49,7 @@ const WorkPreferencesSection = ({
     positionDuration,
     currentCity,
     currentProvince,
+    locationPreferences,
     flexibleWorkLocations,
     locationExemptions,
   } = user;
@@ -54,6 +57,12 @@ const WorkPreferencesSection = ({
   const acceptedRequirements = unpackMaybes(
     acceptedOperationalRequirements,
   ).map((requirement) => requirement.value);
+  const regionPreferencesSquished = locationPreferences?.map((region) =>
+    getLocalizedName(region?.label, intl, true),
+  );
+  const regionPreferences = regionPreferencesSquished
+    ? insertBetween(", ", regionPreferencesSquished)
+    : "";
 
   const locationOptions = unpackMaybes(
     getFragment(FlexibleWorkLocationOptions_Fragment, optionsQuery)
@@ -110,6 +119,16 @@ const WorkPreferencesSection = ({
             intl,
           })}
         </span>
+      </p>
+      <p>
+        <span className={label()}>
+          {intl.formatMessage({
+            defaultMessage: "Work location",
+            id: "JO2yLA",
+            description: "Work Location label, followed by colon",
+          })}
+        </span>
+        <span className={value()}>{regionPreferences}</span>
       </p>
       <div>
         <p>

@@ -66,6 +66,9 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
     ),
     currentProvince: data?.currentProvince?.value,
     currentCity: data?.currentCity,
+    locationPreferences: unpackMaybes(
+      data.locationPreferences?.map((pref) => pref?.value),
+    ),
     flexibleWorkLocations: unpackMaybes(
       data.flexibleWorkLocations?.map((loc) => loc?.value),
     ),
@@ -89,6 +92,7 @@ export const formValuesToSubmitData = (
       ? [PositionDuration.Permanent, PositionDuration.Temporary]
       : [PositionDuration.Permanent], // always accepting permanent, accepting temporary is what is variable
     acceptedOperationalRequirements: values.acceptedOperationalRequirements,
+    locationPreferences: values.locationPreferences,
     flexibleWorkLocations: values.flexibleWorkLocations,
     locationExemptions: values.locationExemptions,
     currentCity: values.currentCity,

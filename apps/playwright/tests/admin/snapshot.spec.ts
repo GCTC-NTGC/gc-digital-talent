@@ -8,6 +8,7 @@ import {
   ProvinceOrTerritory,
   Skill,
   SkillCategory,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -55,6 +56,7 @@ test.describe("Snapshot", () => {
         isGovEmployee: false,
         hasPriorityEntitlement: true,
         priorityNumber: "123",
+        locationPreferences: [WorkRegion.Atlantic],
         flexibleWorkLocations: [
           FlexibleWorkLocation.Remote,
           FlexibleWorkLocation.Hybrid,

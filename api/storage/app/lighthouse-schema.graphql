@@ -1769,6 +1769,7 @@ input UpdateUserAsAdminInput {
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
   flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1827,6 +1828,7 @@ input UpdateUserAsUserInput {
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
   flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]

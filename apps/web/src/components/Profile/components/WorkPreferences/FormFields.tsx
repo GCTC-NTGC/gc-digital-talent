@@ -15,6 +15,7 @@ import {
   errorMessages,
   getOperationalRequirement,
   sortFlexibleWorkLocations,
+  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import {
   FlexibleWorkLocation,
@@ -28,6 +29,14 @@ import useDirtyFields from "../../hooks/useDirtyFields";
 
 export const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
     flexibleWorkLocation: localizedEnumStrings(
       enumName: "FlexibleWorkLocation"
     ) {
@@ -182,6 +191,16 @@ const FormFields = ({
         <Field.Legend className="mb-6 text-lg font-bold lg:text-xl">
           {labels.workLocationPreferences}
         </Field.Legend>
+        <Checklist
+          idPrefix="work-location"
+          legend={labels.workLocationPreferences}
+          name="locationPreferences"
+          id="locationPreferences"
+          items={localizedEnumToOptions(
+            sortWorkRegion(data?.workRegions),
+            intl,
+          )}
+        />
         <p>
           {intl.formatMessage({
             defaultMessage:

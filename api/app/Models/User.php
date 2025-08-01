@@ -480,6 +480,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
+            is_null($this->attributes['location_preferences']) or
+            empty($this->attributes['location_preferences']) or
             is_null($this->attributes['flexible_work_locations']) or
             empty($this->attributes['flexible_work_locations']) or
             empty($this->attributes['position_duration']) or
@@ -778,6 +780,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'computed_gov_role' => 'govRole',
             'has_priority_entitlement' => 'hasPriorityEntitlement',
             'priority_number' => 'priorityNumber',
+            'location_preferences' => 'locationPreferences',
             'flexible_work_locations' => 'flexibleWorkLocations',
             'location_exemptions' => 'locationExemptions',
             'accepted_operational_requirements' => 'acceptedOperationalRequirements',

@@ -6,6 +6,7 @@ export type PartialUser = Pick<
   User,
   | "acceptedOperationalRequirements"
   | "positionDuration"
+  | "locationPreferences"
   | "flexibleWorkLocations"
   | "locationExemptions"
   | "currentCity"
@@ -14,12 +15,14 @@ export type PartialUser = Pick<
 
 export function hasAllEmptyFields({
   positionDuration,
+  locationPreferences,
   flexibleWorkLocations,
   currentCity,
   currentProvince,
 }: PartialUser): boolean {
   return (
     isEmpty(positionDuration) &&
+    isEmpty(locationPreferences) &&
     isEmpty(flexibleWorkLocations) &&
     !currentCity &&
     !currentProvince
@@ -28,12 +31,14 @@ export function hasAllEmptyFields({
 
 export function hasEmptyRequiredFields({
   positionDuration,
+  locationPreferences,
   flexibleWorkLocations,
   currentCity,
   currentProvince,
 }: PartialUser): boolean {
   return (
     isEmpty(positionDuration) ||
+    isEmpty(locationPreferences) ||
     isEmpty(flexibleWorkLocations) ||
     !currentCity ||
     !currentProvince

@@ -49,6 +49,8 @@ class UserBuilder extends Builder
                             ->whereNotNull('priority_number');
                     });
             });
+            $this->whereNotNull('location_preferences');
+            $this->whereJsonLength('location_preferences', '>', 0);
             $this->whereNotNull('flexible_work_locations');
             $this->whereJsonLength('flexible_work_locations', '>', 0);
             $this->whereJsonLength('position_duration', '>', 0);
