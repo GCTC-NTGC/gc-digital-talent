@@ -329,20 +329,22 @@ const DetailsFields = ({
                       })}
                     />
                   </div>
-                  <ClassificationInput
-                    name="advancementReferenceFallbackClassification"
-                    classificationsQuery={unpackMaybes(
-                      options?.classifications,
-                    )}
-                    rules={{
-                      group: {
-                        required: intl.formatMessage(errorMessages.required),
-                      },
-                      level: {
-                        required: intl.formatMessage(errorMessages.required),
-                      },
-                    }}
-                  />
+                  <div className="grid gap-6 sm:grid-cols-[4fr_1fr]">
+                    <ClassificationInput
+                      name="advancementReferenceFallbackClassification"
+                      classificationsQuery={unpackMaybes(
+                        options?.classifications,
+                      )}
+                      rules={{
+                        group: {
+                          required: intl.formatMessage(errorMessages.required),
+                        },
+                        level: {
+                          required: intl.formatMessage(errorMessages.required),
+                        },
+                      }}
+                    />
+                  </div>
                   <Select
                     id="advancementReferenceFallbackDepartment"
                     name="advancementReferenceFallbackDepartment"

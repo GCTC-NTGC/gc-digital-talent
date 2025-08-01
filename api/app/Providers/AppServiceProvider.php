@@ -31,9 +31,10 @@ class AppServiceProvider extends ServiceProvider
         // enable below for database debugging
         // DB::listen(function ($query) {
         //     Log::info(
-        //         $query->sql,
-        //         $query->bindings,
-        //         $query->time
+        //         $query->toRawSql(),
+        //         [
+        //             'milliseconds' => $query->time,
+        //         ]
         //     );
         // });
 
@@ -41,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         // DB::listen(function ($query) {
         //     if ($query->time > 20) {
         //         Log::warning('Query exceeded 20 milliseconds -', [
-        //             'sql' => $query->sql,
+        //             'sql' => $query->toRawSql(),
         //             'milliseconds' => $query->time,
         //         ]);
         //     }

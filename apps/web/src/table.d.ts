@@ -8,6 +8,8 @@ declare module "@tanstack/table-core" {
     isRowTitle?: boolean;
     /** Mark this column as the row selection column (do not use directly)  */
     isRowSelect?: boolean;
+    /** Mark this column as a head scoped to the row  */
+    isRowHeader?: boolean;
     /** Override the header for the mobile view */
     mobileHeader?: ReactNode;
     /** Override the column dialog header */

@@ -20,22 +20,22 @@ import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import createStep1Image from "~/assets/img/sign-up-create-step-1.webp";
-import createStep2Image from "~/assets/img/sign-up-create-step-2.webp";
-import createStep3Image from "~/assets/img/sign-up-create-step-3.webp";
-import createStep4Image from "~/assets/img/sign-up-create-step-4.webp";
-import createStep1ImageDark from "~/assets/img/sign-up-create-step-1-dark.webp";
-import createStep2ImageDark from "~/assets/img/sign-up-create-step-2-dark.webp";
-import createStep3ImageDark from "~/assets/img/sign-up-create-step-3-dark.webp";
-import createStep4ImageDark from "~/assets/img/sign-up-create-step-4-dark.webp";
-import mfaStep1Image from "~/assets/img/sign-up-mfa-step-1.webp";
-import mfaStep2Image from "~/assets/img/sign-up-mfa-step-2.webp";
-import mfaStep3Image from "~/assets/img/sign-up-mfa-step-3.webp";
-import mfaStep4Image from "~/assets/img/sign-up-mfa-step-4.webp";
-import mfaStep1ImageDark from "~/assets/img/sign-up-mfa-step-1-dark.webp";
-import mfaStep2ImageDark from "~/assets/img/sign-up-mfa-step-2-dark.webp";
-import mfaStep3ImageDark from "~/assets/img/sign-up-mfa-step-3-dark.webp";
-import mfaStep4ImageDark from "~/assets/img/sign-up-mfa-step-4-dark.webp";
+import createStep1Image from "~/assets/img/sign-up-step-1-light.webp";
+import createStep2Image from "~/assets/img/sign-up-step-2-light.webp";
+import createStep3Image from "~/assets/img/sign-up-step-3-light.webp";
+import createStep4Image from "~/assets/img/sign-up-step-4-light.webp";
+import createStep1ImageDark from "~/assets/img/sign-up-step-1-dark.webp";
+import createStep2ImageDark from "~/assets/img/sign-up-step-2-dark.webp";
+import createStep3ImageDark from "~/assets/img/sign-up-step-3-dark.webp";
+import createStep4ImageDark from "~/assets/img/sign-up-step-4-dark.webp";
+import mfaStep1Image from "~/assets/img/mfa-step-1-light.webp";
+import mfaStep2Image from "~/assets/img/mfa-step-2-light.webp";
+import mfaStep3Image from "~/assets/img/mfa-step-3-light.webp";
+import mfaStep4Image from "~/assets/img/mfa-step-4-light.webp";
+import mfaStep1ImageDark from "~/assets/img/mfa-step-1-dark.webp";
+import mfaStep2ImageDark from "~/assets/img/mfa-step-2-dark.webp";
+import mfaStep3ImageDark from "~/assets/img/mfa-step-3-dark.webp";
+import mfaStep4ImageDark from "~/assets/img/mfa-step-4-dark.webp";
 import Instructions from "~/components/Instructions";
 import gckeyMessages from "~/messages/gckeyMessages";
 
@@ -173,8 +173,7 @@ export const Component = () => {
             </Heading>
             <Instructions.List>
               <Instructions.Step
-                image={createStep1Image}
-                imageDark={createStep1ImageDark}
+                img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -184,8 +183,7 @@ export const Component = () => {
                 })}
               </Instructions.Step>
               <Instructions.Step
-                image={createStep2Image}
-                imageDark={createStep2ImageDark}
+                img={{ src: createStep2Image, darkSrc: createStep2ImageDark }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -195,8 +193,7 @@ export const Component = () => {
                 })}
               </Instructions.Step>
               <Instructions.Step
-                image={createStep3Image}
-                imageDark={createStep3ImageDark}
+                img={{ src: createStep3Image, darkSrc: createStep3ImageDark }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -206,9 +203,8 @@ export const Component = () => {
                 })}
               </Instructions.Step>
               <Instructions.Step
-                image={createStep4Image}
-                imageDark={createStep4ImageDark}
                 includeArrow={false}
+                img={{ src: createStep4Image, darkSrc: createStep4ImageDark }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -266,8 +262,13 @@ export const Component = () => {
             </Heading>
             <Instructions.List>
               <Instructions.Step
-                image={mfaStep1Image}
-                imageDark={mfaStep1ImageDark}
+                img={{
+                  src: mfaStep1Image,
+                  darkSrc: mfaStep1ImageDark,
+                  lazy: true,
+                  width: 700,
+                  height: 507,
+                }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -277,8 +278,13 @@ export const Component = () => {
                 })}
               </Instructions.Step>
               <Instructions.Step
-                image={mfaStep2Image}
-                imageDark={mfaStep2ImageDark}
+                img={{
+                  src: mfaStep2Image,
+                  darkSrc: mfaStep2ImageDark,
+                  lazy: true,
+                  width: 700,
+                  height: 507,
+                }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -288,8 +294,13 @@ export const Component = () => {
                 })}
               </Instructions.Step>
               <Instructions.Step
-                image={mfaStep3Image}
-                imageDark={mfaStep3ImageDark}
+                img={{
+                  src: mfaStep3Image,
+                  darkSrc: mfaStep3ImageDark,
+                  lazy: true,
+                  width: 700,
+                  height: 507,
+                }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -299,9 +310,14 @@ export const Component = () => {
                 })}
               </Instructions.Step>
               <Instructions.Step
-                image={mfaStep4Image}
-                imageDark={mfaStep4ImageDark}
                 includeArrow={false}
+                img={{
+                  src: mfaStep4Image,
+                  darkSrc: mfaStep4ImageDark,
+                  lazy: true,
+                  width: 700,
+                  height: 507,
+                }}
               >
                 {intl.formatMessage({
                   defaultMessage:

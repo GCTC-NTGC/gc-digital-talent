@@ -4,7 +4,7 @@ Environment variables are created and used in many places throughout the repo. T
 
 ## Laravel
 
-The [Laravel](https://laravel.com/) project **api** reads environment variables from the `.env` file in the root of its project directory. These files are not checked into version control. When running the setup scripts, a new one is copied from the `.env.example` template and then customized. In a development environment, these files are reread on every new PHP request. If needed, a configuration reset can be forced with `php artisan config:clear`.
+The [Laravel](https://laravel.com/) project **api** reads environment variables from the `.env` file in the root of its project directory. These files are not checked into version control. When running the setup scripts, a new one is copied from the `.env.example` template and then customized. In a development environment, these files are reread on every new PHP request. If needed, a configuration reset can be forced with `php artisan optimize:clear`.
 
 ## Frontend
 

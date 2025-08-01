@@ -24,10 +24,10 @@ final readonly class DownloadJobPosterTemplateDoc
             $generator = new JobPosterTemplateGenerator(
                 jobPoster: $targetPoster,
                 dir: $user->id,
-                lang: App::getLocale()
+                lang: App::getLocale(),
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             $generator->generate()->write();
 

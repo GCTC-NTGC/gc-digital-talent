@@ -6,6 +6,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\FinalDecision;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
@@ -240,6 +241,17 @@ class PoolCandidateBuilder extends Builder
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             })->whereExpiryStatus(CandidateExpiryFilter::ACTIVE->name);
+    }
+
+    // filter for qualified recruitments similar to frontend in `RecruitmentProcesses.tsx`
+    // based off final_decision_at AND computed_final_decision
+    public function whereQualified(): self
+    {
+        return $this->where(function ($query) {
+            $query
+                ->whereNotNull('final_decision_at')
+                ->whereIn('computed_final_decision', FinalDecision::applicableToQualifiedRecruitment());
+        });
     }
 
     public function whereHasDiploma(?bool $hasDiploma): self

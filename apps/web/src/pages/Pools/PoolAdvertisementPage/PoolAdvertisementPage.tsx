@@ -475,11 +475,7 @@ export const PoolPoster = ({
     },
     skillRequirements: {
       id: "skill-requirements",
-      title: intl.formatMessage({
-        defaultMessage: "Skill requirements",
-        id: "h2h7Df",
-        description: "Title for the skills section of a pool advertisement",
-      }),
+      title: intl.formatMessage(commonMessages.skillRequirements),
     },
     aboutRole: {
       id: "about-role",

@@ -334,6 +334,9 @@ const AssessmentResultsTable = ({
         description:
           "Header for requirement section of assessment results table",
       }),
+      meta: {
+        isRowHeader: true,
+      },
       cell: ({ row: { original } }) =>
         cells.jsx(
           <span>
