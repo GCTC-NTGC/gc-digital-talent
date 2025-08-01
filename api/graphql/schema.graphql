@@ -558,6 +558,7 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
+  # Starts at 1, null indicates all steps successful
   assessmentStep: Int @rename(attribute: "assessment_step")
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
