@@ -1347,6 +1347,10 @@
     "defaultMessage": "Motif",
     "description": "Label for the reason why a candidate is being removed"
   },
+  "4BJrSM": {
+    "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins trois jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
+  },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
@@ -1410,6 +1414,10 @@
   "4RK/oW": {
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
+  },
+  "4Rs1gk": {
+    "defaultMessage": "Veuillez préciser si vous souhaitez exclure une ville d'une région.",
+    "description": "Location Exemptions field label for work location preference form"
   },
   "4SNVtn": {
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
@@ -7174,6 +7182,10 @@
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
+  "W2619r": {
+    "defaultMessage": "Options de lieu de travail flexible",
+    "description": "Legend for the flexible work location preferences section"
+  },
   "W2s794": {
     "defaultMessage": "Programme de perfectionnement",
     "description": "Label for the development program nomination type"
@@ -7322,6 +7334,10 @@
     "defaultMessage": "Souhaitez-vous annuler cette décision et régler le statut du candidat à « En cours d’évaluation »?",
     "description": "Confirmation text for reinstating a candidate"
   },
+  "WoFBmk": {
+    "defaultMessage": "Je consens à travailler constamment à distance.",
+    "description": "Checklist option explanatory note"
+  },
   "WoZ3pB": {
     "defaultMessage": "Les postes au niveau de la direction m'intéressent.",
     "description": "The executive interest described as interested."
@@ -7449,6 +7465,10 @@
   "XKpHTN": {
     "defaultMessage": "La possibilité de formation a été créée avec succès!",
     "description": "Message displayed to user after a training opportunity is created successfully."
+  },
+  "XNNBCv": {
+    "defaultMessage": "Je consens à travailler constamment sur place dans un lieu ministériel désigné.",
+    "description": "Checklist option explanatory note"
   },
   "XPJs0+": {
     "defaultMessage": "Modifier une classification",
@@ -8702,10 +8722,6 @@
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
     "description": "Text that appears in Employment equity dialogs explaining the act is under review."
   },
-  "dcvRbO": {
-    "defaultMessage": "Veuillez indiquer s'il y a une ville que vous aimeriez exclure d'une région.",
-    "description": "Location Exemptions field label for work location preference form"
-  },
   "deE+LO": {
     "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
     "description": "Subtitle for general question dialog"
@@ -9025,6 +9041,10 @@
   "eickbr": {
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
+  },
+  "ejzPh7": {
+    "defaultMessage": "Veuillez sélectionner les possibilités souples qui vous intéressent quant au lieu de travail. N’oubliez pas que la plupart des emplois au gouvernement du Canada font l’objet d’un modèle de travail hybride.",
+    "description": "Flexible work locations field label for work location preference form"
   },
   "elMgS2": {
     "defaultMessage": "Poste actuel",

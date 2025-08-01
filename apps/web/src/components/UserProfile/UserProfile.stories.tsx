@@ -1,16 +1,19 @@
 import { Meta, StoryFn } from "@storybook/react";
 
 import {
+  makeFragmentData,
+  IndigenousCommunity,
+  AdminUserProfileUserFragment,
+  FlexibleWorkLocation,
+} from "@gc-digital-talent/graphql";
+import {
   fakeExperiences,
   fakeApplicants,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import {
-  IndigenousCommunity,
-  AdminUserProfileUserFragment,
-} from "@gc-digital-talent/graphql";
 
 import UserProfile from "./UserProfile";
+import { FlexibleWorkLocationOptions_Fragment } from "../Profile/components/WorkPreferences/Display";
 
 const fakeUserArray = fakeApplicants(5);
 
@@ -19,8 +22,49 @@ export default {
   args: {},
 } as Meta;
 
+const flexibleWorkOptionsQuery = makeFragmentData(
+  {
+    flexibleWorkLocation: [
+      {
+        value: FlexibleWorkLocation.Remote,
+        label: {
+          __typename: undefined,
+          en: undefined,
+          fr: undefined,
+          localized: "REMOTE LOCALIZED",
+        },
+      },
+      {
+        value: FlexibleWorkLocation.Hybrid,
+        label: {
+          __typename: undefined,
+          en: undefined,
+          fr: undefined,
+          localized: "HYBRID LOCALIZED",
+        },
+      },
+      {
+        value: FlexibleWorkLocation.Onsite,
+        label: {
+          __typename: undefined,
+          en: undefined,
+          fr: undefined,
+          localized: "ONSITE LOCALIZED",
+        },
+      },
+    ],
+  },
+  FlexibleWorkLocationOptions_Fragment,
+);
+
 const TemplateUserProfile: StoryFn<AdminUserProfileUserFragment> = (args) => {
-  return <UserProfile user={args} headingLevel="h3" />;
+  return (
+    <UserProfile
+      user={args}
+      flexibleWorkOptionsQuery={flexibleWorkOptionsQuery}
+      headingLevel="h3"
+    />
+  );
 };
 
 export const Default = TemplateUserProfile.bind({});
@@ -61,6 +105,7 @@ Null.args = {
   indigenousCommunities: null,
   isVisibleMinority: null,
   locationPreferences: null,
+  flexibleWorkLocations: null,
   locationExemptions: null,
   acceptedOperationalRequirements: null,
   positionDuration: null,

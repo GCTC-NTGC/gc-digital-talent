@@ -3,6 +3,7 @@ import { Page } from "@playwright/test";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
+  FlexibleWorkLocation,
   Pool,
   PositionDuration,
   ProvinceOrTerritory,
@@ -51,6 +52,7 @@ test.describe("IAP Application", () => {
         isGovEmployee: false,
         hasPriorityEntitlement: false,
         locationPreferences: [WorkRegion.Ontario],
+        flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
         positionDuration: [PositionDuration.Permanent],
       },
       roles: ["guest", "base_user", "applicant"],

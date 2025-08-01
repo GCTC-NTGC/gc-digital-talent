@@ -19,6 +19,7 @@ import { formatLocation } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import Caption from "./Caption";
+import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
 export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferences on User {
@@ -30,6 +31,12 @@ export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
     }
     positionDuration
     locationPreferences {
+      value
+      label {
+        localized
+      }
+    }
+    flexibleWorkLocations {
       value
       label {
         localized
@@ -51,6 +58,15 @@ export const WorkPreferencesOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesOptions on Query {
     operationalRequirements: localizedEnumStrings(
       enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        localized
+      }
+    }
+
+    flexibleWorkLocation: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
     ) {
       value
       label {
@@ -86,14 +102,21 @@ const WorkPreferences = ({
     acceptedOperationalRequirements,
     positionDuration,
     locationPreferences,
+    flexibleWorkLocations,
     locationExemptions,
     currentCity,
     currentProvince,
   } = workPreferences;
 
   const locations = unpackMaybes(locationPreferences);
+  const userLocations: string[] = unpackMaybes(flexibleWorkLocations).map(
+    (loc) => loc.value as string,
+  );
   const operationalRequirements = unpackMaybes(
     workPreferencesOptions.operationalRequirements,
+  );
+  const locationOptions = unpackMaybes(
+    workPreferencesOptions.flexibleWorkLocation,
   );
   const acceptedRequirements = unpackMaybes(
     acceptedOperationalRequirements,
@@ -171,16 +194,32 @@ const WorkPreferences = ({
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(profileMessages.workLocationPreferences)}
+      ></FieldDisplay>
+      {locations?.length ? (
+        <Ul>
+          {locations.map((location) => (
+            <li key={location.value}>{location?.label.localized}</li>
+          ))}
+        </Ul>
+      ) : (
+        notProvided
+      )}
+      <FieldDisplay
+        label={intl.formatMessage(profileMessages.flexibleWorkLocationOptions)}
       >
-        {locations?.length ? (
-          <Ul>
-            {locations.map((location) => (
-              <li key={location.value}>{location?.label.localized}</li>
-            ))}
-          </Ul>
-        ) : (
-          notProvided
-        )}
+        <Ul unStyled noIndent inside>
+          {locationOptions.map((location) => (
+            <li key={location.value}>
+              <BoolCheckIcon
+                value={userLocations.includes(location.value)}
+                trueLabel={intl.formatMessage(commonMessages.interested)}
+                falseLabel={intl.formatMessage(commonMessages.notInterested)}
+              >
+                {location.label.localized}
+              </BoolCheckIcon>
+            </li>
+          ))}
+        </Ul>
       </FieldDisplay>
       {locationExemptions && (
         <FieldDisplay

@@ -101,6 +101,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
+ * @property array $flexible_work_locations
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -132,6 +133,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'preferred_language_for_interview' => LanguageCode::class,
         'preferred_language_for_exam' => LanguageCode::class,
         'first_official_language' => LanguageCode::class,
+        'flexible_work_locations' => 'array',
     ];
 
     protected $fillable = [
@@ -480,6 +482,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
+            is_null($this->attributes['flexible_work_locations']) or
+            empty($this->attributes['flexible_work_locations']) or
             empty($this->attributes['position_duration']) or
             is_null($this->attributes['citizenship']) or
             is_null($this->attributes['armed_forces_status'])
@@ -777,6 +781,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'has_priority_entitlement' => 'hasPriorityEntitlement',
             'priority_number' => 'priorityNumber',
             'location_preferences' => 'locationPreferences',
+            'flexible_work_locations' => 'flexibleWorkLocations',
             'location_exemptions' => 'locationExemptions',
             'accepted_operational_requirements' => 'acceptedOperationalRequirements',
             'position_duration' => 'positionDuration',

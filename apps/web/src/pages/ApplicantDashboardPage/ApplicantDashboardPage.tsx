@@ -125,6 +125,13 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    flexibleWorkLocations {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
     currentCity
     currentProvince {
