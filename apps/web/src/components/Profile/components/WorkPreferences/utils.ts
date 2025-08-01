@@ -3,6 +3,7 @@ import { IntlShape } from "react-intl";
 import {
   PositionDuration,
   UpdateUserAsUserInput,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -87,12 +88,18 @@ export const formValuesToSubmitData = (
     }
     return false;
   };
+
+  // remove WorkRegion.Telework from input
+  const filteredLocationPreferences = values.locationPreferences?.filter(
+    (pref) => !(pref === WorkRegion.Telework),
+  );
+
   return {
     positionDuration: stringToBool(values.wouldAcceptTemporary)
       ? [PositionDuration.Permanent, PositionDuration.Temporary]
       : [PositionDuration.Permanent], // always accepting permanent, accepting temporary is what is variable
     acceptedOperationalRequirements: values.acceptedOperationalRequirements,
-    locationPreferences: values.locationPreferences,
+    locationPreferences: filteredLocationPreferences,
     flexibleWorkLocations: values.flexibleWorkLocations,
     locationExemptions: values.locationExemptions,
     currentCity: values.currentCity,
