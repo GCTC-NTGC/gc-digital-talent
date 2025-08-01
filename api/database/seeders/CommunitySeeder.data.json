@@ -1,0 +1,51 @@
+{
+  "data": {
+    "communities": [
+      {
+        "description": {
+          "en": "The ATIP Community unites professionals committed to enhancing the trust and transparency in Government, offering jobs, training, and talent management opportunities to support their career and impact.",
+          "fr": "La collectivité de l’AIPRP rassemble des professionnels déterminés à renforcer la confiance et la transparence du gouvernement, en offrant des emplois, des formations et des opportunités de gestion des talents pour soutenir leur carrière et leur impact."
+        },
+        "key": "atip",
+        "mandateAuthority": {
+          "en": null,
+          "fr": null
+        },
+        "name": {
+          "en": "Access to Information and Privacy (ATIP) Community",
+          "fr": "Collectivité de l'accès à l'information et de protection des renseignements personnels (AIPRP)"
+        }
+      },
+      {
+        "description": {
+          "en": "The Digital Community is a broad network of professionals working together to enhance digital innovation in service of Canadians. It focuses on collaboration, career development, training, and networking opportunities across various digital fields.",
+          "fr": "La collectivité numérique est un réseau de spécialistes pour faire avancer l'innovation numérique au service des Canadiennes et Canadiens. Elle favorise la collaboration, le développement de carrière, la formation et les possibilités de réseautage dans divers domaines numériques."
+        },
+        "key": "digital",
+        "mandateAuthority": {
+          "en": null,
+          "fr": null
+        },
+        "name": {
+          "en": "Digital Community",
+          "fr": "Collectivité numérique"
+        }
+      },
+      {
+        "description": {
+          "en": "The Financial Management Community connects financial management professionals (CT-FINs and executives) within the Government of Canada to enhance their skills and grow in their careers through career planning, development programs, and learning.",
+          "fr": "La collectivité de la gestion financière relie les professionnels de la gestion financière (CT-FIN et cadres) au sein du gouvernement du Canada afin d'améliorer leurs compétences et de progresser dans leur carrière par le biais de la planification de carrière, de programmes de développement et de l'apprentissage."
+        },
+        "key": "finance",
+        "mandateAuthority": {
+          "en": null,
+          "fr": null
+        },
+        "name": {
+          "en": "Financial Management Community",
+          "fr": "Collectivité de la gestion financière"
+        }
+      }
+    ]
+  }
+}

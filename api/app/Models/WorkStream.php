@@ -16,6 +16,7 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property array $name
  * @property array $plain_language_name
  * @property Community $community
+ * @property bool $talent_searchable
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
