@@ -22,7 +22,9 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
@@ -197,7 +199,10 @@ const FormFields = ({
           name="locationPreferences"
           id="locationPreferences"
           items={localizedEnumToOptions(
-            sortWorkRegion(data?.workRegions),
+            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
+              /* remove 'Telework' enum from checklist of options */
+              (region) => !(region.value === (WorkRegion.Telework as string)),
+            ),
             intl,
           )}
         />
