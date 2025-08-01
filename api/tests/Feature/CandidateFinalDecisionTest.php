@@ -50,7 +50,7 @@ class CandidateFinalDecisionTest extends TestCase
         $this->candidate->computed_assessment_status = [
             'overallAssessmentStatus' => $overallStatus,
         ];
-        $this->candidate->computed_assessment_step = $step;
+        $this->candidate->assessment_step = $step;
         $decision = $this->candidate->computeFinalDecision();
         $this->assertEquals($expected, $decision);
     }
