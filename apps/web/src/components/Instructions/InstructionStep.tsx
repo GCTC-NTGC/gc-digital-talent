@@ -30,9 +30,12 @@ const InstructionStep = ({
       <div className="flex">
         <Image {...imgProps} src={imgSrc} alt="" />
         {includeArrow ? (
-          <ArrowRightCircleIcon className="hidden h-auto w-9 overflow-visible px-1.5 align-middle text-gray xs:block" />
+          <ArrowRightCircleIcon className="hidden h-auto w-9 overflow-visible px-1.5 align-middle text-gray xs:block xs:shrink-0" />
         ) : (
-          <span aria-hidden="true" className="hidden w-9 px-1.5 xs:block" />
+          <span
+            aria-hidden="true"
+            className="hidden w-9 px-1.5 xs:block xs:shrink-0"
+          />
         )}
       </div>
       <div className="mt-3 grow pl-4 -indent-4">{children}</div>
