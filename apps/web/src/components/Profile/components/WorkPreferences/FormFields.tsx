@@ -199,7 +199,10 @@ const FormFields = ({
           name="locationPreferences"
           id="locationPreferences"
           items={localizedEnumToOptions(
-            sortWorkRegion(data?.workRegions),
+            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
+              /* remove 'Telework' enum from checklist of options */
+              (region) => !(region.value === (WorkRegion.Telework as string)),
+            ),
             intl,
           )}
         />
