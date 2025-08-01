@@ -2,12 +2,12 @@ import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 
-import { Card, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, Heading, Image, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import managers from "~/assets/img/Managers_image.webp";
-import hr from "~/assets/img/Human_resources_image.webp";
-import procurement from "~/assets/img/Procurement_officer_image.webp";
+import managers from "~/assets/img/person-smiling-holding-mug.webp";
+import hr from "~/assets/img/person-with-hand-on-laptop-mouse.webp";
+import procurement from "~/assets/img/person-looking-off-into-distance.webp";
 
 const Resources = () => {
   const intl = useIntl();
@@ -41,7 +41,14 @@ const Resources = () => {
             </div>
             <div className="flex grow flex-col justify-between">
               <div>
-                <img src={managers} alt="" className="hidden xs:block" />
+                <Image
+                  width={400}
+                  height={300}
+                  loading="lazy"
+                  src={managers}
+                  alt=""
+                  className="hidden xs:block"
+                />
 
                 <p className="m-6">
                   {intl.formatMessage({
@@ -90,7 +97,14 @@ const Resources = () => {
             </div>
             <div className="flex grow flex-col justify-between">
               <div>
-                <img src={hr} alt="" className="hidden xs:block" />
+                <Image
+                  width={400}
+                  height={300}
+                  loading="lazy"
+                  src={hr}
+                  alt=""
+                  className="hidden xs:block"
+                />
                 <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:
@@ -138,7 +152,14 @@ const Resources = () => {
             </div>
             <div className="flex grow flex-col justify-between">
               <div>
-                <img src={procurement} alt="" className="hidden xs:block" />
+                <Image
+                  width={400}
+                  height={300}
+                  loading="lazy"
+                  src={procurement}
+                  alt=""
+                  className="hidden xs:block"
+                />
                 <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:

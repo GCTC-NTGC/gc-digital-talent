@@ -33,6 +33,8 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
           loading="lazy"
           src={content.img.path}
           alt={content.title}
+          width={content.img.width}
+          height={content.img.height}
           className="block h-auto w-full object-cover object-center"
         />
       </div>
