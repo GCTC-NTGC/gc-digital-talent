@@ -52,7 +52,7 @@ class JobPosterTemplateGeneratorTest extends TestCase
             lang: 'en'
         );
 
-        $this->generator->setUserId($adminUser->id);
+        $this->generator->setAuthenticatedUserId($adminUser->id);
 
     }
 

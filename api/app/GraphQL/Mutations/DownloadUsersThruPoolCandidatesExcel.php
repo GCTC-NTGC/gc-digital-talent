@@ -28,7 +28,7 @@ final class DownloadUsersThruPoolCandidatesExcel
 
         try {
             $generator = new UsersThruPoolCandidatesExcelGenerator(
-                fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
+                fileName: sprintf('%s_%s', __('filename.profiles'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
             );

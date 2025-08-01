@@ -763,6 +763,10 @@
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
   },
+  "1PYGkw": {
+    "defaultMessage": "Télécharger Excel profils",
+    "description": "Button label to download users associated with selected candidates as Excel"
+  },
   "1Q/4Yb": {
     "defaultMessage": "Publier une annonce",
     "description": "Title to publish an advertisement of a process"
@@ -1182,6 +1186,10 @@
   "3D8drd": {
     "defaultMessage": "Informations sur le volet de travail",
     "description": "Heading for the 'update a work stream' form"
+  },
+  "3DIalV": {
+    "defaultMessage": "Télécharger CSV demandes d'emploi",
+    "description": "Button label to download selected candidates CSV"
   },
   "3FAEil": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
@@ -3683,10 +3691,6 @@
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
   },
-  "EadMpr": {
-    "defaultMessage": "Télécharger CSV candidat(e)s",
-    "description": "Button label to download selected candidates CSV"
-  },
   "EbG039": {
     "defaultMessage": "Chef de file du numérique E X 4",
     "description": "EX-04 classification aria label including titles"
@@ -3870,10 +3874,6 @@
   "FSvySJ": {
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
-  },
-  "FTEdvi": {
-    "defaultMessage": "Télécharger Excel utilisateur(trice)s",
-    "description": "Button label to download users associated with selected candidates as Excel"
   },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",

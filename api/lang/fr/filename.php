@@ -7,4 +7,6 @@ return [
     'user' => 'utilisateur',
     'users' => 'utilisateurs',
     'job_poster_template' => 'Modèle d’offre d’emploi',
+    'profiles' => 'profils',
+    'applications' => 'candidatures',
 ];
