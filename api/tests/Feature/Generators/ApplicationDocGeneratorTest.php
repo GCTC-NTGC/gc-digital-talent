@@ -6,8 +6,10 @@ use App\Generators\ApplicationDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
+use App\Models\EducationExperience;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use App\Models\WorkExperience;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -56,6 +58,11 @@ class ApplicationDocGeneratorTest extends TestCase
             ->withEmployeeProfile()
             ->withSkillsAndExperiences()
             ->create();
+
+        EducationExperience::factory()
+            ->create(['user_id' => $user->id]);
+        WorkExperience::factory()
+            ->create(['user_id' => $user->id]);
 
         $application = PoolCandidate::factory()
             ->availableInSearch()
