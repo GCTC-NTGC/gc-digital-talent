@@ -3,6 +3,7 @@ import { Page } from "@playwright/test";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
+  FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
   Skill,
@@ -54,6 +55,10 @@ test.describe("Application", () => {
         isGovEmployee: false,
         hasPriorityEntitlement: false,
         locationPreferences: [WorkRegion.Ontario],
+        flexibleWorkLocations: [
+          FlexibleWorkLocation.Remote,
+          FlexibleWorkLocation.Hybrid,
+        ],
         positionDuration: [PositionDuration.Permanent],
       },
       roles: ["guest", "base_user", "applicant"],

@@ -566,6 +566,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         enableColumnFilter: false,
       },
     ),
+    // Update in #13855
     columnHelper.accessor(
       ({ communityInterest: { user } }) =>
         user?.locationPreferences
