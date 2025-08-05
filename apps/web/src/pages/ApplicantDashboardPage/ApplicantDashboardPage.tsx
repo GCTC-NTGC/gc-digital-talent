@@ -137,7 +137,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
     }
-    offPlatformRecruitmentProcesses
+    oldOffPlatformRecruitmentProcesses
     talentNominationsAsSubmitter {
       id
     }
@@ -251,8 +251,8 @@ export const DashboardPage = ({
                   currentUser?.poolCandidates,
                 )}
                 userId={currentUser.id}
-                offPlatformRecruitmentProcesses={
-                  currentUser.offPlatformRecruitmentProcesses
+                oldOffPlatformRecruitmentProcesses={
+                  currentUser.oldOffPlatformRecruitmentProcesses
                 }
               />
               {currentUser?.isVerifiedGovEmployee &&

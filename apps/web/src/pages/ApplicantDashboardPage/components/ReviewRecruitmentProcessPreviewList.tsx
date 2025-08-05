@@ -53,13 +53,13 @@ interface ReviewRecruitmentProcessPreviewListProps {
     typeof ReviewRecruitmentProcessPreviewList_Fragment
   >[];
   userId: string;
-  offPlatformRecruitmentProcesses?: string | null;
+  oldOffPlatformRecruitmentProcesses?: string | null;
 }
 
 const ReviewRecruitmentProcessPreviewList = ({
   recruitmentProcessesQuery,
   userId,
-  offPlatformRecruitmentProcesses,
+  oldOffPlatformRecruitmentProcesses,
 }: ReviewRecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
 
@@ -187,7 +187,7 @@ const ReviewRecruitmentProcessPreviewList = ({
           })}
         </p>
         <p className="mb-6">
-          {offPlatformRecruitmentProcesses ??
+          {oldOffPlatformRecruitmentProcesses ??
             intl.formatMessage({
               defaultMessage:
                 "No off-platform process information has been provided.",
@@ -197,7 +197,9 @@ const ReviewRecruitmentProcessPreviewList = ({
         </p>
         <OffPlatformProcessesDialog
           userId={userId}
-          offPlatformRecruitmentProcesses={offPlatformRecruitmentProcesses}
+          oldOffPlatformRecruitmentProcesses={
+            oldOffPlatformRecruitmentProcesses
+          }
         />
       </div>
     </>

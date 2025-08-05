@@ -46,7 +46,7 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    offPlatformRecruitmentProcesses
+    oldOffPlatformRecruitmentProcesses
   }
 `);
 
@@ -68,8 +68,8 @@ const RecruitmentProcessPreviewList = ({
     recruitmentProcessesQuery,
   );
 
-  const offPlatformRecruitmentProcesses =
-    recruitmentProcessesFragment.offPlatformRecruitmentProcesses;
+  const oldOffPlatformRecruitmentProcesses =
+    recruitmentProcessesFragment.oldOffPlatformRecruitmentProcesses;
 
   const recruitmentProcesses = unpackMaybes(
     recruitmentProcessesFragment.poolCandidates,
@@ -175,7 +175,7 @@ const RecruitmentProcessPreviewList = ({
           })}
         </p>
         <p className="mb-6">
-          {offPlatformRecruitmentProcesses ??
+          {oldOffPlatformRecruitmentProcesses ??
             intl.formatMessage({
               defaultMessage:
                 "No off-platform process information has been provided.",

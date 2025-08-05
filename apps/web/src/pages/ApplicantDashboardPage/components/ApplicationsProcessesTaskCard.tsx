@@ -34,13 +34,13 @@ interface ApplicationsProcessesTaskCardProps {
     typeof ApplicationsProcessesTaskCard_Fragment
   >[];
   userId: string;
-  offPlatformRecruitmentProcesses?: string | null;
+  oldOffPlatformRecruitmentProcesses?: string | null;
 }
 
 const ApplicationsProcessesTaskCard = ({
   applicationsProcessesTaskCardQuery,
   userId,
-  offPlatformRecruitmentProcesses,
+  oldOffPlatformRecruitmentProcesses,
 }: ApplicationsProcessesTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -139,8 +139,8 @@ const ApplicationsProcessesTaskCard = ({
                       recruitmentProcessesFiltered,
                     )}
                     userId={userId}
-                    offPlatformRecruitmentProcesses={
-                      offPlatformRecruitmentProcesses
+                    oldOffPlatformRecruitmentProcesses={
+                      oldOffPlatformRecruitmentProcesses
                     }
                   />
                 </Accordion.Content>

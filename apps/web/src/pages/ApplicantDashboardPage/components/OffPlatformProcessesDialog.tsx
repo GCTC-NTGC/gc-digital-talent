@@ -21,23 +21,23 @@ const UpdateUser_OffPlatformProcessesMutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  offPlatformRecruitmentProcesses: string | null | undefined;
+  oldOffPlatformRecruitmentProcesses: string | null | undefined;
 }
 
 interface OffPlatformProcessesDialogProps {
   userId: string;
-  offPlatformRecruitmentProcesses: string | null | undefined;
+  oldOffPlatformRecruitmentProcesses: string | null | undefined;
 }
 
 const OffPlatformProcessesDialog = ({
   userId,
-  offPlatformRecruitmentProcesses,
+  oldOffPlatformRecruitmentProcesses,
 }: OffPlatformProcessesDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>({
     defaultValues: {
-      offPlatformRecruitmentProcesses: offPlatformRecruitmentProcesses,
+      oldOffPlatformRecruitmentProcesses: oldOffPlatformRecruitmentProcesses,
     },
   });
 
@@ -57,8 +57,8 @@ const OffPlatformProcessesDialog = ({
     formValues: FormValues,
   ) => {
     await requestMutation(userId, {
-      offPlatformRecruitmentProcesses:
-        formValues.offPlatformRecruitmentProcesses ?? null,
+      oldOffPlatformRecruitmentProcesses:
+        formValues.oldOffPlatformRecruitmentProcesses ?? null,
     })
       .then(() => {
         toast.success(
@@ -134,8 +134,8 @@ const OffPlatformProcessesDialog = ({
             <form onSubmit={handleSubmit(submitForm)}>
               <div className="mt-4.5 mb-0.75">
                 <TextArea
-                  id="offPlatformRecruitmentProcesses"
-                  name="offPlatformRecruitmentProcesses"
+                  id="oldOffPlatformRecruitmentProcesses"
+                  name="oldOffPlatformRecruitmentProcesses"
                   wordLimit={200}
                   label={intl.formatMessage({
                     defaultMessage: "Off-platform process information",

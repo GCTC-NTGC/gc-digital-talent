@@ -521,6 +521,9 @@ type Mutation {
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
+  createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
+  updateOffPlatformRecruitmentProcess(id: UUID!, process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
+  deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User
@@ -734,7 +737,8 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
+  offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
@@ -754,6 +758,14 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+}
+
+type OffPlatformRecruitmentProcess {
+  id: UUID!
+  user: User!
+  processNumber: String
+  department: Department
+  classification: Classification
 }
 
 type DevelopmentProgramInterest {
@@ -1902,6 +1914,19 @@ input UpdateCommunityInterestInput {
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+}
+
+input CreateOffPlatformRecruitmentProcessInput {
+  userId: UUID!
+  processNumber: String
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo
+}
+
+input UpdateOffPlatformRecruitmentProcessInput {
+  processNumber: String
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo
 }
 
 input CreateDevelopmentProgramInterestHasMany {
