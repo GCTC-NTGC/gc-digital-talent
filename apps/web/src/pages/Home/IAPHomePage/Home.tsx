@@ -238,7 +238,7 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship man on computer image text alternative",
                     })}
-                    className="relative size-full min-h-[60vh] object-cover xs:min-h-[initial]"
+                    className="relative size-full min-h-[60vh] object-cover object-left xs:min-h-[initial]"
                   />
                   <Image
                     src={gloves}
