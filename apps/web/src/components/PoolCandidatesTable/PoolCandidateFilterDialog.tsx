@@ -121,6 +121,15 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         localized
       }
     }
+    flexibleWorkLocations: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
