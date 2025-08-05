@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { OperationContext, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
+import { col, header } from "motion/react-client";
 
 import {
   notEmpty,
@@ -253,6 +254,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               value
             }
             screeningQuestionsCount
+            assessmentSteps {
+              sortOrder
+              title {
+                localized
+              }
+            }
           }
           finalDecision {
             value
@@ -814,6 +821,39 @@ const PoolCandidatesTable = ({
             assessmentStatus,
             intl,
           ),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { assessmentStep } }) => assessmentStep,
+      {
+        id: "assessmentStep",
+        header: intl.formatMessage(tableMessages.assessmentStep),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: {
+                assessmentStep,
+                pool: { assessmentSteps },
+              },
+            },
+          },
+        }) => {
+          const step = assessmentSteps?.find(
+            (s) => s?.sortOrder === assessmentStep,
+          );
+          return step?.title?.localized
+            ? intl.formatMessage(
+                {
+                  defaultMessage: "Step {step}",
+                  id: "+O4pHs",
+                  description: "Label for current assessment step.",
+                },
+                { step: assessmentStep },
+              ) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                step.title.localized
+            : "";
+        },
       },
     ),
     columnHelper.accessor(

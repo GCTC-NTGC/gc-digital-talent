@@ -272,6 +272,7 @@ function transformSortStateToOrderByClause(
     ["notes", "notes"],
     ["skillCount", "skillCount"],
     ["processNumber", "PROCESS_NUMBER"],
+    ["assessmentStep", "assessment_step"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -287,6 +288,7 @@ function transformSortStateToOrderByClause(
       "status",
       "notes",
       "finalDecision",
+      "assessmentStep",
     ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
