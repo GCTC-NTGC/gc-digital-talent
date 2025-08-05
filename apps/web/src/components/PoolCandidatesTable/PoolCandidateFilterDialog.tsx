@@ -248,6 +248,12 @@ const PoolCandidateFilterDialog = ({
           items={localizedEnumToOptions(data?.operationalRequirements, intl)}
         />
         <Checklist
+          idPrefix="flexibleWorkLocations"
+          name="flexibleWorkLocations"
+          legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
+          items={localizedEnumToOptions(data?.flexibleWorkLocations, intl)}
+        />
+        <Checklist
           idPrefix="workRegion"
           name="workRegion"
           legend={intl.formatMessage(navigationMessages.workLocation)}

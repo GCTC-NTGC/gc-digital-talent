@@ -799,10 +799,6 @@
     "defaultMessage": "Je m'identifie comme membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
   },
-  "TCs69O": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Name of Work location page"
-  },
   "TO/Q6I": {
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
@@ -1354,6 +1350,10 @@
   "nICORU": {
     "defaultMessage": "Sélectionnez un groupe",
     "description": "Null selection og group for select input."
+  },
+  "nMNAYw": {
+    "defaultMessage": "Préférences de lieu de travail",
+    "description": "Name of Work location page"
   },
   "nMX0n8": {
     "defaultMessage": "Vous n’avez ajouté aucune expérience de ce type.",
