@@ -9,6 +9,7 @@ import {
   CardFlat,
   Container,
   Heading,
+  Image,
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
@@ -20,9 +21,9 @@ import {
 
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
-import teamImage from "~/assets/img/comptrollership-the-team.webp";
-import newsletterImage from "~/assets/img/comptrollership-newsletter.webp";
-import connectWithPeersImage from "~/assets/img/comptrollership-connect-with-peers.webp";
+import teamImage from "~/assets/img/person-smiling-holding-pen.webp";
+import newsletterImage from "~/assets/img/person-looking-at-tablet-in-thought.webp";
+import connectWithPeersImage from "~/assets/img/people-with-glasses-high-fiving.webp";
 import SEO from "~/components/SEO/SEO";
 
 const pageTitle = defineMessage({
@@ -270,7 +271,10 @@ export const Component = () => {
                 </Heading>
               </div>
               <div className="flex grow flex-col justify-between">
-                <img
+                <Image
+                  loading="lazy"
+                  width={400}
+                  height={300}
                   src={teamImage}
                   alt=""
                   className="block h-auto object-cover object-[50%_10%] sm:h-60"
@@ -316,7 +320,10 @@ export const Component = () => {
                 </Heading>
               </div>
               <div className="flex grow flex-col justify-between">
-                <img
+                <Image
+                  loading="lazy"
+                  width={400}
+                  height={300}
                   src={newsletterImage}
                   alt=""
                   className="block h-auto object-cover object-[50%_10%] sm:h-60"
@@ -362,7 +369,10 @@ export const Component = () => {
                 </Heading>
               </div>
               <div className="flex grow flex-col justify-between">
-                <img
+                <Image
+                  loading="lazy"
+                  width={400}
+                  height={300}
                   src={connectWithPeersImage}
                   alt=""
                   className="block h-auto object-cover object-[50%_10%] sm:h-60"

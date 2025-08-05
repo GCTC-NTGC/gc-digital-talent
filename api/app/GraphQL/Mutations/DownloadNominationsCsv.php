@@ -39,7 +39,7 @@ final class DownloadNominationsCsv
             );
 
             $generator
-                ->setUserId($user->id)
+                ->setAuthenticatedUserId($user->id)
                 ->setIds($ids);
 
             GenerateUserFile::dispatch($generator, $user);

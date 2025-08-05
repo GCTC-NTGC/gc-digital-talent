@@ -1006,7 +1006,6 @@ type AssessmentStepDecision {
 type AssessmentResultStatus {
   assessmentStepStatuses: [AssessmentStepDecision]
   overallAssessmentStatus: OverallAssessmentStatus
-  currentStep: Int
 }
 
 type PoolSkill {
@@ -1049,6 +1048,7 @@ type PoolCandidate {
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
+  assessmentStep: Int
   finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
   placedAt: DateTime
@@ -1076,6 +1076,7 @@ type PoolCandidateAdminView {
   isBookmarked: Boolean
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
+  assessmentStep: Int
   finalDecision: LocalizedFinalDecision
   placedDepartment: Department
   closingDate: DateTime
@@ -1473,7 +1474,7 @@ type JobPosterTemplate {
   nonessentialTechnicalSkillsNotes: LocalizedString
   classification: Classification
   workStream: WorkStream
-  skills: [JobPosterTemplateSkill!]
+  jobPosterTemplateSkills: [JobPosterTemplateSkill!]
 }
 
 type LocalizedKeywords {
@@ -1481,15 +1482,11 @@ type LocalizedKeywords {
   fr: [String!]
 }
 
-type JobPosterTemplateSkillPivot {
-  type: LocalizedPoolSkillType!
-  requiredLevel: SkillLevel
-}
-
 type JobPosterTemplateSkill {
   id: UUID!
-  skill: Skill!
-  pivot: JobPosterTemplateSkillPivot
+  type: LocalizedPoolSkillType!
+  requiredLevel: LocalizedSkillLevel
+  skill: Skill
 }
 
 input ClassificationFilterInput {
@@ -1587,6 +1584,7 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
+  workStreams: [IdInput]
   processNumber: String
 }
 
@@ -2631,22 +2629,15 @@ input TalentNominationEventsFilterInput {
   canManage: Boolean
 }
 
-input ConnectJobPosterTemplateSkillInput {
-  id: UUID!
+input CreateJobPosterTemplateSkillInput {
+  skillId: UUID!
   type: PoolSkillType!
   requiredLevel: SkillLevel
 }
 
-input SyncJobPosterTemplateSkillInput {
-  id: UUID!
-  type: PoolSkillType
-  requiredLevel: SkillLevel
-}
-
 input UpdateJobPosterTemplateSkillsInput {
-  connect: [ConnectJobPosterTemplateSkillInput!]
-  sync: [SyncJobPosterTemplateSkillInput!]
-  detach: [UUID!]
+  create: [CreateJobPosterTemplateSkillInput!]
+  delete: [UUID!]
 }
 
 input CreateJobPosterTemplateInput {
@@ -2662,7 +2653,7 @@ input CreateJobPosterTemplateInput {
   essentialBehaviouralSkillsNotes: LocalizedStringInput
   nonessentialTechnicalSkillsNotes: LocalizedStringInput
   classification: ClassificationBelongsTo!
-  skills: UpdateJobPosterTemplateSkillsInput
+  jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
 }
 
 input UpdateJobPosterTemplateInput {
@@ -2674,12 +2665,12 @@ input UpdateJobPosterTemplateInput {
   workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput
-  keywords: LocalizedStringInput
+  keywords: LocalizedKeywordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
   essentialBehaviouralSkillsNotes: LocalizedStringInput
   nonessentialTechnicalSkillsNotes: LocalizedStringInput
   classification: ClassificationBelongsTo
-  skills: UpdateJobPosterTemplateSkillsInput
+  jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
 }
 
 "Information about pagination using a fully featured paginator."

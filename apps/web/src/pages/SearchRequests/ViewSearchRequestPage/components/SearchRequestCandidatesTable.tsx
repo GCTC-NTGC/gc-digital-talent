@@ -45,9 +45,6 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
         .map((req) => req?.value),
       pools: unpackMaybes(applicantFilter.pools).map(({ id }) => ({ id })),
       skills: unpackMaybes(applicantFilter.skills).map(({ id }) => ({ id })),
-      workStreams: unpackMaybes(applicantFilter.workStreams).map(({ id }) => ({
-        id,
-      })),
       community: applicantFilter?.community?.id
         ? { id: applicantFilter.community.id }
         : undefined,
@@ -55,6 +52,9 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     appliedClassifications: applicantFilter.qualifiedClassifications
       ?.filter(notEmpty)
       .map(({ group, level }) => ({ group, level })),
+    workStreams: unpackMaybes(applicantFilter.workStreams).map(({ id }) => ({
+      id,
+    })),
     poolCandidateStatus: [
       PoolCandidateStatus.QualifiedAvailable,
       PoolCandidateStatus.PlacedCasual,

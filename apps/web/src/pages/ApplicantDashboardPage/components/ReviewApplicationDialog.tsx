@@ -12,6 +12,7 @@ import {
   Accordion,
   Button,
   Dialog,
+  HTMLEntity,
   Link,
   PreviewList,
   Separator,
@@ -45,12 +46,12 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
     finalDecision {
       value
     }
+    assessmentStep
     assessmentStatus {
       assessmentStepStatuses {
         step
       }
       overallAssessmentStatus
-      currentStep
     }
     pool {
       id
@@ -171,6 +172,7 @@ const ReviewApplicationDialog = ({
     application.finalDecisionAt,
     application.finalDecision?.value,
     pool.areaOfSelection?.value,
+    application.assessmentStep,
     application.assessmentStatus,
     pool.screeningQuestionsCount,
     intl,
@@ -339,10 +341,11 @@ const ReviewApplicationDialog = ({
                   <span>
                     {intl.formatMessage(commonMessages.requiredSkills)}
                   </span>
-                  <span
-                    className="font-normal text-gray-500 dark:text-gray-200"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                  >{` (${essentialSkills.length ?? 0})`}</span>
+                  <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
+                    <HTMLEntity name="(" />
+                    {essentialSkills.length ?? 0}
+                    <HTMLEntity name=")" />
+                  </span>
                 </Accordion.Trigger>
                 <Accordion.Content>
                   {essentialSkills.length ? (
@@ -361,10 +364,11 @@ const ReviewApplicationDialog = ({
                   <span>
                     {intl.formatMessage(commonMessages.optionalSkills)}
                   </span>
-                  <span
-                    className="font-normal text-gray-500 dark:text-gray-200"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                  >{` (${nonessentialSkills.length ?? 0})`}</span>
+                  <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
+                    <HTMLEntity name="(" />
+                    {nonessentialSkills.length ?? 0}
+                    <HTMLEntity name=")" />
+                  </span>
                 </Accordion.Trigger>
                 <Accordion.Content>
                   {nonessentialSkills.length ? (

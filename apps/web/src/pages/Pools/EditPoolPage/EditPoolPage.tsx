@@ -385,16 +385,12 @@ export const EditPoolForm = ({
     skillRequirements: {
       id: "skill-requirements",
       hasError: skillRequirementsHasError,
-      title: intl.formatMessage({
-        defaultMessage: "Skill requirements",
-        id: "tON7JL",
-        description: "Title for skill requirements",
-      }),
+      title: intl.formatMessage(commonMessages.skillRequirements),
       subtitle: intl.formatMessage({
         defaultMessage:
           "Skill requirements are categorized as either being <strong>essential</strong> (the candidate absolutely requires this skill) or <strong>asset</strong> (the skill would be helpful but isn't required). Skill criteria will be presented to the applicant based on a combination of the skill's essential/asset status and whether or not the skill will be assessed as a part of their application.",
-        id: "Qibs21",
-        description: "Sub title for  skill requirements",
+        id: "znWT8z",
+        description: "Subtitle for skill requirements",
       }),
       icon: skillRequirementsHasError ? ExclamationCircleIcon : CheckCircleIcon,
       color: skillRequirementsHasError ? "error" : "success",

@@ -8,8 +8,8 @@ import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
 import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
-import iapManagerImg from "~/assets/img/iap-hero.webp";
-import itTrainingFundImg from "~/assets/img/check_it_out_it_training_fund.webp";
+import iapManagerImg from "~/assets/img/iap-hero-card.webp";
+import itTrainingFundImg from "~/assets/img/person-looking-at-ultra-wide-monitor.webp";
 
 const Featured = () => {
   const intl = useIntl();
@@ -34,7 +34,12 @@ const Featured = () => {
         </p>
       ),
 
-      img: { path: itTrainingFundImg, position: "center" },
+      img: {
+        path: itTrainingFundImg,
+        position: "center",
+        width: 400,
+        height: 300,
+      },
       link: {
         path: paths.itTrainingFund(),
         label: intl.formatMessage({
@@ -65,7 +70,12 @@ const Featured = () => {
         </p>
       ),
 
-      img: { path: glassesOnBooks, position: "bottom right" },
+      img: {
+        path: glassesOnBooks,
+        position: "bottom right",
+        width: 400,
+        height: 300,
+      },
       link: {
         path: paths.comptrollershipExecutivesPage(),
         label: intl.formatMessage({
@@ -91,7 +101,7 @@ const Featured = () => {
           })}
         </p>
       ),
-      img: { path: iapManagerImg },
+      img: { path: iapManagerImg, width: 400, height: 300 },
       link: {
         path: paths.iap(),
         label: intl.formatMessage({

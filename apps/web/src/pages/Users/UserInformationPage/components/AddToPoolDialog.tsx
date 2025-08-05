@@ -252,9 +252,8 @@ const AddToPoolDialog = ({ userQuery }: AddToPoolDialogProps) => {
                 "First section of text on the add user to pool dialog",
             })}
           </p>
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p className="mb-6 font-bold">
-            - {getFullNameHtml(user?.firstName, user?.lastName, intl)}
+            {getFullNameHtml(user?.firstName, user?.lastName, intl)}
           </p>
           <p className="mb-6">
             {intl.formatMessage({

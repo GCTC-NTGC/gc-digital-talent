@@ -67,7 +67,7 @@ class UsersThruPoolCandidatesExcelGeneratorTest extends TestCase
         );
 
         $generator
-            ->setUserId($adminUser->id)
+            ->setAuthenticatedUserId($adminUser->id)
             ->setIds([$application1->id, $application2->id])
             ->setFilters([]);
 

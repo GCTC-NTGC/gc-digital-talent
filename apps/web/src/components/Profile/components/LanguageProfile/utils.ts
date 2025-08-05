@@ -100,7 +100,7 @@ export const getLabels = (intl: IntlShape) => ({
     description:
       "Legend for considered position languages check list in language information form",
   }),
-  yourFirstOfficialLang: intl.formatMessage({
+  firstOfficialLanguage: intl.formatMessage({
     defaultMessage: "Your first official language",
     id: "CwGljY",
     description:

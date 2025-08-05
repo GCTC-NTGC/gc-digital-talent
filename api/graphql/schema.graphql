@@ -491,7 +491,6 @@ type AssessmentStepDecision {
 type AssessmentResultStatus {
   assessmentStepStatuses: [AssessmentStepDecision]
   overallAssessmentStatus: OverallAssessmentStatus
-  currentStep: Int # Starts at 1, null indicates all steps successful
 }
 
 type PoolSkill {
@@ -561,6 +560,8 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
+  # Starts at 1, null indicates all steps successful
+  assessmentStep: Int @rename(attribute: "assessment_step")
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
@@ -607,6 +608,7 @@ type PoolCandidateAdminView {
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
+  assessmentStep: Int @rename(attribute: "assessment_step")
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   placedDepartment: Department @belongsTo
@@ -1107,7 +1109,7 @@ type JobPosterTemplate {
 
   classification: Classification @belongsTo
   workStream: WorkStream @belongsTo
-  skills: [JobPosterTemplateSkill!] @belongsToMany(model: "Skill")
+  jobPosterTemplateSkills: [JobPosterTemplateSkill!] @hasMany
 }
 
 type LocalizedKeywords {
@@ -1115,15 +1117,11 @@ type LocalizedKeywords {
   fr: [String!]
 }
 
-type JobPosterTemplateSkillPivot {
-  type: LocalizedPoolSkillType!
-  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
-}
-
 type JobPosterTemplateSkill {
   id: UUID!
-  skill: Skill! @self
-  pivot: JobPosterTemplateSkillPivot
+  type: LocalizedPoolSkillType!
+  requiredLevel: LocalizedSkillLevel @rename(attribute: "required_skill_level")
+  skill: Skill @belongsTo
 }
 
 input ClassificationFilterInput {
@@ -1210,6 +1208,7 @@ input ApplicantFilterInput {
     @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "whereQualifiedClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  # should be considered qualifiedWorkStreams
   workStreams: [IdInput] @scope(name: "whereQualifiedStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
     @scope(name: "whereHasPoolCandidateCommunity")
@@ -1233,6 +1232,9 @@ input PoolCandidateSearchInput {
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
     @scope(name: "whereAppliedClassificationsIn")
+  # Filters applicants based on the stream of pools there are in
+  # There is also a stream field as part of ApplicantFilterInput however it includes scoping for availability.
+  workStreams: [IdInput] @scope(name: "whereWorkStreamsIn")
   processNumber: String @scope(name: "whereProcessNumber")
 }
 
@@ -2796,22 +2798,15 @@ input TalentNominationEventsFilterInput {
   canManage: Boolean @scope
 }
 
-input ConnectJobPosterTemplateSkillInput {
-  id: UUID!
+input CreateJobPosterTemplateSkillInput {
+  skillId: UUID! @rename(attribute: "skill_id")
   type: PoolSkillType!
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
-input SyncJobPosterTemplateSkillInput {
-  id: UUID!
-  type: PoolSkillType
-  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
-}
-
 input UpdateJobPosterTemplateSkillsInput {
-  connect: [ConnectJobPosterTemplateSkillInput!]
-  sync: [SyncJobPosterTemplateSkillInput!]
-  detach: [UUID!]
+  create: [CreateJobPosterTemplateSkillInput!]
+  delete: [UUID!]
 }
 
 input CreateJobPosterTemplateInput @validator {
@@ -2830,7 +2825,7 @@ input CreateJobPosterTemplateInput @validator {
   nonessentialTechnicalSkillsNotes: LocalizedStringInput
     @rename(attribute: "nonessential_technical_skills_notes")
   classification: ClassificationBelongsTo!
-  skills: UpdateJobPosterTemplateSkillsInput
+  jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
 }
 
 input UpdateJobPosterTemplateInput @validator {
@@ -2842,7 +2837,7 @@ input UpdateJobPosterTemplateInput @validator {
   workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput
-  keywords: LocalizedStringInput
+  keywords: LocalizedKeywordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
     @rename(attribute: "essential_technical_skills_notes")
   essentialBehaviouralSkillsNotes: LocalizedStringInput
@@ -2850,7 +2845,7 @@ input UpdateJobPosterTemplateInput @validator {
   nonessentialTechnicalSkillsNotes: LocalizedStringInput
     @rename(attribute: "nonessential_technical_skills_notes")
   classification: ClassificationBelongsTo
-  skills: UpdateJobPosterTemplateSkillsInput
+  jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
 }
 
 type Mutation {

@@ -71,8 +71,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
       }
+      assessmentStep
       assessmentStatus {
-        currentStep
         assessmentStepStatuses {
           decision
           step
@@ -157,6 +157,7 @@ export const ViewPoolCandidate = ({
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
+    poolCandidate.assessmentStep,
     poolCandidate.assessmentStatus,
     intl,
   );
@@ -300,7 +301,10 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable userQuery={poolCandidate.user} />
+                        <PoolStatusTable
+                          currentPoolId={poolCandidate.pool.id}
+                          userQuery={poolCandidate.user}
+                        />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>

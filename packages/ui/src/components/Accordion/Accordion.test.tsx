@@ -72,8 +72,8 @@ describe("Accordion", () => {
 
     expect(screen.getAllByRole("button", { expanded: false })).toHaveLength(2);
 
-    await user.click(screen.getByRole("button", { name: /one/i }));
-    await user.click(screen.getByRole("button", { name: /two/i }));
+    await user.click(screen.getByRole("button", { name: /accordion one/i }));
+    await user.click(screen.getByRole("button", { name: /accordion two/i }));
 
     expect(screen.getAllByRole("button", { expanded: false })).toHaveLength(1);
     expect(screen.getAllByRole("button", { expanded: true })).toHaveLength(1);
@@ -87,8 +87,8 @@ describe("Accordion", () => {
 
     expect(screen.getAllByRole("button", { expanded: false })).toHaveLength(2);
 
-    await user.click(screen.getByRole("button", { name: /one/i }));
-    await user.click(screen.getByRole("button", { name: /two/i }));
+    await user.click(screen.getByRole("button", { name: /accordion one/i }));
+    await user.click(screen.getByRole("button", { name: /accordion two/i }));
 
     expect(screen.getAllByRole("button", { expanded: true })).toHaveLength(2);
   });

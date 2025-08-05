@@ -9,6 +9,7 @@ import BaseLink, { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
 import Chip, { ChipProps } from "../Chip/Chip";
 import Heading, { HeadingLevel } from "../Heading";
 import { BaseIconButtonLinkProps } from "../../utils/btnStyles";
+import HTMLEntity from "../HTMLEntity/HTMLEntity";
 
 interface MetaDataBase {
   children: ReactNode;
@@ -105,20 +106,21 @@ const Item = ({
         </Heading>
         {children && <div>{children}</div>}
         <div className="mt-4.5 flex flex-col flex-nowrap items-start gap-y-3 text-sm xs:flex-row xs:flex-wrap xs:items-center">
-          {metaData.map((data, index) => (
-            <Fragment key={data.key}>
-              {index > 0 && (
-                <span
-                  aria-hidden="true"
-                  className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
-                  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                >
-                  &bull;
-                </span>
-              )}
-              <MetaData {...data} />
-            </Fragment>
-          ))}
+          {metaData.map((data, index) => {
+            const { key, ...rest } = data;
+            return (
+              <Fragment key={data.key}>
+                {index > 0 && (
+                  <HTMLEntity
+                    name="&bull;"
+                    className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
+                    aria-hidden
+                  />
+                )}
+                <MetaData key={key} {...rest} />
+              </Fragment>
+            );
+          })}
         </div>
       </div>
       {action}

@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";
@@ -56,8 +55,8 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    assessmentStep
     assessmentStatus {
-      currentStep
       overallAssessmentStatus
     }
     assessmentResults {
@@ -335,17 +334,31 @@ const AssessmentResultsTable = ({
         description:
           "Header for requirement section of assessment results table",
       }),
+      meta: {
+        isRowHeader: true,
+      },
       cell: ({ row: { original } }) =>
         cells.jsx(
           <span>
             {original.poolSkill ? (
               <>
-                <span className="font-bold">
-                  {getLocalizedName(original.poolSkill?.skill?.name, intl)}{" "}
-                </span>
-                <span>
-                  ({getLocalizedName(original.poolSkill.type?.label, intl)})
-                </span>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "<strong>{skill}</strong> ({type})",
+                    id: "8nsSyc",
+                    description: "Formatted skill name and type",
+                  },
+                  {
+                    skill: getLocalizedName(
+                      original.poolSkill?.skill?.name,
+                      intl,
+                    ),
+                    type: getLocalizedName(
+                      original.poolSkill.type?.label,
+                      intl,
+                    ),
+                  },
+                )}
               </>
             ) : (
               <span className="font-bold">

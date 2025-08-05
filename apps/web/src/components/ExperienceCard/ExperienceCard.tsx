@@ -13,6 +13,7 @@ import {
   Well,
   useControllableState,
   Ul,
+  HTMLEntity,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -407,8 +408,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.GovernmentOfCanada && (
             <>
-              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-              <span aria-hidden>&bull;</span>
+              <HTMLEntity name="&bull;" aria-hidden />
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Government of Canada",
@@ -425,8 +425,7 @@ const ExperienceCard = ({
           experience.govEmploymentType?.value ===
             WorkExperienceGovEmployeeType.Contractor && (
             <>
-              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-              <span aria-hidden>&bull;</span>
+              <HTMLEntity name="&bull;" aria-hidden />
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Contractor",
@@ -441,8 +440,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.CanadianArmedForces && (
             <>
-              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-              <span aria-hidden>&bull;</span>
+              <HTMLEntity name="&bull;" aria-hidden />
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Canadian Armed Forces",
@@ -455,8 +453,7 @@ const ExperienceCard = ({
           )}
         {date && (
           <>
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            <span aria-hidden>&bull;</span>
+            <HTMLEntity name="&bull;" aria-hidden />
             <span>{date}</span>
           </>
         )}

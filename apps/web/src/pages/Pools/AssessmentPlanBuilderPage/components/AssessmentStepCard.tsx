@@ -12,6 +12,7 @@ import {
 import {
   Accordion,
   CardRepeater,
+  HTMLEntity,
   Heading,
   Well,
   useCardRepeaterContext,
@@ -28,6 +29,7 @@ import processMessages from "~/messages/processMessages";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 const AssessmentStepCardPool_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentStepCardPool on Pool {
@@ -50,7 +52,7 @@ interface AssessmentStepCardProps {
   index: number;
   assessmentStep: Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">;
   poolQuery: FragmentType<typeof AssessmentStepCardPool_Fragment>;
-  onRemove: (index: number) => void;
+  onRemove: (index: number) => Promise<void>;
   onMove: (fromIndex: number, toIndex: number) => void;
 }
 
@@ -80,9 +82,9 @@ const AssessmentStepCard = ({
     onMove(from, to);
   };
 
-  const handleRemove = (removeIndex: number) => {
+  const handleRemove = async (removeIndex: number) => {
     remove(removeIndex);
-    onRemove(removeIndex);
+    await onRemove(removeIndex);
   };
 
   return (
@@ -114,11 +116,12 @@ const AssessmentStepCard = ({
         />
       }
       remove={
-        <CardRepeater.Remove
-          onClick={() => handleRemove(index)}
-          label={intl.formatMessage(formMessages.repeaterRemove, {
-            index: index + 1,
-          })}
+        <ConfirmationDialog
+          assessmentTitle={assessmentStepDisplayName(
+            { type: assessmentStep.type, title: assessmentStep.title },
+            intl,
+          )}
+          onRemove={() => handleRemove(index)}
         />
       }
     >
@@ -139,10 +142,7 @@ const AssessmentStepCard = ({
           {skillNames.map((skillName, skillIndex) => (
             <Fragment key={skillName}>
               {skillIndex !== 0 || isApplicationScreening ? (
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                <span className="mx-3" aria-hidden>
-                  &bull;
-                </span>
+                <HTMLEntity name="&bull;" className="mx-3" aria-hidden />
               ) : null}
               <li className="inline pl-0">{skillName}</li>
             </Fragment>

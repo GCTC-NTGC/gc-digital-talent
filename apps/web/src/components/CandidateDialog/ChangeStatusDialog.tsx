@@ -447,9 +447,8 @@ const ChangeStatusDialog = ({
                 "First section of text on the change candidate status dialog",
             })}
           </p>
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p className="font-bold">
-            - {getFullNameHtml(user.firstName, user.lastName, intl)}
+            {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
           <p className="mt-6">
             {intl.formatMessage({
@@ -460,8 +459,6 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p className="font-bold">
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            {"- "}
             {getShortPoolTitleHtml(intl, {
               workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,
