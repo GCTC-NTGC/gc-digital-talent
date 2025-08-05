@@ -55,9 +55,11 @@ const withThemeFromTailwind = <TRenderer extends Renderer = any>({
   return (storyFn, context) => {
     const selectedTheme = pluckThemeFromContext(context);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const { themeOverride } = context.parameters.themes ?? {};
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const selected = themeOverride || selectedTheme || defaultTheme;
+    const selected =
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      context?.parameters?.themes?.themeOverride ||
+      selectedTheme ||
+      defaultTheme;
     const themeArr = useMemo(
       () =>
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
