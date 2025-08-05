@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
@@ -6,7 +5,7 @@ import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
-import { formMessages } from "@gc-digital-talent/i18n";
+import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import Button from "../Button";
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
@@ -68,8 +67,13 @@ export const Add = forwardRef<
         <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>
       ) : (
         (children ?? intl.formatMessage(formMessages.repeaterAddItem))
-      )}{" "}
-      {max && `(${total}/${max})`}
+      )}
+      <span className="ml-1"></span>
+      {max &&
+        intl.formatMessage(uiMessages.countAndTotal, {
+          count: total,
+          total: max,
+        })}
     </Button>
   );
 });

@@ -155,7 +155,8 @@ const navMenuLink = tv({
     },
     type: {
       link: "",
-      subMenuLink: "",
+      subMenuLink:
+        "hover:text-primary-600 data-active:text-primary-600 data-active:hover:text-primary-700 data-active:dark:text-primary-200 data-active:dark:hover:text-primary-100",
     },
   },
   defaultVariants: {

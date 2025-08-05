@@ -460,6 +460,15 @@ type PoolCandidateWithSkillCountPaginator {
   data: [PoolCandidateWithSkillCount!]!
 }
 
+"A paginated list of PoolCandidateAdminViewWithSkillCount items."
+type PoolCandidateAdminViewWithSkillCountPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of PoolCandidateAdminViewWithSkillCount items."
+  data: [PoolCandidateAdminViewWithSkillCount!]!
+}
+
 "A paginated list of PoolCandidateSearchRequest items."
 type PoolCandidateSearchRequestPaginator {
   "Pagination information about the list of items."
@@ -588,6 +597,55 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   pool: QueryPoolCandidatesPaginatedOrderByPool
+}
+
+"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
+enum QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn {
+  PRIORITY_WEIGHT
+  FIRST_NAME
+  EMAIL
+  PREFERRED_LANG
+  PREFERRED_LANGUAGE_FOR_INTERVIEW
+  PREFERRED_LANGUAGE_FOR_EXAM
+  CURRENT_CITY
+}
+
+"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.user."
+input QueryPoolCandidatesPaginatedAdminViewOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn
+}
+
+"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
+enum QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn {
+  PROCESS_NUMBER
+}
+
+"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.pool."
+input QueryPoolCandidatesPaginatedAdminViewOrderByPool {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn
+}
+
+"Order by clause for Query.poolCandidatesPaginatedAdminView.orderBy."
+input QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryPoolCandidatesPaginatedAdminViewOrderByUser
+
+  "Aggregate specification."
+  pool: QueryPoolCandidatesPaginatedAdminViewOrderByPool
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."
@@ -1431,12 +1489,13 @@ type __Type {
   kind: __TypeKind!
   name: String
   description: String
-  fields(includeDeprecated: Boolean = false): [__Field!]
+  fields(includeDeprecated: Boolean! = false): [__Field!]
   interfaces: [__Type!]
   possibleTypes: [__Type!]
-  enumValues(includeDeprecated: Boolean = false): [__EnumValue!]
-  inputFields(includeDeprecated: Boolean = false): [__InputValue!]
+  enumValues(includeDeprecated: Boolean! = false): [__EnumValue!]
+  inputFields(includeDeprecated: Boolean! = false): [__InputValue!]
   ofType: __Type
+  isOneOf: Boolean
 }
 
 "An enum describing what kind of type a given `__Type` is."
@@ -1470,7 +1529,7 @@ enum __TypeKind {
 type __Field {
   name: String!
   description: String
-  args(includeDeprecated: Boolean = false): [__InputValue!]!
+  args(includeDeprecated: Boolean! = false): [__InputValue!]!
   type: __Type!
   isDeprecated: Boolean!
   deprecationReason: String
@@ -1507,7 +1566,7 @@ type __Directive {
   description: String
   isRepeatable: Boolean!
   locations: [__DirectiveLocation!]!
-  args: [__InputValue!]!
+  args(includeDeprecated: Boolean! = false): [__InputValue!]!
 }
 
 "A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies."

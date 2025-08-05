@@ -31,7 +31,7 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         $section = $this->doc->addSection();
         $section->addTitle($this->localizeHeading('user_profile'), 1);
 
-        $this->generateUser($section, $this->user);
+        $this->generateUser($section, $this->user, null);
 
         return $this;
     }

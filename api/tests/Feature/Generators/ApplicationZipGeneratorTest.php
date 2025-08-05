@@ -59,10 +59,10 @@ class ApplicationZipGeneratorTest extends TestCase
             ids: [$application1->id, $application2->id],
             fileName: $fileName,
             dir: 'test',
-            lang: 'en'
+            lang: 'en',
         );
 
-        $generator->setUserId($adminUser->id);
+        $generator->setAuthenticatedUserId($adminUser->id);
         $generator->generate()->write();
         $fileName = $generator->getFileNameWithExtension();
 

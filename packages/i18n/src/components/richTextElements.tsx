@@ -96,7 +96,7 @@ const heavyWarning = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const gray = (text: ReactNode) => (
-  <span className="text-gray-500 dark:text-gray-300">{text}</span>
+  <span className="text-gray-500 dark:text-gray-200">{text}</span>
 );
 
 /**

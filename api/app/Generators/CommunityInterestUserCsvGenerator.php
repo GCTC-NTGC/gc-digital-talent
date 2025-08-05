@@ -169,7 +169,7 @@ class CommunityInterestUserCsvGenerator extends CsvGenerator implements FileGene
 
         /** @var Builder<CommunityInterest> $query */
         $query
-            ->authorizedToView(['userId' => $this->userId])
+            ->authorizedToView(['userId' => $this->authenticatedUserId])
             ->isVerifiedGovEmployee();
 
         // Deduplicate community interests (users) in query

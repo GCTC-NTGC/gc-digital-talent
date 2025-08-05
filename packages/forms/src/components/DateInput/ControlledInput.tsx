@@ -123,7 +123,7 @@ const ControlledInput = ({
             defaultValue={month ?? ""}
             className={selectInput({ state: stateStyles })}
           >
-            <option className="text-gray-600/70 dark:text-gray-300/70" value="">
+            <option className="text-gray-600/70 dark:text-gray-200/70" value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
             </option>
             {months.map((monthName, index) => (

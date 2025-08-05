@@ -54,10 +54,10 @@ class UserZipGeneratorTest extends TestCase
             anonymous: false,
             dir: 'test',
             fileName: $fileName,
-            lang: 'en'
+            lang: 'en',
         );
 
-        $generator->setUserId($adminUser->id);
+        $generator->setAuthenticatedUserId($adminUser->id);
         $generator->generate()->write();
         $fileName = $generator->getFileNameWithExtension();
 

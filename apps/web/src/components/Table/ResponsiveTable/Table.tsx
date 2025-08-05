@@ -198,6 +198,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
   const intl = useIntl();
   const isRowTitle = cell.column.columnDef.meta?.isRowTitle;
   const isRowSelect = cell.column.columnDef.meta?.isRowSelect;
+  const isRowHeader = cell.column.columnDef.meta?.isRowHeader;
   const shouldShrink = cell.column.columnDef.meta?.shrink;
   const header = getColumnHeader(cell.column, "mobileHeader");
 
@@ -210,26 +211,27 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
 
   const { base, val } = cellStyles({ isRowTitle, isRowSelect, shouldShrink });
 
+  const El = isRowHeader ? "th" : "td";
+
   return (
-    <td
+    <El
       // Seems like a false positive, cell is the implicit role for this element
       // REF: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#technical_summary:~:text=%3Ctr%3E%20element.-,Implicit%20ARIA%20role,-cell%20if%20a
-      // eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role
-      role="cell"
+      role={isRowHeader ? "rowheader" : "cell"}
       className={base()}
+      {...(isRowHeader ? { scope: "row" } : {})}
       {...rest}
     >
       {showHeader && (
         <span className="inline font-bold sm:hidden">
           {header}
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {intl.formatMessage(commonMessages.dividingColon)}{" "}
+          {intl.formatMessage(commonMessages.dividingColon)}
         </span>
       )}
       <span className={val()}>
         {flexRender(cell.column.columnDef.cell, cell.getContext())}
       </span>
-    </td>
+    </El>
   );
 };
 

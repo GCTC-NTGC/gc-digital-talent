@@ -28,13 +28,13 @@ final class DownloadUsersExcel
 
         try {
             $generator = new UserExcelGenerator(
-                fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
+                fileName: sprintf('%s_%s', __('filename.profiles'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
             );
 
             $generator
-                ->setUserId($user->id)
+                ->setAuthenticatedUserId($user->id)
                 ->setIds($ids)
                 ->setFilters($filters);
 

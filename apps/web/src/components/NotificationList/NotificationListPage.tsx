@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 import { Scalars, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Link, Loading, Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 
 import NotificationItem from "./NotificationItem";
 import NotificationPortal, {
@@ -78,9 +78,6 @@ const NotificationListPage = ({
 
   const notifications = unpackMaybes(data?.notifications?.data);
 
-  const isLoading =
-    (fetching || fetchingLiveNotifications) && excludeIds.length === 0;
-
   const showNullMessage =
     notifications.length === 0 &&
     page === 1 &&
@@ -94,27 +91,21 @@ const NotificationListPage = ({
 
   return (
     <>
-      {isLoading ? (
-        <Loading inline />
-      ) : (
+      {notifications.length > 0 ? (
         <>
-          {notifications.length > 0 ? (
-            <>
-              {notifications.map((notification, index) => (
-                <NotificationItem
-                  key={notification.id}
-                  focusRef={
-                    index === 0 && page !== 1 ? firstNewNotification : undefined
-                  }
-                  notification={notification}
-                  inDialog={inDialog}
-                  onRead={onRead}
-                />
-              ))}
-            </>
-          ) : null}
+          {notifications.map((notification, index) => (
+            <NotificationItem
+              key={notification.id}
+              focusRef={
+                index === 0 && page !== 1 ? firstNewNotification : undefined
+              }
+              notification={notification}
+              inDialog={inDialog}
+              onRead={onRead}
+            />
+          ))}
         </>
-      )}
+      ) : null}
       {showNullMessage && (
         <NotificationPortal.Portal
           containerId={NULL_MESSAGE_ROOT_ID}

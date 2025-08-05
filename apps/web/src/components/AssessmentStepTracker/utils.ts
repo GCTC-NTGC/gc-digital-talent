@@ -201,8 +201,8 @@ export const groupPoolCandidatesByStep = (
     orderedSteps.map((step, index) => {
       const stepCandidates = candidates
         .filter((candidate) => {
-          return candidate.assessmentStatus?.currentStep
-            ? index + 1 <= candidate.assessmentStatus?.currentStep
+          return candidate.assessmentStep
+            ? index + 1 <= candidate.assessmentStep
             : true; // Null step indicates user passed all steps
         })
         .map((candidate) => {

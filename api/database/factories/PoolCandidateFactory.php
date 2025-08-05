@@ -167,16 +167,22 @@ class PoolCandidateFactory extends Factory
             if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name ||
             $poolCandidate->education_requirement_option === EducationRequirementOption::PROFESSIONAL_DESIGNATION->name) {
                 // Ensure user has at least one education experience
-                $experience = EducationExperience::factory()->create([
-                    'user_id' => $poolCandidate->user_id,
-                ]);
+                $experience = EducationExperience::where('user_id', $poolCandidate->user_id)->first();
+                if (! $experience) {
+                    $experience = EducationExperience::factory()->create([
+                        'user_id' => $poolCandidate->user_id,
+                    ]);
+                }
                 $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
             } elseif ($poolCandidate->education_requirement_option === EducationRequirementOption::APPLIED_WORK->name) {
                 // Ensure user has at least one work experience
-                $experience = WorkExperience::factory()->create([
-                    'user_id' => $poolCandidate->user_id,
-                    'employment_category' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
-                ]);
+                $experience = WorkExperience::where('user_id', $poolCandidate->user_id)->first();
+                if (! $experience) {
+                    $experience = WorkExperience::factory()->create([
+                        'user_id' => $poolCandidate->user_id,
+                        'employment_category' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+                    ]);
+                }
                 $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
             }
 

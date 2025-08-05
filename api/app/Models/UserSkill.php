@@ -33,6 +33,11 @@ class UserSkill extends Model
 
     protected $keyType = 'string';
 
+    protected $casts = [
+        'top_skills_rank' => 'integer',
+        'improve_skills_rank' => 'integer',
+    ];
+
     protected $fillable = [
         'user_id',
         'skill_id',

@@ -121,8 +121,8 @@ const Opportunities = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "From entry-level executive roles to CIO opportunities across the Government of Canada, this is the place to come if you're ready to take your next step in digital leadership.",
-              id: "xnNnwu",
+                "From entry-level executive roles to Chief Information Officer opportunities across the Government of Canada, this is the place to come if you're ready to take your next step in digital leadership.",
+              id: "oGA8Cz",
               description: "Description of the executive community",
             })}
           </p>

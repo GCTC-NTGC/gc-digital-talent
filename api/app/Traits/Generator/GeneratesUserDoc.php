@@ -546,7 +546,7 @@ trait GeneratesUserDoc
                 $section->addText($this->localize('common.featured_skills'));
             }
 
-            $experience->userSkills->each(function ($userSkill) use ($section) {
+            $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
                 $skillRun = $section->addListItemRun();
                 /** @var UserSkill $userSkill */
                 $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
@@ -585,8 +585,12 @@ trait GeneratesUserDoc
     /**
      * Generate all sections for a user
      */
-    protected function generateUser(Section $section, User $user, $headingRank = 2)
+    protected function generateUser(Section $section, User $user, ?int $headingRank)
     {
+        if (is_null($headingRank)) {
+            $headingRank = 2;
+        }
+
         $user->loadMissing([
             'department',
             'currentClassification',
@@ -597,8 +601,11 @@ trait GeneratesUserDoc
             'workExperiences',
             'userSkills',
             'employeeProfile',
-            'poolCandidates' => function ($query) use ($user) {
-                $query->whereAuthorizedToView(['userId' => $user->id]);
+            'poolCandidates' => function ($query) {
+                /** @var \App\Builders\PoolCandidateBuilder $query */
+                $query
+                    ->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+                    ->whereQualified();
             },
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
@@ -683,7 +690,7 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localize('experiences.classification'), $candidate->pool->classification->displayName);
             $this->addLabelText($section, $this->localizeHeading('process_number'), $candidate->pool->process_number);
             $this->addLabelText($section, $this->localizeHeading('functional_community'), $candidate->pool->community->name[$this->lang] ?? '');
-            $this->addLabelText($section, $this->localizeHeading('availability'), $this->yesOrNo(isset($candidate->suspended_at)));
+            $this->addLabelText($section, $this->localizeHeading('availability'), $this->yesOrNo(! isset($candidate->suspended_at)));
         });
 
         // Off platform processes

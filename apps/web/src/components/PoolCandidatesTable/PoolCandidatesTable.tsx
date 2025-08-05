@@ -215,12 +215,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           finalDecision {
             value
           }
+          assessmentStep
           assessmentStatus {
             assessmentStepStatuses {
               step
             }
             overallAssessmentStatus
-            currentStep
           }
           pool {
             id
@@ -261,8 +261,8 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
+          assessmentStep
           assessmentStatus {
-            currentStep
             overallAssessmentStatus
           }
           user {
@@ -800,16 +800,27 @@ const PoolCandidatesTable = ({
         cell: ({
           row: {
             original: {
-              poolCandidate: { finalDecision, assessmentStatus },
+              poolCandidate: {
+                finalDecision,
+                assessmentStatus,
+                assessmentStep,
+              },
             },
           },
-        }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
+        }) =>
+          finalDecisionCell(
+            finalDecision,
+            assessmentStep,
+            assessmentStatus,
+            intl,
+          ),
       },
     ),
     columnHelper.accessor(
       ({
         poolCandidate: {
           submittedAt,
+          assessmentStep,
           assessmentStatus,
           removedAt,
           finalDecisionAt,
@@ -824,6 +835,7 @@ const PoolCandidatesTable = ({
           finalDecisionAt,
           finalDecision?.value,
           areaOfSelection?.value,
+          assessmentStep,
           assessmentStatus,
           screeningQuestionsCount,
           intl,
@@ -833,6 +845,17 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.candidateFacingStatus),
         enableSorting: false,
         enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { department },
+        },
+      }) => department?.name.localized,
+      {
+        id: "department",
+        header: intl.formatMessage(tableMessages.employeeDepartment),
       },
     ),
     columnHelper.accessor(
@@ -960,17 +983,6 @@ const PoolCandidatesTable = ({
       {
         id: "currentLocation",
         header: intl.formatMessage(tableMessages.currentLocation),
-      },
-    ),
-    columnHelper.accessor(
-      ({
-        poolCandidate: {
-          user: { department },
-        },
-      }) => department?.name.localized,
-      {
-        id: "department",
-        header: intl.formatMessage(tableMessages.employeeDepartment),
       },
     ),
     columnHelper.accessor(

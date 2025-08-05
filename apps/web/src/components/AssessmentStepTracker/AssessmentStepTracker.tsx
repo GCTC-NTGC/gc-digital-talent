@@ -57,8 +57,8 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
       }
       hasPriorityEntitlement
     }
+    assessmentStep
     assessmentStatus {
-      currentStep
       assessmentStepStatuses {
         decision
         step
@@ -183,15 +183,18 @@ const AssessmentStepTracker = ({
       ) : (
         <Well>
           <p>
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-            {intl.formatMessage(processMessages.noAssessmentPlan)}{" "}
-            {intl.formatMessage(processMessages.viewTalentPlacement, {
-              a: (chunks: ReactNode) =>
-                talentPlacementLink(
-                  chunks,
-                  paths.poolCandidateTable(pool?.id ?? ""),
-                ),
-            })}
+            <span className="mr-1">
+              {intl.formatMessage(processMessages.noAssessmentPlan)}
+            </span>
+            <span>
+              {intl.formatMessage(processMessages.viewTalentPlacement, {
+                a: (chunks: ReactNode) =>
+                  talentPlacementLink(
+                    chunks,
+                    paths.poolCandidateTable(pool?.id ?? ""),
+                  ),
+              })}
+            </span>
           </p>
         </Well>
       )}
