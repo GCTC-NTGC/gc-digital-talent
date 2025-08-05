@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { StoryFn } from "@storybook/react";
 import { ComponentProps } from "react";
 
