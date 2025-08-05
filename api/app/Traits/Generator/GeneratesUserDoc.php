@@ -177,9 +177,9 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class));
 
-             if (! $this->anonymous) {
-            $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
-        }
+            if (! $this->anonymous) {
+                $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
+            }
             $this->addLabelText($section, $this->localizeHeading('classification'), $user->getClassification());
         }
 
