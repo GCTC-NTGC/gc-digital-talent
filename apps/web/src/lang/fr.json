@@ -91,6 +91,10 @@
     "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
     "description": "PSC second language evaluations list for language requirements dialog"
   },
+  "+O4pHs": {
+    "defaultMessage": "Étape {step}",
+    "description": "Label for current assessment step."
+  },
   "+O6J4u": {
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
@@ -9801,6 +9805,10 @@
   "gpcHeU": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Header."
+  },
+  "gqX6/n": {
+    "defaultMessage": "Étape actuelle",
+    "description": "Title displayed for a candidates current assessment step"
   },
   "gr8+Es": {
     "defaultMessage": "Le statut du placement a été enregistré avec succès",
