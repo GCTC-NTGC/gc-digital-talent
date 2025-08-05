@@ -489,7 +489,6 @@ type AssessmentStepDecision {
 type AssessmentResultStatus {
   assessmentStepStatuses: [AssessmentStepDecision]
   overallAssessmentStatus: OverallAssessmentStatus
-  currentStep: Int # Starts at 1, null indicates all steps successful
 }
 
 type PoolSkill {
@@ -559,6 +558,8 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
+  # Starts at 1, null indicates all steps successful
+  assessmentStep: Int @rename(attribute: "assessment_step")
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
@@ -605,6 +606,7 @@ type PoolCandidateAdminView {
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
+  assessmentStep: Int @rename(attribute: "assessment_step")
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   placedDepartment: Department @belongsTo

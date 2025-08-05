@@ -49,6 +49,7 @@ describe("PoolCandidate utils", () => {
             value: finalDecision,
             label: { en: "Qualified" },
           },
+          candidate.assessmentStep,
           candidate.assessmentStatus,
           intl,
         );
@@ -65,6 +66,7 @@ describe("PoolCandidate utils", () => {
               value: finalDecision,
               label: { en: "Disqualified" },
             },
+            candidate.assessmentStep,
             candidate.assessmentStatus,
             intl,
           );
@@ -82,6 +84,7 @@ describe("PoolCandidate utils", () => {
             en: "Removed: To assess",
           },
         },
+        candidate.assessmentStep,
         candidate.assessmentStatus,
         intl,
       );
@@ -95,6 +98,7 @@ describe("PoolCandidate utils", () => {
             en: "Removed: Qualified",
           },
         },
+        candidate.assessmentStep,
         candidate.assessmentStatus,
         intl,
       );
@@ -109,6 +113,7 @@ describe("PoolCandidate utils", () => {
             en: "Removed",
           },
         },
+        candidate.assessmentStep,
         candidate.assessmentStatus,
         intl,
       );
@@ -122,6 +127,7 @@ describe("PoolCandidate utils", () => {
             en: "Expired: Qualified",
           },
         },
+        candidate.assessmentStep,
         candidate.assessmentStatus,
         intl,
       );
@@ -137,6 +143,7 @@ describe("PoolCandidate utils", () => {
               en: "Qualified: Pending decision",
             },
           },
+          candidateFullyQualified.assessmentStep,
           candidateFullyQualified.assessmentStatus,
           intl,
         );
@@ -151,6 +158,7 @@ describe("PoolCandidate utils", () => {
               en: "Qualified: Pending decision",
             },
           },
+          candidateQualifiedExceptHoldOnMiddleAssessment.assessmentStep,
           candidateQualifiedExceptHoldOnMiddleAssessment.assessmentStatus,
           intl,
         );
@@ -163,6 +171,7 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
+          candidateFullyQualifiedExceptMissingEducation.assessmentStep,
           candidateFullyQualifiedExceptMissingEducation.assessmentStatus,
           intl,
         );
@@ -175,6 +184,8 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
+
+          candidateNoAssessments.assessmentStep,
           candidateNoAssessments.assessmentStatus,
           intl,
         );
@@ -187,6 +198,7 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
+          candidateQualifiedExceptHoldOnFinalAssessment.assessmentStep,
           candidateQualifiedExceptHoldOnFinalAssessment.assessmentStatus,
           intl,
         );
@@ -199,6 +211,7 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
+          candidateHoldOnMiddleStepAndNoResultsOnFinalStep.assessmentStep,
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep.assessmentStatus,
           intl,
         );
@@ -210,6 +223,7 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
+          candidateUnfinishedFinalAssessment.assessmentStep,
           candidateUnfinishedFinalAssessment.assessmentStatus,
           intl,
         );
@@ -222,6 +236,7 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.DisqualifiedPending,
             label: { en: "Disqualified: Pending decision" },
           },
+          candidateOneFailingAssessment.assessmentStep,
           candidateOneFailingAssessment.assessmentStatus,
           intl,
         );

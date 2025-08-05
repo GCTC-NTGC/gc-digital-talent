@@ -55,8 +55,8 @@ export const IndexPoolCandidatePage = () => {
     <>
       <SEO
         title={intl.formatMessage({
-          defaultMessage: "Talent placement",
-          id: "0YpfAG",
+          defaultMessage: "Candidates",
+          id: "YFEaeG",
           description: "Title for candidates tab for a process",
         })}
         description={formattedSubTitle}
