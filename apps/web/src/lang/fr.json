@@ -7654,13 +7654,13 @@
     "defaultMessage": "La possibilité de formation a été créée avec succès!",
     "description": "Message displayed to user after a training opportunity is created successfully."
   },
-  "XNzRga": {
-    "defaultMessage": "Compétences techniques constituant un atout",
-    "description": "Title for the nonessential technical skills"
-  },
   "XNNBCv": {
     "defaultMessage": "Je consens à travailler constamment sur place dans un lieu ministériel désigné.",
     "description": "Checklist option explanatory note"
+  },
+  "XNzRga": {
+    "defaultMessage": "Compétences techniques constituant un atout",
+    "description": "Title for the nonessential technical skills"
   },
   "XPJs0+": {
     "defaultMessage": "Modifier une classification",
