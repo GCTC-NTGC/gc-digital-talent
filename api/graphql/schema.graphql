@@ -105,6 +105,8 @@ type User {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -1670,6 +1672,8 @@ input CreateUserInput {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -1743,6 +1747,8 @@ input UpdateUserAsAdminInput @validator {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -1823,6 +1829,8 @@ input UpdateUserAsUserInput @validator {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")

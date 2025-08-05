@@ -67,6 +67,11 @@ const messages = defineMessages({
     id: "ahK7mI",
     description: "Legend for the work location preferences section",
   },
+  flexibleWorkLocationOptions: {
+    defaultMessage: "Flexible work location options",
+    id: "W2619r",
+    description: "Legend for the flexible work location preferences section",
+  },
 });
 
 export default messages;

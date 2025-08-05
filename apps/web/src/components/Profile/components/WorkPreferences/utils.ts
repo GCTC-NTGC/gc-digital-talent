@@ -3,6 +3,7 @@ import { IntlShape } from "react-intl";
 import {
   PositionDuration,
   UpdateUserAsUserInput,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -35,12 +36,20 @@ export const getLabels = (intl: IntlShape) => ({
     id: "ahK7mI",
     description: "Legend for the work location preferences section",
   }),
+  flexibleWorkLocationOptions: intl.formatMessage(
+    profileMessages.flexibleWorkLocationOptions,
+  ),
   locationExemptions: intl.formatMessage({
     defaultMessage:
-      "Please indicate if there is a city that you would like to exclude from a region.",
-    id: "dcvRbO",
+      "Indicate if there is a city that you would like to exclude from a region.",
+    id: "4Rs1gk",
     description:
       "Location Exemptions field label for work location preference form",
+  }),
+  locationExclusions: intl.formatMessage({
+    defaultMessage: "Location exclusions",
+    id: "+SoiCw",
+    description: "Location specifics label",
   }),
 });
 
@@ -61,6 +70,9 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
     locationPreferences: unpackMaybes(
       data.locationPreferences?.map((pref) => pref?.value),
     ),
+    flexibleWorkLocations: unpackMaybes(
+      data.flexibleWorkLocations?.map((loc) => loc?.value),
+    ),
     locationExemptions: data.locationExemptions,
   };
 };
@@ -76,12 +88,19 @@ export const formValuesToSubmitData = (
     }
     return false;
   };
+
+  // remove WorkRegion.Telework from input
+  const filteredLocationPreferences = values.locationPreferences?.filter(
+    (pref) => !(pref === WorkRegion.Telework),
+  );
+
   return {
     positionDuration: stringToBool(values.wouldAcceptTemporary)
       ? [PositionDuration.Permanent, PositionDuration.Temporary]
       : [PositionDuration.Permanent], // always accepting permanent, accepting temporary is what is variable
     acceptedOperationalRequirements: values.acceptedOperationalRequirements,
-    locationPreferences: values.locationPreferences,
+    locationPreferences: filteredLocationPreferences,
+    flexibleWorkLocations: values.flexibleWorkLocations,
     locationExemptions: values.locationExemptions,
     currentCity: values.currentCity,
     currentProvince: values.currentProvince,
