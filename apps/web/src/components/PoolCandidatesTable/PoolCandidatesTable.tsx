@@ -258,6 +258,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               title {
                 localized
               }
+              type {
+                label {
+                  localized
+                }
+              }
             }
           }
           finalDecision {
@@ -840,6 +845,8 @@ const PoolCandidatesTable = ({
           const step = assessmentSteps?.find(
             (s) => s?.sortOrder === assessmentStep,
           );
+          const stepName =
+            step?.title?.localized ?? step?.type?.label?.localized;
           return step?.title?.localized
             ? intl.formatMessage(
                 {
@@ -850,7 +857,7 @@ const PoolCandidatesTable = ({
                 { step: assessmentStep },
               ) +
                 intl.formatMessage(commonMessages.dividingColon) +
-                step.title.localized
+                stepName
             : "";
         },
       },
