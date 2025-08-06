@@ -9798,10 +9798,6 @@
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Header."
   },
-  "gqX6/n": {
-    "defaultMessage": "Étape actuelle",
-    "description": "Title displayed for a candidates current assessment step"
-  },
   "gr8+Es": {
     "defaultMessage": "Le statut du placement a été enregistré avec succès",
     "description": "Message displayed when a job placement status has been saved."
