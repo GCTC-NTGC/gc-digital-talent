@@ -36,7 +36,7 @@ import {
   FinalDecision,
   PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -470,7 +470,8 @@ export function transformPoolCandidateSearchInputToFormValues(
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
-    assessmentSteps: unpackMaybes(input?.assessmentSteps),
+    assessmentSteps:
+      input?.assessmentSteps?.filter(notEmpty).map((s) => String(s)) ?? [],
   };
 }
 
@@ -532,7 +533,9 @@ export function transformFormValuesToFilterState(
       return { group: splitString[0], level: Number(splitString[1]) };
     }),
     workStreams: data.stream.map((id) => ({ id })),
-    assessmentSteps: data.assessmentSteps.map((step) => Number(step)),
+    assessmentSteps: data.assessmentSteps
+      .filter(notEmpty)
+      .map((step) => Number(step)),
   };
 }
 

@@ -157,19 +157,7 @@ const PoolCandidateFilterDialog = ({
   const workStreams = unpackMaybes(data?.workStreams);
   const assessmentSteps = unpackMaybes(availableSteps)
     .filter((step) => !!step.sortOrder && step.sortOrder > 0)
-    .map((step) => ({
-      value: step.sortOrder ?? 0,
-      label:
-        intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-          stepNumber: step.sortOrder,
-        }) +
-        intl.formatMessage(commonMessages.dividingColon) +
-        // NOTE: we do want or to pass on empty strings
-        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-        ((step.title?.localized || step.type?.label.localized) ??
-          intl.formatMessage(commonMessages.notAvailable)),
-    }))
-    .sort((a, b) => a.value - b.value);
+    .sort((a, b) => (a?.sortOrder ?? 0) - (b?.sortOrder ?? 0));
 
   const equityOption = (value: string, message: MessageDescriptor) => ({
     value,
@@ -256,7 +244,18 @@ const PoolCandidateFilterDialog = ({
             name="assessmentSteps"
             isMulti
             label={intl.formatMessage(commonMessages.currentStep)}
-            options={assessmentSteps}
+            options={assessmentSteps.map((step) => ({
+              value: String(step.sortOrder ?? 0),
+              label:
+                intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                  stepNumber: step.sortOrder,
+                }) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                // NOTE: we do want or to pass on empty strings
+                // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                ((step.title?.localized || step.type?.label.localized) ??
+                  intl.formatMessage(commonMessages.notAvailable)),
+            }))}
           />
         )}
         <Combobox

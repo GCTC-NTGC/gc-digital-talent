@@ -399,6 +399,7 @@ const defaultState = {
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
+    assessmentSteps: [],
   },
 };
 
