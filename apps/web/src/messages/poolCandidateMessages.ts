@@ -91,6 +91,11 @@ const messages = defineMessages({
     defaultMessage: "Step {stepNumber}",
     id: "6lcN/j",
     description: "Number of a specific step",
+  underConsiderationDesc: {
+    defaultMessage: "Temporarily reserved for partner department",
+    id: "vQAVRN",
+    description:
+      "Description for the under consideration candidate placement type",
   },
 });
 

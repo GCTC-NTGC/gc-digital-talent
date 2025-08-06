@@ -272,7 +272,7 @@ export const useAdminPoolPages = (
         },
         crumbs: [
           {
-            url: paths.adminDashboard(),
+            url: paths.home(),
             label: intl.formatMessage(navigationMessages.home),
           },
           {
@@ -313,7 +313,7 @@ export const useAdminPoolPages = (
         },
         crumbs: [
           {
-            url: paths.adminDashboard(),
+            url: paths.home(),
             label: intl.formatMessage(navigationMessages.home),
           },
           {

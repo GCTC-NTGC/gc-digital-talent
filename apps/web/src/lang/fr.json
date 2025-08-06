@@ -8858,6 +8858,10 @@
     "defaultMessage": "Vérifier les informations incorrectes ou obsolètes",
     "description": "Label for review of nominee information"
   },
+  "dDrs39": {
+    "defaultMessage": "La candidate ou le candidat n’apparaîtra pas dans les résultats de recherche des talents liés à ce processus.",
+    "description": "Notice that candidates under consideration do not appear in talent search requests"
+  },
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
@@ -12804,6 +12808,10 @@
   "vPPz4w": {
     "defaultMessage": "EXposition",
     "description": "Subject line for contact email for EXposition"
+  },
+  "vQAVRN": {
+    "defaultMessage": "Réservé temporairement au ministère partenaire",
+    "description": "Description for the under consideration candidate placement type"
   },
   "vRNv4w": {
     "defaultMessage": "Revoir la demande",

@@ -40,6 +40,7 @@ final class RemoveCandidate
             case PoolCandidateStatus::UNDER_ASSESSMENT->name:
                 $candidate->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
                 break;
+            case PoolCandidateStatus::UNDER_CONSIDERATION->name:
             case PoolCandidateStatus::PLACED_TENTATIVE->name:
             case PoolCandidateStatus::PLACED_CASUAL->name:
             case PoolCandidateStatus::PLACED_TERM->name:
