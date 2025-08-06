@@ -1067,6 +1067,10 @@
     "defaultMessage": "Veuillez entrer une adresse URL valide",
     "description": "Error message for an invalid link in the rich text editor"
   },
+  "dvom0v": {
+    "defaultMessage": "Emplacement de travail flexible",
+    "description": "Title for flexible work locations options"
+  },
   "dwYJOo": {
     "defaultMessage": "Exigences en matière de travail pratique",
     "description": "Title for the applied work experience requirements"
@@ -1134,6 +1138,10 @@
   "fhpH9E": {
     "defaultMessage": "Fermer",
     "description": "Title for close"
+  },
+  "g1qgjG": {
+    "defaultMessage": "Un champ obligatoire est vide : Note spéciale (anglais)",
+    "description": "Title for flexible work locations options"
   },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
