@@ -11,11 +11,6 @@ const messages = defineMessages({
     id: "U86N4g",
     description: "Action button to save and exit an application",
   },
-  numberedStep: {
-    defaultMessage: "Step {stepOrdinal}",
-    id: "a2ymC3",
-    description: "Breadcrumb link text for a numbered application step",
-  },
   numberedStepIntro: {
     defaultMessage: "Step {stepOrdinal} (Intro)",
     id: "h8BHov",

@@ -48,6 +48,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -848,14 +849,9 @@ const PoolCandidatesTable = ({
           const stepName =
             step?.title?.localized ?? step?.type?.label?.localized;
           return step?.title?.localized
-            ? intl.formatMessage(
-                {
-                  defaultMessage: "Step {step}",
-                  id: "+O4pHs",
-                  description: "Label for current assessment step.",
-                },
-                { step: assessmentStep },
-              ) +
+            ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                stepNumber: assessmentStep,
+              }) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 stepName
             : "";

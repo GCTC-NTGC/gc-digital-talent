@@ -91,10 +91,6 @@
     "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
     "description": "PSC second language evaluations list for language requirements dialog"
   },
-  "+O4pHs": {
-    "defaultMessage": "Étape {step}",
-    "description": "Label for current assessment step."
-  },
   "+O6J4u": {
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
@@ -1950,6 +1946,10 @@
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
     "description": "Heading for the applicant requirements dialog"
+  },
+  "6lcN/j": {
+    "defaultMessage": "Étape {stepNumber}",
+    "description": "Number of a specific step"
   },
   "6mCorq": {
     "defaultMessage": "La valeur doit correspondre au nom au complet de l'utilisateur : {name}",
@@ -6535,10 +6535,6 @@
     "defaultMessage": "Les tâches principales ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the key tasks"
   },
-  "RiGj9w": {
-    "defaultMessage": "Étape {currentStep}",
-    "description": "Label for the candidates current assessment step"
-  },
   "RjKlKz": {
     "defaultMessage": "Créez un volet de travail",
     "description": "Text to create a work stream"
@@ -7730,10 +7726,6 @@
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition eligibility"
   },
-  "XofAAo": {
-    "defaultMessage": "Étape {stepNumber}",
-    "description": "Label for a candidates current assessment step"
-  },
   "XovI8x": {
     "defaultMessage": "Téléchargez toutes compétences (CSV)",
     "description": "Text label for button to download a csv file of all skills."
@@ -8225,10 +8217,6 @@
   "a0VxCM": {
     "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
     "description": "Message displayed when user has no experiences to feature on a skill."
-  },
-  "a2ymC3": {
-    "defaultMessage": "Étape {stepOrdinal}",
-    "description": "Breadcrumb link text for a numbered application step"
   },
   "a3epXH": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",

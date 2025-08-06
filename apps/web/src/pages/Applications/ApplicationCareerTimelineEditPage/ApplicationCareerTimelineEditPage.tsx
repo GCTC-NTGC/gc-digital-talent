@@ -8,9 +8,9 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
-import applicationMessages from "~/messages/applicationMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -44,8 +44,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: paths.applicationCareerTimeline(application.id),
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
       {
