@@ -4,6 +4,7 @@ export const QUALIFIED_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,
   PoolCandidateStatus.QualifiedUnavailable,
   PoolCandidateStatus.QualifiedWithdrew,
+  PoolCandidateStatus.UnderConsideration,
   PoolCandidateStatus.PlacedTentative,
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedTerm,
@@ -44,6 +45,7 @@ export const PLACED_STATUSES = [
 ];
 
 export const NOT_PLACED_STATUSES = [
+  PoolCandidateStatus.UnderConsideration,
   PoolCandidateStatus.PlacedTentative,
   PoolCandidateStatus.QualifiedAvailable,
 ];
@@ -74,6 +76,7 @@ export const SUSPENDABLE_STATUSES = [
 ];
 
 export const PLACEMENT_TYPE_STATUSES = [
+  PoolCandidateStatus.UnderConsideration,
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedIndeterminate,
   PoolCandidateStatus.PlacedTentative,

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'under_consideration' => 'En cours d’étude',
     'placed_tentative' => 'En placement provisoire (confirmation verbale ou par courriel)',
     'placed_casual' => 'Placé occasionnels',
     'placed_term' => 'Période déterminée',

@@ -742,6 +742,7 @@ class PoolCandidateUpdateTest extends TestCase
             PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name => 'RemoveCandidateAlreadyRemoved',
             PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => 'RemoveCandidateAlreadyRemoved',
             PoolCandidateStatus::REMOVED->name => 'RemoveCandidateAlreadyRemoved',
+            PoolCandidateStatus::UNDER_CONSIDERATION->name => 'RemoveCandidateAlreadyPlaced',
             PoolCandidateStatus::PLACED_TENTATIVE->name => 'RemoveCandidateAlreadyPlaced',
             PoolCandidateStatus::PLACED_CASUAL->name => 'RemoveCandidateAlreadyPlaced',
             PoolCandidateStatus::PLACED_INDETERMINATE->name => 'RemoveCandidateAlreadyPlaced',
@@ -830,6 +831,7 @@ class PoolCandidateUpdateTest extends TestCase
             PoolCandidateStatus::PLACED_CASUAL->name,
             PoolCandidateStatus::PLACED_INDETERMINATE->name,
             PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::UNDER_CONSIDERATION->name,
             PoolCandidateStatus::DRAFT->name,
             PoolCandidateStatus::DRAFT_EXPIRED->name,
         ];
