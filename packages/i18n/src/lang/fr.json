@@ -1231,6 +1231,10 @@
     "defaultMessage": "Retrait en cours…",
     "description": "Submitting text for delete button."
   },
+  "j8R/Mg": {
+    "defaultMessage": "Emplacement de travail flexible",
+    "description": "Title for flexible work location options section on summary of filters section"
+  },
   "jDYG3j": {
     "defaultMessage": "Tableau de bord",
     "description": "Name of Dashboard page"
