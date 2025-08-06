@@ -854,7 +854,7 @@ const PoolCandidatesTable = ({
             // NOTE: We do want to pass on empty strings
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             step?.title?.localized || step?.type?.label?.localized;
-          return step?.title?.localized
+          return stepName
             ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
                 stepNumber: assessmentStep,
               }) +
