@@ -22,7 +22,7 @@ import {
   getLocalizedName,
   sortPlacementType,
 } from "@gc-digital-talent/i18n";
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -242,7 +242,22 @@ const JobPlacementDialog = ({
       label: intl.formatMessage(poolCandidateMessages.notPlaced),
     },
     ...localizedEnumToOptions(sortPlacementType(options?.placementTypes), intl),
-  ];
+  ].map((option) => {
+    if (option.value === PlacementType.UnderConsideration.toString()) {
+      return {
+        ...option,
+        contentBelow: intl.formatMessage(
+          poolCandidateMessages.underConsiderationDesc,
+        ),
+      };
+    }
+
+    return option;
+  });
+
+  const underConsideration = options?.placementTypes?.find(
+    (pt) => pt.value === PlacementType.UnderConsideration.toString(),
+  );
 
   let label = intl.formatMessage(commonMessages.notAvailable);
   if (status) {
@@ -336,6 +351,22 @@ const JobPlacementDialog = ({
                       required: intl.formatMessage(errorMessages.required),
                     }}
                   />
+                )}
+                {watchPlacementType === PlacementType.UnderConsideration && (
+                  <Well>
+                    <p className="mb-1.5 font-bold">
+                      {getLocalizedName(underConsideration?.label, intl)}
+                    </p>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "This candidate will not appear in talent request results based on this process.",
+                        id: "dDrs39",
+                        description:
+                          "Notice that candidates under consideration do not appear in talent search requests",
+                      })}
+                    </p>
+                  </Well>
                 )}
               </div>
               <Dialog.Footer>

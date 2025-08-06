@@ -540,6 +540,7 @@ class PoolCandidate extends Model
 
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name,
 
+                PoolCandidateStatus::UNDER_CONSIDERATION->name,
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 PoolCandidateStatus::PLACED_TENTATIVE->name,

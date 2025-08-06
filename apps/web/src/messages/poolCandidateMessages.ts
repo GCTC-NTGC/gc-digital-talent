@@ -87,6 +87,12 @@ const messages = defineMessages({
     description:
       "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential",
   },
+  underConsiderationDesc: {
+    defaultMessage: "Temporarily reserved for partner department",
+    id: "vQAVRN",
+    description:
+      "Description for the under consideration candidate placement type",
+  },
 });
 
 export default messages;
