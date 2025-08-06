@@ -75,7 +75,9 @@ import {
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
-import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
+import PoolCandidateFilterDialog, {
+  PoolCandidateFilterDialogProps,
+} from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
   JobPlacementDialog_Fragment,
@@ -406,12 +408,14 @@ const PoolCandidatesTable = ({
   title,
   hidePoolFilter,
   doNotUseBookmark = false,
+  availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
+  availableSteps?: PoolCandidateFilterDialogProps["availableSteps"] | null;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -832,7 +836,7 @@ const PoolCandidatesTable = ({
       ({ poolCandidate: { assessmentStep } }) => assessmentStep,
       {
         id: "assessmentStep",
-        header: intl.formatMessage(tableMessages.assessmentStep),
+        header: intl.formatMessage(commonMessages.currentStep),
         cell: ({
           row: {
             original: {
@@ -847,7 +851,9 @@ const PoolCandidatesTable = ({
             (s) => s?.sortOrder === assessmentStep,
           );
           const stepName =
-            step?.title?.localized ?? step?.type?.label?.localized;
+            // NOTE: We do want to pass on empty strings
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            step?.title?.localized || step?.type?.label?.localized;
           return step?.title?.localized
             ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
                 stepNumber: assessmentStep,
@@ -1084,6 +1090,7 @@ const PoolCandidatesTable = ({
           <PoolCandidateFilterDialog
             query={tableData}
             {...{ hidePoolFilter }}
+            availableSteps={availableSteps}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolCandidateSearchInputToFormValues(
               initialFilterInput,

@@ -15,4 +15,5 @@ export interface FormValues {
   govEmployee: string;
   departments: string[];
   community: string;
+  assessmentSteps: number[];
 }

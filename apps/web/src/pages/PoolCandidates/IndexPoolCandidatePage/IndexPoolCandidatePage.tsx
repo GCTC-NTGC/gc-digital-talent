@@ -24,6 +24,18 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
     pool(id: $id) {
       id
+      assessmentSteps {
+        id
+        sortOrder
+        title {
+          localized
+        }
+        type {
+          label {
+            localized
+          }
+        }
+      }
     }
   }
 `);
@@ -70,6 +82,7 @@ export const IndexPoolCandidatePage = () => {
               suspendedStatus: CandidateSuspendedFilter.Active,
               expiryStatus: CandidateExpiryFilter.Active,
             }}
+            availableSteps={currentPool?.assessmentSteps}
             currentPool={
               currentPool
                 ? {

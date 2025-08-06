@@ -69,11 +69,6 @@ const messages = defineMessages({
     id: "7g4Mvc",
     description: "Title displayed on the Pool Candidates table bookmark column",
   },
-  assessmentStep: {
-    defaultMessage: "Current step",
-    id: "gqX6/n",
-    description: "Title displayed for a candidates current assessment step",
-  },
 });
 
 export default messages;
