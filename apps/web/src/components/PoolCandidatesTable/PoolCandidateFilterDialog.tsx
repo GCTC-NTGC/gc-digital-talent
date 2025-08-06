@@ -1,11 +1,11 @@
 import { MessageDescriptor, useIntl } from "react-intl";
 
 import {
-  Checkbox,
   Checklist,
   Combobox,
   HiddenInput,
   RadioGroup,
+  SwitchInput,
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
@@ -304,10 +304,10 @@ const PoolCandidateFilterDialog = ({
             }))}
           />
         </div>
-        <Checkbox
+        <SwitchInput
           id="govEmployee"
           name="govEmployee"
-          value="true"
+          color="secondary"
           label={intl.formatMessage({
             defaultMessage: "Government employee",
             id: "bOA3EH",
