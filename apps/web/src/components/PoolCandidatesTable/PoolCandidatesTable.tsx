@@ -415,7 +415,7 @@ const PoolCandidatesTable = ({
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
-  availableSteps?: PoolCandidateFilterDialogProps["availableSteps"] | null;
+  availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
