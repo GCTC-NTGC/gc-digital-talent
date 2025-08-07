@@ -6436,7 +6436,7 @@
     "description": "Title of a note describing that a pool is only open to employees"
   },
   "RHTrvR": {
-    "defaultMessage": "IT-03 : Conseiller technique ou Chef d'équipe",
+    "defaultMessage": "IT-03 : Conseiller(ère) technique ou Chef d'équipe",
     "description": "IT-03 classification label including titles"
   },
   "RHwGy2": {
@@ -10362,7 +10362,7 @@
     "description": "GCKey answer for when user does not have recovery codes"
   },
   "jNqZ46": {
-    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
+    "defaultMessage": "Conseiller(ère) technique ou Chef d'équipe T I 3",
     "description": "IT-03 classification aria label including titles"
   },
   "jO8i+2": {
