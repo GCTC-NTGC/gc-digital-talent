@@ -33,7 +33,7 @@ class CommunityExperienceFactory extends Factory
             'organization' => $this->faker->company(),
             'project' => $this->faker->bs(),
             'start_date' => $startDate,
-            'end_date' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate) : null,
+            'end_date' => $this->faker->optional()->dateTimeBetween($startDate),
             'details' => $this->faker->text(),
         ];
     }

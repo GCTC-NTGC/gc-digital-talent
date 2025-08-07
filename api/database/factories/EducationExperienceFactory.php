@@ -33,7 +33,7 @@ class EducationExperienceFactory extends Factory
             'area_of_study' => $this->faker->jobTitle(),
             'thesis_title' => $this->faker->bs(),
             'start_date' => $startDate,
-            'end_date' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate) : null,
+            'end_date' => $this->faker->optional()->dateTimeBetween($startDate),
             'type' => $this->faker->randomElement(
                 [
                     'DIPLOMA',

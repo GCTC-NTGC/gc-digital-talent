@@ -57,13 +57,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
-    "react-hook-form": "^7.61.1",
+    "react-hook-form": "^7.62.0",
     "react-intl": "^7.1.11",
     "react-router": "^7.7.1",
     "react-to-print": "^3.1.1",
     "tailwindcss": "^4.1.11",
     "tailwind-merge": "^3.3.1",
-    "tailwind-variants": "^2.0.1",
+    "tailwind-variants": "^2.1.0",
     "urql": "^4.2.1"
   },
   "devDependencies": {
@@ -91,9 +91,9 @@
     "jest-diff": "^30.0.5",
     "jest-fail-on-console": "^3.3.0",
     "prettier": "^3.6.2",
-    "ts-jest": "^29.3.4",
+    "ts-jest": "^29.4.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "vite": "^7.0.6",
     "vite-plugin-compression2": "^2.2.0",
     "vite-plugin-html": "^3.2.2"
