@@ -6636,7 +6636,7 @@
     "description": "Title for the user profile page"
   },
   "SM7PIR": {
-    "defaultMessage": "Analyste principal P M 5",
+    "defaultMessage": "Analyste principal(e) P M 5",
     "description": "PM-05 classification aria label including titles"
   },
   "SNwPLZ": {
@@ -12226,7 +12226,7 @@
     "description": "Message displayed when no functional community is selected"
   },
   "sapiL3": {
-    "defaultMessage": "PM-05 : Analyste principal",
+    "defaultMessage": "PM-05 : Analyste principal(e)",
     "description": "PM-05 classification label including titles"
   },
   "sapxcU": {
