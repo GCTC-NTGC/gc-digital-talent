@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   Pending,
@@ -405,6 +405,10 @@ export const DashboardPage = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["PoolCandidateSearchRequest"],
+};
+
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
   query ApplicantDashboard {
     me {
@@ -418,6 +422,7 @@ export const ApplicantDashboardPageApi = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
+    context,
   });
 
   return (
