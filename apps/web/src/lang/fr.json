@@ -9271,7 +9271,7 @@
     "description": "Date the candidate was removed on"
   },
   "ehrsDa": {
-    "defaultMessage": "Langue de l'entrevue de vive voix",
+    "defaultMessage": "Langue d'expression à l'entrevue",
     "description": "Legend text for spoken interview language preference for interviews"
   },
   "eickbr": {
