@@ -4,7 +4,7 @@ return [
     'profile_title' => 'Profil d’employée ou employé du GC',
     // Career Preferences
     'career_preferences' => 'Préférences en matière de développement de carrière',
-    'lateral_movement_interest' => 'Intérêt pour la mutation latérale',
+    'lateral_movement_interest' => 'Intérêt pour une mutation latérale',
     'target_time_frame' => 'Délai cible pour une mutation latérale',
     'org_types_lateral' => 'Types d\'organisations que vous envisageriez pour une mutation latérale',
     'promotion_interest' => 'Intérêt pour la promotion et l\'avancement',

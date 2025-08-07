@@ -64,7 +64,7 @@
     "description": "Title of the 'Digital certificate credential' subsection"
   },
   "+CU+6M": {
-    "defaultMessage": "Intérêt pour la mutation latérale (mobilité de même niveau)",
+    "defaultMessage": "Intérêt pour une mutation latérale (mobilité de même niveau)",
     "description": "Label for interested in lateral movement checkbox for mobility type checklist"
   },
   "+DMD0L": {
@@ -7927,7 +7927,7 @@
     "description": "Final warning text to confirm the assessment to be deleted"
   },
   "YbiEAB": {
-    "defaultMessage": "Intérêt pour la mutation latérale",
+    "defaultMessage": "Intérêt pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
   "Yc2A2Q": {

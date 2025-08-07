@@ -54,7 +54,7 @@ return [
     'skills' => 'Compétences',
     'featured_skills' => 'Compétences mises en évidence',
     // new columns
-    'career_planning_lateral_move_interest' => 'Intérêt pour la mutation latérale',
+    'career_planning_lateral_move_interest' => 'Intérêt pour une mutation latérale',
     'career_planning_lateral_move_time_frame' => 'Délai cible pour une mutation latérale',
     'career_planning_lateral_move_organization_type' => 'Types d\'organisations pour une mutation latérale',
     'career_planning_promotion_move_interest' => 'Intérêt pour l\'avancement',
