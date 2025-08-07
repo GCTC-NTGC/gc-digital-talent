@@ -98,7 +98,7 @@
     "prettier": "^3.6.2",
     "ts-jest": "^29.4.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "vite": "^7.0.6",
     "vite-plugin-compression2": "^2.2.0",
     "vite-plugin-html": "^3.2.2"
