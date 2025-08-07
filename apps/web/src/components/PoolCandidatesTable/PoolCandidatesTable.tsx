@@ -281,6 +281,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             lookingForEnglish
             lookingForFrench
             lookingForBilingual
+            flexibleWorkLocations {
+              value
+              label {
+                en
+                fr
+              }
+            }
             currentCity
             department {
               id
@@ -978,6 +985,27 @@ const PoolCandidatesTable = ({
       }) => cells.email(user.email),
     }),
     columnHelper.accessor(
+      ({ poolCandidate: { user } }) => user.flexibleWorkLocations,
+      {
+        id: "flexibleWorkLocations",
+        header: intl.formatMessage(commonMessages.flexibleWorkLocations),
+        sortingFn: normalizedText,
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { user },
+            },
+          },
+        }) =>
+          user.flexibleWorkLocations
+            ?.map((location) =>
+              location ? getLocalizedName(location.label, intl) : "",
+            )
+            .filter((name) => name !== "")
+            .join(", ") ?? null,
+      },
+    ),
+    columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         currentLocationAccessor(user.currentCity, user.currentProvince, intl),
       {
@@ -1003,7 +1031,7 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<CandidatesTableCandidatesPaginatedQueryDataType>[];
 
-  const hiddenColumnIds = ["candidacyStatus", "notes"];
+  const hiddenColumnIds = ["candidacyStatus", "notes", "flexibleWorkLocations"];
   const hasSelectedRows = selectedRows.length > 0;
 
   return (
