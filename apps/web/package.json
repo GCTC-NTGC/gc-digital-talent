@@ -65,7 +65,7 @@
     "react-to-print": "^3.1.1",
     "tailwindcss": "^4.1.11",
     "tailwind-merge": "^3.3.1",
-    "tailwind-variants": "^2.0.1",
+    "tailwind-variants": "^2.1.0",
     "urql": "^4.2.1"
   },
   "devDependencies": {

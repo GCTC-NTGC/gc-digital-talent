@@ -148,8 +148,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       tailwind-variants:
-        specifier: ^2.0.1
-        version: 2.0.1(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
+        specifier: ^2.1.0
+        version: 2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
       tailwindcss:
         specifier: ^4.1.11
         version: 4.1.11
@@ -622,8 +622,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       tailwind-variants:
-        specifier: ^2.0.1
-        version: 2.0.1(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
+        specifier: ^2.1.0
+        version: 2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.9.0
@@ -1059,8 +1059,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       tailwind-variants:
-        specifier: ^2.0.1
-        version: 2.0.1(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
+        specifier: ^2.1.0
+        version: 2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.9.0
@@ -1170,8 +1170,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       tailwind-variants:
-        specifier: ^2.0.1
-        version: 2.0.1(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
+        specifier: ^2.1.0
+        version: 2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
@@ -3720,6 +3720,9 @@ packages:
 
   '@types/babel__traverse@7.20.7':
     resolution: {integrity: sha512-dkO5fhS7+/oos4ciWxyEyjWe48zmG6wbCheo/G2ZnHx4fs3EU6YC6UM8rk56gAjNJ9P3MTH2jo5jb92/K6wbng==}
+
+  '@types/babel__traverse@7.28.0':
+    resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
 
   '@types/doctrine@0.0.9':
     resolution: {integrity: sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==}
@@ -7475,8 +7478,8 @@ packages:
   tailwind-merge@3.3.1:
     resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
 
-  tailwind-variants@2.0.1:
-    resolution: {integrity: sha512-1wt8c4PWO3jbZcKGBrjIV8cehWarREw1C2os0k8Mcq0nof/CbafNhUUjb0LRWiiRfAvDK6v1deswtHLsygKglw==}
+  tailwind-variants@2.1.0:
+    resolution: {integrity: sha512-82m0eRex0z6A3GpvfoTCpHr+wWJmbecfVZfP3mqLoDxeya5tN4mYJQZwa5Aw1hRZTedwpu1D2JizYenoEdyD8w==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwind-merge: '>=3.0.0'
@@ -10862,6 +10865,11 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.2
 
+  '@types/babel__traverse@7.28.0':
+    dependencies:
+      '@babel/types': 7.28.2
+    optional: true
+
   '@types/doctrine@0.0.9': {}
 
   '@types/eslint@9.6.1':
@@ -11629,7 +11637,7 @@ snapshots:
       '@babel/template': 7.27.2
       '@babel/types': 7.28.2
       '@types/babel__core': 7.20.5
-      '@types/babel__traverse': 7.20.7
+      '@types/babel__traverse': 7.28.0
     optional: true
 
   babel-plugin-jest-hoist@30.0.1:
@@ -15326,7 +15334,7 @@ snapshots:
 
   tailwind-merge@3.3.1: {}
 
-  tailwind-variants@2.0.1(tailwind-merge@3.3.1)(tailwindcss@4.1.11):
+  tailwind-variants@2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.11):
     dependencies:
       tailwindcss: 4.1.11
     optionalDependencies:
