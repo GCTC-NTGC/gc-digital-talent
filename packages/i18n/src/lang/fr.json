@@ -584,7 +584,7 @@
     "description": "Message displayed to user after application fails to get deleted."
   },
   "MAeNit": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "MBnBcY": {
@@ -936,7 +936,7 @@
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y2w/me": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y3FL2a": {
@@ -1188,7 +1188,7 @@
     "description": "Dividing colon with trailing space"
   },
   "iC7Wsq": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "iNUK3f": {
@@ -1584,7 +1584,7 @@
     "description": "Name of talent management events page"
   },
   "uu2OuP": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "v6T4Y0": {
