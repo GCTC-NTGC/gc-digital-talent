@@ -648,7 +648,7 @@
     "description": "Text that appears in links that open in a new tab."
   },
   "OLs1UJ": {
-    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor ou mentore.",
+    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor.",
     "description": "The mentorship interest described as mentee."
   },
   "OOVZSs": {
@@ -688,7 +688,7 @@
     "description": "The operational requirement described as shift work."
   },
   "P7AWrP": {
-    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor ou mentore.",
+    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor.",
     "description": "The mentorship interest described as mentee."
   },
   "PAXoFY": {
@@ -716,7 +716,7 @@
     "description": "The operational requirement described as regular overtime."
   },
   "QUnymn": {
-    "defaultMessage": "Le rôle de mentor ou mentore ne m'intéresse pas.",
+    "defaultMessage": "Le rôle de mentor ne m'intéresse pas.",
     "description": "The mentorship interest described as mentor."
   },
   "QZpZQh": {
@@ -1016,7 +1016,7 @@
     "description": "Error message that the user has attempted to set an invalid notification family as ignored."
   },
   "by5WLz": {
-    "defaultMessage": "Je souhaite devenir mentor ou mentore.",
+    "defaultMessage": "Je souhaite devenir mentor.",
     "description": "The mentorship interest described as mentor."
   },
   "cCWdDX": {
@@ -1460,7 +1460,7 @@
     "description": "Body text for the unexpected error page."
   },
   "r1QzK4": {
-    "defaultMessage": "Je participe à la fois en tant que mentor ou mentore et en tant que mentoré ou mentorée.",
+    "defaultMessage": "Je participe à la fois en tant que mentor et en tant que mentoré ou mentorée.",
     "description": "The mentorship status described as both mentee and mentor."
   },
   "rCXko4": {
