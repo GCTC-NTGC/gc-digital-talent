@@ -12,7 +12,6 @@ class ProdSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // standard platform data
             RolePermissionSeeder::class,
             ClassificationSeeder::class,
             DepartmentSeeder::class,
@@ -20,6 +19,8 @@ class ProdSeeder extends Seeder
             SkillFamilySeeder::class,
             SkillSeeder::class,
             CommunitySeeder::class,
+            WorkStreamSeeder::class,
+            DevelopmentProgramSeeder::class,
             JobPosterTemplateSeeder::class,
         ]);
     }

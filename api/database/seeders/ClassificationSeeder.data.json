@@ -1,0 +1,826 @@
+{
+  "data": {
+    "classifications": [
+      {
+        "group": "ALL 01",
+        "level": 9,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "All Levels",
+          "fr": "Tous les niveaux"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 1,
+        "maxSalary": 69106,
+        "minSalary": 61786,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 2,
+        "maxSalary": 74180,
+        "minSalary": 68849,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 3,
+        "maxSalary": 79511,
+        "minSalary": 73798,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 4,
+        "maxSalary": 87108,
+        "minSalary": 80612,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 5,
+        "maxSalary": 104044,
+        "minSalary": 96235,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 6,
+        "maxSalary": 102712,
+        "minSalary": 95209,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 7,
+        "maxSalary": 114592,
+        "minSalary": 100220,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "AS",
+        "level": 8,
+        "maxSalary": 121804,
+        "minSalary": 103483,
+        "name": {
+          "en": "Administrative Services",
+          "fr": "Services administratifs"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 1,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 2,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 3,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 4,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 5,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 6,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 7,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "ASG",
+        "level": 8,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Audit Services Group",
+          "fr": "Groupe des services à la vérification"
+        }
+      },
+      {
+        "group": "AUTRE OTHER",
+        "level": 1,
+        "maxSalary": 2,
+        "minSalary": 1,
+        "name": {
+          "en": "All other groups not listed here",
+          "fr": "Tous les autres groupes ne figurant pas ici"
+        }
+      },
+      {
+        "group": "CR",
+        "level": 1,
+        "maxSalary": 46342,
+        "minSalary": 41947,
+        "name": {
+          "en": "Clerical and Regulatory",
+          "fr": "Commis aux écritures et aux règlements"
+        }
+      },
+      {
+        "group": "CR",
+        "level": 2,
+        "maxSalary": 48654,
+        "minSalary": 45531,
+        "name": {
+          "en": "Clerical and Regulatory",
+          "fr": "Commis aux écritures et aux règlements"
+        }
+      },
+      {
+        "group": "CR",
+        "level": 3,
+        "maxSalary": 55707,
+        "minSalary": 51642,
+        "name": {
+          "en": "Clerical and Regulatory",
+          "fr": "Commis aux écritures et aux règlements"
+        }
+      },
+      {
+        "group": "CR",
+        "level": 4,
+        "maxSalary": 61761,
+        "minSalary": 57217,
+        "name": {
+          "en": "Clerical and Regulatory",
+          "fr": "Commis aux écritures et aux règlements"
+        }
+      },
+      {
+        "group": "CR",
+        "level": 5,
+        "maxSalary": 67699,
+        "minSalary": 62533,
+        "name": {
+          "en": "Clerical and Regulatory",
+          "fr": "Commis aux écritures et aux règlements"
+        }
+      },
+      {
+        "group": "CS",
+        "level": 1,
+        "maxSalary": 78216,
+        "minSalary": 60696,
+        "name": {
+          "en": "Computer Systems",
+          "fr": "Systèmes d'ordinateurs"
+        }
+      },
+      {
+        "group": "CS",
+        "level": 2,
+        "maxSalary": 91953,
+        "minSalary": 75129,
+        "name": {
+          "en": "Computer Systems",
+          "fr": "Systèmes d'ordinateurs"
+        }
+      },
+      {
+        "group": "CS",
+        "level": 3,
+        "maxSalary": 110182,
+        "minSalary": 88683,
+        "name": {
+          "en": "Computer Systems",
+          "fr": "Systèmes d'ordinateurs"
+        }
+      },
+      {
+        "group": "CS",
+        "level": 4,
+        "maxSalary": 126390,
+        "minSalary": 101541,
+        "name": {
+          "en": "Computer Systems",
+          "fr": "Systèmes d'ordinateurs"
+        }
+      },
+      {
+        "group": "CS",
+        "level": 5,
+        "maxSalary": 150842,
+        "minSalary": 115754,
+        "name": {
+          "en": "Computer Systems",
+          "fr": "Systèmes d'ordinateurs"
+        }
+      },
+      {
+        "group": "CT FIN",
+        "level": 1,
+        "maxSalary": 92122,
+        "minSalary": 65669,
+        "name": {
+          "en": "Financial Management",
+          "fr": "Gestion financière"
+        }
+      },
+      {
+        "group": "CT FIN",
+        "level": 2,
+        "maxSalary": 108438,
+        "minSalary": 79935,
+        "name": {
+          "en": "Financial Management",
+          "fr": "Gestion financière"
+        }
+      },
+      {
+        "group": "CT FIN",
+        "level": 3,
+        "maxSalary": 131692,
+        "minSalary": 102195,
+        "name": {
+          "en": "Financial Management",
+          "fr": "Gestion financière"
+        }
+      },
+      {
+        "group": "CT FIN",
+        "level": 4,
+        "maxSalary": 148744,
+        "minSalary": 115197,
+        "name": {
+          "en": "Financial Management",
+          "fr": "Gestion financière"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 1,
+        "maxSalary": 64597,
+        "minSalary": 55567,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 2,
+        "maxSalary": 71275,
+        "minSalary": 62168,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 3,
+        "maxSalary": 77696,
+        "minSalary": 68666,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 4,
+        "maxSalary": 85778,
+        "minSalary": 74122,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 5,
+        "maxSalary": 101999,
+        "minSalary": 88618,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 6,
+        "maxSalary": 116116,
+        "minSalary": 100121,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 7,
+        "maxSalary": 129869,
+        "minSalary": 113124,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EC",
+        "level": 8,
+        "maxSalary": 140571,
+        "minSalary": 122991,
+        "name": {
+          "en": "Economics and Social Science Services",
+          "fr": "économique et services de sciences sociales"
+        }
+      },
+      {
+        "group": "EX",
+        "level": 1,
+        "maxSalary": 161773,
+        "minSalary": 137524,
+        "name": {
+          "en": "Executive Group",
+          "fr": "Groupe de la direction"
+        }
+      },
+      {
+        "group": "EX",
+        "level": 2,
+        "maxSalary": 181365,
+        "minSalary": 154178,
+        "name": {
+          "en": "Executive Group",
+          "fr": "Groupe de la direction"
+        }
+      },
+      {
+        "group": "EX",
+        "level": 3,
+        "maxSalary": 202918,
+        "minSalary": 172548,
+        "name": {
+          "en": "Executive Group",
+          "fr": "Groupe de la direction"
+        }
+      },
+      {
+        "group": "EX",
+        "level": 4,
+        "maxSalary": 232676,
+        "minSalary": 197774,
+        "name": {
+          "en": "Executive Group",
+          "fr": "Groupe de la direction"
+        }
+      },
+      {
+        "group": "EX",
+        "level": 5,
+        "maxSalary": 260719,
+        "minSalary": 221654,
+        "name": {
+          "en": "Executive Group",
+          "fr": "Groupe de la direction"
+        }
+      },
+      {
+        "group": "IT",
+        "level": 1,
+        "maxSalary": 89382,
+        "minSalary": 69361,
+        "name": {
+          "en": "Information Technology",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "IT",
+        "level": 2,
+        "maxSalary": 105080,
+        "minSalary": 85854,
+        "name": {
+          "en": "Information Technology",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "IT",
+        "level": 3,
+        "maxSalary": 125914,
+        "minSalary": 101343,
+        "name": {
+          "en": "Information Technology",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "IT",
+        "level": 4,
+        "maxSalary": 144434,
+        "minSalary": 116037,
+        "name": {
+          "en": "Information Technology",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "IT",
+        "level": 5,
+        "maxSalary": 174076,
+        "minSalary": 133582,
+        "name": {
+          "en": "Information Technology",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "ITCSIS",
+        "level": 6,
+        "maxSalary": 94177,
+        "minSalary": 77427,
+        "name": {
+          "en": "Canadian Security Intelligence Service generic levels - IT stream",
+          "fr": "Niveaux génériques du Service canadien du renseignement de sécurité - volet TI"
+        }
+      },
+      {
+        "group": "ITCSIS",
+        "level": 7,
+        "maxSalary": 106386,
+        "minSalary": 87459,
+        "name": {
+          "en": "Canadian Security Intelligence Service generic levels - IT stream",
+          "fr": "Niveaux génériques du Service canadien du renseignement de sécurité - volet TI"
+        }
+      },
+      {
+        "group": "ITCSIS",
+        "level": 9,
+        "maxSalary": 137226,
+        "minSalary": 112746,
+        "name": {
+          "en": "Canadian Security Intelligence Service generic levels - IT stream",
+          "fr": "Niveaux génériques du Service canadien du renseignement de sécurité - volet TI"
+        }
+      },
+      {
+        "group": "ITS",
+        "level": 3,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Information Technology Group",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "ITS",
+        "level": 4,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Information Technology Group",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "ITS",
+        "level": 5,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Information Technology Group",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "ITS",
+        "level": 6,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Information Technology Group",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "ITS",
+        "level": 7,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Information Technology Group",
+          "fr": "Technologie de l’information"
+        }
+      },
+      {
+        "group": "MG AFS",
+        "level": 1,
+        "maxSalary": 87108,
+        "minSalary": 67568,
+        "name": {
+          "en": "Management",
+          "fr": "Groupe de gestion"
+        }
+      },
+      {
+        "group": "MG AFS",
+        "level": 2,
+        "maxSalary": 95260,
+        "minSalary": 73888,
+        "name": {
+          "en": "Management",
+          "fr": "Groupe de gestion"
+        }
+      },
+      {
+        "group": "MG AFS",
+        "level": 3,
+        "maxSalary": 102449,
+        "minSalary": 79471,
+        "name": {
+          "en": "Management",
+          "fr": "Groupe de gestion"
+        }
+      },
+      {
+        "group": "MG AFS",
+        "level": 4,
+        "maxSalary": 113841,
+        "minSalary": 84466,
+        "name": {
+          "en": "Management",
+          "fr": "Groupe de gestion"
+        }
+      },
+      {
+        "group": "MG AFS",
+        "level": 5,
+        "maxSalary": 136565,
+        "minSalary": 101325,
+        "name": {
+          "en": "Management",
+          "fr": "Groupe de gestion"
+        }
+      },
+      {
+        "group": "MG AFS",
+        "level": 6,
+        "maxSalary": 150070,
+        "minSalary": 111344,
+        "name": {
+          "en": "Management",
+          "fr": "Groupe de gestion"
+        }
+      },
+      {
+        "group": "PG",
+        "level": 1,
+        "maxSalary": 62066,
+        "minSalary": 47415,
+        "name": {
+          "en": "Purchasing and Supply",
+          "fr": "Achat et approvisionnement"
+        }
+      },
+      {
+        "group": "PG",
+        "level": 2,
+        "maxSalary": 70668,
+        "minSalary": 61896,
+        "name": {
+          "en": "Purchasing and Supply",
+          "fr": "Achat et approvisionnement"
+        }
+      },
+      {
+        "group": "PG",
+        "level": 3,
+        "maxSalary": 78691,
+        "minSalary": 68909,
+        "name": {
+          "en": "Purchasing and Supply",
+          "fr": "Achat et approvisionnement"
+        }
+      },
+      {
+        "group": "PG",
+        "level": 4,
+        "maxSalary": 93413,
+        "minSalary": 81747,
+        "name": {
+          "en": "Purchasing and Supply",
+          "fr": "Achat et approvisionnement"
+        }
+      },
+      {
+        "group": "PG",
+        "level": 5,
+        "maxSalary": 108091,
+        "minSalary": 96225,
+        "name": {
+          "en": "Purchasing and Supply",
+          "fr": "Achat et approvisionnement"
+        }
+      },
+      {
+        "group": "PG",
+        "level": 6,
+        "maxSalary": 117731,
+        "minSalary": 105991,
+        "name": {
+          "en": "Purchasing and Supply",
+          "fr": "Achat et approvisionnement"
+        }
+      },
+      {
+        "group": "PM",
+        "level": 1,
+        "maxSalary": 69106,
+        "minSalary": 61786,
+        "name": {
+          "en": "Program Administration",
+          "fr": "Administration des programmes"
+        }
+      },
+      {
+        "group": "PM",
+        "level": 2,
+        "maxSalary": 74180,
+        "minSalary": 68849,
+        "name": {
+          "en": "Program Administration",
+          "fr": "Administration des programmes"
+        }
+      },
+      {
+        "group": "PM",
+        "level": 3,
+        "maxSalary": 79511,
+        "minSalary": 73798,
+        "name": {
+          "en": "Program Administration",
+          "fr": "Administration des programmes"
+        }
+      },
+      {
+        "group": "PM",
+        "level": 4,
+        "maxSalary": 87108,
+        "minSalary": 80612,
+        "name": {
+          "en": "Program Administration",
+          "fr": "Administration des programmes"
+        }
+      },
+      {
+        "group": "PM",
+        "level": 5,
+        "maxSalary": 104044,
+        "minSalary": 96235,
+        "name": {
+          "en": "Program Administration",
+          "fr": "Administration des programmes"
+        }
+      },
+      {
+        "group": "PM",
+        "level": 6,
+        "maxSalary": 114592,
+        "minSalary": 100220,
+        "name": {
+          "en": "Program Administration",
+          "fr": "Administration des programmes"
+        }
+      },
+      {
+        "group": "PM",
+        "level": 7,
+        "maxSalary": 121804,
+        "minSalary": 103483,
+        "name": {
+          "en": "Program Administration",
+          "fr": "Administration des programmes"
+        }
+      },
+      {
+        "group": "SP",
+        "level": 1,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Students",
+          "fr": "Étudiants"
+        }
+      },
+      {
+        "group": "SP",
+        "level": 2,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Students",
+          "fr": "Étudiants"
+        }
+      },
+      {
+        "group": "SP",
+        "level": 3,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Students",
+          "fr": "Étudiants"
+        }
+      },
+      {
+        "group": "SP",
+        "level": 4,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Students",
+          "fr": "Étudiants"
+        }
+      },
+      {
+        "group": "SP",
+        "level": 5,
+        "maxSalary": 0,
+        "minSalary": 0,
+        "name": {
+          "en": "Students",
+          "fr": "Étudiants"
+        }
+      }
+    ]
+  }
+}

@@ -17,6 +17,7 @@ import { createUserWithRoles } from "~/utils/user";
 import { createAndPublishPool } from "~/utils/pools";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
+import { getClassifications } from "~/utils/classification";
 
 test.describe("IAP Application", () => {
   let uniqueTestId: string;
@@ -56,8 +57,14 @@ test.describe("IAP Application", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
+    const classifications = await getClassifications(adminCtx, {});
+    const classification = classifications.find(
+      (c) => c.group == "IT" && c.level == 1,
+    );
+
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: createdUser?.id ?? "",
+      classificationId: classification?.id,
       input: {
         publishingGroup: PublishingGroup.Iap,
         generalQuestions: {
