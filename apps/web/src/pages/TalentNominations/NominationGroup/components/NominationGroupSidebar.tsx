@@ -16,6 +16,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import DownloadNominationDocxButton from "~/components/DownloadButton/DownloadNominationDocxButton";
 
 import NominatedForList from "./NominatedForList";
 import NominatorList from "./NominatorList";
@@ -144,18 +145,24 @@ const NominationGroupSidebar = ({
   return (
     <>
       <Card className="mb-3 flex flex-col justify-center pb-3">
-        <p className="mb-1.5 text-sm text-gray-600 dark:text-gray-200">
-          {!!talentNominationGroup.nominee?.classification?.group &&
-          !!talentNominationGroup.nominee.classification.level
-            ? getClassificationName(
-                {
-                  group: talentNominationGroup.nominee.classification.group,
-                  level: talentNominationGroup.nominee.classification.level,
-                },
-                intl,
-              )
-            : intl.formatMessage(commonMessages.notProvided)}
-        </p>
+        <div className="flex justify-between">
+          <p className="mb-1.5 text-sm text-gray-600 dark:text-gray-200">
+            {!!talentNominationGroup.nominee?.classification?.group &&
+            !!talentNominationGroup.nominee.classification.level
+              ? getClassificationName(
+                  {
+                    group: talentNominationGroup.nominee.classification.group,
+                    level: talentNominationGroup.nominee.classification.level,
+                  },
+                  intl,
+                )
+              : intl.formatMessage(commonMessages.notProvided)}
+          </p>
+          <DownloadNominationDocxButton
+            id={talentNominationGroup.id}
+            userId={talentNominationGroup.nominee?.id}
+          />
+        </div>
         <Heading size="h6" className="mt-0 mb-3">
           {getFullNameLabel(
             talentNominationGroup.nominee?.firstName,

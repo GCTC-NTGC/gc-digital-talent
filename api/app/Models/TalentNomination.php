@@ -21,7 +21,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $talent_nomination_event_id
  * @property \Illuminate\Support\Carbon $submitted_at
  * @property string $submitter_id
- * @property string $submitter_relationship_to_nominator
+ * @property object $submitter_relationship_to_nominator
  * @property string $submitter_relationship_to_nominator_other
  * @property string $nominator_id
  * @property string $nominator_fallback_work_email
