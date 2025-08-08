@@ -5,15 +5,12 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import { ReactNode } from "react";
-import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
 import {
   Heading,
   Link,
   Accordion,
   CardFlat,
-  Card,
-  Ul,
   Container,
   Flourish,
 } from "@gc-digital-talent/ui";
@@ -42,20 +39,6 @@ const policyLink = (locale: Locales, chunks: ReactNode) => (
       locale === "en"
         ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32603"
         : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32603"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
-const procurementLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    newTab
-    external
-    href={
-      locale === "en"
-        ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32692&section=procedure&p=F"
-        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692"
     }
   >
     {chunks}
@@ -483,161 +466,6 @@ export const Component = () => {
           </CardFlat>
         </div>
         <Resources />
-        <section id={sectionIds.changes}>
-          <Heading
-            icon={Cog8ToothIcon}
-            size="h3"
-            color="success"
-            className="mt-18 mb-6"
-          >
-            {intl.formatMessage({
-              defaultMessage: "2024 changes to the Mandatory Procedures",
-              id: "rZ0GyE",
-              description:
-                "Heading for section describing the 2024 changes to the directive",
-            })}
-          </Heading>
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "The Office of the Chief Information Officer of Canada (OCIO) has been closely monitoring the effectiveness of the Directive on Digital Talent since it came into effect in April 2023.",
-              id: "BVgb+I",
-              description:
-                "first paragraph describing the 2024 changes to the directive on digital talent",
-            })}
-          </p>
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "As the Directive is performing strongly, it will remain as is.",
-              id: "qQmKgl",
-              description:
-                "second paragraph describing the 2024 changes to the directive on digital talent",
-            })}
-          </p>
-          <p className="mb-6">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "While the Mandatory Procedures on Digital Talent are also effective, there are opportunities for improved clarity, reduced reporting burden for departments, and better alignment with the new <link>Mandatory Procedures for Business Owners When Procuring Professional Services</link> led by the Office of the Comptroller General of Canada (OCG).",
-                id: "HRmtdK",
-                description:
-                  "third paragraph describing the 2024 changes to the directive on digital talent",
-              },
-              {
-                link: (chunks: ReactNode) => procurementLink(locale, chunks),
-              },
-            )}
-          </p>
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "As a result, OCIO is introducing some updates to the Mandatory Procedures on Digital Talent, effective September 30th, 2024.",
-              id: "deiUXj",
-              description:
-                "fourth paragraph describing the 2024 changes to the directive on digital talent",
-            })}
-          </p>
-          <Card>
-            <Ul space="md" className="my-0">
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage: "Removal of the Forward Talent Plan",
-                    id: "O8YvBD",
-                    description: "first 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Data can be secured through other means (e.g., the GC Digital Talent platform, improved data monitoring)",
-                    id: "DVBh+y",
-                    description:
-                      "first 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Removal of the Department-specific Recruitment Process Form",
-                    id: "o6Vyr+",
-                    description: "second 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    // yes, this is the same rationale as for the first key change
-                    defaultMessage:
-                      "Data can be secured through other means (e.g., the GC Digital Talent platform, improved data monitoring)",
-                    id: "DVBh+y",
-                    description:
-                      "first 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Removal of the requirement to share copies of non-standard IT job descriptions",
-                    id: "DjRrK4",
-                    description: "third 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Information from departments is not proving to be necessary; reduction in collection burden for departments",
-                    id: "FDGVHB",
-                    description:
-                      "third 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Updates to the Digital Services Contracting Questionnaire",
-                    id: "L819mr",
-                    description: "fourth 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Alignment with the new OCG-led Mandatory Procedures",
-                    id: "AgtPO+",
-                    description:
-                      "fourth 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Confirmation on the use of the GC Digital Talent platform for verifying availability of qualified talent",
-                    id: "hI5cty",
-                    description: "fifth 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "This has always been the case and is now being formalized after the platform was announced by the Minister",
-                    id: "G+dXAH",
-                    description:
-                      "fifth 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-            </Ul>
-          </Card>
-        </section>
       </Container>
       <Flourish />
     </>
