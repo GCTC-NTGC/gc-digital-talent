@@ -11,7 +11,5 @@
 # Hidden Files
 .DS_Store
 
-/storybook-static/*
-
 # Code Coverage
 src/js/tests/coverage

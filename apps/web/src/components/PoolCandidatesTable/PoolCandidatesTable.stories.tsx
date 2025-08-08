@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en";
-import { StoryFn, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 

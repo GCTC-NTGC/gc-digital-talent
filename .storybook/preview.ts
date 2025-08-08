@@ -12,9 +12,9 @@ import { ToastDecorator } from "@gc-digital-talent/toast";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
 
 import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
-import frCompiled from "../src/lang/frCompiled.json";
+import frCompiled from "../apps/web/src/lang/frCompiled.json";
 
-import "../src/assets/css/tailwind.css";
+import "../apps/web/src/assets/css/tailwind.css";
 
 const messages = {
   en: null,
@@ -55,7 +55,7 @@ export const parameters = {
     defaultRichTextElements,
   },
   viewport: {
-    viewports: VIEWPORTS,
+    options: VIEWPORTS,
   },
 };
 

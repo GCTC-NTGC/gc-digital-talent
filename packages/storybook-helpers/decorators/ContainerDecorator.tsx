@@ -1,4 +1,4 @@
-import type { StoryFn } from "@storybook/react";
+import type { StoryFn } from "@storybook/react-vite";
 
 export default function ContainerDecorator(Story: StoryFn) {
   return (
