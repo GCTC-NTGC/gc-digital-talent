@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import {
+  AssessmentStepType,
   FragmentType,
   getFragment,
   graphql,
@@ -70,6 +71,9 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
       ...ScreeningTriggerResult
       ...ScreeningDialogFormValues
 
+      poolSkill {
+        id
+      }
       assessmentStep {
         id
       }
@@ -77,10 +81,10 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface ScreeningDecisionDialogProps {
+export interface ScreeningDecisionDialogProps {
   query: FragmentType<typeof ScreeningDecisionDialog_Fragment>;
   stepId: Scalars["UUID"]["output"];
-  poolSkillId: Scalars["UUID"]["output"];
+  poolSkillId?: Scalars["UUID"]["output"];
   defaultOpen?: boolean;
 }
 
@@ -104,7 +108,9 @@ const ScreeningDecisionDialog = ({
     ({ id }) => id === poolSkillId,
   );
   const result = unpackMaybes(candidate?.assessmentResults)?.find(
-    ({ assessmentStep }) => assessmentStep?.id === stepId,
+    (assessmentResult) =>
+      assessmentResult.assessmentStep?.id === stepId &&
+      assessmentResult.poolSkill?.id === poolSkillId,
   );
   const dialogType = getDialogType(step?.type?.value, poolSkillId);
   const { saving, onSave } = useSaveHandler({
@@ -114,6 +120,13 @@ const ScreeningDecisionDialog = ({
     resultId: result?.id,
     candidateId: candidate.id,
   });
+
+  if (
+    dialogType === DIALOG_TYPE.Education &&
+    step?.type?.value !== AssessmentStepType.ApplicationScreening
+  ) {
+    return null;
+  }
 
   const experienceAttached = hasAttachedExperiences(
     snapshot?.experiences,
