@@ -8550,10 +8550,6 @@
     "defaultMessage": "Vous êtes sur le point de supprimer ce processus : {poolName}",
     "description": "Text to confirm the process to be deleted"
   },
-  "bpULlB": {
-    "defaultMessage": "<link>Consultez les récents changements apportés aux Procédures obligatoires sur les talents numériques</link>, notamment la réduction des exigences en matière de rapports. Les modifications entrent en vigueur le 30 septembre 2024.",
-    "description": "Body of an alert about the directive changing"
-  },
   "bq1MMd": {
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
     "description": "Text telling users they can still be helped regardless of search results"
@@ -12552,10 +12548,6 @@
   "uD105N": {
     "defaultMessage": "Non lus",
     "description": "Link text to show all unread items in a list"
-  },
-  "uEporM": {
-    "defaultMessage": "Les procédures obligatoires ont changé",
-    "description": "Title for an alert about the directive changing"
   },
   "uEqA50": {
     "defaultMessage": "Ajouter une nouvelle question",

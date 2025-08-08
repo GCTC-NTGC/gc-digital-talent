@@ -12,9 +12,7 @@ import {
   Link,
   Accordion,
   CardFlat,
-  Alert,
   Card,
-  ScrollToLink,
   Ul,
   Container,
   Flourish,
@@ -68,10 +66,6 @@ const talentSearchLink = (localizedLink: string, chunks: ReactNode) => (
   <Link newTab external href={localizedLink}>
     {chunks}
   </Link>
-);
-
-const recentChangesLink = (chunks: ReactNode) => (
-  <ScrollToLink to={sectionIds.changes}>{chunks}</ScrollToLink>
 );
 
 export const pageTitle = defineMessage({
@@ -138,26 +132,6 @@ export const Component = () => {
         ]}
       />
       <Container className="my-18">
-        <Alert.Root type="info" className="mb-18">
-          <Alert.Title>
-            {intl.formatMessage({
-              defaultMessage: "The mandatory procedures have changed",
-              id: "uEporM",
-              description: "Title for an alert about the directive changing",
-            })}
-          </Alert.Title>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "<link>Check out the recent changes to the Mandatory Procedures on Digital Talent</link>, including fewer reporting requirements. Changes are in effect as of September 30th, 2024.",
-              id: "bpULlB",
-              description: "Body of an alert about the directive changing",
-            },
-            {
-              link: (chunks: ReactNode) => recentChangesLink(chunks),
-            },
-          )}
-        </Alert.Root>
         <Heading
           icon={MapIcon}
           size="h3"
