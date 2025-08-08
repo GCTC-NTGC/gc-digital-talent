@@ -5,17 +5,12 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import { ReactNode } from "react";
-import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
 import {
   Heading,
   Link,
   Accordion,
   CardFlat,
-  Alert,
-  Card,
-  ScrollToLink,
-  Ul,
   Container,
   Flourish,
 } from "@gc-digital-talent/ui";
@@ -32,10 +27,6 @@ import SEO from "~/components/SEO/SEO";
 
 import Resources from "./Resources";
 
-const sectionIds = {
-  changes: "changes",
-} as const;
-
 const policyLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
@@ -50,28 +41,10 @@ const policyLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
-const procurementLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    newTab
-    external
-    href={
-      locale === "en"
-        ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32692&section=procedure&p=F"
-        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
 const talentSearchLink = (localizedLink: string, chunks: ReactNode) => (
   <Link newTab external href={localizedLink}>
     {chunks}
   </Link>
-);
-
-const recentChangesLink = (chunks: ReactNode) => (
-  <ScrollToLink to={sectionIds.changes}>{chunks}</ScrollToLink>
 );
 
 export const pageTitle = defineMessage({
@@ -138,26 +111,6 @@ export const Component = () => {
         ]}
       />
       <Container className="my-18">
-        <Alert.Root type="info" className="mb-18">
-          <Alert.Title>
-            {intl.formatMessage({
-              defaultMessage: "The mandatory procedures have changed",
-              id: "uEporM",
-              description: "Title for an alert about the directive changing",
-            })}
-          </Alert.Title>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "<link>Check out the recent changes to the Mandatory Procedures on Digital Talent</link>, including fewer reporting requirements. Changes are in effect as of September 30th, 2024.",
-              id: "bpULlB",
-              description: "Body of an alert about the directive changing",
-            },
-            {
-              link: (chunks: ReactNode) => recentChangesLink(chunks),
-            },
-          )}
-        </Alert.Root>
         <Heading
           icon={MapIcon}
           size="h3"
@@ -427,9 +380,9 @@ export const Component = () => {
           <CardFlat
             color="secondary"
             title={intl.formatMessage({
-              defaultMessage: "Updates to the mandatory procedures",
-              id: "6ceoYt",
-              description: "Heading for the mandatory procedures card",
+              defaultMessage: "Annual digital talent survey",
+              id: "2hwu5E",
+              description: "Heading for annual digital talent survey card",
             })}
             links={[
               {
@@ -442,13 +395,16 @@ export const Component = () => {
                   },
                   {
                     topic: intl.formatMessage({
-                      defaultMessage: "Updates to the mandatory procedures",
-                      id: "6ceoYt",
-                      description: "Heading for the mandatory procedures card",
+                      defaultMessage: "Annual digital talent survey",
+                      id: "2hwu5E",
+                      description:
+                        "Heading for annual digital talent survey card",
                     }),
                   },
                 ),
-                to: sectionIds.changes,
+                href: "https://gcxgce.sharepoint.com/teams/10001567/SitePages/ProjectHome.aspx",
+                download: false,
+                external: true,
                 mode: "solid",
                 className: "py-3 px-6",
               } as const,
@@ -457,9 +413,19 @@ export const Component = () => {
             <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
-                  "The Mandatory Procedures on Digital Talent have been updated for improved clarity, fewer reporting requirements, and better alignment with other policy instruments. The Directive remains unchanged.",
-                id: "/ZPTlP",
-                description: "Description for the mandatory procedures card",
+                  "The survey collects data on current and planned digital talent needs from departments to inform key decisions concerning the Digital Community.",
+                id: "0tNrAw",
+                description:
+                  "Description for annual digital talent survey card, paragraph 1",
+              })}
+            </p>
+            <p className="mb-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Find aggregated results and more information on GCXchange (available on the GC network only).",
+                id: "1FGsSn",
+                description:
+                  "Description for annual digital talent survey card, paragraph 2",
               })}
             </p>
           </CardFlat>
@@ -509,161 +475,6 @@ export const Component = () => {
           </CardFlat>
         </div>
         <Resources />
-        <section id={sectionIds.changes}>
-          <Heading
-            icon={Cog8ToothIcon}
-            size="h3"
-            color="success"
-            className="mt-18 mb-6"
-          >
-            {intl.formatMessage({
-              defaultMessage: "2024 changes to the Mandatory Procedures",
-              id: "rZ0GyE",
-              description:
-                "Heading for section describing the 2024 changes to the directive",
-            })}
-          </Heading>
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "The Office of the Chief Information Officer of Canada (OCIO) has been closely monitoring the effectiveness of the Directive on Digital Talent since it came into effect in April 2023.",
-              id: "BVgb+I",
-              description:
-                "first paragraph describing the 2024 changes to the directive on digital talent",
-            })}
-          </p>
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "As the Directive is performing strongly, it will remain as is.",
-              id: "qQmKgl",
-              description:
-                "second paragraph describing the 2024 changes to the directive on digital talent",
-            })}
-          </p>
-          <p className="mb-6">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "While the Mandatory Procedures on Digital Talent are also effective, there are opportunities for improved clarity, reduced reporting burden for departments, and better alignment with the new <link>Mandatory Procedures for Business Owners When Procuring Professional Services</link> led by the Office of the Comptroller General of Canada (OCG).",
-                id: "HRmtdK",
-                description:
-                  "third paragraph describing the 2024 changes to the directive on digital talent",
-              },
-              {
-                link: (chunks: ReactNode) => procurementLink(locale, chunks),
-              },
-            )}
-          </p>
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "As a result, OCIO is introducing some updates to the Mandatory Procedures on Digital Talent, effective September 30th, 2024.",
-              id: "deiUXj",
-              description:
-                "fourth paragraph describing the 2024 changes to the directive on digital talent",
-            })}
-          </p>
-          <Card>
-            <Ul space="md" className="my-0">
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage: "Removal of the Forward Talent Plan",
-                    id: "O8YvBD",
-                    description: "first 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Data can be secured through other means (e.g., the GC Digital Talent platform, improved data monitoring)",
-                    id: "DVBh+y",
-                    description:
-                      "first 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Removal of the Department-specific Recruitment Process Form",
-                    id: "o6Vyr+",
-                    description: "second 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    // yes, this is the same rationale as for the first key change
-                    defaultMessage:
-                      "Data can be secured through other means (e.g., the GC Digital Talent platform, improved data monitoring)",
-                    id: "DVBh+y",
-                    description:
-                      "first 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Removal of the requirement to share copies of non-standard IT job descriptions",
-                    id: "DjRrK4",
-                    description: "third 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Information from departments is not proving to be necessary; reduction in collection burden for departments",
-                    id: "FDGVHB",
-                    description:
-                      "third 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Updates to the Digital Services Contracting Questionnaire",
-                    id: "L819mr",
-                    description: "fourth 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Alignment with the new OCG-led Mandatory Procedures",
-                    id: "AgtPO+",
-                    description:
-                      "fourth 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-              <li>
-                <span className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Confirmation on the use of the GC Digital Talent platform for verifying availability of qualified talent",
-                    id: "hI5cty",
-                    description: "fifth 2024 key change to the directive",
-                  })}
-                </span>
-                <div>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "This has always been the case and is now being formalized after the platform was announced by the Minister",
-                    id: "G+dXAH",
-                    description:
-                      "fifth 2024 key change rationale to the directive",
-                  })}
-                </div>
-              </li>
-            </Ul>
-          </Card>
-        </section>
       </Container>
       <Flourish />
     </>
