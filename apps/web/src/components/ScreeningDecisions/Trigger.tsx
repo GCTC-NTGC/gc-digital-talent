@@ -46,6 +46,16 @@ const ScreeningTriggerPoolSkill_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
+const decisionColours = new Map<
+  AssessmentDecision | null,
+  ButtonProps["color"]
+>([
+  [null, "black"],
+  [AssessmentDecision.Successful, "success"],
+  [AssessmentDecision.Hold, "warning"],
+  [AssessmentDecision.Unsuccessful, "error"],
+]);
+
 interface TriggerProps {
   resultQuery?: FragmentType<typeof ScreeningTriggerResult_Fragment>;
   poolSkillquery?: FragmentType<typeof ScreeningTriggerPoolSkill_Fragment>;
@@ -65,40 +75,24 @@ export const Trigger = ({
     ScreeningTriggerPoolSkill_Fragment,
     poolSkillquery,
   );
-  let color: ButtonProps["color"] = "black";
-  let label: ReactNode = intl.formatMessage(poolCandidateMessages.unclaimed);
+  let color: ButtonProps["color"] = "warning";
+  let label: ReactNode = intl.formatMessage(poolCandidateMessages.toAssess);
 
   if (result) {
     label = !result?.assessmentDecision?.value
       ? intl.formatMessage(commonMessages.pendingSecondOpinion)
       : result?.assessmentDecision.label.localized;
+    color =
+      decisionColours.get(result.assessmentDecision?.value ?? null) ?? "black";
   } else {
-    // Not assessed, non-essential skills with an experience attached should be a warning
-    if (poolSkill?.type?.value === PoolSkillType.Nonessential) {
-      if (experienceAttached) {
-        color = "warning";
-      }
-
-      label =
-        !experienceAttached ||
-        poolSkill.skill?.category.value === SkillCategory.Behavioural
-          ? intl.formatMessage(poolCandidateMessages.unclaimed)
-          : intl.formatMessage(poolCandidateMessages.toAssess);
+    if (
+      poolSkill?.type?.value === PoolSkillType.Nonessential &&
+      (!experienceAttached ||
+        poolSkill.skill?.category.value === SkillCategory.Behavioural)
+    ) {
+      label = intl.formatMessage(poolCandidateMessages.unclaimed);
+      color = "black";
     }
-  }
-
-  switch (result?.assessmentDecision?.value) {
-    case AssessmentDecision.Successful:
-      color = "success";
-      break;
-    case AssessmentDecision.Hold:
-      color = "warning";
-      break;
-    case AssessmentDecision.Unsuccessful:
-      color = "error";
-      break;
-    default:
-    // no op
   }
 
   return (
