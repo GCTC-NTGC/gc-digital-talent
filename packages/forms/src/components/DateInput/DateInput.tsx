@@ -25,6 +25,7 @@ import {
   DATE_SEGMENT,
   RoundingMethod,
 } from "./types";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 // NOTE: Remove important in #13664
 const legendStyles = tv({
@@ -67,6 +68,7 @@ const DateInput = ({
     control,
     formState: { errors },
   } = useFormContext();
+  useRegisterFormLabel(name, legend);
   const required = !!rules.required;
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;

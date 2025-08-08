@@ -10,6 +10,7 @@ import ControlledInput from "./ControlledInput";
 import { countNumberOfWordsAfterReplacingHTML } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 type RichTextInputProps = Omit<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
@@ -43,6 +44,7 @@ const RichTextInput = ({
     formState: { errors },
   } = useFormContext();
   const intl = useIntl();
+  useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
