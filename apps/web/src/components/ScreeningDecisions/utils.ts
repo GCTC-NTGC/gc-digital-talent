@@ -3,10 +3,8 @@ import { ReactNode } from "react";
 
 import {
   AssessmentDecision,
-  AssessmentDecisionLevel,
   AssessmentResultJustification,
   AssessmentResultType,
-  AssessmentStepDecision,
   AssessmentStepType,
   CreateAssessmentResultInput,
   EducationRequirementOption,
@@ -14,9 +12,6 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  LocalizedAssessmentDecision,
-  LocalizedAssessmentDecisionLevel,
-  LocalizedAssessmentResultJustification,
   Maybe,
   PublishingGroup,
   Scalars,
@@ -46,7 +41,7 @@ interface FormValuesToApiCreateInputArgs {
   formValues: FormValues;
   assessmentStepId: string;
   poolCandidateId: string;
-  poolSkillId: string;
+  poolSkillId?: string;
   assessmentResultType: AssessmentResultType;
 }
 

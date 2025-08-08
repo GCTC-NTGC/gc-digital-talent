@@ -37,7 +37,7 @@ interface UseMutationArgs {
   resultId?: Scalars["UUID"]["output"];
   stepId: Scalars["UUID"]["output"];
   candidateId: Scalars["UUID"]["output"];
-  poolSkillId: Scalars["UUID"]["output"];
+  poolSkillId?: Scalars["UUID"]["output"];
 }
 
 const useSaveHandler = ({

@@ -198,6 +198,7 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    ...ScreeningDecisionDialog
   }
 `);
 
@@ -296,27 +297,20 @@ const AssessmentResultsTable = ({
         poolCandidate?.assessmentStatus,
       );
 
-      const header = columnHeader(
-        getLocalizedName(assessmentStep.type?.label, intl),
-        status,
-        type,
-        intl,
-      );
+      const typeName = getLocalizedName(assessmentStep.type?.label, intl);
+      const header = columnHeader(typeName, status, type, intl);
 
       return [
         ...accumulator,
         buildColumn({
           id,
           header,
-          poolCandidate,
-          experiences,
-          assessmentStep: {
-            id: assessmentStep.id,
-            type: assessmentStep.type,
-            title: assessmentStep.title,
-            poolSkills: assessmentStep.poolSkills,
-          },
+          altHeader: typeName,
           intl,
+          dialogProps: {
+            query: poolCandidate,
+            stepId: assessmentStep.id,
+          },
         }),
       ];
     },
