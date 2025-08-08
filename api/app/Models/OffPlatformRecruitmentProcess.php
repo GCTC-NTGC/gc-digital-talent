@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property ?string $process_number
  * @property ?string $department_id
  * @property ?string $classification_id
+ * @property ?string $platform
+ * @property ?string $platform_other
  */
 class OffPlatformRecruitmentProcess extends Model
 {

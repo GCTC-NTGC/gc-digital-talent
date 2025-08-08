@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreign('department_id')->references('id')->on('departments');
             $table->uuid('classification_id')->nullable();
             $table->foreign('classification_id')->references('id')->on('classifications');
+            $table->string('platform')->nullable();
+            $table->string('platform_other')->nullable();
         });
     }
 

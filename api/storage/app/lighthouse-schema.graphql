@@ -183,6 +183,11 @@ type LocalizedGovPositionType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedHiringPlatform implements LocalizedEnumOption {
+  value: HiringPlatform!
+  label: LocalizedString!
+}
+
 type LocalizedIndigenousCommunity implements LocalizedEnumOption {
   value: IndigenousCommunity!
   label: LocalizedString!
@@ -522,7 +527,7 @@ type Mutation {
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
-  updateOffPlatformRecruitmentProcess(id: UUID!, process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
+  updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
@@ -766,6 +771,8 @@ type OffPlatformRecruitmentProcess {
   processNumber: String
   department: Department
   classification: Classification
+  platform: LocalizedHiringPlatform
+  platformOther: String
 }
 
 type DevelopmentProgramInterest {
@@ -1730,7 +1737,7 @@ input CreateUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1779,7 +1786,7 @@ input UpdateUserAsAdminInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1837,7 +1844,7 @@ input UpdateUserAsUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1921,12 +1928,17 @@ input CreateOffPlatformRecruitmentProcessInput {
   processNumber: String
   department: DepartmentBelongsTo
   classification: ClassificationBelongsTo
+  platform: HiringPlatform!
+  platformOther: String
 }
 
 input UpdateOffPlatformRecruitmentProcessInput {
+  id: UUID!
   processNumber: String
   department: DepartmentBelongsTo
   classification: ClassificationBelongsTo
+  platform: HiringPlatform
+  platformOther: String
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -3445,6 +3457,11 @@ enum GovPositionType {
   ACTING
   SECONDMENT
   ASSIGNMENT
+}
+
+enum HiringPlatform {
+  GC_JOBS
+  OTHER
 }
 
 enum IndigenousCommunity {

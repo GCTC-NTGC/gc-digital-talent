@@ -186,6 +186,8 @@ type OffPlatformRecruitmentProcess {
   processNumber: String @rename(attribute: "process_number")
   department: Department @belongsTo
   classification: Classification @belongsTo
+  platform: LocalizedHiringPlatform
+  platformOther: String @rename(attribute: "platform_other")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -1685,7 +1687,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1758,7 +1760,7 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1838,7 +1840,7 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1952,17 +1954,23 @@ input UpdateCommunityInterestInput @validator {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
-input CreateOffPlatformRecruitmentProcessInput {
+input CreateOffPlatformRecruitmentProcessInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   processNumber: String @rename(attribute: "process_number")
   department: DepartmentBelongsTo
   classification: ClassificationBelongsTo
+  platform: HiringPlatform!
+  platformOther: String @rename(attribute: "platform_other")
 }
 
-input UpdateOffPlatformRecruitmentProcessInput {
+input UpdateOffPlatformRecruitmentProcessInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
   processNumber: String @rename(attribute: "process_number")
   department: DepartmentBelongsTo
   classification: ClassificationBelongsTo
+  platform: HiringPlatform
+  platformOther: String @rename(attribute: "platform_other")
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -2926,7 +2934,6 @@ type Mutation {
     @create
     @canModel(ability: "create", injectArgs: true)
   updateOffPlatformRecruitmentProcess(
-    id: UUID!
     process: UpdateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess
     @guard
