@@ -5,7 +5,7 @@ return [
     // Career Preferences
     'career_preferences' => 'Préférences en matière de développement de carrière',
     'lateral_movement_interest' => 'Intérêt pour une mutation latérale',
-    'target_time_frame' => 'Délai cible pour une mutation latérale',
+    'target_time_frame' => 'Échéancier visé pour une mutation latérale',
     'org_types_lateral' => 'Types d\'organisations que vous envisageriez pour une mutation latérale',
     'promotion_interest' => 'Intérêt pour la promotion et l\'avancement',
     'target_time_frame_promotion' => 'Délai cible pour la promotion ou l\'avancement',
