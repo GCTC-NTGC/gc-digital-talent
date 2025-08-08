@@ -8,7 +8,7 @@ return [
     'target_time_frame' => 'Échéancier visé pour une mutation latérale',
     'org_types_lateral' => 'Types d\'organisations que vous envisageriez pour une mutation latérale',
     'promotion_interest' => 'Intérêt pour la promotion et l\'avancement',
-    'target_time_frame_promotion' => 'Délai cible pour la promotion ou l\'avancement',
+    'target_time_frame_promotion' => 'Échéancier visé pour une promotion ou un avancement',
     'org_types_promotion' => 'Intérêt pour les possibilités d\'apprentissage',
     'learning_interest' => 'Intérêt pour les possibilités d\'apprentissage ',
     'retirement_year' => 'Année d\'admissibilité à la retraite',

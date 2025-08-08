@@ -58,7 +58,7 @@ return [
     'career_planning_lateral_move_time_frame' => 'Échéancier visé pour une mutation latérale',
     'career_planning_lateral_move_organization_type' => 'Types d\'organisations pour une mutation latérale',
     'career_planning_promotion_move_interest' => 'Intérêt pour l\'avancement',
-    'career_planning_promotion_move_time_frame' => 'Délai cible pour l\'avancement',
+    'career_planning_promotion_move_time_frame' => 'Échéancier visé pour un avancement',
     'career_planning_promotion_move_organization_type' => 'Types d\'organisations pour un avancement',
     'career_planning_learning_opportunities_interest' => 'Intérêt pour les possibilités d\'apprentissage',
     'eligible_retirement_year' => 'Admissibilité à la retraite',
