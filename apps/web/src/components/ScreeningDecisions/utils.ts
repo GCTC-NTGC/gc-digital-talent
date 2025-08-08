@@ -1,25 +1,46 @@
 import { IntlShape } from "react-intl";
+import { ReactNode } from "react";
 
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentResultJustification,
   AssessmentResultType,
+  AssessmentStepDecision,
+  AssessmentStepType,
   CreateAssessmentResultInput,
+  EducationRequirementOption,
+  Experience,
+  FragmentType,
+  getFragment,
+  graphql,
+  LocalizedAssessmentDecision,
+  LocalizedAssessmentDecisionLevel,
+  LocalizedAssessmentResultJustification,
   Maybe,
+  PublishingGroup,
+  Scalars,
+  SkillCategory,
+  SkillLevel,
   UpdateAssessmentResultInput,
 } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  getLocale,
+  getSkillLevelName,
+} from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { NO_DECISION } from "~/utils/assessmentResults";
+import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
+import { getExperienceSkills } from "~/utils/skillUtils";
+import {
+  ClassificationGroup,
+  isClassificationGroup,
+} from "~/types/classificationGroup";
+import { getEducationRequirementOptions } from "~/utils/educationUtils";
+import { isIAPPool } from "~/utils/poolUtils";
 
-type MaybeJustification = Maybe<AssessmentResultJustification>;
-
-export interface FormValues {
-  assessmentDecision?: Maybe<AssessmentDecision | typeof NO_DECISION>;
-  justifications?: MaybeJustification[] | MaybeJustification;
-  assessmentDecisionLevel?: Maybe<AssessmentDecisionLevel>;
-  skillDecisionNotes?: Maybe<string>;
-}
+import { FormValues } from "./types";
 
 interface FormValuesToApiCreateInputArgs {
   formValues: FormValues;
@@ -99,6 +120,61 @@ export function convertFormValuesToApiUpdateInput({
   };
 }
 
+const ACCEPTED_EDUCATION_JUSTIFICATIONS = [
+  AssessmentResultJustification.EducationAcceptedInformation,
+  AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience,
+  AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency,
+];
+
+const ScreeningDialogFormValues_Fragment = graphql(/** GraphQL */ `
+  fragment ScreeningDialogFormValues on AssessmentResult {
+    id
+    assessmentDecision {
+      value
+    }
+    assessmentDecisionLevel {
+      value
+    }
+    justifications {
+      value
+    }
+    skillDecisionNotes
+  }
+`);
+
+export const convertApiToFormValues = (
+  query?: FragmentType<typeof ScreeningDialogFormValues_Fragment>,
+): FormValues => {
+  const data = getFragment(ScreeningDialogFormValues_Fragment, query);
+  const assessed = Boolean(data?.id);
+  let assessmentDecision: NullableDecision | undefined =
+    data?.assessmentDecision?.value;
+  if (assessed && !assessmentDecision) {
+    assessmentDecision = NO_DECISION;
+  }
+
+  const isEducationAcceptedJustification = data?.justifications?.some(
+    (justification) =>
+      justification?.value &&
+      ACCEPTED_EDUCATION_JUSTIFICATIONS.includes(justification.value),
+  );
+  let justifications:
+    | AssessmentResultJustification[]
+    | AssessmentResultJustification = unpackMaybes(
+    data?.justifications?.flatMap((justification) => justification?.value),
+  );
+  if (isEducationAcceptedJustification) {
+    justifications = justifications[0];
+  }
+
+  return {
+    assessmentDecision,
+    assessmentDecisionLevel: data?.assessmentDecisionLevel?.value,
+    justifications,
+    skillDecisionNotes: data?.skillDecisionNotes ?? undefined,
+  };
+};
+
 export const educationJustificationContext = (
   justification: Maybe<AssessmentResultJustification> | undefined,
   intl: IntlShape,
@@ -167,4 +243,91 @@ export const educationJustificationContext = (
     default:
       return null;
   }
+};
+
+export const DIALOG_TYPE = {
+  ApplicationScreening: "APPLICATION_SCREENING",
+  ScreeningQuestions: "SCREENING_QUESTIONS",
+  Generic: "GENERIC",
+  Education: "EDUCATION",
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+export type DialogType = ObjectValues<typeof DIALOG_TYPE>;
+
+export function getDialogType(
+  type?: Maybe<AssessmentStepType>,
+  poolSkillId?: Maybe<Scalars["UUID"]["output"]>,
+): DialogType {
+  if (!poolSkillId || !type) return DIALOG_TYPE.Education;
+
+  if (type === AssessmentStepType.ApplicationScreening) {
+    return DIALOG_TYPE.ApplicationScreening;
+  }
+
+  if (type === AssessmentStepType.ScreeningQuestionsAtApplication) {
+    return DIALOG_TYPE.ScreeningQuestions;
+  }
+
+  return DIALOG_TYPE.Generic;
+}
+
+export const getSkillLevelMessage = (
+  intl: IntlShape,
+  poolSkill?: {
+    requiredLevel?: Maybe<SkillLevel>;
+    skill?: Maybe<{
+      category: {
+        value: SkillCategory;
+      };
+    }>;
+  },
+): string => {
+  let skillLevel = "";
+  if (poolSkill?.requiredLevel && poolSkill.skill?.category.value) {
+    skillLevel = intl.formatMessage(
+      getSkillLevelName(
+        poolSkill.requiredLevel,
+        poolSkill.skill.category.value,
+      ),
+    );
+  }
+  return skillLevel;
+};
+
+export const hasAttachedExperiences = (
+  experiences?: Maybe<Maybe<Experience>[]>,
+  skill?: Maybe<{ id: Scalars["UUID"]["output"] }>,
+) => {
+  if (!skill) return false;
+  return getExperienceSkills(unpackMaybes(experiences), skill)?.length > 0;
+};
+
+interface GetEducationRequirementLabelArgs {
+  intl: IntlShape;
+  educationRequirementOption?: Maybe<EducationRequirementOption>;
+  group?: Maybe<ClassificationGroup>;
+  publishingGroup?: Maybe<PublishingGroup>;
+}
+
+export const getEducationRequirementLabel = ({
+  intl,
+  group,
+  publishingGroup,
+  educationRequirementOption,
+}: GetEducationRequirementLabelArgs): ReactNode => {
+  const locale = getLocale(intl);
+  let classificationGroup: ClassificationGroup = "IT";
+  if (isClassificationGroup(group)) {
+    classificationGroup = group;
+  }
+
+  const option = getEducationRequirementOptions(
+    intl,
+    locale,
+    classificationGroup,
+    isIAPPool(publishingGroup),
+  )?.find(({ value }) => value === educationRequirementOption);
+
+  return option?.label ?? intl.formatMessage(commonMessages.notAvailable);
 };
