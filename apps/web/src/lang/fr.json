@@ -347,10 +347,6 @@
     "defaultMessage": "Vos principales compétences",
     "description": "Title for the top skills section of a users skill showcase"
   },
-  "/ZPTlP": {
-    "defaultMessage": "Les Procédures obligatoires sur les talents numériques ont été mises à jour pour plus de clarté et afin de réduire les exigences en matière de rapports et mieux les aligner sur d’autres instruments politiques. La directive reste inchangée.",
-    "description": "Description for the mandatory procedures card"
-  },
   "/ZlzNi": {
     "defaultMessage": "Processus mis à jour!",
     "description": "Message displayed to user after pool is updated"
@@ -1914,10 +1910,6 @@
   "6c89Fd": {
     "defaultMessage": "Les possibilités de formation présentées sur cette page sont financées par le <itTrainingFundLink>Fonds de formation et de perfectionnement de la collectivité de la <abbreviation>TI</abbreviation></itTrainingFundLink> et sont réservées aux membres du personnel du groupe <abbreviation>TI</abbreviation> couverts par la <itCollectiveAgreementLink>convention collective du groupe <abbreviation>TI</abbreviation></itCollectiveAgreementLink>.",
     "description": "Second paragraph of it training opportunities section"
-  },
-  "6ceoYt": {
-    "defaultMessage": "Mises à jour des procédures obligatoires",
-    "description": "Heading for the mandatory procedures card"
   },
   "6cr+Qy": {
     "defaultMessage": "Vous n’avez pas de nouvelles notifications.",

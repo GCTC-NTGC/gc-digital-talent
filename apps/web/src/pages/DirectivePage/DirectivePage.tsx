@@ -384,9 +384,9 @@ export const Component = () => {
           <CardFlat
             color="secondary"
             title={intl.formatMessage({
-              defaultMessage: "Updates to the mandatory procedures",
-              id: "6ceoYt",
-              description: "Heading for the mandatory procedures card",
+              defaultMessage: "Annual digital talent survey",
+              id: "2hwu5E",
+              description: "Heading for annual digital talent survey card",
             })}
             links={[
               {
@@ -399,9 +399,10 @@ export const Component = () => {
                   },
                   {
                     topic: intl.formatMessage({
-                      defaultMessage: "Updates to the mandatory procedures",
-                      id: "6ceoYt",
-                      description: "Heading for the mandatory procedures card",
+                      defaultMessage: "Annual digital talent survey",
+                      id: "2hwu5E",
+                      description:
+                        "Heading for annual digital talent survey card",
                     }),
                   },
                 ),
@@ -414,9 +415,19 @@ export const Component = () => {
             <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
-                  "The Mandatory Procedures on Digital Talent have been updated for improved clarity, fewer reporting requirements, and better alignment with other policy instruments. The Directive remains unchanged.",
-                id: "/ZPTlP",
-                description: "Description for the mandatory procedures card",
+                  "The survey collects data on current and planned digital talent needs from departments to inform key decisions concerning the Digital Community.",
+                id: "0tNrAw",
+                description:
+                  "Description for annual digital talent survey card, paragraph 1",
+              })}
+            </p>
+            <p className="mb-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Find aggregated results and more information on GCXchange (available on the GC network only).",
+                id: "1FGsSn",
+                description:
+                  "Description for annual digital talent survey card, paragraph 2",
               })}
             </p>
           </CardFlat>
