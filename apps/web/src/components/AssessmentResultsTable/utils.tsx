@@ -5,6 +5,7 @@ import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIc
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import { IntlShape } from "react-intl";
 import { tv } from "tailwind-variants";
+import { ReactNode } from "react";
 
 import {
   AssessmentDecision,
@@ -22,11 +23,11 @@ import { NO_DECISION } from "~/utils/assessmentResults";
 import {
   AssessmentTableRow,
   AssessmentTableRowColumn,
-  AssessmentTableRowColumnProps,
   ColumnStatus,
 } from "./types";
-import cells from "../Table/cells";
-import Dialog from "../ScreeningDecisions/ScreeningDecisionDialog";
+import ScreeningDecisionDialog, {
+  ScreeningDecisionDialogProps,
+} from "../ScreeningDecisions/ScreeningDecisionDialog";
 
 const iconStyles = tv({
   base: "h-auto w-5 shrink-0 align-middle xs:inline-block",
@@ -131,18 +132,25 @@ export const columnStatus = (
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();
 
+interface BuildColumnArgs {
+  id: string;
+  header: ReactNode;
+  altHeader: ReactNode;
+  intl: IntlShape;
+  dialogProps: ScreeningDecisionDialogProps;
+}
+
 export const buildColumn = ({
   id,
-  poolCandidate,
-  experiences,
-  assessmentStep,
   intl,
   header,
-}: AssessmentTableRowColumnProps): AssessmentTableRowColumn => {
+  altHeader,
+  dialogProps,
+}: BuildColumnArgs): AssessmentTableRowColumn => {
   return columnHelper.accessor(
     ({ assessmentResults }) => {
       const assessmentResult = unpackMaybes(assessmentResults).find(
-        (ar) => ar.assessmentStep?.id === assessmentStep.id,
+        (ar) => ar.assessmentStep?.id === dialogProps.stepId,
       );
       return getLocalizedName(
         assessmentResult?.assessmentDecision?.label,
@@ -152,102 +160,25 @@ export const buildColumn = ({
     {
       id,
       header: () => header,
-      cell: ({
-        row: {
-          original: { poolSkill, assessmentResults },
-        },
-      }) => {
-        // Check if the pool skill (row) is associated with the assessment step (column)
-        const isEducationRequirement =
-          assessmentStep.type?.value ===
-            AssessmentStepType.ApplicationScreening &&
-          (poolSkill === undefined || poolSkill === null);
-
-        // Check if an assessmentResult already exists on the assessment step, if show update dialog
-        // Additionally, checks if it's the  education requirement cell
-        const assessmentResult = unpackMaybes(assessmentResults).find(
-          (ar) => ar.assessmentStep?.id === assessmentStep.id,
-        );
-        if (assessmentResult || isEducationRequirement) {
-          return cells.jsx(
-            <Dialog
-              assessmentStep={{
-                id: assessmentStep.id,
-                type: assessmentStep.type,
-                title: assessmentStep.title,
-              }}
-              assessmentResult={
-                assessmentResult
-                  ? {
-                      id: assessmentResult.id,
-                      poolSkill: assessmentResult.poolSkill,
-                      justifications: assessmentResult.justifications,
-                      assessmentDecision: assessmentResult.assessmentDecision,
-                      assessmentDecisionLevel:
-                        assessmentResult.assessmentDecisionLevel,
-                      skillDecisionNotes: assessmentResult.skillDecisionNotes,
-                    }
-                  : null
-              }
-              experiences={experiences}
-              poolCandidate={{
-                id: poolCandidate.id,
-                profileSnapshot: String(poolCandidate.profileSnapshot),
-                screeningQuestionResponses:
-                  poolCandidate.screeningQuestionResponses,
-                educationRequirementOption:
-                  poolCandidate.educationRequirementOption,
-                educationRequirementExperiences:
-                  poolCandidate.educationRequirementExperiences,
-                pool: {
-                  classification: poolCandidate.pool.classification,
-                  publishingGroup: poolCandidate.pool.publishingGroup,
-                },
-              }}
-              educationRequirement={isEducationRequirement}
-            />,
-          );
-        }
-
-        // Does assessment step have the pool skill (or education requirement), if not return null
-        const hasPoolSkill = assessmentStep.poolSkills?.find(
-          (ps) => ps?.id === poolSkill?.id,
-        );
-
-        if (hasPoolSkill) {
-          return cells.jsx(
-            <Dialog
-              assessmentStep={{
-                id: assessmentStep.id,
-                type: assessmentStep.type,
-                title: assessmentStep.title,
-              }}
-              assessmentResult={assessmentResult} // always undefined
-              experiences={experiences}
-              poolCandidate={{
-                id: poolCandidate.id,
-                profileSnapshot: String(poolCandidate.profileSnapshot),
-                screeningQuestionResponses:
-                  poolCandidate.screeningQuestionResponses,
-                pool: {
-                  classification: poolCandidate.pool.classification,
-                  publishingGroup: poolCandidate.pool.publishingGroup,
-                },
-              }}
-              poolSkillToAssess={poolSkill}
-            />,
+      cell: ({ row: { original } }) => {
+        if (!original || !dialogProps) {
+          return (
+            <span className="sm:sr-only">
+              {intl.formatMessage(commonMessages.notApplicable)}
+            </span>
           );
         }
 
         return (
-          <span className="sm:sr-only">
-            {intl.formatMessage(commonMessages.notApplicable)}
-          </span>
+          <ScreeningDecisionDialog
+            {...dialogProps}
+            poolSkillId={original.poolSkill?.id}
+          />
         );
       },
       meta: {
-        mobileHeader: getLocalizedName(assessmentStep.type?.label, intl),
-        columnDialogHeader: getLocalizedName(assessmentStep.type?.label, intl),
+        mobileHeader: altHeader,
+        columnDialogHeader: altHeader,
       },
     },
   ) as AssessmentTableRowColumn;

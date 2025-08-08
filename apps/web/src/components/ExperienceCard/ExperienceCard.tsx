@@ -289,12 +289,14 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+type SimpleSkill = Pick<Skill, "id">;
+
 interface ExperienceCardProps {
   // Override ID if more than one card is used, for uniqueness
   id?: string;
   experienceQuery: FragmentType<typeof ExperienceCard_Fragment>;
   headingLevel?: HeadingRank;
-  showSkills?: boolean | Skill | Skill[];
+  showSkills?: boolean | SimpleSkill | SimpleSkill[];
   showEdit?: boolean;
   hideDetails?: boolean;
   editParam?: string;
