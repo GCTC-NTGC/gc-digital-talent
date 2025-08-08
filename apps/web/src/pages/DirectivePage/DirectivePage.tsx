@@ -27,10 +27,6 @@ import SEO from "~/components/SEO/SEO";
 
 import Resources from "./Resources";
 
-const sectionIds = {
-  changes: "changes",
-} as const;
-
 const policyLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
@@ -406,7 +402,9 @@ export const Component = () => {
                     }),
                   },
                 ),
-                to: sectionIds.changes,
+                href: "https://gcxgce.sharepoint.com/teams/10001567/SitePages/ProjectHome.aspx",
+                download: false,
+                external: true,
                 mode: "solid",
                 className: "py-3 px-6",
               } as const,
