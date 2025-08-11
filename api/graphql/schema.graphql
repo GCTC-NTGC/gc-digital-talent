@@ -1197,6 +1197,8 @@ input ApplicantFilterInput {
   hasDiploma: Boolean @scope(name: "whereHasDiploma")
   languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
   locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
   operationalRequirements: [OperationalRequirement]
     @scope(name: "whereOperationalRequirementsIn")
   positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
@@ -2296,6 +2298,8 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
