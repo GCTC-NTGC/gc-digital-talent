@@ -887,6 +887,8 @@ type ApplicantFilter {
     @rename(attribute: "operational_requirements")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications

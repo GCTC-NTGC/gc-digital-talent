@@ -1290,6 +1290,7 @@ type ApplicantFilter {
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
