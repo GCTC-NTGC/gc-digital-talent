@@ -651,6 +651,10 @@
     "defaultMessage": "Modifiez les détails de la mise en candidature",
     "description": "Link text to edit a nominations details information"
   },
+  "0tNrAw": {
+    "defaultMessage": "Cette enquête permet de recueillir des données sur les besoins actuels et prévus des ministères relativement aux talents numériques afin de guider les décisions clés concernant la collectivité numérique.",
+    "description": "Description for annual digital talent survey card, paragraph 1"
+  },
   "0vNb2/": {
     "defaultMessage": "Nombre d'employées et employés",
     "description": "Label for number of employees field"
@@ -714,6 +718,10 @@
   "1C9UWI": {
     "defaultMessage": "Le Bureau des initiatives autochtones (BIA) est l’équipe qui soutient le programme.",
     "description": "Paragraph 4 of the 'About the program' section"
+  },
+  "1FGsSn": {
+    "defaultMessage": "Vous trouverez les résultats agrégés et de plus amples renseignements dans GCÉchange (à consulter exclusivement sur le réseau du gouvernement du Canada).",
+    "description": "Description for annual digital talent survey card, paragraph 2"
   },
   "1FwczA": {
     "defaultMessage": "Marquer comme lue",
@@ -1058,6 +1066,10 @@
   "2hc9V9": {
     "defaultMessage": "Expression orale (ou compétence orale))",
     "description": "Proficiency level related skill on language requirements dialog"
+  },
+  "2hwu5E": {
+    "defaultMessage": "Enquête annuelle sur les talents numériques",
+    "description": "Heading for annual digital talent survey card"
   },
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
