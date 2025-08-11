@@ -272,6 +272,7 @@ function transformSortStateToOrderByClause(
     ["notes", "notes"],
     ["skillCount", "skillCount"],
     ["processNumber", "PROCESS_NUMBER"],
+    ["assessmentStep", "assessment_step"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -287,6 +288,7 @@ function transformSortStateToOrderByClause(
       "status",
       "notes",
       "finalDecision",
+      "assessmentStep",
     ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
@@ -468,6 +470,8 @@ export function transformPoolCandidateSearchInputToFormValues(
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
+    assessmentSteps:
+      input?.assessmentSteps?.filter(notEmpty).map((s) => String(s)) ?? [],
   };
 }
 
@@ -529,6 +533,9 @@ export function transformFormValuesToFilterState(
       return { group: splitString[0], level: Number(splitString[1]) };
     }),
     workStreams: data.stream.map((id) => ({ id })),
+    assessmentSteps: data.assessmentSteps
+      .filter(notEmpty)
+      .map((step) => Number(step)),
   };
 }
 
@@ -567,5 +574,8 @@ export const addSearchToPoolCandidateFilterInput = (
     appliedClassifications: fancyFilterState?.appliedClassifications,
     workStreams: fancyFilterState?.workStreams,
     departments: fancyFilterState?.departments,
+    assessmentSteps: fancyFilterState?.assessmentSteps?.map((val) =>
+      Number(val),
+    ),
   };
 };

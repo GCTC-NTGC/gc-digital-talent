@@ -296,6 +296,9 @@ importers:
 
   packages/auth:
     dependencies:
+      '@gc-digital-talent/app-insights':
+        specifier: workspace:*
+        version: link:../app-insights
       '@gc-digital-talent/env':
         specifier: workspace:*
         version: link:../env

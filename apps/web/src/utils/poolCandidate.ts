@@ -231,16 +231,9 @@ const computeInAssessmentStatusChip = (
     label:
       intl.formatMessage(poolCandidateMessages.toAssess) +
       intl.formatMessage(commonMessages.dividingColon) +
-      intl.formatMessage(
-        {
-          defaultMessage: "Step {currentStep}",
-          id: "RiGj9w",
-          description: "Label for the candidates current assessment step",
-        },
-        {
-          currentStep,
-        },
-      ),
+      intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+        stepNumber: currentStep,
+      }),
     color: "warning",
   };
 };

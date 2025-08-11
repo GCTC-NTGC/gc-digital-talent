@@ -1167,6 +1167,10 @@
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
+  "gqX6/n": {
+    "defaultMessage": "Étape actuelle",
+    "description": "Title displayed for a candidates current assessment step"
+  },
   "gt0xAi": {
     "defaultMessage": "Processus",
     "description": "Name of Processes page"

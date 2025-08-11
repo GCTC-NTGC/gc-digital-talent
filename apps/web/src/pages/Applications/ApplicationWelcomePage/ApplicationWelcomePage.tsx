@@ -10,7 +10,7 @@ import { ApplicationStep } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-import applicationMessages from "~/messages/applicationMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
@@ -42,8 +42,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: paths.applicationWelcome(application.id),
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
     ],
