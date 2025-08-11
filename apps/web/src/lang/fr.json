@@ -64,7 +64,7 @@
     "description": "Title of the 'Digital certificate credential' subsection"
   },
   "+CU+6M": {
-    "defaultMessage": "Intérêt pour la mutation latérale (mobilité de même niveau)",
+    "defaultMessage": "Intérêt pour une mutation latérale (mobilité de même niveau)",
     "description": "Label for interested in lateral movement checkbox for mobility type checklist"
   },
   "+DMD0L": {
@@ -108,7 +108,7 @@
     "description": "Heading displayed on the candidate skill match dialog."
   },
   "+RDFZH": {
-    "defaultMessage": "Gérez vos renseignements d’employée ou d’employé du gouvernement, y compris vos préférences en matière de développement de carrière et les façons de travailler.",
+    "defaultMessage": "Gérez vos renseignements professionnels au sein du gouvernement, y compris vos préférences en matière de développement de carrière et vos modes de travail.",
     "description": "Description of the employee profile page"
   },
   "+SoiCw": {
@@ -1808,7 +1808,7 @@
     "description": "Page title for the improve behavioural skills page"
   },
   "66WkNy": {
-    "defaultMessage": "Décrivez vos expériences, au travail, à l’école et dans la vie.",
+    "defaultMessage": "Décrivez vos expériences professionnelles, scolaires et personnelles.",
     "description": "Description for the Career timeline page in applicant profile."
   },
   "66kU6k": {
@@ -1824,7 +1824,7 @@
     "description": "Heading for review of nominee's information"
   },
   "69BfF3": {
-    "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
+    "defaultMessage": "Découvrez des talents en vous servant des filtres détaillés, incluant la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
   },
   "69icSD": {
@@ -2492,7 +2492,7 @@
     "description": "Title displayed on the Pool Candidates table employee department column"
   },
   "9Jkoms": {
-    "defaultMessage": "Trouver du talent numérique",
+    "defaultMessage": "Trouver des talents numériques",
     "description": "Title displayed on hero for Search and Request pages."
   },
   "9KGR0d": {
@@ -3564,7 +3564,7 @@
     "description": "Submit message for job placement dialog"
   },
   "DzCUmx": {
-    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà en poste, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "Description of the application on the homepage"
   },
   "Dzyk1q": {
@@ -4068,7 +4068,7 @@
     "description": "Null message description for asset skills table."
   },
   "GMglI5": {
-    "defaultMessage": "Adresse courriel validée",
+    "defaultMessage": "Adresse courriel vérifiée",
     "description": "The email address has been verified to be owned by user"
   },
   "GNhFh2": {
@@ -4708,7 +4708,7 @@
     "description": "Message displayed for profile snapshot not found."
   },
   "JHEUw9": {
-    "defaultMessage": "Délai cible pour la promotion ou l'avancement",
+    "defaultMessage": "Échéancier visé pour une promotion ou un avancement",
     "description": "Label for an employee profile career development preference field"
   },
   "JIvR0C": {
@@ -4768,7 +4768,7 @@
     "description": "Tab title for experiences sorted by skills in applicant profile."
   },
   "Jf3vT5": {
-    "defaultMessage": "Information sur l'employé(e) du gouvernement",
+    "defaultMessage": "Informations sur l'employé(e) du gouvernement",
     "description": "Title for the government employee information section"
   },
   "Jfl1o+": {
@@ -5332,7 +5332,7 @@
     "description": "Page subtitle for the comptrollership executives talent management page"
   },
   "M4sGS2": {
-    "defaultMessage": "Types d'organisations que vous envisageriez pour une promotion ou un avancement",
+    "defaultMessage": "Types d'organisations envisagées pour une promotion ou un avancement",
     "description": "Label for an employee profile career development preference field"
   },
   "M7bb1V": {
@@ -6440,7 +6440,7 @@
     "description": "Title of a note describing that a pool is only open to employees"
   },
   "RHTrvR": {
-    "defaultMessage": "IT-03 : Conseiller technique ou Chef d'équipe",
+    "defaultMessage": "IT-03 : Conseiller(ère) technique ou Chef d'équipe",
     "description": "IT-03 classification label including titles"
   },
   "RHwGy2": {
@@ -6636,7 +6636,7 @@
     "description": "Title for the user profile page"
   },
   "SM7PIR": {
-    "defaultMessage": "Analyste principal P M 5",
+    "defaultMessage": "Analyste principal(e) P M 5",
     "description": "PM-05 classification aria label including titles"
   },
   "SNwPLZ": {
@@ -7743,7 +7743,7 @@
     "description": "Label for not represented community"
   },
   "XzyFuo": {
-    "defaultMessage": "Soyez informé des prochaines échéances de candidature, des changements de statut, etc.",
+    "defaultMessage": "Restez au courant des prochaines échéances de candidature, des changements de statut, etc.",
     "description": "Subtitle for application updates checklist"
   },
   "Y+GgIV": {
@@ -7923,7 +7923,7 @@
     "description": "Final warning text to confirm the assessment to be deleted"
   },
   "YbiEAB": {
-    "defaultMessage": "Intérêt pour la mutation latérale",
+    "defaultMessage": "Intérêt pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
   "Yc2A2Q": {
@@ -8295,7 +8295,7 @@
     "description": "Link text for visiting the GCKey website"
   },
   "aYgVQT": {
-    "defaultMessage": "Types d'organisations que vous envisageriez pour une mutation latérale",
+    "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
   "aYt7kT": {
@@ -9159,7 +9159,7 @@
     "description": "Heading for updating a user's process roles"
   },
   "eIxShU": {
-    "defaultMessage": "IT-04 : Conseiller principal ou Gestionnaire",
+    "defaultMessage": "IT-04 : Conseiller(ère) principal(e) ou Gestionnaire",
     "description": "IT-04 classification label including titles"
   },
   "eJPU4G": {
@@ -9263,7 +9263,7 @@
     "description": "Date the candidate was removed on"
   },
   "ehrsDa": {
-    "defaultMessage": "Langue de l'entrevue de vive voix",
+    "defaultMessage": "Langue d'expression à l'entrevue",
     "description": "Legend text for spoken interview language preference for interviews"
   },
   "eickbr": {
@@ -10134,7 +10134,7 @@
     "description": "Title for the skill summary section in the assessment plan builder"
   },
   "iR7GWG": {
-    "defaultMessage": "Délai cible pour une mutation latérale",
+    "defaultMessage": "Échéancier visé pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
   "iSbtcK": {
@@ -10298,11 +10298,11 @@
     "description": "Learn more dialog question four heading"
   },
   "jAFzzR": {
-    "defaultMessage": "Découvrez les dernières perspectives d’emploi du <abbreviation>GC</abbreviation> dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
+    "defaultMessage": "Découvrez les plus récentes occasions d’emploi au sein du <abbreviation>GC</abbreviation> dans les domaines du numérique et des technologies, allant des postes de niveau d’entrée aux postes de gestion. Trouvez une équipe, faites une différence et laissez-vous inspirer.",
     "description": "Description for the digital government job opportunities"
   },
   "jAPSUd": {
-    "defaultMessage": "Conseiller principal ou Gestionnaire I T 4",
+    "defaultMessage": "Conseiller(ère) principal(e) ou Gestionnaire I T 4",
     "description": "IT-04 classification aria label including titles"
   },
   "jAWP0X": {
@@ -10354,7 +10354,7 @@
     "description": "GCKey answer for when user does not have recovery codes"
   },
   "jNqZ46": {
-    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
+    "defaultMessage": "Conseiller(ère) technique ou Chef d'équipe T I 3",
     "description": "IT-03 classification aria label including titles"
   },
   "jO8i+2": {
@@ -12218,7 +12218,7 @@
     "description": "Message displayed when no functional community is selected"
   },
   "sapiL3": {
-    "defaultMessage": "PM-05 : Analyste principal",
+    "defaultMessage": "PM-05 : Analyste principal(e)",
     "description": "PM-05 classification label including titles"
   },
   "sapxcU": {
@@ -12374,7 +12374,7 @@
     "description": "Descriptive text explaining a valid post secondary education."
   },
   "tJnBx1": {
-    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà en poste, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "SEO description of the application on the homepage"
   },
   "tKtdVT": {
@@ -13718,7 +13718,7 @@
     "description": "Error message displayed when something went wrong deleting a community interest"
   },
   "zXWJ/5": {
-    "defaultMessage": "Intérêt pour la promotion et l'avancement",
+    "defaultMessage": "Intérêt pour une promotion et une avancement",
     "description": "Label for an employee profile career development preference field"
   },
   "zYKPdV": {
