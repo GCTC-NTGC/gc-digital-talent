@@ -10,6 +10,7 @@ import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { alphaSortOptions } from "../../utils";
 import { selectStyles } from "../../styles";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const select = tv({
   extend: selectStyles,
@@ -63,6 +64,7 @@ const Select = ({
     register,
     formState: { errors },
   } = useFormContext();
+  useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";

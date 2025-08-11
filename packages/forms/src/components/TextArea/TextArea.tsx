@@ -12,6 +12,7 @@ import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 export type TextAreaProps = DetailedHTMLProps<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
@@ -58,6 +59,7 @@ const TextArea = ({
     setValue,
   } = useFormContext();
   const intl = useIntl();
+  useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
