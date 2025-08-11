@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./index.ts",
-    "./main": "./main.ts"
+    ".": "./index.ts"
   },
   "scripts": {
     "prettier": "prettier --check .",
