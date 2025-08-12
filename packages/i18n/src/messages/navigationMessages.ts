@@ -23,8 +23,8 @@ const navigationMessages = defineMessages({
   },
   workLocation: {
     defaultMessage: "Work location preferences",
-    id: "nMNAYw",
-    description: "Name of Work location page",
+    id: "7pXmpr",
+    description: "Name of Work location preferences page",
   },
   workPreferences: {
     defaultMessage: "Work preferences",
