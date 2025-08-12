@@ -1,0 +1,366 @@
+{
+  "data": {
+    "workStreams": [
+      {
+        "community": {
+          "key": "atip"
+        },
+        "key": "ACCESS_INFORMATION_PRIVACY",
+        "name": {
+          "en": "Access to Information and Privacy",
+          "fr": "Accès à l’information et protection des renseignements personnels"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "BUSINESS_ADVISORY_SERVICES",
+        "name": {
+          "en": "Business Line Advisory Services",
+          "fr": "Services consultatifs auprès des secteurs d’activités de la TI"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "DATABASE_MANAGEMENT",
+        "name": {
+          "en": "Database Management",
+          "fr": "Gestion de bases de données de la TI"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "ENTERPRISE_ARCHITECTURE",
+        "name": {
+          "en": "Enterprise Architecture",
+          "fr": "Architecture intégrée de la TI"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "EXECUTIVE_GROUP",
+        "name": {
+          "en": "Executive Group",
+          "fr": "Groupe de la direction"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "INFORMATION_DATA_FUNCTIONS",
+        "name": {
+          "en": "Information and Data Functions",
+          "fr": "Fonctions d’information et de données"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "INFRASTRUCTURE_OPERATIONS",
+        "name": {
+          "en": "Infrastructure Operations",
+          "fr": "Opérations d’infrastructure de la TI"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "PLANNING_AND_REPORTING",
+        "name": {
+          "en": "Planning and Reporting",
+          "fr": "Planification et établissement de rapports en matière de TI"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "PROJECT_PORTFOLIO_MANAGEMENT",
+        "name": {
+          "en": "Project Portfolio Management",
+          "fr": "Gestion de portefeuilles de projets de la TI"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "SECURITY",
+        "name": {
+          "en": "Security",
+          "fr": "Sécurité"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "digital"
+        },
+        "key": "SOFTWARE_SOLUTIONS",
+        "name": {
+          "en": "Software Solutions",
+          "fr": "Solutions logicielles de la TI"
+        },
+        "plainLanguageName": {
+          "en": "",
+          "fr": ""
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "atip"
+        },
+        "key": "access_to_information",
+        "name": {
+          "en": "Access to Information",
+          "fr": "Accès à l’information"
+        },
+        "plainLanguageName": {
+          "en": "Access to Information",
+          "fr": "Accès à l’information"
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "accounting_operations",
+        "name": {
+          "en": "Accounting Operations",
+          "fr": "Opérations comptables"
+        },
+        "plainLanguageName": {
+          "en": "Accounting Operations",
+          "fr": "Opérations comptables"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "budget_resource_management",
+        "name": {
+          "en": "Budget and Resource Management",
+          "fr": "Budget et gestion des ressources"
+        },
+        "plainLanguageName": {
+          "en": "Budget and Resource Management",
+          "fr": "Budget et gestion des ressources"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "corporate_external_reporting",
+        "name": {
+          "en": "Corporate and External Reporting",
+          "fr": "Rapports internes et externes"
+        },
+        "plainLanguageName": {
+          "en": "Corporate and External Reporting",
+          "fr": "Rapports internes et externes"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "cost_recovery",
+        "name": {
+          "en": "Cost Recovery",
+          "fr": "Recouvrement des coûts"
+        },
+        "plainLanguageName": {
+          "en": "Cost Recovery",
+          "fr": "Recouvrement des coûts"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "costing",
+        "name": {
+          "en": "Costing",
+          "fr": "Établissement des coûts"
+        },
+        "plainLanguageName": {
+          "en": "Costing",
+          "fr": "Établissement des coûts"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "financial_management_advisory_services",
+        "name": {
+          "en": "Financial Management Advisory Services",
+          "fr": "Services de conseils en gestion financière"
+        },
+        "plainLanguageName": {
+          "en": "Financial Management Advisory Services",
+          "fr": "Services de conseils en gestion financière"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "financial_policy",
+        "name": {
+          "en": "Financial Policy",
+          "fr": "Politique financière"
+        },
+        "plainLanguageName": {
+          "en": "Financial Policy",
+          "fr": "Politique financière"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "financial_systems",
+        "name": {
+          "en": "Financial Systems",
+          "fr": "Systèmes financiers"
+        },
+        "plainLanguageName": {
+          "en": "Financial Systems",
+          "fr": "Systèmes financiers"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "internal_controls",
+        "name": {
+          "en": "Internal Controls",
+          "fr": "Contrôles internes"
+        },
+        "plainLanguageName": {
+          "en": "Internal Controls",
+          "fr": "Contrôles internes"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "atip"
+        },
+        "key": "privacy",
+        "name": {
+          "en": "Privacy",
+          "fr": "Protection des renseignements personnels"
+        },
+        "plainLanguageName": {
+          "en": "Privacy",
+          "fr": "Protection des renseignements personnels"
+        },
+        "talentSearchable": true
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "transfer_payments",
+        "name": {
+          "en": "Transfer Payments",
+          "fr": "Paiements de transfert"
+        },
+        "plainLanguageName": {
+          "en": "Transfer Payments",
+          "fr": "Paiements de transfert"
+        },
+        "talentSearchable": false
+      },
+      {
+        "community": {
+          "key": "finance"
+        },
+        "key": "treasury_board_submissions",
+        "name": {
+          "en": "Treasury Board Submissions",
+          "fr": "Présentations au Conseil du Trésor"
+        },
+        "plainLanguageName": {
+          "en": "Treasury Board Submissions",
+          "fr": "Présentations au Conseil du Trésor"
+        },
+        "talentSearchable": false
+      }
+    ]
+  }
+}

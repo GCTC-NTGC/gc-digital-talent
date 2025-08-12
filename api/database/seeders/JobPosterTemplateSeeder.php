@@ -2,88 +2,86 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classification;
 use App\Models\JobPosterTemplate;
+use App\Models\JobPosterTemplateSkill;
+use App\Models\Skill;
+use App\Models\WorkStream;
 use Exception;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class JobPosterTemplateSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Depends on ClassificationSeeder, WorkStreamSeeder, and SkillSeeder to run first.
      *
      * @return void
      */
     public function run()
     {
-        // Grab templates to create JSON
-        // query templates {
-        //     jobPosterTemplates {
-        //       referenceId
-        //       name {
-        //         en
-        //         fr
-        //       }
-        //       description {
-        //         en
-        //         fr
-        //       }
-        //       tasks {
-        //         en
-        //         fr
-        //       }
-        //       supervisoryStatus
-        //       essentialBehaviouralSkillsNotes {
-        //         fr
-        //         en
-        //       }
-        //       essentialTechnicalSkillsNotes {
-        //         en
-        //         fr
-        //       }
-        //       nonessentialTechnicalSkillsNotes {
-        //         en
-        //         fr
-        //       }
-        //       workDescription {
-        //         en
-        //         fr
-        //       }
-        //       workStream {
-        //         id
-        //         name {
-        //           en
-        //           fr
-        //         }
-        //       }
-        //       classification {
-        //         group
-        //         level
-        //       }
-        //       keywords {
-        //         en
-        //         fr
-        //       }
-        //     }
-        //   }
+        /* To recreate the JSON file, run this GraphQL query:
+            query JobPosterTemplates {
+                jobPosterTemplates {
+                    referenceId
+                    name {
+                        en
+                        fr
+                    }
+                    description {
+                        en
+                        fr
+                    }
+                    tasks {
+                        en
+                        fr
+                    }
+                    supervisoryStatus {
+                        value
+                    }
+                    essentialBehaviouralSkillsNotes {
+                        fr
+                        en
+                    }
+                    essentialTechnicalSkillsNotes {
+                        en
+                        fr
+                    }
+                    nonessentialTechnicalSkillsNotes {
+                        en
+                        fr
+                    }
+                    workDescription {
+                        en
+                        fr
+                    }
+                    workStream {
+                        key
+                    }
+                    classification {
+                        group
+                        level
+                    }
+                    keywords {
+                        en
+                        fr
+                    }
+                    jobPosterTemplateSkills {
+                        requiredLevel {
+                            value
+                        }
+                        type {
+                            value
+                        }
+                        skill {
+                            key
+                        }
+                    }
+                }
+            }
 
-        // Grab skills to create JSON
-        // query templatesSkills {
-        //     jobPosterTemplates {
-        //       referenceId
-        //       skills {
-        //         skill {
-        //           key
-        //         }
-        //         pivot {
-        //           type {
-        //             value
-        //           }
-        //           requiredLevel
-        //         }
-        //       }
-        //     }
-        //   }
+            Sort by reference ID. You can use VS Code extension "Thinker.sort-json" to sort the results for a good commit diff.
+        */
 
         $templatesFileContents = file_get_contents(base_path('database/seeders/JobPosterTemplateSeeder.data.json'));
         if (! $templatesFileContents) {
@@ -93,99 +91,75 @@ class JobPosterTemplateSeeder extends Seeder
         if (! $templatesFileJson) {
             throw new Exception('Failed to decode Templates JSON file');
         }
-        $templatesModels = $templatesFileJson->data->jobPosterTemplates;
-        $skillsFileContents = file_get_contents(base_path('database/seeders/JobPosterTemplateSkillSeeder.data.json'));
-        if (! $skillsFileContents) {
-            throw new Exception('Failed to load Skills JSON file');
-        }
-        $skillsFileJson = json_decode($skillsFileContents);
-        if (! $skillsFileJson) {
-            throw new Exception('Failed to decode Skills JSON file');
-        }
-        $skillsModels = $skillsFileJson->data->jobPosterTemplates;
+        $models = $templatesFileJson->data->jobPosterTemplates;
 
-        // Check for duplicate reference ids in templates
-        $referenceIds = array_map(
-            function ($model) {
-                return $model->referenceId;
-            },
-            $templatesModels
-        );
-        if (count(array_unique($referenceIds)) != count($templatesModels)) {
-            throw new Exception('The reference ids are not unique');
-        }
+        // used to add relationship to models
+        $allClassifications = Classification::all(['id', 'group', 'level']);
+        $allWorkStreams = WorkStream::all(['id', 'key']);
+        $allSkills = Skill::all(['id', 'key']);
 
-        // TEMPLATES
-        // update or create all the templates
-        foreach ($templatesModels as $templateModel) {
-            $classificationObject = DB::table('classifications')
-                ->where('group', $templateModel->classification->group)
-                ->where('level', $templateModel->classification->level)
-                ->sole();
+        // Iterate the provided data to load it
+        foreach ($models as $model) {
+            $classificationId = $allClassifications
+                ->sole(fn ($c) => $c->group == $model->classification->group && $c->level == $model->classification->level)
+                ->id;
 
-            $streamObject = DB::table('work_streams')
-                ->where('key', $templateModel->stream->value)
-                ->sole();
+            $workStreamId = $allWorkStreams
+                ->sole(fn ($ws) => $ws->key == $model->workStream->key)
+                ->id;
 
-            JobPosterTemplate::updateOrCreate(
-                ['reference_id' => $templateModel->referenceId],
+            $dbModel = JobPosterTemplate::updateOrCreate(
+                ['reference_id' => $model->referenceId],
                 [
-                    'work_stream_id' => $streamObject?->id,
-                    'classification_id' => $classificationObject->id,
-                    'supervisory_status' => $templateModel->supervisoryStatus,
+                    'work_stream_id' => $workStreamId,
+                    'classification_id' => $classificationId,
+                    'supervisory_status' => $model->supervisoryStatus->value,
                     'name' => [
-                        'en' => $templateModel->name->en,
-                        'fr' => $templateModel->name->fr,
+                        'en' => $model->name->en,
+                        'fr' => $model->name->fr,
                     ],
                     'description' => [
-                        'en' => $templateModel->description->en,
-                        'fr' => $templateModel->description->fr,
+                        'en' => $model->description->en,
+                        'fr' => $model->description->fr,
                     ],
                     'work_description' => [
-                        'en' => $templateModel->workDescription->en,
-                        'fr' => $templateModel->workDescription->fr,
+                        'en' => $model->workDescription->en,
+                        'fr' => $model->workDescription->fr,
                     ],
                     'tasks' => [
-                        'en' => $templateModel->tasks->en,
-                        'fr' => $templateModel->tasks->fr,
+                        'en' => $model->tasks->en,
+                        'fr' => $model->tasks->fr,
                     ],
                     'keywords' => [
-                        'en' => $templateModel->keywords->en,
-                        'fr' => $templateModel->keywords->fr,
+                        'en' => $model->keywords->en,
+                        'fr' => $model->keywords->fr,
                     ],
                     'essential_technical_skills_notes' => [
-                        'en' => $templateModel->essentialTechnicalSkillsNotes->en,
-                        'fr' => $templateModel->essentialTechnicalSkillsNotes->fr,
+                        'en' => $model->essentialTechnicalSkillsNotes->en,
+                        'fr' => $model->essentialTechnicalSkillsNotes->fr,
                     ],
                     'essential_behavioural_skills_notes' => [
-                        'en' => $templateModel->essentialBehaviouralSkillsNotes->en,
-                        'fr' => $templateModel->essentialBehaviouralSkillsNotes->fr,
+                        'en' => $model->essentialBehaviouralSkillsNotes->en,
+                        'fr' => $model->essentialBehaviouralSkillsNotes->fr,
                     ],
                     'nonessential_technical_skills_notes' => [
-                        'en' => $templateModel->nonessentialTechnicalSkillsNotes->en,
-                        'fr' => $templateModel->nonessentialTechnicalSkillsNotes->fr,
+                        'en' => $model->nonessentialTechnicalSkillsNotes->en,
+                        'fr' => $model->nonessentialTechnicalSkillsNotes->fr,
                     ],
                 ]
             );
-        }
 
-        // SKILLS
-        // loop through models, each being a reference id and associated skills
-        foreach ($skillsModels as $skillModel) {
-            $templateEloquentModel = JobPosterTemplate::where('reference_id', $skillModel->referenceId)->sole();
-            $skillsToSync = $skillModel->skills;
-
-            // build key-value collection of ids and pivot data, then sync to model
-            foreach ($skillsToSync as $skillToSync) {
-                $skillObject = DB::table('skills')
-                    ->where('key', $skillToSync->skill->key)
-                    ->sole();
-                $templateEloquentModel->jobPosterTemplateSkills()->create([
-                    'skill_id' => $skillObject->id,
-                    'type' => $skillToSync->pivot->type->value,
-                    'required_skill_level' => $skillToSync->pivot->requiredLevel,
+            $jobPosterTemplateSkills = array_map(function ($jobPosterTemplateSkill) use ($allSkills) {
+                return new JobPosterTemplateSkill([
+                    'type' => $jobPosterTemplateSkill->type->value,
+                    'required_skill_level' => $jobPosterTemplateSkill->requiredLevel?->value,
+                    'skill_id' => $allSkills->sole(fn ($skill) => $skill->key == $jobPosterTemplateSkill->skill->key)->id,
                 ]);
-            }
+            }, $model->jobPosterTemplateSkills);
+
+            // no HasMany::sync() in Laravel
+            $dbModel->jobPosterTemplateSkills()->delete();
+            $dbModel->jobPosterTemplateSkills()->saveMany($jobPosterTemplateSkills);
 
         }
     }
