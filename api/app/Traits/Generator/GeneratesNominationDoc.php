@@ -49,7 +49,7 @@ trait GeneratesNominationDoc
         $section->addTitle($this->localizeHeading('nominee'), $headingRank);
         $this->addLabelText($section, $this->localizeHeading('functional_community'), "{$talentNominationGroup->nominee->first_name} {$talentNominationGroup->nominee->last_name}");
         $this->addLabelText($section, $this->localizeHeading('work_email'), $talentNominationGroup->nominee->work_email);
-        $this->addLabelText($section, $this->localizeHeading('communication_language'), $talentNominationGroup->nominee->preferred_lang);
+        $this->addLabelText($section, $this->localizeHeading('communication_language'), $this->localizeEnum($talentNominationGroup->nominee->preferred_lang, Language::class));
         $this->addLabelText($section, $this->localizeHeading('nominated_for'), implode(',', $nominatedFor));
     }
 
