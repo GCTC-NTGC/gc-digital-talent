@@ -4,6 +4,7 @@ import { useQuery } from "urql";
 import {
   Checklist,
   Field,
+  Option,
   RadioGroup,
   Select,
   localizedEnumToOptions,
@@ -13,11 +14,14 @@ import {
   errorMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
+  sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import {
   Classification,
+  FlexibleWorkLocation,
   Skill,
+  WorkRegion,
   WorkStream,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -27,6 +31,7 @@ import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
+import messages from "~/messages/profileMessages";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
@@ -47,6 +52,14 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
       label {
         en
         fr
+      }
+    }
+    flexibleWorkLocations: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      value
+      label {
+        localized
       }
     }
   }
@@ -87,8 +100,21 @@ const FormFields = ({
     data?.languageAbilities,
     intl,
   );
-  const sortedWorkRegions = sortWorkRegion(unpackMaybes(data?.workRegions));
+
+  // do not render Telework as a region option
+  const sortedWorkRegions = sortWorkRegion(
+    unpackMaybes(data?.workRegions),
+  ).filter((region) => region.value !== (WorkRegion.Telework as string));
   const workRegionOptions = localizedEnumToOptions(sortedWorkRegions, intl);
+
+  // ONSITE option not rendered as an option on the search page, it is automatically appended in applicantFilterToQueryArgs()
+  const flexibleWorkLocationsSortedFiltered = sortFlexibleWorkLocations(
+    unpackMaybes(data?.flexibleWorkLocations),
+  ).filter((loc) => loc.value !== (FlexibleWorkLocation.Onsite as string));
+  const flexibleWorkLocationOptions: Option[] = localizedEnumToOptions(
+    flexibleWorkLocationsSortedFiltered,
+    intl,
+  );
 
   return (
     <>
@@ -275,9 +301,10 @@ const FormFields = ({
               "Context for the work region/location preferences filter in the search form.",
           })}
           legend={intl.formatMessage({
-            defaultMessage: "Region",
-            id: "F+WFWB",
-            description: "Label for work location filter in search form.",
+            defaultMessage: "On-site office",
+            id: "59TDoK",
+            description:
+              "Legend for location preferences filter on search form.",
           })}
           items={workRegionOptions}
           rules={{
@@ -285,7 +312,24 @@ const FormFields = ({
           }}
         />
       </FilterBlock>
-
+      <FilterBlock
+        id="flexibleWorkLocationOptionsFilter"
+        text={intl.formatMessage({
+          defaultMessage:
+            "Select the flexible work location options available for this position.",
+          id: "bMM+wm",
+          description:
+            "Message describing the flexible work locations filter in the search form.",
+        })}
+      >
+        <Checklist
+          idPrefix="flexibleWorkLocations"
+          id="flexibleWorkLocations"
+          name="flexibleWorkLocations"
+          legend={intl.formatMessage(messages.flexibleWorkLocationOptions)}
+          items={flexibleWorkLocationOptions}
+        />
+      </FilterBlock>
       <AdvancedFilters />
     </>
   );
