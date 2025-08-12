@@ -16,7 +16,7 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
+import { graphql, WorkRegion } from "@gc-digital-talent/graphql";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -64,6 +64,7 @@ const CommunityTalentFilterData_Query = graphql(/* GraphQL */ `
       label {
         en
         fr
+        localized
       }
     }
     operationalRequirements: localizedEnumStrings(
@@ -243,10 +244,10 @@ const CommunityTalentFilterDialog = ({
             name="workRegions"
             legend={intl.formatMessage(navigationMessages.workLocation)}
             items={localizedEnumToOptions(
-              sortWorkRegion(
-                data?.workRegions?.filter(
-                  (region) => region.value !== "TELEWORK",
-                ),
+              /* remove 'Telework' from checklist */
+              sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
+                /* remove 'Telework' enum from checklist of options */
+                (region) => !(region.value === (WorkRegion.Telework as string)),
               ),
               intl,
             )}

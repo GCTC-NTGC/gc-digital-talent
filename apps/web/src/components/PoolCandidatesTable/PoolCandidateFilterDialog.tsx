@@ -9,7 +9,12 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -90,6 +95,7 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
       label {
         en
         fr
+        localized
       }
     }
     expiryFilters: localizedEnumStrings(enumName: "CandidateExpiryFilter") {
@@ -259,10 +265,9 @@ const PoolCandidateFilterDialog = ({
           legend={intl.formatMessage(navigationMessages.workLocation)}
           items={localizedEnumToOptions(
             /* remove 'Telework' from checklist */
-            sortWorkRegion(
-              unpackMaybes(data?.workRegions)?.filter(
-                (region) => region.value.toLowerCase() !== "telework",
-              ),
+            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
+              /* remove 'Telework' enum from checklist of options */
+              (region) => !(region.value === (WorkRegion.Telework as string)),
             ),
             intl,
           )}
