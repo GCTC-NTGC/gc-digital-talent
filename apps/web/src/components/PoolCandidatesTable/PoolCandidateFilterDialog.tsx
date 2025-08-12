@@ -258,7 +258,12 @@ const PoolCandidateFilterDialog = ({
           name="workRegion"
           legend={intl.formatMessage(navigationMessages.workLocation)}
           items={localizedEnumToOptions(
-            sortWorkRegion(data?.workRegions),
+            /* remove 'Telework' from checklist of options */
+            sortWorkRegion(
+              unpackMaybes(data?.workRegions)?.filter(
+                (region) => region.value.toLowerCase() !== "telework",
+              ),
+            ),
             intl,
           )}
         />

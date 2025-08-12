@@ -3734,6 +3734,7 @@ enum WorkExperienceGovEmployeeType {
 }
 
 enum WorkRegion {
+  TELEWORK
   NATIONAL_CAPITAL
   ATLANTIC
   QUEBEC

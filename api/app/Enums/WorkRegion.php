@@ -8,7 +8,7 @@ enum WorkRegion
 {
     use HasLocalization;
 
-    // case TELEWORK;
+    case TELEWORK;
     case NATIONAL_CAPITAL;
     case ATLANTIC;
     case QUEBEC;
