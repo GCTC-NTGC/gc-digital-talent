@@ -243,7 +243,11 @@ const CommunityTalentFilterDialog = ({
             name="workRegions"
             legend={intl.formatMessage(navigationMessages.workLocation)}
             items={localizedEnumToOptions(
-              sortWorkRegion(data?.workRegions),
+              sortWorkRegion(
+                data?.workRegions?.filter(
+                  (region) => region.value !== "TELEWORK",
+                ),
+              ),
               intl,
             )}
           />
