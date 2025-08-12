@@ -29,6 +29,7 @@ import { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -62,8 +63,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
     ],

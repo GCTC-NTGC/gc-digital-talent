@@ -1581,6 +1581,7 @@ input PoolCandidateSearchInput {
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
+  assessmentSteps: [Int!]
 }
 
 input PoolCandidateSearchRequestInput {

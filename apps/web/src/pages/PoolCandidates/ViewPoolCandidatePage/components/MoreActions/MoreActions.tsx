@@ -20,6 +20,7 @@ import {
   isRODStatus,
 } from "~/utils/poolCandidate";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import FinalDecisionDialog from "./FinalDecisionDialog";
@@ -130,14 +131,9 @@ const MoreActions = ({
           </Heading>
           {currentStepName && (
             <p className="text-gray-600 dark:text-gray-200">
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Step {stepNumber}",
-                  id: "XofAAo",
-                  description: "Label for a candidates current assessment step",
-                },
-                { stepNumber: poolCandidate.assessmentStep },
-              ) +
+              {intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                stepNumber: poolCandidate.assessmentStep,
+              }) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 currentStepName}
             </p>

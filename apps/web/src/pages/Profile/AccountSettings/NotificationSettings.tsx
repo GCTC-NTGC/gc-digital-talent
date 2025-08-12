@@ -55,7 +55,7 @@ const NotificationChecklist = ({
 
   if (disabled) {
     return (
-      <div className="mb-6 grid items-center xs:grid-cols-[4fr_1fr]">
+      <div className="mb-6 grid items-center xs:grid-cols-2">
         <div className="py-1.5">
           <p className="mb-3 font-bold">{legend}</p>
           <p className="text-sm text-gray-600 dark:text-gray-200">{subtitle}</p>
@@ -90,7 +90,7 @@ const NotificationChecklist = ({
         <Field.Legend required={false} className="sr-only">
           {legend}
         </Field.Legend>
-        <div className="grid items-center xs:grid-cols-[4fr_1fr]">
+        <div className="grid items-center xs:grid-cols-2">
           <div>
             <p className="mb-3 font-bold">{legend}</p>
             <p className="text-sm text-gray-600 dark:text-gray-200">
@@ -245,15 +245,10 @@ const NotificationSettings = ({
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Card>
           <div className="mb-6 flex flex-col">
-            <div className="hidden gap-3 xs:grid xs:grid-cols-[4fr_1fr]">
-              <div>{/* For grid template columns */}</div>
-              <div className="flex justify-around">
-                <p aria-hidden className="w-12">
-                  {intl.formatMessage(commonMessages.email)}
-                </p>
-                <p aria-hidden className="w-12">
-                  {intl.formatMessage(commonMessages.inApp)}
-                </p>
+            <div className="hidden gap-3 xs:grid xs:grid-cols-2">
+              <div className="col-start-2 grid grid-cols-2 text-center">
+                <p aria-hidden>{intl.formatMessage(commonMessages.email)}</p>
+                <p aria-hidden>{intl.formatMessage(commonMessages.inApp)}</p>
               </div>
             </div>
             {formFields.map((props) => (
