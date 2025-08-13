@@ -2,8 +2,13 @@
 
 namespace App\Traits\Generator;
 
+use App\Enums\Language;
+use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
+use App\Enums\TalentNominationUserReview;
 use App\Models\TalentNominationGroup;
+use App\Models\User;
+use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpWord\Element\Section;
 
 trait GeneratesNominationDoc
@@ -88,15 +93,49 @@ trait GeneratesNominationDoc
                     $section->addListItem($this->localizeHeading('lateral_movement'));
                 }
 
-                $this->addLabelText($section, $this->localizeHeading('advanced_secondary_reference'), $nomination->advancement_reference_fallback_name);
-                $this->addLabelText($section, $this->localizeHeading('references_work_email'), $nomination->advancement_reference_fallback_work_email);
-                $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification->displayName);
-                $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment->name[$this->lang]);
+                if ($nomination->advancement_reference_id) {
+                    $advancementReference = User::findOrFail($nomination->advancement_reference_id);
+                    $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $advancementReference->getFullName());
+                    $this->addLabelText($section, $this->localizeHeading('advancement_reference_validity'), $this->localizeEnum($nomination->advancement_reference_review, TalentNominationUserReview::class));
+                    $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email);
+                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->getClassification());
+                    $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->getDepartment());
+                } else {
+                    $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $nomination->advancement_reference_fallback_name);
+                    $this->addLabelText($section, $this->localizeHeading('references_work_email'), $nomination->advancement_reference_fallback_work_email);
+                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification->displayName);
+                    $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment->name[$this->lang]);
+                }
 
-                $this->addLabelText($section, $this->localizeHeading('development_program_recommendations'), '');
-                $developmentPrograms = $nomination->developmentPrograms()->get();
-                foreach ($developmentPrograms as $developmentProgram) {
-                    $section->addListItem($developmentProgram->name[$this->lang]);
+                if ($nomination->lateral_movement_options) {
+                    $this->addLabelText($section, $this->localizeHeading('lateral_movement_options'), '');
+
+                    $other = "OTHER";
+                    $lateralMovementOptions = $nomination->lateral_movement_options;
+                    $key = array_search($other, $lateralMovementOptions);
+                    if ($key !== false) {
+                        unset($lateralMovementOptions[$key]);
+                    }
+
+                    foreach ($lateralMovementOptions as $option) {
+                        $section->addListItem($this->localizeEnum($option, TalentNominationLateralMovementOption::class));
+                    }
+                }
+
+                if ($nomination->lateral_movement_options_other) {
+                    $section->addListItem("{$this->localizeHeading('other')} {$nomination->lateral_movement_options_other}");
+                }
+
+                if ($nomination->developmentPrograms()) {
+                    $this->addLabelText($section, $this->localizeHeading('development_program_recommendations'), '');
+                    $developmentPrograms = $nomination->developmentPrograms()->get();
+                    foreach ($developmentPrograms as $developmentProgram) {
+                        $section->addListItem($developmentProgram->name[$this->lang]);
+                    }
+                }
+
+                if ($nomination->development_program_options_other) {
+                    $section->addListItem("{$this->localizeHeading('other')} {$nomination->development_program_options_other}");
                 }
 
                 $this->addLabelText($section, $this->localizeHeading('rationale'), $nomination->nomination_rationale);
