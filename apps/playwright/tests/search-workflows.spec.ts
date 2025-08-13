@@ -4,6 +4,7 @@ import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   Classification,
   EstimatedLanguageAbility,
+  FlexibleWorkLocation,
   OperationalRequirement,
   PoolCandidateStatus,
   Skill,
@@ -62,6 +63,7 @@ test.describe("Talent search", () => {
           OperationalRequirement.OvertimeOccasional,
         ],
         locationPreferences: [WorkRegion.Ontario],
+        flexibleWorkLocations: [FlexibleWorkLocation.Onsite],
         personalExperiences: {
           create: [
             {
