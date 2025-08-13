@@ -13,8 +13,9 @@ class NominationDocGenerator extends DocGenerator implements FileGeneratorInterf
     public function __construct(protected TalentNominationGroup $talentNominationGroup, public ?string $dir, protected ?string $lang)
     {
         $fileName = sprintf(
-            '%s - talent management nomination',
+            '%s - %s',
             $this->sanitizeFileNameString($talentNominationGroup->nominee->first_name),
+            $this->localizeHeading('talent_management_nomination')
         );
 
         parent::__construct($fileName, $dir);
