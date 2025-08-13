@@ -98,6 +98,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
         lastName
       }
     }
+    consentToShareProfile
     ...CommentsForm
   }
 `);
@@ -161,6 +162,7 @@ const NominationGroupSidebar = ({
           <DownloadNominationDocxButton
             id={talentNominationGroup.id}
             userId={talentNominationGroup.nominee?.id}
+            consentToShareProfile={talentNominationGroup.consentToShareProfile}
           />
         </div>
         <Heading size="h6" className="mt-0 mb-3">

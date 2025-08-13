@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Scalars } from "@gc-digital-talent/graphql";
+import { Maybe, Scalars } from "@gc-digital-talent/graphql";
 
 import useNominationDownloads from "~/hooks/useNominationDownloads";
 import useUserDownloads from "~/hooks/useUserDownloads";
@@ -14,11 +14,13 @@ import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 interface DownloadNominationDocxButtonProps {
   id: Scalars["UUID"]["output"];
   userId?: Scalars["UUID"]["output"];
+  consentToShareProfile?: Maybe<boolean>;
 }
 
 const DownloadNominationDocxButton = ({
   id,
   userId,
+  consentToShareProfile,
 }: DownloadNominationDocxButtonProps) => {
   const intl = useIntl();
   const nominationDoc = useNominationDownloads();
@@ -68,16 +70,18 @@ const DownloadNominationDocxButton = ({
               "Button label for downloading an individual talent nomination",
           })}
         </DropdownMenu.Item>
-        <DropdownMenu.Item
-          disabled={isDownloading}
-          onSelect={() => handleProfileDocDownload(false)}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download profile",
-            id: "lVOZ5k",
-            description: "Button label for downloading user profiles",
-          })}
-        </DropdownMenu.Item>
+        {consentToShareProfile && (
+          <DropdownMenu.Item
+            disabled={isDownloading}
+            onSelect={() => handleProfileDocDownload(false)}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Download profile",
+              id: "lVOZ5k",
+              description: "Button label for downloading user profiles",
+            })}
+          </DropdownMenu.Item>
+        )}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );
