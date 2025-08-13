@@ -18,6 +18,7 @@ import {
 
 import type { FieldLabels } from "../types";
 import { flattenErrors } from "../utils";
+import { useFormLabels } from "./FormLabelsProvider";
 
 interface FieldNameWithLabel {
   label: ReactNode;
@@ -110,10 +111,12 @@ const supportLink = (chunks: ReactNode, locale: string) => (
 );
 
 const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
-  ({ labels, show }, forwardedRef) => {
+  ({ labels: labelsProp, show }, forwardedRef) => {
     const intl = useIntl();
     const locale = getLocale(intl);
     const { errors } = useFormState();
+    const { labels: registeredLabels } = useFormLabels();
+    const labels = { ...registeredLabels, ...labelsProp };
 
     // Don't show if the form is valid
     if (!errors || !show || !labels) return null;

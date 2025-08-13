@@ -43,7 +43,7 @@
     "react-router": "^7.7.1",
     "tsconfig": "workspace:*",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "yargs": "^18.0.0"
   }
 }

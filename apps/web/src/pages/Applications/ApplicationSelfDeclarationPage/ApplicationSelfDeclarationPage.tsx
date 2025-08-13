@@ -22,7 +22,6 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import applicationMessages from "~/messages/applicationMessages";
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import SelfDeclarationDialog from "~/components/IAPDialog/SelfDeclarationDialog";
 import VerificationDialog from "~/components/IAPDialog/VerificationDialog";
@@ -35,6 +34,7 @@ import {
 } from "~/utils/indigenousDeclaration";
 import HelpLink from "~/components/SelfDeclaration/HelpLink";
 import CommunitySelection from "~/components/SelfDeclaration/CommunitySelection";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -81,8 +81,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
     ],

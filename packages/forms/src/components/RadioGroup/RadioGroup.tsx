@@ -8,6 +8,7 @@ import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { checkboxRadioStyles, inputStyles } from "../../styles";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const boundingBox = tv({
   extend: inputStyles,
@@ -84,6 +85,7 @@ const RadioGroup = ({
     register,
     formState: { errors },
   } = useFormContext();
+  useRegisterFormLabel(name, legend);
   const shouldReduceMotion = useReducedMotion();
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;

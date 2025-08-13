@@ -36,6 +36,7 @@ import {
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillTree from "~/components/SkillTree/SkillTree";
 import processMessages from "~/messages/processMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -76,8 +77,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
     ],

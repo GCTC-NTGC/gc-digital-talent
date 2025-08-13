@@ -9,7 +9,12 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStep,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -21,6 +26,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -124,10 +130,14 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues> & {
-  hidePoolFilter?: boolean;
-  query?: FragmentType<typeof PoolCandidateFilterDialog_Query>;
-};
+export type PoolCandidateFilterDialogProps =
+  CommonFilterDialogProps<FormValues> & {
+    hidePoolFilter?: boolean;
+    query?: FragmentType<typeof PoolCandidateFilterDialog_Query>;
+    availableSteps?:
+      | Pick<AssessmentStep, "id" | "type" | "sortOrder" | "title">[]
+      | null;
+  };
 
 const PoolCandidateFilterDialog = ({
   query,
@@ -135,6 +145,7 @@ const PoolCandidateFilterDialog = ({
   resetValues,
   initialValues,
   hidePoolFilter,
+  availableSteps,
 }: PoolCandidateFilterDialogProps) => {
   const intl = useIntl();
   const data = getFragment(PoolCandidateFilterDialog_Query, query);
@@ -144,6 +155,9 @@ const PoolCandidateFilterDialog = ({
   const skills = unpackMaybes(data?.skills);
   const communities = unpackMaybes(data?.communities);
   const workStreams = unpackMaybes(data?.workStreams);
+  const assessmentSteps = unpackMaybes(availableSteps)
+    .filter((step) => !!step.sortOrder && step.sortOrder > 0)
+    .sort((a, b) => (a?.sortOrder ?? 0) - (b?.sortOrder ?? 0));
 
   const equityOption = (value: string, message: MessageDescriptor) => ({
     value,
@@ -167,7 +181,6 @@ const PoolCandidateFilterDialog = ({
             <PoolFilterInput />
           </div>
         )}
-
         <Checklist
           idPrefix="publishingGroups"
           name="publishingGroups"
@@ -225,6 +238,26 @@ const PoolCandidateFilterDialog = ({
               intl.formatMessage(commonMessages.notFound),
           }))}
         />
+        {assessmentSteps.length > 0 && (
+          <Combobox
+            id="assessmentSteps"
+            name="assessmentSteps"
+            isMulti
+            label={intl.formatMessage(commonMessages.currentStep)}
+            options={assessmentSteps.map((step) => ({
+              value: String(step.sortOrder ?? 0),
+              label:
+                intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                  stepNumber: step.sortOrder,
+                }) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                // NOTE: we do want or to pass on empty strings
+                // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                ((step.title?.localized || step.type?.label.localized) ??
+                  intl.formatMessage(commonMessages.notAvailable)),
+            }))}
+          />
+        )}
         <Combobox
           id="poolCandidateStatus"
           name="poolCandidateStatus"

@@ -119,14 +119,13 @@ const ApplicantFilters = ({
     applicantFilter?.workStreams?.flatMap((stream) => stream?.name),
   ).map((label) => getLocalizedName(label, intl));
 
-  const communityName: string =
-    applicantFilter && applicantFilter.community
-      ? getLocalizedName(applicantFilter.community.name, intl)
-      : intl.formatMessage({
-          defaultMessage: "(None selected)",
-          id: "+O6J4u",
-          description: "Text shown when the filter was not selected",
-        });
+  const communityName: string = applicantFilter?.community
+    ? getLocalizedName(applicantFilter.community.name, intl)
+    : intl.formatMessage({
+        defaultMessage: "(None selected)",
+        id: "+O6J4u",
+        description: "Text shown when the filter was not selected",
+      });
 
   return (
     <section className="grid gap-6 xs:grid-cols-2">

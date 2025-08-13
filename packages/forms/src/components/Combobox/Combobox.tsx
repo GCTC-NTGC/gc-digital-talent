@@ -18,6 +18,7 @@ import {
 import { BaseProps, ComboboxValue } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {
@@ -67,6 +68,7 @@ const Combobox = ({
     setValue,
     formState: { errors, defaultValues },
   } = useFormContext<Record<string, ComboboxValue>>();
+  useRegisterFormLabel(name, label);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
