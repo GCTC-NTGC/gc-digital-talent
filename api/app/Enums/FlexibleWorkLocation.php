@@ -14,6 +14,6 @@ enum FlexibleWorkLocation
 
     public static function getLangFilename(): string
     {
-        return 'flexible_work_location';
+        return 'flexible_work_locations';
     }
 }

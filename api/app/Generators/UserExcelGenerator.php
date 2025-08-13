@@ -8,6 +8,7 @@ use App\Enums\CSuiteRoleTitle;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -59,6 +60,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'accept_temporary',
         'accepted_operational_requirements',
         'location_preferences',
+        'flexible_work_locations',
         'location_exemptions',
         'woman',
         'indigenous',
@@ -189,6 +191,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                     $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                     $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
+                    $this->localizeEnumArray($user->flexible_work_locations, FlexibleWorkLocation::class), // flexible work locations
                     $user->location_exemptions, // Location exemptions
                     $user->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),

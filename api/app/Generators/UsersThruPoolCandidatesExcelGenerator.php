@@ -6,6 +6,7 @@ use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -53,6 +54,7 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
         'accept_temporary',
         'accepted_operational_requirements',
         'location_preferences',
+        'flexible_work_locations',
         'location_exemptions',
         'woman',
         'indigenous',
@@ -116,6 +118,7 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
                     $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                     $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
+                    $this->localizeEnumArray($user->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
                     $user->location_exemptions, // Location exemptions
                     $this->yesOrNo($user->is_woman), // Woman
                     $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),

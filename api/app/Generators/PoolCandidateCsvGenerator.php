@@ -13,6 +13,7 @@ use App\Enums\EducationRequirementOption;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\FinalDecision;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -106,6 +107,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'accept_temporary',
         'accepted_operational_requirements',
         'location_preferences',
+        'flexible_work_locations',
         'location_exemptions',
         'woman',
         'indigenous',
@@ -213,6 +215,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $userHydrated->position_duration ? $this->yesOrNo($userHydrated->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                     $this->localizeEnumArray($userHydrated->location_preferences, WorkRegion::class),
+                    $this->localizeEnumArray($userHydrated->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
                     $userHydrated->location_exemptions, // Location exemptions
                     $userHydrated->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),
