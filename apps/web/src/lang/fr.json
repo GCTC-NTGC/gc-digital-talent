@@ -3787,10 +3787,6 @@
     "defaultMessage": "Rejoignez-nous sur LinkedIn",
     "description": "External button link to LinkedIn"
   },
-  "F+WFWB": {
-    "defaultMessage": "Région",
-    "description": "Label for work location filter in search form."
-  },
   "F/WYCH": {
     "defaultMessage": "Mise à jour de votre autodéclaration réussie",
     "description": "Message displayed to users when saving self-declaration is successful."

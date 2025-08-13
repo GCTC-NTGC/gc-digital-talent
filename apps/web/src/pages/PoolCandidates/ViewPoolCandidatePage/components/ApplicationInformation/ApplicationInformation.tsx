@@ -24,9 +24,8 @@ import DiversityEquityInclusionDisplay from "~/components/Profile/components/Div
 import GovernmentInformationDisplay from "~/components/Profile/components/GovernmentInformation/Display";
 import LanguageProfileDisplay from "~/components/Profile/components/LanguageProfile/Display";
 import PersonalInformationDisplay from "~/components/Profile/components/PersonalInformation/Display";
-import WorkPreferencesDisplay, {
-  FlexibleWorkLocationOptions_Fragment,
-} from "~/components/Profile/components/WorkPreferences/Display";
+import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";

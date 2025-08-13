@@ -19,7 +19,7 @@ import { hasAllEmptyFields } from "~/validators/profile/workPreferences";
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/Display";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import { styles } from "./styles";
 

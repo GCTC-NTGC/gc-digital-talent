@@ -13,7 +13,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 
 import UserProfile from "./UserProfile";
-import { FlexibleWorkLocationOptions_Fragment } from "../Profile/components/WorkPreferences/Display";
+import { FlexibleWorkLocationOptions_Fragment } from "../Profile/components/WorkPreferences/fragment";
 
 const fakeUserArray = fakeApplicants(5);
 

@@ -87,6 +87,7 @@ interface FormValues {
       sync?: Maybe<Pool["id"]>[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
+    flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
   };
   department?: DepartmentBelongsTo["connect"];
 }
@@ -166,6 +167,14 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
       label {
         en
         fr
+      }
+    }
+    flexibleWorkLocations: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      value
+      label {
+        localized
       }
     }
     operationalRequirements: localizedEnumStrings(
@@ -306,6 +315,7 @@ export const RequestForm = ({
               : [],
           },
           locationPreferences: applicantFilter?.locationPreferences ?? [],
+          flexibleWorkLocations: applicantFilter?.flexibleWorkLocations ?? [],
           skills: {
             sync: applicantFilter?.skills
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
@@ -384,6 +394,11 @@ export const RequestForm = ({
     locationPreferences: unpackMaybes(
       applicantFilter?.locationPreferences?.map((workRegion) =>
         enumInputToLocalizedEnum(workRegion, optionsData?.workRegions),
+      ),
+    ),
+    flexibleWorkLocations: unpackMaybes(
+      applicantFilter?.flexibleWorkLocations?.map((loc) =>
+        enumInputToLocalizedEnum(loc, optionsData?.flexibleWorkLocations),
       ),
     ),
     operationalRequirements: unpackMaybes(
@@ -626,6 +641,9 @@ export const RequestForm = ({
           <SearchRequestFilters
             filters={applicantFilterInputToType}
             selectedClassifications={selectedClassifications}
+            flexibleWorkLocationOptions={unpackMaybes(
+              optionsData?.flexibleWorkLocations,
+            )}
           />
           <Separator />
           <p className="mb-6 font-bold">

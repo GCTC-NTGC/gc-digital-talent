@@ -14,6 +14,7 @@ import {
   CandidateCountQueryVariables,
   Maybe,
   PositionDuration,
+  FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues, NullSelection } from "~/types/searchRequest";
@@ -71,6 +72,12 @@ export const applicantFilterToQueryArgs = (
     return {};
   }
 
+  // if an office region was selected, append ONSITE to the flexible locations region
+  const adjustedFlexibleWorkLocations =
+    filter?.locationPreferences && filter.locationPreferences.length > 0
+      ? [...(filter.flexibleWorkLocations ?? []), FlexibleWorkLocation.Onsite]
+      : [];
+
   /* We must pick only the fields belonging to ApplicantFilterInput, because its possible
      the data object contains other props at runtime, and this will cause the
      graphql operation to fail.
@@ -87,6 +94,7 @@ export const applicantFilterToQueryArgs = (
 
       // Override the filter's pool if one is provided separately.
       pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
+      flexibleWorkLocations: unpackMaybes(adjustedFlexibleWorkLocations),
     },
   };
 };
@@ -119,6 +127,7 @@ export const dataToFormValues = (
     skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     stream: stream?.id ?? "",
     locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
+    flexibleWorkLocations: data.flexibleWorkLocations?.filter(notEmpty) ?? [],
     operationalRequirements:
       data.operationalRequirements?.filter(notEmpty) ?? [],
     employmentDuration: data.positionDuration
@@ -172,6 +181,7 @@ export const formValuesToData = (
       ? durationSelectionToEnum(values.employmentDuration)
       : undefined,
     locationPreferences: values.locationPreferences ?? [],
+    flexibleWorkLocations: values.flexibleWorkLocations ?? [],
     workStreams: values.stream ? [{ id: values.stream }] : undefined,
   };
 };
