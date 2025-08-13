@@ -6,6 +6,8 @@ use App\Enums\Language;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
+use App\Models\Classification;
+use App\Models\Department;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
@@ -73,11 +75,24 @@ trait GeneratesNominationDoc
 
         if ($talentNominationGroup->nominations()->count() > 0) {
             foreach ($nominations as $nomination) {
-                $section->addTitle("{$this->localizeHeading('nominated_by')} {$nomination->nominator->first_name} {$nomination->nominator->last_name}", $headingRank + 1);
-                $this->addLabelText($section, $this->localizeHeading('date_received'), $nomination->submitted_at->format('F d, Y'));
-                $this->addLabelText($section, $this->localizeHeading('nominators_work_email'), $nomination->nominator->work_email);
-                $this->addLabelText($section, $this->localizeHeading('nominators_classification'), $nomination->nominator->getClassification());
-                $this->addLabelText($section, $this->localizeHeading('nominators_department'), $nomination->nominator->department->name[$this->lang]);
+                if ($nomination->nominator) {
+                    $section->addTitle("{$this->localizeHeading('nominated_by')} {$nomination->nominator->first_name} {$nomination->nominator->last_name}", $headingRank + 1);
+                    $this->addLabelText($section, $this->localizeHeading('date_received'), $nomination->submitted_at->format('F d, Y'));
+                    $this->addLabelText($section, $this->localizeHeading('nominators_work_email'), $nomination->nominator->work_email);
+                    $this->addLabelText($section, $this->localizeHeading('nominators_classification'), $nomination->nominator->getClassification());
+                    $this->addLabelText($section, $this->localizeHeading('nominators_department'), $nomination->nominator->department->name[$this->lang]);
+                } else {
+                    $section->addTitle("{$this->localizeHeading('nominated_by')} {$nomination->nominator_fallback_name}", $headingRank + 1);
+                    $this->addLabelText($section, $this->localizeHeading('date_received'), $nomination->submitted_at->format('F d, Y'));
+                    $this->addLabelText($section, $this->localizeHeading('nominators_work_email'), $nomination->nominator_fallback_work_email);
+
+                    $fallBackClassification = Classification::findOrFail($nomination->nominator_fallback_classification_id);
+                    $this->addLabelText($section, $this->localizeHeading('nominators_classification'), $fallBackClassification->displayName);
+
+                    $fallbackDepartment = Department::findOrFail($nomination->nominator_fallback_department_id);
+                    $this->addLabelText($section, $this->localizeHeading('nominators_department'), $fallbackDepartment->name[$this->lang]);
+
+                }
 
                 $nominatorRelationship = $nomination->submitter_relationship_to_nominator ? $this->localizeEnum($nomination->submitter_relationship_to_nominator->name, TalentNominationSubmitterRelationshipToNominator::class) : $nomination->submitter_relationship_to_nominator_other;
                 $this->addLabelText($section, $this->localizeHeading('nominators_relationship'), $nominatorRelationship);
@@ -99,12 +114,12 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('advancement_reference_validity'), $this->localizeEnum($nomination->advancement_reference_review, TalentNominationUserReview::class));
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email);
                     $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->getClassification());
-                    $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->getDepartment());
+                    $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->department->name[$this->lang]);
                 } else {
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $nomination->advancement_reference_fallback_name);
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $nomination->advancement_reference_fallback_work_email);
-                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification->displayName);
-                    $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment->name[$this->lang]);
+                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification ? $nomination->advancementReferenceFallbackClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment ? $nomination->advancementReferenceFallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 }
 
                 if ($nomination->lateral_movement_options) {
