@@ -219,6 +219,14 @@ trait GeneratesUserDoc
 
         $section->addText($this->localizeHeading('location_preferences'), $this->strong);
         $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
+        $flexibleLocations = $user->flexible_work_locations ?? [];
+        if (! empty($flexibleLocations)) {
+            $section->addText($this->localizeHeading('flexible_work_locations'));
+            foreach ($flexibleLocations as $location) {
+                $formattedLocation = ucfirst(strtolower($location));
+                $section->addListItem($formattedLocation);
+            }
+        }
         $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
     }
 

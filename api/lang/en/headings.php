@@ -40,6 +40,7 @@ return [
     'priority_number' => 'Priority number',
     'work_location' => 'Work location',
     'location_preferences' => 'Work location preferences',
+    'flexible_work_locations' => 'Flexible work location options',
     'location_exemptions' => 'Location exemptions',
     'contract_duration' => 'Employment duration preference',
     'accept_temporary' => 'Accept temporary',
