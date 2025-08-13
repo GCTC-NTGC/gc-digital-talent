@@ -37,7 +37,6 @@ import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
-    id
     firstName
     lastName
     isGovEmployee
@@ -137,7 +136,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
     }
-    oldOffPlatformRecruitmentProcesses
     talentNominationsAsSubmitter {
       id
     }
@@ -250,10 +248,7 @@ export const DashboardPage = ({
                 applicationsProcessesTaskCardQuery={unpackMaybes(
                   currentUser?.poolCandidates,
                 )}
-                userId={currentUser.id}
-                oldOffPlatformRecruitmentProcesses={
-                  currentUser.oldOffPlatformRecruitmentProcesses
-                }
+                offPlatformProcessesQuery={applicantDashboardQuery}
               />
               {currentUser?.isVerifiedGovEmployee &&
               currentUser?.employeeProfile ? (
@@ -411,6 +406,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
       ...ApplicantDashboardPage
     }
     ...CareerDevelopmentTaskCardOptions
+    ...ReviewOffPlatformRecruitmentProcesses
   }
 `);
 

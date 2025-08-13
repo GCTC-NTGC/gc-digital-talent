@@ -1,11 +1,17 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  HiringPlatform,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   PreviewList,
   PreviewMetaData,
+  Separator,
   Well,
 } from "@gc-digital-talent/ui";
 
@@ -18,7 +24,8 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
-import OffPlatformProcessesDialog from "./OffPlatformProcessesDialog";
+import CreateOffPlatformProcessDialog from "./CreateOffPlatformProcessDialog";
+import UpdateOffPlatformProcessDialog from "./UpdateOffPlatformProcessDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {
@@ -48,18 +55,53 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const ReviewOffPlatformRecruitmentProcesses_Fragment = graphql(
+  /* GraphQL */ `
+    fragment ReviewOffPlatformRecruitmentProcesses on Query {
+      me {
+        id
+        oldOffPlatformRecruitmentProcesses
+        offPlatformRecruitmentProcesses {
+          id
+          processNumber
+          department {
+            id
+            departmentNumber
+            name {
+              localized
+            }
+          }
+          classification {
+            id
+            group
+            level
+          }
+          platform {
+            value
+            label {
+              localized
+            }
+          }
+          platformOther
+        }
+      }
+      ...OffPlatformProcessDialog
+    }
+  `,
+);
+
 interface ReviewRecruitmentProcessPreviewListProps {
   recruitmentProcessesQuery: FragmentType<
     typeof ReviewRecruitmentProcessPreviewList_Fragment
   >[];
-  userId: string;
-  oldOffPlatformRecruitmentProcesses?: string | null;
+  offPlatformProcessesQuery?: FragmentType<
+    typeof ReviewOffPlatformRecruitmentProcesses_Fragment
+  >;
 }
 
 const ReviewRecruitmentProcessPreviewList = ({
   recruitmentProcessesQuery,
-  userId,
-  oldOffPlatformRecruitmentProcesses,
+  offPlatformProcessesQuery,
 }: ReviewRecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
 
@@ -75,6 +117,13 @@ const ReviewRecruitmentProcessPreviewList = ({
           isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
       )
     : []; // filter for qualified recruitment processes
+
+  const offPlatformProcessData = getFragment(
+    ReviewOffPlatformRecruitmentProcesses_Fragment,
+    offPlatformProcessesQuery,
+  );
+
+  const user = offPlatformProcessData?.me;
 
   return (
     <>
@@ -170,38 +219,109 @@ const ReviewRecruitmentProcessPreviewList = ({
           </p>
         </Well>
       )}
-      <div className="mt-6 border-t-gray-300 pt-6">
-        <Heading level="h3" size="h6" className="mb-0.75 font-bold">
-          {intl.formatMessage({
-            defaultMessage: "Off-platform recruitment processes",
-            id: "tpXtAJ",
-            description: "Off-platform section header",
-          })}
-        </Heading>
-        <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
-          {intl.formatMessage({
-            defaultMessage:
-              "If you're qualified in processes or pools on other Government of Canada platforms, you can tell us here. This information will be verified.",
-            id: "AC/qwa",
-            description: "Off-platform section information",
-          })}
-        </p>
-        <p className="mb-6">
-          {oldOffPlatformRecruitmentProcesses ??
-            intl.formatMessage({
+      <Separator space="sm" />
+      <Heading level="h3" size="h6" className="mb-0.75 font-bold">
+        {intl.formatMessage({
+          defaultMessage: "Off-platform recruitment processes",
+          id: "tpXtAJ",
+          description: "Off-platform section header",
+        })}
+      </Heading>
+      <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
+        {intl.formatMessage({
+          defaultMessage:
+            "If you're qualified in processes or pools on other Government of Canada platforms, you can tell us here. This information will be verified.",
+          id: "AC/qwa",
+          description: "Off-platform section information",
+        })}
+      </p>
+      {user?.oldOffPlatformRecruitmentProcesses ? (
+        <div className="mb-6 rounded-md border p-6">
+          <p className="mb-3">{user.oldOffPlatformRecruitmentProcesses}</p>
+          <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
+            {intl.formatMessage({
               defaultMessage:
-                "No off-platform process information has been provided.",
-              id: "dbeDy2",
-              description: "Null state for off-platform section",
+                "We've changed the way we collect information about off-platform recruitment processes. The information shown here will be deleted as of December 31, 2025. Please use our new format and add each process you've been qualified in using the \"Add an off-platform process\" button. You can also choose to delete this information now.",
+              id: "ghAAS7",
+              description:
+                "Message informing the user about the update to off-platform processes",
             })}
-        </p>
-        <OffPlatformProcessesDialog
-          userId={userId}
-          oldOffPlatformRecruitmentProcesses={
-            oldOffPlatformRecruitmentProcesses
-          }
-        />
-      </div>
+          </p>
+        </div>
+      ) : null}
+      {user?.offPlatformRecruitmentProcesses?.length && (
+        <div className="mb-6">
+          <PreviewList.Root>
+            {user.offPlatformRecruitmentProcesses.map((recruitmentProcess) => {
+              const applicationMetadata: PreviewMetaData[] = [
+                {
+                  key: "platform",
+                  type: "text",
+                  children:
+                    recruitmentProcess.platform &&
+                    recruitmentProcess.platform.value !== HiringPlatform.Other
+                      ? recruitmentProcess.platform.label.localized
+                      : recruitmentProcess.platformOther,
+                },
+                {
+                  key: "processNumber",
+                  type: "text",
+                  children: recruitmentProcess.processNumber,
+                },
+              ];
+
+              return (
+                <PreviewList.Item
+                  key={recruitmentProcess.id}
+                  title={
+                    <span>
+                      {recruitmentProcess.classification
+                        ? wrapAbbr(
+                            getClassificationName(
+                              recruitmentProcess.classification,
+                              intl,
+                            ),
+                            intl,
+                          )
+                        : intl.formatMessage(commonMessages.notFound)}
+                      {recruitmentProcess.department
+                        ? intl.formatMessage(
+                            {
+                              defaultMessage: " with {departmentName}",
+                              id: "f2EJcm",
+                              description:
+                                "Department an off platform recruitment process is associated with.",
+                            },
+                            {
+                              departmentName:
+                                recruitmentProcess.department.name.localized,
+                            },
+                          )
+                        : null}
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "<hidden> off platform process</hidden>",
+                        id: "vwB+J1",
+                        description:
+                          "Hidden text for off platform process name.",
+                      })}
+                    </span>
+                  }
+                  metaData={applicationMetadata}
+                  action={
+                    <UpdateOffPlatformProcessDialog
+                      query={offPlatformProcessData}
+                      process={recruitmentProcess}
+                    />
+                  }
+                  headingAs="h4"
+                />
+              );
+            })}
+          </PreviewList.Root>
+        </div>
+      )}
+      <CreateOffPlatformProcessDialog query={offPlatformProcessData} />
     </>
   );
 };

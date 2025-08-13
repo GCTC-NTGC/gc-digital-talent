@@ -528,6 +528,11 @@ const commonMessages = defineMessages({
     id: "x/BiQS",
     description: "Label for questions",
   },
+  organization: {
+    defaultMessage: "Organization",
+    id: "Phlp8j",
+    description: "Label displayed for organization input",
+  },
 });
 
 export default commonMessages;
