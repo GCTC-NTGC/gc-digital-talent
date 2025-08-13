@@ -125,7 +125,7 @@ trait GeneratesNominationDoc
                 if ($nomination->lateral_movement_options) {
                     $this->addLabelText($section, $this->localizeHeading('lateral_movement_options'), '');
 
-                    $other = "OTHER";
+                    $other = 'OTHER';
                     $lateralMovementOptions = $nomination->lateral_movement_options;
                     $key = array_search($other, $lateralMovementOptions);
                     if ($key !== false) {
