@@ -23,6 +23,7 @@ import {
   navigationMessages,
   sortPriorityWeight,
   sortWorkRegion,
+  sortFlexibleWorkLocations,
 } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
@@ -257,7 +258,12 @@ const PoolCandidateFilterDialog = ({
           idPrefix="flexibleWorkLocations"
           name="flexibleWorkLocations"
           legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
-          items={localizedEnumToOptions(data?.flexibleWorkLocations, intl)}
+          items={localizedEnumToOptions(
+            sortFlexibleWorkLocations(
+              unpackMaybes(data?.flexibleWorkLocations),
+            ),
+            intl,
+          )}
         />
         <Checklist
           idPrefix="workRegion"
