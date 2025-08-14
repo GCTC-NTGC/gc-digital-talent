@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   forwardRef,
   useState,
@@ -21,7 +21,7 @@ type RemoveDialogProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item> & {
 };
 
 const RemoveDialog = forwardRef<
-  ElementRef<typeof DropdownMenu.Item>,
+  ComponentRef<typeof DropdownMenu.Item>,
   RemoveDialogProps
 >(({ id, message, date, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
