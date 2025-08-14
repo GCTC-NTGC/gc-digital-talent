@@ -584,7 +584,7 @@
     "description": "Message displayed to user after application fails to get deleted."
   },
   "MAeNit": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "MBnBcY": {
@@ -648,7 +648,7 @@
     "description": "Text that appears in links that open in a new tab."
   },
   "OLs1UJ": {
-    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor ou mentore.",
+    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor.",
     "description": "The mentorship interest described as mentee."
   },
   "OOVZSs": {
@@ -688,7 +688,7 @@
     "description": "The operational requirement described as shift work."
   },
   "P7AWrP": {
-    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor ou mentore.",
+    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor.",
     "description": "The mentorship interest described as mentee."
   },
   "PAXoFY": {
@@ -716,7 +716,7 @@
     "description": "The operational requirement described as regular overtime."
   },
   "QUnymn": {
-    "defaultMessage": "Le rôle de mentor ou mentore ne m'intéresse pas.",
+    "defaultMessage": "Le rôle de mentor ne m'intéresse pas.",
     "description": "The mentorship interest described as mentor."
   },
   "QZpZQh": {
@@ -724,7 +724,7 @@
     "description": "Group for when someone indicates they have a disability"
   },
   "QhRU19": {
-    "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
+    "defaultMessage": "Être titulaire d'un permis de conduire valide ou pouvoir se déplacer au même titre qu'une personne qui possède un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "Qn/95I": {
@@ -936,7 +936,7 @@
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y2w/me": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y3FL2a": {
@@ -1016,7 +1016,7 @@
     "description": "Error message that the user has attempted to set an invalid notification family as ignored."
   },
   "by5WLz": {
-    "defaultMessage": "Je souhaite devenir mentor ou mentore.",
+    "defaultMessage": "Je souhaite devenir mentor.",
     "description": "The mentorship interest described as mentor."
   },
   "cCWdDX": {
@@ -1192,7 +1192,7 @@
     "description": "Dividing colon with trailing space"
   },
   "iC7Wsq": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "iNUK3f": {
@@ -1288,7 +1288,7 @@
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
   },
   "l0aGCz": {
-    "defaultMessage": "Intégré",
+    "defaultMessage": "Intégré à l'application",
     "description": "Title for in app notifications"
   },
   "l2XtbB": {
@@ -1464,7 +1464,7 @@
     "description": "Body text for the unexpected error page."
   },
   "r1QzK4": {
-    "defaultMessage": "Je participe à la fois en tant que mentor ou mentore et en tant que mentoré ou mentorée.",
+    "defaultMessage": "Je participe à la fois en tant que mentor et en tant que mentoré ou mentorée.",
     "description": "The mentorship status described as both mentee and mentor."
   },
   "rCXko4": {
@@ -1588,7 +1588,7 @@
     "description": "Name of talent management events page"
   },
   "uu2OuP": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "v6T4Y0": {
@@ -1728,7 +1728,7 @@
     "description": "Title displayed phone number"
   },
   "zM99Vm": {
-    "defaultMessage": "J'ai actuellement un mentor ou une mentore.",
+    "defaultMessage": "J'ai actuellement un mentor.",
     "description": "The mentorship status described as mentee."
   },
   "zN7MBv": {

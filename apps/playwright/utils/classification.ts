@@ -4,7 +4,7 @@ import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_ClassificationsQueryDocument = /* GraphQL */ `
   query Test_Classifications {
-    classifications {
+    classifications(availableInSearch: true) {
       id
       group
       level

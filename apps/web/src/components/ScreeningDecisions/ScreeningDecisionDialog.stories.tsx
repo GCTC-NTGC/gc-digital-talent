@@ -1,49 +1,94 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
+import { Meta, StoryObj } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 
 import {
   MockGraphqlDecorator,
   OverlayOrDialogDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 import {
+  fakeAssessmentResults,
   fakeAssessmentSteps,
   fakeExperiences,
   fakeLocalizedEnum,
   fakePoolCandidates,
+  fakePools,
   fakePoolSkills,
   fakeSkills,
   fakeUserSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
+  AssessmentResult,
   AssessmentResultJustification,
   AssessmentStepType,
+  makeFragmentData,
+  Pool,
+  PoolCandidate,
+  User,
 } from "@gc-digital-talent/graphql";
 
-import { ScreeningDecisionDialog } from "./ScreeningDecisionDialog";
+import ScreeningDecisionDialog, {
+  ScreeningDecisionDialog_Fragment,
+} from "./ScreeningDecisionDialog";
 
-const assessmentStep = fakeAssessmentSteps(1)[0];
-const poolCandidate = fakePoolCandidates(1)[0];
-const experience = fakeExperiences(1)[0];
+faker.seed(0);
+
 const poolSkill = fakePoolSkills(1)[0];
+const applicationScreeningStep = {
+  ...fakeAssessmentSteps(1, AssessmentStepType.ApplicationScreening, [
+    poolSkill,
+  ])[0],
+  id: AssessmentStepType.ApplicationScreening,
+};
+const screeningQuestionsStep = {
+  ...fakeAssessmentSteps(
+    1,
+    AssessmentStepType.ScreeningQuestionsAtApplication,
+    [poolSkill],
+  )[0],
+  id: AssessmentStepType.ScreeningQuestionsAtApplication,
+};
+const genericStep = {
+  ...fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup, [
+    poolSkill,
+  ])[0],
+  id: "GENERIC",
+};
+
+const experience = fakeExperiences(1)[0];
 const skill = poolSkill?.skill ?? fakeSkills(1)[0];
-experience.skills?.push(skill);
-poolCandidate.user.experiences?.push(experience);
-poolCandidate.user.userSkills?.push(fakeUserSkills(1, skill)[0]);
+const pool: Pool = {
+  ...fakePools(1)[0],
+  poolSkills: [poolSkill],
+  assessmentSteps: [
+    applicationScreeningStep,
+    screeningQuestionsStep,
+    genericStep,
+  ],
+};
 
-poolCandidate.profileSnapshot = JSON.stringify(poolCandidate.user);
+const fakeCandidate = fakePoolCandidates(1)[0];
+const user: User = {
+  ...fakeCandidate.user,
+  experiences: [experience],
+  userSkills: fakeUserSkills(1, skill),
+};
+const poolCandidate: PoolCandidate = {
+  ...fakeCandidate,
+  pool,
+  profileSnapshot: JSON.stringify(user),
+  user,
+};
 
-export default {
+const meta = {
   component: ScreeningDecisionDialog,
   decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
-    assessmentStep,
-    poolCandidate,
-    poolSkill,
-    experiences: [experience],
-    onSubmit: action("Submit Form"),
-    isOpen: true,
+    query: makeFragmentData(poolCandidate, ScreeningDecisionDialog_Fragment),
+    poolSkillId: poolSkill.id,
+    defaultOpen: true,
   },
   parameters: {
     apiResponses: {
@@ -57,62 +102,56 @@ export default {
     },
   },
 } satisfies Meta<typeof ScreeningDecisionDialog>;
+export default meta;
 
-const Template: StoryFn<typeof ScreeningDecisionDialog> = (args) => {
-  return <ScreeningDecisionDialog {...args} />;
-};
+type Story = StoryObj<typeof ScreeningDecisionDialog>;
 
-export const EducationRequirement = Template.bind({});
-EducationRequirement.args = {
-  assessmentStep: undefined,
-  poolCandidate,
-  poolSkill,
-  isOpen: true,
-};
-export const ApplicationScreening = Template.bind({});
-ApplicationScreening.args = {
-  assessmentStep: fakeAssessmentSteps(
-    1,
-    AssessmentStepType.ApplicationScreening,
-  )[0],
-  poolCandidate,
-  poolSkill,
-  isOpen: true,
-};
-export const ScreeningQuestions = Template.bind({});
-ScreeningQuestions.args = {
-  assessmentStep: fakeAssessmentSteps(
-    1,
-    AssessmentStepType.ScreeningQuestionsAtApplication,
-  )[0],
-  poolCandidate,
-  poolSkill,
-  isOpen: true,
-};
-export const Generic = Template.bind({});
-Generic.args = {
-  assessmentStep: fakeAssessmentSteps(
-    1,
-    AssessmentStepType.InterviewFollowup,
-  )[0],
-  poolCandidate,
-  poolSkill,
-  isOpen: true,
-};
-export const WithInitialValues = Template.bind({});
-WithInitialValues.args = {
-  assessmentStep: fakeAssessmentSteps(
-    1,
-    AssessmentStepType.ApplicationScreening,
-  )[0],
-  poolCandidate,
-  poolSkill,
-  initialValues: {
-    assessmentDecision: AssessmentDecision.Successful,
-    justifications: [],
-    assessmentDecisionLevel: AssessmentDecisionLevel.AboveAndBeyondRequired,
-    skillDecisionNotes:
-      "This applicant went above and beyond our expectations.",
+export const EducationRequirement: Story = {
+  args: {
+    stepId: applicationScreeningStep.id,
+    poolSkillId: undefined,
   },
-  isOpen: true,
+};
+
+export const ApplicationScreening: Story = {
+  args: {
+    stepId: applicationScreeningStep.id,
+  },
+};
+
+export const ScreeningQuestions: Story = {
+  args: {
+    stepId: screeningQuestionsStep.id,
+  },
+};
+
+export const Generic: Story = {
+  args: {
+    stepId: genericStep.id,
+  },
+};
+
+const result: AssessmentResult = {
+  ...fakeAssessmentResults(1, applicationScreeningStep, poolSkill)[0],
+  assessmentDecision: toLocalizedEnum(AssessmentDecision.Successful),
+  justifications: [],
+  assessmentDecisionLevel: toLocalizedEnum(
+    AssessmentDecisionLevel.AboveAndBeyondRequired,
+  ),
+  skillDecisionNotes: faker.lorem.paragraph(),
+};
+
+const initialValuesCandidate: PoolCandidate = {
+  ...poolCandidate,
+  assessmentResults: [result],
+};
+
+export const WithInitialValues: Story = {
+  args: {
+    stepId: applicationScreeningStep.id,
+    query: makeFragmentData(
+      initialValuesCandidate,
+      ScreeningDecisionDialog_Fragment,
+    ),
+  },
 };

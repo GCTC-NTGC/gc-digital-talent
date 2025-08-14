@@ -64,7 +64,7 @@
     "description": "Title of the 'Digital certificate credential' subsection"
   },
   "+CU+6M": {
-    "defaultMessage": "Intérêt pour la mutation latérale (mobilité de même niveau)",
+    "defaultMessage": "Intérêt pour une mutation latérale (mobilité de même niveau)",
     "description": "Label for interested in lateral movement checkbox for mobility type checklist"
   },
   "+DMD0L": {
@@ -108,7 +108,7 @@
     "description": "Heading displayed on the candidate skill match dialog."
   },
   "+RDFZH": {
-    "defaultMessage": "Gérez vos renseignements d’employée ou d’employé du gouvernement, y compris vos préférences en matière de développement de carrière et les façons de travailler.",
+    "defaultMessage": "Gérez vos renseignements professionnels au sein du gouvernement, y compris vos préférences en matière de développement de carrière et vos modes de travail.",
     "description": "Description of the employee profile page"
   },
   "+SoiCw": {
@@ -346,10 +346,6 @@
   "/YaoWc": {
     "defaultMessage": "Vos principales compétences",
     "description": "Title for the top skills section of a users skill showcase"
-  },
-  "/ZPTlP": {
-    "defaultMessage": "Les Procédures obligatoires sur les talents numériques ont été mises à jour pour plus de clarté et afin de réduire les exigences en matière de rapports et mieux les aligner sur d’autres instruments politiques. La directive reste inchangée.",
-    "description": "Description for the mandatory procedures card"
   },
   "/ZlzNi": {
     "defaultMessage": "Processus mis à jour!",
@@ -655,6 +651,10 @@
     "defaultMessage": "Modifiez les détails de la mise en candidature",
     "description": "Link text to edit a nominations details information"
   },
+  "0tNrAw": {
+    "defaultMessage": "Cette enquête permet de recueillir des données sur les besoins actuels et prévus des ministères relativement aux talents numériques afin de guider les décisions clés concernant la collectivité numérique.",
+    "description": "Description for annual digital talent survey card, paragraph 1"
+  },
   "0vNb2/": {
     "defaultMessage": "Nombre d'employées et employés",
     "description": "Label for number of employees field"
@@ -718,6 +718,10 @@
   "1C9UWI": {
     "defaultMessage": "Le Bureau des initiatives autochtones (BIA) est l’équipe qui soutient le programme.",
     "description": "Paragraph 4 of the 'About the program' section"
+  },
+  "1FGsSn": {
+    "defaultMessage": "Vous trouverez les résultats agrégés et de plus amples renseignements dans GCÉchange (à consulter exclusivement sur le réseau du gouvernement du Canada).",
+    "description": "Description for annual digital talent survey card, paragraph 2"
   },
   "1FwczA": {
     "defaultMessage": "Marquer comme lue",
@@ -1062,6 +1066,10 @@
   "2hc9V9": {
     "defaultMessage": "Expression orale (ou compétence orale))",
     "description": "Proficiency level related skill on language requirements dialog"
+  },
+  "2hwu5E": {
+    "defaultMessage": "Enquête annuelle sur les talents numériques",
+    "description": "Heading for annual digital talent survey card"
   },
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
@@ -1808,7 +1816,7 @@
     "description": "Page title for the improve behavioural skills page"
   },
   "66WkNy": {
-    "defaultMessage": "Décrivez vos expériences, au travail, à l’école et dans la vie.",
+    "defaultMessage": "Décrivez vos expériences professionnelles, scolaires et personnelles.",
     "description": "Description for the Career timeline page in applicant profile."
   },
   "66kU6k": {
@@ -1824,7 +1832,7 @@
     "description": "Heading for review of nominee's information"
   },
   "69BfF3": {
-    "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
+    "defaultMessage": "Découvrez des talents en vous servant des filtres détaillés, incluant la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
   },
   "69icSD": {
@@ -1914,10 +1922,6 @@
   "6c89Fd": {
     "defaultMessage": "Les possibilités de formation présentées sur cette page sont financées par le <itTrainingFundLink>Fonds de formation et de perfectionnement de la collectivité de la <abbreviation>TI</abbreviation></itTrainingFundLink> et sont réservées aux membres du personnel du groupe <abbreviation>TI</abbreviation> couverts par la <itCollectiveAgreementLink>convention collective du groupe <abbreviation>TI</abbreviation></itCollectiveAgreementLink>.",
     "description": "Second paragraph of it training opportunities section"
-  },
-  "6ceoYt": {
-    "defaultMessage": "Mises à jour des procédures obligatoires",
-    "description": "Heading for the mandatory procedures card"
   },
   "6cr+Qy": {
     "defaultMessage": "Vous n’avez pas de nouvelles notifications.",
@@ -2492,7 +2496,7 @@
     "description": "Title displayed on the Pool Candidates table employee department column"
   },
   "9Jkoms": {
-    "defaultMessage": "Trouver du talent numérique",
+    "defaultMessage": "Trouver des talents numériques",
     "description": "Title displayed on hero for Search and Request pages."
   },
   "9KGR0d": {
@@ -2831,10 +2835,6 @@
     "defaultMessage": "Quel est le titre de votre poste?",
     "description": "Input label asking for the user's job title."
   },
-  "AgtPO+": {
-    "defaultMessage": "Alignement sur les nouvelles procédures obligatoires dirigées par le BCG",
-    "description": "fourth 2024 key change rationale to the directive"
-  },
   "AhZlU1": {
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
@@ -3002,10 +3002,6 @@
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
-  },
-  "BVgb+I": {
-    "defaultMessage": "Le Bureau du dirigeant principal de l’information du Canada (BDPI) surveille de près l’efficacité de la Directive sur les talents numériques depuis son entrée en vigueur en avril 2023.",
-    "description": "first paragraph describing the 2024 changes to the directive on digital talent"
   },
   "BVlGhZ": {
     "defaultMessage": "Avancement<hidden> nomination non retenue</hidden>",
@@ -3435,10 +3431,6 @@
     "defaultMessage": "Oui, l’évaluation du français a été effectuée",
     "description": "Completed a French language evaluation"
   },
-  "DVBh+y": {
-    "defaultMessage": "Les données peuvent être sécurisées par d’autres moyens (p. ex., la plateforme Talents numériques du GC, le contrôle accru des données)",
-    "description": "first 2024 key change rationale to the directive"
-  },
   "DVIT0q": {
     "defaultMessage": "Statut de cadre supérieur",
     "description": "Label for employee profile senior management status input"
@@ -3503,10 +3495,6 @@
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences qui sont liées à votre profil, et votre démonstration des compétences. Sélectionnez le titre d’une compétences pour gérer de plus amples détails, y compris les détails ayant trait à votre niveau et à vos expériences de carrière connexes.",
     "description": "Description on how to use behavioural skills"
   },
-  "DjRrK4": {
-    "defaultMessage": "Retrait de l’obligation de partager des copies des descriptions d’emploi TI non standard",
-    "description": "third 2024 key change to the directive"
-  },
   "DnXch4": {
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
     "description": "Message displayed to user after assessment step fails to be saved."
@@ -3564,7 +3552,7 @@
     "description": "Submit message for job placement dialog"
   },
   "DzCUmx": {
-    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà en poste, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "Description of the application on the homepage"
   },
   "Dzyk1q": {
@@ -3819,10 +3807,6 @@
     "defaultMessage": "Voir sur GCpédia*",
     "description": "Link text displayed on the job poster template 'generic work description' field. With an asterisk for fine print."
   },
-  "FDGVHB": {
-    "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
-    "description": "third 2024 key change rationale to the directive"
-  },
   "FDZh4D": {
     "defaultMessage": "Vous êtes sur le point de publier l'annonce de ce processus : {poolName}",
     "description": "Text to confirm the process to be published"
@@ -3971,10 +3955,6 @@
     "defaultMessage": "Mutation latérale",
     "description": "Label for the lateral movement nomination type"
   },
-  "G+dXAH": {
-    "defaultMessage": "Cela a toujours été le cas et est maintenant formalisé après l’annonce de la plateforme par le ministre",
-    "description": "fifth 2024 key change rationale to the directive"
-  },
   "G0AEfY": {
     "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
     "description": "Text explaining the importance of starting an application early"
@@ -4068,7 +4048,7 @@
     "description": "Null message description for asset skills table."
   },
   "GMglI5": {
-    "defaultMessage": "Adresse courriel validée",
+    "defaultMessage": "Adresse courriel vérifiée",
     "description": "The email address has been verified to be owned by user"
   },
   "GNhFh2": {
@@ -4254,10 +4234,6 @@
   "HR2ouB": {
     "defaultMessage": "En savoir plus sur CléGC et gérer vos notifications.",
     "description": "Subtitle for the account settings page."
-  },
-  "HRmtdK": {
-    "defaultMessage": "Bien que les Procédures obligatoires soient également efficaces, il est possible d’en améliorer la clarté, de réduire la charge de travail des ministères en matière de rapports et de mieux les aligner sur les nouvelles <link>procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels</link> menées par le Bureau du contrôleur général du Canada (BCG).",
-    "description": "third paragraph describing the 2024 changes to the directive on digital talent"
   },
   "HXF9GA": {
     "defaultMessage": "Bassin demandé",
@@ -4708,7 +4684,7 @@
     "description": "Message displayed for profile snapshot not found."
   },
   "JHEUw9": {
-    "defaultMessage": "Délai cible pour la promotion ou l'avancement",
+    "defaultMessage": "Échéancier visé pour une promotion ou un avancement",
     "description": "Label for an employee profile career development preference field"
   },
   "JIvR0C": {
@@ -4768,7 +4744,7 @@
     "description": "Tab title for experiences sorted by skills in applicant profile."
   },
   "Jf3vT5": {
-    "defaultMessage": "Information sur l'employé(e) du gouvernement",
+    "defaultMessage": "Informations sur l'employé(e) du gouvernement",
     "description": "Title for the government employee information section"
   },
   "Jfl1o+": {
@@ -5071,10 +5047,6 @@
     "defaultMessage": "Décrivez comment vous avez utilisé cette compétence",
     "description": "Label for skill experience details input"
   },
-  "L819mr": {
-    "defaultMessage": "Mises à jour du questionnaire sur l’octroi de contrats sur les services numériques",
-    "description": "fourth 2024 key change to the directive"
-  },
   "L8iCCj": {
     "defaultMessage": "{developmentProgramsNominationCount, plural, =0 {Perfectionnement } other {Perfectionnement (#)}}",
     "description": "Development nominations, conditional rendered off count"
@@ -5332,7 +5304,7 @@
     "description": "Page subtitle for the comptrollership executives talent management page"
   },
   "M4sGS2": {
-    "defaultMessage": "Types d'organisations que vous envisageriez pour une promotion ou un avancement",
+    "defaultMessage": "Types d'organisations envisagées pour une promotion ou un avancement",
     "description": "Label for an employee profile career development preference field"
   },
   "M7bb1V": {
@@ -5702,10 +5674,6 @@
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
     "description": "Toast for successful add user to pool on view-user page"
-  },
-  "O8YvBD": {
-    "defaultMessage": "Retrait du plan prospectif de gestion des talents",
-    "description": "first 2024 key change to the directive"
   },
   "O8nHiQ": {
     "defaultMessage": "Retourner aux demandes",
@@ -6440,7 +6408,7 @@
     "description": "Title of a note describing that a pool is only open to employees"
   },
   "RHTrvR": {
-    "defaultMessage": "IT-03 : Conseiller technique ou Chef d'équipe",
+    "defaultMessage": "IT-03 : Conseiller(ère) technique ou Chef d'équipe",
     "description": "IT-03 classification label including titles"
   },
   "RHwGy2": {
@@ -6636,7 +6604,7 @@
     "description": "Title for the user profile page"
   },
   "SM7PIR": {
-    "defaultMessage": "Analyste principal P M 5",
+    "defaultMessage": "Analyste principal(e) P M 5",
     "description": "PM-05 classification aria label including titles"
   },
   "SNwPLZ": {
@@ -7743,7 +7711,7 @@
     "description": "Label for not represented community"
   },
   "XzyFuo": {
-    "defaultMessage": "Soyez informé des prochaines échéances de candidature, des changements de statut, etc.",
+    "defaultMessage": "Restez au courant des prochaines échéances de candidature, des changements de statut, etc.",
     "description": "Subtitle for application updates checklist"
   },
   "Y+GgIV": {
@@ -7923,7 +7891,7 @@
     "description": "Final warning text to confirm the assessment to be deleted"
   },
   "YbiEAB": {
-    "defaultMessage": "Intérêt pour la mutation latérale",
+    "defaultMessage": "Intérêt pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
   "Yc2A2Q": {
@@ -8295,7 +8263,7 @@
     "description": "Link text for visiting the GCKey website"
   },
   "aYgVQT": {
-    "defaultMessage": "Types d'organisations que vous envisageriez pour une mutation latérale",
+    "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
   "aYt7kT": {
@@ -8549,10 +8517,6 @@
   "bozF1y": {
     "defaultMessage": "Vous êtes sur le point de supprimer ce processus : {poolName}",
     "description": "Text to confirm the process to be deleted"
-  },
-  "bpULlB": {
-    "defaultMessage": "<link>Consultez les récents changements apportés aux Procédures obligatoires sur les talents numériques</link>, notamment la réduction des exigences en matière de rapports. Les modifications entrent en vigueur le 30 septembre 2024.",
-    "description": "Body of an alert about the directive changing"
   },
   "bq1MMd": {
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
@@ -8954,10 +8918,6 @@
     "defaultMessage": "Entrer la date selon le format suivant : aaaa-MM-jj HH:mm:ss",
     "description": "Instructions to enter the date in the API DateTime scalar format"
   },
-  "deiUXj": {
-    "defaultMessage": "Par conséquent, le BDPI apporte actuellement certaines mises à jour aux Procédures obligatoires, qui entreront en vigueur le 30 septembre 2024.",
-    "description": "fourth paragraph describing the 2024 changes to the directive on digital talent"
-  },
   "dekUfM": {
     "defaultMessage": "Filtrer par",
     "description": "Label for a set of filters"
@@ -9159,7 +9119,7 @@
     "description": "Heading for updating a user's process roles"
   },
   "eIxShU": {
-    "defaultMessage": "IT-04 : Conseiller principal ou Gestionnaire",
+    "defaultMessage": "IT-04 : Conseiller(ère) principal(e) ou Gestionnaire",
     "description": "IT-04 classification label including titles"
   },
   "eJPU4G": {
@@ -9263,7 +9223,7 @@
     "description": "Date the candidate was removed on"
   },
   "ehrsDa": {
-    "defaultMessage": "Langue de l'entrevue de vive voix",
+    "defaultMessage": "Langue d'expression à l'entrevue",
     "description": "Legend text for spoken interview language preference for interviews"
   },
   "eickbr": {
@@ -9913,10 +9873,6 @@
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
   },
-  "hI5cty": {
-    "defaultMessage": "Confirmation de l’utilisation de la plateforme de talents numériques du GC pour vérifier la disponibilité de talents qualifiés",
-    "description": "fifth 2024 key change to the directive"
-  },
   "hIaETV": {
     "defaultMessage": "Statut du bassin",
     "description": "Title of the 'Pool status' section of the view-user page"
@@ -10134,7 +10090,7 @@
     "description": "Title for the skill summary section in the assessment plan builder"
   },
   "iR7GWG": {
-    "defaultMessage": "Délai cible pour une mutation latérale",
+    "defaultMessage": "Échéancier visé pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
   "iSbtcK": {
@@ -10298,11 +10254,11 @@
     "description": "Learn more dialog question four heading"
   },
   "jAFzzR": {
-    "defaultMessage": "Découvrez les dernières perspectives d’emploi du <abbreviation>GC</abbreviation> dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
+    "defaultMessage": "Découvrez les plus récentes occasions d’emploi au sein du <abbreviation>GC</abbreviation> dans les domaines du numérique et des technologies, allant des postes de niveau d’entrée aux postes de gestion. Trouvez une équipe, faites une différence et laissez-vous inspirer.",
     "description": "Description for the digital government job opportunities"
   },
   "jAPSUd": {
-    "defaultMessage": "Conseiller principal ou Gestionnaire I T 4",
+    "defaultMessage": "Conseiller(ère) principal(e) ou Gestionnaire I T 4",
     "description": "IT-04 classification aria label including titles"
   },
   "jAWP0X": {
@@ -10354,7 +10310,7 @@
     "description": "GCKey answer for when user does not have recovery codes"
   },
   "jNqZ46": {
-    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
+    "defaultMessage": "Conseiller(ère) technique ou Chef d'équipe T I 3",
     "description": "IT-03 classification aria label including titles"
   },
   "jO8i+2": {
@@ -11373,10 +11329,6 @@
     "defaultMessage": "Voir les définitions pour « {skillName} » et « {skillLevel} »",
     "description": "Accordion title for skill and skill level header on screening decision dialog."
   },
-  "o6Vyr+": {
-    "defaultMessage": "Retrait du formulaire de processus de recrutement spécifique au ministère",
-    "description": "second 2024 key change to the directive"
-  },
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
@@ -11861,10 +11813,6 @@
     "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
     "description": "Label for the 'Other role' input"
   },
-  "qQmKgl": {
-    "defaultMessage": "La directive étant très performante, elle restera telle quelle.",
-    "description": "second paragraph describing the 2024 changes to the directive on digital talent"
-  },
   "qSTIKZ": {
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
     "description": "Toast for failed expiry date update on view-user page"
@@ -12061,10 +12009,6 @@
     "defaultMessage": "Les fonctionnaires du gouvernement du Canada travaillant en TI pourraient profiter des bons pour examens de certification attestant les compétences reconnues par l'industrie. Ces bons vous aideront à accroître vos qualifications et à faire progresser votre carrière.",
     "description": "First paragraph of certification exam vouchers section"
   },
-  "rZ0GyE": {
-    "defaultMessage": "Modifications apportées aux procédures obligatoires en 2024",
-    "description": "Heading for section describing the 2024 changes to the directive"
-  },
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
     "description": "An introduction to a list of experiences associated with a skill"
@@ -12218,7 +12162,7 @@
     "description": "Message displayed when no functional community is selected"
   },
   "sapiL3": {
-    "defaultMessage": "PM-05 : Analyste principal",
+    "defaultMessage": "PM-05 : Analyste principal(e)",
     "description": "PM-05 classification label including titles"
   },
   "sapxcU": {
@@ -12374,7 +12318,7 @@
     "description": "Descriptive text explaining a valid post secondary education."
   },
   "tJnBx1": {
-    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà en poste, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "SEO description of the application on the homepage"
   },
   "tKtdVT": {
@@ -12552,10 +12496,6 @@
   "uD105N": {
     "defaultMessage": "Non lus",
     "description": "Link text to show all unread items in a list"
-  },
-  "uEporM": {
-    "defaultMessage": "Les procédures obligatoires ont changé",
-    "description": "Title for an alert about the directive changing"
   },
   "uEqA50": {
     "defaultMessage": "Ajouter une nouvelle question",
@@ -13718,7 +13658,7 @@
     "description": "Error message displayed when something went wrong deleting a community interest"
   },
   "zXWJ/5": {
-    "defaultMessage": "Intérêt pour la promotion et l'avancement",
+    "defaultMessage": "Intérêt pour une promotion et une avancement",
     "description": "Label for an employee profile career development preference field"
   },
   "zYKPdV": {

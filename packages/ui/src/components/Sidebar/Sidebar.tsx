@@ -6,7 +6,7 @@ const scrollbarWrapper = tv({
   variants: {
     // Temp fix for view pool candidate page
     scrollbar: {
-      true: "top-0 sm:top-18 sm:h-[calc(100vh-var(--spacing)*18)] sm:pt-18",
+      true: "top-0 sm:top-18 sm:h-[calc(100vh-var(--spacing)*18)] sm:pr-3",
       false: "top-30",
     },
   },

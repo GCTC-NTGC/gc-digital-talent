@@ -23,7 +23,7 @@
     "mll-lab/laravel-graphiql": "^4.0",
     "nunomaduro/collision": "^8.1",
     "nuwave/lighthouse": "^6.15",
-    "phpoffice/phpspreadsheet": "^4.0",
+    "phpoffice/phpspreadsheet": "^5.0",
     "phpoffice/phpword": "^1.2",
     "santigarcor/laratrust": "^8.3.0",
     "spatie/laravel-activitylog": "^4.7",
