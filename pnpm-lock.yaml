@@ -155,7 +155,7 @@ importers:
         version: 4.1.11
       urql:
         specifier: ^4.2.1
-        version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
+        version: 4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.9.0
@@ -316,7 +316,7 @@ importers:
         version: 4.0.0
       urql:
         specifier: ^4.2.1
-        version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
+        version: 4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -355,11 +355,11 @@ importers:
         specifier: workspace:*
         version: link:../toast
       '@urql/core':
-        specifier: ^5.2.0
-        version: 5.2.0(graphql@16.11.0)
+        specifier: ^6.0.1
+        version: 6.0.1(graphql@16.11.0)
       '@urql/exchange-auth':
         specifier: ^2.2.1
-        version: 2.2.1(@urql/core@5.2.0(graphql@16.11.0))
+        version: 2.2.1(@urql/core@6.0.1(graphql@16.11.0))
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
@@ -374,7 +374,7 @@ importers:
         version: 7.1.11(react@18.3.1)(typescript@5.9.2)
       urql:
         specifier: ^4.2.1
-        version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
+        version: 4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -720,7 +720,7 @@ importers:
         version: 5.9.2
       urql:
         specifier: ^4.2.1
-        version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
+        version: 4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1)
 
   packages/helpers:
     dependencies:
@@ -738,7 +738,7 @@ importers:
         version: 18.3.1
       urql:
         specifier: ^4.2.1
-        version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
+        version: 4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -940,8 +940,8 @@ importers:
         specifier: ^8.6.14
         version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.6.2))(typescript@5.9.2)
       '@urql/core':
-        specifier: ^5.2.0
-        version: 5.2.0(graphql@16.11.0)
+        specifier: ^6.0.1
+        version: 6.0.1(graphql@16.11.0)
       chromatic:
         specifier: ^13.1.3
         version: 13.1.3
@@ -962,7 +962,7 @@ importers:
         version: 7.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.2.1
-        version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
+        version: 4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1)
       wonka:
         specifier: ^6.3.5
         version: 6.3.5
@@ -1177,7 +1177,7 @@ importers:
         version: 2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.11)
       urql:
         specifier: ^4.2.1
-        version: 4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1)
+        version: 4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.9.0
@@ -1245,8 +1245,8 @@ importers:
 
 packages:
 
-  '@0no-co/graphql.web@1.1.2':
-    resolution: {integrity: sha512-N2NGsU5FLBhT8NZ+3l2YrzZSHITjNXNuDhC4iDiikv0IujaJ0Xc6xIxQZ/Ek3Cb+rgPjnLHYyJm11tInuJn+cw==}
+  '@0no-co/graphql.web@1.2.0':
+    resolution: {integrity: sha512-/1iHy9TTr63gE1YcR5idjx8UREz1s0kFhydf3bBLCXyqjhkIc6igAzTOx3zPifCwFR87tsh/4Pa9cNts6d2otw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     peerDependenciesMeta:
@@ -4154,8 +4154,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@urql/core@5.2.0':
-    resolution: {integrity: sha512-/n0ieD0mvvDnVAXEQgX/7qJiVcvYvNkOHeBvkwtylfjydar123caCXcl58PXFY11oU1oquJocVXHxLAbtv4x1A==}
+  '@urql/core@6.0.1':
+    resolution: {integrity: sha512-FZDiQk6jxbj5hixf2rEPv0jI+IZz0EqqGW8mJBEug68/zHTtT+f34guZDmyjJZyiWbj0vL165LoMr/TkeDHaug==}
 
   '@urql/exchange-auth@2.2.1':
     resolution: {integrity: sha512-n4xUxxjvY36GJh539sLaPFyvFzreADOv8EFQdTiXOCIRVoXXhWVVI7DjY/HNtLICfbg1+UlbvQ7sNkwaBouDHg==}
@@ -8038,7 +8038,7 @@ packages:
 
 snapshots:
 
-  '@0no-co/graphql.web@1.1.2(graphql@16.11.0)':
+  '@0no-co/graphql.web@1.2.0(graphql@16.11.0)':
     optionalDependencies:
       graphql: 16.11.0
 
@@ -11224,16 +11224,16 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.9.2':
     optional: true
 
-  '@urql/core@5.2.0(graphql@16.11.0)':
+  '@urql/core@6.0.1(graphql@16.11.0)':
     dependencies:
-      '@0no-co/graphql.web': 1.1.2(graphql@16.11.0)
+      '@0no-co/graphql.web': 1.2.0(graphql@16.11.0)
       wonka: 6.3.5
     transitivePeerDependencies:
       - graphql
 
-  '@urql/exchange-auth@2.2.1(@urql/core@5.2.0(graphql@16.11.0))':
+  '@urql/exchange-auth@2.2.1(@urql/core@6.0.1(graphql@16.11.0))':
     dependencies:
-      '@urql/core': 5.2.0(graphql@16.11.0)
+      '@urql/core': 6.0.1(graphql@16.11.0)
       wonka: 6.3.5
 
   '@vitejs/plugin-react@4.7.0(vite@7.0.6(@types/node@24.2.1)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.31.1)(tsx@4.20.3)(yaml@2.8.0))':
@@ -15539,9 +15539,9 @@ snapshots:
 
   urlpattern-polyfill@10.1.0: {}
 
-  urql@4.2.1(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1):
+  urql@4.2.1(@urql/core@6.0.1(graphql@16.11.0))(react@18.3.1):
     dependencies:
-      '@urql/core': 5.2.0(graphql@16.11.0)
+      '@urql/core': 6.0.1(graphql@16.11.0)
       react: 18.3.1
       wonka: 6.3.4
 
