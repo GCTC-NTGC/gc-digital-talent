@@ -124,7 +124,7 @@ const MoreActions = ({
 
   return (
     <div className="mb-3 flex flex-col gap-3">
-      <Card space="sm" className="flex flex-col gap-3">
+      <Card space="md" className="flex flex-col gap-3">
         <div>
           <Heading level="h2" size="h6" className="mt-0">
             {candidateName}
