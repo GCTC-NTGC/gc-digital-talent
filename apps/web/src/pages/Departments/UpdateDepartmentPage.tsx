@@ -47,7 +47,7 @@ interface FormValues {
   departmentNumber: Maybe<number>;
   orgIdentifier: Maybe<number>;
   size: Maybe<DepartmentSize>;
-  departmentType: DepartmentType[];
+  departmentType: DepartmentType[] | boolean;
 }
 
 export function formValuesToUpdateInput({
