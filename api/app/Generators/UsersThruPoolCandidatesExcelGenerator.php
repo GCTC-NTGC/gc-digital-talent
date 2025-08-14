@@ -117,7 +117,13 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
                     $user->priority_number ?? '', // Priority number
                     $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                    $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
+                    /* remove 'Telework' from location preferences */
+                    $this->localizeEnumArray(
+                        array_filter($user->location_preferences ?? [], function ($location) {
+                            return $location !== WorkRegion::TELEWORK->name;
+                        }),
+                        WorkRegion::class
+                    ), // Location preferences
                     $this->localizeEnumArray($user->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
                     $user->location_exemptions, // Location exemptions
                     $this->yesOrNo($user->is_woman), // Woman

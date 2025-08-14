@@ -214,7 +214,13 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $userHydrated->priority_number ?? '', // Priority number
                     $userHydrated->position_duration ? $this->yesOrNo($userHydrated->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                    $this->localizeEnumArray($userHydrated->location_preferences, WorkRegion::class),
+                    /* remove 'Telework' from location preferences */
+                    $this->localizeEnumArray(
+                        array_filter($userHydrated->location_preferences ?? [], function ($location) {
+                            return $location !== WorkRegion::TELEWORK->name;
+                        }),
+                        WorkRegion::class
+                    ), // Location preferences
                     $this->localizeEnumArray($userHydrated->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
                     $userHydrated->location_exemptions, // Location exemptions
                     $userHydrated->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
