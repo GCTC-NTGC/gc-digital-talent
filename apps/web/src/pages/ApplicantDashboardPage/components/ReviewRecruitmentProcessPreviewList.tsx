@@ -26,6 +26,7 @@ import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 import CreateOffPlatformProcessDialog from "./CreateOffPlatformProcessDialog";
 import UpdateOffPlatformProcessDialog from "./UpdateOffPlatformProcessDialog";
+import DeleteOldOffPlatformProcessesDialog from "./DeleteOldOffPlatformProcessesDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {
@@ -238,14 +239,16 @@ const ReviewRecruitmentProcessPreviewList = ({
       {user?.oldOffPlatformRecruitmentProcesses ? (
         <div className="mb-6 rounded-md border p-6">
           <p className="mb-3">{user.oldOffPlatformRecruitmentProcesses}</p>
-          <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
+          <p className="text-sm text-gray-600 dark:text-gray-100">
             {intl.formatMessage({
               defaultMessage:
-                "We've changed the way we collect information about off-platform recruitment processes. The information shown here will be deleted as of December 31, 2025. Please use our new format and add each process you've been qualified in using the \"Add an off-platform process\" button. You can also choose to delete this information now.",
-              id: "ghAAS7",
+                "We've changed the way we collect information about off-platform recruitment processes. The information shown here will be deleted as of December 31, 2025. Please use our new format and add each process you've been qualified in using the \"Add an off-platform process\" button.",
+              id: "/0kzjJ",
               description:
                 "Message informing the user about the update to off-platform processes",
-            })}
+              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+            })}{" "}
+            <DeleteOldOffPlatformProcessesDialog userId={user.id} />
           </p>
         </div>
       ) : null}
