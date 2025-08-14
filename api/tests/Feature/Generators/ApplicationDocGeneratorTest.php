@@ -64,6 +64,14 @@ class ApplicationDocGeneratorTest extends TestCase
         WorkExperience::factory()
             ->create(['user_id' => $user->id]);
 
+        // hardcode a flaky value
+        $troublesomeExperience = WorkExperience::where('user_id', $user->id)
+            ->where('division', 'deliver real-time schemas')
+            ->first();
+        $troublesomeExperience->start_date = '2006-01-01';
+        $troublesomeExperience->end_date = '2016-12-01';
+        $troublesomeExperience->save();
+
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
