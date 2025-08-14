@@ -49,7 +49,7 @@ jobs:
         run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # We no longer user docker layer caching as it made runs take longer.
       # See: https://github.com/satackey/action-docker-layer-caching/issues/305
@@ -97,7 +97,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
