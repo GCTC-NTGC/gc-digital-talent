@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { StoryContext, StoryFn } from "@storybook/react-vite";
+import { Decorator, StoryContext, StoryFn } from "@storybook/react-vite";
 import { createMemoryRouter, RouterProvider } from "react-router";
 
 interface DefaultPath {
@@ -26,8 +26,8 @@ const createRouter = (story: JSX.Element, defaultPath?: DefaultPath) =>
       : undefined,
   );
 
-const RouterDecorator = (Story: StoryFn, { parameters }: StoryContext) => {
-  const { defaultPath }: { defaultPath?: DefaultPath } = parameters;
+export const RouterDecorator: Decorator = (Story, context) => {
+  const { defaultPath }: { defaultPath?: DefaultPath } = context.parameters;
   const router = createRouter(<Story />, defaultPath);
   return <RouterProvider router={router} />;
 };

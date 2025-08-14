@@ -1,10 +1,10 @@
-import { StoryFn } from "@storybook/react-vite";
+import type { Decorator } from "@storybook/react-vite";
 
 import Toast from "../Toast";
 
-const ToastDecorator = (Story: StoryFn) => (
+export const ToastDecorator: Decorator = (Story) => (
   <>
-    <Story />
+    {Story()}
     <Toast />
   </>
 );

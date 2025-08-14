@@ -1,7 +1,7 @@
 import { HelmetProvider } from "react-helmet-async";
-import { StoryFn } from "@storybook/react-vite";
+import { Decorator } from "@storybook/react-vite";
 
-const HelmetDecorator = (Story: StoryFn) => (
+export const HelmetDecorator: Decorator = (Story) => (
   <HelmetProvider>
     <Story />
   </HelmetProvider>
