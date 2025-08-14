@@ -175,6 +175,10 @@ trait GeneratesNominationDoc
      */
     protected function generateTalentNominationGroup(Section $section, TalentNominationGroup $talentNominationGroup, ?int $headingRank)
     {
+        $talentNominationGroup->loadMissing([
+            'nominations',
+        ]);
+
         $this->generalInfo($section, $talentNominationGroup);
         $this->nominee($section, $talentNominationGroup, $headingRank + 1);
         $this->details($section, $talentNominationGroup, $headingRank + 1);
