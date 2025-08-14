@@ -149,7 +149,6 @@ return [
     'nominators_department' => 'Nominator’s department or agency',
     'nominators_relationship' => 'Nominator’s relationship to the nominee',
     'advancement_secondary_reference' => 'Secondary reference for advancement',
-    'advancement_reference_validity' => 'Secondary reference for advancement validity',
     'references_work_email' => 'References work email',
     'references_classification' => 'References classification',
     'references_department' => 'Reference’s department or agency',

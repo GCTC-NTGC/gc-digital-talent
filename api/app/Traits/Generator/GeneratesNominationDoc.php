@@ -114,7 +114,6 @@ trait GeneratesNominationDoc
                 if ($nomination->advancement_reference_id) {
                     $advancementReference = User::findOrFail($nomination->advancement_reference_id);
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $advancementReference->getFullName());
-                    $this->addLabelText($section, $this->localizeHeading('advancement_reference_validity'), $this->localizeEnum($nomination->advancement_reference_review, TalentNominationUserReview::class));
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email);
                     $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->currentClassification ? $advancementReference->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->department ? $advancementReference->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));

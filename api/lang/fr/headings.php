@@ -151,7 +151,6 @@ return [
     'nominators_department' => 'Ministère ou organisme de l’auteur(trice) de la mise en candidature',
     'nominators_relationship' => 'Lien de parenté entre l’autreur(trice) de la mise en candidature et la personne candidate',
     'advancement_secondary_reference' => 'Référence secondaire pour la promotion',
-    'advancement_reference_validity' => 'Secondary reference for advancement validity',
     'references_work_email' => 'Courriel professionnel de la personne de référence',
     'references_classification' => 'Classification de la personne de référence',
     'references_department' => 'Ministère ou organisme de la personne de référence',
