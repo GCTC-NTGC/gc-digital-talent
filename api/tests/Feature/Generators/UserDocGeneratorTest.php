@@ -7,6 +7,7 @@ use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\User;
+use App\Models\WorkExperience;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -52,6 +53,14 @@ class UserDocGeneratorTest extends TestCase
             ->withEmployeeProfile()
             ->withSkillsAndExperiences()
             ->create();
+
+        // hardcode a flaky value
+        $troublesomeExperience = WorkExperience::where('user_id', $targetUser->id)
+            ->where('division', 'reintermediate revolutionary e-commerce')
+            ->first();
+        $troublesomeExperience->start_date = '2006-01-01';
+        $troublesomeExperience->end_date = null;
+        $troublesomeExperience->save();
 
         // Faker seed makes skill ranks the same.
         // This is not realistic data so we are forcing them
