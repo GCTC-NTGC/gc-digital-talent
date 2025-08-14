@@ -75,6 +75,9 @@ trait GeneratesNominationDoc
 
         if ($talentNominationGroup->nominations()->count() > 0) {
             foreach ($nominations as $nomination) {
+
+                $nomination->loadMissing('nominator', 'advancementReferenceFallbackClassification', 'advancementReferenceFallbackDepartment');
+
                 if ($nomination->nominator) {
                     $section->addTitle("{$this->localizeHeading('nominated_by')} {$nomination->nominator->first_name} {$nomination->nominator->last_name}", $headingRank + 1);
                     $this->addLabelText($section, $this->localizeHeading('date_received'), $nomination->submitted_at->format('F d, Y'));
@@ -113,8 +116,8 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $advancementReference->getFullName());
                     $this->addLabelText($section, $this->localizeHeading('advancement_reference_validity'), $this->localizeEnum($nomination->advancement_reference_review, TalentNominationUserReview::class));
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email);
-                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->getClassification());
-                    $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->department->name[$this->lang]);
+                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->currentClassification ? $advancementReference->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->department ? $advancementReference->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 } else {
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $nomination->advancement_reference_fallback_name);
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $nomination->advancement_reference_fallback_work_email);
@@ -175,10 +178,6 @@ trait GeneratesNominationDoc
      */
     protected function generateTalentNominationGroup(Section $section, TalentNominationGroup $talentNominationGroup, ?int $headingRank)
     {
-        $talentNominationGroup->loadMissing([
-            'nominations',
-        ]);
-
         $this->generalInfo($section, $talentNominationGroup);
         $this->nominee($section, $talentNominationGroup, $headingRank + 1);
         $this->details($section, $talentNominationGroup, $headingRank + 1);
