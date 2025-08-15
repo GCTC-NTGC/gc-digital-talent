@@ -1,7 +1,7 @@
 import {
   useState,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   forwardRef,
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -40,7 +40,7 @@ type EditCommunityMemberDialogProps = ComponentPropsWithoutRef<
 };
 
 const EditCommunityMemberDialog = forwardRef<
-  ElementRef<typeof DropdownMenu.Item>,
+  ComponentRef<typeof DropdownMenu.Item>,
   EditCommunityMemberDialogProps
 >(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();

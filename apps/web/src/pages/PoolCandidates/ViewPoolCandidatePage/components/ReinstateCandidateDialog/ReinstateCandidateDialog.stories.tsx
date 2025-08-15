@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";

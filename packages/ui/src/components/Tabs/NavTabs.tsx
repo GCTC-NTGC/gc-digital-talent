@@ -9,7 +9,7 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { Link as RouterLink, useLocation } from "react-router";
 import {
   forwardRef,
-  ElementRef,
+  ComponentRef,
   ComponentPropsWithoutRef,
   useRef,
   useEffect,
@@ -18,7 +18,7 @@ import {
 import { handleTabFocus, inner, list, root, trigger, divide } from "./utils";
 
 const Root = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Root>,
+  ComponentRef<typeof NavigationMenuPrimitive.Root>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
 >((props, forwardedRef) => (
   <div className={root()}>
@@ -28,7 +28,7 @@ const Root = forwardRef<
 ));
 
 const List = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.List>,
+  ComponentRef<typeof NavigationMenuPrimitive.List>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
 >(({ children, className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.List
@@ -41,7 +41,7 @@ const List = forwardRef<
 ));
 
 const Item = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Item>,
+  ComponentRef<typeof NavigationMenuPrimitive.Item>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
@@ -58,7 +58,7 @@ type LinkProps = ComponentPropsWithoutRef<
 };
 
 const Link = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Link>,
+  ComponentRef<typeof NavigationMenuPrimitive.Link>,
   LinkProps
 >(({ children, href, ...rest }, forwardedRef) => {
   const { pathname } = useLocation();
