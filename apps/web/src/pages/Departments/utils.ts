@@ -9,13 +9,19 @@ export type DepartmentType =
   | "isScience"
   | "isRegulatory";
 
-export function departmentTypeToInput(types?: DepartmentType[]) {
+export function departmentTypeToInput(types?: DepartmentType[] | boolean) {
   return {
     isCorePublicAdministration:
-      types?.includes("isCorePublicAdministration") ?? false,
-    isCentralAgency: types?.includes("isCentralAgency") ?? false,
-    isScience: types?.includes("isScience") ?? false,
-    isRegulatory: types?.includes("isRegulatory") ?? false,
+      (typeof types === "object" &&
+        types?.includes("isCorePublicAdministration")) ??
+      false,
+    isCentralAgency:
+      (typeof types === "object" && types?.includes("isCentralAgency")) ??
+      false,
+    isScience:
+      (typeof types === "object" && types?.includes("isScience")) ?? false,
+    isRegulatory:
+      (typeof types === "object" && types?.includes("isRegulatory")) ?? false,
   };
 }
 
