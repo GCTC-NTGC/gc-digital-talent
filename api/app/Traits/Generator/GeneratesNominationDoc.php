@@ -5,7 +5,6 @@ namespace App\Traits\Generator;
 use App\Enums\Language;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
-use App\Enums\TalentNominationUserReview;
 use App\Models\Classification;
 use App\Models\Department;
 use App\Models\TalentNominationGroup;
