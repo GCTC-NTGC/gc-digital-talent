@@ -16,12 +16,12 @@ import {
   isQualifiedFinalDecision,
 } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
+import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
+import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatformProcessDialog";
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 import DeleteOldOffPlatformProcessesDialog from "./DeleteOldOffPlatformProcessesDialog";
-import OffPlatformRecruitmentProcessList from "./OffPlatformRecruitmentProcessList";
-import OffPlatformProcessDialog from "./OffPlatformProcessDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {

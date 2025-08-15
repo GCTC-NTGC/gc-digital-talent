@@ -12,8 +12,8 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
-import OffPlatformRecruitmentProcessList from "~/pages/ApplicantDashboardPage/components/OffPlatformRecruitmentProcessList";
 
+import OffPlatformRecruitmentProcessList from "./OffPlatformRecruitmentProcessList";
 import RecruitmentProcessDialog from "./RecruitmentProcessDialog";
 
 const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
