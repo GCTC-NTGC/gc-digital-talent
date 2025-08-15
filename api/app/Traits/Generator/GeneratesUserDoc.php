@@ -20,6 +20,7 @@ use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
+use App\Enums\HiringPlatform;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LearningOpportunitiesInterest;
@@ -603,6 +604,9 @@ trait GeneratesUserDoc
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
             'poolCandidates.pool.community',
+            'offPlatformRecruitmentProcesses',
+            'offPlatformRecruitmentProcesses.department',
+            'offPlatformRecruitmentProcesses.classification',
         ]);
 
         $this->name($section, $user, $headingRank);
@@ -689,7 +693,14 @@ trait GeneratesUserDoc
         // Off platform processes
         $section->addTitle($this->localize('headings.off_platform_processes'), $headingRank + 1);
         $section->addText($this->localize('common.off_platform_processes_text'));
-        $this->addLabelText($section, $this->localizeHeading('off_platform_process_information'), $user->off_platform_recruitment_processes);
+        $user->offPlatformRecruitmentProcesses->each(function ($process) use ($section, $headingRank) {
+            $title = is_null($process->department) ? $process->classification->displayName : $process->classification->displayName.' '.$this->localize('common.with').' '.$process->department->name[$this->lang] ?? '';
+            $platform = $process->platform === HiringPlatform::OTHER ? $process->other_platform : $this->localizeEnum($process->platform, HiringPlatform::class);
+
+            $section->addTitle($title, $headingRank + 2);
+            $this->addLabelText($section, $this->localizeHeading('process_number'), $process->process_number);
+            $this->addLabelText($section, $this->localizeHeading('platform'), $platform);
+        });
     }
 
     /**
