@@ -20,8 +20,13 @@ interface SidebarWrapperProps
   children: ReactNode;
 }
 
-const Wrapper = ({ children, scrollbar, ...rest }: SidebarWrapperProps) => (
-  <div className={sidebarWrapper({ scrollbar })} {...rest}>
+const Wrapper = ({
+  children,
+  className,
+  scrollbar,
+  ...rest
+}: SidebarWrapperProps) => (
+  <div className={sidebarWrapper({ scrollbar, class: className })} {...rest}>
     {children}
   </div>
 );
