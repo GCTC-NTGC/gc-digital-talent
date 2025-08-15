@@ -4,6 +4,7 @@ namespace App\Traits\Generator;
 
 use App\Enums\Language;
 use App\Enums\TalentNominationLateralMovementOption;
+use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Models\Classification;
 use App\Models\Department;
@@ -40,7 +41,6 @@ trait GeneratesNominationDoc
      */
     protected function nominee(Section $section, TalentNominationGroup $talentNominationGroup, $headingRank)
     {
-
         $nominatedFor = [];
         if ($talentNominationGroup->advancement_nomination_count > 0) {
             array_push($nominatedFor, "{$this->localizeHeading('advancement')} ({$talentNominationGroup->advancement_nomination_count})");
@@ -75,7 +75,7 @@ trait GeneratesNominationDoc
         if ($talentNominationGroup->nominations()->count() > 0) {
             foreach ($nominations as $nomination) {
 
-                $nomination->loadMissing('nominator', 'advancementReferenceFallbackClassification', 'advancementReferenceFallbackDepartment');
+                $nomination->loadMissing('nominator', 'submitter', 'advancementReferenceFallbackClassification', 'advancementReferenceFallbackDepartment');
 
                 if ($nomination->nominator) {
                     $nominatorFullName = $nomination->nominator->getFullName() ?? Lang::get('common.not_available', [], $this->lang);
@@ -95,11 +95,20 @@ trait GeneratesNominationDoc
 
                     $fallbackDepartment = Department::find($nomination->nominator_fallback_department_id);
                     $this->addLabelText($section, $this->localizeHeading('nominators_department'), $fallbackDepartment ? $fallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
-
                 }
 
-                $nominatorRelationship = $nomination->submitter_relationship_to_nominator ? $this->localizeEnum($nomination->submitter_relationship_to_nominator->name, TalentNominationSubmitterRelationshipToNominator::class) : $nomination->submitter_relationship_to_nominator_other;
-                $this->addLabelText($section, $this->localizeHeading('nominators_relationship'), $nominatorRelationship);
+                $nominatorRelationshipToNominee = $nomination->nominee_relationship_to_nominator ? $this->localizeEnum($nomination->nominee_relationship_to_nominator, TalentNominationNomineeRelationshipToNominator::class) : $nomination->nominee_relationship_to_nominator_other;
+                $this->addLabelText($section, $this->localizeHeading('nominators_relationship'), $nominatorRelationshipToNominee);
+
+                if ($nomination->submitter_relationship_to_nominator) {
+                    $this->addLabelText($section, $this->localizeHeading('submitter'), $nomination->submitter->getFullName() ?? Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('submitters_work_email'), $nomination->submitter->work_email ?? Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('submitters_classification'), $nomination->submitter->currentClassification ? $nomination->submitter->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('submitters_department'), $nomination->submitter->department ? $nomination->submitter->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
+
+                    $submitterRelationship = $nomination->submitter_relationship_to_nominator ? $this->localizeEnum($nomination->submitter_relationship_to_nominator->name, TalentNominationSubmitterRelationshipToNominator::class) : $nomination->submitter_relationship_to_nominator_other;
+                    $this->addLabelText($section, $this->localizeHeading('submitters_relationship'), $submitterRelationship);
+                }
 
                 $nominatedFor = [];
                 if ($nomination->nominate_for_advancement) {
