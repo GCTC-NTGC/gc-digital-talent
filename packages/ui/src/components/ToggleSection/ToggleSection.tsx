@@ -6,7 +6,7 @@ import {
   forwardRef,
   useCallback,
   useId,
-  ElementRef,
+  ComponentRef,
   ComponentPropsWithoutRef,
   HTMLAttributes,
   MouseEventHandler,
@@ -173,7 +173,7 @@ const OpenContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
  * SEE: https://www.radix-ui.com/docs/primitives/components/toggle
  */
 const Trigger = forwardRef<
-  ElementRef<typeof TogglePrimitive.Root>,
+  ComponentRef<typeof TogglePrimitive.Root>,
   Omit<ComponentPropsWithoutRef<typeof TogglePrimitive.Root>, "asChild">
 >(({ children, onPressedChange, ...toggleProps }, forwardedRef) => {
   const context = useToggleSectionContext();
