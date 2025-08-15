@@ -106,8 +106,11 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('submitters_classification'), $nomination->submitter->currentClassification ? $nomination->submitter->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('submitters_department'), $nomination->submitter->department ? $nomination->submitter->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
 
-                    $submitterRelationship = $nomination->submitter_relationship_to_nominator ? $this->localizeEnum($nomination->submitter_relationship_to_nominator->name, TalentNominationSubmitterRelationshipToNominator::class) : $nomination->submitter_relationship_to_nominator_other;
-                    $this->addLabelText($section, $this->localizeHeading('submitters_relationship'), $submitterRelationship);
+                    if ($nomination->submitter_relationship_to_nominator_other) {
+                        $this->addLabelText($section, $this->localizeHeading('submitters_relationship'), $nomination->submitter_relationship_to_nominator_other);
+                    } else {
+                        $this->addLabelText($section, $this->localizeHeading('submitters_relationship'), $this->localizeEnum($nomination->submitter_relationship_to_nominator->name, TalentNominationSubmitterRelationshipToNominator::class));
+                    }
                 }
 
                 $nominatedFor = [];
