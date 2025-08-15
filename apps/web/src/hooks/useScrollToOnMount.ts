@@ -6,7 +6,7 @@ interface UseScrollToOnMountOptions extends ScrollToOptions {
 
 function useScrollToOnMount<TRef extends HTMLElement>(
   opts?: UseScrollToOnMountOptions,
-): RefObject<TRef> {
+): RefObject<TRef | null> {
   const el = useRef<TRef>(null);
   useEffect(() => {
     const { preventAutoFocus, ...restOpts }: UseScrollToOnMountOptions = {
