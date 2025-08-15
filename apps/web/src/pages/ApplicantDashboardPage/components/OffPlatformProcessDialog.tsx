@@ -4,8 +4,9 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import uniqBy from "lodash/uniqBy";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -19,6 +20,8 @@ import {
   getFragment,
   graphql,
   HiringPlatform,
+  OffPlatformRecruitmentProcess,
+  UpdateOffPlatformRecruitmentProcessInput,
 } from "@gc-digital-talent/graphql";
 import {
   Combobox,
@@ -32,6 +35,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
 import { splitAndJoin } from "~/utils/nameUtils";
+import { getClassificationName } from "~/utils/poolUtils";
 
 export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment OffPlatformProcessDialog on Query {
@@ -73,8 +77,26 @@ const CreateOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const UpdateOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
+  mutation updateOffPlatformRecruitmentProcess(
+    $process: UpdateOffPlatformRecruitmentProcessInput!
+  ) {
+    updateOffPlatformRecruitmentProcess(process: $process) {
+      id
+    }
+  }
+`);
+
+const DeleteOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
+  mutation deleteOffPlatformRecruitmentProcess($id: UUID!) {
+    deleteOffPlatformRecruitmentProcess(id: $id) {
+      id
+    }
+  }
+`);
+
 interface FormValues {
-  processNumber: string;
+  processNumber: string | null | undefined;
   department: string;
   classificationGroup: string;
   classificationLevel: string;
@@ -82,16 +104,27 @@ interface FormValues {
   platformOther: string | null | undefined;
 }
 
-interface CreateOffPlatformProcessDialogProps {
+interface OffPlatformProcessDialogProps {
   query?: FragmentType<typeof OffPlatformProcessDialog_Fragment>;
+  process?: Omit<OffPlatformRecruitmentProcess, "user">;
 }
 
-const CreateOffPlatformProcessDialog = ({
+const OffPlatformProcessDialog = ({
   query,
-}: CreateOffPlatformProcessDialogProps) => {
+  process,
+}: OffPlatformProcessDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
-  const methods = useForm<FormValues>();
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      processNumber: process?.processNumber,
+      department: process?.department?.id,
+      classificationGroup: process?.classification?.group,
+      classificationLevel: process?.classification?.level?.toString(),
+      platform: process?.platform?.value,
+      platformOther: process?.platformOther,
+    },
+  });
   const { watch, handleSubmit, resetField, reset } = methods;
   const [groupSelection, platformSelection] = watch([
     "classificationGroup",
@@ -141,8 +174,14 @@ const CreateOffPlatformProcessDialog = ({
     })
     .sort((a, b) => a.value - b.value);
 
-  const [{ fetching }, executeMutation] = useMutation(
+  const [{ fetching: fetchingCreate }, executeCreateMutation] = useMutation(
     CreateOffPlatformProcess_Mutation,
+  );
+  const [{ fetching: fetchingUpdate }, executeUpdateMutation] = useMutation(
+    UpdateOffPlatformProcess_Mutation,
+  );
+  const [{ fetching: fetchingDelete }, executeDeleteMutation] = useMutation(
+    DeleteOffPlatformProcess_Mutation,
   );
 
   /**
@@ -178,16 +217,14 @@ const CreateOffPlatformProcessDialog = ({
   };
 
   const formValuesToSubmitData = (
-    userId: string,
     values: FormValues,
-  ): CreateOffPlatformRecruitmentProcessInput => {
+  ): Omit<CreateOffPlatformRecruitmentProcessInput, "userId"> => {
     const classificationId = classificationFormToId(
       values.classificationGroup,
       values.classificationLevel,
     );
 
     return {
-      userId,
       processNumber: values.processNumber,
       department: values.department ? { connect: values.department } : null,
       classification: classificationId
@@ -201,12 +238,30 @@ const CreateOffPlatformProcessDialog = ({
     };
   };
 
-  const requestMutation = async (
-    process: CreateOffPlatformRecruitmentProcessInput,
+  const createMutation = async (
+    input: CreateOffPlatformRecruitmentProcessInput,
   ) => {
-    const result = await executeMutation({ process });
+    const result = await executeCreateMutation({ process: input });
     if (result.data?.createOffPlatformRecruitmentProcess?.id) {
       return result.data.createOffPlatformRecruitmentProcess.id;
+    }
+    return Promise.reject(new Error(result.error?.toString()));
+  };
+
+  const updateMutation = async (
+    input: UpdateOffPlatformRecruitmentProcessInput,
+  ) => {
+    const result = await executeUpdateMutation({ process: input });
+    if (result.data?.updateOffPlatformRecruitmentProcess?.id) {
+      return result.data.updateOffPlatformRecruitmentProcess.id;
+    }
+    return Promise.reject(new Error(result.error?.toString()));
+  };
+
+  const deleteMutation = async (id: string) => {
+    const result = await executeDeleteMutation({ id });
+    if (result.data?.deleteOffPlatformRecruitmentProcess?.id) {
+      return result.data.deleteOffPlatformRecruitmentProcess.id;
     }
     return Promise.reject(new Error(result.error?.toString()));
   };
@@ -214,7 +269,41 @@ const CreateOffPlatformProcessDialog = ({
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    await requestMutation(formValuesToSubmitData(user?.id ?? "", formValues))
+    if (process) {
+      await updateMutation({
+        id: process.id,
+        ...formValuesToSubmitData(formValues),
+      })
+        .then(() => {
+          toast.success(
+            intl.formatMessage(commonMessages.accountUpdateSuccessful),
+          );
+          reset(formValues);
+          setOpen(false);
+        })
+        .catch(() => {
+          toast.error(intl.formatMessage(commonMessages.accountUpdateFailed));
+        });
+    } else {
+      await createMutation({
+        userId: user?.id ?? "",
+        ...formValuesToSubmitData(formValues),
+      })
+        .then(() => {
+          toast.success(
+            intl.formatMessage(commonMessages.accountUpdateSuccessful),
+          );
+          setOpen(false);
+        })
+        .catch(() => {
+          toast.error(intl.formatMessage(commonMessages.accountUpdateFailed));
+        });
+    }
+  };
+
+  const removeProcess = async () => {
+    if (!process) return;
+    await deleteMutation(process.id)
       .then(() => {
         toast.success(
           intl.formatMessage(commonMessages.accountUpdateSuccessful),
@@ -229,18 +318,59 @@ const CreateOffPlatformProcessDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button
-          color="primary"
-          mode="placeholder"
-          icon={PlusCircleIcon}
-          className="w-full"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Add an off-platform process",
-            id: "cik7wX",
-            description: "Button to open dialog to create off-platform process",
-          })}
-        </Button>
+        {process ? (
+          <IconButton
+            color="black"
+            icon={PencilSquareIcon}
+            className="mr-6 justify-self-end after:absolute after:inset-0 after:content-[''] xs:mr-9"
+            label={
+              process?.department
+                ? intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "{classification} with {departmentName} <hidden>off platform process</hidden>",
+                      id: "pBRz2q",
+                      description:
+                        "Title for an off platform recruitment process if department is given.",
+                    },
+                    {
+                      classification: process.classification
+                        ? getClassificationName(process.classification, intl)
+                        : intl.formatMessage(commonMessages.notFound),
+                      departmentName: process.department.name.localized,
+                    },
+                  )
+                : intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "{classification} <hidden>off platform process</hidden>",
+                      id: "QtDQkD",
+                      description:
+                        "Title for an off platform recruitment process if department is not given.",
+                    },
+                    {
+                      classification: process.classification
+                        ? getClassificationName(process.classification, intl)
+                        : intl.formatMessage(commonMessages.notFound),
+                    },
+                  )
+            }
+          />
+        ) : (
+          <Button
+            color="primary"
+            mode="placeholder"
+            icon={PlusCircleIcon}
+            className="w-full"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Add an off-platform process",
+              id: "cik7wX",
+              description:
+                "Button to open dialog to create off-platform process",
+            })}
+          </Button>
+        )}
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -355,8 +485,12 @@ const CreateOffPlatformProcessDialog = ({
                 </div>
               )}
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="primary">
-                  {fetching
+                <Button
+                  disabled={fetchingCreate || fetchingUpdate}
+                  type="submit"
+                  color="primary"
+                >
+                  {fetchingCreate || fetchingUpdate
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
@@ -365,6 +499,22 @@ const CreateOffPlatformProcessDialog = ({
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>
+                {process && (
+                  <Button
+                    type="button"
+                    color="error"
+                    mode="inline"
+                    onClick={removeProcess}
+                    disabled={fetchingDelete}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Remove process",
+                      id: "9x6s5N",
+                      description:
+                        "Label displayed on off platform process form for remove process button",
+                    })}
+                  </Button>
+                )}
               </Dialog.Footer>
             </form>
           </FormProvider>
@@ -374,4 +524,4 @@ const CreateOffPlatformProcessDialog = ({
   );
 };
 
-export default CreateOffPlatformProcessDialog;
+export default OffPlatformProcessDialog;

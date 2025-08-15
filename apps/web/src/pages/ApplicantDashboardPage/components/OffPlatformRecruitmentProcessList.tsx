@@ -12,8 +12,9 @@ import { Heading, HTMLEntity } from "@gc-digital-talent/ui";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 
-import { OffPlatformProcessDialog_Fragment } from "./CreateOffPlatformProcessDialog";
-import UpdateOffPlatformProcessDialog from "./UpdateOffPlatformProcessDialog";
+import OffPlatformProcessDialog, {
+  OffPlatformProcessDialog_Fragment,
+} from "./OffPlatformProcessDialog";
 
 const OffPlatformRecruitmentProcessList_Fragment = graphql(/* GraphQL */ `
   fragment OffPlatformRecruitmentProcessList on OffPlatformRecruitmentProcess {
@@ -126,7 +127,7 @@ const OffPlatformRecruitmentProcessList = ({
               </div>
             </div>
             {editDialogQuery && (
-              <UpdateOffPlatformProcessDialog
+              <OffPlatformProcessDialog
                 query={editDialogQuery}
                 process={process}
               />

@@ -19,9 +19,9 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
-import CreateOffPlatformProcessDialog from "./CreateOffPlatformProcessDialog";
 import DeleteOldOffPlatformProcessesDialog from "./DeleteOldOffPlatformProcessesDialog";
 import OffPlatformRecruitmentProcessList from "./OffPlatformRecruitmentProcessList";
+import OffPlatformProcessDialog from "./OffPlatformProcessDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {
@@ -231,7 +231,7 @@ const ReviewRecruitmentProcessPreviewList = ({
         processesQuery={user?.offPlatformRecruitmentProcesses ?? []}
         editDialogQuery={offPlatformProcessData}
       />
-      <CreateOffPlatformProcessDialog query={offPlatformProcessData} />
+      <OffPlatformProcessDialog query={offPlatformProcessData} />
     </>
   );
 };
