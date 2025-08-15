@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import uniqBy from "lodash/uniqBy";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -228,7 +229,12 @@ const CreateOffPlatformProcessDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="inline" size="sm">
+        <Button
+          color="primary"
+          mode="placeholder"
+          icon={PlusCircleIcon}
+          className="w-full"
+        >
           {intl.formatMessage({
             defaultMessage: "Add an off-platform process",
             id: "cik7wX",
