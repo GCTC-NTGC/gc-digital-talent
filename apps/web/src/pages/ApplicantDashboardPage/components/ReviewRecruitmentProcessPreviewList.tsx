@@ -9,6 +9,7 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
+  HTMLEntity,
   PreviewList,
   PreviewMetaData,
   Separator,
@@ -253,76 +254,83 @@ const ReviewRecruitmentProcessPreviewList = ({
         </div>
       ) : null}
       {user?.offPlatformRecruitmentProcesses?.length && (
-        <div className="mb-6">
-          <PreviewList.Root>
-            {user.offPlatformRecruitmentProcesses.map((recruitmentProcess) => {
-              const applicationMetadata: PreviewMetaData[] = [
-                {
-                  key: "platform",
-                  type: "text",
-                  children:
-                    recruitmentProcess.platform &&
-                    recruitmentProcess.platform.value !== HiringPlatform.Other
-                      ? recruitmentProcess.platform.label.localized
-                      : recruitmentProcess.platformOther,
-                },
-                {
-                  key: "processNumber",
-                  type: "text",
-                  children: recruitmentProcess.processNumber,
-                },
-              ];
+        <ul className="mb-6 flex flex-col">
+          {user.offPlatformRecruitmentProcesses.map((recruitmentProcess) => {
+            const classificationTitle = recruitmentProcess.classification
+              ? wrapAbbr(
+                  getClassificationName(
+                    recruitmentProcess.classification,
+                    intl,
+                  ),
+                  intl,
+                )
+              : intl.formatMessage(commonMessages.notFound);
 
-              return (
-                <PreviewList.Item
-                  key={recruitmentProcess.id}
-                  title={
+            return (
+              <li
+                className="group/item relative flex items-center justify-between gap-3 odd:bg-gray-100/30 dark:odd:bg-gray-700/50 dark:even:bg-gray-700/30"
+                key={recruitmentProcess.id}
+              >
+                <div className="ml-6 flex flex-col">
+                  <Heading
+                    level="h4"
+                    className="mt-3 mb-3 inline-block text-base group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black group-has-[a:hover,button:hover]/item:text-primary-600 xs:mb-0 lg:text-base dark:group-has-[a:hover,button:hover]/item:text-primary-200"
+                  >
                     <span>
-                      {recruitmentProcess.classification
-                        ? wrapAbbr(
-                            getClassificationName(
-                              recruitmentProcess.classification,
-                              intl,
-                            ),
-                            intl,
-                          )
-                        : intl.formatMessage(commonMessages.notFound)}
                       {recruitmentProcess.department
                         ? intl.formatMessage(
                             {
-                              defaultMessage: " with {departmentName}",
-                              id: "f2EJcm",
+                              defaultMessage:
+                                "{classification} with {departmentName} <hidden>off platform process</hidden>",
+                              id: "pBRz2q",
                               description:
-                                "Department an off platform recruitment process is associated with.",
+                                "Title for an off platform recruitment process if department is given.",
                             },
                             {
+                              classification: classificationTitle,
                               departmentName:
                                 recruitmentProcess.department.name.localized,
                             },
                           )
-                        : null}
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "<hidden> off platform process</hidden>",
-                        id: "vwB+J1",
-                        description:
-                          "Hidden text for off platform process name.",
-                      })}
+                        : intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "{classification} <hidden>off platform process</hidden>",
+                              id: "QtDQkD",
+                              description:
+                                "Title for an off platform recruitment process if department is not given.",
+                            },
+                            {
+                              classification: classificationTitle,
+                            },
+                          )}
                     </span>
-                  }
-                  metaData={applicationMetadata}
-                  action={
-                    <UpdateOffPlatformProcessDialog
-                      query={offPlatformProcessData}
-                      process={recruitmentProcess}
+                  </Heading>
+                  <div className="mb-3 flex flex-col flex-nowrap items-start gap-y-3 text-sm xs:flex-row xs:flex-wrap xs:items-center">
+                    <span className="text-gray-600 dark:text-gray-200">
+                      {recruitmentProcess.platform &&
+                      recruitmentProcess.platform.value !== HiringPlatform.Other
+                        ? recruitmentProcess.platform.label.localized
+                        : recruitmentProcess.platformOther}
+                    </span>
+                    <HTMLEntity
+                      name="&bull;"
+                      className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
+                      aria-hidden
                     />
-                  }
-                  headingAs="h4"
+                    <span className="text-gray-600 dark:text-gray-200">
+                      {recruitmentProcess.processNumber}
+                    </span>
+                  </div>
+                </div>
+                <UpdateOffPlatformProcessDialog
+                  query={offPlatformProcessData}
+                  process={recruitmentProcess}
                 />
-              );
-            })}
-          </PreviewList.Root>
-        </div>
+              </li>
+            );
+          })}
+        </ul>
       )}
       <CreateOffPlatformProcessDialog query={offPlatformProcessData} />
     </>

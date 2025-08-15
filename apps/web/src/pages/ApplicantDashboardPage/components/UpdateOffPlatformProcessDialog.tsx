@@ -3,8 +3,9 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import uniqBy from "lodash/uniqBy";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
-import { Dialog, Button, PreviewList } from "@gc-digital-talent/ui";
+import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -32,6 +33,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
 import { splitAndJoin } from "~/utils/nameUtils";
+import { getClassificationName } from "~/utils/poolUtils";
 
 import { OffPlatformProcessDialog_Fragment } from "./CreateOffPlatformProcessDialog";
 
@@ -243,14 +245,42 @@ const UpdateOffPlatformProcessDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          // TODO: Fix this label
-          label={intl.formatMessage({
-            defaultMessage: "Test",
-            id: "ENNRoo",
-            description:
-              "Text before recruitment process pool name in recruitment process preview list.",
-          })}
+        <IconButton
+          color="black"
+          icon={PencilSquareIcon}
+          className="mr-6 justify-self-end after:absolute after:inset-0 after:content-[''] xs:mr-9"
+          label={
+            process?.department
+              ? intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "{classification} with {departmentName} <hidden>off platform process</hidden>",
+                    id: "pBRz2q",
+                    description:
+                      "Title for an off platform recruitment process if department is given.",
+                  },
+                  {
+                    classification: process.classification
+                      ? getClassificationName(process.classification, intl)
+                      : intl.formatMessage(commonMessages.notFound),
+                    departmentName: process.department.name.localized,
+                  },
+                )
+              : intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "{classification} <hidden>off platform process</hidden>",
+                    id: "QtDQkD",
+                    description:
+                      "Title for an off platform recruitment process if department is not given.",
+                  },
+                  {
+                    classification: process.classification
+                      ? getClassificationName(process.classification, intl)
+                      : intl.formatMessage(commonMessages.notFound),
+                  },
+                )
+          }
         />
       </Dialog.Trigger>
       <Dialog.Content>
