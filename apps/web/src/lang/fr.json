@@ -10313,6 +10313,10 @@
     "defaultMessage": "Présentation d’un contenu dans les deux langues officielles du Canada",
     "description": "Title for the providing content section"
   },
+  "j8R/Mg": {
+    "defaultMessage": "Options de lieu de travail flexible",
+    "description": "Title for flexible work location options section on summary of filters section"
+  },
   "j9zYRY": {
     "defaultMessage": "Date d’expiration (UTC)",
     "description": "A date at which data will expire, in the UTC time standard"

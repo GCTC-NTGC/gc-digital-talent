@@ -594,4 +594,14 @@ class PoolCandidate extends Model
 
         return null;
     }
+
+    /**
+     * Flexible Work Locations filtering
+     */
+    public function scopeWhereFlexibleWorkLocationsIn($query, array $locations)
+    {
+        return $query->whereHas('user', function ($userQuery) use ($locations) {
+            $userQuery->whereFlexibleWorkLocationsIn($locations);
+        });
+    }
 }

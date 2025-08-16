@@ -86,7 +86,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
           level
         }
         positionDuration
-        locationPreferences {
+        flexibleWorkLocations {
           value
           label {
             localized
@@ -207,7 +207,7 @@ const defaultState = {
     promotionalMoveInterest: undefined,
     languageAbility: undefined,
     positionDuration: [],
-    locationPreferences: [],
+    flexibleWorkLocations: [],
     operationalRequirements: [],
     skills: [],
   },
@@ -569,13 +569,16 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     // Update in #13855
     columnHelper.accessor(
       ({ communityInterest: { user } }) =>
-        user?.locationPreferences
-          ? user?.locationPreferences
-              .map((locationPreference) => locationPreference?.label?.localized)
+        user?.flexibleWorkLocations
+          ? user?.flexibleWorkLocations
+              .map(
+                (flexibleWorkLocations) =>
+                  flexibleWorkLocations?.label?.localized,
+              )
               .join(", ")
           : "",
       {
-        id: "locationPreferences",
+        id: "flexibleWorkLocations",
         header: intl.formatMessage(talentRequestMessages.workLocation),
         enableColumnFilter: false,
         enableSorting: false,
@@ -613,6 +616,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         "positionDuration",
         "locationPreferences",
         "acceptedOperationalRequirements",
+        "flexibleWorkLocations",
       ]}
       isLoading={fetching}
       search={{
