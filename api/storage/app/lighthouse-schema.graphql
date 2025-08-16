@@ -1290,6 +1290,7 @@ type ApplicantFilter {
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
@@ -1560,6 +1561,7 @@ input ApplicantFilterInput {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   operationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
   pools: [IdInput]
@@ -1586,6 +1588,7 @@ input PoolCandidateSearchInput {
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
+  flexibleWorkLocations: [FlexibleWorkLocation]
 }
 
 input PoolCandidateSearchRequestInput {
@@ -2185,6 +2188,7 @@ input CreateApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   positionDuration: [PositionDuration]
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany

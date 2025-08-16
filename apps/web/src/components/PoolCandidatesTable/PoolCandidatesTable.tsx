@@ -387,6 +387,7 @@ const defaultState = {
       skills: [],
       hasDiploma: undefined,
       languageAbility: undefined,
+      flexibleWorkLocations: [],
     },
     poolCandidateStatus: [],
     priorityWeight: [],

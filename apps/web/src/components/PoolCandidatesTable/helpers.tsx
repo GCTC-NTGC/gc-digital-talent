@@ -35,6 +35,7 @@ import {
   PoolCandidate,
   FinalDecision,
   PoolAreaOfSelection,
+  FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -441,6 +442,8 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
     operationalRequirement:
       input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    flexibleWorkLocations:
+      input?.applicantFilter?.flexibleWorkLocations?.filter(notEmpty) ?? [],
     equity: input?.applicantFilter?.equity
       ? [
           ...(input.applicantFilter.equity.hasDisability
@@ -489,6 +492,12 @@ export function transformFormValuesToFilterState(
           return stringToEnumLocation(region);
         })
         .filter(notEmpty),
+      flexibleWorkLocations:
+        data.flexibleWorkLocations && data.flexibleWorkLocations.length > 0
+          ? data.flexibleWorkLocations.map(
+              (location) => location as FlexibleWorkLocation,
+            )
+          : undefined,
       equity: {
         ...(data.equity.includes("isWoman") && { isWoman: true }),
         ...(data.equity.includes("hasDisability") && { hasDisability: true }),
@@ -556,6 +565,8 @@ export const addSearchToPoolCandidateFilterInput = (
     // from fancy filter
     applicantFilter: {
       ...fancyFilterState?.applicantFilter,
+      flexibleWorkLocations:
+        fancyFilterState?.applicantFilter?.flexibleWorkLocations,
       hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
     },
     poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
