@@ -13237,6 +13237,10 @@
     "defaultMessage": "Incomplet",
     "description": "Simplified status label for a incomplete process advertisement or assessment"
   },
+  "xlx+3E": {
+    "defaultMessage": "Télécharger la mise en candidature",
+    "description": "Button label for downloading an individual talent nomination"
+  },
   "xm2o/k": {
     "defaultMessage": "Ces renseignements sont facultatifs",
     "description": "Null message on sections for edit pool page."
