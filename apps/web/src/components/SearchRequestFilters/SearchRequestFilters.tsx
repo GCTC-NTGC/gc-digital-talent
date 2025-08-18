@@ -5,7 +5,7 @@ import {
   uniqueItems,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { Chip, Chips } from "@gc-digital-talent/ui";
+import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
 import {
   getEmploymentDuration,
   getOperationalRequirement,
@@ -16,6 +16,8 @@ import {
 import {
   ApplicantFilter,
   Classification,
+  FlexibleWorkLocation,
+  LocalizedEnumString,
   Maybe,
   Pool,
   PoolCandidateFilter,
@@ -29,15 +31,19 @@ import {
   positionDurationToEmploymentDuration,
 } from "~/utils/searchRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import messages from "~/messages/profileMessages";
 
 import FilterBlock from "./FilterBlock";
+import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
 const ApplicantFilters = ({
   applicantFilter,
   selectedClassifications,
+  flexibleWorkLocationOptions,
 }: {
   applicantFilter?: Maybe<ApplicantFilter>;
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -119,15 +125,21 @@ const ApplicantFilters = ({
     applicantFilter?.workStreams?.flatMap((stream) => stream?.name),
   ).map((label) => getLocalizedName(label, intl));
 
-  const communityName: string =
-    applicantFilter && applicantFilter.community
-      ? getLocalizedName(applicantFilter.community.name, intl)
-      : intl.formatMessage({
-          defaultMessage: "(None selected)",
-          id: "+O6J4u",
-          description: "Text shown when the filter was not selected",
-        });
+  const communityName: string = applicantFilter?.community
+    ? getLocalizedName(applicantFilter.community.name, intl)
+    : intl.formatMessage({
+        defaultMessage: "(None selected)",
+        id: "+O6J4u",
+        description: "Text shown when the filter was not selected",
+      });
 
+  // not rendering ONSITE here
+  const flexibleLocationOptions = flexibleWorkLocationOptions.filter(
+    (loc) => loc.value !== (FlexibleWorkLocation.Onsite as string),
+  );
+  const filterFlexibleLocations = unpackMaybes(
+    applicantFilter?.flexibleWorkLocations?.map((loc) => loc?.value),
+  );
   return (
     <section className="grid gap-6 xs:grid-cols-2">
       <div>
@@ -221,12 +233,34 @@ const ApplicantFilters = ({
           )}
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Work location",
-              id: "3e965x",
+              defaultMessage: "On-site office",
+              id: "59TDoK",
               description:
-                "Title for work location section on summary of filters section",
+                "Legend for location preferences filter on search form.",
             })}
             content={workLocations}
+          />
+          <FilterBlock
+            title={intl.formatMessage(messages.flexibleWorkLocationOptions)}
+            content={
+              <Ul unStyled noIndent inside>
+                {flexibleLocationOptions.map((loc) => (
+                  <li key={loc.value}>
+                    <BoolCheckIcon
+                      value={filterFlexibleLocations.includes(
+                        loc.value as FlexibleWorkLocation,
+                      )}
+                      trueLabel={intl.formatMessage(commonMessages.interested)}
+                      falseLabel={intl.formatMessage(
+                        commonMessages.notInterested,
+                      )}
+                    >
+                      {loc.label.localized}
+                    </BoolCheckIcon>
+                  </li>
+                ))}
+              </Ul>
+            }
           />
           <FilterBlock
             title={intl.formatMessage(commonMessages.employmentEquity)}
@@ -251,11 +285,13 @@ const ApplicantFilters = ({
 interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  flexibleWorkLocationOptions: LocalizedEnumString[];
 }
 
 const SearchRequestFilters = ({
   filters,
   selectedClassifications,
+  flexibleWorkLocationOptions,
 }: SearchRequestFiltersProps) => {
   const intl = useIntl();
   let poolCandidateFilter;
@@ -264,6 +300,7 @@ const SearchRequestFilters = ({
       <ApplicantFilters
         applicantFilter={filters}
         selectedClassifications={selectedClassifications}
+        flexibleWorkLocationOptions={flexibleWorkLocationOptions}
       />
     );
   }
