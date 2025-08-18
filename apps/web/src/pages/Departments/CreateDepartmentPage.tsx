@@ -37,7 +37,7 @@ interface FormValues {
   departmentNumber: number;
   orgIdentifier: number;
   size: DepartmentSize;
-  departmentType: DepartmentType[];
+  departmentType?: DepartmentType[] | boolean;
 }
 
 export function formValuesToCreateInput({
