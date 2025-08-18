@@ -64,7 +64,7 @@ class CommunityInterestUserCsvGeneratorTest extends TestCase
         );
 
         $generator
-            ->setUserId($communityRecruiter->id)
+            ->setAuthenticatedUserId($communityRecruiter->id)
             ->setIds([$interest1->id, $interest2->id])
             ->setFilters([]);
 

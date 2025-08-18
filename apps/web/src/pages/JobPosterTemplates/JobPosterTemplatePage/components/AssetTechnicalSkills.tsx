@@ -57,8 +57,8 @@ const AssetTechnicalSkills = ({
       jobPosterTemplate,
     ).templateSkills?.filter(
       (templateSkill) =>
-        templateSkill.pivot?.type.value == PoolSkillType.Nonessential &&
-        templateSkill.skill.category.value == SkillCategory.Technical,
+        templateSkill.type.value == PoolSkillType.Nonessential &&
+        templateSkill.skill?.category.value == SkillCategory.Technical,
     ) ?? [];
 
   // the accordion is made for PoolSkills, not JobPosterTemplateSkills

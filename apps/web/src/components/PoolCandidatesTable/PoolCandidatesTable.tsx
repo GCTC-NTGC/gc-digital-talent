@@ -48,6 +48,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -74,7 +75,9 @@ import {
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
-import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
+import PoolCandidateFilterDialog, {
+  PoolCandidateFilterDialogProps,
+} from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
   JobPlacementDialog_Fragment,
@@ -215,12 +218,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           finalDecision {
             value
           }
+          assessmentStep
           assessmentStatus {
             assessmentStepStatuses {
               step
             }
             overallAssessmentStatus
-            currentStep
           }
           pool {
             id
@@ -253,6 +256,17 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               value
             }
             screeningQuestionsCount
+            assessmentSteps {
+              sortOrder
+              title {
+                localized
+              }
+              type {
+                label {
+                  localized
+                }
+              }
+            }
           }
           finalDecision {
             value
@@ -261,8 +275,8 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
+          assessmentStep
           assessmentStatus {
-            currentStep
             overallAssessmentStatus
           }
           user {
@@ -385,6 +399,7 @@ const defaultState = {
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
+    assessmentSteps: [],
   },
 };
 
@@ -394,12 +409,14 @@ const PoolCandidatesTable = ({
   title,
   hidePoolFilter,
   doNotUseBookmark = false,
+  availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
+  availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -800,16 +817,59 @@ const PoolCandidatesTable = ({
         cell: ({
           row: {
             original: {
-              poolCandidate: { finalDecision, assessmentStatus },
+              poolCandidate: {
+                finalDecision,
+                assessmentStatus,
+                assessmentStep,
+              },
             },
           },
-        }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
+        }) =>
+          finalDecisionCell(
+            finalDecision,
+            assessmentStep,
+            assessmentStatus,
+            intl,
+          ),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { assessmentStep } }) => assessmentStep,
+      {
+        id: "assessmentStep",
+        header: intl.formatMessage(commonMessages.currentStep),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: {
+                assessmentStep,
+                pool: { assessmentSteps },
+              },
+            },
+          },
+        }) => {
+          const step = assessmentSteps?.find(
+            (s) => s?.sortOrder === assessmentStep,
+          );
+          const stepName =
+            // NOTE: We do want to pass on empty strings
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            step?.title?.localized || step?.type?.label?.localized;
+          return stepName
+            ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                stepNumber: assessmentStep,
+              }) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                stepName
+            : "";
+        },
       },
     ),
     columnHelper.accessor(
       ({
         poolCandidate: {
           submittedAt,
+          assessmentStep,
           assessmentStatus,
           removedAt,
           finalDecisionAt,
@@ -824,6 +884,7 @@ const PoolCandidatesTable = ({
           finalDecisionAt,
           finalDecision?.value,
           areaOfSelection?.value,
+          assessmentStep,
           assessmentStatus,
           screeningQuestionsCount,
           intl,
@@ -833,6 +894,17 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.candidateFacingStatus),
         enableSorting: false,
         enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { department },
+        },
+      }) => department?.name.localized,
+      {
+        id: "department",
+        header: intl.formatMessage(tableMessages.employeeDepartment),
       },
     ),
     columnHelper.accessor(
@@ -963,17 +1035,6 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({
-        poolCandidate: {
-          user: { department },
-        },
-      }) => department?.name.localized,
-      {
-        id: "department",
-        header: intl.formatMessage(tableMessages.employeeDepartment),
-      },
-    ),
-    columnHelper.accessor(
       ({ poolCandidate: { submittedAt } }) => accessors.date(submittedAt),
       {
         id: "dateReceived",
@@ -1030,6 +1091,7 @@ const PoolCandidatesTable = ({
           <PoolCandidateFilterDialog
             query={tableData}
             {...{ hidePoolFilter }}
+            availableSteps={availableSteps}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolCandidateSearchInputToFormValues(
               initialFilterInput,

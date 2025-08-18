@@ -223,7 +223,7 @@ const ReviewTalentRequestDialogContent = ({
           <Accordion.Item value="skills">
             <Accordion.Trigger>
               <span>
-                {intl.formatMessage(talentRequestMessages.skillRequirements)}
+                {intl.formatMessage(commonMessages.skillRequirements)}
               </span>
               <span
                 className="font-normal"

@@ -69,8 +69,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
       }
+      assessmentStep
       assessmentStatus {
-        currentStep
         assessmentStepStatuses {
           decision
           step
@@ -150,6 +150,7 @@ export const ViewPoolCandidate = ({
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
+    poolCandidate.assessmentStep,
     poolCandidate.assessmentStatus,
     intl,
   );
@@ -222,7 +223,7 @@ export const ViewPoolCandidate = ({
         additionalContent={<ProfileDetails userQuery={poolCandidate.user} />}
       />
       <AdminContentWrapper table overflowScrollbar>
-        <Sidebar.Wrapper>
+        <Sidebar.Wrapper scrollbar>
           <Sidebar.Sidebar scrollbar>
             <MoreActions
               poolCandidate={poolCandidate}
@@ -257,7 +258,7 @@ export const ViewPoolCandidate = ({
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <div className="mb-6 sm:pt-18">
+            <div className="mb-6">
               <Heading
                 icon={ExclamationTriangleIcon}
                 color="warning"
@@ -265,10 +266,7 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable
-                poolCandidateQuery={poolCandidate}
-                experiences={nonEmptyExperiences}
-              />
+              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (

@@ -7,9 +7,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import applicationMessages from "~/messages/applicationMessages";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import ResultsDetails from "./ResultsDetails";
 import AssessmentResults from "./AssessmentResults";
@@ -57,8 +57,8 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
       }
       hasPriorityEntitlement
     }
+    assessmentStep
     assessmentStatus {
-      currentStep
       assessmentStepStatuses {
         decision
         step
@@ -140,9 +140,9 @@ const AssessmentStepTracker = ({
               intl,
             );
             const stepNumber = intl.formatMessage(
-              applicationMessages.numberedStep,
+              poolCandidateMessages.assessmentStepNumber,
               {
-                stepOrdinal: index + 1,
+                stepNumber: index + 1,
               },
             );
 

@@ -86,7 +86,7 @@ const ClassificationInput = ({
   }, [currentClassification, name, setValue]);
 
   return (
-    <div className="grid gap-6 sm:grid-cols-[4fr_1fr]">
+    <>
       <HiddenInput name={name} />
       <Combobox
         id={groupName}
@@ -104,7 +104,7 @@ const ClassificationInput = ({
         options={levelOptions}
         doNotSort
       />
-    </div>
+    </>
   );
 };
 

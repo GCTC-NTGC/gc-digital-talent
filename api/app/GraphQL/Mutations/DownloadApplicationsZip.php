@@ -32,7 +32,7 @@ final class DownloadApplicationsZip
                 lang: App::getLocale(),
             );
 
-            $generator->setUserId($user->id);
+            $generator->setAuthenticatedUserId($user->id);
 
             GenerateUserFile::dispatch($generator, $user);
 

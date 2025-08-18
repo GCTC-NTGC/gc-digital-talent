@@ -53,7 +53,7 @@ class WorkExperienceFactory extends Factory
                     null : $this->faker->bs();
             },
             'start_date' => $startDate,
-            'end_date' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate) : null,
+            'end_date' => $this->faker->optional()->dateTimeBetween($startDate),
             'details' => $this->faker->text(),
             'employment_category' => $this->faker->randomElement(EmploymentCategory::cases())->name,
             'ext_size_of_organization' => function (array $attributes) {

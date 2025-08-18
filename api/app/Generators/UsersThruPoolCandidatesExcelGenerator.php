@@ -169,7 +169,7 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
         $this->applyFilters($query, []);
 
         /** @var Builder<PoolCandidate> $query */
-        $query->whereAuthorizedToView(['userId' => $this->userId])->whereNotDraft();
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])->whereNotDraft();
 
         // Deduplicate pool candidate (users) in query
         $query->distinct('user_id')->orderBy('user_id');

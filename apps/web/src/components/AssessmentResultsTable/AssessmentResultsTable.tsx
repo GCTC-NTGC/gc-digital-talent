@@ -11,7 +11,6 @@ import {
   graphql,
   PoolSkillType,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
-  Experience,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
@@ -55,8 +54,8 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    assessmentStep
     assessmentStatus {
-      currentStep
       overallAssessmentStatus
     }
     assessmentResults {
@@ -198,17 +197,16 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    ...ScreeningDecisionDialog
   }
 `);
 
 interface AssessmentResultsTableProps {
   poolCandidateQuery: FragmentType<typeof AssessmentResultsTable_Fragment>;
-  experiences: Omit<Experience, "user">[];
 }
 
 const AssessmentResultsTable = ({
   poolCandidateQuery,
-  experiences,
 }: AssessmentResultsTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -296,27 +294,20 @@ const AssessmentResultsTable = ({
         poolCandidate?.assessmentStatus,
       );
 
-      const header = columnHeader(
-        getLocalizedName(assessmentStep.type?.label, intl),
-        status,
-        type,
-        intl,
-      );
+      const typeName = getLocalizedName(assessmentStep.type?.label, intl);
+      const header = columnHeader(typeName, status, type, intl);
 
       return [
         ...accumulator,
         buildColumn({
           id,
           header,
-          poolCandidate,
-          experiences,
-          assessmentStep: {
-            id: assessmentStep.id,
-            type: assessmentStep.type,
-            title: assessmentStep.title,
-            poolSkills: assessmentStep.poolSkills,
-          },
+          altHeader: typeName,
           intl,
+          dialogProps: {
+            query: poolCandidate,
+            stepId: assessmentStep.id,
+          },
         }),
       ];
     },
@@ -334,6 +325,9 @@ const AssessmentResultsTable = ({
         description:
           "Header for requirement section of assessment results table",
       }),
+      meta: {
+        isRowHeader: true,
+      },
       cell: ({ row: { original } }) =>
         cells.jsx(
           <span>

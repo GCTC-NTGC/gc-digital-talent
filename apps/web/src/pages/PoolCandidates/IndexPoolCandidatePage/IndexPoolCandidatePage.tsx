@@ -9,6 +9,7 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
@@ -24,6 +25,19 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
     pool(id: $id) {
       id
+      assessmentSteps {
+        id
+        sortOrder
+        title {
+          localized
+        }
+        type {
+          value
+          label {
+            localized
+          }
+        }
+      }
     }
   }
 `);
@@ -55,8 +69,8 @@ export const IndexPoolCandidatePage = () => {
     <>
       <SEO
         title={intl.formatMessage({
-          defaultMessage: "Talent placement",
-          id: "0YpfAG",
+          defaultMessage: "Candidates",
+          id: "YFEaeG",
           description: "Title for candidates tab for a process",
         })}
         description={formattedSubTitle}
@@ -70,6 +84,7 @@ export const IndexPoolCandidatePage = () => {
               suspendedStatus: CandidateSuspendedFilter.Active,
               expiryStatus: CandidateExpiryFilter.Active,
             }}
+            availableSteps={unpackMaybes(currentPool?.assessmentSteps)}
             currentPool={
               currentPool
                 ? {

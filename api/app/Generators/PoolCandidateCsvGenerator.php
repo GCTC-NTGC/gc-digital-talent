@@ -357,14 +357,14 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                         } else {
                             if ($candidate->computed_assessment_status['overallAssessmentStatus'] === OverallAssessmentStatus::DISQUALIFIED->name) {
                                 $decision = Lang::get('final_decision.disqualified_pending', [], $this->lang);
-                            } elseif ($candidate->computed_assessment_status['currentStep'] === null) {
+                            } elseif ($candidate->assessment_step === null) {
                                 $decision = Lang::get('final_decision.qualified_pending', [], $this->lang);
                             } else {
                                 $decision = Lang::get('final_decision.to_assess', [], $this->lang)
                                             .$this->colon()
                                             .Lang::get('common.step', [], $this->lang)
                                             .' '
-                                            .$candidate->computed_assessment_status['currentStep'];
+                                            .$candidate->assessment_step;
                             }
                         }
                     } else {
@@ -612,7 +612,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         /** @var Builder<\App\Models\PoolCandidate> $query */
-        $query->whereAuthorizedToView(['userId' => $this->userId])->whereNotDraft();
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])->whereNotDraft();
 
         return $query;
     }

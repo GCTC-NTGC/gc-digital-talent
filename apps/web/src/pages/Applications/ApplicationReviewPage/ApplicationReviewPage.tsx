@@ -12,7 +12,11 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -32,6 +36,7 @@ import {
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillTree from "~/components/SkillTree/SkillTree";
 import processMessages from "~/messages/processMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -72,8 +77,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
     ],
@@ -347,11 +352,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         </div>
       </ReviewSection>
       <ReviewSection
-        title={intl.formatMessage({
-          defaultMessage: "Skill requirements",
-          id: "tON7JL",
-          description: "Title for skill requirements",
-        })}
+        title={intl.formatMessage(commonMessages.skillRequirements)}
         path={editPaths.skills}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit skill requirements",

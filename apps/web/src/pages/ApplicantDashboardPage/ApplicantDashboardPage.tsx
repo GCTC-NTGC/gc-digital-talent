@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   Pending,
@@ -43,6 +43,38 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     isVerifiedGovEmployee
     hasPriorityEntitlement
     priorityNumber
+    telephone
+    email
+    preferredLang {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        localized
+      }
+    }
+    citizenship {
+      value
+      label {
+        localized
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        localized
+      }
+    }
     employeeProfile {
       ...CareerDevelopmentTaskCard
       lateralMoveInterest
@@ -183,8 +215,8 @@ export const DashboardPage = ({
     governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
     languageInformationSectionHasEmptyRequiredFields(currentUser) ||
     workPreferencesSectionHasEmptyRequiredFields(currentUser)
-      ? "complete"
-      : "incomplete";
+      ? "incomplete"
+      : "complete";
 
   const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
     currentUser?.employeeProfile ?? {},
@@ -400,6 +432,10 @@ export const DashboardPage = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["PoolCandidateSearchRequest"],
+};
+
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
   query ApplicantDashboard {
     me {
@@ -414,6 +450,7 @@ export const ApplicantDashboardPageApi = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
+    context,
   });
 
   return (

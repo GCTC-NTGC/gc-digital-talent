@@ -24,8 +24,9 @@ class SkillFamilySeeder extends Seeder
                 }
             }
 
-            You can use VS Code extension "Thinker.sort-json" to sort the results for a good commit diff.
+            Sort by key. You can use VS Code extension "Thinker.sort-json" to sort the results for a good commit diff.
         */
+
         $fileContents = file_get_contents(base_path('database/seeders/SkillFamilySeeder.data.json'));
         if (! $fileContents) {
             throw new Exception('Failed to load JSON file');
@@ -35,17 +36,6 @@ class SkillFamilySeeder extends Seeder
             throw new Exception('Failed to decode JSON file');
         }
         $models = $fileJson->data->skillFamilies;
-
-        // Check for duplicate keys
-        $keys = array_map(
-            function ($model) {
-                return $model->key;
-            },
-            $models
-        );
-        if (count(array_unique($keys)) != count($models)) {
-            throw new Exception('The keys are not unique');
-        }
 
         // Iterate the data to load it
         foreach ($models as $model) {

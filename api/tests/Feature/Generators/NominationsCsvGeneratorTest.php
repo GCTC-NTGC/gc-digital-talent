@@ -79,7 +79,7 @@ class NominationsCsvGeneratorTest extends TestCase
         );
 
         $generator
-            ->setUserId($talentCoordinator->id)
+            ->setAuthenticatedUserId($talentCoordinator->id)
             ->setIds([$nominationGroup1->id, $nominationGroup2->id]);
 
         $generator->generate()->write();

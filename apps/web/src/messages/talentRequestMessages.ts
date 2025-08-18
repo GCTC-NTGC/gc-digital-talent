@@ -63,11 +63,6 @@ const messages = defineMessages({
     id: "LyUTqa",
     description: "Education requirement title",
   },
-  skillRequirements: {
-    defaultMessage: "Skill requirements",
-    id: "h2h7Df",
-    description: "Title for the skills section of a pool advertisement",
-  },
   equityGroups: {
     defaultMessage: "Employment equity groups",
     id: "m3qn9l",

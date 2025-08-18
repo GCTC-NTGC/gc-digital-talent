@@ -32,7 +32,7 @@ class PersonalExperienceFactory extends Factory
             'title' => $this->faker->jobTitle(),
             'description' => $this->faker->text(),
             'start_date' => $startDate,
-            'end_date' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate) : null,
+            'end_date' => $this->faker->optional()->dateTimeBetween($startDate),
             'details' => $this->faker->text(),
         ];
     }

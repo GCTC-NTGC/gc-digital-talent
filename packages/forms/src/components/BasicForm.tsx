@@ -28,6 +28,7 @@ import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
 import { flattenErrors } from "../utils";
 import { FieldLabels } from "../types";
+import { FormLabelsProvider } from "./FormLabelsProvider";
 
 /**
  * Basic Form Props
@@ -155,21 +156,25 @@ function BasicForm<TFieldValues extends FieldValues>({
   }, [cachedValues, options]);
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit, handleInvalidSubmit)}>
-        <ErrorSummary
-          ref={errorSummaryRef}
-          labels={labels}
-          show={showErrorSummary}
-        />
-        <UnsavedChanges
-          labels={labels}
-          show={!!(cacheKey && isDirty && showUnsavedChanges)}
-          onDismiss={() => setShowUnsavedChanges(false)}
-        />
-        {children}
-      </form>
-    </FormProvider>
+    <FormLabelsProvider>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={methods.handleSubmit(handleSubmit, handleInvalidSubmit)}
+        >
+          <ErrorSummary
+            ref={errorSummaryRef}
+            labels={labels}
+            show={showErrorSummary}
+          />
+          <UnsavedChanges
+            labels={labels}
+            show={!!(cacheKey && isDirty && showUnsavedChanges)}
+            onDismiss={() => setShowUnsavedChanges(false)}
+          />
+          {children}
+        </form>
+      </FormProvider>
+    </FormLabelsProvider>
   );
 }
 

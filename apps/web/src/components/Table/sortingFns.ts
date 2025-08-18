@@ -25,3 +25,24 @@ const compareNormalized = (strA: string, strB: string): number => {
 export const normalizedText: SortingFn<any> = (rowA, rowB, columnId) => {
   return compareNormalized(rowA.getValue(columnId), rowB.getValue(columnId));
 };
+
+/**
+ * Numeric sort
+ *
+ * Basic sorting by numeric value
+ *
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+const compareNumeric = (a: number, b: number): number => {
+  if (a === b) return 0;
+
+  return a > b ? 1 : -1;
+};
+
+// Note: any required for react-table
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const numeric: SortingFn<any> = (rowA, rowB, columnId) => {
+  return compareNumeric(rowA.getValue(columnId), rowB.getValue(columnId));
+};

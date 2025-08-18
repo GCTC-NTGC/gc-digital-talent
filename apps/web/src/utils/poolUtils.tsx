@@ -272,7 +272,7 @@ export const useAdminPoolPages = (
         },
         crumbs: [
           {
-            url: paths.adminDashboard(),
+            url: paths.home(),
             label: intl.formatMessage(navigationMessages.home),
           },
           {
@@ -313,7 +313,7 @@ export const useAdminPoolPages = (
         },
         crumbs: [
           {
-            url: paths.adminDashboard(),
+            url: paths.home(),
             label: intl.formatMessage(navigationMessages.home),
           },
           {
@@ -353,8 +353,8 @@ export const useAdminPoolPages = (
       {
         icon: UserGroupIcon,
         title: intl.formatMessage({
-          defaultMessage: "Talent placement",
-          id: "0YpfAG",
+          defaultMessage: "Candidates",
+          id: "YFEaeG",
           description: "Title for candidates tab for a process",
         }),
         link: {

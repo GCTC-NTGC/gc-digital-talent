@@ -20,6 +20,7 @@ import {
   isRODStatus,
 } from "~/utils/poolCandidate";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import FinalDecisionDialog from "./FinalDecisionDialog";
@@ -54,9 +55,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     isBookmarked
-    assessmentStatus {
-      currentStep
-    }
+    assessmentStep
     removalReason {
       label {
         localized
@@ -110,10 +109,9 @@ const MoreActions = ({
 
   const [{ data }] = useQuery({ query: MoreActions_Query });
 
-  const currentStep = poolCandidate.assessmentStatus?.currentStep
+  const currentStep = poolCandidate.assessmentStep
     ? poolCandidate.pool.assessmentSteps?.find(
-        (step) =>
-          step?.sortOrder === poolCandidate.assessmentStatus?.currentStep,
+        (step) => step?.sortOrder === poolCandidate.assessmentStep,
       )
     : null;
 
@@ -126,21 +124,16 @@ const MoreActions = ({
 
   return (
     <div className="mb-3 flex flex-col gap-3">
-      <Card space="sm" className="flex flex-col gap-3">
+      <Card space="md" className="flex flex-col gap-3">
         <div>
           <Heading level="h2" size="h6" className="mt-0">
             {candidateName}
           </Heading>
           {currentStepName && (
             <p className="text-gray-600 dark:text-gray-200">
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Step {stepNumber}",
-                  id: "XofAAo",
-                  description: "Label for a candidates current assessment step",
-                },
-                { stepNumber: poolCandidate.assessmentStatus?.currentStep },
-              ) +
+              {intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                stepNumber: poolCandidate.assessmentStep,
+              }) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 currentStepName}
             </p>

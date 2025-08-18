@@ -9,6 +9,7 @@ import {
   CardFlat,
   Container,
   Heading,
+  Image,
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
@@ -17,9 +18,9 @@ import { getLocale } from "@gc-digital-talent/i18n";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import image1 from "~/assets/img/it-training-fund-1.webp";
-import image2 from "~/assets/img/it-training-fund-2.webp";
-import image3 from "~/assets/img/it-training-fund-3.webp";
+import image1 from "~/assets/img/person-looking-at-laptop-external-monitor.webp";
+import image2 from "~/assets/img/person-in-plaid-smiling.webp";
+import image3 from "~/assets/img/person-typing-at-computer.webp";
 import SEO from "~/components/SEO/SEO";
 import pageTitles from "~/messages/pageTitles";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -258,7 +259,14 @@ export const Component = () => {
               </Heading>
             </div>
             <div className="flex grow flex-col justify-between">
-              <img src={image1} alt="" className="hidden xs:block" />
+              <Image
+                width={400}
+                height={300}
+                loading="lazy"
+                src={image1}
+                alt=""
+                className="hidden xs:block"
+              />
               <div className="flex grow flex-col gap-6 p-6">
                 <Ul space="xl" noIndent>
                   <li>
@@ -318,7 +326,14 @@ export const Component = () => {
             </div>
             <div className="flex grow flex-col justify-between">
               <div>
-                <img src={image2} alt="" className="hidden xs:block" />
+                <Image
+                  width={400}
+                  height={300}
+                  loading="lazy"
+                  src={image2}
+                  alt=""
+                  className="hidden xs:block"
+                />
                 <div className="flex grow flex-col gap-6 p-6">
                   <Ul space="xl" noIndent>
                     <li>
@@ -391,7 +406,14 @@ export const Component = () => {
               </Heading>
             </div>
             <div className="flex grow flex-col justify-between">
-              <img src={image3} alt="" className="hidden xs:block" />
+              <Image
+                width={400}
+                height={300}
+                loading="lazy"
+                src={image3}
+                alt=""
+                className="hidden xs:block"
+              />
               <div className="flex grow flex-col gap-6 p-6">
                 <Ul space="xl" noIndent>
                   <li>

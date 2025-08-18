@@ -13,6 +13,8 @@ abstract class ZipGenerator extends FileGenerator implements FileGeneratorInterf
 
     protected string $extension = 'zip';
 
+    protected $failed;
+
     public function __construct(public string $fileName, protected ?string $dir)
     {
         parent::__construct($fileName, $dir);
@@ -21,6 +23,21 @@ abstract class ZipGenerator extends FileGenerator implements FileGeneratorInterf
     protected function addFile(FileGeneratorInterface $fileGenerator)
     {
         $this->files[$fileGenerator->getFileNameWithExtension()] = $fileGenerator->getPath();
+    }
+
+    protected function addFailedFile(string $message)
+    {
+        $disk = $this->getDisk();
+        if (! $this->failed) {
+            $this->failed = sprintf(
+                '%s%s-failed.txt',
+                $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '',
+                DIRECTORY_SEPARATOR.$this->getFileName()
+            );
+            $disk->put($this->failed, $message);
+        } else {
+            $disk->append($this->failed, $message);
+        }
     }
 
     protected function incrementFileName(FileGeneratorInterface $fileGenerator): FileGeneratorInterface
@@ -44,11 +61,16 @@ abstract class ZipGenerator extends FileGenerator implements FileGeneratorInterf
     public function write()
     {
         try {
-            $zip = new ZipArchive();
+            $zip = new ZipArchive;
             $zipPath = $this->getPath();
             if ($zip->open($zipPath, ZipArchive::CREATE)) {
                 foreach ($this->files as $name => $path) {
                     $zip->addFile($path, $name, 0, 0, ZipArchive::CM_STORE);
+                }
+                if ($this->failed) {
+                    $disk = $this->getDisk();
+                    $failedPath = $disk->path($this->failed);
+                    $zip->addFile($failedPath, 'failed.txt', 0, 0, ZipArchive::CM_STORE);
                 }
                 $zip->close();
             }

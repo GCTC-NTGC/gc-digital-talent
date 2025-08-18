@@ -5,6 +5,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftEndOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
+import { appInsights } from "@gc-digital-talent/app-insights";
 import {
   Accordion,
   Container,
@@ -20,14 +21,14 @@ import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import step1Image from "~/assets/img/sign-in-steps-1.webp";
-import step2Image from "~/assets/img/sign-in-steps-2.webp";
-import step3Image from "~/assets/img/sign-in-steps-3.webp";
-import step4Image from "~/assets/img/sign-in-steps-4.webp";
-import step1ImageDark from "~/assets/img/sign-in-steps-1-dark.webp";
-import step2ImageDark from "~/assets/img/sign-in-steps-2-dark.webp";
-import step3ImageDark from "~/assets/img/sign-in-steps-3-dark.webp";
-import step4ImageDark from "~/assets/img/sign-in-steps-4-dark.webp";
+import step1Image from "~/assets/img/sign-in-step-1-light.webp";
+import step2Image from "~/assets/img/sign-in-step-2-light.webp";
+import step3Image from "~/assets/img/sign-in-step-3-light.webp";
+import step4Image from "~/assets/img/sign-in-step-4-light.webp";
+import step1ImageDark from "~/assets/img/sign-in-step-1-dark.webp";
+import step2ImageDark from "~/assets/img/sign-in-step-2-dark.webp";
+import step3ImageDark from "~/assets/img/sign-in-step-3-dark.webp";
+import step4ImageDark from "~/assets/img/sign-in-step-4-dark.webp";
 import Instructions from "~/components/Instructions";
 import gckeyMessages from "~/messages/gckeyMessages";
 
@@ -107,7 +108,29 @@ export const Component = () => {
                   "Instructions on what to do if user doesn't know if they have a GCKey",
               })}
             </p>
-            <Link href={loginPath} mode="solid" color="primary" external>
+            <Link
+              href={loginPath}
+              mode="solid"
+              color="primary"
+              external
+              onClick={() => {
+                if (appInsights) {
+                  const userId = appInsights.context?.user?.id;
+                  appInsights.trackEvent(
+                    { name: "GCKey Login Initiated" },
+                    {
+                      aiUserId: userId,
+                      pageUrl: window.location.href,
+                      path: window.location.pathname,
+                      timestamp: new Date().toISOString(),
+                      userAgent: navigator.userAgent,
+                      referrer: document.referrer || "none",
+                      gcKeyStatus: "initiated",
+                    },
+                  );
+                }
+              }}
+            >
               {intl.formatMessage({
                 defaultMessage: "Continue to GCKey and sign in",
                 id: "4sLCWZ",
@@ -137,7 +160,12 @@ export const Component = () => {
               })}
             </Heading>
             <Instructions.List>
-              <Instructions.Step image={step1Image} imageDark={step1ImageDark}>
+              <Instructions.Step
+                img={{
+                  src: step1Image,
+                  darkSrc: step1ImageDark,
+                }}
+              >
                 {intl.formatMessage({
                   defaultMessage:
                     "1. Sign in with your username and password. Remember, <strong>your username is separate from your email address</strong>.",
@@ -145,7 +173,12 @@ export const Component = () => {
                   description: "Text for first sign in step.",
                 })}
               </Instructions.Step>
-              <Instructions.Step image={step2Image} imageDark={step2ImageDark}>
+              <Instructions.Step
+                img={{
+                  src: step2Image,
+                  darkSrc: step2ImageDark,
+                }}
+              >
                 {intl.formatMessage({
                   defaultMessage:
                     "2. <strong>Open the authenticator app</strong> on your device.",
@@ -153,7 +186,12 @@ export const Component = () => {
                   description: "Text for second sign in step.",
                 })}
               </Instructions.Step>
-              <Instructions.Step image={step3Image} imageDark={step3ImageDark}>
+              <Instructions.Step
+                img={{
+                  src: step3Image,
+                  darkSrc: step3ImageDark,
+                }}
+              >
                 {intl.formatMessage({
                   defaultMessage:
                     "3. Enter your <strong>unique one-time six-digit code</strong> from your <strong>authenticator app</strong> into the verification bar.",
@@ -162,9 +200,11 @@ export const Component = () => {
                 })}
               </Instructions.Step>
               <Instructions.Step
-                image={step4Image}
-                imageDark={step4ImageDark}
                 includeArrow={false}
+                img={{
+                  src: step4Image,
+                  darkSrc: step4ImageDark,
+                }}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -401,7 +441,29 @@ export const Component = () => {
         )}
         <Separator />
         <div className="flex items-center gap-6">
-          <Link href={loginPath} mode="solid" color="primary" external>
+          <Link
+            href={loginPath}
+            mode="solid"
+            color="primary"
+            external
+            onClick={() => {
+              if (appInsights) {
+                const userId = appInsights.context?.user?.id;
+                appInsights.trackEvent(
+                  { name: "GCKey Login Initiated" },
+                  {
+                    aiUserId: userId,
+                    pageUrl: window.location.href,
+                    path: window.location.pathname,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    referrer: document.referrer || "none",
+                    gcKeyStatus: "initiated",
+                  },
+                );
+              }
+            }}
+          >
             {intl.formatMessage({
               defaultMessage: "Continue to GCKey and sign in",
               id: "4sLCWZ",

@@ -3,6 +3,7 @@ import { UniqueEnforcer } from "enforce-unique";
 
 import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 
+import toLocalizedString from "./fakeLocalizedString";
 import staticSkills from "./skills.json";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
@@ -21,14 +22,10 @@ const generateSkill = (
   return {
     id: uniqueId,
     key: faker.helpers.slugify(name),
-    name: {
-      en: `EN ${name}`,
-      fr: `FR ${name}`,
-    },
-    description: {
-      en: `EN skill description ${faker.lorem.sentences()}`,
-      fr: `FR skill description ${faker.lorem.sentences()}`,
-    },
+    name: toLocalizedString(name),
+    description: toLocalizedString(
+      `skill description ${faker.lorem.sentences()}`,
+    ),
     keywords: {
       en: keywordsEN,
       fr: keywordsFR,

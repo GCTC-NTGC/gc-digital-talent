@@ -528,6 +528,16 @@ const commonMessages = defineMessages({
     id: "x/BiQS",
     description: "Label for questions",
   },
+  skillRequirements: {
+    defaultMessage: "Skill requirements",
+    id: "0AhbED",
+    description: "Label for skill requirements",
+  },
+  currentStep: {
+    defaultMessage: "Current step",
+    id: "gqX6/n",
+    description: "Title displayed for a candidates current assessment step",
+  },
   organization: {
     defaultMessage: "Organization",
     id: "Phlp8j",

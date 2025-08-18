@@ -148,6 +148,8 @@ const SkillBrowserDialog = ({
     (librarySkill) => selectedSkill?.id === librarySkill.id,
   );
   const shouldShowDetails = showDetails(skillInLibrary, context);
+  const shouldShowDetailsPool =
+    context === "pool" || context === "skill-proficiency-list-with-level";
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
@@ -179,7 +181,7 @@ const SkillBrowserDialog = ({
                   }
                 />
               )}
-              {selectedSkill && context === "pool" && (
+              {selectedSkill && shouldShowDetailsPool && (
                 <SkillDetailsPool
                   category={
                     selectedSkill.category.value ?? SkillCategory.Technical

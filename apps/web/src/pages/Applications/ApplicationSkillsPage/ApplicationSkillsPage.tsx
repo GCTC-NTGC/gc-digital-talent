@@ -12,7 +12,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
-import { apiMessages } from "@gc-digital-talent/i18n";
+import { apiMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
@@ -29,6 +29,7 @@ import { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -52,11 +53,7 @@ export const getPageInfo: GetPageNavInfo = ({
 }) => {
   const path = paths.applicationSkills(application.id);
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Skill requirements",
-      id: "tON7JL",
-      description: "Title for skill requirements",
-    }),
+    title: intl.formatMessage(commonMessages.skillRequirements),
     subtitle: intl.formatMessage({
       defaultMessage:
         "Tell us about how you meet the skill requirements for this opportunity.",
@@ -66,8 +63,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
     ],
