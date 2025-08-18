@@ -6,6 +6,16 @@ const navigationMessages = defineMessages({
     id: "Gx8qCK",
     description: "Name of About me page",
   },
+  advancedTools: {
+    defaultMessage: "Advanced tools",
+    id: "qP2HGB",
+    description: "Name of Advanced tools page",
+  },
+  careerExperience: {
+    defaultMessage: "Career experience",
+    id: "UfjJ9P",
+    description: "Link to the 'Career experience' page",
+  },
   diversityEquityInclusion: {
     defaultMessage: "Diversity, equity, and inclusion",
     id: "0ClMl1",
@@ -35,6 +45,11 @@ const navigationMessages = defineMessages({
     defaultMessage: "Career timeline",
     id: "TUfJUD",
     description: "Name of Career timeline page",
+  },
+  recruitment: {
+    defaultMessage: "Recruitment",
+    id: "JQfTpr",
+    description: "Name of Recruitment page",
   },
   skillPortfolio: {
     defaultMessage: "Skills portfolio",

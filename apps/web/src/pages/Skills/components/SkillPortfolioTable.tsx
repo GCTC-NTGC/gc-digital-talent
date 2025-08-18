@@ -7,7 +7,11 @@ import {
 } from "@tanstack/react-table";
 import { useMutation } from "urql";
 
-import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getSkillLevelName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
@@ -181,12 +185,7 @@ const SkillPortfolioTable = ({
     }),
     columnHelper.accessor((row) => row.experiences?.length ?? 0, {
       id: "experiences",
-      header: intl.formatMessage({
-        defaultMessage: "Career experience",
-        id: "uWdGeZ",
-        description:
-          "Experience count column header for the skill library table",
-      }),
+      header: intl.formatMessage(navigationMessages.careerExperience),
       cell: (cell: UserSkillCell) =>
         intl.formatMessage(
           {

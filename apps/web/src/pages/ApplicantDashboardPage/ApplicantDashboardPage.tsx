@@ -348,11 +348,9 @@ export const DashboardPage = ({
                 <ResourceBlock.SingleLinkItem
                   as="h3"
                   state={careerExperienceState}
-                  title={intl.formatMessage({
-                    defaultMessage: "Career experience",
-                    id: "UfjJ9P",
-                    description: "Link to the 'Career experience' page",
-                  })}
+                  title={intl.formatMessage(
+                    navigationMessages.careerExperience,
+                  )}
                   href={paths.careerTimeline()}
                   description={intl.formatMessage({
                     defaultMessage:

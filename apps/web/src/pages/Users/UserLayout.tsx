@@ -1,166 +1,81 @@
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
-import { User, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import useCurrentPage from "~/hooks/useCurrentPage";
-import { getFullNameHtml } from "~/utils/nameUtils";
-import { PageNavInfo } from "~/types/pages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 
-type PageNavKeys = "profile" | "info" | "edit";
-type PageNavEmployeeKeys = "profile" | "employee-profile" | "info" | "edit";
+const AdminUserHeader_Fragment = graphql(/** GraphQL */ `
+  fragment AdminUserHeader on User {
+    id
+    firstName
+    lastName
+    deletedDate
+    isGovEmployee
+  }
+`);
 
 interface UserHeaderProps {
-  user: Pick<
-    User,
-    "id" | "firstName" | "lastName" | "deletedDate" | "isGovEmployee"
-  >;
+  query: FragmentType<typeof AdminUserHeader_Fragment>;
 }
 
-const UserHeader = ({ user }: UserHeaderProps) => {
+const UserHeader = ({ query }: UserHeaderProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const user = getFragment(AdminUserHeader_Fragment, query);
 
-  let pages = undefined;
+  const pages = [
+    {
+      label: intl.formatMessage(navigationMessages.applicantProfile),
+      url: paths.userView(user.id),
+    },
+    {
+      label: intl.formatMessage(navigationMessages.careerExperience),
+      url: paths.userCareerExperience(user.id),
+    },
+    {
+      label: intl.formatMessage(navigationMessages.skills),
+      url: paths.userSkills(user.id),
+    },
+    {
+      label: intl.formatMessage(navigationMessages.recruitment),
+      url: paths.userRecruitment(user.id),
+    },
+    {
+      label: intl.formatMessage(navigationMessages.advancedTools),
+      url: paths.userAdvancedTools(user.id),
+    },
+  ];
   if (user.isGovEmployee) {
-    pages = new Map<PageNavEmployeeKeys, PageNavInfo>([
-      [
-        "profile",
-        {
-          icon: UserCircleIcon,
-          title: intl.formatMessage({
-            defaultMessage: "User profile",
-            id: "SLedtO",
-            description: "Title for the user profile page",
-          }),
-          link: {
-            url: paths.userProfile(user.id),
-          },
-        },
-      ],
-      [
-        "employee-profile",
-        {
-          icon: UserCircleIcon,
-          title: intl.formatMessage(navigationMessages.employeeProfileGC),
-          link: {
-            url: paths.userEmployeeProfile(user.id),
-          },
-        },
-      ],
-      [
-        "info",
-        {
-          icon: UserIcon,
-          title: intl.formatMessage({
-            defaultMessage: "View user",
-            id: "eP8dfW",
-            description: "Title for the user information page",
-          }),
-          link: {
-            url: paths.userView(user.id),
-            label: intl.formatMessage({
-              defaultMessage: "User information",
-              id: "SFk84j",
-              description: "Link text for the user information page link",
-            }),
-          },
-        },
-      ],
-      [
-        "edit",
-        {
-          icon: Cog8ToothIcon,
-          title: intl.formatMessage({
-            defaultMessage: "Edit user account",
-            id: "9i2N/g",
-            description: "Title for the user edit page",
-          }),
-          link: {
-            url: paths.userUpdate(user.id),
-          },
-        },
-      ],
-    ]);
-  } else {
-    pages = new Map<PageNavKeys, PageNavInfo>([
-      [
-        "profile",
-        {
-          icon: UserCircleIcon,
-          title: intl.formatMessage({
-            defaultMessage: "User profile",
-            id: "SLedtO",
-            description: "Title for the user profile page",
-          }),
-          link: {
-            url: paths.userProfile(user.id),
-          },
-        },
-      ],
-      [
-        "info",
-        {
-          icon: UserIcon,
-          title: intl.formatMessage({
-            defaultMessage: "View user",
-            id: "eP8dfW",
-            description: "Title for the user information page",
-          }),
-          link: {
-            url: paths.userView(user.id),
-            label: intl.formatMessage({
-              defaultMessage: "User information",
-              id: "SFk84j",
-              description: "Link text for the user information page link",
-            }),
-          },
-        },
-      ],
-      [
-        "edit",
-        {
-          icon: Cog8ToothIcon,
-          title: intl.formatMessage({
-            defaultMessage: "Edit user account",
-            id: "9i2N/g",
-            description: "Title for the user edit page",
-          }),
-          link: {
-            url: paths.userUpdate(user.id),
-          },
-        },
-      ],
-    ]);
+    pages.splice(1, 0, {
+      label: intl.formatMessage(navigationMessages.employeeProfileGC),
+      url: paths.userEmployeeProfile(user.id),
+    });
   }
 
-  const currentPage = useCurrentPage<PageNavEmployeeKeys>(pages);
-
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const userName = getFullNameLabel(user.firstName, user.lastName, intl);
   const userDeleted = !!user.deletedDate;
 
   return (
     <>
-      <SEO title={currentPage?.title} />
+      <SEO title={userName} />
       <Hero
-        title={currentPage?.title}
-        subtitle={userName}
-        navTabs={Array.from(pages.values()).map((page) => ({
-          label: page.link.label ?? page.title,
-          url: page.link.url,
-        }))}
+        title={userName}
+        subtitle={intl.formatMessage({
+          defaultMessage: "View all the information available for this user.",
+          id: "Jv/Blc",
+          description: "Subtitle for user section",
+        })}
+        navTabs={pages}
       />
       {userDeleted ? (
         <Alert.Root type="warning" live={false} className="mt-0 mb-12">
@@ -184,11 +99,7 @@ interface RouteParams extends Record<string, string> {
 const UserName_Query = graphql(/* GraphQL */ `
   query UserName($userId: UUID!) {
     user(id: $userId, trashed: WITH) {
-      id
-      firstName
-      lastName
-      deletedDate
-      isGovEmployee
+      ...AdminUserHeader
     }
   }
 `);
@@ -205,7 +116,7 @@ const UserLayout = () => {
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        {data?.user ? <UserHeader user={data.user} /> : <ThrowNotFound />}
+        {data?.user ? <UserHeader query={data.user} /> : <ThrowNotFound />}
       </Pending>
       <Outlet />
     </>
