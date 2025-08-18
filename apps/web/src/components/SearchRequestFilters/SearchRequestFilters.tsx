@@ -234,10 +234,10 @@ const ApplicantFilters = ({
           )}
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "On-site regions",
-              id: "JVU1yb",
+              defaultMessage: "On-site office",
+              id: "59TDoK",
               description:
-                "Title for work location/region section on summary of filters section",
+                "Legend for location preferences filter on search form.",
             })}
             content={workLocations}
           />
