@@ -101,10 +101,12 @@ trait GeneratesNominationDoc
                 $this->addLabelText($section, $this->localizeHeading('nominators_relationship'), $nominatorRelationshipToNominee);
 
                 if ($nomination->submitter_relationship_to_nominator) {
-                    $this->addLabelText($section, $this->localizeHeading('submitter'), $nomination->submitter->getFullName() ?? Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('submitters_work_email'), $nomination->submitter->work_email ?? Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('submitters_classification'), $nomination->submitter->currentClassification ? $nomination->submitter->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('submitters_department'), $nomination->submitter->department ? $nomination->submitter->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
+                    if ($nomination->submitter) {
+                        $this->addLabelText($section, $this->localizeHeading('submitter'), $nomination->submitter->getFullName() ?? Lang::get('common.not_available', [], $this->lang));
+                        $this->addLabelText($section, $this->localizeHeading('submitters_work_email'), $nomination->submitter->work_email ?? Lang::get('common.not_available', [], $this->lang));
+                        $this->addLabelText($section, $this->localizeHeading('submitters_classification'), $nomination->submitter->currentClassification ? $nomination->submitter->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                        $this->addLabelText($section, $this->localizeHeading('submitters_department'), $nomination->submitter->department ? $nomination->submitter->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
+                    }
 
                     if ($nomination->submitter_relationship_to_nominator_other) {
                         $this->addLabelText($section, $this->localizeHeading('submitters_relationship'), $nomination->submitter_relationship_to_nominator_other);
