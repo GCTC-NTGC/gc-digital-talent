@@ -23,7 +23,6 @@ const Wrapper = ({ as, children }: WrapperProps) => {
 interface SingleLinkItemProps {
   title: string;
   as?: HeadingRank;
-  accessibleLabel?: string;
   href: LinkProps["href"];
   description: BaseItemProps["description"];
   state?: BaseItemProps["state"];
@@ -31,7 +30,6 @@ interface SingleLinkItemProps {
 
 const SingleLinkItem = ({
   title,
-  accessibleLabel,
   href,
   description,
   state,
@@ -41,13 +39,13 @@ const SingleLinkItem = ({
   let combinedLabel;
   switch (state) {
     case "incomplete":
-      combinedLabel = `${accessibleLabel} (${intl.formatMessage(commonMessages.incomplete)})`;
+      combinedLabel = `${title} (${intl.formatMessage(commonMessages.incomplete)})`;
       break;
     case "complete":
-      combinedLabel = `${accessibleLabel} (${intl.formatMessage(commonMessages.complete)})`;
+      combinedLabel = `${title} (${intl.formatMessage(commonMessages.complete)})`;
       break;
     default:
-      combinedLabel = accessibleLabel;
+      combinedLabel = title;
   }
   return (
     <BaseItem
