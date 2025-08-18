@@ -1647,6 +1647,10 @@
     "defaultMessage": "Sélectionnez la collectivité et les rôles que vous souhaitez ajouter",
     "description": "Lead in text for the pick community and roles inputs."
   },
+  "59TDoK": {
+    "defaultMessage": "Bureau où travailler sur place",
+    "description": "Legend for location preferences filter on search form."
+  },
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
