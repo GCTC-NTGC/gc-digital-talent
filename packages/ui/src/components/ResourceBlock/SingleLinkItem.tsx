@@ -1,5 +1,8 @@
 import ArrowLongRightIcon from "@heroicons/react/16/solid/ArrowLongRightIcon";
 import { ReactNode } from "react";
+import { useIntl } from "react-intl";
+
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Link, { LinkProps } from "../Link";
 import BaseItem, { BaseItemProps } from "./BaseItem";
@@ -20,7 +23,7 @@ const Wrapper = ({ as, children }: WrapperProps) => {
 interface SingleLinkItemProps {
   title: string;
   as?: HeadingRank;
-  accessibleLabel?: BaseItemProps["accessibleLabel"];
+  accessibleLabel?: string;
   href: LinkProps["href"];
   description: BaseItemProps["description"];
   state?: BaseItemProps["state"];
@@ -33,24 +36,38 @@ const SingleLinkItem = ({
   description,
   state,
   as,
-}: SingleLinkItemProps) => (
-  <BaseItem
-    title={
-      <Wrapper as={as}>
-        <Link
-          href={href}
-          color="black"
-          className="font-bold"
-          utilityIcon={ArrowLongRightIcon}
-        >
-          {title}
-        </Link>
-      </Wrapper>
-    }
-    accessibleLabel={accessibleLabel ?? title}
-    description={description}
-    state={state}
-  />
-);
+}: SingleLinkItemProps) => {
+  const intl = useIntl();
+  let combinedLabel;
+  switch (state) {
+    case "incomplete":
+      combinedLabel = `${accessibleLabel} (${intl.formatMessage(commonMessages.incomplete)})`;
+      break;
+    case "complete":
+      combinedLabel = `${accessibleLabel} (${intl.formatMessage(commonMessages.complete)})`;
+      break;
+    default:
+      combinedLabel = accessibleLabel;
+  }
+  return (
+    <BaseItem
+      title={
+        <Wrapper as={as}>
+          <Link
+            href={href}
+            color="black"
+            className="font-bold"
+            utilityIcon={ArrowLongRightIcon}
+            aria-label={combinedLabel}
+          >
+            {title}
+          </Link>
+        </Wrapper>
+      }
+      description={description}
+      state={state}
+    />
+  );
+};
 
 export default SingleLinkItem;
