@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
@@ -13,6 +13,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 const AdminUserHeader_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserHeader on User {
@@ -29,6 +30,7 @@ interface UserHeaderProps {
 }
 
 const UserHeader = ({ query }: UserHeaderProps) => {
+  const { pathname } = useLocation();
   const intl = useIntl();
   const paths = useRoutes();
   const user = getFragment(AdminUserHeader_Fragment, query);
@@ -62,8 +64,32 @@ const UserHeader = ({ query }: UserHeaderProps) => {
     });
   }
 
+  const currentPage = pages.find((page) => page.url === pathname);
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
   const userDeleted = !!user.deletedDate;
+
+  let pageCrumbs = [
+    {
+      label: intl.formatMessage(navigationMessages.dashboard),
+      url: paths.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage(navigationMessages.users),
+      url: paths.userTable(),
+    },
+    {
+      label: userName,
+      url: pages[0].url,
+    },
+  ];
+
+  if (currentPage?.url && currentPage.url !== pages[0].url) {
+    pageCrumbs = [...pageCrumbs, currentPage];
+  }
+
+  const crumbs = useBreadcrumbs({
+    crumbs: pageCrumbs,
+  });
 
   return (
     <>
@@ -75,6 +101,7 @@ const UserHeader = ({ query }: UserHeaderProps) => {
           id: "Jv/Blc",
           description: "Subtitle for user section",
         })}
+        crumbs={crumbs}
         navTabs={pages}
       />
       {userDeleted ? (
