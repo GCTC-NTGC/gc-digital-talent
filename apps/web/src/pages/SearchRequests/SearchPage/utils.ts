@@ -76,7 +76,7 @@ export const applicantFilterToQueryArgs = (
   const adjustedFlexibleWorkLocations =
     filter?.locationPreferences && filter.locationPreferences.length > 0
       ? [...(filter.flexibleWorkLocations ?? []), FlexibleWorkLocation.Onsite]
-      : [];
+      : [...(filter.flexibleWorkLocations ?? [])];
 
   /* We must pick only the fields belonging to ApplicantFilterInput, because its possible
      the data object contains other props at runtime, and this will cause the
