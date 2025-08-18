@@ -5,6 +5,7 @@ namespace Tests\Feature\Generators;
 use App\Generators\ApplicationDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
+use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PoolCandidate;
@@ -64,13 +65,19 @@ class ApplicationDocGeneratorTest extends TestCase
         WorkExperience::factory()
             ->create(['user_id' => $user->id]);
 
-        // hardcode a flaky value
+        // hardcode flaky values
         $troublesomeExperience = WorkExperience::where('user_id', $user->id)
             ->where('division', 'deliver real-time schemas')
             ->first();
         $troublesomeExperience->start_date = '2006-01-01';
         $troublesomeExperience->end_date = '2016-12-01';
         $troublesomeExperience->save();
+        $troublesomeExperience2 = CommunityExperience::where('user_id', $user->id)
+            ->where('project', 'target efficient architectures')
+            ->first();
+        $troublesomeExperience2->start_date = '1970-11-11';
+        $troublesomeExperience2->end_date = null;
+        $troublesomeExperience2->save();
 
         $application = PoolCandidate::factory()
             ->availableInSearch()
