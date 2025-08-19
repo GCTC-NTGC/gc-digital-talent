@@ -24,11 +24,16 @@ import AccountInformation, {
   AccountInformationFormOptions_Fragment,
   accountInformationTitle,
 } from "./components/AccountInformation";
+import SupportTools, {
+  SUPPORT_TOOLS_ID,
+  supportToolsTitle,
+} from "./components/SupportTools";
 
 const AdminUserAdvancedTools_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserAdvancedTools on User {
     id
     ...AccountInformationForm
+    ...AdminUserSupportTools
   }
 `);
 
@@ -54,10 +59,16 @@ const AdminUserAdvancedTools = ({
                 {intl.formatMessage(accountInformationTitle)}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={SUPPORT_TOOLS_ID}>
+                {intl.formatMessage(supportToolsTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
           </TableOfContents.List>
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <AccountInformation query={user} {...{ optionsQuery }} />
+          <SupportTools query={user} />
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
     </Container>
