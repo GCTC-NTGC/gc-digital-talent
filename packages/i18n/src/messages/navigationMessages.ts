@@ -222,6 +222,11 @@ const navigationMessages = defineMessages({
     id: "TnmQ2Q",
     description: "Name of skills to improve section of skill showcase",
   },
+  recruitmentProcesses: {
+    defaultMessage: "Recruitment processes",
+    id: "dVZjaj",
+    description: "Name of the recruitment processes section",
+  },
 });
 
 export default navigationMessages;

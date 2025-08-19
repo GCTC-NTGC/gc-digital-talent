@@ -663,6 +663,13 @@ const createRoute = (locale: Locales) =>
                               "../pages/Users/AdminUserSkillsPage/AdminUserSkillsPage"
                             ),
                         },
+                        {
+                          path: "recruitment",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/AdminUserRecruitmentPage/AdminUserRecruitmentPage"
+                            ),
+                        },
                       ],
                     },
                   ],
