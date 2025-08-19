@@ -198,19 +198,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereFlexibleWorkLocationsIn(?array $flexibleWorkLocations): self
-    {
-        if (empty($flexibleWorkLocations)) {
-            return $this;
-        }
-
-        return $this->where(function ($query) use ($flexibleWorkLocations) {
-            foreach ($flexibleWorkLocations as $index => $loc) {
-                $query->orWhereJsonContains('flexible_work_locations', $loc);
-            }
-        });
-    }
-
     /**
      * Flexible Work Locations filtering
      */
