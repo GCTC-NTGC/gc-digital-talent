@@ -39,8 +39,6 @@ class WorkExperienceFactory extends Factory
      */
     public function definition()
     {
-        $startDate = $this->faker->date();
-
         return [
             'user_id' => User::factory(),
             'role' => $this->faker->jobTitle(),

@@ -25,8 +25,6 @@ class EducationExperienceFactory extends Factory
      */
     public function definition()
     {
-        $startDate = $this->faker->date();
-
         return [
             'user_id' => User::factory(),
             'institution' => $this->faker->company(),

@@ -25,8 +25,6 @@ class PersonalExperienceFactory extends Factory
      */
     public function definition()
     {
-        $startDate = $this->faker->date();
-
         return [
             'user_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
