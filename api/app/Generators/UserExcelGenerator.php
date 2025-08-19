@@ -9,6 +9,7 @@ use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
 use App\Enums\GovEmployeeType;
+use App\Enums\HiringPlatform;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LearningOpportunitiesInterest;
@@ -166,6 +167,16 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                             .($candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang));
                 });
 
+                $offPlatformProcesses = $user->offPlatformRecruitmentProcesses->map(function ($process) {
+                    return $process->classification->displayName
+                            .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.$process->department->name[$this->lang] ?? '')
+                            .' ('
+                            .($process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class))
+                            .' - '
+                            .$process->process_number
+                            .')';
+                });
+
                 $values = [
                     $user->first_name, // First name
                     $user->last_name, // Last name
@@ -233,7 +244,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                     $employeeProfile->career_planning_learning_goals, // Career planning - Learning goals
                     $employeeProfile->career_planning_work_style, // Career planning - Work style
                     $appliedPools->join(', '), // Digital talent processes
-                    $user->off_platform_recruitment_processes, // Off-platform processes
+                    $offPlatformProcesses->join(', '), // Off-platform processes
                 ];
 
                 // 1 is added to the key to account for the header row
@@ -287,6 +298,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             },
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
+            'offPlatformRecruitmentProcesses',
+            'offPlatformRecruitmentProcesses.classification',
+            'offPlatformRecruitmentProcesses.department',
         ]);
 
         $this->applyFilters($query, [

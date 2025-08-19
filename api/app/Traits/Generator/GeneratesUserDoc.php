@@ -705,7 +705,7 @@ trait GeneratesUserDoc
         $section->addText($this->localize('common.off_platform_processes_text'));
         $user->offPlatformRecruitmentProcesses->each(function ($process) use ($section, $headingRank) {
             $title = is_null($process->department) ? $process->classification->displayName : $process->classification->displayName.' '.$this->localize('common.with').' '.$process->department->name[$this->lang] ?? '';
-            $platform = $process->platform === HiringPlatform::OTHER ? $process->other_platform : $this->localizeEnum($process->platform, HiringPlatform::class);
+            $platform = $process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class);
 
             $section->addTitle($title, $headingRank + 2);
             $this->addLabelText($section, $this->localizeHeading('process_number'), $process->process_number);
