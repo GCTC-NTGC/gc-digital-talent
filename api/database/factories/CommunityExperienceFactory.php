@@ -32,8 +32,8 @@ class CommunityExperienceFactory extends Factory
             'title' => $this->faker->jobTitle(),
             'organization' => $this->faker->company(),
             'project' => $this->faker->bs(),
-            'start_date' => $this->faker->date('Y-m-d', '2010-01-01'),
-            'end_date' => $this->faker->optional()->date('Y-m-d', '2019-12-31'),
+            'start_date' => $this->faker->dateTimeBetween('2010-01-01', '2019-12-31')->format('Y-m-d'),
+            'end_date' => fn ($attributes) => $this->faker->optional()->dateTimeBetween($attributes['start_date'], '2019-12-31')?->format('Y-m-d'),
             'details' => $this->faker->text(),
         ];
     }
