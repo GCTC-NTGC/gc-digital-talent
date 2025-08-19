@@ -943,7 +943,7 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "candidacyStatus",
-        header: intl.formatMessage(tableMessages.candidacyStatus),
+        header: intl.formatMessage(tableMessages.interestJobOffers),
       },
     ),
     columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {

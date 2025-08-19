@@ -5639,10 +5639,6 @@
     "defaultMessage": "J'accepte de recevoir des notifications par courriel de Talents numériques du GC.",
     "description": "Text for the option consent to email notifications."
   },
-  "NxrKpM": {
-    "defaultMessage": "Statut de la candidature",
-    "description": "Label for the candidacy status field"
-  },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
@@ -12313,6 +12309,10 @@
     "defaultMessage": "J'ai suivi ce programme avec succès.",
     "description": "Option for the 'completed' choice of program participation"
   },
+  "tIz8qw": {
+    "defaultMessage": "Intérêt pour les offres d'emploi",
+    "description": "Job offer interest label"
+  },
   "tJLZYs": {
     "defaultMessage": "Obtention d’un diplôme d’un programme de deux ans ou plus offert par <link>une institution postsecondaire reconnue</link>. Le programme doit compter une spécialisation en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à la présente publication.",
     "description": "Descriptive text explaining a valid post secondary education."
@@ -13168,10 +13168,6 @@
   "xU771u": {
     "defaultMessage": "Prochaine étape",
     "description": "Button text to submit the current step of a process"
-  },
-  "xUz0TV": {
-    "defaultMessage": "Statut de la candidature",
-    "description": "Candidacy status label"
   },
   "xV43au": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",

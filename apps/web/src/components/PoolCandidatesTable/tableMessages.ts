@@ -1,10 +1,10 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  candidacyStatus: {
-    defaultMessage: "Candidacy status",
-    description: "Candidacy status label",
-    id: "xUz0TV",
+  interestJobOffers: {
+    defaultMessage: "Interest in job offers",
+    description: "Job offer interest label",
+    id: "tIz8qw",
   },
   candidateName: {
     defaultMessage: "Candidate name",

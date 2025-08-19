@@ -294,11 +294,7 @@ const PoolCandidateFilterDialog = ({
           <RadioGroup
             idPrefix="suspendedStatus"
             name="suspendedStatus"
-            legend={intl.formatMessage({
-              defaultMessage: "Candidacy status",
-              description: "Label for the candidacy status field",
-              id: "NxrKpM",
-            })}
+            legend={intl.formatMessage(tableMessages.interestJobOffers)}
             items={localizedEnumToOptions(data?.suspendedFilters, intl)}
           />
         </div>
