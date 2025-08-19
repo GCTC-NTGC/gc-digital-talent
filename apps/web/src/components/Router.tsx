@@ -639,7 +639,7 @@ const createRoute = (locale: Locales) =>
                           index: true,
                           lazy: () =>
                             import(
-                              "../pages/Users/UserInformationPage/UserInformationPage"
+                              "../pages/Users/AdminApplicantProfilePage/AdminApplicantProfilePage"
                             ),
                         },
                         {
