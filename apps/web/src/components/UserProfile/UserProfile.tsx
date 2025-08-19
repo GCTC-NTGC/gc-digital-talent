@@ -28,7 +28,7 @@ import GovernmentInformationSection from "./ProfileSections/GovernmentInformatio
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import SkillShowcaseSection from "./SkillShowcaseSection";
-import { FlexibleWorkLocationOptions_Fragment } from "../Profile/components/WorkPreferences/Display";
+import { FlexibleWorkLocationOptions_Fragment } from "../Profile/components/WorkPreferences/fragment";
 
 interface UserProfileProps {
   user: AdminUserProfileUserFragment;

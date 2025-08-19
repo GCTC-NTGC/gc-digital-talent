@@ -6,6 +6,7 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
+import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
 import {
   getEmploymentDuration,
   getOperationalRequirement,
@@ -140,6 +141,7 @@ const ApplicantFilters = ({
   const filterFlexibleLocations = unpackMaybes(
     applicantFilter?.flexibleWorkLocations?.map((loc) => loc?.value),
   );
+
   return (
     <section className="grid gap-6 xs:grid-cols-2">
       <div>
