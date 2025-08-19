@@ -6023,10 +6023,6 @@
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
     "description": "Label for field asking if a skill is currently being used"
   },
-  "Pn0zAn": {
-    "defaultMessage": "Tous",
-    "description": "Link text for all items in a list"
-  },
   "PnHH9A": {
     "defaultMessage": "Détails de l'événement",
     "description": "Subheading for nomination event details"

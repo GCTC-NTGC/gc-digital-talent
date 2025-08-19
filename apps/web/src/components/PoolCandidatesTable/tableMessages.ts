@@ -6,6 +6,16 @@ const messages = defineMessages({
     description: "Job offer interest label",
     id: "tIz8qw",
   },
+  openJobOffers: {
+    defaultMessage: "Open to job offers",
+    description: "Open interest label",
+    id: "WJSfQl",
+  },
+  notInterested: {
+    defaultMessage: "Not interested",
+    description: "Not interested in job offers",
+    id: "tY1JG4",
+  },
   candidateName: {
     defaultMessage: "Candidate name",
     id: "awEvCF",

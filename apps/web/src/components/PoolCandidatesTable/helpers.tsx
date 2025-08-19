@@ -6,8 +6,6 @@ import {
   Locales,
   commonMessages,
   getLocalizedName,
-  MaybeLocalizedEnums,
-  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -147,7 +145,6 @@ const getSuspendedStatus = (
 
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
-  suspendedStatusStrings: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
   if (suspendedAt) {
@@ -157,18 +154,13 @@ export const candidacyStatusAccessor = (
       parsedSuspendedTime,
       currentTime,
     );
-    return getLocalizedEnumStringByValue(
-      suspendedStatus,
-      suspendedStatusStrings,
-      intl,
-    );
+
+    if (suspendedStatus === CandidateSuspendedFilter.Suspended) {
+      return intl.formatMessage(tableMessages.notInterested);
+    }
   }
 
-  return getLocalizedEnumStringByValue(
-    CandidateSuspendedFilter.Active,
-    suspendedStatusStrings,
-    intl,
-  );
+  return intl.formatMessage(tableMessages.openJobOffers);
 };
 
 export const notesCell = (
@@ -591,21 +583,13 @@ export const candidateSuspendedFilterToCustomOptions = (
     if (enumObject.value === (CandidateSuspendedFilter.Active as string)) {
       return {
         value: enumObject.value,
-        label: intl.formatMessage({
-          defaultMessage: "Open to job offers",
-          description: "Open interest label",
-          id: "WJSfQl",
-        }),
+        label: intl.formatMessage(tableMessages.openJobOffers),
       };
     }
     if (enumObject.value === (CandidateSuspendedFilter.Suspended as string)) {
       return {
         value: enumObject.value,
-        label: intl.formatMessage({
-          defaultMessage: "Not interested",
-          description: "Not interested in job offers",
-          id: "tY1JG4",
-        }),
+        label: intl.formatMessage(tableMessages.notInterested),
       };
     }
     if (enumObject.value === (CandidateSuspendedFilter.All as string)) {

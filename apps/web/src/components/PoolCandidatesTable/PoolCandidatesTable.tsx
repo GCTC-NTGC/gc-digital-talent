@@ -936,11 +936,7 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       ({ poolCandidate }) =>
-        candidacyStatusAccessor(
-          poolCandidate.suspendedAt,
-          tableData?.suspendedStatuses,
-          intl,
-        ),
+        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
       {
         id: "candidacyStatus",
         header: intl.formatMessage(tableMessages.interestJobOffers),
