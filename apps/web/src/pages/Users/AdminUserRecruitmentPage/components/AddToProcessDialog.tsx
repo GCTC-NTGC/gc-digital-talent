@@ -140,6 +140,13 @@ const AddToProcessDialog = ({ query }: AddToProcessDialogProps) => {
     pool,
     expiryDate,
   }: FormValues) => {
+    if (fetching) return;
+
+    if (!user?.id) {
+      handleError();
+      return;
+    }
+
     await executeMutation({
       poolCandidate: {
         pool: { connect: pool },

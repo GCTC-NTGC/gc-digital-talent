@@ -91,6 +91,7 @@ const UpdateAccountInformation_Mutation = graphql(/** GraphQL */ `
 
 const AccountInformationForm_Fragment = graphql(/** GraphQL */ `
   fragment AccountInformationForm on User {
+    id
     firstName
     lastName
     email
@@ -126,7 +127,10 @@ const AccountInformation = ({
 }: AccountInformationProps) => {
   const intl = useIntl();
   const user = getFragment(AccountInformationForm_Fragment, query);
-  const options = getFragment(AccountInformationForm_Fragment, optionsQuery);
+  const options = getFragment(
+    AccountInformationFormOptions_Fragment,
+    optionsQuery,
+  );
   const [{ fetching }, executeMutation] = useMutation(
     UpdateAccountInformation_Mutation,
   );
@@ -148,7 +152,7 @@ const AccountInformation = ({
 
     await executeMutation({ id: user.id, input: values })
       .then((res) => {
-        if (res.error || !res.data.updateUserAsAdmin.id) {
+        if (res.error || !res.data?.updateUserAsAdmin?.id) {
           handleError();
           return;
         }
@@ -178,13 +182,13 @@ const AccountInformation = ({
         onSubmit={handleSubmit}
         options={{
           defaultValues: {
-            firstName: user?.firstName,
-            lastName: user?.lastName,
-            email: user?.email,
-            telephone: user?.telephone,
-            preferredLang: user?.preferredLang.value,
-            isGovEmployee: user?.isGovEmployee,
-            workEmail: user?.workEmail,
+            firstName: user?.firstName ?? "",
+            lastName: user?.lastName ?? "",
+            email: user?.email ?? "",
+            telephone: user?.telephone ?? "",
+            preferredLang: user?.preferredLang?.value ?? undefined,
+            isGovEmployee: user?.isGovEmployee ?? false,
+            workEmail: user?.workEmail ?? "",
           },
         }}
       >
@@ -241,8 +245,8 @@ const AccountInformation = ({
         </div>
         <Button type="submit">
           {intl.formatMessage({
-            defaultMessage: "update information",
-            id: "5vWdZk",
+            defaultMessage: "Update information",
+            id: "puB/J+",
             description:
               "Submit button text to update user account information",
           })}
