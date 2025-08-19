@@ -22,13 +22,39 @@ import {
   SkillLevel,
   SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import useRoutes from "~/hooks/useRoutes";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 
-import { CreateUserSkill_Mutation } from "../operations";
+const CreateUserSkill_Mutation = graphql(/* GraphQL */ `
+  mutation CreateUserSkill(
+    $userId: UUID!
+    $skillId: UUID!
+    $userSkill: CreateUserSkillInput
+  ) {
+    createUserSkill(userId: $userId, skillId: $skillId, userSkill: $userSkill) {
+      id
+      skillLevel
+      skill {
+        id
+        category {
+          value
+        }
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 export const SkillPortfolioTable_UserSkillFragment = graphql(/* GraphQL */ `
   fragment SkillPortfolioTable_UserSkill on UserSkill {
@@ -138,15 +164,17 @@ const skillNameCell = (
 );
 
 interface SkillPortfolioTableProps {
-  caption: string;
+  caption?: string;
   userSkillsQuery: FragmentType<typeof SkillPortfolioTable_UserSkillFragment>[];
-  allSkillsQuery: FragmentType<typeof SkillPortfolioTable_SkillFragment>[];
+  allSkillsQuery?: FragmentType<typeof SkillPortfolioTable_SkillFragment>[];
+  readOnly?: boolean;
 }
 
 const SkillPortfolioTable = ({
   caption,
   userSkillsQuery,
   allSkillsQuery,
+  readOnly = false,
 }: SkillPortfolioTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -163,7 +191,7 @@ const SkillPortfolioTable = ({
   );
 
   const userSkillSkillIds = userSkills.map((usrSkill) => usrSkill.skill.id);
-  const unclaimedSkills = allSkills.filter(
+  const unclaimedSkills = unpackMaybes(allSkills).filter(
     (skill) => !userSkillSkillIds.includes(skill.id),
   );
 
@@ -236,24 +264,28 @@ const SkillPortfolioTable = ({
       data={userSkills}
       columns={columns}
       urlSync={false}
-      add={{
-        component: (
-          <SkillBrowserDialog
-            context="library"
-            skills={unclaimedSkills}
-            onSave={async (value) => {
-              await executeCreateMutation({
-                userId: userAuthInfo?.id ?? "",
-                skillId: value?.skill ?? "",
-                userSkill: {
-                  skillLevel: value.skillLevel,
-                  whenSkillUsed: value.whenSkillUsed,
-                },
-              });
-            }}
-          />
-        ),
-      }}
+      add={
+        !readOnly
+          ? {
+              component: (
+                <SkillBrowserDialog
+                  context="library"
+                  skills={unclaimedSkills}
+                  onSave={async (value) => {
+                    await executeCreateMutation({
+                      userId: userAuthInfo?.id ?? "",
+                      skillId: value?.skill ?? "",
+                      userSkill: {
+                        skillLevel: value.skillLevel,
+                        whenSkillUsed: value.whenSkillUsed,
+                      },
+                    });
+                  }}
+                />
+              ),
+            }
+          : undefined
+      }
       search={{
         label: intl.formatMessage({
           defaultMessage: "Search your skills",

@@ -653,7 +653,14 @@ const createRoute = (locale: Locales) =>
                           path: "experience",
                           lazy: () =>
                             import(
-                              "../pages/Users/AdminCareerExperience/AdminCareerExperience"
+                              "../pages/Users/AdminCareerExperiencePage/AdminCareerExperiencePage"
+                            ),
+                        },
+                        {
+                          path: "skills",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/AdminUserSkillsPage/AdminUserSkillsPage"
                             ),
                         },
                       ],

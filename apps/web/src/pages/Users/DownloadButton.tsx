@@ -4,7 +4,6 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { Scalars } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 import useUserDownloads from "~/hooks/useUserDownloads";

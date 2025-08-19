@@ -635,9 +635,9 @@
     "defaultMessage": "La présente section ressemble à votre cv traditionnel. Il s’agit de l’endroit où vous pouvez décrire vos expériences, au travail, à l’école et dans la vie. Vous pourrez réutiliser ces informations pour chaque candidature que vous soumettrez sur la plateforme, ce qui accélérera le processus et garantira que vos informations sont toujours à jour.",
     "description": "Descriptive paragraph for the career timeline page."
   },
-  "0ox2XB": {
+  "hl7iz4": {
     "defaultMessage": "Compétences techniques",
-    "description": "Title for the technical skill rank card"
+    "description": "Title for the technical skills"
   },
   "0qv7QL": {
     "defaultMessage": "Chercher des talents de la collectivité",
@@ -5651,9 +5651,9 @@
     "defaultMessage": "parfaitement bilingue.",
     "description": "Description for the advanced language ability"
   },
-  "NzbVyB": {
+  "coCp+y": {
     "defaultMessage": "Compétences comportementales",
-    "description": "Title for the behavioural skill rank card"
+    "description": "Title for the behavioural skills"
   },
   "O0z6Ym": {
     "defaultMessage": "À qui ce programme est-il destiné?",

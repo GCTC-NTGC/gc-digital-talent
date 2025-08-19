@@ -212,6 +212,16 @@ const navigationMessages = defineMessages({
     id: "BGQaDq",
     description: "Link to a page to start a new request",
   },
+  topSkills: {
+    defaultMessage: "Top skills",
+    id: "rhVdxS",
+    description: "Name of top skills section of skill showcase",
+  },
+  skillsToImprove: {
+    defaultMessage: "Skills to improve",
+    id: "TnmQ2Q",
+    description: "Name of skills to improve section of skill showcase",
+  },
 });
 
 export default navigationMessages;

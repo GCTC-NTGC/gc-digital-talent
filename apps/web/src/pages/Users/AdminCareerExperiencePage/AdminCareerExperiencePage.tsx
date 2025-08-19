@@ -34,7 +34,7 @@ const AdminCareerExperience_Fragment = graphql(/** GraphQL */ `
 
 interface AdminCareerExperienceProps {
   userId: Scalars["UUID"]["output"];
-  query: FragmentType<typeof AdminCareerExperience_Fragment>;
+  query: FragmentType<typeof AdminCareerExperience_Fragment>[];
 }
 
 const AdminCareerExperience = ({
@@ -75,7 +75,9 @@ const AdminCareerExperience = ({
                 description: "Description of a users career experiences",
               })}
             </p>
-            <CareerTimelineSection experiencesQuery={experiences} />
+            <CareerTimelineSection
+              experiencesQuery={unpackMaybes(experiences)}
+            />
           </TableOfContents.Section>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
@@ -88,7 +90,7 @@ const AdminCareerExperiencePage_Query = graphql(/* GraphQL */ `
     user(id: $id) {
       id
       experiences {
-        ...CareerTimelineExperience
+        ...AdminCareerExperience
       }
     }
   }
