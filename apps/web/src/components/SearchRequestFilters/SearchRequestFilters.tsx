@@ -6,7 +6,6 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
-import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
 import {
   getEmploymentDuration,
   getOperationalRequirement,
