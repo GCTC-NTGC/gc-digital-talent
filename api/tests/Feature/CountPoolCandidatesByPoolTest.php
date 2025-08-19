@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
@@ -469,6 +470,60 @@ class CountPoolCandidatesByPoolTest extends TestCase
                     'locationPreferences' => [
                         WorkRegion::ATLANTIC->name,
                         WorkRegion::BRITISH_COLUMBIA->name,
+                    ],
+                ],
+            ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $pool->id],
+                        'candidateCount' => 2,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    // test flexible work locations
+    // create three users with different locations, filter for a combination that two users have, expect to get 2 candidates
+    public function testFlexibleWorkLocations()
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
+        $user1 = User::factory()->create([
+            'flexible_work_locations' => [
+                FlexibleWorkLocation::ONSITE->name,
+            ],
+        ]);
+        $user2 = User::factory()->create([
+            'flexible_work_locations' => [
+                FlexibleWorkLocation::HYBRID->name,
+            ],
+        ]);
+        $user3 = User::factory()->create([
+            'flexible_work_locations' => [
+                FlexibleWorkLocation::REMOTE->name,
+            ],
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ($where: ApplicantFilterInput) {
+                    countPoolCandidatesByPool(where: $where) {
+                      pool { id }
+                      candidateCount
+                    }
+                  }
+                ',
+            [
+                'where' => [
+                    'flexibleWorkLocations' => [
+                        FlexibleWorkLocation::ONSITE->name,
+                        FlexibleWorkLocation::REMOTE->name,
                     ],
                 ],
             ]
