@@ -5,6 +5,7 @@ import {
   Checklist,
   Combobox,
   HiddenInput,
+  Radio,
   RadioGroup,
   Select,
   localizedEnumToOptions,
@@ -34,6 +35,7 @@ import FilterDialog, {
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 import tableMessages from "./tableMessages";
+import { candidateSuspendedFilterToCustomOptions } from "./helpers";
 
 const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {
@@ -163,6 +165,12 @@ const PoolCandidateFilterDialog = ({
     value,
     label: intl.formatMessage(message),
   });
+
+  const suspendedStatusOptions: Radio[] =
+    candidateSuspendedFilterToCustomOptions(
+      unpackMaybes(data?.suspendedFilters),
+      intl,
+    );
 
   return (
     <FilterDialog<FormValues>
@@ -295,7 +303,7 @@ const PoolCandidateFilterDialog = ({
             idPrefix="suspendedStatus"
             name="suspendedStatus"
             legend={intl.formatMessage(tableMessages.interestJobOffers)}
-            items={localizedEnumToOptions(data?.suspendedFilters, intl)}
+            items={suspendedStatusOptions}
           />
         </div>
         <Checkbox

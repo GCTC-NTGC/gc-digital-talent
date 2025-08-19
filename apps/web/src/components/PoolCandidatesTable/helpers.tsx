@@ -35,8 +35,10 @@ import {
   PoolCandidate,
   FinalDecision,
   PoolAreaOfSelection,
+  LocalizedEnumString,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Radio } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -578,4 +580,44 @@ export const addSearchToPoolCandidateFilterInput = (
       Number(val),
     ),
   };
+};
+
+// map the enum to a custom string per value
+export const candidateSuspendedFilterToCustomOptions = (
+  suspendedFilterEnums: LocalizedEnumString[],
+  intl: IntlShape,
+): Radio[] => {
+  return suspendedFilterEnums.map((enumObject) => {
+    if (enumObject.value === (CandidateSuspendedFilter.Active as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage({
+          defaultMessage: "Open to job offers",
+          description: "Open interest label",
+          id: "WJSfQl",
+        }),
+      };
+    }
+    if (enumObject.value === (CandidateSuspendedFilter.Suspended as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage({
+          defaultMessage: "Not interested",
+          description: "Not interested in job offers",
+          id: "tY1JG4",
+        }),
+      };
+    }
+    if (enumObject.value === (CandidateSuspendedFilter.All as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage(commonMessages.all),
+      };
+    }
+
+    return {
+      value: enumObject.value,
+      label: getLocalizedName(enumObject.label, intl),
+    };
+  });
 };

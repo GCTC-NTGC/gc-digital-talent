@@ -7382,6 +7382,10 @@
     "defaultMessage": "Créez un ministère",
     "description": "Heading displayed above the Create Department form."
   },
+  "WJSfQl": {
+    "defaultMessage": "Ouvert(e) aux offres d'emploi",
+    "description": "Open interest label"
+  },
   "WKAzau": {
     "defaultMessage": "Niveau démontré",
     "description": "Label for demonstrated level radio group in the screening decision dialog."
@@ -12364,6 +12368,10 @@
   "tXLRmG": {
     "defaultMessage": "Je ne suis pas à la recherche d'une promotion ou d'un avancement pour l'instant.",
     "description": "The promotion move interest described as not interested."
+  },
+  "tY1JG4": {
+    "defaultMessage": "Non intéressé(e)",
+    "description": "Not interested in job offers"
   },
   "tZmXOj": {
     "defaultMessage": "l’amélioration de l'accessibilité des couleurs",
