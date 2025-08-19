@@ -11,6 +11,8 @@ const GovernmentInformation_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformation on User {
     isGovEmployee
     department {
+      id
+      departmentNumber
       name {
         localized
       }
@@ -52,7 +54,7 @@ const GovernmentInformation = ({ query }: GovernmentInformationProps) => {
         {intl.formatMessage(profileMessages.govEmployeeInformation)}
       </TableOfContents.Heading>
       <Card>
-        <Display user={user} />
+        <Display user={user} readOnly />
       </Card>
     </TableOfContents.Section>
   );
