@@ -31,8 +31,8 @@ class PersonalExperienceFactory extends Factory
             'user_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
             'description' => $this->faker->text(),
-            'start_date' => $startDate,
-            'end_date' => $this->faker->optional()->dateTimeBetween($startDate),
+            'start_date' => $this->faker->date('Y-m-d', '2010-01-01'),
+            'end_date' => $this->faker->optional()->date('Y-m-d', '2019-12-31'),
             'details' => $this->faker->text(),
         ];
     }

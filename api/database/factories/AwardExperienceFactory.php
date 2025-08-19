@@ -29,7 +29,7 @@ class AwardExperienceFactory extends Factory
             'user_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
             'issued_by' => $this->faker->company(),
-            'awarded_date' => $this->faker->date(),
+            'awarded_date' => $this->faker->date('Y-m-d', '2019-12-31'),
             'awarded_to' => $this->faker->randomElement(
                 [
                     'ME',

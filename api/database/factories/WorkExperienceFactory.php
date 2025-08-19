@@ -52,8 +52,8 @@ class WorkExperienceFactory extends Factory
                 return $attributes['employment_category'] === EmploymentCategory::CANADIAN_ARMED_FORCES->name ?
                     null : $this->faker->bs();
             },
-            'start_date' => $startDate,
-            'end_date' => $this->faker->optional()->dateTimeBetween($startDate),
+            'start_date' => $this->faker->date('Y-m-d', '2010-01-01'),
+            'end_date' => $this->faker->optional()->date('Y-m-d', '2019-12-31'),
             'details' => $this->faker->text(),
             'employment_category' => $this->faker->randomElement(EmploymentCategory::cases())->name,
             'ext_size_of_organization' => function (array $attributes) {
