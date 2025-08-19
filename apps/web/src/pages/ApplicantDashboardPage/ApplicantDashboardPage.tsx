@@ -433,7 +433,10 @@ export const DashboardPage = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: ["PoolCandidateSearchRequest"],
+  additionalTypenames: [
+    "PoolCandidateSearchRequest",
+    "OffPlatformRecruitmentProcess",
+  ],
 };
 
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
