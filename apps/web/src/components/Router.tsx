@@ -650,17 +650,10 @@ const createRoute = (locale: Locales) =>
                             ),
                         },
                         {
-                          path: "profile",
+                          path: "experience",
                           lazy: () =>
                             import(
-                              "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
-                            ),
-                        },
-                        {
-                          path: "edit",
-                          lazy: () =>
-                            import(
-                              "../pages/Users/UpdateUserPage/UpdateUserPage"
+                              "../pages/Users/AdminCareerExperience/AdminCareerExperience"
                             ),
                         },
                       ],

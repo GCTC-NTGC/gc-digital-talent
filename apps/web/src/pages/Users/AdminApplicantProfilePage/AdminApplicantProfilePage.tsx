@@ -36,7 +36,7 @@ import DiversityEquityInclusion, {
 import GovernmentInformation, {
   GOV_INFO_ID,
 } from "./components/GovernmentInformation";
-import DownloadButton from "./components/DownloadButton";
+import DownloadButton from "../DownloadButton";
 
 const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
   fragment AdminApplicantProfile on User {
@@ -120,6 +120,7 @@ interface RouteParams extends Record<string, string> {
 }
 
 const AdminApplicantProfilePage = () => {
+  const intl = useIntl();
   const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data, fetching, error }] = useQuery({
     query: AdminApplicantProfilePage_Query,
@@ -131,7 +132,9 @@ const AdminApplicantProfilePage = () => {
       {data?.user ? (
         <AdminApplicantProfile query={data.user} />
       ) : (
-        <ThrowNotFound />
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

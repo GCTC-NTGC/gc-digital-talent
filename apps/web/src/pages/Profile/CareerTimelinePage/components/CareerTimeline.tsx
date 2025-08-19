@@ -19,7 +19,7 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import CareerTimelineSection from "./CareerTimelineSection";
+import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 
 const pageTitle = defineMessage({
   defaultMessage: "Career timeline",
