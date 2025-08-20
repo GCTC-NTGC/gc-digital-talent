@@ -42,7 +42,7 @@ return [
     'user_processes_text_1' => 'Overview of recruitment processes in which',
     'user_processes_text_2' => 'has been qualified.',
     'digital_talent_processes_text' => 'These processes are run on the GC Digital Talent platform.',
-    'off_platform_processes_text' => 'Users can provide information about processes or pools from other Government of Canada platforms in which they’ve been qualified. This information has not been verified.',
+    'off_platform_processes_text' => 'Recruitment processes that the nominee has qualified in on other Government of Canada platforms. Note that this information is provided by the nominee without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.',
     'nominations' => 'Nominations',
     'skill_requirements' => 'Skill requirements',
 ];

@@ -68,6 +68,7 @@ class BigSeederPoolCandidateUser extends Seeder
                 ->withCommunityInterests(
                     [$digitalCommunityId, $atipCommunityId, $financeCommunityId],
                 )
+                ->withOffPlatformRecruitmentProcesses()
                 ->afterCreating(function (User $user) use ($poolIds) {
                     $this->applyToPools($user, $poolIds);
                 })

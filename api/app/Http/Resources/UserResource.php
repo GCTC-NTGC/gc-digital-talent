@@ -114,6 +114,7 @@ class UserResource extends JsonResource
             'priorityNumber' => $this->priority_number,
             'isProfileComplete' => $this->isProfileComplete,
             'userSkills' => UserSkillResource::collection($this->whenLoaded('userSkills')),
+            'offPlatformRecruitmentProcesses' => OffPlatformRecruitmentProcessResource::collection($this->whenLoaded('offPlatformRecruitmentProcesses')),
         ];
     }
 }
