@@ -65,6 +65,11 @@ final class CountPoolCandidatesByPool
                 $userQuery->whereLocationPreferencesIn($filters['locationPreferences']);
             }
 
+            // flexibleWorkLocations
+            if (array_key_exists('flexibleWorkLocations', $filters)) {
+                $userQuery->whereFlexibleWorkLocationsIn($filters['flexibleWorkLocations']);
+            }
+
             // positionDuration
             if (array_key_exists('positionDuration', $filters)) {
                 $userQuery->wherePositionDurationIn($filters['positionDuration']);

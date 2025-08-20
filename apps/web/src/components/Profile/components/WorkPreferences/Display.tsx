@@ -9,7 +9,6 @@ import {
 import {
   FragmentType,
   getFragment,
-  graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { FieldLabels } from "@gc-digital-talent/forms";
@@ -21,21 +20,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { PartialUser } from "./types";
-
-export const FlexibleWorkLocationOptions_Fragment = graphql(/* GraphQL */ `
-  fragment FlexibleWorkLocationOptionsFragment on Query {
-    flexibleWorkLocation: localizedEnumStrings(
-      enumName: "FlexibleWorkLocation"
-    ) {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-  }
-`);
+import { FlexibleWorkLocationOptions_Fragment } from "./fragment";
 
 interface DisplayProps {
   user: PartialUser;

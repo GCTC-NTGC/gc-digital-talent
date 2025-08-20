@@ -899,6 +899,10 @@
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
   },
+  "1yMApi": {
+    "defaultMessage": "L'employée ou l'employé travaille sur place au moins trois jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
+  },
   "2/fjEP": {
     "defaultMessage": "Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation?",
     "description": "Button text to toggle the accordion for accommodations contact"
@@ -1646,6 +1650,10 @@
   "58l6yP": {
     "defaultMessage": "Sélectionnez la collectivité et les rôles que vous souhaitez ajouter",
     "description": "Lead in text for the pick community and roles inputs."
+  },
+  "59TDoK": {
+    "defaultMessage": "Bureau où travailler sur place",
+    "description": "Legend for location preferences filter on search form."
   },
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
@@ -3786,10 +3794,6 @@
   "EyhaxU": {
     "defaultMessage": "Rejoignez-nous sur LinkedIn",
     "description": "External button link to LinkedIn"
-  },
-  "F+WFWB": {
-    "defaultMessage": "Région",
-    "description": "Label for work location filter in search form."
   },
   "F/WYCH": {
     "defaultMessage": "Mise à jour de votre autodéclaration réussie",
@@ -8478,6 +8482,10 @@
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
+  "bMM+wm": {
+    "defaultMessage": "Sélectionnez les options de lieu de travail flexibles offertes dans le cadre de ce poste.",
+    "description": "Message describing the flexible work locations filter in the search form."
+  },
   "bMY93S": {
     "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
     "description": "Help text for providing a skill level"
@@ -10268,6 +10276,10 @@
   "izBEYf": {
     "defaultMessage": "Renseignements sur les processus hors plateforme",
     "description": "Form input label"
+  },
+  "j+GOVX": {
+    "defaultMessage": "L'employée ou l'employé travaille à distance constamment, sans devoir être sur place.",
+    "description": "Checklist option explanatory note"
   },
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
