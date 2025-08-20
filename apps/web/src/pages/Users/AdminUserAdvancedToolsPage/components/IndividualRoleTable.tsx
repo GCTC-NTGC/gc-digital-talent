@@ -30,7 +30,7 @@ const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
           original: { role },
         },
       }) =>
-        role ? <RemoveIndividualRoleDialog query={user} role={role} /> : null,
+        role ? <RemoveIndividualRoleDialog query={query} role={role} /> : null,
     }),
     columnHelper.accessor(({ role }) => role?.displayName?.localized ?? "", {
       id: "role",

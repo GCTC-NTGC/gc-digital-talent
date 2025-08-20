@@ -10,7 +10,7 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { Scalars, RoleInput, Maybe } from "@gc-digital-talent/graphql";
+import { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
 

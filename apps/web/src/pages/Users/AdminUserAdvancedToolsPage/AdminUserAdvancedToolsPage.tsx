@@ -22,7 +22,6 @@ import adminMessages from "~/messages/adminMessages";
 
 import AccountInformation, {
   ACCOUNT_INFORMATION_ID,
-  AccountInformationFormOptions_Fragment,
   accountInformationTitle,
 } from "./components/AccountInformation";
 import SupportTools, {
@@ -51,7 +50,7 @@ const AdminUserAdvancedToolsOptions_Fragment = graphql(/** GraphQL */ `
 
 interface AdminUserAdvancedToolsProps {
   query: FragmentType<typeof AdminUserAdvancedTools_Fragment>;
-  optionsQuery: FragmentType<typeof AccountInformationFormOptions_Fragment>;
+  optionsQuery: FragmentType<typeof AdminUserAdvancedToolsOptions_Fragment>;
 }
 
 const AdminUserAdvancedTools = ({

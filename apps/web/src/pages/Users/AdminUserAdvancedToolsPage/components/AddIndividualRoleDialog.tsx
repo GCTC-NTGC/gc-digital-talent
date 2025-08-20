@@ -64,7 +64,9 @@ const AddIndividualRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
       );
     })
     .map((role) => ({
-      label: role.displayName?.localized,
+      label:
+        role.displayName?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
       value: role.id,
     }));
 

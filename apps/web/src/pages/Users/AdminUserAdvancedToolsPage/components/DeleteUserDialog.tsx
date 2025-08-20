@@ -55,7 +55,9 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
   const fullName = getFullNameLabel(user?.firstName, user?.lastName, intl);
 
   const methods = useForm<FormValues>({
-    userId: user?.id ?? "",
+    defaultValues: {
+      userId: user?.id ?? "",
+    },
   });
 
   const handleError = () => {
@@ -73,7 +75,7 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
 
     await executeMutation({ id: values.userId ?? user?.id ?? "" })
       .then((res) => {
-        if (res.error || !res.data.deleteUser) {
+        if (res.error || !res.data?.deleteUser) {
           handleError();
           return;
         }

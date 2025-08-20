@@ -10,7 +10,6 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Role } from "@gc-digital-talent/graphql";
-import { HiddenInput } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
