@@ -16,6 +16,7 @@ use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
@@ -228,8 +229,8 @@ trait GeneratesUserDoc
         if (! empty($flexibleLocations)) {
             $section->addText($this->localizeHeading('flexible_work_locations'));
             foreach ($flexibleLocations as $location) {
-                $formattedLocation = ucfirst(strtolower($location));
-                $section->addListItem($formattedLocation);
+                $localizedLocation = $this->localizeEnum($location, FlexibleWorkLocation::class);
+                $section->addListItem($localizedLocation);
             }
         }
         $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
