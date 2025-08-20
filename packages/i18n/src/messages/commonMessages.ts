@@ -538,6 +538,11 @@ const commonMessages = defineMessages({
     id: "gqX6/n",
     description: "Title displayed for a candidates current assessment step",
   },
+  all: {
+    defaultMessage: "All",
+    id: "cavxJ8",
+    description: "All as in all items or things",
+  },
 });
 
 export default commonMessages;

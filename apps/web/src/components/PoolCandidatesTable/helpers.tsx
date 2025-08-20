@@ -6,8 +6,6 @@ import {
   Locales,
   commonMessages,
   getLocalizedName,
-  MaybeLocalizedEnums,
-  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -35,8 +33,10 @@ import {
   PoolCandidate,
   FinalDecision,
   PoolAreaOfSelection,
+  LocalizedEnumString,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Radio } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -145,7 +145,6 @@ const getSuspendedStatus = (
 
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
-  suspendedStatusStrings: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
   if (suspendedAt) {
@@ -155,18 +154,13 @@ export const candidacyStatusAccessor = (
       parsedSuspendedTime,
       currentTime,
     );
-    return getLocalizedEnumStringByValue(
-      suspendedStatus,
-      suspendedStatusStrings,
-      intl,
-    );
+
+    if (suspendedStatus === CandidateSuspendedFilter.Suspended) {
+      return intl.formatMessage(tableMessages.notInterested);
+    }
   }
 
-  return getLocalizedEnumStringByValue(
-    CandidateSuspendedFilter.Active,
-    suspendedStatusStrings,
-    intl,
-  );
+  return intl.formatMessage(tableMessages.openJobOffers);
 };
 
 export const notesCell = (
@@ -578,4 +572,36 @@ export const addSearchToPoolCandidateFilterInput = (
       Number(val),
     ),
   };
+};
+
+// map the enum to a custom string per value
+export const candidateSuspendedFilterToCustomOptions = (
+  suspendedFilterEnums: LocalizedEnumString[],
+  intl: IntlShape,
+): Radio[] => {
+  return suspendedFilterEnums.map((enumObject) => {
+    if (enumObject.value === (CandidateSuspendedFilter.Active as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage(tableMessages.openJobOffers),
+      };
+    }
+    if (enumObject.value === (CandidateSuspendedFilter.Suspended as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage(tableMessages.notInterested),
+      };
+    }
+    if (enumObject.value === (CandidateSuspendedFilter.All as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage(commonMessages.all),
+      };
+    }
+
+    return {
+      value: enumObject.value,
+      label: getLocalizedName(enumObject.label, intl),
+    };
+  });
 };
