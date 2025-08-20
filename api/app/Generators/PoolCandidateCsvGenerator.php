@@ -221,7 +221,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                         }),
                         WorkRegion::class
                     ), // Location preferences
-                    $this->localizeEnumArray($userHydrated->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
+                    $this->localizeEnumArray($userHydrated->flexible_work_locations ?? [], FlexibleWorkLocation::class), // Flexible work locations
                     $userHydrated->location_exemptions, // Location exemptions
                     $userHydrated->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),

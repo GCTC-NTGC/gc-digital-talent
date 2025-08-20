@@ -197,7 +197,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                         }),
                         WorkRegion::class
                     ), // Location preferences
-                    $this->localizeEnumArray($user->flexible_work_locations, FlexibleWorkLocation::class), // flexible work locations
+                    $this->localizeEnumArray($user->flexible_work_locations ?? [], FlexibleWorkLocation::class), // flexible work locations
                     $user->location_exemptions, // Location exemptions
                     $user->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
