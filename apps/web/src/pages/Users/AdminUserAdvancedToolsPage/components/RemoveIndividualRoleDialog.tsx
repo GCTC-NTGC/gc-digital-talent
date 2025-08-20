@@ -1,58 +1,56 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import { FormProvider } from "react-hook-form";
 
 import { Dialog, Button, Chip, IconButton } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
-  getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
-import { Maybe, Role } from "@gc-digital-talent/graphql";
+import { Role } from "@gc-digital-talent/graphql";
+import { HiddenInput } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
-import { UpdateUserRolesFunc } from "../types";
+import {
+  getUserRoleDialogFragment,
+  UserRoleDialogBaseProps,
+  useUpdateRolesMutation,
+} from "../utils";
 
-interface RemoveIndividualRoleDialogProps {
+interface FormValues {
   userId: string;
-  firstName?: Maybe<string>;
-  lastName?: Maybe<string>;
+  roleId: string;
+}
+
+interface RemoveIndividualRoleDialogProps extends UserRoleDialogBaseProps {
   role: Role;
-  onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const RemoveIndividualRoleDialog = ({
-  userId,
-  firstName,
-  lastName,
+  query,
   role,
-  onUpdateUserRoles,
 }: RemoveIndividualRoleDialogProps) => {
   const intl = useIntl();
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const user = getUserRoleDialogFragment(query);
+  const { updateRoles, methods, fetching } = useUpdateRolesMutation<FormValues>(
+    { userId: user.id, roleId: role.id },
+  );
 
-  const handleRemove = async () => {
-    setIsDeleting(true);
-    return onUpdateUserRoles({
-      userId: userId,
-      roleAssignmentsInput: {
-        detach: [{ roleId: role.id }],
-      },
-    })
-      .then(() => {
-        setIsOpen(false);
-        toast.success(intl.formatMessage(adminMessages.roleRemoved));
-      })
-      .finally(() => setIsDeleting(false));
+  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const roleDisplayName =
+    role.displayName?.localized ??
+    intl.formatMessage(commonMessages.notAvailable);
+
+  const handleSubmit = async (values: FormValues) => {
+    await updateRoles({
+      userId: values.userId,
+      roleAssignmentsInput: { detach: [{ roleId: values.roleId }] },
+    }).then(() => setIsOpen(false));
   };
-
-  const userName = getFullNameHtml(firstName, lastName, intl);
-  const roleDisplayName = getLocalizedName(role.displayName, intl);
 
   const label = intl.formatMessage(
     {
@@ -99,21 +97,22 @@ const RemoveIndividualRoleDialog = ({
           <p className="my-6">
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
-          <Dialog.Footer>
-            <Dialog.Close>
-              <Button color="primary">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
-            <Button
-              mode="solid"
-              color="error"
-              onClick={handleRemove}
-              disabled={isDeleting}
-            >
-              {isDeleting ? intl.formatMessage(commonMessages.removing) : label}
-            </Button>
-          </Dialog.Footer>
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
+              <Dialog.Footer>
+                <Button type="submit" mode="solid" color="error">
+                  {fetching
+                    ? intl.formatMessage(commonMessages.removing)
+                    : label}
+                </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>

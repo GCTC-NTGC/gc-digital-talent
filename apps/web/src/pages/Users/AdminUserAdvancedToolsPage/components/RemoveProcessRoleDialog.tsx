@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import { FormProvider } from "react-hook-form";
 
 import {
   Dialog,
@@ -13,74 +14,53 @@ import {
 import {
   commonMessages,
   formMessages,
-  getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
-import {
-  UpdateUserRolesInput,
-  UpdateUserRolesMutation,
-  Role,
-  User,
-  RoleInput,
-} from "@gc-digital-talent/graphql";
+import { Role, RoleInput, Scalars, Maybe } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
-import { PoolTeamable } from "../types";
+import {
+  getUserRoleDialogFragment,
+  PoolTeamable,
+  UserRoleDialogBaseProps,
+  useUpdateRolesMutation,
+} from "../utils";
 
-interface RemoveProcessRoleDialogProps {
-  user: Pick<User, "id" | "firstName" | "lastName">;
-  roles: Role[];
+interface FormValues {
+  roleIds: Scalars["UUID"]["input"][];
+  teamId: Maybe<Scalars["UUID"]["input"]>;
+  userId: Scalars["UUID"]["input"];
+}
+
+interface RemoveProcessRoleDialogProps extends UserRoleDialogBaseProps {
   pool: PoolTeamable;
-  onRemoveRoles: (
-    submitData: UpdateUserRolesInput,
-  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
+  roles: Role[];
 }
 
 const RemoveProcessRoleDialog = ({
-  user,
+  query,
   roles,
   pool,
-  onRemoveRoles,
 }: RemoveProcessRoleDialogProps) => {
   const intl = useIntl();
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { id, firstName, lastName } = user;
+  const user = getUserRoleDialogFragment(query);
+  const { updateRoles, methods, fetching } = useUpdateRolesMutation<FormValues>(
+    { userId: user.id, teamId: pool.teamIdForRoleAssignment },
+  );
 
-  const handleRemove = async () => {
-    const roleInputArray: RoleInput[] = roles.map((r) => {
-      return { roleId: r.id, teamId: pool.teamIdForRoleAssignment };
+  const handleSubmit = async (values: FormValues) => {
+    const roleInput: RoleInput[] = roles.map((r) => {
+      return { roleId: r.id, teamId: values.teamId };
     });
-    setIsDeleting(true);
-    return onRemoveRoles({
-      userId: id,
-      roleAssignmentsInput: {
-        detach: roleInputArray,
-      },
-    })
-      .then(() => {
-        setIsOpen(false);
-        toast.success(intl.formatMessage(adminMessages.roleRemoved));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
-      })
-      .finally(() => setIsDeleting(false));
+    await updateRoles({
+      userId: values.userId,
+      roleAssignmentsInput: { detach: roleInput },
+    }).then(() => setIsOpen(false));
   };
 
-  const userName = getFullNameHtml(firstName, lastName, intl);
-  const roleDisplayName = (role: Role) =>
-    getLocalizedName(role.displayName, intl);
-  const poolDisplayName = getLocalizedName(pool.name, intl);
-
-  const dialogLabel = intl.formatMessage({
-    defaultMessage: "Remove from process",
-    id: "l7Xz4j",
-    description: "Header for the form to remove a process role from a user",
-  });
+  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
   const buttonLabel = intl.formatMessage({
     defaultMessage: "Remove from process",
@@ -95,7 +75,14 @@ const RemoveProcessRoleDialog = ({
         <IconButton color="error" icon={TrashIcon} label={buttonLabel} />
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{dialogLabel}</Dialog.Header>
+        <Dialog.Header>
+          {intl.formatMessage({
+            defaultMessage: "Remove from process",
+            id: "l7Xz4j",
+            description:
+              "Header for the form to remove a process role from a user",
+          })}
+        </Dialog.Header>
         <Dialog.Body>
           <p className="mb-6">
             {intl.formatMessage({
@@ -118,7 +105,10 @@ const RemoveProcessRoleDialog = ({
           </p>
           <Ul>
             <li className="font-bold">
-              <span>{poolDisplayName}</span>
+              <span>
+                {pool.name?.localized ??
+                  intl.formatMessage(commonMessages.notAvailable)}
+              </span>
             </li>
           </Ul>
           <p className="my-6">
@@ -133,30 +123,30 @@ const RemoveProcessRoleDialog = ({
           <Chips>
             {roles.map((r) => (
               <Chip color="secondary" key={r.id}>
-                {roleDisplayName(r)}
+                {r.displayName?.localized ??
+                  intl.formatMessage(commonMessages.notAvailable)}
               </Chip>
             ))}
           </Chips>
           <p className="my-6">
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
-          <Dialog.Footer>
-            <Dialog.Close>
-              <Button color="primary">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
-            <Button
-              mode="solid"
-              color="error"
-              onClick={handleRemove}
-              disabled={isDeleting}
-            >
-              {isDeleting
-                ? intl.formatMessage(commonMessages.removing)
-                : buttonLabel}
-            </Button>
-          </Dialog.Footer>
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
+              <Dialog.Footer>
+                <Button type="submit" color="error">
+                  {fetching
+                    ? intl.formatMessage(commonMessages.removing)
+                    : buttonLabel}
+                </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>

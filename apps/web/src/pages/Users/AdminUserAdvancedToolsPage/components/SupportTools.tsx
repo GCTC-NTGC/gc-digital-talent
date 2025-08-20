@@ -10,6 +10,8 @@ import { Input } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
+import DeleteUserDialog from "./DeleteUserDialog";
+
 interface FormValues {
   sub: string;
 }
@@ -36,6 +38,7 @@ const SupportTools_Fragment = graphql(/** GraphQL */ `
     authInfo {
       sub
     }
+    ...DeleteUserDialog
   }
 `);
 
@@ -148,6 +151,22 @@ const SupportTools = ({ query }: SupportToolsProps) => {
           </Button>
         </form>
       </FormProvider>
+      <Heading level="h3" size="h6">
+        {intl.formatMessage({
+          defaultMessage: "Delete user",
+          id: "sFNx/L",
+          description: "Heading for form to delete a user",
+        })}
+      </Heading>
+      <p className="my-6">
+        {intl.formatMessage({
+          defaultMessage:
+            'This will change the status of a user to "Deleted". This will prevent the user from appearing anywhere on the platform. This action cannot be undone.',
+          id: "I/xiHI",
+          description: "Description of the form to delete a user",
+        })}
+      </p>
+      <DeleteUserDialog query={user} />
     </TableOfContents.Section>
   );
 };

@@ -1,41 +1,36 @@
 import { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { useQuery } from "urql";
 
 import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
   formMessages,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  UpdateUserRolesInput,
-  UpdateUserRolesMutation,
-  Role,
-  User,
-  graphql,
-  RoleInput,
-} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
+import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
-import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
-import { isCommunityTeamable } from "./helpers";
+import {
+  getRoleTableFragments,
+  isCommunityTeamable,
+  RoleTableProps,
+  useUpdateRolesMutation,
+} from "../utils";
 
 const AddCommunityRoleCommunities_Query = graphql(/* GraphQL */ `
   query AddCommunityRoleCommunities {
     communities {
       id
       name {
-        en
-        fr
+        localized
       }
       teamIdForRoleAssignment
     }
@@ -47,59 +42,33 @@ interface FormValues {
   community: string | null;
 }
 
-interface AddCommunityRoleDialogProps {
-  user: Pick<User, "id" | "firstName" | "lastName">;
-  authInfo: UpdateUserDataAuthInfoType;
-  communityRoles: Role[];
-  onAddRoles: (
-    submitData: UpdateUserRolesInput,
-  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
-}
-
-const AddCommunityRoleDialog = ({
-  user,
-  authInfo,
-  communityRoles,
-  onAddRoles,
-}: AddCommunityRoleDialogProps) => {
+const AddCommunityRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { id, firstName, lastName } = user;
-  const userName = getFullNameHtml(firstName, lastName, intl);
-
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      roles: [],
-      community: null,
-    },
+  const { user, options } = getRoleTableFragments({ query, optionsQuery });
+  const { updateRoles, methods, fetching } =
+    useUpdateRolesMutation<FormValues>();
+  const [{ data }] = useQuery({
+    query: AddCommunityRoleCommunities_Query,
   });
+  if (!user) return null;
+  const userName = getFullNameHtml(user?.firstName, user?.lastName, intl);
 
-  const {
-    handleSubmit,
-    watch,
-    formState: { isSubmitting },
-  } = methods;
-
-  const handleAddRoles = async (formValues: FormValues) => {
+  const handleSubmit = async (formValues: FormValues) => {
     let { roles } = formValues;
     // despite the typing, roles is just a string may be complicated by there being only one team based role available
     if (!Array.isArray(roles)) {
       roles = [roles];
     }
 
-    const roleInputArray: RoleInput[] = roles.map((role) => {
+    const roleInputArray = roles.map((role) => {
       return { roleId: role, teamId: formValues.community };
     });
 
-    return onAddRoles({
-      userId: id,
-      roleAssignmentsInput: {
-        attach: roleInputArray,
-      },
-    }).then(() => {
-      setIsOpen(false);
-      toast.success(intl.formatMessage(adminMessages.rolesAdded));
-    });
+    await updateRoles({
+      userId: user.id,
+      roleAssignmentsInput: { attach: roleInputArray },
+    }).then(() => setIsOpen(false));
   };
 
   const dialogLabel = intl.formatMessage({
@@ -116,33 +85,39 @@ const AddCommunityRoleDialog = ({
   });
 
   // if a community is selected, eliminate existing roles from the dropdown
-  const selectedCommunity = watch("community");
-  const alreadyUsedRoleIds =
-    authInfo?.roleAssignments
+  const selectedCommunity = methods.watch("community");
+
+  const currentRoles = unpackMaybes(
+    user.authInfo?.roleAssignments
       ?.filter(
-        (roleAssignment) =>
-          isCommunityTeamable(roleAssignment?.teamable) &&
-          roleAssignment?.teamable.teamIdForRoleAssignment ===
-            selectedCommunity,
+        (assignment) =>
+          isCommunityTeamable(assignment?.teamable) &&
+          assignment?.teamable?.teamIdForRoleAssignment === selectedCommunity,
       )
-      .map((roleAssignment) => roleAssignment?.role?.id)
-      .filter(notEmpty) ?? [];
+      .flatMap((assignment) => assignment?.role?.id),
+  );
+
+  const communityRoles = options.filter(
+    (role) =>
+      role.isTeamBased && COMMUNITY_ROLES.includes(role.name as RoleName),
+  );
+
   const roleOptions = communityRoles
-    .filter((role) => !alreadyUsedRoleIds.includes(role.id))
+    .filter((role) => !currentRoles.includes(role.id))
     .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
+      label:
+        role.displayName?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
       value: role.id,
     }));
 
-  const [{ data: communityData }] = useQuery({
-    query: AddCommunityRoleCommunities_Query,
-  });
-
-  const communityOptions = communityData?.communities
-    .filter(notEmpty)
-    .filter((community) => !!community?.teamIdForRoleAssignment)
+  const communityOptions = unpackMaybes(data?.communities)
+    .filter(
+      (community) =>
+        !!community?.teamIdForRoleAssignment && community.name?.localized,
+    )
     .map((community) => ({
-      label: getLocalizedName(community.name, intl),
+      label: community?.name?.localized,
       value: community.teamIdForRoleAssignment ?? "", // should never be empty, just satisfies type
     }));
 
@@ -178,7 +153,7 @@ const AddCommunityRoleDialog = ({
             })}
           </p>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleAddRoles)}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <div className="flex flex-col gap-y-6">
                 <Select
                   id="community"
@@ -217,21 +192,21 @@ const AddCommunityRoleDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button color="primary">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
                 <Button
                   mode="solid"
                   color="primary"
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={fetching}
                 >
-                  {isSubmitting
+                  {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

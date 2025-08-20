@@ -1,99 +1,80 @@
 import { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Dialog, Button, IconButton, Ul } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   formMessages,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  UpdateUserRolesInput,
-  UpdateUserRolesMutation,
-  Role,
-  User,
-  Scalars,
-  RoleInput,
-} from "@gc-digital-talent/graphql";
+import { Scalars, RoleInput, Maybe } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
-import { CommunityTeamable } from "../types";
+import {
+  CommunityAssignment,
+  getRoleTableFragments,
+  RoleTableProps,
+  useUpdateRolesMutation,
+} from "../utils";
 
 interface FormValues {
-  roles: Scalars["UUID"]["output"][];
+  roleIds: Scalars["UUID"]["input"][];
+  teamId: Maybe<Scalars["UUID"]["input"]>;
+  userId: Scalars["UUID"]["input"];
 }
 
-interface EditCommunityRoleDialogProps {
-  user: Pick<User, "id" | "firstName" | "lastName">;
-  initialRoles: Role[];
-  communityRoles: Role[];
-  community: CommunityTeamable;
-  onEditRoles: (
-    submitData: UpdateUserRolesInput,
-  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
+interface EditCommunityRoleDialogProps extends RoleTableProps {
+  assignment: CommunityAssignment;
 }
 
 const EditCommunityRoleDialog = ({
-  user,
-  initialRoles,
-  communityRoles,
-  community,
-  onEditRoles,
+  query,
+  optionsQuery,
+  assignment,
 }: EditCommunityRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { id, firstName, lastName } = user;
-
-  const userName = getFullNameHtml(firstName, lastName, intl);
-  const communityDisplayName = getLocalizedName(community.name, intl);
-  const initialRolesIds = initialRoles.map((role) => role.id);
-
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      roles: initialRolesIds,
+  const initialRoleIds = unpackMaybes(assignment.roles.flatMap((r) => r.id));
+  const { user, options } = getRoleTableFragments({ query, optionsQuery });
+  const { updateRoles, methods, fetching } = useUpdateRolesMutation<FormValues>(
+    {
+      userId: user.id,
+      teamId: assignment.community.teamIdForRoleAssignment,
+      roleIds: initialRoleIds,
     },
-  });
+  );
 
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
-  const handleEditRoles = async (formValues: FormValues) => {
-    const rolesToAttach = formValues.roles.filter(
-      (role) => !initialRolesIds.includes(role),
+  const handleSubmit = async (values: FormValues) => {
+    const rolesToAttach = values.roleIds.filter(
+      (role) => !initialRoleIds.includes(role),
     );
-    const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
-      return { roleId: role, teamId: community.teamIdForRoleAssignment };
+    const rolesToAttachArray = rolesToAttach.map((role) => {
+      return { roleId: role, teamId: values.teamId };
     });
-    const rolesToDetach = initialRolesIds.filter(
-      (role) => !formValues.roles.includes(role),
+    const rolesToDetach = initialRoleIds.filter(
+      (role) => !values.roleIds.includes(role),
     );
-    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
-      return { roleId: role, teamId: community.teamIdForRoleAssignment };
+    const rolesToDetachArray = rolesToDetach.map((role) => {
+      return { roleId: role, teamId: values.teamId };
     });
 
-    return onEditRoles({
-      userId: id,
+    await updateRoles({
+      userId: user.id,
       roleAssignmentsInput: {
         attach: rolesToAttachArray.length ? rolesToAttachArray : undefined,
         detach: rolesToDetachArray.length ? rolesToDetachArray : undefined,
       },
-    })
-      .then(() => {
-        setIsOpen(false);
-        toast.success(intl.formatMessage(adminMessages.rolesUpdated));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
-      });
+    }).then(() => {
+      setIsOpen(false);
+    });
   };
 
   const label = intl.formatMessage({
@@ -102,8 +83,15 @@ const EditCommunityRoleDialog = ({
     description: "Label for the form to edit a users community membership",
   });
 
+  const communityRoles = options.filter(
+    (role) =>
+      role.isTeamBased && COMMUNITY_ROLES.includes(role.name as RoleName),
+  );
+
   const roleOptions = communityRoles.map((role) => ({
-    label: getLocalizedName(role.displayName, intl),
+    label:
+      role.displayName?.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
     value: role.id,
   }));
 
@@ -137,7 +125,10 @@ const EditCommunityRoleDialog = ({
           </p>
           <Ul>
             <li className="font-bold">
-              <span>{communityDisplayName}</span>
+              <span>
+                {assignment.community.name?.localized ??
+                  intl.formatMessage(commonMessages.notAvailable)}
+              </span>
             </li>
           </Ul>
           <p className="my-6">
@@ -148,10 +139,10 @@ const EditCommunityRoleDialog = ({
             })}
           </p>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleEditRoles)}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <Combobox
-                id="roles"
-                name="roles"
+                id="roleIds"
+                name="roleIds"
                 isMulti
                 label={intl.formatMessage({
                   defaultMessage: "Community roles",
@@ -168,21 +159,16 @@ const EditCommunityRoleDialog = ({
                 options={roleOptions}
               />
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button color="primary">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Button
-                  mode="solid"
-                  color="primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting
+                <Button mode="solid" color="primary" type="submit">
+                  {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

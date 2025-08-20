@@ -1,90 +1,68 @@
 import { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import debounce from "lodash/debounce";
 
 import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  UpdateUserRolesInput,
-  UpdateUserRolesMutation,
-  Role,
-  User,
-  RoleInput,
-} from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import messages from "~/messages/processMessages";
-import adminMessages from "~/messages/adminMessages";
 
-import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
-import { isPoolTeamable } from "./helpers";
-import useAvailablePools from "./useAvailablePools";
+import useAvailablePools from "../useAvailablePools";
+import {
+  getRoleTableFragments,
+  isPoolTeamable,
+  RoleTableProps,
+  useUpdateRolesMutation,
+} from "../utils";
 
 interface FormValues {
   roles: string[];
   pool: string | null;
 }
 
-interface AddProcessRoleDialogProps {
-  user: Pick<User, "id" | "firstName" | "lastName">;
-  authInfo: UpdateUserDataAuthInfoType;
-  processRoles: Role[];
-  onAddRoles: (
-    submitData: UpdateUserRolesInput,
-  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
-}
-
-const AddProcessRoleDialog = ({
-  user,
-  authInfo,
-  processRoles,
-  onAddRoles,
-}: AddProcessRoleDialogProps) => {
+const AddProcessRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { id, firstName, lastName } = user;
-  const userName = getFullNameHtml(firstName, lastName, intl);
+  const { user, options } = getRoleTableFragments({ query, optionsQuery });
+  const { updateRoles, methods, fetching } =
+    useUpdateRolesMutation<FormValues>();
 
-  const roleAssignments = authInfo?.roleAssignments ?? [];
-  const activePoolIds = roleAssignments
-    .filter((ra) => isPoolTeamable(ra?.teamable))
-    .map((ra) => {
-      if (
-        ra?.teamable &&
-        isPoolTeamable(ra.teamable) && // type coercion
-        ra.role?.isTeamBased
-      ) {
-        return ra.teamable.id;
-      } else {
-        return null;
-      }
-    })
-    .filter(notEmpty);
+  const currentPools = unpackMaybes(
+    user.authInfo?.roleAssignments
+      ?.filter((assignment) => isPoolTeamable(assignment?.teamable))
+      .flatMap((assignment) => assignment?.teamable?.id),
+  );
 
-  const [query, setQuery] = useState<string>("");
+  const [term, setTerm] = useState<string>("");
   const {
     pools,
     total,
     fetching: poolsFetching,
   } = useAvailablePools(
-    activePoolIds, // Exclude the pools the user is already assigned to
+    currentPools, // Exclude the pools the user is already assigned to
     {
-      name: query || undefined,
+      name: term || undefined,
     },
   );
+
+  if (!user) return null;
+  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+
   const handleDebouncedSearch = debounce((newQuery: string) => {
-    setQuery(newQuery);
+    setTerm(newQuery);
   }, 300);
+
   const poolOptions = pools
     ?.filter((pool) => !!pool.teamIdForRoleAssignment)
     .map((pool) => ({
@@ -92,37 +70,24 @@ const AddProcessRoleDialog = ({
       label: getLocalizedName(pool.name, intl),
     }));
 
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      roles: [],
-      pool: null,
-    },
-  });
-
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const handleAddRoles = async (formValues: FormValues) => {
+  const handleSubmit = async (formValues: FormValues) => {
     let { roles } = formValues;
     // despite the typing, roles is just a string may be complicated by there being only one team based role available
     if (!Array.isArray(roles)) {
       roles = [roles];
     }
 
-    const roleInputArray: RoleInput[] = roles.map((role) => {
+    const roleInputArray = roles.map((role) => {
       return { roleId: role, teamId: formValues.pool };
     });
 
-    return onAddRoles({
-      userId: id,
+    return updateRoles({
+      userId: user.id,
       roleAssignmentsInput: {
         attach: roleInputArray,
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
 
@@ -139,8 +104,13 @@ const AddProcessRoleDialog = ({
       "Button label for the form to add a process membership to a user",
   });
 
+  const processRoles = options.filter(
+    (role) => role.isTeamBased && role.name === ROLE_NAME.ProcessOperator,
+  );
   const roleOptions = processRoles.map((role) => ({
-    label: getLocalizedName(role.displayName, intl),
+    label:
+      role.displayName?.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
     value: role.id,
   }));
 
@@ -176,7 +146,7 @@ const AddProcessRoleDialog = ({
             })}
           </p>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleAddRoles)}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <div className="flex flex-col gap-y-6">
                 <Combobox
                   id="pool"
@@ -212,21 +182,16 @@ const AddProcessRoleDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button color="primary">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Button
-                  mode="solid"
-                  color="primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting
+                <Button mode="solid" color="primary" type="submit">
+                  {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

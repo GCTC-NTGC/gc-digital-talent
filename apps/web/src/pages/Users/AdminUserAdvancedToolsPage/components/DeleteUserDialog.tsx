@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
+import { useMutation } from "urql";
 
 import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
@@ -11,50 +12,82 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { User, DeleteUserMutation } from "@gc-digital-talent/graphql";
+import {
+  Scalars,
+  graphql,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
-import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 interface FormValues {
-  roles: string[];
-  team: string | null;
+  userId: Scalars["UUID"]["input"];
+  name: string;
 }
 
-interface AddTeamRoleDialogProps {
-  user: Pick<User, "deletedDate" | "firstName" | "lastName">;
-  onDeleteUser: () => Promise<DeleteUserMutation["deleteUser"]>;
+const DeleteUser_Mutation = graphql(/** GraphQL */ `
+  mutation DeleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      id
+    }
+  }
+`);
+
+const DeleteUserDialog_Fragment = graphql(/** GraphQL */ `
+  fragment DeleteUserDialog on User {
+    id
+    firstName
+    lastName
+    deletedDate
+  }
+`);
+
+interface DeleteUserDialogProps {
+  query: FragmentType<typeof DeleteUserDialog_Fragment>;
 }
 
-const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
+const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { deletedDate, firstName, lastName } = user;
-  const userNameHtml = getFullNameHtml(firstName, lastName, intl);
-  const userNameExpected = getFullNameLabel(firstName, lastName, intl);
+  const user = getFragment(DeleteUserDialog_Fragment, query);
+  const [{ fetching }, executeMutation] = useMutation(DeleteUser_Mutation);
+  const fullName = getFullNameLabel(user?.firstName, user?.lastName, intl);
 
   const methods = useForm<FormValues>({
-    defaultValues: {
-      roles: [],
-      team: null,
-    },
+    userId: user?.id ?? "",
   });
 
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error deleting user.",
+        id: "Em4r7U",
+        description: "Error message when attempting to delete a user.",
+      }),
+    );
+  };
 
-  const handleAddRoles = async () => {
-    return onDeleteUser().then(() => {
-      setIsOpen(false);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "User deleted successfully",
-          id: "rTnjej",
-          description: "Message displayed when a user has been deleted",
-        }),
-      );
-    });
+  const handleSubmit = async (values: FormValues) => {
+    if (fetching) return;
+
+    await executeMutation({ id: values.userId ?? user?.id ?? "" })
+      .then((res) => {
+        if (res.error || !res.data.deleteUser) {
+          handleError();
+          return;
+        }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User deleted successfully!",
+            id: "l6wb1k",
+            description: "Success message after deleting a user",
+          }),
+        );
+        setIsOpen(false);
+      })
+      .catch(handleError);
   };
 
   const label = intl.formatMessage({
@@ -70,7 +103,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
           color="error"
           mode="solid"
           icon={TrashIcon}
-          disabled={!!deletedDate}
+          disabled={!!user.deletedDate}
         >
           {label}
         </Button>
@@ -81,23 +114,23 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "You are about to delete the following user from the platform:",
-              id: "inxVq8",
+                "You are about to delete the following user from the platform",
+              id: "V6h+Kn",
               description: "Lead in text for the delete user form.",
-            })}
+            }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <Ul className="my-3">
-            <li className="font-bold">{userNameHtml}</li>
+            <li className="font-bold">{fullName}</li>
           </Ul>
           <p className="mb-6">
             {intl.formatMessage({
-              defaultMessage: "Please write the user's full name to confirm:",
-              id: "YexsZi",
+              defaultMessage: "Please write the user's full name to confirm",
+              id: "DOQi5y",
               description: "Lead in text for the delete user form.",
-            })}
+            }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleAddRoles)}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <div className="flex flex-col gap-y-6">
                 <Input
                   id="name"
@@ -112,7 +145,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     validate: (value) =>
-                      value === userNameExpected ||
+                      value === fullName ||
                       intl.formatMessage(
                         {
                           defaultMessage:
@@ -121,7 +154,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
                           description:
                             "Placeholder text for user name input in the delete user dialog",
                         },
-                        { name: userNameExpected },
+                        { name: fullName },
                       ),
                   }}
                   placeholder={intl.formatMessage({
@@ -133,18 +166,8 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button color="primary">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Button
-                  mode="solid"
-                  color="error"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting
+                <Button mode="solid" color="error" type="submit">
+                  {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
                         defaultMessage: "Delete user",
@@ -152,6 +175,11 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
                         description: "Submit button in delete user dialog",
                       })}
                 </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

@@ -15,7 +15,7 @@ import {
   UpdateUserRolesFunc,
 } from "../types";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
-import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
+import RemoveCommunityRoleDialog from "../../AdminUserAdvancedToolsPage/components/RemoveCommunityRoleDialog";
 import EditProcessRoleDialog from "./EditProcessRoleDialog";
 import RemoveProcessRoleDialog from "./RemoveProcessRoleDialog";
 

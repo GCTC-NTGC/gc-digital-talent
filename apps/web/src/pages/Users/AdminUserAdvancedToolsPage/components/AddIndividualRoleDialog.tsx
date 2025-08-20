@@ -1,86 +1,51 @@
 import { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   formMessages,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  UpdateUserRolesInput,
-  UpdateUserRolesMutation,
-  Role,
-  User,
-  RoleInput,
-} from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
-import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+import {
+  getRoleTableFragments,
+  RoleTableProps,
+  useUpdateRolesMutation,
+} from "../utils";
 
 interface FormValues {
   roles: string[];
 }
 
-interface AddIndividualRoleDialogProps {
-  user: Pick<User, "id" | "firstName" | "lastName">;
-  authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Role[];
-  onAddRoles: (
-    submitData: UpdateUserRolesInput,
-  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
-}
-
-const AddIndividualRoleDialog = ({
-  user,
-  authInfo,
-  availableRoles,
-  onAddRoles,
-}: AddIndividualRoleDialogProps) => {
+const AddIndividualRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { id, firstName, lastName } = user;
-  const userName = getFullNameHtml(firstName, lastName, intl);
-
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      roles: [],
-    },
-  });
-
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+  const { user, options } = getRoleTableFragments({ query, optionsQuery });
+  const { updateRoles, methods, fetching } =
+    useUpdateRolesMutation<FormValues>();
+  if (!user) return null;
+  const userName = getFullNameHtml(user?.firstName, user?.lastName, intl);
 
   const handleAddRoles = async (formValues: FormValues) => {
-    const roleInputArray: RoleInput[] = formValues.roles.map((role) => {
+    const roleInputArray = formValues.roles.map((role) => {
       return { roleId: role };
     });
 
-    return onAddRoles({
-      userId: id,
+    await updateRoles({
+      userId: user?.id,
       roleAssignmentsInput: {
         attach: roleInputArray,
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
-
-  const dialogLabel = intl.formatMessage({
-    defaultMessage: "Add individual role",
-    id: "QCesvO",
-    description: "Header for the form to add a role to a user",
-  });
 
   const buttonLabel = intl.formatMessage({
     defaultMessage: "Add individual role",
@@ -88,17 +53,18 @@ const AddIndividualRoleDialog = ({
     description: "Label for the button to add a role to a user",
   });
 
-  const roleOptions = availableRoles
+  const roleOptions = options
     .filter((role) => {
       return (
-        !role.isTeamBased &&
-        !authInfo?.roleAssignments?.some(
+        !role?.isTeamBased &&
+        !user.authInfo?.roleAssignments?.some(
           (assignment) => assignment?.role?.id === role.id,
-        )
+        ) &&
+        role.displayName?.localized
       );
     })
     .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
+      label: role.displayName?.localized,
       value: role.id,
     }));
 
@@ -110,7 +76,13 @@ const AddIndividualRoleDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{dialogLabel}</Dialog.Header>
+        <Dialog.Header>
+          {intl.formatMessage({
+            defaultMessage: "Add individual role",
+            id: "QCesvO",
+            description: "Header for the form to add a role to a user",
+          })}
+        </Dialog.Header>
         <Dialog.Body>
           <p className="mb-6">
             {intl.formatMessage(
@@ -124,7 +96,7 @@ const AddIndividualRoleDialog = ({
             )}
           </p>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleAddRoles)}>
+            <form onSubmit={methods.handleSubmit(handleAddRoles)}>
               <Combobox
                 id="roles"
                 name="roles"
@@ -143,21 +115,16 @@ const AddIndividualRoleDialog = ({
                 options={roleOptions}
               />
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button color="primary">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Button
-                  mode="solid"
-                  color="primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting
+                <Button color="primary" type="submit">
+                  {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>
