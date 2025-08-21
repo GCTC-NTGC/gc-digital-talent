@@ -150,7 +150,7 @@ const AccountInformation = ({
   const handleSubmit = async (values: FormValues) => {
     if (fetching) return;
 
-    await executeMutation({ id: user.id, input: values })
+    await executeMutation({ id: user.id, input: { id: user.id, ...values } })
       .then((res) => {
         if (res.error || !res.data?.updateUserAsAdmin?.id) {
           handleError();
