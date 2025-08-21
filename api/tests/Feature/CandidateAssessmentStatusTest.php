@@ -107,6 +107,7 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $this->pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'assessment_step_id' => $this->pool->assessmentSteps->first()?->id,
         ]);
 
         $this->queryVars = [
@@ -157,7 +158,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 3],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -190,7 +191,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 3],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -307,7 +308,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 3],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -567,7 +568,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 3],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -776,7 +777,7 @@ class CandidateAssessmentStatusTest extends TestCase
             'type' => PoolSkillType::ESSENTIAL->name,
         ]);
         $stepOne = $pool->assessmentSteps->first();
-        $stepTwo = AssessmentStep::factory()
+        AssessmentStep::factory()
             ->afterCreating(function (AssessmentStep $step) use ($poolSkill) {
                 $step->poolSkills()->sync([$poolSkill->id]);
             })->create([
@@ -787,6 +788,7 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'assessment_step_id' => $stepOne->id,
         ]);
 
         // overall to assess, step statuses empty
@@ -795,7 +797,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [],
@@ -847,7 +849,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 3],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -902,7 +904,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 3],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [

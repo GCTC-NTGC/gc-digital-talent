@@ -559,7 +559,7 @@ type PoolCandidate {
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
-  assessmentStep: AssessmentStep @belongsTo @canResolved(ability: "view")
+  assessmentStep: AssessmentStep @belongsTo
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime

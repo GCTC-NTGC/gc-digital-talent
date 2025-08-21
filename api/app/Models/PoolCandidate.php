@@ -357,7 +357,6 @@ class PoolCandidate extends Model
     public function computeAssessmentStatus()
     {
         $decisions = [];
-        $currentStep = 1;
         $this->load([
             'pool.assessmentSteps',
             'pool.assessmentSteps.poolSkills',
@@ -365,7 +364,9 @@ class PoolCandidate extends Model
             'assessmentResults.poolSkill',
         ]);
 
-        foreach ($this->pool->assessmentSteps as $index => $step) {
+        $steps = $this->pool->assessmentSteps;
+        $currentStep = $steps->first()?->id ?? null;
+        foreach ($steps as $index => $step) {
             $stepId = $step->id;
             $hasFailure = false;
             $hasOnHold = false;
@@ -462,7 +463,10 @@ class PoolCandidate extends Model
             });
 
             if (! $previousStepsNotPassed) {
-                $currentStep++;
+                $nextStep = $steps[$index + 1] ?? null;
+                if (! is_null($nextStep)) {
+                    $currentStep = $nextStep->id;
+                }
             }
 
             if ($hasOnHold) {
@@ -486,9 +490,10 @@ class PoolCandidate extends Model
         $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
             return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
         });
+
         if (! empty($unsuccessfulDecisions)) {
             $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
-        } elseif ($currentStep >= $totalSteps && $totalSteps === count($decisions)) {
+        } elseif ($totalSteps === count($decisions)) {
             $lastStepDecision = end($decisions);
             if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
@@ -496,16 +501,8 @@ class PoolCandidate extends Model
             }
         }
 
-        // While unlikely, current step could go over.
-        // So, set it back to total steps
-        if ($currentStep && $currentStep > $totalSteps) {
-            $currentStep = $totalSteps;
-        }
-
-        $stepId = ! is_null($currentStep) ? $this->pool->assessmentSteps->firstWhere('sort_order', $currentStep) : null;
-
         return [
-            $stepId?->id,
+            $currentStep,
             [
                 'overallAssessmentStatus' => $overallAssessmentStatus,
                 'assessmentStepStatuses' => $decisions,

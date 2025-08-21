@@ -1043,7 +1043,7 @@ type PoolCandidate {
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
-  assessmentStep: Int
+  assessmentStep: AssessmentStep
   finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
   placedAt: DateTime
@@ -1071,7 +1071,7 @@ type PoolCandidateAdminView {
   isBookmarked: Boolean
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
-  assessmentStep: Int
+  assessmentStep: AssessmentStep
   finalDecision: LocalizedFinalDecision
   placedDepartment: Department
   closingDate: DateTime
