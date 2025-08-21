@@ -64,7 +64,7 @@ const makeAssessmentResult = (
 
 export const candidateFullyQualifiedExceptMissingEducation: PoolCandidate = {
   ...fakeCandidates[0],
-  assessmentStep: 1,
+  assessmentStep: fakePoolAssessmentSteps[0],
   assessmentStatus: {
     assessmentStepStatuses: [],
     overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
@@ -128,7 +128,7 @@ export const candidateQualifiedExceptHoldOnMiddleAssessment: PoolCandidate = {
 
 export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
   ...fakeCandidates[3],
-  assessmentStep: 3,
+  assessmentStep: fakePoolAssessmentSteps[2],
   assessmentStatus: {
     assessmentStepStatuses: [],
     overallAssessmentStatus: OverallAssessmentStatus.Qualified,
@@ -156,7 +156,7 @@ export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
 
 export const candidateUnfinishedFinalAssessment: PoolCandidate = {
   ...fakeCandidates[4],
-  assessmentStep: 3,
+  assessmentStep: fakePoolAssessmentSteps[2],
   assessmentStatus: {
     assessmentStepStatuses: fakePoolAssessmentSteps.flatMap((step) => ({
       step: step.id,
@@ -187,7 +187,7 @@ export const candidateUnfinishedFinalAssessment: PoolCandidate = {
 
 export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
   ...fakeCandidates[5],
-  assessmentStep: 3,
+  assessmentStep: fakePoolAssessmentSteps[2],
   assessmentStatus: {
     assessmentStepStatuses: [],
     overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
@@ -217,7 +217,7 @@ export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
 
 export const candidateOneFailingAssessment: PoolCandidate = {
   ...fakeCandidates[6],
-  assessmentStep: 1,
+  assessmentStep: fakePoolAssessmentSteps[0],
   assessmentStatus: {
     assessmentStepStatuses: fakePoolAssessmentSteps.flatMap((step) => ({
       step: step.id,
