@@ -5639,10 +5639,6 @@
     "defaultMessage": "J'accepte de recevoir des notifications par courriel de Talents numériques du GC.",
     "description": "Text for the option consent to email notifications."
   },
-  "NxrKpM": {
-    "defaultMessage": "Statut de la candidature",
-    "description": "Label for the candidacy status field"
-  },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
@@ -6026,10 +6022,6 @@
   "PmDeul": {
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
     "description": "Label for field asking if a skill is currently being used"
-  },
-  "Pn0zAn": {
-    "defaultMessage": "Tous",
-    "description": "Link text for all items in a list"
   },
   "PnHH9A": {
     "defaultMessage": "Détails de l'événement",
@@ -7385,6 +7377,10 @@
   "WIbjog": {
     "defaultMessage": "Créez un ministère",
     "description": "Heading displayed above the Create Department form."
+  },
+  "WJSfQl": {
+    "defaultMessage": "Ouvert(e) aux offres d'emploi",
+    "description": "Open interest label"
   },
   "WKAzau": {
     "defaultMessage": "Niveau démontré",
@@ -12313,6 +12309,10 @@
     "defaultMessage": "J'ai suivi ce programme avec succès.",
     "description": "Option for the 'completed' choice of program participation"
   },
+  "tIz8qw": {
+    "defaultMessage": "Intérêt pour les offres d'emploi",
+    "description": "Job offer interest label"
+  },
   "tJLZYs": {
     "defaultMessage": "Obtention d’un diplôme d’un programme de deux ans ou plus offert par <link>une institution postsecondaire reconnue</link>. Le programme doit compter une spécialisation en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à la présente publication.",
     "description": "Descriptive text explaining a valid post secondary education."
@@ -12364,6 +12364,10 @@
   "tXLRmG": {
     "defaultMessage": "Je ne suis pas à la recherche d'une promotion ou d'un avancement pour l'instant.",
     "description": "The promotion move interest described as not interested."
+  },
+  "tY1JG4": {
+    "defaultMessage": "Non intéressé(e)",
+    "description": "Not interested in job offers"
   },
   "tZmXOj": {
     "defaultMessage": "l’amélioration de l'accessibilité des couleurs",
@@ -13169,10 +13173,6 @@
     "defaultMessage": "Prochaine étape",
     "description": "Button text to submit the current step of a process"
   },
-  "xUz0TV": {
-    "defaultMessage": "Statut de la candidature",
-    "description": "Candidacy status label"
-  },
   "xV43au": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",
     "description": "Aria label for download guidance for human resources plain text link."
@@ -13236,6 +13236,10 @@
   "xle+7f": {
     "defaultMessage": "Incomplet",
     "description": "Simplified status label for a incomplete process advertisement or assessment"
+  },
+  "xlx+3E": {
+    "defaultMessage": "Télécharger la mise en candidature",
+    "description": "Button label for downloading an individual talent nomination"
   },
   "xm2o/k": {
     "defaultMessage": "Ces renseignements sont facultatifs",
