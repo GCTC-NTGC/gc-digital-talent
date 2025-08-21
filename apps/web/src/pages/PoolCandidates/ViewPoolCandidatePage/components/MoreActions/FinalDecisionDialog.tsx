@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
-import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
+import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Submit } from "@gc-digital-talent/forms";
 import {
   DisqualificationReason,
   FragmentType,
@@ -12,14 +12,9 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
-import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+import FinalDecisionForm, { FormValues } from "./FinalDecisionForm";
 
 export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment FinalDecisionDialog on PoolCandidate {
@@ -65,12 +60,6 @@ const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface FormValues {
-  finalAssessmentDecision?: string;
-  disqualifiedDecision?: string;
-  expiryDate?: string;
-}
-
 interface FinalDecisionDialogProps {
   poolCandidate: FragmentType<typeof FinalDecisionDialog_Fragment>;
   defaultOpen?: boolean;
@@ -85,7 +74,6 @@ const FinalDecisionDialog = ({
     FinalDecisionDialog_Fragment,
     poolCandidateQuery,
   );
-  const todayDate = new Date();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeQualifyMutation] = useMutation(
     PoolCandidate_QualifyCandidateMutation,
@@ -101,8 +89,7 @@ const FinalDecisionDialog = ({
         : "",
     },
   });
-  const { handleSubmit, watch } = methods;
-  const [finalAssessmentDecisionValue] = watch(["finalAssessmentDecision"]);
+  const { handleSubmit } = methods;
 
   const handleError = () => {
     toast.error(
@@ -201,106 +188,7 @@ const FinalDecisionDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <Heading level="h3" size="h6" className="mb-3">
-                {intl.formatMessage({
-                  defaultMessage: "Final decision",
-                  id: "VYOVUJ",
-                  description: "Final decision heading",
-                })}
-              </Heading>
-              <RadioGroup
-                idPrefix="finalAssessmentDecision"
-                name="finalAssessmentDecision"
-                legend={intl.formatMessage(
-                  commonMessages.finalAssessmentDecision,
-                )}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                items={[
-                  {
-                    value: "qualified",
-                    label: intl.formatMessage({
-                      defaultMessage: "Qualify candidate",
-                      description: "Qualify candidate option",
-                      id: "EvR6qK",
-                    }),
-                  },
-                  {
-                    value: "disqualified",
-                    label: intl.formatMessage({
-                      defaultMessage: "Disqualify candidate",
-                      description: "Disqualify candidate option",
-                      id: "oIM22z",
-                    }),
-                  },
-                ]}
-              />
-              {finalAssessmentDecisionValue === "disqualified" && (
-                <RadioGroup
-                  idPrefix="disqualifiedDecision"
-                  name="disqualifiedDecision"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Disqualified decision",
-                    description: "Disqualified decision input",
-                    id: "Ed+xy1",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  items={[
-                    {
-                      value: "application",
-                      label: intl.formatMessage({
-                        defaultMessage: "Screened out on application",
-                        description: "Screened out on application option",
-                        id: "YueN6y",
-                      }),
-                    },
-                    {
-                      value: "assessment",
-                      label: intl.formatMessage({
-                        defaultMessage: "Unsuccessful during assessment",
-                        description: "Unsuccessful during assessment option",
-                        id: "wrqRvV",
-                      }),
-                    },
-                  ]}
-                  className="mt-6"
-                />
-              )}
-              {finalAssessmentDecisionValue === "qualified" && (
-                <DateInput
-                  id="expiryDate"
-                  name="expiryDate"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Select an expiry date",
-                    id: "3MboNR",
-                    description:
-                      "Label for date selection input for expiry date",
-                  })}
-                  context={
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "This is the amount of time this candidate will be considered for placement based on the results of this process. The usual amount of time is two years.",
-                        id: "DXjJyD",
-                        description:
-                          "Text describing expiry dates for candidates, what it is for and a recommendation",
-                      })}
-                    </p>
-                  }
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                    min: {
-                      value: strToFormDate(todayDate.toISOString()),
-                      message: intl.formatMessage(errorMessages.futureDate),
-                    },
-                  }}
-                  className="mt-6"
-                />
-              )}
-              <FormChangeNotifyWell className="mt-6" />
+              <FinalDecisionForm />
               <Dialog.Footer>
                 <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Dialog.Close>
