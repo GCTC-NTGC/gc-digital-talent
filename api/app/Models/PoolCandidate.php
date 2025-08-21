@@ -112,6 +112,7 @@ class PoolCandidate extends Model
         'priority_verification',
         'priority_verification_expiry',
         'is_bookmarked',
+        'assessment_step_id',
     ];
 
     protected $touches = ['user'];
@@ -512,7 +513,7 @@ class PoolCandidate extends Model
 
     public function computeFinalDecision()
     {
-        $this->load(['user']);
+        $this->load(['user', 'assessmentStep']);
 
         $status = $this->pool_candidate_status;
         $decision = null;
