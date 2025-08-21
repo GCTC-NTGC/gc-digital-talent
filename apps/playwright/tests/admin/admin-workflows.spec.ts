@@ -7,6 +7,7 @@ const USERS_PAGINATED_QUERY = "UsersPaginated";
 const searchForUser = async (appPage: AppPage, name: string) => {
   await appPage.page
     .getByRole("textbox", { name: /search/i })
+    .first()
     .fill(name, { timeout: 30000 });
 
   await appPage.waitForGraphqlResponse(USERS_PAGINATED_QUERY);
