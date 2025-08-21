@@ -26,7 +26,6 @@ import MetaDataStatusItem, {
 } from "./MetaDataStatusItem";
 import MetaDataButton from "./MetaDataButton";
 import { ButtonProps } from "../Button";
-import HTMLEntity from "../HTMLEntity/HTMLEntity";
 
 const root = tv({
   base: "group flex flex-col",
