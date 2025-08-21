@@ -7,6 +7,8 @@ import { useQuery } from "urql";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -31,6 +33,7 @@ import ChangeExpiryDateDialog from "../ChangeExpiryDateDialog/ChangeExpiryDateDi
 import NotesForm from "./NotesForm";
 import DownloadButton from "./DownloadButton";
 import StatusLabel from "./StatusLabel";
+import FinalDecisionAndPlaceDialog from "./FinalDecisionAndPlaceDialog";
 
 export const MoreActions_Fragment = graphql(/* GraphQL */ `
   fragment MoreActions on PoolCandidate {
@@ -95,6 +98,7 @@ const MoreActions = ({
 }: MoreActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { userAuthInfo } = useAuthorization();
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
   const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
     id: poolCandidate.id,
@@ -122,6 +126,12 @@ const MoreActions = ({
 
   const status = poolCandidate.status?.value;
 
+  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const hasCommunityRecruiterRole = hasRole(
+    [ROLE_NAME.CommunityRecruiter],
+    roleAssignments,
+  );
+
   return (
     <div className="mb-3 flex flex-col gap-3">
       <Card space="md" className="flex flex-col gap-3">
@@ -142,9 +152,14 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        {isRODStatus(status) && (
-          <FinalDecisionDialog poolCandidate={poolCandidate} />
-        )}
+        {isRODStatus(status) &&
+          (hasCommunityRecruiterRole ? (
+            // community recruiters can record a decision and placement at the same time
+            <FinalDecisionAndPlaceDialog poolCandidate={poolCandidate} />
+          ) : (
+            // everyone else can only place
+            <FinalDecisionDialog poolCandidate={poolCandidate} />
+          ))}
 
         {isRemovedStatus(status) && (
           <div>
