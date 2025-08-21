@@ -1,4 +1,4 @@
-import type { Decorator } from "@storybook/react";
+import type { Decorator } from "@storybook/react-vite";
 
 // Helps Chromatic detect width for snapshots, as otherwise it just captures
 // height of the button that opens dialog.

@@ -1,4 +1,4 @@
-import type { Decorator } from "@storybook/react";
+import type { Decorator } from "@storybook/react-vite";
 import { useParameter } from "@storybook/preview-api";
 
 import { FeatureFlagProvider, FeatureFlags } from "@gc-digital-talent/env";

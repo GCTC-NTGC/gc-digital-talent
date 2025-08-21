@@ -2,7 +2,7 @@ import { Provider as GraphqlProvider } from "urql";
 import { Client } from "@urql/core";
 import { fromValue, pipe, delay } from "wonka";
 import { useParameter } from "@storybook/preview-api";
-import type { Decorator } from "@storybook/react";
+import type { Decorator } from "@storybook/react-vite";
 import random from "lodash/random";
 import merge from "lodash/merge";
 import { DocumentNode, Kind } from "graphql";
