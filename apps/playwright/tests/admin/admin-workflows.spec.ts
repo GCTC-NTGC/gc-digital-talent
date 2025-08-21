@@ -45,18 +45,18 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    await appPage.page.getByRole("link", { name: /edit gul fields/i }).click();
-    await appPage.waitForGraphqlResponse("UpdateUserData");
+    await appPage.page.getByRole("link", { name: /gul fields/i }).click();
+    await appPage.page.getByRole("link", { name: /advanced tools/i }).click();
 
     await appPage.page
       .getByRole("textbox", { name: /telephone/i })
       .fill("+10123456789");
     await appPage.page
-      .getByRole("button", { name: /submit/i })
+      .getByRole("button", { name: /update information/i })
       .first()
       .click();
 
-    await appPage.waitForGraphqlResponse("UpdateUserAsAdmin");
+    await appPage.waitForGraphqlResponse("UpdateAccountInformation");
 
     await expect(appPage.page.getByRole("alert")).toContainText(
       /user updated successfully/i,
