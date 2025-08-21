@@ -6,7 +6,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import React, {
   ComponentPropsWithoutRef,
   forwardRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   Fragment,
   createContext,
@@ -56,17 +56,18 @@ const AccordionVariantContext = createContext<AccordionVariants>({
 
 type RootProps = AccordionVariants & RootPrimitiveProps;
 
-const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
-  ({ mode = "simple", size = "md", className, ...rest }, forwardedRef) => (
-    <AccordionVariantContext.Provider value={{ mode, size }}>
-      <AccordionPrimitive.Root
-        ref={forwardedRef}
-        className={root({ mode, class: className })}
-        {...rest}
-      />
-    </AccordionVariantContext.Provider>
-  ),
-);
+const Root = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Root>,
+  RootProps
+>(({ mode = "simple", size = "md", className, ...rest }, forwardedRef) => (
+  <AccordionVariantContext.Provider value={{ mode, size }}>
+    <AccordionPrimitive.Root
+      ref={forwardedRef}
+      className={root({ mode, class: className })}
+      {...rest}
+    />
+  </AccordionVariantContext.Provider>
+));
 
 const item = tv({
   base: "overflow-hidden",
@@ -79,7 +80,7 @@ const item = tv({
 });
 
 const Item = forwardRef<
-  ElementRef<typeof AccordionPrimitive.Item>,
+  ComponentRef<typeof AccordionPrimitive.Item>,
   ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >((props, forwardedRef) => {
   const { mode } = useContext(AccordionVariantContext);
@@ -192,7 +193,7 @@ interface AccordionHeaderProps
 }
 
 const Trigger = forwardRef<
-  ElementRef<typeof AccordionPrimitive.Trigger>,
+  ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionHeaderProps
 >(
   (
@@ -471,7 +472,7 @@ const content = tv({
 });
 
 const Content = forwardRef<
-  ElementRef<typeof AccordionPrimitive.Content>,
+  ComponentRef<typeof AccordionPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ children, className, ...rest }, forwardedRef) => {
   const { mode, size } = useContext(AccordionVariantContext);
