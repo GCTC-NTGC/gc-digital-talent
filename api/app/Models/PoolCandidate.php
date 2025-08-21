@@ -61,6 +61,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
+ * @property string $assessment_step_id
  */
 class PoolCandidate extends Model
 {
@@ -366,7 +367,7 @@ class PoolCandidate extends Model
         ]);
 
         $steps = $this->pool->assessmentSteps;
-        $currentStep = $steps->first()?->id ?? null;
+        $currentStep = $steps->first()->id ?? null;
         foreach ($steps as $index => $step) {
             $stepId = $step->id;
             $hasFailure = false;
