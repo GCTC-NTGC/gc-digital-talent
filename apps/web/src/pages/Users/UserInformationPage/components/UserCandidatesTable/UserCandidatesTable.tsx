@@ -21,11 +21,11 @@ import {
 } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
+import { candidacyStatusAccessor } from "~/components/PoolCandidatesTable/helpers";
 
 import {
   bookmarkCell,
   bookmarkHeader,
-  candidacyStatusAccessor,
   candidateNameCell,
   finalDecisionCell,
   notesCell,
@@ -269,14 +269,10 @@ const UserCandidatesTable = ({
     ),
     columnHelper.accessor(
       (poolCandidate) =>
-        candidacyStatusAccessor(
-          poolCandidate.suspendedAt,
-          stringsData?.suspendedStatuses,
-          intl,
-        ),
+        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
       {
         id: "candidacyStatus",
-        header: intl.formatMessage(tableMessages.candidacyStatus),
+        header: intl.formatMessage(tableMessages.interestJobOffers),
       },
     ),
     columnHelper.accessor(({ notes }) => notes ?? "", {
