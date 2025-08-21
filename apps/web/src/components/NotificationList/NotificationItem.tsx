@@ -99,9 +99,7 @@ interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
   inDialog?: boolean;
-  focusRef?: React.MutableRefObject<
-    (HTMLAnchorElement & HTMLButtonElement) | null
-  >;
+  focusRef?: React.RefObject<(HTMLAnchorElement & HTMLButtonElement) | null>;
   onRead?: () => void;
 }
 

@@ -3,10 +3,10 @@
  */
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { tv, VariantProps } from "tailwind-variants";
-import { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react";
+import { forwardRef, ComponentRef, ComponentPropsWithoutRef } from "react";
 
 const Trigger = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.Trigger>,
+  ComponentRef<typeof DropdownMenuPrimitive.Trigger>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
 >(({ asChild = true, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Trigger
@@ -21,7 +21,7 @@ const content = tv({
 });
 
 const StyledContent = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.Content>,
+  ComponentRef<typeof DropdownMenuPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Content
@@ -32,7 +32,7 @@ const StyledContent = forwardRef<
 ));
 
 const StyledArrow = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.Arrow>,
+  ComponentRef<typeof DropdownMenuPrimitive.Arrow>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
@@ -55,7 +55,7 @@ const Content = ({ children, ...props }: DropdownMenuPrimitiveContentProps) => (
 );
 
 const StyledSubContent = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.SubContent>,
+  ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.SubContent
@@ -110,7 +110,7 @@ interface ItemProps
     > {}
 
 const Item = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.Item>,
+  ComponentRef<typeof DropdownMenuPrimitive.Item>,
   ItemProps
 >(({ color = "primary", disabled, className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Item
@@ -129,7 +129,7 @@ interface CheckboxItemProps
     > {}
 
 const CheckboxItem = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
+  ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   CheckboxItemProps
 >(({ color = "primary", className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.CheckboxItem
@@ -147,7 +147,7 @@ interface RadioItemProps
     > {}
 
 const RadioItem = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
+  ComponentRef<typeof DropdownMenuPrimitive.RadioItem>,
   RadioItemProps
 >(({ color = "primary", className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.RadioItem
@@ -158,7 +158,7 @@ const RadioItem = forwardRef<
 ));
 
 const Label = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.Label>,
+  ComponentRef<typeof DropdownMenuPrimitive.Label>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Label
@@ -169,7 +169,7 @@ const Label = forwardRef<
 ));
 
 const Separator = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.Separator>,
+  ComponentRef<typeof DropdownMenuPrimitive.Separator>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Separator
@@ -180,7 +180,7 @@ const Separator = forwardRef<
 ));
 
 const ItemIndicator = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.ItemIndicator>,
+  ComponentRef<typeof DropdownMenuPrimitive.ItemIndicator>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.ItemIndicator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.ItemIndicator
