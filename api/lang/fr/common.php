@@ -43,7 +43,7 @@ return [
     'user_processes_text_1' => 'Aperçu des processus de recrutement pour lesquels',
     'user_processes_text_2' => 'a été qualifié(e).',
     'digital_talent_processes_text' => 'Ces processus sont effectués sur la plateforme Talents numériques du GC.',
-    'off_platform_processes_text' => 'Les utilisateurs peuvent fournir des renseignements sur les processus ou les bassins d\'autres plateformes du gouvernement du Canada pour lesquels ils ont été qualifiés. Ces informations n\'ont pas été vérifiées.',
+    'off_platform_processes_text' => 'Les processus de recrutement pour lesquels la personne candidate a été qualifiée sur d\'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par la personne candidate sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d\'embauche ou de placement.',
     'nominations' => 'Nominations',
     'skill_requirements' => 'Exigences en matière de compétences',
 ];

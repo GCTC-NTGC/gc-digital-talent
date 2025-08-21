@@ -185,8 +185,8 @@ const RecruitmentProcessPreviewList = ({
           ) : (
             intl.formatMessage({
               defaultMessage:
-                "The nominee has not added any off-platform process information.",
-              id: "ou6APO",
+                "The nominee has not added any off-platform processes.",
+              id: "4NtC0R",
               description: "Null state for off-platform section",
             })
           )}

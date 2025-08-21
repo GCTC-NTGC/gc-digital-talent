@@ -243,6 +243,10 @@
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
   },
+  "/0kzjJ": {
+    "defaultMessage": "Nous avons modifié la manière dont nous recueillons les renseignements sur les processus de recrutement hors plateforme. Les renseignements présentés ici seront supprimés à partir du 31 décembre 2025. Veuillez utiliser notre nouveau format et ajouter chaque processus pour lequel vous avez été qualifié(e) en utilisant le bouton « Ajouter un processus hors plateforme ».",
+    "description": "Message informing the user about the update to off-platform processes"
+  },
   "/17wgm": {
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
@@ -731,10 +735,6 @@
     "defaultMessage": "Supprimez cette expérience",
     "description": "Button to remove the link between experience and skill"
   },
-  "1GOD0g": {
-    "defaultMessage": "Ces renseignements sont fournis par la personne candidate et n'ont pas été vérifiés. Veuillez confirmer sa validité avant de l'utiliser à des fins d'embauche ou de placement.",
-    "description": "Off-platform section information"
-  },
   "1HPhji": {
     "defaultMessage": "Filtres",
     "description": "Text label for button to open filter dialog on admin tables."
@@ -903,6 +903,10 @@
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
   },
+  "1yrLje": {
+    "defaultMessage": "Avant de supprimer ces renseignements, assurez-vous d'avoir ajouté vos processus de recrutement hors plateforme en utilisant le nouveau bouton « Ajouter un processus hors plateforme » sur votre tableau de bord.",
+    "description": "Explanation of delete old off platform processes dialog part 1"
+  },
   "2/fjEP": {
     "defaultMessage": "Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation?",
     "description": "Button text to toggle the accordion for accommodations contact"
@@ -1018,6 +1022,10 @@
   "2SqgvZ": {
     "defaultMessage": "Les possibilités d'emploi sur cette plateforme sont assorties de diverses exigences concernant le lieu de travail. Une seule annonce d'emploi peut comprendre plusieurs emplois disponibles. Vous verrez donc souvent des combinaisons d'exigences concernant le lieu de travail. Dans un tel cas, vous obtiendrez de l'information précise sur le lieu de travail à mesure qu'une possibilité d'emploi se présente.",
     "description": "Paragraph describing how work locations are used on pool advertisements"
+  },
+  "2TPpyp": {
+    "defaultMessage": "Les processus de recrutement pour lesquels la personne candidate a été qualifiée sur d'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par la personne candidate sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d'embauche ou de placement.",
+    "description": "Off-platform section information"
   },
   "2UDONd": {
     "defaultMessage": "Trouvez des occasions d’emploi pour les talents numériques au sein du gouvernement du Canada et posez votre candidature.",
@@ -1439,6 +1447,10 @@
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
     "description": "Aria text for icon indicating a skill to assessment step connection."
   },
+  "4NtC0R": {
+    "defaultMessage": "La personne candidate n'a ajouté aucun processus hors plateforme.",
+    "description": "Null state for off-platform section"
+  },
   "4Nx4Xn": {
     "defaultMessage": "Nom du ministère",
     "description": "Label for the department name input"
@@ -1766,6 +1778,10 @@
   "5jm/N7": {
     "defaultMessage": "Supprimer cet utilisateur",
     "description": "Label on the button to open the delete user dialog"
+  },
+  "5kfun9": {
+    "defaultMessage": "Niveau de classification",
+    "description": "Label displayed on for classification level input"
   },
   "5l+q/p": {
     "defaultMessage": "Supprimer un utilisateur",
@@ -2551,10 +2567,6 @@
     "defaultMessage": "Ce programme ne m'intéresse pas",
     "description": "Message displayed when a user is not interested in a development program"
   },
-  "Phlp8j": {
-    "defaultMessage": "Organisation",
-    "description": "Label displayed on Work Experience form for organization input"
-  },
   "9VPBwR": {
     "defaultMessage": "Homme danseur en régalia traditionnelle.",
     "description": "Indigenous Apprenticeship lower back image text alternative"
@@ -2687,6 +2699,10 @@
     "defaultMessage": "Enregistrer des compétences comportementales essentielles",
     "description": "Text on a button to save the essential behavioural skills form"
   },
+  "9x6s5N": {
+    "defaultMessage": "Supprimer le processus",
+    "description": "Label displayed on off platform process form for remove process button"
+  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -2750,10 +2766,6 @@
   "AJ9XL4": {
     "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
     "description": "Subtitle for nomination rationale step with leadership competencies"
-  },
-  "AJXRC6": {
-    "defaultMessage": "Les données que vous fournissez ici seront vérifiées. Vous pouvez ajouter tous les processus et bassins dans lesquels vous êtes qualifiée ou qualifié. Dans la mesure du possible, fournissez les renseignements suivants :",
-    "description": "Explanation of dialog"
   },
   "ALIgEC": {
     "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
@@ -4703,10 +4715,6 @@
     "defaultMessage": "Quelles contributions le candidat retenu devra-t-il ou la candidate retenue devra-t-elle apporter?",
     "description": "list item for job poster template key tasks section, paragraph 2"
   },
-  "JThAS2": {
-    "defaultMessage": "Le niveau (par exemple, 01, 02, 03, etc.)",
-    "description": "Info list item"
-  },
   "JUejJU": {
     "defaultMessage": "Le bureau de gestion de la collectivité du numérique souhaite vous aider à trouver le bon talent.",
     "description": "Text telling users that Digital Community Management can still help them"
@@ -5103,6 +5111,10 @@
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
     "description": "Message displayed to user after classification fails to get updated."
   },
+  "LF6QNw": {
+    "defaultMessage": "Groupe de classification",
+    "description": "Label displayed on for classification group input"
+  },
   "LF9xdK": {
     "defaultMessage": "Questions de présélection (au moment de la candidature) - {skillName}",
     "description": "Header for application screening decision dialog."
@@ -5318,6 +5330,10 @@
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
+  },
+  "MCLe8z": {
+    "defaultMessage": "Vous pouvez également choisir de supprimer ces renseignements maintenant.",
+    "description": "Button text for opening dialog to delete old off-platform process data."
   },
   "ME4sNt": {
     "defaultMessage": "Sauvegarder « À propos de nous »",
@@ -6283,6 +6299,10 @@
     "defaultMessage": "Le programme dure combien de temps?",
     "description": "Learn more dialog question two heading"
   },
+  "QtDQkD": {
+    "defaultMessage": "{classification} <hidden>processus hors plateforme</hidden>",
+    "description": "Title for an off platform recruitment process if department is not given."
+  },
   "Qu3NZ1": {
     "defaultMessage": "L'étape suivante est la partie la plus importante de votre candidature. Nous vous demanderons d'expliquer comment vous répondez aux exigences de compétences pour ce rôle.",
     "description": "Application step for skill requirements, introduction, description, paragraph one"
@@ -6730,10 +6750,6 @@
   "T3aDLD": {
     "defaultMessage": "Les renseignements suivants sont facultatifs, mais ils visent à aider les candidates et candidats à mieux comprendre le processus d'embauche. Vos réponses à ces questions apparaîtront avec d'autres renseignements importants, comme l'équité, les mesures d'adaptation et les coordonnées.",
     "description": "Sub title for common questions"
-  },
-  "T3geYt": {
-    "defaultMessage": "Le groupe professionnel (par exemple, IT, AS, etc.)",
-    "description": "Info list item"
   },
   "T4LCrR": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez-nous votre histoire en mettant l'accent sur votre avancement professionnel et vos compétences. Votre profil éclairera les décisions en matière de gestion des talents et orientera la planification stratégique en ce qui a trait au recrutement, à la planification de la relève et au perfectionnement de nos cadres de la gestion financière.",
@@ -7810,6 +7826,10 @@
     "defaultMessage": "Veuillez <a>communiquer avec l’équipe</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
     "description": "Opening sentence asking if accommodations are needed"
   },
+  "YK4XOI": {
+    "defaultMessage": "Autre plateforme",
+    "description": "Label displayed on off platform process form for other platform input"
+  },
   "YMAXhb": {
     "defaultMessage": "Statut d'employé(e) du gouvernement",
     "description": "Employee status label"
@@ -8718,6 +8738,10 @@
     "defaultMessage": "À titre de rappel, vous allez quitter notre site pour vous connecter avec une CléGC. Si vous éprouvez des problèmes, nous avons quelques conseils supplémentaires pour vous.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
+  "cik7wX": {
+    "defaultMessage": "Ajouter un processus hors plateforme",
+    "description": "Button to open dialog to create off-platform process"
+  },
   "cktAfD": {
     "defaultMessage": "Planification et établissement de rapports",
     "description": "Heading for the directives planning and reporting component"
@@ -8893,10 +8917,6 @@
   "db3ZDX": {
     "defaultMessage": "Bon retour!",
     "description": "Heading at the top of the sign in page for applicant profiles"
-  },
-  "dbeDy2": {
-    "defaultMessage": "Aucune information sur les processus hors plate-forme n’a été fournie.",
-    "description": "Null state for off-platform section"
   },
   "dcV5qH": {
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
@@ -9546,10 +9566,6 @@
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
   },
-  "g17mQL": {
-    "defaultMessage": "Modifiez les renseignements sur les processus hors plateforme",
-    "description": "Button to open dialog to edit information"
-  },
   "g1WB3B": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Title for add experience page"
@@ -9893,6 +9909,10 @@
     "defaultMessage": "(Aucune compétence requise)",
     "description": "Message displayed when no skills are required for a pool"
   },
+  "hO8vGS": {
+    "defaultMessage": "Supprimer les informations stockées dans l'ancien format",
+    "description": "Dialog header informing of purpose"
+  },
   "hQ2+aE": {
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
@@ -10197,10 +10217,6 @@
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
   },
-  "izBEYf": {
-    "defaultMessage": "Renseignements sur les processus hors plateforme",
-    "description": "Form input label"
-  },
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -10396,10 +10412,6 @@
   "jphtnM": {
     "defaultMessage": "Travail à distance facultatif (recommandé)",
     "description": "Label displayed for 'remote optional' option"
-  },
-  "jrt4zY": {
-    "defaultMessage": "Modifier les renseignements sur les processus hors plateforme.",
-    "description": "Dialog header informing of purpose"
   },
   "js5ZcB": {
     "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
@@ -11449,6 +11461,10 @@
     "defaultMessage": "Options de mutation latérale",
     "description": "Trigger title for lateral movement"
   },
+  "oiD77w": {
+    "defaultMessage": "Ajouter ou modifier les renseignements sur les processus hors plateforme",
+    "description": "Dialog header informing of purpose"
+  },
   "oiTphL": {
     "defaultMessage": "Questionnaire d’octroi de contrats sur les services numériques",
     "description": "Heading for the digital Services contracting form"
@@ -11476,10 +11492,6 @@
   "om9QYn": {
     "defaultMessage": "Annulez et revenez aux classifications",
     "description": "Link text to return to classification table"
-  },
-  "ooBbNZ": {
-    "defaultMessage": "Le numéro du processus ou du bassin",
-    "description": "Info list item"
   },
   "opkSia": {
     "defaultMessage": "Gérer « {skillName} »",
@@ -11548,6 +11560,10 @@
   "pB5bOl": {
     "defaultMessage": "Hors du Canada et des États-Unis",
     "description": "GCKey answer for who to contact about GCKey, outside Canada and United States area for phone number"
+  },
+  "pBRz2q": {
+    "defaultMessage": "{classification} à {departmentName} <hidden>processus hors plateforme</hidden>",
+    "description": "Title for an off platform recruitment process if department is given."
   },
   "pCZ1wt": {
     "defaultMessage": "Sélectionnez un groupe de compétences",
@@ -11969,6 +11985,10 @@
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
   },
+  "rOMDmX": {
+    "defaultMessage": "Confirmez-vous vouloir supprimer les renseignements sur les processus hors plateforme stockés dans l'ancien format?",
+    "description": "Explanation of delete old off platform processes dialog part 2"
+  },
   "rOl7Xv": {
     "defaultMessage": "Les renseignements essentiels du profil de la personne candidate, y compris ses coordonnées, ses niveaux et évaluations linguistiques et l'équité en matière d'emploi.",
     "description": "Subtitle for basic profile information section"
@@ -12004,6 +12024,10 @@
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
+  },
+  "rYKGn/": {
+    "defaultMessage": "Plateforme",
+    "description": "Label displayed on off platform process form for platform input"
   },
   "rYYqbv": {
     "defaultMessage": "Les fonctionnaires du gouvernement du Canada travaillant en TI pourraient profiter des bons pour examens de certification attestant les compétences reconnues par l'industrie. Ces bons vous aideront à accroître vos qualifications et à faire progresser votre carrière.",
@@ -13400,6 +13424,10 @@
   "yNPkM8": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
+  },
+  "yO+tlM": {
+    "defaultMessage": "Aidez le personnel chargé du recrutement à mieux comprendre vos qualifications en ajoutant des renseignements sur les autres processus de recrutement du gouvernement du Canada pour lesquels vous avez été qualifié(e). Ces renseignements seront vérifiés.",
+    "description": "Explanation of dialog"
   },
   "yOii5k": {
     "defaultMessage": "l'architecture intégrée;",
