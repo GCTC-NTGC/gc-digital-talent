@@ -36,9 +36,10 @@ const fakePool = fakePools(
   3,
 )[0];
 // make three assessment steps which assess all the pool skills
-const fakePoolAssessmentSteps = fakeAssessmentSteps(3).map((step) => {
+const fakePoolAssessmentSteps = fakeAssessmentSteps(3).map((step, index) => {
   return {
     ...step,
+    sortOrder: index + 1,
     poolSkills: fakePool.poolSkills,
   };
 });
