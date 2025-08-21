@@ -26,17 +26,14 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    await appPage.page.getByRole("link", { name: /view gul fields/i }).click();
-    await appPage.waitForGraphqlResponse("GetViewUserData");
+    await appPage.page.getByRole("link", { name: /gul fields/i }).click();
 
     await expect(
-      appPage.page.getByRole("heading", { name: /view user/i }),
+      appPage.page.getByRole("heading", { name: /gul fields/i }),
     ).toBeVisible();
 
-    await appPage.page.getByRole("link", { name: /user profile/i }).click();
-    await appPage.waitForGraphqlResponse("AdminUserProfile");
     await expect(
-      appPage.page.getByRole("button", { name: /download docx/i }),
+      appPage.page.getByRole("button", { name: /download profile/i }),
     ).toBeVisible();
   });
 
@@ -59,7 +56,7 @@ test.describe("Admin workflows", () => {
     await appPage.waitForGraphqlResponse("UpdateAccountInformation");
 
     await expect(appPage.page.getByRole("alert")).toContainText(
-      /user updated successfully/i,
+      /updated account information successfully/i,
     );
 
     await searchForUser(appPage, "Applicant");
