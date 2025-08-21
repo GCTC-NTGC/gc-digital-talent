@@ -9,6 +9,7 @@ import BaseLink, { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
 import Chip, { ChipProps } from "../Chip/Chip";
 import Heading, { HeadingLevel } from "../Heading";
 import { BaseIconButtonLinkProps } from "../../utils/btnStyles";
+import HTMLEntity from "../HTMLEntity/HTMLEntity";
 
 interface MetaDataBase {
   children: ReactNode;
