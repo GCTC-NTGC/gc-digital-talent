@@ -60,6 +60,7 @@ test.describe("Admin workflows", () => {
       /updated account information successfully/i,
     );
 
+    await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
     await appPage.page
       .getByRole("button", { name: /show or hide columns/i })
