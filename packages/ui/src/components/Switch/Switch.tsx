@@ -1,6 +1,6 @@
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import { tv, VariantProps } from "tailwind-variants";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from "react";
 
 import { IconType } from "../../types";
 import useControllableState from "../../hooks/useControllableState";
@@ -64,7 +64,10 @@ export interface SwitchProps
   };
 }
 
-const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(
+const Switch = forwardRef<
+  ComponentRef<typeof SwitchPrimitive.Root>,
+  SwitchProps
+>(
   (
     {
       color = "primary",

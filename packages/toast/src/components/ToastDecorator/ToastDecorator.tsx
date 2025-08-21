@@ -1,8 +1,8 @@
-import { StoryFn } from "@storybook/react";
+import type { Decorator } from "@storybook/react";
 
 import Toast from "../Toast";
 
-const ToastDecorator = (Story: StoryFn) => (
+const ToastDecorator: Decorator = (Story) => (
   <>
     <Story />
     <Toast />

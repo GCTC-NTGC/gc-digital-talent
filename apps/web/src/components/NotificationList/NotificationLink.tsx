@@ -1,4 +1,4 @@
-import { ElementRef, forwardRef, MouseEventHandler, ReactNode } from "react";
+import { ComponentRef, forwardRef, MouseEventHandler, ReactNode } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { Scalars } from "@gc-digital-talent/graphql";
@@ -16,7 +16,7 @@ interface NotificationLinkProps {
 }
 
 const NotificationLink = forwardRef<
-  ElementRef<typeof Link>,
+  ComponentRef<typeof Link>,
   NotificationLinkProps
 >(({ id, href, isUnread, onRead, children }, forwardedRef) => {
   const [{ fetching }, markAsRead] = useMarkAsRead(id);
