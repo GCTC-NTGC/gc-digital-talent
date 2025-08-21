@@ -18,6 +18,7 @@ export default [
         },
       ],
       "testing-library/prefer-screen-queries": "off",
+      "testing-library/no-node-access": "off",
     },
   },
   {

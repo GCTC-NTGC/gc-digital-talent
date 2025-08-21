@@ -94,6 +94,7 @@ const Select = ({
         aria-invalid={isInvalid}
         defaultValue=""
         {...register(name, rules)}
+        // eslint-disable-next-line testing-library/no-node-access
         className={select({ state: fieldState, class: className })}
         {...rest}
       >
