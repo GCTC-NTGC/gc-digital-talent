@@ -5875,10 +5875,6 @@
     "defaultMessage": "Creer",
     "description": "Short title for the create job poster template page"
   },
-  "P8DJDV": {
-    "defaultMessage": "Vous êtes sur le point de supprimer cette évaluation :",
-    "description": "Text to confirm the assessment to be deleted"
-  },
   "P8bsme": {
     "defaultMessage": "Les commentaires sur les nominations de cette personne candidate pour {eventName} ont été mis à jour avec succès.",
     "description": "Message displayed when a nomination group has been updated by an admin"
