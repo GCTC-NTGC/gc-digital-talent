@@ -33,9 +33,9 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_QualifyCandidateMutation(
     $id: UUID!
-    $expiryDate: Date!
+    $poolCandidate: QualifyCandidateInput!
   ) {
-    qualifyCandidate(id: $id, expiryDate: $expiryDate) {
+    qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
       id
       status {
         value
@@ -108,7 +108,9 @@ const FinalDecisionDialog = ({
     if (values.finalAssessmentDecision === "qualified" && values.expiryDate) {
       await executeQualifyMutation({
         id: poolCandidate.id,
-        expiryDate: values.expiryDate,
+        poolCandidate: {
+          expiryDate: values.expiryDate,
+        },
       })
         .then((result) => {
           if (result.data?.qualifyCandidate) {

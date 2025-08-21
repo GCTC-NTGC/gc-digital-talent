@@ -29,9 +29,9 @@ interface FormValues extends FinalDecisionFormValues, JobPlacementFormValues {}
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_QualifyCandidateMutation(
     $id: UUID!
-    $expiryDate: Date!
+    $poolCandidate: QualifyCandidateInput!
   ) {
-    qualifyCandidate(id: $id, expiryDate: $expiryDate) {
+    qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
       id
       status {
         value
@@ -59,9 +59,9 @@ const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
     $id: UUID!
-    $placeCandidate: PlaceCandidateInput!
+    $poolCandidate: PlaceCandidateInput!
   ) {
-    placeCandidate(id: $id, placeCandidate: $placeCandidate) {
+    placeCandidate(id: $id, poolCandidate: $poolCandidate) {
       id
     }
   }
@@ -125,7 +125,9 @@ const FinalDecisionAndPlaceDialog = ({
     if (values.finalAssessmentDecision === "qualified" && values.expiryDate) {
       await executeQualifyMutation({
         id: poolCandidate.id,
-        expiryDate: values.expiryDate,
+        poolCandidate: {
+          expiryDate: values.expiryDate,
+        },
       })
         .then((result) => {
           if (result.data?.qualifyCandidate) {

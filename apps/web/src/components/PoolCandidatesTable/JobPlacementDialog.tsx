@@ -28,9 +28,9 @@ import JobPlacementForm, {
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
     $id: UUID!
-    $placeCandidate: PlaceCandidateInput!
+    $poolCandidate: PlaceCandidateInput!
   ) {
-    placeCandidate(id: $id, placeCandidate: $placeCandidate) {
+    placeCandidate(id: $id, poolCandidate: $poolCandidate) {
       id
     }
   }
