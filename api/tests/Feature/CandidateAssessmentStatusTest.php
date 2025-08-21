@@ -51,7 +51,9 @@ class CandidateAssessmentStatusTest extends TestCase
     protected $query = <<<'GRAPHQL'
         query poolCandidate($id: UUID!) {
             poolCandidate(id: $id) {
-                assessmentStep
+                assessmentStep {
+                    sortOrder
+                }
                 assessmentStatus {
                     overallAssessmentStatus
                     assessmentStepStatuses {
@@ -112,14 +114,14 @@ class CandidateAssessmentStatusTest extends TestCase
         ];
     }
 
-    public function testDefaultAssessmentStatus(): void
+    public function test_default_assessment_status(): void
     {
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($this->query, $this->queryVars)
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [],
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
@@ -129,7 +131,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testSuccessPassesFirstStep(): void
+    public function test_success_passes_first_step(): void
     {
         $stepOne = $this->pool->assessmentSteps->where('sort_order', 1)->first();
 
@@ -155,7 +157,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 2,
+                        'assessmentStep' => ['sortOrder' => 2],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -170,7 +172,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testHoldPassesFirstStep(): void
+    public function test_hold_passes_first_step(): void
     {
         $stepOne = $this->pool->assessmentSteps->where('sort_order', 1)->first();
 
@@ -188,7 +190,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 2,
+                        'assessmentStep' => ['sortOrder' => 2],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -203,7 +205,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testUnsuccessfulEducationDisqualifies(): void
+    public function test_unsuccessful_education_disqualifies(): void
     {
         $stepOne = $this->pool->assessmentSteps->where('sort_order', 1)->first();
 
@@ -221,7 +223,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -236,7 +238,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testUnsuccessfulEssentialSkillDisqualifies(): void
+    public function test_unsuccessful_essential_skill_disqualifies(): void
     {
         $technicalSkill = Skill::factory()->create([
             'category' => SkillCategory::TECHNICAL->name,
@@ -262,7 +264,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -277,7 +279,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testFinalStepHoldStillNeedsAssessment(): void
+    public function test_final_step_hold_still_needs_assessment(): void
     {
 
         $steps = $this->pool->assessmentSteps;
@@ -305,7 +307,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 2,
+                        'assessmentStep' => ['sortOrder' => 2],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -324,7 +326,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testSucceedsAllQualifies(): void
+    public function test_succeeds_all_qualifies(): void
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -370,7 +372,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testFailedEssentialSkillMissingEducation()
+    public function test_failed_essential_skill_missing_education()
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -388,7 +390,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::DISQUALIFIED->name,
                             'assessmentStepStatuses' => [
@@ -404,7 +406,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testNoEssentialSkillOrEducationIsSuccess()
+    public function test_no_essential_skill_or_education_is_success()
     {
 
         $pool = Pool::factory()
@@ -469,7 +471,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testOutOfOrderAssessmentsDoNotIncrementStep()
+    public function test_out_of_order_assessments_do_not_increment_step()
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -487,7 +489,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -502,7 +504,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testOnlyEssentialSkillsMustPassToIncrementStep()
+    public function test_only_essential_skills_must_pass_to_increment_step()
     {
         $pool = Pool::factory()
             ->published()
@@ -565,7 +567,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 2,
+                        'assessmentStep' => ['sortOrder' => 2],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -580,7 +582,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testNonEssentialAssessmentDisqualifiedPasses()
+    public function test_non_essential_assessment_disqualified_passes()
     {
 
         $pool = Pool::factory()
@@ -708,7 +710,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testStepWithNoSkillsAlwaysPasses()
+    public function test_step_with_no_skills_always_passes()
     {
 
         $pool = Pool::factory()
@@ -760,7 +762,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     }
 
-    public function testApplicationScreeningStepEducationResult()
+    public function test_application_screening_step_education_result()
     {
         // pool with two steps, both steps associated with one technical pool skill
         $pool = Pool::factory()
@@ -817,7 +819,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 1,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -845,7 +847,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 2,
+                        'assessmentStep' => ['sortOrder' => 2],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -865,7 +867,7 @@ class CandidateAssessmentStatusTest extends TestCase
      * except for a single skill in the final step which is Unsuccessful,
      * then the overall status is Disqualified.
      */
-    public function testUnsuccessfulEssentialInFinalStepMeansDisqualified(): void
+    public function test_unsuccessful_essential_in_final_step_means_disqualified(): void
     {
         $steps = $this->pool->assessmentSteps;
 
@@ -900,7 +902,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => 2,
+                        'assessmentStep' => ['sortOrder' => 2],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -922,7 +924,7 @@ class CandidateAssessmentStatusTest extends TestCase
     /** Event ComputeCandidateAssessmentStatus can change the pool_candidate_status field
      * Assert it is changed when the initial status is NEW_APPLICATION and unchanged otherwise
      */
-    public function testComputeCandidateAssessmentStatusUpdatesPoolCandidateStatus(): void
+    public function test_compute_candidate_assessment_status_updates_pool_candidate_status(): void
     {
         $step = $this->pool->assessmentSteps[0];
         $statuses = array_merge(

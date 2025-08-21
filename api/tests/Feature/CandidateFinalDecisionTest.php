@@ -32,7 +32,7 @@ class CandidateFinalDecisionTest extends TestCase
     /**
      * @dataProvider statusProvider
      */
-    public function testFinalDecisionComputation($status, $expected): void
+    public function test_final_decision_computation($status, $expected): void
     {
 
         $this->candidate->pool_candidate_status = $status;
@@ -44,12 +44,13 @@ class CandidateFinalDecisionTest extends TestCase
     /**
      * @dataProvider pendingStepProvider
      */
-    public function testPendingFinalDecisionComputation($step, $overallStatus, $expected)
+    public function test_pending_final_decision_computation($stepOrder, $overallStatus, $expected)
     {
         $this->candidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->candidate->computed_assessment_status = [
             'overallAssessmentStatus' => $overallStatus,
         ];
+        $step = $this->candidate->pool->assessmentSteps->firstWhere('sort_order', $stepOrder);
         $this->candidate->assessment_step = $step;
         $decision = $this->candidate->computeFinalDecision();
         $this->assertEquals($expected, $decision);
