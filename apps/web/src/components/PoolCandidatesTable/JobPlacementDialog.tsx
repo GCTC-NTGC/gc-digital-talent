@@ -3,34 +3,27 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import {
-  RadioGroup,
-  Select,
-  Submit,
-  localizedEnumToOptions,
-  objectsToSortedOptions,
-} from "@gc-digital-talent/forms";
+import { Submit } from "@gc-digital-talent/forms";
 import {
   FragmentType,
   PlacementType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  errorMessages,
-  getLocalizedName,
-  sortPlacementType,
-} from "@gc-digital-talent/i18n";
-import { Button, Dialog, Well } from "@gc-digital-talent/ui";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
 import { PLACEMENT_TYPE_STATUSES } from "~/constants/poolCandidate";
+
+import JobPlacementForm, {
+  FormValues,
+  JobPlacementOptions_Query,
+} from "./JobPlacementForm";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -91,37 +84,9 @@ export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
-  fragment JobPlacementOptions on Query {
-    placementTypes: localizedEnumStrings(enumName: "PlacementType") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    departments {
-      id
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-export type JobPlacementOptionsFragmentType = FragmentType<
-  typeof JobPlacementOptions_Query
->;
-
-interface FormValues {
-  placementType?: PlacementType | "NOT_PLACED";
-  placedDepartment?: string;
-}
-
 interface JobPlacementDialogProps {
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
-  optionsQuery?: JobPlacementOptionsFragmentType;
+  optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>;
   context?: "table" | "view";
   defaultOpen?: boolean;
 }
@@ -150,7 +115,6 @@ const JobPlacementDialog = ({
     status,
     placedDepartment,
   } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
-  const options = getFragment(JobPlacementOptions_Query, optionsQuery);
 
   const placementType =
     status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
@@ -168,10 +132,7 @@ const JobPlacementDialog = ({
     return <span>{intl.formatMessage(commonMessages.notAvailable)}</span>;
   }
 
-  const { handleSubmit, watch } = methods;
-  const watchPlacementType = watch("placementType");
-
-  const isPlaced = watchPlacementType !== "NOT_PLACED";
+  const { handleSubmit } = methods;
 
   const handleSuccess = () => {
     toast.success(
@@ -236,29 +197,6 @@ const JobPlacementDialog = ({
     }
   };
 
-  const placementTypeOptions = [
-    {
-      value: "NOT_PLACED",
-      label: intl.formatMessage(poolCandidateMessages.notPlaced),
-    },
-    ...localizedEnumToOptions(sortPlacementType(options?.placementTypes), intl),
-  ].map((option) => {
-    if (option.value === PlacementType.UnderConsideration.toString()) {
-      return {
-        ...option,
-        contentBelow: intl.formatMessage(
-          poolCandidateMessages.underConsiderationDesc,
-        ),
-      };
-    }
-
-    return option;
-  });
-
-  const underConsideration = options?.placementTypes?.find(
-    (pt) => pt.value === PlacementType.UnderConsideration.toString(),
-  );
-
   let label = intl.formatMessage(commonMessages.notAvailable);
   if (status) {
     if (isNotPlacedStatus(status.value)) {
@@ -317,58 +255,7 @@ const JobPlacementDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <div className="flex flex-col gap-y-6">
-                <RadioGroup
-                  idPrefix="placementType"
-                  name="placementType"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Job placement status",
-                    id: "dpO8Va",
-                    description: "Label for the job placement status field",
-                  })}
-                  items={placementTypeOptions}
-                />
-                {isPlaced && (
-                  <Select
-                    id="placedDepartment"
-                    name="placedDepartment"
-                    label={intl.formatMessage({
-                      defaultMessage: "Placed department",
-                      id: "G8JoCN",
-                      description: "Label for the placed department field",
-                    })}
-                    nullSelection={intl.formatMessage({
-                      defaultMessage: "Select a department",
-                      id: "y827h2",
-                      description:
-                        "Null selection for department select input in the request form.",
-                    })}
-                    options={objectsToSortedOptions(
-                      unpackMaybes(options?.departments),
-                      intl,
-                    )}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                )}
-                {watchPlacementType === PlacementType.UnderConsideration && (
-                  <Well>
-                    <p className="mb-1.5 font-bold">
-                      {getLocalizedName(underConsideration?.label, intl)}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "This candidate will not appear in talent request results based on this process.",
-                        id: "dDrs39",
-                        description:
-                          "Notice that candidates under consideration do not appear in talent search requests",
-                      })}
-                    </p>
-                  </Well>
-                )}
-              </div>
+              <JobPlacementForm optionsQuery={optionsQuery} />
               <Dialog.Footer>
                 <Submit
                   text={intl.formatMessage({
@@ -393,7 +280,7 @@ const JobPlacementDialog = ({
 
 export function jobPlacementDialogAccessor(
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>,
-  optionsQuery?: JobPlacementOptionsFragmentType,
+  optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>,
 ) {
   return (
     <JobPlacementDialog
