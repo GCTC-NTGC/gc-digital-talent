@@ -1,8 +1,8 @@
-import { Decorator } from "@storybook/react-vite";
+import type { Decorator } from "@storybook/react";
 
-export const ContainerDecorator: Decorator = (Story) => (
+const ContainerDecorator: Decorator = (Story) => (
   <div className="bg-gray-100 font-sans text-black dark:bg-gray-700 dark:text-white">
-    {Story()}
+    <Story />
   </div>
 );
 

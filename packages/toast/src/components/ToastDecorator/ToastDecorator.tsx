@@ -1,8 +1,8 @@
-import type { Decorator } from "@storybook/react-vite";
+import type { Decorator } from "@storybook/react";
 
 import Toast from "../Toast";
 
-export const ToastDecorator: Decorator = (Story) => (
+const ToastDecorator: Decorator = (Story) => (
   <>
     {Story()}
     <Toast />

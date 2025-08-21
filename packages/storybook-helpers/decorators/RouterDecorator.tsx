@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { Decorator } from "@storybook/react-vite";
+import type { Decorator } from "@storybook/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
 
 interface DefaultPath {
@@ -26,7 +26,7 @@ const createRouter = (story: JSX.Element, defaultPath?: DefaultPath) =>
       : undefined,
   );
 
-export const RouterDecorator: Decorator = (Story, context) => {
+const RouterDecorator: Decorator = (Story, context) => {
   const { defaultPath }: { defaultPath?: DefaultPath } = context.parameters;
   const router = createRouter(<Story />, defaultPath);
   return <RouterProvider router={router} />;
