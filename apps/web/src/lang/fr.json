@@ -8266,10 +8266,6 @@
     "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
-  "aYt7kT": {
-    "defaultMessage": "Ouvert le: {formattedDate}",
-    "description": "A formatted display of the date the pool candidate search request was opened"
-  },
   "aYyceB": {
     "defaultMessage": "Lien entre la personne candidate et l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominee's relation to the person nominating them"
@@ -10056,6 +10052,10 @@
   "iHDhMh": {
     "defaultMessage": "Numéro de niveau",
     "description": "Label for classification level"
+  },
+  "iI7VxV": {
+    "defaultMessage": "Soumise : {formattedDate}",
+    "description": "A formatted display of the date the pool candidate search request was submitted"
   },
   "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
