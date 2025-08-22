@@ -9,7 +9,6 @@ import {
 import { Chip, Link, Spoiler } from "@gc-digital-talent/ui";
 import {
   FragmentType,
-  CandidateSuspendedFilter,
   Maybe,
   Pool,
   AssessmentResultStatus,
@@ -18,7 +17,6 @@ import {
   Classification,
   LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import CandidateBookmark, {
   PoolCandidate_BookmarkFragment,
@@ -126,43 +124,6 @@ export const processCell = (
     >
       {poolName}
     </Link>
-  );
-};
-
-// suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
-const getSuspendedStatus = (
-  suspendedTime: Date,
-  currentTime: Date,
-): CandidateSuspendedFilter => {
-  if (suspendedTime >= currentTime) {
-    return CandidateSuspendedFilter.Active;
-  }
-  return CandidateSuspendedFilter.Suspended;
-};
-
-export const candidacyStatusAccessor = (
-  suspendedAt: string | null | undefined,
-  suspendedStatusStrings: MaybeLocalizedEnums | undefined,
-  intl: IntlShape,
-) => {
-  if (suspendedAt) {
-    const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
-    const currentTime = new Date();
-    const suspendedStatus = getSuspendedStatus(
-      parsedSuspendedTime,
-      currentTime,
-    );
-    return getLocalizedEnumStringByValue(
-      suspendedStatus,
-      suspendedStatusStrings,
-      intl,
-    );
-  }
-
-  return getLocalizedEnumStringByValue(
-    CandidateSuspendedFilter.Active,
-    suspendedStatusStrings,
-    intl,
   );
 };
 

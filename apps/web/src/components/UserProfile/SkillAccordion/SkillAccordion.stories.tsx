@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react-vite";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import { fakeSkills, experienceGenerators } from "@gc-digital-talent/fake-data";

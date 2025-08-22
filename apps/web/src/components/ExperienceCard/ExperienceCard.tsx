@@ -13,7 +13,7 @@ import {
   Well,
   useControllableState,
   Ul,
-  HTMLEntity,
+  UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -410,7 +410,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.GovernmentOfCanada && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Government of Canada",
@@ -427,7 +427,7 @@ const ExperienceCard = ({
           experience.govEmploymentType?.value ===
             WorkExperienceGovEmployeeType.Contractor && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Contractor",
@@ -442,7 +442,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.CanadianArmedForces && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Canadian Armed Forces",
@@ -455,7 +455,7 @@ const ExperienceCard = ({
           )}
         {date && (
           <>
-            <HTMLEntity name="&bull;" aria-hidden />
+            <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
             <span>{date}</span>
           </>
         )}

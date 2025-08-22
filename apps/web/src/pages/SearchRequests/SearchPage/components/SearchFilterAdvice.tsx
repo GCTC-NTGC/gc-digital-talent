@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { HTMLEntity, LinkProps, ScrollToLink } from "@gc-digital-talent/ui";
+import { LinkProps, ScrollToLink, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 
@@ -151,7 +151,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
       </span>
       {recommendations.map(({ key, link }, index) => (
         <span key={key}>
-          {index > 0 && <HTMLEntity name="," className="mr-1" />}
+          {index > 0 && <span className="mr-1">{UNICODE_CHAR.COMMA}</span>}
           {link}
         </span>
       ))}

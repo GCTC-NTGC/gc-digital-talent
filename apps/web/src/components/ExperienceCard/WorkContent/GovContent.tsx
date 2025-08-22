@@ -6,7 +6,7 @@ import {
   WorkExperience,
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
-import { HTMLEntity, Separator } from "@gc-digital-talent/ui";
+import { Separator, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
@@ -76,7 +76,7 @@ const GovContent = ({
             {classification ? (
               <>
                 {classification.group}
-                <HTMLEntity name="&hyphen;" />
+                <span>{UNICODE_CHAR.HYPHEN}</span>
                 {classification.level < 10 ? "0" : ""}
                 {classification.level}
               </>
@@ -122,7 +122,7 @@ const GovContent = ({
             {classification ? (
               <>
                 {classification.group}
-                <HTMLEntity name="&hyphen;" />
+                <span>{UNICODE_CHAR.HYPHEN}</span>
                 {classification.level < 10 ? "0" : ""}
                 {classification.level}
               </>
@@ -159,7 +159,7 @@ const GovContent = ({
             {classification ? (
               <>
                 {classification.group}
-                <HTMLEntity name="&hyphen;" />
+                <span>{UNICODE_CHAR.HYPHEN}</span>
                 {classification.level < 10 ? "0" : ""}
                 {classification.level}
               </>

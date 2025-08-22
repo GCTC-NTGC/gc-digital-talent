@@ -13,7 +13,7 @@ interface LinkMenuItemProps {
     href: LinkProps["href"];
     isSelected?: boolean;
   }[];
-  accessibleLabel?: BaseItemProps["accessibleLabel"];
+  accessibleLabel?: string;
   description: BaseItemProps["description"];
   state?: BaseItemProps["state"];
 }
@@ -38,6 +38,7 @@ const LinkMenuItem = ({
           color="black"
           className="h-5 transform [&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
           aria-describedby={descriptionId}
+          aria-label={accessibleLabel}
         >
           {selectedLink?.title}
         </Button>
@@ -56,12 +57,7 @@ const LinkMenuItem = ({
     </DropdownMenu.Root>
   );
   return (
-    <BaseItem
-      title={dropdown}
-      accessibleLabel={accessibleLabel ?? selectedLink.title}
-      description={wrappedDescription}
-      state={state}
-    />
+    <BaseItem title={dropdown} description={wrappedDescription} state={state} />
   );
 };
 

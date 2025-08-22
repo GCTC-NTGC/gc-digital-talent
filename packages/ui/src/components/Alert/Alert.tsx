@@ -4,7 +4,7 @@ import {
   createContext,
   ComponentPropsWithoutRef,
   forwardRef,
-  ElementRef,
+  ComponentRef,
   useState,
   useMemo,
   HTMLProps,
@@ -91,7 +91,7 @@ export interface AlertProps
   onDismiss?: () => void;
 }
 
-const Alert = forwardRef<ElementRef<"div">, AlertProps>(
+const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
   (
     {
       type,

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { StoryFn } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 import { isAfter } from "date-fns/isAfter";
 import { parseISO } from "date-fns/parseISO";
 

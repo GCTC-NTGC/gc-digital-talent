@@ -5,8 +5,8 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   AccordionMetaData,
-  HTMLEntity,
   TaskCard,
+  wrapParens,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -102,9 +102,9 @@ const ApplicationsProcessesTaskCard = ({
                     description: "Job applications expandable",
                   })}
                   <span className="ml-1">
-                    <HTMLEntity name="(" />
-                    {applicationsProcessesTaskCardFragment?.length ?? 0}
-                    <HTMLEntity name=")" />
+                    {wrapParens(
+                      applicationsProcessesTaskCardFragment?.length ?? 0,
+                    )}
                   </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={jobApplicationsMetaData} />

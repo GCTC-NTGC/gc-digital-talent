@@ -6,7 +6,7 @@ import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { useIntl } from "react-intl";
 import {
   forwardRef,
-  ElementRef,
+  ComponentRef,
   ComponentPropsWithoutRef,
   ReactNode,
   HTMLProps,
@@ -18,7 +18,7 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 import Separator from "../Separator";
 
 const StyledOverlay = forwardRef<
-  ElementRef<typeof DialogPrimitive.Overlay>,
+  ComponentRef<typeof DialogPrimitive.Overlay>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >((props, forwardedRef) => (
   <DialogPrimitive.Overlay
@@ -45,7 +45,7 @@ interface StyledContentProps
     ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {}
 
 const StyledContent = forwardRef<
-  ElementRef<typeof DialogPrimitive.Content>,
+  ComponentRef<typeof DialogPrimitive.Content>,
   StyledContentProps
 >(({ wide, ...rest }, forwardedRef) => (
   <DialogPrimitive.Content
@@ -86,7 +86,7 @@ const StyledContent = forwardRef<
 ));
 
 const StyledClose = forwardRef<
-  ElementRef<typeof DialogPrimitive.Close>,
+  ComponentRef<typeof DialogPrimitive.Close>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >((props, forwardedRef) => (
   <DialogPrimitive.Close ref={forwardedRef} asChild {...props} />
@@ -105,7 +105,7 @@ type DialogPrimitiveContentProps = ComponentPropsWithoutRef<
 >;
 
 const Content = forwardRef<
-  ElementRef<typeof DialogPrimitive.Content>,
+  ComponentRef<typeof DialogPrimitive.Content>,
   DialogProps
 >(
   (
@@ -165,14 +165,14 @@ const Content = forwardRef<
 );
 
 const Trigger = forwardRef<
-  ElementRef<typeof DialogPrimitive.Trigger>,
+  ComponentRef<typeof DialogPrimitive.Trigger>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
 >(({ asChild = true, ...rest }, forwardedRef) => (
   <DialogPrimitive.Trigger ref={forwardedRef} asChild={asChild} {...rest} />
 ));
 
 const StyledTitle = forwardRef<
-  ElementRef<typeof DialogPrimitive.Title>,
+  ComponentRef<typeof DialogPrimitive.Title>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >((props, forwardedRef) => (
   <DialogPrimitive.Title
@@ -183,7 +183,7 @@ const StyledTitle = forwardRef<
 ));
 
 const StyledDescription = forwardRef<
-  ElementRef<typeof DialogPrimitive.Description>,
+  ComponentRef<typeof DialogPrimitive.Description>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >((props, forwardedRef) => (
   <DialogPrimitive.Description ref={forwardedRef} {...props} />
