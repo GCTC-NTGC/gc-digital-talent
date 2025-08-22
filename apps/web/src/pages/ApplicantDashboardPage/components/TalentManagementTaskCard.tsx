@@ -244,7 +244,7 @@ const TalentManagementTaskCard = ({
                       {intl.formatMessage(
                         {
                           defaultMessage: "Talent requests ({requestsCount})",
-                          id: 'IFCSio',
+                          id: "IFCSio",
                           description:
                             "Title for a list of talent requests with a count",
                         },
