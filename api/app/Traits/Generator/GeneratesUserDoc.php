@@ -49,7 +49,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Number;
 use PhpOffice\PhpWord\Element\Section;
 
@@ -818,11 +817,6 @@ trait GeneratesUserDoc
             [] => 'not_participating',
             default => 'not_provided'
         };
-
-        Log::debug([
-            'value' => $profile->career_planning_exec_coaching_status,
-            'key' => $coachingStatus,
-        ]);
 
         $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_status'),
             $this->localize("gc_employee.$coachingStatus"));
