@@ -7,8 +7,8 @@ import { useFormContext } from "react-hook-form";
 import {
   Button,
   Heading,
-  HTMLEntity,
   IconButton,
+  UNICODE_CHAR,
   Well,
 } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -181,11 +181,12 @@ const ExperienceWorkStreams = ({
                           />
                         }
                       />
-                      <HTMLEntity
-                        name="&bull;"
+                      <span
                         className="text-gray-100 dark:text-gray-500"
                         aria-hidden
-                      />
+                      >
+                        {UNICODE_CHAR.BULLET}
+                      </span>
                       <IconButton
                         type="button"
                         icon={TrashIcon}
