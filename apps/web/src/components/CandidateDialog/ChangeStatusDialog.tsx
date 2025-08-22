@@ -176,6 +176,7 @@ const ChangeStatusDialogForm = ({
     "SCREENED_OUT_NOT_INTERESTED",
     "SCREENED_OUT_NOT_RESPONSIVE",
     "UNDER_ASSESSMENT",
+    "UNDER_CONSIDERATION",
   ];
 
   const poolCandidateStatusesFiltered = options?.poolCandidateStatuses?.filter(
