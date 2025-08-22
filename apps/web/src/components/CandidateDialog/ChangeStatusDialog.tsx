@@ -159,7 +159,7 @@ const ChangeStatusDialogForm = ({
   const options = getFragment(ChangeStatusFormOptions_Fragment, optionsQuery);
 
   // we are progressively removing statuses from the manual status picker.
-  const poolCandidateLegacyStatuses = [
+  const poolCandidateStatusesThatShouldNotBeAbleToBeManuallySet = [
     "DRAFT_EXPIRED",
     "DRAFT",
     "EXPIRED",
@@ -179,7 +179,10 @@ const ChangeStatusDialogForm = ({
   ];
 
   const poolCandidateStatusesFiltered = options?.poolCandidateStatuses?.filter(
-    (e) => !poolCandidateLegacyStatuses.includes(e.value),
+    (e) =>
+      !poolCandidateStatusesThatShouldNotBeAbleToBeManuallySet.includes(
+        e.value,
+      ),
   );
 
   const methods = useForm<FormValues>({
