@@ -182,7 +182,7 @@ const ExperienceWorkStreams = ({
                         }
                       />
                       <span
-                        className="text-gray-100 dark:text-gray-500"
+                        className="text-gray-300 dark:text-gray-500"
                         aria-hidden
                       >
                         {UNICODE_CHAR.BULLET}
