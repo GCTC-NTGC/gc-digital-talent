@@ -1240,6 +1240,8 @@ input PoolCandidateSearchInput {
   # There is also a stream field as part of ApplicantFilterInput however it includes scoping for availability.
   workStreams: [IdInput] @scope(name: "whereWorkStreamsIn")
   processNumber: String @scope(name: "whereProcessNumber")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
 }
 
 input PoolCandidateSearchRequestInput {

@@ -6,7 +6,6 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -199,6 +198,9 @@ class UserBuilder extends Builder
         });
     }
 
+    /**
+     * Flexible Work Locations filtering
+     */
     public function whereFlexibleWorkLocationsIn(?array $flexibleWorkLocations): self
     {
         if (empty($flexibleWorkLocations)) {
@@ -206,8 +208,8 @@ class UserBuilder extends Builder
         }
 
         return $this->where(function ($query) use ($flexibleWorkLocations) {
-            foreach ($flexibleWorkLocations as $index => $loc) {
-                $query->orWhereJsonContains('flexible_work_locations', $loc);
+            foreach ($flexibleWorkLocations as $location) {
+                $query->orWhereJsonContains('flexible_work_locations', $location);
             }
         });
     }

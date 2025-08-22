@@ -22,14 +22,19 @@ const navigationMessages = defineMessages({
     description: "Name of Government information page",
   },
   workLocation: {
-    defaultMessage: "Work location",
-    id: "TCs69O",
-    description: "Name of Work location page",
+    defaultMessage: "Work location preferences",
+    id: "7pXmpr",
+    description: "Name of Work location preferences page",
   },
   workPreferences: {
     defaultMessage: "Work preferences",
     id: "nnMYWr",
     description: "Name of Work preferences page",
+  },
+  flexibleWorkLocations: {
+    defaultMessage: "Flexible work location options",
+    id: "dvom0v",
+    description: "Name of Flexible work locations options",
   },
   careerTimeline: {
     defaultMessage: "Career timeline",

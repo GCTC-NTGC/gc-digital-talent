@@ -1,15 +1,20 @@
 import { MessageDescriptor, useIntl } from "react-intl";
 
 import {
-  Checkbox,
   Checklist,
   Combobox,
   HiddenInput,
   RadioGroup,
+  SwitchInput,
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -18,6 +23,7 @@ import {
   navigationMessages,
   sortPriorityWeight,
   sortWorkRegion,
+  sortFlexibleWorkLocations,
 } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
@@ -90,6 +96,7 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
       label {
         en
         fr
+        localized
       }
     }
     expiryFilters: localizedEnumStrings(enumName: "CandidateExpiryFilter") {
@@ -119,6 +126,15 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
       id
       name {
         localized
+      }
+    }
+    flexibleWorkLocations: localizedEnumStrings(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      value
+      label {
+        en
+        fr
       }
     }
   }
@@ -239,40 +255,75 @@ const PoolCandidateFilterDialog = ({
           items={localizedEnumToOptions(data?.operationalRequirements, intl)}
         />
         <Checklist
+          idPrefix="flexibleWorkLocations"
+          name="flexibleWorkLocations"
+          legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
+          items={localizedEnumToOptions(
+            sortFlexibleWorkLocations(
+              unpackMaybes(data?.flexibleWorkLocations),
+            ),
+            intl,
+          )}
+        />
+        <Checklist
           idPrefix="workRegion"
           name="workRegion"
           legend={intl.formatMessage(navigationMessages.workLocation)}
           items={localizedEnumToOptions(
-            sortWorkRegion(data?.workRegions),
+            /* remove 'Telework' from checklist */
+            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
+              /* remove 'Telework' enum from checklist of options */
+              (region) => !(region.value === (WorkRegion.Telework as string)),
+            ),
             intl,
           )}
         />
-        <div className="flex flex-col gap-y-6">
-          <RadioGroup
-            idPrefix="expiryStatus"
-            name="expiryStatus"
-            legend={intl.formatMessage({
-              defaultMessage: "Expiry status",
-              description: "Label for the expiry status field",
-              id: "HDiUEc",
-            })}
-            items={localizedEnumToOptions(data?.expiryFilters, intl)}
+        <RadioGroup
+          idPrefix="expiryStatus"
+          name="expiryStatus"
+          legend={intl.formatMessage({
+            defaultMessage: "Expiry status",
+            description: "Label for the expiry status field",
+            id: "HDiUEc",
+          })}
+          items={localizedEnumToOptions(data?.expiryFilters, intl)}
+        />
+        <RadioGroup
+          idPrefix="suspendedStatus"
+          name="suspendedStatus"
+          legend={intl.formatMessage({
+            defaultMessage: "Candidacy status",
+            description: "Label for the candidacy status field",
+            id: "NxrKpM",
+          })}
+          items={localizedEnumToOptions(data?.suspendedFilters, intl)}
+        />
+
+        <div className="space-y-6">
+          <Select
+            id="languageAbility"
+            name="languageAbility"
+            enableNull
+            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
+            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
+            options={localizedEnumToOptions(data?.languageAbilities, intl)}
           />
-          <RadioGroup
-            idPrefix="suspendedStatus"
-            name="suspendedStatus"
-            legend={intl.formatMessage({
-              defaultMessage: "Candidacy status",
-              description: "Label for the candidacy status field",
-              id: "NxrKpM",
-            })}
-            items={localizedEnumToOptions(data?.suspendedFilters, intl)}
+          <Select
+            id="community"
+            name="community"
+            enableNull
+            label={intl.formatMessage(adminMessages.community)}
+            nullSelection={intl.formatMessage(commonMessages.selectACommunity)}
+            options={communities.map(({ id, name }) => ({
+              value: id,
+              label: getLocalizedName(name, intl),
+            }))}
           />
         </div>
-        <Checkbox
+        <SwitchInput
           id="govEmployee"
           name="govEmployee"
-          value="true"
+          color="secondary"
           label={intl.formatMessage({
             defaultMessage: "Government employee",
             id: "bOA3EH",
@@ -293,29 +344,7 @@ const PoolCandidateFilterDialog = ({
             }))}
           />
         </div>
-        <div className="xs:col-span-3">
-          <Select
-            id="languageAbility"
-            name="languageAbility"
-            enableNull
-            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
-            options={localizedEnumToOptions(data?.languageAbilities, intl)}
-          />
-        </div>
-        <div className="xs:col-span-3">
-          <Select
-            id="community"
-            name="community"
-            enableNull
-            label={intl.formatMessage(adminMessages.community)}
-            nullSelection={intl.formatMessage(commonMessages.selectACommunity)}
-            options={communities.map(({ id, name }) => ({
-              value: id,
-              label: getLocalizedName(name, intl),
-            }))}
-          />
-        </div>
+
         <div className="xs:col-span-3">
           <Combobox
             id="skills"

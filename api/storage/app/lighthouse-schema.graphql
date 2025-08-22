@@ -1588,6 +1588,7 @@ input PoolCandidateSearchInput {
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
+  flexibleWorkLocations: [FlexibleWorkLocation]
 }
 
 input PoolCandidateSearchRequestInput {
