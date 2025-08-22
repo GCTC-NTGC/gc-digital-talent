@@ -7,6 +7,7 @@ export type FeatureFlags = Record<`FEATURE_${string}`, boolean | null>;
 export function getFeatureFlagConfig(flags: Partial<FeatureFlags>) {
   const { parsed } = dotenv.config({
     path: path.resolve(__dirname, "..", "..", "web", ".env"),
+    quiet: true,
   });
   const env = { ...parsed, ...flags };
 

@@ -8,7 +8,7 @@ import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
 import { defineConfig } from "vite";
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "./.env", quiet: true });
 
 const appUrl = "https://talent.canada.ca";
 

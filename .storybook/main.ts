@@ -16,7 +16,7 @@ const stories = [
   "!**/node_modules/**",
 ];
 
-dotenv.config({ path: "./apps/web/.env" });
+dotenv.config({ path: "./apps/web/.env", quiet: true });
 
 const main: StorybookConfig = {
   stories,
