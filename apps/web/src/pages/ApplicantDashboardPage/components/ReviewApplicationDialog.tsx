@@ -12,11 +12,11 @@ import {
   Accordion,
   Button,
   Dialog,
-  HTMLEntity,
   Link,
   PreviewList,
   Separator,
   Ul,
+  wrapParens,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -342,9 +342,7 @@ const ReviewApplicationDialog = ({
                     {intl.formatMessage(commonMessages.requiredSkills)}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
-                    <HTMLEntity name="(" />
-                    {essentialSkills.length ?? 0}
-                    <HTMLEntity name=")" />
+                    {wrapParens(essentialSkills.length ?? 0)}
                   </span>
                 </Accordion.Trigger>
                 <Accordion.Content>
@@ -365,9 +363,7 @@ const ReviewApplicationDialog = ({
                     {intl.formatMessage(commonMessages.optionalSkills)}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
-                    <HTMLEntity name="(" />
-                    {nonessentialSkills.length ?? 0}
-                    <HTMLEntity name=")" />
+                    {wrapParens(nonessentialSkills.length ?? 0)}
                   </span>
                 </Accordion.Trigger>
                 <Accordion.Content>

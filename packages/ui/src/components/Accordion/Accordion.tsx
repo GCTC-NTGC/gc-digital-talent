@@ -26,7 +26,7 @@ import MetaDataStatusItem, {
 } from "./MetaDataStatusItem";
 import MetaDataButton from "./MetaDataButton";
 import { ButtonProps } from "../Button";
-import HTMLEntity from "../HTMLEntity/HTMLEntity";
+import { UNICODE_CHAR } from "../../utils/unicode";
 
 const root = tv({
   base: "group flex flex-col",
@@ -411,11 +411,12 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       {metadata.map((datum, index) => (
         <Fragment key={datum.key}>
           {index > 0 && (
-            <HTMLEntity
-              name="&bull;"
+            <span
               className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
               aria-hidden
-            />
+            >
+              {UNICODE_CHAR.BULLET}
+            </span>
           )}
           <MetaDataItem datum={datum} />
         </Fragment>
