@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Editor } from "@tiptap/react";
+import { Editor, useEditorState } from "@tiptap/react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
 import { KeyboardEventHandler, useState } from "react";
@@ -49,6 +49,14 @@ interface LinkDialogProps {
 const LinkDialog = ({ editor }: LinkDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const editorState = useEditorState({
+    editor,
+    selector: (ctx) => ({
+      canSetLink:
+        !ctx.editor?.view.state.selection.empty &&
+        ctx.editor?.can().setLink({ href: "" }),
+    }),
+  });
 
   const handleSubmit: SubmitHandler<FormValues> = (
     { href, newTab, action },
@@ -122,11 +130,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
         <MenuButton
           active={isOpen}
           icon={LinkIcon}
-          disabled={
-            !editor?.isEditable ||
-            !editor?.can().setLink({ href: "" }) ||
-            editor?.view.state.selection.empty
-          }
+          disabled={!editorState?.canSetLink}
         >
           {intl.formatMessage(richTextMessages.link)}
         </MenuButton>
