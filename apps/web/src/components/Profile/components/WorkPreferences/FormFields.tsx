@@ -220,28 +220,6 @@ const FormFields = ({
           legend={labels.flexibleWorkLocationOptions}
           name="flexibleWorkLocations"
           id="flexibleWorkLocations"
-          items={localizedEnumToOptions(
-            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
-              /* remove 'Telework' enum from checklist of options */
-              (region) => !(region.value === (WorkRegion.Telework as string)),
-            ),
-            intl,
-          )}
-        />
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "Select the flexible work location options you're interested in. Keep in mind that most Government of Canada jobs are hybrid.",
-            id: "ejzPh7",
-            description:
-              "Flexible work locations field label for work location preference form",
-          })}
-        </p>
-        <Checklist
-          idPrefix="work-location"
-          legend={labels.flexibleWorkLocationOptions}
-          name="flexibleWorkLocations"
-          id="flexibleWorkLocations"
           items={formOptionsWithContentBelow}
           rules={{
             required: intl.formatMessage(errorMessages.required),

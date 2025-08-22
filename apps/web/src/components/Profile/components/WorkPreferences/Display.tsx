@@ -119,24 +119,6 @@ const Display = ({
             profileMessages.flexibleWorkLocationOptions,
           )}
         />
-        {locations?.length ? (
-          <Ul>
-            {locations.map((location) => (
-              <li key={location.value}>
-                {intl.formatMessage(getWorkRegionsDetailed(location.value))}
-              </li>
-            ))}
-          </Ul>
-        ) : (
-          notProvided
-        )}
-      </div>
-      <div>
-        <FieldDisplay
-          label={intl.formatMessage(
-            profileMessages.flexibleWorkLocationOptions,
-          )}
-        />
         <Ul unStyled noIndent inside>
           {locationOptions.map((location) => (
             <li key={location.value}>

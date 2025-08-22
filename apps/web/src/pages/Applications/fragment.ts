@@ -148,13 +148,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      flexibleWorkLocations {
-        value
-        label {
-          en
-          fr
-        }
-      }
       locationExemptions
       acceptedOperationalRequirements {
         value

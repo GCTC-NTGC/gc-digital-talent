@@ -135,13 +135,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    flexibleWorkLocations {
-      value
-      label {
-        en
-        fr
-      }
-    }
     locationExemptions
     positionDuration
     acceptedOperationalRequirements {
