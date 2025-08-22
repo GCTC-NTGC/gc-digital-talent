@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
-import { Plugin, defineConfig } from "vite";
+import { defineConfig } from "vite";
 
 dotenv.config({ path: "./.env" });
 

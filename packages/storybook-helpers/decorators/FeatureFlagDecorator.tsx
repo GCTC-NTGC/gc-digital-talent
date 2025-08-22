@@ -1,5 +1,5 @@
-import type { Decorator } from "@storybook/react";
-import { useParameter } from "@storybook/preview-api";
+import type { Decorator } from "@storybook/react-vite";
+import { useParameter } from "storybook/preview-api";
 
 import { FeatureFlagProvider, FeatureFlags } from "@gc-digital-talent/env";
 
@@ -8,11 +8,7 @@ const FeatureFlagDecorator: Decorator = (Story) => {
     "featureFlags",
     undefined,
   );
-  return (
-    <FeatureFlagProvider {...{ flags }}>
-      <Story />
-    </FeatureFlagProvider>
-  );
+  return <FeatureFlagProvider {...{ flags }}>{Story()}</FeatureFlagProvider>;
 };
 
 export default FeatureFlagDecorator;
