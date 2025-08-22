@@ -62,6 +62,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
+ * @property array $flexible_work_locations
  */
 class PoolCandidate extends Model
 {

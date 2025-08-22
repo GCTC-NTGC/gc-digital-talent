@@ -16,6 +16,7 @@ use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
@@ -218,7 +219,20 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localizeHeading('current_city'), $this->currentLocation($user));
 
         $section->addText($this->localizeHeading('location_preferences'), $this->strong);
+
+        /* remove 'Telework' enum from location preferences */
+        $user->location_preferences = array_filter($user->location_preferences ?? [], function ($location) {
+            return $location !== WorkRegion::TELEWORK->name;
+        });
         $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
+        $flexibleLocations = $user->flexible_work_locations ?? [];
+        if (! empty($flexibleLocations)) {
+            $section->addText($this->localizeHeading('flexible_work_locations'));
+            foreach ($flexibleLocations as $location) {
+                $localizedLocation = $this->localizeEnum($location, FlexibleWorkLocation::class);
+                $section->addListItem($localizedLocation);
+            }
+        }
         $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
     }
 
