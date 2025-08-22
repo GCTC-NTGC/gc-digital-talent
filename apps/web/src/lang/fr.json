@@ -11185,6 +11185,10 @@
     "defaultMessage": "Veuillez sélectionner un type d’expérience pour continuer.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
   },
+  "nTPcCF": {
+    "defaultMessage": "Soumise",
+    "description": "Label for request submitted"
+  },
   "nUokX9": {
     "defaultMessage": "Retourner au suivi des évaluations",
     "description": "Link label to return to assessment tracker"
