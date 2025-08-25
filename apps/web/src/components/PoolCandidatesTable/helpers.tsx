@@ -215,7 +215,7 @@ export const candidateFacingStatusCell = (
   finalDecisionAt: PoolCandidate["finalDecisionAt"],
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
-  assessmentStep: PoolCandidate["assessmentStep"],
+  assessmentStep: Maybe<number> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestions: Pool["screeningQuestionsCount"],
   intl: IntlShape,

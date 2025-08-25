@@ -69,7 +69,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
       }
-      assessmentStep
+      assessmentStep {
+        sortOrder
+      }
       assessmentStatus {
         assessmentStepStatuses {
           decision
@@ -150,7 +152,7 @@ export const ViewPoolCandidate = ({
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
-    poolCandidate.assessmentStep,
+    poolCandidate.assessmentStep?.sortOrder,
     poolCandidate.assessmentStatus,
     intl,
   );

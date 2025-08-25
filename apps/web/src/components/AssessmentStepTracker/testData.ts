@@ -55,7 +55,7 @@ export const priorityEntitlementCandidate: PoolCandidate = {
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
   priorityVerification: ClaimVerificationResult.Accepted,
-  assessmentStep: 2,
+  assessmentStep: fakePoolAssessmentSteps[1],
   assessmentStatus: {
     assessmentStepStatuses: [
       {
@@ -78,7 +78,7 @@ export const armedForcesCandidate: PoolCandidate = {
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
   veteranVerification: ClaimVerificationResult.Accepted,
-  assessmentStep: 2,
+  assessmentStep: fakePoolAssessmentSteps[1],
   assessmentStatus: {
     assessmentStepStatuses: [
       {
@@ -100,7 +100,7 @@ export const bookmarkedCandidate: PoolCandidate = {
   },
   isBookmarked: true,
   assessmentResults: [getAssessmentResult()],
-  assessmentStep: 2,
+  assessmentStep: fakePoolAssessmentSteps[1],
   assessmentStatus: {
     assessmentStepStatuses: [
       {
@@ -132,7 +132,7 @@ export const unassessedCandidate: PoolCandidate = {
       },
     },
   ],
-  assessmentStep: 1,
+  assessmentStep: fakePoolAssessmentSteps[0],
   assessmentStatus: {
     assessmentStepStatuses: [],
   },
@@ -142,7 +142,7 @@ export const lastByFirstName: PoolCandidate = {
   id: "last-by-first-name",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
-  assessmentStep: 2,
+  assessmentStep: fakePoolAssessmentSteps[1],
   assessmentStatus: {
     assessmentStepStatuses: [
       {
@@ -165,7 +165,7 @@ export const firstByName: PoolCandidate = {
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
 
-  assessmentStep: 2,
+  assessmentStep: fakePoolAssessmentSteps[1],
   assessmentStatus: {
     assessmentStepStatuses: [
       {
@@ -186,7 +186,7 @@ export const secondLastByStatus: PoolCandidate = {
   id: "second-last-by-status",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult(AssessmentDecision.Hold)],
-  assessmentStep: 1,
+  assessmentStep: fakePoolAssessmentSteps[0],
   assessmentStatus: {
     assessmentStepStatuses: [
       {
@@ -208,7 +208,7 @@ export const lastByStatus: PoolCandidate = {
   id: "last-by-status",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult(AssessmentDecision.Unsuccessful)],
-  assessmentStep: 1,
+  assessmentStep: fakePoolAssessmentSteps[0],
   assessmentStatus: {
     overallAssessmentStatus: OverallAssessmentStatus.Disqualified,
     assessmentStepStatuses: [

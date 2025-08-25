@@ -218,7 +218,18 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           finalDecision {
             value
           }
-          assessmentStep
+          assessmentStep {
+            sortOrder
+            title {
+              localized
+            }
+            type {
+              label {
+                localized
+              }
+            }
+          }
+
           assessmentStatus {
             assessmentStepStatuses {
               step
@@ -256,17 +267,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               value
             }
             screeningQuestionsCount
-            assessmentSteps {
-              sortOrder
-              title {
-                localized
-              }
-              type {
-                label {
-                  localized
-                }
-              }
-            }
           }
           finalDecision {
             value
@@ -275,7 +275,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
-          assessmentStep
           assessmentStatus {
             overallAssessmentStatus
           }
@@ -827,7 +826,7 @@ const PoolCandidatesTable = ({
         }) =>
           finalDecisionCell(
             finalDecision,
-            assessmentStep,
+            assessmentStep?.sortOrder,
             assessmentStatus,
             intl,
           ),
@@ -841,23 +840,18 @@ const PoolCandidatesTable = ({
         cell: ({
           row: {
             original: {
-              poolCandidate: {
-                assessmentStep,
-                pool: { assessmentSteps },
-              },
+              poolCandidate: { assessmentStep },
             },
           },
         }) => {
-          const step = assessmentSteps?.find(
-            (s) => s?.sortOrder === assessmentStep,
-          );
           const stepName =
             // NOTE: We do want to pass on empty strings
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            step?.title?.localized || step?.type?.label?.localized;
+            assessmentStep?.title?.localized ||
+            assessmentStep?.type?.label?.localized;
           return stepName
             ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                stepNumber: assessmentStep,
+                stepNumber: assessmentStep.sortOrder,
               }) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 stepName
@@ -884,7 +878,7 @@ const PoolCandidatesTable = ({
           finalDecisionAt,
           finalDecision?.value,
           areaOfSelection?.value,
-          assessmentStep,
+          assessmentStep?.sortOrder,
           assessmentStatus,
           screeningQuestionsCount,
           intl,

@@ -55,23 +55,21 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     isBookmarked
-    assessmentStep
+    assessmentStep {
+      sortOrder
+      title {
+        localized
+      }
+      type {
+        label {
+          localized
+        }
+      }
+    }
+
     removalReason {
       label {
         localized
-      }
-    }
-    pool {
-      assessmentSteps {
-        sortOrder
-        type {
-          label {
-            localized
-          }
-        }
-        title {
-          localized
-        }
       }
     }
     expiryDate
@@ -109,16 +107,11 @@ const MoreActions = ({
 
   const [{ data }] = useQuery({ query: MoreActions_Query });
 
-  const currentStep = poolCandidate.assessmentStep
-    ? poolCandidate.pool.assessmentSteps?.find(
-        (step) => step?.sortOrder === poolCandidate.assessmentStep,
-      )
-    : null;
-
   const currentStepName =
     // NOTE: Localized can be empty string so || is more suitable
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-    currentStep?.title?.localized || currentStep?.type?.label?.localized;
+    poolCandidate.assessmentStep?.title?.localized ||
+    poolCandidate.assessmentStep?.type?.label?.localized;
 
   const status = poolCandidate.status?.value;
 
@@ -132,7 +125,7 @@ const MoreActions = ({
           {currentStepName && (
             <p className="text-gray-600 dark:text-gray-200">
               {intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                stepNumber: poolCandidate.assessmentStep,
+                stepNumber: poolCandidate.assessmentStep?.sortOrder,
               }) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 currentStepName}

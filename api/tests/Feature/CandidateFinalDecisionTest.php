@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Enums\AssessmentStepType;
 use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
+use App\Models\AssessmentStep;
+use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,9 +25,16 @@ class CandidateFinalDecisionTest extends TestCase
 
         $this->seed([RolePermissionSeeder::class]);
 
+        $pool = Pool::factory()->create();
+
+        AssessmentStep::factory()->create(['pool_id' => $pool->id, 'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name]);
+
+        AssessmentStep::factory(6)->create(['pool_id' => $pool->id]);
+
         $this->candidate = PoolCandidate::factory()->create([
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'pool_id' => $pool->id,
         ]);
 
     }
@@ -34,23 +44,26 @@ class CandidateFinalDecisionTest extends TestCase
      */
     public function testFinalDecisionComputation($status, $expected): void
     {
-
         $this->candidate->pool_candidate_status = $status;
         $decision = $this->candidate->computeFinalDecision();
         $this->assertEquals($expected, $decision);
-
     }
 
     /**
      * @dataProvider pendingStepProvider
      */
-    public function testPendingFinalDecisionComputation($step, $overallStatus, $expected)
+    public function testPendingFinalDecisionComputation($stepOrder, $overallStatus, $expected)
     {
         $this->candidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->candidate->computed_assessment_status = [
             'overallAssessmentStatus' => $overallStatus,
         ];
-        $this->candidate->assessment_step = $step;
+        $step = $this->candidate->pool->assessmentSteps[$stepOrder - 1] ?? null;
+        if ($step) {
+            $this->candidate->assessment_step_id = $step->id;
+            $this->candidate->save();
+            $this->candidate->refresh();
+        }
         $decision = $this->candidate->computeFinalDecision();
         $this->assertEquals($expected, $decision);
     }
@@ -103,7 +116,7 @@ class CandidateFinalDecisionTest extends TestCase
 
         $toAssess = [
             'decision' => FinalDecision::TO_ASSESS->name,
-            'weight' => 40,
+            'weight' => 50,
         ];
 
         $qualifiedPlaced = [

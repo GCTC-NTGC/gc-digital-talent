@@ -117,10 +117,12 @@ class PoolCandidateFactory extends Factory
             if ($candidateStatus != PoolCandidateStatus::DRAFT->name && $candidateStatus != PoolCandidateStatus::DRAFT_EXPIRED->name) {
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
+                $step = $poolCandidate->pool->assessmentSteps->first();
                 $poolCandidate->update([
                     'submitted_at' => $submittedDate,
                     'signature' => $fakeSignature,
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
+                    'assessment_step_id' => $step?->id ?? null,
                 ]);
             }
 

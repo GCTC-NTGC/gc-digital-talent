@@ -53,21 +53,21 @@ export default (
       case 0:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? AssessmentStepType.ApplicationScreening,
           poolSkills,
         );
       case 1:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? AssessmentStepType.ScreeningQuestionsAtApplication,
           poolSkills,
         );
       default:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? faker.helpers.arrayElement(otherScreeningTypes),
           poolSkills,
         );
