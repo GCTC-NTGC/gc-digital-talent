@@ -53,7 +53,7 @@ const getFieldLabel = (
     // Get the number and assign it to the index so we can show it in the link
     const indices = name.match(numberRegex);
     if (indices) {
-      index = indices.map((i) => `(${Number(i) + 1})`).join(" ");
+      index = indices.map((i) => ` (${Number(i) + 1})`).join(" ");
     }
   }
 
