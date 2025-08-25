@@ -7,7 +7,7 @@ import {
   HiringPlatform,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Heading, HTMLEntity } from "@gc-digital-talent/ui";
+import { Heading, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
@@ -116,11 +116,12 @@ const OffPlatformRecruitmentProcessList = ({
                     ? process.platform.label.localized
                     : process.platformOther}
                 </span>
-                <HTMLEntity
-                  name="&bull;"
+                <span
                   className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
                   aria-hidden
-                />
+                >
+                  {UNICODE_CHAR.BULLET}
+                </span>
                 <span className="text-gray-600 dark:text-gray-200">
                   {process.processNumber}
                 </span>
