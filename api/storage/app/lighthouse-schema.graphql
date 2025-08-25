@@ -743,7 +743,7 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
-  oldOffPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]

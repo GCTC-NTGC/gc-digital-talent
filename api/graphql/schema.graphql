@@ -149,6 +149,7 @@ type User {
     @rename(attribute: "enabled_in_app_notifications")
   oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
+    @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
