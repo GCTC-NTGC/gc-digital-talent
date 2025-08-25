@@ -24,7 +24,6 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "~/utils/userUtils";
-import SortButton from "~/components/Table/ResponsiveTable/SortButton";
 
 import { FormValues } from "./components/CommunityTalentFilterDialog";
 

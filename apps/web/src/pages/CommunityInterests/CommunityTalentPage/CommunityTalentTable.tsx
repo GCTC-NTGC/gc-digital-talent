@@ -47,7 +47,6 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";
-import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
 
 import CommunityTalentFilterDialog, {
   FormValues,
