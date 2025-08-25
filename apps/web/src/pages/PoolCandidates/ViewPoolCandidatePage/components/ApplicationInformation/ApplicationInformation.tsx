@@ -29,6 +29,7 @@ import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
+import profileMessages from "~/messages/profileMessages";
 
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
@@ -223,12 +224,7 @@ const ApplicationInformation = ({
       >
         <Accordion.Item value={SECTION_KEY.CONTACT}>
           <Accordion.Trigger as="h3">
-            {intl.formatMessage({
-              defaultMessage: "Personal and contact information",
-              id: "BWh6S1",
-              description:
-                "Title for the personal and contact information section",
-            })}
+            {intl.formatMessage(profileMessages.personalAndContactInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
             <PersonalInformationDisplay user={snapshot} />
@@ -335,11 +331,7 @@ const ApplicationInformation = ({
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.LANGUAGE}>
           <Accordion.Trigger as="h3">
-            {intl.formatMessage({
-              defaultMessage: "Language profile",
-              id: "KsS1Py",
-              description: "Title for the language profile snapshot section",
-            })}
+            {intl.formatMessage(profileMessages.languageProfile)}
           </Accordion.Trigger>
           <Accordion.Content>
             <LanguageProfileDisplay user={snapshot} />
@@ -355,12 +347,7 @@ const ApplicationInformation = ({
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.GOV_INFO}>
           <Accordion.Trigger as="h3">
-            {intl.formatMessage({
-              defaultMessage: "Government employee information",
-              id: "Jf3vT5",
-              description:
-                "Title for the government employee information section",
-            })}
+            {intl.formatMessage(profileMessages.govEmployeeInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
             <GovernmentInformationDisplay user={snapshot} />

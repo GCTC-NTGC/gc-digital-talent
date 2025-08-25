@@ -10,6 +10,7 @@ import { SubmitHandler } from "react-hook-form";
 import { useQuery } from "urql";
 import { ReactNode, useState, useMemo, useRef } from "react";
 
+import { Link } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
@@ -257,8 +258,13 @@ const UserTable = ({ title }: UserTableProps) => {
           description:
             "Title displayed on the User table Candidate name column.",
         }),
-        cell: ({ row: { original: user } }) =>
-          getFullNameHtml(user.firstName, user.lastName, intl),
+        cell: ({ row: { original: user } }) => {
+          return user.id ? (
+            <Link href={paths.userView(user.id)}>
+              {getFullNameHtml(user.firstName, user.lastName, intl)}
+            </Link>
+          ) : null;
+        },
         meta: {
           isRowTitle: true,
         },
@@ -334,26 +340,6 @@ const UserTable = ({ title }: UserTableProps) => {
         header: intl.formatMessage(commonMessages.workingLanguageAbility),
       },
     ),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: user } }) =>
-        cells.edit(
-          user.id,
-          window.location.pathname,
-          getFullNameLabel(user.firstName, user.lastName, intl),
-        ),
-    }),
-    columnHelper.display({
-      id: "view",
-      header: intl.formatMessage(adminMessages.view),
-      cell: ({ row: { original: user } }) =>
-        cells.view(
-          paths.userView(user.id),
-          "",
-          getFullNameLabel(user.firstName, user.lastName, intl),
-        ),
-    }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
       enableColumnFilter: false,

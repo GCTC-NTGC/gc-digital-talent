@@ -106,6 +106,12 @@ const getRoutes = (lang: Locales) => {
     userView: (userId: string) => [adminUrl, "users", userId].join("/"),
     userEmployeeProfile: (userId: string) =>
       [adminUrl, "users", userId, "employee-profile"].join("/"),
+    userCareerExperience: (userId: string) =>
+      `${adminUrl}/users/${userId}/experience`,
+    userSkills: (userId: string) => `${adminUrl}/users/${userId}/skills`,
+    userRecruitment: (userId: string) =>
+      `${adminUrl}/users/${userId}/recruitment`,
+    userAdvancedTools: (userId: string) => `${adminUrl}/users/${userId}/tools`,
     userProfile: (userId: string) =>
       [adminUrl, "users", userId, "profile"].join("/"),
     userUpdate: (userId: string) =>

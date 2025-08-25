@@ -30,11 +30,8 @@ test.describe("User information", () => {
   const assertSuccess = async (page: Page) => {
     await expect(
       page.getByRole("heading", {
-        name: /view user/i,
+        name: new RegExp(user?.firstName ?? "", "i"),
       }),
-    ).toBeVisible();
-    await expect(
-      page.getByText(new RegExp(user?.firstName ?? "", "i")).first(),
     ).toBeVisible();
   };
 

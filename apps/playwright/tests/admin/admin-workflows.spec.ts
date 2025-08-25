@@ -7,6 +7,7 @@ const USERS_PAGINATED_QUERY = "UsersPaginated";
 const searchForUser = async (appPage: AppPage, name: string) => {
   await appPage.page
     .getByRole("textbox", { name: /search/i })
+    .first()
     .fill(name, { timeout: 30000 });
 
   await appPage.waitForGraphqlResponse(USERS_PAGINATED_QUERY);
@@ -26,17 +27,14 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    await appPage.page.getByRole("link", { name: /view gul fields/i }).click();
-    await appPage.waitForGraphqlResponse("GetViewUserData");
+    await appPage.page.getByRole("link", { name: /gul fields/i }).click();
 
     await expect(
-      appPage.page.getByRole("heading", { name: /view user/i }),
+      appPage.page.getByRole("heading", { name: /gul fields/i }),
     ).toBeVisible();
 
-    await appPage.page.getByRole("link", { name: /user profile/i }).click();
-    await appPage.waitForGraphqlResponse("AdminUserProfile");
     await expect(
-      appPage.page.getByRole("button", { name: /download docx/i }),
+      appPage.page.getByRole("button", { name: /download profile/i }),
     ).toBeVisible();
   });
 
@@ -45,23 +43,24 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    await appPage.page.getByRole("link", { name: /edit gul fields/i }).click();
-    await appPage.waitForGraphqlResponse("UpdateUserData");
+    await appPage.page.getByRole("link", { name: /gul fields/i }).click();
+    await appPage.page.getByRole("link", { name: /advanced tools/i }).click();
 
     await appPage.page
       .getByRole("textbox", { name: /telephone/i })
       .fill("+10123456789");
     await appPage.page
-      .getByRole("button", { name: /submit/i })
+      .getByRole("button", { name: /update information/i })
       .first()
       .click();
 
-    await appPage.waitForGraphqlResponse("UpdateUserAsAdmin");
+    await appPage.waitForGraphqlResponse("UpdateAccountInformation");
 
     await expect(appPage.page.getByRole("alert")).toContainText(
-      /user updated successfully/i,
+      /updated account information successfully/i,
     );
 
+    await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
     await appPage.page
       .getByRole("button", { name: /show or hide columns/i })

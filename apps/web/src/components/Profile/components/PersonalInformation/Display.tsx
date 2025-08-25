@@ -34,6 +34,7 @@ type PartialUser = Pick<
 interface DisplayProps {
   user: PartialUser;
   showEmailVerification?: boolean;
+  readOnly?: boolean;
 }
 
 const Display = ({
@@ -50,6 +51,7 @@ const Display = ({
     armedForcesStatus,
   },
   showEmailVerification = false,
+  readOnly = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -97,6 +99,7 @@ const Display = ({
               <EmailVerificationStatus
                 isEmailVerified={!!isEmailVerified}
                 onClickVerify={handleVerifyNowClick}
+                readOnly={readOnly}
               />
             ) : null}
           </div>

@@ -10,15 +10,22 @@ import {
   Ul,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { SkillShowcase_UserSkillFragment } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SkillRankListItem from "./SkillRankListItem";
 import NullMessage, { NullMessageProps } from "./NullMessage";
 
+const SkillRankCard_Fragment = graphql(/** GraphQL */ `
+  fragment SkillRankCard on UserSkill {
+    id
+    ...SkillRankListItem
+  }
+`);
+
 interface SkillRankCardProps {
   title: ReactNode;
-  description: ReactNode;
-  userSkills: readonly SkillShowcase_UserSkillFragment[];
+  description?: ReactNode;
+  query: FragmentType<typeof SkillRankCard_Fragment>[];
   titleAs?: HeadingLevel;
   editable?: boolean;
   editLink?: NullMessageProps["editLink"];
@@ -28,13 +35,14 @@ interface SkillRankCardProps {
 const SkillRankCard = ({
   title,
   description,
-  userSkills,
+  query,
   editLink,
   type,
   editable = false,
   titleAs = "h3",
 }: SkillRankCardProps) => {
   const intl = useIntl();
+  const userSkills = getFragment(SkillRankCard_Fragment, query);
 
   return (
     <Card className="w-full rounded-t-none border-t-12 border-primary">
@@ -53,14 +61,14 @@ const SkillRankCard = ({
           </Link>
         )}
       </div>
-      <p>{description}</p>
+      {description && <p>{description}</p>}
       <Separator space="sm" />
       {userSkills.length ? (
         <Ul noIndent>
           {userSkills.map((userSkill) => (
             <SkillRankListItem
               key={userSkill.id}
-              userSkill={userSkill}
+              query={userSkill}
               editable={editable}
             />
           ))}
