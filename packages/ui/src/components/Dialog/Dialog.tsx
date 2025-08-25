@@ -97,7 +97,6 @@ interface DialogProps extends DialogPrimitiveContentProps {
   wide?: StyledContentProps["wide"];
   closeLabel?: string;
   hasSubtitle?: boolean;
-  simpleHeader?: boolean;
 }
 
 type DialogPrimitiveContentProps = ComponentPropsWithoutRef<
@@ -115,7 +114,6 @@ const Content = forwardRef<
       children,
       wide = false,
       hasSubtitle = false,
-      simpleHeader = false,
       ...props
     },
     forwardedRef,
@@ -134,27 +132,15 @@ const Content = forwardRef<
             {...props}
           >
             <StyledClose>
-              {simpleHeader ? (
-                <button
-                  type="button"
-                  className="line-height-0 absolute top-3 right-3 z-10 cursor-pointer rounded-full border-none bg-black p-3 text-white ring-focus ring-offset-4 ring-offset-black outline-none hover:bg-black/85 focus-visible:bg-focus focus-visible:text-black focus-visible:ring dark:bg-transparent dark:hover:bg-white/15"
-                  aria-label={
-                    closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
-                  }
-                >
-                  <XMarkIcon className="size-6" />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="line-height-0 absolute top-3 right-3 z-10 cursor-pointer rounded-full border-none bg-transparent p-3 text-white ring-focus ring-offset-4 ring-offset-black outline-none hover:bg-white/15 focus-visible:bg-focus focus-visible:text-black focus-visible:ring"
-                  aria-label={
-                    closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
-                  }
-                >
-                  <XMarkIcon className="size-6" />
-                </button>
-              )}
+              <button
+                type="button"
+                className="line-height-0 absolute top-3 right-3 z-10 cursor-pointer rounded-full border-none bg-transparent p-3 text-white ring-focus ring-offset-4 ring-offset-black outline-none hover:bg-white/15 focus-visible:bg-focus focus-visible:text-black focus-visible:ring"
+                aria-label={
+                  closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
+                }
+              >
+                <XMarkIcon className="size-6" />
+              </button>
             </StyledClose>
             <div className="rounded-md shadow-xl">{children}</div>
           </StyledContent>
@@ -192,30 +178,19 @@ const StyledDescription = forwardRef<
 interface DialogHeaderProps {
   subtitle?: ReactNode;
   children: ReactNode;
-  simple?: boolean;
 }
 
-const Header = ({ subtitle, children, simple = false }: DialogHeaderProps) =>
-  simple ? (
-    <>
-      <div className="relative overflow-hidden rounded-t-md bg-white p-6 dark:bg-gray-600 dark:text-white">
-        <div className="relative">
-          <StyledTitle>{children}</StyledTitle>
-          {subtitle ? <StyledDescription>{subtitle}</StyledDescription> : ""}
-        </div>
+const Header = ({ subtitle, children }: DialogHeaderProps) => (
+  <>
+    <div className="relative overflow-hidden rounded-t-md bg-black p-6 text-white">
+      <div className="relative">
+        <StyledTitle>{children}</StyledTitle>
+        {subtitle ? <StyledDescription>{subtitle}</StyledDescription> : ""}
       </div>
-    </>
-  ) : (
-    <>
-      <div className="relative overflow-hidden rounded-t-md bg-black p-6 text-white">
-        <div className="relative">
-          <StyledTitle>{children}</StyledTitle>
-          {subtitle ? <StyledDescription>{subtitle}</StyledDescription> : ""}
-        </div>
-      </div>
-      <div className="h-6 bg-linear-(--gradient-main-linear)" />
-    </>
-  );
+    </div>
+    <div className="h-6 bg-linear-(--gradient-main-linear)" />
+  </>
+);
 
 const footer = tv({
   base: "flex flex-col items-center gap-3 xs:flex-row",

@@ -77,8 +77,8 @@ const DeleteOldOffPlatformProcessesDialog = ({
           </span>
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content simpleHeader>
-        <Dialog.Header simple>
+      <Dialog.Content>
+        <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Delete information saved in the old format",
             id: "hO8vGS",
