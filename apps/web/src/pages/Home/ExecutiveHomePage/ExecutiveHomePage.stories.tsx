@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { fakeClassifications, fakePools } from "@gc-digital-talent/fake-data";

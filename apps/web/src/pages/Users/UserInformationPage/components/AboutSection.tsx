@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { HTMLEntity, Link, Well } from "@gc-digital-talent/ui";
+import { Link, UNICODE_CHAR, Well } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -128,7 +128,7 @@ const AboutSection = ({ userQuery }: AboutSectionProps) => {
           <p>
             {user.currentCity ?? ""}
             {user.currentCity && user.currentProvince?.label ? (
-              <HTMLEntity name="," className="mr-1" />
+              <span className="mr-1">{UNICODE_CHAR.COMMA}</span>
             ) : (
               ""
             )}

@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { ComponentPropsWithoutRef } from "react";
-import { composeStories } from "@storybook/react";
+import { composeStories } from "@storybook/react-vite";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 

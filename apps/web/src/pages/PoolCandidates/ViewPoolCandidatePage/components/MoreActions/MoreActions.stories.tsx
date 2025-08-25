@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Args, Decorator, Meta, StoryObj } from "@storybook/react";
+import { Args, Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { useNavigate } from "react-router";
 
 import {
