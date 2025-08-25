@@ -4,27 +4,31 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Submit } from "@gc-digital-talent/forms";
-import {
-  DisqualificationReason,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 import JobPlacementForm, {
   FormValues as JobPlacementFormValues,
   JobPlacementOptions_Query,
 } from "~/components/PoolCandidatesTable/JobPlacementForm";
+import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
 import FinalDecisionForm, {
   FormValues as FinalDecisionFormValues,
 } from "./FinalDecisionForm";
 import { FinalDecisionDialog_Fragment } from "./FinalDecisionDialog";
+import {
+  formValuesToDisqualifyCandidateInput,
+  formValuesToQualifyAndPlaceCandidateInput,
+  formValuesToQualifyCandidateInput,
+} from "./formUtils";
 
-interface FormValues extends FinalDecisionFormValues, JobPlacementFormValues {}
+export interface FormValues
+  extends FinalDecisionFormValues,
+    JobPlacementFormValues {}
 
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_QualifyCandidateMutation(
@@ -32,6 +36,21 @@ const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
     $poolCandidate: QualifyCandidateInput!
   ) {
     qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
+      id
+      status {
+        value
+      }
+      expiryDate
+    }
+  }
+`);
+
+const PoolCandidate_QualifyAndPlaceCandidateMutation = graphql(/* GraphQL */ `
+  mutation PoolCandidate_QualifyAndPlaceCandidateMutation(
+    $id: UUID!
+    $poolCandidate: QualifyAndPlaceCandidateInput!
+  ) {
+    qualifyAndPlaceCandidate(id: $id, poolCandidate: $poolCandidate) {
       id
       status {
         value
@@ -56,28 +75,9 @@ const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
   }
 `);
 
-const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
-  mutation PlaceCandidate_Mutation(
-    $id: UUID!
-    $poolCandidate: PlaceCandidateInput!
-  ) {
-    placeCandidate(id: $id, poolCandidate: $poolCandidate) {
-      id
-    }
-  }
-`);
-
-const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
-  mutation RevertPlaceCandidate_Mutation($id: UUID!) {
-    revertPlaceCandidate(id: $id) {
-      id
-    }
-  }
-`);
-
 interface FinalDecisionAndPlaceDialogProps {
   poolCandidate: FragmentType<typeof FinalDecisionDialog_Fragment>;
-  optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>;
+  optionsQuery: FragmentType<typeof JobPlacementOptions_Query>;
   defaultOpen?: boolean;
 }
 
@@ -95,6 +95,9 @@ const FinalDecisionAndPlaceDialog = ({
   const [, executeQualifyMutation] = useMutation(
     PoolCandidate_QualifyCandidateMutation,
   );
+  const [, executeQualifyAndPlaceMutation] = useMutation(
+    PoolCandidate_QualifyAndPlaceCandidateMutation,
+  );
   const [, executeDisqualifyMutation] = useMutation(
     PoolCandidate_DisqualifyCandidateMutation,
   );
@@ -106,79 +109,86 @@ const FinalDecisionAndPlaceDialog = ({
         : "",
     },
   });
-  const { handleSubmit } = methods;
-
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: could not update pool candidate status",
-        id: "FSlrKF",
-        description:
-          "Message displayed when an error occurs while an admin updates a pool candidate",
-      }),
-    );
-  };
+  const { handleSubmit, watch } = methods;
+  const [finalAssessmentDecisionValue] = watch(["finalAssessmentDecision"]);
 
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    if (values.finalAssessmentDecision === "qualified" && values.expiryDate) {
-      await executeQualifyMutation({
-        id: poolCandidate.id,
-        poolCandidate: {
-          expiryDate: values.expiryDate,
-        },
-      })
-        .then((result) => {
+    let mutationPromise: Promise<void> | null = null;
+
+    if (values.finalAssessmentDecision === "qualified") {
+      // We're going to qualify them with an expiry date.  We may or may not place them.
+
+      if (values.placementType && values.placementType !== "NOT_PLACED") {
+        // We have a placement so we will both qualify and place.
+        mutationPromise = executeQualifyAndPlaceMutation({
+          id: poolCandidate.id,
+          ...formValuesToQualifyAndPlaceCandidateInput(values),
+        }).then((result) => {
+          if (result.data?.qualifyAndPlaceCandidate) {
+            return Promise.resolve();
+          } else {
+            return Promise.reject(new Error(result.error?.message));
+          }
+        });
+      } else {
+        // No placement so we will just qualify
+        mutationPromise = executeQualifyMutation({
+          id: poolCandidate.id,
+          ...formValuesToQualifyCandidateInput(values),
+        }).then((result) => {
           if (result.data?.qualifyCandidate) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Pool candidate status updated successfully",
-                id: "uSdcX4",
-                description:
-                  "Message displayed when a pool candidate has been updated by and admin",
-              }),
-            );
-            setIsOpen(false);
+            return Promise.resolve();
           } else {
-            handleError();
+            return Promise.reject(new Error(result.error?.message));
           }
-        })
-        .catch(() => {
-          handleError();
         });
-    } else if (
-      values.finalAssessmentDecision === "disqualified" &&
-      values.disqualifiedDecision
-    ) {
-      await executeDisqualifyMutation({
+      }
+    } else if (values.finalAssessmentDecision === "disqualified") {
+      // We're going to mark them as disqualified.  No option to place them.
+
+      mutationPromise = executeDisqualifyMutation({
         id: poolCandidate.id,
-        reason:
-          values.disqualifiedDecision === "application"
-            ? DisqualificationReason.ScreenedOutApplication
-            : DisqualificationReason.ScreenedOutAssessment,
-      })
-        .then((result) => {
-          if (result.data?.disqualifyCandidate) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Pool candidate status updated successfully",
-                id: "uSdcX4",
-                description:
-                  "Message displayed when a pool candidate has been updated by and admin",
-              }),
-            );
-            setIsOpen(false);
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
-    } else {
-      handleError();
+        ...formValuesToDisqualifyCandidateInput(values),
+      }).then((result) => {
+        if (result.data?.disqualifyCandidate) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(new Error(result.error?.message));
+        }
+      });
     }
+
+    if (!mutationPromise) {
+      defaultLogger.error(
+        `Could not pick a mutation for final assessment decision: ${values.finalAssessmentDecision}`,
+      );
+      return;
+    }
+
+    await mutationPromise
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Pool candidate status updated successfully",
+            id: "uSdcX4",
+            description:
+              "Message displayed when a pool candidate has been updated by and admin",
+          }),
+        );
+        setIsOpen(false);
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: could not update pool candidate status",
+            id: "FSlrKF",
+            description:
+              "Message displayed when an error occurs while an admin updates a pool candidate",
+          }),
+        );
+      });
   };
 
   return (
@@ -211,7 +221,10 @@ const FinalDecisionAndPlaceDialog = ({
               className="flex flex-col gap-6"
             >
               <FinalDecisionForm />
-              <JobPlacementForm optionsQuery={optionsQuery} />
+              {finalAssessmentDecisionValue === "qualified" && (
+                <JobPlacementForm optionsQuery={optionsQuery} />
+              )}
+              <FormChangeNotifyWell className="mt-6" />
               <Dialog.Footer>
                 <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Dialog.Close>

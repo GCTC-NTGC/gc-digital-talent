@@ -5,16 +5,18 @@ import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
-import {
-  DisqualificationReason,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { defaultLogger } from "@gc-digital-talent/logger";
+
+import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
 import FinalDecisionForm, { FormValues } from "./FinalDecisionForm";
+import {
+  formValuesToDisqualifyCandidateInput,
+  formValuesToQualifyCandidateInput,
+} from "./formUtils";
 
 export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment FinalDecisionDialog on PoolCandidate {
@@ -91,77 +93,64 @@ const FinalDecisionDialog = ({
   });
   const { handleSubmit } = methods;
 
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: could not update pool candidate status",
-        id: "FSlrKF",
-        description:
-          "Message displayed when an error occurs while an admin updates a pool candidate",
-      }),
-    );
-  };
-
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    if (values.finalAssessmentDecision === "qualified" && values.expiryDate) {
-      await executeQualifyMutation({
+    let mutationPromise: Promise<void> | null = null;
+
+    if (values.finalAssessmentDecision === "qualified") {
+      mutationPromise = executeQualifyMutation({
         id: poolCandidate.id,
-        poolCandidate: {
-          expiryDate: values.expiryDate,
-        },
-      })
-        .then((result) => {
-          if (result.data?.qualifyCandidate) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Pool candidate status updated successfully",
-                id: "uSdcX4",
-                description:
-                  "Message displayed when a pool candidate has been updated by and admin",
-              }),
-            );
-            setIsOpen(false);
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
-    } else if (
-      values.finalAssessmentDecision === "disqualified" &&
-      values.disqualifiedDecision
-    ) {
-      await executeDisqualifyMutation({
+        ...formValuesToQualifyCandidateInput(values),
+      }).then((result) => {
+        if (result.data?.qualifyCandidate) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(new Error(result.error?.message));
+        }
+      });
+    } else if (values.finalAssessmentDecision === "disqualified") {
+      mutationPromise = executeDisqualifyMutation({
         id: poolCandidate.id,
-        reason:
-          values.disqualifiedDecision === "application"
-            ? DisqualificationReason.ScreenedOutApplication
-            : DisqualificationReason.ScreenedOutAssessment,
-      })
-        .then((result) => {
-          if (result.data?.disqualifyCandidate) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Pool candidate status updated successfully",
-                id: "uSdcX4",
-                description:
-                  "Message displayed when a pool candidate has been updated by and admin",
-              }),
-            );
-            setIsOpen(false);
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
-    } else {
-      handleError();
+        ...formValuesToDisqualifyCandidateInput(values),
+      }).then((result) => {
+        if (result.data?.disqualifyCandidate) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(new Error(result.error?.message));
+        }
+      });
     }
+
+    if (!mutationPromise) {
+      defaultLogger.error(
+        `Could not pick a mutation for final assessment decision: ${values.finalAssessmentDecision}`,
+      );
+      return;
+    }
+
+    await mutationPromise
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Pool candidate status updated successfully",
+            id: "uSdcX4",
+            description:
+              "Message displayed when a pool candidate has been updated by and admin",
+          }),
+        );
+        setIsOpen(false);
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: could not update pool candidate status",
+            id: "FSlrKF",
+            description:
+              "Message displayed when an error occurs while an admin updates a pool candidate",
+          }),
+        );
+      });
   };
 
   return (
@@ -191,6 +180,7 @@ const FinalDecisionDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <FinalDecisionForm />
+              <FormChangeNotifyWell className="mt-6" />
               <Dialog.Footer>
                 <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Dialog.Close>

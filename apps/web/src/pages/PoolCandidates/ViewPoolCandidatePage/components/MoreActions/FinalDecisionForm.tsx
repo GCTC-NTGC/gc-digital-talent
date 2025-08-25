@@ -6,8 +6,6 @@ import { DateInput, RadioGroup } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 
-import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
-
 export interface FormValues {
   finalAssessmentDecision?: string;
   disqualifiedDecision?: string;
@@ -120,7 +118,6 @@ const FinalDecisionForm = () => {
           className="mt-6"
         />
       )}
-      <FormChangeNotifyWell className="mt-6" />
     </>
   );
 };

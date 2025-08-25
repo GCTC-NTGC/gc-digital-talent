@@ -19,6 +19,7 @@ import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
 import { PLACEMENT_TYPE_STATUSES } from "~/constants/poolCandidate";
+import { formValuesToPlaceCandidateInput } from "~/pages/PoolCandidates/ViewPoolCandidatePage/components/MoreActions/formUtils";
 
 import JobPlacementForm, {
   FormValues,
@@ -99,7 +100,7 @@ const JobPlacementDialog = ({
 }: JobPlacementDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
-  const [, executePlacedCandidate] = useMutation(PlaceCandidate_Mutation);
+  const [, executePlaceCandidate] = useMutation(PlaceCandidate_Mutation);
   const [, executeRevertPlacedCandidate] = useMutation(
     RevertPlaceCandidate_Mutation,
   );
@@ -134,67 +135,57 @@ const JobPlacementDialog = ({
 
   const { handleSubmit } = methods;
 
-  const handleSuccess = () => {
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Job placement status saved successfully",
-        id: "gr8+Es",
-        description:
-          "Message displayed when a job placement status has been saved.",
-      }),
-    );
-  };
-
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage:
-          "Error: could not update candidate's job placement status",
-        id: "8oOKi9",
-        description:
-          "Message displayed when an error occurs while updating pool candidate's job placement status",
-      }),
-    );
-  };
-
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
+    let mutationPromise: Promise<void> | null = null;
+
     if (values.placementType && values.placementType !== "NOT_PLACED") {
-      await executePlacedCandidate({
+      mutationPromise = executePlaceCandidate({
         id: poolCandidateId,
-        placeCandidate: {
-          departmentId: values.placedDepartment ?? "",
-          placementType: values.placementType,
-        },
-      })
-        .then((result) => {
-          if (result.data?.placeCandidate) {
-            handleSuccess();
-            setIsOpen(false);
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
+        ...formValuesToPlaceCandidateInput(values),
+      }).then((result) => {
+        if (result.data?.placeCandidate) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(new Error(result.error?.message));
+        }
+      });
     } else {
-      await executeRevertPlacedCandidate({
+      mutationPromise = executeRevertPlacedCandidate({
         id: poolCandidateId,
-      })
-        .then((result) => {
-          if (result.data?.revertPlaceCandidate) {
-            handleSuccess();
-            setIsOpen(false);
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
+      }).then((result) => {
+        if (result.data?.revertPlaceCandidate) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(new Error(result.error?.message));
+        }
+      });
     }
+
+    await mutationPromise
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Job placement status saved successfully",
+            id: "gr8+Es",
+            description:
+              "Message displayed when a job placement status has been saved.",
+          }),
+        );
+        setIsOpen(false);
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage:
+              "Error: could not update candidate's job placement status",
+            id: "8oOKi9",
+            description:
+              "Message displayed when an error occurs while updating pool candidate's job placement status",
+          }),
+        );
+      });
   };
 
   let label = intl.formatMessage(commonMessages.notAvailable);

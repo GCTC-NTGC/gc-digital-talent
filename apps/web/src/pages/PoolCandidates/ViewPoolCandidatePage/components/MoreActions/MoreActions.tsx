@@ -12,9 +12,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
-import JobPlacementDialog, {
-  JobPlacementOptionsFragmentType,
-} from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import JobPlacementDialog from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import {
   isQualifiedStatus,
   isRemovedStatus,
@@ -23,6 +21,7 @@ import {
 } from "~/utils/poolCandidate";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { JobPlacementOptions_Query } from "~/components/PoolCandidatesTable/JobPlacementForm";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import FinalDecisionDialog from "./FinalDecisionDialog";
@@ -89,7 +88,7 @@ const MoreActions_Query = graphql(/* GraphQL */ `
 
 interface MoreActionsProps {
   poolCandidate: FragmentType<typeof MoreActions_Fragment>;
-  jobPlacementOptions: JobPlacementOptionsFragmentType;
+  jobPlacementOptions: FragmentType<typeof JobPlacementOptions_Query>;
 }
 
 const MoreActions = ({
@@ -155,7 +154,10 @@ const MoreActions = ({
         {isRODStatus(status) &&
           (hasCommunityRecruiterRole ? (
             // community recruiters can record a decision and placement at the same time
-            <FinalDecisionAndPlaceDialog poolCandidate={poolCandidate} />
+            <FinalDecisionAndPlaceDialog
+              poolCandidate={poolCandidate}
+              optionsQuery={jobPlacementOptions}
+            />
           ) : (
             // everyone else can only place
             <FinalDecisionDialog poolCandidate={poolCandidate} />
