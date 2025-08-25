@@ -105,6 +105,7 @@ const generatePool = (
     name: {
       en: englishName || `${faker.company.catchPhrase()} EN`,
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
+      localized: englishName || `${faker.company.catchPhrase()} LOCALIZED`,
     },
     classification: faker.helpers.arrayElement<Classification>(classifications),
     department: faker.helpers.arrayElement<Department>(departments),

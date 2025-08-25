@@ -11,6 +11,7 @@ export default (): Department[] => {
       name: {
         en: "Public Service Commission",
         fr: "Commission de la fonction publique",
+        localized: "Public Service Commission",
       },
     },
     {
@@ -19,6 +20,7 @@ export default (): Department[] => {
       name: {
         en: "Finance (Department of)",
         fr: "Finances (Ministère des)",
+        localized: "Finance (Department of)",
       },
     },
     {
@@ -27,6 +29,7 @@ export default (): Department[] => {
       name: {
         en: "Health (Department of)",
         fr: "Santé (Ministère de la)",
+        localized: "Health (Department of)",
       },
     },
     {
@@ -35,6 +38,7 @@ export default (): Department[] => {
       name: {
         en: "Transport (Department of)",
         fr: "Transports (Ministère des)",
+        localized: "Transport (Department of)",
       },
     },
     {
@@ -43,6 +47,7 @@ export default (): Department[] => {
       name: {
         en: "Treasury Board Secretariat",
         fr: "Secrétariat du Conseil du Trésor",
+        localized: "Treasury Board Secretariat",
       },
     },
     {
@@ -51,6 +56,7 @@ export default (): Department[] => {
       name: {
         en: "Canada School of Public Service",
         fr: "École de la fonction publique du Canada",
+        localized: "Canada School of Public Service",
       },
     },
     {
@@ -59,6 +65,7 @@ export default (): Department[] => {
       name: {
         en: "Environment (Department of the)",
         fr: "Environnement (Ministère de l')",
+        localized: "Environment (Department of the)",
       },
     },
   ];

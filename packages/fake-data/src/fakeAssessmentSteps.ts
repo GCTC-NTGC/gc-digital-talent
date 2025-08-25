@@ -7,6 +7,7 @@ import {
   PoolSkill,
 } from "@gc-digital-talent/graphql";
 
+import toLocalizedString from "./fakeLocalizedString";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateAssessmentStep = (
@@ -28,10 +29,7 @@ const generateAssessmentStep = (
       faker.number.int({
         max: amount,
       }),
-    title: {
-      en: `${faker.lorem.word()} EN`,
-      fr: `${faker.lorem.word()} FR`,
-    },
+    title: toLocalizedString(faker.lorem.word()),
     poolSkills: poolSkills ?? [],
   };
 };

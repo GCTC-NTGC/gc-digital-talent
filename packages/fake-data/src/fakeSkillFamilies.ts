@@ -4,6 +4,7 @@ import { UniqueEnforcer } from "enforce-unique";
 import { SkillFamily, Skill } from "@gc-digital-talent/graphql";
 
 import staticSkillFamilies from "./skillFamilies.json";
+import toLocalizedString from "./fakeLocalizedString";
 
 export const getStaticSkillFamilies = (): SkillFamily[] =>
   staticSkillFamilies.data.skillFamilies as SkillFamily[];
@@ -16,18 +17,14 @@ const generateSkillFamily = (
   const uniqueId = uniqueEnforcerId.enforce(() => {
     return faker.string.uuid();
   });
+  const desc = faker.lorem.sentences();
+
   return {
     __typename: undefined,
-    description: {
-      en: `EN ${faker.lorem.sentences()}`,
-      fr: `FR ${faker.lorem.sentences()}`,
-    },
+    description: toLocalizedString(desc),
     id: uniqueId,
     key: faker.helpers.slugify(name),
-    name: {
-      en: `EN ${name}`,
-      fr: `FR ${name}`,
-    },
+    name: toLocalizedString(name),
     skills: skills.length
       ? faker.helpers.arrayElements<Skill>(skills)
       : ([] as Skill[]),
