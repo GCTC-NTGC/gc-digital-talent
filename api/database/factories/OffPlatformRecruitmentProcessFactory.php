@@ -20,8 +20,6 @@ class OffPlatformRecruitmentProcessFactory extends Factory
      */
     public function definition(): array
     {
-        $platform = $this->faker->randomElement(HiringPlatform::cases());
-
         return [
             'user_id' => User::inRandomOrder()->firstOr(
                 fn () => User::factory()->create()
@@ -33,8 +31,10 @@ class OffPlatformRecruitmentProcessFactory extends Factory
             'classification_id' => Classification::inRandomOrder()->firstOr(
                 fn () => Classification::factory()->create()
             )->id,
-            'platform' => $platform->name,
-            'platform_other' => $platform === HiringPlatform::OTHER ? $this->faker->word() : null,
+            'platform' => $this->faker->randomElement(array_column(HiringPlatform::cases(), 'name')),
+            'platform_other' => fn ($attributes) => $attributes['platform'] === HiringPlatform::OTHER->name
+                            ? $this->faker->word()
+                            : null,
         ];
     }
 }
