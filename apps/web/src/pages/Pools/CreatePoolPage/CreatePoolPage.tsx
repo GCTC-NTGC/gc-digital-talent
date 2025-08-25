@@ -20,6 +20,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -235,15 +236,25 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
   query CreatePoolPage {
     me {
       id
+      authInfo {
+        roleAssignments {
+          role {
+            name
+          }
+          teamable {
+            id
+            ... on Community {
+              ...CreatePoolCommunity
+            }
+          }
+        }
+      }
     }
     classifications {
       ...CreatePoolClassification
     }
     departments {
       ...CreatePoolDepartment
-    }
-    communities {
-      ...CreatePoolCommunity
     }
   }
 `);
@@ -263,6 +274,11 @@ const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const createProcessRoles: RoleName[] = [
+  ROLE_NAME.CommunityAdmin,
+  ROLE_NAME.CommunityRecruiter,
+];
 
 const pageTitle = defineMessage({
   defaultMessage: "Create process",
@@ -310,6 +326,25 @@ const CreatePoolPage = () => {
     ],
   });
 
+  const roleAssignments = unpackMaybes(data?.me?.authInfo?.roleAssignments);
+  type RoleAssignment = (typeof roleAssignments)[number];
+
+  function isAuthorizedCommunity(
+    assignment: RoleAssignment,
+  ): assignment is RoleAssignment & {
+    teamable: Extract<RoleAssignment["teamable"], { __typename: "Community" }>;
+  } {
+    return (
+      !!assignment.role &&
+      createProcessRoles.includes(assignment.role.name as RoleName) &&
+      assignment.teamable?.__typename === "Community"
+    );
+  }
+
+  const communities = roleAssignments
+    .filter(isAuthorizedCommunity)
+    .map((assignment) => assignment.teamable);
+
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedSubTitle} />
@@ -324,7 +359,7 @@ const CreatePoolPage = () => {
             userId={data?.me?.id ?? ""}
             classificationsQuery={unpackMaybes(data?.classifications)}
             departmentsQuery={unpackMaybes(data?.departments)}
-            communitiesQuery={unpackMaybes(data?.communities)}
+            communitiesQuery={communities}
             handleCreatePool={handleCreatePool}
           />
         </Pending>
