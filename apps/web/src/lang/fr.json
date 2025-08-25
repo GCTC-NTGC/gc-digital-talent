@@ -4287,6 +4287,10 @@
     "defaultMessage": "Un grade est quand même requis. Cependant, la spécialisation en économie, en sociologie ou en statistique peut également être formée d’un agencement acceptable d’études, de formation ou d’expérience.",
     "description": "Description for the `other education with specialization` option for EC education requirements"
   },
+  "IFCSio": {
+    "defaultMessage": "Demandes de talents ({requestsCount})",
+    "description": "Title for a list of talent requests with a count"
+  },
   "IFKgSr": {
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
@@ -8046,10 +8050,6 @@
     "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
-  "aYt7kT": {
-    "defaultMessage": "Ouvert le: {formattedDate}",
-    "description": "A formatted display of the date the pool candidate search request was opened"
-  },
   "aYyceB": {
     "defaultMessage": "Lien entre la personne candidate et l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominee's relation to the person nominating them"
@@ -9821,6 +9821,10 @@
     "defaultMessage": "Numéro de niveau",
     "description": "Label for classification level"
   },
+  "iI7VxV": {
+    "defaultMessage": "Soumise : {formattedDate}",
+    "description": "A formatted display of the date the pool candidate search request was submitted"
+  },
   "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
@@ -10312,10 +10316,6 @@
   "kfzKrV": {
     "defaultMessage": "Signaler une page manquante",
     "description": "Link text to go report a missing page on the 404"
-  },
-  "kgCPAc": {
-    "defaultMessage": "Vos demandes de talents ({requestsCount})",
-    "description": "Title for a list of your talent requests with a count"
   },
   "kh9KTx": {
     "defaultMessage": "Annulez et revenez aux volets de travail",
@@ -10920,6 +10920,10 @@
   "nQbfnB": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience pour continuer.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
+  },
+  "nTPcCF": {
+    "defaultMessage": "Soumise",
+    "description": "Label for request submitted"
   },
   "nUokX9": {
     "defaultMessage": "Retourner au suivi des évaluations",
@@ -11622,7 +11626,7 @@
     "description": "Breadcrumb title for the create community page link."
   },
   "r4IQ0h": {
-    "defaultMessage": "Non, il ne s'agit pas d'un poste de supervision",
+    "defaultMessage": "Revoir une demande de talents",
     "description": "Title for the 'review talent request' dialog"
   },
   "r4sAvp": {

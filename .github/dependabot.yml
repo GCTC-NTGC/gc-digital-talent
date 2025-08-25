@@ -51,6 +51,7 @@ updates:
         patterns:
           - "@tiptap*"
         update-types:
+          - "major"
           - "minor"
           - "patch"
       types:

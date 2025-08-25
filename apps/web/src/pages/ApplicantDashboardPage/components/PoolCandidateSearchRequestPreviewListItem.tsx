@@ -119,10 +119,10 @@ const PoolCandidateSearchRequestPreviewListItem = ({
       type: "text",
       children: intl.formatMessage(
         {
-          defaultMessage: "Opened on: {formattedDate}",
-          id: "aYt7kT",
+          defaultMessage: "Submitted: {formattedDate}",
+          id: "iI7VxV",
           description:
-            "A formatted display of the date the pool candidate search request was opened",
+            "A formatted display of the date the pool candidate search request was submitted",
         },
         {
           formattedDate: formattedDate,

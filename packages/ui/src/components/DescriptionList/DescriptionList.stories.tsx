@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import BackspaceIcon from "@heroicons/react/24/solid/BackspaceIcon";
 import CakeIcon from "@heroicons/react/24/solid/CakeIcon";

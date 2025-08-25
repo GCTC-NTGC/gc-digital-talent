@@ -7,3 +7,6 @@ dist
 .env
 hostingstart.html
 __pycache__
+
+*storybook.log
+storybook-static

@@ -1,5 +1,5 @@
-import { Meta, StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { Meta, StoryFn } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
@@ -46,7 +46,7 @@ const previewDetailsTwo: MetaDataProps[] = [
   {
     key: "it-text-2-id",
     type: "text",
-    children: "Opened on: April 30th, 2024",
+    children: "Submitted: April 30th, 2024",
   },
 ];
 
@@ -61,7 +61,7 @@ const previewDetailsThree: MetaDataProps[] = [
   {
     key: "it-text-2-id",
     type: "text",
-    children: "Opened on: April 30th, 2024",
+    children: "Submitted: April 30th, 2024",
   },
 ];
 

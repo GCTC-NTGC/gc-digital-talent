@@ -27,8 +27,8 @@ import {
   Button,
   ButtonProps,
   DownloadCsv,
-  HTMLEntity,
   Loading,
+  UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -130,12 +130,9 @@ type BulletProps = DetailedHTMLProps<
  * @returns JSX.Element
  */
 const Bullet = (props: Omit<BulletProps, "children">) => (
-  <HTMLEntity
-    name="&bull;"
-    aria-hidden
-    className="hidden sm:block"
-    {...props}
-  />
+  <span aria-hidden className="hidden sm:block" {...props}>
+    {UNICODE_CHAR.BULLET}
+  </span>
 );
 
 // Simple common props for action buttons

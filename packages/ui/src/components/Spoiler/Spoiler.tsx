@@ -5,7 +5,7 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Button from "../Button";
 import Collapsible from "../Collapsible";
-import HTMLEntity from "../HTMLEntity/HTMLEntity";
+import { UNICODE_CHAR } from "../../utils/unicode";
 
 export interface SpoilerProps {
   // Accessible name for the "read more" button
@@ -28,7 +28,7 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
           {!isOpen && (
             <>
               {truncated}
-              <HTMLEntity name="&hellip;" />
+              <span>{UNICODE_CHAR.ELLIPSE}</span>
             </>
           )}
           <Collapsible.Content>{text}</Collapsible.Content>
