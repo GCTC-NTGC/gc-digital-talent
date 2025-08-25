@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
-import uniqBy from "lodash/uniqBy";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
@@ -12,9 +11,9 @@ import {
   commonMessages,
   errorMessages,
   formMessages,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 import {
+  Classification,
   CreateOffPlatformRecruitmentProcessInput,
   FragmentType,
   getFragment,
@@ -29,13 +28,13 @@ import {
   localizedEnumToOptions,
   objectsToSortedOptions,
   RadioGroup,
-  Select,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
-import { splitAndJoin } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
+import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
 export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment OffPlatformProcessDialog on Query {
@@ -50,12 +49,7 @@ export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
       }
     }
     classifications {
-      id
-      name {
-        localized
-      }
-      group
-      level
+      ...ClassificationInput
     }
     hiringPlatforms: localizedEnumStrings(enumName: "HiringPlatform") {
       value
@@ -96,10 +90,11 @@ const DeleteOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  processNumber: string | null | undefined;
+  processNumber: string;
   department: string;
-  classificationGroup: string;
-  classificationLevel: string;
+  classification: string | null;
+  classificationGroup: Classification["group"] | null;
+  classificationLevel: Classification["level"] | null;
   platform: HiringPlatform;
   platformOther: string | null | undefined;
 }
@@ -119,8 +114,9 @@ const OffPlatformProcessDialog = ({
     defaultValues: {
       processNumber: process?.processNumber,
       department: process?.department?.id,
-      classificationGroup: process?.classification?.group,
-      classificationLevel: process?.classification?.level?.toString(),
+      classification: process?.classification?.id ?? null,
+      classificationGroup: process?.classification?.group ?? null,
+      classificationLevel: process?.classification?.level ?? null,
       platform: process?.platform?.value,
       platformOther: process?.platformOther,
     },
@@ -134,45 +130,7 @@ const OffPlatformProcessDialog = ({
   const data = getFragment(OffPlatformProcessDialog_Fragment, query);
   const user = data?.me;
   const departments = unpackMaybes(data?.departments);
-  const classifications = unpackMaybes(data?.classifications);
   const hiringPlatforms = data?.hiringPlatforms;
-
-  const classGroupsWithDupes: {
-    label: string;
-    ariaLabel: string;
-  }[] = classifications.map((classification) => {
-    return {
-      label:
-        classification.group ||
-        intl.formatMessage({
-          defaultMessage: "Error: classification group not found.",
-          id: "YA/7nb",
-          description: "Error message if classification group is not defined.",
-        }),
-      ariaLabel: `${classification.name?.localized} ${splitAndJoin(
-        classification.group,
-      )}`,
-    };
-  });
-  const noDupes = uniqBy(classGroupsWithDupes, "label");
-  const groupOptions = noDupes.map(({ label, ariaLabel }) => {
-    return {
-      value: label,
-      label,
-      ariaLabel,
-    };
-  });
-
-  // generate classification levels from the selected group
-  const levelOptions = classifications
-    .filter((x) => x.group === groupSelection)
-    .map((iterator) => {
-      return {
-        value: iterator.level,
-        label: iterator.level.toString(),
-      };
-    })
-    .sort((a, b) => a.value - b.value);
 
   const [{ fetching: fetchingCreate }, executeCreateMutation] = useMutation(
     CreateOffPlatformProcess_Mutation,
@@ -203,40 +161,18 @@ const OffPlatformProcessDialog = ({
     });
   }, [resetField, groupSelection]);
 
-  // take classification group + level from data, return the matching classification from API
-  // need to fit to the expected type when this function is called in formToData
-  const classificationFormToId = (
-    group: string | undefined,
-    level: string | undefined,
-  ): string | undefined => {
-    return classifications.find(
-      (classification) =>
-        classification.group === group &&
-        classification.level === Number(level),
-    )?.id;
-  };
-
   const formValuesToSubmitData = (
     values: FormValues,
-  ): Omit<CreateOffPlatformRecruitmentProcessInput, "userId"> => {
-    const classificationId = classificationFormToId(
-      values.classificationGroup,
-      values.classificationLevel,
-    );
-
-    return {
-      processNumber: values.processNumber,
-      department: values.department ? { connect: values.department } : null,
-      classification: classificationId
-        ? {
-            connect: classificationId,
-          }
-        : null,
-      platform: values.platform,
-      platformOther:
-        values.platform === HiringPlatform.Other ? values.platformOther : null,
-    };
-  };
+  ): Omit<CreateOffPlatformRecruitmentProcessInput, "userId"> => ({
+    processNumber: values.processNumber,
+    department: values.department ? { connect: values.department } : null,
+    classification: {
+      connect: values.classification,
+    },
+    platform: values.platform,
+    platformOther:
+      values.platform === HiringPlatform.Other ? values.platformOther : null,
+  });
 
   const createMutation = async (
     input: CreateOffPlatformRecruitmentProcessInput,
@@ -418,37 +354,25 @@ const OffPlatformProcessDialog = ({
                 />
               </div>
               <div className="mb-4.5 grid gap-6 sm:grid-cols-2">
-                <Combobox
-                  id="classificationGroup"
-                  label={intl.formatMessage({
-                    defaultMessage: "Classification group",
-                    id: "LF6QNw",
-                    description:
-                      "Label displayed on for classification group input",
-                  })}
-                  name="classificationGroup"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                <ClassificationInput
+                  name={"classification"}
+                  label={{
+                    group: intl.formatMessage(
+                      jobPosterTemplateMessages.classificationGroup,
+                    ),
+                    level: intl.formatMessage(
+                      jobPosterTemplateMessages.classificationLevel,
+                    ),
                   }}
-                  options={groupOptions}
-                />
-                <Select
-                  id="classificationLevel"
-                  label={intl.formatMessage({
-                    defaultMessage: "Classification level",
-                    id: "5kfun9",
-                    description:
-                      "Label displayed on for classification level input",
-                  })}
-                  name="classificationLevel"
+                  classificationsQuery={unpackMaybes(data?.classifications)}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    group: {
+                      required: intl.formatMessage(errorMessages.required),
+                    },
+                    level: {
+                      required: intl.formatMessage(errorMessages.required),
+                    },
                   }}
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOptionLevel,
-                  )}
-                  options={levelOptions}
-                  doNotSort
                 />
               </div>
               <RadioGroup
