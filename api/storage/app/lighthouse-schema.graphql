@@ -501,6 +501,7 @@ type Query {
   ): TrainingOpportunityPaginator!
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
+    orderByClassification: SortOrder
     orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 500."

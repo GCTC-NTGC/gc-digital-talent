@@ -52,6 +52,7 @@ import CommunityTalentFilterDialog, {
 } from "./components/CommunityTalentFilterDialog";
 import {
   classificationAccessor,
+  getClassificationSort,
   interestAccessor,
   removeDuplicateIds,
   transformCommunityInterestFilterInputToFormValues,
@@ -124,12 +125,14 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
     $first: Int
     $page: Int
     $orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
+    $orderByClassification: SortOrder
   ) {
     communityInterestsPaginated(
       where: $where
       first: $first
       page: $page
       orderBy: $orderBy
+      orderByClassification: $orderByClassification
     ) {
       data {
         id
@@ -360,6 +363,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       orderBy: sortState
         ? [transformSortStateToOrderByClause(sortState, filterState)]
         : [],
+      orderByClassification: getClassificationSort(sortState),
     },
   });
 
@@ -454,7 +458,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         id: "classification",
         header: intl.formatMessage(processMessages.classification),
         enableColumnFilter: false,
-        enableSorting: false,
       },
     ),
     columnHelper.accessor(

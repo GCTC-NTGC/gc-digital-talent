@@ -1560,6 +1560,7 @@ type Query {
   ): [LocalizedEnumOption!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
+    orderByClassification: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [

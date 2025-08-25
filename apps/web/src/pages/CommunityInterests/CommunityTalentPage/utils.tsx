@@ -24,6 +24,7 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "~/utils/userUtils";
+import SortButton from "~/components/Table/ResponsiveTable/SortButton";
 
 import { FormValues } from "./components/CommunityTalentFilterDialog";
 
@@ -94,6 +95,16 @@ export function transformSortStateToOrderByClause(
       column: "FIRST_NAME" as QueryCommunityInterestsPaginatedOrderByUserColumn,
     },
   };
+}
+
+export function getClassificationSort(
+  sortingState?: SortingState,
+): Maybe<SortOrder> {
+  const sortRule = sortingState?.find((rule) => rule.id === "classification");
+  if (sortRule) {
+    return sortRule.desc ? SortOrder.Desc : SortOrder.Asc;
+  }
+  return null;
 }
 
 export const usernameCell = (
