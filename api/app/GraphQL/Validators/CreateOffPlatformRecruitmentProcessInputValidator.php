@@ -35,11 +35,8 @@ final class CreateOffPlatformRecruitmentProcessInputValidator extends Validator
             'platformOther' => [
                 'string',
                 'nullable',
-                Rule::requiredIf(
-                    (
-                        $this->arg('platform') === HiringPlatform::OTHER->name
-                    )
-                ),
+                'required_if:platform,'.HiringPlatform::OTHER->name,
+                'prohibited_unless:platform,'.HiringPlatform::OTHER->name,
             ],
         ];
     }
