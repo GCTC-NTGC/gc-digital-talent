@@ -46,6 +46,8 @@ import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
+import accessors from "~/components/Table/accessors";
+import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
 
 import CommunityTalentFilterDialog, {
   FormValues,
@@ -69,6 +71,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
       id
       jobInterest
       trainingInterest
+      createdAt
       user {
         id
         firstName
@@ -598,6 +601,25 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         header: intl.formatMessage(profileMessages.acceptableRequirements),
         enableColumnFilter: false,
         enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ communityInterest: { createdAt } }) => accessors.date(createdAt),
+      {
+        id: "createdAt",
+        enableColumnFilter: false,
+        header: intl.formatMessage({
+          defaultMessage: "Added date",
+          id: "notNvF",
+          description: "Column header for the date an item was added",
+        }),
+        cell: ({
+          row: {
+            original: {
+              communityInterest: { createdAt },
+            },
+          },
+        }) => cells.date(createdAt, intl),
       },
     ),
   ] as ColumnDef<CommunityTalentTableCommunityInterestFragmentType>[];

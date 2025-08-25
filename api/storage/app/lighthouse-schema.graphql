@@ -756,6 +756,7 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  createdAt: DateTime
 }
 
 type DevelopmentProgramInterest {

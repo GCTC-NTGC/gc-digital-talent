@@ -177,6 +177,7 @@ type CommunityInterest {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  createdAt: DateTime @rename(attribute: "created_at")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
