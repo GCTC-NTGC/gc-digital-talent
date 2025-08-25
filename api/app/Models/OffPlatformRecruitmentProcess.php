@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $user_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?string $process_number
+ * @property string $process_number
  * @property ?string $department_id
- * @property ?string $classification_id
- * @property ?string $platform
+ * @property string $classification_id
+ * @property string $platform
  * @property ?string $platform_other
  */
 class OffPlatformRecruitmentProcess extends Model

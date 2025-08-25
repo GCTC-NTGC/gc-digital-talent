@@ -183,10 +183,10 @@ type CommunityInterest {
 type OffPlatformRecruitmentProcess {
   id: UUID!
   user: User! @belongsTo @canResolved(ability: "view")
-  processNumber: String @rename(attribute: "process_number")
+  processNumber: String! @rename(attribute: "process_number")
   department: Department @belongsTo
-  classification: Classification @belongsTo
-  platform: LocalizedHiringPlatform
+  classification: Classification! @belongsTo
+  platform: LocalizedHiringPlatform!
   platformOther: String @rename(attribute: "platform_other")
 }
 
@@ -1955,9 +1955,9 @@ input UpdateCommunityInterestInput @validator {
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
   userId: UUID! @rename(attribute: "user_id")
-  processNumber: String @rename(attribute: "process_number")
+  processNumber: String! @rename(attribute: "process_number")
   department: DepartmentBelongsTo
-  classification: ClassificationBelongsTo
+  classification: ClassificationBelongsTo!
   platform: HiringPlatform!
   platformOther: String @rename(attribute: "platform_other")
 }

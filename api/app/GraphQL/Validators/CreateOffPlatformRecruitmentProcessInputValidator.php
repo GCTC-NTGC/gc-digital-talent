@@ -20,6 +20,14 @@ final class CreateOffPlatformRecruitmentProcessInputValidator extends Validator
                 'required',
                 'uuid',
             ],
+            'processNumber' => [
+                'required',
+                'string',
+            ],
+            'classification.connect' => [
+                'required',
+                'uuid',
+            ],
             'platform' => [
                 'required',
                 Rule::in(array_column(HiringPlatform::cases(), 'name')),

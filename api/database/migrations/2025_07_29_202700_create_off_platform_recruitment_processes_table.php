@@ -17,12 +17,12 @@ return new class extends Migration
             $table->uuid('user_id')->nullable(false);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
             $table->timestamps();
-            $table->string('process_number')->nullable();
+            $table->string('process_number')->nullable(false);
             $table->uuid('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->uuid('classification_id')->nullable();
+            $table->uuid('classification_id')->nullable(false);
             $table->foreign('classification_id')->references('id')->on('classifications');
-            $table->string('platform')->nullable();
+            $table->string('platform')->nullable(false);
             $table->string('platform_other')->nullable();
         });
     }

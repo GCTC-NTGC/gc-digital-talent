@@ -769,10 +769,10 @@ type CommunityInterest {
 type OffPlatformRecruitmentProcess {
   id: UUID!
   user: User!
-  processNumber: String
+  processNumber: String!
   department: Department
-  classification: Classification
-  platform: LocalizedHiringPlatform
+  classification: Classification!
+  platform: LocalizedHiringPlatform!
   platformOther: String
 }
 
@@ -1924,9 +1924,9 @@ input UpdateCommunityInterestInput {
 
 input CreateOffPlatformRecruitmentProcessInput {
   userId: UUID!
-  processNumber: String
+  processNumber: String!
   department: DepartmentBelongsTo
-  classification: ClassificationBelongsTo
+  classification: ClassificationBelongsTo!
   platform: HiringPlatform!
   platformOther: String
 }
