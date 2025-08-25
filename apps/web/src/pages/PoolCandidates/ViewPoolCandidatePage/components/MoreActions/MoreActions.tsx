@@ -159,7 +159,7 @@ const MoreActions = ({
               optionsQuery={jobPlacementOptions}
             />
           ) : (
-            // everyone else can only place
+            // everyone else can only qualify
             <FinalDecisionDialog poolCandidate={poolCandidate} />
           ))}
 
