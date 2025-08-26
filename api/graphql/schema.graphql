@@ -1407,6 +1407,7 @@ type Query {
             ]
           }
           { relation: "pool", columns: ["process_number"] }
+          { relation: "assessmentStep", columns: ["sort_order"] }
         ]
       )
       @with(
@@ -1449,6 +1450,7 @@ type Query {
             ]
           }
           { relation: "pool", columns: ["process_number"] }
+          { relation: "assessmentStep", columns: ["sort_order"] }
         ]
       )
       @with(
