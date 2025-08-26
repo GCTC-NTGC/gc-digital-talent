@@ -1287,8 +1287,8 @@ type ApplicantFilter {
   locationPreferences: [LocalizedWorkRegion]
   positionDuration: [PositionDuration]
   skills: [Skill]
-  qualifiedClassifications: [Classification]
-  workStreams: [WorkStream!]
+  qualifiedInClassifications: [Classification]
+  qualifiedInWorkStreams: [WorkStream!]
   pools: [Pool]
   community: Community
 }
@@ -2183,8 +2183,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  qualifiedClassifications: ClassificationBelongsToMany
-  workStreams: WorkStreamBelongsToMany
+  qualifiedInClassifications: ClassificationBelongsToMany
+  qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
