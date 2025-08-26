@@ -21,12 +21,16 @@ return new class extends Migration
 
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
-            SET assessment_step_id = step.id
-            FROM assessment_steps AS step
-            WHERE pool_candidates.pool_id = step.pool_id
-              AND pool_candidates.assessment_step = step."sort_order"
-              AND pool_candidates.assessment_step IS NOT NULL
-            SQL);
+            SET assessment_step_id = (
+                SELECT id
+                FROM assessment_steps
+                WHERE pool_id = pool_candidates.pool_id
+                    AND sort_order = pool_candidates.assessment_step
+                ORDER BY id
+                LIMIT 1
+            )
+            WHERE assessment_step IS NOT NULL;
+        SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn('assessment_step');
