@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
-import { ChipProps, HTMLEntity, IconType } from "@gc-digital-talent/ui";
+import { ChipProps, HTMLEntity, IconType, Link } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -465,3 +465,13 @@ export function getClassificationName(
   const nameStr = getLocalizedName(name, intl);
   return `${groupLevelStr} (${nameStr})`;
 }
+
+export const contactEmailTag = (email?: Maybe<string>) => {
+  return email ? (
+    <Link external href={`mailto:${email}`}>
+      {email}
+    </Link>
+  ) : (
+    <>{email}</>
+  );
+};
