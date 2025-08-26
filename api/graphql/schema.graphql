@@ -1207,7 +1207,7 @@ input ApplicantFilterInput {
   qualifiedInClassifications: [ClassificationFilterInput]
     @scope(name: "whereQualifiedInClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
   # should be considered qualifiedWorkStreams
-  qualifiedInworkStreams: [IdInput]
+  qualifiedInWorkStreams: [IdInput]
     @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
     @scope(name: "whereHasPoolCandidateCommunity")

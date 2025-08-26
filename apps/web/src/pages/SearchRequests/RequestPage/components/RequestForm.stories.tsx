@@ -47,7 +47,7 @@ const classificationFragments = classifications.map((classification) =>
 const [applicantFilter] = applicantFilters;
 applicantFilter.skills = [skills[0], skills[1]];
 applicantFilter.pools = [pools[0]];
-applicantFilter.qualifiedClassifications = [classifications[0]];
+applicantFilter.qualifiedInClassifications = [classifications[0]];
 
 export default {
   component: RequestForm,

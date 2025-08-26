@@ -79,8 +79,8 @@ class ApplicantFilterTest extends TestCase
             'positionDuration' => $filter->position_duration,
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
-            'workStreams' => $filter->workStreams->map($onlyId)->toArray(),
-            'qualifiedClassifications' => $filter->qualifiedClassifications->map(function ($classification) {
+            'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams->map($onlyId)->toArray(),
+            'qualifiedInClassifications' => $filter->qualifiedInClassifications->map(function ($classification) {
                 return [
                     'group' => $classification->group,
                     'level' => $classification->level,
@@ -99,11 +99,11 @@ class ApplicantFilterTest extends TestCase
         $input['pools'] = [
             'sync' => $filter->pools->pluck('id')->toArray(),
         ];
-        $input['workStreams'] = [
-            'sync' => $filter->workStreams->pluck('id')->toArray(),
+        $input['qualifiedInWorkStreams'] = [
+            'sync' => $filter->qualifiedInWorkStreams->pluck('id')->toArray(),
         ];
         $input['qualifiedClassifications'] = [
-            'sync' => $filter->qualifiedClassifications->pluck('id')->toArray(),
+            'sync' => $filter->qualifiedInClassifications->pluck('id')->toArray(),
         ];
         $input['community'] = [
             'connect' => $filter->community->id,
@@ -130,7 +130,7 @@ class ApplicantFilterTest extends TestCase
      *
      * @return void
      */
-    public function testQueryApplicantFilter()
+    public function test_query_applicant_filter()
     {
         $filter = ApplicantFilter::factory()->create();
         $request = PoolCandidateSearchRequest::factory()->create([
@@ -211,7 +211,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that factory creates relationships correctly.
      */
-    public function testFactoryRelationships()
+    public function test_factory_relationships()
     {
 
         // Before we add relationships, we need to seed the related values
@@ -244,7 +244,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that queried ApplicantFilter has the correct relationships.
      */
-    public function testQueryRelationships()
+    public function test_query_relationships()
     {
         // Before we add relationships, we need to seed the related values
         $this->seed([
@@ -283,8 +283,8 @@ class ApplicantFilterTest extends TestCase
                                 localized
                             }
                         }
-                        workStreams { id }
-                        qualifiedClassifications {
+                        qaulifiedInWorkStreams { id }
+                        qualifiedInClassifications {
                             id
                             name {
                                 en
@@ -305,16 +305,16 @@ class ApplicantFilterTest extends TestCase
         );
         // Assert that each relationship collection has the right size.
         $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
-        $this->assertCount($filter->qualifiedClassifications->count(), $retrievedFilter['qualifiedClassifications']);
+        $this->assertCount($filter->qualifiedInClassifications->count(), $retrievedFilter['qualifiedInClassifications']);
         $this->assertCount($filter->skills->count(), $retrievedFilter['skills']);
         $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
-        $this->assertCount($filter->workStreams->count(), $retrievedFilter['workStreams']);
+        $this->assertCount($filter->qaulifiedInWorkStreams->count(), $retrievedFilter['qualifiedInWorkStreams']);
 
         // Assert that all the content in each collection is correct.
         foreach ($filter->pools as $pool) {
             $response->assertJsonFragment(['id' => $pool->id, 'name' => $pool->name]);
         }
-        foreach ($filter->qualifiedClassifications as $qualifiedClassification) {
+        foreach ($filter->qualifiedInClassifications as $qualifiedClassification) {
             $response->assertJsonFragment([
                 'id' => $qualifiedClassification->id,
                 'name' => $qualifiedClassification->name,
@@ -324,7 +324,7 @@ class ApplicantFilterTest extends TestCase
             $response->assertJsonFragment(['id' => $skill->id, 'name' => $skill->name]);
         }
 
-        foreach ($filter->workStreams as $workStream) {
+        foreach ($filter->qualifiedInWorkStreams as $workStream) {
             $response->assertJsonFragment([
                 'id' => $workStream->id,
             ]);
@@ -335,7 +335,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
      */
-    public function testCanCreateARequest()
+    public function test_can_create_a_request()
     {
         // Seed everything required
         $this->seed(CommunitySeeder::class);
@@ -416,7 +416,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that we can use an ApplicantFilter in a search, save it as part of a PoolCandidateSearchRequest, retrieve it, and get the same results again.
      */
-    public function testFilterCanBeStoredAndRetrievedWithoutChangingResults()
+    public function test_filter_can_be_stored_and_retrieved_without_changing_results()
     {
         // Seed everything used in generating Users
         $this->seed([
@@ -470,7 +470,7 @@ class ApplicantFilterTest extends TestCase
                 'community_id' => $community->id,
             ]
         );
-        $filter->qualifiedClassifications()->saveMany([$pool->classification]);
+        $filter->qualifiedInClassifications()->saveMany([$pool->classification]);
         $candidateUser = User::with([
             'awardExperiences',
             'awardExperiences.skills',
@@ -486,7 +486,7 @@ class ApplicantFilterTest extends TestCase
         $candidateSkills = $candidateUser->experiences[0]->skills;
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
-        $filter->workStreams()->saveMany([$pool->workStream]);
+        $filter->qualifiedInWorkStreams()->saveMany([$pool->workStream]);
         $filter->save();
         $response = $this->graphQL(
             /** @lang GraphQL */
@@ -558,8 +558,8 @@ class ApplicantFilterTest extends TestCase
                         locationPreferences { value }
                         operationalRequirements { value }
                         positionDuration
-                        workStreams { id }
-                        qualifiedClassifications {
+                        qualifiedInWorkStreams { id }
+                        qualifiedInClassifications {
                             group
                             level
                         }

@@ -1561,7 +1561,7 @@ input ApplicantFilterInput {
   skills: [IdInput]
   skillsIntersectional: [IdInput]
   qualifiedInClassifications: [ClassificationFilterInput]
-  qualifiedInworkStreams: [IdInput]
+  qualifiedInWorkStreams: [IdInput]
   community: IdInput
 }
 

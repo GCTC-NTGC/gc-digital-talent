@@ -54,7 +54,7 @@ class ApplicantTest extends TestCase
             ]);
     }
 
-    public function testCountApplicantsQuery(): void
+    public function test_count_applicants_query(): void
     {
         // Get the ID of the base admin user
         $user = User::all()->first();
@@ -143,7 +143,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQueryEquity(): void
+    public function test_count_applicants_query_equity(): void
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
@@ -333,7 +333,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQueryLanguage(): void
+    public function test_count_applicants_query_language(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -440,7 +440,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQueryEducation(): void
+    public function test_count_applicants_query_education(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -510,7 +510,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQueryLocation(): void
+    public function test_count_applicants_query_location(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -580,7 +580,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQueryTemporary(): void
+    public function test_count_applicants_query_temporary(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -681,7 +681,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQueryConditionsEmployment(): void
+    public function test_count_applicants_query_conditions_employment(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -782,7 +782,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQuerySkillsIntersectional(): void
+    public function test_count_applicants_query_skills_intersectional(): void
     {
         // recycle skills testing //
         $user = User::All()->first();
@@ -953,7 +953,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQuerySkillsAdditive(): void
+    public function test_count_applicants_query_skills_additive(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -1097,7 +1097,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testPriorityWeight(): void
+    public function test_priority_weight(): void
     {
         // test generated property that exists on type User and Applicant from model User.php
 
@@ -1216,7 +1216,7 @@ class ApplicantTest extends TestCase
             ]);
     }
 
-    public function testStatusWeight(): void
+    public function test_status_weight(): void
     {
         // test generated property that exists on type PoolCandidate from model PoolCandidate.php
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
@@ -1513,7 +1513,7 @@ class ApplicantTest extends TestCase
             ]);
     }
 
-    public function testSortingStatusThenPriority(): void
+    public function test_sorting_status_then_priority(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -1638,7 +1638,7 @@ class ApplicantTest extends TestCase
             )->assertDontSeeText(PoolCandidateStatus::DRAFT->name);
     }
 
-    public function testNullFilterEqualsUndefinedPoolCandidate()
+    public function test_null_filter_equals_undefined_pool_candidate()
     {
         // setup
         $pool = Pool::factory()->candidatesAvailableInSearch()->create([
@@ -1727,7 +1727,7 @@ class ApplicantTest extends TestCase
             ]);
     }
 
-    public function testOnlyITJobsAppear()
+    public function test_only_it_jobs_appear()
     {
         $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
@@ -1760,7 +1760,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testEmploymentEquity(): void
+    public function test_employment_equity(): void
     {
         $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
@@ -1916,7 +1916,7 @@ class ApplicantTest extends TestCase
 
     }
 
-    public function testClassificationAndStreamsFilter()
+    public function test_classification_and_streams_filter()
     {
         $targetClassification = Classification::factory()->create();
         $excludedClassification = Classification::factory()->create();
@@ -1998,7 +1998,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedClassifications' => [
+                        'qualifiedInClassifications' => [
                             [
                                 'group' => $targetClassification->group,
                                 'level' => $targetClassification->level,
@@ -2016,7 +2016,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'workStreams' => [['id' => $targetStream->id]],
+                        'qualifiedInWorkStreams' => [['id' => $targetStream->id]],
                     ],
                 ]
             )->assertJson([
@@ -2029,13 +2029,13 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedClassifications' => [
+                        'qualifiedInClassifications' => [
                             [
                                 'group' => $targetClassification->group,
                                 'level' => $targetClassification->level,
                             ],
                         ],
-                        'workStreams' => [[
+                        'qualifiedInWorkStreams' => [[
                             'id' => $targetStream->id,
                         ]],
                     ],

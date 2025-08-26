@@ -122,7 +122,7 @@ class ApplicantFilterFactory extends Factory
     public function withWorkStreams(array $workStreams)
     {
         return $this->afterCreating(function (ApplicantFilter $filter) use ($workStreams) {
-            $filter->workStreams()->saveMany($workStreams);
+            $filter->qualifiedInWorkStreams()->saveMany($workStreams);
         });
     }
 }

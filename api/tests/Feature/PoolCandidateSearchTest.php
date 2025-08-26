@@ -598,7 +598,7 @@ class PoolCandidateSearchTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'qualifiedClassifications' => [
+                        'qualifiedInClassifications' => [
                             [
                                 'group' => 'IT',
                                 'level' => 1,

@@ -257,7 +257,7 @@ export const RequestForm = ({
       values?.positionType === true
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
-    const qualifiedStreams = applicantFilter?.qualifiedInworkStreams;
+    const qualifiedStreams = applicantFilter?.qualifiedInWorkStreams;
     let community = communities?.find((c) => c.key === "digital");
     const ATIPStream = optionsData?.workStreams?.find(
       (workStream) => workStream?.key === "ACCESS_INFORMATION_PRIVACY",
@@ -290,7 +290,7 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
-          workStreams: {
+          qualifiedInWorkStreams: {
             sync: applicantFilter?.qualifiedInworkStreams
               ? applicantFilter?.qualifiedInworkStreams
                   ?.filter(notEmpty)
@@ -311,7 +311,7 @@ export const RequestForm = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          qualifiedClassifications: {
+          qualifiedInClassifications: {
             sync: applicantFilter?.qualifiedInClassifications
               ? applicantFilter.qualifiedInClassifications
                   .filter(notEmpty)

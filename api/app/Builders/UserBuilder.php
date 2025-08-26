@@ -313,12 +313,12 @@ class UserBuilder extends Builder
             $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
                 $query->wherePublished();
 
-                if (array_key_exists('qualifiedClassifications', $filters)) {
-                    $query->whereClassifications($filters['qualifiedClassifications']);
+                if (array_key_exists('qualifiedInClassifications', $filters)) {
+                    $query->whereClassifications($filters['qualifiedInClassifications']);
                 }
 
-                if (array_key_exists('workStreams', $filters)) {
-                    $query->whereWorkStreamsIn($filters['workStreams']);
+                if (array_key_exists('qualifiedInWorkStreams', $filters)) {
+                    $query->whereWorkStreamsIn($filters['qualifiedInWorkStreams']);
                 }
             })
                 ->whereAvailable()
