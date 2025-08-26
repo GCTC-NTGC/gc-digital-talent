@@ -18,7 +18,6 @@ ContactEmail.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@example.com",
   onVerificationSuccess: action("onVerificationSuccess"),
-  onSkip: action("onSkip"),
 };
 
 export const WorkEmail = Template.bind({});
@@ -26,7 +25,6 @@ WorkEmail.args = {
   emailType: EmailType.Work,
   emailAddress: "user@canada.ca",
   onVerificationSuccess: action("onVerificationSuccess"),
-  onSkip: action("onSkip"),
 };
 
 export const ErrorState = Template.bind({});
@@ -34,7 +32,6 @@ ErrorState.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@example.com",
   onVerificationSuccess: action("onVerificationSuccess"),
-  onSkip: action("onSkip"),
 };
 ErrorState.play = ({ canvasElement }) => {
   // Simulate entering an invalid code and submitting to show error state
