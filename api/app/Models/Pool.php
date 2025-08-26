@@ -12,6 +12,7 @@ use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,7 +59,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $published_at
  * @property ?\Illuminate\Support\Carbon $archived_at
  * @property Classification $classification
- * @property string $contact_email
+ * @property ?string $contact_email
  */
 class Pool extends Model
 {
@@ -424,14 +425,17 @@ class Pool extends Model
         return self::$selectableColumns;
     }
 
-    public function getContactEmailAttribute() {
+    protected function contactEmail(): Attribute
+    {
         $DIGITAL_COMMUNITY_KEY = "digital";
         // TODO: Should these be env variable?
         $DIGITAL_COMMUNITY_EMAIL = "recruitmentimit-recrutementgiti@tbs-sct.gc.ca";
         $SUPPORT_EMAIL = "support-soutien@tbs-sct.gc.ca";
 
-        $contactEmail = $this->contact_email ?? $SUPPORT_EMAIL; // use support email as fallback
-
-        return $this->community->key === $DIGITAL_COMMUNITY_KEY ? $DIGITAL_COMMUNITY_EMAIL : $contactEmail;
+        return Attribute::make(
+            get: fn (?string $value, array $attributes) => !is_null($attributes['contact_email'])
+                ? $attributes['contact_email']
+                : ($this->community->key === $DIGITAL_COMMUNITY_KEY ? $DIGITAL_COMMUNITY_EMAIL : $SUPPORT_EMAIL),
+        );
     }
 }
