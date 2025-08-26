@@ -46,7 +46,7 @@ const previewDetailsTwo: MetaDataProps[] = [
   {
     key: "it-text-2-id",
     type: "text",
-    children: "Opened on: April 30th, 2024",
+    children: "Submitted: April 30th, 2024",
   },
 ];
 
@@ -61,7 +61,7 @@ const previewDetailsThree: MetaDataProps[] = [
   {
     key: "it-text-2-id",
     type: "text",
-    children: "Opened on: April 30th, 2024",
+    children: "Submitted: April 30th, 2024",
   },
 ];
 
