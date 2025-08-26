@@ -142,9 +142,9 @@ export const Home = ({ query }: HomeProps) => {
           <Container>
             <div className="relative xs:-top-18 sm:-top-24">
               <div className="rounded-3xl bg-white xs:p-12 sm:p-18 dark:bg-gray-700">
-                <div className="grid gap-6 xs:grid-cols-7 xs:gap-18">
-                  <div className="xs:col-span-3">
-                    <div className="relative xs:size-full">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-7 sm:gap-12">
+                  <div className="flex justify-center sm:col-span-3 sm:justify-start">
+                    <div className="relative sm:size-full">
                       <div className="absolute -right-6 -mt-9 size-48 rounded-full bg-primary/10 dark:bg-primary-300/30" />
                       <div className="absolute -bottom-18 -left-33 size-90 rounded-full bg-secondary/10 dark:bg-secondary-300/30" />
                       <Image
@@ -159,7 +159,7 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship woman smiling image text alternative",
                         })}
-                        className="relative min-h-[60vh] object-cover xs:size-full xs:min-h-[initial]"
+                        className="relative h-auto w-full object-cover xs:min-h-[60vh] sm:size-full"
                       />
                       <Image
                         src={feathers}
@@ -172,14 +172,14 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship feathers image text alternative",
                         })}
-                        className="absolute -right-[15%] bottom-0 w-[150%] max-w-[initial] translate-y-3/5"
+                        className="absolute -right-[10%] bottom-0 w-[120%] translate-y-3/5 xs:w-[150%]"
                       />
                     </div>
                   </div>
-                  <div className="xs:col-span-4">
+                  <div className="sm:col-span-4">
                     <Heading
                       size="h3"
-                      className="relative z-1 mt-36 mb-12 text-center xs:mt-6 xs:text-left"
+                      className="relative z-1 mt-28 mb-8 text-center sm:mt-6 sm:text-left"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
