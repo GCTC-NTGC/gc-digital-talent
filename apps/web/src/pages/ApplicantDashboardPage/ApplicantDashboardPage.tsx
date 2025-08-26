@@ -280,7 +280,6 @@ export const DashboardPage = ({
                 applicationsProcessesTaskCardQuery={unpackMaybes(
                   currentUser?.poolCandidates,
                 )}
-                offPlatformProcessesQuery={applicantDashboardQuery}
               />
               {currentUser?.isVerifiedGovEmployee &&
               currentUser?.employeeProfile ? (
@@ -433,10 +432,7 @@ export const DashboardPage = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: [
-    "PoolCandidateSearchRequest",
-    "OffPlatformRecruitmentProcess",
-  ],
+  additionalTypenames: ["PoolCandidateSearchRequest"],
 };
 
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
@@ -445,7 +441,6 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
       ...ApplicantDashboardPage
     }
     ...CareerDevelopmentTaskCardOptions
-    ...ReviewOffPlatformRecruitmentProcesses
   }
 `);
 

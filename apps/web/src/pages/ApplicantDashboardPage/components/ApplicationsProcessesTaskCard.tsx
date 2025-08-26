@@ -15,9 +15,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 import { recruitmentProcessesTitle } from "~/components/RecruitmentProcesses/utils";
 
-import ReviewRecruitmentProcessPreviewList, {
-  ReviewOffPlatformRecruitmentProcesses_Fragment,
-} from "./ReviewRecruitmentProcessPreviewList";
+import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPreviewList";
 import ReviewApplicationPreviewList from "./ReviewApplicationPreviewList";
 
 const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
@@ -35,14 +33,10 @@ interface ApplicationsProcessesTaskCardProps {
   applicationsProcessesTaskCardQuery: FragmentType<
     typeof ApplicationsProcessesTaskCard_Fragment
   >[];
-  offPlatformProcessesQuery: FragmentType<
-    typeof ReviewOffPlatformRecruitmentProcesses_Fragment
-  >;
 }
 
 const ApplicationsProcessesTaskCard = ({
   applicationsProcessesTaskCardQuery,
-  offPlatformProcessesQuery,
 }: ApplicationsProcessesTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -140,7 +134,6 @@ const ApplicationsProcessesTaskCard = ({
                     recruitmentProcessesQuery={unpackMaybes(
                       recruitmentProcessesFiltered,
                     )}
-                    offPlatformProcessesQuery={offPlatformProcessesQuery}
                   />
                 </Accordion.Content>
               </Accordion.Item>
