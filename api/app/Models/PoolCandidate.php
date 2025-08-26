@@ -261,7 +261,14 @@ class PoolCandidate extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
-    /** @return BelongsTo<AssessmentStep, $this> */
+    /**
+     * Get the assessment step that this candidate is currently on within a specific assessment plan.
+     *
+     * This relationship links the candidate's progress to a particular step in a multi-step assessment plan,
+     * allowing for tracking and retrieval of the candidate's current position within the plan.
+     *
+     * @return BelongsTo<AssessmentStep, $this>
+     * */
     public function assessmentStep(): BelongsTo
     {
         return $this->belongsTo(AssessmentStep::class);
