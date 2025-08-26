@@ -27,7 +27,7 @@ import RecruitmentProcesses, {
 } from "./components/RecruitmentProcesses";
 import RecruitmentTools, {
   RECRUITMENT_TOOLS_ID,
-  title as recrtuimentToolsTitle,
+  title as recruitmentToolsTitle,
 } from "./components/RecruitmentTools";
 
 const AdminUserRecruitment_Fragment = graphql(/** GraphQL */ `
@@ -58,7 +58,7 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
               <TableOfContents.AnchorLink id={RECRUITMENT_TOOLS_ID}>
-                {intl.formatMessage(recrtuimentToolsTitle)}
+                {intl.formatMessage(recruitmentToolsTitle)}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
           </TableOfContents.List>
