@@ -195,11 +195,7 @@ const FinalDecisionAndPlaceDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button type="button" color="primary" mode="solid" block>
-          {intl.formatMessage({
-            defaultMessage: "Final assessment decision",
-            id: "YrbtRw",
-            description: "Button to click on to fill out a final decision form",
-          })}
+          {intl.formatMessage(commonMessages.finalAssessmentDecision)}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
