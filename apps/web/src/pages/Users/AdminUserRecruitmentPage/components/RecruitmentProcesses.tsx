@@ -13,13 +13,13 @@ const AdminRecruitmentProcesses_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface RecrtuimentProcessesProps {
+interface RecruitmentProcessesProps {
   query: FragmentType<typeof AdminRecruitmentProcesses_Fragment>;
 }
 
 export const RECRUITMENT_PROCESSES_ID = "recrtuiment-processes";
 
-const RecruitmentProcesses = ({ query }: RecrtuimentProcessesProps) => {
+const RecruitmentProcesses = ({ query }: RecruitmentProcessesProps) => {
   const intl = useIntl();
   const user = getFragment(AdminRecruitmentProcesses_Fragment, query);
 

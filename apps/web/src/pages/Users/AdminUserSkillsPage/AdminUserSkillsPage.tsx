@@ -91,7 +91,7 @@ const AdminUserSkills = ({ query }: AdminApplicantProfileProps) => {
 };
 
 const AdminUserSkillsPage_Query = graphql(/** GraphQL */ `
-  query AdminUserSkilsPage($id: UUID!) {
+  query AdminUserSkillsPage($id: UUID!) {
     user(id: $id) {
       ...AdminUserSkills
     }

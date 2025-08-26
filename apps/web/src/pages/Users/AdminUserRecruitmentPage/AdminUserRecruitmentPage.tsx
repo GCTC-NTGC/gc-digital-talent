@@ -34,7 +34,7 @@ const AdminUserRecruitment_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserRecruitment on User {
     id
     ...AdminRecruitmentProcesses
-    ...RecrtuimentTools
+    ...RecruitmentTools
   }
 `);
 
@@ -42,7 +42,7 @@ interface AdminUserRecruitmentProps {
   query: FragmentType<typeof AdminUserRecruitment_Fragment>;
 }
 
-const AdminUserRecrtuitment = ({ query }: AdminUserRecruitmentProps) => {
+const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
   const intl = useIntl();
   const user = getFragment(AdminUserRecruitment_Fragment, query);
 
@@ -86,7 +86,7 @@ interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
 }
 
-const AdminUserRecrtuitmentPage = () => {
+const AdminUserRecruitmentPage = () => {
   const intl = useIntl();
   const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data, fetching, error }] = useQuery({
@@ -97,7 +97,7 @@ const AdminUserRecrtuitmentPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.user ? (
-        <AdminUserRecrtuitment query={data.user} />
+        <AdminUserRecruitment query={data.user} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
@@ -117,7 +117,7 @@ export const Component = () => (
       ROLE_NAME.ProcessOperator,
     ]}
   >
-    <AdminUserRecrtuitmentPage />
+    <AdminUserRecruitmentPage />
   </RequireAuth>
 );
 

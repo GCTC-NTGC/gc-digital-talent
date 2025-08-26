@@ -15,7 +15,7 @@ export const title = defineMessage({
 export const RECRUITMENT_TOOLS_ID = "recruitment-tools";
 
 const RecruitmentTools_Fragment = graphql(/** GraphQL */ `
-  fragment RecrtuimentTools on User {
+  fragment RecruitmentTools on User {
     ...AddToProcessDialog
   }
 `);

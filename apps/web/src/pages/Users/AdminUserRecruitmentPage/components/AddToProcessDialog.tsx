@@ -246,9 +246,9 @@ const AddToProcessDialog = ({ query }: AddToProcessDialogProps) => {
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
                         defaultMessage: "Add user to recruitment process",
-                        id: "k0s4GB",
+                        id: "1M398Y",
                         description:
-                          "Subut button text for adding user to process",
+                          "Submit button text for adding user to process",
                       })}
                 </Button>
                 <Dialog.Close>
