@@ -155,8 +155,8 @@ class PoolCandidateUpdateTest extends TestCase
         $this->placeCandidateMutation =
         /** @lang GraphQL */
         '
-        mutation placeCandidate($id: UUID!, $placeCandidate: PlaceCandidateInput!) {
-            placeCandidate(id: $id, placeCandidate: $placeCandidate) {
+        mutation placeCandidate($id: UUID!, $poolCandidate: PlaceCandidateInput!) {
+            placeCandidate(id: $id, poolCandidate: $poolCandidate) {
                 id
                 status { value }
                 placedAt
@@ -185,8 +185,8 @@ class PoolCandidateUpdateTest extends TestCase
         $this->qualifyCandidateMutation =
         /** @lang GraphQL */
         '
-        mutation qualifyCandidate($id: UUID!, $expiryDate: Date!) {
-            qualifyCandidate(id: $id, expiryDate: $expiryDate) {
+        mutation qualifyCandidate($id: UUID!, $poolCandidate: QualifyCandidateInput!) {
+            qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
               id
               status { value }
               expiryDate
@@ -415,7 +415,7 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->placeCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'placeCandidate' => [
+                    'poolCandidate' => [
                         'placementType' => PlacementType::PLACED_CASUAL->name,
                         'departmentId' => $department->id,
                     ],
@@ -440,7 +440,9 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->qualifyCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'expiryDate' => config('constants.far_future_date'),
+                    'poolCandidate' => [
+                        'expiryDate' => config('constants.far_future_date'),
+                    ],
                 ]
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
@@ -480,7 +482,7 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->placeCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'placeCandidate' => [
+                    'poolCandidate' => [
                         'placementType' => PlacementType::PLACED_CASUAL->name,
                         'departmentId' => $department->id,
                     ],
@@ -497,7 +499,7 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->placeCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'placeCandidate' => [
+                    'poolCandidate' => [
                         'placementType' => PlacementType::PLACED_CASUAL->name,
                         'departmentId' => $department->id,
                     ],
@@ -557,7 +559,9 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->qualifyCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'expiryDate' => config('constants.far_future_date'),
+                    'poolCandidate' => [
+                        'expiryDate' => config('constants.far_future_date'),
+                    ],
                 ]
             )
             ->assertGraphQLErrorMessage('InvalidStatusForQualification');
@@ -571,7 +575,9 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->qualifyCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'expiryDate' => config('constants.past_date'),
+                    'poolCandidate' => [
+                        'expiryDate' => config('constants.past_date'),
+                    ],
                 ]
             )
             ->assertGraphQLErrorMessage('Validation failed for the field [qualifyCandidate].');
@@ -582,7 +588,9 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->qualifyCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'expiryDate' => config('constants.far_future_date'),
+                    'poolCandidate' => [
+                        'expiryDate' => config('constants.far_future_date'),
+                    ],
                 ]
             )->json('data.qualifyCandidate');
 
@@ -639,9 +647,12 @@ class PoolCandidateUpdateTest extends TestCase
                 $this->qualifyCandidateMutation,
                 [
                     'id' => $this->poolCandidate->id,
-                    'expiryDate' => config('constants.far_future_date'),
+                    'poolCandidate' => [
+                        'expiryDate' => config('constants.far_future_date'),
+                    ],
                 ]
-            )->json('data.qualifyCandidate');
+            )
+            ->json('data.qualifyCandidate');
 
         assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
