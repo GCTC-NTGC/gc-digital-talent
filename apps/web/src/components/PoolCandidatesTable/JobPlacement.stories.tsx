@@ -26,8 +26,8 @@ import {
 
 import JobPlacementDialog, {
   JobPlacementDialog_Fragment,
-  JobPlacementOptions_Query,
 } from "./JobPlacementDialog";
+import { JobPlacementOptions_Query } from "./JobPlacementForm";
 
 const fakedCandidate = fakePoolCandidates(1)[0];
 const departments = fakeDepartments();
