@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button, Heading } from "@gc-digital-talent/ui";
+import { Button } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
@@ -27,7 +26,7 @@ const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const getTitleParagraph = (
+const getDescription = (
   emailType: NonNullable<EmailVerificationProps["emailType"]>,
   intl: IntlShape,
 ) => {
@@ -50,6 +49,19 @@ const getTitleParagraph = (
   }
 };
 
+const getLabel = (
+  emailType: NonNullable<EmailVerificationProps["emailType"]>,
+  intl: IntlShape,
+) => {
+  switch (emailType) {
+    case EmailType.Work:
+      return intl.formatMessage(commonMessages.workEmail);
+    case EmailType.Contact:
+    default:
+      return intl.formatMessage(commonMessages.email);
+  }
+};
+
 const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
 
 interface FormValues {
@@ -66,11 +78,16 @@ export interface EmailVerificationProps {
   onSkip?: () => void;
 }
 
+/**
+ * EmailVerification component handles the process of verifying a user's email address
+ * by sending a verification code and allowing the user to submit the code for validation.
+ *
+ * @param {EmailVerificationProps} props - The props for the component, including emailType, emailAddress, onVerificationSuccess, and optional onSkip.
+ * @returns {JSX.Element} The rendered email verification dialog.
+ */
 export const EmailVerification = ({
   emailType = EmailType.Contact,
-  emailAddress,
   onVerificationSuccess,
-  onSkip,
 }: EmailVerificationProps) => {
   const intl = useIntl();
   const logger = useLogger();
@@ -82,21 +99,28 @@ export const EmailVerification = ({
   );
   const methods = useForm<FormValues>({});
 
-  const [canRequestACode, setCanRequestACode] = useState<boolean>(true);
+  const [canRequestCode, setCanRequestCode] = useState<boolean>(true);
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
 
-    if (!canRequestACode) {
+    if (!canRequestCode) {
       timerId = setTimeout(() => {
-        setCanRequestACode(true);
+        setCanRequestCode(true);
       }, CODE_REQUEST_THROTTLE_DELAY_MS);
     }
 
-    return () => clearTimeout(timerId);
-  }, [canRequestACode]);
+    return () => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
+  }, [canRequestCode]);
 
   const requestACode = () => {
+    if (!canRequestCode) {
+      return;
+    }
     executeSendEmailMutation({
       emailType,
     })
@@ -106,7 +130,7 @@ export const EmailVerification = ({
         }
         // eslint-disable-next-line testing-library/no-debugging-utils
         logger.debug("A code was sent");
-        setCanRequestACode(false);
+        setCanRequestCode(false);
       })
       .catch(() => {
         toast.error(intl.formatMessage(errorMessages.error));
@@ -142,7 +166,7 @@ export const EmailVerification = ({
                 id: "vm9mFv",
                 description: "Error message when the code is not valid.",
               })}
-              {canRequestACode ? (
+              {canRequestCode ? (
                 <>
                   {" "}
                   {intl.formatMessage({
@@ -174,60 +198,46 @@ export const EmailVerification = ({
 
   return (
     <div className="flex flex-col gap-6">
-      <Heading
-        level="h2"
-        size="h3"
-        icon={CheckBadgeIcon}
-        color="secondary"
-        className="m-0 text-center font-normal xs:text-left"
-      >
-        {getTitleParagraph(emailType, intl)}
-      </Heading>
-      <p>
-        {emailAddress
-          ? intl.formatMessage(
-              {
-                defaultMessage:
-                  "Please verify your email address by entering the 6 character code that has been sent to {emailAddress}.",
-                id: "MZ0uNW",
-                description: "instructions for email verification form",
-              },
-              {
-                emailAddress,
-              },
-            )
-          : null}
-      </p>
+      <p>{getDescription(emailType, intl)}</p>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(submitHandler)}>
-          <Input
-            id="emailAddress"
-            name="emailAddress"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Email address",
-              id: "0arC4o",
-              description: "label for email address input",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="verificationCode"
-            name="verificationCode"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Verification code",
-              id: "T+ypau",
-              description: "label for verification code input",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
+          <div className="flex gap-2">
+            <Input
+              id="emailAddress"
+              name="emailAddress"
+              type="text"
+              label={getLabel(emailType, intl)}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Button
+              type="button"
+              onClick={requestACode}
+              mode="solid"
+              className="self-end font-bold"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Send verification email",
+                id: "xKj/Lr",
+                description: "Button to send verification code",
+              })}
+            </Button>
+          </div>
+          <div className="flex gap-2">
+            <Input
+              id="verificationCode"
+              name="verificationCode"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Verification code",
+                id: "T+ypau",
+                description: "label for verification code input",
+              })}
+            />
+          </div>
           <div className="mt-6 flex flex-col items-center gap-6 xs:flex-row">
-            {canRequestACode ? (
+            {canRequestCode ? (
               <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
                 {intl.formatMessage({
                   defaultMessage: "Didn’t receive a code?",
@@ -235,7 +245,7 @@ export const EmailVerification = ({
                   description: "intro to request a new code",
                 })}
                 <Button
-                  type="button" // doesn't participate in the form
+                  type="button"
                   mode="text"
                   color="black"
                   onClick={requestACode}
@@ -249,22 +259,16 @@ export const EmailVerification = ({
                 </Button>
               </div>
             ) : null}
-            <Submit className="order-2 xs:order-1" />
-            {onSkip ? (
-              <Button
-                type="button"
-                color="primary"
-                mode="inline"
-                onClick={onSkip}
-                className="order-2 xs:order-1"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Skip for now",
-                  id: "eoIad5",
-                  description: "label for skip button",
-                })}
-              </Button>
-            ) : null}
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Save and add email",
+                id: "+cbj04",
+                description: "Button to submit verification code",
+              })}
+            />
+            <Button color="warning" mode="inline">
+              {intl.formatMessage(commonMessages.cancel)}
+            </Button>
           </div>
         </form>
       </FormProvider>
@@ -272,34 +276,4 @@ export const EmailVerification = ({
   );
 };
 
-const EmailVerificationApi = ({
-  emailType,
-  ...rest
-}: EmailVerificationProps) => {
-  const intl = useIntl();
-  const logger = useLogger();
-  const [, executeSendEmailMutation] = useMutation(
-    SendUserEmailVerification_Mutation,
-  );
-
-  useEffect(() => {
-    // Send initial verification email on page load
-    executeSendEmailMutation({
-      emailType,
-    })
-      .then((result) => {
-        if (!result.data?.sendUserEmailVerification?.id) {
-          throw new Error("Send email error");
-        }
-        // eslint-disable-next-line testing-library/no-debugging-utils
-        logger.debug("Initial code was sent");
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(errorMessages.error));
-      });
-  }, [emailType, executeSendEmailMutation, intl, logger]);
-
-  return <EmailVerification emailType={emailType} {...rest} />;
-};
-
-export default EmailVerificationApi;
+export default EmailVerification;
