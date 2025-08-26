@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button } from "@gc-digital-talent/ui";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
@@ -62,6 +62,29 @@ const getLabel = (
   }
 };
 
+const getSubtitle = (
+  emailType: NonNullable<EmailVerificationProps["emailType"]>,
+  intl: IntlShape,
+) => {
+  switch (emailType) {
+    case EmailType.Work:
+      return intl.formatMessage({
+        defaultMessage:
+          "Verify your Government of Canada work email to confirm your status as an employee.",
+        id: "UoTwQ8",
+        description: "Work email subtitle",
+      });
+    case EmailType.Contact:
+    default:
+      return intl.formatMessage({
+        defaultMessage:
+          "Add and verify a contact email that will be used for communication and notifications.",
+        id: "upuqPk",
+        description: "Contact email subtitle",
+      });
+  }
+};
+
 const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
 
 interface FormValues {
@@ -69,31 +92,29 @@ interface FormValues {
 }
 
 export interface EmailVerificationProps {
+  open: boolean; // Add open prop for dialog
+  onClose: () => void; // Add onClose prop for dialog
   emailType?: EmailType;
-  // The email address that the code was sent to.  Displayed to the user.
   emailAddress?: string | null;
-  // Event if verification is successful.
   onVerificationSuccess: () => void;
-  // Event if they choose to skip.  Skip button removed if prop not provided.
-  onSkip?: () => void;
+  trigger?: ReactNode;
+  defaultOpen?: boolean;
 }
 
-/**
- * EmailVerification component handles the process of verifying a user's email address
- * by sending a verification code and allowing the user to submit the code for validation.
- *
- * @param {EmailVerificationProps} props - The props for the component, including emailType, emailAddress, onVerificationSuccess, and optional onSkip.
- * @returns {JSX.Element} The rendered email verification dialog.
- */
-export const EmailVerification = ({
+export const EmailVerificationDialog = ({
+  onClose,
   emailType = EmailType.Contact,
   onVerificationSuccess,
+  trigger,
+  defaultOpen = false,
 }: EmailVerificationProps) => {
   const intl = useIntl();
   const logger = useLogger();
   const [, executeSendEmailMutation] = useMutation(
     SendUserEmailVerification_Mutation,
   );
+  const [isOpen, setOpen] = useState<boolean>(defaultOpen);
+
   const [, executeVerifyUserEmailMutation] = useMutation(
     VerifyUserEmail_Mutation,
   );
@@ -128,7 +149,6 @@ export const EmailVerification = ({
         if (!result.data?.sendUserEmailVerification?.id) {
           throw new Error("Send email error");
         }
-        // eslint-disable-next-line testing-library/no-debugging-utils
         logger.debug("A code was sent");
         setCanRequestCode(false);
       })
@@ -147,6 +167,7 @@ export const EmailVerification = ({
           throw new Error("Verify code error");
         }
         onVerificationSuccess();
+        onClose();
       })
       .catch(() => {
         toast.error(
@@ -197,83 +218,111 @@ export const EmailVerification = ({
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <p>{getDescription(emailType, intl)}</p>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(submitHandler)}>
-          <div className="flex gap-2">
-            <Input
-              id="emailAddress"
-              name="emailAddress"
-              type="text"
-              label={getLabel(emailType, intl)}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Button
-              type="button"
-              onClick={requestACode}
-              mode="solid"
-              className="self-end font-bold"
-            >
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
+      <Dialog.Trigger>
+        {trigger || (
+          <Button>
+            {intl.formatMessage({
+              defaultMessage: "Verify your email address",
+              id: "2/S+Ro",
+              description: "Button text for email verification dialog trigger",
+            })}
+          </Button>
+        )}
+      </Dialog.Trigger>
+      <Dialog.Content hasSubtitle>
+        <Dialog.Header subtitle={getSubtitle(emailType, intl)}>
+          {
+            <h2 className="text-lg font-bold">
               {intl.formatMessage({
-                defaultMessage: "Send verification email",
-                id: "xKj/Lr",
-                description: "Button to send verification code",
+                defaultMessage: "Email Verification",
+                id: "pHrHab",
+                description: "Title for email verification dialog",
               })}
-            </Button>
+            </h2>
+          }
+        </Dialog.Header>
+        <Dialog.Body>
+          <div className="flex flex-col gap-6">
+            <p>{getDescription(emailType, intl)}</p>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(submitHandler)}>
+                <div className="flex gap-2">
+                  <Input
+                    id="emailAddress"
+                    name="emailAddress"
+                    type="text"
+                    label={getLabel(emailType, intl)}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    onClick={requestACode}
+                    mode="solid"
+                    className="self-end font-bold"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Send verification email",
+                      id: "xKj/Lr",
+                      description: "Button to send verification code",
+                    })}
+                  </Button>
+                </div>
+                <div className="flex gap-2">
+                  <Input
+                    id="verificationCode"
+                    name="verificationCode"
+                    type="text"
+                    label={intl.formatMessage({
+                      defaultMessage: "Verification code",
+                      id: "T+ypau",
+                      description: "label for verification code input",
+                    })}
+                  />
+                </div>
+                <Dialog.Footer>
+                  {canRequestCode ? (
+                    <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
+                      {intl.formatMessage({
+                        defaultMessage: "Didn’t receive a code?",
+                        id: "MvD/iS",
+                        description: "intro to request a new code",
+                      })}
+                      <Button
+                        type="button"
+                        mode="text"
+                        color="black"
+                        onClick={requestACode}
+                        className="font-bold"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Send another one.",
+                          id: "hx8mTr",
+                          description: "button to request a new code",
+                        })}
+                      </Button>
+                    </div>
+                  ) : null}
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Save and add email",
+                      id: "exfH1c",
+                      description: "Button to save and add email",
+                    })}
+                  />
+                  <Button color="warning" mode="inline" onClick={onClose}>
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </Dialog.Footer>
+              </form>
+            </FormProvider>
           </div>
-          <div className="flex gap-2">
-            <Input
-              id="verificationCode"
-              name="verificationCode"
-              type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Verification code",
-                id: "T+ypau",
-                description: "label for verification code input",
-              })}
-            />
-          </div>
-          <div className="mt-6 flex flex-col items-center gap-6 xs:flex-row">
-            {canRequestCode ? (
-              <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
-                {intl.formatMessage({
-                  defaultMessage: "Didn’t receive a code?",
-                  id: "MvD/iS",
-                  description: "intro to request a new code",
-                })}
-                <Button
-                  type="button"
-                  mode="text"
-                  color="black"
-                  onClick={requestACode}
-                  className="font-bold"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Send another one.",
-                    id: "hx8mTr",
-                    description: "button to request a new code",
-                  })}
-                </Button>
-              </div>
-            ) : null}
-            <Submit
-              text={intl.formatMessage({
-                defaultMessage: "Save and add email",
-                id: "+cbj04",
-                description: "Button to submit verification code",
-              })}
-            />
-            <Button color="warning" mode="inline">
-              {intl.formatMessage(commonMessages.cancel)}
-            </Button>
-          </div>
-        </form>
-      </FormProvider>
-    </div>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 
-export default EmailVerification;
+export default EmailVerificationDialog;
