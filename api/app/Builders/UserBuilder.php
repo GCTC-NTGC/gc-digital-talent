@@ -258,14 +258,14 @@ class UserBuilder extends Builder
      *
      * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
-    public function whereQualifiedClassificationsIn(?array $classifications): self
+    public function whereQualifiedInClassificationsIn(?array $classifications): self
     {
         if (empty($classifications)) {
             return $this;
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            $query->whereQualifiedClassificationsIn($classifications);
+            $query->whereQualifiedInClassificationsIn($classifications);
         });
     }
 
@@ -273,14 +273,14 @@ class UserBuilder extends Builder
      * Scopes the query to only return users who are available in a pool with one of the specified streams.
      * If $streams is empty, this scope will be ignored.
      */
-    public function whereQualifiedStreamsIn(?array $streams): self
+    public function whereQualifiedInWorkStreamsIn(?array $streams): self
     {
         if (empty($streams)) {
             return $this;
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($streams) {
-            $query->whereQualifiedStreamsIn($streams);
+            $query->whereQualifiedInWorkStreamsIn($streams);
         });
     }
 

@@ -1560,8 +1560,8 @@ input ApplicantFilterInput {
   pools: [IdInput]
   skills: [IdInput]
   skillsIntersectional: [IdInput]
-  qualifiedClassifications: [ClassificationFilterInput]
-  workStreams: [IdInput]
+  qualifiedInClassifications: [ClassificationFilterInput]
+  qualifiedInworkStreams: [IdInput]
   community: IdInput
 }
 

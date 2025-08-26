@@ -1204,10 +1204,11 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
     @scope(name: "whereSkillsIntersectional")
     @pluck(key: "id") # AND filtering skills as opposed to OR
-  qualifiedClassifications: [ClassificationFilterInput]
-    @scope(name: "whereQualifiedClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  qualifiedInClassifications: [ClassificationFilterInput]
+    @scope(name: "whereQualifiedInClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
   # should be considered qualifiedWorkStreams
-  workStreams: [IdInput] @scope(name: "whereQualifiedStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  qualifiedInworkStreams: [IdInput]
+    @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
     @scope(name: "whereHasPoolCandidateCommunity")
     @pluck(key: "id")
