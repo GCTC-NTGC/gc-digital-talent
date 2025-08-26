@@ -24,7 +24,7 @@ const meta = {
   image: `${appUrl}/images/digital-talent/banner.jpg`,
 };
 
-const getEnvVar = (key: string, fallback = `""`): string => {
+const getEnvVar = (key: string, fallback = ``): string => {
   return process.env[key] ? JSON.stringify(process.env[key]) : fallback;
 };
 
