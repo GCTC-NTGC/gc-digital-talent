@@ -1779,10 +1779,6 @@
     "defaultMessage": "Supprimer cet utilisateur",
     "description": "Label on the button to open the delete user dialog"
   },
-  "5kfun9": {
-    "defaultMessage": "Niveau de classification",
-    "description": "Label displayed on for classification level input"
-  },
   "5l+q/p": {
     "defaultMessage": "Supprimer un utilisateur",
     "description": "Submit button in delete user dialog"
@@ -5110,10 +5106,6 @@
   "LEVK8x": {
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
     "description": "Message displayed to user after classification fails to get updated."
-  },
-  "LF6QNw": {
-    "defaultMessage": "Groupe de classification",
-    "description": "Label displayed on for classification group input"
   },
   "LF9xdK": {
     "defaultMessage": "Questions de présélection (au moment de la candidature) - {skillName}",
