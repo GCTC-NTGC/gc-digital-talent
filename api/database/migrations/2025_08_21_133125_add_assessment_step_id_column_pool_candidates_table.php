@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('assessment_step_id')
                 ->nullable()
                 ->constrained()
-                ->onDelete('cascade');
+                ->onDelete('restrict');
         });
 
         DB::statement(<<<'SQL'
