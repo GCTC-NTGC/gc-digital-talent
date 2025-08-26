@@ -83,6 +83,7 @@ final class PoolIsCompleteValidator extends Validator
                     [Rule::in(array_column(PoolSelectionLimitation::limitationsForPublic(), 'name'))]
                 ),
             ],
+            'contact_email' => ['required', 'string']
         ];
     }
 
