@@ -86,6 +86,9 @@ import AboutUsSection, {
 import WhatToExpectAdmissionSection, {
   WhatToExpectAdmissionSubmitData,
 } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+import ContactEmailSection, {
+  ContactEmailSubmitData,
+} from "./components/ContactEmailSection/ContactEmailSection";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
@@ -101,6 +104,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolWhatToExpectAdmission
     ...EditPoolWhatToExpect
     ...EditPoolYourImpact
+    ...EditPoolContactEmail
 
     id
     workStream {
@@ -236,7 +240,8 @@ export type PoolSubmitData =
   | WhatToExpectAdmissionSubmitData
   | SpecialNoteSubmitData
   | AboutUsSubmitData
-  | GeneralQuestionsSubmitData;
+  | GeneralQuestionsSubmitData
+  | ContactEmailSubmitData;
 
 export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
@@ -498,6 +503,17 @@ export const EditPoolForm = ({
       }),
       inList: false,
     },
+    contactEmail: {
+      id: "contact-email",
+      hasError: !pool.contactEmail,
+      title: intl.formatMessage({
+        defaultMessage: "Contact email",
+        id: "dzv6e3",
+        description: "Title for the contact email section",
+      }),
+      status: "optional",
+      inList: false,
+    },
     generalQuestions: {
       id: "general-questions",
       hasError: false, // Optional section
@@ -679,6 +695,12 @@ export const EditPoolForm = ({
                     <WhatToExpectAdmissionSection
                       poolQuery={pool}
                       sectionMetadata={sectionMetadata.whatToExpectAdmission}
+                      onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
+                    />
+                    <ContactEmailSection
+                      poolQuery={pool}
+                      sectionMetadata={sectionMetadata.contactEmail}
                       onSave={onSave}
                       onUpdatePublished={onUpdatePublished}
                     />
