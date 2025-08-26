@@ -42,13 +42,16 @@ export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
+export type JobPlacementOptionsFragmentType = FragmentType<
+  typeof JobPlacementOptions_Query
+>;
 export interface FormValues {
   placementType?: PlacementType | "NOT_PLACED";
   placedDepartment?: string;
 }
 
 interface JobPlacementFormProps {
-  optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>;
+  optionsQuery?: JobPlacementOptionsFragmentType;
 }
 
 const JobPlacementForm = ({ optionsQuery }: JobPlacementFormProps) => {

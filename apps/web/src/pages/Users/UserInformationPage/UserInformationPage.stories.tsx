@@ -20,7 +20,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import { JobPlacementOptions_Query } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 
 import UserInformationPage, {
   UserInfo_Fragment,

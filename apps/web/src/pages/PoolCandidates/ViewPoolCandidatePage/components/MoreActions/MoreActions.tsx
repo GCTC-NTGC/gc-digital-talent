@@ -12,7 +12,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
-import JobPlacementDialog from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import JobPlacementDialog from "~/components/PoolCandidateDialogs/JobPlacementDialog";
 import {
   isQualifiedStatus,
   isRemovedStatus,
@@ -21,10 +21,11 @@ import {
 } from "~/utils/poolCandidate";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import { JobPlacementOptions_Query } from "~/components/PoolCandidatesTable/JobPlacementForm";
+import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
+import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
+import FinalDecisionAndPlaceDialog from "~/components/PoolCandidateDialogs/FinalDecisionAndPlaceDialog";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
-import FinalDecisionDialog from "./FinalDecisionDialog";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
 import RevertFinalDecisionDialog from "./RevertFinalDecisionDialog";
 import ReinstateCandidateDialog from "../ReinstateCandidateDialog/ReinstateCandidateDialog";
@@ -32,7 +33,6 @@ import ChangeExpiryDateDialog from "../ChangeExpiryDateDialog/ChangeExpiryDateDi
 import NotesForm from "./NotesForm";
 import DownloadButton from "./DownloadButton";
 import StatusLabel from "./StatusLabel";
-import FinalDecisionAndPlaceDialog from "./FinalDecisionAndPlaceDialog";
 
 export const MoreActions_Fragment = graphql(/* GraphQL */ `
   fragment MoreActions on PoolCandidate {

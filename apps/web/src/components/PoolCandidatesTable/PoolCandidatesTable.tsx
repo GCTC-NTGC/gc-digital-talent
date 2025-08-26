@@ -82,7 +82,7 @@ import { FormValues } from "./types";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
-} from "./JobPlacementDialog";
+} from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";

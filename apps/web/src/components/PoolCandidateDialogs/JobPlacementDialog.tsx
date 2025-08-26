@@ -19,7 +19,7 @@ import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
 import { PLACEMENT_TYPE_STATUSES } from "~/constants/poolCandidate";
-import { formValuesToPlaceCandidateInput } from "~/pages/PoolCandidates/ViewPoolCandidatePage/components/MoreActions/formUtils";
+import { formValuesToPlaceCandidateInput } from "~/components/PoolCandidateDialogs/formUtils";
 
 import JobPlacementForm, {
   FormValues,

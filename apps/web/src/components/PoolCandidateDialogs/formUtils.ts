@@ -1,6 +1,6 @@
 import { DisqualificationReason } from "@gc-digital-talent/graphql";
 
-import { FormValues as JobPlacementFormValues } from "~/components/PoolCandidatesTable/JobPlacementForm";
+import { FormValues as JobPlacementFormValues } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 
 import { FormValues as FinalDecisionFormValues } from "./FinalDecisionForm";
 import { FormValues as FinalDecisionAndPlaceFormValues } from "./FinalDecisionAndPlaceDialog";

@@ -36,7 +36,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
-import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import Hero from "~/components/Hero";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";

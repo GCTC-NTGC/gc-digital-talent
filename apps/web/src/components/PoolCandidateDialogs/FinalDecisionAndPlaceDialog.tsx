@@ -13,7 +13,7 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import JobPlacementForm, {
   FormValues as JobPlacementFormValues,
   JobPlacementOptions_Query,
-} from "~/components/PoolCandidatesTable/JobPlacementForm";
+} from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
 import FinalDecisionForm, {
