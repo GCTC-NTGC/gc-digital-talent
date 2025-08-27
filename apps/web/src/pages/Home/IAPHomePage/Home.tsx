@@ -303,9 +303,9 @@ export const Home = ({ query }: HomeProps) => {
         {/* Who section */}
         <div className="relative z-[2] mt-12">
           <Container>
-            <div className="grid gap-6 xs:grid-cols-7 xs:gap-18 xs:p-12 sm:p-18">
-              <div className="xs:col-span-3">
-                <div className="relative xs:size-full">
+            <div className="grid xs:p-12 sm:grid-cols-7 sm:gap-12 sm:p-18">
+              <div className="flex justify-center xs:col-span-3 sm:col-span-3 sm:justify-start">
+                <div className="relative sm:size-full">
                   <Triangle className="absolute -top-8 -left-8 z-[1] w-[120%] text-secondary xs:-top-12 xs:-left-12 dark:text-secondary-300" />
                   <Image
                     src={applicant}
@@ -319,7 +319,7 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship applicant image text alternative",
                     })}
-                    className="relative z-[2] min-h-[60vh] object-cover xs:size-full xs:min-h-[initial]"
+                    className="relative z-[2] min-h-[60vh] object-cover xs:min-h-[initial] sm:size-full"
                   />
                   <Image
                     src={ulu}
@@ -332,14 +332,14 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship ulu image text alternative",
                     })}
-                    className="absolute -right-1/3 -bottom-1/10 z-[3] block w-120 xs:hidden"
+                    className="absolute -right-1/3 -bottom-1/10 z-[3] block w-100 xs:hidden"
                   />
                 </div>
               </div>
-              <div className="relative xs:col-span-4">
+              <div className="sm:col-span-4">
                 <Heading
                   size="h3"
-                  className="my-12 text-center xs:mt-6 xs:mb-12 xs:text-left"
+                  className="relative z-1 my-12 mt-20 mb-8 text-center xs:mt-6 xs:mb-12 sm:mt-6 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Who is the program for?",
@@ -381,7 +381,7 @@ export const Home = ({ query }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship ulu image text alternative",
                   })}
-                  className="absolute -right-2/5 hidden w-120 xs:block sm:-right-1/3"
+                  className="absolute -right-2/5 hidden w-100 xs:block sm:-right-1/3"
                 />
                 <div className="relative mt-12 mb-6 min-w-20 xs:w-1/2">
                   <RequirementDialog />
