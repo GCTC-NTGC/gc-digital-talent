@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import { useQuery } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -11,6 +11,7 @@ import {
   Separator,
   Well,
 } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import {
@@ -26,28 +27,35 @@ import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 import DeleteOldOffPlatformProcessesDialog from "./DeleteOldOffPlatformProcessesDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
-  fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {
-    ...ReviewRecruitmentProcessDialog
+  fragment ReviewRecruitmentProcessPreviewList on User {
     id
-    finalDecisionAt
-    suspendedAt
-    placedAt
-    status {
-      value
+    oldOffPlatformRecruitmentProcesses
+    offPlatformRecruitmentProcesses {
+      ...OffPlatformRecruitmentProcessList
     }
-    finalDecision {
-      value
-    }
-    pool {
+    poolCandidates {
+      ...ReviewRecruitmentProcessDialog
       id
-      name {
-        localized
+      finalDecisionAt
+      suspendedAt
+      placedAt
+      status {
+        value
       }
-      classification {
-        group
-        level
-        minSalary
-        maxSalary
+      finalDecision {
+        value
+      }
+      pool {
+        id
+        name {
+          localized
+        }
+        classification {
+          group
+          level
+          minSalary
+          maxSalary
+        }
       }
     }
   }
@@ -55,25 +63,14 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
 
 const ReviewOffPlatformRecruitmentProcesses_Query = graphql(/* GraphQL */ `
   query ReviewOffPlatformRecruitmentProcesses {
-    me {
-      id
-      oldOffPlatformRecruitmentProcesses
-      offPlatformRecruitmentProcesses {
-        ...OffPlatformRecruitmentProcessList
-      }
-    }
     ...OffPlatformProcessDialog
   }
 `);
 
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["OffPlatformRecruitmentProcess"],
-};
-
 interface ReviewRecruitmentProcessPreviewListProps {
   recruitmentProcessesQuery: FragmentType<
     typeof ReviewRecruitmentProcessPreviewList_Fragment
-  >[];
+  >;
 }
 
 const ReviewRecruitmentProcessPreviewList = ({
@@ -81,25 +78,21 @@ const ReviewRecruitmentProcessPreviewList = ({
 }: ReviewRecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
 
-  const recruitmentProcesses = getFragment(
+  const user = getFragment(
     ReviewRecruitmentProcessPreviewList_Fragment,
     recruitmentProcessesQuery,
   );
 
-  const recruitmentProcessesFiltered = recruitmentProcesses
-    ? recruitmentProcesses.filter(
-        (recruitmentProcess) =>
-          recruitmentProcess.finalDecisionAt &&
-          isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
-      )
-    : []; // filter for qualified recruitment processes
+  const recruitmentProcesses = unpackMaybes(user?.poolCandidates);
+  const recruitmentProcessesFiltered = recruitmentProcesses.filter(
+    (recruitmentProcess) =>
+      recruitmentProcess.finalDecisionAt &&
+      isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+  ); // filter for qualified recruitment processes
 
   const [{ data: offPlatformProcessData, fetching, error }] = useQuery({
     query: ReviewOffPlatformRecruitmentProcesses_Query,
-    context,
   });
-
-  const user = offPlatformProcessData?.me;
 
   return (
     <>

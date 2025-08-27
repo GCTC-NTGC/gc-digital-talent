@@ -19,20 +19,27 @@ import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPrevi
 import ReviewApplicationPreviewList from "./ReviewApplicationPreviewList";
 
 const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
-  fragment ApplicationsProcessesTaskCard on PoolCandidate {
-    ...ReviewApplicationPreviewList
-    ...ReviewRecruitmentProcessPreviewList
-    finalDecision {
-      value
+  fragment ApplicationsProcessesTaskCard on User {
+    id
+    oldOffPlatformRecruitmentProcesses
+    offPlatformRecruitmentProcesses {
+      ...OffPlatformRecruitmentProcessList
     }
-    finalDecisionAt
+    poolCandidates {
+      ...ReviewApplicationPreviewList
+      finalDecision {
+        value
+      }
+      finalDecisionAt
+    }
+    ...ReviewRecruitmentProcessPreviewList
   }
 `);
 
 interface ApplicationsProcessesTaskCardProps {
   applicationsProcessesTaskCardQuery: FragmentType<
     typeof ApplicationsProcessesTaskCard_Fragment
-  >[];
+  >;
 }
 
 const ApplicationsProcessesTaskCard = ({
@@ -56,13 +63,18 @@ const ApplicationsProcessesTaskCard = ({
     },
   ];
 
-  const recruitmentProcessesFiltered = applicationsProcessesTaskCardFragment
-    ? applicationsProcessesTaskCardFragment.filter(
-        (recruitmentProcess) =>
-          recruitmentProcess.finalDecisionAt &&
-          isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
-      )
-    : []; // filter for qualified recruitment processes
+  const recruitmentProcesses = unpackMaybes(
+    applicationsProcessesTaskCardFragment?.poolCandidates,
+  );
+  const recruitmentProcessesFiltered = recruitmentProcesses.filter(
+    (recruitmentProcess) =>
+      recruitmentProcess.finalDecisionAt &&
+      isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+  ); // filter for qualified recruitment processes
+
+  const offPlatformProcesses = unpackMaybes(
+    applicationsProcessesTaskCardFragment?.offPlatformRecruitmentProcesses,
+  );
 
   return (
     <>
@@ -96,17 +108,13 @@ const ApplicationsProcessesTaskCard = ({
                     description: "Job applications expandable",
                   })}
                   <span className="ml-1">
-                    {wrapParens(
-                      applicationsProcessesTaskCardFragment?.length ?? 0,
-                    )}
+                    {wrapParens(recruitmentProcesses?.length ?? 0)}
                   </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={jobApplicationsMetaData} />
                 <Accordion.Content>
                   <ReviewApplicationPreviewList
-                    applicationsQuery={unpackMaybes(
-                      applicationsProcessesTaskCardFragment,
-                    )}
+                    applicationsQuery={unpackMaybes(recruitmentProcesses)}
                   />
                 </Accordion.Content>
               </Accordion.Item>
@@ -126,14 +134,16 @@ const ApplicationsProcessesTaskCard = ({
                   })}
                 >
                   {intl.formatMessage(recruitmentProcessesTitle, {
-                    numOfProcesses: recruitmentProcessesFiltered.length,
+                    numOfProcesses:
+                      recruitmentProcessesFiltered.length +
+                      offPlatformProcesses.length,
                   })}
                 </Accordion.Trigger>
                 <Accordion.Content>
                   <ReviewRecruitmentProcessPreviewList
-                    recruitmentProcessesQuery={unpackMaybes(
-                      recruitmentProcessesFiltered,
-                    )}
+                    recruitmentProcessesQuery={
+                      applicationsProcessesTaskCardFragment
+                    }
                   />
                 </Accordion.Content>
               </Accordion.Item>

@@ -14,7 +14,7 @@ import {
   ApplicantDashboardQuery,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -95,9 +95,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
         value
       }
     }
-    poolCandidates {
-      ...ApplicationsProcessesTaskCard
-    }
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
@@ -175,6 +172,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       id
     }
     ...TalentManagementTaskCard
+    ...ApplicationsProcessesTaskCard
   }
 `);
 
@@ -277,9 +275,7 @@ export const DashboardPage = ({
           <div className="flex flex-col gap-6 xs:flex-row">
             <div className="flex flex-col gap-6">
               <ApplicationsProcessesTaskCard
-                applicationsProcessesTaskCardQuery={unpackMaybes(
-                  currentUser?.poolCandidates,
-                )}
+                applicationsProcessesTaskCardQuery={currentUser}
               />
               {currentUser?.isVerifiedGovEmployee &&
               currentUser?.employeeProfile ? (
@@ -432,7 +428,10 @@ export const DashboardPage = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: ["PoolCandidateSearchRequest"],
+  additionalTypenames: [
+    "PoolCandidateSearchRequest",
+    "OffPlatformRecruitmentProcess",
+  ],
 };
 
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
