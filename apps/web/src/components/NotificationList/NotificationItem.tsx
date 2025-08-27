@@ -220,7 +220,7 @@ const NotificationItem = ({
                   )}
                 />
               </DropdownMenu.Trigger>
-              <DropdownMenu.Content align="end">
+              <DropdownMenu.Content align="end" className="z-[98]">
                 <DropdownMenu.Item asChild onSelect={toggleReadStatus}>
                   <Button mode="inline" block disabled={isTogglingReadStatus}>
                     {isUnread
