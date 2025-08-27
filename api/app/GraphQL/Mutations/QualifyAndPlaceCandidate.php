@@ -4,17 +4,19 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\PoolCandidate;
 
-final class PlaceCandidate
+final class QualifyAndPlaceCandidate
 {
     /**
-     * Placing operation for a candidate
+     * Qualify operation for a candidate
      */
     public function __invoke($_, array $args)
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
+        $expiryDate = $args['expiryDate'];
         $placementType = $args['placementType'];
         $departmentId = $args['departmentId'];
 
+        $candidate->qualify($expiryDate);
         $candidate->place($placementType, $departmentId);
         $candidate->save();
 

@@ -3,41 +3,35 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import {
-  RadioGroup,
-  Select,
-  Submit,
-  localizedEnumToOptions,
-  objectsToSortedOptions,
-} from "@gc-digital-talent/forms";
+import { Submit } from "@gc-digital-talent/forms";
 import {
   FragmentType,
   PlacementType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  errorMessages,
-  getLocalizedName,
-  sortPlacementType,
-} from "@gc-digital-talent/i18n";
-import { Button, Dialog, Well } from "@gc-digital-talent/ui";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
 import { PLACEMENT_TYPE_STATUSES } from "~/constants/poolCandidate";
+import { formValuesToPlaceCandidateInput } from "~/components/PoolCandidateDialogs/formUtils";
+
+import JobPlacementForm, {
+  FormValues,
+  JobPlacementOptions_Query,
+} from "./JobPlacementForm";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
     $id: UUID!
-    $placeCandidate: PlaceCandidateInput!
+    $poolCandidate: PlaceCandidateInput!
   ) {
-    placeCandidate(id: $id, placeCandidate: $placeCandidate) {
+    placeCandidate(id: $id, poolCandidate: $poolCandidate) {
       id
     }
   }
@@ -91,37 +85,9 @@ export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
-  fragment JobPlacementOptions on Query {
-    placementTypes: localizedEnumStrings(enumName: "PlacementType") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    departments {
-      id
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-export type JobPlacementOptionsFragmentType = FragmentType<
-  typeof JobPlacementOptions_Query
->;
-
-interface FormValues {
-  placementType?: PlacementType | "NOT_PLACED";
-  placedDepartment?: string;
-}
-
 interface JobPlacementDialogProps {
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
-  optionsQuery?: JobPlacementOptionsFragmentType;
+  optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>;
   context?: "table" | "view";
   defaultOpen?: boolean;
 }
@@ -134,7 +100,7 @@ const JobPlacementDialog = ({
 }: JobPlacementDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
-  const [, executePlacedCandidate] = useMutation(PlaceCandidate_Mutation);
+  const [, executePlaceCandidate] = useMutation(PlaceCandidate_Mutation);
   const [, executeRevertPlacedCandidate] = useMutation(
     RevertPlaceCandidate_Mutation,
   );
@@ -150,7 +116,6 @@ const JobPlacementDialog = ({
     status,
     placedDepartment,
   } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
-  const options = getFragment(JobPlacementOptions_Query, optionsQuery);
 
   const placementType =
     status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
@@ -168,96 +133,60 @@ const JobPlacementDialog = ({
     return <span>{intl.formatMessage(commonMessages.notAvailable)}</span>;
   }
 
-  const { handleSubmit, watch } = methods;
-  const watchPlacementType = watch("placementType");
-
-  const isPlaced = watchPlacementType !== "NOT_PLACED";
-
-  const handleSuccess = () => {
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Job placement status saved successfully",
-        id: "gr8+Es",
-        description:
-          "Message displayed when a job placement status has been saved.",
-      }),
-    );
-  };
-
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage:
-          "Error: could not update candidate's job placement status",
-        id: "8oOKi9",
-        description:
-          "Message displayed when an error occurs while updating pool candidate's job placement status",
-      }),
-    );
-  };
+  const { handleSubmit } = methods;
 
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
+    let mutationPromise: Promise<void> | null = null;
+
     if (values.placementType && values.placementType !== "NOT_PLACED") {
-      await executePlacedCandidate({
+      mutationPromise = executePlaceCandidate({
         id: poolCandidateId,
-        placeCandidate: {
-          departmentId: values.placedDepartment ?? "",
-          placementType: values.placementType,
-        },
-      })
-        .then((result) => {
-          if (result.data?.placeCandidate) {
-            handleSuccess();
-            setIsOpen(false);
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
+        ...formValuesToPlaceCandidateInput(values),
+      }).then((result) => {
+        if (result.data?.placeCandidate) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(new Error(result.error?.message));
+        }
+      });
     } else {
-      await executeRevertPlacedCandidate({
+      mutationPromise = executeRevertPlacedCandidate({
         id: poolCandidateId,
+      }).then((result) => {
+        if (result.data?.revertPlaceCandidate) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(new Error(result.error?.message));
+        }
+      });
+    }
+
+    await mutationPromise
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Job placement status saved successfully",
+            id: "gr8+Es",
+            description:
+              "Message displayed when a job placement status has been saved.",
+          }),
+        );
+        setIsOpen(false);
       })
-        .then((result) => {
-          if (result.data?.revertPlaceCandidate) {
-            handleSuccess();
-            setIsOpen(false);
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
-    }
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage:
+              "Error: could not update candidate's job placement status",
+            id: "8oOKi9",
+            description:
+              "Message displayed when an error occurs while updating pool candidate's job placement status",
+          }),
+        );
+      });
   };
-
-  const placementTypeOptions = [
-    {
-      value: "NOT_PLACED",
-      label: intl.formatMessage(poolCandidateMessages.notPlaced),
-    },
-    ...localizedEnumToOptions(sortPlacementType(options?.placementTypes), intl),
-  ].map((option) => {
-    if (option.value === PlacementType.UnderConsideration.toString()) {
-      return {
-        ...option,
-        contentBelow: intl.formatMessage(
-          poolCandidateMessages.underConsiderationDesc,
-        ),
-      };
-    }
-
-    return option;
-  });
-
-  const underConsideration = options?.placementTypes?.find(
-    (pt) => pt.value === PlacementType.UnderConsideration.toString(),
-  );
 
   let label = intl.formatMessage(commonMessages.notAvailable);
   if (status) {
@@ -317,58 +246,7 @@ const JobPlacementDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <div className="flex flex-col gap-y-6">
-                <RadioGroup
-                  idPrefix="placementType"
-                  name="placementType"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Job placement status",
-                    id: "dpO8Va",
-                    description: "Label for the job placement status field",
-                  })}
-                  items={placementTypeOptions}
-                />
-                {isPlaced && (
-                  <Select
-                    id="placedDepartment"
-                    name="placedDepartment"
-                    label={intl.formatMessage({
-                      defaultMessage: "Placed department",
-                      id: "G8JoCN",
-                      description: "Label for the placed department field",
-                    })}
-                    nullSelection={intl.formatMessage({
-                      defaultMessage: "Select a department",
-                      id: "y827h2",
-                      description:
-                        "Null selection for department select input in the request form.",
-                    })}
-                    options={objectsToSortedOptions(
-                      unpackMaybes(options?.departments),
-                      intl,
-                    )}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                )}
-                {watchPlacementType === PlacementType.UnderConsideration && (
-                  <Well>
-                    <p className="mb-1.5 font-bold">
-                      {getLocalizedName(underConsideration?.label, intl)}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "This candidate will not appear in talent request results based on this process.",
-                        id: "dDrs39",
-                        description:
-                          "Notice that candidates under consideration do not appear in talent search requests",
-                      })}
-                    </p>
-                  </Well>
-                )}
-              </div>
+              <JobPlacementForm optionsQuery={optionsQuery} />
               <Dialog.Footer>
                 <Submit
                   text={intl.formatMessage({
@@ -393,7 +271,7 @@ const JobPlacementDialog = ({
 
 export function jobPlacementDialogAccessor(
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>,
-  optionsQuery?: JobPlacementOptionsFragmentType,
+  optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>,
 ) {
   return (
     <JobPlacementDialog

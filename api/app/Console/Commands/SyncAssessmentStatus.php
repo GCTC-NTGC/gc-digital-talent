@@ -30,10 +30,10 @@ class SyncAssessmentStatus extends Command
     {
         PoolCandidate::chunk(100, function (Collection $candidates) {
             foreach ($candidates as $candidate) {
-                [$currentStep, $assessmentStatus] = $candidate->computeAssessmentStatus();
+                [$stepId, $assessmentStatus] = $candidate->computeAssessmentStatus();
 
                 $candidate->computed_assessment_status = $assessmentStatus;
-                $candidate->assessment_step = $currentStep;
+                $candidate->assessment_step_id = $stepId;
 
                 $candidate->save();
 
