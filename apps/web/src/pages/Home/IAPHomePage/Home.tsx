@@ -179,7 +179,7 @@ export const Home = ({ query }: HomeProps) => {
                   <div className="sm:col-span-4">
                     <Heading
                       size="h3"
-                      className="relative z-1 mt-28 mb-8 text-center sm:mt-6 sm:text-left"
+                      className="relative z-1 mt-28 mb-12 text-center sm:mt-6 sm:text-left"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
@@ -223,9 +223,9 @@ export const Home = ({ query }: HomeProps) => {
         {/* Learn section */}
         <div>
           <Container>
-            <div className="grid gap-6 xs:grid-cols-7 xs:gap-18 xs:p-12 sm:p-18">
-              <div className="xs:order-2 xs:col-span-3">
-                <div className="relative xs:size-full">
+            <div className="grid gap-24 xs:p-12 sm:grid-cols-7 sm:gap-14 sm:p-18">
+              <div className="flex justify-center sm:order-2 sm:col-span-3 sm:justify-start">
+                <div className="relative sm:size-full">
                   <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
                   <Image
                     height={500}
@@ -238,7 +238,7 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship man on computer image text alternative",
                     })}
-                    className="relative size-full min-h-[60vh] object-cover object-left xs:min-h-[initial]"
+                    className="relative z-[2] min-h-[60vh] object-cover object-left xs:min-h-[initial] sm:size-full"
                   />
                   <Image
                     src={gloves}
@@ -251,14 +251,14 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship gloves image text alternative",
                     })}
-                    className="absolute -right-24 -bottom-30 w-[140%] sm:-right-48 sm:-bottom-54"
+                    className="absolute -right-24 -bottom-30 z-[10] block w-[70%] md:w-[80%] lg:-right-1/3 lg:-bottom-54"
                   />
                 </div>
               </div>
-              <div className="xs:order-1 xs:col-span-4">
+              <div className="sm:order-1 sm:col-span-4">
                 <Heading
                   size="h3"
-                  className="mt-24 mb-12 text-center xs:mt-6 xs:text-left"
+                  className="relative my-12 mt-28 mb-8 text-center xs:mt-6 xs:mb-12 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "What will I learn in this apprenticeship?",
@@ -381,7 +381,7 @@ export const Home = ({ query }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship ulu image text alternative",
                   })}
-                  className="absolute -right-2/5 hidden w-100 xs:block sm:-right-1/3"
+                  className="absolute -right-10 hidden w-100 xs:block sm:-right-1/3"
                 />
                 <div className="relative mt-12 mb-6 min-w-20 xs:w-1/2">
                   <RequirementDialog />
