@@ -55,8 +55,8 @@ const RecruitmentTools = ({ query }: RecruitmentToolsProps) => {
       <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
-            "This will include a user in a recruitment process, but it will not fill out any application information. This means that the application screenshot, as well as all other questions and skill justifications will appear empty.",
-          id: "uhhx19",
+            "This will include a user in a recruitment process, but it will not fill out any application information. This means that the application snapshot, as well as all other questions and skill justifications will be empty.",
+          id: "92M/Ie",
           description: "Caveats of adding a user to a process manually",
         })}
       </p>

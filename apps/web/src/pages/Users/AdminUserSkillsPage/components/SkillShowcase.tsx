@@ -50,8 +50,8 @@ const SkillShowcase = ({ query }: SkillShowcaseProps) => {
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "A curated list of skills from your portfolio that present a more focused and personalized story about this candidate’s strengths and areas of interest.",
-          id: "OdIa3k",
+            "A curated list from the skills portfolio that presents a more focused and personalized story about this user's strengths and areas of interest.",
+          id: "F9CQ6E",
           description: "Description of a users skill showcase",
         })}
       </p>
@@ -62,8 +62,8 @@ const SkillShowcase = ({ query }: SkillShowcaseProps) => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "This section allows the candidate to feature the skills that they’re strongest in. They’re able to specify up to 5 behavioural skills and up to 10 technical skills to help create a holistic picture of your talent.",
-            id: "ywvc+C",
+              "This section allows the user to feature the skills that they're strongest in. They're able to specify up to 5 behavioural skills and up to 10 technical skills to help create a holistic picture of their talent.",
+            id: "gJ5Ubm",
             description: "Description of a users top skills",
           })}
         </p>
@@ -87,8 +87,8 @@ const SkillShowcase = ({ query }: SkillShowcaseProps) => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "These skills listed are not weaknesses, they are skills the candidate is interested in improving through experience or training.",
-            id: "68qbVi",
+              "These skills are not weaknesses, they are skills the user is interested in improving through experience or training.",
+            id: "ygC00w",
             description: "Description of a users skills to be improved",
           })}
         </p>
