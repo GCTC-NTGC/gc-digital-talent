@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 use function Safe\parse_url;
 
@@ -96,21 +95,21 @@ class SupportController extends Controller
                 'contents' => (int) config('freshdesk.api.product_id'),
             ];
         }
+
+        $pendingRequest = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
+            ->asMultipart();
+
         if ($request->hasFile('attachment')) {
-            $disk = Storage::disk('tmp');
             $uploadedFile = $request->file('attachment');
-            $fileName = $disk->putFile('', $uploadedFile);
-            $uploadContents[] = [
-                'name' => 'attachments[]',
-                'contents' => fopen($disk->path($fileName), 'r'),
-            ];
+            $pendingRequest = $pendingRequest
+                ->attach('attachments[]', $uploadedFile->getContent(), $uploadedFile->getClientOriginalName());
+
         }
-        $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
-            ->asMultipart()
-            ->post(
-                config('freshdesk.api.tickets_endpoint'),
-                $uploadContents
-            );
+
+        $response = $pendingRequest->post(
+            config('freshdesk.api.tickets_endpoint'),
+            $uploadContents
+        );
         if ($response->status() == 201) { // status code 201 = created.
             return response([
                 'serviceResponse' => 'success',
