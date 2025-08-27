@@ -166,7 +166,7 @@ describe("PoolCandidate utils", () => {
         expect(chip.label).toBe("Qualified: Pending decision");
         expect(chip.color).toBe("success");
       });
-      it('should return "To assess: Step 1" with warning color for candidates missing education assessment', () => {
+      it('should return "To assess" with warning color for candidates missing education assessment', () => {
         const chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
@@ -177,10 +177,10 @@ describe("PoolCandidate utils", () => {
           candidateFullyQualifiedExceptMissingEducation.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 1");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
-      it('should return "To assess: Step 1" with warning color for candidates with no assessments', () => {
+      it('should return "To assess" with warning color for candidates with no assessments', () => {
         const chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
@@ -191,10 +191,10 @@ describe("PoolCandidate utils", () => {
           candidateNoAssessments.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 1");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
-      it('should return "To assess: Step 3" with warning color for candidate qualified except for hold on final (third) step', () => {
+      it('should return "To assess" with warning color for candidate qualified except for hold on final (third) step', () => {
         const chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
@@ -205,10 +205,10 @@ describe("PoolCandidate utils", () => {
           candidateQualifiedExceptHoldOnFinalAssessment.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.label).toBe("To assess:");
         expect(chip.color).toBe("warning");
       });
-      it('should return "To assess: Step 3" with warning color for candidate with incomplete final (third) step', () => {
+      it('should return "To assess" with warning color for candidate with incomplete final (third) step', () => {
         let chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
@@ -219,7 +219,7 @@ describe("PoolCandidate utils", () => {
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
 
         chip = getCandidateStatusChip(
@@ -231,7 +231,7 @@ describe("PoolCandidate utils", () => {
           candidateUnfinishedFinalAssessment.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
       it('should return "Disqualified: Pending decision" with error color for candidate with any one unsuccessful step', () => {
