@@ -30,6 +30,7 @@ import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 type EditCommunityMemberDialogProps = ComponentPropsWithoutRef<
   typeof DropdownMenu.Item
@@ -162,6 +163,7 @@ const EditCommunityMemberDialog = forwardRef<
           })}
         </Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-y-6">

@@ -22,6 +22,7 @@ import {
   RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];
@@ -103,6 +104,7 @@ const EditCommunityRoleDialog = ({
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:

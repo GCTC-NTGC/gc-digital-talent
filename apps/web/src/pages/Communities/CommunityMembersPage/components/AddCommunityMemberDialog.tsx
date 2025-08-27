@@ -28,6 +28,7 @@ import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 interface AddCommunityMemberDialogProps {
   community: CommunityMembersPageCommunityFragmentType;
@@ -153,6 +154,7 @@ AddCommunityMemberDialogProps) => {
           })}
         </Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-y-6">

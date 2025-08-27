@@ -24,6 +24,7 @@ import {
   RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 const AddCommunityRoleCommunities_Query = graphql(/* GraphQL */ `
   query AddCommunityRoleCommunities {
@@ -131,6 +132,7 @@ const AddCommunityRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
