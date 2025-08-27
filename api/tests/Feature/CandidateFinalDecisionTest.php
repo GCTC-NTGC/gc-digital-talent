@@ -73,7 +73,7 @@ class CandidateFinalDecisionTest extends TestCase
         return [
             'To assess step 1' => [1, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
-                'weight' => 40,
+                'weight' => 50,
             ]],
             'To assess step 2' => [2, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
