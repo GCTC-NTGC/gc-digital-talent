@@ -169,7 +169,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
                 $offPlatformProcesses = $user->offPlatformRecruitmentProcesses->map(function ($process) {
                     return $process->classification->displayName
-                            .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.$process->department->name[$this->lang] ?? '')
+                            .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? ''))
                             .' ('
                             .($process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class))
                             .' - '

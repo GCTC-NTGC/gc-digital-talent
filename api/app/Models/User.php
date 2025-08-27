@@ -101,6 +101,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
+ * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
