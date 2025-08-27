@@ -14,6 +14,7 @@ use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
+use App\Enums\ExecCoaching;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\GovContractorRoleSeniority;
@@ -820,12 +821,11 @@ trait GeneratesUserDoc
         // Executive Opportunities
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
             $this->yesOrNo($profile->career_planning_exec_interest ?? false));
-        $coachingStatus = match (true) {
-            $profile->career_planning_exec_interest => 'coaching_others',
-            $profile->career_planning_exec_coaching_status === 'COACHING' => 'coaching_others',
-            $profile->career_planning_exec_coaching_status === 'LEARNING' => 'has_coach',
-            $profile->career_planning_exec_coaching_status === 'BOTH' => 'coaching_and_learning',
-            $profile->career_planning_exec_coaching_status === 'not_participating' => 'not_participating',
+        $coachingStatus = match ($profile->career_planning_exec_coaching_status) {
+            [ExecCoaching::COACHING->name, ExecCoaching::LEARNING->name] => 'coaching_and_learning',
+            [ExecCoaching::COACHING->name] => 'coaching_others',
+            [ExecCoaching::LEARNING->name] => 'has_coach',
+            [] => 'not_participating',
             default => 'not_provided'
         };
 
@@ -835,8 +835,8 @@ trait GeneratesUserDoc
         if (! empty($profile->career_planning_exec_coaching_interest)) {
             $section->addText($this->localize('gc_employee.exec_coaching_interest'));
             $translationMap = [
-                'COACHING' => 'interested_coaching',
-                'LEARNING' => 'interested_receiving',
+                ExecCoaching::COACHING->name => 'interested_coaching',
+                ExecCoaching::LEARNING->name => 'interested_receiving',
             ];
             foreach ($profile->career_planning_exec_coaching_interest as $interest) {
                 if (isset($translationMap[$interest])) {

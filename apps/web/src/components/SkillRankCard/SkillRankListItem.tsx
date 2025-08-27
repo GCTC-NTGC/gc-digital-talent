@@ -3,12 +3,13 @@ import { Fragment, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { Link } from "@gc-digital-talent/ui";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 import {
-  commonMessages,
-  getLocalizedName,
-  getSkillLevelName,
-} from "@gc-digital-talent/i18n";
-import { Scalars, UserSkill } from "@gc-digital-talent/graphql";
+  FragmentType,
+  getFragment,
+  graphql,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -38,30 +39,50 @@ const suffix = tv({
   base: "shrink-0 text-sm/loose text-gray-600 dark:text-gray-200",
 });
 
+const SkillRankListItem_Fragment = graphql(/** GraphQL */ `
+  fragment SkillRankListItem on UserSkill {
+    skillLevel
+    skill {
+      id
+      name {
+        localized
+      }
+      category {
+        value
+      }
+    }
+  }
+`);
+
 interface SkillRankListItemProps {
-  userSkill: Pick<UserSkill, "skill" | "skillLevel">;
+  query: FragmentType<typeof SkillRankListItem_Fragment>;
   editable?: boolean;
   from?: string;
 }
 
 const SkillRankListItem = ({
-  userSkill: { skill, skillLevel },
+  query,
   editable = false,
 }: SkillRankListItemProps) => {
   const intl = useIntl();
+  const userSkill = getFragment(SkillRankListItem_Fragment, query);
 
   const NameWrapper = editable ? SkillLink : Fragment;
 
   return (
     <li>
       <span className="flex items-start justify-between gap-x-1.5 gap-y-3">
-        <NameWrapper {...(editable && { id: skill.id })}>
-          {getLocalizedName(skill.name, intl)}
+        <NameWrapper {...(editable && { id: userSkill.skill.id })}>
+          {userSkill.skill.name.localized ??
+            intl.formatMessage(commonMessages.notAvailable)}
         </NameWrapper>
-        {skillLevel ? (
+        {userSkill?.skillLevel ? (
           <span className={suffix()}>
             {intl.formatMessage(
-              getSkillLevelName(skillLevel, skill.category.value),
+              getSkillLevelName(
+                userSkill.skillLevel,
+                userSkill.skill.category.value,
+              ),
             )}
           </span>
         ) : (

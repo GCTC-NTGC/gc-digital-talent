@@ -20,7 +20,7 @@
     "jest": "^30.0.5",
     "react-helmet-async": "^2.0.5",
     "react-intl": "^7.1.11",
-    "react-router": "^7.8.1"
+    "react-router": "^7.8.2"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",

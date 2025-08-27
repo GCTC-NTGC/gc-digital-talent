@@ -17,6 +17,7 @@ import {
   RoleName,
   LOGOUT_REASON_KEY,
   NAV_ROLE_KEY,
+  COMMUNITY_ROLES,
 } from "./const";
 import type { LogoutReason } from "./const";
 
@@ -41,6 +42,7 @@ export {
   LOGOUT_REASON_KEY,
   ROLE_NAME,
   NAV_ROLE_KEY,
+  COMMUNITY_ROLES,
 };
 
 export type { RoleName, LogoutReason };

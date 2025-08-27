@@ -4,12 +4,14 @@ import { Button, Chip } from "@gc-digital-talent/ui";
 
 interface EmailVerificationStatusProps {
   isEmailVerified?: boolean;
+  readOnly?: boolean;
   onClickVerify: () => Promise<void>;
 }
 
 const EmailVerificationStatus = ({
   isEmailVerified,
   onClickVerify,
+  readOnly,
 }: EmailVerificationStatusProps) => {
   const intl = useIntl();
 
@@ -31,19 +33,22 @@ const EmailVerificationStatus = ({
             "The email address has not been verified to be owned by user",
         })}
       </Chip>
-      <Button
-        type="button"
-        mode="inline"
-        color="error"
-        className="-mt-0.25"
-        onClick={onClickVerify}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Verify now",
-          id: "ADPfNp",
-          description: "Button to start the email address verification process",
-        })}
-      </Button>
+      {!readOnly && (
+        <Button
+          type="button"
+          mode="inline"
+          color="error"
+          className="-mt-0.25"
+          onClick={onClickVerify}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Verify now",
+            id: "ADPfNp",
+            description:
+              "Button to start the email address verification process",
+          })}
+        </Button>
+      )}
     </>
   );
 };

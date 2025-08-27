@@ -17,6 +17,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add user to recruitment process",
+    "fr": [
+      "Ajouter l'utilisateur au processus de recrutement",
+      "Ajouter l'utilisateur à un processus de recrutement"
+    ]
+  },
+  {
     "en": "Interested in training",
     "fr": [
       "Intérêt pour la formation",
@@ -50,6 +57,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Statut de citoyenneté",
       "Statut de citoyen"
+    ]
+  },
+  {
+    "en": "Delete user",
+    "fr": [
+      "Supprimer un utilisateur",
+      "Supprimer l'utilisateur"
     ]
   },
   {

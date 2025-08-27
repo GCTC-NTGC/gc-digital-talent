@@ -7,6 +7,7 @@ import {
   PoolSkill,
 } from "@gc-digital-talent/graphql";
 
+import toLocalizedString from "./fakeLocalizedString";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateAssessmentStep = (
@@ -28,10 +29,7 @@ const generateAssessmentStep = (
       faker.number.int({
         max: amount,
       }),
-    title: {
-      en: `${faker.lorem.word()} EN`,
-      fr: `${faker.lorem.word()} FR`,
-    },
+    title: toLocalizedString(faker.lorem.word()),
     poolSkills: poolSkills ?? [],
   };
 };
@@ -53,21 +51,21 @@ export default (
       case 0:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? AssessmentStepType.ApplicationScreening,
           poolSkills,
         );
       case 1:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? AssessmentStepType.ScreeningQuestionsAtApplication,
           poolSkills,
         );
       default:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? faker.helpers.arrayElement(otherScreeningTypes),
           poolSkills,
         );

@@ -34,6 +34,7 @@ import {
   FinalDecision,
   PoolAreaOfSelection,
   LocalizedEnumString,
+  QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -215,7 +216,7 @@ export const candidateFacingStatusCell = (
   finalDecisionAt: PoolCandidate["finalDecisionAt"],
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
-  assessmentStep: PoolCandidate["assessmentStep"],
+  assessmentStep: Maybe<number> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestions: Pool["screeningQuestionsCount"],
   intl: IntlShape,
@@ -266,7 +267,7 @@ function transformSortStateToOrderByClause(
     ["notes", "notes"],
     ["skillCount", "skillCount"],
     ["processNumber", "PROCESS_NUMBER"],
-    ["assessmentStep", "assessment_step"],
+    ["assessmentStep", "SORT_ORDER"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -282,7 +283,6 @@ function transformSortStateToOrderByClause(
       "status",
       "notes",
       "finalDecision",
-      "assessmentStep",
     ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
@@ -302,6 +302,19 @@ function transformSortStateToOrderByClause(
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
         column:
           columnName as QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
+      },
+    };
+  }
+
+  if (sortingRule && ["assessmentStep"].includes(sortingRule.id)) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: undefined,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      assessmentStep: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column:
+          columnName as QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
       },
     };
   }
