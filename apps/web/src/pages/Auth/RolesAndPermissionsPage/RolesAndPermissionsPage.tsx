@@ -23,6 +23,7 @@ import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { messages } from "./messages";
+import RolesAndPermissionsTable from "./RolesAndPermissionsTable";
 
 interface Section {
   id: string;
@@ -459,6 +460,173 @@ const RolesAndPermissionsPage = () => {
               >
                 {sections[5].title}
               </TableOfContents.Heading>
+              <RolesAndPermissionsTable
+                title={intl.formatMessage({
+                  defaultMessage: "Recruitment process management",
+                  id: "mDs1Hm",
+                  description:
+                    "Title for section describing roles and permissions for processes",
+                })}
+                data={[
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage: "Create and delete a draft process",
+                      id: "VmlVb5",
+                      description:
+                        "Permissions related to creating/deleting draft processes",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage:
+                        "Edit a draft process and assessment plan",
+                      id: "YzUhwE",
+                      description:
+                        "Permissions related to creating/deleting draft processes assessment plan",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: true,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage:
+                        "Publish process and make editorial changes to published process",
+                      id: "76SiMq",
+                      description:
+                        "Permissions related to edit published processes",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: false,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage: "Assign Process Operators",
+                      id: "LwnpF0",
+                      description:
+                        "Permissions related to assign users to a process",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                ]}
+              />
+              <RolesAndPermissionsTable
+                title={intl.formatMessage({
+                  defaultMessage: "Applicant management",
+                  id: "+D0qSp",
+                  description:
+                    "Title for section describing roles and permissions for applications",
+                })}
+                data={[
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage: "View applicant profiles",
+                      id: "e2PVIF",
+                      description:
+                        "Permissions related to viewing profiles of applicants",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: true,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage:
+                        "Screen applicants and record assessment results",
+                      id: "ADk6dX",
+                      description:
+                        "Permissions related to assessing candidates",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: true,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage: "Mark candidates as hired",
+                      id: "Qpf83L",
+                      description:
+                        "Permissions related to mark a candidate as hired",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                ]}
+              />
+              <RolesAndPermissionsTable
+                title={intl.formatMessage({
+                  defaultMessage: "Community permissions",
+                  id: "2age06",
+                  description:
+                    "Title for section describing roles and permissions for communities",
+                })}
+                data={[
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage: "Manage talent requests",
+                      id: "hhVBJP",
+                      description:
+                        "Permissions related to managing talent requests",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage: "View community talent",
+                      id: "V0+Pk/",
+                      description:
+                        "Permissions related to viewing users interested in users community",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: true,
+                    [ROLE_NAME.CommunityTalentCoordinator]: true,
+                    [ROLE_NAME.CommunityAdmin]: false,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage:
+                        "Manage talent management events and nominations",
+                      id: "fVbf8w",
+                      description:
+                        "Permissions related to managing talent events and nominations",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: false,
+                    [ROLE_NAME.CommunityTalentCoordinator]: true,
+                    [ROLE_NAME.CommunityAdmin]: false,
+                  },
+                  {
+                    permission: intl.formatMessage({
+                      defaultMessage:
+                        "Edit community information and manage roles",
+                      id: "QSrnA8",
+                      description:
+                        "Permissions related to managing the community and its users",
+                    }),
+                    [ROLE_NAME.ProcessOperator]: false,
+                    [ROLE_NAME.CommunityRecruiter]: false,
+                    [ROLE_NAME.CommunityTalentCoordinator]: false,
+                    [ROLE_NAME.CommunityAdmin]: true,
+                  },
+                ]}
+              />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
