@@ -122,7 +122,7 @@ return [
     'reference_id' => 'Identifiant de référence',
     'description' => 'Description ',
     'classification' => 'Classification',
-    'work_stream' => 'Flux de travail',
+    'work_stream' => 'Volet de travail',
     'role_type' => 'Type de poste',
     'work_description' => 'Description générique du travail',
     'key_tasks_examples' => 'Tâches principales - Exemples',
