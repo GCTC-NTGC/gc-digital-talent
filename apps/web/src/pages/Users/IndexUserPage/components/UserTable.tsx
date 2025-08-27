@@ -282,11 +282,7 @@ const UserTable = ({ title }: UserTableProps) => {
           : intl.formatMessage(commonMessages.no),
       {
         id: "isGovEmployee",
-        header: intl.formatMessage({
-          defaultMessage: "Government employee",
-          id: "bOA3EH",
-          description: "Label for the government employee field",
-        }),
+        header: intl.formatMessage(commonMessages.governmentEmployee),
         enableColumnFilter: false,
         enableSorting: false,
       },

@@ -755,6 +755,10 @@
     "defaultMessage": "En savoir plus sur le rôle que cette personne candidate vise comme principal objectif de carrière.",
     "description": "Subtitle for dialog viewing career objective info"
   },
+  "1M398Y": {
+    "defaultMessage": "Ajouter l'utilisateur au processus de recrutement",
+    "description": "Submit button text for adding user to process"
+  },
   "1MJGsD": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
@@ -1046,10 +1050,6 @@
   "2f1kN5": {
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences techniques.",
     "description": "Page description for the improve technical skills page"
-  },
-  "2gjxRq": {
-    "defaultMessage": "Avertissement! Il s'agit d'actions sensibles qui affecteront l'ensemble de la plateforme. Veuillez donc faire preuve d'une extrême prudence si vous modifiez ces paramètres.",
-    "description": "Warning about using admin user support tools"
   },
   "2hc9V9": {
     "defaultMessage": "Expression orale (ou compétence orale))",
@@ -3051,10 +3051,6 @@
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
     "description": "Text for the option to self-declare as not an Indigenous person"
   },
-  "BxtrUA": {
-    "defaultMessage": "Employé(e) du gouvernement",
-    "description": "Label for government employee input"
-  },
   "By8ofA": {
     "defaultMessage": "Confirmation de la référence",
     "description": "Confirmation that the reference was checked"
@@ -4076,7 +4072,7 @@
     "description": "Label for continue application link"
   },
   "GkX/KN": {
-    "defaultMessage": "Avertissement! Il s’agit d’actions sensibles qui affecteront l’ensemble de la plateforme. Veuillez donc faire preuve d’une extrême prudence si vous modifiez ces paramètres.",
+    "defaultMessage": "Avertissement! Il s'agit d'actions sensibles qui affecteront l'ensemble de la plateforme. Veuillez donc faire preuve d'une extrême prudence si vous modifiez ces paramètres.",
     "description": "Warning that you are making changes of possibly very high impact"
   },
   "GndGRz": {
@@ -8305,10 +8301,6 @@
   "bMfecw": {
     "defaultMessage": "Ajouter des rôles dans des processus",
     "description": "Header for the form to add a process membership to a user"
-  },
-  "bOA3EH": {
-    "defaultMessage": "Employé du gouvernement",
-    "description": "Label for the government employee field"
   },
   "bOAF9o": {
     "defaultMessage": "Ajoutez une nouvelle expérience",

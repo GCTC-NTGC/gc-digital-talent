@@ -105,8 +105,9 @@ const SupportTools = ({ query }: SupportToolsProps) => {
           {intl.formatMessage({
             defaultMessage:
               "Warning! These are sensitive actions that will affect the entire platform, please use extreme caution when changing these settings.",
-            id: "2gjxRq",
-            description: "Warning about using admin user support tools",
+            id: "GkX/KN",
+            description:
+              "Warning that you are making changes of possibly very high impact",
           })}
         </p>
       </Well>

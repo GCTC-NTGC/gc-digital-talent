@@ -51,11 +51,7 @@ const GovernmentEmployeeFields = () => {
       <SwitchInput
         name="isGovEmployee"
         id="isGovEmployee"
-        label={intl.formatMessage({
-          defaultMessage: "Government employee",
-          id: "BxtrUA",
-          description: "Label for government employee input",
-        })}
+        label={intl.formatMessage(commonMessages.governmentEmployee)}
       />
       {isGovEmployee && (
         <Input
