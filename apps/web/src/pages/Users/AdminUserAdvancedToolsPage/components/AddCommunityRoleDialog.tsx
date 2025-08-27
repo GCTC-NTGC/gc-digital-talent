@@ -17,6 +17,7 @@ import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import {
   getRoleTableFragments,
@@ -24,7 +25,6 @@ import {
   RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
-import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 const AddCommunityRoleCommunities_Query = graphql(/* GraphQL */ `
   query AddCommunityRoleCommunities {

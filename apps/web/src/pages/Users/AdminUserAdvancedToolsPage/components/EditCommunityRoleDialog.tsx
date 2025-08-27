@@ -15,6 +15,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import {
   CommunityAssignment,
@@ -22,7 +23,6 @@ import {
   RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
-import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];

@@ -25,12 +25,12 @@ import {
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
-import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 type EditCommunityMemberDialogProps = ComponentPropsWithoutRef<
   typeof DropdownMenu.Item
