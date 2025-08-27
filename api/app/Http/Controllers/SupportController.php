@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 use function Safe\parse_url;
 
@@ -96,9 +97,12 @@ class SupportController extends Controller
             ];
         }
         if ($request->hasFile('attachment')) {
+            $disk = Storage::disk('tmp');
+            $uploadedFile = $request->file('attachment');
+            $fileName = $disk->putFile('', $uploadedFile);
             $uploadContents[] = [
                 'name' => 'attachments[]',
-                'contents' => fopen($request->file('attachment')->path(), 'r'),
+                'contents' => fopen($disk->path($fileName), 'r'),
             ];
         }
         $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
