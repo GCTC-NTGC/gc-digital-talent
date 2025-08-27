@@ -119,7 +119,8 @@ const SupportForm = ({
       user_agent: userAgent || "",
     },
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, register } = methods;
+  const attachmentsProps = register("attachments");
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreateTicket(data);
@@ -214,6 +215,7 @@ const SupportForm = ({
             doNotSort
             trackUnsaved={false}
           />
+          <input id="attachments" type="file" {...attachmentsProps} />
           <TextArea
             id="description"
             name="description"

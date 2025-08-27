@@ -29,6 +29,7 @@ export interface FormValues {
   subject: string;
   previous_url: string;
   user_agent: string;
+  attachments: FileList;
 }
 
 interface JSONResponse {
@@ -40,12 +41,22 @@ export async function submitTicket(
   values: FormValues,
   logger: Logger,
 ): Promise<boolean> {
+  const formData = new FormData();
+
+  formData.append("user_id", values.user_id);
+  formData.append("name", values.name);
+  formData.append("email", values.email);
+  formData.append("description", values.description);
+  formData.append("subject", values.subject);
+  formData.append("previous_url", values.previous_url);
+  formData.append("user_agent", values.user_agent);
+  if (values.attachments.length == 1) {
+    formData.append("attachment", values.attachments[0]);
+  }
+
   const response = await fetch(API_SUPPORT_ENDPOINT, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(values),
+    body: formData,
   });
 
   const body: JSONResponse = (await response.json()) as JSONResponse;
