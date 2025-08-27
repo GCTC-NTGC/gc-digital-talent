@@ -130,7 +130,7 @@ class ApplicantFilterTest extends TestCase
      *
      * @return void
      */
-    public function test_query_applicant_filter()
+    public function testQueryApplicantFilter()
     {
         $filter = ApplicantFilter::factory()->create();
         $request = PoolCandidateSearchRequest::factory()->create([
@@ -211,7 +211,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that factory creates relationships correctly.
      */
-    public function test_factory_relationships()
+    public function testFactoryRelationships()
     {
 
         // Before we add relationships, we need to seed the related values
@@ -244,7 +244,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that queried ApplicantFilter has the correct relationships.
      */
-    public function test_query_relationships()
+    public function testQueryRelationships()
     {
         // Before we add relationships, we need to seed the related values
         $this->seed([
@@ -335,7 +335,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
      */
-    public function test_can_create_a_request()
+    public function testCanCreateARequest()
     {
         // Seed everything required
         $this->seed(CommunitySeeder::class);
@@ -416,7 +416,7 @@ class ApplicantFilterTest extends TestCase
     /**
      * Test that we can use an ApplicantFilter in a search, save it as part of a PoolCandidateSearchRequest, retrieve it, and get the same results again.
      */
-    public function test_filter_can_be_stored_and_retrieved_without_changing_results()
+    public function testFilterCanBeStoredAndRetrievedWithoutChangingResults()
     {
         // Seed everything used in generating Users
         $this->seed([
