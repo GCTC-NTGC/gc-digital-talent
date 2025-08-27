@@ -624,6 +624,13 @@ const createRoute = (locale: Locales) =>
                     import("../pages/AdminDashboardPage/AdminDashboardPage"),
                 },
                 {
+                  path: "roles-and-permissions",
+                  lazy: () =>
+                    import(
+                      "../pages/Auth/RolesAndPermissionsPage/RolesAndPermissionsPage"
+                    ),
+                },
+                {
                   path: "users",
                   children: [
                     {
