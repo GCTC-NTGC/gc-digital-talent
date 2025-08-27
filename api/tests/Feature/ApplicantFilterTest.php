@@ -102,7 +102,7 @@ class ApplicantFilterTest extends TestCase
         $input['qualifiedInWorkStreams'] = [
             'sync' => $filter->qualifiedInWorkStreams->pluck('id')->toArray(),
         ];
-        $input['qualifiedClassifications'] = [
+        $input['qualifiedInClassifications'] = [
             'sync' => $filter->qualifiedInClassifications->pluck('id')->toArray(),
         ];
         $input['community'] = [

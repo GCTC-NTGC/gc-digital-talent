@@ -74,7 +74,7 @@ interface FormValues {
     qualifiedInClassifications?: {
       sync?: Maybe<Classification["id"]>[];
     };
-    qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInworkStreams"];
+    qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
     skills?: {
       sync?: Maybe<Skill["id"]>[];
     };
@@ -291,8 +291,8 @@ export const RequestForm = ({
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
           qualifiedInWorkStreams: {
-            sync: applicantFilter?.qualifiedInworkStreams
-              ? applicantFilter?.qualifiedInworkStreams
+            sync: applicantFilter?.qualifiedInWorkStreams
+              ? applicantFilter?.qualifiedInWorkStreams
                   ?.filter(notEmpty)
                   .map(({ id }) => id)
               : [],
@@ -394,12 +394,13 @@ export const RequestForm = ({
         ),
       ),
     ),
-    workStreams: unpackMaybes(optionsData?.workStreams).filter((workStream) =>
-      applicantFilter?.qualifiedInworkStreams?.some(
-        (filterStream) => filterStream?.id === workStream?.id,
-      ),
+    qualifiedInWorkStreams: unpackMaybes(optionsData?.workStreams).filter(
+      (workStream) =>
+        applicantFilter?.qualifiedInWorkStreams?.some(
+          (filterStream) => filterStream?.id === workStream?.id,
+        ),
     ),
-    qualifiedClassifications:
+    qualifiedInClassifications:
       applicantFilter?.qualifiedInClassifications
         ?.map((qualifiedClassification) => {
           return classifications.find((classification) => {

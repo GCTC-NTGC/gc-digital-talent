@@ -172,6 +172,6 @@ export const formValuesToData = (
       ? durationSelectionToEnum(values.employmentDuration)
       : undefined,
     locationPreferences: values.locationPreferences ?? [],
-    qualifiedInworkStreams: values.stream ? [{ id: values.stream }] : undefined,
+    qualifiedInWorkStreams: values.stream ? [{ id: values.stream }] : undefined,
   };
 };
