@@ -639,7 +639,7 @@ const createRoute = (locale: Locales) =>
                           index: true,
                           lazy: () =>
                             import(
-                              "../pages/Users/UserInformationPage/UserInformationPage"
+                              "../pages/Users/AdminApplicantProfilePage/AdminApplicantProfilePage"
                             ),
                         },
                         {
@@ -650,17 +650,31 @@ const createRoute = (locale: Locales) =>
                             ),
                         },
                         {
-                          path: "profile",
+                          path: "experience",
                           lazy: () =>
                             import(
-                              "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
+                              "../pages/Users/AdminCareerExperiencePage/AdminCareerExperiencePage"
                             ),
                         },
                         {
-                          path: "edit",
+                          path: "skills",
                           lazy: () =>
                             import(
-                              "../pages/Users/UpdateUserPage/UpdateUserPage"
+                              "../pages/Users/AdminUserSkillsPage/AdminUserSkillsPage"
+                            ),
+                        },
+                        {
+                          path: "recruitment",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/AdminUserRecruitmentPage/AdminUserRecruitmentPage"
+                            ),
+                        },
+                        {
+                          path: "tools",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/AdminUserAdvancedToolsPage/AdminUserAdvancedToolsPage"
                             ),
                         },
                       ],
