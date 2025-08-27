@@ -283,7 +283,7 @@ class ApplicantFilterTest extends TestCase
                                 localized
                             }
                         }
-                        qaulifiedInWorkStreams { id }
+                        qualifiedInWorkStreams { id }
                         qualifiedInClassifications {
                             id
                             name {
@@ -308,7 +308,7 @@ class ApplicantFilterTest extends TestCase
         $this->assertCount($filter->qualifiedInClassifications->count(), $retrievedFilter['qualifiedInClassifications']);
         $this->assertCount($filter->skills->count(), $retrievedFilter['skills']);
         $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
-        $this->assertCount($filter->qaulifiedInWorkStreams->count(), $retrievedFilter['qualifiedInWorkStreams']);
+        $this->assertCount($filter->qualifiedInWorkStreams->count(), $retrievedFilter['qualifiedInWorkStreams']);
 
         // Assert that all the content in each collection is correct.
         foreach ($filter->pools as $pool) {
