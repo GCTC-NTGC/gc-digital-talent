@@ -17,11 +17,11 @@ import adminMessages from "~/messages/adminMessages";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
-  JobPlacementOptionsFragmentType,
-} from "~/components/PoolCandidatesTable/JobPlacementDialog";
+} from "~/components/PoolCandidateDialogs/JobPlacementDialog";
 import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
 import { candidacyStatusAccessor } from "~/components/PoolCandidatesTable/helpers";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 
 import {
   bookmarkCell,

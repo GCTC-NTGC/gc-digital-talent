@@ -532,11 +532,12 @@ type Mutation {
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
-  qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
+  qualifyCandidate(id: UUID!, poolCandidate: QualifyCandidateInput!): PoolCandidate
   disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
   revertFinalDecision(id: UUID!): PoolCandidate
-  placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
+  placeCandidate(id: UUID!, poolCandidate: PlaceCandidateInput!): PoolCandidate
   revertPlaceCandidate(id: UUID!): PoolCandidate
+  qualifyAndPlaceCandidate(id: UUID!, poolCandidate: QualifyAndPlaceCandidateInput!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -1983,7 +1984,17 @@ input UpdatePoolCandidateClaimVerificationInput {
   priorityVerificationExpiry: Date
 }
 
+input QualifyCandidateInput {
+  expiryDate: Date!
+}
+
 input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
+}
+
+input QualifyAndPlaceCandidateInput {
+  expiryDate: Date!
   placementType: PlacementType!
   departmentId: UUID!
 }

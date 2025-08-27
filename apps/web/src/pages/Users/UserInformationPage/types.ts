@@ -1,6 +1,6 @@
 import { UserInfoFragment } from "@gc-digital-talent/graphql";
 
-import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 
 export interface BasicUserInformationProps {
   user: UserInfoFragment;

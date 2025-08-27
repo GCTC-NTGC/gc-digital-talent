@@ -2037,7 +2037,17 @@ input UpdatePoolCandidateClaimVerificationInput @validator {
     @rename(attribute: "priority_verification_expiry")
 }
 
+input QualifyCandidateInput {
+  expiryDate: Date!
+}
+
 input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
+}
+
+input QualifyAndPlaceCandidateInput {
+  expiryDate: Date!
   placementType: PlacementType!
   departmentId: UUID!
 }
@@ -2941,7 +2951,10 @@ type Mutation {
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-  qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
+  qualifyCandidate(
+    id: UUID!
+    poolCandidate: QualifyCandidateInput! @spread
+  ): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
@@ -2958,7 +2971,7 @@ type Mutation {
     @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
   placeCandidate(
     id: UUID!
-    placeCandidate: PlaceCandidateInput! @spread
+    poolCandidate: PlaceCandidateInput! @spread
   ): PoolCandidate
     @guard
     @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
@@ -2967,6 +2980,16 @@ type Mutation {
     @guard
     @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
+
+  qualifyAndPlaceCandidate(
+    id: UUID!
+    poolCandidate: QualifyAndPlaceCandidateInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
+    @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
 
   createClassification(
     classification: CreateClassificationInput! @spread

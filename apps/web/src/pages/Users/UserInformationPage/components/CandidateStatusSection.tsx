@@ -4,7 +4,7 @@ import { Heading } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 
 import AddToPoolDialog from "./AddToPoolDialog";
 import UserCandidatesTable from "./UserCandidatesTable/UserCandidatesTable";

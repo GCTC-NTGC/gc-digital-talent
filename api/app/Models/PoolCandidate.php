@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\LogOptions;
@@ -594,5 +595,26 @@ class PoolCandidate extends Model
         Log::error(sprintf('No match for decision %s', $decision));
 
         return null;
+    }
+
+    // mark the pool candidate as qualified
+    public function qualify(Carbon $expiryDate)
+    {
+        $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->expiry_date = $expiryDate;
+        $this->final_decision_at = Carbon::now();
+    }
+
+    // mark the pool candidate as placed
+    public function place(string $placementType, string $departmentId)
+    {
+        $this->pool_candidate_status = $placementType;
+        $this->placed_at = Carbon::now();
+        $this->placed_department_id = $departmentId;
+
+        $finalDecision = $this->computeFinalDecision();
+        $this->computed_final_decision = $finalDecision['decision'];
+        $this->computed_final_decision_weight = $finalDecision['weight'];
+
     }
 }

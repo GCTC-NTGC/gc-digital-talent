@@ -20,7 +20,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 
 import AboutSection from "./components/AboutSection";
 import CandidateStatusSection from "./components/CandidateStatusSection";

@@ -7,12 +7,12 @@ import { useQuery } from "urql";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
-import JobPlacementDialog, {
-  JobPlacementOptionsFragmentType,
-} from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import JobPlacementDialog from "~/components/PoolCandidateDialogs/JobPlacementDialog";
 import {
   isQualifiedStatus,
   isRemovedStatus,
@@ -21,9 +21,11 @@ import {
 } from "~/utils/poolCandidate";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
+import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
+import FinalDecisionAndPlaceDialog from "~/components/PoolCandidateDialogs/FinalDecisionAndPlaceDialog";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
-import FinalDecisionDialog from "./FinalDecisionDialog";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
 import RevertFinalDecisionDialog from "./RevertFinalDecisionDialog";
 import ReinstateCandidateDialog from "../ReinstateCandidateDialog/ReinstateCandidateDialog";
@@ -86,7 +88,7 @@ const MoreActions_Query = graphql(/* GraphQL */ `
 
 interface MoreActionsProps {
   poolCandidate: FragmentType<typeof MoreActions_Fragment>;
-  jobPlacementOptions: JobPlacementOptionsFragmentType;
+  jobPlacementOptions: FragmentType<typeof JobPlacementOptions_Query>;
 }
 
 const MoreActions = ({
@@ -95,6 +97,7 @@ const MoreActions = ({
 }: MoreActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { userAuthInfo } = useAuthorization();
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
   const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
     id: poolCandidate.id,
@@ -122,6 +125,12 @@ const MoreActions = ({
 
   const status = poolCandidate.status?.value;
 
+  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const hasCommunityRecruiterRole = hasRole(
+    [ROLE_NAME.CommunityRecruiter],
+    roleAssignments,
+  );
+
   return (
     <div className="mb-3 flex flex-col gap-3">
       <Card space="md" className="flex flex-col gap-3">
@@ -142,9 +151,17 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        {isRODStatus(status) && (
-          <FinalDecisionDialog poolCandidate={poolCandidate} />
-        )}
+        {isRODStatus(status) &&
+          (hasCommunityRecruiterRole ? (
+            // community recruiters can record a decision and placement at the same time
+            <FinalDecisionAndPlaceDialog
+              poolCandidate={poolCandidate}
+              optionsQuery={jobPlacementOptions}
+            />
+          ) : (
+            // everyone else can only qualify
+            <FinalDecisionDialog poolCandidate={poolCandidate} />
+          ))}
 
         {isRemovedStatus(status) && (
           <div>
