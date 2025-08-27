@@ -559,7 +559,7 @@ type PoolCandidate {
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
-  assessmentStep: Int @rename(attribute: "assessment_step")
+  assessmentStep: AssessmentStep @belongsTo
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
@@ -606,7 +606,7 @@ type PoolCandidateAdminView {
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
-  assessmentStep: Int @rename(attribute: "assessment_step")
+  assessmentStep: AssessmentStep @belongsTo
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   placedDepartment: Department @belongsTo
@@ -1407,6 +1407,7 @@ type Query {
             ]
           }
           { relation: "pool", columns: ["process_number"] }
+          { relation: "assessmentStep", columns: ["sort_order"] }
         ]
       )
       @with(
@@ -1449,6 +1450,7 @@ type Query {
             ]
           }
           { relation: "pool", columns: ["process_number"] }
+          { relation: "assessmentStep", columns: ["sort_order"] }
         ]
       )
       @with(

@@ -54,7 +54,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    assessmentStep
     assessmentStatus {
       overallAssessmentStatus
     }

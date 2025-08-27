@@ -59,10 +59,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?string $priority_verification
  * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
- * @property ?int $assessment_step
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
+ * @property string $assessment_step_id
  */
 class PoolCandidate extends Model
 {
@@ -89,7 +89,6 @@ class PoolCandidate extends Model
         'veteran_verification_expiry' => 'date',
         'priority_verification_expiry' => 'date',
         'computed_assessment_status' => 'array',
-        'assessment_step' => 'integer',
     ];
 
     /**
@@ -115,6 +114,7 @@ class PoolCandidate extends Model
         'priority_verification',
         'priority_verification_expiry',
         'is_bookmarked',
+        'assessment_step_id',
     ];
 
     protected $touches = ['user'];
@@ -262,6 +262,19 @@ class PoolCandidate extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
+    /**
+     * Get the assessment step that this candidate is currently on within a specific assessment plan.
+     *
+     * This relationship links the candidate's progress to a particular step in a multi-step assessment plan,
+     * allowing for tracking and retrieval of the candidate's current position within the plan.
+     *
+     * @return BelongsTo<AssessmentStep, $this>
+     * */
+    public function assessmentStep(): BelongsTo
+    {
+        return $this->belongsTo(AssessmentStep::class);
+    }
+
     /** @return Collection<string|int, Experience> */
     public function getEducationRequirementExperiencesAttribute()
     {
@@ -354,7 +367,6 @@ class PoolCandidate extends Model
     public function computeAssessmentStatus()
     {
         $decisions = [];
-        $currentStep = 1;
         $this->load([
             'pool.assessmentSteps',
             'pool.assessmentSteps.poolSkills',
@@ -362,7 +374,9 @@ class PoolCandidate extends Model
             'assessmentResults.poolSkill',
         ]);
 
-        foreach ($this->pool->assessmentSteps as $index => $step) {
+        $steps = $this->pool->assessmentSteps;
+        $currentStep = $steps->first()->id ?? null;
+        foreach ($steps as $index => $step) {
             $stepId = $step->id;
             $hasFailure = false;
             $hasOnHold = false;
@@ -459,7 +473,10 @@ class PoolCandidate extends Model
             });
 
             if (! $previousStepsNotPassed) {
-                $currentStep++;
+                $nextStep = $steps[$index + 1] ?? null;
+                if (! is_null($nextStep)) {
+                    $currentStep = $nextStep->id;
+                }
             }
 
             if ($hasOnHold) {
@@ -483,20 +500,15 @@ class PoolCandidate extends Model
         $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
             return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
         });
+
         if (! empty($unsuccessfulDecisions)) {
             $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
-        } elseif ($currentStep >= $totalSteps && $totalSteps === count($decisions)) {
+        } elseif ($totalSteps === count($decisions)) {
             $lastStepDecision = end($decisions);
             if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
-        }
-
-        // While unlikely, current step could go over.
-        // So, set it back to total steps
-        if ($currentStep && $currentStep > $totalSteps) {
-            $currentStep = $totalSteps;
         }
 
         return [
@@ -510,7 +522,7 @@ class PoolCandidate extends Model
 
     public function computeFinalDecision()
     {
-        $this->load(['user']);
+        $this->load(['user', 'assessmentStep']);
 
         $status = $this->pool_candidate_status;
         $decision = null;
@@ -578,7 +590,7 @@ class PoolCandidate extends Model
         };
 
         $assessmentStatus = $this->computed_assessment_status;
-        $currentStep = $this->assessment_step;
+        $currentStep = $this->assessmentStep?->sort_order;
 
         if ($decision === FinalDecision::TO_ASSESS->name && $currentStep) {
             $weight = $weight + $currentStep * 10;
