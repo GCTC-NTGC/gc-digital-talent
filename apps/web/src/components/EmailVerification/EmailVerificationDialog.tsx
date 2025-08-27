@@ -114,6 +114,7 @@ export const EmailVerificationDialog = ({
     SendUserEmailVerification_Mutation,
   );
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
+  const [showVerificationInput, setShowVerificationInput] = useState(false);
 
   const [, executeVerifyUserEmailMutation] = useMutation(
     VerifyUserEmail_Mutation,
@@ -151,6 +152,7 @@ export const EmailVerificationDialog = ({
         }
         logger.debug("A code was sent");
         setCanRequestCode(false);
+        setShowVerificationInput(true); // show the verification code input after email is sent
       })
       .catch(() => {
         toast.error(intl.formatMessage(errorMessages.error));
@@ -270,18 +272,20 @@ export const EmailVerificationDialog = ({
                     })}
                   </Button>
                 </div>
-                <div className="flex gap-2">
-                  <Input
-                    id="verificationCode"
-                    name="verificationCode"
-                    type="text"
-                    label={intl.formatMessage({
-                      defaultMessage: "Verification code",
-                      id: "T+ypau",
-                      description: "label for verification code input",
-                    })}
-                  />
-                </div>
+                {showVerificationInput && (
+                  <div className="flex gap-2">
+                    <Input
+                      id="verificationCode"
+                      name="verificationCode"
+                      type="text"
+                      label={intl.formatMessage({
+                        defaultMessage: "Verification code",
+                        id: "T+ypau",
+                        description: "label for verification code input",
+                      })}
+                    />
+                  </div>
+                )}
                 <Dialog.Footer>
                   {canRequestCode ? (
                     <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
