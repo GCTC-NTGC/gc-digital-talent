@@ -111,7 +111,9 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
   const [{ fetching: mutating }, executeMutation] = useMutation(
     Application_SubmitMutation,
   );
-  const methods = useForm<FormValues>();
+  const methods = useForm<FormValues>({
+    defaultValues: { signature: application.signature ?? "" },
+  });
   const {
     formState: { isSubmitting },
   } = methods;
