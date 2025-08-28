@@ -7,7 +7,7 @@ import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Container,
@@ -45,8 +45,8 @@ const RolesAndPermissionsPage = () => {
     ],
   });
 
-  const sections: Section[] = [
-    {
+  const sections: Record<string, Section> = {
+    managingFunctionalities: {
       id: "managing-platform-funcationalities",
       icon: MapIcon,
       title: intl.formatMessage({
@@ -55,27 +55,27 @@ const RolesAndPermissionsPage = () => {
         description: "Title for managing functionalities section",
       }),
     },
-    {
+    processOperator: {
       id: "process-operator",
       icon: ClipboardDocumentListIcon,
       title: intl.formatMessage(messages.processOperator),
     },
-    {
+    communityRecruiter: {
       id: "community-recruiter",
       icon: BriefcaseIcon,
       title: intl.formatMessage(messages.communityRecruiter),
     },
-    {
+    communityTalentCoordinator: {
       id: "community-talent-coordinator",
       icon: PuzzlePieceIcon,
       title: intl.formatMessage(messages.communityTalentCoordinator),
     },
-    {
+    communityAdmin: {
       id: "community-admin",
       icon: FolderOpenIcon,
       title: intl.formatMessage(messages.communityAdmin),
     },
-    {
+    permissionsTables: {
       id: "permissions-tables",
       icon: TableCellsIcon,
       title: intl.formatMessage({
@@ -84,7 +84,7 @@ const RolesAndPermissionsPage = () => {
         description: "Heading for tables describing permissions each role has",
       }),
     },
-  ];
+  };
 
   return (
     <>
@@ -102,7 +102,7 @@ const RolesAndPermissionsPage = () => {
         <TableOfContents.Wrapper className="mt-18">
           <TableOfContents.Navigation>
             <TableOfContents.List>
-              {sections.map((section) => (
+              {Object.values(sections).map((section) => (
                 <TableOfContents.ListItem key={section.id}>
                   <TableOfContents.AnchorLink id={section.id}>
                     {section.title}
@@ -112,13 +112,13 @@ const RolesAndPermissionsPage = () => {
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <TableOfContents.Section id={sections[0].id}>
+            <TableOfContents.Section id={sections.managingFunctionalities.id}>
               <TableOfContents.Heading
-                icon={sections[0].icon}
+                icon={sections.managingFunctionalities.icon}
                 color="primary"
                 className="mt-0"
               >
-                {sections[0].title}
+                {sections.managingFunctionalities.title}
               </TableOfContents.Heading>
               <p className="my-6">
                 {intl.formatMessage({
@@ -156,12 +156,12 @@ const RolesAndPermissionsPage = () => {
                 <li>{intl.formatMessage(messages.platformAdmin)}</li>
               </Ul>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections[1].id}>
+            <TableOfContents.Section id={sections.processOperator.id}>
               <TableOfContents.Heading
-                icon={sections[1].icon}
+                icon={sections.processOperator.icon}
                 color="secondary"
               >
-                {sections[1].title}
+                {sections.processOperator.title}
               </TableOfContents.Heading>
               <p className="my-6">
                 {intl.formatMessage({
@@ -236,9 +236,12 @@ const RolesAndPermissionsPage = () => {
                 </li>
               </Ul>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections[2].id}>
-              <TableOfContents.Heading icon={sections[2].icon} color="primary">
-                {sections[2].title}
+            <TableOfContents.Section id={sections.communityRecruiter.id}>
+              <TableOfContents.Heading
+                icon={sections.communityRecruiter.icon}
+                color="primary"
+              >
+                {sections.communityRecruiter.title}
               </TableOfContents.Heading>
               <p className="my-6">
                 {intl.formatMessage({
@@ -338,12 +341,14 @@ const RolesAndPermissionsPage = () => {
                 </li>
               </Ul>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections[3].id}>
+            <TableOfContents.Section
+              id={sections.communityTalentCoordinator.id}
+            >
               <TableOfContents.Heading
-                icon={sections[3].icon}
+                icon={sections.communityTalentCoordinator.icon}
                 color="secondary"
               >
-                {sections[3].title}
+                {sections.communityTalentCoordinator.title}
               </TableOfContents.Heading>
               <p className="my-6">
                 {intl.formatMessage({
@@ -408,9 +413,12 @@ const RolesAndPermissionsPage = () => {
                 </li>
               </Ul>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections[4].id}>
-              <TableOfContents.Heading icon={sections[4].icon} color="primary">
-                {sections[4].title}
+            <TableOfContents.Section id={sections.communityAdmin.id}>
+              <TableOfContents.Heading
+                icon={sections.communityAdmin.icon}
+                color="primary"
+              >
+                {sections.communityAdmin.title}
               </TableOfContents.Heading>
               <p className="my-6">
                 {intl.formatMessage({
@@ -454,12 +462,12 @@ const RolesAndPermissionsPage = () => {
                 </li>
               </Ul>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections[5].id}>
+            <TableOfContents.Section id={sections.permissionsTables.id}>
               <TableOfContents.Heading
-                icon={sections[5].icon}
+                icon={sections.permissionsTables.icon}
                 color="secondary"
               >
-                {sections[5].title}
+                {sections.permissionsTables.title}
               </TableOfContents.Heading>
               <RolesAndPermissionsTable
                 title={intl.formatMessage({
