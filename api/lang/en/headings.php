@@ -120,7 +120,7 @@ return [
     'reference_id' => 'Reference ID',
     'description' => 'Description',
     'classification' => 'Classification',
-    'work_stream' => 'Workstream',
+    'work_stream' => 'Work stream',
     'role_type' => 'Type of role',
     'work_description' => 'Generic work description',
     'key_tasks_examples' => 'Key tasks – Examples',
