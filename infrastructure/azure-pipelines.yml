@@ -34,18 +34,40 @@ jobs:
         clean: true
         fetchDepth: 1
 
-      - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
-        displayName: "PHP version"
+      # GitHub runner only includes one version of PHP that is not necessarily the value of the assigned therefore the Personal Package Archive (PPA) is necessary.
+      - script:
+          infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
+          LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
+          sudo apt-get update
+          sudo apt-get install -y php${{ variables.phpVersion }} php${{ variables.phpVersion }}-mbstring php${{ variables.phpVersion }}-xml php${{ variables.phpVersion }}-pgsql php${{ variables.phpVersion }}-zip php${{ variables.phpVersion }}-curl php${{ variables.phpVersion }}-bcmath php${{ variables.phpVersion }}-gd php${{ variables.phpVersion }}-dom
+          php --version
+        displayName: "Setup PHP"
 
       - script: |
+          cd $(System.DefaultWorkingDirectory)/api
+          sudo composer selfupdate
           if [ ${{ parameters.buildMode }} = 'dev' ]; then
-            # -d option to setup the environment with dev dependencies
-            echo "Building dev..." && infrastructure/bin/deploy.sh -d -r $(System.DefaultWorkingDirectory)
+            echo "Building dev..."
+            composer install
           else
-            # -r option to specify the root directory
-            echo "Building default..." && infrastructure/bin/deploy.sh -r $(System.DefaultWorkingDirectory)
+            echo "Building default..."
+            composer install --optimize-autoloader --no-dev
           fi
-        displayName: Dependencies
+          sudo chown -R www-data ./storage ./vendor
+          sudo chmod -R 775 ./ ./storage
+          php artisan lighthouse:print-schema --write
+        displayName: Build Backend
+
+      - script: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+          source ~/.bash_profile
+          nvm install v22.17.0
+          npm install -g pnpm@10.5.2
+          cd $(System.DefaultWorkingDirectory)
+          pnpm install --frozen-lockfile
+          pnpm run build
+        displayName: Build Frontend
         env:
           # Vite requires build-time variable to have the VITE_ prefix
           VITE_API_URI: /graphql
