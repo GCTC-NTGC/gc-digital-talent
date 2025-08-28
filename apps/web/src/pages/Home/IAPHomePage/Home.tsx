@@ -141,8 +141,8 @@ export const Home = ({ query }: HomeProps) => {
         <div className="relative z-[1]">
           <Container>
             <div className="relative xs:-top-18 sm:-top-24">
-              <div className="rounded-3xl bg-white xs:p-12 sm:p-18 dark:bg-gray-700">
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-7 sm:gap-12">
+              <div className="rounded-3xl bg-white xs:p-12 sm:px-18 dark:bg-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-7 sm:gap-12">
                   <div className="flex justify-center sm:col-span-3 sm:justify-start">
                     <div className="relative sm:size-full">
                       <div className="absolute -right-6 -mt-9 size-48 rounded-full bg-primary/10 dark:bg-primary-300/30" />
@@ -176,10 +176,10 @@ export const Home = ({ query }: HomeProps) => {
                       />
                     </div>
                   </div>
-                  <div className="sm:col-span-4">
+                  <div className="xs:px-12 sm:col-span-4 md:px-0">
                     <Heading
                       size="h3"
-                      className="relative z-1 mt-28 mb-12 text-center sm:mt-6 sm:text-left"
+                      className="relative z-1 mt-30 mb-12 text-center sm:mt-2 sm:text-left"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
@@ -223,7 +223,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* Learn section */}
         <div>
           <Container>
-            <div className="grid gap-24 xs:p-12 sm:grid-cols-7 sm:gap-14 sm:p-18">
+            <div className="grid xs:gap-24 xs:p-12 sm:grid-cols-7 sm:gap-14 sm:p-20 sm:pt-0">
               <div className="flex justify-center sm:order-2 sm:col-span-3 sm:justify-start">
                 <div className="relative sm:size-full">
                   <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
@@ -255,10 +255,10 @@ export const Home = ({ query }: HomeProps) => {
                   />
                 </div>
               </div>
-              <div className="sm:order-1 sm:col-span-4">
+              <div className="xs:px-12 sm:order-1 sm:col-span-4 md:px-0">
                 <Heading
                   size="h3"
-                  className="relative my-12 mt-28 mb-8 text-center xs:mt-6 xs:mb-12 sm:text-left"
+                  className="relative my-12 mt-8 mb-8 text-center xs:mb-12 sm:mt-2 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "What will I learn in this apprenticeship?",
@@ -336,10 +336,10 @@ export const Home = ({ query }: HomeProps) => {
                   />
                 </div>
               </div>
-              <div className="sm:col-span-4">
+              <div className="xs:px-12 sm:col-span-4 md:px-0">
                 <Heading
                   size="h3"
-                  className="relative z-1 my-12 mt-20 mb-8 text-center xs:mt-6 xs:mb-12 sm:mt-6 sm:text-left"
+                  className="relative z-1 my-12 mt-8 mb-8 text-center xs:mb-12 sm:mt-2 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Who is the program for?",
