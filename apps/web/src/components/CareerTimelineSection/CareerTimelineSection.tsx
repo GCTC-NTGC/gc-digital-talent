@@ -26,6 +26,7 @@ interface CareerTimelineSectionProps {
     typeof CareerTimelineSectionExperience_Fragment
   >[];
   editParam?: string;
+  showEdit?: boolean;
   headingLevel?: HeadingRank;
   userId?: string;
 }
@@ -34,6 +35,7 @@ const CareerTimelineSection = ({
   experiencesQuery,
   editParam,
   headingLevel = "h3",
+  showEdit = true,
   userId,
 }: CareerTimelineSectionProps) => {
   const intl = useIntl();
@@ -89,6 +91,7 @@ const CareerTimelineSection = ({
                 key={experience.id}
                 experienceQuery={experience}
                 editParam={editParam}
+                showEdit={showEdit}
               />
             ))
           ) : (
