@@ -159,7 +159,7 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship woman smiling image text alternative",
                         })}
-                        className="relative h-auto w-full object-cover xs:min-h-[60vh] sm:size-full"
+                        className="relative max-h-[500px] w-full object-cover sm:size-full"
                       />
                       <Image
                         src={feathers}
@@ -172,11 +172,11 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship feathers image text alternative",
                         })}
-                        className="absolute -right-[10%] bottom-0 w-[120%] translate-y-3/5 xs:w-[150%]"
+                        className="absolute -right-[10%] bottom-0 w-[120%] translate-y-3/5 xs:w-[150%] sm:bottom-10 sm:translate-y-0/0"
                       />
                     </div>
                   </div>
-                  <div className="xs:px-12 sm:col-span-4 md:px-0">
+                  <div className="px-6 sm:col-span-4 sm:px-8 md:px-0">
                     <Heading
                       size="h3"
                       className="relative z-1 mt-30 mb-12 text-center sm:mt-2 sm:text-left"
@@ -255,10 +255,10 @@ export const Home = ({ query }: HomeProps) => {
                   />
                 </div>
               </div>
-              <div className="xs:px-12 sm:order-1 sm:col-span-4 md:px-0">
+              <div className="px-6 sm:order-1 sm:col-span-4 sm:px-8 md:px-0">
                 <Heading
                   size="h3"
-                  className="relative my-12 mt-24 mb-8 text-center xs:mt-4 xs:mb-12 sm:mt-6 sm:text-left"
+                  className="relative my-12 mt-24 mb-12 text-center xs:mt-4 xs:mb-12 sm:mt-6 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "What will I learn in this apprenticeship?",
@@ -336,10 +336,10 @@ export const Home = ({ query }: HomeProps) => {
                   />
                 </div>
               </div>
-              <div className="xs:px-12 sm:col-span-4 md:px-0">
+              <div className="px-6 sm:col-span-4 sm:px-8 md:px-0">
                 <Heading
                   size="h3"
-                  className="relative z-1 my-12 mt-8 mb-8 text-center xs:mb-12 sm:mt-2 sm:text-left"
+                  className="relative z-1 my-12 mt-12 mb-8 text-center xs:mb-12 sm:mt-2 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Who is the program for?",
