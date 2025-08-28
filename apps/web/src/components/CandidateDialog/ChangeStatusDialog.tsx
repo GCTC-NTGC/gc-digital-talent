@@ -163,7 +163,6 @@ const ChangeStatusDialogForm = ({
     "DRAFT_EXPIRED",
     "DRAFT",
     "EXPIRED",
-    "NEW_APPLICATION",
     "PLACED_CASUAL",
     "PLACED_INDETERMINATE",
     "PLACED_TENTATIVE",
