@@ -258,7 +258,7 @@ export const Home = ({ query }: HomeProps) => {
               <div className="xs:px-12 sm:order-1 sm:col-span-4 md:px-0">
                 <Heading
                   size="h3"
-                  className="relative my-12 mt-8 mb-8 text-center xs:mb-12 sm:mt-2 sm:text-left"
+                  className="relative my-12 mt-24 mb-8 text-center xs:mt-4 xs:mb-12 sm:mt-6 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "What will I learn in this apprenticeship?",
@@ -332,7 +332,7 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship ulu image text alternative",
                     })}
-                    className="absolute -right-1/3 -bottom-1/10 z-[3] block w-100 xs:hidden"
+                    className="absolute -right-1/4 -bottom-1/10 z-[3] block w-50 xs:hidden sm:w-100"
                   />
                 </div>
               </div>
@@ -381,7 +381,7 @@ export const Home = ({ query }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship ulu image text alternative",
                   })}
-                  className="absolute -right-10 hidden w-100 xs:block sm:-right-1/3"
+                  className="md:display absolute -right-5 hidden w-90 xs:-bottom-1/10 xs:block md:-right-1 md:-bottom-1/6 md:w-100"
                 />
                 <div className="relative mt-12 mb-6 min-w-20 xs:w-1/2">
                   <RequirementDialog />
