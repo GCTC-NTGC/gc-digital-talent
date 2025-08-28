@@ -183,6 +183,11 @@ type LocalizedGovPositionType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedHiringPlatform implements LocalizedEnumOption {
+  value: HiringPlatform!
+  label: LocalizedString!
+}
+
 type LocalizedIndigenousCommunity implements LocalizedEnumOption {
   value: IndigenousCommunity!
   label: LocalizedString!
@@ -521,6 +526,9 @@ type Mutation {
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
+  createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
+  updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
+  deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User
@@ -736,7 +744,8 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
+  offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
@@ -756,6 +765,16 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+}
+
+type OffPlatformRecruitmentProcess {
+  id: UUID!
+  user: User!
+  processNumber: String!
+  department: Department
+  classification: Classification!
+  platform: LocalizedHiringPlatform!
+  platformOther: String
 }
 
 type DevelopmentProgramInterest {
@@ -1718,7 +1737,7 @@ input CreateUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1767,7 +1786,7 @@ input UpdateUserAsAdminInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1825,7 +1844,7 @@ input UpdateUserAsUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1902,6 +1921,24 @@ input UpdateCommunityInterestInput {
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+}
+
+input CreateOffPlatformRecruitmentProcessInput {
+  userId: UUID!
+  processNumber: String!
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo!
+  platform: HiringPlatform!
+  platformOther: String
+}
+
+input UpdateOffPlatformRecruitmentProcessInput {
+  id: UUID!
+  processNumber: String
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo
+  platform: HiringPlatform
+  platformOther: String
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -3457,6 +3494,11 @@ enum GovPositionType {
   ACTING
   SECONDMENT
   ASSIGNMENT
+}
+
+enum HiringPlatform {
+  GC_JOBS
+  OTHER
 }
 
 enum IndigenousCommunity {

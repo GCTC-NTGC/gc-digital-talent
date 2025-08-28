@@ -13,6 +13,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
+import OffPlatformRecruitmentProcessList from "./OffPlatformRecruitmentProcessList";
 import RecruitmentProcessDialog from "./RecruitmentProcessDialog";
 
 const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
@@ -46,7 +47,9 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    offPlatformRecruitmentProcesses
+    offPlatformRecruitmentProcesses {
+      ...OffPlatformRecruitmentProcessList
+    }
   }
 `);
 
@@ -169,19 +172,24 @@ const RecruitmentProcessPreviewList = ({
         <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
           {intl.formatMessage({
             defaultMessage:
-              "This information is provided by the nominee and has not been verified. Please confirm its validity before using it for hiring or placement purposes.",
-            id: "1GOD0g",
+              "Recruitment processes that the nominee has qualified in on other Government of Canada platforms. Note that this information is provided by the nominee without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.",
+            id: "2TPpyp",
             description: "Off-platform section information",
           })}
         </p>
         <p className="mb-6">
-          {offPlatformRecruitmentProcesses ??
+          {offPlatformRecruitmentProcesses?.length ? (
+            <OffPlatformRecruitmentProcessList
+              processesQuery={offPlatformRecruitmentProcesses}
+            />
+          ) : (
             intl.formatMessage({
               defaultMessage:
-                "No off-platform process information has been provided.",
-              id: "dbeDy2",
+                "The nominee has not added any off-platform processes.",
+              id: "4NtC0R",
               description: "Null state for off-platform section",
-            })}
+            })
+          )}
         </p>
       </div>
     </>

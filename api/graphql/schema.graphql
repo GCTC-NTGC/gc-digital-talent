@@ -147,8 +147,10 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
+    @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
+  offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
@@ -177,6 +179,16 @@ type CommunityInterest {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+}
+
+type OffPlatformRecruitmentProcess {
+  id: UUID!
+  user: User! @belongsTo @canResolved(ability: "view")
+  processNumber: String! @rename(attribute: "process_number")
+  department: Department @belongsTo
+  classification: Classification! @belongsTo
+  platform: LocalizedHiringPlatform!
+  platformOther: String @rename(attribute: "platform_other")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -1677,7 +1689,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1750,7 +1762,7 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1830,7 +1842,7 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1942,6 +1954,25 @@ input UpdateCommunityInterestInput @validator {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+}
+
+input CreateOffPlatformRecruitmentProcessInput @validator {
+  userId: UUID! @rename(attribute: "user_id")
+  processNumber: String! @rename(attribute: "process_number")
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo!
+  platform: HiringPlatform!
+  platformOther: String @rename(attribute: "platform_other")
+}
+
+input UpdateOffPlatformRecruitmentProcessInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
+  processNumber: String @rename(attribute: "process_number")
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo
+  platform: HiringPlatform
+  platformOther: String @rename(attribute: "platform_other")
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -2898,6 +2929,24 @@ type Mutation {
     @update(model: "CommunityInterest")
     @canFind(ability: "update", find: "id", model: "CommunityInterest")
   deleteCommunityInterest(id: UUID! @whereKey): CommunityInterest
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
+  createOffPlatformRecruitmentProcess(
+    process: CreateOffPlatformRecruitmentProcessInput! @spread
+  ): OffPlatformRecruitmentProcess
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateOffPlatformRecruitmentProcess(
+    process: UpdateOffPlatformRecruitmentProcessInput! @spread
+  ): OffPlatformRecruitmentProcess
+    @guard
+    @update
+    @canFind(ability: "update", find: "id")
+  deleteOffPlatformRecruitmentProcess(
+    id: UUID! @whereKey
+  ): OffPlatformRecruitmentProcess
     @delete
     @guard
     @canFind(ability: "delete", find: "id")

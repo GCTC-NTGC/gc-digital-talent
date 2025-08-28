@@ -14,7 +14,7 @@ import {
   ApplicantDashboardQuery,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -37,7 +37,6 @@ import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
-    id
     firstName
     lastName
     isGovEmployee
@@ -95,9 +94,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
         }
         value
       }
-    }
-    poolCandidates {
-      ...ApplicationsProcessesTaskCard
     }
     lookingForEnglish
     lookingForFrench
@@ -169,7 +165,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
     }
-    offPlatformRecruitmentProcesses
     talentNominationsAsSubmitter {
       id
     }
@@ -177,6 +172,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       id
     }
     ...TalentManagementTaskCard
+    ...ApplicationsProcessesTaskCard
   }
 `);
 
@@ -279,13 +275,7 @@ export const DashboardPage = ({
           <div className="flex flex-col gap-6 xs:flex-row">
             <div className="flex flex-col gap-6">
               <ApplicationsProcessesTaskCard
-                applicationsProcessesTaskCardQuery={unpackMaybes(
-                  currentUser?.poolCandidates,
-                )}
-                userId={currentUser.id}
-                offPlatformRecruitmentProcesses={
-                  currentUser.offPlatformRecruitmentProcesses
-                }
+                applicationsProcessesTaskCardQuery={currentUser}
               />
               {currentUser?.isVerifiedGovEmployee &&
               currentUser?.employeeProfile ? (
@@ -436,7 +426,10 @@ export const DashboardPage = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: ["PoolCandidateSearchRequest"],
+  additionalTypenames: [
+    "PoolCandidateSearchRequest",
+    "OffPlatformRecruitmentProcess",
+  ],
 };
 
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `

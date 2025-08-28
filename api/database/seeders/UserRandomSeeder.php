@@ -124,6 +124,7 @@ class UserRandomSeeder extends Seeder
         User::factory()
             ->count(10)
             ->withSkillsAndExperiences()
+            ->withOffPlatformRecruitmentProcesses()
             ->asGovEmployee(false)
             ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
