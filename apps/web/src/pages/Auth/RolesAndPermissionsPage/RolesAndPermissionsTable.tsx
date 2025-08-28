@@ -49,15 +49,15 @@ const cell = (value: boolean, intl: IntlShape) => {
         value
           ? intl.formatMessage({
               defaultMessage: "Allowed",
-              id: "P0dMXd",
+              id: "pgbkdx",
               description:
-                "Indidcation a specific permission is allowed for a specific role",
+                "Indication a specific permission is allowed for a specific role",
             })
           : intl.formatMessage({
               defaultMessage: "Not allowed",
-              id: "/noI9w",
+              id: "YxDod9",
               description:
-                "Indidcation a specific permission is not allowed for a specific role",
+                "Indication a specific permission is not allowed for a specific role",
             })
       }
     />

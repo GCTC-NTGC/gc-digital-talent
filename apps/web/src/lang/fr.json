@@ -411,10 +411,6 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Education level message when candidate has a diploma found on the request page."
   },
-  "/noI9w": {
-    "defaultMessage": "Non autorisé",
-    "description": "Indidcation a specific permission is not allowed for a specific role"
-  },
   "/qN7tM": {
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
@@ -5835,10 +5831,6 @@
     "defaultMessage": "Modèles d'emplois",
     "description": "Text for the breadcrumb navigation link"
   },
-  "P0dMXd": {
-    "defaultMessage": "Autorisé",
-    "description": "Indidcation a specific permission is allowed for a specific role"
-  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -7997,6 +7989,10 @@
   "YwO4XP": {
     "defaultMessage": "Décrire les expériences personnelles et liées au travail, aux études, à la collectivité et aux prix.",
     "description": "Display text for add experience form in breadcrumbs"
+  },
+  "YxDod9": {
+    "defaultMessage": "Non autorisé",
+    "description": "Indication a specific permission is not allowed for a specific role"
   },
   "YxqhQt": {
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
@@ -11732,6 +11728,10 @@
   "pgQl5t": {
     "defaultMessage": "Expérience actuelle associée à cette compétence",
     "description": "Label for a specific skills experience level"
+  },
+  "pgbkdx": {
+    "defaultMessage": "Autorisé",
+    "description": "Indication a specific permission is allowed for a specific role"
   },
   "phS+TP": {
     "defaultMessage": "Modifiez les informations sur la collectivité",
