@@ -146,7 +146,7 @@ const RolesAndPermissionsPage = () => {
                     "Lead-in text for list of current roles on the platform",
                 }) + intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>{intl.formatMessage(messages.processOperator)}</li>
                 <li>{intl.formatMessage(messages.communityRecruiter)}</li>
                 <li>
@@ -175,7 +175,7 @@ const RolesAndPermissionsPage = () => {
                 {intl.formatMessage(messages.keyPermissions) +
                   intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "can view and edit draft job advertisement",
@@ -206,7 +206,7 @@ const RolesAndPermissionsPage = () => {
                 {intl.formatMessage(messages.keyLimitations) +
                   intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -255,7 +255,7 @@ const RolesAndPermissionsPage = () => {
                 {intl.formatMessage(messages.keyPermissions) +
                   intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -313,7 +313,7 @@ const RolesAndPermissionsPage = () => {
                 {intl.formatMessage(messages.keyLimitations) +
                   intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "cannot publish recruitment processes",
@@ -363,7 +363,7 @@ const RolesAndPermissionsPage = () => {
                 {intl.formatMessage(messages.keyPermissions) +
                   intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "can view community talent",
@@ -393,7 +393,7 @@ const RolesAndPermissionsPage = () => {
                 {intl.formatMessage(messages.keyLimitations) +
                   intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -432,7 +432,7 @@ const RolesAndPermissionsPage = () => {
                 {intl.formatMessage(messages.keyPermissions) +
                   intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <Ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
