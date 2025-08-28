@@ -42,9 +42,6 @@ const WorkFieldOptions_Query = graphql(/* GraphQL */ `
         }
       }
     }
-    communities {
-      ...ExperienceWorkStreamsCommunity
-    }
   }
 `);
 
@@ -109,8 +106,6 @@ const WorkFields = ({
   const [{ data, fetching }] = useQuery<WorkFieldOptionsQuery>({
     query: WorkFieldOptions_Query,
   });
-
-  const communities = unpackMaybes(data?.communities);
 
   const { resetField, formState } = useFormContext<WorkFormValues>();
 
@@ -209,9 +204,6 @@ const WorkFields = ({
             labels={labels}
             organizationSuggestions={organizationSuggestions}
           />
-          <div className="col-span-2">
-            <ExperienceWorkStreams communitiesQuery={communities} />
-          </div>
         </div>
       )}
     </div>
