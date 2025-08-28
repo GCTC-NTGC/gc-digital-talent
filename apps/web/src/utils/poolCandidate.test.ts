@@ -205,7 +205,7 @@ describe("PoolCandidate utils", () => {
           candidateQualifiedExceptHoldOnFinalAssessment.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess:");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
       it('should return "To assess" with warning color for candidate with incomplete final (third) step', () => {
