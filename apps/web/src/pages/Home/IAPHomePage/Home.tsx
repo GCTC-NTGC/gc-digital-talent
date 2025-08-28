@@ -223,7 +223,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* Learn section */}
         <div>
           <Container>
-            <div className="grid xs:gap-24 xs:p-12 sm:grid-cols-7 sm:gap-14 sm:p-20 sm:pt-0">
+            <div className="grid xs:gap-24 xs:px-12 sm:grid-cols-7 sm:gap-14 sm:p-20 sm:pt-0 md:pt-12">
               <div className="flex justify-center sm:order-2 sm:col-span-3 sm:justify-start">
                 <div className="relative sm:size-full">
                   <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
@@ -332,7 +332,7 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship ulu image text alternative",
                     })}
-                    className="absolute -right-1/4 -bottom-1/10 z-[3] block w-50 xs:hidden sm:w-100"
+                    className="absolute -right-1/4 -bottom-1/15 z-[3] block w-50 xs:hidden sm:w-100"
                   />
                 </div>
               </div>
@@ -381,7 +381,7 @@ export const Home = ({ query }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship ulu image text alternative",
                   })}
-                  className="md:display absolute -right-5 hidden w-90 xs:-bottom-1/10 xs:block md:-right-1 md:-bottom-1/6 md:w-100"
+                  className="md:display absolute -right-5 hidden w-90 xs:-bottom-1/10 xs:block md:-bottom-1/6 md:w-100"
                 />
                 <div className="relative mt-12 mb-6 min-w-20 xs:w-1/2">
                   <RequirementDialog />
