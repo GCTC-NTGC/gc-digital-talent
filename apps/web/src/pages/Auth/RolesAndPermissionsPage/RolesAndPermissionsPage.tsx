@@ -47,7 +47,7 @@ const RolesAndPermissionsPage = () => {
 
   const sections: Record<string, Section> = {
     managingFunctionalities: {
-      id: "managing-platform-funcationalities",
+      id: "managing-platform-functionalities",
       icon: MapIcon,
       title: intl.formatMessage({
         defaultMessage: "Managing platform functionalities",
