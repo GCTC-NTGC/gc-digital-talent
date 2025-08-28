@@ -132,8 +132,8 @@ const RolesAndPermissionsPage = () => {
               <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "There are different roles and permissions to manage the functionalities of the platform, while handling access to personal data on a need-to-know basis. ",
-                  id: "PrQUBc",
+                    "There are different roles and permissions to manage the functionalities of the platform, while handling access to personal data on a need-to-know basis.",
+                  id: "yTu6Ih",
                   description:
                     "Paragraph two, describing managing platform functionalities",
                 })}
@@ -219,17 +219,16 @@ const RolesAndPermissionsPage = () => {
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
-                      "cannot create or publish recruitment processes ",
-                    id: "sqCxWG",
+                      "cannot create or publish recruitment processes",
+                    id: "fzd6Eg",
                     description:
                       "Description of the limitation that process operators cannot create or publish a process",
                   })}
                 </li>
                 <li>
                   {intl.formatMessage({
-                    defaultMessage:
-                      "cannot mark qualified candidates as hired ",
-                    id: "JWDfzJ",
+                    defaultMessage: "cannot mark qualified candidates as hired",
+                    id: "dJFo0+",
                     description:
                       "Description of the limitation that process operators cannot mark an applicant as hired",
                   })}
@@ -246,8 +245,8 @@ const RolesAndPermissionsPage = () => {
               <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "A Community Recruiter focuses on recruitment within their own community. They manage talent requests, have access to their community dashboard, and handle job applications. ",
-                  id: "AelQ6S",
+                    "A Community Recruiter focuses on recruitment within their own community. They manage talent requests, have access to their community dashboard, and handle job applications.",
+                  id: "kuiRAq",
                   description: "Description of the community recruiter role",
                 })}
               </p>
@@ -259,8 +258,8 @@ const RolesAndPermissionsPage = () => {
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
-                      "has access to all recruitment processes and applicants within their community ",
-                    id: "jAFGNr",
+                      "has access to all recruitment processes and applicants within their community",
+                    id: "Z65JVQ",
                     description:
                       "Description of the permission to view job adverts of a specific community",
                   })}

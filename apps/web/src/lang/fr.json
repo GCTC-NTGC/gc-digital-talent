@@ -2843,10 +2843,6 @@
     "defaultMessage": "Ministère ou organisme de l'auteur(trice) de la mise en candidature",
     "description": "Label for a nominators department"
   },
-  "AelQ6S": {
-    "defaultMessage": "Un recruteur de la collectivité s’acquitte principalement des tâches liées au recrutement au sein de sa collectivité fonctionnelle. Il gère les demandes de talents, dispose d’un accès au tableau de bord de sa collectivité et traite les demandes d’emploi.",
-    "description": "Description of the community recruiter role"
-  },
   "Af4zOR": {
     "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte.",
     "description": "Describing where to go to manage notification settings"
@@ -4735,10 +4731,6 @@
     "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner.",
     "description": "Description of a users technical skills to be improved"
   },
-  "JWDfzJ": {
-    "defaultMessage": "ne peut pas indiquer que les personnes candidates qualifiées ont été embauchées.",
-    "description": "Description of the limitation that process operators cannot mark an applicant as hired"
-  },
   "JaUbaI": {
     "defaultMessage": "Administration publique centrale (APC)",
     "description": "Label for a department that is part of the core public administration"
@@ -6050,10 +6042,6 @@
   "PnyBYM": {
     "defaultMessage": "Allons-y!",
     "description": "Action button to move to the next step"
-  },
-  "PrQUBc": {
-    "defaultMessage": "La gestion des fonctions de la plateforme est assurée par différentes personnes assumant certains rôles et possédant certaines autorisations, avec un accès limité aux données personnelles en fonction des besoins.",
-    "description": "Paragraph two, describing managing platform functionalities"
   },
   "PrTwov": {
     "defaultMessage": "Créez une collectivité",
@@ -8050,6 +8038,10 @@
     "defaultMessage": "Cette compétence sera aussi ajoutée à votre portfolio de compétences si elle ne s'y trouve pas déjà.",
     "description": "Subtitle for the find a skill dialog within an experience"
   },
+  "Z65JVQ": {
+    "defaultMessage": "a accès à tous les processus de recrutement et aux personnes candidates au sein de sa collectivité;",
+    "description": "Description of the permission to view job adverts of a specific community"
+  },
   "Z8uO3k": {
     "defaultMessage": "Les bons pour examens",
     "description": "Title for certification exam vouchers section"
@@ -8862,6 +8854,10 @@
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
     "description": "Instructions on a draft process on how to start getting applicants"
   },
+  "dJFo0+": {
+    "defaultMessage": "ne peut pas indiquer que les personnes candidates qualifiées ont été embauchées.",
+    "description": "Description of the limitation that process operators cannot mark an applicant as hired"
+  },
   "dOs1f3": {
     "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont accès à plusieurs possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
     "description": "Summary of the it training fund featured item"
@@ -9549,6 +9545,10 @@
   "fyidgo": {
     "defaultMessage": "Retirer le rôle<hidden> {role}</hidden>",
     "description": "Label for the form to remove a role from a user"
+  },
+  "fzd6Eg": {
+    "defaultMessage": "n’est pas en mesure de créer ou de publier des processus de recrutement;",
+    "description": "Description of the limitation that process operators cannot create or publish a process"
   },
   "fzkrgq": {
     "defaultMessage": "Technicien(ne) T I 1",
@@ -10293,10 +10293,6 @@
     "defaultMessage": "Les apprentis seront-ils payés?",
     "description": "Learn more dialog question four heading"
   },
-  "jAFGNr": {
-    "defaultMessage": "a accès à tous les processus de recrutement et aux personnes candidates au sein de sa collectivité;",
-    "description": "Description of the permission to view job adverts of a specific community"
-  },
   "jAFzzR": {
     "defaultMessage": "Découvrez les plus récentes occasions d’emploi au sein du <abbreviation>GC</abbreviation> dans les domaines du numérique et des technologies, allant des postes de niveau d’entrée aux postes de gestion. Trouvez une équipe, faites une différence et laissez-vous inspirer.",
     "description": "Description for the digital government job opportunities"
@@ -10672,6 +10668,10 @@
   "kspVvy": {
     "defaultMessage": "Si vous n’êtes pas certain(e) que ce programme vous convient, veuillez <mailLink>communiquer avec nous</mailLink> et un membre de notre équipe se fera un plaisir de vous rencontrer pour répondre à vos questions.",
     "description": "Second paragraph about who the program is for"
+  },
+  "kuiRAq": {
+    "defaultMessage": "Un recruteur de la collectivité s’acquitte principalement des tâches liées au recrutement au sein de sa collectivité fonctionnelle. Il gère les demandes de talents, dispose d’un accès au tableau de bord de sa collectivité et traite les demandes d’emploi.",
+    "description": "Description of the community recruiter role"
   },
   "kukr/B": {
     "defaultMessage": "<strong>Je respecte l’option d’expérience appliquée</strong>",
@@ -12293,10 +12293,6 @@
     "defaultMessage": "Modifier une compétence",
     "description": "Page title for the edit skill page."
   },
-  "sqCxWG": {
-    "defaultMessage": "n’est pas en mesure de créer ou de publier des processus de recrutement;",
-    "description": "Description of the limitation that process operators cannot create or publish a process"
-  },
   "sry9Wl": {
     "defaultMessage": "Voici les profils linguistiques que vous pouvez trouver sur la plateforme Talents numériques du GC",
     "description": "Language profiles list for language requirements dialog"
@@ -13464,6 +13460,10 @@
   "ySQ1Kf": {
     "defaultMessage": "Cote de sécurité",
     "description": "Heading for security clearance dialog"
+  },
+  "yTu6Ih": {
+    "defaultMessage": "La gestion des fonctions de la plateforme est assurée par différentes personnes assumant certains rôles et possédant certaines autorisations, avec un accès limité aux données personnelles en fonction des besoins.",
+    "description": "Paragraph two, describing managing platform functionalities"
   },
   "yUSG9Z": {
     "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
