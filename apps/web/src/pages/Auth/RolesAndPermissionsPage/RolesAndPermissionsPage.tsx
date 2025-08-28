@@ -21,6 +21,7 @@ import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import adminMessages from "~/messages/adminMessages";
 
 import { messages } from "./messages";
 import RolesAndPermissionsTable from "./RolesAndPermissionsTable";
@@ -38,7 +39,7 @@ const RolesAndPermissionsPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.rolesAndPermissions),
+        label: intl.formatMessage(adminMessages.rolesAndPermissions),
         url: paths.rolesAndPermissions(),
       },
     ],
@@ -88,12 +89,12 @@ const RolesAndPermissionsPage = () => {
   return (
     <>
       <SEO
-        title={intl.formatMessage(navigationMessages.rolesAndPermissions)}
+        title={intl.formatMessage(adminMessages.rolesAndPermissions)}
         description={intl.formatMessage(messages.description)}
       />
       <Hero
         centered
-        title={intl.formatMessage(navigationMessages.rolesAndPermissions)}
+        title={intl.formatMessage(adminMessages.rolesAndPermissions)}
         subtitle={intl.formatMessage(messages.description)}
         crumbs={crumbs}
       />

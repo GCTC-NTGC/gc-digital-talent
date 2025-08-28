@@ -227,11 +227,6 @@ const navigationMessages = defineMessages({
     id: "dVZjaj",
     description: "Name of the recruitment processes section",
   },
-  rolesAndPermissions: {
-    defaultMessage: "Roles and permissions",
-    id: "cljoxR",
-    description: "Name of roles and permissions page",
-  },
 });
 
 export default navigationMessages;

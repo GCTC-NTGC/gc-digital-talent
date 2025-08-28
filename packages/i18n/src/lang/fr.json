@@ -1059,10 +1059,6 @@
     "defaultMessage": "Modérément développée",
     "description": "The behavioural skill level for intermediate"
   },
-  "cljoxR": {
-    "defaultMessage": "Rôles et autorisations",
-    "description": "Name of roles and permissions page"
-  },
   "csLjMi": {
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message that the given skill closing date must be after today."
