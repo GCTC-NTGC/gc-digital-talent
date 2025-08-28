@@ -29,6 +29,7 @@ use App\Models\CommunityExperience;
 use App\Models\CommunityInterest;
 use App\Models\Department;
 use App\Models\EducationExperience;
+use App\Models\OffPlatformRecruitmentProcess;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\Skill;
@@ -338,6 +339,17 @@ class UserFactory extends Factory
                         'community_id' => $communityId,
                     ]);
             }
+        });
+    }
+
+    public function withOffPlatformRecruitmentProcesses(int $count = 3)
+    {
+        return $this->afterCreating(function (User $user) use ($count) {
+            OffPlatformRecruitmentProcess::factory()
+                ->count($count)
+                ->create([
+                    'user_id' => $user->id,
+                ]);
         });
     }
 

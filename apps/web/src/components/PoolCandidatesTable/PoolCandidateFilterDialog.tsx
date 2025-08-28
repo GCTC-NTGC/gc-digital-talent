@@ -310,11 +310,7 @@ const PoolCandidateFilterDialog = ({
           id="govEmployee"
           name="govEmployee"
           value="true"
-          label={intl.formatMessage({
-            defaultMessage: "Government employee",
-            id: "bOA3EH",
-            description: "Label for the government employee field",
-          })}
+          label={intl.formatMessage(commonMessages.governmentEmployee)}
         />
         <div className="xs:col-span-3">
           <Combobox

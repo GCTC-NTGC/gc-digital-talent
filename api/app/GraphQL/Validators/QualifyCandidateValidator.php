@@ -36,15 +36,15 @@ final class QualifyCandidateValidator extends Validator
         }
 
         return [
-            'expiryDate' => ['required', 'after:'.$endOfDay],
+            'poolCandidate.expiryDate' => ['required', 'after:'.$endOfDay],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'expiryDate.required' => ApiErrorEnums::EXPIRY_DATE_REQUIRED,
-            'expiryDate.after' => ApiErrorEnums::EXPIRY_DATE_AFTER_TODAY,
+            'poolCandidate.expiryDate.required' => ApiErrorEnums::EXPIRY_DATE_REQUIRED,
+            'poolCandidate.expiryDate.after' => ApiErrorEnums::EXPIRY_DATE_AFTER_TODAY,
         ];
     }
 }

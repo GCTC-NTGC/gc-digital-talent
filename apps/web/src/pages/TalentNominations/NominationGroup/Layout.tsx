@@ -126,11 +126,7 @@ const Layout = ({ query }: LayoutProps) => {
               talentNominationGroup.talentNominationEvent.id,
               talentNominationGroupId,
             ),
-            label: intl.formatMessage({
-              defaultMessage: "Career experience",
-              id: "V8sPIH",
-              description: "Link text for the experience of a nominee",
-            }),
+            label: intl.formatMessage(navigationMessages.careerExperience),
           },
         ]}
       />
