@@ -23,7 +23,6 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
-import ExperienceWorkStreams from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";
 
 import CafFields from "./CafFields";
 import ExternalFields from "./ExternalFields";
