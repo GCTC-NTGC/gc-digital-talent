@@ -35,8 +35,7 @@ jobs:
         fetchDepth: 1
 
       # GitHub runner only includes one version of PHP that is not necessarily the value of the assigned therefore the Personal Package Archive (PPA) is necessary.
-      - script:
-          infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
+      - script: |
           LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
           sudo apt-get update
           sudo apt-get install -y php${{ variables.phpVersion }} php${{ variables.phpVersion }}-mbstring php${{ variables.phpVersion }}-xml php${{ variables.phpVersion }}-pgsql php${{ variables.phpVersion }}-zip php${{ variables.phpVersion }}-curl php${{ variables.phpVersion }}-bcmath php${{ variables.phpVersion }}-gd php${{ variables.phpVersion }}-dom
