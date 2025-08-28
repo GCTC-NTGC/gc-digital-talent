@@ -575,12 +575,6 @@ const ExperienceCard = ({
               {experience.details ??
                 intl.formatMessage(commonMessages.notAvailable)}
             </ContentSection>
-            {isWorkExperience(experience) && (
-              <WorkStreamContent
-                workStreams={experience.workStreams}
-                headingLevel={headingLevel}
-              />
-            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
@@ -631,6 +625,12 @@ const ExperienceCard = ({
                   )}
                 </div>
               </>
+            )}
+            {isWorkExperience(experience) && (
+              <WorkStreamContent
+                workStreams={experience.workStreams}
+                headingLevel={headingLevel}
+              />
             )}
           </Collapsible.Content>
         </Collapsible.Root>
