@@ -381,7 +381,7 @@ export const Home = ({ query }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship ulu image text alternative",
                   })}
-                  className="md:display absolute -right-5 hidden w-90 xs:-bottom-1/10 xs:block md:-bottom-1/6 md:w-100"
+                  className="md:display absolute -right-5 hidden w-90 xs:-bottom-1/10 xs:block md:right-[5%] md:-bottom-1/6 md:w-100 lg:right-[10%]"
                 />
                 <div className="relative mt-12 mb-6 min-w-20 xs:w-1/2">
                   <RequirementDialog />
