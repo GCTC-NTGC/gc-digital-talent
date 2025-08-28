@@ -15,6 +15,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import {
   getRoleTableFragments,
@@ -102,6 +103,7 @@ const EditProcessRoleDialog = ({
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:

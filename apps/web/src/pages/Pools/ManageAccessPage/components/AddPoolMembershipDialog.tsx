@@ -20,6 +20,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import { ManageAccessFormValues, PoolTeamMember } from "./types";
 import useAvailableUsers from "./useAvailableUsers";
@@ -140,6 +141,7 @@ const AddPoolMembershipDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-y-6">

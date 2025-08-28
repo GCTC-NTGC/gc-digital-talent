@@ -17,6 +17,7 @@ import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import {
   getRoleTableFragments,
@@ -131,6 +132,7 @@ const AddCommunityRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
