@@ -1599,6 +1599,10 @@
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
   },
+  "tpXtAJ": {
+    "defaultMessage": "Processus hors plateforme",
+    "description": "Off-platform section header"
+  },
   "tyc8W0": {
     "defaultMessage": "(anglais)",
     "description": "Name of English language formatted for appending"

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   Pending,
@@ -191,11 +191,9 @@ const ReviewRecruitmentProcessPreviewList = ({
       <Separator space="sm" />
       <Pending fetching={fetching} error={error} inline>
         <Heading level="h3" size="h6" className="mb-0.75 font-bold">
-          {intl.formatMessage({
-            defaultMessage: "Off-platform recruitment processes",
-            id: "tpXtAJ",
-            description: "Off-platform section header",
-          })}
+          {intl.formatMessage(
+            navigationMessages.offPlatformRecruitmentProcesses,
+          )}
         </Heading>
         <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
           {intl.formatMessage({

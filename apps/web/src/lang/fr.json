@@ -12517,10 +12517,6 @@
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
   },
-  "tpXtAJ": {
-    "defaultMessage": "Processus hors plateforme",
-    "description": "Off-platform section header"
-  },
   "trerKD": {
     "defaultMessage": "Type",
     "description": "Button to filter experiences by type"
