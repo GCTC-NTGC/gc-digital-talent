@@ -49,7 +49,7 @@ class SnapshotTest extends TestCase
      *
      * @return void
      */
-    public function testCreateSnapshot()
+    public function test_create_snapshot()
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
@@ -128,7 +128,7 @@ class SnapshotTest extends TestCase
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
-    public function testSnapshotSkillFiltering()
+    public function test_snapshot_skill_filtering()
     {
         Skill::factory(20)->create();
 
@@ -187,7 +187,7 @@ class SnapshotTest extends TestCase
         assertEquals($intersectedArrayLength, 0);
     }
 
-    public function testSetApplicationSnapshotDoesNotOverwrite()
+    public function test_set_application_snapshot_does_not_overwrite()
     {
         // non-null snapshot value set
         $user = User::factory()
@@ -209,7 +209,7 @@ class SnapshotTest extends TestCase
         assertSame(['snapshot' => 'set'], $snapshot);
     }
 
-    public function testLocalizingLegacyEnums()
+    public function test_localizing_legacy_enums()
     {
         // non-null snapshot value set
         $user = User::factory()
@@ -219,7 +219,7 @@ class SnapshotTest extends TestCase
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_id' => $pool->id,
-            'proile_snapshot' => [
+            'profile_snapshot' => [
                 // Single enum
                 'preferredLang' => Language::EN->toLower(),
                 // Array based enum
