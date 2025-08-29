@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Snapshots;
 
 use App\Enums\EmploymentCategory;
 use App\Enums\Language;
