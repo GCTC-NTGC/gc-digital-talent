@@ -125,6 +125,7 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      contactEmail
     }
   }
 `);
@@ -178,6 +179,7 @@ const ReviewApplicationDialog = ({
     application.assessmentStatus,
     pool.screeningQuestionsCount,
     intl,
+    pool.contactEmail,
   );
 
   return (

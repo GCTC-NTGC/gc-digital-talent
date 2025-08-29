@@ -12,6 +12,7 @@ use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,6 +59,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $published_at
  * @property ?\Illuminate\Support\Carbon $archived_at
  * @property Classification $classification
+ * @property ?string $contact_email
  */
 class Pool extends Model
 {
@@ -107,6 +109,7 @@ class Pool extends Model
         'operational_requirements',
         'closing_reason',
         'archived_at',
+        'contact_email',
     ];
 
     // expose the required columns to be accessed via relationship tables
@@ -132,6 +135,7 @@ class Pool extends Model
         'security_clearance',
         'advertisement_location',
         'opportunity_length',
+        'selection_limitations'
     ];
 
     /**
@@ -419,5 +423,19 @@ class Pool extends Model
     public static function getSelectableColumns()
     {
         return self::$selectableColumns;
+    }
+
+    protected function contactEmail(): Attribute
+    {
+        $DIGITAL_COMMUNITY_KEY = "digital";
+        // TODO: Should these be env variable?
+        $DIGITAL_COMMUNITY_EMAIL = "recruitmentimit-recrutementgiti@tbs-sct.gc.ca";
+        $SUPPORT_EMAIL = "support-soutien@talent.canada.ca";
+
+        return Attribute::make(
+            get: fn (?string $value, array $attributes) => !is_null($attributes['contact_email'])
+                ? $attributes['contact_email']
+                : ($this->community->key === $DIGITAL_COMMUNITY_KEY ? $DIGITAL_COMMUNITY_EMAIL : $SUPPORT_EMAIL),
+        );
     }
 }

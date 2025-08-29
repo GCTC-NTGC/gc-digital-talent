@@ -1793,4 +1793,82 @@ class PoolTest extends TestCase
     {
         return Arr::only($poolSkill, ['type', 'required_skill_level', 'skill_id']);
     }
+
+    public function testContactEmail()
+    {
+        // Ensure contact email fallback is fetched when contact_email is empty
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->create([
+                'contact_email' => null,
+            ]);
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query Get($id: UUID!) {
+                    pool(id: $id) {
+                        contactEmail
+                    }
+                } ',
+                ['id' => $publishedPool->id]
+            );
+
+        $response->assertJsonFragment([
+            'contactEmail' => 'support-soutien@talent.canada.ca',
+        ]);
+
+        $testEmail = 'test@email.com';
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->create([
+                'contact_email' => 'test@email.com',
+        ]);
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query Get($id: UUID!) {
+                    pool(id: $id) {
+                        contactEmail
+                    }
+                } ',
+                ['id' => $publishedPool->id]
+            );
+
+        $response->assertJsonFragment([
+            'contactEmail' => $testEmail,
+        ]);
+
+        // Ensure digital community email is returned
+        $digitalCommunity = Community::factory()->create(['key' => 'digital']);
+
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->create([
+                'contact_email' => null,
+                'community_id' => $digitalCommunity->id
+            ]);
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query Get($id: UUID!) {
+                    pool(id: $id) {
+                        contactEmail
+                    }
+                } ',
+                ['id' => $publishedPool->id]
+            );
+
+        $response->assertJsonFragment([
+            'contactEmail' => 'recruitmentimit-recrutementgiti@tbs-sct.gc.ca',
+        ]);
+    }
 }

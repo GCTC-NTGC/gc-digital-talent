@@ -977,6 +977,7 @@ type Pool implements HasRoleAssignments {
   department: Department
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
+  contactEmail: String
 }
 
 type GeneralQuestionResponse {
@@ -2491,6 +2492,7 @@ input UpdatePoolInput {
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection
   selectionLimitations: [PoolSelectionLimitation!]
+  contactEmail: String
 }
 
 input UpdatePublishedPoolInput {
@@ -2501,6 +2503,7 @@ input UpdatePublishedPoolInput {
   specialNote: LocalizedStringInput
   whatToExpectAdmission: LocalizedStringInput
   aboutUs: LocalizedStringInput
+  contactEmail: String
 }
 
 input CreatePoolSkillInput {
