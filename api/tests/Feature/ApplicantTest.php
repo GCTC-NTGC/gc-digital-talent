@@ -1727,7 +1727,7 @@ class ApplicantTest extends TestCase
             ]);
     }
 
-    public function testOnlyITJobsAppear()
+    public function testOnlyItJobsAppear()
     {
         $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
@@ -1998,7 +1998,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedClassifications' => [
+                        'qualifiedInClassifications' => [
                             [
                                 'group' => $targetClassification->group,
                                 'level' => $targetClassification->level,
@@ -2016,7 +2016,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'workStreams' => [['id' => $targetStream->id]],
+                        'qualifiedInWorkStreams' => [['id' => $targetStream->id]],
                     ],
                 ]
             )->assertJson([
@@ -2029,13 +2029,13 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedClassifications' => [
+                        'qualifiedInClassifications' => [
                             [
                                 'group' => $targetClassification->group,
                                 'level' => $targetClassification->level,
                             ],
                         ],
-                        'workStreams' => [[
+                        'qualifiedInWorkStreams' => [[
                             'id' => $targetStream->id,
                         ]],
                     ],

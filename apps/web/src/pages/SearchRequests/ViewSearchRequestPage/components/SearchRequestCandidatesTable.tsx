@@ -49,12 +49,14 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
         ? { id: applicantFilter.community.id }
         : undefined,
     },
-    appliedClassifications: applicantFilter.qualifiedClassifications
+    appliedClassifications: applicantFilter.qualifiedInClassifications
       ?.filter(notEmpty)
       .map(({ group, level }) => ({ group, level })),
-    workStreams: unpackMaybes(applicantFilter.workStreams).map(({ id }) => ({
-      id,
-    })),
+    workStreams: unpackMaybes(applicantFilter.qualifiedInWorkStreams).map(
+      ({ id }) => ({
+        id,
+      }),
+    ),
     poolCandidateStatus: [
       PoolCandidateStatus.QualifiedAvailable,
       PoolCandidateStatus.PlacedCasual,

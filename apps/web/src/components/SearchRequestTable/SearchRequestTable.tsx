@@ -120,12 +120,12 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
         adminNotes
         applicantFilter {
           id
-          qualifiedClassifications {
+          qualifiedInClassifications {
             id
             group
             level
           }
-          workStreams {
+          qualifiedInWorkStreams {
             id
             name {
               en
@@ -248,7 +248,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     columnHelper.accessor(
       (row) =>
         classificationAccessor(
-          row.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+          row.applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
         ),
       {
         id: "classifications",
@@ -262,7 +262,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         enableSorting: false,
         cell: ({ row: { original: pool } }) =>
           classificationsCell(
-            pool.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+            pool.applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
             intl,
           ),
       },
@@ -270,7 +270,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     columnHelper.accessor(
       ({ applicantFilter }) =>
         unpackMaybes(
-          applicantFilter?.workStreams?.map((workStream) =>
+          applicantFilter?.qualifiedInWorkStreams?.map((workStream) =>
             getLocalizedName(workStream?.name, intl),
           ),
         ).join(","),
@@ -287,7 +287,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           cells.commaList({
             list:
               unpackMaybes(
-                applicantFilter?.workStreams?.map((workStream) =>
+                applicantFilter?.qualifiedInWorkStreams?.map((workStream) =>
                   getLocalizedName(workStream?.name, intl, true),
                 ),
               ) ?? [],

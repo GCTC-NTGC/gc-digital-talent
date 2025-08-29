@@ -26,7 +26,7 @@ const PreviewListItemPoolCandidateSearchRequest_Fragment = graphql(
       }
       requestedDate
       applicantFilter {
-        qualifiedClassifications {
+        qualifiedInClassifications {
           group
           level
         }
@@ -41,7 +41,7 @@ function buildTitle(
   intl: IntlShape,
 ): string {
   const classifications = unpackMaybes(
-    request.applicantFilter?.qualifiedClassifications,
+    request.applicantFilter?.qualifiedInClassifications,
   );
   const classificationString =
     classifications.length == 1

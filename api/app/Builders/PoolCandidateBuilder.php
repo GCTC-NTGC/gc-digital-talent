@@ -60,7 +60,7 @@ class PoolCandidateBuilder extends Builder
      *
      * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
-    public function whereQualifiedClassificationsIn(?array $classifications): self
+    public function whereQualifiedInClassificationsIn(?array $classifications): self
     {
         if (empty($classifications)) {
             return $this;
@@ -452,7 +452,7 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
-    public function whereQualifiedStreamsIn(?array $streams): self
+    public function whereQualifiedInWorkStreamsIn(?array $streams): self
     {
         if (empty($streams)) {
             return $this;

@@ -46,11 +46,11 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
       additionalComments
       applicantFilter {
         hasDiploma
-        qualifiedClassifications {
+        qualifiedInClassifications {
           group
           level
         }
-        workStreams {
+        qualifiedInWorkStreams {
           name {
             localized
           }
@@ -113,9 +113,11 @@ const ReviewTalentRequestDialogContent = ({
     ? deriveChipSettings(request.status.value, intl)
     : null;
   const classifications = unpackMaybes(
-    request.applicantFilter?.qualifiedClassifications,
+    request.applicantFilter?.qualifiedInClassifications,
   );
-  const workStreams = unpackMaybes(request.applicantFilter?.workStreams);
+  const workStreams = unpackMaybes(
+    request.applicantFilter?.qualifiedInWorkStreams,
+  );
   const equityDescriptions = equitySelectionsToDescriptions(
     request.applicantFilter?.equity,
     intl,

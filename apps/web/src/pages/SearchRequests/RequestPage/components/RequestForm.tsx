@@ -71,10 +71,10 @@ interface FormValues {
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
-    qualifiedClassifications?: {
+    qualifiedInClassifications?: {
       sync?: Maybe<Classification["id"]>[];
     };
-    workStreams?: ApplicantFilterInput["workStreams"];
+    qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
     skills?: {
       sync?: Maybe<Skill["id"]>[];
     };
@@ -257,7 +257,7 @@ export const RequestForm = ({
       values?.positionType === true
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
-    const qualifiedStreams = applicantFilter?.workStreams;
+    const qualifiedStreams = applicantFilter?.qualifiedInWorkStreams;
     let community = communities?.find((c) => c.key === "digital");
     const ATIPStream = optionsData?.workStreams?.find(
       (workStream) => workStream?.key === "ACCESS_INFORMATION_PRIVACY",
@@ -290,9 +290,9 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
-          workStreams: {
-            sync: applicantFilter?.workStreams
-              ? applicantFilter?.workStreams
+          qualifiedInWorkStreams: {
+            sync: applicantFilter?.qualifiedInWorkStreams
+              ? applicantFilter?.qualifiedInWorkStreams
                   ?.filter(notEmpty)
                   .map(({ id }) => id)
               : [],
@@ -311,9 +311,9 @@ export const RequestForm = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          qualifiedClassifications: {
-            sync: applicantFilter?.qualifiedClassifications
-              ? applicantFilter.qualifiedClassifications
+          qualifiedInClassifications: {
+            sync: applicantFilter?.qualifiedInClassifications
+              ? applicantFilter.qualifiedInClassifications
                   .filter(notEmpty)
                   .map((qualifiedClassification) => {
                     const cl = classifications.find((classification) => {
@@ -394,13 +394,14 @@ export const RequestForm = ({
         ),
       ),
     ),
-    workStreams: unpackMaybes(optionsData?.workStreams).filter((workStream) =>
-      applicantFilter?.workStreams?.some(
-        (filterStream) => filterStream?.id === workStream?.id,
-      ),
+    qualifiedInWorkStreams: unpackMaybes(optionsData?.workStreams).filter(
+      (workStream) =>
+        applicantFilter?.qualifiedInWorkStreams?.some(
+          (filterStream) => filterStream?.id === workStream?.id,
+        ),
     ),
-    qualifiedClassifications:
-      applicantFilter?.qualifiedClassifications
+    qualifiedInClassifications:
+      applicantFilter?.qualifiedInClassifications
         ?.map((qualifiedClassification) => {
           return classifications.find((classification) => {
             return (

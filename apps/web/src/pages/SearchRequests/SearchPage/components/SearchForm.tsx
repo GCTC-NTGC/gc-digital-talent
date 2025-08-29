@@ -112,7 +112,7 @@ export const SearchForm = ({
         allPools: values.allPools,
         candidateCount: values.count,
         selectedClassifications:
-          applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+          applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
       },
     });
   };
@@ -163,7 +163,7 @@ export const SearchForm = ({
     ].join("\n"),
   );
 
-  const selectedClassificationIsIT1 = applicantFilter.qualifiedClassifications
+  const selectedClassificationIsIT1 = applicantFilter.qualifiedInClassifications
     ?.filter(notEmpty)
     .some(
       (classification) =>

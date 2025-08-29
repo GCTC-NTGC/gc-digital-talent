@@ -901,8 +901,8 @@ type ApplicantFilter {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
-  qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
-  workStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
+  qualifiedInClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
+  qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -1217,10 +1217,11 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
     @scope(name: "whereSkillsIntersectional")
     @pluck(key: "id") # AND filtering skills as opposed to OR
-  qualifiedClassifications: [ClassificationFilterInput]
-    @scope(name: "whereQualifiedClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  qualifiedInClassifications: [ClassificationFilterInput]
+    @scope(name: "whereQualifiedInClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
   # should be considered qualifiedWorkStreams
-  workStreams: [IdInput] @scope(name: "whereQualifiedStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  qualifiedInWorkStreams: [IdInput]
+    @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
     @scope(name: "whereHasPoolCandidateCommunity")
     @pluck(key: "id")
@@ -2339,8 +2340,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
-  qualifiedClassifications: ClassificationBelongsToMany
-  workStreams: WorkStreamBelongsToMany
+  qualifiedInClassifications: ClassificationBelongsToMany
+  qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 

@@ -50,7 +50,7 @@ const ApplicantFilters = ({
       ),
   );
 
-  const classifications = applicantFilter?.qualifiedClassifications ?? [];
+  const classifications = applicantFilter?.qualifiedInClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
@@ -116,7 +116,7 @@ const ApplicantFilters = ({
   ).map((label) => getLocalizedName(label, intl));
 
   const streams = unpackMaybes(
-    applicantFilter?.workStreams?.flatMap((stream) => stream?.name),
+    applicantFilter?.qualifiedInWorkStreams?.flatMap((stream) => stream?.name),
   ).map((label) => getLocalizedName(label, intl));
 
   const communityName: string = applicantFilter?.community

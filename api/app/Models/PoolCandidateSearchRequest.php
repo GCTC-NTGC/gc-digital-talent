@@ -153,7 +153,7 @@ class PoolCandidateSearchRequest extends Model
         }
 
         $query->whereHas('applicantFilter', function ($filterQuery) use ($streams) {
-            $filterQuery->whereHas('workStreams', function ($workStreamQuery) use ($streams) {
+            $filterQuery->whereHas('qualifiedInWorkStreams', function ($workStreamQuery) use ($streams) {
                 $workStreamQuery->whereIn('applicant_filter_work_stream.work_stream_id', $streams);
             });
         });
@@ -181,7 +181,7 @@ class PoolCandidateSearchRequest extends Model
         }
 
         $query->whereHas('applicantFilter', function ($query) use ($classificationIds) {
-            $query->whereHas('qualifiedClassifications', function ($query) use ($classificationIds) {
+            $query->whereHas('qualifiedInClassifications', function ($query) use ($classificationIds) {
                 $query->whereIn('classifications.id', $classificationIds);
             });
         });

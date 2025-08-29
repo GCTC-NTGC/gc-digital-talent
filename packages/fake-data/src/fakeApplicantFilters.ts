@@ -49,7 +49,10 @@ const generateApplicantFilters = (
       Object.values(PositionDuration),
     ),
     skills,
-    workStreams: faker.helpers.arrayElements<WorkStream>(workStreams, 1),
+    qualifiedInWorkStreams: faker.helpers.arrayElements<WorkStream>(
+      workStreams,
+      1,
+    ),
   };
 };
 
