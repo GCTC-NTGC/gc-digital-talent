@@ -221,7 +221,7 @@ class SnapshotShapeTest extends TestCase
                 }
             }
 
-            // Recursively go through the data to check shape of relationsips
+            // Recursively go through the data to check shape of relationships
             foreach ($data as $key => $value) {
                 if (isset($this->relationToModel[$key])) {
                     $relatedClass = $this->relationToModel[$key];
