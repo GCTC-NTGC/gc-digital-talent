@@ -430,7 +430,7 @@ class Pool extends Model
         $DIGITAL_COMMUNITY_KEY = "digital";
         // TODO: Should these be env variable?
         $DIGITAL_COMMUNITY_EMAIL = "recruitmentimit-recrutementgiti@tbs-sct.gc.ca";
-        $SUPPORT_EMAIL = "support-soutien@tbs-sct.gc.ca";
+        $SUPPORT_EMAIL = "support-soutien@talent.canada.ca";
 
         return Attribute::make(
             get: fn (?string $value, array $attributes) => !is_null($attributes['contact_email'])
