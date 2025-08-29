@@ -45,6 +45,10 @@ const Display = ({
   const careerDevelopmentMessages = messages(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
+  const employeeProfile = getFragment(
+    EmployeeProfileCareerDevelopment_Fragment,
+    employeeProfileQuery,
+  );
   const {
     lateralMoveInterest,
     lateralMoveTimeFrame,
@@ -60,10 +64,7 @@ const Display = ({
     execInterest,
     execCoachingStatus,
     execCoachingInterest,
-  } = getFragment(
-    EmployeeProfileCareerDevelopment_Fragment,
-    employeeProfileQuery,
-  );
+  } = employeeProfile;
 
   const careerDevelopmentOptions = getFragment(
     EmployeeProfileCareerDevelopmentOptions_Fragment,
@@ -89,15 +90,7 @@ const Display = ({
 
   return (
     <div className="flex flex-col gap-y-6">
-      {hasEmptyRequiredFields({
-        lateralMoveInterest,
-        promotionMoveInterest,
-        mentorshipStatus,
-        eligibleRetirementYearKnown,
-        eligibleRetirementYear,
-        execInterest,
-        execCoachingStatus,
-      }) && (
+      {hasEmptyRequiredFields(employeeProfile) && (
         <Well color="error">
           {intl.formatMessage({
             defaultMessage:

@@ -62,6 +62,8 @@ export const EmployeeProfileCareerDevelopmentOptions_Fragment = graphql(
 
 export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileCareerDevelopment on EmployeeProfile {
+    ...EmployeeProfileCareerDevelopmentAllEmptyValidation
+    ...EmployeeProfileCareerDevelopmentHasEmptyRequiredValidation
     lateralMoveInterest
     lateralMoveTimeFrame {
       value

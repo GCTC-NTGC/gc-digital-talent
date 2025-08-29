@@ -77,6 +77,8 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     }
     employeeProfile {
       ...CareerDevelopmentTaskCard
+      ...EmployeeProfileCareerDevelopmentAllEmptyValidation
+      ...EmployeeProfileCareerDevelopmentHasEmptyRequiredValidation
       lateralMoveInterest
       promotionMoveInterest
       eligibleRetirementYear
@@ -216,11 +218,11 @@ export const DashboardPage = ({
       ? "incomplete"
       : "complete";
 
-  const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
-    currentUser?.employeeProfile ?? {},
-  )
-    ? "incomplete"
-    : "complete";
+  const employeeProfileState =
+    currentUser?.employeeProfile &&
+    !careerDevelopmentHasEmptyRequiredFields(currentUser.employeeProfile)
+      ? "complete"
+      : "incomplete";
 
   const careerExperienceState =
     currentUser.experiences && currentUser.experiences?.length > 0
