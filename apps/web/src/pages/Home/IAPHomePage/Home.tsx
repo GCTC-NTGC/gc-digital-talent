@@ -133,7 +133,7 @@ export const Home = ({ query }: HomeProps) => {
               </div>
             </div>
           </div>
-          <div className="relative z-[1] order-3 my-6 min-w-72 px-12 xs:absolute xs:bottom-1/5 xs:left-1/2 xs:z-[2] xs:-translate-x-1/2">
+          <div className="xs:--x-1/2 relative z-[1] order-3 my-6 min-w-72 px-12 xs:absolute xs:bottom-1/5 xs:left-1/2 xs:z-[2]">
             {latestPool ? <ApplyLink id={latestPool.id} /> : <ApplyDialog />}
           </div>
         </div>
@@ -159,7 +159,7 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship woman smiling image text alternative",
                         })}
-                        className="relative max-h-[500px] w-full object-cover sm:size-full"
+                        className="relative max-h-[525px] w-full object-cover sm:size-full"
                       />
                       <Image
                         src={feathers}
@@ -172,7 +172,7 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship feathers image text alternative",
                         })}
-                        className="absolute -right-[10%] bottom-0 w-[120%] translate-y-3/5 xs:w-[150%] sm:bottom-10 sm:translate-y-0/0"
+                        className="absolute -right-[10%] bottom-0 w-[120%] translate-y-3/5 xs:w-[150%] sm:bottom-10 sm:translate-y-0 md:bottom-15"
                       />
                     </div>
                   </div>
