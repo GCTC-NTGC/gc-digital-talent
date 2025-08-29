@@ -146,7 +146,7 @@ export const Home = ({ query }: HomeProps) => {
                   <div className="flex justify-center sm:col-span-3 sm:justify-start">
                     <div className="relative sm:size-full">
                       <div className="absolute -right-6 -mt-9 size-48 rounded-full bg-primary/10 dark:bg-primary-300/30" />
-                      <div className="absolute -bottom-18 -left-33 size-90 rounded-full bg-secondary/10 dark:bg-secondary-300/30" />
+                      <div className="absolute -bottom-18 -left-33 size-90 rounded-full bg-secondary/10 md:-bottom-5 md:-left-25 dark:bg-secondary-300/30" />
                       <Image
                         src={womanSmiling}
                         width={420}
@@ -221,80 +221,85 @@ export const Home = ({ query }: HomeProps) => {
           </Container>
         </div>
         {/* Learn section */}
-        <div>
+        <div className="mt-12">
           <Container>
-            <div className="grid xs:gap-24 xs:px-12 sm:grid-cols-7 sm:gap-14 sm:p-20 sm:pt-0 md:pt-12">
-              <div className="flex justify-center sm:order-2 sm:col-span-3 sm:justify-start">
-                <div className="relative sm:size-full">
-                  <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
-                  <Image
-                    height={500}
-                    width={500}
-                    loading="lazy"
-                    src={manOnComputer}
-                    alt={intl.formatMessage({
-                      defaultMessage: "Indigenous man working at a computer.",
-                      id: "XDgkwV",
-                      description:
-                        "Indigenous Apprenticeship man on computer image text alternative",
-                    })}
-                    className="relative z-[2] min-h-[60vh] object-cover object-left xs:min-h-[initial] sm:size-full"
-                  />
-                  <Image
-                    src={gloves}
-                    width={420}
-                    height={462}
-                    loading="lazy"
-                    alt={intl.formatMessage({
-                      defaultMessage: "Métis style gloves with floral beading.",
-                      id: "aPLL9Z",
-                      description:
-                        "Indigenous Apprenticeship gloves image text alternative",
-                    })}
-                    className="absolute -right-24 -bottom-30 z-[10] block w-[70%] md:w-[80%] lg:-right-1/3 lg:-bottom-54"
-                  />
+            <div className="relative xs:-top-18 sm:-top-24">
+              <div className="grid xs:gap-24 xs:px-12 sm:grid-cols-7 sm:gap-14 sm:p-20">
+                <div className="flex justify-center sm:order-2 sm:col-span-3 sm:justify-start">
+                  <div className="relative sm:size-full">
+                    <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
+                    <Image
+                      height={500}
+                      width={500}
+                      loading="lazy"
+                      src={manOnComputer}
+                      alt={intl.formatMessage({
+                        defaultMessage: "Indigenous man working at a computer.",
+                        id: "XDgkwV",
+                        description:
+                          "Indigenous Apprenticeship man on computer image text alternative",
+                      })}
+                      className="relative z-[2] min-h-[60vh] object-cover object-left xs:min-h-[initial] sm:size-full"
+                    />
+                    <Image
+                      src={gloves}
+                      width={420}
+                      height={462}
+                      loading="lazy"
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Métis style gloves with floral beading.",
+                        id: "aPLL9Z",
+                        description:
+                          "Indigenous Apprenticeship gloves image text alternative",
+                      })}
+                      className="absolute -right-24 -bottom-25 z-[10] block w-[70%]"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="px-6 sm:order-1 sm:col-span-4 sm:px-8 md:px-0">
-                <Heading
-                  size="h3"
-                  className="relative my-12 mt-24 mb-12 text-center xs:mt-4 xs:mb-12 sm:mt-6 sm:text-left"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "What will I learn in this apprenticeship?",
-                    id: "fvsYkj",
-                    description: "What applicants will learn sections heading",
-                  })}
-                </Heading>
-                <p className="mt-12 mb-6">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
-                    id: "dDHy5d",
-                    description:
-                      "First paragraph what will you learn at the program",
-                  })}
-                </p>
-                <p className="my-6">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
-                    id: "nzcwrW",
-                    description:
-                      "First paragraph what will you learn at the program",
-                  })}
-                </p>
-                <p className="my-6">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
-                    id: "b09U1u",
-                    description:
-                      "First paragraph what will you learn at the program",
-                  })}
-                </p>
-                <div className="sm:sr-only">
-                  <CTAButtons latestPoolId={latestPool?.id} />
+                <div className="px-6 sm:order-1 sm:col-span-4 sm:px-8 md:px-0">
+                  <Heading
+                    size="h3"
+                    className="relative my-12 mt-24 mb-12 text-center xs:mt-4 xs:mb-12 sm:mt-6 sm:text-left"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What will I learn in this apprenticeship?",
+                      id: "fvsYkj",
+                      description:
+                        "What applicants will learn sections heading",
+                    })}
+                  </Heading>
+                  <p className="mt-12 mb-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
+                      id: "dDHy5d",
+                      description:
+                        "First paragraph what will you learn at the program",
+                    })}
+                  </p>
+                  <p className="my-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
+                      id: "nzcwrW",
+                      description:
+                        "First paragraph what will you learn at the program",
+                    })}
+                  </p>
+                  <p className="my-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
+                      id: "b09U1u",
+                      description:
+                        "First paragraph what will you learn at the program",
+                    })}
+                  </p>
+                  <div className="sm:sr-only">
+                    <CTAButtons latestPoolId={latestPool?.id} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -303,7 +308,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* Who section */}
         <div className="relative z-[2] mt-12">
           <Container>
-            <div className="grid xs:p-12 sm:grid-cols-7 sm:gap-12 sm:p-18">
+            <div className="grid xs:px-12 sm:mt-14 sm:grid-cols-7 sm:gap-12 sm:px-18">
               <div className="flex justify-center xs:col-span-3 sm:col-span-3 sm:justify-start">
                 <div className="relative sm:size-full">
                   <Triangle className="absolute -top-8 -left-8 z-[1] w-[120%] text-secondary xs:-top-12 xs:-left-12 dark:text-secondary-300" />
