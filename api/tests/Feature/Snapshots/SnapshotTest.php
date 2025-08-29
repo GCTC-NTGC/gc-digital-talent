@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Snapshots;
 
 use App\Enums\EmploymentCategory;
 use App\Enums\Language;
@@ -219,7 +219,7 @@ class SnapshotTest extends TestCase
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_id' => $pool->id,
-            'profile_snapshot' => [
+            'proile_snapshot' => [
                 // Single enum
                 'preferredLang' => Language::EN->toLower(),
                 // Array based enum
