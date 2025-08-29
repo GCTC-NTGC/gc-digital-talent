@@ -179,6 +179,7 @@ type CommunityInterest {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  createdAt: DateTime @rename(attribute: "created_at")
 }
 
 type OffPlatformRecruitmentProcess {
@@ -1574,6 +1575,7 @@ type Query {
   ): [LocalizedEnumOption!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
+    orderByClassification: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [

@@ -506,6 +506,7 @@ type Query {
   ): TrainingOpportunityPaginator!
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
+    orderByClassification: SortOrder
     orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 500."
@@ -765,6 +766,7 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  createdAt: DateTime
 }
 
 type OffPlatformRecruitmentProcess {

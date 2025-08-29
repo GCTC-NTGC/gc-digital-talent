@@ -32,6 +32,7 @@ export function transformSortStateToOrderByClause(
   filterState?: CommunityInterestFilterInput,
 ): QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
   const columnMap = new Map<string, string>([
+    ["createdAt", "created_at"],
     ["jobInterest", "job_interest"],
     ["trainingInterest", "training_interest"],
     ["userName", "FIRST_NAME"],
@@ -47,7 +48,7 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["jobInterest", "trainingInterest"].includes(sortingRule.id)
+    ["jobInterest", "trainingInterest", "createdAt"].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -94,6 +95,16 @@ export function transformSortStateToOrderByClause(
       column: "FIRST_NAME" as QueryCommunityInterestsPaginatedOrderByUserColumn,
     },
   };
+}
+
+export function getClassificationSort(
+  sortingState?: SortingState,
+): Maybe<SortOrder> {
+  const sortRule = sortingState?.find((rule) => rule.id === "classification");
+  if (sortRule) {
+    return sortRule.desc ? SortOrder.Desc : SortOrder.Asc;
+  }
+  return null;
 }
 
 export const usernameCell = (
