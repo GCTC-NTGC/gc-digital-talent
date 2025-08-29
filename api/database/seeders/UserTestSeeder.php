@@ -54,6 +54,7 @@ class UserTestSeeder extends Seeder
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId, $financeCommunityId])
+            ->withOffPlatformRecruitmentProcesses()
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',
@@ -67,6 +68,7 @@ class UserTestSeeder extends Seeder
             ->asGovEmployee()
             ->withEmployeeProfile()
             ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $financeCommunityId])
+            ->withOffPlatformRecruitmentProcesses()
             ->create([
                 'first_name' => 'Jaime',
                 'last_name' => 'Bilodeau',

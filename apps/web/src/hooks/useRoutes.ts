@@ -67,6 +67,9 @@ const getRoutes = (lang: Locales) => {
     communityUpdate: (communityId: string) =>
       [adminUrl, "communities", communityId, "edit"].join("/"),
 
+    // Admin - Roles and Permissions
+    rolesAndPermissions: () => `${adminUrl}/roles-and-permissions`,
+
     // Admin - Pools
     poolTable: () => [adminUrl, "pools"].join("/"),
     poolCreate: () => [adminUrl, "pools", "create"].join("/"),
@@ -106,6 +109,12 @@ const getRoutes = (lang: Locales) => {
     userView: (userId: string) => [adminUrl, "users", userId].join("/"),
     userEmployeeProfile: (userId: string) =>
       [adminUrl, "users", userId, "employee-profile"].join("/"),
+    userCareerExperience: (userId: string) =>
+      `${adminUrl}/users/${userId}/experience`,
+    userSkills: (userId: string) => `${adminUrl}/users/${userId}/skills`,
+    userRecruitment: (userId: string) =>
+      `${adminUrl}/users/${userId}/recruitment`,
+    userAdvancedTools: (userId: string) => `${adminUrl}/users/${userId}/tools`,
     userProfile: (userId: string) =>
       [adminUrl, "users", userId, "profile"].join("/"),
     userUpdate: (userId: string) =>

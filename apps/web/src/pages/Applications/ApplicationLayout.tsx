@@ -214,7 +214,7 @@ const Layout = () => {
   return (
     <>
       {fetching || stale ? (
-        <Loading live="polite" className="bg-white/99" />
+        <Loading live="polite" className="bg-white dark:bg-gray-700" />
       ) : null}
       {data?.poolCandidate ? (
         <ApplicationPageWrapper query={data.poolCandidate} />

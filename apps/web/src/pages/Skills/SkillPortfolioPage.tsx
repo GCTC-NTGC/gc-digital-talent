@@ -19,11 +19,10 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-
 import SkillPortfolioTable, {
   SkillPortfolioTable_SkillFragment,
   SkillPortfolioTable_UserSkillFragment,
-} from "./components/SkillPortfolioTable";
+} from "~/components/SkillsPortfolioTable/SkillPortfolioTable";
 
 const SkillPortfolioPage_Query = graphql(/* GraphQL */ `
   query SkillPortfolioPageQuery {

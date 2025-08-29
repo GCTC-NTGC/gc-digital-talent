@@ -99,12 +99,7 @@ export const getExperienceFormLabels = (
       break;
   }
 
-  let organization = intl.formatMessage({
-    defaultMessage: "Organization",
-    id: "9UZ/eS",
-    description:
-      "Label displayed on Work Experience form for organization input",
-  });
+  let organization = intl.formatMessage(commonMessages.organization);
 
   if (experienceType === "community") {
     organization = intl.formatMessage({

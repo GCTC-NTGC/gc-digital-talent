@@ -1,4 +1,4 @@
-import { forwardRef, ElementRef } from "react";
+import { forwardRef, ComponentRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -18,7 +18,7 @@ export type SwitchInputProps = SwitchProps & {
   hideLabel?: boolean;
 };
 
-const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
+const SwitchInput = forwardRef<ComponentRef<typeof Switch>, SwitchInputProps>(
   (
     { id, name, label, rules, disabled, hideLabel = false, ...rest },
     forwardedRef,

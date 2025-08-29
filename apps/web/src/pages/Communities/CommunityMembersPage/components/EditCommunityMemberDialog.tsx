@@ -1,7 +1,7 @@
 import {
   useState,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   forwardRef,
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -25,6 +25,7 @@ import {
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -40,7 +41,7 @@ type EditCommunityMemberDialogProps = ComponentPropsWithoutRef<
 };
 
 const EditCommunityMemberDialog = forwardRef<
-  ElementRef<typeof DropdownMenu.Item>,
+  ComponentRef<typeof DropdownMenu.Item>,
   EditCommunityMemberDialogProps
 >(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
@@ -162,6 +163,7 @@ const EditCommunityMemberDialog = forwardRef<
           })}
         </Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-y-6">

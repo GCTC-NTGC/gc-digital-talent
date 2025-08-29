@@ -229,12 +229,7 @@ const computeInAssessmentStatusChip = (
   }
 
   return {
-    label:
-      intl.formatMessage(poolCandidateMessages.toAssess) +
-      intl.formatMessage(commonMessages.dividingColon) +
-      intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-        stepNumber: currentStep,
-      }),
+    label: intl.formatMessage(poolCandidateMessages.toAssess),
     color: "warning",
   };
 };
@@ -417,7 +412,7 @@ export const getApplicationStatusChip = (
   finalDecisionAt: PoolCandidate["finalDecisionAt"],
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
-  assessmentStep: PoolCandidate["assessmentStep"],
+  assessmentStep: Maybe<number> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestionsCount: Pool["screeningQuestionsCount"],
   intl: IntlShape,

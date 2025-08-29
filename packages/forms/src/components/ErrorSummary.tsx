@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { ReactNode, forwardRef, ElementRef } from "react";
+import { ReactNode, forwardRef, ComponentRef } from "react";
 
 import {
   Alert,
@@ -53,7 +53,7 @@ const getFieldLabel = (
     // Get the number and assign it to the index so we can show it in the link
     const indices = name.match(numberRegex);
     if (indices) {
-      index = indices.map((i) => `(${Number(i) + 1})`).join(" ");
+      index = indices.map((i) => ` (${Number(i) + 1})`).join(" ");
     }
   }
 
@@ -110,7 +110,7 @@ const supportLink = (chunks: ReactNode, locale: string) => (
   </Link>
 );
 
-const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
+const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
   ({ labels: labelsProp, show }, forwardedRef) => {
     const intl = useIntl();
     const locale = getLocale(intl);
