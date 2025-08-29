@@ -113,7 +113,6 @@ class SnapshotShapeTest extends TestCase
         ],
         UserSkill::class => [
             'userId',
-            'skillId',
             'skillLevel',
             'whenSkillUsed',
             'topSkillsRank',
@@ -165,7 +164,9 @@ class SnapshotShapeTest extends TestCase
         'computedDepartment' => Department::class,
 
         'offPlatformRecruitmentProcesses' => OffPlatformRecruitmentProcess::class,
+
         'skill' => Skill::class,
+        'skillId' => Skill::class,
         'userSkills' => UserSkill::class,
     ];
 
