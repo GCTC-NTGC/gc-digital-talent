@@ -27,12 +27,12 @@ import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
 import { getClassificationLabel } from "../utils";
 import { classificationAriaLabels, classificationLabels } from "../labels";
-import talentRequestMessages from "~/messages/talentRequestMessages";
 
 const SearchRequestOptions_Query = graphql(/* GraphQL */ `
   query SearchRequestOptions {
