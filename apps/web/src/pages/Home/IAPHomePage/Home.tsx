@@ -221,11 +221,11 @@ export const Home = ({ query }: HomeProps) => {
           </Container>
         </div>
         {/* Learn section */}
-        <div className="mt-12">
+        <div className="relative mt-12">
           <Container>
             <div className="relative xs:-top-18 sm:-top-24">
               <div className="grid xs:gap-24 xs:px-12 sm:grid-cols-7 sm:gap-14 sm:p-20">
-                <div className="flex justify-center sm:order-2 sm:col-span-3 sm:justify-start">
+                <div className="flex justify-center px-6 sm:order-2 sm:col-span-3 sm:justify-start md:px-0">
                   <div className="relative sm:size-full">
                     <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
                     <Image
@@ -239,7 +239,7 @@ export const Home = ({ query }: HomeProps) => {
                         description:
                           "Indigenous Apprenticeship man on computer image text alternative",
                       })}
-                      className="relative z-[2] min-h-[60vh] object-cover object-left xs:min-h-[initial] sm:size-full"
+                      className="relative z-[2] object-cover object-left xs:min-h-[initial] sm:size-full"
                     />
                     <Image
                       src={gloves}
@@ -309,7 +309,7 @@ export const Home = ({ query }: HomeProps) => {
         <div className="relative z-[2] mt-12">
           <Container>
             <div className="grid xs:px-12 sm:mt-14 sm:grid-cols-7 sm:gap-12 sm:px-18">
-              <div className="flex justify-center xs:col-span-3 sm:col-span-3 sm:justify-start">
+              <div className="flex justify-center px-6 xs:col-span-3 sm:col-span-3 sm:justify-start md:px-0">
                 <div className="relative sm:size-full">
                   <Triangle className="absolute -top-8 -left-8 z-[1] w-[120%] text-secondary xs:-top-12 xs:-left-12 dark:text-secondary-300" />
                   <Image
@@ -324,7 +324,7 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship applicant image text alternative",
                     })}
-                    className="relative z-[2] min-h-[60vh] object-cover xs:min-h-[initial] sm:size-full"
+                    className="relative z-[2] object-cover xs:min-h-[initial] sm:size-full"
                   />
                   <Image
                     src={ulu}
@@ -386,7 +386,7 @@ export const Home = ({ query }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship ulu image text alternative",
                   })}
-                  className="md:display absolute -right-5 hidden w-90 xs:-bottom-1/10 xs:block md:right-[5%] md:-bottom-1/6 md:w-100 lg:right-[10%]"
+                  className="md:display absolute -right-5 hidden w-90 xs:block lg:right-[10%]"
                 />
                 <div className="relative mt-12 mb-6 min-w-20 xs:w-1/2">
                   <RequirementDialog />
