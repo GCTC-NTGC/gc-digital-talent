@@ -150,7 +150,6 @@ export const UserEmployeeInformation = ({
               size="h3"
               icon={FlagIcon}
               color="secondary"
-              center
               className="mt-0 font-normal sm:justify-start sm:text-left"
             >
               {intl.formatMessage(commonMessages.communityInterest)}
