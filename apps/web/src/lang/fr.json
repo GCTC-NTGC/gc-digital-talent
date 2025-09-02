@@ -5671,6 +5671,10 @@
     "defaultMessage": "J'accepte de recevoir des notifications par courriel de Talents numériques du GC.",
     "description": "Text for the option consent to email notifications."
   },
+  "NxrKpM": {
+    "defaultMessage": "Statut de la candidature",
+    "description": "Label for the candidacy status field"
+  },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
@@ -9278,6 +9282,10 @@
     "defaultMessage": "Langue d'expression à l'entrevue",
     "description": "Legend text for spoken interview language preference for interviews"
   },
+  "ejzPh7": {
+    "defaultMessage": "Veuillez sélectionner les possibilités souples qui vous intéressent quant au lieu de travail. N’oubliez pas que la plupart des emplois au gouvernement du Canada font l’objet d’un modèle de travail hybride.",
+    "description": "Flexible work locations field label for work location preference form"
+  },
   "elMgS2": {
     "defaultMessage": "Poste actuel",
     "description": "Heading for current position"
@@ -10268,6 +10276,10 @@
   "ixxGIm": {
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
+  },
+  "j+GOVX": {
+    "defaultMessage": "L'employée ou l'employé travaille à distance constamment, sans devoir être sur place.",
+    "description": "Checklist option explanatory note"
   },
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
