@@ -107,6 +107,18 @@ class CommunityInterest extends Model
         return $query;
     }
 
+    public static function scopeOrderByClassification(Builder $query, ?string $order)
+    {
+        if (! $order) {
+            return $query;
+        }
+
+        return $query->leftJoin('users', 'community_interests.user_id', '=', 'users.id')
+            ->leftJoin('classifications', 'users.computed_classification', '=', 'classifications.id')
+            ->orderBy('group', $order)
+            ->orderBy('level', $order);
+    }
+
     // scope the query to CommunityInterests the current user can view
     // own interest or belongs to your community and consentToShareProfile is TRUE
     public function scopeAuthorizedToView(Builder $query, ?array $args = null)

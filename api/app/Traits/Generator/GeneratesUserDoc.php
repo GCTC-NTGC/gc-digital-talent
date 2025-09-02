@@ -14,6 +14,7 @@ use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
+use App\Enums\ExecCoaching;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\FlexibleWorkLocation;
@@ -21,6 +22,7 @@ use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
+use App\Enums\HiringPlatform;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LearningOpportunitiesInterest;
@@ -347,6 +349,7 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
             $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
             $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
         }
 
         if ($type === CommunityExperience::class) {
@@ -389,6 +392,7 @@ trait GeneratesUserDoc
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
         }
 
         if ($type === WorkExperience::class) {
@@ -492,7 +496,6 @@ trait GeneratesUserDoc
                         $classification ? $classification->group.'-'.$classification->level : Lang::get('common.not_found', [], $this->lang),
                     );
                 }
-                $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
                 $this->addLabelText($section, $this->localize('experiences.supervisory_position'), $this->yesOrNo($experience->supervisory_position));
                 if ($experience->supervisory_position === true) {
                     $this->addLabelText($section, $this->localize('experiences.supervised_employees'), $this->yesOrNo($experience->supervised_employees));
@@ -526,10 +529,7 @@ trait GeneratesUserDoc
                 $section->addText($experience->getDateRange($this->lang));
                 $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
             }
-        }
 
-        if ($type === WorkExperience::class) {
-            /** @var WorkExperience $experience */
             if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
                 $experience->loadMissing(['workStreams']);
                 if ($experience->workStreams && count($experience->workStreams) > 0) {
@@ -554,23 +554,24 @@ trait GeneratesUserDoc
                     });
                 }
             }
-        }
 
-        if ($type === WorkExperience::class && $withSkills) {
-            $experience->load(['userSkills' => ['skill']]);
+            if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
 
-            if ($experience->userSkills->count() > 0) {
-                $section->addText($this->localize('common.featured_skills'));
-            }
-
-            $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
-                $skillRun = $section->addListItemRun();
-                /** @var UserSkill $userSkill */
-                $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
-                if (isset($userSkill->experience_skill->details)) {
-                    $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
                 }
-            });
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
         }
     }
 
@@ -627,6 +628,9 @@ trait GeneratesUserDoc
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
             'poolCandidates.pool.community',
+            'offPlatformRecruitmentProcesses',
+            'offPlatformRecruitmentProcesses.department',
+            'offPlatformRecruitmentProcesses.classification',
         ]);
 
         $this->name($section, $user, $headingRank);
@@ -713,7 +717,14 @@ trait GeneratesUserDoc
         // Off platform processes
         $section->addTitle($this->localize('headings.off_platform_processes'), $headingRank + 1);
         $section->addText($this->localize('common.off_platform_processes_text'));
-        $this->addLabelText($section, $this->localizeHeading('off_platform_process_information'), $user->off_platform_recruitment_processes);
+        $user->offPlatformRecruitmentProcesses->each(function ($process) use ($section, $headingRank) {
+            $title = is_null($process->department) ? $process->classification->displayName : $process->classification->displayName.' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? '');
+            $platform = $process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class);
+
+            $section->addTitle($title, $headingRank + 2);
+            $this->addLabelText($section, $this->localizeHeading('process_number'), $process->process_number);
+            $this->addLabelText($section, $this->localizeHeading('platform'), $platform);
+        });
     }
 
     /**
@@ -824,12 +835,11 @@ trait GeneratesUserDoc
         // Executive Opportunities
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
             $this->yesOrNo($profile->career_planning_exec_interest ?? false));
-        $coachingStatus = match (true) {
-            $profile->career_planning_exec_interest => 'coaching_others',
-            $profile->career_planning_exec_coaching_status === 'COACHING' => 'coaching_others',
-            $profile->career_planning_exec_coaching_status === 'LEARNING' => 'has_coach',
-            $profile->career_planning_exec_coaching_status === 'BOTH' => 'coaching_and_learning',
-            $profile->career_planning_exec_coaching_status === 'not_participating' => 'not_participating',
+        $coachingStatus = match ($profile->career_planning_exec_coaching_status) {
+            [ExecCoaching::COACHING->name, ExecCoaching::LEARNING->name] => 'coaching_and_learning',
+            [ExecCoaching::COACHING->name] => 'coaching_others',
+            [ExecCoaching::LEARNING->name] => 'has_coach',
+            [] => 'not_participating',
             default => 'not_provided'
         };
 
@@ -839,8 +849,8 @@ trait GeneratesUserDoc
         if (! empty($profile->career_planning_exec_coaching_interest)) {
             $section->addText($this->localize('gc_employee.exec_coaching_interest'));
             $translationMap = [
-                'COACHING' => 'interested_coaching',
-                'LEARNING' => 'interested_receiving',
+                ExecCoaching::COACHING->name => 'interested_coaching',
+                ExecCoaching::LEARNING->name => 'interested_receiving',
             ];
             foreach ($profile->career_planning_exec_coaching_interest as $interest) {
                 if (isset($translationMap[$interest])) {

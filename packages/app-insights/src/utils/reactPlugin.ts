@@ -14,7 +14,7 @@ const reactPlugin = new ReactPlugin();
  *
  * REF: https://github.com/microsoft/TypeScript/issues/47663#issuecomment-1519138189
  */
-const ai = new AppInsights.ApplicationInsights({
+const appInsights = new AppInsights.ApplicationInsights({
   config: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     extensions: [reactPlugin as any], // https://github.com/microsoft/applicationinsights-react-js/issues/32#issuecomment-1641631226
@@ -26,9 +26,7 @@ const ai = new AppInsights.ApplicationInsights({
 });
 
 if (aiConnectionString) {
-  ai.loadAppInsights();
+  appInsights.loadAppInsights();
 }
-
-const { appInsights } = ai;
 
 export { reactPlugin, appInsights };

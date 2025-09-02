@@ -7,22 +7,26 @@ import { useQuery } from "urql";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
-import JobPlacementDialog, {
-  JobPlacementOptionsFragmentType,
-} from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import JobPlacementDialog from "~/components/PoolCandidateDialogs/JobPlacementDialog";
 import {
+  isDisqualifiedStatus,
   isQualifiedStatus,
   isRemovedStatus,
   isRevertableStatus,
   isRODStatus,
 } from "~/utils/poolCandidate";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
+import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
+import FinalDecisionAndPlaceDialog from "~/components/PoolCandidateDialogs/FinalDecisionAndPlaceDialog";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
-import FinalDecisionDialog from "./FinalDecisionDialog";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
 import RevertFinalDecisionDialog from "./RevertFinalDecisionDialog";
 import ReinstateCandidateDialog from "../ReinstateCandidateDialog/ReinstateCandidateDialog";
@@ -54,23 +58,21 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     isBookmarked
-    assessmentStep
+    assessmentStep {
+      sortOrder
+      title {
+        localized
+      }
+      type {
+        label {
+          localized
+        }
+      }
+    }
+
     removalReason {
       label {
         localized
-      }
-    }
-    pool {
-      assessmentSteps {
-        sortOrder
-        type {
-          label {
-            localized
-          }
-        }
-        title {
-          localized
-        }
       }
     }
     expiryDate
@@ -85,7 +87,7 @@ const MoreActions_Query = graphql(/* GraphQL */ `
 
 interface MoreActionsProps {
   poolCandidate: FragmentType<typeof MoreActions_Fragment>;
-  jobPlacementOptions: JobPlacementOptionsFragmentType;
+  jobPlacementOptions: FragmentType<typeof JobPlacementOptions_Query>;
 }
 
 const MoreActions = ({
@@ -94,6 +96,7 @@ const MoreActions = ({
 }: MoreActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { userAuthInfo } = useAuthorization();
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
   const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
     id: poolCandidate.id,
@@ -108,36 +111,32 @@ const MoreActions = ({
 
   const [{ data }] = useQuery({ query: MoreActions_Query });
 
-  const currentStep = poolCandidate.assessmentStep
-    ? poolCandidate.pool.assessmentSteps?.find(
-        (step) => step?.sortOrder === poolCandidate.assessmentStep,
-      )
-    : null;
-
   const currentStepName =
     // NOTE: Localized can be empty string so || is more suitable
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-    currentStep?.title?.localized || currentStep?.type?.label?.localized;
+    poolCandidate.assessmentStep?.title?.localized ||
+    poolCandidate.assessmentStep?.type?.label?.localized;
 
   const status = poolCandidate.status?.value;
 
+  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const hasCommunityRecruiterRole = hasRole(
+    [ROLE_NAME.CommunityRecruiter],
+    roleAssignments,
+  );
+
   return (
     <div className="mb-3 flex flex-col gap-3">
-      <Card space="sm" className="flex flex-col gap-3">
+      <Card space="md" className="flex flex-col gap-3">
         <div>
           <Heading level="h2" size="h6" className="mt-0">
             {candidateName}
           </Heading>
           {currentStepName && (
             <p className="text-gray-600 dark:text-gray-200">
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Step {stepNumber}",
-                  id: "XofAAo",
-                  description: "Label for a candidates current assessment step",
-                },
-                { stepNumber: poolCandidate.assessmentStep },
-              ) +
+              {intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                stepNumber: poolCandidate.assessmentStep?.sortOrder,
+              }) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 currentStepName}
             </p>
@@ -146,9 +145,17 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        {isRODStatus(status) && (
-          <FinalDecisionDialog poolCandidate={poolCandidate} />
-        )}
+        {isRODStatus(status) &&
+          (hasCommunityRecruiterRole ? (
+            // community recruiters can record a decision and placement at the same time
+            <FinalDecisionAndPlaceDialog
+              poolCandidate={poolCandidate}
+              optionsQuery={jobPlacementOptions}
+            />
+          ) : (
+            // everyone else can only qualify
+            <FinalDecisionDialog poolCandidate={poolCandidate} />
+          ))}
 
         {isRemovedStatus(status) && (
           <div>
@@ -194,10 +201,12 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        <RemoveCandidateDialog
-          removalQuery={poolCandidate}
-          optionsQuery={data}
-        />
+        {!isRemovedStatus(status) && !isDisqualifiedStatus(status) && (
+          <RemoveCandidateDialog
+            removalQuery={poolCandidate}
+            optionsQuery={data}
+          />
+        )}
 
         <Link
           href={paths.userProfile(poolCandidate.user.id)}

@@ -20,12 +20,14 @@ import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
+import { getClassifications } from "~/utils/classification";
 
 test.describe("Application", () => {
   let uniqueTestId: string;
   let sub: string;
   let technicalSkills: Skill[];
   let user: User | undefined;
+  let classificationId: string | undefined;
 
   async function expectOnStep(page: Page, step: number) {
     await expect(
@@ -69,11 +71,17 @@ test.describe("Application", () => {
         (skill) => skill.category.value === SkillCategory.Technical,
       );
     });
+
+    const classifications = await getClassifications(adminCtx, {});
+    classificationId = classifications.find(
+      (c) => c.group == "IT" && c.level == 1,
+    )?.id;
   });
 
   test("Can link same experience to different skills in application", async ({
     appPage,
-  }) => {
+  }, testInfo) => {
+    testInfo.slow();
     const adminCtx = await graphql.newContext();
     const poolName = `application test pool for link experience to skill ${uniqueTestId}`;
     const pool = await createAndPublishPool(adminCtx, {
@@ -82,6 +90,7 @@ test.describe("Application", () => {
         fr: `${poolName} (FR)`,
       },
       userId: user?.id ?? "",
+      classificationId: classificationId,
       input: {
         generalQuestions: {
           create: [
@@ -130,7 +139,7 @@ test.describe("Application", () => {
     await expectOnStep(application.page, 3);
     await expect(
       application.page.getByRole("heading", {
-        name: /create your career timeline/i,
+        name: /your career timeline/i, // create or update
       }),
     ).toBeVisible();
     // can't skip with the stepper
@@ -243,6 +252,7 @@ test.describe("Application", () => {
         fr: `${poolName} (FR)`,
       },
       userId: user?.id ?? "",
+      classificationId: classificationId,
       input: {
         generalQuestions: {
           create: [
@@ -289,7 +299,7 @@ test.describe("Application", () => {
     await expectOnStep(application.page, 3);
     await expect(
       application.page.getByRole("heading", {
-        name: /create your career timeline/i,
+        name: /your career timeline/i, // create or update
       }),
     ).toBeVisible();
     // can't skip with the stepper
@@ -433,6 +443,7 @@ test.describe("Application", () => {
         fr: `${poolName} (FR)`,
       },
       userId: user?.id ?? "",
+      classificationId: classificationId,
       input: {
         generalQuestions: {
           create: [

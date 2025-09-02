@@ -10,7 +10,7 @@ import { formMessages } from "@gc-digital-talent/i18n";
 
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
 import { Action, Edit, Remove } from "./Button";
-import HTMLEntity from "../HTMLEntity/HTMLEntity";
+import { UNICODE_CHAR } from "../../utils/unicode";
 
 interface ActionsProps {
   children: ReactNode;
@@ -23,11 +23,12 @@ const Actions = ({ children }: ActionsProps) => (
 const LockedIcon = () => <LockClosedIcon className="size-4.5" />;
 
 const DisabledAction = () => (
-  <HTMLEntity
-    name="&bull;"
+  <span
     className="block size-6 rounded-full text-center align-middle text-gray"
     aria-hidden
-  />
+  >
+    {UNICODE_CHAR.BULLET}
+  </span>
 );
 
 export const CARD_CLASS_NAME = "Card__Repeater";

@@ -13,7 +13,7 @@ import {
   Well,
   useControllableState,
   Ul,
-  HTMLEntity,
+  UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -289,12 +289,14 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+type SimpleSkill = Pick<Skill, "id">;
+
 interface ExperienceCardProps {
   // Override ID if more than one card is used, for uniqueness
   id?: string;
   experienceQuery: FragmentType<typeof ExperienceCard_Fragment>;
   headingLevel?: HeadingRank;
-  showSkills?: boolean | Skill | Skill[];
+  showSkills?: boolean | SimpleSkill | SimpleSkill[];
   showEdit?: boolean;
   hideDetails?: boolean;
   editParam?: string;
@@ -408,7 +410,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.GovernmentOfCanada && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Government of Canada",
@@ -425,7 +427,7 @@ const ExperienceCard = ({
           experience.govEmploymentType?.value ===
             WorkExperienceGovEmployeeType.Contractor && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Contractor",
@@ -440,7 +442,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.CanadianArmedForces && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Canadian Armed Forces",
@@ -453,7 +455,7 @@ const ExperienceCard = ({
           )}
         {date && (
           <>
-            <HTMLEntity name="&bull;" aria-hidden />
+            <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
             <span>{date}</span>
           </>
         )}
@@ -573,12 +575,6 @@ const ExperienceCard = ({
               {experience.details ??
                 intl.formatMessage(commonMessages.notAvailable)}
             </ContentSection>
-            {isWorkExperience(experience) && (
-              <WorkStreamContent
-                workStreams={experience.workStreams}
-                headingLevel={headingLevel}
-              />
-            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
@@ -629,6 +625,12 @@ const ExperienceCard = ({
                   )}
                 </div>
               </>
+            )}
+            {isWorkExperience(experience) && (
+              <WorkStreamContent
+                workStreams={experience.workStreams}
+                headingLevel={headingLevel}
+              />
             )}
           </Collapsible.Content>
         </Collapsible.Root>

@@ -61,7 +61,7 @@ jobs:
           pnpm build
 
       - name: "Publish Storybook: all"
-        uses: chromaui/action@v13.1.0
+        uses: chromaui/action@v13.1.3
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.
@@ -69,5 +69,4 @@ jobs:
           # moment, and want the GitHub status check in PRs (for "UI Tests") to
           # display immediately as "passing".
           autoAcceptChanges: true
-          workingDir: apps/web
           onlyChanged: true

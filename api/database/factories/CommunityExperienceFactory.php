@@ -25,15 +25,13 @@ class CommunityExperienceFactory extends Factory
      */
     public function definition()
     {
-        $startDate = $this->faker->date();
-
         return [
             'user_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
             'organization' => $this->faker->company(),
             'project' => $this->faker->bs(),
-            'start_date' => $startDate,
-            'end_date' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate) : null,
+            'start_date' => $this->faker->dateTimeBetween('2010-01-01', '2019-12-31')->format('Y-m-d'),
+            'end_date' => fn ($attributes) => $this->faker->optional()->dateTimeBetween($attributes['start_date'], '2019-12-31')?->format('Y-m-d'),
             'details' => $this->faker->text(),
         ];
     }

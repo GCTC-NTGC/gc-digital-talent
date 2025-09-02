@@ -10,6 +10,7 @@ import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const input = tv({
   extend: inputStyles,
@@ -52,6 +53,7 @@ const Input = ({
     setValue,
     formState: { errors },
   } = useFormContext();
+  useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";

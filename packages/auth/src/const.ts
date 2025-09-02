@@ -22,3 +22,9 @@ type ObjectValues<T> = T[keyof T];
 export type RoleName = ObjectValues<typeof ROLE_NAME>;
 
 export const NAV_ROLE_KEY = "nav_role";
+
+export const COMMUNITY_ROLES: RoleName[] = [
+  ROLE_NAME.CommunityTalentCoordinator,
+  ROLE_NAME.CommunityRecruiter,
+  ROLE_NAME.CommunityAdmin,
+];

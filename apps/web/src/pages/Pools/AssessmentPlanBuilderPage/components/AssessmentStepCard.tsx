@@ -12,8 +12,8 @@ import {
 import {
   Accordion,
   CardRepeater,
-  HTMLEntity,
   Heading,
+  UNICODE_CHAR,
   Well,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
@@ -142,7 +142,9 @@ const AssessmentStepCard = ({
           {skillNames.map((skillName, skillIndex) => (
             <Fragment key={skillName}>
               {skillIndex !== 0 || isApplicationScreening ? (
-                <HTMLEntity name="&bull;" className="mx-3" aria-hidden />
+                <span className="mx-3" aria-hidden>
+                  {UNICODE_CHAR.BULLET}
+                </span>
               ) : null}
               <li className="inline pl-0">{skillName}</li>
             </Fragment>

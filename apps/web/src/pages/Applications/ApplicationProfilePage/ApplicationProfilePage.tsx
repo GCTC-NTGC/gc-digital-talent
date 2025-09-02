@@ -6,7 +6,6 @@ import { graphql, UserProfileFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import applicationMessages from "~/messages/applicationMessages";
 import { SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
@@ -14,6 +13,7 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import StepNavigation from "./components/StepNavigation";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -51,8 +51,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage(applicationMessages.numberedStep, {
-          stepOrdinal,
+        label: intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+          stepNumber: stepOrdinal,
         }),
       },
     ],

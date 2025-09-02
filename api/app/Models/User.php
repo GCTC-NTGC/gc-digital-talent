@@ -102,6 +102,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?bool $is_verified_gov_employee
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
  * @property array $flexible_work_locations
+ * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -354,6 +355,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function employeeProfile(): HasOne
     {
         return $this->hasOne(EmployeeProfile::class, 'id');
+    }
+
+    public function offPlatformRecruitmentProcesses(): HasMany
+    {
+        return $this->hasMany(OffPlatformRecruitmentProcess::class);
     }
 
     // This method will add the specified skills to UserSkills if they don't exist yet.

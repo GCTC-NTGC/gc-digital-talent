@@ -3,59 +3,59 @@ import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useFormContext } from "react-hook-form";
+import { useQuery } from "urql";
 
 import {
   Button,
   Heading,
-  HTMLEntity,
   IconButton,
+  Loading,
+  UNICODE_CHAR,
   Well,
 } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import pageTitles from "~/messages/pageTitles";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { WorkFormValues } from "~/types/experience";
 
-import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
 import { WorkStreamsWithCommunity } from "./types";
+import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
 
-const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
-  fragment ExperienceWorkStreamsCommunity on Community {
-    id
-    name {
-      localized
-    }
-    workStreams {
+const ExperienceWorkStreamsCommunity_Query = graphql(/* GraphQL */ `
+  query ExperienceWorkStreamsCommunity {
+    communities {
       id
       name {
         localized
+      }
+      workStreams {
+        id
+        name {
+          localized
+        }
       }
     }
   }
 `);
 
-interface ExperienceWorkStreamsProps {
-  communitiesQuery?: FragmentType<
-    typeof ExperienceWorkStreamsCommunity_Fragment
-  >[];
-}
-
-const ExperienceWorkStreams = ({
-  communitiesQuery,
-}: ExperienceWorkStreamsProps) => {
+const ExperienceWorkStreams = () => {
   const intl = useIntl();
+  const [{ data, fetching }] = useQuery({
+    query: ExperienceWorkStreamsCommunity_Query,
+  });
 
   const { setValue, watch } = useFormContext<WorkFormValues>();
 
   const watchWorkStreams = watch("workStreams") ?? [];
 
-  const communities = getFragment(
-    ExperienceWorkStreamsCommunity_Fragment,
-    communitiesQuery,
-  );
+  if (fetching) {
+    return <Loading inline />;
+  }
+
+  const communities = unpackMaybes(data?.communities);
 
   const communitiesWithWorkStreams =
     communities
@@ -181,11 +181,12 @@ const ExperienceWorkStreams = ({
                           />
                         }
                       />
-                      <HTMLEntity
-                        name="&bull;"
-                        className="text-gray-100 dark:text-gray-500"
+                      <span
+                        className="text-gray-300 dark:text-gray-500"
                         aria-hidden
-                      />
+                      >
+                        {UNICODE_CHAR.BULLET}
+                      </span>
                       <IconButton
                         type="button"
                         icon={TrashIcon}

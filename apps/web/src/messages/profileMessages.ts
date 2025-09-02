@@ -72,6 +72,21 @@ const messages = defineMessages({
     id: "W2619r",
     description: "Legend for the flexible work location preferences section",
   },
+  personalAndContactInformation: {
+    defaultMessage: "Personal and contact information",
+    id: "BWh6S1",
+    description: "Title for the personal and contact information section",
+  },
+  languageProfile: {
+    defaultMessage: "Language profile",
+    id: "KsS1Py",
+    description: "Title for the language profile snapshot section",
+  },
+  govEmployeeInformation: {
+    defaultMessage: "Government employee information",
+    id: "Jf3vT5",
+    description: "Title for the government employee information section",
+  },
 });
 
 export default messages;

@@ -6,8 +6,6 @@ import {
   Locales,
   commonMessages,
   getLocalizedName,
-  MaybeLocalizedEnums,
-  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -36,8 +34,11 @@ import {
   FinalDecision,
   PoolAreaOfSelection,
   FlexibleWorkLocation,
+  LocalizedEnumString,
+  QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Radio } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -146,7 +147,6 @@ const getSuspendedStatus = (
 
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
-  suspendedStatusStrings: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
   if (suspendedAt) {
@@ -156,18 +156,13 @@ export const candidacyStatusAccessor = (
       parsedSuspendedTime,
       currentTime,
     );
-    return getLocalizedEnumStringByValue(
-      suspendedStatus,
-      suspendedStatusStrings,
-      intl,
-    );
+
+    if (suspendedStatus === CandidateSuspendedFilter.Suspended) {
+      return intl.formatMessage(tableMessages.notInterested);
+    }
   }
 
-  return getLocalizedEnumStringByValue(
-    CandidateSuspendedFilter.Active,
-    suspendedStatusStrings,
-    intl,
-  );
+  return intl.formatMessage(tableMessages.openJobOffers);
 };
 
 export const notesCell = (
@@ -222,7 +217,7 @@ export const candidateFacingStatusCell = (
   finalDecisionAt: PoolCandidate["finalDecisionAt"],
   finalDecision: Maybe<FinalDecision> | undefined,
   areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
-  assessmentStep: PoolCandidate["assessmentStep"],
+  assessmentStep: Maybe<number> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestions: Pool["screeningQuestionsCount"],
   intl: IntlShape,
@@ -273,6 +268,7 @@ function transformSortStateToOrderByClause(
     ["notes", "notes"],
     ["skillCount", "skillCount"],
     ["processNumber", "PROCESS_NUMBER"],
+    ["assessmentStep", "SORT_ORDER"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -307,6 +303,19 @@ function transformSortStateToOrderByClause(
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
         column:
           columnName as QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
+      },
+    };
+  }
+
+  if (sortingRule && ["assessmentStep"].includes(sortingRule.id)) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: undefined,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      assessmentStep: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column:
+          columnName as QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
       },
     };
   }
@@ -471,6 +480,8 @@ export function transformPoolCandidateSearchInputToFormValues(
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
+    assessmentSteps:
+      input?.assessmentSteps?.filter(notEmpty).map((s) => String(s)) ?? [],
   };
 }
 
@@ -538,6 +549,9 @@ export function transformFormValuesToFilterState(
       return { group: splitString[0], level: Number(splitString[1]) };
     }),
     workStreams: data.stream.map((id) => ({ id })),
+    assessmentSteps: data.assessmentSteps
+      .filter(notEmpty)
+      .map((step) => Number(step)),
   };
 }
 
@@ -578,5 +592,40 @@ export const addSearchToPoolCandidateFilterInput = (
     appliedClassifications: fancyFilterState?.appliedClassifications,
     workStreams: fancyFilterState?.workStreams,
     departments: fancyFilterState?.departments,
+    assessmentSteps: fancyFilterState?.assessmentSteps?.map((val) =>
+      Number(val),
+    ),
   };
+};
+
+// map the enum to a custom string per value
+export const candidateSuspendedFilterToCustomOptions = (
+  suspendedFilterEnums: LocalizedEnumString[],
+  intl: IntlShape,
+): Radio[] => {
+  return suspendedFilterEnums.map((enumObject) => {
+    if (enumObject.value === (CandidateSuspendedFilter.Active as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage(tableMessages.openJobOffers),
+      };
+    }
+    if (enumObject.value === (CandidateSuspendedFilter.Suspended as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage(tableMessages.notInterested),
+      };
+    }
+    if (enumObject.value === (CandidateSuspendedFilter.All as string)) {
+      return {
+        value: enumObject.value,
+        label: intl.formatMessage(commonMessages.all),
+      };
+    }
+
+    return {
+      value: enumObject.value,
+      label: getLocalizedName(enumObject.label, intl),
+    };
+  });
 };

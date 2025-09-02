@@ -449,6 +449,37 @@ query getProfile($userId: UUID!) {
       }
     }
     isProfileComplete
+    offPlatformRecruitmentProcesses {
+      id
+      processNumber
+      platform {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      platformOther
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        maxSalary
+        minSalary
+      }
+    }
   }
 }
 `;

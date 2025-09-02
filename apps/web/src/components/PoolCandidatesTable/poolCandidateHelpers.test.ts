@@ -28,6 +28,7 @@ const defaultFormValues: FormValues = {
   suspendedStatus: CandidateSuspendedFilter.Active,
   govEmployee: "",
   community: "",
+  assessmentSteps: [],
 };
 
 describe("Transform form values to filter state", () => {

@@ -4,14 +4,17 @@ import {
   AssessmentStep,
   AssessmentStepType,
   Maybe,
+  PoolSkill,
 } from "@gc-digital-talent/graphql";
 
+import toLocalizedString from "./fakeLocalizedString";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateAssessmentStep = (
   amount: number,
   sortOrder?: number,
   type?: Maybe<AssessmentStepType>,
+  poolSkills?: Maybe<PoolSkill>[],
 ): AssessmentStep => {
   return {
     id: faker.string.uuid(),
@@ -26,17 +29,15 @@ const generateAssessmentStep = (
       faker.number.int({
         max: amount,
       }),
-    title: {
-      en: `${faker.lorem.word()} EN`,
-      fr: `${faker.lorem.word()} FR`,
-    },
-    poolSkills: [],
+    title: toLocalizedString(faker.lorem.word()),
+    poolSkills: poolSkills ?? [],
   };
 };
 
 export default (
   numToGenerate?: number,
   type?: Maybe<AssessmentStepType>,
+  poolSkills?: Maybe<PoolSkill>[],
 ): AssessmentStep[] => {
   faker.seed(0); // repeatable results
   const amountToGenerate = numToGenerate ?? 20;
@@ -50,20 +51,23 @@ export default (
       case 0:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? AssessmentStepType.ApplicationScreening,
+          poolSkills,
         );
       case 1:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? AssessmentStepType.ScreeningQuestionsAtApplication,
+          poolSkills,
         );
       default:
         return generateAssessmentStep(
           amountToGenerate,
-          index,
+          index + 1,
           type ?? faker.helpers.arrayElement(otherScreeningTypes),
+          poolSkills,
         );
     }
   });

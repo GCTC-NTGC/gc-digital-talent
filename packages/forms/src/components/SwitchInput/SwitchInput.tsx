@@ -1,4 +1,4 @@
-import { forwardRef, ElementRef } from "react";
+import { forwardRef, ComponentRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -8,6 +8,7 @@ import { nodeToString } from "@gc-digital-talent/helpers";
 import { CommonInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import Field from "../Field";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 export type SwitchInputProps = SwitchProps & {
   id: CommonInputProps["id"];
@@ -17,7 +18,7 @@ export type SwitchInputProps = SwitchProps & {
   hideLabel?: boolean;
 };
 
-const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
+const SwitchInput = forwardRef<ComponentRef<typeof Switch>, SwitchInputProps>(
   (
     { id, name, label, rules, disabled, hideLabel = false, ...rest },
     forwardedRef,
@@ -28,6 +29,7 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
       watch,
       formState: { errors, defaultValues },
     } = useFormContext<Record<string, boolean>>();
+    useRegisterFormLabel(name, label);
     const value = watch(name);
     const defaultValue = Boolean(defaultValues?.[name]);
     const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({

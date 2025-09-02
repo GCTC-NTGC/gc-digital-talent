@@ -496,6 +496,15 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
+    public function whereAssessmentStepIn(?array $sortOrder): self
+    {
+        if (empty($sortOrder)) {
+            return $this;
+        }
+
+        return $this->whereIn('assessment_step', $sortOrder);
+    }
+
     public function orderByClaimVerification(?array $args): self
     {
 

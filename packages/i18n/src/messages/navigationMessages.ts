@@ -6,6 +6,16 @@ const navigationMessages = defineMessages({
     id: "Gx8qCK",
     description: "Name of About me page",
   },
+  advancedTools: {
+    defaultMessage: "Advanced tools",
+    id: "qP2HGB",
+    description: "Name of Advanced tools page",
+  },
+  careerExperience: {
+    defaultMessage: "Career experience",
+    id: "UfjJ9P",
+    description: "Link to the 'Career experience' page",
+  },
   diversityEquityInclusion: {
     defaultMessage: "Diversity, equity, and inclusion",
     id: "0ClMl1",
@@ -40,6 +50,11 @@ const navigationMessages = defineMessages({
     defaultMessage: "Career timeline",
     id: "TUfJUD",
     description: "Name of Career timeline page",
+  },
+  recruitment: {
+    defaultMessage: "Recruitment",
+    id: "JQfTpr",
+    description: "Name of Recruitment page",
   },
   skillPortfolio: {
     defaultMessage: "Skills portfolio",
@@ -201,6 +216,21 @@ const navigationMessages = defineMessages({
     defaultMessage: "New request",
     id: "BGQaDq",
     description: "Link to a page to start a new request",
+  },
+  topSkills: {
+    defaultMessage: "Top skills",
+    id: "rhVdxS",
+    description: "Name of top skills section of skill showcase",
+  },
+  skillsToImprove: {
+    defaultMessage: "Skills to improve",
+    id: "TnmQ2Q",
+    description: "Name of skills to improve section of skill showcase",
+  },
+  recruitmentProcesses: {
+    defaultMessage: "Recruitment processes",
+    id: "dVZjaj",
+    description: "Name of the recruitment processes section",
   },
 });
 

@@ -543,6 +543,10 @@
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
   },
+  "JQfTpr": {
+    "defaultMessage": "Recrutement",
+    "description": "Name of Recruitment page"
+  },
   "JYpEeW": {
     "defaultMessage": "Français",
     "description": "Name of French language"
@@ -588,7 +592,7 @@
     "description": "Message displayed to user after application fails to get deleted."
   },
   "MAeNit": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "MBnBcY": {
@@ -652,7 +656,7 @@
     "description": "Text that appears in links that open in a new tab."
   },
   "OLs1UJ": {
-    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor ou mentore.",
+    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor.",
     "description": "The mentorship interest described as mentee."
   },
   "OOVZSs": {
@@ -692,7 +696,7 @@
     "description": "The operational requirement described as shift work."
   },
   "P7AWrP": {
-    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor ou mentore.",
+    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor.",
     "description": "The mentorship interest described as mentee."
   },
   "PAXoFY": {
@@ -711,6 +715,10 @@
     "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",
     "description": "The work region of Canada described as Prairie."
   },
+  "Phlp8j": {
+    "defaultMessage": "Organisation",
+    "description": "Label displayed for organization input"
+  },
   "Pj4lW9": {
     "defaultMessage": "Accepté",
     "description": "Indicates a user has accepted some criteria"
@@ -720,7 +728,7 @@
     "description": "The operational requirement described as regular overtime."
   },
   "QUnymn": {
-    "defaultMessage": "Le rôle de mentor ou mentore ne m'intéresse pas.",
+    "defaultMessage": "Le rôle de mentor ne m'intéresse pas.",
     "description": "The mentorship interest described as mentor."
   },
   "QZpZQh": {
@@ -728,7 +736,7 @@
     "description": "Group for when someone indicates they have a disability"
   },
   "QhRU19": {
-    "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
+    "defaultMessage": "Être titulaire d'un permis de conduire valide ou pouvoir se déplacer au même titre qu'une personne qui possède un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "Qn/95I": {
@@ -823,6 +831,10 @@
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
   },
+  "TnmQ2Q": {
+    "defaultMessage": "Compétences à améliorer",
+    "description": "Name of skills to improve section of skill showcase"
+  },
   "TsltMU": {
     "defaultMessage": "Télécharger",
     "description": "Button text to download a resource"
@@ -838,6 +850,10 @@
   "UZMVuy": {
     "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
     "description": "Casual selection for government employee type."
+  },
+  "UfjJ9P": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Link to the 'Career experience' page"
   },
   "Ux22rt": {
     "defaultMessage": "Bibliothèque de modèles d’emploi",
@@ -936,7 +952,7 @@
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y2w/me": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y3FL2a": {
@@ -1011,12 +1027,16 @@
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
   },
+  "bOA3EH": {
+    "defaultMessage": "Employé(e) du gouvernement",
+    "description": "Label for the government employee field"
+  },
   "bXECaV": {
     "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
     "description": "Error message that the user has attempted to set an invalid notification family as ignored."
   },
   "by5WLz": {
-    "defaultMessage": "Je souhaite devenir mentor ou mentore.",
+    "defaultMessage": "Je souhaite devenir mentor.",
     "description": "The mentorship interest described as mentor."
   },
   "cCWdDX": {
@@ -1034,6 +1054,10 @@
   "cR8L3T": {
     "defaultMessage": "Échelle salariale",
     "description": "Title for salary range"
+  },
+  "cavxJ8": {
+    "defaultMessage": "Tous",
+    "description": "All as in all items or things"
   },
   "clDpR4": {
     "defaultMessage": "Modérément développée",
@@ -1058,6 +1082,10 @@
   "dKY52V": {
     "defaultMessage": "Je souhaite participer à un programme d'études.",
     "description": "Interest label for academic programs."
+  },
+  "dVZjaj": {
+    "defaultMessage": "Processus de recrutement",
+    "description": "Name of the recruitment processes section"
   },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
@@ -1175,6 +1203,10 @@
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
+  "gqX6/n": {
+    "defaultMessage": "Étape actuelle",
+    "description": "Title displayed for a candidates current assessment step"
+  },
   "gt0xAi": {
     "defaultMessage": "Processus",
     "description": "Name of Processes page"
@@ -1196,7 +1228,7 @@
     "description": "Dividing colon with trailing space"
   },
   "iC7Wsq": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "iNUK3f": {
@@ -1292,7 +1324,7 @@
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
   },
   "l0aGCz": {
-    "defaultMessage": "Intégré",
+    "defaultMessage": "Intégré à l'application",
     "description": "Title for in app notifications"
   },
   "l2XtbB": {
@@ -1451,6 +1483,10 @@
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
   },
+  "qP2HGB": {
+    "defaultMessage": "Outils avancés",
+    "description": "Name of Advanced tools page"
+  },
   "qmEyxS": {
     "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
     "description": "Error message that the pool closing date isn't in the future."
@@ -1468,7 +1504,7 @@
     "description": "Body text for the unexpected error page."
   },
   "r1QzK4": {
-    "defaultMessage": "Je participe à la fois en tant que mentor ou mentore et en tant que mentoré ou mentorée.",
+    "defaultMessage": "Je participe à la fois en tant que mentor et en tant que mentoré ou mentorée.",
     "description": "The mentorship status described as both mentee and mentor."
   },
   "rCXko4": {
@@ -1490,6 +1526,10 @@
   "ra+8d1": {
     "defaultMessage": "Erreur",
     "description": "Generic error message"
+  },
+  "rhVdxS": {
+    "defaultMessage": "Principales compétences",
+    "description": "Name of top skills section of skill showcase"
   },
   "rjHrNp": {
     "defaultMessage": "Parcourir les possibilités d'emploi",
@@ -1592,7 +1632,7 @@
     "description": "Name of talent management events page"
   },
   "uu2OuP": {
-    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "v6T4Y0": {
@@ -1732,7 +1772,7 @@
     "description": "Title displayed phone number"
   },
   "zM99Vm": {
-    "defaultMessage": "J'ai actuellement un mentor ou une mentore.",
+    "defaultMessage": "J'ai actuellement un mentor.",
     "description": "The mentorship status described as mentee."
   },
   "zN7MBv": {

@@ -15,6 +15,7 @@ import EmailVerificationStatus from "../EmailVerificationStatus";
 interface DisplayProps {
   user: PartialUser;
   showEmailVerification?: boolean;
+  readOnly?: boolean;
 }
 
 const Display = ({
@@ -29,6 +30,7 @@ const Display = ({
     isWorkEmailVerified,
   },
   showEmailVerification = false,
+  readOnly = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -118,6 +120,7 @@ const Display = ({
                 <EmailVerificationStatus
                   isEmailVerified={!!isWorkEmailVerified}
                   onClickVerify={handleVerifyNowClick}
+                  readOnly={readOnly}
                 />
               ) : null}
             </div>

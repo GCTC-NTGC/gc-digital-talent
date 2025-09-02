@@ -1,5 +1,5 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
-import type { DecoratorFunction, Renderer } from "@storybook/types";
+import type { DecoratorFunction, Renderer } from "storybook/internal/types";
 import { ReactNode, useEffect, useMemo } from "react";
 
 import {
@@ -9,8 +9,7 @@ import {
   useTheme,
 } from "@gc-digital-talent/theme";
 
-const { useThemeParameters, initializeThemeState, pluckThemeFromContext } =
-  DecoratorHelpers;
+const { initializeThemeState, pluckThemeFromContext } = DecoratorHelpers;
 
 type ThemeMode = "light" | "dark";
 export const THEMES: Record<ThemeKey, Record<ThemeMode, string>> = {
@@ -55,11 +54,15 @@ const withThemeFromTailwind = <TRenderer extends Renderer = any>({
   initializeThemeState(Object.keys(themes), defaultTheme);
   return (storyFn, context) => {
     const selectedTheme = pluckThemeFromContext(context);
-    const { themeOverride } = useThemeParameters();
-    const selected = (themeOverride ?? selectedTheme) || defaultTheme;
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const selected =
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      context?.parameters?.themes?.themeOverride ||
+      selectedTheme ||
+      defaultTheme;
     const themeArr = useMemo(
       () =>
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         themes[selected].split(" ") as [
           ThemeKey | undefined,
           ThemeMode | undefined,

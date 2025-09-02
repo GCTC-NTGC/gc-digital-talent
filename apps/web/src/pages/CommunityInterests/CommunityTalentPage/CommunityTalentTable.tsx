@@ -46,12 +46,14 @@ import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
+import accessors from "~/components/Table/accessors";
 
 import CommunityTalentFilterDialog, {
   FormValues,
 } from "./components/CommunityTalentFilterDialog";
 import {
   classificationAccessor,
+  getClassificationSort,
   interestAccessor,
   removeDuplicateIds,
   transformCommunityInterestFilterInputToFormValues,
@@ -68,6 +70,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
       id
       jobInterest
       trainingInterest
+      createdAt
       user {
         id
         firstName
@@ -124,12 +127,14 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
     $first: Int
     $page: Int
     $orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
+    $orderByClassification: SortOrder
   ) {
     communityInterestsPaginated(
       where: $where
       first: $first
       page: $page
       orderBy: $orderBy
+      orderByClassification: $orderByClassification
     ) {
       data {
         id
@@ -360,6 +365,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       orderBy: sortState
         ? [transformSortStateToOrderByClause(sortState, filterState)]
         : [],
+      orderByClassification: getClassificationSort(sortState),
     },
   });
 
@@ -454,7 +460,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         id: "classification",
         header: intl.formatMessage(processMessages.classification),
         enableColumnFilter: false,
-        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -599,6 +604,25 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         header: intl.formatMessage(profileMessages.acceptableRequirements),
         enableColumnFilter: false,
         enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ communityInterest: { createdAt } }) => accessors.date(createdAt),
+      {
+        id: "createdAt",
+        enableColumnFilter: false,
+        header: intl.formatMessage({
+          defaultMessage: "Added date",
+          id: "notNvF",
+          description: "Column header for the date an item was added",
+        }),
+        cell: ({
+          row: {
+            original: {
+              communityInterest: { createdAt },
+            },
+          },
+        }) => cells.date(createdAt, intl),
       },
     ),
   ] as ColumnDef<CommunityTalentTableCommunityInterestFragmentType>[];

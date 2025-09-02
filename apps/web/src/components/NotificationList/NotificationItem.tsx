@@ -99,9 +99,7 @@ interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
   inDialog?: boolean;
-  focusRef?: React.MutableRefObject<
-    (HTMLAnchorElement & HTMLButtonElement) | null
-  >;
+  focusRef?: React.RefObject<(HTMLAnchorElement & HTMLButtonElement) | null>;
   onRead?: () => void;
 }
 
@@ -222,7 +220,7 @@ const NotificationItem = ({
                   )}
                 />
               </DropdownMenu.Trigger>
-              <DropdownMenu.Content align="end">
+              <DropdownMenu.Content align="end" className="z-[98]">
                 <DropdownMenu.Item asChild onSelect={toggleReadStatus}>
                   <Button mode="inline" block disabled={isTogglingReadStatus}>
                     {isUnread

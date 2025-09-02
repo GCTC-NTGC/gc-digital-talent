@@ -48,6 +48,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -74,12 +75,14 @@ import {
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
-import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
+import PoolCandidateFilterDialog, {
+  PoolCandidateFilterDialogProps,
+} from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
-} from "./JobPlacementDialog";
+} from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
@@ -215,7 +218,18 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           finalDecision {
             value
           }
-          assessmentStep
+          assessmentStep {
+            sortOrder
+            title {
+              localized
+            }
+            type {
+              label {
+                localized
+              }
+            }
+          }
+
           assessmentStatus {
             assessmentStepStatuses {
               step
@@ -261,7 +275,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
-          assessmentStep
           assessmentStatus {
             overallAssessmentStatus
           }
@@ -393,6 +406,7 @@ const defaultState = {
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
+    assessmentSteps: [],
   },
 };
 
@@ -402,12 +416,14 @@ const PoolCandidatesTable = ({
   title,
   hidePoolFilter,
   doNotUseBookmark = false,
+  availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
+  availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -818,10 +834,37 @@ const PoolCandidatesTable = ({
         }) =>
           finalDecisionCell(
             finalDecision,
-            assessmentStep,
+            assessmentStep?.sortOrder,
             assessmentStatus,
             intl,
           ),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { assessmentStep } }) => assessmentStep,
+      {
+        id: "assessmentStep",
+        header: intl.formatMessage(commonMessages.currentStep),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { assessmentStep },
+            },
+          },
+        }) => {
+          const stepName =
+            // NOTE: We do want to pass on empty strings
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            assessmentStep?.title?.localized ||
+            assessmentStep?.type?.label?.localized;
+          return stepName
+            ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                stepNumber: assessmentStep.sortOrder,
+              }) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                stepName
+            : "";
+        },
       },
     ),
     columnHelper.accessor(
@@ -843,7 +886,7 @@ const PoolCandidatesTable = ({
           finalDecisionAt,
           finalDecision?.value,
           areaOfSelection?.value,
-          assessmentStep,
+          assessmentStep?.sortOrder,
           assessmentStatus,
           screeningQuestionsCount,
           intl,
@@ -895,14 +938,10 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       ({ poolCandidate }) =>
-        candidacyStatusAccessor(
-          poolCandidate.suspendedAt,
-          tableData?.suspendedStatuses,
-          intl,
-        ),
+        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
       {
         id: "candidacyStatus",
-        header: intl.formatMessage(tableMessages.candidacyStatus),
+        header: intl.formatMessage(tableMessages.interestJobOffers),
       },
     ),
     columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
@@ -1071,6 +1110,7 @@ const PoolCandidatesTable = ({
           <PoolCandidateFilterDialog
             query={tableData}
             {...{ hidePoolFilter }}
+            availableSteps={availableSteps}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolCandidateSearchInputToFormValues(
               initialFilterInput,

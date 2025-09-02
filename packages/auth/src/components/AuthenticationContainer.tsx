@@ -4,6 +4,7 @@ import { ReactNode, createContext, useEffect, useMemo } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { defaultLogger, useLogger } from "@gc-digital-talent/logger";
+import { appInsights } from "@gc-digital-talent/app-insights";
 
 import {
   ACCESS_TOKEN,
@@ -88,6 +89,22 @@ const logoutAndRefreshPage = ({
     localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
   }
 
+  // track the logout event in application insights
+  if (appInsights) {
+    const aiUserId = appInsights?.context?.user?.id || "unknown";
+    appInsights.trackEvent?.(
+      { name: "GCKey Logout" },
+      {
+        aiUserId,
+        pageUrl: window.location.href,
+        timestamp: new Date().toISOString(),
+        referrer: document.referrer || "none",
+        source: "AuthenticationContainer",
+        gcKeyStatus: "logout",
+        logoutReason: logoutReason ?? "unknown",
+      },
+    );
+  }
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
 
   if (accessToken) {
@@ -164,6 +181,23 @@ const AuthenticationContainer = ({
     }
     if (newTokens?.idToken) {
       localStorage.setItem(ID_TOKEN, newTokens.idToken);
+    }
+
+    // Log the successful GCKey login event
+    logger.debug("Logging GCKey login success event");
+    const referrer = document.referrer || "none";
+    if (appInsights) {
+      const aiUserId = appInsights?.context?.user?.id || "unknown";
+      appInsights.trackEvent?.(
+        { name: "GCKey Login Success" },
+        {
+          aiUserId,
+          pageUrl: window.location.href,
+          timestamp: new Date().toISOString(),
+          referrer,
+          source: "AuthenticationContainer",
+        },
+      );
     }
     // also clear the last logout reason
     localStorage.removeItem(LOGOUT_REASON_KEY);
