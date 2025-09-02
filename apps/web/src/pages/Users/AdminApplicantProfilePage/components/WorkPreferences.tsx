@@ -7,6 +7,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import Display from "~/components/Profile/components/WorkPreferences/Display";
 import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 const WorkPreferences_Fragment = graphql(/** GraphQL */ `
   fragment AdminWorkPreferences on User {
@@ -18,6 +19,12 @@ const WorkPreferences_Fragment = graphql(/** GraphQL */ `
     }
     positionDuration
     locationPreferences {
+      value
+      label {
+        localized
+      }
+    }
+    flexibleWorkLocations {
       value
       label {
         localized
@@ -36,11 +43,14 @@ const WorkPreferences_Fragment = graphql(/** GraphQL */ `
 
 interface WorkPreferencesProps {
   query: FragmentType<typeof WorkPreferences_Fragment>;
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
 export const WORK_PREFERENCES_ID = "work-preferences";
 
-const WorkPreferences = ({ query }: WorkPreferencesProps) => {
+const WorkPreferences = ({ query, optionsQuery }: WorkPreferencesProps) => {
   const intl = useIntl();
   const user = getFragment(WorkPreferences_Fragment, query);
   const labels = getLabels(intl);
@@ -55,7 +65,7 @@ const WorkPreferences = ({ query }: WorkPreferencesProps) => {
         {intl.formatMessage(navigationMessages.workPreferences)}
       </TableOfContents.Heading>
       <Card>
-        <Display user={user} labels={labels} />
+        <Display user={user} labels={labels} optionsQuery={optionsQuery} />
       </Card>
     </TableOfContents.Section>
   );
