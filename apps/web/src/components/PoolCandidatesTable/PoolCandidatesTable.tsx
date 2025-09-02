@@ -1029,7 +1029,7 @@ const PoolCandidatesTable = ({
       {
         id: "flexibleWorkLocations",
         header: intl.formatMessage(commonMessages.flexibleWorkLocations),
-        sortingFn: normalizedText,
+        enableSorting: false,
         cell: ({
           row: {
             original: {
