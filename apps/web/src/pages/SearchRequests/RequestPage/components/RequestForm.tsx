@@ -44,6 +44,7 @@ import {
   graphql,
   FragmentType,
   getFragment,
+  FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -276,6 +277,15 @@ export const RequestForm = ({
     ) {
       community = communities?.find((c) => c.key === "atip");
     }
+    // if an office region was selected, append ONSITE to the flexible locations region
+    const adjustedFlexibleWorkLocations =
+      applicantFilter?.locationPreferences &&
+      applicantFilter.locationPreferences.length > 0
+        ? [
+            ...(applicantFilter.flexibleWorkLocations ?? []),
+            FlexibleWorkLocation.Onsite,
+          ]
+        : [...(applicantFilter?.flexibleWorkLocations ?? [])];
 
     return {
       fullName: values.fullName ?? "",
@@ -315,7 +325,7 @@ export const RequestForm = ({
               : [],
           },
           locationPreferences: applicantFilter?.locationPreferences ?? [],
-          flexibleWorkLocations: applicantFilter?.flexibleWorkLocations ?? [],
+          flexibleWorkLocations: unpackMaybes(adjustedFlexibleWorkLocations),
           skills: {
             sync: applicantFilter?.skills
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
