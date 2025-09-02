@@ -20,7 +20,7 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property int $level
  * @property int $min_salary
  * @property int $max_salary
- * @property string $displayName
+ * @property string $formattedGroupAndLevel
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
@@ -46,9 +46,9 @@ class Classification extends Model
     }
 
     /**
-     * Get the classification display name, e.g. IT-01
+     * Get the formatted classification group and level, e.g. IT-01
      */
-    protected function displayName(): Attribute
+    protected function formattedGroupAndLevel(): Attribute
     {
         /** @disregard P1003 Not using values */
         return Attribute::make(
