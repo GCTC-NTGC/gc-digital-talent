@@ -33,13 +33,12 @@ import { CommunityMember } from "~/utils/communityUtils";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 import { ContextType } from "./types";
 
-type RemoveCommunityMemberDialogProps = ComponentPropsWithoutRef<
-  typeof DropdownMenu.Item
-> & {
+interface RemoveCommunityMemberDialogProps
+  extends ComponentPropsWithoutRef<typeof DropdownMenu.Item> {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
-};
+}
 
 const RemoveCommunityMemberDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,

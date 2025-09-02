@@ -144,11 +144,12 @@ interface PoolTitleOptions {
   short?: boolean;
 }
 
-type PoolTitle = Maybe<
-  Pick<Pool, "name" | "publishingGroup" | "workStream"> & {
-    classification?: Maybe<Pick<Classification, "group" | "level">>;
-  }
->;
+type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
+interface PartialPoolWithClassification extends PartialPool {
+  classification?: Maybe<Pick<Classification, "group" | "level">>;
+}
+
+type PoolTitle = Maybe<PartialPoolWithClassification>;
 
 export const poolTitle = (
   intl: IntlShape,

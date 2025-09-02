@@ -14,11 +14,12 @@ import {
   PartialUserPreferences,
 } from "~/validators/profile";
 
-type PartialUser = PartialUserAbout &
-  PartialUserDei &
-  PartialUserGovernment &
-  PartialUserLanguage &
-  PartialUserPreferences;
+interface PartialUser
+  extends PartialUserAbout,
+    PartialUserDei,
+    PartialUserGovernment,
+    PartialUserLanguage,
+    PartialUserPreferences {}
 
 const stepHasError = (user: PartialUser, pool: Pool) => {
   const hasEmptyRequiredFields =
