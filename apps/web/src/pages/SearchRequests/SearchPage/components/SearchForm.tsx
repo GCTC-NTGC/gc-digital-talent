@@ -188,7 +188,7 @@ export const SearchForm = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "If you're looking for talent, you've come to the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. All candidates in these recruitment processes have been assessed and successfully qualified.",
-                  id: 'vjZ960',
+                  id: "vjZ960",
                   description:
                     "Content displayed in the find talent page explaining the page and what it offers to users.",
                 })}
@@ -197,7 +197,7 @@ export const SearchForm = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "Based on your filters, we’ll show you an estimated number of qualified candidates who match your criteria.",
-                  id: 'q3JL9y',
+                  id: "q3JL9y",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
