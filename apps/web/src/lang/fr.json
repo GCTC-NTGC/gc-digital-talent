@@ -4011,6 +4011,10 @@
     "defaultMessage": "Ministère de placement",
     "description": "Label for the placed department field"
   },
+  "G8P9fw": {
+    "defaultMessage": "En placement provisoire (confirmation verbale ou par courriel)",
+    "description": "Description for the offer in progress candidate placement type"
+  },
   "G9oyzn": {
     "defaultMessage": "Titre de l’évaluation",
     "description": "Label for assessment title input on the assessment details dialog"
