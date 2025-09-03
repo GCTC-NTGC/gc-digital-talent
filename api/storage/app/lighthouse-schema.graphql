@@ -123,6 +123,11 @@ type LocalizedEmploymentCategory implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedErrorCode implements LocalizedEnumOption {
+  value: ErrorCode!
+  label: LocalizedString!
+}
+
 type LocalizedEstimatedLanguageAbility implements LocalizedEnumOption {
   value: EstimatedLanguageAbility!
   label: LocalizedString!
@@ -3386,6 +3391,11 @@ enum EmploymentCategory {
   EXTERNAL_ORGANIZATION
   GOVERNMENT_OF_CANADA
   CANADIAN_ARMED_FORCES
+}
+
+enum ErrorCode {
+  EXPIRY_DATE_REQUIRED
+  EXPIRY_DATE_AFTER_TODAY
 }
 
 enum EstimatedLanguageAbility {
