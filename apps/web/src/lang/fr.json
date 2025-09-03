@@ -11321,6 +11321,10 @@
     "defaultMessage": "Préférences relatives au travail",
     "description": "Name of Work preferences page"
   },
+  "notNvF": {
+    "defaultMessage": "Date d'ajout",
+    "description": "Column header for the date an item was added"
+  },
   "nqNCB/": {
     "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
     "description": "Helper message for closing the process early"
