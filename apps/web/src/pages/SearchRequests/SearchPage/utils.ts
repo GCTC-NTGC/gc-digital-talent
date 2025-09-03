@@ -182,7 +182,6 @@ export const formValuesToData = (
       : undefined,
     locationPreferences: values.locationPreferences ?? [],
     flexibleWorkLocations: values.flexibleWorkLocations ?? [],
-    workStreams: values.stream ? [{ id: values.stream }] : undefined,
     qualifiedInWorkStreams: values.stream ? [{ id: values.stream }] : undefined,
   };
 };
