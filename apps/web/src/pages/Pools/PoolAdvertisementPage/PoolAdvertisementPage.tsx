@@ -1286,8 +1286,8 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "For accommodation requests or questions about this process, please contact the recruitment team at <link>{contactEmail}</link>.",
-                          id: "I1Om5d",
+                            "For accommodation requests or questions about this process, please contact the recruitment team at <link>{contactEmail}</link>.",
+                          id: "bz55F8",
                           description:
                             "Opening sentence asking if accommodations are needed",
                         },
