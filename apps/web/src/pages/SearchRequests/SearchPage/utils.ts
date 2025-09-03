@@ -86,8 +86,8 @@ export const applicantFilterToQueryArgs = (
     where: {
       ...filter,
       equity: filter?.equity,
-      qualifiedClassifications: filter?.qualifiedClassifications
-        ? pickMap(filter.qualifiedClassifications, ["group", "level"])
+      qualifiedInClassifications: filter?.qualifiedInClassifications
+        ? pickMap(filter.qualifiedInClassifications, ["group", "level"])
         : undefined,
       skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
       hasDiploma: undefined, // disconnect education selection for CountApplicants_Query
@@ -112,7 +112,7 @@ export const dataToFormValues = (
   data: ApplicantFilterInput,
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
 ): FormValues => {
-  const stream = data?.workStreams?.find(notEmpty);
+  const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
 
   return {
     classification: getCurrentClassification(selectedClassifications),
@@ -155,7 +155,7 @@ export const formValuesToData = (
   });
 
   return {
-    qualifiedClassifications: [selectedClassification].filter(notEmpty),
+    qualifiedInClassifications: [selectedClassification].filter(notEmpty),
     skills: values.skills
       ? values.skills
           .filter((id) => !!id)
@@ -183,5 +183,6 @@ export const formValuesToData = (
     locationPreferences: values.locationPreferences ?? [],
     flexibleWorkLocations: values.flexibleWorkLocations ?? [],
     workStreams: values.stream ? [{ id: values.stream }] : undefined,
+    qualifiedInWorkStreams: values.stream ? [{ id: values.stream }] : undefined,
   };
 };

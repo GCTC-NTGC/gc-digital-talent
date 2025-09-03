@@ -10,8 +10,8 @@ import SEO from "~/components/SEO/SEO";
 import SearchFormApi from "./components/SearchForm";
 
 const pageTitle = defineMessage({
-  defaultMessage: "Find digital talent",
-  id: "9Jkoms",
+  defaultMessage: "Find talent ready to join your team",
+  id: "OLoRqP",
   description: "Title displayed on hero for Search and Request pages.",
 });
 

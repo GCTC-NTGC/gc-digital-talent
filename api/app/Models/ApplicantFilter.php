@@ -49,7 +49,7 @@ class ApplicantFilter extends Model
     }
 
     /** @return BelongsToMany<Classification, $this> */
-    public function qualifiedClassifications(): BelongsToMany
+    public function qualifiedInClassifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_qualified_classification');
     }
@@ -73,7 +73,7 @@ class ApplicantFilter extends Model
     }
 
     /** @return BelongsToMany<WorkStream, $this> */
-    public function workStreams(): BelongsToMany
+    public function qualifiedInWorkStreams(): BelongsToMany
     {
         return $this->belongsToMany(WorkStream::class);
     }

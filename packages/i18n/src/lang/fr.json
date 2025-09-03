@@ -195,13 +195,13 @@
     "defaultMessage": "Agrandir tout",
     "description": "Generic link text to expand all accordions in a section"
   },
+  "4XgOuf": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
   "4lV1Od": {
     "defaultMessage": "Éliminé à la présélection",
     "description": "Screened out"
-  },
-  "4pZrst": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
-    "description": "The operational requirement described as travel as required."
   },
   "5/C1lJ": {
     "defaultMessage": "Avancé",
@@ -226,6 +226,10 @@
   "5hXz/z": {
     "defaultMessage": "Sélectionnez un mois",
     "description": "Placeholder for a month select field"
+  },
+  "5hkdf2": {
+    "defaultMessage": "Langue de travail",
+    "description": "Title displayed working language ability"
   },
   "5xaEhL": {
     "defaultMessage": "Titre",
@@ -295,6 +299,10 @@
     "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
     "description": "The executive coaching status described as not participating."
   },
+  "8RX9iJ": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement)",
+    "description": "The operational requirement described as occasional overtime."
+  },
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
     "description": "Message displayed when a closing date has passed."
@@ -363,6 +371,10 @@
     "defaultMessage": "Le statut du candidat est irrégulier.",
     "description": "Message displayed to user after attempting to update a candidate with an unexpected status."
   },
+  "AyaZQZ": {
+    "defaultMessage": "Durée déterminée (court terme ou long terme)",
+    "description": "Duration of a non-permanent length"
+  },
   "BGQaDq": {
     "defaultMessage": "Nouvelle demande",
     "description": "Link to a page to start a new request"
@@ -419,6 +431,10 @@
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
   },
+  "DyrwXU": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin",
+    "description": "The operational requirement described as travel as required."
+  },
   "E+zFTA": {
     "defaultMessage": "(français)",
     "description": "Name of French language formatted for appending"
@@ -451,10 +467,6 @@
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Name of Government information page"
   },
-  "Gc9PeN": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
-    "description": "The operational requirement described as shift work."
-  },
   "GiYTD4": {
     "defaultMessage": "Ce champ doit contenir moins de {value} caractères.",
     "description": "Error Message displayed when the user passes some given character or letter limit."
@@ -482,10 +494,6 @@
   "Gz8vAO": {
     "defaultMessage": "Modifier l’article {index}",
     "description": "Button text to edit an item from repeatable fields"
-  },
-  "HEGXL7": {
-    "defaultMessage": "Compétence linguistique au travail",
-    "description": "Title displayed working language ability"
   },
   "HVMI8t": {
     "defaultMessage": "Systèmes d'ordinateurs",
@@ -566,10 +574,6 @@
   "Ko0JX/": {
     "defaultMessage": "Constamment démontrée comme étant bien développée dans des conditions quotidiennes auprès de tous les publics, fréquemment démontrée dans des situations de stress et dans des situations modérément difficiles auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress important et dans des situations difficiles.",
     "description": "The behavioural skill level definition for expert"
-  },
-  "KzhnAz": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
-    "description": "The operational requirement described as occasional overtime."
   },
   "L05/+D": {
     "defaultMessage": "Mois",
@@ -735,10 +739,6 @@
     "defaultMessage": "Personne handicapée",
     "description": "Group for when someone indicates they have a disability"
   },
-  "QhRU19": {
-    "defaultMessage": "Être titulaire d'un permis de conduire valide ou pouvoir se déplacer au même titre qu'une personne qui possède un permis de conduire valide.",
-    "description": "The operational requirement described as driver's license."
-  },
   "Qn/95I": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title for Employment equity"
@@ -778,10 +778,6 @@
   "S0w3o5": {
     "defaultMessage": "Complet",
     "description": "Simple status label for a complete item"
-  },
-  "S9BRBL": {
-    "defaultMessage": "Durée (court terme, long terme)",
-    "description": "Duration of a non-permanent length"
   },
   "SD8i+/": {
     "defaultMessage": "Reçue",
@@ -875,6 +871,10 @@
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
   },
+  "W2CzAY": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement)",
+    "description": "The operational requirement described as regular overtime."
+  },
   "W5Dkd1": {
     "defaultMessage": "Économique et services de sciences sociales",
     "description": "Full name of abbreviation for EC"
@@ -915,6 +915,10 @@
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
   },
+  "X+DDtG": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts",
+    "description": "The operational requirement described as shift work."
+  },
   "X3wRqo": {
     "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} one {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
     "description": "Message showing number of all available options in combobox menu"
@@ -946,10 +950,6 @@
   "XiECLl": {
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed preferred communication language"
-  },
-  "XpK4rL": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
-    "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y2w/me": {
     "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
@@ -1479,6 +1479,10 @@
     "defaultMessage": "Non sélectionnée",
     "description": "Label when an item is not selected"
   },
+  "q2m/4E": {
+    "defaultMessage": "Être titulaire d'un permis de conduire valide ou pouvoir se déplacer au même titre qu'une personne qui possède un permis de conduire valide",
+    "description": "The operational requirement described as driver's license."
+  },
   "qIOz/5": {
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
@@ -1643,10 +1647,6 @@
     "defaultMessage": "Informations linguistiques",
     "description": "Name of Language information page"
   },
-  "vDrJp6": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
@@ -1674,10 +1674,6 @@
   "vrgXIT": {
     "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans n'importe quel autre ministère ou organisme, quelle que soit sa taille ou son type.",
     "description": "The talent nomination lateral movement option description for new department"
-  },
-  "vvtqRv": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
-    "description": "The operational requirement described as regular overtime."
   },
   "vy6A5+": {
     "defaultMessage": "Le candidat a déjà été supprimé.",
@@ -1726,6 +1722,10 @@
   "xNESdj": {
     "defaultMessage": "Février",
     "description": "Name of the second month"
+  },
+  "xSCksA": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg",
+    "description": "The operational requirement described as transport equipment up to 20kg"
   },
   "xSecEX": {
     "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",

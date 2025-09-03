@@ -95,6 +95,10 @@
     "defaultMessage": "Compétence",
     "description": "Label for the skill select field"
   },
+  "+K95cA": {
+    "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
+    "description": "No preference for employment duration - will accept any"
+  },
   "+MCd8X": {
     "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
     "description": "PSC second language evaluations list for language requirements dialog"
@@ -106,10 +110,6 @@
   "+PGnDL": {
     "defaultMessage": "Réduire toutes les compétences",
     "description": "Accessible link text to collapse all accordions for skills"
-  },
-  "+PLUZ8": {
-    "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
-    "description": "Message describing the work language ability filter in the search form."
   },
   "+PVO13": {
     "defaultMessage": "Correspondance des compétences",
@@ -134,6 +134,10 @@
   "+Xn2ke": {
     "defaultMessage": "Résultats de l’évaluation",
     "description": "Title for assessment results"
+  },
+  "+XzATK": {
+    "defaultMessage": "Exigences en matière d'études",
+    "description": "Legend for the Education requirement radio group"
   },
   "+btI+S": {
     "defaultMessage": "Prénom",
@@ -310,10 +314,6 @@
   "/JDxnh": {
     "defaultMessage": "Votre relation avec l'auteur(trice) de la mise en candidature ",
     "description": "Label for a nomination sumitters relationship to the nominator"
-  },
-  "/JQ6DD": {
-    "defaultMessage": "Filtre des exigences en matière d'études",
-    "description": "Legend for the Education Requirement filter radio group"
   },
   "/K1/1n": {
     "defaultMessage": "Groupe de classifications actuel",
@@ -928,7 +928,7 @@
     "description": "Button text to toggle the accordion for accommodations contact"
   },
   "20vfz6": {
-    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
+    "defaultMessage": "Si vous avez des précisions à apporter concernant le lieu de travail, n’hésitez pas à les indiquer dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région, au besoin.",
     "description": "Message describing the work location filter in the search form."
   },
   "21QCEK": {
@@ -1006,10 +1006,6 @@
   "2L5LBG": {
     "defaultMessage": "Les possibilités d'emploi m'intéressent",
     "description": "Message displayed when user expresses interest in job opportunities"
-  },
-  "2Ljgvn": {
-    "defaultMessage": "Voir l’affiche d’emploi pour ce processus de recrutement",
-    "description": "Link message that shows the job poster for the recruitment process."
   },
   "2OTKDd": {
     "defaultMessage": "Je souhaite acquérir de l'expérience en matière d'embauche",
@@ -2383,10 +2379,6 @@
     "defaultMessage": "remplissez le <questionsLink>formulaire pour questions et commentaires</questionsLink>",
     "description": "Commercial reproduction list item"
   },
-  "8fQWTc": {
-    "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
-    "description": "No preference for employment duration - will accept any"
-  },
   "8gyWTT": {
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
@@ -2535,14 +2527,6 @@
     "defaultMessage": "Ministère de l’employé",
     "description": "Title displayed on the Pool Candidates table employee department column"
   },
-  "9Jkoms": {
-    "defaultMessage": "Trouver des talents numériques",
-    "description": "Title displayed on hero for Search and Request pages."
-  },
-  "9KGR0d": {
-    "defaultMessage": "Volet",
-    "description": "Title displayed for the Pool table Stream column."
-  },
   "9LR5wC": {
     "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à la création d'un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités d'emploi.",
     "description": "Disclaimer before signing Indigenous self-declaration form"
@@ -2670,10 +2654,6 @@
   "9pYZOU": {
     "defaultMessage": "Comment vous travaillez le mieux",
     "description": "Label for a employee profile work style field"
-  },
-  "9pYlYz": {
-    "defaultMessage": "Volet",
-    "description": "Label for a process' stream"
   },
   "9pb6tO": {
     "defaultMessage": "Note spéciale<hidden> relative aux compétences techniques essentielles</hidden>",
@@ -3042,6 +3022,10 @@
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
+  },
+  "BSfL03": {
+    "defaultMessage": "Sélectionnez la langue de travail du poste à pourvoir. Celle-ci sera comparée à celle indiquée par les personnes candidates dans leur demande. Les personnes candidates ayant sélectionné « bilingue » pourraient ne pas avoir obtenu des résultats à l’évaluation de langue seconde du gouvernement du Canada.",
+    "description": "Message describing the work language ability filter in the search form."
   },
   "BVlGhZ": {
     "defaultMessage": "Avancement<hidden> nomination non retenue</hidden>",
@@ -3691,6 +3675,10 @@
     "defaultMessage": "* Veuillez noter qu'en indiquant votre intérêt pour les possibilités d'emplois ou de formation, vous acceptez de partager les renseignements de votre profil avec le personnel des ressources humaines et du recrutement du gouvernement du Canada au sein de cette collectivité.",
     "description": "Footnote for more information on interest in job and training opportunities"
   },
+  "EJV1DF": {
+    "defaultMessage": "Volet de travail",
+    "description": "Label for a process work stream"
+  },
   "EK+25s": {
     "defaultMessage": "Notes",
     "description": "Title for admin notes shorthand"
@@ -3871,6 +3859,10 @@
     "defaultMessage": "Date limite de présentation des demandes",
     "description": "The application deadline of the training opportunity"
   },
+  "FPMibV": {
+    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de toute personne candidate qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi sélectionnés",
+    "description": "Context for employment equity filter in search form."
+  },
   "FRcbbi": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label text for not represented community declaration"
@@ -4030,6 +4022,10 @@
   "G8JoCN": {
     "defaultMessage": "Ministère de placement",
     "description": "Label for the placed department field"
+  },
+  "G8P9fw": {
+    "defaultMessage": "En placement provisoire (confirmation verbale ou par courriel)",
+    "description": "Description for the offer in progress candidate placement type"
   },
   "G9oyzn": {
     "defaultMessage": "Titre de l’évaluation",
@@ -4507,10 +4503,6 @@
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
   },
-  "IT6Djp": {
-    "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
-    "description": "Message describing the operational requirements filter in the search form."
-  },
   "IUoUqs": {
     "defaultMessage": "Modification de l’état",
     "description": "Title for the request status last changed at date block."
@@ -4554,10 +4546,6 @@
   "Ijz5oe": {
     "defaultMessage": "Le fait de ne pas fournir de renseignements personnels vous rendra inadmissible aux postes d'emploi associées à cet outil.",
     "description": "Paragraph for privacy policy page"
-  },
-  "Il8ztR": {
-    "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Tous les candidats qualifiés dans des bassins ont été évalués et ont réussi l’évaluation.",
-    "description": "Content displayed in the find talent page explaining the page and what it offers to users."
   },
   "Ilot3b": {
     "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
@@ -4751,10 +4739,6 @@
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
   },
-  "JbHieN": {
-    "defaultMessage": "Demander pour les candidats du bassin {poolName}",
-    "description": "Button link message on search page that takes user to the request form."
-  },
   "JbSK7q": {
     "defaultMessage": "« réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
     "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
@@ -4770,10 +4754,6 @@
   "Jf3vT5": {
     "defaultMessage": "Informations sur l'employé(e) du gouvernement",
     "description": "Title for the government employee information section"
-  },
-  "Jfl1o+": {
-    "defaultMessage": "Processus exécuté par {team} à {department}",
-    "description": "Team and department of pool"
   },
   "JgdijS": {
     "defaultMessage": "Afficher {pageSize}",
@@ -4822,6 +4802,10 @@
   "Jqt2vB": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Label for a process' closing date in pacific timezone"
+  },
+  "Jtc63M": {
+    "defaultMessage": "Sélectionnez un volet de travail",
+    "description": "Placeholder for work stream filter in search form."
   },
   "Jv/Blc": {
     "defaultMessage": "Afficher toutes les informations disponibles pour cet utilisateur ou cette utilisatrice.",
@@ -4979,10 +4963,6 @@
     "defaultMessage": "Postulez dès maintenant",
     "description": "Link text to apply for a pool advertisement"
   },
-  "KhOXZ3": {
-    "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qualifiés qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner « Demande de candidats ». Vous verrez alors apparaître un formulaire à partir duquel vous pourriez fournir vos coordonnées et soumettre votre demande.",
-    "description": "Content displayed in the How To area of the hero section of the Search page."
-  },
   "KjbjQU": {
     "defaultMessage": "Voir",
     "description": "Title displayed for a tables View column."
@@ -5130,6 +5110,10 @@
   "LDrXbc": {
     "defaultMessage": "contiennent des renseignements protégés ou classifiés du gouvernement du Canada",
     "description": "Comments or contributions list item"
+  },
+  "LDsiHk": {
+    "defaultMessage": "Aidez-nous à vous proposer les meilleures personnes candidates en précisant les compétences que vous recherchez.",
+    "description": "Describing the purpose of the skill filters on the Search page."
   },
   "LEVK8x": {
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
@@ -5430,6 +5414,10 @@
   "Mi+AuD": {
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
+  },
+  "MiqbcI": {
+    "defaultMessage": "Demander des personnes candidates<hidden> de bassin {poolName}</hidden>",
+    "description": "Button link message on search page that takes user to the request form."
   },
   "MkUz+j": {
     "defaultMessage": "Ajoutez un membre",
@@ -5750,6 +5738,10 @@
   "OKqOVT": {
     "defaultMessage": "Gouvernement du Canada",
     "description": "Label for goc employment category on work experience card metadata"
+  },
+  "OLoRqP": {
+    "defaultMessage": "Trouver des talents prêts à rejoindre votre équipe",
+    "description": "Title displayed on hero for Search and Request pages."
   },
   "OODa6h": {
     "defaultMessage": "Nomination pour",
@@ -6391,10 +6383,6 @@
     "defaultMessage": "Lorsque vous ajoutez une collectivité fonctionnelle à votre profil, vous acceptez de partager vos informations avec ses gestionnaires de talents, son personnel de recrutement et ses gestionnaires d'embauche potentiels. Il s'agit notamment des informations de votre profil, de votre expérience professionnelle et de votre portfolio de compétences. Vos informations peuvent être utilisées pour vous mettre en relation avec des possibilités pertinentes et pour recueillir des informations sur la main-d'œuvre de la collectivité fonctionnelle.",
     "description": "statement for the 'Review and submit' consent section, paragraph 1"
   },
-  "R75HsV": {
-    "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
-    "description": "Describing the purpose of the skill filters on the Search page."
-  },
   "R8Naqm": {
     "defaultMessage": "Filtrage et évaluation",
     "description": "Heading for the information of an application"
@@ -6658,10 +6646,6 @@
   "SY1LIh": {
     "defaultMessage": "Menu principal",
     "description": "Label for the main navigation"
-  },
-  "SZ2DsZ": {
-    "defaultMessage": "Secrétariat du Conseil du Trésor du Canada",
-    "description": "Default department for pool"
   },
   "SZeO9P": {
     "defaultMessage": "Éducation actuelle",
@@ -6943,10 +6927,6 @@
     "defaultMessage": "Créer<hidden> un volet de travail</hidden>",
     "description": "Breadcrumb title for the create work stream page link."
   },
-  "TxVbLI": {
-    "defaultMessage": "Filtre de classification",
-    "description": "Heading for classification filter of the search form."
-  },
   "Txu5Yq": {
     "defaultMessage": "Malgré tous les efforts déployés pour rendre notre site Web entièrement accessible, si vous avez besoin d’aide pour accéder aux renseignements ou si vous avez besoin d’un format différent, nous vous encourageons à communiquer avec nous. Votre rétroaction sur nos efforts d’accessibilité est également la bienvenue. Veuillez communiquer avec nous à :",
     "description": "Lead in text for accessibility contact information"
@@ -7054,10 +7034,6 @@
   "UTFKyy": {
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
-  },
-  "UXsUvN": {
-    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
-    "description": "Context for employment equity filter in search form."
   },
   "UanJxB": {
     "defaultMessage": "Supprimer cette question",
@@ -7169,10 +7145,6 @@
   "V6h+Kn": {
     "defaultMessage": "Vous êtes sur le point de supprimer cet utilisateur de la plateforme",
     "description": "Lead in text for the delete user form."
-  },
-  "V8v+/g": {
-    "defaultMessage": "Filtre de classification",
-    "description": "Label for classification filter in search form."
   },
   "V95g4E": {
     "defaultMessage": "Possibilités de formation",
@@ -7561,6 +7533,10 @@
   "Wwb8Lb": {
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
+  },
+  "WxviCX": {
+    "defaultMessage": "Voir l'annonce d'emploi<hidden> pour {processTitle}</hidden>",
+    "description": "Link message that shows the job poster for the recruitment process."
   },
   "Wy6aeg": {
     "defaultMessage": "À propos de nous",
@@ -8110,6 +8086,10 @@
     "defaultMessage": "Afin que nous puissions mieux vous appuyer au fil de votre parcours d'embauche d'un apprentis en TI, veuillez nous laisser savoir si vous avez",
     "description": "Paragraph 1 of a manager's email for apprenticeship"
   },
+  "ZL7sNi": {
+    "defaultMessage": "Processus exécuté par la {team} pour le volet de travail {workStream}",
+    "description": "Team and work stream of pool"
+  },
   "ZLDt/c": {
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
     "description": "Subtitle displayed above the single search request component."
@@ -8145,6 +8125,10 @@
   "ZVfbLF": {
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
+  },
+  "ZWUMrM": {
+    "defaultMessage": "Sélectionnez la classification et le volet de travail du poste que vous souhaitez pourvoir. Nous vous indiquerons le nombre de personnes candidates correspondent à votre sélection.",
+    "description": "Message describing the classification filter of the search form."
   },
   "ZZLwb5": {
     "defaultMessage": "Niveaux de filtrage de sécurité",
@@ -8529,6 +8513,10 @@
   "bh6bGz": {
     "defaultMessage": "est en mesure de consulter les profils des membres du personnel qui montrent un intérêt concernant des possibilités d’emploi et de formation dans leur collectivité;",
     "description": "Description of the permission to view users who expressed interest in their community"
+  },
+  "bhLaJ0": {
+    "defaultMessage": "Vous pouvez demander des personnes candidates appartenant à des groupes d’équité en matière d’emploi afin de combler certaines lacunes actuelles ou futures en matière de représentation dans les effectifs. Ces groupes correspondent à ceux définis et collectés conformément à la Loi sur l’emploi dans la fonction publique.",
+    "description": "Message describing the employment equity filter in the search form."
   },
   "bhXSKc": {
     "defaultMessage": "Note spéciale<hidden> relative aux compétences comportementales essentielles</hidden>",
@@ -9010,10 +8998,6 @@
     "defaultMessage": "Modifier la date de clôture",
     "description": "Title to change the closing date of a process"
   },
-  "dlRmxI": {
-    "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
-    "description": "Message describing the employment equity filter in the search form."
-  },
   "dm3BlY": {
     "defaultMessage": "Vous avez lu toute la FAQ et n'y avez pas trouvé la réponse que vous cherchiez? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
     "description": "GCKey question and answer for more support"
@@ -9057,10 +9041,6 @@
   "dwe1M+": {
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
-  },
-  "dxv7Jx": {
-    "defaultMessage": "Nous utilisons ce filtre pour apparier les candidats qui expriment de l’intérêt pour un niveau de classification, ou certains salaires prévus dans ces classifications.",
-    "description": "Message describing the classification filter of the search form."
   },
   "dxwgXw": {
     "defaultMessage": "communiquent des messages racistes, haineux, sexistes, homophobes ou diffamatoires, ou contiennent du matériel obscène ou pornographique ou y font allusion",
@@ -10177,10 +10157,6 @@
     "defaultMessage": "Cet utilisateur n’a mis aucune compétence en évidence.",
     "description": "Message displayed when a user has no top skills in their showcase"
   },
-  "iN2H6J": {
-    "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
-    "description": "Message describing the employment duration filter in the search form."
-  },
   "iNIXQ9": {
     "defaultMessage": "Sommaire de la compétence",
     "description": "Title for the skill summary section in the assessment plan builder"
@@ -10746,7 +10722,7 @@
     "description": "Status description for a submitted (but not reviewed) application"
   },
   "l1f8zy": {
-    "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
+    "defaultMessage": "Ou demander des personnes candidates qualifiées provenant de l’un des bassins suivants",
     "description": "Lead-in text to list of pools managers can request candidates from"
   },
   "l2xs1C": {
@@ -11857,6 +11833,10 @@
     "defaultMessage": "Fait l’objet d’une évaluation complète en fonction de l’énoncé des critères de mérite du programme d’apprentissage en TI pour les personnes autochtones et avoir été jugé qualifié pour le rôle d’apprenti IT-01 (ou équivalent)",
     "description": "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "q3JL9y": {
+    "defaultMessage": "Une estimation du nombre de personnes candidates qualifiées correspondant à vos critères s’affichera automatiquement selon les filtres appliqués.",
+    "description": "Content displayed in the How To area of the hero section of the Search page."
+  },
   "q5FQbu": {
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
@@ -11892,6 +11872,10 @@
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
+  },
+  "qFFEST": {
+    "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées aux exigences de poste acceptables choisies par les candidates et candidats dans leur demande.",
+    "description": "Message describing the operational requirements filter in the search form."
   },
   "qFIyZv": {
     "defaultMessage": "Votre session a expiré. Veuillez vous reconnecter.",
@@ -11976,10 +11960,6 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
-  },
-  "qobo/x": {
-    "defaultMessage": "Sélectionnez un volet",
-    "description": "Placeholder for stream filter in search form."
   },
   "qs09PP": {
     "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
@@ -12941,6 +12921,10 @@
     "defaultMessage": "Indiquer comme lue",
     "description": "Button text to mark a notification as read"
   },
+  "vjZ960": {
+    "defaultMessage": "Si vous êtes à la recherche de talents, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des personnes candidates qualifiées. Tous les candidates et candidats dans ces processus de recrutement ont été évalués et se sont qualifiés.",
+    "description": "Content displayed in the find talent page explaining the page and what it offers to users."
+  },
   "vjbsDe": {
     "defaultMessage": "Filtrer par type de rôle",
     "description": "Legend for supervisory status input"
@@ -13864,6 +13848,10 @@
   "ztzRUG": {
     "defaultMessage": "Créez une classification",
     "description": "Button text to create a classification"
+  },
+  "zu/X7H": {
+    "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
+    "description": "Message describing the employment duration filter in the search form."
   },
   "zv4Vyd": {
     "defaultMessage": "Compétences comportementales requises",

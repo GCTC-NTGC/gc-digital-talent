@@ -253,8 +253,8 @@ const employmentDurationShort = defineMessages({
 
 const employmentDurationLong = defineMessages({
   [EmploymentDuration.Term]: {
-    defaultMessage: "Term duration (short term, long term)",
-    id: "S9BRBL",
+    defaultMessage: "Term duration (short term or long term)",
+    id: "AyaZQZ",
     description: "Duration of a non-permanent length",
   },
   [EmploymentDuration.Indeterminate]: {
@@ -447,45 +447,45 @@ export const GenericJobTitlesSorted = [
 
 const operationalRequirementLabelFull = defineMessages({
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "Availability, willingness and ability to work shift-work.",
-    id: "Gc9PeN",
+    defaultMessage: "Availability, willingness and ability to work shift-work",
+    id: "X+DDtG",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
     defaultMessage:
-      "Availability, willingness and ability to work 24/7 on-call status.",
-    id: "vDrJp6",
+      "Availability, willingness and ability to work 24/7 on-call status",
+    id: "4XgOuf",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
     defaultMessage:
-      "Availability, willingness and ability to travel as required.",
-    id: "4pZrst",
+      "Availability, willingness and ability to travel as required",
+    id: "DyrwXU",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
     defaultMessage:
-      "Availability, willingness and ability to transport, lift and set down equipment weighing up to 20kg.",
-    id: "XpK4rL",
+      "Availability, willingness and ability to transport, lift and set down equipment weighing up to 20kg",
+    id: "xSCksA",
     description:
-      "The operational requirement described as transport equipment up to 20kg.",
+      "The operational requirement described as transport equipment up to 20kg",
   },
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
-      "Must possess a valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license.",
-    id: "QhRU19",
+      "Must possess a valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license",
+    id: "q2m/4E",
     description: "The operational requirement described as driver's license.",
   },
   [OperationalRequirement.OvertimeRegular]: {
     defaultMessage:
-      "Availability, willingness and ability to work overtime (Regularly).",
-    id: "vvtqRv",
+      "Availability, willingness and ability to work overtime (regularly)",
+    id: "W2CzAY",
     description: "The operational requirement described as regular overtime.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
-      "Availability, willingness and ability to work overtime (Occasionally).",
-    id: "KzhnAz",
+      "Availability, willingness and ability to work overtime (occasionally)",
+    id: "8RX9iJ",
     description:
       "The operational requirement described as occasional overtime.",
   },

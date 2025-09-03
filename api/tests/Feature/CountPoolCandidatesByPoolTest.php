@@ -863,13 +863,13 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    'qualifiedClassifications' => [
+                    'qualifiedInClassifications' => [
                         [
                             'group' => 'IT',
                             'level' => 1,
                         ],
                     ],
-                    'workStreams' => [['id' => $stream->id]],
+                    'qualifiedInWorkStreams' => [['id' => $stream->id]],
                 ],
             ]
         )->assertSimilarJson([

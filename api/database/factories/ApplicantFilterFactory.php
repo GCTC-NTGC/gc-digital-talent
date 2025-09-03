@@ -101,9 +101,9 @@ class ApplicantFilterFactory extends Factory
                 $this->faker->numberBetween($minCount, 1)
             )->get();
             $filter->pools()->saveMany($pools);
-            $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classification));
+            $filter->qualifiedInClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classification));
             $streams = $pools->map(fn ($pool) => $pool->workStream);
-            $filter->workStreams()->saveMany($streams);
+            $filter->qualifiedInWorkStreams()->saveMany($streams);
 
             $ATIP = Community::where('key', 'atip')->first();
             $digital = Community::where('key', 'digital')->first();
@@ -130,7 +130,7 @@ class ApplicantFilterFactory extends Factory
     public function withWorkStreams(array $workStreams)
     {
         return $this->afterCreating(function (ApplicantFilter $filter) use ($workStreams) {
-            $filter->workStreams()->saveMany($workStreams);
+            $filter->qualifiedInWorkStreams()->saveMany($workStreams);
         });
     }
 }

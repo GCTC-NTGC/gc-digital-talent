@@ -349,7 +349,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           level
         }
       }
-      qualifiedClassifications {
+      qualifiedInClassifications {
         id
         name {
           en
@@ -358,7 +358,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         group
         level
       }
-      workStreams {
+      qualifiedInWorkStreams {
         id
         name {
           en

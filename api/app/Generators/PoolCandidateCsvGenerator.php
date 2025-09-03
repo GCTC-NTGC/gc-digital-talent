@@ -616,7 +616,8 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             'pools' => 'whereAvailableInPools',
             'skills' => 'whereSkillsAdditive',
             'skillsIntersectional' => 'whereSkillsIntersectional',
-            'qualifiedClassifications' => 'whereQualifiedClassificationsIn',
+            'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
+            'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
             'community' => 'whereCandidatesInCommunity',
         ]);
 

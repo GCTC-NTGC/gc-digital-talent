@@ -275,14 +275,14 @@ class UserBuilder extends Builder
      *
      * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
-    public function whereQualifiedClassificationsIn(?array $classifications): self
+    public function whereQualifiedInClassificationsIn(?array $classifications): self
     {
         if (empty($classifications)) {
             return $this;
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            $query->whereQualifiedClassificationsIn($classifications);
+            $query->whereQualifiedInClassificationsIn($classifications);
         });
     }
 
@@ -290,14 +290,14 @@ class UserBuilder extends Builder
      * Scopes the query to only return users who are available in a pool with one of the specified streams.
      * If $streams is empty, this scope will be ignored.
      */
-    public function whereQualifiedStreamsIn(?array $streams): self
+    public function whereQualifiedInWorkStreamsIn(?array $streams): self
     {
         if (empty($streams)) {
             return $this;
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($streams) {
-            $query->whereQualifiedStreamsIn($streams);
+            $query->whereQualifiedInWorkStreamsIn($streams);
         });
     }
 
@@ -330,12 +330,12 @@ class UserBuilder extends Builder
             $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
                 $query->wherePublished();
 
-                if (array_key_exists('qualifiedClassifications', $filters)) {
-                    $query->whereClassifications($filters['qualifiedClassifications']);
+                if (array_key_exists('qualifiedInClassifications', $filters)) {
+                    $query->whereClassifications($filters['qualifiedInClassifications']);
                 }
 
-                if (array_key_exists('workStreams', $filters)) {
-                    $query->whereWorkStreamsIn($filters['workStreams']);
+                if (array_key_exists('qualifiedInWorkStreams', $filters)) {
+                    $query->whereWorkStreamsIn($filters['qualifiedInWorkStreams']);
                 }
             })
                 ->whereAvailable()
