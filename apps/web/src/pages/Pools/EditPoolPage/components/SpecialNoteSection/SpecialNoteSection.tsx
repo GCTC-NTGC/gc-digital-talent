@@ -198,7 +198,7 @@ const SpecialNoteSection = ({
               {watchHasSpecialNote && (
                 <div className="mb-6 grid gap-6 sm:grid-cols-2">
                   <RichTextInput
-                    id="whatToExpectEn"
+                    id="specialNoteEn"
                     label={intl.formatMessage({
                       defaultMessage: "Special note",
                       id: "LlE+CS",
@@ -210,7 +210,7 @@ const SpecialNoteSection = ({
                     readOnly={!canEdit}
                   />
                   <RichTextInput
-                    id="whatToExpectFr"
+                    id="specialNoteFr"
                     label={intl.formatMessage({
                       defaultMessage: "Special note",
                       id: "LlE+CS",
