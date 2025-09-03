@@ -2033,8 +2033,8 @@ input CreateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
-  isAvailableInSearch: Boolean!
-  displayName: LocalizedStringInput
+  isAvailableInSearch: Boolean! @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input ClassificationBelongsToMany {
@@ -2060,8 +2060,8 @@ input UpdateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
-  isAvailableInSearch: Boolean
-  displayName: LocalizedStringInput
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input UpdatePoolCandidateStatusInput {

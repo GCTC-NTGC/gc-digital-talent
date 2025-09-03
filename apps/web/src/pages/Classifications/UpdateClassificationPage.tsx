@@ -13,7 +13,7 @@ import {
   CardSeparator,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input, Select, Submit } from "@gc-digital-talent/forms";
+import { Input, Select, Submit, SwitchInput } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
@@ -52,6 +52,11 @@ export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
     level
     minSalary
     maxSalary
+    displayName {
+      en
+      fr
+    }
+    isAvailableInSearch
   }
 `);
 
@@ -123,7 +128,7 @@ export const UpdateClassificationForm = ({
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const input: FormValues = {
+    const input: UpdateClassificationInput = {
       name: {
         en: data.name?.en,
         fr: data.name?.fr,
@@ -131,6 +136,11 @@ export const UpdateClassificationForm = ({
       group: data.group?.toUpperCase(),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
+      displayName: {
+        en: data.displayName?.en,
+        fr: data.displayName?.fr,
+      },
+      isAvailableInSearch: data.isAvailableInSearch ?? false,
     };
     return executeMutation({
       id: classification.id,
@@ -266,6 +276,30 @@ export const UpdateClassificationForm = ({
                       }),
                     },
                   }}
+                />
+                <div className="xs:col-span-2">
+                  <SwitchInput
+                    id="isAvailableInSearch"
+                    name="isAvailableInSearch"
+                    color="secondary"
+                    label={intl.formatMessage(messages.isAvailableInSearch)}
+                  />
+                </div>
+                <Input
+                  id="displayName_en"
+                  name="displayName.en"
+                  autoComplete="off"
+                  label={intl.formatMessage(commonMessages.displayName)}
+                  appendLanguageToLabel={"en"}
+                  type="text"
+                />
+                <Input
+                  id="displayName_fr"
+                  name="displayName.fr"
+                  autoComplete="off"
+                  label={intl.formatMessage(commonMessages.displayName)}
+                  appendLanguageToLabel={"fr"}
+                  type="text"
                 />
               </div>
               <CardSeparator />

@@ -11,4 +11,9 @@ export default defineMessages({
     id: "iHDhMh",
     description: "Label for classification level",
   },
+  isAvailableInSearch: {
+    defaultMessage: 'Appears on "Find talent" page',
+    id: "HmqXuv",
+    description: "Label for the isAvailableInSearch field",
+  },
 });

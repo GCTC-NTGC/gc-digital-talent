@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 
-import { Input, Select, Submit } from "@gc-digital-talent/forms";
+import { Input, Select, Submit, SwitchInput } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -75,12 +75,17 @@ export const CreateClassification = () => {
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const classification: FormValues = {
+    const classification: CreateClassificationInput = {
       ...data,
       group: data.group.toUpperCase(),
       level: Number(data.level),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
+      displayName: {
+        en: data.displayName?.en,
+        fr: data.displayName?.fr,
+      },
+      isAvailableInSearch: data.isAvailableInSearch ?? false,
     };
     return executeMutation({ classification })
       .then(async (result) => {
@@ -205,6 +210,30 @@ export const CreateClassification = () => {
                       }),
                     },
                   }}
+                />
+                <div className="xs:col-span-2">
+                  <SwitchInput
+                    id="isAvailableInSearch"
+                    name="isAvailableInSearch"
+                    color="secondary"
+                    label={intl.formatMessage(messages.isAvailableInSearch)}
+                  />
+                </div>
+                <Input
+                  id="displayName_en"
+                  name="displayName.en"
+                  autoComplete="off"
+                  label={intl.formatMessage(commonMessages.displayName)}
+                  appendLanguageToLabel={"en"}
+                  type="text"
+                />
+                <Input
+                  id="displayName_fr"
+                  name="displayName.fr"
+                  autoComplete="off"
+                  label={intl.formatMessage(commonMessages.displayName)}
+                  appendLanguageToLabel={"fr"}
+                  type="text"
                 />
               </div>
               <CardSeparator />
