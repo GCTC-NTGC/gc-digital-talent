@@ -8,27 +8,27 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
 
-const AdminOffPlatformRecruitmentProcesseses_Fragment = graphql(/** GraphQL */ `
-  fragment AdminOffPlatformRecruitmentProcesseses on User {
+const AdminOffPlatformRecruitmentProcesses_Fragment = graphql(/** GraphQL */ `
+  fragment AdminOffPlatformRecruitmentProcesses on User {
     offPlatformRecruitmentProcesses {
       ...OffPlatformRecruitmentProcessList
     }
   }
 `);
 
-interface AdminOffPlatformRecruitmentProcessesesProps {
-  query: FragmentType<typeof AdminOffPlatformRecruitmentProcesseses_Fragment>;
+interface AdminOffPlatformRecruitmentProcessesProps {
+  query: FragmentType<typeof AdminOffPlatformRecruitmentProcesses_Fragment>;
 }
 
 export const OFF_PLATFORM_RECRUITMENT_PROCESSES_ID =
-  "off-platform-recrtuiment-processes";
+  "off-platform-recruitment-processes";
 
-const AdminOffPlatformRecruitmentProcesseses = ({
+const AdminOffPlatformRecruitmentProcesses = ({
   query,
-}: AdminOffPlatformRecruitmentProcessesesProps) => {
+}: AdminOffPlatformRecruitmentProcessesProps) => {
   const intl = useIntl();
   const user = getFragment(
-    AdminOffPlatformRecruitmentProcesseses_Fragment,
+    AdminOffPlatformRecruitmentProcesses_Fragment,
     query,
   );
   const processes = unpackMaybes(user.offPlatformRecruitmentProcesses);
@@ -63,4 +63,4 @@ const AdminOffPlatformRecruitmentProcesseses = ({
   );
 };
 
-export default AdminOffPlatformRecruitmentProcesseses;
+export default AdminOffPlatformRecruitmentProcesses;

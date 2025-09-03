@@ -29,7 +29,7 @@ import RecruitmentTools, {
   RECRUITMENT_TOOLS_ID,
   title as recruitmentToolsTitle,
 } from "./components/RecruitmentTools";
-import AdminOffPlatformRecruitmentProcesseses, {
+import AdminOffPlatformRecruitmentProcesses, {
   OFF_PLATFORM_RECRUITMENT_PROCESSES_ID,
 } from "./components/OffPlatformRecruitmentProcesses";
 
@@ -38,7 +38,7 @@ const AdminUserRecruitment_Fragment = graphql(/** GraphQL */ `
     id
     ...AdminRecruitmentProcesses
     ...RecruitmentTools
-    ...AdminOffPlatformRecruitmentProcesseses
+    ...AdminOffPlatformRecruitmentProcesses
   }
 `);
 
@@ -80,7 +80,7 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <RecruitmentProcesses query={user} />
-          <AdminOffPlatformRecruitmentProcesseses query={user} />
+          <AdminOffPlatformRecruitmentProcesses query={user} />
           <RecruitmentTools query={user} />
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
