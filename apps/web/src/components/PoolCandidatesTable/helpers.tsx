@@ -219,6 +219,7 @@ export const candidateFacingStatusCell = (
   assessmentStep: Maybe<number> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestions: Pool["screeningQuestionsCount"],
+  contactEmail: Pool["contactEmail"],
   intl: IntlShape,
 ) => {
   const { label } = getApplicationStatusChip(
@@ -231,6 +232,7 @@ export const candidateFacingStatusCell = (
     assessmentStep,
     assessmentStatus,
     screeningQuestions,
+    contactEmail,
     intl,
   );
   return label;

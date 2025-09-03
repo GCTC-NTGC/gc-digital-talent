@@ -178,8 +178,8 @@ const ReviewApplicationDialog = ({
     application.assessmentStep?.sortOrder,
     application.assessmentStatus,
     pool.screeningQuestionsCount,
-    intl,
     pool.contactEmail,
+    intl,
   );
 
   return (

@@ -415,8 +415,8 @@ export const getApplicationStatusChip = (
   assessmentStep: Maybe<number> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestionsCount: Pool["screeningQuestionsCount"],
+  contactEmail: Pool["contactEmail"],
   intl: IntlShape,
-  contactEmail?: Pool["contactEmail"],
 ): StatusChipWithDescription => {
   // Draft applications
   if (!submittedAt) {
