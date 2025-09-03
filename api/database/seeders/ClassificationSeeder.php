@@ -56,7 +56,11 @@ class ClassificationSeeder extends Seeder
                     ],
                     'max_salary' => $model->maxSalary,
                     'min_salary' => $model->minSalary,
-
+                    'is_available_in_search' => false, // update in #14504
+                    'display_name' => [
+                        'en' => null,
+                        'fr' => null,
+                    ],
                 ]
             );
         }

@@ -23,6 +23,8 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property string $formattedGroupAndLevel
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property bool $is_available_in_search
+ * @property array $display_name
  */
 class Classification extends Model
 {
@@ -37,6 +39,7 @@ class Classification extends Model
      */
     protected $casts = [
         'name' => LocalizedString::class,
+        'display_name' => LocalizedString::class,
     ];
 
     /** @return HasMany<GenericJobTitle, $this> */
