@@ -1025,24 +1025,17 @@ const PoolCandidatesTable = ({
       }) => cells.email(user.email),
     }),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) => user.flexibleWorkLocations,
+      ({ poolCandidate: { user } }) =>
+        user.flexibleWorkLocations
+          ?.map((location) =>
+            location ? getLocalizedName(location.label, intl) : "",
+          )
+          .filter((name) => name !== "")
+          .join(", ") ?? null,
       {
         id: "flexibleWorkLocations",
         header: intl.formatMessage(commonMessages.flexibleWorkLocations),
         enableSorting: false,
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { user },
-            },
-          },
-        }) =>
-          user.flexibleWorkLocations
-            ?.map((location) =>
-              location ? getLocalizedName(location.label, intl) : "",
-            )
-            .filter((name) => name !== "")
-            .join(", ") ?? null,
       },
     ),
     columnHelper.accessor(
