@@ -101,9 +101,6 @@ const ContactEmailSection = ({
     }).then(() => onSuccess({ ...values }));
   };
 
-  // disabled unless status is draft
-  const formDisabled = pool.status?.value !== PoolStatus.Draft; // TODO: Should the contact email be permanent after being published?
-
   const subtitle = intl.formatMessage({
     defaultMessage:
       "This will be the contact information provided to candidates for questions and accommodation requests, and to employees who want to discuss their unsuccessful application.",
@@ -112,6 +109,7 @@ const ContactEmailSection = ({
       "Describes the 'contact email' section of a process' advertisement",
   });
 
+  const canEditAndIsDraft = canEdit && pool.status?.value === PoolStatus.Draft;
   return (
     <ToggleSection.Root
       id={`${sectionMetadata.id}-form`}
@@ -140,7 +138,18 @@ const ContactEmailSection = ({
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleSave)}>
+            <form
+              onSubmit={
+                canEditAndIsDraft
+                  ? handleSubmit(handleSave)
+                  : (e) => {
+                      // This prevents the admin from submitting, when pressing enter on the contact email input,
+                      // and receiving an error when trying to update a published pool.
+                      e.preventDefault();
+                      handleSubmit(handleSave);
+                    }
+              }
+            >
               <div className="grid gap-6">
                 <Input
                   id="contactEmail"
@@ -151,11 +160,9 @@ const ContactEmailSection = ({
                     id: "etD6Xy",
                     description: "Title for contact email input",
                   })}
-                  disabled={formDisabled}
                 />
-
                 <ActionWrapper>
-                  {canEdit && pool.status?.value === PoolStatus.Draft && (
+                  {canEditAndIsDraft && (
                     <Submit
                       text={intl.formatMessage(formMessages.saveChanges)}
                       aria-label={intl.formatMessage({

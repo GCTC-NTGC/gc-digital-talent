@@ -227,6 +227,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    contactEmail
   }
 `);
 
@@ -505,7 +506,7 @@ export const EditPoolForm = ({
     },
     contactEmail: {
       id: "contact-email",
-      hasError: !pool.contactEmail,
+      hasError: !pool.contactEmail, // TODO: Contact email is in the "More Information" optional section, but it's required
       title: intl.formatMessage({
         defaultMessage: "Contact email",
         id: "dzv6e3",

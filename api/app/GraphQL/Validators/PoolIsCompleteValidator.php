@@ -106,7 +106,8 @@ final class PoolIsCompleteValidator extends Validator
             'your_impact.fr.required' => 'FrenchYourImpactRequired',
             'special_note.en.required' => 'EnglishSpecialNoteRequired',
             'special_note.fr.required' => 'EnglishSpecialNoteRequired',
-            'area_of_selection.required' => 'PoolAreaOfSelectionRequired',
+            'area_of_selection.required' => 'PoolAreaOfSelectionRequired', // TODO: No api message. Make issue.
+            'contact_email' => 'ContactEmailRequired',
         ];
     }
 }
