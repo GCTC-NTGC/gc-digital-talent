@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   PreviewList,
@@ -163,11 +163,9 @@ const RecruitmentProcessPreviewList = ({
       )}
       <div className="mt-6 border-t border-t-gray-300 pt-6">
         <Heading level="h3" className="mt-0 text-base font-bold lg:text-base">
-          {intl.formatMessage({
-            defaultMessage: "Off-platform recruitment processes",
-            id: "tpXtAJ",
-            description: "Off-platform section header",
-          })}
+          {intl.formatMessage(
+            navigationMessages.offPlatformRecruitmentProcesses,
+          )}
         </Heading>
         <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
           {intl.formatMessage({
