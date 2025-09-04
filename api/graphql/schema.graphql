@@ -649,7 +649,7 @@ type Classification {
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
-  isAvailableInSearch: Boolean! @rename(attribute: "is_available_in_search")
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
   displayName: LocalizedString @rename(attribute: "display_name")
 }
 
