@@ -319,11 +319,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       {
         id: "workStream",
         enableColumnFilter: false,
-        header: intl.formatMessage({
-          defaultMessage: "Stream",
-          id: "9KGR0d",
-          description: "Title displayed for the Pool table Stream column.",
-        }),
+        header: intl.formatMessage(processMessages.stream),
       },
     ),
     columnHelper.accessor(

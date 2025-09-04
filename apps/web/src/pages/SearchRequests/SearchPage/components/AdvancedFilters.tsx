@@ -116,8 +116,8 @@ const AdvancedFilters = () => {
       value: NullSelection,
       label: intl.formatMessage({
         defaultMessage:
-          "Any duration (short term, long term or indeterminate) (Recommended)",
-        id: "8fQWTc",
+          "Any duration (short term, long term or indeterminate) (recommended)",
+        id: "+K95cA",
         description: "No preference for employment duration - will accept any",
       }),
     },
@@ -216,10 +216,10 @@ const AdvancedFilters = () => {
               <RadioGroup
                 idPrefix="education_requirement"
                 legend={intl.formatMessage({
-                  defaultMessage: "Education Requirement filter",
-                  id: "/JQ6DD",
+                  defaultMessage: "Education requirement",
+                  id: "+XzATK",
                   description:
-                    "Legend for the Education Requirement filter radio group",
+                    "Legend for the Education requirement radio group",
                 })}
                 name="educationRequirement"
                 items={educationRequirementOptions}
@@ -244,8 +244,8 @@ const AdvancedFilters = () => {
               id="employmentDurationFilter"
               text={intl.formatMessage({
                 defaultMessage:
-                  "The selected duration will be compared to the one chosen by candidates in their applications. Change this only if the job offer has a determined duration.",
-                id: "iN2H6J",
+                  "The selected duration will be compared to the one chosen by candidates in their application. Change this only if the job offer has a determined duration.",
+                id: "zu/X7H",
                 description:
                   "Message describing the employment duration filter in the search form.",
               })}
@@ -283,8 +283,8 @@ const AdvancedFilters = () => {
                 id="operationalRequirementFilter"
                 text={intl.formatMessage({
                   defaultMessage:
-                    "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
-                  id: "IT6Djp",
+                    "The selected conditions of employment will be compared to the acceptable job requirements chosen by candidates in their applications.",
+                  id: "qFFEST",
                   description:
                     "Message describing the operational requirements filter in the search form.",
                 })}

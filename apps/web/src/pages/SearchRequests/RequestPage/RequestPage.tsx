@@ -32,8 +32,8 @@ export const Component = () => {
   return (
     <Hero
       title={intl.formatMessage({
-        defaultMessage: "Find digital talent",
-        id: "9Jkoms",
+        defaultMessage: "Find talent ready to join your team",
+        id: "OLoRqP",
         description: "Title displayed on hero for Search and Request pages.",
       })}
       subtitle={intl.formatMessage({

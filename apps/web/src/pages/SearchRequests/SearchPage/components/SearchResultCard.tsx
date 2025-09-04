@@ -9,7 +9,7 @@ import {
   Separator,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
   graphql,
@@ -49,13 +49,6 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
     name {
       en
       fr
-    }
-    department {
-      id
-      name {
-        en
-        fr
-      }
     }
     community {
       name {
@@ -127,9 +120,10 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         <span>
           {intl.formatMessage(
             {
-              defaultMessage: "Process run by {team} at {department}",
-              id: "Jfl1o+",
-              description: "Team and department of pool",
+              defaultMessage:
+                "Process run by the {team} for the {workStream} work stream",
+              id: "ZL7sNi",
+              description: "Team and work stream of pool",
             },
             {
               team: pool?.community
@@ -139,13 +133,9 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
                     id: "S82O61",
                     description: "Default team for pool",
                   }),
-              department: pool?.department
-                ? getLocalizedName(pool.department.name, intl)
-                : intl.formatMessage({
-                    defaultMessage: "Treasury Board of Canada Secretariat",
-                    id: "SZ2DsZ",
-                    description: "Default department for pool",
-                  }),
+              workStream: pool?.workStream
+                ? getLocalizedName(pool.workStream.name, intl)
+                : intl.formatMessage(commonMessages.notAvailable),
             },
           )}
         </span>
@@ -207,8 +197,9 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         >
           {intl.formatMessage(
             {
-              defaultMessage: "Request candidates from {poolName}",
-              id: "JbHieN",
+              defaultMessage:
+                "Request candidates<hidden> from {poolName}</hidden>",
+              id: "MiqbcI",
               description:
                 "Button link message on search page that takes user to the request form.",
             },
@@ -221,12 +212,18 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           href={paths.pool(pool.id || "")}
           newTab
         >
-          {intl.formatMessage({
-            defaultMessage: "View the job poster for this recruitment process",
-            id: "2Ljgvn",
-            description:
-              "Link message that shows the job poster for the recruitment process.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "View job advertisement<hidden> for {processTitle}</hidden>",
+              id: "WxviCX",
+              description:
+                "Link message that shows the job poster for the recruitment process.",
+            },
+            {
+              processTitle: getLocalizedName(pool.name, intl),
+            },
+          )}
         </Link>
       </div>
     </Card>

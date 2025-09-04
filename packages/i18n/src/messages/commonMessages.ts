@@ -160,8 +160,8 @@ const commonMessages = defineMessages({
     description: "Title displayed preferred communication language",
   },
   workingLanguageAbility: {
-    defaultMessage: "Working language ability",
-    id: "HEGXL7",
+    defaultMessage: "Working language",
+    id: "5hkdf2",
     description: "Title displayed working language ability",
   },
   unspecified: {
