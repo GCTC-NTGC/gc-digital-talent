@@ -68,7 +68,7 @@ const ContactEmailSection = ({
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
     emptyRequired,
-    fallbackIcon: InboxIcon, // TODO: What fallback icon should we use?
+    fallbackIcon: InboxIcon,
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({

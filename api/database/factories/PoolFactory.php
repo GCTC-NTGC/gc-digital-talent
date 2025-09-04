@@ -80,6 +80,7 @@ class PoolFactory extends Factory
             'classification_id' => $classification->id,
             'department_id' => $departmentId,
             'community_id' => $communityId,
+            'contact_email' => $this->faker->email(),
         ];
     }
 
@@ -211,7 +212,6 @@ class PoolFactory extends Factory
                         $this->faker->numberBetween(0, count($possibleLimitations))
                     );
                 },
-                'contact_email' => $this->faker->email(),
             ];
         });
     }
@@ -264,7 +264,6 @@ class PoolFactory extends Factory
                         $this->faker->numberBetween(0, count($possibleLimitations))
                     );
                 },
-                'contact_email' => $this->faker->email(),
             ];
         });
     }
