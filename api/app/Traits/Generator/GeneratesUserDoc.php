@@ -869,9 +869,10 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->nextRoleClassification->group ?? '');
         $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->nextRoleClassification->level ?? '');
 
-        // Target Role Type
+        // Target Role
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
-            $this->localizeEnum($profile->next_role_target_role, TargetRole::class));
+            $profile->next_role_target_role === TargetRole::OTHER->name && $profile->next_role_target_role_other ? $profile->next_role_target_role_other : $this->localizeEnum($profile->next_role_target_role, TargetRole::class)
+        );
 
         // Senior Management Status
         $managementStatus = $profile->next_role_is_c_suite_role === true
@@ -928,9 +929,10 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->careerObjectiveClassification->group ?? '');
         $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->careerObjectiveClassification->level ?? '');
 
-        // Target Role Type
+        // Target Role
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
-            $this->localizeEnum($profile->career_objective_target_role, TargetRole::class));
+            $profile->career_objective_target_role === TargetRole::OTHER->name && $profile->career_objective_target_role_other ? $profile->career_objective_target_role_other : $this->localizeEnum($profile->career_objective_target_role, TargetRole::class)
+        );
 
         // Senior Management Status
         $managementStatus = $profile->next_role_is_c_suite_role === true
