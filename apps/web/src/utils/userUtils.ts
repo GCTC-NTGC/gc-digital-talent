@@ -126,7 +126,7 @@ export const getEvaluatedLanguageLevels = (
 
 interface FormatLocationArgs {
   city?: Maybe<string>;
-  region?: Maybe<LocalizedProvinceOrTerritory>;
+  region?: Maybe<Omit<LocalizedProvinceOrTerritory, "value">>;
   intl: IntlShape;
 }
 
