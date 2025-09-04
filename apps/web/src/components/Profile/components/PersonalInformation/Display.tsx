@@ -8,7 +8,6 @@ import {
   commonMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
