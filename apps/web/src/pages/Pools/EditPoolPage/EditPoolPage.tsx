@@ -297,7 +297,8 @@ export const EditPoolForm = ({
   const aboutRoleHasError =
     yourImpactError({ yourImpact: pool.yourImpact }) ||
     keyTasksError({ keyTasks: pool.keyTasks }) ||
-    aboutUsError({ aboutUs: pool.aboutUs });
+    aboutUsError({ aboutUs: pool.aboutUs }) ||
+    !pool.contactEmail;
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
       id: "basic-info",
@@ -464,6 +465,17 @@ export const EditPoolForm = ({
       }),
       inList: false,
     },
+    contactEmail: {
+      id: "contact-email",
+      hasError: !pool.contactEmail,
+      title: intl.formatMessage({
+        defaultMessage: "Contact email",
+        id: "dzv6e3",
+        description: "Title for the contact email section",
+      }),
+      status: "optional",
+      inList: false,
+    },
     commonQuestions: {
       id: "common-questions",
       hasError: whatToExpectAdmissionError({
@@ -502,17 +514,6 @@ export const EditPoolForm = ({
         id: "Uwtkv6",
         description: "Title for the what to expect post admission section",
       }),
-      inList: false,
-    },
-    contactEmail: {
-      id: "contact-email",
-      hasError: !pool.contactEmail, // TODO: Contact email is in the "More Information" optional section, but it's required
-      title: intl.formatMessage({
-        defaultMessage: "Contact email",
-        id: "dzv6e3",
-        description: "Title for the contact email section",
-      }),
-      status: "optional",
       inList: false,
     },
     generalQuestions: {
@@ -667,6 +668,12 @@ export const EditPoolForm = ({
                       onSave={onSave}
                       onUpdatePublished={onUpdatePublished}
                     />
+                    <ContactEmailSection
+                      poolQuery={pool}
+                      sectionMetadata={sectionMetadata.contactEmail}
+                      onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
+                    />
                   </div>
                 </TableOfContents.Section>
               </div>
@@ -696,12 +703,6 @@ export const EditPoolForm = ({
                     <WhatToExpectAdmissionSection
                       poolQuery={pool}
                       sectionMetadata={sectionMetadata.whatToExpectAdmission}
-                      onSave={onSave}
-                      onUpdatePublished={onUpdatePublished}
-                    />
-                    <ContactEmailSection
-                      poolQuery={pool}
-                      sectionMetadata={sectionMetadata.contactEmail}
                       onSave={onSave}
                       onUpdatePublished={onUpdatePublished}
                     />
