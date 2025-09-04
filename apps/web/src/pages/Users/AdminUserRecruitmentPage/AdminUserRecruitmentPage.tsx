@@ -29,12 +29,16 @@ import RecruitmentTools, {
   RECRUITMENT_TOOLS_ID,
   title as recruitmentToolsTitle,
 } from "./components/RecruitmentTools";
+import AdminOffPlatformRecruitmentProcesses, {
+  OFF_PLATFORM_RECRUITMENT_PROCESSES_ID,
+} from "./components/OffPlatformRecruitmentProcesses";
 
 const AdminUserRecruitment_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserRecruitment on User {
     id
     ...AdminRecruitmentProcesses
     ...RecruitmentTools
+    ...AdminOffPlatformRecruitmentProcesses
   }
 `);
 
@@ -57,6 +61,15 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={OFF_PLATFORM_RECRUITMENT_PROCESSES_ID}
+              >
+                {intl.formatMessage(
+                  navigationMessages.offPlatformRecruitmentProcesses,
+                )}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
               <TableOfContents.AnchorLink id={RECRUITMENT_TOOLS_ID}>
                 {intl.formatMessage(recruitmentToolsTitle)}
               </TableOfContents.AnchorLink>
@@ -67,6 +80,7 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <RecruitmentProcesses query={user} />
+          <AdminOffPlatformRecruitmentProcesses query={user} />
           <RecruitmentTools query={user} />
         </TableOfContents.Content>
       </TableOfContents.Wrapper>

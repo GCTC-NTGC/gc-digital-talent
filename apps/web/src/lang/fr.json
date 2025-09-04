@@ -10033,6 +10033,10 @@
     "defaultMessage": "Recherche de candidat",
     "description": "Title for the all pool candidates page"
   },
+  "i28Yrb": {
+    "defaultMessage": "Les processus de recrutement pour lesquels l'utilisateur a été qualifié sur d'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par l'utilisateur sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d'embauche ou de placement.",
+    "description": "Description of a users off-platform recruitment processes"
+  },
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
@@ -12496,10 +12500,6 @@
   "tpTntk": {
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
-  },
-  "tpXtAJ": {
-    "defaultMessage": "Processus hors plateforme",
-    "description": "Off-platform section header"
   },
   "trerKD": {
     "defaultMessage": "Type",
