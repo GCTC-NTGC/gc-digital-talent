@@ -448,23 +448,23 @@ class Pool extends Model
      */
     protected function makeDisplayName(array $attributes, bool $full = false): array
     {
-        $classification = $this->classification ?? '';
-        $definitions = $classification ? [
-            $classification->formattedGroupAndLevel => $classification->displayName,
-        ] : [];
+        $locale = app()->getLocale();
 
         return [
-            'display' => $this->formatDisplayName($attributes, $full),
-            'definitions' => $definitions,
+            'display' => [
+                'en' => $this->formatDisplayName($attributes, 'en', $full),
+                'fr' => $this->formatDisplayName($attributes, 'fr', $full),
+                'localized' => $this->formatDisplayName($attributes, $locale, $full),
+            ],
+            'definitions' => $this->classification->definitions() ?? [],
         ];
     }
 
     /**
      * Format the display name string.
      */
-    protected function formatDisplayName(array $attributes, bool $full = false): string
+    protected function formatDisplayName(array $attributes, $locale, bool $full = false): string
     {
-        $locale = app()->getLocale() ?? 'en';
         $name = $attributes['name'][$locale] ?? '';
         $publishingGroup = $attributes['publishing_group'] ?? null;
 

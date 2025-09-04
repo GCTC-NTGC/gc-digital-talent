@@ -56,6 +56,17 @@ class Classification extends Model
         );
     }
 
+    public function definitions(): array
+    {
+        return [
+            $this->displayName => [
+                'en' => '',
+                'fr' => '',
+                'localized' => '',
+            ],
+        ];
+    }
+
     /**
      * Used to limit the results for the search page input
      * to IT up to level 5; PM up to level 6; CR level 4; EX level 3, EX level 4; AS level 3, AS level 5; EC level 2 to 8.
