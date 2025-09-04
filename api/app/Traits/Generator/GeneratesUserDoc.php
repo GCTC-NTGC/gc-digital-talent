@@ -822,7 +822,7 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
             $this->yesOrNo($profile->career_planning_exec_interest ?? false));
         $coachingStatus = match ($profile->career_planning_exec_coaching_status) {
-            [ExecCoaching::COACHING->name, ExecCoaching::LEARNING->name] => 'coaching_and_learning',
+            [ExecCoaching::COACHING->name, ExecCoaching::LEARNING->name], [ExecCoaching::LEARNING->name, ExecCoaching::COACHING->name]  => 'coaching_and_learning',
             [ExecCoaching::COACHING->name] => 'coaching_others',
             [ExecCoaching::LEARNING->name] => 'has_coach',
             [] => 'not_participating',
