@@ -24,11 +24,23 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
+/**
+ * Ensures PoolCandidate profile_snapshot contains all expected fields for User and related models,
+ * based on DB columns, except those explicitly ignored or handled as relationships.
+ */
 class SnapshotShapeTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
 
+    /**
+     * Fields to omit from required snapshot validation, keyed by model class.
+     * Add a new field here if you add a model column that should be ignored in snapshot shape checks.
+     * These should match the `*Resource`/grapqhl definition (db column in camelCase)
+     *
+     * When the test fails and the field(s) mentioned should NOT be in the snapshot
+     * add it here.
+     */
     protected $ignoredFields = [
         Classification::class => [
             'createdAt',
@@ -153,7 +165,10 @@ class SnapshotShapeTest extends TestCase
         ],
     ];
 
-    // Map database foreign key columns (in camelCase) to their model names
+    /**
+     * Maps snapshot keys (relations) to their model class for recursive validation.
+     * Add new keys here when introducing new relationships in the snapshot structure.
+     */
     protected $relationToModel = [
         'classificationId' => Classification::class,
         'computedClassification' => Classification::class,
@@ -176,6 +191,10 @@ class SnapshotShapeTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
     }
 
+    /**
+     * Checks that all expected fields (per DB columns) are present in $data for a given model,
+     * except those ignored or handled as relationships.
+     */
     public function testSnapshotShape()
     {
         $community = Community::factory()->create();
@@ -217,7 +236,7 @@ class SnapshotShapeTest extends TestCase
             foreach ($attributes as $att) {
                 $field = Str::camel($att);
                 if (! in_array($field, $ignored) && ! array_key_exists($field, $data) && ! array_key_exists($field, $this->relationToModel)) {
-                    $errors[] = "Missing required field '$field' for model '$modelClass'.";
+                    $errors[] = "Missing required field '$field' for model '$modelClass'. Add to snapshot or ignored fields.";
                 }
             }
 
@@ -236,6 +255,7 @@ class SnapshotShapeTest extends TestCase
                     }
                 } elseif ($key === 'experiences') {
                     // Special handling for experiences
+                    // Experiences are checked using their __typename for model resolution.
                     foreach ($value as $subValue) {
                         $class = sprintf("App\Models\%s", $subValue['__typename']);
                         $this->checkSnapshotShape($subValue, $class, $errors);
