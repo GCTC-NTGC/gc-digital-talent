@@ -58,6 +58,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $published_at
  * @property ?\Illuminate\Support\Carbon $archived_at
  * @property Classification $classification
+ * @property ?string $contact_email
  */
 class Pool extends Model
 {
@@ -107,6 +108,7 @@ class Pool extends Model
         'operational_requirements',
         'closing_reason',
         'archived_at',
+        'contact_email',
     ];
 
     // expose the required columns to be accessed via relationship tables
@@ -132,6 +134,7 @@ class Pool extends Model
         'security_clearance',
         'advertisement_location',
         'opportunity_length',
+        'selection_limitations',
     ];
 
     /**
