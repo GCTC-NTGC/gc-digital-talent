@@ -130,9 +130,7 @@ const Display = ({
           description: "Legend text for communication language preference",
         })}
       >
-        {preferredLang?.label
-          ? getLocalizedName(preferredLang.label, intl)
-          : notProvided}
+        {preferredLang?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForInterview}
@@ -143,9 +141,7 @@ const Display = ({
             "Legend text for spoken interview language preference for interviews",
         })}
       >
-        {preferredLanguageForInterview?.label
-          ? getLocalizedName(preferredLanguageForInterview.label, intl)
-          : notProvided}
+        {preferredLanguageForInterview?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForExam}
@@ -156,9 +152,7 @@ const Display = ({
             "Legend text for written exam language preference for exams",
         })}
       >
-        {preferredLanguageForExam?.label
-          ? getLocalizedName(preferredLanguageForExam.label, intl)
-          : notProvided}
+        {preferredLanguageForExam?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={empty(armedForcesStatus)}

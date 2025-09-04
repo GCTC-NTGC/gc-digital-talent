@@ -51,6 +51,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     preferredLang {
       value
       label {
+        localized
         en
         fr
       }
@@ -58,6 +59,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     preferredLanguageForInterview {
       value
       label {
+        localized
         en
         fr
       }
@@ -65,6 +67,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     preferredLanguageForExam {
       value
       label {
+        localized
         en
         fr
       }
