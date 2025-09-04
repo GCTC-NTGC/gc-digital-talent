@@ -888,8 +888,8 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.job_title'), $profile->next_role_job_title ?? '');
 
         // Functional Community
-        $communityName = $profile->careerObjectiveCommunity?->name[$this->lang] ??
-            $profile->career_objective_community_other;
+        $communityName = $profile->nextRoleCommunity?->name[$this->lang] ??
+            $profile->next_role_community_other;
         $this->addLabelText($section, $this->localize('gc_employee.desired_community'), $communityName);
 
         // Work Streams
