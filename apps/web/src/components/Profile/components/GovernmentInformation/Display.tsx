@@ -81,7 +81,7 @@ const Display = ({
       {isGovEmployee && (
         <>
           <FieldDisplay label={intl.formatMessage(commonMessages.department)}>
-            {department ? getLocalizedName(department.name, intl) : notProvided}
+            {department ? department.name.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -90,7 +90,7 @@ const Display = ({
               description: "Employment type label",
             })}
           >
-            {getLocalizedName(govEmployeeType?.label, intl)}
+            {govEmployeeType ? govEmployeeType.label.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
