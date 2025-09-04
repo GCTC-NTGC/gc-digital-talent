@@ -451,6 +451,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "area_of_selection")
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type GeneralQuestionResponse {
@@ -2629,6 +2630,7 @@ input UpdatePoolInput {
   areaOfSelection: PoolAreaOfSelection @rename(attribute: "area_of_selection")
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -2640,6 +2642,7 @@ input UpdatePublishedPoolInput @validator {
   whatToExpectAdmission: LocalizedStringInput
     @rename(attribute: "what_to_expect_admission")
   aboutUs: LocalizedStringInput @rename(attribute: "about_us")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input CreatePoolSkillInput @validator {

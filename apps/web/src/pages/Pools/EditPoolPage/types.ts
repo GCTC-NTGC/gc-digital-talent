@@ -16,6 +16,7 @@ import {
   EditPoolSpecialNoteFragment,
   EditPoolWhatToExpectFragment,
   EditPoolYourImpactFragment,
+  EditPoolContactEmailFragment,
 } from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -32,7 +33,8 @@ type PoolDisplayFragments =
   | EditPoolSpecialNoteFragment
   | EditPoolWhatToExpectAdmissionFragment
   | EditPoolWhatToExpectFragment
-  | EditPoolYourImpactFragment;
+  | EditPoolYourImpactFragment
+  | EditPoolContactEmailFragment;
 
 export interface DisplayProps<T extends PoolDisplayFragments> {
   pool: T;
@@ -66,6 +68,7 @@ export type SectionKey =
   | "commonQuestions"
   | "whatToExpect"
   | "whatToExpectAdmission"
+  | "contactEmail"
   | "generalQuestions";
 
 export interface PoolSkillMutationsType {

@@ -52,6 +52,7 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         value
       }
       screeningQuestionsCount
+      contactEmail
     }
   }
 `);
@@ -103,6 +104,7 @@ const ReviewApplicationPreviewList = ({
                 application.assessmentStep?.sortOrder,
                 application.assessmentStatus,
                 application.pool.screeningQuestionsCount,
+                application.pool.contactEmail,
                 intl,
               );
               return { application, status };

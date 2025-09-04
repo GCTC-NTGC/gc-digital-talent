@@ -319,6 +319,10 @@
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
   },
+  "9wqUyU": {
+    "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
+    "description": "Error message that contact email for this process must be filled"
+  },
   "9zyjjw": {
     "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
     "description": "Prefix when a step has been completed."
