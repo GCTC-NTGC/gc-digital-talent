@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import {
   commonMessages,
   getEmploymentEquityStatement,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
