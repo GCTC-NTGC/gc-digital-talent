@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -449,6 +450,7 @@ class Pool extends Model
     protected function makeDisplayName(array $attributes, bool $full = false): array
     {
         $locale = app()->getLocale();
+        $this->loadMissing(['classification']);
 
         return [
             'display' => [
@@ -456,7 +458,7 @@ class Pool extends Model
                 'fr' => $this->formatDisplayName($attributes, 'fr', $full),
                 'localized' => $this->formatDisplayName($attributes, $locale, $full),
             ],
-            'definitions' => $this->classification->definitions() ?? [],
+            'definitions' => $this->classification->getDefinition() ?? [],
         ];
     }
 
@@ -465,17 +467,18 @@ class Pool extends Model
      */
     protected function formatDisplayName(array $attributes, $locale, bool $full = false): string
     {
-        $name = $attributes['name'][$locale] ?? '';
+        $name = $this->name[$locale] ?? '';
         $publishingGroup = $attributes['publishing_group'] ?? null;
 
         if ($publishingGroup === PublishingGroup::IAP->name) {
             return $name;
         }
 
-        $classification = $this->classification?->formattedGroupAndLevel ?? '';
-        $stream = $this->workStream?->name ?? '';
+        $classification = $this->classification?->displayName ?? '';
 
         if ($full) {
+            $this->loadMissing(['workStream']);
+            $stream = $this->workStream?->name[$locale] ?? '';
             $append = match (true) {
                 $stream && $classification => " ($classification $stream)",
                 (bool) $classification => " ($classification)",
@@ -486,8 +489,10 @@ class Pool extends Model
             return $name.$append;
         }
 
+        $dividingColon = Lang::get('common.dividing_colon', [], $locale);
+
         return $classification
-            ? $classification.__('common.dividing_colon').$name
+            ? $classification.$dividingColon.$name
             : $name;
     }
 }

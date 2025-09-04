@@ -56,15 +56,16 @@ class Classification extends Model
         );
     }
 
-    public function definitions(): array
+    public function getDefinition(): array
     {
-        return [
-            $this->displayName => [
-                'en' => '',
-                'fr' => '',
-                'localized' => '',
+        return [[
+            'term' => $this->displayName ?? 'TERM',
+            'definition' => [
+                'en' => 'EN',
+                'fr' => 'FR',
+                'localized' => 'LOCALIZED',
             ],
-        ];
+        ]];
     }
 
     /**

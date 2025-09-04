@@ -403,6 +403,7 @@ type Pool implements HasRoleAssignments {
   community: Community @belongsTo(relation: "community")
   name: LocalizedString
   displayName: DefinedString
+  fullDisplayName: DefinedString
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
