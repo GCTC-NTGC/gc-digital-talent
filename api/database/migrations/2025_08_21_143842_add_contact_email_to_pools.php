@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->string('contact_email')->nullable(false);
+            $table->string('contact_email')->nullable();
         });
 
         DB::statement(<<<'SQL'
