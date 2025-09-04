@@ -757,10 +757,10 @@ trait GeneratesUserDoc
                 $this->localizeEnum($profile->career_planning_lateral_move_time_frame ?? '', TimeFrame::class)
             );
 
-            if (! empty($profile->career_planning_promotion_move_organization_type)) {
+            if (! empty($profile->career_planning_lateral_move_organization_type)) {
                 $section->addText($this->localize('gc_employee.org_types_lateral'));
 
-                foreach ($profile->career_planning_promotion_move_organization_type as $type) {
+                foreach ($profile->career_planning_lateral_move_organization_type as $type) {
                     $section->addListItem(
                         $this->localizeEnum($type, OrganizationTypeInterest::class)
                     );
