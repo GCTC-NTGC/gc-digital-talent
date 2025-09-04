@@ -98,6 +98,12 @@ const messages = defineMessages({
     description:
       "Description for the under consideration candidate placement type",
   },
+  PlacedTentativeDesc: {
+    defaultMessage: "Tentatively placed (verbal or email confirmation)",
+    id: "G8P9fw",
+    description:
+      "Description for the offer in progress candidate placement type",
+  },
 });
 
 export default messages;

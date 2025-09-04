@@ -75,9 +75,9 @@ const messages = defineMessages({
       "Title for work location section on summary of filters section",
   },
   stream: {
-    defaultMessage: "Stream",
-    id: "9pYlYz",
-    description: "Label for a process' stream",
+    defaultMessage: "Work stream",
+    id: "EJV1DF",
+    description: "Label for a process work stream",
   },
   community: {
     defaultMessage: "Community",

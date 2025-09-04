@@ -433,12 +433,7 @@ const PoolNameSection = ({
                 />
                 <Select
                   id="stream"
-                  label={intl.formatMessage({
-                    defaultMessage: "Work stream",
-                    id: "UKw7sB",
-                    description:
-                      "Label displayed on the pool form stream/job title field.",
-                  })}
+                  label={intl.formatMessage(processMessages.stream)}
                   name="stream"
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,

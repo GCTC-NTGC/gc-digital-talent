@@ -133,7 +133,7 @@ export const Home = ({ query }: HomeProps) => {
               </div>
             </div>
           </div>
-          <div className="relative z-[1] order-3 my-6 min-w-72 px-12 xs:absolute xs:bottom-1/5 xs:left-1/2 xs:z-[2] xs:-translate-x-1/2">
+          <div className="xs:--x-1/2 relative z-[1] order-3 my-6 min-w-72 px-12 xs:absolute xs:bottom-1/5 xs:left-1/2 xs:z-[2]">
             {latestPool ? <ApplyLink id={latestPool.id} /> : <ApplyDialog />}
           </div>
         </div>
@@ -141,12 +141,12 @@ export const Home = ({ query }: HomeProps) => {
         <div className="relative z-[1]">
           <Container>
             <div className="relative xs:-top-18 sm:-top-24">
-              <div className="rounded-3xl bg-white xs:p-12 sm:p-18 dark:bg-gray-700">
-                <div className="grid gap-6 xs:grid-cols-7 xs:gap-18">
-                  <div className="xs:col-span-3">
-                    <div className="relative xs:size-full">
+              <div className="rounded-3xl bg-white xs:p-12 sm:px-18 dark:bg-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-7 sm:gap-12">
+                  <div className="flex justify-center sm:col-span-3 sm:justify-start">
+                    <div className="relative sm:size-full">
                       <div className="absolute -right-6 -mt-9 size-48 rounded-full bg-primary/10 dark:bg-primary-300/30" />
-                      <div className="absolute -bottom-18 -left-33 size-90 rounded-full bg-secondary/10 dark:bg-secondary-300/30" />
+                      <div className="absolute -bottom-18 -left-33 size-90 rounded-full bg-secondary/10 md:-bottom-5 md:-left-25 dark:bg-secondary-300/30" />
                       <Image
                         src={womanSmiling}
                         width={420}
@@ -159,7 +159,7 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship woman smiling image text alternative",
                         })}
-                        className="relative min-h-[60vh] object-cover xs:size-full xs:min-h-[initial]"
+                        className="relative max-h-[525px] w-full object-cover sm:size-full"
                       />
                       <Image
                         src={feathers}
@@ -172,14 +172,14 @@ export const Home = ({ query }: HomeProps) => {
                           description:
                             "Indigenous Apprenticeship feathers image text alternative",
                         })}
-                        className="absolute -right-[15%] bottom-0 w-[150%] max-w-[initial] translate-y-3/5"
+                        className="absolute -right-[10%] bottom-0 w-[120%] translate-y-3/5 xs:w-[150%] sm:bottom-10 sm:translate-y-0 md:bottom-15"
                       />
                     </div>
                   </div>
-                  <div className="xs:col-span-4">
+                  <div className="px-6 sm:col-span-4 sm:px-8 md:px-0">
                     <Heading
                       size="h3"
-                      className="relative z-1 mt-36 mb-12 text-center xs:mt-6 xs:text-left"
+                      className="relative z-1 mt-30 mb-12 text-center sm:mt-2 sm:text-left"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
@@ -221,80 +221,85 @@ export const Home = ({ query }: HomeProps) => {
           </Container>
         </div>
         {/* Learn section */}
-        <div>
+        <div className="relative mt-12">
           <Container>
-            <div className="grid gap-6 xs:grid-cols-7 xs:gap-18 xs:p-12 sm:p-18">
-              <div className="xs:order-2 xs:col-span-3">
-                <div className="relative xs:size-full">
-                  <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
-                  <Image
-                    height={500}
-                    width={500}
-                    loading="lazy"
-                    src={manOnComputer}
-                    alt={intl.formatMessage({
-                      defaultMessage: "Indigenous man working at a computer.",
-                      id: "XDgkwV",
-                      description:
-                        "Indigenous Apprenticeship man on computer image text alternative",
-                    })}
-                    className="relative size-full min-h-[60vh] object-cover object-left xs:min-h-[initial]"
-                  />
-                  <Image
-                    src={gloves}
-                    width={420}
-                    height={462}
-                    loading="lazy"
-                    alt={intl.formatMessage({
-                      defaultMessage: "Métis style gloves with floral beading.",
-                      id: "aPLL9Z",
-                      description:
-                        "Indigenous Apprenticeship gloves image text alternative",
-                    })}
-                    className="absolute -right-24 -bottom-30 w-[140%] sm:-right-48 sm:-bottom-54"
-                  />
+            <div className="relative xs:-top-18 sm:-top-24">
+              <div className="grid xs:gap-24 xs:px-12 sm:grid-cols-7 sm:gap-14 sm:p-20">
+                <div className="flex justify-center px-6 sm:order-2 sm:col-span-3 sm:justify-start md:px-0">
+                  <div className="relative sm:size-full">
+                    <RadiatingCircles className="absolute -top-12 -right-72 w-[110%] text-secondary-300/50 dark:text-secondary-300" />
+                    <Image
+                      height={500}
+                      width={500}
+                      loading="lazy"
+                      src={manOnComputer}
+                      alt={intl.formatMessage({
+                        defaultMessage: "Indigenous man working at a computer.",
+                        id: "XDgkwV",
+                        description:
+                          "Indigenous Apprenticeship man on computer image text alternative",
+                      })}
+                      className="relative z-[2] object-cover object-left xs:min-h-[initial] sm:size-full"
+                    />
+                    <Image
+                      src={gloves}
+                      width={420}
+                      height={462}
+                      loading="lazy"
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Métis style gloves with floral beading.",
+                        id: "aPLL9Z",
+                        description:
+                          "Indigenous Apprenticeship gloves image text alternative",
+                      })}
+                      className="absolute -right-24 -bottom-25 z-[10] block w-[70%]"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="xs:order-1 xs:col-span-4">
-                <Heading
-                  size="h3"
-                  className="mt-24 mb-12 text-center xs:mt-6 xs:text-left"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "What will I learn in this apprenticeship?",
-                    id: "fvsYkj",
-                    description: "What applicants will learn sections heading",
-                  })}
-                </Heading>
-                <p className="mt-12 mb-6">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
-                    id: "dDHy5d",
-                    description:
-                      "First paragraph what will you learn at the program",
-                  })}
-                </p>
-                <p className="my-6">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
-                    id: "nzcwrW",
-                    description:
-                      "First paragraph what will you learn at the program",
-                  })}
-                </p>
-                <p className="my-6">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
-                    id: "b09U1u",
-                    description:
-                      "First paragraph what will you learn at the program",
-                  })}
-                </p>
-                <div className="sm:sr-only">
-                  <CTAButtons latestPoolId={latestPool?.id} />
+                <div className="px-6 sm:order-1 sm:col-span-4 sm:px-8 md:px-0">
+                  <Heading
+                    size="h3"
+                    className="relative my-12 mt-24 mb-12 text-center xs:mt-4 xs:mb-12 sm:mt-6 sm:text-left"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What will I learn in this apprenticeship?",
+                      id: "fvsYkj",
+                      description:
+                        "What applicants will learn sections heading",
+                    })}
+                  </Heading>
+                  <p className="mt-12 mb-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
+                      id: "dDHy5d",
+                      description:
+                        "First paragraph what will you learn at the program",
+                    })}
+                  </p>
+                  <p className="my-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
+                      id: "nzcwrW",
+                      description:
+                        "First paragraph what will you learn at the program",
+                    })}
+                  </p>
+                  <p className="my-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
+                      id: "b09U1u",
+                      description:
+                        "First paragraph what will you learn at the program",
+                    })}
+                  </p>
+                  <div className="sm:sr-only">
+                    <CTAButtons latestPoolId={latestPool?.id} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -303,9 +308,9 @@ export const Home = ({ query }: HomeProps) => {
         {/* Who section */}
         <div className="relative z-[2] mt-12">
           <Container>
-            <div className="grid gap-6 xs:grid-cols-7 xs:gap-18 xs:p-12 sm:p-18">
-              <div className="xs:col-span-3">
-                <div className="relative xs:size-full">
+            <div className="grid xs:px-12 sm:mt-14 sm:grid-cols-7 sm:gap-12 sm:px-18">
+              <div className="flex justify-center px-6 xs:col-span-3 sm:col-span-3 sm:justify-start md:px-0">
+                <div className="relative sm:size-full">
                   <Triangle className="absolute -top-8 -left-8 z-[1] w-[120%] text-secondary xs:-top-12 xs:-left-12 dark:text-secondary-300" />
                   <Image
                     src={applicant}
@@ -319,7 +324,7 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship applicant image text alternative",
                     })}
-                    className="relative z-[2] min-h-[60vh] object-cover xs:size-full xs:min-h-[initial]"
+                    className="relative z-[2] object-cover xs:min-h-[initial] sm:size-full"
                   />
                   <Image
                     src={ulu}
@@ -332,14 +337,14 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship ulu image text alternative",
                     })}
-                    className="absolute -right-1/3 -bottom-1/10 z-[3] block w-120 xs:hidden"
+                    className="absolute -right-1/4 -bottom-1/15 z-[3] block w-50 xs:hidden sm:w-100"
                   />
                 </div>
               </div>
-              <div className="relative xs:col-span-4">
+              <div className="px-6 sm:col-span-4 sm:px-8 md:px-0">
                 <Heading
                   size="h3"
-                  className="my-12 text-center xs:mt-6 xs:mb-12 xs:text-left"
+                  className="relative z-1 my-12 mt-12 mb-8 text-center xs:mb-12 sm:mt-2 sm:text-left"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Who is the program for?",
@@ -381,7 +386,7 @@ export const Home = ({ query }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship ulu image text alternative",
                   })}
-                  className="absolute -right-2/5 hidden w-120 xs:block sm:-right-1/3"
+                  className="md:display absolute -right-5 hidden w-90 xs:block lg:right-[10%]"
                 />
                 <div className="relative mt-12 mb-6 min-w-20 xs:w-1/2">
                   <RequirementDialog />

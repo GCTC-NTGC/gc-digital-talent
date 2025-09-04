@@ -27,6 +27,7 @@ import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
@@ -94,15 +95,11 @@ const FormFields = ({
     <>
       <FilterBlock
         id="classificationsFilter"
-        title={intl.formatMessage({
-          defaultMessage: "Classification filter",
-          id: "TxVbLI",
-          description: "Heading for classification filter of the search form.",
-        })}
+        title={intl.formatMessage(talentRequestMessages.classification)}
         text={intl.formatMessage({
           defaultMessage:
-            "We use this filter to match candidates who express interest in a classification level, or certain expected salaries in these classifications.",
-          id: "dxv7Jx",
+            "Select the classification and work stream of the position you aim to fill. We'll show you how many candidates match your selection.",
+          id: "ZWUMrM",
           description:
             "Message describing the classification filter of the search form.",
         })}
@@ -110,11 +107,7 @@ const FormFields = ({
         <div className="flex flex-col gap-y-6">
           <Select
             id="classifications"
-            label={intl.formatMessage({
-              defaultMessage: "Classification filter",
-              id: "V8v+/g",
-              description: "Label for classification filter in search form.",
-            })}
+            label={intl.formatMessage(talentRequestMessages.classification)}
             name="classification"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a classification",
@@ -133,9 +126,9 @@ const FormFields = ({
             label={intl.formatMessage(processMessages.stream)}
             name="stream"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a stream",
-              id: "qobo/x",
-              description: "Placeholder for stream filter in search form.",
+              defaultMessage: "Select a work stream",
+              id: "Jtc63M",
+              description: "Placeholder for work stream filter in search form.",
             })}
             options={workStreamOptions}
             rules={{
@@ -154,8 +147,8 @@ const FormFields = ({
         })}
         text={intl.formatMessage({
           defaultMessage:
-            "Help us match you to the best candidates by sharing more information with our team on the exact skills you are looking for.",
-          id: "R75HsV",
+            "Help us match you to the best candidates by telling us about the skills you need.",
+          id: "LDsiHk",
           description:
             "Describing the purpose of the skill filters on the Search page.",
         })}
@@ -175,8 +168,8 @@ const FormFields = ({
         title={intl.formatMessage(commonMessages.workingLanguageAbility)}
         text={intl.formatMessage({
           defaultMessage:
-            "Select the working language ability the candidate needs for this position. The selected working language ability will be compared to the one chosen by candidates in their applications. To note, candidates who selected Bilingual may not have Government of Canada second language evaluation results.",
-          id: "+PLUZ8",
+            "Select the working language of the position you’re hiring for. We'll compare this to the one chosen by candidates in their applications. Candidates who selected bilingual may not have Government of Canada second language evaluation results.",
+          id: "BSfL03",
           description:
             "Message describing the work language ability filter in the search form.",
         })}
@@ -205,8 +198,8 @@ const FormFields = ({
         title={intl.formatMessage(commonMessages.employmentEquity)}
         text={intl.formatMessage({
           defaultMessage:
-            "Managers can request candidates by employment equity group to address current and future representation gaps in the workforce. Categories reflect employment equity data defined under the Public Service Employment Act and collected through the Public Service Commission of Canada's (PSC) application process. For consistency, this platform reflects the PSC's category terminology.",
-          id: "dlRmxI",
+            "You can request candidates from employment equity groups to address current and future representation gaps in the workforce. Categories reflect employment equity groups defined under and collected following the Public Service Employment Act.",
+          id: "bhLaJ0",
           description:
             "Message describing the employment equity filter in the search form.",
         })}
@@ -221,8 +214,8 @@ const FormFields = ({
           name="employmentEquity"
           context={intl.formatMessage({
             defaultMessage:
-              "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected EE groups",
-            id: "UXsUvN",
+              "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected employment equity groups",
+            id: "FPMibV",
             description: "Context for employment equity filter in search form.",
           })}
           items={[
