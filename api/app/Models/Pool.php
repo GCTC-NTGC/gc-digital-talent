@@ -423,39 +423,71 @@ class Pool extends Model
         return self::$selectableColumns;
     }
 
+    /**
+     * Get the display name (normal variant) for the model.
+     */
     protected function displayName(): Attribute
     {
         return Attribute::make(
-            get: function ($_, array $attributes) {
-                $name = $attributes['name'] ?? '';
-                if ($attributes['publishing_group'] === PublishingGroup::IAP->name) {
-                    return $name;
-                }
-
-                $classification = $this->classification?->displayName ?? '';
-                $stream = $this->workStream?->name ?? '';
-                $dividingColon = $classification ? __('common.dividing_colon') : '';
-                $append = match (true) {
-                    $stream && $classification => "($classification $stream)",
-                    (bool) $classification => "($classification)",
-                    (bool) $stream => "($stream)",
-                    default => '',
-                };
-
-                $short = sprintf('%s%s%s', $classification, $dividingColon, $name);
-                $long = sprintf('%s%s', $name, $append); // TO DO: Decide if we still need this
-
-                return [
-                    'display' => [
-                        'en' => $short,
-                        'fr' => $short,
-                    ],
-                    'definitions' => [
-                        $classification => '', // TO DO: Fill out definition here
-                    ],
-                ];
-
-            }
+            get: fn ($_, $attributes) => $this->makeDisplayName($attributes, full: false)
         );
+    }
+
+    /**
+     * Get the display name (full variant) for the model.
+     */
+    protected function fullDisplayName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($_, $attributes) => $this->makeDisplayName($attributes, full: true)
+        );
+    }
+
+    /**
+     * Generate the display name structure, optionally "full".
+     */
+    protected function makeDisplayName(array $attributes, bool $full = false): array
+    {
+        $classification = $this->classification ?? '';
+        $definitions = $classification ? [
+            $classification->formattedGroupAndLevel => $classification->displayName,
+        ] : [];
+
+        return [
+            'display' => $this->formatDisplayName($attributes, $full),
+            'definitions' => $definitions,
+        ];
+    }
+
+    /**
+     * Format the display name string.
+     */
+    protected function formatDisplayName(array $attributes, bool $full = false): string
+    {
+        $locale = app()->getLocale() ?? 'en';
+        $name = $attributes['name'][$locale] ?? '';
+        $publishingGroup = $attributes['publishing_group'] ?? null;
+
+        if ($publishingGroup === PublishingGroup::IAP->name) {
+            return $name;
+        }
+
+        $classification = $this->classification?->formattedGroupAndLevel ?? '';
+        $stream = $this->workStream?->name ?? '';
+
+        if ($full) {
+            $append = match (true) {
+                $stream && $classification => " ($classification $stream)",
+                (bool) $classification => " ($classification)",
+                (bool) $stream => " ($stream)",
+                default => '',
+            };
+
+            return $name.$append;
+        }
+
+        return $classification
+            ? $classification.__('common.dividing_colon').$name
+            : $name;
     }
 }
