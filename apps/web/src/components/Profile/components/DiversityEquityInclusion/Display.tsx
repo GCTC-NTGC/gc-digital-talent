@@ -62,7 +62,7 @@ const Display = ({
                         className="flex items-center gap-x-1.5"
                       >
                         <CommunityIcon community={community.value} />
-                        <span>{getLocalizedName(community.label, intl)}</span>
+                        <span>{community.label.localized}</span>
                       </li>
                     );
                   })
