@@ -232,6 +232,11 @@ const navigationMessages = defineMessages({
     id: "dVZjaj",
     description: "Name of the recruitment processes section",
   },
+  offPlatformRecruitmentProcesses: {
+    defaultMessage: "Off-platform recruitment processes",
+    id: "tpXtAJ",
+    description: "Off-platform section header",
+  },
 });
 
 export default navigationMessages;
