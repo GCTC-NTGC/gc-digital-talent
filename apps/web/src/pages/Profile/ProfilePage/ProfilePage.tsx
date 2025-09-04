@@ -72,8 +72,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     currentProvince {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     currentCity
