@@ -2383,10 +2383,6 @@
     "defaultMessage": "Décrivez la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
   },
-  "8lxSJM": {
-    "defaultMessage": "Votre candidature n'a pas été retenue. Pour les offres d'emploi internes au gouvernement du Canada, vous pouvez demander d'avoir une conversation informelle concernant cette décision. Pour ce faire, veuillez contacter le service ou l'équipe de recrutement responsable de la publication de l'offre d'emploi.",
-    "description": "Status description for a disqualified application to an employee-only pool"
-  },
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
@@ -3398,6 +3394,10 @@
   "DK870a": {
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."
+  },
+  "DNLEfN": {
+    "defaultMessage": "Courriel de correspondance",
+    "description": "Title of contact email"
   },
   "DOQi5y": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet",
@@ -5811,6 +5811,10 @@
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
   },
+  "OoYh86": {
+    "defaultMessage": "Les coordonnées suivantes seront fournies. Elles serviront aux personnes candidates qui ont des questions et des demandes d'accommodements, ainsi qu'aux membres du personnel qui souhaitent discuter de leur demande rejetée.",
+    "description": "Describes the 'contact email' section of a process' advertisement"
+  },
   "OoZdlh": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to close all application information accordions"
@@ -7806,10 +7810,6 @@
     "defaultMessage": "peut créer, modifier, publier et archiver des processus de recrutement;",
     "description": "Description of the permission to manage processes"
   },
-  "YK/RNP": {
-    "defaultMessage": "Veuillez <a>communiquer avec l’équipe</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
-    "description": "Opening sentence asking if accommodations are needed"
-  },
   "YK4XOI": {
     "defaultMessage": "Autre plateforme",
     "description": "Label displayed on off platform process form for other platform input"
@@ -8558,6 +8558,10 @@
     "defaultMessage": "Informations sur la possibilité de formation",
     "description": "Heading for the opportunity form information section"
   },
+  "bz55F8": {
+    "defaultMessage": "Si vous avez des demandes d'accommodements ou des questions relativement à ce processus, veuillez écrire à l'équipe de recrutement à l'adresse <link>{contactEmail}</link>.",
+    "description": "Opening sentence asking if accommodations are needed"
+  },
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
     "description": "Description of how we use GCKey for authentication."
@@ -9034,6 +9038,10 @@
     "defaultMessage": "Pour continuer, veuillez nous indiquer qui est la personne de référence.",
     "description": "Error message when a reference has not been set for a nomination"
   },
+  "dzv6e3": {
+    "defaultMessage": "Courriel de correspondance",
+    "description": "Title for the contact email section"
+  },
   "e+6lnP": {
     "defaultMessage": "La création de l'intérêt pour la collectivité a échoué",
     "description": "Toast for error during community interest creation"
@@ -9269,6 +9277,10 @@
   "erzpFY": {
     "defaultMessage": "Demander un bon",
     "description": "Link text to request a voucher (infinitive)"
+  },
+  "etD6Xy": {
+    "defaultMessage": "Courriel de correspondance",
+    "description": "Title for contact email input"
   },
   "evoQw5": {
     "defaultMessage": "Ce champ accepte une liste de mots-clés liés à l’emploi séparée par des virgules.",
@@ -11413,6 +11425,10 @@
     "defaultMessage": "Activités au sein de votre collectivité qui vous ont aidé à vous perfectionner, y compris le bénévolat et l'organisation de cérémonies ou d'autres activités.",
     "description": "Description for community experience section"
   },
+  "oN9syr": {
+    "defaultMessage": "Votre demande n'a pas été retenue. Pour les offres d'emploi internes au gouvernement du Canada, vous pouvez demander d'avoir une conversation informelle concernant cette décision. Pour ce faire, veuillez écrire au ministère ou à l'équipe de recrutement responsable de la publication de l'offre d'emploi à l'adresse <link>{contactEmail}</link>.",
+    "description": "Status description for a disqualified application to an employee-only pool"
+  },
   "oPXTG/": {
     "defaultMessage": "Statut de l'employé(e)",
     "description": "Employee Status in Employee Info Form"
@@ -11528,6 +11544,10 @@
   "osGGIt": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
+  },
+  "ovpjav": {
+    "defaultMessage": "Sauvegarder le courriel de correspondance",
+    "description": "Text on a button to save the pool contact email"
   },
   "ow4z7W": {
     "defaultMessage": "Modifier<hidden> la classification</hidden>",
