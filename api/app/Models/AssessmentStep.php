@@ -90,18 +90,27 @@ class AssessmentStep extends Model
         parent::boot();
 
         static::creating(function (AssessmentStep $step) {
+
+            $poolsExistingSteps = AssessmentStep::where('pool_id', $step['pool_id'])->orderBy('sort_order', 'desc')->get();
+
             if (isset($step['type']) && $step['type'] === AssessmentStepType::APPLICATION_SCREENING->name) {
                 $sortOrder = 1;
             } elseif (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
+                if (! is_null($poolsExistingSteps->where('sort_order', 2)->first())) {
+                    // a step is currently sitting in the second slot, push 'em all down first
+                    foreach ($poolsExistingSteps as $existingStep) {
+                        if ($existingStep->sort_order !== 1) {
+                            $current = $existingStep->sort_order;
+                            $existingStep->sort_order = $current + 1;
+                            $existingStep->save();
+                        }
+                    }
+                }
                 $sortOrder = 2;
             } else {
-                $highestSortOrderStep = AssessmentStep::where('pool_id', $step['pool_id'])->orderBy('sort_order', 'desc')->first();
-                $highestSortOrder = isset($highestSortOrderStep) ? $highestSortOrderStep->sort_order : 0;
-                if ($highestSortOrder < 3) {
-                    $sortOrder = 3;
-                } else {
-                    $sortOrder = $highestSortOrder + 1;
-                }
+                $highestSortOrderStep = $poolsExistingSteps->first();
+                $highestSortOrder = isset($highestSortOrderStep) ? $highestSortOrderStep->sort_order : 1; // step one should always be application screening
+                $sortOrder = $highestSortOrder + 1;
             }
             $step['sort_order'] = $sortOrder;
         });
@@ -112,6 +121,16 @@ class AssessmentStep extends Model
                 $questions = ScreeningQuestion::where('pool_id', '=', $step->pool_id)->get();
                 foreach ($questions as $question) {
                     $question->delete();
+                }
+            }
+            // Then push steps up that came after the deleted
+            $deletedStepSortValue = $step->sort_order;
+            $poolsExistingSteps = AssessmentStep::where('pool_id', $step['pool_id'])->get();
+            foreach ($poolsExistingSteps as $existingStep) {
+                if ($existingStep->sort_order > $deletedStepSortValue) {
+                    $current = $existingStep->sort_order;
+                    $existingStep->sort_order = $current - 1;
+                    $existingStep->save();
                 }
             }
         });
