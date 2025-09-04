@@ -72,7 +72,11 @@ const Display = ({
         )}
       </div>
       <FieldDisplay label={labels.currentLocation}>
-        {formatLocation({ city: currentCity, region: currentProvince, intl })}
+        {formatLocation({
+          city: currentCity,
+          region: currentProvince,
+          intl,
+        })}
       </FieldDisplay>
       <div>
         <FieldDisplay

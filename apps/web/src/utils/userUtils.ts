@@ -136,12 +136,12 @@ export const formatLocation = ({
   intl,
 }: FormatLocationArgs): string => {
   if (city && region?.label) {
-    return `${city}, ${getLocalizedName(region.label, intl)}`;
+    return `${city}, ${region.label.localized}`;
   }
 
   if (city && !region) return city;
 
-  if (region && !city) return getLocalizedName(region.label, intl);
+  if (region?.label.localized && !city) return region.label.localized;
 
   return intl.formatMessage(commonMessages.notProvided);
 };
