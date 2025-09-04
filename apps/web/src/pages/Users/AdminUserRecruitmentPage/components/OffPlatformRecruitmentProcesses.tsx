@@ -48,8 +48,8 @@ const AdminOffPlatformRecruitmentProcesses = ({
       <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
-            "This is any information processes that this candidate has successfully qualified in on other Government of Canada platforms. This information is provided by the user without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.",
-          id: "s4vPLC",
+            "Recruitment processes that the user has qualified in on other Government of Canada platforms. Note that this information is provided by the nominee without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.",
+          id: "i28Yrb",
           description:
             "Description of a users off-platform recruitment processes",
         })}
