@@ -267,6 +267,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               value
             }
             screeningQuestionsCount
+            contactEmail
           }
           finalDecision {
             value
@@ -868,7 +869,12 @@ const PoolCandidatesTable = ({
           removedAt,
           finalDecisionAt,
           finalDecision,
-          pool: { closingDate, areaOfSelection, screeningQuestionsCount },
+          pool: {
+            closingDate,
+            areaOfSelection,
+            screeningQuestionsCount,
+            contactEmail,
+          },
         },
       }) =>
         candidateFacingStatusCell(
@@ -881,6 +887,7 @@ const PoolCandidatesTable = ({
           assessmentStep?.sortOrder,
           assessmentStatus,
           screeningQuestionsCount,
+          contactEmail,
           intl,
         ),
       {

@@ -125,6 +125,7 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      contactEmail
     }
   }
 `);
@@ -177,6 +178,7 @@ const ReviewApplicationDialog = ({
     application.assessmentStep?.sortOrder,
     application.assessmentStatus,
     pool.screeningQuestionsCount,
+    pool.contactEmail,
     intl,
   );
 
