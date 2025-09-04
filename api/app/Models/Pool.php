@@ -7,11 +7,13 @@ use App\Casts\LocalizedString;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
+use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -419,5 +421,41 @@ class Pool extends Model
     public static function getSelectableColumns()
     {
         return self::$selectableColumns;
+    }
+
+    protected function displayName(): Attribute
+    {
+        return Attribute::make(
+            get: function ($_, array $attributes) {
+                $name = $attributes['name'] ?? '';
+                if ($attributes['publishing_group'] === PublishingGroup::IAP->name) {
+                    return $name;
+                }
+
+                $classification = $this->classification?->displayName ?? '';
+                $stream = $this->workStream?->name ?? '';
+                $dividingColon = $classification ? __('common.dividing_colon') : '';
+                $append = match (true) {
+                    $stream && $classification => "($classification $stream)",
+                    (bool) $classification => "($classification)",
+                    (bool) $stream => "($stream)",
+                    default => '',
+                };
+
+                $short = sprintf('%s%s%s', $classification, $dividingColon, $name);
+                $long = sprintf('%s%s', $name, $append); // TO DO: Decide if we still need this
+
+                return [
+                    'display' => [
+                        'en' => $short,
+                        'fr' => $short,
+                    ],
+                    'definitions' => [
+                        $classification => '', // TO DO: Fill out definition here
+                    ],
+                ];
+
+            }
+        );
     }
 }
