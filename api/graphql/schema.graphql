@@ -25,6 +25,16 @@ type LocalizedEnumString {
   label: LocalizedString!
 }
 
+type Definition {
+  term: String!
+  definition: LocalizedString!
+}
+
+type DefinedString {
+  display: LocalizedString!
+  definitions: [Definition!]
+}
+
 type UserAuthInfo {
   id: UUID!
   sub: String
@@ -392,6 +402,7 @@ type Pool implements HasRoleAssignments {
   owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
   name: LocalizedString
+  displayName: DefinedString
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
