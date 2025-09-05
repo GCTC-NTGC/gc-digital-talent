@@ -1,6 +1,5 @@
 import { defineMessages, IntlShape } from "react-intl";
 
-import { LocalizedString } from "@gc-digital-talent/graphql";
 import {
   DATE_FORMAT_LONG_STRING,
   formatDate,
