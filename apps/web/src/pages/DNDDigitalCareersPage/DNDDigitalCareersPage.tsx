@@ -4,6 +4,7 @@ import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { ReactNode } from "react";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
+import { tv } from "tailwind-variants";
 
 import {
   Card,
@@ -31,12 +32,17 @@ import processMessages from "~/messages/processMessages";
 
 import getJobFairs from "./jobFairs";
 
+const note = tv({
+  base: "font-sm text-gray-500 dark:text-gray-300",
+});
+
 interface NoteProps {
   children: ReactNode;
+  className?: string;
 }
 
-const Note = ({ children }: NoteProps) => (
-  <p className="font-sm my-6 text-gray-500 dark:text-gray-300">{children}</p>
+const Note = ({ children, className }: NoteProps) => (
+  <p className={note({ class: className })}>{children}</p>
 );
 
 export const Component = () => {
@@ -55,6 +61,18 @@ export const Component = () => {
       "Explore digital career opportunities with the Digital Services Group at the Department of National Defence and contribute your expertise to projects that support national security.",
     id: "gnogU9",
     description: "Description for digital careers at DND",
+  });
+
+  const digitalSalary = intl.formatMessage({
+    defaultMessage: "$85,854 - $105,080",
+    id: "hrbktt",
+    description: "Salary range for a digital role",
+  });
+
+  const innovationSalary = intl.formatMessage({
+    defaultMessage: "$80,612 - $102,712 · AS classification or equivalent",
+    id: "bTkYfa",
+    description: "Salary range for a innovation corps role",
   });
 
   const crumbs = useBreadcrumbs({
@@ -128,14 +146,14 @@ export const Component = () => {
           className: "object-right",
         }}
       >
-        <Heading level="h3" size="h6" className="mt-0">
+        <Heading level="h3" size="h6" className="mt-0 mb-0.5">
           {intl.formatMessage({
             defaultMessage: "Internal candidates",
             id: "1wRiVj",
             description: "Heading for creating profiles if a GC employee",
           })}
         </Heading>
-        <p className="my-6">
+        <p className="mb-6">
           {intl.formatMessage({
             defaultMessage:
               "Are you a Government of Canada employee interested in a secondment with DSG? GC Digital Talent can help you achieve your next career goals. Creating your account, adding the Digital Community to your profile, and expressing interest in lateral movements are the first steps towards starting a fulfilling position at DND.",
@@ -144,14 +162,14 @@ export const Component = () => {
               "Description of how applications work for government employees.",
           })}
         </p>
-        <Heading level="h3" size="h6" className="mt-0">
+        <Heading level="h3" size="h6" className="mt-0 mb-0.5">
           {intl.formatMessage({
             defaultMessage: "External candidates",
             id: "A0KjaS",
             description: "Heading for creating profiles if not a GC employee",
           })}
         </Heading>
-        <p className="my-6">
+        <p className="mb-6">
           {intl.formatMessage({
             defaultMessage:
               "Your profile is your path to getting found by hiring managers. Tell your story, show how you developed your skills, and apply for jobs at DND.",
@@ -193,7 +211,7 @@ export const Component = () => {
             description: "Lead-in text for specific skills DSG is looking for",
           }) + intl.formatMessage(commonMessages.dividingColon)}
         </p>
-        <Ul space="md" className="grid max-w-md sm:grid-cols-2 sm:gap-6">
+        <Ul space="md" className="grid max-w-md sm:grid-cols-2 sm:gap-x-6">
           <li>
             {intl.formatMessage({
               defaultMessage: "cyber security",
@@ -237,7 +255,7 @@ export const Component = () => {
             })}
           </li>
         </Ul>
-        <Note>
+        <Note className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "It’s an asset if you’re familiar with military IT infrastructure and protocols, though this is not essential.",
@@ -245,15 +263,71 @@ export const Component = () => {
             description: "Note about military IT being an asset",
           })}
         </Note>
-        <Heading level="h3" size="h4">
+        <Heading level="h3" size="h5" className="mb-6">
           {intl.formatMessage({
             defaultMessage: "A glimpse into digital roles at DND",
             id: "FRPkzV",
             description: "Heading for digital roles available",
           })}
         </Heading>
-        <Card>
-          <Card.Separator />
+        <Card className="mb-12 overflow-hidden">
+          <Card.Grid columns={3}>
+            <Card.GridItem>
+              <Heading level="h4" size="h6" className="mt-0">
+                {intl.formatMessage({
+                  defaultMessage: "Cyber Security Advisor",
+                  id: "NIgwRv",
+                  description: "Heading for the cyber security advisor role",
+                })}
+              </Heading>
+              <Note className="mb-6">{digitalSalary}</Note>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Working for DND as a Cyber Security Advisor involves protecting computer systems and networks from cyber threats and may also include monitoring networks, identifying vulnerabilities, implementing security measures, responding to incidents, and developing security policies.",
+                  id: "8mTUxb",
+                  description: "Description of the cyber security advisor role",
+                })}
+              </p>
+            </Card.GridItem>
+            <Card.GridItem>
+              <Heading level="h4" size="h6" className="mt-0">
+                {intl.formatMessage({
+                  defaultMessage: "Network Administrator",
+                  id: "agbLpJ",
+                  description: "Heading for the network administrator role",
+                })}
+              </Heading>
+              <Note className="mb-6">{digitalSalary}</Note>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Network Administrators at DND play a key role in managing and maintaining the performance, security, and reliability of network infrastructure. They administer networks and collaborate across teams to ensure the seamless operation of digital systems, helping to support secure and scalable enterprise IT services.",
+                  id: "zOw6B0",
+                  description: "Description of the network administrator role",
+                })}
+              </p>
+            </Card.GridItem>
+            <Card.GridItem>
+              <Heading level="h4" size="h6" className="mt-0">
+                {intl.formatMessage({
+                  defaultMessage: "Web Developer",
+                  id: "ZaDwv6",
+                  description: "Heading for the web developer role",
+                })}
+              </Heading>
+              <Note className="mb-6">{digitalSalary}</Note>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "A web developer at DND takes on a more analytical role, focusing on gathering and analyzing requirements and providing critical insights to optimize web development projects. Their expertise contributes to the delivery of high-quality web applications that meet the highest security standards and user expectations.",
+                  id: "U9OCYL",
+                  description: "Description of the web developer role",
+                })}
+              </p>
+            </Card.GridItem>
+          </Card.Grid>
+          <Card.Separator className="my-6" />
           <div className="flex flex-wrap items-center gap-6">
             <Link mode="solid" href={paths.browsePools()}>
               {intl.formatMessage({
@@ -293,7 +367,7 @@ export const Component = () => {
             description: "Paragraph describing the innovation corps",
           })}
         </p>
-        <Note>
+        <Note className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "Successful candidates are expected to work on site in the National Capital Region.",
@@ -301,15 +375,55 @@ export const Component = () => {
             description: "Note for innovation corps candidates about location",
           })}
         </Note>
-        <Heading level="h4" size="h6">
+        <Heading level="h4" size="h6" className="mb-6">
           {intl.formatMessage({
             defaultMessage: "Innovation Corps roles include",
             id: "3GAO9z",
             description: "Heading for roles within innovation corps",
           })}
         </Heading>
-        <Card>
-          <Card.Separator />
+        <Card className="mb-18 overflow-hidden">
+          <Card.Grid columns={2}>
+            <Card.GridItem>
+              <Heading level="h4" size="h6" className="mt-0">
+                {intl.formatMessage({
+                  defaultMessage: "Information Governance Specialist",
+                  id: "nhWRUg",
+                  description:
+                    "Heading for the information governance specialist role",
+                })}
+              </Heading>
+              <Note className="mb-6">{innovationSalary}</Note>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Information Governance Specialists in the Innovation Corps support the creation of ontologies and knowledge graphs to ensure information can be effectively shared or retrieved across the organization. They are strong communicators and help disseminate best practices.",
+                  id: "2xDnV4",
+                  description:
+                    "Description of the information governance specialist role",
+                })}
+              </p>
+            </Card.GridItem>
+            <Card.GridItem>
+              <Heading level="h4" size="h6" className="mt-0">
+                {intl.formatMessage({
+                  defaultMessage: "Data Analyst",
+                  id: "0VMNWQ",
+                  description: "Heading for the data analyst role",
+                })}
+              </Heading>
+              <Note className="mb-6">{innovationSalary}</Note>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Data Analysts in the Innovation Corps will serve as data storytellers in DND. Working closely with clients and stakeholders, they create compelling visuals and narratives that enable others to make better decisions. By providing advice, they also help ensure the ethical and sound use of data.",
+                  id: "Y9Tig+",
+                  description: "Description of the data analyst role",
+                })}
+              </p>
+            </Card.GridItem>
+          </Card.Grid>
+          <Card.Separator className="my-6" />
           <div className="flex flex-wrap items-center gap-6">
             <Link
               mode="solid"
