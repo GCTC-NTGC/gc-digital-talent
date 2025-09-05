@@ -202,6 +202,11 @@ class ClassificationTest extends TestCase
                 ],
                 'group' => 'IT',
                 'level' => 1,
+                'isAvailableInSearch' => true,
+                'displayName' => [
+                    'en' => 'Display Name (EN)',
+                    'fr' => 'Display Name (FR)',
+                ],
             ],
         ];
 
