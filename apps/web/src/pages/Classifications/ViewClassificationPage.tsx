@@ -143,7 +143,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(messages.isAvailableInSearch)}
+              label={intl.formatMessage(commonMessages.onFindTalent)}
               className="xs:col-span-2"
             >
               {classification.isAvailableInSearch
