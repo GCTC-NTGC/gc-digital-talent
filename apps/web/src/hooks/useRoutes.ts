@@ -389,6 +389,9 @@ const getRoutes = (lang: Locales) => {
     comptrollershipExecutivesPage: () =>
       [baseUrl, "comptrollership-executives"].join("/"),
 
+    // DND
+    dndDigitalCareers: () => `${baseUrl}/dnd`,
+
     /**
      * Deprecated
      *
