@@ -63,6 +63,10 @@ export const btn = tv({
       true: {},
       false: {},
     },
+    inHeading: {
+      true: {},
+      false: {},
+    },
     noUnderline: {
       true: { label: "no-underline", base: "no-underline" },
       false: { label: "underline underline-offset-2" },
@@ -255,6 +259,15 @@ export const btn = tv({
       mode: "text",
       block: false,
       class: "inline",
+    },
+
+    // When in heading, do not set the size, let it inherit
+    {
+      inHeading: true,
+      size: ["sm", "md", "lg"],
+      class: {
+        label: "text-[length:inherit]",
+      },
     },
 
     // Disabled: Must be at bottom for cascade
