@@ -26,7 +26,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
-  getExperienceFormLabels,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
