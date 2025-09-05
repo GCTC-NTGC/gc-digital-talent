@@ -216,7 +216,7 @@ export const CreateClassification = () => {
                     id="isAvailableInSearch"
                     name="isAvailableInSearch"
                     color="secondary"
-                    label={intl.formatMessage(messages.isAvailableInSearch)}
+                    label={intl.formatMessage(commonMessages.onFindTalent)}
                   />
                 </div>
                 <Input
