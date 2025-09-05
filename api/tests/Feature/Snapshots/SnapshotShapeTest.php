@@ -46,6 +46,8 @@ class SnapshotShapeTest extends TestCase
             'createdAt',
             'updatedAt',
             'deletedAt',
+            'isAvailableInSearch',
+            'displayName',
         ],
         Department::class => [
             'createdAt',
