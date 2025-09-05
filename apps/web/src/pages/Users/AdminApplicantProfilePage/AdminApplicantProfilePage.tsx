@@ -152,11 +152,9 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
           >
             <Accordion.Item value={SECTION_KEY.PERSONAL}>
               <Accordion.Trigger as="h3">
-                {intl.formatMessage({
-                  defaultMessage: "Personal and contact information",
-                  id: "SBhYCn",
-                  description: "Heading for the information of an application",
-                })}
+                {intl.formatMessage(
+                  profileMessages.personalAndContactInformation,
+                )}
               </Accordion.Trigger>
               <Accordion.Content>
                 <PersonalAndContactInformation query={user} />
