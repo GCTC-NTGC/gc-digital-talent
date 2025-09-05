@@ -21,6 +21,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
 
+import { SECTION_KEY } from "./types";
 import PersonalAndContactInformation, {
   PERSONAL_CONTACT_INFO_ID,
 } from "./components/PersonalAndContactInformation";
