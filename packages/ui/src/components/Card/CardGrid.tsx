@@ -5,13 +5,13 @@ import { PolymorphicProps } from "../../types";
 
 const grid = tv({
   base: [
-    "grid divide-y divide-gray-300 overflow-hidden sm:divide-x sm:divide-y-0",
+    "grid divide-y divide-gray-300 overflow-hidden sm:divide-x",
     "group-[.Card--lg]:-m-6 group-[.Card--md]:-m-6 group-[.Card--sm]:-m-4 group-[.Card--xs]:-m-3 group-[.Card--lg]:sm:-m-9",
   ],
   variants: {
     columns: {
       2: "grid-cols-1 sm:grid-cols-2",
-      3: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3",
+      3: "grid-cols-1 sm:grid-cols-3",
       4: "grid-cols-1 sm:grid-cols-2 md:grid-cols-4",
     },
   },
