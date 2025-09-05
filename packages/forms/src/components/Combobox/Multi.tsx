@@ -18,12 +18,12 @@ import {
   comboboxInput,
 } from "./utils";
 
-type MultiProps = BaseProps & {
+interface MultiProps extends BaseProps {
   onSelectedChange: (item: Option[] | null) => void;
   onInputChange?: (value: string) => void;
   /** Initial value */
   value?: Option[];
-};
+}
 
 const Multi = ({
   options,

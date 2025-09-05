@@ -26,17 +26,17 @@ function assertUnreachable(_: never): never {
   throw new Error("Didn't expect to be reachable.");
 }
 
-type LinkItemRegular = Omit<CardFlatRegularLinkProps, "color"> & {
+interface LinkItemRegular extends Omit<CardFlatRegularLinkProps, "color"> {
   [key: `data-${string}`]: unknown;
   // add a natural key since mocked files do not have unique hrefs
   naturalKey?: string;
-};
+}
 
-type LinkItemScrollTo = Omit<CardFlatScrollToLinkProps, "color"> & {
+interface LinkItemScrollTo extends Omit<CardFlatScrollToLinkProps, "color"> {
   [key: `data-${string}`]: unknown;
   // add a natural key since mocked files do not have unique hrefs
   naturalKey?: string;
-};
+}
 
 const cardFlat = tv({
   slots: {

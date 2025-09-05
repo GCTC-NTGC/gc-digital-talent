@@ -15,11 +15,11 @@ import {
   getFilteredSkills,
 } from "./utils";
 
-type SkillBrowserProps = BaseSkillBrowserProps & {
+interface SkillBrowserProps extends BaseSkillBrowserProps {
   name: string;
   isMulti?: boolean;
   rules?: RegisterOptions;
-};
+}
 
 const SkillBrowser = ({
   skills,

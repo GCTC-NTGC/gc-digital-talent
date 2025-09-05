@@ -44,24 +44,25 @@ export interface Radio {
 
 type ColumnRange = 1 | 2 | 3 | 4;
 
-export type RadioGroupProps = Omit<CommonInputProps, "id" | "label"> &
-  HTMLFieldsetProps & {
-    /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
-    idPrefix: string;
-    /** Holds text for the legend associated with the RadioGroup fieldset. */
-    legend: ReactNode;
-    /** A list of value and label representing the Radios shown.
-     * The form will represent the data at `name` as a string containing the chosen value. */
-    items: Radio[];
-    /** If set to the value of an input element that element will start selected */
-    defaultSelected?: string;
-    /** If true, all input elements in this fieldset will be disabled. */
-    disabled?: boolean;
-    /** The number of columns to display options in */
-    columns?: ColumnRange;
-    /** ID of a field description (help text) */
-    describedBy?: string;
-  };
+export interface RadioGroupProps
+  extends Omit<CommonInputProps, "id" | "label">,
+    Omit<HTMLFieldsetProps, "name"> {
+  /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
+  idPrefix: string;
+  /** Holds text for the legend associated with the RadioGroup fieldset. */
+  legend: ReactNode;
+  /** A list of value and label representing the Radios shown.
+   * The form will represent the data at `name` as a string containing the chosen value. */
+  items: Radio[];
+  /** If set to the value of an input element that element will start selected */
+  defaultSelected?: string;
+  /** If true, all input elements in this fieldset will be disabled. */
+  disabled?: boolean;
+  /** The number of columns to display options in */
+  columns?: ColumnRange;
+  /** ID of a field description (help text) */
+  describedBy?: string;
+}
 
 /**
  * Must be part of a form controlled by react-hook-form.

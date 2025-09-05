@@ -7,9 +7,9 @@ import { formMessages } from "@gc-digital-talent/i18n";
 
 import { ProcessDialogProps } from "./types";
 
-type ArchiveProcessDialogProps = ProcessDialogProps & {
+interface ArchiveProcessDialogProps extends ProcessDialogProps {
   onArchive: () => Promise<void>;
-};
+}
 
 const ArchiveProcessDialog = ({
   poolName,

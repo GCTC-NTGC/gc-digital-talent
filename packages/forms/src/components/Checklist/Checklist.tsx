@@ -20,18 +20,19 @@ const checkList = tv({
   base: "gap-0 px-0 py-1.5",
 });
 
-export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
-  HTMLFieldsetProps & {
-    /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
-    idPrefix: string;
-    /** Holds text for the legend associated with the checklist fieldset. */
-    legend: ReactNode;
-    /** A list of value and label representing the checkboxes shown.
-     * The form will represent the data at `name` as an array containing the values of the checked boxes. */
-    items: CheckboxOption[];
-    /** If true, all input elements in this fieldset will be disabled. */
-    disabled?: boolean;
-  };
+export interface ChecklistProps
+  extends Omit<CommonInputProps, "id" | "label">,
+    Omit<HTMLFieldsetProps, "name"> {
+  /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
+  idPrefix: string;
+  /** Holds text for the legend associated with the checklist fieldset. */
+  legend: ReactNode;
+  /** A list of value and label representing the checkboxes shown.
+   * The form will represent the data at `name` as an array containing the values of the checked boxes. */
+  items: CheckboxOption[];
+  /** If true, all input elements in this fieldset will be disabled. */
+  disabled?: boolean;
+}
 
 /**
  * Must be part of a form controlled by react-hook-form.

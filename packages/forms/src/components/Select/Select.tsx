@@ -17,20 +17,21 @@ const select = tv({
   base: "w-full",
 });
 
-export type SelectProps = CommonInputProps &
-  DetailedHTMLProps<
-    SelectHTMLAttributes<HTMLSelectElement>,
-    HTMLSelectElement
-  > & {
-    /** List of options and/or optgroups for the select element. */
-    options: OptGroupOrOption[];
-    /** Null selection string provides a null value with instructions to user (e.g. Select a department) */
-    nullSelection: string;
-    /** Allow users to select the null option */
-    enableNull?: boolean;
-    /** Determine if it should sort options in alphanumeric ascending order */
-    doNotSort?: boolean;
-  };
+type BaseHTMLProps = Omit<
+  DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>,
+  "name" | "id"
+>;
+
+export interface SelectProps extends CommonInputProps, BaseHTMLProps {
+  /** List of options and/or optgroups for the select element. */
+  options: OptGroupOrOption[];
+  /** Null selection string provides a null value with instructions to user (e.g. Select a department) */
+  nullSelection: string;
+  /** Allow users to select the null option */
+  enableNull?: boolean;
+  /** Determine if it should sort options in alphanumeric ascending order */
+  doNotSort?: boolean;
+}
 
 function sortOptions(options: OptGroupOrOption[]) {
   const tempOptions = options.map((option: OptGroupOrOption) =>

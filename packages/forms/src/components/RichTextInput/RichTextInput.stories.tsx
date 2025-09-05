@@ -32,9 +32,9 @@ export default {
 };
 
 type RichTextInputArgs = typeof RichTextInput;
-type DefaultValueRichTextInputArgs = RichTextInputArgs & {
+interface DefaultValueRichTextInputArgs extends RichTextInputArgs {
   defaultValue?: string;
-};
+}
 
 const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;

@@ -46,9 +46,9 @@ export default {
 };
 
 type DateInputArgs = typeof DateInput;
-type DefaultValueDateInputArgs = DateInputArgs & {
+interface DefaultValueDateInputArgs extends DateInputArgs {
   defaultValue?: string;
-};
+}
 
 const Template: StoryFn<DefaultValueDateInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
@@ -185,9 +185,9 @@ const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
 
 export const HideInputWhenInvalid = RenderDependantTemplate.bind({});
 
-type AsyncArgs = DateInputProps & {
+interface AsyncArgs extends DateInputProps {
   mockQuery: () => Promise<Pool>;
-};
+}
 
 const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   const intl = useIntl();

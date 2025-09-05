@@ -9,9 +9,9 @@ const chips = tv({
   base: "flex list-none flex-wrap gap-1 p-0",
 });
 
-type ChipsProps = Omit<HTMLProps<HTMLUListElement>, "children"> & {
+interface ChipsProps extends Omit<HTMLProps<HTMLUListElement>, "children"> {
   children: ReactElement<ChipProps> | (ReactElement<ChipProps> | null)[] | null;
-};
+}
 
 const Chips = ({ children, className, ...rest }: ChipsProps) => (
   <ul {...rest} className={chips({ class: className })}>

@@ -30,10 +30,10 @@ const defaultMultiArgs = {
   isMulti: true,
 };
 
-type ComboboxType = ComboboxProps & {
+interface ComboboxType extends ComboboxProps {
   mockSearch?: (term: string) => Promise<Option[]>;
   defaultValue?: string | string[];
-};
+}
 
 export default {
   component: Combobox,

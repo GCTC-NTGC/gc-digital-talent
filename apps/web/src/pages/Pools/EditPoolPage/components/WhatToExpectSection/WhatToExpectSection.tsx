@@ -53,11 +53,12 @@ interface FormValues {
 
 export type WhatToExpectSubmitData = Pick<UpdatePoolInput, "whatToExpect">;
 
-type WhatToExpectSectionProps = SectionProps<
-  WhatToExpectSubmitData,
-  FragmentType<typeof EditPoolWhatToExpect_Fragment>
-> &
-  PublishedEditableSectionProps;
+interface WhatToExpectSectionProps
+  extends SectionProps<
+      WhatToExpectSubmitData,
+      FragmentType<typeof EditPoolWhatToExpect_Fragment>
+    >,
+    PublishedEditableSectionProps {}
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;

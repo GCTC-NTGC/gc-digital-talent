@@ -10,13 +10,13 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import Field from "../Field";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 
-export type SwitchInputProps = SwitchProps & {
+export interface SwitchInputProps extends SwitchProps {
   id: CommonInputProps["id"];
   name: CommonInputProps["name"];
   label: CommonInputProps["label"];
   rules?: CommonInputProps["rules"];
   hideLabel?: boolean;
-};
+}
 
 const SwitchInput = forwardRef<ComponentRef<typeof Switch>, SwitchInputProps>(
   (

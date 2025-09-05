@@ -66,15 +66,16 @@ const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type EducationRequirementsSectionProps = Omit<
-  SectionProps<
-    null,
-    FragmentType<typeof EditPoolEducationRequirements_Fragment>
-  >,
-  "onSave"
-> & {
+interface EducationRequirementsSectionProps
+  extends Omit<
+    SectionProps<
+      null,
+      FragmentType<typeof EditPoolEducationRequirements_Fragment>
+    >,
+    "onSave"
+  > {
   changeTargetId: string;
-};
+}
 
 const EducationRequirementsSection = ({
   poolQuery,

@@ -54,11 +54,12 @@ interface FormValues {
 
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
-type SpecialNoteSectionProps = SectionProps<
-  SpecialNoteSubmitData,
-  FragmentType<typeof EditPoolSpecialNote_Fragment>
-> &
-  PublishedEditableSectionProps;
+interface SpecialNoteSectionProps
+  extends SectionProps<
+      SpecialNoteSubmitData,
+      FragmentType<typeof EditPoolSpecialNote_Fragment>
+    >,
+    PublishedEditableSectionProps {}
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;

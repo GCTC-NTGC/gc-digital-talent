@@ -24,14 +24,14 @@ import { findColumns } from "./utils";
 import { BoardColumn } from "./types";
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
 
-type RootProps = HTMLProps<HTMLDivElement> & {
+interface RootProps extends HTMLProps<HTMLDivElement> {
   defaultItem?: number;
   item?: number;
   onItemChange?: (newItem: number) => void;
   defaultColumn?: number;
   column?: number;
   onColumnChange?: (newColumn: number) => void;
-};
+}
 
 const Root = forwardRef<HTMLDivElement, RootProps>(
   (
@@ -258,9 +258,9 @@ const Column = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
   },
 );
 
-type ColumnHeaderProps = HTMLProps<HTMLDivElement> & {
+interface ColumnHeaderProps extends HTMLProps<HTMLDivElement> {
   prefix?: string;
-};
+}
 
 const ColumnHeader = forwardRef<HTMLDivElement, ColumnHeaderProps>(
   ({ prefix, children, ...rest }, forwardedRef) => {

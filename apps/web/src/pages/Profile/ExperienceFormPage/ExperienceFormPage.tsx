@@ -85,10 +85,10 @@ const addSubTitle = defineMessage({
 });
 
 type FormAction = "return" | "add-another";
-type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
+interface FormValues extends ExperienceFormValues<AllExperienceFormValues> {
   experienceType?: ExperienceType;
   action: FormAction;
-};
+}
 
 export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormSkill on Skill {

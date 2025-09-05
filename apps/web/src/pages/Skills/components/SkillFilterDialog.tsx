@@ -31,10 +31,10 @@ export interface FormValues {
   skillCategories?: SkillCategory[];
 }
 
-type SkillFilterDialogProps = CommonFilterDialogProps<FormValues> & {
+interface SkillFilterDialogProps extends CommonFilterDialogProps<FormValues> {
   skillFamilies: SkillFamily[];
   fetching?: boolean;
-};
+}
 
 const SkillFilterDialog = ({
   skillFamilies,

@@ -72,15 +72,15 @@ interface HeroSharedProps {
   additionalContent?: ReactNode;
 }
 
-type HeroWithNavTabsProps = HeroSharedProps & {
+interface HeroWithNavTabsProps extends HeroSharedProps {
   navTabs?: NavTab[];
   overlap?: never;
-};
+}
 
-type HeroWithOverlapProps = HeroSharedProps & {
+interface HeroWithOverlapProps extends HeroSharedProps {
   navTabs?: never;
   overlap: boolean;
-};
+}
 
 const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
   // shared props

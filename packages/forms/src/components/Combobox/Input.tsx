@@ -74,9 +74,11 @@ const Clear = forwardRef<HTMLButtonElement, HTMLButtonProps>(
   ),
 );
 
-type ToggleProps = Omit<HTMLButtonProps, "children"> & {
+type BaseProps = Omit<HTMLButtonProps, "children">;
+
+interface ToggleProps extends BaseProps {
   isOpen?: boolean;
-};
+}
 
 const transition: Transition = {
   type: "tween",

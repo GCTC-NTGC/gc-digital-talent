@@ -59,11 +59,12 @@ export type WhatToExpectAdmissionSubmitData = Pick<
   "whatToExpectAdmission"
 >;
 
-type WhatToExpectAdmissionSectionProps = SectionProps<
-  WhatToExpectAdmissionSubmitData,
-  FragmentType<typeof EditPoolWhatToExpectAdmission_Fragment>
-> &
-  PublishedEditableSectionProps;
+interface WhatToExpectAdmissionSectionProps
+  extends SectionProps<
+      WhatToExpectAdmissionSubmitData,
+      FragmentType<typeof EditPoolWhatToExpectAdmission_Fragment>
+    >,
+    PublishedEditableSectionProps {}
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;

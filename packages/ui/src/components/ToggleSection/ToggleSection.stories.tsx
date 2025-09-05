@@ -15,9 +15,10 @@ const Toggle = () => {
   );
 };
 
-type ToggleSectionRootAndHeader = {
+interface ToggleSectionRootAndHeader
+  extends React.ComponentPropsWithoutRef<typeof ToggleSection.Root> {
   headerText?: string;
-} & React.ComponentPropsWithoutRef<typeof ToggleSection.Root>;
+}
 
 export default {
   component: ToggleSection.Root,

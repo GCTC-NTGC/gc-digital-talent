@@ -8,12 +8,12 @@ import Input from "./Input";
 import { BaseProps, Option } from "./types";
 import { comboboxInput, getSingleFilteredItems, itemToString } from "./utils";
 
-type SingleProps = BaseProps & {
+interface SingleProps extends BaseProps {
   onSelectedChange: (item: Option | null) => void;
   onInputChange?: (value: string) => void;
   /** Initial value */
   value?: Option;
-};
+}
 
 const Single = ({
   options,

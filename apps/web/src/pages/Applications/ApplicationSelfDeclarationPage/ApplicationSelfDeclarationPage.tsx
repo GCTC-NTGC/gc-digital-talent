@@ -110,20 +110,20 @@ const definitionLink = (chunks: ReactNode) => (
 );
 
 type PageAction = "continue" | "cancel" | "explore";
-type FormValues = IndigenousFormValues & {
+interface FormValues extends IndigenousFormValues {
   signature: string;
   action: PageAction;
-};
+}
 
 export interface SelfDeclarationFormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-export type ApplicationSelfDeclarationProps = ApplicationPageProps & {
+export interface ApplicationSelfDeclarationProps extends ApplicationPageProps {
   indigenousCommunities: IndigenousCommunity[] | undefined;
   signature: string | null;
   onSubmit: SubmitHandler<FormValues>;
-};
+}
 
 export const ApplicationSelfDeclaration = ({
   application,

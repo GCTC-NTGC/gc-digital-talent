@@ -11,9 +11,9 @@ const ToggleSectionContext = createContext<
   ToggleSectionContextValue | undefined
 >(undefined);
 
-type ToggleSectionProviderProps = {
+interface ToggleSectionProviderProps extends ToggleSectionContextValue {
   children: ReactNode;
-} & ToggleSectionContextValue;
+}
 
 export const ToggleSectionProvider = ({
   children,

@@ -33,19 +33,20 @@ const legendStyles = tv({
   variants: { hide: { true: "sr-only" } },
 });
 
-export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
-  HTMLFieldsetProps & {
-    /** Holds text for the legend associated with the RadioGroup fieldset. */
-    legend: ReactNode;
-    /** If true, the legend will be hidden */
-    hideLegend?: boolean;
-    /** Set of validation rules and error messages to impose on all input elements. */
-    rules?: DateRegisterOptions;
-    /** Select which segments are visible to the user */
-    show?: DateSegment[];
-    /** Round the date to the nearest segment */
-    round?: RoundingMethod;
-  };
+export interface DateInputProps
+  extends Omit<CommonInputProps, "rules" | "label">,
+    Omit<HTMLFieldsetProps, "name" | "id"> {
+  /** Holds text for the legend associated with the RadioGroup fieldset. */
+  legend: ReactNode;
+  /** If true, the legend will be hidden */
+  hideLegend?: boolean;
+  /** Set of validation rules and error messages to impose on all input elements. */
+  rules?: DateRegisterOptions;
+  /** Select which segments are visible to the user */
+  show?: DateSegment[];
+  /** Round the date to the nearest segment */
+  round?: RoundingMethod;
+}
 
 /**
  * Must be part of a form controlled by react-hook-form.

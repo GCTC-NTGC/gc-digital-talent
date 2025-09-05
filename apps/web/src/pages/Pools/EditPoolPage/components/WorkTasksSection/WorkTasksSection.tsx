@@ -57,11 +57,12 @@ interface FormValues {
 
 export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 
-type WorkTasksSectionProps = SectionProps<
-  WorkTasksSubmitData,
-  FragmentType<typeof EditPoolKeyTasks_Fragment>
-> &
-  PublishedEditableSectionProps;
+interface WorkTasksSectionProps
+  extends SectionProps<
+      WorkTasksSubmitData,
+      FragmentType<typeof EditPoolKeyTasks_Fragment>
+    >,
+    PublishedEditableSectionProps {}
 
 const TEXT_AREA_MAX_WORDS_EN = 400;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;

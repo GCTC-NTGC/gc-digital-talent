@@ -55,9 +55,9 @@ interface Option<V> {
   label: string;
 }
 
-type FormValues = Pick<SkillFamily, "name" | "description"> & {
+interface FormValues extends Pick<SkillFamily, "name" | "description"> {
   skills: string[];
-};
+}
 
 export const UpdateSkillFamilySkill_Fragment = graphql(/* GraphQL */ `
   fragment UpdateSkillFamilySkill on Skill {

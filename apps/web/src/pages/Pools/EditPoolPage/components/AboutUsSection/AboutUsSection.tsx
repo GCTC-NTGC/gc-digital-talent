@@ -58,11 +58,12 @@ interface FormValues {
 
 export type AboutUsSubmitData = Pick<UpdatePoolInput, "aboutUs">;
 
-type AboutUsSectionProps = SectionProps<
-  AboutUsSubmitData,
-  FragmentType<typeof EditPoolAboutUs_Fragment>
-> &
-  PublishedEditableSectionProps;
+interface AboutUsSectionProps
+  extends SectionProps<
+      AboutUsSubmitData,
+      FragmentType<typeof EditPoolAboutUs_Fragment>
+    >,
+    PublishedEditableSectionProps {}
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
