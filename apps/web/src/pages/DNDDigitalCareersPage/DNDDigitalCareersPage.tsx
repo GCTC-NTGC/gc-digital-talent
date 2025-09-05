@@ -164,7 +164,7 @@ export const Component = () => {
           {intl.formatMessage(navigationMessages.createProfile)}
         </CTALink>
       </SkewedImageContainer>
-      <Container className="mt-18">
+      <Container className="my-18">
         <Heading
           color="secondary"
           level="h2"
@@ -353,7 +353,6 @@ export const Component = () => {
             description: "Lead-in text for list of upcoming job fairs",
           })}
         </p>
-
         {jobFairs.length > 0 ? (
           <div className="flex flex-col gap-3">
             {jobFairs.map((fair) => (
