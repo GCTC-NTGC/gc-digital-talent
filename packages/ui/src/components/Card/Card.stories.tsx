@@ -71,7 +71,7 @@ export const WithGrid: StoryObj<typeof Card> = {
             <p>{faker.lorem.paragraph()}</p>
           </Card.GridItem>
         </Card.Grid>
-        <Card.Separator className="my-4" />
+        <Card.Separator className="my-6" />
         <p>{faker.lorem.paragraph()}</p>
       </Card>
       <Card space="lg" {...args}>
@@ -89,7 +89,7 @@ export const WithGrid: StoryObj<typeof Card> = {
             <p>{faker.lorem.paragraph()}</p>
           </Card.GridItem>
         </Card.Grid>
-        <Card.Separator className="my-4" />
+        <Card.Separator className="my-6 sm:my-9" />
         <p>{faker.lorem.paragraph()}</p>
       </Card>
     </div>
