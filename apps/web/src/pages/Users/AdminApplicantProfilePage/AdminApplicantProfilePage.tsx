@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
   FragmentType,
@@ -8,7 +10,10 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import {
+  Accordion,
+  Button,
   Container,
+  Heading,
   Pending,
   Separator,
   TableOfContents,
@@ -57,6 +62,13 @@ interface AdminApplicantProfileProps {
 const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
   const intl = useIntl();
   const user = getFragment(AdminApplicantProfile_Fragment, query);
+  const [openSections, setOpenSections] = useState<string[]>([]);
+  const hasOpenSections = openSections.length > 0;
+
+  const toggleSections = () => {
+    const newValue = hasOpenSections ? [] : Object.values(SECTION_KEY);
+    setOpenSections(newValue);
+  };
 
   return (
     <Container className="my-18">
@@ -97,11 +109,98 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
           <DownloadButton id={user.id} />
         </TableOfContents.Navigation>
         <TableOfContents.Content>
-          <PersonalAndContactInformation query={user} />
-          <LanguageProfile query={user} />
-          <WorkPreferences query={user} />
-          <DiversityEquityInclusion query={user} />
-          <GovernmentInformation query={user} />
+          <div className="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+            <Heading icon={UserCircleIcon} color="secondary" className="m-0">
+              {intl.formatMessage({
+                defaultMessage: "Basic information",
+                id: "Jb+nLk",
+                description:
+                  "Heading for the basic information of an application",
+              })}
+            </Heading>
+            <div className="flex items-end gap-3">
+              <Button mode="inline" color="primary" onClick={toggleSections}>
+                {hasOpenSections
+                  ? intl.formatMessage({
+                      defaultMessage: "Collapse all sections",
+                      id: "uyko/c",
+                      description:
+                        "Button text to close all accordion sections",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Expand all sections",
+                      id: "4aQN/D",
+                      description: "Button text to open all accordion sections",
+                    })}
+              </Button>
+            </div>
+          </div>
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "View your account, contact, language, and other basic information.",
+              id: "KkyNof",
+              description:
+                "Text to describe the basic information section on the applicant profile page",
+            })}
+          </p>
+          <Accordion.Root
+            mode="card"
+            type="multiple"
+            value={openSections}
+            onValueChange={setOpenSections}
+          >
+            <Accordion.Item value={SECTION_KEY.PERSONAL}>
+              <Accordion.Trigger as="h3">
+                {intl.formatMessage({
+                  defaultMessage: "Personal and contact information",
+                  id: "SBhYCn",
+                  description: "Heading for the information of an application",
+                })}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <PersonalAndContactInformation query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item value={SECTION_KEY.LANGUAGE}>
+              <Accordion.Trigger as="h3">
+                {intl.formatMessage(profileMessages.languageProfile)}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <LanguageProfile query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item value={SECTION_KEY.WORK_PREFERENCES}>
+              <Accordion.Trigger as="h3">
+                {intl.formatMessage(navigationMessages.workPreferences)}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <WorkPreferences query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item value={SECTION_KEY.DEI}>
+              <Accordion.Trigger as="h3">
+                {intl.formatMessage(
+                  navigationMessages.diversityEquityInclusion,
+                )}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <DiversityEquityInclusion query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item value={SECTION_KEY.GOV_INFO}>
+              <Accordion.Trigger as="h3">
+                {intl.formatMessage(profileMessages.govEmployeeInformation)}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GovernmentInformation query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
     </Container>
