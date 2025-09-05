@@ -37,9 +37,7 @@ const EducationContent = ({
         title={experienceFormLabels.thesisTitle}
         headingLevel={headingLevel}
       >
-        {thesisTitle
-          ? thesisTitle
-          : intl.formatMessage(commonMessages.notAvailable)}
+        {thesisTitle ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
     </div>
   );

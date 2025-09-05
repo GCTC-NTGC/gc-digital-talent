@@ -337,7 +337,6 @@ const ExperienceCard = ({
     onChange: onOpenChange,
   });
   const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
-  const experienceLabels = getExperienceFormLabels(intl);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);

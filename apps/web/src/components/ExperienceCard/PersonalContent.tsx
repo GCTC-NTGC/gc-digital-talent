@@ -2,12 +2,12 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { PersonalExperience } from "@gc-digital-talent/graphql";
+import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import { ContentProps } from "./types";
-import { Separator } from "@gc-digital-talent/ui";
 
 const PersonalContent = ({
   experience: { details, description },
