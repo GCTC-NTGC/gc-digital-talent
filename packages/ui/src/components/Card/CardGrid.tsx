@@ -5,7 +5,7 @@ import { PolymorphicProps } from "../../types";
 
 const grid = tv({
   base: [
-    "grid divide-y divide-gray-300 overflow-hidden sm:divide-x",
+    "grid gap-px overflow-hidden bg-gray",
     "group-[.Card--lg]:-m-6 group-[.Card--md]:-m-6 group-[.Card--sm]:-m-4 group-[.Card--xs]:-m-3 group-[.Card--lg]:sm:-m-9",
   ],
   variants: {
@@ -41,7 +41,7 @@ export const Grid = ({
 };
 
 const item = tv({
-  base: "group-[.Card--lg]:p-6 group-[.Card--md]:p-6 group-[.Card--sm]:p-4 group-[.Card--xs]:p-3 group-[.Card--lg]:sm:p-9",
+  base: "bg-white group-[.Card--lg]:p-6 group-[.Card--md]:p-6 group-[.Card--sm]:p-4 group-[.Card--xs]:p-3 group-[.Card--lg]:sm:p-9 dark:bg-gray-600",
 });
 
 export type GridItemProps<T extends keyof JSX.IntrinsicElements = "div"> =
