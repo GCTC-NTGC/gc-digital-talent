@@ -130,7 +130,15 @@ export const Component = () => {
               description: "Link text to the page to find jobs",
             })}
           </Link>
-          <Link external newTab href="">
+          <Link
+            external
+            newTab
+            href={
+              locale === "fr"
+                ? "https://www.canada.ca/fr/ministere-defense-nationale.html"
+                : "https://www.canada.ca/en/department-national-defence.html"
+            }
+          >
             {intl.formatMessage({
               defaultMessage: "Learn more about DND",
               id: "F3UR4F",
@@ -336,14 +344,32 @@ export const Component = () => {
                 description: "Link text to browse jobs on GC Digital Talent",
               })}
             </Link>
-            <Link mode="inline" href="#" external newTab>
+            <Link
+              mode="inline"
+              href={
+                locale === "fr"
+                  ? "https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=fr"
+                  : "https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en"
+              }
+              external
+              newTab
+            >
               {intl.formatMessage({
                 defaultMessage: "Browse GC Jobs",
                 id: "ya6mF1",
                 description: "Link text to the GC Jobs site",
               })}
             </Link>
-            <Link mode="inline" href="#" external newTab>
+            <Link
+              mode="inline"
+              href={
+                locale === "fr"
+                  ? "https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?tab=1&title=&locationsFilter=&departments=&classificationInfos=&officialLanguage=&referenceNumber=&selectionProcessNumber=&search=Search%20jobs&department=40&log=false"
+                  : "https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?tab=1&title=&locationsFilter=&departments=&classificationInfos=&officialLanguage=&referenceNumber=&selectionProcessNumber=&search=Search%20jobs&department=40&log=false&toggleLanguage=en"
+              }
+              external
+              newTab
+            >
               {intl.formatMessage({
                 defaultMessage: "Other jobs at DND",
                 id: "CiDOEM",
