@@ -22,7 +22,7 @@ const grid = tv({
 
 type GridVariants = VariantProps<typeof grid>;
 
-export type GridProps<T extends keyof JSX.IntrinsicElements = "div"> =
+type GridProps<T extends keyof JSX.IntrinsicElements = "div"> =
   PolymorphicProps<T, GridVariants & { className?: string }>;
 
 export const Grid = ({
@@ -44,7 +44,7 @@ const item = tv({
   base: "bg-white group-[.Card--lg]:p-6 group-[.Card--md]:p-6 group-[.Card--sm]:p-4 group-[.Card--xs]:p-3 group-[.Card--lg]:sm:p-9 dark:bg-gray-600",
 });
 
-export type GridItemProps<T extends keyof JSX.IntrinsicElements = "div"> =
+type GridItemProps<T extends keyof JSX.IntrinsicElements = "div"> =
   PolymorphicProps<T, { className?: string }>;
 
 export const GridItem = ({
