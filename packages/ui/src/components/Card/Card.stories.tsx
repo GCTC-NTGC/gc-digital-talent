@@ -43,3 +43,55 @@ export const Default: StoryObj<typeof Card> = {
     </div>
   ),
 };
+
+export const WithGrid: StoryObj<typeof Card> = {
+  render: (args) => (
+    <div className="flex flex-col gap-y-6">
+      <Card space="sm" {...args}>
+        <Card.Grid columns={2}>
+          <Card.GridItem>
+            <p>Small space: {faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+          <Card.GridItem>
+            <p>2 columns: {faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+        </Card.Grid>
+        <Card.Separator className="my-4" />
+        <p>{faker.lorem.paragraph()}</p>
+      </Card>
+      <Card space="md" {...args}>
+        <Card.Grid columns={3}>
+          <Card.GridItem>
+            <p>Medium space: {faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+          <Card.GridItem>
+            <p>3 columns: {faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+          <Card.GridItem>
+            <p>{faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+        </Card.Grid>
+        <Card.Separator className="my-4" />
+        <p>{faker.lorem.paragraph()}</p>
+      </Card>
+      <Card space="lg" {...args}>
+        <Card.Grid columns={4}>
+          <Card.GridItem>
+            <p>Large space: {faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+          <Card.GridItem>
+            <p>4 columns: {faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+          <Card.GridItem>
+            <p>{faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+          <Card.GridItem>
+            <p>{faker.lorem.paragraph()}</p>
+          </Card.GridItem>
+        </Card.Grid>
+        <Card.Separator className="my-4" />
+        <p>{faker.lorem.paragraph()}</p>
+      </Card>
+    </div>
+  ),
+};
