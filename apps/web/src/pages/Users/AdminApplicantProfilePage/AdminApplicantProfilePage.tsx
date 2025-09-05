@@ -20,6 +20,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import PersonalAndContactInformation, {
   PERSONAL_CONTACT_INFO_ID,
@@ -51,9 +52,15 @@ const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
 
 interface AdminApplicantProfileProps {
   query: FragmentType<typeof AdminApplicantProfile_Fragment>;
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
-const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
+const AdminApplicantProfile = ({
+  query,
+  optionsQuery,
+}: AdminApplicantProfileProps) => {
   const intl = useIntl();
   const user = getFragment(AdminApplicantProfile_Fragment, query);
 
@@ -98,7 +105,7 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
         <TableOfContents.Content>
           <PersonalAndContactInformation query={user} />
           <LanguageProfile query={user} />
-          <WorkPreferences query={user} />
+          <WorkPreferences query={user} optionsQuery={optionsQuery} />
           <DiversityEquityInclusion query={user} />
           <GovernmentInformation query={user} />
         </TableOfContents.Content>
@@ -112,6 +119,7 @@ const AdminApplicantProfilePage_Query = graphql(/** GraphQL */ `
     user(id: $id) {
       ...AdminApplicantProfile
     }
+    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 
@@ -130,7 +138,7 @@ const AdminApplicantProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.user ? (
-        <AdminApplicantProfile query={data.user} />
+        <AdminApplicantProfile query={data.user} optionsQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}

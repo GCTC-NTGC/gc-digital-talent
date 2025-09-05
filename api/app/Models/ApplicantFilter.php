@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array $qualified_streams
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property array $flexible_work_locations
  */
 class ApplicantFilter extends Model
 {
@@ -38,6 +39,7 @@ class ApplicantFilter extends Model
         'operational_requirements' => 'array',
         'position_duration' => 'array',
         'qualified_streams' => 'array',
+        'flexible_work_locations' => 'array',
     ];
 
     /** @return BelongsToMany<Classification, $this> */

@@ -40,6 +40,9 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       locationPreferences: applicantFilter?.locationPreferences
         ?.filter(notEmpty)
         .map((workRegion) => workRegion?.value),
+      flexibleWorkLocations: applicantFilter?.flexibleWorkLocations
+        ?.filter(notEmpty)
+        .map((loc) => loc?.value),
       operationalRequirements: applicantFilter?.operationalRequirements
         ?.filter(notEmpty)
         .map((req) => req?.value),

@@ -69,10 +69,10 @@ const messages = defineMessages({
     description: "Legend for the employment equity checklist",
   },
   workLocation: {
-    defaultMessage: "Work location",
-    id: "3e965x",
+    defaultMessage: "Flexible work location options",
+    id: "j8R/Mg",
     description:
-      "Title for work location section on summary of filters section",
+      "Title for flexible work location options section on summary of filters section",
   },
   stream: {
     defaultMessage: "Work stream",

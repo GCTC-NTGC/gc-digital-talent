@@ -25,6 +25,7 @@ import GovernmentInformationDisplay from "~/components/Profile/components/Govern
 import LanguageProfileDisplay from "~/components/Profile/components/LanguageProfile/Display";
 import PersonalInformationDisplay from "~/components/Profile/components/PersonalInformation/Display";
 import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
@@ -114,6 +115,9 @@ interface ApplicationInformationProps {
     typeof ApplicationInformation_PoolCandidateFragment
   >;
   snapshot: User; // recreated from Json
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
   defaultOpen?: boolean;
 }
 
@@ -121,6 +125,7 @@ const ApplicationInformation = ({
   poolQuery,
   snapshot,
   applicationQuery,
+  optionsQuery,
   defaultOpen = false,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
@@ -342,7 +347,11 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <WorkPreferencesDisplay user={snapshot} labels={getLabels(intl)} />
+            <WorkPreferencesDisplay
+              user={snapshot}
+              labels={getLabels(intl)}
+              optionsQuery={optionsQuery}
+            />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.GOV_INFO}>
