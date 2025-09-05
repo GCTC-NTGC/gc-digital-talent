@@ -26,7 +26,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
-  getExperienceFormLabels,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -43,6 +42,7 @@ import EducationContent from "./EducationContent";
 import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
 import WorkStreamContent from "./WorkContent/WorkStreamsContent";
+import PersonalContent from "./PersonalContent";
 
 type EditMode = "link" | "dialog";
 
@@ -336,7 +336,6 @@ const ExperienceCard = ({
     onChange: onOpenChange,
   });
   const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
-  const experienceLabels = getExperienceFormLabels(intl);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
@@ -566,15 +565,12 @@ const ExperienceCard = ({
                 headingLevel={contentHeadingLevel}
               />
             )}
-            {/** Personal type has no custom content so separator is redundant */}
-            {!isPersonalExperience(experience) && <Separator space="sm" />}
-            <ContentSection
-              title={experienceLabels.details}
-              headingLevel={headingLevel}
-            >
-              {experience.details ??
-                intl.formatMessage(commonMessages.notAvailable)}
-            </ContentSection>
+            {isPersonalExperience(experience) && (
+              <PersonalContent
+                experience={experience}
+                headingLevel={contentHeadingLevel}
+              />
+            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
