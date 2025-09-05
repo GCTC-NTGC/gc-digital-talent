@@ -84,6 +84,14 @@ export const formatClassificationString = ({
 }: formatClassificationStringProps): string => {
   return `${group}-${level < 10 ? "0" : ""}${level}`;
 };
+
+export const formatClassificationAriaString = ({
+  group,
+  level,
+}: formatClassificationStringProps): string => {
+  const tokens = [...Array.from(group), level.toString()];
+  return tokens.join(" ");
+};
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined;

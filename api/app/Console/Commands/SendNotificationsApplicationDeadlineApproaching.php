@@ -67,8 +67,8 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
             foreach ($draftApplications as $poolCandidate) {
                 $notification = new ApplicationDeadlineApproaching(
                     $closingDayInPacific,
-                    $pool->classification->displayName.': '.$pool->name['en'],
-                    $pool->classification->displayName.' : '.$pool->name['fr'],
+                    $pool->classification->formattedGroupAndLevel.': '.$pool->name['en'],
+                    $pool->classification->formattedGroupAndLevel.' : '.$pool->name['fr'],
                     $pool->id,
                     $poolCandidate->id,
                 );

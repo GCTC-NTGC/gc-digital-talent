@@ -649,6 +649,8 @@ type Classification {
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  displayName: LocalizedString @rename(attribute: "display_name")
 }
 
 type GenericJobTitle {
@@ -2031,6 +2033,8 @@ input CreateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
+  isAvailableInSearch: Boolean! @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input ClassificationBelongsToMany {
@@ -2056,6 +2060,8 @@ input UpdateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input UpdatePoolCandidateStatusInput {

@@ -17,16 +17,21 @@ class ClassificationSeeder extends Seeder
     {
         /* To recreate the JSON file, run this GraphQL query:
             query Classifications {
-                classifications {
-                    group
-                    level
-                    name {
-                        en
-                        fr
-                    }
-                    maxSalary
-                    minSalary
+            classifications {
+                group
+                level
+                name {
+                    en
+                    fr
                 }
+                maxSalary
+                minSalary
+                isAvailableInSearch
+                displayName {
+                    en
+                    fr
+                }
+            }
             }
 
             Sort by group then level. You can use VS Code extension "Thinker.sort-json" to sort the results for a good commit diff.
@@ -56,7 +61,11 @@ class ClassificationSeeder extends Seeder
                     ],
                     'max_salary' => $model->maxSalary,
                     'min_salary' => $model->minSalary,
-
+                    'is_available_in_search' => $model->isAvailableInSearch ?? false,
+                    'display_name' => [
+                        'en' => $model->displayName?->en,
+                        'fr' => $model->displayName?->fr,
+                    ],
                 ]
             );
         }

@@ -20,9 +20,11 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property int $level
  * @property int $min_salary
  * @property int $max_salary
- * @property string $displayName
+ * @property string $formattedGroupAndLevel
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property bool $is_available_in_search
+ * @property array $display_name
  */
 class Classification extends Model
 {
@@ -37,6 +39,7 @@ class Classification extends Model
      */
     protected $casts = [
         'name' => LocalizedString::class,
+        'display_name' => LocalizedString::class,
     ];
 
     /** @return HasMany<GenericJobTitle, $this> */
@@ -46,9 +49,9 @@ class Classification extends Model
     }
 
     /**
-     * Get the classification display name, e.g. IT-01
+     * Get the formatted classification group and level, e.g. IT-01
      */
-    protected function displayName(): Attribute
+    protected function formattedGroupAndLevel(): Attribute
     {
         /** @disregard P1003 Not using values */
         return Attribute::make(
@@ -58,9 +61,6 @@ class Classification extends Model
 
     /**
      * Used to limit the results for the search page input
-     * to IT up to level 5; PM up to level 6; CR level 4; EX level 3, EX level 4; AS level 3, AS level 5; EC level 2 to 8.
-     *
-     * TODO: Update in #9483 to derive from new column
      */
     public static function scopeAvailableInSearch(Builder $query, bool $availableInSearch)
     {
@@ -68,22 +68,6 @@ class Classification extends Model
             return;
         }
 
-        $query->where(function ($query) {
-            $query->where('group', 'IT')->where('level', '<=', 5);
-        })->orWhere(function ($query) {
-            $query->where('group', 'PM')->where('level', '<=', 6);
-        })->orWhere(function ($query) {
-            $query->where('group', 'CR')->where('level', '=', 4);
-        })->orWhere(function ($query) {
-            $query->where('group', 'EX')->where('level', '=', 3);
-        })->orWhere(function ($query) {
-            $query->where('group', 'EX')->where('level', '=', 4);
-        })->orWhere(function ($query) {
-            $query->where('group', 'AS')->where('level', '=', 3);
-        })->orWhere(function ($query) {
-            $query->where('group', 'AS')->where('level', '=', 5);
-        })->orWhere(function ($query) {
-            $query->where('group', 'EC')->where('level', '>=', 2)->where('level', '<=', 8);
-        });
+        $query->where('is_available_in_search', true);
     }
 }

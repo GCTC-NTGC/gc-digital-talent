@@ -104,6 +104,7 @@ class ProtectedRequestTest extends TestCase
                         'en' => 'test en',
                         'fr' => 'test fr',
                     ],
+                    'isAvailableInSearch' => false,
                 ],
             ]
         )->assertJsonStructure([
@@ -138,6 +139,7 @@ class ProtectedRequestTest extends TestCase
                         'en' => 'test en',
                         'fr' => 'test fr',
                     ],
+                    'isAvailableInSearch' => false,
                 ],
             ]
         )->assertGraphQLErrorMessage('This action is unauthorized.');

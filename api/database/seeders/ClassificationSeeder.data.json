@@ -2,7 +2,12 @@
   "data": {
     "classifications": [
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ALL 01",
+        "isAvailableInSearch": false,
         "level": 9,
         "maxSalary": 0,
         "minSalary": 0,
@@ -12,7 +17,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "AS",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 69106,
         "minSalary": 61786,
@@ -22,7 +32,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "AS",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 74180,
         "minSalary": 68849,
@@ -32,7 +47,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Advisor or Analyst",
+          "fr": "Conseiller(ère) ou analyste"
+        },
         "group": "AS",
+        "isAvailableInSearch": true,
         "level": 3,
         "maxSalary": 79511,
         "minSalary": 73798,
@@ -42,7 +62,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "AS",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 87108,
         "minSalary": 80612,
@@ -52,7 +77,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Senior Advisor or Analyst",
+          "fr": "Conseiller(ère) principal(e) ou analyste"
+        },
         "group": "AS",
+        "isAvailableInSearch": true,
         "level": 5,
         "maxSalary": 104044,
         "minSalary": 96235,
@@ -62,7 +92,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "AS",
+        "isAvailableInSearch": false,
         "level": 6,
         "maxSalary": 102712,
         "minSalary": 95209,
@@ -72,7 +107,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "AS",
+        "isAvailableInSearch": false,
         "level": 7,
         "maxSalary": 114592,
         "minSalary": 100220,
@@ -82,7 +122,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "AS",
+        "isAvailableInSearch": false,
         "level": 8,
         "maxSalary": 121804,
         "minSalary": 103483,
@@ -92,7 +137,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 0,
         "minSalary": 0,
@@ -102,7 +152,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 0,
         "minSalary": 0,
@@ -112,7 +167,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 0,
         "minSalary": 0,
@@ -122,7 +182,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 0,
         "minSalary": 0,
@@ -132,7 +197,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 0,
         "minSalary": 0,
@@ -142,7 +212,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 6,
         "maxSalary": 0,
         "minSalary": 0,
@@ -152,7 +227,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 7,
         "maxSalary": 0,
         "minSalary": 0,
@@ -162,7 +242,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ASG",
+        "isAvailableInSearch": false,
         "level": 8,
         "maxSalary": 0,
         "minSalary": 0,
@@ -172,7 +257,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "AUTRE OTHER",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 2,
         "minSalary": 1,
@@ -182,7 +272,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CR",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 46342,
         "minSalary": 41947,
@@ -192,7 +287,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CR",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 48654,
         "minSalary": 45531,
@@ -202,7 +302,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CR",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 55707,
         "minSalary": 51642,
@@ -212,7 +317,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Clerk",
+          "fr": "Commis"
+        },
         "group": "CR",
+        "isAvailableInSearch": true,
         "level": 4,
         "maxSalary": 61761,
         "minSalary": 57217,
@@ -222,7 +332,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CR",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 67699,
         "minSalary": 62533,
@@ -232,7 +347,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CS",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 78216,
         "minSalary": 60696,
@@ -242,7 +362,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CS",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 91953,
         "minSalary": 75129,
@@ -252,7 +377,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CS",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 110182,
         "minSalary": 88683,
@@ -262,7 +392,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CS",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 126390,
         "minSalary": 101541,
@@ -272,7 +407,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CS",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 150842,
         "minSalary": 115754,
@@ -282,7 +422,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CT FIN",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 92122,
         "minSalary": 65669,
@@ -292,7 +437,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CT FIN",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 108438,
         "minSalary": 79935,
@@ -302,7 +452,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CT FIN",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 131692,
         "minSalary": 102195,
@@ -312,7 +467,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "CT FIN",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 148744,
         "minSalary": 115197,
@@ -322,7 +482,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "EC",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 64597,
         "minSalary": 55567,
@@ -332,7 +497,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Research Analyst",
+          "fr": "Analyste de recherche"
+        },
         "group": "EC",
+        "isAvailableInSearch": true,
         "level": 2,
         "maxSalary": 71275,
         "minSalary": 62168,
@@ -342,7 +512,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Analyst",
+          "fr": "Analyste"
+        },
         "group": "EC",
+        "isAvailableInSearch": true,
         "level": 3,
         "maxSalary": 77696,
         "minSalary": 68666,
@@ -352,7 +527,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Analyst or Economist",
+          "fr": "Analyste ou économiste"
+        },
         "group": "EC",
+        "isAvailableInSearch": true,
         "level": 4,
         "maxSalary": 85778,
         "minSalary": 74122,
@@ -362,7 +542,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Analyst or Advisor",
+          "fr": "Analyste ou conseiller(ère)"
+        },
         "group": "EC",
+        "isAvailableInSearch": true,
         "level": 5,
         "maxSalary": 101999,
         "minSalary": 88618,
@@ -372,7 +557,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Advisor or Economist",
+          "fr": "Conseiller(ère) ou économiste"
+        },
         "group": "EC",
+        "isAvailableInSearch": true,
         "level": 6,
         "maxSalary": 116116,
         "minSalary": 100121,
@@ -382,7 +572,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Senior Advisor",
+          "fr": "Conseiller(ère) principal(e)"
+        },
         "group": "EC",
+        "isAvailableInSearch": true,
         "level": 7,
         "maxSalary": 129869,
         "minSalary": 113124,
@@ -392,7 +587,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Expert Advisor",
+          "fr": "Expert(e)-conseil"
+        },
         "group": "EC",
+        "isAvailableInSearch": true,
         "level": 8,
         "maxSalary": 140571,
         "minSalary": 122991,
@@ -402,7 +602,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "EX",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 161773,
         "minSalary": 137524,
@@ -412,7 +617,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "EX",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 181365,
         "minSalary": 154178,
@@ -422,7 +632,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Digital Leader",
+          "fr": "Chef de file du numérique"
+        },
         "group": "EX",
+        "isAvailableInSearch": true,
         "level": 3,
         "maxSalary": 202918,
         "minSalary": 172548,
@@ -432,7 +647,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Digital Leader",
+          "fr": "Chef de file du numérique"
+        },
         "group": "EX",
+        "isAvailableInSearch": true,
         "level": 4,
         "maxSalary": 232676,
         "minSalary": 197774,
@@ -442,7 +662,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "EX",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 260719,
         "minSalary": 221654,
@@ -452,7 +677,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Technician",
+          "fr": "Technicien(ne)"
+        },
         "group": "IT",
+        "isAvailableInSearch": true,
         "level": 1,
         "maxSalary": 89382,
         "minSalary": 69361,
@@ -462,7 +692,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Analyst",
+          "fr": "Analyste"
+        },
         "group": "IT",
+        "isAvailableInSearch": true,
         "level": 2,
         "maxSalary": 105080,
         "minSalary": 85854,
@@ -472,7 +707,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Technical Advisor or Team Leader",
+          "fr": "Conseiller(ère) technique ou Chef d'équipe"
+        },
         "group": "IT",
+        "isAvailableInSearch": true,
         "level": 3,
         "maxSalary": 125914,
         "minSalary": 101343,
@@ -482,7 +722,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Senior Advisor or Manager",
+          "fr": "Conseiller(ère) principal(e) ou Gestionnaire"
+        },
         "group": "IT",
+        "isAvailableInSearch": true,
         "level": 4,
         "maxSalary": 144434,
         "minSalary": 116037,
@@ -492,7 +737,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Director or Senior Strategist",
+          "fr": "Directeur(trice) ou Stratège principal(e)"
+        },
         "group": "IT",
+        "isAvailableInSearch": true,
         "level": 5,
         "maxSalary": 174076,
         "minSalary": 133582,
@@ -502,7 +752,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITCSIS",
+        "isAvailableInSearch": false,
         "level": 6,
         "maxSalary": 94177,
         "minSalary": 77427,
@@ -512,7 +767,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITCSIS",
+        "isAvailableInSearch": false,
         "level": 7,
         "maxSalary": 106386,
         "minSalary": 87459,
@@ -522,7 +782,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITCSIS",
+        "isAvailableInSearch": false,
         "level": 9,
         "maxSalary": 137226,
         "minSalary": 112746,
@@ -532,7 +797,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITS",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 0,
         "minSalary": 0,
@@ -542,7 +812,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITS",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 0,
         "minSalary": 0,
@@ -552,7 +827,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITS",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 0,
         "minSalary": 0,
@@ -562,7 +842,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITS",
+        "isAvailableInSearch": false,
         "level": 6,
         "maxSalary": 0,
         "minSalary": 0,
@@ -572,7 +857,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "ITS",
+        "isAvailableInSearch": false,
         "level": 7,
         "maxSalary": 0,
         "minSalary": 0,
@@ -582,7 +872,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "MG AFS",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 87108,
         "minSalary": 67568,
@@ -592,7 +887,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "MG AFS",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 95260,
         "minSalary": 73888,
@@ -602,7 +902,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "MG AFS",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 102449,
         "minSalary": 79471,
@@ -612,7 +917,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "MG AFS",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 113841,
         "minSalary": 84466,
@@ -622,7 +932,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "MG AFS",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 136565,
         "minSalary": 101325,
@@ -632,7 +947,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "MG AFS",
+        "isAvailableInSearch": false,
         "level": 6,
         "maxSalary": 150070,
         "minSalary": 111344,
@@ -642,7 +962,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "PG",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 62066,
         "minSalary": 47415,
@@ -652,7 +977,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "PG",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 70668,
         "minSalary": 61896,
@@ -662,7 +992,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "PG",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 78691,
         "minSalary": 68909,
@@ -672,7 +1007,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "PG",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 93413,
         "minSalary": 81747,
@@ -682,7 +1022,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "PG",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 108091,
         "minSalary": 96225,
@@ -692,7 +1037,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "PG",
+        "isAvailableInSearch": false,
         "level": 6,
         "maxSalary": 117731,
         "minSalary": 105991,
@@ -702,7 +1052,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Junior Officer",
+          "fr": "Agent(e) subalterne"
+        },
         "group": "PM",
+        "isAvailableInSearch": true,
         "level": 1,
         "maxSalary": 69106,
         "minSalary": 61786,
@@ -712,7 +1067,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Junior Analyst",
+          "fr": "Analyste subalterne"
+        },
         "group": "PM",
+        "isAvailableInSearch": true,
         "level": 2,
         "maxSalary": 74180,
         "minSalary": 68849,
@@ -722,7 +1082,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Officer",
+          "fr": "Agent(e)"
+        },
         "group": "PM",
+        "isAvailableInSearch": true,
         "level": 3,
         "maxSalary": 79511,
         "minSalary": 73798,
@@ -732,7 +1097,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Analyst",
+          "fr": "Analyste"
+        },
         "group": "PM",
+        "isAvailableInSearch": true,
         "level": 4,
         "maxSalary": 87108,
         "minSalary": 80612,
@@ -742,7 +1112,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Senior Analyst",
+          "fr": "Analyste principal(e)"
+        },
         "group": "PM",
+        "isAvailableInSearch": true,
         "level": 5,
         "maxSalary": 104044,
         "minSalary": 96235,
@@ -752,7 +1127,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "Manager",
+          "fr": "Gestionnaire"
+        },
         "group": "PM",
+        "isAvailableInSearch": true,
         "level": 6,
         "maxSalary": 114592,
         "minSalary": 100220,
@@ -762,7 +1142,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "PM",
+        "isAvailableInSearch": false,
         "level": 7,
         "maxSalary": 121804,
         "minSalary": 103483,
@@ -772,7 +1157,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "SP",
+        "isAvailableInSearch": false,
         "level": 1,
         "maxSalary": 0,
         "minSalary": 0,
@@ -782,7 +1172,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "SP",
+        "isAvailableInSearch": false,
         "level": 2,
         "maxSalary": 0,
         "minSalary": 0,
@@ -792,7 +1187,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "SP",
+        "isAvailableInSearch": false,
         "level": 3,
         "maxSalary": 0,
         "minSalary": 0,
@@ -802,7 +1202,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "SP",
+        "isAvailableInSearch": false,
         "level": 4,
         "maxSalary": 0,
         "minSalary": 0,
@@ -812,7 +1217,12 @@
         }
       },
       {
+        "displayName": {
+          "en": "",
+          "fr": ""
+        },
         "group": "SP",
+        "isAvailableInSearch": false,
         "level": 5,
         "maxSalary": 0,
         "minSalary": 0,

@@ -82,7 +82,7 @@ trait GeneratesNominationDoc
                     $section->addTitle("{$this->localizeHeading('nominated_by')} {$nominatorFullName}", $headingRank + 1);
                     $this->addLabelText($section, $this->localizeHeading('date_received'), $nomination->submitted_at->format('F d, Y') ?? Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('nominators_work_email'), $nomination->nominator->work_email ?? Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('nominators_classification'), $nomination->nominator->currentClassification ? $nomination->nominator->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('nominators_classification'), $nomination->nominator->currentClassification ? $nomination->nominator->currentClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('nominators_department'), $nomination->nominator->department ? $nomination->nominator->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 } else {
                     $nominatorFallbackName = $nomination->nominator_fallback_name ?? Lang::get('common.not_available', [], $this->lang);
@@ -91,7 +91,7 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('nominators_work_email'), $nomination->nominator_fallback_work_email ?? Lang::get('common.not_available', [], $this->lang));
 
                     $fallBackClassification = Classification::find($nomination->nominator_fallback_classification_id);
-                    $this->addLabelText($section, $this->localizeHeading('nominators_classification'), $fallBackClassification ? $fallBackClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('nominators_classification'), $fallBackClassification ? $fallBackClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
 
                     $fallbackDepartment = Department::find($nomination->nominator_fallback_department_id);
                     $this->addLabelText($section, $this->localizeHeading('nominators_department'), $fallbackDepartment ? $fallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
@@ -104,7 +104,7 @@ trait GeneratesNominationDoc
                     if ($nomination->submitter) {
                         $this->addLabelText($section, $this->localizeHeading('submitter'), $nomination->submitter->getFullName() ?? Lang::get('common.not_available', [], $this->lang));
                         $this->addLabelText($section, $this->localizeHeading('submitters_work_email'), $nomination->submitter->work_email ?? Lang::get('common.not_available', [], $this->lang));
-                        $this->addLabelText($section, $this->localizeHeading('submitters_classification'), $nomination->submitter->currentClassification ? $nomination->submitter->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                        $this->addLabelText($section, $this->localizeHeading('submitters_classification'), $nomination->submitter->currentClassification ? $nomination->submitter->currentClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
                         $this->addLabelText($section, $this->localizeHeading('submitters_department'), $nomination->submitter->department ? $nomination->submitter->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                     }
 
@@ -137,14 +137,14 @@ trait GeneratesNominationDoc
                     $advancementReference = User::findOrFail($nomination->advancement_reference_id);
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $advancementReference->getFullName() ?? Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email ?? Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->currentClassification ? $advancementReference->currentClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->currentClassification ? $advancementReference->currentClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->department ? $advancementReference->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 }
 
                 if ($nomination->advancement_reference_fallback_name) {
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $nomination->advancement_reference_fallback_name);
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $nomination->advancement_reference_fallback_work_email);
-                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification ? $nomination->advancementReferenceFallbackClassification->displayName : Lang::get('common.not_available', [], $this->lang));
+                    $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification ? $nomination->advancementReferenceFallbackClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment ? $nomination->advancementReferenceFallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 }
 
