@@ -5,8 +5,6 @@ export type PartialUser = Pick<
   User,
   | "isGovEmployee"
   | "govEmployeeType"
-  | "department"
-  | "currentClassification"
   | "hasPriorityEntitlement"
   | "priorityNumber"
 >;
