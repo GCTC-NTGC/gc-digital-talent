@@ -80,6 +80,7 @@ class PoolFactory extends Factory
             'classification_id' => $classification->id,
             'department_id' => $departmentId,
             'community_id' => $communityId,
+            'contact_email' => $this->faker->email(),
         ];
     }
 

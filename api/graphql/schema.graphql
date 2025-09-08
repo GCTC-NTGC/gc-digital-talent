@@ -451,6 +451,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "area_of_selection")
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type GeneralQuestionResponse {
@@ -648,6 +649,8 @@ type Classification {
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  displayName: LocalizedString @rename(attribute: "display_name")
 }
 
 type GenericJobTitle {
@@ -2030,6 +2033,8 @@ input CreateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
+  isAvailableInSearch: Boolean! @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input ClassificationBelongsToMany {
@@ -2055,6 +2060,8 @@ input UpdateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -2630,6 +2637,7 @@ input UpdatePoolInput {
   areaOfSelection: PoolAreaOfSelection @rename(attribute: "area_of_selection")
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -2641,6 +2649,7 @@ input UpdatePublishedPoolInput @validator {
   whatToExpectAdmission: LocalizedStringInput
     @rename(attribute: "what_to_expect_admission")
   aboutUs: LocalizedStringInput @rename(attribute: "about_us")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input CreatePoolSkillInput @validator {
