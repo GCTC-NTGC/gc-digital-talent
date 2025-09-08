@@ -113,9 +113,8 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
             <Heading icon={UserCircleIcon} color="secondary" className="m-0">
               {intl.formatMessage({
                 defaultMessage: "Basic information",
-                id: "Jb+nLk",
-                description:
-                  "Heading for the basic information of an application",
+                id: "RDFAWE",
+                description: "Title for basic information",
               })}
             </Heading>
             <div className="flex items-end gap-3">
