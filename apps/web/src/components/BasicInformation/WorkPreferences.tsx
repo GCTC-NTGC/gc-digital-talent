@@ -45,10 +45,8 @@ export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
     locationExemptions
     currentCity
     currentProvince {
-      value
       label {
-        en
-        fr
+        localized
       }
     }
   }
@@ -190,7 +188,11 @@ const WorkPreferences = ({
         )}
       </FieldDisplay>
       <FieldDisplay label={intl.formatMessage(profileMessages.currentLocation)}>
-        {formatLocation({ city: currentCity, region: currentProvince, intl })}
+        {formatLocation({
+          city: currentCity,
+          region: currentProvince,
+          intl,
+        })}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(profileMessages.workLocationPreferences)}

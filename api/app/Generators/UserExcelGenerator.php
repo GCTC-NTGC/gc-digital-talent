@@ -160,7 +160,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 });
 
                 $appliedPools = $user->poolCandidates->map(function ($candidate) {
-                    return $candidate->pool->classification->displayName
+                    return $candidate->pool->classification->formattedGroupAndLevel
                             .' - '
                             .($candidate->pool->name[$this->lang] ?? '')
                             .' - '
@@ -170,7 +170,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 });
 
                 $offPlatformProcesses = $user->offPlatformRecruitmentProcesses->map(function ($process) {
-                    return $process->classification->displayName
+                    return $process->classification->formattedGroupAndLevel
                             .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? ''))
                             .' ('
                             .($process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class))

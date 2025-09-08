@@ -983,6 +983,7 @@ type Pool implements HasRoleAssignments {
   department: Department
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
+  contactEmail: String
 }
 
 type GeneralQuestionResponse {
@@ -1127,6 +1128,8 @@ type Classification {
   minSalary: Int
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
+  isAvailableInSearch: Boolean
+  displayName: LocalizedString
 }
 
 type GenericJobTitle {
@@ -2001,6 +2004,8 @@ input CreateClassificationInput {
   level: Int!
   minSalary: Int
   maxSalary: Int
+  isAvailableInSearch: Boolean!
+  displayName: LocalizedStringInput
 }
 
 input ClassificationBelongsToMany {
@@ -2021,6 +2026,8 @@ input UpdateClassificationInput {
   group: String
   minSalary: Int
   maxSalary: Int
+  isAvailableInSearch: Boolean
+  displayName: LocalizedStringInput
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -2504,6 +2511,7 @@ input UpdatePoolInput {
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection
   selectionLimitations: [PoolSelectionLimitation!]
+  contactEmail: String
 }
 
 input UpdatePublishedPoolInput {
@@ -2514,6 +2522,7 @@ input UpdatePublishedPoolInput {
   specialNote: LocalizedStringInput
   whatToExpectAdmission: LocalizedStringInput
   aboutUs: LocalizedStringInput
+  contactEmail: String
 }
 
 input CreatePoolSkillInput {

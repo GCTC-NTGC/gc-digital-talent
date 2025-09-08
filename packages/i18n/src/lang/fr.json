@@ -43,6 +43,10 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
+  "/l02AA": {
+    "defaultMessage": "Nom affiché",
+    "description": "Label displayed for a display name field"
+  },
   "/pptJd": {
     "defaultMessage": "Commis aux écritures et aux règlements",
     "description": "Full name of abbreviation for CR"
@@ -330,6 +334,10 @@
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
+  },
+  "9wqUyU": {
+    "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
+    "description": "Error message that contact email for this process must be filled"
   },
   "9zyjjw": {
     "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",

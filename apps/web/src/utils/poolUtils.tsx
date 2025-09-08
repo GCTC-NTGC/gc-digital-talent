@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
-import { ChipProps, IconType, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import { ChipProps, IconType, Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -83,6 +83,14 @@ export const formatClassificationString = ({
   level,
 }: formatClassificationStringProps): string => {
   return `${group}-${level < 10 ? "0" : ""}${level}`;
+};
+
+export const formatClassificationAriaString = ({
+  group,
+  level,
+}: formatClassificationStringProps): string => {
+  const tokens = [...Array.from(group), level.toString()];
+  return tokens.join(" ");
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
@@ -465,3 +473,13 @@ export function getClassificationName(
   const nameStr = getLocalizedName(name, intl);
   return `${groupLevelStr} (${nameStr})`;
 }
+
+export const contactEmailTag = (email?: Maybe<string>) => {
+  return email ? (
+    <Link external href={`mailto:${email}`}>
+      {email}
+    </Link>
+  ) : (
+    <>{email}</>
+  );
+};
