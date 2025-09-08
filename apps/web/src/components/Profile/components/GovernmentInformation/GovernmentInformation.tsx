@@ -43,6 +43,33 @@ const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const ProfileGovernmentInformation_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileGovernmentInformation on User {
+    id
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    govEmployeeType {
+      value
+      label {
+        localized
+      }
+    }
+    department {
+      id
+      name {
+        localized
+      }
+    }
+    currentClassification {
+      group
+      level
+    }
+    workEmail
+    isWorkEmailVerified
+  }
+`);
+
 const GovernmentInformation = ({
   user,
   onUpdate,
