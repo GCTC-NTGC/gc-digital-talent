@@ -42,7 +42,7 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
         $section->addTitle($this->localizeHeading('basic_details'), 2);
         $this->addLabelText($section, $this->localizeHeading('job_title'), $this->jobPoster->name[$this->lang]);
         $this->addLabelText($section, $this->localizeHeading('description'), $this->jobPoster->description[$this->lang]);
-        $this->addLabelText($section, $this->localizeHeading('classification'), $this->jobPoster->classification->displayName);
+        $this->addLabelText($section, $this->localizeHeading('classification'), $this->jobPoster->classification->formattedGroupAndLevel);
         $this->addLabelText($section, $this->localizeHeading('work_stream'), $this->jobPoster->workStream->name[$this->lang]);
         $this->addLabelText($section, $this->localizeHeading('role_type'), $this->localizeEnum($this->jobPoster->supervisory_status, SupervisoryStatus::class));
         $this->addLabelLink($section, $this->localizeHeading('work_description'),
