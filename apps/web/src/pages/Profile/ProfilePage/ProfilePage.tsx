@@ -44,6 +44,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
   fragment UserProfile on User {
     ...ProfilePersonlaInformation
     ...ProfileWorkPreferences
+    ...ProfileDiversityEquityInclusion
 
     id
     firstName
@@ -517,7 +518,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
                 <WorkPreferences {...sectionProps} query={user} />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
-                <DiversityEquityInclusion {...sectionProps} />
+                <DiversityEquityInclusion {...sectionProps} query={user} />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
                 <GovernmentInformation {...sectionProps} />
