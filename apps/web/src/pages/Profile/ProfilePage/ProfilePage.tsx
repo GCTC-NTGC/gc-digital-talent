@@ -43,6 +43,8 @@ const subTitle = defineMessage(pageMessages.subTitle);
 export const UserProfile_Fragment = graphql(/** GraphQL */ `
   fragment UserProfile on User {
     ...ProfilePersonlaInformation
+    ...ProfileWorkPreferences
+
     id
     firstName
     lastName
@@ -512,7 +514,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
                 <PersonalInformation {...sectionProps} query={user} />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
-                <WorkPreferences {...sectionProps} />
+                <WorkPreferences {...sectionProps} query={user} />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
                 <DiversityEquityInclusion {...sectionProps} />
