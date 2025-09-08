@@ -122,7 +122,7 @@ export const Component = () => {
             description: "Paragraph three, describing DND recruitment campaign",
           })}
         </p>
-        <div className="my-6 flex flex-wrap items-center gap-6">
+        <div className="my-6 flex flex-col flex-wrap items-center gap-6 sm:flex-row">
           <Link mode="solid" href={paths.browsePools()}>
             {intl.formatMessage({
               defaultMessage: "View available jobs",
@@ -337,7 +337,7 @@ export const Component = () => {
             </Card.GridItem>
           </Card.Grid>
           <Card.Separator className="my-6" />
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-col flex-wrap items-center gap-6 sm:flex-row">
             <Link mode="solid" href={paths.browsePools()}>
               {intl.formatMessage({
                 defaultMessage: "Browse jobs on GC Digital Talent",
@@ -451,7 +451,7 @@ export const Component = () => {
             </Card.GridItem>
           </Card.Grid>
           <Card.Separator className="my-6" />
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-col flex-wrap items-center gap-6 sm:flex-row">
             <Link
               mode="solid"
               href="DSGDigitalUpskilling-GSNPerfectionnementnumerique@forces.gc.ca"
@@ -509,7 +509,7 @@ export const Component = () => {
                     {fair.title}
                   </Link>
                 </Heading>
-                <div className="flex flex-col flex-wrap gap-3 text-sm sm:flex-row">
+                <div className="flex flex-col flex-wrap gap-3 text-sm text-gray-600 sm:flex-row dark:text-gray-200">
                   <span>
                     {intl.formatMessage(commonMessages.date) +
                       intl.formatMessage(commonMessages.dividingColon)}
