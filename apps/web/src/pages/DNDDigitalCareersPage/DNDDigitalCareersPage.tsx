@@ -51,15 +51,15 @@ export const Component = () => {
   const paths = useRoutes();
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Digital careers at the Department of National Defence",
-    id: "HaBv3n",
+    defaultMessage: "Digital careers at National Defence",
+    id: "YtI+mg",
     description: "Title for the DND digital careers page",
   });
 
   const desc = intl.formatMessage({
     defaultMessage:
-      "Explore digital career opportunities with the Digital Services Group at the Department of National Defence and contribute your expertise to projects that support national security.",
-    id: "DUwHpa",
+      "Explore digital career opportunities with the Digital Services Group at National Defence and contribute your expertise to projects that support national security.",
+    id: "nMipQw",
     description: "Description for digital careers at DND",
   });
 
@@ -101,16 +101,16 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "The Department of National Defence (DND) is preparing to grow and adapt as the international landscape becomes more complex. The government has announced plans to increase and accelerate its <strong>investment in defence</strong>, reinforcing its commitments to <strong>Canada’s sovereignty, security, and prosperity</strong>.",
-            id: "5nvTNI",
+              "The international landscape is complex. National Defence (DND) is preparing to grow and adapt to meet the challenge. The Government of Canada has announced plans to increase and accelerate its <strong>investment in defence</strong>, reinforcing its commitments to <strong>Canada’s sovereignty, security, and prosperity</strong>.",
+            id: "m/9bKR",
             description: "Paragraph one, describing DND recruitment campaign",
           })}
         </p>
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "To support this effort, DND’s Digital Services Group (DSG) is increasing its recruitment to ensure it has the talent needed to fulfill DND’s mission. The DSG leads DND and the Canadian Armed Forces in advancing digital transformation. In the coming years, DSG aims to hire more <strong>civilian professionals</strong> to help strengthen the digital foundations of DND and the Canadian Armed Forces.",
-            id: "hNSdAT",
+              "To support this effort, DND’s Digital Services Group (DSG) is increasing its recruitment to ensure that it has the talent needed to fulfill DND’s mission. DSG leads DND and the Canadian Armed Forces in advancing digital transformation. In the coming years, DSG aims to hire more <strong>civilian professionals</strong> to help strengthen the digital foundations of DND and the Canadian Armed Forces.",
+            id: "mB9+je",
             description: "Paragraph two, describing DND recruitment campaign",
           })}
         </p>
@@ -165,8 +165,8 @@ export const Component = () => {
         <p className="mb-6">
           {intl.formatMessage({
             defaultMessage:
-              "Are you a Government of Canada employee interested in a secondment with DSG? GC Digital Talent can help you achieve your next career goals. Creating your account, adding the Digital Community to your profile, and expressing interest in lateral movements are the first steps towards starting a fulfilling position at DND.",
-            id: "MBGDqn",
+              "Are you a Government of Canada employee interested in a secondment with DSG? GC Digital Talent can help you achieve your career goals. Create your account, add the Digital Community to your profile, and express interest in lateral movements to take the first steps toward starting a fulfilling position at DND.",
+            id: "kq5ByQ",
             description:
               "Description of how applications work for government employees.",
           })}
@@ -215,8 +215,8 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "The Digital Services Group is looking for digital professionals with strongly developed skills in",
-            id: "Kg+qsx",
+              "The DSG is looking for digital professionals with strongly developed skills in",
+            id: "kzUjOq",
             description: "Lead-in text for specific skills DSG is looking for",
           }) + intl.formatMessage(commonMessages.dividingColon)}
         </p>
@@ -293,8 +293,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Working for DND as a Cyber Security Advisor involves protecting computer systems and networks from cyber threats and may also include monitoring networks, identifying vulnerabilities, implementing security measures, responding to incidents, and developing security policies.",
-                  id: "8mTUxb",
+                    "Working for DND as a Cyber Security Advisor involves protecting computer systems and networks from cyber threats and may also include monitoring networks, identifying vulnerabilities, implementing security measures, responding to incidents and developing security policies. ",
+                  id: "ryDGWN",
                   description: "Description of the cyber security advisor role",
                 })}
               </p>
@@ -329,8 +329,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "A web developer at DND takes on a more analytical role, focusing on gathering and analyzing requirements and providing critical insights to optimize web development projects. Their expertise contributes to the delivery of high-quality web applications that meet the highest security standards and user expectations.",
-                  id: "U9OCYL",
+                    "A web developer at DND is a more analytical role, focusing on gathering and analyzing requirements and providing critical insights to optimize web development projects. Their expertise contributes to the delivery of high-quality web applications that meet the highest security standards and user expectations.",
+                  id: "zkoW6g",
                   description: "Description of the web developer role",
                 })}
               </p>
@@ -389,8 +389,8 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Join the Innovation Corps! DSG is recruiting high-demand, adaptable talent with strong digital skills from across government. Selected participants will spend a year building their network and gaining diverse experience through temporary assignments across DND. Find your perfect fit within Defence or build valuable skills for your next opportunity.",
-            id: "cuaSaD",
+              "Join the Innovation Corps! DSG is recruiting high-demand, adaptable talent with strong digital skills from across government. Selected participants will spend a year building their network and gaining diverse experience through temporary assignments across DND. Find your perfect fit in DND or build valuable skills for your next opportunity.",
+            id: "rOIBl0",
             description: "Paragraph describing the innovation corps",
           })}
         </p>
@@ -443,8 +443,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Data Analysts in the Innovation Corps will serve as data storytellers in DND. Working closely with clients and stakeholders, they create compelling visuals and narratives that enable others to make better decisions. By providing advice, they also help ensure the ethical and sound use of data.",
-                  id: "Y9Tig+",
+                    "Data Analysts in the Innovation Corps serve as data storytellers in DND. Working closely with clients and stakeholders, they create compelling visuals and narratives that enable others to make better decisions. By providing advice, they help ensure the ethical and sound use of data.",
+                  id: "SumvTY",
                   description: "Description of the data analyst role",
                 })}
               </p>
@@ -481,16 +481,16 @@ export const Component = () => {
         >
           {intl.formatMessage({
             defaultMessage:
-              "Meet DSG at job fairs for students and recent graduates",
-            id: "YBq69c",
+              "Meet the Digital Services Group at job fairs for students and recent graduates",
+            id: "waEO78",
             description: "Heading for DSG job fairs section",
           })}
         </Heading>
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Members of the Digital Services Group will be attending job fairs at universities and colleges in the coming months. Stop by to introduce yourself, ask questions, and discuss how you can start your career at DND.",
-            id: "xlwz2n",
+              "Members of the DSG will be attending job fairs at universities and colleges in the coming months. Stop by to introduce yourself, ask questions, and discuss how you can start your career at DND.",
+            id: "C8Ozfv",
             description: "Lead-in text for list of upcoming job fairs",
           })}
         </p>

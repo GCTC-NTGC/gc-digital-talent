@@ -32,8 +32,8 @@ const formattedDate = ({ y, m, d, intl }: FormattedDateArgs) =>
 
 const locations = defineMessages({
   montreal: {
-    defaultMessage: "Montreal, Quebec",
-    id: "3AZTaf",
+    defaultMessage: "Montréal, Quebec",
+    id: "RojSQE",
     description: "Location name of Montreal, Quebec",
   },
   ottawa: {
