@@ -123,9 +123,9 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
                 {hasOpenSections
                   ? intl.formatMessage({
                       defaultMessage: "Collapse all sections",
-                      id: "uyko/c",
+                      id: "t7vX4w",
                       description:
-                        "Button text to close all accordion sections",
+                        "Button text to close all application accordion sections",
                     })
                   : intl.formatMessage({
                       defaultMessage: "Expand all sections",
@@ -135,15 +135,6 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               </Button>
             </div>
           </div>
-          <p className="my-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "View your account, contact, language, and other basic information.",
-              id: "KkyNof",
-              description:
-                "Text to describe the basic information section on the applicant profile page",
-            })}
-          </p>
           <Accordion.Root
             mode="card"
             type="multiple"
