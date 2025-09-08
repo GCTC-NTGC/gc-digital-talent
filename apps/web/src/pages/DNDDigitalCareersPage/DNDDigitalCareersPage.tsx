@@ -58,8 +58,8 @@ export const Component = () => {
 
   const desc = intl.formatMessage({
     defaultMessage:
-      "Explore digital career opportunities with the Digital Services Group at the Department of National Defence and contribute your expertise to projects that support national security.",
-    id: "gnogU9",
+      "Explore digital career opportunities with the Digital Services Group at the Department of National Defence and contribute your expertise to projects that support national security.",
+    id: "DUwHpa",
     description: "Description for digital careers at DND",
   });
 
@@ -206,8 +206,8 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Check out the latest DSG opportunities in digital and tech, from entry level to management. Find a team, make a difference, and be inspired.",
-            id: "PNdaFP",
+              "Check out the latest DSG opportunities in digital and tech, from entry level to management. Find a team, make a difference, and be inspired.",
+            id: "GAVpXi",
             description: "Description about roles with DSG",
           })}
         </p>

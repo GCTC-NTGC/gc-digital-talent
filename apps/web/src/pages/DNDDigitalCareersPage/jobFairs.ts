@@ -77,8 +77,8 @@ const getJobFairs = (intl: IntlShape): JobFair[] => [
   {
     title: intl.formatMessage({
       defaultMessage: "Fall Career & Networking Fair – Carleton University",
-      id: "zSvwW5",
-      description: "Heading for Carleton networking/carrer fair",
+      id: "D9ZUyu",
+      description: "Heading for Carleton networking/career fair",
     }),
     href: {
       en: "https://carleton.ca/career/events/career-fairs/",
