@@ -454,7 +454,7 @@ export const Component = () => {
           <div className="flex flex-col flex-wrap items-center gap-6 sm:flex-row">
             <Link
               mode="solid"
-              href="DSGDigitalUpskilling-GSNPerfectionnementnumerique@forces.gc.ca"
+              href="mailto:DSGDigitalUpskilling-GSNPerfectionnementnumerique@forces.gc.ca"
               external
             >
               {intl.formatMessage({
