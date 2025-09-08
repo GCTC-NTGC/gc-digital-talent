@@ -31,8 +31,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
-import { getClassificationLabel } from "../utils";
-import { classificationAriaLabels, classificationLabels } from "../labels";
+import { getClassificationAriaLabel, getClassificationLabel } from "../utils";
 
 const SearchRequestOptions_Query = graphql(/* GraphQL */ `
   query SearchRequestOptions {
@@ -54,7 +53,10 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface FormFieldsProps {
-  classifications: Pick<Classification, "group" | "level">[];
+  classifications: Pick<
+    Classification,
+    "group" | "level" | "name" | "displayName"
+  >[];
   skills: Skill[];
   workStreams: WorkStream[];
 }
@@ -71,12 +73,8 @@ const FormFields = ({
 
   const classificationOptions = classifications.map((classification) => ({
     value: formatClassificationString(classification),
-    label: getClassificationLabel(classification, classificationLabels, intl),
-    ariaLabel: getClassificationLabel(
-      classification,
-      classificationAriaLabels,
-      intl,
-    ),
+    label: getClassificationLabel(classification, intl),
+    ariaLabel: getClassificationAriaLabel(classification),
   }));
 
   const workStreamOptions = workStreams.map((workStream) => ({
