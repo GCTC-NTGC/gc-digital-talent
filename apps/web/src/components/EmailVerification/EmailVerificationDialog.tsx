@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -92,20 +92,19 @@ interface FormValues {
 }
 
 export interface EmailVerificationProps {
-  open: boolean; // Add open prop for dialog
-  onClose: () => void; // Add onClose prop for dialog
+  onCancel: () => void;
   emailType?: EmailType;
   emailAddress?: string | null;
   onVerificationSuccess: () => void;
-  trigger?: ReactNode;
+  children?: ReactNode;
   defaultOpen?: boolean;
 }
 
 export const EmailVerificationDialog = ({
-  onClose,
+  onCancel,
   emailType = EmailType.Contact,
   onVerificationSuccess,
-  trigger,
+  children,
   defaultOpen = false,
 }: EmailVerificationProps) => {
   const intl = useIntl();
@@ -169,7 +168,7 @@ export const EmailVerificationDialog = ({
           throw new Error("Verify code error");
         }
         onVerificationSuccess();
-        onClose();
+        onCancel();
       })
       .catch(() => {
         toast.error(
@@ -219,10 +218,18 @@ export const EmailVerificationDialog = ({
       });
   };
 
+  const handleCancelClick = () => {
+    // close the dialog
+    setOpen(false);
+
+    // fire event to parent
+    onCancel();
+  };
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        {trigger || (
+        {children || (
           <Button>
             {intl.formatMessage({
               defaultMessage: "Verify your email address",
@@ -316,7 +323,11 @@ export const EmailVerificationDialog = ({
                       description: "Button to save and add email",
                     })}
                   />
-                  <Button color="warning" mode="inline" onClick={onClose}>
+                  <Button
+                    color="warning"
+                    mode="inline"
+                    onClick={handleCancelClick}
+                  >
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Footer>
