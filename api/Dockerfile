@@ -1,4 +1,4 @@
-FROM php:8.4.6-apache-bullseye as base
+FROM php:8.4.6-apache-bullseye AS base
 
 # Install pdo_pgsql extension.
 RUN apt-get update \
@@ -10,7 +10,7 @@ WORKDIR /var/www/html/api
 COPY composer.json composer.lock ./
 COPY tests/ tests/
 
-FROM base as builder
+FROM base AS builder
 
 # Install zip and gd ext required for composer install from dist.
 # REF: https://hub.docker.com/_/php#:~:text=php%2Dsource%20delete-,PHP%20Core%20Extensions,-For%20example%2C%20if
