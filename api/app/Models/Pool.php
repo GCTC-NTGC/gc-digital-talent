@@ -454,6 +454,10 @@ class Pool extends Model
     {
         $locale = app()->getLocale();
         $this->loadMissing(['classification']);
+        $definitions = [];
+        if ($definition = $this->classification->getDefinition()) {
+            $definitions = [$definition];
+        }
 
         return [
             'display' => [
@@ -461,7 +465,7 @@ class Pool extends Model
                 'fr' => $this->formatDisplayName($attributes, 'fr', $full),
                 'localized' => $this->formatDisplayName($attributes, $locale, $full),
             ],
-            'definitions' => $this->classification->getDefinition() ?? [],
+            'definitions' => $definitions,
         ];
     }
 

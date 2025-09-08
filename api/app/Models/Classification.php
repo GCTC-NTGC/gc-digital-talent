@@ -61,14 +61,16 @@ class Classification extends Model
 
     public function getDefinition(): array
     {
-        return [[
-            'term' => $this->displayName ?? 'TERM',
+        $locale = app()->getLocale();
+
+        return [
+            'term' => $this->formattedGroupAndLevel,
             'definition' => [
-                'en' => 'EN',
-                'fr' => 'FR',
-                'localized' => 'LOCALIZED',
+                'en' => $this->name['en'],
+                'fr' => $this->name['fr'],
+                'localized' => $this->name[$locale] ?? null,
             ],
-        ]];
+        ];
     }
 
     /**
