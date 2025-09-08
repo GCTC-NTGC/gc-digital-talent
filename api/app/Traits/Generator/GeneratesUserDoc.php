@@ -694,7 +694,7 @@ trait GeneratesUserDoc
         $section->addText($this->localize('common.digital_talent_processes_text'));
         $user->poolCandidates->each(function ($candidate) use ($section, $headingRank) {
             $section->addTitle($candidate->pool->name[$this->lang] ?? '', $headingRank + 2);
-            $this->addLabelText($section, $this->localize('experiences.classification'), $candidate->pool->classification->displayName);
+            $this->addLabelText($section, $this->localize('experiences.classification'), $candidate->pool->classification->formattedGroupAndLevel);
             $this->addLabelText($section, $this->localizeHeading('process_number'), $candidate->pool->process_number);
             $this->addLabelText($section, $this->localizeHeading('functional_community'), $candidate->pool->community->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('availability'), $this->yesOrNo(! isset($candidate->suspended_at)));
@@ -704,7 +704,7 @@ trait GeneratesUserDoc
         $section->addTitle($this->localize('headings.off_platform_processes'), $headingRank + 1);
         $section->addText($this->localize('common.off_platform_processes_text'));
         $user->offPlatformRecruitmentProcesses->each(function ($process) use ($section, $headingRank) {
-            $title = is_null($process->department) ? $process->classification->displayName : $process->classification->displayName.' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? '');
+            $title = is_null($process->department) ? $process->classification->formattedGroupAndLevel : $process->classification->formattedGroupAndLevel.' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? '');
             $platform = $process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class);
 
             $section->addTitle($title, $headingRank + 2);
