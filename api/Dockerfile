@@ -1,4 +1,4 @@
-FROM php:8.4.6-apache-bullseye AS base
+FROM php:8.4.10-apache-bullseye AS base
 
 # Install pdo_pgsql extension.
 RUN apt-get update \
