@@ -481,7 +481,7 @@ class Pool extends Model
             return $name;
         }
 
-        $classification = $this->classification?->displayName ?? '';
+        $classification = $this->classification->formattedGroupAndLevel ?? '';
 
         if ($full) {
             $this->loadMissing(['workStream']);
