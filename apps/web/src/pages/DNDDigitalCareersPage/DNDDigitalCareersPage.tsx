@@ -33,7 +33,7 @@ import processMessages from "~/messages/processMessages";
 import getJobFairs from "./jobFairs";
 
 const note = tv({
-  base: "font-sm text-gray-500 dark:text-gray-300",
+  base: "font-sm text-gray-600 dark:text-gray-200",
 });
 
 interface NoteProps {
