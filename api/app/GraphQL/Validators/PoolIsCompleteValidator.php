@@ -83,6 +83,7 @@ final class PoolIsCompleteValidator extends Validator
                     [Rule::in(array_column(PoolSelectionLimitation::limitationsForPublic(), 'name'))]
                 ),
             ],
+            'contact_email' => ['required', 'string'],
         ];
     }
 
@@ -106,6 +107,7 @@ final class PoolIsCompleteValidator extends Validator
             'special_note.en.required' => 'EnglishSpecialNoteRequired',
             'special_note.fr.required' => 'EnglishSpecialNoteRequired',
             'area_of_selection.required' => 'PoolAreaOfSelectionRequired',
+            'contact_email' => 'ContactEmailRequired',
         ];
     }
 }
