@@ -8,7 +8,12 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql, Pool } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -70,12 +75,17 @@ const ProfileGovernmentInformation_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
+interface GovernmentInformationProps extends SectionProps<Pick<Pool, "id">> {
+  query: FragmentType<typeof ProfileGovernmentInformation_Fragment>;
+}
+
 const GovernmentInformation = ({
-  user,
+  query,
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps<Pick<Pool, "id">>) => {
+}: GovernmentInformationProps) => {
+  const user = getFragment(ProfileGovernmentInformation_Fragment, query);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const intl = useIntl();

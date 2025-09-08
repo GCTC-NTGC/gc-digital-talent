@@ -33,6 +33,53 @@ const LanguageProfile_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileLanguageProfile on User {
+    id
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage {
+      value
+      label {
+        localized
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        localized
+      }
+    }
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+  }
+`);
+
 const LanguageProfile = ({
   user,
   application,
