@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\AssessmentStepType;
 use App\Models\AssessmentStep;
 use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -18,8 +19,13 @@ final class SwapAssessmentStepOrder
             throw ValidationException::withMessages(['stepIdA' => 'AssessmentStepsSamePool']);
         }
 
-        // Don't swap the reserved first two spots
-        if ($stepA->sort_order < 3 || $stepB->sort_order < 3) {
+        // Don't swap reserved screening application or screening questions
+        if (
+            $stepA->type === AssessmentStepType::APPLICATION_SCREENING->name ||
+            $stepB->type === AssessmentStepType::APPLICATION_SCREENING->name ||
+            $stepA->type === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name ||
+            $stepB->type === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name
+        ) {
             throw ValidationException::withMessages(['stepIdA' => 'AssessmentStepCannotSwap']);
         }
 
