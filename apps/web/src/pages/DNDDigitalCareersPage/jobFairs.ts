@@ -25,7 +25,7 @@ interface FormattedDateArgs {
 
 const formattedDate = ({ y, m, d, intl }: FormattedDateArgs) =>
   formatDate({
-    date: new Date(y, m, d),
+    date: new Date(y, m - 1, d),
     intl,
     formatString: DATE_FORMAT_LONG_STRING,
   });
