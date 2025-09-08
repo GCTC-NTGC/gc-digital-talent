@@ -76,33 +76,44 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
         <TableOfContents.Navigation>
           <TableOfContents.List>
             <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={PERSONAL_CONTACT_INFO_ID}>
-                {intl.formatMessage(
-                  profileMessages.personalAndContactInformation,
-                )}
+              <TableOfContents.AnchorLink id="basic-information">
+                {intl.formatMessage({
+                  defaultMessage: "Basic information",
+                  id: "RDFAWE",
+                  description: "Title for basic information",
+                })}
               </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={LANGUAGE_PROFILE_ID}>
-                {intl.formatMessage(profileMessages.languageProfile)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={WORK_PREFERENCES_ID}>
-                {intl.formatMessage(navigationMessages.workPreferences)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={DEI_ID}>
-                {intl.formatMessage(
-                  navigationMessages.diversityEquityInclusion,
-                )}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={GOV_INFO_ID}>
-                {intl.formatMessage(profileMessages.govEmployeeInformation)}
-              </TableOfContents.AnchorLink>
+              <TableOfContents.List className="mt-1.5">
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={PERSONAL_CONTACT_INFO_ID}>
+                    {intl.formatMessage(
+                      profileMessages.personalAndContactInformation,
+                    )}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={LANGUAGE_PROFILE_ID}>
+                    {intl.formatMessage(profileMessages.languageProfile)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={WORK_PREFERENCES_ID}>
+                    {intl.formatMessage(navigationMessages.workPreferences)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={DEI_ID}>
+                    {intl.formatMessage(
+                      navigationMessages.diversityEquityInclusion,
+                    )}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={GOV_INFO_ID}>
+                    {intl.formatMessage(profileMessages.govEmployeeInformation)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              </TableOfContents.List>
             </TableOfContents.ListItem>
           </TableOfContents.List>
           <Separator orientation="horizontal" space="xs" decorative />
