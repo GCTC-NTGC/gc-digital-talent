@@ -133,6 +133,7 @@ export const Component = () => {
           <Link
             external
             newTab
+            mode="inline"
             href={
               locale === "fr"
                 ? "https://www.canada.ca/fr/ministere-defense-nationale.html"
@@ -271,7 +272,7 @@ export const Component = () => {
             description: "Note about military IT being an asset",
           })}
         </Note>
-        <Heading level="h3" size="h5" className="mb-6">
+        <Heading level="h3" size="h5" className="mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "A glimpse into digital roles at DND",
             id: "FRPkzV",
@@ -378,7 +379,7 @@ export const Component = () => {
             </Link>
           </div>
         </Card>
-        <Heading level="h3" size="h5">
+        <Heading level="h3" size="h5" className="font-bold">
           {intl.formatMessage({
             defaultMessage: "The Innovation Corps",
             id: "FclnNa",
