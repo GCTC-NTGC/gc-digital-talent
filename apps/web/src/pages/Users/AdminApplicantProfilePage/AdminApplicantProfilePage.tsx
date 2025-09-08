@@ -132,15 +132,18 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               <Button mode="inline" color="primary" onClick={toggleSections}>
                 {hasOpenSections
                   ? intl.formatMessage({
-                      defaultMessage: "Collapse all sections",
-                      id: "t7vX4w",
+                      defaultMessage:
+                        "Collapse all <hidden>application information</hidden>sections",
+                      id: "OoZdlh",
                       description:
-                        "Button text to close all application accordion sections",
+                        "Button text to close all application information accordions",
                     })
                   : intl.formatMessage({
-                      defaultMessage: "Expand all sections",
-                      id: "4aQN/D",
-                      description: "Button text to open all accordion sections",
+                      defaultMessage:
+                        "Expand all <hidden>application information</hidden>sections",
+                      id: "DC2A59",
+                      description:
+                        "Button text to open all application information accordions",
                     })}
               </Button>
             </div>

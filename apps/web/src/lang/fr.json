@@ -1491,10 +1491,6 @@
     "defaultMessage": "Nommez des talents pour de l'avancement, de la mutation latérale ou des programmes de perfectionnement.",
     "description": "Subtitle for the form to nominate talent"
   },
-  "4aQN/D": {
-    "defaultMessage": "Agrandir toutes les sections",
-    "description": "Button text to expand all sections on the application review page"
-  },
   "4bWCNR": {
     "defaultMessage": "(Aucun fourni)",
     "description": "Message displayed when a given field has no values to display, that no information is present."
@@ -12212,10 +12208,6 @@
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the intermediate language ability option"
-  },
-  "t7vX4w": {
-    "defaultMessage": "Réduire toutes les sections",
-    "description": "Button text to close all application accordion sections"
   },
   "t79/r1": {
     "defaultMessage": "Ces notes sont uniquement disponibles ici et ne seront pas communiquées aux candidates et candidats.",
