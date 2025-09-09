@@ -44,7 +44,11 @@ class CandidateFinalDecisionTest extends TestCase
      */
     public function testFinalDecisionComputation($status, $expected): void
     {
+        $step = $this->candidate->pool->assessmentSteps->firstWhere('sort_order', 1);
+        $this->candidate->assessment_step_id = $step->id;
         $this->candidate->pool_candidate_status = $status;
+        $this->candidate->save();
+        $this->candidate->refresh();
         $decision = $this->candidate->computeFinalDecision();
         $this->assertEquals($expected, $decision);
     }
