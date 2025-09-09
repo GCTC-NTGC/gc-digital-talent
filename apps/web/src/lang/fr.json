@@ -1271,6 +1271,10 @@
     "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavySecondary>« Requises »</heavySecondary>. Si vous possédez l'une des compétences <heavyPrimary>« Facultatives »</heavyPrimary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
+  "3amaVI": {
+    "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
+    "description": "Button text to close all application information accordions"
+  },
   "3b6cy/": {
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
@@ -3330,10 +3334,6 @@
   "DBczOG": {
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
-  },
-  "DC2A59": {
-    "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
-    "description": "Button text to open all application information accordions"
   },
   "DEdQkH": {
     "defaultMessage": "{count, plural, one {# évaluation} other {# évaluations}}",
@@ -5423,6 +5423,10 @@
     "defaultMessage": "Il s'agissait d'un poste de direction ou de supervision.",
     "description": "Label displayed for supervisory position"
   },
+  "N/OaWg": {
+    "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
+    "description": "Button text to open all application information accordions"
+  },
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
@@ -5742,10 +5746,6 @@
   "OoYh86": {
     "defaultMessage": "Les coordonnées suivantes seront fournies. Elles serviront aux personnes candidates qui ont des questions et des demandes d'accommodements, ainsi qu'aux membres du personnel qui souhaitent discuter de leur demande rejetée.",
     "description": "Describes the 'contact email' section of a process' advertisement"
-  },
-  "OoZdlh": {
-    "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
-    "description": "Button text to close all application information accordions"
   },
   "Opn8nz": {
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
