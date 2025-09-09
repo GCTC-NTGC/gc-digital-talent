@@ -13,6 +13,7 @@ use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
+use Exception;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -740,6 +741,25 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function getIsWorkEmailVerifiedAttribute()
     {
         return $this->hasVerifiedEmail(EmailType::WORK);
+    }
+
+    /*
+    * Set the email address and verified_at together at the same time
+    */
+    public function setVerifiedEmail(string $emailAddress, EmailType $emailType)
+    {
+        switch ($emailType) {
+            case EmailType::CONTACT:
+                $this->email = $emailAddress;
+                $this->email_verified_at = Carbon::now();
+                break;
+            case EmailType::WORK:
+                $this->work_email = $emailAddress;
+                $this->work_email_verified_at = Carbon::now();
+                break;
+            default:
+                throw new Exception('Unexpected email type: '.$emailType->value);
+        }
     }
 
     /** @return HasMany<TalentNomination, $this> */

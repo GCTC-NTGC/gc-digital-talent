@@ -2996,6 +2996,7 @@ type Mutation {
   sendUserEmailsVerification(
     sendUserEmailsVerificationInput: SendUserEmailsVerificationInput! @spread
   ): User @guard
+  verifyUserEmails(code: String!): User @guard
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(

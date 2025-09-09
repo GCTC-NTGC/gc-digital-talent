@@ -85,8 +85,8 @@ class VerifyEmails extends Notification implements CanBeSentViaGcNotifyEmail
 
         $token = [
             'code' => $code,
-            'field' => $this->emailTypes,
-            'value' => $this->emailAddress,
+            'emailTypes' => $this->emailTypes,
+            'emailAddress' => $this->emailAddress,
         ];
         Cache::put($key, $token, now()->addHours(2));
 
