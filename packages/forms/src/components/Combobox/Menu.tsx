@@ -47,10 +47,10 @@ const Message = forwardRef<HTMLSpanElement, HTMLSpanProps>(
   ),
 );
 
-type AvailableProps = HTMLSpanProps & {
+interface AvailableProps extends HTMLSpanProps {
   count: number;
   total: number;
-};
+}
 
 const Available = ({ count, total, ...rest }: AvailableProps) => {
   const intl = useIntl();
@@ -119,10 +119,10 @@ const item = tv({
   ],
 });
 
-type ItemProps = HTMLLiProps & {
+interface ItemProps extends HTMLLiProps {
   active?: boolean;
   selected?: boolean;
-};
+}
 
 const Item = forwardRef<HTMLLIElement, ItemProps>(
   ({ active, selected, children, ...rest }, forwardedRef) => (

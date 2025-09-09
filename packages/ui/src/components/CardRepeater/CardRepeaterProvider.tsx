@@ -11,9 +11,10 @@ const CardRepeaterContext = createContext<CardRepeaterContextProps | undefined>(
   undefined,
 );
 
-export type CardRepeaterProviderProps<T extends BaseItem = BaseItem> = {
+export interface CardRepeaterProviderProps<T extends BaseItem = BaseItem>
+  extends CardRepeaterContextProps<T> {
   children: ReactNode;
-} & CardRepeaterContextProps<T>;
+}
 
 export const CardRepeaterProvider = <T extends BaseItem>({
   children,

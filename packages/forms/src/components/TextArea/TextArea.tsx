@@ -13,16 +13,21 @@ import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
-export type TextAreaProps = DetailedHTMLProps<
-  TextareaHTMLAttributes<HTMLTextAreaElement>,
-  HTMLTextAreaElement
-> &
-  CommonInputProps & {
-    // Whether to trim leading/ending whitespace upon blurring of an input, default on
-    whitespaceTrim?: boolean;
-    /** Sets a limit on how many words can be submitted with this input */
-    wordLimit?: number;
-  };
+
+type BaseHTMLProps = Omit<
+  DetailedHTMLProps<
+    TextareaHTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
+  >,
+  "name" | "id"
+>;
+
+export interface TextAreaProps extends BaseHTMLProps, CommonInputProps {
+  // Whether to trim leading/ending whitespace upon blurring of an input, default on
+  whitespaceTrim?: boolean;
+  /** Sets a limit on how many words can be submitted with this input */
+  wordLimit?: number;
+}
 
 const textArea = tv({
   extend: inputStyles,
