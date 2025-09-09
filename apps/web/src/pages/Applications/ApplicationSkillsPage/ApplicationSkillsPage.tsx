@@ -11,7 +11,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input } from "@gc-digital-talent/forms";
+import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { apiMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -134,7 +134,7 @@ export const ApplicationSkills = ({
   const methods = useForm<FormValues>();
   const {
     setValue,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
 
   const optionalDisclaimer = intl.formatMessage({
@@ -314,24 +314,25 @@ export const ApplicationSkills = ({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <Separator />
-          {/* -1.5 removes stray gap from flex layout */}
-          <div className="-mt-1.5 mb-6">
-            <Input
-              id="skillsMissingExperiences"
-              name="skillsMissingExperiences"
-              label=""
-              type="number"
-              hidden
-              rules={{
-                max: {
-                  value: 0,
-                  message: intl.formatMessage(
-                    apiMessages.MISSING_ESSENTIAL_SKILLS,
-                  ),
-                },
-              }}
-            />
-          </div>
+          <HiddenInput
+            name="skillsMissingExperiences"
+            rules={{
+              max: {
+                value: 0,
+                message: intl.formatMessage(
+                  apiMessages.MISSING_ESSENTIAL_SKILLS,
+                ),
+              },
+            }}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="skillsMissingExperiences"
+            render={({ message }) => (
+              <Field.Error className="mb-3">{message}</Field.Error>
+            )}
+          />
+
           <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
             <Button
               type="submit"
