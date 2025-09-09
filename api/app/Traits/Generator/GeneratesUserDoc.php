@@ -14,12 +14,14 @@ use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
+use App\Enums\ExecCoaching;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
+use App\Enums\HiringPlatform;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LearningOpportunitiesInterest;
@@ -612,6 +614,9 @@ trait GeneratesUserDoc
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
             'poolCandidates.pool.community',
+            'offPlatformRecruitmentProcesses',
+            'offPlatformRecruitmentProcesses.department',
+            'offPlatformRecruitmentProcesses.classification',
         ]);
 
         $this->name($section, $user, $headingRank);
@@ -698,7 +703,14 @@ trait GeneratesUserDoc
         // Off platform processes
         $section->addTitle($this->localize('headings.off_platform_processes'), $headingRank + 1);
         $section->addText($this->localize('common.off_platform_processes_text'));
-        $this->addLabelText($section, $this->localizeHeading('off_platform_process_information'), $user->off_platform_recruitment_processes);
+        $user->offPlatformRecruitmentProcesses->each(function ($process) use ($section, $headingRank) {
+            $title = is_null($process->department) ? $process->classification->displayName : $process->classification->displayName.' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? '');
+            $platform = $process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class);
+
+            $section->addTitle($title, $headingRank + 2);
+            $this->addLabelText($section, $this->localizeHeading('process_number'), $process->process_number);
+            $this->addLabelText($section, $this->localizeHeading('platform'), $platform);
+        });
     }
 
     /**
@@ -745,10 +757,10 @@ trait GeneratesUserDoc
                 $this->localizeEnum($profile->career_planning_lateral_move_time_frame ?? '', TimeFrame::class)
             );
 
-            if (! empty($profile->career_planning_promotion_move_organization_type)) {
+            if (! empty($profile->career_planning_lateral_move_organization_type)) {
                 $section->addText($this->localize('gc_employee.org_types_lateral'));
 
-                foreach ($profile->career_planning_promotion_move_organization_type as $type) {
+                foreach ($profile->career_planning_lateral_move_organization_type as $type) {
                     $section->addListItem(
                         $this->localizeEnum($type, OrganizationTypeInterest::class)
                     );
@@ -809,12 +821,11 @@ trait GeneratesUserDoc
         // Executive Opportunities
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
             $this->yesOrNo($profile->career_planning_exec_interest ?? false));
-        $coachingStatus = match (true) {
-            $profile->career_planning_exec_interest => 'coaching_others',
-            $profile->career_planning_exec_coaching_status === 'COACHING' => 'coaching_others',
-            $profile->career_planning_exec_coaching_status === 'LEARNING' => 'has_coach',
-            $profile->career_planning_exec_coaching_status === 'BOTH' => 'coaching_and_learning',
-            $profile->career_planning_exec_coaching_status === 'not_participating' => 'not_participating',
+        $coachingStatus = match ($profile->career_planning_exec_coaching_status) {
+            [ExecCoaching::COACHING->name, ExecCoaching::LEARNING->name], [ExecCoaching::LEARNING->name, ExecCoaching::COACHING->name] => 'coaching_and_learning',
+            [ExecCoaching::COACHING->name] => 'coaching_others',
+            [ExecCoaching::LEARNING->name] => 'has_coach',
+            [] => 'not_participating',
             default => 'not_provided'
         };
 
@@ -824,8 +835,8 @@ trait GeneratesUserDoc
         if (! empty($profile->career_planning_exec_coaching_interest)) {
             $section->addText($this->localize('gc_employee.exec_coaching_interest'));
             $translationMap = [
-                'COACHING' => 'interested_coaching',
-                'LEARNING' => 'interested_receiving',
+                ExecCoaching::COACHING->name => 'interested_coaching',
+                ExecCoaching::LEARNING->name => 'interested_receiving',
             ];
             foreach ($profile->career_planning_exec_coaching_interest as $interest) {
                 if (isset($translationMap[$interest])) {
@@ -858,9 +869,10 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->nextRoleClassification->group ?? '');
         $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->nextRoleClassification->level ?? '');
 
-        // Target Role Type
+        // Target Role
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
-            $this->localizeEnum($profile->next_role_target_role, TargetRole::class));
+            $profile->next_role_target_role === TargetRole::OTHER->name && $profile->next_role_target_role_other ? $profile->next_role_target_role_other : $this->localizeEnum($profile->next_role_target_role, TargetRole::class)
+        );
 
         // Senior Management Status
         $managementStatus = $profile->next_role_is_c_suite_role === true
@@ -877,8 +889,8 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.job_title'), $profile->next_role_job_title ?? '');
 
         // Functional Community
-        $communityName = $profile->careerObjectiveCommunity?->name[$this->lang] ??
-            $profile->career_objective_community_other;
+        $communityName = $profile->nextRoleCommunity?->name[$this->lang] ??
+            $profile->next_role_community_other;
         $this->addLabelText($section, $this->localize('gc_employee.desired_community'), $communityName);
 
         // Work Streams
@@ -917,19 +929,20 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->careerObjectiveClassification->group ?? '');
         $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->careerObjectiveClassification->level ?? '');
 
-        // Target Role Type
+        // Target Role
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
-            $this->localizeEnum($profile->career_objective_target_role, TargetRole::class));
+            $profile->career_objective_target_role === TargetRole::OTHER->name && $profile->career_objective_target_role_other ? $profile->career_objective_target_role_other : $this->localizeEnum($profile->career_objective_target_role, TargetRole::class)
+        );
 
         // Senior Management Status
-        $managementStatus = $profile->next_role_is_c_suite_role === true
-        ? $this->localize('gc_employee.senior_management_true') : ($profile->next_role_is_c_suite_role === false
+        $managementStatus = $profile->career_objective_is_c_suite_role === true
+        ? $this->localize('gc_employee.senior_management_true') : ($profile->career_objective_is_c_suite_role === false
             ? $this->localize('gc_employee.senior_management_false') : '');
 
         $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'), $managementStatus);
-        if ($profile->next_role_is_c_suite_role === true) {
+        if ($profile->career_objective_is_c_suite_role === true) {
             $this->addLabelText($section, $this->localize('gc_employee.c_suite_title'),
-                $this->localizeEnum($profile->next_role_c_suite_role_title, CSuiteRoleTitle::class));
+                $this->localizeEnum($profile->career_objective_c_suite_role_title, CSuiteRoleTitle::class));
         }
 
         // Job Title

@@ -5,6 +5,7 @@ import {
   Checklist,
   Combobox,
   HiddenInput,
+  Radio,
   RadioGroup,
   Select,
   localizedEnumToOptions,
@@ -34,6 +35,7 @@ import FilterDialog, {
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 import tableMessages from "./tableMessages";
+import { candidateSuspendedFilterToCustomOptions } from "./helpers";
 
 const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {
@@ -163,6 +165,12 @@ const PoolCandidateFilterDialog = ({
     value,
     label: intl.formatMessage(message),
   });
+
+  const suspendedStatusOptions: Radio[] =
+    candidateSuspendedFilterToCustomOptions(
+      unpackMaybes(data?.suspendedFilters),
+      intl,
+    );
 
   return (
     <FilterDialog<FormValues>
@@ -294,23 +302,15 @@ const PoolCandidateFilterDialog = ({
           <RadioGroup
             idPrefix="suspendedStatus"
             name="suspendedStatus"
-            legend={intl.formatMessage({
-              defaultMessage: "Candidacy status",
-              description: "Label for the candidacy status field",
-              id: "NxrKpM",
-            })}
-            items={localizedEnumToOptions(data?.suspendedFilters, intl)}
+            legend={intl.formatMessage(tableMessages.interestJobOffers)}
+            items={suspendedStatusOptions}
           />
         </div>
         <Checkbox
           id="govEmployee"
           name="govEmployee"
           value="true"
-          label={intl.formatMessage({
-            defaultMessage: "Government employee",
-            id: "bOA3EH",
-            description: "Label for the government employee field",
-          })}
+          label={intl.formatMessage(commonMessages.governmentEmployee)}
         />
         <div className="xs:col-span-3">
           <Combobox

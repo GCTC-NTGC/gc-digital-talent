@@ -1,6 +1,12 @@
 import { IntlShape } from "react-intl";
 
-import { Link, Chip, Spoiler, Chips, HTMLEntity } from "@gc-digital-talent/ui";
+import {
+  Link,
+  Chip,
+  Spoiler,
+  Chips,
+  UNICODE_CHAR,
+} from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -39,7 +45,7 @@ export function classificationsCell(
       >
         <>
           {classification.group}
-          <HTMLEntity name="&hyphen;" />
+          <span>{UNICODE_CHAR.HYPHEN}</span>
           {classification.level < 10 ? "0" : ""}
           {classification.level}
         </>

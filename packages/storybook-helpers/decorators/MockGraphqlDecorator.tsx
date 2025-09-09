@@ -1,8 +1,8 @@
 import { Provider as GraphqlProvider } from "urql";
 import { Client } from "@urql/core";
 import { fromValue, pipe, delay } from "wonka";
-import { useParameter } from "@storybook/preview-api";
-import { StoryFn } from "@storybook/react";
+import { useParameter } from "storybook/preview-api";
+import type { Decorator } from "@storybook/react-vite";
 import random from "lodash/random";
 import merge from "lodash/merge";
 import { DocumentNode, Kind } from "graphql";
@@ -72,7 +72,7 @@ const mockRequest = (
  * For examples of our usage, see:
  * /apps/web/src/pages/ProfilePage/ProfilePage/ProfilePage.stories.tsx
  */
-export default function MockGraphqlDecorator(Story: StoryFn) {
+const MockGraphqlDecorator: Decorator = (Story) => {
   // Allow response to be set in story via parameters.
   // Source: https://johnclarke73.medium.com/mocking-react-context-in-storybook-bb57304f2f6c
   // See: https://storybook.js.org/docs/react/addons/addons-api#useparameter
@@ -95,4 +95,6 @@ export default function MockGraphqlDecorator(Story: StoryFn) {
       <Story />
     </GraphqlProvider>
   );
-}
+};
+
+export default MockGraphqlDecorator;

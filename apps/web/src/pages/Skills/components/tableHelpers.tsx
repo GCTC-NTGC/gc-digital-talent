@@ -8,7 +8,7 @@ import {
   Skill,
   SkillFamily,
 } from "@gc-digital-talent/graphql";
-import { HTMLEntity } from "@gc-digital-talent/ui";
+import { UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 export function categoryAccessor(
   category: Maybe<LocalizedSkillCategory>,
@@ -36,7 +36,7 @@ export function skillFamiliesCell(
       ) : (
         <>
           {familyName.slice(0, maxCharacterCount)}
-          <HTMLEntity name="&hellip;" />
+          <span>{UNICODE_CHAR.ELLIPSE}</span>
         </>
       )}
     </li>

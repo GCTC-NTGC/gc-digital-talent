@@ -15,7 +15,11 @@ export function deriveChipSettings(
     case PoolCandidateSearchStatus.New:
       return {
         color: "secondary",
-        label: intl.formatMessage(commonMessages.submitted),
+        label: intl.formatMessage({
+          defaultMessage: "Submitted",
+          id: "nTPcCF",
+          description: "Label for request submitted",
+        }),
       };
     case PoolCandidateSearchStatus.InProgress:
       return {

@@ -1,0 +1,451 @@
+import { useState, useEffect } from "react";
+import { useIntl } from "react-intl";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "urql";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+
+import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import {
+  Classification,
+  CreateOffPlatformRecruitmentProcessInput,
+  FragmentType,
+  getFragment,
+  graphql,
+  HiringPlatform,
+  OffPlatformRecruitmentProcess,
+  UpdateOffPlatformRecruitmentProcessInput,
+} from "@gc-digital-talent/graphql";
+import {
+  Combobox,
+  Input,
+  localizedEnumToOptions,
+  objectsToSortedOptions,
+  RadioGroup,
+} from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+
+import processMessages from "~/messages/processMessages";
+import { getClassificationName } from "~/utils/poolUtils";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
+import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
+
+export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
+  fragment OffPlatformProcessDialog on Query {
+    me {
+      id
+    }
+    departments {
+      id
+      name {
+        en
+        fr
+      }
+    }
+    classifications {
+      ...ClassificationInput
+    }
+    hiringPlatforms: localizedEnumStrings(enumName: "HiringPlatform") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const CreateOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
+  mutation createOffPlatformRecruitmentProcess(
+    $process: CreateOffPlatformRecruitmentProcessInput!
+  ) {
+    createOffPlatformRecruitmentProcess(process: $process) {
+      id
+    }
+  }
+`);
+
+const UpdateOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
+  mutation updateOffPlatformRecruitmentProcess(
+    $process: UpdateOffPlatformRecruitmentProcessInput!
+  ) {
+    updateOffPlatformRecruitmentProcess(process: $process) {
+      id
+    }
+  }
+`);
+
+const DeleteOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
+  mutation deleteOffPlatformRecruitmentProcess($id: UUID!) {
+    deleteOffPlatformRecruitmentProcess(id: $id) {
+      id
+    }
+  }
+`);
+
+interface FormValues {
+  processNumber: string;
+  department: string;
+  classification: string | null;
+  classificationGroup: Classification["group"] | null;
+  classificationLevel: Classification["level"] | null;
+  platform: HiringPlatform;
+  platformOther: string | null | undefined;
+}
+
+interface OffPlatformProcessDialogProps {
+  query?: FragmentType<typeof OffPlatformProcessDialog_Fragment>;
+  process?: Omit<OffPlatformRecruitmentProcess, "user">;
+}
+
+const OffPlatformProcessDialog = ({
+  query,
+  process,
+}: OffPlatformProcessDialogProps) => {
+  const intl = useIntl();
+  const [open, setOpen] = useState(false);
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      processNumber: process?.processNumber,
+      department: process?.department?.id,
+      classification: process?.classification?.id ?? null,
+      classificationGroup: process?.classification?.group ?? null,
+      classificationLevel: process?.classification?.level ?? null,
+      platform: process?.platform?.value,
+      platformOther: process?.platformOther,
+    },
+  });
+  const { watch, handleSubmit, resetField, reset } = methods;
+  const [groupSelection, platformSelection] = watch([
+    "classificationGroup",
+    "platform",
+  ]);
+
+  const data = getFragment(OffPlatformProcessDialog_Fragment, query);
+  const user = data?.me;
+  const departments = unpackMaybes(data?.departments);
+  const hiringPlatforms = data?.hiringPlatforms;
+
+  const [{ fetching: fetchingCreate }, executeCreateMutation] = useMutation(
+    CreateOffPlatformProcess_Mutation,
+  );
+  const [{ fetching: fetchingUpdate }, executeUpdateMutation] = useMutation(
+    UpdateOffPlatformProcess_Mutation,
+  );
+  const [{ fetching: fetchingDelete }, executeDeleteMutation] = useMutation(
+    DeleteOffPlatformProcess_Mutation,
+  );
+
+  /**
+   * Reset form when dialog is closed
+   */
+  useEffect(() => {
+    if (!open) {
+      reset();
+    }
+  }, [open, reset]);
+
+  /**
+   * Reset classification level when group changes
+   * because level options change
+   */
+  useEffect(() => {
+    resetField("classificationLevel", {
+      keepDirty: false,
+    });
+  }, [resetField, groupSelection]);
+
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): Omit<CreateOffPlatformRecruitmentProcessInput, "userId"> => ({
+    processNumber: values.processNumber,
+    department: values.department ? { connect: values.department } : null,
+    classification: {
+      connect: values.classification,
+    },
+    platform: values.platform,
+    platformOther:
+      values.platform === HiringPlatform.Other ? values.platformOther : null,
+  });
+
+  const createMutation = async (
+    input: CreateOffPlatformRecruitmentProcessInput,
+  ) => {
+    const result = await executeCreateMutation({ process: input });
+    if (result.data?.createOffPlatformRecruitmentProcess?.id) {
+      return result.data.createOffPlatformRecruitmentProcess.id;
+    }
+    return Promise.reject(new Error(result.error?.toString()));
+  };
+
+  const updateMutation = async (
+    input: UpdateOffPlatformRecruitmentProcessInput,
+  ) => {
+    const result = await executeUpdateMutation({ process: input });
+    if (result.data?.updateOffPlatformRecruitmentProcess?.id) {
+      return result.data.updateOffPlatformRecruitmentProcess.id;
+    }
+    return Promise.reject(new Error(result.error?.toString()));
+  };
+
+  const deleteMutation = async (id: string) => {
+    const result = await executeDeleteMutation({ id });
+    if (result.data?.deleteOffPlatformRecruitmentProcess?.id) {
+      return result.data.deleteOffPlatformRecruitmentProcess.id;
+    }
+    return Promise.reject(new Error(result.error?.toString()));
+  };
+
+  const submitForm: SubmitHandler<FormValues> = async (
+    formValues: FormValues,
+  ) => {
+    if (process) {
+      await updateMutation({
+        id: process.id,
+        ...formValuesToSubmitData(formValues),
+      })
+        .then(() => {
+          toast.success(
+            intl.formatMessage(commonMessages.accountUpdateSuccessful),
+          );
+          reset(formValues);
+          setOpen(false);
+        })
+        .catch(() => {
+          toast.error(intl.formatMessage(commonMessages.accountUpdateFailed));
+        });
+    } else {
+      await createMutation({
+        userId: user?.id ?? "",
+        ...formValuesToSubmitData(formValues),
+      })
+        .then(() => {
+          toast.success(
+            intl.formatMessage(commonMessages.accountUpdateSuccessful),
+          );
+          setOpen(false);
+        })
+        .catch(() => {
+          toast.error(intl.formatMessage(commonMessages.accountUpdateFailed));
+        });
+    }
+  };
+
+  const removeProcess = async () => {
+    if (!process) return;
+    await deleteMutation(process.id)
+      .then(() => {
+        toast.success(
+          intl.formatMessage(commonMessages.accountUpdateSuccessful),
+        );
+        setOpen(false);
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(commonMessages.accountUpdateFailed));
+      });
+  };
+
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger>
+        {process ? (
+          <IconButton
+            color="black"
+            icon={PencilSquareIcon}
+            className="mr-6 justify-self-end after:absolute after:inset-0 after:content-[''] xs:mr-9"
+            label={
+              process?.department
+                ? intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "{classification} with {departmentName} <hidden>off platform process</hidden>",
+                      id: "pBRz2q",
+                      description:
+                        "Title for an off platform recruitment process if department is given.",
+                    },
+                    {
+                      classification: process.classification
+                        ? getClassificationName(process.classification, intl)
+                        : intl.formatMessage(commonMessages.notFound),
+                      departmentName: process.department.name.localized,
+                    },
+                  )
+                : intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "{classification} <hidden>off platform process</hidden>",
+                      id: "QtDQkD",
+                      description:
+                        "Title for an off platform recruitment process if department is not given.",
+                    },
+                    {
+                      classification: process.classification
+                        ? getClassificationName(process.classification, intl)
+                        : intl.formatMessage(commonMessages.notFound),
+                    },
+                  )
+            }
+          />
+        ) : (
+          <Button
+            color="primary"
+            mode="placeholder"
+            icon={PlusCircleIcon}
+            className="w-full"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Add an off-platform process",
+              id: "cik7wX",
+              description:
+                "Button to open dialog to create off-platform process",
+            })}
+          </Button>
+        )}
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header
+          subtitle={intl.formatMessage({
+            defaultMessage:
+              "Tell us about recruitment processes you're qualified in on other Government of Canada platforms.",
+            id: "knm4b3",
+            description: "Dialog subtitle informing of purpose",
+          })}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Add or edit off-platform process information",
+            id: "oiD77w",
+            description: "Dialog header informing of purpose",
+          })}
+        </Dialog.Header>
+        <Dialog.Body>
+          <p className="mb-4.5">
+            {intl.formatMessage({
+              defaultMessage:
+                "Help recruitment staff better understand your qualifications by adding information about other Government of Canada recruitment processes in which you've qualified. This information will be verified.",
+              id: "yO+tlM",
+              description: "Explanation of dialog",
+            })}
+          </p>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(submitForm)}>
+              <Input
+                id="processNumber"
+                type="text"
+                label={intl.formatMessage(processMessages.processNumber)}
+                name="processNumber"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                className="mb-4.5"
+              />
+              <div className="mb-4.5">
+                <Combobox
+                  id="department"
+                  name="department"
+                  label={intl.formatMessage(commonMessages.organization)}
+                  options={objectsToSortedOptions(departments, intl)}
+                  doNotSort
+                />
+              </div>
+              <div className="mb-4.5 grid gap-6 sm:grid-cols-2">
+                <ClassificationInput
+                  name={"classification"}
+                  label={{
+                    group: intl.formatMessage(
+                      jobPosterTemplateMessages.classificationGroup,
+                    ),
+                    level: intl.formatMessage(
+                      jobPosterTemplateMessages.classificationLevel,
+                    ),
+                  }}
+                  classificationsQuery={unpackMaybes(data?.classifications)}
+                  rules={{
+                    group: {
+                      required: intl.formatMessage(errorMessages.required),
+                    },
+                    level: {
+                      required: intl.formatMessage(errorMessages.required),
+                    },
+                  }}
+                />
+              </div>
+              <RadioGroup
+                idPrefix="platform"
+                legend={intl.formatMessage({
+                  defaultMessage: "Platform",
+                  id: "rYKGn/",
+                  description:
+                    "Label displayed on off platform process form for platform input",
+                })}
+                id="platform"
+                name="platform"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                items={localizedEnumToOptions(hiringPlatforms, intl)}
+              />
+              {platformSelection === HiringPlatform.Other && (
+                <div className="mt-4.5">
+                  <Input
+                    id="platformOther"
+                    type="text"
+                    label={intl.formatMessage({
+                      defaultMessage: "Other platform",
+                      id: "YK4XOI",
+                      description:
+                        "Label displayed on off platform process form for other platform input",
+                    })}
+                    name="platformOther"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </div>
+              )}
+              <Dialog.Footer>
+                <Button
+                  disabled={fetchingCreate || fetchingUpdate}
+                  type="submit"
+                  color="primary"
+                >
+                  {fetchingCreate || fetchingUpdate
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage(formMessages.saveChanges)}
+                </Button>
+                <Dialog.Close>
+                  <Button type="button" color="warning" mode="inline">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </Dialog.Close>
+                {process && (
+                  <Button
+                    type="button"
+                    color="error"
+                    mode="inline"
+                    onClick={removeProcess}
+                    disabled={fetchingDelete}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Remove process",
+                      id: "9x6s5N",
+                      description:
+                        "Label displayed on off platform process form for remove process button",
+                    })}
+                  </Button>
+                )}
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog.Root>
+  );
+};
+
+export default OffPlatformProcessDialog;

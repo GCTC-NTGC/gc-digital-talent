@@ -2,9 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
-use Carbon\Carbon;
 
 final class QualifyCandidate
 {
@@ -15,12 +13,8 @@ final class QualifyCandidate
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
         $expiryDate = $args['expiryDate'];
-        $now = Carbon::now();
 
-        $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
-        $candidate->expiry_date = $expiryDate;
-        $candidate->final_decision_at = $now;
-
+        $candidate->qualify($expiryDate);
         $candidate->save();
 
         return $candidate;

@@ -49,7 +49,7 @@ describe("PoolCandidate utils", () => {
             value: finalDecision,
             label: { en: "Qualified" },
           },
-          candidate.assessmentStep,
+          candidate.assessmentStep?.sortOrder,
           candidate.assessmentStatus,
           intl,
         );
@@ -66,7 +66,7 @@ describe("PoolCandidate utils", () => {
               value: finalDecision,
               label: { en: "Disqualified" },
             },
-            candidate.assessmentStep,
+            candidate.assessmentStep?.sortOrder,
             candidate.assessmentStatus,
             intl,
           );
@@ -84,7 +84,7 @@ describe("PoolCandidate utils", () => {
             en: "Removed: To assess",
           },
         },
-        candidate.assessmentStep,
+        candidate.assessmentStep?.sortOrder,
         candidate.assessmentStatus,
         intl,
       );
@@ -98,7 +98,7 @@ describe("PoolCandidate utils", () => {
             en: "Removed: Qualified",
           },
         },
-        candidate.assessmentStep,
+        candidate.assessmentStep?.sortOrder,
         candidate.assessmentStatus,
         intl,
       );
@@ -113,7 +113,7 @@ describe("PoolCandidate utils", () => {
             en: "Removed",
           },
         },
-        candidate.assessmentStep,
+        candidate.assessmentStep?.sortOrder,
         candidate.assessmentStatus,
         intl,
       );
@@ -127,7 +127,7 @@ describe("PoolCandidate utils", () => {
             en: "Expired: Qualified",
           },
         },
-        candidate.assessmentStep,
+        candidate.assessmentStep?.sortOrder,
         candidate.assessmentStatus,
         intl,
       );
@@ -143,7 +143,7 @@ describe("PoolCandidate utils", () => {
               en: "Qualified: Pending decision",
             },
           },
-          candidateFullyQualified.assessmentStep,
+          candidateFullyQualified.assessmentStep?.sortOrder,
           candidateFullyQualified.assessmentStatus,
           intl,
         );
@@ -158,64 +158,68 @@ describe("PoolCandidate utils", () => {
               en: "Qualified: Pending decision",
             },
           },
-          candidateQualifiedExceptHoldOnMiddleAssessment.assessmentStep,
+          candidateQualifiedExceptHoldOnMiddleAssessment.assessmentStep
+            ?.sortOrder,
           candidateQualifiedExceptHoldOnMiddleAssessment.assessmentStatus,
           intl,
         );
         expect(chip.label).toBe("Qualified: Pending decision");
         expect(chip.color).toBe("success");
       });
-      it('should return "To assess: Step 1" with warning color for candidates missing education assessment', () => {
+      it('should return "To assess" with warning color for candidates missing education assessment', () => {
         const chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
-          candidateFullyQualifiedExceptMissingEducation.assessmentStep,
+          candidateFullyQualifiedExceptMissingEducation.assessmentStep
+            ?.sortOrder,
           candidateFullyQualifiedExceptMissingEducation.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 1");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
-      it('should return "To assess: Step 1" with warning color for candidates with no assessments', () => {
+      it('should return "To assess" with warning color for candidates with no assessments', () => {
         const chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
 
-          candidateNoAssessments.assessmentStep,
+          candidateNoAssessments.assessmentStep?.sortOrder,
           candidateNoAssessments.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 1");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
-      it('should return "To assess: Step 3" with warning color for candidate qualified except for hold on final (third) step', () => {
+      it('should return "To assess" with warning color for candidate qualified except for hold on final (third) step', () => {
         const chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
-          candidateQualifiedExceptHoldOnFinalAssessment.assessmentStep,
+          candidateQualifiedExceptHoldOnFinalAssessment.assessmentStep
+            ?.sortOrder,
           candidateQualifiedExceptHoldOnFinalAssessment.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
-      it('should return "To assess: Step 3" with warning color for candidate with incomplete final (third) step', () => {
+      it('should return "To assess" with warning color for candidate with incomplete final (third) step', () => {
         let chip = getCandidateStatusChip(
           {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
-          candidateHoldOnMiddleStepAndNoResultsOnFinalStep.assessmentStep,
+          candidateHoldOnMiddleStepAndNoResultsOnFinalStep.assessmentStep
+            ?.sortOrder,
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
 
         chip = getCandidateStatusChip(
@@ -223,11 +227,11 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.ToAssess,
             label: { en: "To assess" },
           },
-          candidateUnfinishedFinalAssessment.assessmentStep,
+          candidateUnfinishedFinalAssessment.assessmentStep?.sortOrder,
           candidateUnfinishedFinalAssessment.assessmentStatus,
           intl,
         );
-        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.label).toBe("To assess");
         expect(chip.color).toBe("warning");
       });
       it('should return "Disqualified: Pending decision" with error color for candidate with any one unsuccessful step', () => {
@@ -236,7 +240,7 @@ describe("PoolCandidate utils", () => {
             value: FinalDecision.DisqualifiedPending,
             label: { en: "Disqualified: Pending decision" },
           },
-          candidateOneFailingAssessment.assessmentStep,
+          candidateOneFailingAssessment.assessmentStep?.sortOrder,
           candidateOneFailingAssessment.assessmentStatus,
           intl,
         );

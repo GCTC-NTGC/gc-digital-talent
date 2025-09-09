@@ -12,6 +12,8 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
+    exclude-paths:
+      - "tc-report"
     open-pull-requests-limit: 50
     groups:
       formatjs:
@@ -49,6 +51,7 @@ updates:
         patterns:
           - "@tiptap*"
         update-types:
+          - "major"
           - "minor"
           - "patch"
       types:
@@ -72,27 +75,6 @@ updates:
         update-types:
           - "minor"
           - "patch"
-
-  # This ignores all updates to tc-report, since it's now served as a static website.
-  #
-  #   * We will occasionally still get security vulnerability warnings, for
-  #     which merging the dependabot PR will NOT update the static website.
-  #     Update would require a manually rebuild.
-  #
-  #   * Rebuild is likely not necessary because the website is only a simple
-  #     front-end.
-  #
-  #  * We can't disable security vulnerability PRs without disabling for the whole repo.
-  #
-  #   * Example: https://github.com/GCTC-NTGC/gc-digital-talent/pull/2073
-  #
-  - package-ecosystem: "npm"
-    directory: "/tc-report"
-    schedule:
-      interval: "weekly"
-    ignore:
-      # Ignores all dependencies.
-      - dependency-name: "*"
 
   # PHP composer.json package updates
 

@@ -1,10 +1,12 @@
 import { DetailedHTMLProps, ButtonHTMLAttributes, forwardRef } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
-import { HTMLEntity, IconType } from "@gc-digital-talent/ui";
+import { IconType, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 const DisabledIcon = () => (
-  <HTMLEntity name="&bull;" className="w-4.5 text-gray/50 dark:text-gray/50" />
+  <span className="w-4.5 text-gray/50 dark:text-gray/50">
+    {UNICODE_CHAR.BULLET}
+  </span>
 );
 
 const actionBtn = tv({

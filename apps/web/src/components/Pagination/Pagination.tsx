@@ -12,7 +12,7 @@ import {
   Button,
   ButtonProps,
   DropdownMenu,
-  HTMLEntity,
+  UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
@@ -147,7 +147,7 @@ const Pagination = ({
         </span>
         {pageSizes && (
           <>
-            <HTMLEntity name="&bull;" aria-hidden />
+            <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
                 <Button
@@ -223,7 +223,7 @@ const Pagination = ({
             if (pageNumber === DOTS) {
               return (
                 <li key={`dots-${index + 1}`}>
-                  <HTMLEntity name="&hellip;" />
+                  <span aria-hidden>{UNICODE_CHAR.ELLIPSE}</span>
                 </li>
               );
             }

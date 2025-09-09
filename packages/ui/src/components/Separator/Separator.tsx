@@ -1,5 +1,5 @@
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 const separator = tv({
@@ -73,7 +73,7 @@ export interface SeparatorProps
  * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/separator)
  */
 const Separator = forwardRef<
-  ElementRef<typeof SeparatorPrimitive.Root>,
+  ComponentRef<typeof SeparatorPrimitive.Root>,
   SeparatorProps
 >(
   (

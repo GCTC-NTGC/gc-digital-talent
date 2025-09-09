@@ -5,9 +5,9 @@ import { ReactNode, Fragment } from "react";
 import {
   Button,
   Card,
-  HTMLEntity,
   Link,
   Separator,
+  UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -149,7 +149,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             },
           )}
         </span>
-        <HTMLEntity name="&bull;" aria-hidden />
+        <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
         <span className="font-bold text-primary-600 dark:text-primary-200">
           {intl.formatMessage(
             {
@@ -181,7 +181,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         {essentialSkills.length > 0
           ? essentialSkills.map((skill, index) => (
               <Fragment key={skill.id}>
-                {index !== 0 && <HTMLEntity name="&bull;" aria-hidden />}
+                {index !== 0 && <span aria-hidden>{UNICODE_CHAR.BULLET}</span>}
                 <span
                   key={skill.id}
                   className="text-gray-600 dark:text-gray-200"

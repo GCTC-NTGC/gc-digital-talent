@@ -106,7 +106,7 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
       >
         {employeeProfile.nextRoleIsCSuiteRole
           ? intl.formatMessage(employeeProfileMessages.isCSuiteRoleTitle)
-          : intl.formatMessage(commonMessages.notProvided)}
+          : intl.formatMessage(employeeProfileMessages.isNotCSuiteRoleTitle)}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.cSuiteRoleTitle)}

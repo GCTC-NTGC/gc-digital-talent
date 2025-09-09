@@ -82,7 +82,7 @@ import { FormValues } from "./types";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
-} from "./JobPlacementDialog";
+} from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
@@ -218,7 +218,18 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           finalDecision {
             value
           }
-          assessmentStep
+          assessmentStep {
+            sortOrder
+            title {
+              localized
+            }
+            type {
+              label {
+                localized
+              }
+            }
+          }
+
           assessmentStatus {
             assessmentStepStatuses {
               step
@@ -256,17 +267,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               value
             }
             screeningQuestionsCount
-            assessmentSteps {
-              sortOrder
-              title {
-                localized
-              }
-              type {
-                label {
-                  localized
-                }
-              }
-            }
+            contactEmail
           }
           finalDecision {
             value
@@ -275,7 +276,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
-          assessmentStep
           assessmentStatus {
             overallAssessmentStatus
           }
@@ -827,7 +827,7 @@ const PoolCandidatesTable = ({
         }) =>
           finalDecisionCell(
             finalDecision,
-            assessmentStep,
+            assessmentStep?.sortOrder,
             assessmentStatus,
             intl,
           ),
@@ -841,23 +841,18 @@ const PoolCandidatesTable = ({
         cell: ({
           row: {
             original: {
-              poolCandidate: {
-                assessmentStep,
-                pool: { assessmentSteps },
-              },
+              poolCandidate: { assessmentStep },
             },
           },
         }) => {
-          const step = assessmentSteps?.find(
-            (s) => s?.sortOrder === assessmentStep,
-          );
           const stepName =
             // NOTE: We do want to pass on empty strings
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            step?.title?.localized || step?.type?.label?.localized;
+            assessmentStep?.title?.localized ||
+            assessmentStep?.type?.label?.localized;
           return stepName
             ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                stepNumber: assessmentStep,
+                stepNumber: assessmentStep.sortOrder,
               }) +
                 intl.formatMessage(commonMessages.dividingColon) +
                 stepName
@@ -874,7 +869,12 @@ const PoolCandidatesTable = ({
           removedAt,
           finalDecisionAt,
           finalDecision,
-          pool: { closingDate, areaOfSelection, screeningQuestionsCount },
+          pool: {
+            closingDate,
+            areaOfSelection,
+            screeningQuestionsCount,
+            contactEmail,
+          },
         },
       }) =>
         candidateFacingStatusCell(
@@ -884,9 +884,10 @@ const PoolCandidatesTable = ({
           finalDecisionAt,
           finalDecision?.value,
           areaOfSelection?.value,
-          assessmentStep,
+          assessmentStep?.sortOrder,
           assessmentStatus,
           screeningQuestionsCount,
+          contactEmail,
           intl,
         ),
       {
@@ -936,14 +937,10 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       ({ poolCandidate }) =>
-        candidacyStatusAccessor(
-          poolCandidate.suspendedAt,
-          tableData?.suspendedStatuses,
-          intl,
-        ),
+        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
       {
         id: "candidacyStatus",
-        header: intl.formatMessage(tableMessages.candidacyStatus),
+        header: intl.formatMessage(tableMessages.interestJobOffers),
       },
     ),
     columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {

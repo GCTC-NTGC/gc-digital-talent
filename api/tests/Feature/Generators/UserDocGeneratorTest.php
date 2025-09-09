@@ -51,6 +51,7 @@ class UserDocGeneratorTest extends TestCase
             ->withCommunityInterests([$community->id])
             ->withEmployeeProfile()
             ->withSkillsAndExperiences()
+            ->withOffPlatformRecruitmentProcesses()
             ->create();
 
         // Faker seed makes skill ranks the same.

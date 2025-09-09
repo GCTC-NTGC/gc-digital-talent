@@ -1793,4 +1793,31 @@ class PoolTest extends TestCase
     {
         return Arr::only($poolSkill, ['type', 'required_skill_level', 'skill_id']);
     }
+
+    public function testContactEmail()
+    {
+        $testEmail = 'test@email.com';
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->create([
+                'contact_email' => 'test@email.com',
+            ]);
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query Get($id: UUID!) {
+                    pool(id: $id) {
+                        contactEmail
+                    }
+                } ',
+                ['id' => $publishedPool->id]
+            );
+
+        $response->assertJsonFragment([
+            'contactEmail' => $testEmail,
+        ]);
+    }
 }

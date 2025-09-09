@@ -1,10 +1,20 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  candidacyStatus: {
-    defaultMessage: "Candidacy status",
-    description: "Candidacy status label",
-    id: "xUz0TV",
+  interestJobOffers: {
+    defaultMessage: "Interest in job offers",
+    description: "Job offer interest label",
+    id: "tIz8qw",
+  },
+  openJobOffers: {
+    defaultMessage: "Open to job offers",
+    description: "Open interest label",
+    id: "WJSfQl",
+  },
+  notInterested: {
+    defaultMessage: "Not interested",
+    description: "Not interested in job offers",
+    id: "tY1JG4",
   },
   candidateName: {
     defaultMessage: "Candidate name",

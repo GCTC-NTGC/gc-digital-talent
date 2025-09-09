@@ -3,7 +3,7 @@ import { JSX } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { HTMLEntity } from "@gc-digital-talent/ui";
+import { UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 import { getNominatorName } from "~/utils/talentNominations";
 
@@ -27,7 +27,7 @@ const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
     if (i > 0) {
       prev.push(
         <span key={i}>
-          <HTMLEntity name="," className="mx-1" />
+          <span className="mx-1">{UNICODE_CHAR.COMMA}</span>
         </span>,
       );
     }

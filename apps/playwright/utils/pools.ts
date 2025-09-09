@@ -40,6 +40,7 @@ const defaultPool: Partial<UpdatePoolInput> = {
   publishingGroup: PublishingGroup.ItJobs,
   areaOfSelection: PoolAreaOfSelection.Public,
   selectionLimitations: [],
+  contactEmail: "test@email.com",
 };
 
 const Test_CreatePoolMutationDocument = /* GraphQL */ `

@@ -27,7 +27,9 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     finalDecision {
       value
     }
-    assessmentStep
+    assessmentStep {
+      sortOrder
+    }
     assessmentStatus {
       assessmentStepStatuses {
         step
@@ -50,6 +52,7 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         value
       }
       screeningQuestionsCount
+      contactEmail
     }
   }
 `);
@@ -98,9 +101,10 @@ const ReviewApplicationPreviewList = ({
                 application.finalDecisionAt,
                 application.finalDecision?.value,
                 application.pool.areaOfSelection?.value,
-                application.assessmentStep,
+                application.assessmentStep?.sortOrder,
                 application.assessmentStatus,
                 application.pool.screeningQuestionsCount,
+                application.pool.contactEmail,
                 intl,
               );
               return { application, status };

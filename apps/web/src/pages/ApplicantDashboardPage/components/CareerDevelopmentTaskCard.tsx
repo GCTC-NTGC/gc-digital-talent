@@ -5,11 +5,11 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   AccordionMetaData,
-  HTMLEntity,
   PreviewList,
   TaskCard,
   Ul,
   Well,
+  wrapParens,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -379,10 +379,10 @@ const CareerDevelopmentTaskCard = ({
                     description: "Functional communities expandable",
                   })}
                   <span className="ml-1">
-                    <HTMLEntity name="(" />
-                    {careerDevelopmentTaskCardFragment?.communityInterests
-                      ?.length ?? 0}
-                    <HTMLEntity name=")" />
+                    {wrapParens(
+                      careerDevelopmentTaskCardFragment?.communityInterests
+                        ?.length ?? 0,
+                    )}
                   </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={functionalCommunitiesMetaData} />

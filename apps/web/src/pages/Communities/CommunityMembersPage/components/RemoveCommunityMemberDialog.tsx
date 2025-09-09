@@ -1,7 +1,7 @@
 import {
   useState,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   forwardRef,
 } from "react";
 import { useIntl } from "react-intl";
@@ -42,7 +42,7 @@ type RemoveCommunityMemberDialogProps = ComponentPropsWithoutRef<
 };
 
 const RemoveCommunityMemberDialog = forwardRef<
-  ElementRef<typeof DropdownMenu.Item>,
+  ComponentRef<typeof DropdownMenu.Item>,
   RemoveCommunityMemberDialogProps
 >(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();

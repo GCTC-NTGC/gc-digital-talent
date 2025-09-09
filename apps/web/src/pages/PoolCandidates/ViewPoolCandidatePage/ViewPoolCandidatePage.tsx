@@ -36,7 +36,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
-import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import Hero from "~/components/Hero";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
@@ -69,7 +69,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
       }
-      assessmentStep
+      assessmentStep {
+        sortOrder
+      }
       assessmentStatus {
         assessmentStepStatuses {
           decision
@@ -150,7 +152,7 @@ export const ViewPoolCandidate = ({
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
-    poolCandidate.assessmentStep,
+    poolCandidate.assessmentStep?.sortOrder,
     poolCandidate.assessmentStatus,
     intl,
   );

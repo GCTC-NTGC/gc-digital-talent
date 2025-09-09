@@ -4,13 +4,15 @@ import { Classification } from "@gc-digital-talent/graphql";
 
 export default (): Classification[] => {
   faker.seed(0); // repeatable results
+  const name = {
+    en: "Information Technology",
+    fr: "Technologie de l'information",
+    localized: "Information Technology",
+  };
   return [
     {
       id: faker.string.uuid(),
-      name: {
-        en: "Information Technology",
-        fr: "Technologie de l'information",
-      },
+      name,
       group: "IT",
       level: 1,
       minSalary: 50000,
@@ -18,10 +20,7 @@ export default (): Classification[] => {
     },
     {
       id: faker.string.uuid(),
-      name: {
-        en: "Information Technology",
-        fr: "Technologie de l'information",
-      },
+      name,
       group: "IT",
       level: 2,
       minSalary: 65000,
@@ -29,10 +28,7 @@ export default (): Classification[] => {
     },
     {
       id: faker.string.uuid(),
-      name: {
-        en: "Information Technology",
-        fr: "Technologie de l'information",
-      },
+      name,
       group: "IT",
       level: 3,
       minSalary: 83000,
@@ -40,10 +36,7 @@ export default (): Classification[] => {
     },
     {
       id: faker.string.uuid(),
-      name: {
-        en: "Information Technology",
-        fr: "Technologie de l'information",
-      },
+      name,
       group: "IT",
       level: 4,
       minSalary: 94000,

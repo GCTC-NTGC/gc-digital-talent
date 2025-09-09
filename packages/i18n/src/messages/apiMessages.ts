@@ -486,6 +486,12 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error alerting the user it is to late to create/update a nomination",
   },
+  ContactEmailRequired: {
+    defaultMessage: "You are missing a required field: Contact email",
+    id: "9wqUyU",
+    description:
+      "Error message that contact email for this process must be filled",
+  },
 });
 
 export const tryFindMessageDescriptor = (

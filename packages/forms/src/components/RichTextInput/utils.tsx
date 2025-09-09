@@ -1,6 +1,5 @@
-import { CharacterCount } from "@tiptap/extension-character-count";
+import { CharacterCount } from "@tiptap/extensions";
 import { Heading } from "@tiptap/extension-heading";
-import { Link } from "@tiptap/extension-link";
 import { StarterKit } from "@tiptap/starter-kit";
 
 const extensions = [
@@ -21,11 +20,11 @@ const extensions = [
       keepMarks: false,
       keepAttributes: false,
     },
+    link: {
+      openOnClick: false,
+    },
   }),
   CharacterCount,
-  Link.configure({
-    openOnClick: false,
-  }),
 ];
 
 export const buildExtensions = (allowHeadings?: boolean) => [

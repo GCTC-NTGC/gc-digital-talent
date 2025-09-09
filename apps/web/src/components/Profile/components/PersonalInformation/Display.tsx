@@ -8,7 +8,6 @@ import {
   commonMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
@@ -34,6 +33,7 @@ type PartialUser = Pick<
 interface DisplayProps {
   user: PartialUser;
   showEmailVerification?: boolean;
+  readOnly?: boolean;
 }
 
 const Display = ({
@@ -50,6 +50,7 @@ const Display = ({
     armedForcesStatus,
   },
   showEmailVerification = false,
+  readOnly = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -97,6 +98,7 @@ const Display = ({
               <EmailVerificationStatus
                 isEmailVerified={!!isEmailVerified}
                 onClickVerify={handleVerifyNowClick}
+                readOnly={readOnly}
               />
             ) : null}
           </div>
@@ -127,9 +129,7 @@ const Display = ({
           description: "Legend text for communication language preference",
         })}
       >
-        {preferredLang?.label
-          ? getLocalizedName(preferredLang.label, intl)
-          : notProvided}
+        {preferredLang?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForInterview}
@@ -140,9 +140,7 @@ const Display = ({
             "Legend text for spoken interview language preference for interviews",
         })}
       >
-        {preferredLanguageForInterview?.label
-          ? getLocalizedName(preferredLanguageForInterview.label, intl)
-          : notProvided}
+        {preferredLanguageForInterview?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForExam}
@@ -153,9 +151,7 @@ const Display = ({
             "Legend text for written exam language preference for exams",
         })}
       >
-        {preferredLanguageForExam?.label
-          ? getLocalizedName(preferredLanguageForExam.label, intl)
-          : notProvided}
+        {preferredLanguageForExam?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={empty(armedForcesStatus)}

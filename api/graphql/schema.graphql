@@ -147,8 +147,10 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
+    @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
+  offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
@@ -177,6 +179,17 @@ type CommunityInterest {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  createdAt: DateTime @rename(attribute: "created_at")
+}
+
+type OffPlatformRecruitmentProcess {
+  id: UUID!
+  user: User! @belongsTo @canResolved(ability: "view")
+  processNumber: String! @rename(attribute: "process_number")
+  department: Department @belongsTo
+  classification: Classification! @belongsTo
+  platform: LocalizedHiringPlatform!
+  platformOther: String @rename(attribute: "platform_other")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -438,6 +451,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "area_of_selection")
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type GeneralQuestionResponse {
@@ -559,7 +573,7 @@ type PoolCandidate {
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
-  assessmentStep: Int @rename(attribute: "assessment_step")
+  assessmentStep: AssessmentStep @belongsTo
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
@@ -606,7 +620,7 @@ type PoolCandidateAdminView {
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
-  assessmentStep: Int @rename(attribute: "assessment_step")
+  assessmentStep: AssessmentStep @belongsTo
   finalDecision: LocalizedFinalDecision
     @rename(attribute: "computed_final_decision")
   placedDepartment: Department @belongsTo
@@ -1407,6 +1421,7 @@ type Query {
             ]
           }
           { relation: "pool", columns: ["process_number"] }
+          { relation: "assessmentStep", columns: ["sort_order"] }
         ]
       )
       @with(
@@ -1449,6 +1464,7 @@ type Query {
             ]
           }
           { relation: "pool", columns: ["process_number"] }
+          { relation: "assessmentStep", columns: ["sort_order"] }
         ]
       )
       @with(
@@ -1560,6 +1576,7 @@ type Query {
   ): [LocalizedEnumOption!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
+    orderByClassification: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1675,7 +1692,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1748,7 +1765,7 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1828,7 +1845,7 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1942,6 +1959,25 @@ input UpdateCommunityInterestInput @validator {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
+input CreateOffPlatformRecruitmentProcessInput @validator {
+  userId: UUID! @rename(attribute: "user_id")
+  processNumber: String! @rename(attribute: "process_number")
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo!
+  platform: HiringPlatform!
+  platformOther: String @rename(attribute: "platform_other")
+}
+
+input UpdateOffPlatformRecruitmentProcessInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
+  processNumber: String @rename(attribute: "process_number")
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo
+  platform: HiringPlatform
+  platformOther: String @rename(attribute: "platform_other")
+}
+
 input CreateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
 }
@@ -2037,7 +2073,17 @@ input UpdatePoolCandidateClaimVerificationInput @validator {
     @rename(attribute: "priority_verification_expiry")
 }
 
+input QualifyCandidateInput {
+  expiryDate: Date!
+}
+
 input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
+}
+
+input QualifyAndPlaceCandidateInput {
+  expiryDate: Date!
   placementType: PlacementType!
   departmentId: UUID!
 }
@@ -2584,6 +2630,7 @@ input UpdatePoolInput {
   areaOfSelection: PoolAreaOfSelection @rename(attribute: "area_of_selection")
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -2595,6 +2642,7 @@ input UpdatePublishedPoolInput @validator {
   whatToExpectAdmission: LocalizedStringInput
     @rename(attribute: "what_to_expect_admission")
   aboutUs: LocalizedStringInput @rename(attribute: "about_us")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input CreatePoolSkillInput @validator {
@@ -2889,6 +2937,24 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  createOffPlatformRecruitmentProcess(
+    process: CreateOffPlatformRecruitmentProcessInput! @spread
+  ): OffPlatformRecruitmentProcess
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateOffPlatformRecruitmentProcess(
+    process: UpdateOffPlatformRecruitmentProcessInput! @spread
+  ): OffPlatformRecruitmentProcess
+    @guard
+    @update
+    @canFind(ability: "update", find: "id")
+  deleteOffPlatformRecruitmentProcess(
+    id: UUID! @whereKey
+  ): OffPlatformRecruitmentProcess
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
@@ -2941,7 +3007,10 @@ type Mutation {
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-  qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
+  qualifyCandidate(
+    id: UUID!
+    poolCandidate: QualifyCandidateInput! @spread
+  ): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
@@ -2958,7 +3027,7 @@ type Mutation {
     @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
   placeCandidate(
     id: UUID!
-    placeCandidate: PlaceCandidateInput! @spread
+    poolCandidate: PlaceCandidateInput! @spread
   ): PoolCandidate
     @guard
     @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
@@ -2967,6 +3036,16 @@ type Mutation {
     @guard
     @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
+
+  qualifyAndPlaceCandidate(
+    id: UUID!
+    poolCandidate: QualifyAndPlaceCandidateInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
+    @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
 
   createClassification(
     classification: CreateClassificationInput! @spread
@@ -3376,4 +3455,7 @@ type Mutation {
   downloadJobPosterTemplateDoc(id: UUID!): String
     @guard
     @canFind(ability: "view", find: "id", model: "JobPosterTemplate")
+  downloadNominationDoc(id: UUID!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "TalentNominationGroup")
 }

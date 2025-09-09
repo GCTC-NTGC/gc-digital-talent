@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
-import { action } from "@storybook/addon-actions";
-import { within, userEvent } from "@storybook/test";
+import { action } from "storybook/actions";
+import { within, userEvent } from "storybook/test";
 import { CombinedError } from "urql";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
@@ -98,6 +98,7 @@ export const Required: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const submitBtn = canvas.getByRole("button", { name: /submit/i });
+    // eslint-disable-next-line testing-library/no-node-access
     await userEvent.click(submitBtn);
   },
 };

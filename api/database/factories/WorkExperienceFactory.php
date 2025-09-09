@@ -39,8 +39,6 @@ class WorkExperienceFactory extends Factory
      */
     public function definition()
     {
-        $startDate = $this->faker->date();
-
         return [
             'user_id' => User::factory(),
             'role' => $this->faker->jobTitle(),
@@ -52,8 +50,8 @@ class WorkExperienceFactory extends Factory
                 return $attributes['employment_category'] === EmploymentCategory::CANADIAN_ARMED_FORCES->name ?
                     null : $this->faker->bs();
             },
-            'start_date' => $startDate,
-            'end_date' => $this->faker->optional()->dateTimeBetween($startDate),
+            'start_date' => $this->faker->dateTimeBetween('2010-01-01', '2019-12-31')->format('Y-m-d'),
+            'end_date' => fn ($attributes) => $this->faker->optional()->dateTimeBetween($attributes['start_date'], '2019-12-31')?->format('Y-m-d'),
             'details' => $this->faker->text(),
             'employment_category' => $this->faker->randomElement(EmploymentCategory::cases())->name,
             'ext_size_of_organization' => function (array $attributes) {

@@ -86,6 +86,9 @@ import AboutUsSection, {
 import WhatToExpectAdmissionSection, {
   WhatToExpectAdmissionSubmitData,
 } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+import ContactEmailSection, {
+  ContactEmailSubmitData,
+} from "./components/ContactEmailSection/ContactEmailSection";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
@@ -101,6 +104,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolWhatToExpectAdmission
     ...EditPoolWhatToExpect
     ...EditPoolYourImpact
+    ...EditPoolContactEmail
 
     id
     workStream {
@@ -223,6 +227,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    contactEmail
   }
 `);
 
@@ -236,7 +241,8 @@ export type PoolSubmitData =
   | WhatToExpectAdmissionSubmitData
   | SpecialNoteSubmitData
   | AboutUsSubmitData
-  | GeneralQuestionsSubmitData;
+  | GeneralQuestionsSubmitData
+  | ContactEmailSubmitData;
 
 export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
@@ -291,7 +297,8 @@ export const EditPoolForm = ({
   const aboutRoleHasError =
     yourImpactError({ yourImpact: pool.yourImpact }) ||
     keyTasksError({ keyTasks: pool.keyTasks }) ||
-    aboutUsError({ aboutUs: pool.aboutUs });
+    aboutUsError({ aboutUs: pool.aboutUs }) ||
+    !pool.contactEmail;
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
       id: "basic-info",
@@ -456,6 +463,17 @@ export const EditPoolForm = ({
         id: "Wy6aeg",
         description: "Sub title for the pool about us section",
       }),
+      inList: false,
+    },
+    contactEmail: {
+      id: "contact-email",
+      hasError: !pool.contactEmail,
+      title: intl.formatMessage({
+        defaultMessage: "Contact email",
+        id: "dzv6e3",
+        description: "Title for the contact email section",
+      }),
+      status: "optional",
       inList: false,
     },
     commonQuestions: {
@@ -647,6 +665,12 @@ export const EditPoolForm = ({
                     <AboutUsSection
                       poolQuery={pool}
                       sectionMetadata={sectionMetadata.aboutUs}
+                      onSave={onSave}
+                      onUpdatePublished={onUpdatePublished}
+                    />
+                    <ContactEmailSection
+                      poolQuery={pool}
+                      sectionMetadata={sectionMetadata.contactEmail}
                       onSave={onSave}
                       onUpdatePublished={onUpdatePublished}
                     />

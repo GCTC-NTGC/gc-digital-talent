@@ -16,7 +16,7 @@ export default [
             1,
             {
               unusedExports: true,
-              ignoreExports: ["index.ts", "main.ts"],
+              ignoreExports: ["index.ts"],
             },
           ];
         }

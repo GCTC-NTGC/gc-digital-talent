@@ -59,7 +59,8 @@ export const ApplicationDate = ({
   if (
     status === applicationStatus.RECEIVED ||
     status === applicationStatus.UNDER_REVIEW ||
-    status === applicationStatus.UNDER_ASSESSMENT
+    status === applicationStatus.UNDER_ASSESSMENT ||
+    status === applicationStatus.APPLICATION_REVIEWED
   ) {
     return (
       <span>

@@ -54,7 +54,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    assessmentStep
     assessmentStatus {
       overallAssessmentStatus
     }
@@ -325,9 +324,6 @@ const AssessmentResultsTable = ({
         description:
           "Header for requirement section of assessment results table",
       }),
-      meta: {
-        isRowHeader: true,
-      },
       cell: ({ row: { original } }) =>
         cells.jsx(
           <span>
@@ -335,8 +331,8 @@ const AssessmentResultsTable = ({
               <>
                 {intl.formatMessage(
                   {
-                    defaultMessage: "<strong>{skill}</strong> ({type})",
-                    id: "8nsSyc",
+                    defaultMessage: "{skill} ({type})",
+                    id: "PUYiNT",
                     description: "Formatted skill name and type",
                   },
                   {
@@ -352,7 +348,7 @@ const AssessmentResultsTable = ({
                 )}
               </>
             ) : (
-              <span className="font-bold">
+              <span>
                 {intl.formatMessage(processMessages.educationRequirement)}
               </span>
             )}

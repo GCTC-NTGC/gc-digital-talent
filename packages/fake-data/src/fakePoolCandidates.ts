@@ -68,7 +68,7 @@ const generatePoolCandidate = (
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
-    assessmentStep: 1,
+    assessmentStep: pool.assessmentSteps?.[0] ?? null,
     assessmentStatus: {
       assessmentStepStatuses: [],
       overallAssessmentStatus: OverallAssessmentStatus.ToAssess,

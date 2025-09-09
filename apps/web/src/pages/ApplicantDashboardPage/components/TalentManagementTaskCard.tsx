@@ -243,11 +243,10 @@ const TalentManagementTaskCard = ({
                     >
                       {intl.formatMessage(
                         {
-                          defaultMessage:
-                            "Your talent requests ({requestsCount})",
-                          id: "kgCPAc",
+                          defaultMessage: "Talent requests ({requestsCount})",
+                          id: "IFCSio",
                           description:
-                            "Title for a list of your talent requests with a count",
+                            "Title for a list of talent requests with a count",
                         },
                         {
                           requestsCount: poolCandidateSearchRequests.length,

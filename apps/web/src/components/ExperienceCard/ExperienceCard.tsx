@@ -13,7 +13,7 @@ import {
   Well,
   useControllableState,
   Ul,
-  HTMLEntity,
+  UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -26,7 +26,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
-  getExperienceFormLabels,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -43,6 +42,7 @@ import EducationContent from "./EducationContent";
 import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
 import WorkStreamContent from "./WorkContent/WorkStreamsContent";
+import PersonalContent from "./PersonalContent";
 
 type EditMode = "link" | "dialog";
 
@@ -336,7 +336,6 @@ const ExperienceCard = ({
     onChange: onOpenChange,
   });
   const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
-  const experienceLabels = getExperienceFormLabels(intl);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
@@ -410,7 +409,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.GovernmentOfCanada && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Government of Canada",
@@ -427,7 +426,7 @@ const ExperienceCard = ({
           experience.govEmploymentType?.value ===
             WorkExperienceGovEmployeeType.Contractor && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Contractor",
@@ -442,7 +441,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.CanadianArmedForces && (
             <>
-              <HTMLEntity name="&bull;" aria-hidden />
+              <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Canadian Armed Forces",
@@ -455,7 +454,7 @@ const ExperienceCard = ({
           )}
         {date && (
           <>
-            <HTMLEntity name="&bull;" aria-hidden />
+            <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
             <span>{date}</span>
           </>
         )}
@@ -566,19 +565,10 @@ const ExperienceCard = ({
                 headingLevel={contentHeadingLevel}
               />
             )}
-            {/** Personal type has no custom content so separator is redundant */}
-            {!isPersonalExperience(experience) && <Separator space="sm" />}
-            <ContentSection
-              title={experienceLabels.details}
-              headingLevel={headingLevel}
-            >
-              {experience.details ??
-                intl.formatMessage(commonMessages.notAvailable)}
-            </ContentSection>
-            {isWorkExperience(experience) && (
-              <WorkStreamContent
-                workStreams={experience.workStreams}
-                headingLevel={headingLevel}
+            {isPersonalExperience(experience) && (
+              <PersonalContent
+                experience={experience}
+                headingLevel={contentHeadingLevel}
               />
             )}
             {showSkills && !singleSkill && (
@@ -631,6 +621,12 @@ const ExperienceCard = ({
                   )}
                 </div>
               </>
+            )}
+            {isWorkExperience(experience) && (
+              <WorkStreamContent
+                workStreams={experience.workStreams}
+                headingLevel={headingLevel}
+              />
             )}
           </Collapsible.Content>
         </Collapsible.Root>

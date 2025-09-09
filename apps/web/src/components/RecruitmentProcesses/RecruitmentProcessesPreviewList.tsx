@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   PreviewList,
@@ -13,6 +13,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
+import OffPlatformRecruitmentProcessList from "./OffPlatformRecruitmentProcessList";
 import RecruitmentProcessDialog from "./RecruitmentProcessDialog";
 
 const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
@@ -46,7 +47,9 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    offPlatformRecruitmentProcesses
+    offPlatformRecruitmentProcesses {
+      ...OffPlatformRecruitmentProcessList
+    }
   }
 `);
 
@@ -160,28 +163,31 @@ const RecruitmentProcessPreviewList = ({
       )}
       <div className="mt-6 border-t border-t-gray-300 pt-6">
         <Heading level="h3" className="mt-0 text-base font-bold lg:text-base">
-          {intl.formatMessage({
-            defaultMessage: "Off-platform recruitment processes",
-            id: "tpXtAJ",
-            description: "Off-platform section header",
-          })}
+          {intl.formatMessage(
+            navigationMessages.offPlatformRecruitmentProcesses,
+          )}
         </Heading>
         <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
           {intl.formatMessage({
             defaultMessage:
-              "This information is provided by the nominee and has not been verified. Please confirm its validity before using it for hiring or placement purposes.",
-            id: "1GOD0g",
+              "Recruitment processes that the nominee has qualified in on other Government of Canada platforms. Note that this information is provided by the nominee without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.",
+            id: "2TPpyp",
             description: "Off-platform section information",
           })}
         </p>
         <p className="mb-6">
-          {offPlatformRecruitmentProcesses ??
+          {offPlatformRecruitmentProcesses?.length ? (
+            <OffPlatformRecruitmentProcessList
+              processesQuery={offPlatformRecruitmentProcesses}
+            />
+          ) : (
             intl.formatMessage({
               defaultMessage:
-                "No off-platform process information has been provided.",
-              id: "dbeDy2",
+                "The nominee has not added any off-platform processes.",
+              id: "4NtC0R",
               description: "Null state for off-platform section",
-            })}
+            })
+          )}
         </p>
       </div>
     </>

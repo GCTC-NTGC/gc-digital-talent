@@ -416,6 +416,37 @@ export const UserProfile_FragmentText = /** GraphQL */ `
       }
     }
     isProfileComplete
+    offPlatformRecruitmentProcesses {
+      id
+      processNumber
+      platform {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      platformOther
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        maxSalary
+        minSalary
+      }
+    }
   }
 `;
 
@@ -430,6 +461,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     preferredLang {
       value
       label {
+        localized
         en
         fr
       }
@@ -437,6 +469,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     preferredLanguageForInterview {
       value
       label {
+        localized
         en
         fr
       }
@@ -444,6 +477,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     preferredLanguageForExam {
       value
       label {
+        localized
         en
         fr
       }
@@ -451,8 +485,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     currentProvince {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     currentCity
@@ -476,6 +509,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     firstOfficialLanguage {
       value
       label {
+        localized
         en
         fr
       }
@@ -485,6 +519,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     comprehensionLevel {
       value
       label {
+        localized
         en
         fr
       }
@@ -492,6 +527,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     writtenLevel {
       value
       label {
+        localized
         en
         fr
       }
@@ -499,6 +535,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     verbalLevel {
       value
       label {
+        localized
         en
         fr
       }
@@ -506,6 +543,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     estimatedLanguageAbility {
       value
       label {
+        localized
         en
         fr
       }

@@ -17,11 +17,11 @@ import {
   CardSeparator,
   Container,
   Heading,
-  HTMLEntity,
   Link,
   Loading,
   Metadata,
   MetadataItemProps,
+  UNICODE_CHAR,
   Well,
 } from "@gc-digital-talent/ui";
 import {
@@ -200,7 +200,7 @@ function getMetadata(
               formatString: "PPP",
               intl,
             })}
-            <HTMLEntity name="&hyphen;" className="mx-1" />
+            <span className="mx-1">{UNICODE_CHAR.HYPHEN}</span>
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
               formatString: "PPP",

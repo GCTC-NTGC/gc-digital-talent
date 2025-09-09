@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { HTMLEntity, Link, Well } from "@gc-digital-talent/ui";
+import { Link, UNICODE_CHAR, Well } from "@gc-digital-talent/ui";
 
 const ApplicationProfileDetails_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationProfileDetails on User {
@@ -57,10 +57,10 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
     >
       <p>
         {user.currentCity ?? intl.formatMessage(commonMessages.notFound)}
-        <HTMLEntity name="," className="mr-1" />
+        <span className="mr-1">{UNICODE_CHAR.COMMA}</span>
         {getLocalizedName(user.currentProvince?.label, intl)}
       </p>
-      <HTMLEntity name="&bull;" aria-hidden />
+      <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
       {user.telephone ? (
         <>
           <p>
@@ -74,15 +74,15 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
               {user.telephone}
             </Link>
           </p>
-          <HTMLEntity name="&bull;" aria-hidden />
+          <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
         </>
       ) : null}
       <Link external href={`mailto:${user.email}`} color="primary" size="sm">
         {user.email}
       </Link>
-      <HTMLEntity name="&bull;" aria-hidden />
+      <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
       <p>{getLocalizedName(user.citizenship?.label, intl)}</p>
-      <HTMLEntity name="&bull;" aria-hidden />
+      <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
       <p>
         {intl.formatMessage({
           defaultMessage: "General Communication",
@@ -92,7 +92,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
         {intl.formatMessage(commonMessages.dividingColon)}
         {getLocalizedName(user.preferredLang?.label, intl)}
       </p>
-      <HTMLEntity name="&bull;" aria-hidden />
+      <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
       <p>
         {intl.formatMessage({
           defaultMessage: "Spoken Interviews",
@@ -103,7 +103,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
         {intl.formatMessage(commonMessages.dividingColon)}
         {getLocalizedName(user.preferredLanguageForInterview?.label, intl)}
       </p>
-      <HTMLEntity name="&bull;" aria-hidden />
+      <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
       <p>
         {intl.formatMessage({
           defaultMessage: "Written Exams",

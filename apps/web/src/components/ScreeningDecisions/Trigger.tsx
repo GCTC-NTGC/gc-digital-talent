@@ -97,7 +97,12 @@ export const Trigger = ({
 
   return (
     <Dialog.Trigger>
-      <Button type="button" mode="inline" color={color} className="text-left">
+      <Button
+        type="button"
+        mode="inline"
+        color={color}
+        className="text-left font-normal"
+      >
         {label}
         {result?.assessmentDecision?.value === AssessmentDecision.Successful &&
           dialogType !== DIALOG_TYPE.Education &&

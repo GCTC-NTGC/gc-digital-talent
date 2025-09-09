@@ -19,16 +19,15 @@
     "@heroicons/react": "^2.2.0",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
-    "tailwind-variants": "^2.1.0"
+    "tailwind-variants": "^3.1.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@storybook/react": "^8.6.14",
-    "@types/react": "^18.3.13",
+    "@types/react": "^19.1.12",
     "eslint": "^9.20.1",
-    "react": "^18.3.1",
+    "react": "^19.1.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.2"
   }

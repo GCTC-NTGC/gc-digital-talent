@@ -7,9 +7,9 @@ import {
   Button,
   CardSeparator,
   Heading,
-  HTMLEntity,
   Ul,
   Well,
+  wrapParens,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -292,9 +292,7 @@ const FullCareerExperiences = ({
                     <Accordion.Trigger subtitle={subtitle ?? undefined}>
                       {title}
                       <span className="ml-1">
-                        <HTMLEntity name="(" />
-                        {sectionExperiences.length}
-                        <HTMLEntity name=")" />
+                        {wrapParens(sectionExperiences.length)}
                       </span>
                     </Accordion.Trigger>
                     <Accordion.Content>

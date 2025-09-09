@@ -23,6 +23,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import skillMessages from "~/messages/skillMessages";
 
 interface PageSection {
   id: string;
@@ -30,37 +31,22 @@ interface PageSection {
 }
 type PageSections = Record<string, PageSection>;
 
-export const SkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
-  fragment SkillShowcase_UserSkill on UserSkill {
-    id
-    skillLevel
-    topSkillsRank
-    improveSkillsRank
-    skill {
-      id
-      key
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
+export const SkillShowcase_Fragment = graphql(/** GraphQL */ `
+  fragment SkillShowcase on User {
+    topTechnicalSkillsRanking {
+      ...SkillRankCard
+    }
+    topBehaviouralSkillsRanking {
+      ...SkillRankCard
+    }
+    improveTechnicalSkillsRanking {
+      ...SkillRankCard
+    }
+    improveBehaviouralSkillsRanking {
+      ...SkillRankCard
     }
   }
 `);
-
-export type UserSkillShowcaseFragment = FragmentType<
-  typeof SkillShowcase_UserSkillFragment
->[];
 
 const subTitle = defineMessage({
   defaultMessage:
@@ -70,36 +56,13 @@ const subTitle = defineMessage({
 });
 
 interface SkillShowcaseProps {
-  topBehaviouralSkillsQuery: UserSkillShowcaseFragment;
-  topTechnicalSkillsQuery: UserSkillShowcaseFragment;
-  improveTechnicalSkillsQuery: UserSkillShowcaseFragment;
-  improveBehaviouralSkillsQuery: UserSkillShowcaseFragment;
+  query: FragmentType<typeof SkillShowcase_Fragment>;
 }
 
-export const SkillShowcase = ({
-  topBehaviouralSkillsQuery,
-  topTechnicalSkillsQuery,
-  improveTechnicalSkillsQuery,
-  improveBehaviouralSkillsQuery,
-}: SkillShowcaseProps) => {
+export const SkillShowcase = ({ query }: SkillShowcaseProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const topBehaviouralSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    topBehaviouralSkillsQuery,
-  );
-  const topTechnicalSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    topTechnicalSkillsQuery,
-  );
-  const improveBehaviouralSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    improveBehaviouralSkillsQuery,
-  );
-  const improveTechnicalSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    improveTechnicalSkillsQuery,
-  );
+  const user = getFragment(SkillShowcase_Fragment, query);
 
   const pageTitle = intl.formatMessage(navigationMessages.skillShowcase);
   const formattedSubTitle = intl.formatMessage(subTitle);
@@ -199,12 +162,8 @@ export const SkillShowcase = ({
                 <SkillRankCard
                   editable
                   type="top"
-                  userSkills={topBehaviouralSkills}
-                  title={intl.formatMessage({
-                    defaultMessage: "Behavioural skills",
-                    id: "NzbVyB",
-                    description: "Title for the behavioural skill rank card",
-                  })}
+                  query={unpackMaybes(user.topBehaviouralSkillsRanking)}
+                  title={intl.formatMessage(skillMessages.behaviouralSkills)}
                   description={intl.formatMessage({
                     defaultMessage:
                       'This list allows you to highlight <strong>up to 5 behavioural or "soft" skills</strong> that you\'re strong in. Show us what makes you, you!',
@@ -225,12 +184,8 @@ export const SkillShowcase = ({
                 <SkillRankCard
                   editable
                   type="top"
-                  userSkills={topTechnicalSkills}
-                  title={intl.formatMessage({
-                    defaultMessage: "Technical skills",
-                    id: "0ox2XB",
-                    description: "Title for the technical skill rank card",
-                  })}
+                  query={unpackMaybes(user.topTechnicalSkillsRanking)}
+                  title={intl.formatMessage(skillMessages.technicalSkills)}
                   description={intl.formatMessage({
                     defaultMessage:
                       "This list offers space to highlight <strong>up to 10 technical skills</strong> that provide a clear picture of your skillset. Show us what you're best at!",
@@ -272,12 +227,8 @@ export const SkillShowcase = ({
                 <SkillRankCard
                   editable
                   type="improve"
-                  userSkills={improveBehaviouralSkills}
-                  title={intl.formatMessage({
-                    defaultMessage: "Behavioural skills",
-                    id: "NzbVyB",
-                    description: "Title for the behavioural skill rank card",
-                  })}
+                  query={unpackMaybes(user.improveBehaviouralSkillsRanking)}
+                  title={intl.formatMessage(skillMessages.behaviouralSkills)}
                   description={intl.formatMessage({
                     defaultMessage:
                       'This list allows you to specify <strong>up to 3 behavioural or "soft" skills</strong> that you\'re actively working to grow and improve through experience or opportunities.',
@@ -298,12 +249,8 @@ export const SkillShowcase = ({
                 <SkillRankCard
                   editable
                   type="improve"
-                  userSkills={improveTechnicalSkills}
-                  title={intl.formatMessage({
-                    defaultMessage: "Technical skills",
-                    id: "0ox2XB",
-                    description: "Title for the technical skill rank card",
-                  })}
+                  query={unpackMaybes(user.improveTechnicalSkillsRanking)}
+                  title={intl.formatMessage(skillMessages.technicalSkills)}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Sometimes the Government of Canada offers training opportunities. This section allows you to highlight <strong>up to 5 technical skills</strong> that you want to learn or sharpen.",
@@ -334,18 +281,7 @@ const UserSkillShowcase_Query = graphql(/* GraphQL */ `
   query UserSkillShowcase {
     me {
       id
-      topTechnicalSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
-      topBehaviouralSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
-      improveTechnicalSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
-      improveBehaviouralSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
+      ...SkillShowcase
     }
   }
 `);
@@ -359,20 +295,7 @@ const SkillShowcasePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <SkillShowcase
-          topBehaviouralSkillsQuery={unpackMaybes(
-            data?.me?.topBehaviouralSkillsRanking,
-          )}
-          topTechnicalSkillsQuery={unpackMaybes(
-            data?.me?.topTechnicalSkillsRanking,
-          )}
-          improveBehaviouralSkillsQuery={unpackMaybes(
-            data?.me?.improveBehaviouralSkillsRanking,
-          )}
-          improveTechnicalSkillsQuery={unpackMaybes(
-            data?.me?.improveTechnicalSkillsRanking,
-          )}
-        />
+        <SkillShowcase query={data.me} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}

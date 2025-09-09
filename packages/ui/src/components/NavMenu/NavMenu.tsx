@@ -5,7 +5,7 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { useLocation } from "react-router";
 import {
   forwardRef,
-  ElementRef,
+  ComponentRef,
   ComponentPropsWithoutRef,
   useRef,
   useEffect,
@@ -23,7 +23,7 @@ import { useNavMenuContext } from "./NavMenuProvider";
 import Button, { ButtonProps } from "../Button";
 
 const Root = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Root>,
+  ComponentRef<typeof NavigationMenuPrimitive.Root>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
 >((props, forwardedRef) => (
   <div>
@@ -37,7 +37,7 @@ type TriggerProps = ComponentPropsWithoutRef<
   ButtonProps;
 
 const Trigger = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Trigger>,
+  ComponentRef<typeof NavigationMenuPrimitive.Trigger>,
   TriggerProps
 >(({ children, mode = "inline", color, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.Trigger
@@ -59,7 +59,7 @@ const content = tv({
 });
 
 const Content = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Content>,
+  ComponentRef<typeof NavigationMenuPrimitive.Content>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content>
 >(({ className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.Content
@@ -72,7 +72,7 @@ const Content = forwardRef<
 ));
 
 const Viewport = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Viewport>,
+  ComponentRef<typeof NavigationMenuPrimitive.Viewport>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
 >((props, forwardedRef) => (
   <div>
@@ -96,7 +96,7 @@ interface ListProps
     ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List> {}
 
 const List = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.List>,
+  ComponentRef<typeof NavigationMenuPrimitive.List>,
   ListProps
 >(({ children, className, type, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.List
@@ -109,7 +109,7 @@ const List = forwardRef<
 ));
 
 const Item = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Item>,
+  ComponentRef<typeof NavigationMenuPrimitive.Item>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
@@ -188,7 +188,7 @@ interface IconLinkProps
     Pick<BaseIconLinkProps, "href" | "icon" | "color" | "label"> {}
 
 const IconLink = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Link>,
+  ComponentRef<typeof NavigationMenuPrimitive.Link>,
   IconLinkProps
 >(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
@@ -236,7 +236,7 @@ interface LinkProps
 }
 
 const Link = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Link>,
+  ComponentRef<typeof NavigationMenuPrimitive.Link>,
   LinkProps
 >(
   (
@@ -294,7 +294,7 @@ const Link = forwardRef<
 );
 
 const Sub = forwardRef<
-  ElementRef<typeof NavigationMenuPrimitive.Sub>,
+  ComponentRef<typeof NavigationMenuPrimitive.Sub>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Sub>
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Sub ref={forwardedRef} {...props} />

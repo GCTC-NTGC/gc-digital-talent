@@ -96,6 +96,11 @@ const messages = defineMessages({
     id: "JhBsgc",
     description: "Title of additional questions",
   },
+  contactEmail: {
+    defaultMessage: "Contact email",
+    id: "DNLEfN",
+    description: "Title of contact email",
+  },
   generalQuestions: {
     defaultMessage: "General questions",
     id: "PnWNZn",
