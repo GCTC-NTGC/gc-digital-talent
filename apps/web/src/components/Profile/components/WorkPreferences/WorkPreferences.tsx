@@ -45,15 +45,13 @@ const ProfileWorkPreferences_Fragment = graphql(/** GraphQL */ `
     }
     currentProvince {
       value
-      label {
-        localized
-      }
     }
     currentCity
     locationPreferences {
       value
     }
     locationExemptions
+    ...WorkPreferencesDisplay
   }
 `);
 
@@ -140,7 +138,7 @@ const WorkPreferences = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display user={user} labels={labels} />}
+          {isNull ? <NullDisplay /> : <Display query={user} labels={labels} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (

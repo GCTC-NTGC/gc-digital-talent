@@ -9,41 +9,7 @@ import profileMessages from "~/messages/profileMessages";
 
 const PersonalAndContactInformation_Fragment = graphql(/** GraphQL */ `
   fragment PersonalAndContactInformation on User {
-    firstName
-    lastName
-    email
-    isEmailVerified
-    telephone
-    preferredLang {
-      value
-      label {
-        localized
-      }
-    }
-    preferredLanguageForInterview {
-      value
-      label {
-        localized
-      }
-    }
-    preferredLanguageForExam {
-      value
-      label {
-        localized
-      }
-    }
-    citizenship {
-      value
-      label {
-        localized
-      }
-    }
-    armedForcesStatus {
-      value
-      label {
-        localized
-      }
-    }
+    ...PersonalInformationDisplay
   }
 `);
 
@@ -69,7 +35,7 @@ const PersonalAndContactInformation = ({
         {intl.formatMessage(profileMessages.personalAndContactInformation)}
       </TableOfContents.Heading>
       <Card>
-        <Display user={user} showEmailVerification readOnly />
+        <Display query={user} showEmailVerification readOnly />
       </Card>
     </TableOfContents.Section>
   );

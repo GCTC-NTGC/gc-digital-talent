@@ -56,22 +56,16 @@ const ProfileGovernmentInformation_Fragment = graphql(/** GraphQL */ `
     priorityNumber
     govEmployeeType {
       value
-      label {
-        localized
-      }
     }
     department {
       id
-      name {
-        localized
-      }
     }
     currentClassification {
       group
       level
     }
     workEmail
-    isWorkEmailVerified
+    ...GovernmentInformationDisplay
   }
 `);
 
@@ -173,7 +167,7 @@ const GovernmentInformation = ({
           {isNull ? (
             <NullDisplay />
           ) : (
-            <Display user={user} showEmailVerification={!isInApplication} />
+            <Display query={user} showEmailVerification={!isInApplication} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>

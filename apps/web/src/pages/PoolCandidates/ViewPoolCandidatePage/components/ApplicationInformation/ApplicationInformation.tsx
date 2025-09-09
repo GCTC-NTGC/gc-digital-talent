@@ -10,6 +10,7 @@ import {
   User,
   getFragment,
   graphql,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading, Ul } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -20,11 +21,22 @@ import {
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import DiversityEquityInclusionDisplay from "~/components/Profile/components/DiversityEquityInclusion/Display";
-import GovernmentInformationDisplay from "~/components/Profile/components/GovernmentInformation/Display";
-import LanguageProfileDisplay from "~/components/Profile/components/LanguageProfile/Display";
-import PersonalInformationDisplay from "~/components/Profile/components/PersonalInformation/Display";
-import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
+import DiversityEquityInclusionDisplay, {
+  DiversityEquityInclusionDisplay_Fragment,
+} from "~/components/Profile/components/DiversityEquityInclusion/Display";
+import GovernmentInformationDisplay, {
+  GovernmentInformationDisplay_Fragment,
+} from "~/components/Profile/components/GovernmentInformation/Display";
+import LanguageProfileDisplay, {
+  BilingualEvaluation,
+  LanguageProfileDisplay_Fragment,
+} from "~/components/Profile/components/LanguageProfile/Display";
+import PersonalInformationDisplay, {
+  PersonalInformationDisplay_Fragment,
+} from "~/components/Profile/components/PersonalInformation/Display";
+import WorkPreferencesDisplay, {
+  WorkPreferencesDisplay_Fragment,
+} from "~/components/Profile/components/WorkPreferences/Display";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
@@ -113,7 +125,7 @@ interface ApplicationInformationProps {
   applicationQuery: FragmentType<
     typeof ApplicationInformation_PoolCandidateFragment
   >;
-  snapshot: User; // recreated from Json
+  snapshot: User & { bilingualEvaluation?: BilingualEvaluation }; // recreated from Json
   defaultOpen?: boolean;
 }
 
@@ -227,7 +239,12 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.personalAndContactInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <PersonalInformationDisplay user={snapshot} />
+            <PersonalInformationDisplay
+              query={makeFragmentData(
+                snapshot,
+                PersonalInformationDisplay_Fragment,
+              )}
+            />
           </Accordion.Content>
         </Accordion.Item>
         {screeningQuestionResponses.length > 0 ? (
@@ -334,7 +351,13 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.languageProfile)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <LanguageProfileDisplay user={snapshot} />
+            <LanguageProfileDisplay
+              bilingualEvaluation={snapshot?.bilingualEvaluation}
+              query={makeFragmentData(
+                snapshot,
+                LanguageProfileDisplay_Fragment,
+              )}
+            />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.WORK_PREF}>
@@ -342,7 +365,13 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <WorkPreferencesDisplay user={snapshot} labels={getLabels(intl)} />
+            <WorkPreferencesDisplay
+              query={makeFragmentData(
+                snapshot,
+                WorkPreferencesDisplay_Fragment,
+              )}
+              labels={getLabels(intl)}
+            />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.GOV_INFO}>
@@ -350,7 +379,12 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.govEmployeeInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <GovernmentInformationDisplay user={snapshot} />
+            <GovernmentInformationDisplay
+              query={makeFragmentData(
+                snapshot,
+                GovernmentInformationDisplay_Fragment,
+              )}
+            />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.DEI}>
@@ -358,7 +392,12 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <DiversityEquityInclusionDisplay user={snapshot} />
+            <DiversityEquityInclusionDisplay
+              query={makeFragmentData(
+                snapshot,
+                DiversityEquityInclusionDisplay_Fragment,
+              )}
+            />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.SIGNATURE}>

@@ -6,45 +6,63 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  IndigenousCommunity,
+} from "@gc-digital-talent/graphql";
 
 import CommunityIcon from "./CommunityIcon";
 
-type PartialUser = Pick<
-  User,
-  "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
->;
+export const DiversityEquityInclusionDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment DiversityEquityInclusionDisplay on User {
+    id
+    hasDisability
+    isWoman
+    isVisibleMinority
+    indigenousDeclarationSignature
+    indigenousCommunities {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface DisplayProps {
-  user: PartialUser;
+  query: FragmentType<typeof DiversityEquityInclusionDisplay_Fragment>;
 }
 
-const Display = ({
-  user: { isWoman, hasDisability, isVisibleMinority, indigenousCommunities },
-}: DisplayProps) => {
+const Display = ({ query }: DisplayProps) => {
   const intl = useIntl();
+  const user = getFragment(DiversityEquityInclusionDisplay_Fragment, query);
   const nonLegacyIndigenousCommunities =
-    unpackMaybes(indigenousCommunities).filter(
+    unpackMaybes(user?.indigenousCommunities).filter(
       (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
   const isIndigenous =
-    indigenousCommunities && indigenousCommunities.length > 0;
+    user?.indigenousCommunities && user?.indigenousCommunities.length > 0;
   const hasClaimedEquityGroup =
     // Note, we only care about one truthy value so nullish coalescing is inappropriate here.
-    isWoman || hasDisability || isVisibleMinority || isIndigenous;
+    user?.isWoman ||
+    user?.hasDisability ||
+    user?.isVisibleMinority ||
+    isIndigenous;
 
   return hasClaimedEquityGroup ? (
     <>
       <Ul>
-        {isWoman && (
+        {user?.isWoman && (
           <li>{intl.formatMessage(getEmploymentEquityStatement("woman"))}</li>
         )}
-        {isVisibleMinority && (
+        {user?.isVisibleMinority && (
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("minority"))}
           </li>
         )}
-        {hasDisability && (
+        {user?.hasDisability && (
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("disability"))}
           </li>

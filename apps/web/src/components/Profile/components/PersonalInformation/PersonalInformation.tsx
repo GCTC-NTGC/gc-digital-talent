@@ -46,24 +46,14 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     lastName
     telephone
     email
-    isEmailVerified
     preferredLang {
       value
-      label {
-        localized
-      }
     }
     preferredLanguageForInterview {
       value
-      label {
-        localized
-      }
     }
     preferredLanguageForExam {
       value
-      label {
-        localized
-      }
     }
     citizenship {
       value
@@ -71,6 +61,7 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     armedForcesStatus {
       value
     }
+    ...PersonalInformationDisplay
   }
 `);
 
@@ -166,7 +157,7 @@ const PersonalInformation = ({
           {isNull ? (
             <NullDisplay />
           ) : (
-            <Display user={user} showEmailVerification={!isInApplication} />
+            <Display query={user} showEmailVerification={!isInApplication} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>

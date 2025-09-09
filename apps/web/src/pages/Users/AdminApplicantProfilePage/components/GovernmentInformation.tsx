@@ -9,28 +9,7 @@ import profileMessages from "~/messages/profileMessages";
 
 const GovernmentInformation_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformation on User {
-    isGovEmployee
-    department {
-      id
-      departmentNumber
-      name {
-        localized
-      }
-    }
-    govEmployeeType {
-      value
-      label {
-        localized
-      }
-    }
-    currentClassification {
-      group
-      level
-    }
-    hasPriorityEntitlement
-    priorityNumber
-    workEmail
-    isWorkEmailVerified
+    ...GovernmentInformationDisplay
   }
 `);
 
@@ -54,7 +33,7 @@ const GovernmentInformation = ({ query }: GovernmentInformationProps) => {
         {intl.formatMessage(profileMessages.govEmployeeInformation)}
       </TableOfContents.Heading>
       <Card>
-        <Display user={user} readOnly />
+        <Display query={user} readOnly />
       </Card>
     </TableOfContents.Section>
   );

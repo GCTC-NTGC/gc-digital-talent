@@ -3,42 +3,60 @@ import { useNavigate } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import { PartialUser } from "./types";
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
+export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment GovernmentInformationDisplay on User {
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    govEmployeeType {
+      value
+      label {
+        localized
+      }
+    }
+    department {
+      id
+      name {
+        localized
+      }
+    }
+    currentClassification {
+      group
+      level
+    }
+    workEmail
+    isWorkEmailVerified
+  }
+`);
+
 interface DisplayProps {
-  user: PartialUser;
+  query: FragmentType<typeof GovernmentInformationDisplay_Fragment>;
   showEmailVerification?: boolean;
   readOnly?: boolean;
 }
 
 const Display = ({
-  user: {
-    isGovEmployee,
-    department,
-    govEmployeeType,
-    currentClassification,
-    hasPriorityEntitlement,
-    priorityNumber,
-    workEmail,
-    isWorkEmailVerified,
-  },
+  query,
   showEmailVerification = false,
   readOnly = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const routes = useRoutes();
+  const user = getFragment(GovernmentInformationDisplay_Fragment, query);
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
-  const govEmployeeMessage = isGovEmployee
+  const govEmployeeMessage = user?.isGovEmployee
     ? intl.formatMessage({
         defaultMessage: "Yes, I am a Government of Canada employee.",
         id: "KD5H5s",
@@ -50,7 +68,7 @@ const Display = ({
         description: "Message to state user is not employed by government",
       });
 
-  const priorityMessage = hasPriorityEntitlement
+  const priorityMessage = user?.hasPriorityEntitlement
     ? intl.formatMessage({
         defaultMessage: "Yes, I do have a priority entitlement.",
         id: "FVAQCH",
@@ -69,19 +87,19 @@ const Display = ({
   return (
     <div className="flex flex-col gap-y-6">
       <FieldDisplay
-        hasError={empty(isGovEmployee)}
+        hasError={empty(user?.isGovEmployee)}
         label={intl.formatMessage({
           defaultMessage: "Government employee status",
           id: "YMAXhb",
           description: "Employee status label",
         })}
       >
-        {empty(isGovEmployee) ? notProvided : govEmployeeMessage}
+        {empty(user?.isGovEmployee) ? notProvided : govEmployeeMessage}
       </FieldDisplay>
-      {isGovEmployee && (
+      {user?.isGovEmployee && (
         <>
           <FieldDisplay label={intl.formatMessage(commonMessages.department)}>
-            {department ? department.name.localized : notProvided}
+            {user?.department ? user?.department.name.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -90,7 +108,9 @@ const Display = ({
               description: "Employment type label",
             })}
           >
-            {govEmployeeType ? govEmployeeType.label.localized : notProvided}
+            {user?.govEmployeeType
+              ? user?.govEmployeeType.label.localized
+              : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -99,15 +119,16 @@ const Display = ({
               description: "Current group and classification label",
             })}
           >
-            {!!currentClassification?.group && !!currentClassification?.level
+            {!!user?.currentClassification?.group &&
+            !!user?.currentClassification?.level
               ? wrapAbbr(
-                  `${currentClassification?.group}-${currentClassification?.level < 10 ? "0" : ""}${currentClassification?.level}`,
+                  `${user?.currentClassification?.group}-${user?.currentClassification?.level < 10 ? "0" : ""}${user?.currentClassification?.level}`,
                   intl,
                 )
               : notProvided}
           </FieldDisplay>
           <FieldDisplay
-            hasError={!workEmail}
+            hasError={!user?.workEmail}
             label={intl.formatMessage({
               defaultMessage: "Work email",
               id: "tj9Dz3",
@@ -115,10 +136,10 @@ const Display = ({
             })}
           >
             <div className="flex items-center gap-3">
-              <span>{workEmail ?? notProvided}</span>
-              {showEmailVerification && workEmail ? (
+              <span>{user?.workEmail ?? notProvided}</span>
+              {showEmailVerification && user?.workEmail ? (
                 <EmailVerificationStatus
-                  isEmailVerified={!!isWorkEmailVerified}
+                  isEmailVerified={!!user?.isWorkEmailVerified}
                   onClickVerify={handleVerifyNowClick}
                   readOnly={readOnly}
                 />
@@ -128,12 +149,12 @@ const Display = ({
         </>
       )}
       <FieldDisplay
-        hasError={empty(hasPriorityEntitlement)}
+        hasError={empty(user?.hasPriorityEntitlement)}
         label={intl.formatMessage(profileMessages.priorityStatus)}
       >
-        {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
+        {empty(user?.hasPriorityEntitlement) ? notProvided : priorityMessage}
       </FieldDisplay>
-      {hasPriorityEntitlement && (
+      {user?.hasPriorityEntitlement && (
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Priority number",
@@ -141,7 +162,7 @@ const Display = ({
             description: "Priority number label",
           })}
         >
-          {priorityNumber ?? notProvided}
+          {user?.priorityNumber ?? notProvided}
         </FieldDisplay>
       )}
     </div>

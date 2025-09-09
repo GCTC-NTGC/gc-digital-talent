@@ -9,15 +9,7 @@ import Display from "~/components/Profile/components/DiversityEquityInclusion/Di
 
 const DiversityEquityInclusion_Fragment = graphql(/** GraphQL */ `
   fragment DiversityEquityInclusion on User {
-    isWoman
-    hasDisability
-    isVisibleMinority
-    indigenousCommunities {
-      value
-      label {
-        localized
-      }
-    }
+    ...DiversityEquityInclusionDisplay
   }
 `);
 
@@ -41,7 +33,7 @@ const DiversityEquityInclusion = ({ query }: DiversityEquityInclusionProps) => {
         {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
       </TableOfContents.Heading>
       <Card>
-        <Display user={user} />
+        <Display query={user} />
       </Card>
     </TableOfContents.Section>
   );

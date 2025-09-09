@@ -5,10 +5,11 @@ import compact from "lodash/compact";
 import {
   EstimatedLanguageAbility,
   Maybe,
+  ProfileLanguageProfileFragment,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
-import { FormValues, PartialUser } from "./types";
+import { FormValues } from "./types";
 
 export const formValuesToSubmitData = (
   formValues: FormValues,
@@ -64,7 +65,9 @@ export const formValuesToSubmitData = (
   return data;
 };
 
-export const dataToFormValues = (data: PartialUser): FormValues => {
+export const dataToFormValues = (
+  data: ProfileLanguageProfileFragment,
+): FormValues => {
   let secondLanguageExamValidity: FormValues["secondLanguageExamValidity"] =
     null;
   switch (data?.secondLanguageExamValidity) {

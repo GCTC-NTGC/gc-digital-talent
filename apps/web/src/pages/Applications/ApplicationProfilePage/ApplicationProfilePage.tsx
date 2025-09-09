@@ -84,7 +84,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   };
 
   const sectionProps = {
-    user: application.user as UserProfileFragment,
+    query: application.user as UserProfileFragment,
     isUpdating,
     onUpdate: handleUpdate,
     pool: application.pool,

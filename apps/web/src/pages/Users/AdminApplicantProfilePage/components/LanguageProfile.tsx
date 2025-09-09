@@ -9,40 +9,7 @@ import profileMessages from "~/messages/profileMessages";
 
 const LanguageProfile_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfile on User {
-    lookingForEnglish
-    lookingForFrench
-    lookingForBilingual
-    firstOfficialLanguage {
-      value
-      label {
-        localized
-      }
-    }
-    secondLanguageExamCompleted
-    estimatedLanguageAbility {
-      value
-      label {
-        localized
-      }
-    }
-    writtenLevel {
-      value
-      label {
-        localized
-      }
-    }
-    comprehensionLevel {
-      value
-      label {
-        localized
-      }
-    }
-    verbalLevel {
-      value
-      label {
-        localized
-      }
-    }
+    ...LanguageProfileDisplay
   }
 `);
 
@@ -66,7 +33,7 @@ const LanguageProfile = ({ query }: LanguageProfileProps) => {
         {intl.formatMessage(profileMessages.languageProfile)}
       </TableOfContents.Heading>
       <Card>
-        <Display user={user} />
+        <Display query={user} />
       </Card>
     </TableOfContents.Section>
   );
