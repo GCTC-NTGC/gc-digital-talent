@@ -51,7 +51,7 @@ const SupportingEvidence = ({ query, skillId }: SupportingEvidenceProps) => {
           <div className="mb-3" key={experience.id}>
             <ExperienceCard
               experienceQuery={experience}
-              headingLevel="h5"
+              headingLevel="h3"
               showEdit={false}
               {...(skillId && {
                 showSkills: { id: skillId },

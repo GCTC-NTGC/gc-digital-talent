@@ -11,7 +11,7 @@ import {
   Chip,
   Chips,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
@@ -186,8 +186,8 @@ export const ViewPoolCandidate = ({
         url: paths.poolView(poolCandidate.pool.id),
       },
       {
-        label: intl.formatMessage(screeningAndAssessmentTitle),
-        url: paths.screeningAndEvaluation(poolCandidate.pool.id),
+        label: intl.formatMessage(navigationMessages.candidates),
+        url: paths.poolCandidateTable(poolCandidate.pool.id),
       },
       {
         label: candidateName,

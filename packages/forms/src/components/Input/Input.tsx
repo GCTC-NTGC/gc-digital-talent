@@ -22,14 +22,15 @@ const input = tv({
   },
 });
 
-export type InputProps = HTMLInputProps &
-  CommonInputProps & {
-    /** Set the type of the input. */
-    type: "text" | "number" | "email" | "tel" | "password" | "search" | "url";
-    // Whether to trim leading/ending whitespace upon blurring of an input, default on
-    whitespaceTrim?: boolean;
-    maxLength?: number;
-  };
+export interface InputProps
+  extends Omit<HTMLInputProps, "name" | "id">,
+    CommonInputProps {
+  /** Set the type of the input. */
+  type: "text" | "number" | "email" | "tel" | "password" | "search" | "url";
+  // Whether to trim leading/ending whitespace upon blurring of an input, default on
+  whitespaceTrim?: boolean;
+  maxLength?: number;
+}
 
 const Input = ({
   id,
