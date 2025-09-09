@@ -13,7 +13,6 @@ import {
   Accordion,
   Button,
   Container,
-  Heading,
   Pending,
   Separator,
   TableOfContents,
@@ -121,27 +120,31 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <div className="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-            <Heading icon={UserCircleIcon} color="secondary" className="m-0">
+            <TableOfContents.Heading
+              icon={UserCircleIcon}
+              color="secondary"
+              className="m-0"
+            >
               {intl.formatMessage({
                 defaultMessage: "Basic information",
                 id: "RDFAWE",
                 description: "Title for basic information",
               })}
-            </Heading>
+            </TableOfContents.Heading>
             <div className="flex items-end gap-3">
               <Button mode="inline" color="primary" onClick={toggleSections}>
                 {hasOpenSections
                   ? intl.formatMessage({
                       defaultMessage:
-                        "Collapse all <hidden>application information</hidden>sections",
-                      id: "OoZdlh",
+                        "Collapse all<hidden> application information</hidden> sections",
+                      id: "3amaVI",
                       description:
                         "Button text to close all application information accordions",
                     })
                   : intl.formatMessage({
                       defaultMessage:
-                        "Expand all <hidden>application information</hidden>sections",
-                      id: "DC2A59",
+                        "Expand all<hidden> application information</hidden> sections",
+                      id: "N/OaWg",
                       description:
                         "Button text to open all application information accordions",
                     })}
