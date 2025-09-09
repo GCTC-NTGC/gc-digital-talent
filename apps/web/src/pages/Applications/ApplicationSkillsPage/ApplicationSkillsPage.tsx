@@ -329,7 +329,7 @@ export const ApplicationSkills = ({
             errors={errors}
             name="skillsMissingExperiences"
             render={({ message }) => (
-              <Field.Error className="mb-3">{message}</Field.Error>
+              <Field.Error className="mb-6">{message}</Field.Error>
             )}
           />
 
