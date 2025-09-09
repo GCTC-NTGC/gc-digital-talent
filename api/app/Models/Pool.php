@@ -135,6 +135,7 @@ class Pool extends Model
         'advertisement_location',
         'opportunity_length',
         'selection_limitations',
+        'contact_email',
     ];
 
     /**
