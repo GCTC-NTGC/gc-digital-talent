@@ -182,15 +182,15 @@ const ApplicationInformation = ({
             {hasOpenSections
               ? intl.formatMessage({
                   defaultMessage:
-                    "Collapse all <hidden>application information</hidden>sections",
-                  id: "OoZdlh",
+                    "Collapse all<hidden> application information</hidden> sections",
+                  id: "3amaVI",
                   description:
                     "Button text to close all application information accordions",
                 })
               : intl.formatMessage({
                   defaultMessage:
-                    "Expand all <hidden>application information</hidden>sections",
-                  id: "DC2A59",
+                    "Expand all<hidden> application information</hidden> sections",
+                  id: "N/OaWg",
                   description:
                     "Button text to open all application information accordions",
                 })}
