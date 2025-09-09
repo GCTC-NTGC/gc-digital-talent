@@ -101,6 +101,21 @@ class ExperiencePage extends AppPage {
       .getByRole("textbox", { name: /additional details/i })
       .fill(input.details ?? "test details");
 
+    await this.page.getByRole("button", { name: /add work streams/i }).click();
+
+    await this.page
+      .getByRole("combobox", { name: /functional communities/i })
+      .selectOption({ label: "Digital Community" });
+
+    await this.page
+      .getByRole("group", { name: /work streams/i })
+      .getByRole("checkbox", {
+        name: /security/i,
+      })
+      .click();
+
+    await this.page.getByRole("button", { name: /add work streams/i }).click();
+
     await this.save();
     await this.waitForGraphqlResponse("CreateWorkExperience");
   }
