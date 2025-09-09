@@ -20,27 +20,28 @@ import Single from "./Single";
 import Multi from "./Multi";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 
-export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
-  CommonInputProps & {
-    /** Array of available options */
-    options: BaseProps["options"];
-    /** Optional: Callback ran when the user types in the input */
-    onSearch?: (term: string) => void;
-    /** Optional: Control the options through external search (API, etc.) */
-    isExternalSearch?: BaseProps["isExternalSearch"];
-    /** Button text to clear the current text from the input (optional) */
-    clearLabel?: BaseProps["clearLabel"];
-    /** Button text to toggle the options menu (optional) */
-    toggleLabel?: BaseProps["toggleLabel"];
-    /** Optional: Set if the options are being fetched */
-    fetching?: BaseProps["fetching"];
-    /** Optional: Total number available options (use for API driven where options is not the total length) */
-    total?: BaseProps["total"];
-    /** Optional: Accept multiple values (must be array type in form values) */
-    isMulti?: boolean;
-    /** Determine if it should sort options in alphanumeric ascending order */
-    doNotSort?: boolean;
-  };
+type BaseHTMLProps = Omit<HTMLInputProps, "ref" | "id" | "name">;
+
+export interface ComboboxProps extends BaseHTMLProps, CommonInputProps {
+  /** Array of available options */
+  options: BaseProps["options"];
+  /** Optional: Callback ran when the user types in the input */
+  onSearch?: (term: string) => void;
+  /** Optional: Control the options through external search (API, etc.) */
+  isExternalSearch?: BaseProps["isExternalSearch"];
+  /** Button text to clear the current text from the input (optional) */
+  clearLabel?: BaseProps["clearLabel"];
+  /** Button text to toggle the options menu (optional) */
+  toggleLabel?: BaseProps["toggleLabel"];
+  /** Optional: Set if the options are being fetched */
+  fetching?: BaseProps["fetching"];
+  /** Optional: Total number available options (use for API driven where options is not the total length) */
+  total?: BaseProps["total"];
+  /** Optional: Accept multiple values (must be array type in form values) */
+  isMulti?: boolean;
+  /** Determine if it should sort options in alphanumeric ascending order */
+  doNotSort?: boolean;
+}
 
 const Combobox = ({
   id,

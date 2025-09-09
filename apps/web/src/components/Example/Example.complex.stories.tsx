@@ -5,9 +5,9 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Example from "./Example";
 
-type PagePropsAndCustomArgs = ComponentProps<typeof Example> & {
+interface PagePropsAndCustomArgs extends ComponentProps<typeof Example> {
   footer?: string;
-};
+}
 
 const meta = {
   component: Example,

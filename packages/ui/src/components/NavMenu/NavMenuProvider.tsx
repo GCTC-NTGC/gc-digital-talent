@@ -10,9 +10,9 @@ const NavMenuContext = createContext<NavMenuContextValue | undefined>(
   undefined,
 );
 
-type NavMenuProviderProps = {
+interface NavMenuProviderProps extends NavMenuContextValue {
   children: ReactNode;
-} & NavMenuContextValue;
+}
 
 const NavMenuProvider = ({ children, ...context }: NavMenuProviderProps) => {
   const { open, onOpenToggle, onOpenChange } = context;

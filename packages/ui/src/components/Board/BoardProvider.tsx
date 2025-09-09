@@ -22,13 +22,13 @@ interface ContextEvents {
   handleClickItem: MouseEventHandler;
 }
 
-type BoardContextValue = ControlledContext & ContextEvents;
+interface BoardContextValue extends ControlledContext, ContextEvents {}
 
 const BoardContext = createContext<BoardContextValue | undefined>(undefined);
 
-type BoardProviderProps = {
+interface BoardProviderProps extends ControlledContext {
   children: ReactNode;
-} & ControlledContext;
+}
 
 export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
   const {

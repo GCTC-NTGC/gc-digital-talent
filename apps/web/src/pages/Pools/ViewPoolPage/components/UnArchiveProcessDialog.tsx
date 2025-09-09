@@ -7,9 +7,9 @@ import { formMessages } from "@gc-digital-talent/i18n";
 
 import { ProcessDialogProps } from "./types";
 
-type UnarchiveProcessDialogProps = ProcessDialogProps & {
+interface UnarchiveProcessDialogProps extends ProcessDialogProps {
   onUnarchive: () => Promise<void>;
-};
+}
 
 const UnarchiveProcessDialog = ({
   poolName,

@@ -14,11 +14,12 @@ import { Scalars } from "@gc-digital-talent/graphql";
 
 import { DeleteNotification_Mutation } from "./mutations";
 
-type RemoveDialogProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item> & {
+interface RemoveDialogProps
+  extends ComponentPropsWithoutRef<typeof DropdownMenu.Item> {
   id: Scalars["UUID"]["output"];
   message: ReactNode;
   date: string;
-};
+}
 
 const RemoveDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,
