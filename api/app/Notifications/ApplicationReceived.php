@@ -57,7 +57,7 @@ class ApplicationReceived extends Notification implements CanBeSentViaGcNotifyEm
             // French notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.application_received_fr'),
-                $notifiable->applicantEmail,
+                $this->applicantEmail,
                 [
                     'applicant name' => $this->applicantName,
                     'opportunity title' => $this->poolNameFr,
