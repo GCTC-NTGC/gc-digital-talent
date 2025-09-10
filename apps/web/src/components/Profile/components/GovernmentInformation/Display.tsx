@@ -53,10 +53,20 @@ const Display = ({
   const navigate = useNavigate();
   const routes = useRoutes();
   const user = getFragment(GovernmentInformationDisplay_Fragment, query);
+  const {
+    isGovEmployee,
+    department,
+    govEmployeeType,
+    currentClassification,
+    hasPriorityEntitlement,
+    priorityNumber,
+    workEmail,
+    isWorkEmailVerified,
+  } = user;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
-  const govEmployeeMessage = user?.isGovEmployee
+  const govEmployeeMessage = isGovEmployee
     ? intl.formatMessage({
         defaultMessage: "Yes, I am a Government of Canada employee.",
         id: "KD5H5s",
@@ -68,7 +78,7 @@ const Display = ({
         description: "Message to state user is not employed by government",
       });
 
-  const priorityMessage = user?.hasPriorityEntitlement
+  const priorityMessage = hasPriorityEntitlement
     ? intl.formatMessage({
         defaultMessage: "Yes, I do have a priority entitlement.",
         id: "FVAQCH",
@@ -87,19 +97,19 @@ const Display = ({
   return (
     <div className="flex flex-col gap-y-6">
       <FieldDisplay
-        hasError={empty(user?.isGovEmployee)}
+        hasError={empty(isGovEmployee)}
         label={intl.formatMessage({
           defaultMessage: "Government employee status",
           id: "YMAXhb",
           description: "Employee status label",
         })}
       >
-        {empty(user?.isGovEmployee) ? notProvided : govEmployeeMessage}
+        {empty(isGovEmployee) ? notProvided : govEmployeeMessage}
       </FieldDisplay>
-      {user?.isGovEmployee && (
+      {isGovEmployee && (
         <>
           <FieldDisplay label={intl.formatMessage(commonMessages.department)}>
-            {user?.department ? user?.department.name.localized : notProvided}
+            {department ? department.name.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -108,9 +118,7 @@ const Display = ({
               description: "Employment type label",
             })}
           >
-            {user?.govEmployeeType
-              ? user?.govEmployeeType.label.localized
-              : notProvided}
+            {govEmployeeType ? govEmployeeType.label.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -119,16 +127,15 @@ const Display = ({
               description: "Current group and classification label",
             })}
           >
-            {!!user?.currentClassification?.group &&
-            !!user?.currentClassification?.level
+            {!!currentClassification?.group && !!currentClassification?.level
               ? wrapAbbr(
-                  `${user?.currentClassification?.group}-${user?.currentClassification?.level < 10 ? "0" : ""}${user?.currentClassification?.level}`,
+                  `${currentClassification?.group}-${currentClassification?.level < 10 ? "0" : ""}${currentClassification?.level}`,
                   intl,
                 )
               : notProvided}
           </FieldDisplay>
           <FieldDisplay
-            hasError={!user?.workEmail}
+            hasError={!workEmail}
             label={intl.formatMessage({
               defaultMessage: "Work email",
               id: "tj9Dz3",
@@ -136,10 +143,10 @@ const Display = ({
             })}
           >
             <div className="flex items-center gap-3">
-              <span>{user?.workEmail ?? notProvided}</span>
-              {showEmailVerification && user?.workEmail ? (
+              <span>{workEmail ?? notProvided}</span>
+              {showEmailVerification && workEmail ? (
                 <EmailVerificationStatus
-                  isEmailVerified={!!user?.isWorkEmailVerified}
+                  isEmailVerified={!!isWorkEmailVerified}
                   onClickVerify={handleVerifyNowClick}
                   readOnly={readOnly}
                 />
@@ -149,12 +156,12 @@ const Display = ({
         </>
       )}
       <FieldDisplay
-        hasError={empty(user?.hasPriorityEntitlement)}
+        hasError={empty(hasPriorityEntitlement)}
         label={intl.formatMessage(profileMessages.priorityStatus)}
       >
-        {empty(user?.hasPriorityEntitlement) ? notProvided : priorityMessage}
+        {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
       </FieldDisplay>
-      {user?.hasPriorityEntitlement && (
+      {hasPriorityEntitlement && (
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Priority number",
@@ -162,7 +169,7 @@ const Display = ({
             description: "Priority number label",
           })}
         >
-          {user?.priorityNumber ?? notProvided}
+          {priorityNumber ?? notProvided}
         </FieldDisplay>
       )}
     </div>

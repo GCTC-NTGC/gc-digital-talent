@@ -38,31 +38,30 @@ interface DisplayProps {
 const Display = ({ query }: DisplayProps) => {
   const intl = useIntl();
   const user = getFragment(DiversityEquityInclusionDisplay_Fragment, query);
+  const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =
+    user;
   const nonLegacyIndigenousCommunities =
-    unpackMaybes(user?.indigenousCommunities).filter(
+    unpackMaybes(indigenousCommunities).filter(
       (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
   const isIndigenous =
-    user?.indigenousCommunities && user?.indigenousCommunities.length > 0;
+    indigenousCommunities && indigenousCommunities.length > 0;
   const hasClaimedEquityGroup =
     // Note, we only care about one truthy value so nullish coalescing is inappropriate here.
-    user?.isWoman ||
-    user?.hasDisability ||
-    user?.isVisibleMinority ||
-    isIndigenous;
+    isWoman || hasDisability || isVisibleMinority || isIndigenous;
 
   return hasClaimedEquityGroup ? (
     <>
       <Ul>
-        {user?.isWoman && (
+        {isWoman && (
           <li>{intl.formatMessage(getEmploymentEquityStatement("woman"))}</li>
         )}
-        {user?.isVisibleMinority && (
+        {isVisibleMinority && (
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("minority"))}
           </li>
         )}
-        {user?.hasDisability && (
+        {hasDisability && (
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("disability"))}
           </li>
