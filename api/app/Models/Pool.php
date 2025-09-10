@@ -433,7 +433,23 @@ class Pool extends Model
     protected function displayName(): Attribute
     {
         return Attribute::make(
-            get: fn ($_, $attributes) => $this->makeDisplayName($attributes, full: false)
+            get: function ($_, $attributes) {
+                $locale = app()->getlocale();
+                $this->loadmissing(['classification']);
+                $definitions = [];
+                if ($definition = $this->classification->getdefinition()) {
+                    $definitions = [$definition];
+                }
+
+                return [
+                    'display' => [
+                        'en' => $this->formatdisplayname($attributes, 'en', false),
+                        'fr' => $this->formatdisplayname($attributes, 'fr', false),
+                        'localized' => $this->formatdisplayname($attributes, $locale, false),
+                    ],
+                    'definitions' => $definitions,
+                ];
+            }
         );
     }
 
@@ -443,30 +459,24 @@ class Pool extends Model
     protected function fullDisplayName(): Attribute
     {
         return Attribute::make(
-            get: fn ($_, $attributes) => $this->makeDisplayName($attributes, full: true)
+            get: function ($_, $attributes) {
+                $locale = app()->getlocale();
+                $this->loadmissing(['classification']);
+                $definitions = [];
+                if ($definition = $this->classification->getdefinition()) {
+                    $definitions = [$definition];
+                }
+
+                return [
+                    'display' => [
+                        'en' => $this->formatdisplayname($attributes, 'en', true),
+                        'fr' => $this->formatdisplayname($attributes, 'fr', true),
+                        'localized' => $this->formatdisplayname($attributes, $locale, true),
+                    ],
+                    'definitions' => $definitions,
+                ];
+            }
         );
-    }
-
-    /**
-     * Generate the display name structure, optionally "full".
-     */
-    protected function makeDisplayName(array $attributes, bool $full = false): array
-    {
-        $locale = app()->getLocale();
-        $this->loadMissing(['classification']);
-        $definitions = [];
-        if ($definition = $this->classification->getDefinition()) {
-            $definitions = [$definition];
-        }
-
-        return [
-            'display' => [
-                'en' => $this->formatDisplayName($attributes, 'en', $full),
-                'fr' => $this->formatDisplayName($attributes, 'fr', $full),
-                'localized' => $this->formatDisplayName($attributes, $locale, $full),
-            ],
-            'definitions' => $definitions,
-        ];
     }
 
     /**
