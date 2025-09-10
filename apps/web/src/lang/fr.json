@@ -3923,10 +3923,6 @@
     "defaultMessage": "Le Corps d’innovation",
     "description": "Heading for innovation corps"
   },
-  "Fe9Cje": {
-    "defaultMessage": "IT-01 : Technicien(ne)",
-    "description": "IT-01 classification label including titles"
-  },
   "FffxNt": {
     "defaultMessage": "Fournir d’autres renseignements sur cette évaluation",
     "description": "Subtitle for Assessment details dialog"
@@ -13568,10 +13564,6 @@
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
-  },
-  "yZMZmq": {
-    "defaultMessage": "Conseiller(ère) principal(e) E C 7",
-    "description": "EC-07 classification aria label including titles"
   },
   "ya6mF1": {
     "defaultMessage": "Consulter les emplois offerts sur Emplois GC",
