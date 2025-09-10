@@ -8,7 +8,10 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
+use App\Notifications\ApplicationReceived;
 use Carbon\Carbon;
+use GraphQL\Error\Error;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -58,6 +61,24 @@ final class SubmitApplication
         $application->save();
 
         $application->refresh();
+
+        // Send email notification
+        try {
+            $message = new ApplicationReceived(
+                $application->user->email, // applicants email
+                $application->user->getFullName(), // applicants name
+                $application->pool->name['en'], // pool title
+                $application->pool->name['fr'], // pool title
+                $application->id, // application ID number
+                $application->user->preferredLocale(), // applicants preferred language
+            );
+            $application->notify($message);
+
+        } catch (\Throwable $e) {
+            Log::error('Problem sending application received email '.$e);
+
+            return new Error($e->getMessage());
+        }
 
         return $application;
     }
