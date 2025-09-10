@@ -135,6 +135,19 @@ export const EmailVerificationDialog = ({
 
   const [canRequestCode, setCanRequestCode] = useState<boolean>(true);
 
+  const resetAndCloseDialog = () => {
+    requestACodeFormMethods.reset();
+    submitACodeFormMethods.reset();
+    setOpen(false);
+  };
+
+  const handleCancelClick = () => {
+    resetAndCloseDialog();
+
+    // fire event to parent
+    onCancel();
+  };
+
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
 
@@ -208,8 +221,7 @@ export const EmailVerificationDialog = ({
 
     return mutationResult
       .then(() => {
-        // close the dialog
-        setOpen(false);
+        resetAndCloseDialog();
 
         //fire event to parent
         onVerificationSuccess();
@@ -261,14 +273,6 @@ export const EmailVerificationDialog = ({
           </>,
         );
       });
-  };
-
-  const handleCancelClick = () => {
-    // close the dialog
-    setOpen(false);
-
-    // fire event to parent
-    onCancel();
   };
 
   return (
