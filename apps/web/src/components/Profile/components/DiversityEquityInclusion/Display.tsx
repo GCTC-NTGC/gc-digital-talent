@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import {
   commonMessages,
   getEmploymentEquityStatement,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -62,7 +61,7 @@ const Display = ({
                         className="flex items-center gap-x-1.5"
                       >
                         <CommunityIcon community={community.value} />
-                        <span>{getLocalizedName(community.label, intl)}</span>
+                        <span>{community.label.localized}</span>
                       </li>
                     );
                   })

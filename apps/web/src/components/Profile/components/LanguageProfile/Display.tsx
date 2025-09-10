@@ -1,6 +1,6 @@
 import { MessageDescriptor, defineMessages, useIntl } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
@@ -176,7 +176,7 @@ const Display = ({
                 })}
               >
                 {estimatedLanguageAbility.label
-                  ? getLocalizedName(estimatedLanguageAbility.label, intl)
+                  ? estimatedLanguageAbility.label.localized
                   : notProvided}
               </FieldDisplay>
             )}
@@ -187,12 +187,12 @@ const Display = ({
             <>
               <FieldDisplay label={labels.firstOfficialLang}>
                 {firstOfficialLanguage?.label
-                  ? getLocalizedName(firstOfficialLanguage.label, intl)
+                  ? firstOfficialLanguage.label.localized
                   : notProvided}
               </FieldDisplay>
               <FieldDisplay label={labels.estimatedLanguageAbility}>
                 {estimatedLanguageAbility?.label
-                  ? getLocalizedName(estimatedLanguageAbility.label, intl)
+                  ? estimatedLanguageAbility.label.localized
                   : notProvided}
               </FieldDisplay>
               {secondLanguageExamCompleted ? (
@@ -210,17 +210,17 @@ const Display = ({
                   <div className="grid gap-6 sm:grid-cols-3">
                     <FieldDisplay label={labels.comprehensionLevel}>
                       {comprehensionLevel?.label
-                        ? getLocalizedName(comprehensionLevel.label, intl)
+                        ? comprehensionLevel.label.localized
                         : notProvided}
                     </FieldDisplay>
                     <FieldDisplay label={labels.writtenLevel}>
                       {writtenLevel?.label
-                        ? getLocalizedName(writtenLevel.label, intl)
+                        ? writtenLevel.label.localized
                         : notProvided}
                     </FieldDisplay>
                     <FieldDisplay label={labels.verbalLevel}>
                       {verbalLevel?.label
-                        ? getLocalizedName(verbalLevel.label, intl)
+                        ? verbalLevel.label.localized
                         : notProvided}
                     </FieldDisplay>
                   </div>

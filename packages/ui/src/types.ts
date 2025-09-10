@@ -4,6 +4,7 @@ import {
   RefAttributes,
   ElementType,
   ForwardRefExoticComponent,
+  JSX,
 } from "react";
 
 export type Color =
@@ -31,3 +32,9 @@ export type IconProps = PropsWithoutRef<SVGProps<SVGSVGElement>> & {
 export type IconType =
   | ElementType<IconProps>
   | ForwardRefExoticComponent<IconProps>;
+
+type PropsOf<T extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[T];
+export type PolymorphicProps<
+  T extends keyof JSX.IntrinsicElements,
+  P = object,
+> = P & { as?: T } & Omit<PropsOf<T>, keyof P | "as">;

@@ -11,11 +11,11 @@ import { Pool } from "@gc-digital-talent/graphql";
 
 import { ProcessDialogProps } from "./types";
 
-type PublishProcessDialogProps = ProcessDialogProps & {
+interface PublishProcessDialogProps extends ProcessDialogProps {
   closingDate: Pool["closingDate"];
   onPublish: () => Promise<void>;
   isReadyToPublish: boolean;
-};
+}
 
 const PublishProcessDialog = ({
   poolName,

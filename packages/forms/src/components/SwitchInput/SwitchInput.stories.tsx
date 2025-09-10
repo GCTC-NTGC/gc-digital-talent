@@ -10,9 +10,9 @@ import Form from "../BasicForm";
 import Submit from "../Submit";
 import SwitchInput, { SwitchInputProps } from "./SwitchInput";
 
-type SwitchInputArgs = SwitchInputProps & {
+interface SwitchInputArgs extends SwitchInputProps {
   defaultValues?: Record<string, boolean>;
-};
+}
 
 export default {
   component: SwitchInput,

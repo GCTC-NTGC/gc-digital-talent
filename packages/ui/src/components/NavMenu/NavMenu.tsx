@@ -31,10 +31,12 @@ const Root = forwardRef<
   </div>
 ));
 
-type TriggerProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Trigger
-> &
-  ButtonProps;
+type BaseHTMLProps = Omit<
+  ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger>,
+  "color"
+>;
+
+interface TriggerProps extends BaseHTMLProps, ButtonProps {}
 
 const Trigger = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Trigger>,

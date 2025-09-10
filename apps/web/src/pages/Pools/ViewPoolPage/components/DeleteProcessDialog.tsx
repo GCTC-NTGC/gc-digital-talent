@@ -7,9 +7,9 @@ import { formMessages } from "@gc-digital-talent/i18n";
 
 import { ProcessDialogProps } from "./types";
 
-type DeleteProcessDialogProps = ProcessDialogProps & {
+interface DeleteProcessDialogProps extends ProcessDialogProps {
   onDelete: () => Promise<void>;
-};
+}
 
 const DeleteProcessDialog = ({
   poolName,

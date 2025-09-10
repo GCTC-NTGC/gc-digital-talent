@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -81,7 +81,7 @@ const Display = ({
       {isGovEmployee && (
         <>
           <FieldDisplay label={intl.formatMessage(commonMessages.department)}>
-            {department ? getLocalizedName(department.name, intl) : notProvided}
+            {department ? department.name.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -90,7 +90,7 @@ const Display = ({
               description: "Employment type label",
             })}
           >
-            {getLocalizedName(govEmployeeType?.label, intl)}
+            {govEmployeeType ? govEmployeeType.label.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

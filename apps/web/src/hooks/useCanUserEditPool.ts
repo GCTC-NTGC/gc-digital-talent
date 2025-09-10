@@ -11,7 +11,7 @@ const useCanUserEditPool = (status?: Maybe<PoolStatus>) => {
 
   if (status === PoolStatus.Published) {
     return checkRole(
-      [ROLE_NAME.PlatformAdmin],
+      [ROLE_NAME.CommunityAdmin, ROLE_NAME.PlatformAdmin],
       unpackMaybes(userAuthInfo?.roleAssignments),
     );
   }
