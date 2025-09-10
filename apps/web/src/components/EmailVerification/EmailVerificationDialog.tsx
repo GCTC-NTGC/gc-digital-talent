@@ -9,17 +9,19 @@ import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
-const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
-  mutation SendUserEmailVerification($emailType: EmailType) {
-    sendUserEmailVerification(emailType: $emailType) {
+const EmailVerificationRequestACode_Mutation = graphql(/* GraphQL */ `
+  mutation EmailVerificationRequestACode(
+    $input: SendUserEmailsVerificationInput!
+  ) {
+    sendUserEmailsVerification(sendUserEmailsVerificationInput: $input) {
       id
     }
   }
 `);
 
-const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
-  mutation VerifyUserEmail($emailType: EmailType, $code: String!) {
-    verifyUserEmail(emailType: $emailType, code: $code) {
+const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
+  mutation EmailVerificationSubmitACode($code: String!) {
+    verifyUserEmails(code: $code) {
       id
     }
   }
@@ -86,13 +88,18 @@ const getSubtitle = (
 
 const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
 
-interface FormValues {
+interface RequestACodeFormValues {
+  emailAddress: string;
+  emailType: string;
+}
+
+interface SubmitACodeFormValues {
   verificationCode: string;
 }
 
 export interface EmailVerificationProps {
   onCancel: () => void;
-  emailType?: EmailType;
+  emailType: EmailType;
   emailAddress?: string | null;
   onVerificationSuccess: () => void;
   children?: ReactNode;
@@ -101,22 +108,29 @@ export interface EmailVerificationProps {
 
 export const EmailVerificationDialog = ({
   onCancel,
-  emailType = EmailType.Contact,
+  emailType: dialogEmailType,
+  emailAddress: initialEmailAddress,
   onVerificationSuccess,
   children,
   defaultOpen = false,
 }: EmailVerificationProps) => {
   const intl = useIntl();
-  const [, executeSendEmailMutation] = useMutation(
-    SendUserEmailVerification_Mutation,
+  const [, executeRequestACodeMutation] = useMutation(
+    EmailVerificationRequestACode_Mutation,
   );
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
   const [showVerificationInput, setShowVerificationInput] = useState(false);
 
-  const [, executeVerifyUserEmailMutation] = useMutation(
-    VerifyUserEmail_Mutation,
+  const [, executeSubmitACodeMutation] = useMutation(
+    EmailVerificationSubmitACode_Mutation,
   );
-  const methods = useForm<FormValues>({});
+  const requestACodeFormMethods = useForm<RequestACodeFormValues>({
+    defaultValues: {
+      emailAddress: initialEmailAddress ?? undefined,
+      emailType: dialogEmailType,
+    },
+  });
+  const submitACodeFormMethods = useForm<SubmitACodeFormValues>({});
 
   const [canRequestCode, setCanRequestCode] = useState<boolean>(true);
 
@@ -136,17 +150,37 @@ export const EmailVerificationDialog = ({
     };
   }, [canRequestCode]);
 
-  const submitHandlerRequestACode = (): Promise<void> => {
+  const submitHandlerRequestACode: SubmitHandler<RequestACodeFormValues> = ({
+    emailAddress,
+    emailType,
+  }): Promise<void> => {
     if (!canRequestCode) {
       return Promise.resolve();
     }
-    return executeSendEmailMutation({
-      emailType,
-    })
-      .then((result) => {
-        if (!result.data?.sendUserEmailVerification?.id) {
-          throw new Error("Send email error");
-        }
+    let emailTypes: EmailType[];
+    switch (emailType) {
+      case EmailType.Contact.toString():
+        emailTypes = [EmailType.Contact];
+        break;
+      case EmailType.Work.toString():
+        emailTypes = [EmailType.Work];
+        break;
+      default:
+        throw new Error("Unexpected email type: " + emailType);
+    }
+    const mutationResult = executeRequestACodeMutation({
+      input: {
+        emailAddress,
+        emailTypes,
+      },
+    }).then((result) => {
+      if (!result.data?.sendUserEmailsVerification?.id) {
+        throw new Error("Send email error");
+      }
+    });
+
+    return mutationResult
+      .then(() => {
         setCanRequestCode(false);
         setShowVerificationInput(true); // show the verification code input after email is sent
       })
@@ -155,17 +189,24 @@ export const EmailVerificationDialog = ({
       });
   };
 
-  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
-    executeVerifyUserEmailMutation({
-      emailType,
-      code: data.verificationCode,
-    })
-      .then((result) => {
-        if (!result.data?.verifyUserEmail?.id) {
-          throw new Error("Verify code error");
-        }
+  const submitHandlerSubmitACode: SubmitHandler<SubmitACodeFormValues> = ({
+    verificationCode,
+  }): Promise<void> => {
+    const mutationResult = executeSubmitACodeMutation({
+      code: verificationCode,
+    }).then((result) => {
+      if (!result.data?.verifyUserEmails?.id) {
+        throw new Error("Verify code error");
+      }
+    });
+
+    return mutationResult
+      .then(() => {
+        // close the dialog
+        setOpen(false);
+
+        //fire event to parent
         onVerificationSuccess();
-        onCancel();
       })
       .catch(() => {
         toast.error(
@@ -197,7 +238,9 @@ export const EmailVerificationDialog = ({
                     type="button"
                     mode="text"
                     color="black"
-                    onClick={submitHandlerRequestACode}
+                    onClick={requestACodeFormMethods.handleSubmit(
+                      submitHandlerRequestACode,
+                    )}
                     className="font-bold"
                   >
                     {intl.formatMessage({
@@ -236,7 +279,7 @@ export const EmailVerificationDialog = ({
         )}
       </Dialog.Trigger>
       <Dialog.Content hasSubtitle>
-        <Dialog.Header subtitle={getSubtitle(emailType, intl)}>
+        <Dialog.Header subtitle={getSubtitle(dialogEmailType, intl)}>
           {
             <h2 className="text-lg font-bold">
               {intl.formatMessage({
@@ -249,15 +292,19 @@ export const EmailVerificationDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <div className="flex flex-col gap-6">
-            <p>{getDescription(emailType, intl)}</p>
-            <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(submitHandlerRequestACode)}>
+            <p>{getDescription(dialogEmailType, intl)}</p>
+            <FormProvider {...requestACodeFormMethods}>
+              <form
+                onSubmit={requestACodeFormMethods.handleSubmit(
+                  submitHandlerRequestACode,
+                )}
+              >
                 <div className="flex gap-2">
                   <Input
                     id="emailAddress"
                     name="emailAddress"
                     type="text"
-                    label={getLabel(emailType, intl)}
+                    label={getLabel(dialogEmailType, intl)}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -274,54 +321,60 @@ export const EmailVerificationDialog = ({
                 </div>
               </form>
             </FormProvider>
-            {showVerificationInput && (
-              <div className="flex gap-2">
-                <Input
-                  id="verificationCode"
-                  name="verificationCode"
-                  type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Verification code",
-                    id: "T+ypau",
-                    description: "label for verification code input",
-                  })}
-                />
-              </div>
-            )}
-            <Dialog.Footer>
-              {canRequestCode ? (
-                <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
-                  {intl.formatMessage({
-                    defaultMessage: "Didn’t receive a code?",
-                    id: "MvD/iS",
-                    description: "intro to request a new code",
-                  })}
-                  <Button
-                    type="button"
-                    mode="text"
-                    color="black"
-                    onClick={submitHandlerRequestACode}
-                    className="font-bold"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Send another one.",
-                      id: "hx8mTr",
-                      description: "button to request a new code",
+            <FormProvider {...submitACodeFormMethods}>
+              <form
+                onSubmit={submitACodeFormMethods.handleSubmit(
+                  submitHandlerSubmitACode,
+                )}
+              >
+                {showVerificationInput && (
+                  <div className="flex gap-2">
+                    <Input
+                      id="verificationCode"
+                      name="verificationCode"
+                      type="text"
+                      label={intl.formatMessage({
+                        defaultMessage: "Verification code",
+                        id: "T+ypau",
+                        description: "label for verification code input",
+                      })}
+                    />
+                  </div>
+                )}
+                <Dialog.Footer>
+                  {canRequestCode ? (
+                    <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
+                      {intl.formatMessage({
+                        defaultMessage: "Didn’t receive a code?",
+                        id: "MvD/iS",
+                        description: "intro to request a new code",
+                      })}
+                      <Submit mode="solid" color="black" className="font-bold">
+                        {intl.formatMessage({
+                          defaultMessage: "Send another one.",
+                          id: "hx8mTr",
+                          description: "button to request a new code",
+                        })}
+                      </Submit>
+                    </div>
+                  ) : null}
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Save and add email",
+                      id: "exfH1c",
+                      description: "Button to save and add email",
                     })}
+                  />
+                  <Button
+                    color="warning"
+                    mode="inline"
+                    onClick={handleCancelClick}
+                  >
+                    {intl.formatMessage(commonMessages.cancel)}
                   </Button>
-                </div>
-              ) : null}
-              {/* <Submit
-                text={intl.formatMessage({
-                  defaultMessage: "Save and add email",
-                  id: "exfH1c",
-                  description: "Button to save and add email",
-                })}
-              /> */}
-              <Button color="warning" mode="inline" onClick={handleCancelClick}>
-                {intl.formatMessage(commonMessages.cancel)}
-              </Button>
-            </Dialog.Footer>
+                </Dialog.Footer>
+              </form>
+            </FormProvider>
           </div>
         </Dialog.Body>
       </Dialog.Content>

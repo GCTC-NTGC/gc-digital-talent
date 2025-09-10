@@ -30,6 +30,8 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
   query AccountSettings {
     me {
       id
+      email
+      workEmail
       enabledEmailNotifications
       enabledInAppNotifications
     }
@@ -150,6 +152,7 @@ const AccountSettingsPage = () => {
                         <EmailVerificationDialog
                           defaultOpen={true}
                           emailType={EmailType.Contact}
+                          emailAddress={data.me.email}
                           onCancel={function (): void {
                             toast.info(
                               "EmailVerificationDialog contact onCancel",
@@ -174,6 +177,7 @@ const AccountSettingsPage = () => {
                         <EmailVerificationDialog
                           defaultOpen={false}
                           emailType={EmailType.Work}
+                          emailAddress={data.me.workEmail}
                           onCancel={function (): void {
                             toast.info("EmailVerificationDialog work onCancel");
                           }}
