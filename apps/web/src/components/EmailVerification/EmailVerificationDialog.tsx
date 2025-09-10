@@ -8,6 +8,7 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 const EmailVerificationRequestACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationRequestACode(
@@ -28,7 +29,7 @@ const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
 `);
 
 const getDescription = (
-  emailType: NonNullable<EmailVerificationProps["emailType"]>,
+  emailType: EmailVerificationProps["emailType"],
   intl: IntlShape,
 ) => {
   switch (emailType) {
@@ -51,7 +52,7 @@ const getDescription = (
 };
 
 const getLabel = (
-  emailType: NonNullable<EmailVerificationProps["emailType"]>,
+  emailType: EmailVerificationProps["emailType"],
   intl: IntlShape,
 ) => {
   switch (emailType) {
@@ -64,7 +65,7 @@ const getLabel = (
 };
 
 const getSubtitle = (
-  emailType: NonNullable<EmailVerificationProps["emailType"]>,
+  emailType: EmailVerificationProps["emailType"],
   intl: IntlShape,
 ) => {
   switch (emailType) {
@@ -155,12 +156,17 @@ export const EmailVerificationDialog = ({
     emailType,
   }): Promise<void> => {
     if (!canRequestCode) {
-      return Promise.resolve();
+      throw new Error("Can't request a code");
     }
     let emailTypes: EmailType[];
     switch (emailType) {
       case EmailType.Contact.toString():
-        emailTypes = [EmailType.Contact];
+        if (workEmailDomainRegex.test(emailAddress)) {
+          // Appears to be a valid work email address.  We'll update both at the same time.
+          emailTypes = [EmailType.Contact, EmailType.Work];
+        } else {
+          emailTypes = [EmailType.Contact];
+        }
         break;
       case EmailType.Work.toString():
         emailTypes = [EmailType.Work];
