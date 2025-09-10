@@ -39,11 +39,15 @@ const NotificationCount_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DialogPortalWithPresence = ({
-  executeQuery,
-}: {
+interface DialogPortalWithPresenceProps {
+  onClose: () => void;
   executeQuery: UseQueryExecute;
-}) => {
+}
+
+const DialogPortalWithPresence = ({
+  onClose,
+  executeQuery,
+}: DialogPortalWithPresenceProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [isPresent] = usePresence();
@@ -68,6 +72,11 @@ const DialogPortalWithPresence = ({
     if (containerRef?.current) {
       containerRef.current.scrollTop = 0;
     }
+  };
+
+  const handleRead = () => {
+    onClose();
+    executeQuery();
   };
 
   return render ? (
@@ -127,7 +136,7 @@ const DialogPortalWithPresence = ({
               })}
             </DialogPrimitive.Description>
           </div>
-          <NotificationList live inDialog limit={30} onRead={executeQuery} />
+          <NotificationList live inDialog limit={30} onRead={handleRead} />
           <p className="m-6">
             <DialogPrimitive.Close asChild>
               <Link href={paths.notifications()} mode="solid" color="primary">
@@ -248,7 +257,12 @@ const NotificationDialog = ({
       )}
 
       <AnimatePresence initial={false}>
-        {open && <DialogPortalWithPresence executeQuery={executeQuery} />}
+        {open && (
+          <DialogPortalWithPresence
+            executeQuery={executeQuery}
+            onClose={() => onOpenChange?.(false)}
+          />
+        )}
       </AnimatePresence>
     </Dialog.Root>
   );
