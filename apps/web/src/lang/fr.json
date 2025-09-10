@@ -595,6 +595,10 @@
     "defaultMessage": "Candidats du bassin",
     "description": "Title for pool candidates"
   },
+  "0VMNWQ": {
+    "defaultMessage": "Analyste des données",
+    "description": "Heading for the data analyst role"
+  },
   "0Wx0kW": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de Talents numériques du GC. À partir d’ici, il est possible de recruter et gérer des talents, trouver des ressources et ajuster les paramètres de la plateforme.",
     "description": "Subtitle for the admin dashboard page"
@@ -911,6 +915,10 @@
     "defaultMessage": "Veuillez sélectionner les volets de travail que vous envisageriez pour un emploi ou une formation.",
     "description": "Introduction for a work stream referral preferences input"
   },
+  "1wRiVj": {
+    "defaultMessage": "Candidatures internes",
+    "description": "Heading for creating profiles if a GC employee"
+  },
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
@@ -1095,6 +1103,10 @@
     "defaultMessage": "Préférences de durée",
     "description": "Label for the employment duration field"
   },
+  "2jApk/": {
+    "defaultMessage": "Consulter les emplois offerts sur Talents numériques du GC",
+    "description": "Link text to browse jobs on GC Digital Talent"
+  },
   "2jFKrM": {
     "defaultMessage": "Modifier {label}",
     "description": "Label for link to edit a specific item in a table"
@@ -1146,6 +1158,10 @@
   "2xBxZ9": {
     "defaultMessage": "Le code saisi est incorrect.",
     "description": "Title for error message when the code is not valid."
+  },
+  "2xDnV4": {
+    "defaultMessage": "Dans ce poste, vous participez à la création d’ontologies et de graphes de connaissances, ce qui favorise la transmission et la récupération efficaces de l’information dans toute l’organisation. Vous excellez en communication et vous contribuez à la diffusion des pratiques exemplaires.",
+    "description": "Description of the information governance specialist role"
   },
   "2yvjfA": {
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
@@ -1218,6 +1234,10 @@
   "3FAEil": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
+  },
+  "3GAO9z": {
+    "defaultMessage": "Les postes au sein du Corps d’innovation sont",
+    "description": "Heading for roles within innovation corps"
   },
   "3GLqD1": {
     "defaultMessage": "Fermer le processus immédiatement",
@@ -1446,6 +1466,10 @@
   "4LVc9T": {
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
     "description": "Aria text for icon indicating a skill to assessment step connection."
+  },
+  "4MAklr": {
+    "defaultMessage": "intégration de systèmes",
+    "description": "The cloud computing skill"
   },
   "4NtC0R": {
     "defaultMessage": "La personne candidate n'a ajouté aucun processus hors plateforme.",
@@ -1918,6 +1942,10 @@
   "6UiKYE": {
     "defaultMessage": "Rôles dans la collectivité",
     "description": "Label for the input to select role of a community role"
+  },
+  "6Wl3sQ": {
+    "defaultMessage": "Un poste qui s’accorde avec vos compétences",
+    "description": "Heading for finding a role with DND"
   },
   "6ZwHMj": {
     "defaultMessage": "Bienvenue sur le formulaire de mise en candidature des talents. Ce formulaire vous permet de nommer une candidate ou un candidat pour des occasions d'avancement, de mutation latérale ou de perfectionnement propres à son domaine de travail.",
@@ -2411,6 +2439,10 @@
     "defaultMessage": "Prochaines étapes",
     "description": "Title for what to expect section"
   },
+  "8vwKjc": {
+    "defaultMessage": "informatique en nuage",
+    "description": "The software development skill"
+  },
   "8wU0cq": {
     "defaultMessage": "La formation ne m'intéresse pas",
     "description": "Phrase marking lack of interest in community training opportunities"
@@ -2538,6 +2570,10 @@
   "9QZhR4": {
     "defaultMessage": "Utilisateur",
     "description": "Label for the user select field on community membership form"
+  },
+  "9Qc9PO": {
+    "defaultMessage": "les 25 et 26 septembre 2025",
+    "description": "Date for TechFair"
   },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
@@ -2690,6 +2726,10 @@
   "A/uMD+": {
     "defaultMessage": "est en mesure d’attribuer le rôle de responsable des processus;",
     "description": "Description of the permission to assign users as a process operator"
+  },
+  "A0KjaS": {
+    "defaultMessage": "Candidatures externes",
+    "description": "Heading for creating profiles if not a GC employee"
   },
   "A2stXT": {
     "defaultMessage": "Gérer une question d’ordre général",
@@ -2991,6 +3031,10 @@
     "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre équipe de soutien.",
     "description": "Description for rule pattern on work email field"
   },
+  "BM8p9E": {
+    "defaultMessage": "Communiquer avec l’équipe du Corps d’innovation",
+    "description": "Link text to start an email to the innovation corps"
+  },
   "BNSbyC": {
     "defaultMessage": "Autre possibilité de mutation latérale",
     "description": "Label other lateral move option input on the details step"
@@ -3130,6 +3174,10 @@
   "C7sYnb": {
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettront aux gestionnaires qui embauchent de vous trouver facilement. Cette page donne un aperçu de nos processus de recrutement ouverts. Revenez-y et consultez cette page fréquemment!",
     "description": "Description of how the application process works, paragraph one"
+  },
+  "C8Ozfv": {
+    "defaultMessage": "D’ici les prochains mois, des membres du GSN se trouveront aux salons de l’emploi dans quelques universités et collèges. N’hésitez pas à vous présenter, à leur poser des questions et à discuter avec elles des possibilités de faire carrière au MDN.",
+    "description": "Lead-in text for list of upcoming job fairs"
   },
   "C9jYms": {
     "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidates et candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour une personne qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'elle peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
@@ -3271,6 +3319,10 @@
     "defaultMessage": "Courriel professionnel de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's work email"
   },
+  "CiDOEM": {
+    "defaultMessage": "Consulter les autres emplois offerts au MDN",
+    "description": "Link text to the DND jobs site"
+  },
   "Cn73yN": {
     "defaultMessage": "Sélectionnez les rôles",
     "description": "Placeholder text for role selection input"
@@ -3358,6 +3410,10 @@
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
+  },
+  "D9ZUyu": {
+    "defaultMessage": "Salon de l’emploi et du réseautage (automne) — Université Carleton",
+    "description": "Heading for Carleton networking/career fair"
   },
   "DA7fMg": {
     "defaultMessage": "Identifiant",
@@ -3791,6 +3847,10 @@
     "defaultMessage": "Vous vous êtes déconnecté(e) de la plateforme avec succès",
     "description": "Title for the alert displayed after a user signs out"
   },
+  "F3UR4F": {
+    "defaultMessage": "En apprendre sur le MDN",
+    "description": "Link text to go to more information about DND"
+  },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
@@ -3851,6 +3911,10 @@
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de toute personne candidate qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi sélectionnés",
     "description": "Context for employment equity filter in search form."
   },
+  "FRPkzV": {
+    "defaultMessage": "Coup d’œil aux postes du numérique au MDN",
+    "description": "Heading for digital roles available"
+  },
   "FRcbbi": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label text for not represented community declaration"
@@ -3898,6 +3962,10 @@
   "FcHUIQ": {
     "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par l'autrice ou l'auteur de la mise en candidature.",
     "description": "Statement of confirmation for reference check"
+  },
+  "FclnNa": {
+    "defaultMessage": "Le Corps d’innovation",
+    "description": "Heading for innovation corps"
   },
   "Fe9Cje": {
     "defaultMessage": "IT-01 : Technicien(ne)",
@@ -3950,6 +4018,10 @@
   "FxB6Km": {
     "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
     "description": "Heading for the obtaining security clearance section"
+  },
+  "FxOKfM": {
+    "defaultMessage": "Ottawa, Ontario",
+    "description": "Location name of Ottawa, Ontario"
   },
   "Fxs+ab": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences.",
@@ -4019,6 +4091,10 @@
     "defaultMessage": "Titre de l’évaluation",
     "description": "Label for assessment title input on the assessment details dialog"
   },
+  "GAVpXi": {
+    "defaultMessage": "N’hésitez pas à consulter les plus récents débouchés du GSN dans le numérique et la technologie, allant du niveau d’entrée jusqu’aux postes de direction. Trouvez une équipe, faites une différence et laissez-vous inspirer.",
+    "description": "Description about roles with DSG"
+  },
   "GAYZpV": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an skills match dialog"
@@ -4086,6 +4162,10 @@
   "GTqXN1": {
     "defaultMessage": "constituent une violation de cet avis de quelque autre manière que ce soit",
     "description": "Comments or contributions list item"
+  },
+  "GUAn1O": {
+    "defaultMessage": "Campagne de recrutement au MDN",
+    "description": "Heading for DND recruitment campaign section"
   },
   "GVShpq": {
     "defaultMessage": "Intérêt pour la mobilité",
@@ -4767,6 +4847,10 @@
     "defaultMessage": "Date de modification : {modifiedDate}",
     "description": "Header for the date of the last modification of the site"
   },
+  "Jl+oMW": {
+    "defaultMessage": "cybersécurité",
+    "description": "The cyber security skill"
+  },
   "JlQIBx": {
     "defaultMessage": "Découvrez les cours dirigés par un instructeur ou une instructrice proposés pour améliorer votre expertise en technologie de l’information.",
     "description": "Page subtitle for the instructor led training page"
@@ -5086,6 +5170,10 @@
   "LC1Rsg": {
     "defaultMessage": "<hidden>Candidature pour </hidden>{poolName}",
     "description": "Text before application pool name in application preview list."
+  },
+  "LCLNos": {
+    "defaultMessage": "Salon de recrutement professionnel — Collège Algonquin (site en anglais)",
+    "description": "Heading for Algonquin career fair"
   },
   "LCVNJq": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
@@ -5546,6 +5634,10 @@
   "NIaXPz": {
     "defaultMessage": "Cette page vous permet de gérer tous les modèles d’emploi existants sur la plateforme. À partir de là, vous pouvez créer des ébauches, publier de nouveaux modèles pour le public ou archiver des modèles qui ne devraient plus être disponibles.",
     "description": "Description for the create or view section on the job templates index page"
+  },
+  "NIgwRv": {
+    "defaultMessage": "Spécialiste-conseil en cybersécurité",
+    "description": "Heading for the cyber security advisor role"
   },
   "NJIdH1": {
     "defaultMessage": "Compétences de ce groupe",
@@ -6531,6 +6623,10 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title for group and level on summary of filters section"
   },
+  "RojSQE": {
+    "defaultMessage": "Montréal, Quebec",
+    "description": "Location name of Montreal, Quebec"
+  },
   "Rped43": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Page title for the application success page"
@@ -6711,6 +6807,10 @@
     "defaultMessage": "Prochain type de poste",
     "description": "Title for next role dialog"
   },
+  "SumvTY": {
+    "defaultMessage": "Dans ce poste, vous participez à la création d’ontologies et de graphes de connaissances, ce qui favorise la transmission et la récupération efficaces de l’information dans toute l’organisation. Vous excellez en communication et vous contribuez à la diffusion des pratiques exemplaires.",
+    "description": "Description of the data analyst role"
+  },
   "Swq+OD": {
     "defaultMessage": "Toute durée",
     "description": "Option label for allowing any employment duration"
@@ -6766,6 +6866,10 @@
   "TBsQMo": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
+  },
+  "TC5f9/": {
+    "defaultMessage": "Les gestionnaires responsables de l’embauche vous remarqueront grâce à votre profil. Veuillez y décrire votre cheminement et l’acquisition de vos compétences pour ensuite postuler des emplois au MDN.",
+    "description": "Description of how applications work for non-government employees."
   },
   "TCL3HM": {
     "defaultMessage": "peut trier les mises en candidature.",
@@ -7966,6 +8070,10 @@
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
   },
+  "YtI+mg": {
+    "defaultMessage": "Carrières dans le numérique à la Défense nationale",
+    "description": "Title for the DND digital careers page"
+  },
   "YueN6y": {
     "defaultMessage": "Éliminé(e) selon la demande",
     "description": "Screened out on application option"
@@ -8054,6 +8162,10 @@
     "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
     "description": "Label for annual budget allocation field"
   },
+  "ZJsUbj": {
+    "defaultMessage": "Salon de l’emploi et du réseautage (hiver) — Université Carleton (site en anglais)",
+    "description": "Heading for winter career fair"
+  },
   "ZKss5S": {
     "defaultMessage": "Afin que nous puissions mieux vous appuyer au fil de votre parcours d'embauche d'un apprentis en TI, veuillez nous laisser savoir si vous avez",
     "description": "Paragraph 1 of a manager's email for apprenticeship"
@@ -8113,6 +8225,10 @@
   "ZaCyXP": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition services"
+  },
+  "ZaDwv6": {
+    "defaultMessage": "Développeuse ou développeur Web",
+    "description": "Heading for the web developer role"
   },
   "ZatPPs": {
     "defaultMessage": "Chercher les utilisateurs",
@@ -8177,6 +8293,10 @@
   "Zw4Pdj": {
     "defaultMessage": "{nomineeName} a été nommé(e) pour",
     "description": "Introduction for list of nomination options for form to evaluate a nomination group"
+  },
+  "ZwvEk6": {
+    "defaultMessage": "Les perspectives de débouchés seront vastes, allant des champs de spécialisation en cybersécurité jusqu’au développement Web. Si vous souhaitez progresser dans votre carrière, peut-être qu’un emploi au MDN vous conviendrait parfaitement!",
+    "description": "Paragraph three, describing DND recruitment campaign"
   },
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
@@ -8309,6 +8429,10 @@
   "afkBMh": {
     "defaultMessage": "Erreur dans l'envoi de la nomination d'un talent.",
     "description": "Error message displayed when a talent nomination could not be submitted"
+  },
+  "agbLpJ": {
+    "defaultMessage": "Spécialiste de l’administration des réseaux",
+    "description": "Heading for the network administrator role"
   },
   "agcOO1": {
     "defaultMessage": "Rendre nos produits accessibles et utilisables par tous",
@@ -8449,6 +8573,10 @@
   "bSFeLf": {
     "defaultMessage": "Processus fermé avec succès!",
     "description": "Message displayed to user after pool is closed"
+  },
+  "bTkYfa": {
+    "defaultMessage": "80 612 $ à 102 712 $ · (classification AS ou équivalente)",
+    "description": "Salary range for a innovation corps role"
   },
   "bVQ/rm": {
     "defaultMessage": "Tous les utilisateurs",
@@ -9326,6 +9454,10 @@
     "defaultMessage": "Je connais l'année à laquelle je suis admissible à la retraite.",
     "description": "The eligible retirement year described as known."
   },
+  "f2Jqya": {
+    "defaultMessage": "développement de logiciels",
+    "description": "The network security skill"
+  },
   "f3KZGn": {
     "defaultMessage": "Les cercles de partage, l’accès à un·e conseiller·ère en soutien à la formation en TI et les facilitateurs·trices de réussite pour les apprenti·es sont autant de soutiens supplémentaires. Si les facilitateurs·trices sont avant tout une ressource pour les apprenti·es, ils, elles constituent également un système de soutien pour les gestionnaires et les superviseur·es.",
     "description": "Paragraph 2 of the 'Circle of Support' subsection"
@@ -9817,6 +9949,10 @@
     "defaultMessage": "Veuillez sélectionner au moins une compétence essentielle ou une compétence constituant un atout pour cette méthode d'évaluation.",
     "description": "Error message for when a skill is not selected for assessment"
   },
+  "gy65G/": {
+    "defaultMessage": "Foire de l’emploi — La Cité",
+    "description": "Heading for Foire de l’emploi fair"
+  },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
@@ -10008,6 +10144,10 @@
   "hr8t+y": {
     "defaultMessage": "Outils de recrutement",
     "description": "Title for recruitment tools for a user"
+  },
+  "hrbktt": {
+    "defaultMessage": "85 854 $ à 105 080 $",
+    "description": "Salary range for a digital role"
   },
   "ht9CfC": {
     "defaultMessage": "Collectivités",
@@ -10233,6 +10373,10 @@
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
   },
+  "ivG/Sh": {
+    "defaultMessage": "Consulter les emplois offerts",
+    "description": "Link text to the page to find jobs"
+  },
   "ixxGIm": {
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
@@ -10360,6 +10504,10 @@
   "jQ+wCE": {
     "defaultMessage": "Retirer une compétence",
     "description": "Label to remove the skill"
+  },
+  "jQXsnP": {
+    "defaultMessage": "Salon de carrière STIM — Université d’Ottawa",
+    "description": "Heading for STEM career fair"
   },
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
@@ -10645,6 +10793,10 @@
     "defaultMessage": "Qualifié(e) dans le processus",
     "description": "Status label for a qualified application"
   },
+  "kq5ByQ": {
+    "defaultMessage": "Si vous êtes au service du gouvernement du Canada et en quête d’un détachement au GSN, Talents numériques du GC peut vous permettre d’atteindre vos objectifs professionnels. Veuillez créer votre compte, ajouter la Collectivité numérique à votre profil, et manifester votre intérêt envers les mutations latérales comme étapes préalables à l’amorce d’un poste valorisant au MDN.",
+    "description": "Description of how applications work for government employees."
+  },
   "kqOTFT": {
     "defaultMessage": "Niveau de compréhension",
     "description": "Label displayed on the language information form reading comprehension field."
@@ -10684,6 +10836,10 @@
   "kyOGve": {
     "defaultMessage": "Note spéciale relative aux compétences comportementales essentielles",
     "description": "The essential behavioural skills special note for a job poster template"
+  },
+  "kzUjOq": {
+    "defaultMessage": "Le GSN recherche des spécialistes du numérique aux compétences très poussées en",
+    "description": "Lead-in text for specific skills DSG is looking for"
   },
   "kzd/yK": {
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
@@ -10732,6 +10888,10 @@
   "lAuZsE": {
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for gov of canada email field"
+  },
+  "lBX7NE": {
+    "defaultMessage": "Salon de l’emploi et du réseautage pour femmes en STIM — Université Carleton (site en anglais)",
+    "description": "Heading for Women in STEM career fair"
   },
   "lDnHjr": {
     "defaultMessage": "Vous cherchez à embaucher un·e diplômé·e du programme ou des talents autochtones pour des postes plus élevés dans le domaine des TI? Contactez notre équipe pour discuter des possibilités de placement des diplômés et des références de talents avancés.",
@@ -10853,6 +11013,10 @@
     "defaultMessage": "Ajouter une collectivité",
     "description": "Title for the create community interest page"
   },
+  "m/9bKR": {
+    "defaultMessage": "La Défense nationale (MDN) se prépare à croître et à s’adapter pour relever les défis posés dans un contexte international complexe. De son côté, le gouvernement du Canada a annoncé qu’il projette d’augmenter et d’accélérer son <strong>investissement en défense</strong>, ce qui renforcera ses engagements qui touchent <strong>la souveraineté, la sécurité et la prospérité du pays</strong>.",
+    "description": "Paragraph one, describing DND recruitment campaign"
+  },
   "m02tm1": {
     "defaultMessage": "Bien que les mots-clés soient facultatifs, ils peuvent accroître considérablement la visibilité d’un modèle. Envisagez d’utiliser des termes courants de l’industrie ou des titres d’emploi semblables.",
     "description": "Description for the keywords inputs"
@@ -10888,6 +11052,10 @@
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
+  },
+  "mB9+je": {
+    "defaultMessage": "Pour appuyer cette opération, le Groupe des services numériques (GSN) du MDN intensifie le recrutement afin de disposer des talents nécessaires à l’exécution de la mission du MDN. Le GSN dirige le MDN et les Forces armées canadiennes dans la transformation numérique. D’ici les prochaines années, le GSN cherchera à embaucher davantage de <strong>spécialistes du civil</strong> pour consolider les assises numériques du MDN et des Forces armées canadiennes.",
+    "description": "Paragraph two, describing DND recruitment campaign"
   },
   "mBaKVv": {
     "defaultMessage": "Informations sur les volets de travail",
@@ -11213,6 +11381,10 @@
     "defaultMessage": "Voulez-vous vraiment supprimer la {communityName} de votre profil?",
     "description": "Title for the deletion confirmation dialog of a community interest"
   },
+  "nMipQw": {
+    "defaultMessage": "Découvrez les débouchés du numérique dans le Groupe des services numériques à la Défense nationale et apportez votre savoir-faire aux projets utiles à la sécurité nationale.",
+    "description": "Description for digital careers at DND"
+  },
   "nPPUMW": {
     "defaultMessage": "Retourner au traitement des détails",
     "description": "Link text to go back to the process details page"
@@ -11284,6 +11456,10 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
+  },
+  "nhWRUg": {
+    "defaultMessage": "Spécialiste de la gouvernance de l’information",
+    "description": "Heading for the information governance specialist role"
   },
   "nhqlFu": {
     "defaultMessage": "Programmes de perfectionnement pertinents",
@@ -11829,6 +12005,10 @@
     "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
     "description": "Button text to hide all advanced filters"
   },
+  "q5nhMd": {
+    "defaultMessage": "Expo carrières — Université d’Ottawa",
+    "description": "Heading for TechFair job fair"
+  },
   "q70oUn": {
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
@@ -11888,6 +12068,10 @@
   "qOi2J0": {
     "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
     "description": "Second language level (reading, writing, oral interaction) label"
+  },
+  "qQ9ziR": {
+    "defaultMessage": "Les personnes choisies devront travailler sur place dans la région de la capitale nationale.",
+    "description": "Note for innovation corps candidates about location"
   },
   "qQYO+V": {
     "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
@@ -11973,6 +12157,10 @@
     "defaultMessage": "Le ministère a été archivé",
     "description": "Alert, department archived successfully"
   },
+  "qytMp/": {
+    "defaultMessage": "Salon de l’emploi de la Semaine de la carrière — Université d’Ottawa",
+    "description": "Heading for career week job fair"
+  },
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
     "description": "Breadcrumb title for the create community page link."
@@ -12048,6 +12236,10 @@
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
+  },
+  "rOIBl0": {
+    "defaultMessage": "Le Corps d’innovation vous attend à bras ouverts! Le GSN recrute les personnes de talent très recherchées qui savent s’adapter et se montrent très compétentes dans le numérique au gouvernement. Pendant un an, les personnes retenues développeront leur réseau et diversifieront leur expérience au moyen d’affectations temporaires au MDN. Elles pourront trouver le poste rêvé au MDN ou acquérir des compétences utiles en vue de leur prochaine offre d’emploi.",
+    "description": "Paragraph describing the innovation corps"
   },
   "rOMDmX": {
     "defaultMessage": "Confirmez-vous vouloir supprimer les renseignements sur les processus hors plateforme stockés dans l'ancien format?",
@@ -12157,6 +12349,10 @@
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
   },
+  "ryDGWN": {
+    "defaultMessage": "Dans ce poste, vous devez protéger les systèmes et les réseaux informatiques contre les cybermenaces. Vous aurez peut-être aussi à surveiller les réseaux, à cerner les vulnérabilités, à instaurer des mesures de sécurité, à donner suite aux incidents et à formuler des politiques en matière de sécurité.",
+    "description": "Description of the cyber security advisor role"
+  },
   "ryeKXV": {
     "defaultMessage": "Cherchez les rôles dans des collectivités",
     "description": "Label for the community roles table search input"
@@ -12176,6 +12372,10 @@
   "s/BI/4": {
     "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux ont été nominés aux tables rondes en gestion des talents; EXposition ciblant les cadres supérieurs et Prolonger EXposition se concentrant sur les candidats de groupes et niveaux EX équivalents et EX moins un.  Les nominations sont compilées dans la base de données en gestion des talents numériques. Cette base de données constitue la source principale de données lorsque les organisations veulent d'obtenir des références tout au long de l'année.",
     "description": "Description of identifying digital talents"
+  },
+  "s0bXMy": {
+    "defaultMessage": "TechFair — Université McGill",
+    "description": "Heading for TechFair job fair"
   },
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
@@ -12428,6 +12628,10 @@
   "tPCmUl": {
     "defaultMessage": "Date de clôture",
     "description": "Header for Closing date"
+  },
+  "tQxwgs": {
+    "defaultMessage": "Connaître l’infrastructure et les protocoles informatiques militaires constitue un atout, sans toutefois être obligatoire.",
+    "description": "Note about military IT being an asset"
   },
   "tR+R11": {
     "defaultMessage": "À quoi s’attendre",
@@ -13093,6 +13297,10 @@
     "defaultMessage": "Télécharger le profil sans les coordonnées",
     "description": "Button label for downloading anonymized user profiles"
   },
+  "waEO78": {
+    "defaultMessage": "Présence du GSN aux salons de l’emploi pour les personnes aux études ou récemment diplômées",
+    "description": "Heading for DSG job fairs section"
+  },
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
     "description": "First paragraph on success step of a talent nomination"
@@ -13276,6 +13484,10 @@
   "xcsYTa": {
     "defaultMessage": "Échec de l’enregistrement de l’évaluation",
     "description": "Message displayed to user if assessment result fails to get created/updated."
+  },
+  "xdV1ZI": {
+    "defaultMessage": "sécurité des réseaux",
+    "description": "The systems integration skill"
   },
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
@@ -13533,6 +13745,10 @@
     "defaultMessage": "Conseiller(ère) principal(e) E C 7",
     "description": "EC-07 classification aria label including titles"
   },
+  "ya6mF1": {
+    "defaultMessage": "Consulter les emplois offerts sur Emplois GC",
+    "description": "Link text to the GC Jobs site"
+  },
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
     "description": "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -13592,6 +13808,10 @@
   "ysKXVP": {
     "defaultMessage": "Groupe de publication",
     "description": "Label for a process' publishing group"
+  },
+  "yszH29": {
+    "defaultMessage": "analytique des données",
+    "description": "The data analytics skill"
   },
   "ytTGvb": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un groupe de compétences. Elle devrait être fondée sur le nom anglais du groupe de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
@@ -13729,6 +13949,10 @@
     "defaultMessage": "Zone de sélection",
     "description": "Label for a process' area of selection"
   },
+  "zOw6B0": {
+    "defaultMessage": "Dans ce poste, vital pour gérer et maintenir le rendement, la sécurité et la fiabilité de l’infrastructure des réseaux, vous administrez les réseaux et vous collaborez avec les équipes afin de garantir le fonctionnement fluide des systèmes numériques, ce qui contribue à la prestation des services sécurisés et évolutifs de la TI intégrée.",
+    "description": "Description of the network administrator role"
+  },
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
     "description": "Label for the dialog trigger to remove a user from a process/pool"
@@ -13776,6 +14000,10 @@
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
     "description": "Lead text for the list of roles the user will lose"
+  },
+  "zkoW6g": {
+    "defaultMessage": "Dans ce poste axé sur l’analyse, vous faites la collecte et l’étude des critères, puis vous formulez des observations critiques pour optimiser les projets de développement Web. Votre savoir-faire contribue à l’exécution d’applications Web de grande qualité qui répondent aux normes de sécurité et aux attentes d’utilisation les plus élevées.",
+    "description": "Description of the web developer role"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
