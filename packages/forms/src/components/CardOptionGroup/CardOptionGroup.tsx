@@ -51,22 +51,23 @@ export interface CardOption {
   selectedIconColor: NonNullable<CardOptionVariants["selectedIconColor"]>;
 }
 
-export type CardOptionGroupProps = Omit<CommonInputProps, "id" | "label"> &
-  HTMLFieldsetProps & {
-    /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
-    idPrefix: string;
-    /** Holds text for the legend associated with the CardOptionGroup fieldset. */
-    legend: ReactNode;
-    /** A list of value and label representing the CardOptions shown.
-     * The form will represent the data at `name` as a string containing the chosen value. */
-    items: CardOption[];
-    /** If set to the value of an input element that element will start selected */
-    defaultSelected?: string;
-    /** If true, all input elements in this fieldset will be disabled. */
-    disabled?: boolean;
-    /** ID of a field description (help text) */
-    describedBy?: string;
-  };
+export interface CardOptionGroupProps
+  extends Omit<CommonInputProps, "id" | "label">,
+    Omit<HTMLFieldsetProps, "name"> {
+  /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
+  idPrefix: string;
+  /** Holds text for the legend associated with the CardOptionGroup fieldset. */
+  legend: ReactNode;
+  /** A list of value and label representing the CardOptions shown.
+   * The form will represent the data at `name` as a string containing the chosen value. */
+  items: CardOption[];
+  /** If set to the value of an input element that element will start selected */
+  defaultSelected?: string;
+  /** If true, all input elements in this fieldset will be disabled. */
+  disabled?: boolean;
+  /** ID of a field description (help text) */
+  describedBy?: string;
+}
 
 /**
  * Must be part of a form controlled by react-hook-form.
