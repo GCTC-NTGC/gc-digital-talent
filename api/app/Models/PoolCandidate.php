@@ -15,6 +15,7 @@ use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Observers\PoolCandidateObserver;
+use App\Traits\EnrichedNotifiable;
 use App\ValueObjects\ProfileSnapshot;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -69,6 +70,7 @@ class PoolCandidate extends Model
     use HasFactory;
     use LogsActivity;
     use SoftDeletes;
+    use EnrichedNotifiable;
 
     protected $keyType = 'string';
 
