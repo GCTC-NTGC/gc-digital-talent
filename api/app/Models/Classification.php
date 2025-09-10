@@ -59,6 +59,20 @@ class Classification extends Model
         );
     }
 
+    public function getDefinition(): array
+    {
+        $locale = app()->getLocale();
+
+        return [
+            'term' => $this->formattedGroupAndLevel,
+            'definition' => [
+                'en' => $this->name['en'],
+                'fr' => $this->name['fr'],
+                'localized' => $this->name[$locale] ?? null,
+            ],
+        ];
+    }
+
     /**
      * Used to limit the results for the search page input
      */
