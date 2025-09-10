@@ -50,7 +50,7 @@ class ApplicationReceived extends Notification implements CanBeSentViaGcNotifyEm
                     'applicant name' => $this->applicantName,
                     'opportunity title' => $this->poolNameEn,
                     'application ID number' => $this->poolCandidateId,
-                    'applicant dashboard link' => config('app.url').'/en/applicant'
+                    'applicant dashboard link' => config('app.url').'/en/applicant',
                 ]
             );
         } else {
@@ -62,7 +62,7 @@ class ApplicationReceived extends Notification implements CanBeSentViaGcNotifyEm
                     'applicant name' => $this->applicantName,
                     'opportunity title' => $this->poolNameFr,
                     'application ID number' => $this->poolCandidateId,
-                    'applicant dashboard link' => config('app.url').'/en/applicant'
+                    'applicant dashboard link' => config('app.url').'/en/applicant',
                 ]
             );
         }

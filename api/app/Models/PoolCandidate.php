@@ -67,10 +67,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class PoolCandidate extends Model
 {
+    use EnrichedNotifiable;
     use HasFactory;
     use LogsActivity;
     use SoftDeletes;
-    use EnrichedNotifiable;
 
     protected $keyType = 'string';
 
