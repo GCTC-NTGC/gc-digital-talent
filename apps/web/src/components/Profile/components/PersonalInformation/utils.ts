@@ -7,7 +7,7 @@ import {
   CitizenshipStatus,
   UpdateUserAsUserInput,
   User,
-  ProfilePersonlaInformationFragment as UserProfileFragmentType,
+  ProfilePersonalInformationFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";

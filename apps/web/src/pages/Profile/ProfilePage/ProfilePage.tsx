@@ -42,7 +42,7 @@ const subTitle = defineMessage(pageMessages.subTitle);
 
 export const UserProfile_Fragment = graphql(/** GraphQL */ `
   fragment UserProfile on User {
-    ...ProfilePersonlaInformation
+    ...ProfilePersonalInformation
     ...ProfileWorkPreferences
     ...ProfileDiversityEquityInclusion
     ...ProfileGovernmentInformation

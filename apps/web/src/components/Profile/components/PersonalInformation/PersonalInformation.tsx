@@ -40,7 +40,7 @@ const PersonalInformationForm_Query = graphql(/* GraphQL */ `
 `);
 
 const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
-  fragment ProfilePersonlaInformation on User {
+  fragment ProfilePersonalInformation on User {
     id
     firstName
     lastName
