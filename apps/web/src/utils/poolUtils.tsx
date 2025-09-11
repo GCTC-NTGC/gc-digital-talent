@@ -137,7 +137,7 @@ export const formattedPoolPosterTitle = ({
       <>
         {title ?? ""} <span>{UNICODE_CHAR.LEFT_PAREN}</span>
         {wrapAbbr(groupAndLevel, intl)}
-        {streamString ?? <span className="m1-1">{streamString}</span>}
+        {streamString && ` ${streamString}`}
         <span>{UNICODE_CHAR.RIGHT_PAREN}</span>
       </>
     ),
