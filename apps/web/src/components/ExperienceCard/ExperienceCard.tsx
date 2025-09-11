@@ -581,7 +581,6 @@ const ExperienceCard = ({
               {experience.details ??
                 intl.formatMessage(commonMessages.notAvailable)}
             </ContentSection>
-            <Separator space="sm" />
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
