@@ -55,7 +55,7 @@ const AccordionSubtitle = ({
   skillLevelItem,
   screeningTime,
 }: AccordionSubtitleProps) => (
-  <span className="mt-3 flex flex-col items-start gap-3 text-sm text-gray-600 xs:flex-row xs:items-center dark:text-gray-200">
+  <span className="flex flex-col items-start gap-3 text-sm text-gray-600 xs:flex-row xs:items-center dark:text-gray-200">
     {isSkillLevelAvailable && (
       <>
         <span>{skillLevelItem}</span>
