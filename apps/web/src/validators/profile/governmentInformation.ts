@@ -1,15 +1,17 @@
 import { empty } from "@gc-digital-talent/helpers";
-import { User } from "@gc-digital-talent/graphql";
-
-export type PartialUser = Pick<
+import {
+  LocalizedGovEmployeeType,
+  Maybe,
   User,
-  | "isGovEmployee"
-  | "govEmployeeType"
-  | "department"
-  | "currentClassification"
-  | "hasPriorityEntitlement"
-  | "priorityNumber"
->;
+} from "@gc-digital-talent/graphql";
+
+export interface PartialUser
+  extends Pick<
+    User,
+    "isGovEmployee" | "hasPriorityEntitlement" | "priorityNumber"
+  > {
+  govEmployeeType?: Maybe<Pick<LocalizedGovEmployeeType, "value">>;
+}
 
 export function hasAllEmptyFields({
   isGovEmployee,

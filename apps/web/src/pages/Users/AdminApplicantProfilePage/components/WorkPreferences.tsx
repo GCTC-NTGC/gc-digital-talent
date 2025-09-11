@@ -8,27 +8,7 @@ import { getLabels } from "~/components/Profile/components/WorkPreferences/utils
 
 const WorkPreferences_Fragment = graphql(/** GraphQL */ `
   fragment AdminWorkPreferences on User {
-    acceptedOperationalRequirements {
-      value
-      label {
-        localized
-      }
-    }
-    positionDuration
-    locationPreferences {
-      value
-      label {
-        localized
-      }
-    }
-    locationExemptions
-    currentCity
-    currentProvince {
-      value
-      label {
-        localized
-      }
-    }
+    ...WorkPreferencesDisplay
   }
 `);
 
@@ -45,7 +25,7 @@ const WorkPreferences = ({ query }: WorkPreferencesProps) => {
 
   return (
     <TableOfContents.Section id={WORK_PREFERENCES_ID}>
-      <Display user={user} labels={labels} />
+      <Display query={user} labels={labels} />
     </TableOfContents.Section>
   );
 };

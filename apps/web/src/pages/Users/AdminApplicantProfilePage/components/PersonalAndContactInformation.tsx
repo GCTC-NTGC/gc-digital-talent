@@ -5,41 +5,7 @@ import Display from "~/components/Profile/components/PersonalInformation/Display
 
 const PersonalAndContactInformation_Fragment = graphql(/** GraphQL */ `
   fragment PersonalAndContactInformation on User {
-    firstName
-    lastName
-    email
-    isEmailVerified
-    telephone
-    preferredLang {
-      value
-      label {
-        localized
-      }
-    }
-    preferredLanguageForInterview {
-      value
-      label {
-        localized
-      }
-    }
-    preferredLanguageForExam {
-      value
-      label {
-        localized
-      }
-    }
-    citizenship {
-      value
-      label {
-        localized
-      }
-    }
-    armedForcesStatus {
-      value
-      label {
-        localized
-      }
-    }
+    ...PersonalInformationDisplay
   }
 `);
 
@@ -56,7 +22,7 @@ const PersonalAndContactInformation = ({
 
   return (
     <TableOfContents.Section id={PERSONAL_CONTACT_INFO_ID}>
-      <Display user={user} showEmailVerification readOnly />
+      <Display query={user} showEmailVerification readOnly />
     </TableOfContents.Section>
   );
 };

@@ -5,40 +5,7 @@ import Display from "~/components/Profile/components/LanguageProfile/Display";
 
 const LanguageProfile_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfile on User {
-    lookingForEnglish
-    lookingForFrench
-    lookingForBilingual
-    firstOfficialLanguage {
-      value
-      label {
-        localized
-      }
-    }
-    secondLanguageExamCompleted
-    estimatedLanguageAbility {
-      value
-      label {
-        localized
-      }
-    }
-    writtenLevel {
-      value
-      label {
-        localized
-      }
-    }
-    comprehensionLevel {
-      value
-      label {
-        localized
-      }
-    }
-    verbalLevel {
-      value
-      label {
-        localized
-      }
-    }
+    ...LanguageProfileDisplay
   }
 `);
 
@@ -53,7 +20,7 @@ const LanguageProfile = ({ query }: LanguageProfileProps) => {
 
   return (
     <TableOfContents.Section id={LANGUAGE_PROFILE_ID}>
-      <Display user={user} />
+      <Display query={user} />
     </TableOfContents.Section>
   );
 };

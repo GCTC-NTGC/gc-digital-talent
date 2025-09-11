@@ -6,23 +6,40 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  IndigenousCommunity,
+} from "@gc-digital-talent/graphql";
 
 import CommunityIcon from "./CommunityIcon";
 
-type PartialUser = Pick<
-  User,
-  "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
->;
+export const DiversityEquityInclusionDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment DiversityEquityInclusionDisplay on User {
+    id
+    hasDisability
+    isWoman
+    isVisibleMinority
+    indigenousDeclarationSignature
+    indigenousCommunities {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface DisplayProps {
-  user: PartialUser;
+  query: FragmentType<typeof DiversityEquityInclusionDisplay_Fragment>;
 }
 
-const Display = ({
-  user: { isWoman, hasDisability, isVisibleMinority, indigenousCommunities },
-}: DisplayProps) => {
+const Display = ({ query }: DisplayProps) => {
   const intl = useIntl();
+  const user = getFragment(DiversityEquityInclusionDisplay_Fragment, query);
+  const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =
+    user;
   const nonLegacyIndigenousCommunities =
     unpackMaybes(indigenousCommunities).filter(
       (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
