@@ -153,11 +153,6 @@ const AccountSettingsPage = () => {
                           defaultOpen={true}
                           emailType={EmailType.Contact}
                           emailAddress={data.me.email}
-                          onCancel={function (): void {
-                            toast.info(
-                              "EmailVerificationDialog contact onCancel",
-                            );
-                          }}
                           onVerificationSuccess={function (): void {
                             toast.info(
                               "EmailVerificationDialog contact onVerificationSuccess",
@@ -178,9 +173,6 @@ const AccountSettingsPage = () => {
                           defaultOpen={false}
                           emailType={EmailType.Work}
                           emailAddress={data.me.workEmail}
-                          onCancel={function (): void {
-                            toast.info("EmailVerificationDialog work onCancel");
-                          }}
                           onVerificationSuccess={function (): void {
                             toast.info(
                               "EmailVerificationDialog work onVerificationSuccess",

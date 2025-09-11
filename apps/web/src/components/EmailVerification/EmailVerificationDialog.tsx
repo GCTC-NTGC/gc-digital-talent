@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
@@ -99,7 +99,6 @@ interface SubmitACodeFormValues {
 }
 
 export interface EmailVerificationProps {
-  onCancel: () => void;
   emailType: EmailType;
   emailAddress?: string | null;
   onVerificationSuccess: () => void;
@@ -108,7 +107,6 @@ export interface EmailVerificationProps {
 }
 
 export const EmailVerificationDialog = ({
-  onCancel,
   emailType: dialogEmailType,
   emailAddress: initialEmailAddress,
   onVerificationSuccess,
@@ -120,7 +118,12 @@ export const EmailVerificationDialog = ({
     EmailVerificationRequestACode_Mutation,
   );
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
-  const [showVerificationInput, setShowVerificationInput] = useState(false);
+  const [showVerificationInput, setShowVerificationInput] = useState(false); // show the bottom half of the form where you can submit the code
+  const [showEmailSentMessage, setShowEmailSentMessage] = useState(false); // a confirmation message that the verification email was sent
+  const [
+    showContactEmailIsWorkEmailMessage,
+    setContactEmailIsWorkEmailMessage,
+  ] = useState(false); // a message informing the user that the contact email will be used as a work email
 
   const [, executeSubmitACodeMutation] = useMutation(
     EmailVerificationSubmitACode_Mutation,
@@ -135,17 +138,18 @@ export const EmailVerificationDialog = ({
 
   const [canRequestCode, setCanRequestCode] = useState<boolean>(true);
 
-  const resetAndCloseDialog = () => {
+  const resetDialog = () => {
+    setShowEmailSentMessage(false);
+    setContactEmailIsWorkEmailMessage(false);
     requestACodeFormMethods.reset();
     submitACodeFormMethods.reset();
-    setOpen(false);
   };
 
-  const handleCancelClick = () => {
-    resetAndCloseDialog();
-
-    // fire event to parent
-    onCancel();
+  const handleDialogOpenChange = (open: boolean) => {
+    if (!open) {
+      resetDialog();
+    }
+    setOpen(open);
   };
 
   useEffect(() => {
@@ -168,6 +172,8 @@ export const EmailVerificationDialog = ({
     emailAddress,
     emailType,
   }): Promise<void> => {
+    setShowEmailSentMessage(false);
+    setContactEmailIsWorkEmailMessage(false);
     if (!canRequestCode) {
       throw new Error("Can't request a code");
     }
@@ -177,6 +183,7 @@ export const EmailVerificationDialog = ({
         if (workEmailDomainRegex.test(emailAddress)) {
           // Appears to be a valid work email address.  We'll update both at the same time.
           emailTypes = [EmailType.Contact, EmailType.Work];
+          setContactEmailIsWorkEmailMessage(true);
         } else {
           emailTypes = [EmailType.Contact];
         }
@@ -200,6 +207,7 @@ export const EmailVerificationDialog = ({
 
     return mutationResult
       .then(() => {
+        setShowEmailSentMessage(true);
         setCanRequestCode(false);
         setShowVerificationInput(true); // show the verification code input after email is sent
       })
@@ -211,6 +219,7 @@ export const EmailVerificationDialog = ({
   const submitHandlerSubmitACode: SubmitHandler<SubmitACodeFormValues> = ({
     verificationCode,
   }): Promise<void> => {
+    setShowEmailSentMessage(false);
     const mutationResult = executeSubmitACodeMutation({
       code: verificationCode,
     }).then((result) => {
@@ -221,7 +230,8 @@ export const EmailVerificationDialog = ({
 
     return mutationResult
       .then(() => {
-        resetAndCloseDialog();
+        // close the dialog
+        setOpen(false);
 
         //fire event to parent
         onVerificationSuccess();
@@ -276,7 +286,7 @@ export const EmailVerificationDialog = ({
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={handleDialogOpenChange}>
       <Dialog.Trigger>
         {children || (
           <Button>
@@ -310,64 +320,94 @@ export const EmailVerificationDialog = ({
                 )}
               >
                 <div className="flex gap-2">
-                  <Input
-                    id="emailAddress"
-                    name="emailAddress"
-                    type="text"
-                    label={getLabel(dialogEmailType, intl)}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                  <Submit
-                    mode="solid"
-                    className="self-end font-bold"
-                    text={intl.formatMessage({
-                      defaultMessage: "Send verification email",
-                      id: "xKj/Lr",
-                      description: "Button to send verification code",
-                    })}
-                  />
+                  <div className="grow">
+                    <Input
+                      id="emailAddress"
+                      name="emailAddress"
+                      type="text"
+                      label={getLabel(dialogEmailType, intl)}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                  <div className="self-end">
+                    <Submit
+                      mode="solid"
+                      className="font-bold"
+                      text={intl.formatMessage({
+                        defaultMessage: "Send verification email",
+                        id: "xKj/Lr",
+                        description: "Button to send verification code",
+                      })}
+                    />
+                  </div>
                 </div>
               </form>
             </FormProvider>
+            {showEmailSentMessage ? (
+              <Well color="success">
+                <p className="font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "Verification email sent!",
+                    id: "oepQr+",
+                    description:
+                      "Title for a message confirming that the verification email was sent.",
+                  })}
+                </p>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Please enter the code you received in the field provided. Didn’t receive a code? You can request a new one using the button provided.",
+                    id: "UOpnBD",
+                    description:
+                      "Body for a message confirming that the verification email was sent.",
+                  })}
+                </p>
+              </Well>
+            ) : null}
             <FormProvider {...submitACodeFormMethods}>
               <form
                 onSubmit={submitACodeFormMethods.handleSubmit(
                   submitHandlerSubmitACode,
                 )}
+                className="flex flex-col gap-6"
               >
                 {showVerificationInput && (
-                  <div className="flex gap-2">
-                    <Input
-                      id="verificationCode"
-                      name="verificationCode"
-                      type="text"
-                      label={intl.formatMessage({
-                        defaultMessage: "Verification code",
-                        id: "T+ypau",
-                        description: "label for verification code input",
-                      })}
-                    />
-                  </div>
+                  <Input
+                    id="verificationCode"
+                    name="verificationCode"
+                    type="text"
+                    label={intl.formatMessage({
+                      defaultMessage: "Verification code",
+                      id: "T+ypau",
+                      description: "label for verification code input",
+                    })}
+                  />
                 )}
-                <Dialog.Footer>
-                  {canRequestCode ? (
-                    <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
+                {showContactEmailIsWorkEmailMessage ? (
+                  <Well color="black">
+                    <p className="font-bold">
                       {intl.formatMessage({
-                        defaultMessage: "Didn’t receive a code?",
-                        id: "MvD/iS",
-                        description: "intro to request a new code",
+                        defaultMessage:
+                          "Your contact email will be used to verify your employee status",
+                        id: "PvS4Lq",
+                        description:
+                          "Title for a message informing the user that their contact email will be used as a work email.",
                       })}
-                      <Submit mode="solid" color="black" className="font-bold">
-                        {intl.formatMessage({
-                          defaultMessage: "Send another one.",
-                          id: "hx8mTr",
-                          description: "button to request a new code",
-                        })}
-                      </Submit>
-                    </div>
-                  ) : null}
+                    </p>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "PWe noticed that the email you’ve provided is also a Government of Canada employee email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
+                        id: "ZM84gk",
+                        description:
+                          "Body for a message informing the user that their contact email will be used as a work email.",
+                      })}
+                    </p>
+                  </Well>
+                ) : null}
+                <Dialog.Footer>
                   <Submit
                     text={intl.formatMessage({
                       defaultMessage: "Save and add email",
@@ -378,7 +418,7 @@ export const EmailVerificationDialog = ({
                   <Button
                     color="warning"
                     mode="inline"
-                    onClick={handleCancelClick}
+                    onClick={() => setOpen(false)}
                   >
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
