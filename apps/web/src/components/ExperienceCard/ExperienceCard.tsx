@@ -26,6 +26,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
+  getExperienceFormLabels,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -335,6 +336,7 @@ const ExperienceCard = ({
     defaultValue: false,
     onChange: onOpenChange,
   });
+  const experienceLabels = getExperienceFormLabels(intl);
   const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
@@ -540,6 +542,14 @@ const ExperienceCard = ({
             </Button>
           </Collapsible.Trigger>
           <Collapsible.Content className="pl-9">
+            <Separator space="sm" />
+            <ContentSection
+              title={experienceLabels.details}
+              headingLevel={headingLevel}
+            >
+              {experience.details ??
+                intl.formatMessage(commonMessages.notAvailable)}
+            </ContentSection>
             <Separator space="sm" />
             {isAwardExperience(experience) && (
               <AwardContent
