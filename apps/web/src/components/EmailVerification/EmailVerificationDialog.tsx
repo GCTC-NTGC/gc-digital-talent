@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useRef } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -87,7 +87,7 @@ const getSubtitle = (
   }
 };
 
-const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
+const CODE_REQUEST_THROTTLE_DELAY_S = 60;
 
 interface RequestACodeFormValues {
   emailAddress: string;
@@ -124,6 +124,8 @@ export const EmailVerificationDialog = ({
     showContactEmailIsWorkEmailMessage,
     setContactEmailIsWorkEmailMessage,
   ] = useState(false); // a message informing the user that the contact email will be used as a work email
+  const [showThrottleMessage, setShowThrottleMessage] = useState(false); // a message that the user should wait before trying again
+  const [canRequestCode, setCanRequestCode] = useState<boolean>(true); // can the user request a code (or do they have to wait)
 
   const [, executeSubmitACodeMutation] = useMutation(
     EmailVerificationSubmitACode_Mutation,
@@ -136,15 +138,22 @@ export const EmailVerificationDialog = ({
   });
   const submitACodeFormMethods = useForm<SubmitACodeFormValues>({});
 
-  const [canRequestCode, setCanRequestCode] = useState<boolean>(true);
+  const timerIdRef = useRef<ReturnType<typeof setTimeout>>(null); // timer for throttling requests
 
+  // Reset all the states back, for example, when closing the dialog.
   const resetDialog = () => {
     setShowEmailSentMessage(false);
     setContactEmailIsWorkEmailMessage(false);
+    setShowThrottleMessage(false);
+    setCanRequestCode(true);
+    if (timerIdRef.current) {
+      clearTimeout(timerIdRef.current);
+    }
     requestACodeFormMethods.reset();
     submitACodeFormMethods.reset();
   };
 
+  // The dialog is opening or closing.
   const handleDialogOpenChange = (open: boolean) => {
     if (!open) {
       resetDialog();
@@ -152,18 +161,18 @@ export const EmailVerificationDialog = ({
     setOpen(open);
   };
 
+  // When the user can't request a code (for example, the justed request one) then wait before allowing it again.
   useEffect(() => {
-    let timerId: ReturnType<typeof setTimeout>;
-
     if (!canRequestCode) {
-      timerId = setTimeout(() => {
+      timerIdRef.current = setTimeout(() => {
         setCanRequestCode(true);
-      }, CODE_REQUEST_THROTTLE_DELAY_MS);
+        setShowThrottleMessage(false);
+      }, CODE_REQUEST_THROTTLE_DELAY_S * 1000);
     }
 
     return () => {
-      if (timerId) {
-        clearTimeout(timerId);
+      if (timerIdRef.current) {
+        clearTimeout(timerIdRef.current);
       }
     };
   }, [canRequestCode]);
@@ -175,7 +184,8 @@ export const EmailVerificationDialog = ({
     setShowEmailSentMessage(false);
     setContactEmailIsWorkEmailMessage(false);
     if (!canRequestCode) {
-      throw new Error("Can't request a code");
+      setShowThrottleMessage(true);
+      return Promise.reject(new Error("Wait before trying again."));
     }
     let emailTypes: EmailType[];
     switch (emailType) {
@@ -220,6 +230,7 @@ export const EmailVerificationDialog = ({
     verificationCode,
   }): Promise<void> => {
     setShowEmailSentMessage(false);
+    setShowThrottleMessage(false);
     const mutationResult = executeSubmitACodeMutation({
       code: verificationCode,
     }).then((result) => {
@@ -362,6 +373,24 @@ export const EmailVerificationDialog = ({
                       description:
                         "Body for a message confirming that the verification email was sent.",
                     })}
+                  </p>
+                </Well>
+              ) : null}
+              {showThrottleMessage ? (
+                <Well color="error">
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Please wait {seconds}s before requesting another verification email.",
+                        id: "zIMhFQ",
+                        description:
+                          "Body for a message informing the user that they must wait before requesting another email.",
+                      },
+                      {
+                        seconds: CODE_REQUEST_THROTTLE_DELAY_S,
+                      },
+                    )}
                   </p>
                 </Well>
               ) : null}
