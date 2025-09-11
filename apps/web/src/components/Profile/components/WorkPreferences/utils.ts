@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 
 import {
+  getFragment,
   PositionDuration,
   ProfileWorkPreferencesFragment,
   UpdateUserAsUserInput,
@@ -11,6 +12,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import profileMessages from "~/messages/profileMessages";
 
 import { FormValues } from "./types";
+import { WorkPreferencesDisplay_Fragment } from "./Display";
 
 export const getLabels = (intl: IntlShape) => ({
   contractDuration: intl.formatMessage(profileMessages.contractDuration),
@@ -61,6 +63,8 @@ export const dataToFormValues = (
     return boolVal ? "true" : "false";
   };
 
+  const fragmentData = getFragment(WorkPreferencesDisplay_Fragment, data);
+
   return {
     wouldAcceptTemporary: data.positionDuration
       ? boolToString(data.positionDuration.includes(PositionDuration.Temporary))
@@ -74,7 +78,7 @@ export const dataToFormValues = (
       data.locationPreferences?.map((pref) => pref?.value),
     ),
     flexibleWorkLocations: unpackMaybes(
-      data.flexibleWorkLocations?.map((loc) => loc?.value),
+      fragmentData?.flexibleWorkLocations?.map((loc) => loc?.value),
     ),
     locationExemptions: data.locationExemptions,
   };
