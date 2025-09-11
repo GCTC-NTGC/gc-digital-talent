@@ -306,7 +306,10 @@ const Multi = ({
               <Chip
                 key={`${selectedItem.value}-selected`}
                 {...getSelectedItemProps({ selectedItem, index })}
+                // NOTE: Selected item props overrides the internal click handler
+                // The duplicate handlers handles keyboard + mouse events
                 onDismiss={() => removeSelectedItem(selectedItem)}
+                onClick={() => removeSelectedItem(selectedItem)}
               >
                 {selectedItem.label}
               </Chip>
