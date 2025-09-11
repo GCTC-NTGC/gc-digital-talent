@@ -543,14 +543,6 @@ const ExperienceCard = ({
           </Collapsible.Trigger>
           <Collapsible.Content className="pl-9">
             <Separator space="sm" />
-            <ContentSection
-              title={experienceLabels.details}
-              headingLevel={headingLevel}
-            >
-              {experience.details ??
-                intl.formatMessage(commonMessages.notAvailable)}
-            </ContentSection>
-            <Separator space="sm" />
             {isAwardExperience(experience) && (
               <AwardContent
                 experience={experience}
@@ -581,6 +573,15 @@ const ExperienceCard = ({
                 headingLevel={contentHeadingLevel}
               />
             )}
+            <Separator space="sm" />
+            <ContentSection
+              title={experienceLabels.details}
+              headingLevel={headingLevel}
+            >
+              {experience.details ??
+                intl.formatMessage(commonMessages.notAvailable)}
+            </ContentSection>
+            <Separator space="sm" />
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
