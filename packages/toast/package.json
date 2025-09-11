@@ -19,7 +19,7 @@
     "@heroicons/react": "^2.2.0",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
-    "tailwind-variants": "^3.1.0"
+    "tailwind-variants": "^3.1.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",

@@ -60,6 +60,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "cloud computing",
+    "fr": [
+      "intégration de systèmes",
+      "l'informatique en nuage;"
+    ]
+  },
+  {
     "en": "Citizenship status",
     "fr": [
       "Statut de citoyenneté",
@@ -99,6 +106,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Exigence linguistique",
       "Exigences relatives à la langue"
+    ]
+  },
+  {
+    "en": "cyber security",
+    "fr": [
+      "la cybersécurité;",
+      "cybersécurité"
     ]
   },
   {

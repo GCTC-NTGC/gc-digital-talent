@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'dividing_colon' => ': ',
     'other' => 'Other',
     'yes' => 'Yes',
     'no' => 'No',

@@ -4,7 +4,6 @@ import {
   Maybe,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
-  UserProfileFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 
 export type SectionKey =
@@ -16,7 +15,6 @@ export type SectionKey =
   | "account";
 
 export interface SectionProps<P = void> {
-  user: UserProfileFragmentType;
   isUpdating?: boolean;
   application?: Application_PoolCandidateFragment;
   pool?: Maybe<P>;

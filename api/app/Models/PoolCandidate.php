@@ -590,7 +590,7 @@ class PoolCandidate extends Model
         };
 
         $assessmentStatus = $this->computed_assessment_status;
-        $currentStep = $this->assessmentStep?->sort_order;
+        $currentStep = $this->assessmentStep->sort_order ?? 0;
 
         if ($decision === FinalDecision::TO_ASSESS->name && $currentStep) {
             $weight = $weight + $currentStep * 10;

@@ -7,11 +7,13 @@ use App\Casts\LocalizedString;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
+use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -135,6 +138,7 @@ class Pool extends Model
         'advertisement_location',
         'opportunity_length',
         'selection_limitations',
+        'contact_email',
     ];
 
     /**
@@ -422,5 +426,91 @@ class Pool extends Model
     public static function getSelectableColumns()
     {
         return self::$selectableColumns;
+    }
+
+    /**
+     * Get the display name (normal variant) for the model.
+     */
+    protected function displayName(): Attribute
+    {
+        return Attribute::make(
+            get: function ($_, $attributes) {
+                $locale = app()->getlocale();
+                $this->loadmissing(['classification']);
+                $definitions = [];
+                if ($definition = $this->classification->getdefinition()) {
+                    $definitions = [$definition];
+                }
+
+                return [
+                    'display' => [
+                        'en' => $this->formatdisplayname($attributes, 'en', false),
+                        'fr' => $this->formatdisplayname($attributes, 'fr', false),
+                        'localized' => $this->formatdisplayname($attributes, $locale, false),
+                    ],
+                    'definitions' => $definitions,
+                ];
+            }
+        );
+    }
+
+    /**
+     * Get the display name (full variant) for the model.
+     */
+    protected function fullDisplayName(): Attribute
+    {
+        return Attribute::make(
+            get: function ($_, $attributes) {
+                $locale = app()->getlocale();
+                $this->loadmissing(['classification']);
+                $definitions = [];
+                if ($definition = $this->classification->getdefinition()) {
+                    $definitions = [$definition];
+                }
+
+                return [
+                    'display' => [
+                        'en' => $this->formatdisplayname($attributes, 'en', true),
+                        'fr' => $this->formatdisplayname($attributes, 'fr', true),
+                        'localized' => $this->formatdisplayname($attributes, $locale, true),
+                    ],
+                    'definitions' => $definitions,
+                ];
+            }
+        );
+    }
+
+    /**
+     * Format the display name string.
+     */
+    protected function formatDisplayName(array $attributes, $locale, bool $full = false): string
+    {
+        $name = $this->name[$locale] ?? '';
+        $publishingGroup = $attributes['publishing_group'] ?? null;
+
+        if ($publishingGroup === PublishingGroup::IAP->name) {
+            return $name;
+        }
+
+        $classification = $this->classification->formattedGroupAndLevel ?? '';
+
+        if ($full) {
+            $this->loadMissing(['workStream']);
+            $stream = $this->workStream?->name[$locale] ?? '';
+            $append = match (true) {
+                $stream && $classification => " ($classification $stream)",
+                (bool) $classification => " ($classification)",
+                (bool) $stream => " ($stream)",
+                default => '',
+            };
+
+            return $name.$append;
+        }
+
+        $dividingColon = Lang::get('common.dividing_colon', [], $locale);
+
+        return $classification
+            ? $classification.$dividingColon.$name
+            : $name;
     }
 }

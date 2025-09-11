@@ -119,10 +119,10 @@ const headCell = tv({
   },
 });
 
-type HeadCellProps<T> = {
+interface HeadCellProps<T> extends CellHTMLProps {
   header: Header<T, unknown>;
   id: string;
-} & CellHTMLProps;
+}
 
 const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
   const isRowSelect = header.column.columnDef.meta?.isRowSelect;
@@ -190,9 +190,9 @@ const cellStyles = tv({
   ],
 });
 
-type CellProps<T> = {
+interface CellProps<T> extends CellHTMLProps {
   cell: Cell<T, unknown>;
-} & CellHTMLProps;
+}
 
 const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
   const intl = useIntl();

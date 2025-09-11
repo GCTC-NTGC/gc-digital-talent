@@ -1,7 +1,7 @@
 # This setup should only install things that are set up in infrastructure/bin/post_deployment.sh as well
 
 # All images: https://mcr.microsoft.com/v2/appsvc/php/tags/list
-FROM mcr.microsoft.com/appsvc/php:8.4-fpm-xdebug_20250506.5.tuxprod
+FROM mcr.microsoft.com/appsvc/php:8.4-fpm-xdebug_20250728.2.tuxprod
 
 RUN echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini
 

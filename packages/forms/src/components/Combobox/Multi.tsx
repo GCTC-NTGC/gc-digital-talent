@@ -2,14 +2,14 @@ import { useState, useRef, useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
 import isEqual from "lodash/isEqual";
+import { tv } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
-import { Button } from "@gc-digital-talent/ui";
+import { Button, Chip, Chips } from "@gc-digital-talent/ui";
 
 import Field from "../Field";
 import Menu from "./Menu";
 import Input from "./Input";
-import Selected from "./Selected";
 import { BaseProps, Option } from "./types";
 import {
   getMultiFilteredItems,
@@ -17,13 +17,19 @@ import {
   isItemSelected,
   comboboxInput,
 } from "./utils";
+import { inputStyles } from "../../styles";
 
-type MultiProps = BaseProps & {
+const chipWrapper = tv({
+  extend: inputStyles,
+  base: "-mt-2.25 rounded-t-none border-t-transparent",
+});
+
+interface MultiProps extends BaseProps {
   onSelectedChange: (item: Option[] | null) => void;
   onInputChange?: (value: string) => void;
   /** Initial value */
   value?: Option[];
-};
+}
 
 const Multi = ({
   options,
@@ -275,7 +281,7 @@ const Multi = ({
           </Menu.List>
         </Menu.Wrapper>
       </div>
-      <Selected.Wrapper>
+      <div className={chipWrapper()}>
         <div className="flex items-center justify-between gap-1.5">
           <p className="text-sm text-gray-600 dark:text-gray-200">
             {intl.formatMessage(formMessages.itemsSelectedCombobox, {
@@ -295,19 +301,22 @@ const Multi = ({
           ) : null}
         </div>
         {hasSelectedItems && (
-          <Selected.Items>
+          <Chips className="mt-3">
             {selectedItems.map((selectedItem, index) => (
-              <Selected.Item
+              <Chip
                 key={`${selectedItem.value}-selected`}
                 {...getSelectedItemProps({ selectedItem, index })}
+                // NOTE: Selected item props overrides the internal click handler
+                // The duplicate handlers handles keyboard + mouse events
+                onDismiss={() => removeSelectedItem(selectedItem)}
                 onClick={() => removeSelectedItem(selectedItem)}
               >
                 {selectedItem.label}
-              </Selected.Item>
+              </Chip>
             ))}
-          </Selected.Items>
+          </Chips>
         )}
-      </Selected.Wrapper>
+      </div>
     </>
   );
 };

@@ -34,12 +34,12 @@ interface FormValues {
   department: Scalars["ID"]["output"] | undefined;
 }
 
-type DuplicateProcessDialogProps = ProcessDialogProps & {
+interface DuplicateProcessDialogProps extends ProcessDialogProps {
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
   onDuplicate: (opts: {
     department: Scalars["ID"]["output"] | undefined;
   }) => Promise<void>;
-};
+}
 
 const DuplicateProcessDialog = ({
   poolName,

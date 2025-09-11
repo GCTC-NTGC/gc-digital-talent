@@ -6,13 +6,14 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Classification,
   GovEmployeeType,
+  ProfileGovernmentInformationFragment,
   UpdateUserAsUserInput,
   User,
 } from "@gc-digital-talent/graphql";
 
 import { splitAndJoin } from "~/utils/nameUtils";
 
-import { FormValues, PartialUser } from "./types";
+import { FormValues } from "./types";
 
 /**
  * Take classification group + level from data, return the matching classification from API
@@ -123,7 +124,9 @@ export const formValuesToSubmitData = (
   };
 };
 
-export const dataToFormValues = (data: PartialUser): FormValues => {
+export const dataToFormValues = (
+  data: ProfileGovernmentInformationFragment,
+): FormValues => {
   return {
     govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
     priorityEntitlementYesNo: boolToYesNo(data?.hasPriorityEntitlement),

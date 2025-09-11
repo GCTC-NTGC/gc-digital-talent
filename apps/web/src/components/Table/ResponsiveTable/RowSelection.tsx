@@ -42,10 +42,10 @@ type BaseProps = Omit<
   "checked" | "onToggle" | "indeterminate"
 >;
 
-type HeaderProps<TData> = BaseProps & {
+interface HeaderProps<TData> extends BaseProps {
   // Instance of `react-table`
   table: Table<TData>;
-};
+}
 
 /**
  * The header cell for row selection column
@@ -66,10 +66,10 @@ const Header = <TData extends object>({
   />
 );
 
-type CellProps<TData> = BaseProps & {
+interface CellProps<TData> extends BaseProps {
   // Instance of a `react-table` Row
   row: Row<TData>;
-};
+}
 
 /**
  * The cell cell for row selection column

@@ -57,11 +57,12 @@ interface FormValues {
 
 export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
-type YourImpactSectionProps = SectionProps<
-  YourImpactSubmitData,
-  FragmentType<typeof EditPoolYourImpact_Fragment>
-> &
-  PublishedEditableSectionProps;
+interface YourImpactSectionProps
+  extends SectionProps<
+      YourImpactSubmitData,
+      FragmentType<typeof EditPoolYourImpact_Fragment>
+    >,
+    PublishedEditableSectionProps {}
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;

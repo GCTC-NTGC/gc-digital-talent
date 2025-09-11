@@ -45,7 +45,7 @@ const chip = tv({
         "border-black bg-gray-100 text-black dark:border-gray-100 dark:bg-gray-700 dark:text-white",
     },
     dismissable: {
-      true: "cursor-pointer outline-offset-2 outline-black focus-visible:border-black focus-visible:bg-focus focus-visible:text-black focus-visible:outline",
+      true: "cursor-pointer outline-offset-2 outline-black focus-visible:border-black focus-visible:bg-focus focus-visible:text-black focus-visible:outline dark:outline-white dark:focus-visible:border-white",
     },
   },
   compoundVariants: [

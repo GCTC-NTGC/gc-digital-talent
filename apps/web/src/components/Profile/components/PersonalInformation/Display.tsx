@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 
-import { User } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import {
@@ -16,28 +16,64 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
-type PartialUser = Pick<
-  User,
-  | "firstName"
-  | "lastName"
-  | "email"
-  | "isEmailVerified"
-  | "telephone"
-  | "preferredLang"
-  | "preferredLanguageForInterview"
-  | "preferredLanguageForExam"
-  | "citizenship"
-  | "armedForcesStatus"
->;
+export const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment PersonalInformationDisplay on User {
+    firstName
+    lastName
+    email
+    isEmailVerified
+    telephone
+    preferredLang {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        localized
+      }
+    }
+    citizenship {
+      value
+      label {
+        localized
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface DisplayProps {
-  user: PartialUser;
+  query: FragmentType<typeof PersonalInformationDisplay_Fragment>;
   showEmailVerification?: boolean;
   readOnly?: boolean;
 }
 
 const Display = ({
-  user: {
+  query,
+  showEmailVerification = false,
+  readOnly = false,
+}: DisplayProps) => {
+  const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const navigate = useNavigate();
+  const routes = useRoutes();
+  const user = getFragment(PersonalInformationDisplay_Fragment, query);
+
+  const {
     firstName,
     lastName,
     email,
@@ -48,14 +84,7 @@ const Display = ({
     preferredLanguageForExam,
     citizenship,
     armedForcesStatus,
-  },
-  showEmailVerification = false,
-  readOnly = false,
-}: DisplayProps) => {
-  const intl = useIntl();
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
-  const navigate = useNavigate();
-  const routes = useRoutes();
+  } = user;
 
   const handleVerifyNowClick = async () => {
     await navigate(

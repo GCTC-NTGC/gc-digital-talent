@@ -56,7 +56,7 @@ interface Option<V> {
   label: string;
 }
 
-type FormValues = Pick<Skill, "description"> & {
+interface FormValues extends Pick<Skill, "description"> {
   key: string;
   name: {
     en: string;
@@ -72,7 +72,8 @@ type FormValues = Pick<Skill, "description"> & {
   };
   category: SkillCategory;
   families: string[] | undefined;
-};
+}
+
 interface CreateSkillFormProps {
   families: SkillFamily[];
   optionsQuery?: FragmentType<typeof SkillFormOptions_Fragment>;
