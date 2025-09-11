@@ -1,9 +1,17 @@
-import { User, Maybe, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
-
-export type PartialUser = Pick<
+import {
   User,
-  "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
->;
+  Maybe,
+  Pool,
+  PublishingGroup,
+  LocalizedIndigenousCommunity,
+} from "@gc-digital-talent/graphql";
+
+export interface PartialUser
+  extends Pick<User, "isWoman" | "hasDisability" | "isVisibleMinority"> {
+  indigenousCommunities?: Maybe<
+    Maybe<Pick<LocalizedIndigenousCommunity, "value">>[]
+  >;
+}
 
 export function anyCriteriaSelected({
   isWoman,

@@ -9,6 +9,7 @@ import {
 import {
   FragmentType,
   getFragment,
+  graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { FieldLabels } from "@gc-digital-talent/forms";
@@ -19,20 +20,52 @@ import { formatLocation } from "~/utils/userUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
-import { PartialUser } from "./types";
 import { FlexibleWorkLocationOptions_Fragment } from "./fragment";
+export const WorkPreferencesDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment WorkPreferencesDisplay on User {
+    acceptedOperationalRequirements {
+      value
+      label {
+        localized
+      }
+    }
+    positionDuration
+    locationPreferences {
+      value
+      label {
+        localized
+      }
+    }
+    flexibleWorkLocations {
+      value
+      label {
+        localized
+      }
+    }
+    locationExemptions
+    currentCity
+    currentProvince {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface DisplayProps {
-  user: PartialUser;
+  query: FragmentType<typeof WorkPreferencesDisplay_Fragment>;
   labels: FieldLabels;
   optionsQuery:
     | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
     | undefined;
 }
 
-const Display = ({
-  labels,
-  user: {
+const Display = ({ query, labels, optionsQuery }: DisplayProps) => {
+  const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const user = getFragment(WorkPreferencesDisplay_Fragment, query);
+  const {
     acceptedOperationalRequirements,
     positionDuration,
     locationPreferences,
@@ -40,11 +73,7 @@ const Display = ({
     locationExemptions,
     currentCity,
     currentProvince,
-  },
-  optionsQuery,
-}: DisplayProps) => {
-  const intl = useIntl();
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  } = user;
   const locations = locationPreferences?.filter(notEmpty);
   const userLocations: string[] = unpackMaybes(flexibleWorkLocations).map(
     (loc) => loc.value as string,

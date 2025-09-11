@@ -5,28 +5,7 @@ import Display from "~/components/Profile/components/GovernmentInformation/Displ
 
 const GovernmentInformation_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformation on User {
-    isGovEmployee
-    department {
-      id
-      departmentNumber
-      name {
-        localized
-      }
-    }
-    govEmployeeType {
-      value
-      label {
-        localized
-      }
-    }
-    currentClassification {
-      group
-      level
-    }
-    hasPriorityEntitlement
-    priorityNumber
-    workEmail
-    isWorkEmailVerified
+    ...GovernmentInformationDisplay
   }
 `);
 
@@ -41,7 +20,7 @@ const GovernmentInformation = ({ query }: GovernmentInformationProps) => {
 
   return (
     <TableOfContents.Section id={GOV_INFO_ID}>
-      <Display user={user} readOnly />
+      <Display query={user} readOnly />
     </TableOfContents.Section>
   );
 };

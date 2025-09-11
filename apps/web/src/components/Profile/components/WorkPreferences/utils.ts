@@ -2,6 +2,7 @@ import { IntlShape } from "react-intl";
 
 import {
   PositionDuration,
+  ProfileWorkPreferencesFragment,
   UpdateUserAsUserInput,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
@@ -9,7 +10,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
 
-import { FormValues, PartialUser } from "./types";
+import { FormValues } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   contractDuration: intl.formatMessage(profileMessages.contractDuration),
@@ -53,7 +54,9 @@ export const getLabels = (intl: IntlShape) => ({
   }),
 });
 
-export const dataToFormValues = (data: PartialUser): FormValues => {
+export const dataToFormValues = (
+  data: ProfileWorkPreferencesFragment,
+): FormValues => {
   const boolToString = (boolVal: boolean | null | undefined): string => {
     return boolVal ? "true" : "false";
   };

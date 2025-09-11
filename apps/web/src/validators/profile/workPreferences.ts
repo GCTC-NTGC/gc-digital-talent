@@ -1,17 +1,24 @@
 import isEmpty from "lodash/isEmpty";
 
-import { User } from "@gc-digital-talent/graphql";
-
-export type PartialUser = Pick<
+import {
+  LocalizedFlexibleWorkLocation,
+  LocalizedProvinceOrTerritory,
+  LocalizedWorkRegion,
+  Maybe,
   User,
-  | "acceptedOperationalRequirements"
-  | "positionDuration"
-  | "locationPreferences"
-  | "flexibleWorkLocations"
-  | "locationExemptions"
-  | "currentCity"
-  | "currentProvince"
->;
+} from "@gc-digital-talent/graphql";
+
+export interface PartialUser
+  extends Pick<
+    User,
+    "positionDuration" | "locationExemptions" | "currentCity"
+  > {
+  locationPreferences?: Maybe<Maybe<Pick<LocalizedWorkRegion, "value">>[]>;
+  flexibleWorkLocations?: Maybe<
+    Maybe<Pick<LocalizedFlexibleWorkLocation, "value">>[]
+  >;
+  currentProvince?: Maybe<Pick<LocalizedProvinceOrTerritory, "value">>;
+}
 
 export function hasAllEmptyFields({
   positionDuration,

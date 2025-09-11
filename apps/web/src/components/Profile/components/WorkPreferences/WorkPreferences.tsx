@@ -7,7 +7,12 @@ import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { graphql, Pool } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -32,13 +37,37 @@ const WorkPreferencesForm_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const ProfileWorkPreferences_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileWorkPreferences on User {
+    id
+    positionDuration
+    acceptedOperationalRequirements {
+      value
+    }
+    currentProvince {
+      value
+    }
+    currentCity
+    locationPreferences {
+      value
+    }
+    locationExemptions
+    ...WorkPreferencesDisplay
+  }
+`);
+
+interface WorkPreferencesProps extends SectionProps<Pick<Pool, "id">> {
+  query: FragmentType<typeof ProfileWorkPreferences_Fragment>;
+}
+
 const WorkPreferences = ({
-  user,
+  query,
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps<Pick<Pool, "id">>) => {
+}: WorkPreferencesProps) => {
   const intl = useIntl();
+  const user = getFragment(ProfileWorkPreferences_Fragment, query);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
@@ -113,7 +142,7 @@ const WorkPreferences = ({
           {isNull ? (
             <NullDisplay />
           ) : (
-            <Display user={user} labels={labels} optionsQuery={data} />
+            <Display query={user} optionsQuery={data} labels={labels} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>

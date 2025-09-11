@@ -9,33 +9,7 @@ import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/compo
 
 const WorkPreferences_Fragment = graphql(/** GraphQL */ `
   fragment AdminWorkPreferences on User {
-    acceptedOperationalRequirements {
-      value
-      label {
-        localized
-      }
-    }
-    positionDuration
-    locationPreferences {
-      value
-      label {
-        localized
-      }
-    }
-    flexibleWorkLocations {
-      value
-      label {
-        localized
-      }
-    }
-    locationExemptions
-    currentCity
-    currentProvince {
-      value
-      label {
-        localized
-      }
-    }
+    ...WorkPreferencesDisplay
   }
 `);
 
@@ -55,7 +29,7 @@ const WorkPreferences = ({ query, optionsQuery }: WorkPreferencesProps) => {
 
   return (
     <TableOfContents.Section id={WORK_PREFERENCES_ID}>
-      <Display user={user} optionsQuery={optionsQuery} labels={labels} />
+      <Display query={user} optionsQuery={optionsQuery} labels={labels} />
     </TableOfContents.Section>
   );
 };

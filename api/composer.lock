@@ -2658,16 +2658,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.45.3",
+            "version": "v11.46.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f88bacee8daae65774ca8aa0f0bd32293e4f82b0"
+                "reference": "2c6d85f22d08123ad45aa3a6726b16f06e68eecd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f88bacee8daae65774ca8aa0f0bd32293e4f82b0",
-                "reference": "f88bacee8daae65774ca8aa0f0bd32293e4f82b0",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2c6d85f22d08123ad45aa3a6726b16f06e68eecd",
+                "reference": "2c6d85f22d08123ad45aa3a6726b16f06e68eecd",
                 "shasum": ""
             },
             "require": {
@@ -2869,7 +2869,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-09-02T23:56:44+00:00"
+            "time": "2025-09-08T21:54:34+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -4737,16 +4737,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.62.3",
+            "version": "v6.63.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "74dbc61a68580563afe4d75e6e7c1b546827b131"
+                "reference": "e89a2d24d4f3c2401fb6e538debf8f70b92c0747"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/74dbc61a68580563afe4d75e6e7c1b546827b131",
-                "reference": "74dbc61a68580563afe4d75e6e7c1b546827b131",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/e89a2d24d4f3c2401fb6e538debf8f70b92c0747",
+                "reference": "e89a2d24d4f3c2401fb6e538debf8f70b92c0747",
                 "shasum": ""
             },
             "require": {
@@ -4863,7 +4863,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-08-22T08:12:23+00:00"
+            "time": "2025-09-10T12:38:58+00:00"
         },
         {
             "name": "phpoffice/math",
