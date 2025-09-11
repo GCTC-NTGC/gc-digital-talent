@@ -248,50 +248,17 @@ export const EmailVerificationDialog = ({
         onVerificationSuccess();
       })
       .catch(() => {
-        toast.error(
-          <>
-            <p className="font-bold">
-              {intl.formatMessage({
-                defaultMessage: "The code entered was incorrect.",
-                id: "2xBxZ9",
-                description:
-                  "Title for error message when the code is not valid.",
-              })}
-            </p>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Please review the code and try entering it again.",
-                id: "vm9mFv",
-                description: "Error message when the code is not valid.",
-              })}
-              {canRequestCode ? (
-                <>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "If you're still having trouble, try sending a new code using the link provided.",
-                    id: "NAobki",
-                    description: "Instructions to send another code",
-                  })}
-                  <Button
-                    type="button"
-                    mode="text"
-                    color="black"
-                    onClick={requestACodeFormMethods.handleSubmit(
-                      submitHandlerRequestACode,
-                    )}
-                    className="font-bold"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Send a new code.",
-                      id: "8P9Rjx",
-                      description: "Button text to send a new code",
-                    })}
-                  </Button>
-                </>
-              ) : null}
-            </p>
-          </>,
+        submitACodeFormMethods.setError(
+          "verificationCode",
+          {
+            message: intl.formatMessage({
+              defaultMessage:
+                "The code you’ve entered is invalid. Please request a new code.",
+              id: "SYEKUz",
+              description: "Error message when the code is not valid.",
+            }),
+          },
+          { shouldFocus: true },
         );
       });
   };
