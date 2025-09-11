@@ -8,7 +8,12 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
-import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import {
+  assertUnreachable,
+  workEmailDomainRegex,
+} from "@gc-digital-talent/helpers";
+
+const CODE_REQUEST_THROTTLE_DELAY_S = 60;
 
 const EmailVerificationRequestACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationRequestACode(
@@ -87,7 +92,107 @@ const getSubtitle = (
   }
 };
 
-const CODE_REQUEST_THROTTLE_DELAY_S = 60;
+type requestACodeMessage = "request-sent" | "throttled" | "address-changed";
+
+const buildRequestACodeMessage = (
+  message: requestACodeMessage,
+  intl: IntlShape,
+): ReactNode => {
+  switch (message) {
+    case "request-sent":
+      return (
+        <Well color="success">
+          <p className="font-bold">
+            {intl.formatMessage({
+              defaultMessage: "Verification email sent!",
+              id: "oepQr+",
+              description:
+                "Title for a message confirming that the verification email was sent.",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Please enter the code you received in the field provided. Didn’t receive a code? You can request a new one using the button provided.",
+              id: "UOpnBD",
+              description:
+                "Body for a message confirming that the verification email was sent.",
+            })}
+          </p>
+        </Well>
+      );
+    case "throttled":
+      return (
+        <Well color="error">
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Please wait {seconds}s before requesting another verification email.",
+                id: "zIMhFQ",
+                description:
+                  "Body for a message informing the user that they must wait before requesting another email.",
+              },
+              {
+                seconds: CODE_REQUEST_THROTTLE_DELAY_S,
+              },
+            )}
+          </p>
+        </Well>
+      );
+    case "address-changed":
+      return (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "The email provided has changed since the last verification code was sent. Please request a new verification email.",
+              id: "F2ChSj",
+              description:
+                "Body for a message informing the user that they changed the address and need to request a new code.",
+            })}
+          </p>
+        </Well>
+      );
+    default:
+      return assertUnreachable(message);
+  }
+};
+
+type submitACodeMessage = "contact-matches-work";
+
+const buildSubmitACodeMessage = (
+  message: submitACodeMessage,
+  intl: IntlShape,
+): ReactNode => {
+  switch (message) {
+    case "contact-matches-work":
+      return (
+        <Well color="black">
+          <p className="font-bold">
+            {intl.formatMessage({
+              defaultMessage:
+                "Your contact email will be used to verify your employee status",
+              id: "PvS4Lq",
+              description:
+                "Title for a message informing the user that their contact email will be used as a work email.",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "We noticed that the email you’ve provided is also a Government of Canada employee email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
+              id: "uokoUh",
+              description:
+                "Body for a message informing the user that their contact email will be used as a work email.",
+            })}
+          </p>
+        </Well>
+      );
+    default:
+      return assertUnreachable(message);
+  }
+};
 
 interface RequestACodeFormValues {
   emailAddress: string;
@@ -118,13 +223,12 @@ export const EmailVerificationDialog = ({
     EmailVerificationRequestACode_Mutation,
   );
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
-  const [showVerificationInput, setShowVerificationInput] = useState(false); // show the bottom half of the form where you can submit the code
-  const [showEmailSentMessage, setShowEmailSentMessage] = useState(false); // a confirmation message that the verification email was sent
-  const [
-    showContactEmailIsWorkEmailMessage,
-    setContactEmailIsWorkEmailMessage,
-  ] = useState(false); // a message informing the user that the contact email will be used as a work email
-  const [showThrottleMessage, setShowThrottleMessage] = useState(false); // a message that the user should wait before trying again
+  const [showVerificationInput, setShowVerificationInput] = useState(false); // show the bottom half of the dialog where you can submit the code
+  const [requestACodeMessage, setRequestACodeMessage] =
+    useState<requestACodeMessage | null>(null); // messages that can be shown for the top half of the dialog where you can request a code
+  const [submitACodeMessage, setSubmitACodeMessage] =
+    useState<submitACodeMessage | null>(null); // messages that can be shown for the bottom half of the dialog where you can submit a code
+
   const [canRequestCode, setCanRequestCode] = useState<boolean>(true); // can the user request a code (or do they have to wait)
 
   const [, executeSubmitACodeMutation] = useMutation(
@@ -142,9 +246,8 @@ export const EmailVerificationDialog = ({
 
   // Reset all the states back, for example, when closing the dialog.
   const resetDialog = () => {
-    setShowEmailSentMessage(false);
-    setContactEmailIsWorkEmailMessage(false);
-    setShowThrottleMessage(false);
+    setRequestACodeMessage(null);
+    setSubmitACodeMessage(null);
     setCanRequestCode(true);
     if (timerIdRef.current) {
       clearTimeout(timerIdRef.current);
@@ -166,7 +269,7 @@ export const EmailVerificationDialog = ({
     if (!canRequestCode) {
       timerIdRef.current = setTimeout(() => {
         setCanRequestCode(true);
-        setShowThrottleMessage(false);
+        setRequestACodeMessage(null);
       }, CODE_REQUEST_THROTTLE_DELAY_S * 1000);
     }
 
@@ -181,10 +284,10 @@ export const EmailVerificationDialog = ({
     emailAddress,
     emailType,
   }): Promise<void> => {
-    setShowEmailSentMessage(false);
-    setContactEmailIsWorkEmailMessage(false);
+    setRequestACodeMessage(null);
+    setSubmitACodeMessage(null);
     if (!canRequestCode) {
-      setShowThrottleMessage(true);
+      setRequestACodeMessage("throttled");
       return Promise.reject(new Error("Wait before trying again."));
     }
     let emailTypes: EmailType[];
@@ -193,7 +296,7 @@ export const EmailVerificationDialog = ({
         if (workEmailDomainRegex.test(emailAddress)) {
           // Appears to be a valid work email address.  We'll update both at the same time.
           emailTypes = [EmailType.Contact, EmailType.Work];
-          setContactEmailIsWorkEmailMessage(true);
+          setSubmitACodeMessage("contact-matches-work");
         } else {
           emailTypes = [EmailType.Contact];
         }
@@ -217,7 +320,7 @@ export const EmailVerificationDialog = ({
 
     return mutationResult
       .then(() => {
-        setShowEmailSentMessage(true);
+        setRequestACodeMessage("request-sent");
         setCanRequestCode(false);
         setShowVerificationInput(true); // show the verification code input after email is sent
       })
@@ -229,8 +332,7 @@ export const EmailVerificationDialog = ({
   const submitHandlerSubmitACode: SubmitHandler<SubmitACodeFormValues> = ({
     verificationCode,
   }): Promise<void> => {
-    setShowEmailSentMessage(false);
-    setShowThrottleMessage(false);
+    setRequestACodeMessage(null);
     const mutationResult = executeSubmitACodeMutation({
       code: verificationCode,
     }).then((result) => {
@@ -322,45 +424,9 @@ export const EmailVerificationDialog = ({
                   />
                 </div>
               </div>
-              {showEmailSentMessage ? (
-                <Well color="success">
-                  <p className="font-bold">
-                    {intl.formatMessage({
-                      defaultMessage: "Verification email sent!",
-                      id: "oepQr+",
-                      description:
-                        "Title for a message confirming that the verification email was sent.",
-                    })}
-                  </p>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Please enter the code you received in the field provided. Didn’t receive a code? You can request a new one using the button provided.",
-                      id: "UOpnBD",
-                      description:
-                        "Body for a message confirming that the verification email was sent.",
-                    })}
-                  </p>
-                </Well>
-              ) : null}
-              {showThrottleMessage ? (
-                <Well color="error">
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Please wait {seconds}s before requesting another verification email.",
-                        id: "zIMhFQ",
-                        description:
-                          "Body for a message informing the user that they must wait before requesting another email.",
-                      },
-                      {
-                        seconds: CODE_REQUEST_THROTTLE_DELAY_S,
-                      },
-                    )}
-                  </p>
-                </Well>
-              ) : null}
+              {requestACodeMessage
+                ? buildRequestACodeMessage(requestACodeMessage, intl)
+                : null}
             </form>
           </FormProvider>
           {/* "Submit a code" part of dialog */}
@@ -383,28 +449,9 @@ export const EmailVerificationDialog = ({
                         description: "label for verification code input",
                       })}
                     />
-                    {showContactEmailIsWorkEmailMessage ? (
-                      <Well color="black">
-                        <p className="font-bold">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "Your contact email will be used to verify your employee status",
-                            id: "PvS4Lq",
-                            description:
-                              "Title for a message informing the user that their contact email will be used as a work email.",
-                          })}
-                        </p>
-                        <p>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "PWe noticed that the email you’ve provided is also a Government of Canada employee email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
-                            id: "ZM84gk",
-                            description:
-                              "Body for a message informing the user that their contact email will be used as a work email.",
-                          })}
-                        </p>
-                      </Well>
-                    ) : null}
+                    {submitACodeMessage
+                      ? buildSubmitACodeMessage(submitACodeMessage, intl)
+                      : null}
                   </>
                 )}
               </div>
