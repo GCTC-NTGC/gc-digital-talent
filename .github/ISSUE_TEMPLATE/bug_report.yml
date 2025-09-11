@@ -13,6 +13,8 @@ body:
     attributes:
       label: 🐛 Bug and Expected Behaviour
       description: Describe the issue you encountered. What should be happening?
+    validations:
+      required: true
   - type: textarea
     id: details
     attributes:
@@ -47,3 +49,19 @@ body:
       placeholder: |
         - [ ] Criteria 1
         - [ ] Criteria 2
+  - type: dropdown
+    id: regression
+    attributes:
+      label: 🔄 Regression
+      description: Is this bug a regression (did it work before and now it does not)?
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: input
+    id: root-cause-pr
+    attributes:
+      label: 🔗 Root Cause Pull Request
+      description: If known, link the pull request that introduced the bug (paste the URL).
+      placeholder: "https://github.com/GCTC-NTGC/gc-digital-talent/pull/1234"
