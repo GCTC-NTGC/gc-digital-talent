@@ -311,121 +311,125 @@ export const EmailVerificationDialog = ({
           }
         </Dialog.Header>
         <Dialog.Body>
-          <div className="flex flex-col gap-6">
-            <p>{getDescription(dialogEmailType, intl)}</p>
-            <FormProvider {...requestACodeFormMethods}>
-              <form
-                onSubmit={requestACodeFormMethods.handleSubmit(
-                  submitHandlerRequestACode,
-                )}
-              >
-                <div className="flex gap-2">
-                  <div className="grow">
-                    <Input
-                      id="emailAddress"
-                      name="emailAddress"
-                      type="text"
-                      label={getLabel(dialogEmailType, intl)}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                    />
-                  </div>
-                  <div className="self-end">
-                    <Submit
-                      mode="solid"
-                      className="font-bold"
-                      text={intl.formatMessage({
-                        defaultMessage: "Send verification email",
-                        id: "xKj/Lr",
-                        description: "Button to send verification code",
-                      })}
-                    />
-                  </div>
-                </div>
-              </form>
-            </FormProvider>
-            {showEmailSentMessage ? (
-              <Well color="success">
-                <p className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage: "Verification email sent!",
-                    id: "oepQr+",
-                    description:
-                      "Title for a message confirming that the verification email was sent.",
-                  })}
-                </p>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Please enter the code you received in the field provided. Didn’t receive a code? You can request a new one using the button provided.",
-                    id: "UOpnBD",
-                    description:
-                      "Body for a message confirming that the verification email was sent.",
-                  })}
-                </p>
-              </Well>
-            ) : null}
-            <FormProvider {...submitACodeFormMethods}>
-              <form
-                onSubmit={submitACodeFormMethods.handleSubmit(
-                  submitHandlerSubmitACode,
-                )}
-                className="flex flex-col gap-6"
-              >
-                {showVerificationInput && (
+          {/* "Request a code" part of dialog */}
+          <FormProvider {...requestACodeFormMethods}>
+            <form
+              onSubmit={requestACodeFormMethods.handleSubmit(
+                submitHandlerRequestACode,
+              )}
+              className="mb-6 flex flex-col gap-6"
+            >
+              <p>{getDescription(dialogEmailType, intl)}</p>
+              <div className="flex gap-2">
+                <div className="grow">
                   <Input
-                    id="verificationCode"
-                    name="verificationCode"
+                    id="emailAddress"
+                    name="emailAddress"
                     type="text"
-                    label={intl.formatMessage({
-                      defaultMessage: "Verification code",
-                      id: "T+ypau",
-                      description: "label for verification code input",
-                    })}
+                    label={getLabel(dialogEmailType, intl)}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
                   />
-                )}
-                {showContactEmailIsWorkEmailMessage ? (
-                  <Well color="black">
-                    <p className="font-bold">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Your contact email will be used to verify your employee status",
-                        id: "PvS4Lq",
-                        description:
-                          "Title for a message informing the user that their contact email will be used as a work email.",
-                      })}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "PWe noticed that the email you’ve provided is also a Government of Canada employee email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
-                        id: "ZM84gk",
-                        description:
-                          "Body for a message informing the user that their contact email will be used as a work email.",
-                      })}
-                    </p>
-                  </Well>
-                ) : null}
-                <Dialog.Footer>
+                </div>
+                <div className="self-end">
                   <Submit
+                    mode="solid"
+                    className="font-bold"
                     text={intl.formatMessage({
-                      defaultMessage: "Save and add email",
-                      id: "exfH1c",
-                      description: "Button to save and add email",
+                      defaultMessage: "Send verification email",
+                      id: "xKj/Lr",
+                      description: "Button to send verification code",
                     })}
                   />
-                  <Button
-                    color="warning"
-                    mode="inline"
-                    onClick={() => setOpen(false)}
-                  >
-                    {intl.formatMessage(commonMessages.cancel)}
-                  </Button>
-                </Dialog.Footer>
-              </form>
-            </FormProvider>
-          </div>
+                </div>
+              </div>
+              {showEmailSentMessage ? (
+                <Well color="success">
+                  <p className="font-bold">
+                    {intl.formatMessage({
+                      defaultMessage: "Verification email sent!",
+                      id: "oepQr+",
+                      description:
+                        "Title for a message confirming that the verification email was sent.",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Please enter the code you received in the field provided. Didn’t receive a code? You can request a new one using the button provided.",
+                      id: "UOpnBD",
+                      description:
+                        "Body for a message confirming that the verification email was sent.",
+                    })}
+                  </p>
+                </Well>
+              ) : null}
+            </form>
+          </FormProvider>
+          {/* "Submit a code" part of dialog */}
+          <FormProvider {...submitACodeFormMethods}>
+            <form
+              onSubmit={submitACodeFormMethods.handleSubmit(
+                submitHandlerSubmitACode,
+              )}
+            >
+              <div className="mb-6 flex flex-col gap-6">
+                {showVerificationInput && (
+                  <>
+                    <Input
+                      id="verificationCode"
+                      name="verificationCode"
+                      type="text"
+                      label={intl.formatMessage({
+                        defaultMessage: "Verification code",
+                        id: "T+ypau",
+                        description: "label for verification code input",
+                      })}
+                    />
+                    {showContactEmailIsWorkEmailMessage ? (
+                      <Well color="black">
+                        <p className="font-bold">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "Your contact email will be used to verify your employee status",
+                            id: "PvS4Lq",
+                            description:
+                              "Title for a message informing the user that their contact email will be used as a work email.",
+                          })}
+                        </p>
+                        <p>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "PWe noticed that the email you’ve provided is also a Government of Canada employee email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
+                            id: "ZM84gk",
+                            description:
+                              "Body for a message informing the user that their contact email will be used as a work email.",
+                          })}
+                        </p>
+                      </Well>
+                    ) : null}
+                  </>
+                )}
+              </div>
+              <Dialog.Footer>
+                <Submit
+                  text={intl.formatMessage({
+                    defaultMessage: "Save and add email",
+                    id: "exfH1c",
+                    description: "Button to save and add email",
+                  })}
+                />
+                <Button
+                  color="warning"
+                  mode="inline"
+                  onClick={() => setOpen(false)}
+                >
+                  {intl.formatMessage(commonMessages.cancel)}
+                </Button>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
