@@ -188,6 +188,7 @@ const ScreeningDecisionDialog = ({
             <SupportingEvidence
               query={candidate}
               skillId={poolSkill?.skill?.id}
+              dialogType={dialogType}
             />
           )}
           <BasicForm
