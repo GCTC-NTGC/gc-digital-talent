@@ -6,43 +6,42 @@ type: "Feature"
 body:
   - type: markdown
     attributes:
+      value: "## ✨ Feature Request"
+  - type: markdown
+    attributes:
       value: |
         Thanks for taking the time to fill out this feature issue!
   - type: textarea
     id: description-feature
     attributes:
-      label: ✨ Feature Request
+      label: Details
       description: Describe the feature that is being requested.
-  - type: textarea
-    id: details
+  - type: markdown
     attributes:
-      label: 🕵️ Details
-      description: Add any additional details that could assist with the development of the new feature.
-  - type: input
+      value: "## 🎨 Design"
+  - type: textarea
     id: design
     attributes:
-      label: 🎨 Design file
-      description: Include a link to the design file (if it exists).
-  - type: input
-    id: designer
-    attributes:
-      label: 🎨 Designer
-      description: Include the author of the linked design file's name for future reference.
+      label: Design file & designer
+      description: Include a link to the design file (if it exists) and the author.
   - type: textarea
     id: screenshot
     attributes:
-      label: 📸 Screenshot
+      label: 📸 Screenshots
       description: Paste a screenshot to help illustrate the feature.
-  - type: textarea
-    id: proposed-implementation
-    attributes:
-      label: 🙋‍♀️ Proposed Implementation
-      description: Do you have a proposed implementation?
   - type: textarea
     id: localization
     attributes:
       label: 🌎 Localization
       description: Provide any new copy along with translations available.
+  - type: markdown
+    attributes:
+      value: "## 🙋‍♀️ Implementation"
+  - type: textarea
+    id: proposed-implementation
+    attributes:
+      label: Proposed Implementation
+      description: Do you have a proposed implementation?
   - type: textarea
     id: acceptance-criteria
     attributes:
