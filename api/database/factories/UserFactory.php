@@ -21,6 +21,7 @@ use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
+use App\Enums\WFAInterest;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -185,7 +186,7 @@ class UserFactory extends Factory
     /**
      * Is government employee.
      */
-    public function asGovEmployee($isGovEmployee = true, $isVerified = true)
+    public function asGovEmployee($isGovEmployee = true, $isVerified = true, $withWfa = true)
     {
         return $this->state(function () use ($isGovEmployee, $isVerified) {
             if (! $isGovEmployee) {
@@ -215,9 +216,15 @@ class UserFactory extends Factory
                 'computed_gov_end_date' => $this->faker->dateTimeBetween('now', '+30 years'),
                 'computed_gov_role' => $this->faker->jobTitle(),
             ];
-        })->afterCreating(function (User $user) use ($isGovEmployee) {
+        })->afterCreating(function (User $user) use ($isGovEmployee, $withWfa) {
             if (! $isGovEmployee) {
                 return;
+            }
+
+            if ($withWfa) {
+                $user->wfa_interest = $this->faker->randomElement(WFAInterest::cases())->name;
+                $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year');
+                $user->saveQuietly();
             }
 
             // Government employee counts as an user who has a work experience with
