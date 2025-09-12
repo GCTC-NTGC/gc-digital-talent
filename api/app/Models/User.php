@@ -5,9 +5,12 @@ namespace App\Models;
 use App\Builders\UserBuilder;
 use App\Casts\LanguageCode;
 use App\Enums\EmailType;
+use App\Enums\EmploymentCategory;
+use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
@@ -355,9 +358,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasOne(EmployeeProfile::class, 'id');
     }
 
-    public function wfaEmployee(): HasOne
+    public function employeeWFA(): HasOne
     {
-        return $this->hasOne(WFAEmployee::class, 'id');
+        return $this->hasOne(EmployeeWFA::class, 'id');
     }
 
     public function offPlatformRecruitmentProcesses(): HasMany
@@ -467,6 +470,51 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
         );
+    }
+
+    public function currentSubstantiveExperience(): Attribute
+    {
+        return Attribute::make(get: function () {
+            $employmentTypeOrder = [
+                WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                WorkExperienceGovEmployeeType::TERM->name,
+            ];
+
+            $positionTypeOrder = [
+                GovPositionType::SUBSTANTIVE->name,
+                GovPositionType::ACTING->name,
+                GovPositionType::SECONDMENT->name,
+                GovPositionType::ASSIGNMENT->name,
+                null,
+            ];
+
+            $workExperiences = $this->workExperiences->filter(function ($exp) {
+
+                $isGovExp = $exp->employee_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name ||
+                    $exp->employee_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name;
+                $isCurrent = is_null($exp->end_date) || $exp->end_date->isFuture();
+                $isTermOrIndeterminent =
+                    $exp->gov_employment_type === WorkExperienceGovEmployeeType::INDETERMINATE->name;
+                $isSubstantiveOrTerm = false;
+                if ($isTermOrIndeterminent) {
+                    $isSubstantiveOrTerm = $exp->gov_position_type === GovPositionType::SUBSTANTIVE->name;
+                } elseif ($exp->gov_employment_type === WorkExperienceGovEmployeeType::TERM->name) {
+                    $isTermOrIndeterminent = true;
+                    $isSubstantiveOrTerm = true;
+                }
+
+                return $isGovExp && $isCurrent && $isTermOrIndeterminent && $isSubstantiveOrTerm;
+            })
+                ->sortByDesc('start_date')
+                ->sortBy([
+                    fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $positionTypeOrder),
+                    fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $employmentTypeOrder),
+                ]);
+
+            // NOTE: After sorting, the first item should be their current substantive or term position
+            return $workExperiences->first() ?? null;
+
+        });
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
