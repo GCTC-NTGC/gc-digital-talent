@@ -55,7 +55,8 @@ body:
       options:
         - "No"
         - "Yes"
-      default: 0  
+      default: 0 
+      required: true
   - type: input
     id: root-cause-pr
     attributes:
