@@ -44,6 +44,8 @@ return [
         'nomination_received_submitter_fr' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_FR', ''),
         'nomination_received_nominator_en' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_EN', ''),
         'nomination_received_nominator_fr' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_FR', ''),
+        'application_received_en' => env('GCNOTIFY_TEMPLATE_APPLICATION_RECEIVED_EN', ''),
+        'application_received_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_RECEIVED_FR', ''),
     ],
 
     /*
