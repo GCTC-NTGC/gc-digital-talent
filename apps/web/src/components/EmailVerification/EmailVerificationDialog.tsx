@@ -1,6 +1,11 @@
 import { useState, useEffect, ReactNode, useRef } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
@@ -10,6 +15,8 @@ import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import {
   assertUnreachable,
+  emptyToNull,
+  notEmpty,
   workEmailDomainRegex,
 } from "@gc-digital-talent/helpers";
 
@@ -223,7 +230,9 @@ export const EmailVerificationDialog = ({
     EmailVerificationRequestACode_Mutation,
   );
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
-  const [showVerificationInput, setShowVerificationInput] = useState(false); // show the bottom half of the dialog where you can submit the code
+  const [emailAddressContacted, setEmailAddressContacted] = useState<
+    string | null
+  >(null); // what address was an email sent to
   const [requestACodeMessage, setRequestACodeMessage] =
     useState<requestACodeMessage | null>(null); // messages that can be shown for the top half of the dialog where you can request a code
   const [submitACodeMessage, setSubmitACodeMessage] =
@@ -240,12 +249,19 @@ export const EmailVerificationDialog = ({
       emailType: dialogEmailType,
     },
   });
+
+  const watchEmailAddressInput = useWatch({
+    control: requestACodeFormMethods.control,
+    name: "emailAddress",
+  });
+
   const submitACodeFormMethods = useForm<SubmitACodeFormValues>({});
 
   const timerIdRef = useRef<ReturnType<typeof setTimeout>>(null); // timer for throttling requests
 
   // Reset all the states back, for example, when closing the dialog.
   const resetDialog = () => {
+    setEmailAddressContacted(null);
     setRequestACodeMessage(null);
     setSubmitACodeMessage(null);
     setCanRequestCode(true);
@@ -322,7 +338,7 @@ export const EmailVerificationDialog = ({
       .then(() => {
         setRequestACodeMessage("request-sent");
         setCanRequestCode(false);
-        setShowVerificationInput(true); // show the verification code input after email is sent
+        setEmailAddressContacted(emailAddress);
       })
       .catch(() => {
         toast.error(intl.formatMessage(errorMessages.error));
@@ -364,6 +380,28 @@ export const EmailVerificationDialog = ({
         );
       });
   };
+
+  // watch the form to see if the user changes the address input after requesting a code
+  useEffect(() => {
+    const sentAddress = emptyToNull(emailAddressContacted);
+    const formAddress = emptyToNull(watchEmailAddressInput);
+    if (
+      notEmpty(sentAddress) &&
+      notEmpty(formAddress) &&
+      sentAddress != formAddress
+    ) {
+      // show message
+      setRequestACodeMessage("address-changed");
+    } else if (
+      notEmpty(sentAddress) &&
+      notEmpty(formAddress) &&
+      sentAddress == formAddress &&
+      requestACodeMessage == "address-changed"
+    ) {
+      // clear message if they undo the change
+      setRequestACodeMessage(null);
+    }
+  }, [emailAddressContacted, requestACodeMessage, watchEmailAddressInput]);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleDialogOpenChange}>
@@ -437,7 +475,7 @@ export const EmailVerificationDialog = ({
               )}
             >
               <div className="mb-6 flex flex-col gap-6">
-                {showVerificationInput && (
+                {emailAddressContacted ? (
                   <>
                     <Input
                       id="verificationCode"
@@ -453,7 +491,7 @@ export const EmailVerificationDialog = ({
                       ? buildSubmitACodeMessage(submitACodeMessage, intl)
                       : null}
                   </>
-                )}
+                ) : null}
               </div>
               <Dialog.Footer>
                 <Submit
