@@ -911,6 +911,10 @@
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
   },
+  "1yMApi": {
+    "defaultMessage": "L'employée ou l'employé travaille sur place au moins trois jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
+  },
   "1yrLje": {
     "defaultMessage": "Avant de supprimer ces renseignements, assurez-vous d'avoir ajouté vos processus de recrutement hors plateforme en utilisant le nouveau bouton « Ajouter un processus hors plateforme » sur votre tableau de bord.",
     "description": "Explanation of delete old off platform processes dialog part 1"
@@ -1411,6 +1415,10 @@
     "defaultMessage": "Motif",
     "description": "Label for the reason why a candidate is being removed"
   },
+  "4BJrSM": {
+    "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins trois jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
+  },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
@@ -1482,6 +1490,10 @@
   "4RK/oW": {
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
+  },
+  "4Rs1gk": {
+    "defaultMessage": "Veuillez préciser si vous souhaitez exclure une ville d'une région.",
+    "description": "Location Exemptions field label for work location preference form"
   },
   "4SNVtn": {
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
@@ -1662,6 +1674,10 @@
   "58l6yP": {
     "defaultMessage": "Sélectionnez la collectivité et les rôles que vous souhaitez ajouter",
     "description": "Lead in text for the pick community and roles inputs."
+  },
+  "59TDoK": {
+    "defaultMessage": "Bureau où travailler sur place",
+    "description": "Legend for location preferences filter on search form."
   },
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
@@ -3791,10 +3807,6 @@
     "defaultMessage": "Rejoignez-nous sur LinkedIn",
     "description": "External button link to LinkedIn"
   },
-  "F+WFWB": {
-    "defaultMessage": "Région",
-    "description": "Label for work location filter in search form."
-  },
   "F/WYCH": {
     "defaultMessage": "Mise à jour de votre autodéclaration réussie",
     "description": "Message displayed to users when saving self-declaration is successful."
@@ -5671,6 +5683,10 @@
     "defaultMessage": "J'accepte de recevoir des notifications par courriel de Talents numériques du GC.",
     "description": "Text for the option consent to email notifications."
   },
+  "NxrKpM": {
+    "defaultMessage": "Statut de la candidature",
+    "description": "Label for the candidacy status field"
+  },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
@@ -7338,6 +7354,10 @@
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
+  "W2619r": {
+    "defaultMessage": "Options de lieu de travail flexible",
+    "description": "Legend for the flexible work location preferences section"
+  },
   "W2s794": {
     "defaultMessage": "Programme de perfectionnement",
     "description": "Label for the development program nomination type"
@@ -7486,6 +7506,10 @@
     "defaultMessage": "Souhaitez-vous annuler cette décision et régler le statut du candidat à « En cours d’évaluation »?",
     "description": "Confirmation text for reinstating a candidate"
   },
+  "WoFBmk": {
+    "defaultMessage": "Je consens à travailler constamment à distance.",
+    "description": "Checklist option explanatory note"
+  },
   "WoZ3pB": {
     "defaultMessage": "Les postes au niveau de la direction m'intéressent.",
     "description": "The executive interest described as interested."
@@ -7613,6 +7637,10 @@
   "XKpHTN": {
     "defaultMessage": "La possibilité de formation a été créée avec succès!",
     "description": "Message displayed to user after a training opportunity is created successfully."
+  },
+  "XNNBCv": {
+    "defaultMessage": "Je consens à travailler constamment sur place dans un lieu ministériel désigné.",
+    "description": "Checklist option explanatory note"
   },
   "XNzRga": {
     "defaultMessage": "Compétences techniques constituant un atout",
@@ -8450,6 +8478,10 @@
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
+  "bMM+wm": {
+    "defaultMessage": "Sélectionnez les options de lieu de travail flexibles offertes dans le cadre de ce poste.",
+    "description": "Message describing the flexible work locations filter in the search form."
+  },
   "bMY93S": {
     "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
     "description": "Help text for providing a skill level"
@@ -8950,10 +8982,6 @@
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
     "description": "Text that appears in Employment equity dialogs explaining the act is under review."
   },
-  "dcvRbO": {
-    "defaultMessage": "Veuillez indiquer s'il y a une ville que vous aimeriez exclure d'une région.",
-    "description": "Location Exemptions field label for work location preference form"
-  },
   "deE+LO": {
     "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
     "description": "Subtitle for general question dialog"
@@ -9257,6 +9285,10 @@
   "ehrsDa": {
     "defaultMessage": "Langue d'expression à l'entrevue",
     "description": "Legend text for spoken interview language preference for interviews"
+  },
+  "ejzPh7": {
+    "defaultMessage": "Veuillez sélectionner les possibilités souples qui vous intéressent quant au lieu de travail. N’oubliez pas que la plupart des emplois au gouvernement du Canada font l’objet d’un modèle de travail hybride.",
+    "description": "Flexible work locations field label for work location preference form"
   },
   "elMgS2": {
     "defaultMessage": "Poste actuel",
@@ -10245,6 +10277,10 @@
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
   },
+  "j+GOVX": {
+    "defaultMessage": "L'employée ou l'employé travaille à distance constamment, sans devoir être sur place.",
+    "description": "Checklist option explanatory note"
+  },
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -10288,6 +10324,10 @@
   "j8DE64": {
     "defaultMessage": "Présentation d’un contenu dans les deux langues officielles du Canada",
     "description": "Title for the providing content section"
+  },
+  "j8R/Mg": {
+    "defaultMessage": "Options de lieu de travail flexible",
+    "description": "Title for flexible work location options section on summary of filters section"
   },
   "j9zYRY": {
     "defaultMessage": "Date d’expiration (UTC)",

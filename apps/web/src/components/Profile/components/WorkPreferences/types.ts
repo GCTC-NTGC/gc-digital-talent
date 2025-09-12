@@ -7,6 +7,7 @@ export type PartialUser = Pick<
   | "acceptedOperationalRequirements"
   | "positionDuration"
   | "locationPreferences"
+  | "flexibleWorkLocations"
   | "locationExemptions"
 >;
 
@@ -16,6 +17,7 @@ export type FormValues = Pick<
   | "currentProvince"
   | "acceptedOperationalRequirements"
   | "locationPreferences"
+  | "flexibleWorkLocations"
   | "locationExemptions"
 > & {
   wouldAcceptTemporary?: string;

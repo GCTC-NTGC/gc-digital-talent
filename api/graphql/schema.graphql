@@ -115,6 +115,8 @@ type User {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -913,6 +915,8 @@ type ApplicantFilter {
     @rename(attribute: "operational_requirements")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
@@ -1223,6 +1227,8 @@ input ApplicantFilterInput {
   hasDiploma: Boolean @scope(name: "whereHasDiploma")
   languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
   locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
   operationalRequirements: [OperationalRequirement]
     @scope(name: "whereOperationalRequirementsIn")
   positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
@@ -1263,6 +1269,8 @@ input PoolCandidateSearchInput {
   # There is also a stream field as part of ApplicantFilterInput however it includes scoping for availability.
   workStreams: [IdInput] @scope(name: "whereWorkStreamsIn")
   processNumber: String @scope(name: "whereProcessNumber")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
   assessmentSteps: [Int!] @scope(name: "whereAssessmentStepIn")
 }
 
@@ -1703,6 +1711,8 @@ input CreateUserInput {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -1776,6 +1786,8 @@ input UpdateUserAsAdminInput @validator {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -1856,6 +1868,8 @@ input UpdateUserAsUserInput @validator {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -2354,6 +2368,8 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany

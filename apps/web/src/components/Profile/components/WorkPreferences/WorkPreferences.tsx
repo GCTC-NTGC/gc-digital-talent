@@ -33,6 +33,7 @@ import Display from "./Display";
 const WorkPreferencesForm_Query = graphql(/* GraphQL */ `
   query WorkPreferencesForm_Query {
     ...WorkPreferencesFormOptions
+    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 
@@ -138,7 +139,11 @@ const WorkPreferences = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display query={user} labels={labels} />}
+          {isNull ? (
+            <NullDisplay />
+          ) : (
+            <Display query={user} optionsQuery={data} labels={labels} />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (
