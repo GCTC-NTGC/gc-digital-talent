@@ -355,6 +355,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasOne(EmployeeProfile::class, 'id');
     }
 
+    public function wfaEmployee(): HasOne
+    {
+        return $this->hasOne(WFAEmployee::class, 'id');
+    }
+
     public function offPlatformRecruitmentProcesses(): HasMany
     {
         return $this->hasMany(OffPlatformRecruitmentProcess::class);
