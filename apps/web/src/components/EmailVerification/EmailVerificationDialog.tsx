@@ -255,7 +255,11 @@ export const EmailVerificationDialog = ({
     name: "emailAddress",
   });
 
-  const submitACodeFormMethods = useForm<SubmitACodeFormValues>({});
+  const submitACodeFormMethods = useForm<SubmitACodeFormValues>({
+    defaultValues: {
+      verificationCode: "",
+    },
+  });
 
   const timerIdRef = useRef<ReturnType<typeof setTimeout>>(null); // timer for throttling requests
 
@@ -272,7 +276,7 @@ export const EmailVerificationDialog = ({
     submitACodeFormMethods.reset();
   };
 
-  // The dialog is opening or closing.
+  // Close or open the dialog
   const handleDialogOpenChange = (open: boolean) => {
     if (!open) {
       resetDialog();
@@ -360,7 +364,7 @@ export const EmailVerificationDialog = ({
     return mutationResult
       .then(() => {
         // close the dialog
-        setOpen(false);
+        handleDialogOpenChange(false);
 
         //fire event to parent
         onVerificationSuccess();
@@ -443,7 +447,7 @@ export const EmailVerificationDialog = ({
                   <Input
                     id="emailAddress"
                     name="emailAddress"
-                    type="text"
+                    type="email"
                     label={getLabel(dialogEmailType, intl)}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
@@ -520,7 +524,7 @@ export const EmailVerificationDialog = ({
                 <Button
                   color="warning"
                   mode="inline"
-                  onClick={() => setOpen(false)}
+                  onClick={() => handleDialogOpenChange(false)}
                 >
                   {intl.formatMessage(commonMessages.cancel)}
                 </Button>
