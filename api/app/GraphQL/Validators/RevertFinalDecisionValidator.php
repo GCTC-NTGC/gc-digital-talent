@@ -6,7 +6,6 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
-use Database\Helpers\ApiErrorEnums;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -30,7 +29,7 @@ final class RevertFinalDecisionValidator extends Validator
         ];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages(['id' => ApiErrorEnums::INVALID_STATUS_REVERT_FINAL_DECISION]);
+            throw ValidationException::withMessages(['id' => __('error_code.invalid_revert_final_decision')]);
         }
 
         return [];
