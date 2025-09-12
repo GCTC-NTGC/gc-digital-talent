@@ -10,7 +10,6 @@ use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
 use App\Notifications\ApplicationReceived;
 use Carbon\Carbon;
-use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
