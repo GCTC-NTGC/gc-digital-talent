@@ -486,6 +486,9 @@ export const EmailVerificationDialog = ({
                         id: "T+ypau",
                         description: "label for verification code input",
                       })}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
                     />
                     {submitACodeMessage
                       ? buildSubmitACodeMessage(submitACodeMessage, intl)
