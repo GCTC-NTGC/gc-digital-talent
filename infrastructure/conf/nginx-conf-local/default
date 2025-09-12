@@ -96,6 +96,11 @@ server {
     location = "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx" { return 301 "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx$is_args$args"; }
     location = "/documents/Trousse du gestionnaire - PATIPA.pptx" { return 301 "/static/documents/Trousse du gestionnaire - PATIPA.pptx$is_args$args"; }
 
+    # permanent redirect for known tc-report paths, serve from static hosting now
+    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$)(.*) {
+        return 301 "/static/tc-report/$1/$2$3$4";
+    }
+
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
 
@@ -232,12 +237,6 @@ server {
         # unhashed assets get cached for an hour
         # add_header Cache-Control "public, max-age=3600"; # 1 hour
         try_files /apps/web/dist/$uri =404;
-    }
-
-    # for known tc-report paths, serve tc-report files, and fall back to main SPA.
-    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
-        # add_header Cache-Control "public, max-age=604800"; # 1 week
-        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
     }
 
     # The reverse proxy is not present locally so this provides a temporary redirect to prod static hosting for testing
