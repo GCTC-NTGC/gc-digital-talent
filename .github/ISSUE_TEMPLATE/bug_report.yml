@@ -53,8 +53,8 @@ body:
       label: 🔄 Regression
       description: Is this bug a regression (did it work before and now it does not)?
       options:
-        - No
-        - Yes
+        - "No"
+        - "Yes"
       default: 0  
   - type: input
     id: root-cause-pr
