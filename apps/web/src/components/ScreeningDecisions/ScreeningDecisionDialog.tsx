@@ -200,6 +200,7 @@ const ScreeningDecisionDialog = ({
           ) : (
             <SupportingEvidence
               query={candidate}
+              experiences={unpackMaybes(snapshot?.experiences)}
               skillId={poolSkill?.skill?.id}
               dialogType={dialogType}
             />
