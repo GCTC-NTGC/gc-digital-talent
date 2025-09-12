@@ -847,11 +847,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     /**
      * Interact with the user's work email.
      */
-    protected function work_email(): Attribute
+    protected function workEmail(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => $value,
-            set: function (string $value) {
+            get: fn (?string $value) => $value,
+            set: function (?string $value) {
                 $updatedAttributes = ['work_email' => $value];
 
                 // reset verified_at timestamp if email changes
