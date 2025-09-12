@@ -1,15 +1,19 @@
 import { useIntl } from "react-intl";
 
 import {
+  Experience,
   FragmentType,
   getFragment,
   graphql,
+  makeFragmentData,
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import ExperienceCard from "../ExperienceCard/ExperienceCard";
+import ExperienceCard, {
+  ExperienceCard_Fragment,
+} from "../ExperienceCard/ExperienceCard";
 import { DialogType } from "./useDialogType";
 import { DIALOG_TYPE } from "./utils";
 
@@ -18,26 +22,19 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
     educationRequirementExperiences {
       id
     }
-    user {
-      experiences {
-        id
-        skills {
-          id
-        }
-        ...ExperienceCard
-      }
-    }
   }
 `);
 
 interface SupportingEvidenceProps {
-  query?: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
+  query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
+  experiences: Omit<Experience, "user">[];
   skillId?: Scalars["UUID"]["output"];
   dialogType: DialogType;
 }
 
 const SupportingEvidence = ({
   query,
+  experiences,
   skillId,
   dialogType,
 }: SupportingEvidenceProps) => {
@@ -46,14 +43,13 @@ const SupportingEvidence = ({
     ScreeningDialogSupportingEvidence_Fragment,
     query,
   );
-
-  const experiences = unpackMaybes(candidate?.user.experiences);
+  const educationRequirementExperienceIds = unpackMaybes(
+    candidate?.educationRequirementExperiences,
+  ).flatMap((exp) => exp.id);
   const experiencesFiltered =
     dialogType === DIALOG_TYPE.Education
       ? experiences.filter((experience) =>
-          candidate?.educationRequirementExperiences?.some(
-            (eduExp) => eduExp?.id === experience.id,
-          ),
+          educationRequirementExperienceIds?.includes(experience.id),
         )
       : experiences.filter((experience) =>
           experience.skills?.some((skill) => skill?.id === skillId),
@@ -73,7 +69,10 @@ const SupportingEvidence = ({
         experiencesFiltered.map((experience) => (
           <div className="mb-3" key={experience.id}>
             <ExperienceCard
-              experienceQuery={experience}
+              experienceQuery={makeFragmentData(
+                experience,
+                ExperienceCard_Fragment,
+              )}
               headingLevel="h3"
               showEdit={false}
               {...(skillId && {
