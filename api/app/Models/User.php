@@ -103,6 +103,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
+ * @property ?\App\Models\WorkExperience $current_substantive_experience
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
  * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
  */
@@ -490,8 +491,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
             $workExperiences = $this->workExperiences->filter(function ($exp) {
 
-                $isGovExp = $exp->employee_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name ||
-                    $exp->employee_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name;
+                $isGovExp = $exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name ||
+                    $exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name;
                 $isCurrent = is_null($exp->end_date) || $exp->end_date->isFuture();
                 $isTermOrIndeterminent =
                     $exp->gov_employment_type === WorkExperienceGovEmployeeType::INDETERMINATE->name;
@@ -513,7 +514,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
             // NOTE: After sorting, the first item should be their current substantive or term position
             return $workExperiences->first() ?? null;
-
         });
     }
 

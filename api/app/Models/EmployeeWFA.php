@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
-use User;
 
 /**
  * Class EmployeeWFA
@@ -44,7 +43,7 @@ class EmployeeWFA extends Model
         return $this->hasOne(User::class, 'id');
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query, ?array $args)
     {
 
         /** @var \App\Models\User | null */

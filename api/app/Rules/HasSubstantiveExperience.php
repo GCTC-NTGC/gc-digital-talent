@@ -18,7 +18,7 @@ class HasSubstantiveExperience implements ValidationRule
     {
         $user = User::find($value);
 
-        if ($user && ! $user->UpdateEmployeeWFAValidator) {
+        if ($user && ! $user->current_substantive_experience) {
             $fail(ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
         }
     }

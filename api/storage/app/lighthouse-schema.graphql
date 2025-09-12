@@ -757,7 +757,7 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
-  currentSubstantiveExperience: [WorkExperience]
+  currentSubstantiveExperience: WorkExperience
   userSkills(includeSkillIds: [UUID]): [UserSkill]
   topTechnicalSkillsRanking: [UserSkill]
   topBehaviouralSkillsRanking: [UserSkill]
