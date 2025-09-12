@@ -150,7 +150,7 @@ const AccountSettingsPage = () => {
                     <>
                       <p>
                         <EmailVerificationDialog
-                          defaultOpen={true}
+                          defaultOpen={false}
                           emailType={EmailType.Contact}
                           emailAddress={data.me.email}
                           onVerificationSuccess={function (): void {
