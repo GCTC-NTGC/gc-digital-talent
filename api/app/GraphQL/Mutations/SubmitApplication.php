@@ -76,8 +76,6 @@ final class SubmitApplication
 
         } catch (\Throwable $e) {
             Log::error('Problem sending application received email '.$e);
-
-            return new Error($e->getMessage());
         }
 
         return $application;
