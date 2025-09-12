@@ -97,8 +97,8 @@ server {
     location = "/documents/Trousse du gestionnaire - PATIPA.pptx" { return 301 "/static/documents/Trousse du gestionnaire - PATIPA.pptx$is_args$args"; }
 
     # permanent redirect for known tc-report paths, serve from static hosting now
-    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$)(.*) {
-        return 301 "/static/tc-report/$1/$2$3$4";
+    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
+        return 301 "/static/tc-report$request_uri";
     }
 
     # Permanent redirect for IAP french vanity url
