@@ -24,11 +24,5 @@ WithData.args = {
 
 export const Null = Template.bind({});
 Null.args = {
-  userQuery: makeFragmentData(
-    {
-      id: "test ID", // this page can only be loaded by a logged in user
-      email: undefined,
-    },
-    UserProfile_Fragment,
-  ),
+  userQuery: makeFragmentData({}, UserProfile_Fragment),
 };

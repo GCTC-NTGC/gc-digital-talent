@@ -7,7 +7,12 @@ import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { graphql, Pool } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -34,13 +39,44 @@ const PersonalInformationForm_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
+  fragment ProfilePersonalInformation on User {
+    id
+    firstName
+    lastName
+    telephone
+    email
+    preferredLang {
+      value
+    }
+    preferredLanguageForInterview {
+      value
+    }
+    preferredLanguageForExam {
+      value
+    }
+    citizenship {
+      value
+    }
+    armedForcesStatus {
+      value
+    }
+    ...PersonalInformationDisplay
+  }
+`);
+
+interface PersonalInformationProps extends SectionProps<Pick<Pool, "id">> {
+  query: FragmentType<typeof ProfilePersonalInformation_Fragment>;
+}
+
 const PersonalInformation = ({
-  user,
+  query,
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps<Pick<Pool, "id">>) => {
+}: PersonalInformationProps) => {
   const intl = useIntl();
+  const user = getFragment(ProfilePersonalInformation_Fragment, query);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
@@ -121,7 +157,7 @@ const PersonalInformation = ({
           {isNull ? (
             <NullDisplay />
           ) : (
-            <Display user={user} showEmailVerification={!isInApplication} />
+            <Display query={user} showEmailVerification={!isInApplication} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>

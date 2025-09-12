@@ -3,23 +3,57 @@ import { useNavigate } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import { PartialUser } from "./types";
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
+export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment GovernmentInformationDisplay on User {
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    govEmployeeType {
+      value
+      label {
+        localized
+      }
+    }
+    department {
+      id
+      name {
+        localized
+      }
+    }
+    currentClassification {
+      group
+      level
+    }
+    workEmail
+    isWorkEmailVerified
+  }
+`);
+
 interface DisplayProps {
-  user: PartialUser;
+  query: FragmentType<typeof GovernmentInformationDisplay_Fragment>;
   showEmailVerification?: boolean;
   readOnly?: boolean;
 }
 
 const Display = ({
-  user: {
+  query,
+  showEmailVerification = false,
+  readOnly = false,
+}: DisplayProps) => {
+  const intl = useIntl();
+  const navigate = useNavigate();
+  const routes = useRoutes();
+  const user = getFragment(GovernmentInformationDisplay_Fragment, query);
+  const {
     isGovEmployee,
     department,
     govEmployeeType,
@@ -28,13 +62,7 @@ const Display = ({
     priorityNumber,
     workEmail,
     isWorkEmailVerified,
-  },
-  showEmailVerification = false,
-  readOnly = false,
-}: DisplayProps) => {
-  const intl = useIntl();
-  const navigate = useNavigate();
-  const routes = useRoutes();
+  } = user;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 

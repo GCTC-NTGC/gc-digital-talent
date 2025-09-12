@@ -8,7 +8,12 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql, Pool } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -43,12 +48,38 @@ const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const ProfileGovernmentInformation_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileGovernmentInformation on User {
+    id
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    govEmployeeType {
+      value
+    }
+    department {
+      id
+    }
+    currentClassification {
+      group
+      level
+    }
+    workEmail
+    ...GovernmentInformationDisplay
+  }
+`);
+
+interface GovernmentInformationProps extends SectionProps<Pick<Pool, "id">> {
+  query: FragmentType<typeof ProfileGovernmentInformation_Fragment>;
+}
+
 const GovernmentInformation = ({
-  user,
+  query,
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps<Pick<Pool, "id">>) => {
+}: GovernmentInformationProps) => {
+  const user = getFragment(ProfileGovernmentInformation_Fragment, query);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const intl = useIntl();
@@ -136,7 +167,7 @@ const GovernmentInformation = ({
           {isNull ? (
             <NullDisplay />
           ) : (
-            <Display user={user} showEmailVerification={!isInApplication} />
+            <Display query={user} showEmailVerification={!isInApplication} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>

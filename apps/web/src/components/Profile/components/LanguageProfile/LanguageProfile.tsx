@@ -7,7 +7,12 @@ import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { graphql, Pool } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 import profileMessages from "~/messages/profileMessages";
@@ -33,14 +38,46 @@ const LanguageProfile_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileLanguageProfile on User {
+    id
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage {
+      value
+    }
+    estimatedLanguageAbility {
+      value
+    }
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    writtenLevel {
+      value
+    }
+    comprehensionLevel {
+      value
+    }
+    verbalLevel {
+      value
+    }
+    ...LanguageProfileDisplay
+  }
+`);
+
+interface LanguageProfileProps extends SectionProps<Pick<Pool, "id">> {
+  query: FragmentType<typeof ProfileLanguageProfile_Fragment>;
+}
+
 const LanguageProfile = ({
-  user,
+  query,
   application,
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps<Pick<Pool, "id">>) => {
+}: LanguageProfileProps) => {
   const intl = useIntl();
+  const user = getFragment(ProfileLanguageProfile_Fragment, query);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
@@ -123,7 +160,7 @@ const LanguageProfile = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display user={user} />}
+          {isNull ? <NullDisplay /> : <Display query={user} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (

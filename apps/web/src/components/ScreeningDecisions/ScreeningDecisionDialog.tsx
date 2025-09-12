@@ -8,6 +8,7 @@ import {
   graphql,
   Maybe,
   Scalars,
+  SkillCategory,
   User,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -52,6 +53,9 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
           id
           skill {
             id
+            category {
+              value
+            }
           }
           ...ScreeningTriggerPoolSkill
           ...ScreeningDialogHeaderPoolSkill
@@ -121,9 +125,18 @@ const ScreeningDecisionDialog = ({
     candidateId: candidate.id,
   });
 
+  /**
+   * Criteria for not showing the dialog:
+   *   1. Education requirement and not application screening
+   *   2. Behavioural skill and is application screening
+   *   3. No pool skill and is application screening
+   */
   if (
-    dialogType === DIALOG_TYPE.Education &&
-    step?.type?.value !== AssessmentStepType.ApplicationScreening
+    (dialogType === DIALOG_TYPE.Education &&
+      step?.type?.value !== AssessmentStepType.ApplicationScreening) ||
+    (step?.type?.value === AssessmentStepType.ApplicationScreening &&
+      poolSkill?.skill?.category.value === SkillCategory.Behavioural) ||
+    (!poolSkill && dialogType !== DIALOG_TYPE.Education)
   ) {
     return null;
   }
@@ -188,6 +201,7 @@ const ScreeningDecisionDialog = ({
             <SupportingEvidence
               query={candidate}
               skillId={poolSkill?.skill?.id}
+              dialogType={dialogType}
             />
           )}
           <BasicForm

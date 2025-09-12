@@ -5896,7 +5896,7 @@
     "description": "Title for the HR advisor email block in the manager info section of the single search request view."
   },
   "PDGUT2": {
-    "defaultMessage": "À quoi dois-je m'attendre après avoir soumise ma demande d'emploi?",
+    "defaultMessage": "À quoi dois-je m'attendre après avoir soumis ma demande d'emploi?",
     "description": "Button text to toggle the accordion for what to expect after you apply"
   },
   "PDbqFR": {

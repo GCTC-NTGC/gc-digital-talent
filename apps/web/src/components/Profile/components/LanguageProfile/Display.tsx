@@ -3,16 +3,16 @@ import { MessageDescriptor, defineMessages, useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import { PartialUser } from "./types";
 import { getExamValidityOptions, getLabels } from "./utils";
 
 // A workaround is required to show the deprecated bilingual evaluation in the profile snapshot.
 // These changes will be removed a year from now. (Remove snapshot workaround for the bilingual evaluation field #9905)
-enum BilingualEvaluation {
+export enum BilingualEvaluation {
   CompletedEnglish = "COMPLETED_ENGLISH",
   CompletedFrench = "COMPLETED_FRENCH",
   NotCompleted = "NOT_COMPLETED",
@@ -41,12 +41,57 @@ const getBilingualEvaluation = (
     `Invalid Language Ability '${bilingualEvaluationId}'`,
   );
 
+export const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment LanguageProfileDisplay on User {
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage {
+      value
+      label {
+        localized
+      }
+    }
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    estimatedLanguageAbility {
+      value
+      label {
+        localized
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        localized
+      }
+    }
+    comprehensionLevel {
+      value
+      label {
+        localized
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
+
 export interface DisplayProps {
-  user: PartialUser & { bilingualEvaluation?: BilingualEvaluation };
+  query: FragmentType<typeof LanguageProfileDisplay_Fragment>;
+  bilingualEvaluation?: BilingualEvaluation;
 }
 
-const Display = ({
-  user: {
+const Display = ({ query, bilingualEvaluation }: DisplayProps) => {
+  const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const labels = getLabels(intl);
+  const user = getFragment(LanguageProfileDisplay_Fragment, query);
+  const {
     lookingForEnglish,
     lookingForFrench,
     lookingForBilingual,
@@ -57,12 +102,7 @@ const Display = ({
     writtenLevel,
     comprehensionLevel,
     verbalLevel,
-    bilingualEvaluation,
-  },
-}: DisplayProps) => {
-  const intl = useIntl();
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
-  const labels = getLabels(intl);
+  } = user;
 
   let examValidity = null;
   switch (secondLanguageExamValidity) {
