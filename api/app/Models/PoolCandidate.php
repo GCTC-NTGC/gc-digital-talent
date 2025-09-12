@@ -504,8 +504,14 @@ class PoolCandidate extends Model
         if (! empty($unsuccessfulDecisions)) {
             $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
         } elseif ($totalSteps === count($decisions)) {
-            $lastStepDecision = end($decisions);
-            if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
+            $arrayOfStepDecisions = array_map(function ($decision) {
+                return $decision['decision'];
+            }, $decisions);
+
+            if (
+                ! in_array(null, $arrayOfStepDecisions) &&
+                ! in_array(AssessmentDecision::UNSUCCESSFUL->name, $arrayOfStepDecisions)
+            ) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
