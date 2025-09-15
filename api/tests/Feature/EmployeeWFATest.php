@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Enums\WFAInterest;
 use App\Models\Community;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
@@ -131,6 +133,53 @@ class EmployeeWFATest extends TestCase
                     'interest' => null,
                 ],
             ])->assertJsonFragment(['date' => null]);
+    }
 
+    public function test_platform_admin_can_view_any()
+    {
+        $admin = User::factory()
+            ->asAdmin()
+            ->create();
+
+        $this->actingAs($admin, 'api')
+            ->graphQL($this->query)
+            ->assertJsonFragment(['id' => $this->employee->id]);
+    }
+
+    public function test_community_recruiter_can_view_in_community()
+    {
+        // Unrelated user who should not appear
+        User::factory()
+            ->asApplicant()
+            ->asGovEmployee()
+            ->create();
+
+        $recuiter = User::factory()
+            ->asCommunityRecruiter($this->community->id)
+            ->create();
+
+        $pool = Pool::factory()
+            ->published()
+            ->create(['community_id' => $this->community->id]);
+
+        // No community interest but will apply to pool
+        $user = User::factory()
+            ->asApplicant()
+            ->asGovEmployee()
+            ->create();
+
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $pool->id,
+                'user_id' => $user->id,
+            ]);
+
+        $res = $this->actingAs($recuiter, 'api')
+            ->graphQL($this->query);
+
+        $results = $res->json('data.employeeWFAPaginated.data');
+        // Expect 2 users, one from setup and one applied to community pool
+        $this->assertCount(2, $results);
     }
 }
