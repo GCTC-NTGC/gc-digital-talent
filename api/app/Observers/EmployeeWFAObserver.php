@@ -6,7 +6,7 @@ use App\Models\EmployeeWFA;
 
 class EmployeeWFAObserver
 {
-    public function updated(EmployeeWFA $employeeWFA)
+    public function updating(EmployeeWFA $employeeWFA)
     {
         $newInterest = $employeeWFA->wfa_interest;
 
@@ -15,7 +15,5 @@ class EmployeeWFAObserver
         }
 
         $employeeWFA->wfa_updated_at = now();
-
-        $employeeWFA->saveQuietly();
     }
 }
