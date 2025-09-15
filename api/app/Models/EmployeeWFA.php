@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\EmployeeWFAObserver;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -69,7 +70,6 @@ class EmployeeWFA extends Model
 
     public function scopeWhereAuthorizedToView(Builder $query, ?array $args)
     {
-
         /** @var \App\Models\User | null */
         $user = Auth::user();
 
@@ -82,40 +82,38 @@ class EmployeeWFA extends Model
         }
 
         $filterCountBefore = count($query->getQuery()->wheres);
-        $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-own-employeeWFA')) {
-                $query->orWhere('user_id', $user->id);
-            }
-
+        $query->whereHas('user', function (Builder $userQuery) use ($user) {
             if ($user->isAbleTo('view-team-employeeWFA')) {
-                $query->orWhere(function (Builder $query) use ($user) {
-                    $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->get();
 
+                $userQuery->where(function (Builder $subUserQuery) use ($user) {
+                    $allCommunityTeams = $user->rolesTeams()->get();
                     $teamIds = $allCommunityTeams
-                        ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('teamable_id');
+                        ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('id');
 
-                    print_r($teamIds);
-
-                    $query->whereHas('user', function (Builder $userQuery) use ($teamIds) {
-                        $userQuery->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
-                            // User has expressed interest in community
-                            $commInterestQuery->whereIn('community_id', $teamIds);
-                        })->orWhereHas('poolCandidates', function (Builder $candidateQuery) use ($teamIds) {
-                            // User has applied to a process in community
-                            $candidateQuery->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                                $poolQuery->where(function (Builder $query) use ($teamIds) {
-                                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    $subUserQuery->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
+                        // User has expressed interest in community
+                        $commInterestQuery->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                            $query->whereIn('id', $teamIds);
+                        });
+                    })->orWhereHas('poolCandidates', function (Builder $candidateQuery) use ($teamIds) {
+                        // User has applied to a process in community
+                        $candidateQuery->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                            $poolQuery
+                                ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                                ->where(function (Builder $query) use ($teamIds) {
+                                    $query->whereHas('team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('id', $teamIds);
                                     })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('id', $teamIds);
                                     });
                                 });
-                            });
                         });
                     });
                 });
+
+                if ($user->isAbleTo('view-own-employeeWFA')) {
+                    $userQuery->orWhere('id', $user->id);
+                }
             }
         });
 
