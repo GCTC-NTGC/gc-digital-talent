@@ -7,10 +7,10 @@ skipLink:
 navigation:
   en:
     - label: "&lt; Return to GC Digital Talent"
-      route: /en/
+      absoluteRoute: /en/
   fr:
     - label: "&lt; Retour à Talents numériques du GC"
-      route: /fr/
+      absoluteRoute: /fr/
 breadcrumbs:
   home:
     title:
