@@ -9,6 +9,11 @@ class EmployeeWFAPolicy
 {
     /**
      * Determine whether the user can view the model.
+     *
+     * NOTE: This only cares about `own` even though we have `any` and `team` scopes
+     * That is due to the fact that we only check when you are accessing your own for now.
+     *
+     * The other permission checks happen as part of scopes.
      */
     public function view(User $user, EmployeeWFA $employeeWFA): bool
     {
