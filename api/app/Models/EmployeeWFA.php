@@ -67,7 +67,7 @@ class EmployeeWFA extends Model
         ]);
     }
 
-    public function scopeAuthorizedToView(Builder $query, ?array $args)
+    public function scopeWhereAuthorizedToView(Builder $query, ?array $args)
     {
 
         /** @var \App\Models\User | null */
@@ -96,20 +96,20 @@ class EmployeeWFA extends Model
                     $teamIds = $allCommunityTeams
                         ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('teamable_id');
 
+                    print_r($teamIds);
+
                     $query->whereHas('user', function (Builder $userQuery) use ($teamIds) {
-                        $userQuery->orWhereHas('communityInterest', function (Builder $commInterestQuery) use ($teamIds) {
+                        $userQuery->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
                             // User has expressed interest in community
                             $commInterestQuery->whereIn('community_id', $teamIds);
-                        })->orWhereHas('poolCandidate', function (Builder $candidateQuery) use ($teamIds) {
+                        })->orWhereHas('poolCandidates', function (Builder $candidateQuery) use ($teamIds) {
                             // User has applied to a process in community
                             $candidateQuery->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
-                                    $query->where(function (Builder $query) use ($teamIds) {
-                                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                                            return $query->whereIn('id', $teamIds);
-                                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                                            return $query->whereIn('id', $teamIds);
-                                        });
+                                $poolQuery->where(function (Builder $query) use ($teamIds) {
+                                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
                                     });
                                 });
                             });

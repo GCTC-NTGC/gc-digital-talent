@@ -354,6 +354,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
+    public function communityInterests(): HasMany
+    {
+        return $this->hasMany(CommunityInterest::class);
+    }
+
     public function employeeProfile(): HasOne
     {
         return $this->hasOne(EmployeeProfile::class, 'id');
