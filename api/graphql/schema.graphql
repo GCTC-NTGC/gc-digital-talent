@@ -292,7 +292,7 @@ type EmployeeWFA {
   id: UUID!
   interest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
   date: DateTime @rename(attribute: "wfa_date")
-  updateAt: DateTime @rename(attribute: "wfa_updated_at")
+  updatedAt: DateTime @rename(attribute: "wfa_updated_at")
   user: User!
 }
 
