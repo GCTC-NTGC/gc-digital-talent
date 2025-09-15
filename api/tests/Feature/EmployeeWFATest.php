@@ -173,6 +173,7 @@ class EmployeeWFATest extends TestCase
             ->create([
                 'pool_id' => $pool->id,
                 'user_id' => $user->id,
+                'submitted_at' => config('constants.past_datetime'),
             ]);
 
         $res = $this->actingAs($recuiter, 'api')
