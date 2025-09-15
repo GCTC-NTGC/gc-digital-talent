@@ -70,7 +70,7 @@ class EmployeeWFATest extends TestCase
             ->create(['user_id' => $this->employee->id]);
     }
 
-    public function test_user_can_update_own_wfa()
+    public function testUserCanUpdateOwnWfa()
     {
         $futureDate = config('constants.far_future_datetime');
         $this->actingAs($this->employee, 'api')
@@ -89,7 +89,7 @@ class EmployeeWFATest extends TestCase
             ]);
     }
 
-    public function test_updated_at_set()
+    public function testUpdatedAtSet()
     {
         $beforeRes = $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
@@ -119,7 +119,7 @@ class EmployeeWFATest extends TestCase
         $this->assertTrue($after->greaterThan($before));
     }
 
-    public function test_not_applicable_sets_date_to_null()
+    public function testNotApplicableSetsDateToNull()
     {
         // Ensure we have a date to being with
         $this->employee->employeeWFA->wfa_date = config('constants.far_future_datetime');
@@ -135,7 +135,7 @@ class EmployeeWFATest extends TestCase
             ])->assertJsonFragment(['date' => null]);
     }
 
-    public function test_platform_admin_can_view_any()
+    public function testPlatformAdminCanViewAny()
     {
         $admin = User::factory()
             ->asAdmin()
@@ -146,7 +146,7 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['id' => $this->employee->id]);
     }
 
-    public function test_community_recruiter_can_view_in_community()
+    public function testCommunityRecruiterCanViewInCommunity()
     {
         // Unrelated user who should not appear
         User::factory()
