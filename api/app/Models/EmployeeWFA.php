@@ -40,7 +40,31 @@ class EmployeeWFA extends Model
     /** @return HasOne<User, $this> */
     public function user(): HasOne
     {
-        return $this->hasOne(User::class, 'id');
+        return $this->hasOne(User::class, 'id')->select([
+            'id',
+            'first_name',
+            'last_name',
+            'computed_classification',
+            'computed_department',
+            'is_woman',
+            'is_visible_minority',
+            'has_disability',
+            'indigenous_communities',
+            'has_priority_entitlement',
+            'priority_number',
+            'priority_weight',
+            'citizenship',
+            'armed_forces_status',
+            'estimated_language_ability',
+            'preferred_language_for_interview',
+            'preferred_language_for_exam',
+            'first_official_language',
+            'second_language_exam_completed',
+            'second_language_exam_validity',
+            'location_preferences',
+            'location_exemptions',
+            'work_email',
+        ]);
     }
 
     public function scopeAuthorizedToView(Builder $query, ?array $args)
