@@ -48,16 +48,16 @@ const getDescription = (
     case EmailType.Work:
       return intl.formatMessage({
         defaultMessage:
-          "In order to verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
-        id: "RiaRHW",
+          "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
+        id: "cw6MTQ",
         description: "Work email title paragraph",
       });
     case EmailType.Contact:
     default:
       return intl.formatMessage({
         defaultMessage:
-          "This email will be used by recruitment and HR teams to contact you about opportunities and will also receive notifications about your applications and other platform details.",
-        id: "Dd8fch",
+          "This email will be used by recruitment and HR teams to contact you about opportunities, as well as to send notifications about your applications and other platform details.",
+        id: "fa+z9W",
         description: "Contact email title paragraph",
       });
   }
@@ -188,8 +188,8 @@ const buildSubmitACodeMessage = (
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "We noticed that the email you’ve provided is also a Government of Canada employee email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
-              id: "uokoUh",
+                "We noticed that the email you've provided is also a Government of Canada employee work email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
+              id: "zn/6gt",
               description:
                 "Body for a message informing the user that their contact email will be used as a work email.",
             })}
@@ -425,8 +425,8 @@ export const EmailVerificationDialog = ({
           {
             <h2 className="text-lg font-bold">
               {intl.formatMessage({
-                defaultMessage: "Email Verification",
-                id: "pHrHab",
+                defaultMessage: "Email verification",
+                id: "7Q61+y",
                 description: "Title for email verification dialog",
               })}
             </h2>
