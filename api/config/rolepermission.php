@@ -271,8 +271,8 @@ return [
             'fr' => 'Voir l\'équipe WFA Employé',
         ],
         'update-own-employeeWFA' => [
-            'en' => 'Update any WFA Employee',
-            'fr' => 'Mettre à jour tout employé WFA',
+            'en' => 'Update own WFA Employee',
+            'fr' => 'Mettre à jour son propre employé WFA',
         ],
 
         'view-team-draftPool' => [

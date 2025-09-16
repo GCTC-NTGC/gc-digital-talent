@@ -154,7 +154,7 @@ class EmployeeWFATest extends TestCase
             ->asGovEmployee()
             ->create();
 
-        $recuiter = User::factory()
+        $recruiter = User::factory()
             ->asCommunityRecruiter($this->community->id)
             ->create();
 
@@ -176,7 +176,7 @@ class EmployeeWFATest extends TestCase
                 'submitted_at' => config('constants.past_datetime'),
             ]);
 
-        $res = $this->actingAs($recuiter, 'api')
+        $res = $this->actingAs($recruiter, 'api')
             ->graphQL($this->query);
 
         $results = $res->json('data.employeeWFAPaginated.data');

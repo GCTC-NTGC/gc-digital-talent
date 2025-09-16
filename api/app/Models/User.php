@@ -499,10 +499,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $isGovExp = $exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name ||
                     $exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name;
                 $isCurrent = is_null($exp->end_date) || $exp->end_date->isFuture();
-                $isTermOrIndeterminent =
+                $isTermOrIndeterminate =
                     $exp->gov_employment_type === WorkExperienceGovEmployeeType::INDETERMINATE->name;
                 $isSubstantiveOrTerm = false;
-                if ($isTermOrIndeterminent) {
+                if ($isTermOrIndeterminate) {
                     $isSubstantiveOrTerm = $exp->gov_position_type === GovPositionType::SUBSTANTIVE->name;
                 } elseif ($exp->gov_employment_type === WorkExperienceGovEmployeeType::TERM->name) {
                     $isTermOrIndeterminent = true;
