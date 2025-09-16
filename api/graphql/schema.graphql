@@ -124,6 +124,11 @@ type User {
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
+  # Employee WFA info
+  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: DateTime @rename(attribute: "wfa_date")
+  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
+
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["whereAuthorizedToView"])
@@ -288,14 +293,6 @@ type EmployeeProfile {
   userPublicProfile: UserPublicProfile
 }
 
-type EmployeeWFA {
-  id: UUID!
-  interest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
-  date: DateTime @rename(attribute: "wfa_date")
-  updatedAt: DateTime @rename(attribute: "wfa_updated_at")
-  user: User! @with(relation: "user")
-}
-
 interface Notification {
   id: ID!
   readAt: DateTime @rename(attribute: "read_at")
@@ -386,6 +383,46 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+}
+
+type EmployeeWFA @model(class: "\\App\\Models\\User") {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: DateTime @rename(attribute: "wfa_date")
+  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
+
+  # User profile info for table
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  classification: Classification @belongsTo(relation: "currentClassification")
+  department: Department @belongsTo
+  workEmail: Email @rename(attribute: "work_email")
+  isWoman: Boolean @rename(attribute: "is_woman")
+  hasDisability: Boolean @rename(attribute: "has_disability")
+  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [LocalizedIndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+  priorityNumber: String @rename(attribute: "priority_number")
+  citizenship: LocalizedCitizenshipStatus
+  armedForcesStatus: LocalizedArmedForcesStatus
+    @rename(attribute: "armed_forces_status")
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: LocalizedLanguage
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: LocalizedLanguage
+    @rename(attribute: "preferred_language_for_exam")
+  firstOfficialLanguage: LocalizedLanguage
+    @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+    @rename(attribute: "estimated_language_ability")
+  locationPreferences: [LocalizedWorkRegion]
+    @rename(attribute: "location_preferences")
+  locationExemptions: String @rename(attribute: "location_exemptions")
 }
 
 type GeneralQuestion {
@@ -1398,7 +1435,8 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["whereAuthorizedToView"]
+      scopes: ["whereAuthorizedToViewEmployeeWFA"]
+      model: "App\\Models\\User"
     )
     @guard
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
@@ -1956,11 +1994,11 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_c_suite_role_title")
 }
 
-input UpdateEmployeeWFA @validator {
+input UpdateEmployeeWFAInput @validator {
   # Usually the ID parameter is at the mutation level but we need it here for the validator.
   id: UUID!
-  interest: WFAInterest @rename(attribute: "wfa_interest")
-  date: DateTime @rename(attribute: "wfa_date")
+  wfaInterest: WFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: DateTime @rename(attribute: "wfa_date")
 }
 
 input CreateCommunityInterestInput @validator {
@@ -2967,11 +3005,11 @@ type Mutation {
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
   updateEmployeeWFA(
     id: UUID!
-    employeeWFA: UpdateEmployeeWFA! @spread
+    employeeWFA: UpdateEmployeeWFAInput! @spread
   ): EmployeeWFA
     @guard
-    @update(model: "EmployeeWFA")
-    @canFind(ability: "update", find: "id", model: "EmployeeWFA")
+    @update(model: "User")
+    @canFind(ability: "updateEmployeeWFA", find: "id", model: "User")
   createCommunityInterest(
     communityInterest: CreateCommunityInterestInput! @spread
   ): CommunityInterest

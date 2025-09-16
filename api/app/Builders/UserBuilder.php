@@ -570,4 +570,55 @@ class UserBuilder extends Builder
         // otherwise: use the regular authorized to view scope
         return $this->whereAuthorizedToView();
     }
+
+    public function whereAuthorizedToViewEmployeeWFA(): self
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user->isAbleTo('view-any-employeeWFA')) {
+            return $this;
+        }
+
+        $filterCountBefore = count($this->getQuery()->wheres);
+        $query = $this->where(function (Builder $query) use ($user) {
+            if ($user->isAbleTo('view-team-employeeWFA')) {
+                $allCommunityTeams = $user->rolesTeams()->get();
+                $teamIds = $allCommunityTeams
+                    ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('id');
+
+                $query->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
+                    // User has expressed interest in community
+                    $commInterestQuery->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                        $query->whereIn('id', $teamIds);
+                    });
+                })->orWhereHas('poolCandidates', function (Builder $candidateQuery) use ($teamIds) {
+                    // User has applied to a process in community
+                    $candidateQuery->whereHas('pool', function ($poolQuery) use ($teamIds) {
+                        $poolQuery
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->where(function (Builder $query) use ($teamIds) {
+                                $query->whereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
+                            });
+                    });
+                });
+
+                if ($user->isAbleTo('view-own-employeeWFA')) {
+                    $userQuery->orWhere('id', $user->id);
+                }
+            }
+        });
+
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return $query;
+        }
+
+        // fall through - query will return nothing
+        $this->where('id', null);
+    }
 }

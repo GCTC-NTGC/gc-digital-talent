@@ -32,21 +32,21 @@ class EmployeeWFATest extends TestCase
         employeeWFAPaginated {
             data {
                 id
-                interest { value }
-                date
-                updatedAt
+                wfaInterest { value }
+                wfaDate
+                wfaUpdatedAt
             }
         }
     }
     GRAPHQL;
 
     protected $mutation = <<<'GRAPHQL'
-    mutation UpdateEmployeeWFA($id: UUID!, $employeeWFA: UpdateEmployeeWFA!) {
+    mutation UpdateEmployeeWFA($id: UUID!, $employeeWFA: UpdateEmployeeWFAInput!) {
         updateEmployeeWFA(id: $id, employeeWFA: $employeeWFA) {
             id
-            interest { value }
-            date
-            updatedAt
+            wfaInterest { value }
+            wfaDate
+            wfaUpdatedAt
         }
     }
     GRAPHQL;
@@ -70,7 +70,7 @@ class EmployeeWFATest extends TestCase
             ->create(['user_id' => $this->employee->id]);
     }
 
-    public function testUserCanUpdateOwnWfa()
+    public function test_user_can_update_own_wfa()
     {
         $futureDate = config('constants.far_future_datetime');
         $this->actingAs($this->employee, 'api')
@@ -78,29 +78,29 @@ class EmployeeWFATest extends TestCase
                 'id' => $this->employee->id,
                 'employeeWFA' => [
                     'id' => $this->employee->id,
-                    'interest' => WFAInterest::LETTER_RECEIVED->name,
-                    'date' => $futureDate,
+                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaDate' => $futureDate,
                 ],
             ])->assertJsonFragment([
-                'interest' => [
+                'wfaInterest' => [
                     'value' => WFAInterest::LETTER_RECEIVED->name,
                 ],
-                'date' => $futureDate,
+                'wfaDate' => $futureDate,
             ]);
     }
 
-    public function testUpdatedAtSet()
+    public function test_updated_at_set()
     {
         $beforeRes = $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
                     'id' => $this->employee->id,
-                    'interest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
                 ],
             ]);
 
-        $before = Carbon::parse($beforeRes['data']['updateEmployeeWFA']['updatedAt']);
+        $before = Carbon::parse($beforeRes['data']['updateEmployeeWFA']['wfaUpdatedAt']);
 
         // Sleep to prevent dates being exact
         sleep(1);
@@ -110,32 +110,32 @@ class EmployeeWFATest extends TestCase
                 'id' => $this->employee->id,
                 'employeeWFA' => [
                     'id' => $this->employee->id,
-                    'interest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
+                    'wfaInterest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
                 ],
             ]);
 
-        $after = Carbon::parse($afterRes['data']['updateEmployeeWFA']['updatedAt']);
+        $after = Carbon::parse($afterRes['data']['updateEmployeeWFA']['wfaUpdatedAt']);
 
         $this->assertTrue($after->greaterThan($before));
     }
 
-    public function testNotApplicableSetsDateToNull()
+    public function test_not_applicable_sets_date_to_null()
     {
         // Ensure we have a date to being with
-        $this->employee->employeeWFA->wfa_date = config('constants.far_future_datetime');
-        $this->employee->employeeWFA->save();
+        $this->employee->wfa_date = config('constants.far_future_datetime');
+        $this->employee->save();
 
         $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
                     'id' => $this->employee->id,
-                    'interest' => null,
+                    'wfaInterest' => null,
                 ],
-            ])->assertJsonFragment(['date' => null]);
+            ])->assertJsonFragment(['wfaDate' => null]);
     }
 
-    public function testPlatformAdminCanViewAny()
+    public function test_platform_admin_can_view_any()
     {
         $admin = User::factory()
             ->asAdmin()
@@ -146,7 +146,7 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['id' => $this->employee->id]);
     }
 
-    public function testCommunityRecruiterCanViewInCommunity()
+    public function test_community_recruiter_can_view_in_community()
     {
         // Unrelated user who should not appear
         User::factory()

@@ -104,6 +104,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?\App\Models\WorkExperience $current_substantive_experience
+ * @property ?string $wfa_interest
+ * @property ?\Illuminate\Support\Carbon $wfa_date
+ * @property ?\Illuminate\Support\Carbon $wfa_updated_at
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
  * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
  */
@@ -137,6 +140,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'preferred_language_for_interview' => LanguageCode::class,
         'preferred_language_for_exam' => LanguageCode::class,
         'first_official_language' => LanguageCode::class,
+        'wfa_date' => 'datetime',
+        'wfa_updated_at' => 'datetime',
     ];
 
     protected $fillable = [
@@ -505,11 +510,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 if ($isTermOrIndeterminate) {
                     $isSubstantiveOrTerm = $exp->gov_position_type === GovPositionType::SUBSTANTIVE->name;
                 } elseif ($exp->gov_employment_type === WorkExperienceGovEmployeeType::TERM->name) {
-                    $isTermOrIndeterminent = true;
+                    $isTermOrIndeterminate = true;
                     $isSubstantiveOrTerm = true;
                 }
 
-                return $isGovExp && $isCurrent && $isTermOrIndeterminent && $isSubstantiveOrTerm;
+                return $isGovExp && $isCurrent && $isTermOrIndeterminate && $isSubstantiveOrTerm;
             })
                 ->sortByDesc('start_date')
                 ->sortBy([

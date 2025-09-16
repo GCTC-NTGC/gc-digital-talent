@@ -75,6 +75,19 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view the model.
+     *
+     * NOTE: This only cares about `own` even though we have `any` and `team` scopes
+     * That is due to the fact that we only check when you are accessing your own for now.
+     *
+     * The other permission checks happen as part of scopes.
+     */
+    public function viewEmployeeWFA(User $user, User $model): bool
+    {
+        return $user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id;
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @return \Illuminate\Auth\Access\Response|bool
@@ -103,6 +116,14 @@ class UserPolicy
     public function updateSub(User $user)
     {
         return $user->isAbleTo('update-any-userSub');
+    }
+
+    /**
+     * Determine whether the user can update the WFA info for the model.
+     */
+    public function updateEmployeeWFA(User $user, User $model): bool
+    {
+        return $user->isAbleTo('update-own-employeeWFA') && $model->id === $user->id;
     }
 
     /**

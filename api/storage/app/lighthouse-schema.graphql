@@ -536,7 +536,7 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
-  updateEmployeeWFA(id: UUID!, employeeWFA: UpdateEmployeeWFA!): EmployeeWFA
+  updateEmployeeWFA(id: UUID!, employeeWFA: UpdateEmployeeWFAInput!): EmployeeWFA
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
@@ -750,6 +750,9 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
+  wfaInterest: LocalizedWFAInterest
+  wfaDate: DateTime
+  wfaUpdatedAt: DateTime
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -854,14 +857,6 @@ type EmployeeProfile {
   userPublicProfile: UserPublicProfile
 }
 
-type EmployeeWFA {
-  id: UUID!
-  interest: LocalizedWFAInterest
-  date: DateTime
-  updatedAt: DateTime
-  user: User!
-}
-
 interface Notification {
   id: ID!
   readAt: DateTime
@@ -945,6 +940,35 @@ type BasicGovEmployeeProfile {
   role: String
   department: Department
   classification: Classification
+}
+
+type EmployeeWFA {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest
+  wfaDate: DateTime
+  wfaUpdatedAt: DateTime
+  firstName: String
+  lastName: String
+  classification: Classification
+  department: Department
+  workEmail: Email
+  isWoman: Boolean
+  hasDisability: Boolean
+  isVisibleMinority: Boolean
+  indigenousCommunities: [LocalizedIndigenousCommunity]
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
+  citizenship: LocalizedCitizenshipStatus
+  armedForcesStatus: LocalizedArmedForcesStatus
+  preferredLang: LocalizedLanguage
+  preferredLanguageForInterview: LocalizedLanguage
+  preferredLanguageForExam: LocalizedLanguage
+  firstOfficialLanguage: LocalizedLanguage
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+  locationPreferences: [LocalizedWorkRegion]
+  locationExemptions: String
 }
 
 type GeneralQuestion {
@@ -1933,10 +1957,10 @@ input UpdateEmployeeProfileInput {
   careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
 }
 
-input UpdateEmployeeWFA {
+input UpdateEmployeeWFAInput {
   id: UUID!
-  interest: WFAInterest
-  date: DateTime
+  wfaInterest: WFAInterest
+  wfaDate: DateTime
 }
 
 input CreateCommunityInterestInput {
