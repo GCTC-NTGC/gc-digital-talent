@@ -608,7 +608,7 @@ class UserBuilder extends Builder
                 });
 
                 if ($user->isAbleTo('view-own-employeeWFA')) {
-                    $userQuery->orWhere('id', $user->id);
+                    $query->orWhere('id', $user->id);
                 }
             }
         });
@@ -619,6 +619,6 @@ class UserBuilder extends Builder
         }
 
         // fall through - query will return nothing
-        $this->where('id', null);
+        return $this->where('id', null);
     }
 }

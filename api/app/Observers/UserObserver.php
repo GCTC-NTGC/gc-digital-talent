@@ -17,7 +17,7 @@ class UserObserver
     public function updating(User $user)
     {
         if ($user->isDirty(['wfa_date', 'wfa_interest'])) {
-            $newInterest = $user?->wfa_interest;
+            $newInterest = $user->wfa_interest;
 
             if (is_null($newInterest)) {
                 $user->wfa_date = null;
