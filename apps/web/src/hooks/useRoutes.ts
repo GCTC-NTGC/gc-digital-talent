@@ -78,8 +78,6 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "pools", poolId, "edit"].join("/"),
     assessmentPlanBuilder: (poolId: string) =>
       [adminUrl, "pools", poolId, "plan"].join("/"),
-    screeningAndEvaluation: (poolId: string) =>
-      [adminUrl, "pools", poolId, "screening"].join("/"),
     poolPreview: (poolId: string) =>
       [adminUrl, "pools", poolId, "preview"].join("/"),
     poolManageAccess: (poolId: string) =>
