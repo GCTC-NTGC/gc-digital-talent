@@ -1436,11 +1436,11 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginated: [UserEmployeeWFA]!
+  employeeWFAPaginatedAdminTable: [UserEmployeeWFA]!
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["whereAuthorizedToViewEmployeeWFA"]
+      scopes: ["whereAuthorizedToViewEmployeeWFAAdminTable"]
       model: "App\\Models\\User"
     )
     @guard

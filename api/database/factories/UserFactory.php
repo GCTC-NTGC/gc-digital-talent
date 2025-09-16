@@ -334,14 +334,15 @@ class UserFactory extends Factory
         });
     }
 
-    public function withCommunityInterests(array $communityIds)
+    public function withCommunityInterests(array $communityIds, bool $consent = true)
     {
-        return $this->afterCreating(function (User $user) use ($communityIds) {
+        return $this->afterCreating(function (User $user) use ($communityIds, $consent) {
             foreach ($communityIds as $communityId) {
                 CommunityInterest::factory()
                     ->withWorkStreams()
                     ->withDevelopmentProgramInterests()
                     ->create([
+                        'consent_to_share_profile' => $consent,
                         'user_id' => $user->id,
                         'community_id' => $communityId,
                     ]);

@@ -438,7 +438,7 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
-  employeeWFAPaginated(
+  employeeWFAPaginatedAdminTable(
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
 

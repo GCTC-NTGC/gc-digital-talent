@@ -29,7 +29,7 @@ class EmployeeWFATest extends TestCase
 
     protected $query = <<<'GRAPHQL'
     query EmployeeWFA {
-        employeeWFAPaginated {
+        employeeWFAPaginatedAdminTable {
             data {
                 id
                 wfaInterest { value }
@@ -179,9 +179,9 @@ class EmployeeWFATest extends TestCase
         $res = $this->actingAs($recruiter, 'api')
             ->graphQL($this->query);
 
-        $results = $res->json('data.employeeWFAPaginated.data');
-        // Expect 2 users, one from setup and one applied to community pool
-        $this->assertCount(2, $results);
+        $results = $res->json('data.employeeWFAPaginatedAdminTable.data');
+        // Expect 1 users, filters out unrelated communities and those who have applied to community process
+        $this->assertCount(1, $results);
     }
 
     public function testCommunityRecruiterCannotViewOutsideCommunity()
@@ -214,7 +214,7 @@ class EmployeeWFATest extends TestCase
         $res = $this->actingAs($recruiter, 'api')
             ->graphQL($this->query);
 
-        $results = $res->json('data.employeeWFAPaginated.data');
+        $results = $res->json('data.employeeWFAPaginatedAdminTable.data');
         // Expect 0 users since this user is not part of any related communities
         $this->assertCount(0, $results);
     }

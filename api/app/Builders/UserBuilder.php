@@ -571,7 +571,13 @@ class UserBuilder extends Builder
         return $this->whereAuthorizedToView();
     }
 
-    public function whereAuthorizedToViewEmployeeWFA(): self
+    /**
+     * Used only for the WFA table
+     *
+     * User can only see profiles that have been shared with a community
+     * they are a part of.
+     */
+    public function whereAuthorizedToViewEmployeeWFAAdminTable(): self
     {
         /** @var \App\Models\User | null */
         $user = Auth::user();
@@ -583,28 +589,16 @@ class UserBuilder extends Builder
         $filterCountBefore = count($this->getQuery()->wheres);
         $query = $this->where(function (Builder $query) use ($user) {
             if ($user->isAbleTo('view-team-employeeWFA')) {
-                $allCommunityTeams = $user->rolesTeams()->get();
+                $allCommunityTeams = $user->rolesTeams()
+                    ->where('teamable_type', "App\Models\Community")
+                    ->get();
                 $teamIds = $allCommunityTeams
-                    ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('id');
+                    ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('teamable_id')->toArray();
 
                 $query->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
                     // User has expressed interest in community
-                    $commInterestQuery->whereHas('community.team', function (Builder $query) use ($teamIds) {
-                        $query->whereIn('id', $teamIds);
-                    });
-                })->orWhereHas('poolCandidates', function (Builder $candidateQuery) use ($teamIds) {
-                    // User has applied to a process in community
-                    $candidateQuery->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                        $poolQuery
-                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->where(function (Builder $query) use ($teamIds) {
-                                $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                });
-                            });
-                    });
+                    $commInterestQuery->whereIn('community_id', $teamIds)
+                        ->where('consent_to_share_profile', true);
                 });
 
                 if ($user->isAbleTo('view-own-employeeWFA')) {
