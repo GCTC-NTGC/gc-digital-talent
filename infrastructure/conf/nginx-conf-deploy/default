@@ -87,6 +87,10 @@ server {
     location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
         return 301 "/static/tc-report$request_uri";
     }
+    # serve all other tc-report asset files from static hosting
+    location ~ ^/tc-report/(.+)$ {
+        return 301 "/static$request_uri";
+    }
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
@@ -170,12 +174,6 @@ server {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-
-    # serve tc-report asset files
-    location ~ ^/tc-report/(.+)$ {
-        add_header Cache-Control "public, max-age=604800"; # 1 week
-        try_files /tc-report/_site/$1 /tc-report/_site/$1/index.html =404;
     }
 
     # serve other asset files
