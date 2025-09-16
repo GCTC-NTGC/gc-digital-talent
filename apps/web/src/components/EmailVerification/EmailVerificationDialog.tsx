@@ -20,6 +20,8 @@ import {
   workEmailDomainRegex,
 } from "@gc-digital-talent/helpers";
 
+import { descriptions, labels, subtitles } from "./messages";
+
 const CODE_REQUEST_THROTTLE_DELAY_S = 60;
 
 const EmailVerificationRequestACode_Mutation = graphql(/* GraphQL */ `
@@ -39,65 +41,6 @@ const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const getDescription = (
-  emailType: EmailVerificationProps["emailType"],
-  intl: IntlShape,
-) => {
-  switch (emailType) {
-    case EmailType.Work:
-      return intl.formatMessage({
-        defaultMessage:
-          "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
-        id: "cw6MTQ",
-        description: "Work email title paragraph",
-      });
-    case EmailType.Contact:
-    default:
-      return intl.formatMessage({
-        defaultMessage:
-          "This email will be used by recruitment and HR teams to contact you about opportunities, as well as to send notifications about your applications and other platform details.",
-        id: "fa+z9W",
-        description: "Contact email title paragraph",
-      });
-  }
-};
-
-const getLabel = (
-  emailType: EmailVerificationProps["emailType"],
-  intl: IntlShape,
-) => {
-  switch (emailType) {
-    case EmailType.Work:
-      return intl.formatMessage(commonMessages.workEmail);
-    case EmailType.Contact:
-    default:
-      return intl.formatMessage(commonMessages.email);
-  }
-};
-
-const getSubtitle = (
-  emailType: EmailVerificationProps["emailType"],
-  intl: IntlShape,
-) => {
-  switch (emailType) {
-    case EmailType.Work:
-      return intl.formatMessage({
-        defaultMessage:
-          "Verify your Government of Canada work email to confirm your status as an employee.",
-        id: "UoTwQ8",
-        description: "Work email subtitle",
-      });
-    case EmailType.Contact:
-    default:
-      return intl.formatMessage({
-        defaultMessage:
-          "Add and verify a contact email that will be used for communication and notifications.",
-        id: "upuqPk",
-        description: "Contact email subtitle",
-      });
-  }
-};
 
 type requestACodeMessage = "request-sent" | "throttled" | "address-changed";
 
@@ -421,7 +364,9 @@ export const EmailVerificationDialog = ({
         )}
       </Dialog.Trigger>
       <Dialog.Content hasSubtitle>
-        <Dialog.Header subtitle={getSubtitle(dialogEmailType, intl)}>
+        <Dialog.Header
+          subtitle={intl.formatMessage(subtitles[dialogEmailType])}
+        >
           {
             <h2 className="text-lg font-bold">
               {intl.formatMessage({
@@ -441,14 +386,14 @@ export const EmailVerificationDialog = ({
               )}
               className="mb-6 flex flex-col gap-6"
             >
-              <p>{getDescription(dialogEmailType, intl)}</p>
+              <p>{intl.formatMessage(descriptions[dialogEmailType])}</p>
               <div className="flex gap-2">
                 <div className="grow">
                   <Input
                     id="emailAddress"
                     name="emailAddress"
                     type="email"
-                    label={getLabel(dialogEmailType, intl)}
+                    label={intl.formatMessage(labels[dialogEmailType])}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                       pattern:
