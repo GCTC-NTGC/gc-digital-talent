@@ -2963,10 +2963,6 @@
     "defaultMessage": "Supprimer le signet de {name} du haut de la colonne.",
     "description": "Un-bookmark button label for pool table tracking."
   },
-  "BCBPYT": {
-    "defaultMessage": "Il n’y a aucun résultat de candidats à cette étape.",
-    "description": "Message displayed when no candidates are being assessed in a step"
-  },
   "BDQ9ZB": {
     "defaultMessage": "Recommandée",
     "description": "Status item in a nomination list, true"
@@ -4923,10 +4919,6 @@
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
     "description": "List item one, things developers consider for accessibility"
   },
-  "KXy+Ei": {
-    "defaultMessage": "AC",
-    "description": "Short form code representing 'veteran'"
-  },
   "KYXYsD": {
     "defaultMessage": "Les échelles salariales de tous les postes de la fonction publique fédérale sont <link>publiquement accessibles</link>. Les annonces d’emploi indiquent l’échelle complète pour un poste donné.",
     "description": "First paragraph for the pool application salary ranges dialog"
@@ -5578,10 +5570,6 @@
   "NJIdH1": {
     "defaultMessage": "Compétences de ce groupe",
     "description": "Label for skills input in skill family form"
-  },
-  "NJUJl0": {
-    "defaultMessage": "Il n’y a aucun statut sélectionné.",
-    "description": "Message displayed when no statuses are shown"
   },
   "NP/fsS": {
     "defaultMessage": "Pour quel ministère travaillez-vous?",
@@ -6298,10 +6286,6 @@
   "QqwcpX": {
     "defaultMessage": "Les mises en candidature doivent être parrainées par un cadre dirigeant travaillant dans le domaine de la personne candidate et seront triées par l'équipe de la collectivité fonctionnelle associée. Une fois la mise en candidature confirmée, la personne candidate sera inscrit dans le système de gestion des talents de cette collectivité pour l'année en cours.",
     "description": "Paragraph two, instructions on how to submit a nomination"
-  },
-  "QsILUL": {
-    "defaultMessage": "Filtrer les candidats par ordre de statut",
-    "description": "Legend for filtering candidates by assessment decisions"
   },
   "QsWizb": {
     "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créez-en un</a>.",
@@ -7834,10 +7818,6 @@
     "defaultMessage": "Ce rôle ne nécessitait pas la gestion d’un budget dédié ou un pouvoir de signature délégué pour un budget.",
     "description": "Label displayed for budget management false"
   },
-  "YNXjg7": {
-    "defaultMessage": "Afficher la répartition <hidden> de{stepTitle}</hidden>",
-    "description": "Button text to show the distribution of step statuses"
-  },
   "YO7woE": {
     "defaultMessage": "Télécharger Excel",
     "description": "Text label for button to download a excel file of items in a table."
@@ -8050,10 +8030,6 @@
     "defaultMessage": "Tous les cadres n’ont pas eu l’occasion de gérer leurs propres processus de recrutement. Si ce domaine éveille votre intérêt, pensez à acquérir de l’expérience en participant de manière volontaire à une équipe interministérielle responsable du déroulement du processus sur la plateforme.",
     "description": "Text displayed for gaining hiring experience"
   },
-  "ZAcxSx": {
-    "defaultMessage": "Filtrer les candidats par ordre de nom",
-    "description": "Label for candidate search input"
-  },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
     "description": "Message displayed to user after education requirement fails to be updated."
@@ -8109,10 +8085,6 @@
   "ZPedK3": {
     "defaultMessage": "Rechercher le courriel professionnel de la personne de référence",
     "description": "Label for search reference input field on a nomination"
-  },
-  "ZVfbLF": {
-    "defaultMessage": "Erreur lors du chargement des candidats",
-    "description": "Error message when pool candidates could not be loaded"
   },
   "ZWUMrM": {
     "defaultMessage": "Sélectionnez la classification et le volet de travail du poste que vous souhaitez pourvoir. Nous vous indiquerons le nombre de personnes candidates correspondent à votre sélection.",
@@ -11361,10 +11333,6 @@
     "defaultMessage": "Ministère ou organisme",
     "description": "Label for an employees department"
   },
-  "nzF0AE": {
-    "defaultMessage": "P",
-    "description": "Short form code representing 'priority entitlement'"
-  },
   "nzcwrW": {
     "defaultMessage": "Les apprentis seront jumelés à un pair afin de faciliter l’observation en situation de travail et le travail supervisé, et on leur attribuera un mentor qui saura leur fournir des conseils d’une personne expérimentée et une orientation au fil de la durée du programme.",
     "description": "First paragraph what will you learn at the program"
@@ -13620,10 +13588,6 @@
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",
     "description": "Title for warning message when the user has few assessments to the assessment plan"
-  },
-  "yq7+BB": {
-    "defaultMessage": "Dissimuler la répartition <hidden> de {stepTitle}</hidden>",
-    "description": "Button text to hide the distribution of step statuses"
   },
   "ysKXVP": {
     "defaultMessage": "Groupe de publication",
