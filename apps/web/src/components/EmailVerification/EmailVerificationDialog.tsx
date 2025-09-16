@@ -327,6 +327,11 @@ export const EmailVerificationDialog = ({
                       id: "xKj/Lr",
                       description: "Button to send verification code",
                     })}
+                    submittedText={intl.formatMessage({
+                      defaultMessage: "Send verification email",
+                      id: "xKj/Lr",
+                      description: "Button to send verification code",
+                    })}
                   />
                 </div>
               </div>
@@ -363,6 +368,11 @@ export const EmailVerificationDialog = ({
               <Dialog.Footer>
                 <Submit
                   text={intl.formatMessage({
+                    defaultMessage: "Save and add email",
+                    id: "exfH1c",
+                    description: "Button to save and add email",
+                  })}
+                  submittedText={intl.formatMessage({
                     defaultMessage: "Save and add email",
                     id: "exfH1c",
                     description: "Button to save and add email",
