@@ -444,7 +444,7 @@ type Query {
 
     "The offset from which items are returned."
     page: Int
-  ): EmployeeWFAPaginator!
+  ): UserEmployeeWFAPaginator!
   poolsPaginated(
     includeIds: [UUID!]
     excludeIds: [UUID!]
@@ -750,9 +750,7 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
-  wfaInterest: LocalizedWFAInterest
-  wfaDate: DateTime
-  wfaUpdatedAt: DateTime
+  employeeWFA: EmployeeWFA
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -942,7 +940,7 @@ type BasicGovEmployeeProfile {
   classification: Classification
 }
 
-type EmployeeWFA {
+type UserEmployeeWFA {
   id: UUID!
   wfaInterest: LocalizedWFAInterest
   wfaDate: DateTime
@@ -969,6 +967,13 @@ type EmployeeWFA {
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   locationPreferences: [LocalizedWorkRegion]
   locationExemptions: String
+}
+
+type EmployeeWFA {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest
+  wfaDate: DateTime
+  wfaUpdatedAt: DateTime
 }
 
 type GeneralQuestion {
@@ -2834,13 +2839,13 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
-"A paginated list of EmployeeWFA items."
-type EmployeeWFAPaginator {
+"A paginated list of UserEmployeeWFA items."
+type UserEmployeeWFAPaginator {
   "Pagination information about the list of items."
   paginatorInfo: PaginatorInfo!
 
-  "A list of EmployeeWFA items."
-  data: [EmployeeWFA!]!
+  "A list of UserEmployeeWFA items."
+  data: [UserEmployeeWFA!]!
 }
 
 "A paginated list of Pool items."

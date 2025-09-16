@@ -183,4 +183,61 @@ class EmployeeWFATest extends TestCase
         // Expect 2 users, one from setup and one applied to community pool
         $this->assertCount(2, $results);
     }
+
+    public function testCommunityRecruiterCannotViewOutsideCommunity()
+    {
+        // No community interest but will apply to pool
+        $user = User::factory()
+            ->asApplicant()
+            ->asGovEmployee()
+            ->create();
+
+        $pool = Pool::factory()
+            ->published()
+            ->create(['community_id' => $this->community->id]);
+
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $pool->id,
+                'user_id' => $user->id,
+                'submitted_at' => config('constants.past_datetime'),
+            ]);
+
+        // Unrelated community
+        $community = Community::factory()->create();
+
+        $recruiter = User::factory()
+            ->asCommunityRecruiter($community->id)
+            ->create();
+
+        $res = $this->actingAs($recruiter, 'api')
+            ->graphQL($this->query);
+
+        $results = $res->json('data.employeeWFAPaginated.data');
+        // Expect 0 users since this user is not part of any related communities
+        $this->assertCount(0, $results);
+    }
+
+    public function testCommunityRecruiterCannotQueryEmployeeWfaOutsideCommunity()
+    {
+        // Unrelated community
+        $community = Community::factory()->create();
+
+        $recruiter = User::factory()
+            ->asCommunityRecruiter($community->id)
+            ->create();
+
+        $this->actingAs($recruiter, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                query User($id: UUID!) {
+                    user(id: $id) {
+                        employeeWFA { wfaDate }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $this->employee->id,
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
 }

@@ -75,16 +75,27 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can view the WFA information.
      *
-     * NOTE: This only cares about `own` even though we have `any` and `team` scopes
-     * That is due to the fact that we only check when you are accessing your own for now.
-     *
-     * The other permission checks happen as part of scopes.
+     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewEmployeeWFA(User $user, User $model): bool
     {
-        return $user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id;
+        if ($user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id) {
+            return true;
+        }
+
+        $teams = $user->rolesTeams()->get();
+
+        $teamIds = $teams->filter(
+            fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team)
+        )->pluck('id')->toArray();
+
+        if (! empty($teamIds) && ($this->applicantHasAppliedToPoolInTeams($model, $teamIds) || $this->teamsUserHasSharedProfileWith($model, $teamIds))) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

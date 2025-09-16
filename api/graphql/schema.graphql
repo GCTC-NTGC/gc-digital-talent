@@ -125,9 +125,7 @@ type User {
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
   # Employee WFA info
-  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
-  wfaDate: DateTime @rename(attribute: "wfa_date")
-  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
+  employeeWFA: EmployeeWFA @self @canFind(abaility: "viewEmployeeWFA")
 
   # Pool info
   poolCandidates: [PoolCandidate]
@@ -385,7 +383,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   classification: Classification @belongsTo(relation: "currentClassification")
 }
 
-type EmployeeWFA @model(class: "\\App\\Models\\User") {
+type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
   id: UUID!
   wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
   wfaDate: DateTime @rename(attribute: "wfa_date")
@@ -423,6 +421,13 @@ type EmployeeWFA @model(class: "\\App\\Models\\User") {
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
+}
+
+type EmployeeWFA @model(class: "\\App\\Models\\User") {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: DateTime @rename(attribute: "wfa_date")
+  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
 }
 
 type GeneralQuestion {
@@ -1431,7 +1436,7 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginated: [EmployeeWFA]!
+  employeeWFAPaginated: [UserEmployeeWFA]!
     @paginate(
       defaultCount: 10
       maxCount: 1000
