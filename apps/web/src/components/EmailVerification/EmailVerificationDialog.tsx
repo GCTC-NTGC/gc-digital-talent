@@ -113,9 +113,6 @@ export const EmailVerificationDialog = ({
     setRequestACodeMessage(null);
     setSubmitACodeMessage(null);
     setCanRequestCode(true);
-    if (timerIdRef.current) {
-      clearTimeout(timerIdRef.current);
-    }
     requestACodeFormMethods.reset();
     submitACodeFormMethods.reset();
   };
@@ -128,13 +125,20 @@ export const EmailVerificationDialog = ({
     setOpen(open);
   };
 
-  // When the user can't request a code (for example, the justed request one) then wait before allowing it again.
   useEffect(() => {
+    // When the user can't request a code (for example, they justed request one) then wait before allowing it again.
     if (!canRequestCode) {
       timerIdRef.current = setTimeout(() => {
         setCanRequestCode(true);
         setRequestACodeMessage(null);
       }, CODE_REQUEST_THROTTLE_DELAY_S * 1000);
+    }
+
+    // When the user can request a code (for example, the timer expired) then remove the timer
+    if (canRequestCode) {
+      if (timerIdRef.current) {
+        clearTimeout(timerIdRef.current);
+      }
     }
 
     return () => {
@@ -143,6 +147,29 @@ export const EmailVerificationDialog = ({
       }
     };
   }, [canRequestCode]);
+
+  // watch the form to see if the user changes the address input after requesting a code
+  useEffect(() => {
+    const sentAddress = emptyToNull(emailAddressContacted);
+    const formAddress = emptyToNull(watchEmailAddressInput);
+    if (
+      notEmpty(sentAddress) &&
+      notEmpty(formAddress) &&
+      sentAddress != formAddress
+    ) {
+      // show message
+      setRequestACodeMessage("address-changed");
+      setCanRequestCode(true);
+    } else if (
+      notEmpty(sentAddress) &&
+      notEmpty(formAddress) &&
+      sentAddress == formAddress &&
+      requestACodeMessage == "address-changed"
+    ) {
+      // clear message if they undo the change
+      setRequestACodeMessage(null);
+    }
+  }, [emailAddressContacted, requestACodeMessage, watchEmailAddressInput]);
 
   const submitHandlerRequestACode: SubmitHandler<RequestACodeFormValues> = ({
     emailAddress,
@@ -228,28 +255,6 @@ export const EmailVerificationDialog = ({
         );
       });
   };
-
-  // watch the form to see if the user changes the address input after requesting a code
-  useEffect(() => {
-    const sentAddress = emptyToNull(emailAddressContacted);
-    const formAddress = emptyToNull(watchEmailAddressInput);
-    if (
-      notEmpty(sentAddress) &&
-      notEmpty(formAddress) &&
-      sentAddress != formAddress
-    ) {
-      // show message
-      setRequestACodeMessage("address-changed");
-    } else if (
-      notEmpty(sentAddress) &&
-      notEmpty(formAddress) &&
-      sentAddress == formAddress &&
-      requestACodeMessage == "address-changed"
-    ) {
-      // clear message if they undo the change
-      setRequestACodeMessage(null);
-    }
-  }, [emailAddressContacted, requestACodeMessage, watchEmailAddressInput]);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleDialogOpenChange}>
