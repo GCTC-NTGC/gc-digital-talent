@@ -10,7 +10,7 @@ import { defineConfig } from "vite";
 
 dotenv.config({ path: "./.env", quiet: true });
 
-const appUrl = "https://talent.canada.ca";
+const appUrl = process.env.APP_URL ?? "https://talent.canada.ca";
 
 const meta = {
   type: "website",
