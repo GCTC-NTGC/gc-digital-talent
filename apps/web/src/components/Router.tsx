@@ -780,13 +780,6 @@ const createRoute = (locale: Locales) =>
                           ],
                         },
                         {
-                          path: "screening",
-                          lazy: () =>
-                            import(
-                              "../pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage"
-                            ),
-                        },
-                        {
                           path: "manage-access",
                           lazy: () =>
                             import(
