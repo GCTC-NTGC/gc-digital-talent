@@ -293,7 +293,7 @@ type EmployeeWFA {
   interest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
   date: DateTime @rename(attribute: "wfa_date")
   updatedAt: DateTime @rename(attribute: "wfa_updated_at")
-  user: User!
+  user: User! @with(relation: "user")
 }
 
 interface Notification {
