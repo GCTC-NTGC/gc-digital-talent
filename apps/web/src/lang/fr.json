@@ -2099,6 +2099,10 @@
     "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
     "description": "Subtitle for training opportunity single page"
   },
+  "7Q61+y": {
+    "defaultMessage": "Confirmation de l'adresse courriel",
+    "description": "Title for email verification dialog"
+  },
   "7Q6mMp": {
     "defaultMessage": "Enregistrer des compétences techniques constituant un atout",
     "description": "Text on a button to save the nonessential technical skills form"
@@ -3502,10 +3506,6 @@
   "DcpFle": {
     "defaultMessage": "Demande réussie",
     "description": "Page title for the request confirmation page."
-  },
-  "fa+z9W": {
-    "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
-    "description": "Contact email title paragraph"
   },
   "DePuGA": {
     "defaultMessage": "Modifiez les infos sur la personne candidate",
@@ -6539,10 +6539,6 @@
     "defaultMessage": "Les tâches principales ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the key tasks"
   },
-  "cw6MTQ": {
-    "defaultMessage": "Pour que votre adresse courriel professionnelle puisse être confirmée, son domaine doit correspondre à un modèle connu du gouvernement du Canada (par exemple @canada.ca, @ministère.gc.ca, etc.).",
-    "description": "Work email title paragraph"
-  },
   "RjKlKz": {
     "defaultMessage": "Créez un volet de travail",
     "description": "Text to create a work stream"
@@ -8838,6 +8834,10 @@
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
   },
+  "cw6MTQ": {
+    "defaultMessage": "Pour que votre adresse courriel professionnelle puisse être confirmée, son domaine doit correspondre à un modèle connu du gouvernement du Canada (par exemple @canada.ca, @ministère.gc.ca, etc.).",
+    "description": "Work email title paragraph"
+  },
   "cweZUH": {
     "defaultMessage": "Cette section <strong>facultative</strong> vous permet de fournir un context additionnel pour le ministère, la direction ou l’équipe qui embauchera grâce à ce processus.",
     "description": "Describes the 'about us' section of a process' advertisement."
@@ -9513,6 +9513,10 @@
   "fY0W2V": {
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
     "description": "Notification when a user attempts to apply to a pool when they already have an application there."
+  },
+  "fa+z9W": {
+    "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
+    "description": "Contact email title paragraph"
   },
   "fdSRLv": {
     "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajoutez des volets de travail ».",
@@ -11717,10 +11721,6 @@
     "defaultMessage": "Soutien à la collectivité du numérique",
     "description": "Button text to open section describing digital community support"
   },
-  "7Q61+y": {
-    "defaultMessage": "Confirmation de l'adresse courriel",
-    "description": "Title for email verification dialog"
-  },
   "pIiisf": {
     "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
     "description": "Text describing where to get help with the self-declaration form"
@@ -12788,10 +12788,6 @@
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
-  },
-  "zn/6gt": {
-    "defaultMessage": "Nous avons remarqué que l'adresse courriel fournie est également une adresse courriel professionnelle du gouvernement du Canada. Cette adresse, une fois confirmée, vous servira dès lors à correspondre et à valider votre statut de membre du personnel.",
-    "description": "Body for a message informing the user that their contact email will be used as a work email."
   },
   "uooR1r": {
     "defaultMessage": "« Je comprends que je fais partie d'une collectivité qui se fait confiance »",
@@ -13896,6 +13892,10 @@
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
+  },
+  "zn/6gt": {
+    "defaultMessage": "Nous avons remarqué que l'adresse courriel fournie est également une adresse courriel professionnelle du gouvernement du Canada. Cette adresse, une fois confirmée, vous servira dès lors à correspondre et à valider votre statut de membre du personnel.",
+    "description": "Body for a message informing the user that their contact email will be used as a work email."
   },
   "znWT8z": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
