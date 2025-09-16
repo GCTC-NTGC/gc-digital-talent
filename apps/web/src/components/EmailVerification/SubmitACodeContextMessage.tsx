@@ -4,7 +4,7 @@ import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
 interface SubmitACodeContextMessageProps {
-  message: null | "contact-matches-work";
+  message: null | "contact-matches-work" | "must-request-code";
 }
 
 const SubmitACodeContextMessage = ({
@@ -38,7 +38,20 @@ const SubmitACodeContextMessage = ({
           </p>
         </Well>
       );
-
+    case "must-request-code":
+      return (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                'You need to verify your email in order to continue. Please use the "Send verification email" button and enter the code you receive into the field that appears.',
+              id: "t7hBcy",
+              description:
+                "Body for a message informing the user that they must request a code.",
+            })}
+          </p>
+        </Well>
+      );
     default:
       return assertUnreachable(message);
   }

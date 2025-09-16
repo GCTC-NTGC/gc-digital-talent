@@ -224,6 +224,12 @@ export const EmailVerificationDialog = ({
     verificationCode,
   }): Promise<void> => {
     setRequestACodeMessage(null);
+    if (!emailAddressContacted) {
+      setSubmitACodeMessage("must-request-code");
+      return Promise.reject(
+        new Error("Must request a code before submitting one."),
+      );
+    }
     const mutationResult = executeSubmitACodeMutation({
       code: verificationCode,
     }).then((result) => {
@@ -347,23 +353,21 @@ export const EmailVerificationDialog = ({
             >
               <div className="mb-6 flex flex-col gap-6">
                 {emailAddressContacted ? (
-                  <>
-                    <Input
-                      id="verificationCode"
-                      name="verificationCode"
-                      type="text"
-                      label={intl.formatMessage({
-                        defaultMessage: "Verification code",
-                        id: "T+ypau",
-                        description: "label for verification code input",
-                      })}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                    />
-                    <SubmitACodeContextMessage message={submitACodeMessage} />
-                  </>
+                  <Input
+                    id="verificationCode"
+                    name="verificationCode"
+                    type="text"
+                    label={intl.formatMessage({
+                      defaultMessage: "Verification code",
+                      id: "T+ypau",
+                      description: "label for verification code input",
+                    })}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
                 ) : null}
+                <SubmitACodeContextMessage message={submitACodeMessage} />
               </div>
               <Dialog.Footer>
                 <Submit
