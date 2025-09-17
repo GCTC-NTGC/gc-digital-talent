@@ -1,7 +1,7 @@
 name: Chromatic
 
 on:
-  workflow_dispatch: # test manual trigger.
+  workflow_dispatch: # enables ability to manually trigger workflow.
   push:
     branches: ["main"]
     paths:
