@@ -42,6 +42,14 @@ class EmployeeWFATest extends TestCase
     }
     GRAPHQL;
 
+    protected $userQuery = <<<'GRAPHQL'
+    query User($id: UUID!) {
+        user(id: $id) {
+            employeeWFA { wfaInterest { value } }
+        }
+    }
+    GRAPHQL;
+
     protected $mutation = <<<'GRAPHQL'
     mutation UpdateEmployeeWFA($id: UUID!, $employeeWFA: UpdateEmployeeWFAInput!) {
         updateEmployeeWFA(id: $id, employeeWFA: $employeeWFA) {
@@ -219,15 +227,29 @@ class EmployeeWFATest extends TestCase
             ->create();
 
         $this->actingAs($recruiter, 'api')
-            ->graphQL(<<<'GRAPHQL'
-                query User($id: UUID!) {
-                    user(id: $id) {
-                        employeeWFA { wfaDate }
-                    }
-                }
-                GRAPHQL, [
-                'id' => $this->employee->id,
-            ])
+            ->graphQL($this->userQuery, ['id' => $this->employee->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testCommunityRecruiterCanViewSpecificUserInCommunity()
+    {
+        $recruiter = User::factory()
+            ->asCommunityRecruiter($this->community->id)
+            ->create();
+
+        $this->actingAs($recruiter, 'api')
+            ->graphQL($this->userQuery, ['id' => $this->employee->id])
+            ->assertJsonFragment(['employeeWFA' => ['wfaInterest' => ['value' => $this->employee->wfa_interest]]]);
+    }
+
+    public function testPlatformAdminCanViewSpecificUser()
+    {
+        $admin = User::factory()
+            ->asAdmin()
+            ->create();
+
+        $this->actingAs($admin, 'api')
+            ->graphQL($this->userQuery, ['id' => $this->employee->id])
+            ->assertJsonFragment(['employeeWFA' => ['wfaInterest' => ['value' => $this->employee->wfa_interest]]]);
     }
 }
