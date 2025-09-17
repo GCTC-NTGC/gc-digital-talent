@@ -1,16 +1,36 @@
 import { StoryFn } from "@storybook/react";
 import { action } from "storybook/actions";
+import { within, userEvent, screen } from "storybook/test";
 
 import { EmailType } from "@gc-digital-talent/graphql";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import EmailVerificationDialog from "./EmailVerificationDialog";
 
 export default {
   component: EmailVerificationDialog,
+  decorators: [MockGraphqlDecorator],
+  parameters: {
+    apiResponsesConfig: {
+      latency: {
+        min: 0,
+        max: 0,
+      },
+    },
+    apiResponses: {
+      EmailVerificationRequestACode: {
+        data: {
+          sendUserEmailsVerification: {
+            id: 1,
+          },
+        },
+      },
+    },
+  },
 };
 
 const Template: StoryFn<typeof EmailVerificationDialog> = (args) => {
-  return <EmailVerificationDialog {...args} />;
+  return <EmailVerificationDialog defaultOpen {...args} />;
 };
 
 export const ContactEmail = Template.bind({});
@@ -27,21 +47,67 @@ WorkEmail.args = {
   onVerificationSuccess: action("onVerificationSuccess"),
 };
 
-// export const ErrorState = Template.bind({});
-// ErrorState.args = {
-//   emailType: EmailType.Contact,
-//   emailAddress: "user@example.com",
-//   onVerificationSuccess: action("onVerificationSuccess"),
-// };
-// ErrorState.play = ({ canvasElement }) => {
-//   // Simulate entering an invalid code and submitting to show error state
-//   const input = canvasElement.querySelector('input[name="verificationCode"]');
-//   if (input) {
-//     input.value = "wrong";
-//     input.dispatchEvent(new Event("input", { bubbles: true }));
-//   }
-//   const form = canvasElement.querySelector("form");
-//   if (form) {
-//     form.dispatchEvent(new Event("submit", { bubbles: true }));
-//   }
-// };
+export const CodeRequested = Template.bind({});
+CodeRequested.args = {
+  emailType: EmailType.Contact,
+  emailAddress: "user@example.com",
+  onVerificationSuccess: action("onVerificationSuccess"),
+};
+CodeRequested.play = async () => {
+  const dialog = within(screen.getByRole("dialog"));
+  const submitBtn = dialog.getByRole("button", { name: /send/i });
+  await userEvent.click(submitBtn);
+};
+
+export const Throttled = Template.bind({});
+Throttled.args = {
+  emailType: EmailType.Contact,
+  emailAddress: "user@example.com",
+  onVerificationSuccess: action("onVerificationSuccess"),
+};
+Throttled.play = async () => {
+  const dialog = within(screen.getByRole("dialog"));
+  const submitBtn = dialog.getByRole("button", { name: /send/i });
+  await userEvent.click(submitBtn);
+  await userEvent.click(submitBtn);
+};
+
+export const EmailChanged = Template.bind({});
+EmailChanged.args = {
+  emailType: EmailType.Contact,
+  emailAddress: "user@example.com",
+  onVerificationSuccess: action("onVerificationSuccess"),
+};
+EmailChanged.play = async () => {
+  const dialog = within(screen.getByRole("dialog"));
+  const submitBtn = dialog.getByRole("button", { name: /send/i });
+  const emailInput = dialog.getByRole("textbox", { name: /contact/i });
+  await userEvent.click(submitBtn);
+  await userEvent.clear(emailInput);
+  await userEvent.type(emailInput, "user2@example.com");
+  await userEvent.click(emailInput);
+};
+
+export const ContactMatchesWork = Template.bind({});
+ContactMatchesWork.args = {
+  emailType: EmailType.Contact,
+  emailAddress: "user@gc.ca",
+  onVerificationSuccess: action("onVerificationSuccess"),
+};
+ContactMatchesWork.play = async () => {
+  const dialog = within(screen.getByRole("dialog"));
+  const submitBtn = dialog.getByRole("button", { name: /send/i });
+  await userEvent.click(submitBtn);
+};
+
+export const MustRequestCode = Template.bind({});
+MustRequestCode.args = {
+  emailType: EmailType.Contact,
+  emailAddress: "user@gc.ca",
+  onVerificationSuccess: action("onVerificationSuccess"),
+};
+MustRequestCode.play = async () => {
+  const dialog = within(screen.getByRole("dialog"));
+  const submitBtn = dialog.getByRole("button", { name: /save/i });
+  await userEvent.click(submitBtn);
+};
