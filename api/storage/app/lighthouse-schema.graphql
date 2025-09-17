@@ -942,9 +942,7 @@ type BasicGovEmployeeProfile {
 
 type UserEmployeeWFA {
   id: UUID!
-  wfaInterest: LocalizedWFAInterest
-  wfaDate: DateTime
-  wfaUpdatedAt: DateTime
+  employeeWFA: EmployeeWFA
   firstName: String
   lastName: String
   classification: Classification
