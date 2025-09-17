@@ -72,7 +72,7 @@ class EmployeeWFATest extends TestCase
             ->create(['user_id' => $this->employee->id]);
     }
 
-    public function test_user_can_update_own_wfa()
+    public function testUserCanUpdateOwnWfa()
     {
         $futureDate = config('constants.far_future_datetime');
         $this->actingAs($this->employee, 'api')
@@ -91,37 +91,25 @@ class EmployeeWFATest extends TestCase
             ]);
     }
 
-    public function test_updated_at_set()
+    public function testUpdatedAtSet()
     {
-        $beforeRes = $this->actingAs($this->employee, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $this->employee->id,
-                'employeeWFA' => [
-                    'id' => $this->employee->id,
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
-                ],
-            ]);
+        // Mock date we expect to get after saving
+        $nowInUtc = '2999-12-28 20:00:00';
+        Carbon::setTestNow($nowInUtc);
 
-        $before = Carbon::parse($beforeRes['data']['updateEmployeeWFA']['wfaUpdatedAt']);
-
-        // Sleep to prevent dates being exact
-        sleep(1);
-
-        $afterRes = $this->actingAs($this->employee, 'api')
+        $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
                     'id' => $this->employee->id,
                     'wfaInterest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
                 ],
+            ])->assertJsonFragment([
+                'wfaUpdatedAt' => $nowInUtc,
             ]);
-
-        $after = Carbon::parse($afterRes['data']['updateEmployeeWFA']['wfaUpdatedAt']);
-
-        $this->assertTrue($after->greaterThan($before));
     }
 
-    public function test_not_applicable_sets_date_to_null()
+    public function testNotApplicableSetsDateToNull()
     {
         // Ensure we have a date to being with
         $this->employee->wfa_date = config('constants.far_future_datetime');
@@ -137,7 +125,7 @@ class EmployeeWFATest extends TestCase
             ])->assertJsonFragment(['wfaDate' => null]);
     }
 
-    public function test_platform_admin_can_view_any()
+    public function testPlatformAdminCanViewAny()
     {
         $admin = User::factory()
             ->asAdmin()
@@ -148,7 +136,7 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['id' => $this->employee->id]);
     }
 
-    public function test_community_recruiter_can_view_in_community()
+    public function testCommunityRecruiterCanViewInCommunity()
     {
         // Unrelated user who should not appear
         User::factory()
@@ -186,7 +174,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(1, $results);
     }
 
-    public function test_community_recruiter_cannot_view_outside_community()
+    public function testCommunityRecruiterCannotViewOutsideCommunity()
     {
         // No community interest but will apply to pool
         $user = User::factory()
@@ -221,7 +209,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(0, $results);
     }
 
-    public function test_community_recruiter_cannot_query_employee_wfa_outside_community()
+    public function testCommunityRecruiterCannotQueryEmployeeWfaOutsideCommunity()
     {
         // Unrelated community
         $community = Community::factory()->create();
