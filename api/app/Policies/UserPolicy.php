@@ -79,7 +79,7 @@ class UserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewEmployeeWFA(User $user, User $model): bool
+    public function viewEmployeeWFA(User $user, User $model)
     {
         if ($user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id) {
             return true;
