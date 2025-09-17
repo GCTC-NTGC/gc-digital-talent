@@ -25,15 +25,28 @@ final class VerifyUserEmails
         $key = 'email-verification-'.$user->id;
         $token = Cache::get($key); // refer to VerifyEmails->createVerificationCode
 
+        if (is_null($token)) {
+            throw ValidationException::withMessages(['code' => 'VERIFICATION_FAILED']);
+        }
+
         $validator = Validator::make($token, [
-            'code' => 'required|string',
-            'emailTypes' => 'required|array|min:1',
+            'code' => [
+                'required',
+                'string',
+            ],
+            'emailTypes' => [
+                'required',
+                'array',
+                'min:1',
+            ],
             'emailTypes.*' => [
                 'required',
                 'distinct',
                 Rule::in(array_column(EmailType::cases(), 'name')),
             ],
             'emailAddress' => [
+                'required',
+                'string',
                 Rule::when(fn ($attributes) => in_array(EmailType::WORK->name, $attributes['emailTypes']),
                     [new GovernmentEmailRegex],
                     ['email']
