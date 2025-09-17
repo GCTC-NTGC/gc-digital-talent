@@ -18,8 +18,16 @@ class HasSubstantiveExperience implements ValidationRule
     {
         $user = User::find($value);
 
-        if ($user && ! $user->current_substantive_experience) {
-            $fail(ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
+        if ($user) {
+            $expCount = $user->current_substantive_experience->count();
+
+            if (! $expCount) {
+                $fail(ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
+            }
+
+            if ($expCount > 1) {
+                $fail(ApiErrorEnums::TOO_MANY_SUBSTANTIVE_EXPERIENCES);
+            }
         }
     }
 }

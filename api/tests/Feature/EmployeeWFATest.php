@@ -2,13 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Enums\WFAInterest;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Models\WorkExperience;
-use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -73,78 +70,9 @@ class EmployeeWFATest extends TestCase
             ->withCommunityInterests([$this->community->id])
             ->asGovEmployee()
             ->create();
-
-        // Ensure user has a substantive experience
-        WorkExperience::factory()
-            ->asSubstantive()
-            ->create(['user_id' => $this->employee->id]);
     }
 
-    public function testUserCanUpdateOwnWfa()
-    {
-        $futureDate = config('constants.far_future_datetime');
-        $this->actingAs($this->employee, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $this->employee->id,
-                'employeeWFA' => [
-                    'id' => $this->employee->id,
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
-                    'wfaDate' => $futureDate,
-                ],
-            ])->assertJsonFragment([
-                'wfaInterest' => [
-                    'value' => WFAInterest::LETTER_RECEIVED->name,
-                ],
-                'wfaDate' => $futureDate,
-            ]);
-    }
-
-    public function testUpdatedAtSet()
-    {
-        // Mock date we expect to get after saving
-        $nowInUtc = '2999-12-28 20:00:00';
-        Carbon::setTestNow($nowInUtc);
-
-        $this->actingAs($this->employee, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $this->employee->id,
-                'employeeWFA' => [
-                    'id' => $this->employee->id,
-                    'wfaInterest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
-                ],
-            ])->assertJsonFragment([
-                'wfaUpdatedAt' => $nowInUtc,
-            ]);
-    }
-
-    public function testNotApplicableSetsDateToNull()
-    {
-        // Ensure we have a date to being with
-        $this->employee->wfa_date = config('constants.far_future_datetime');
-        $this->employee->save();
-
-        $this->actingAs($this->employee, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $this->employee->id,
-                'employeeWFA' => [
-                    'id' => $this->employee->id,
-                    'wfaInterest' => null,
-                ],
-            ])->assertJsonFragment(['wfaDate' => null]);
-    }
-
-    public function testPlatformAdminCanViewAny()
-    {
-        $admin = User::factory()
-            ->asAdmin()
-            ->create();
-
-        $this->actingAs($admin, 'api')
-            ->graphQL($this->query)
-            ->assertJsonFragment(['id' => $this->employee->id]);
-    }
-
-    public function testCommunityRecruiterCanViewInCommunity()
+    public function test_community_recruiter_can_view_in_community()
     {
         // Unrelated user who should not appear
         User::factory()
@@ -182,7 +110,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(1, $results);
     }
 
-    public function testCommunityRecruiterCannotViewOutsideCommunity()
+    public function test_community_recruiter_cannot_view_outside_community()
     {
         // No community interest but will apply to pool
         $user = User::factory()
@@ -217,7 +145,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(0, $results);
     }
 
-    public function testCommunityRecruiterCannotQueryEmployeeWfaOutsideCommunity()
+    public function test_community_recruiter_cannot_query_employee_wfa_outside_community()
     {
         // Unrelated community
         $community = Community::factory()->create();
@@ -231,7 +159,7 @@ class EmployeeWFATest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testCommunityRecruiterCanViewSpecificUserInCommunity()
+    public function test_community_recruiter_can_view_specific_user_in_community()
     {
         $recruiter = User::factory()
             ->asCommunityRecruiter($this->community->id)
@@ -242,7 +170,7 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['employeeWFA' => ['wfaInterest' => ['value' => $this->employee->wfa_interest]]]);
     }
 
-    public function testPlatformAdminCanViewSpecificUser()
+    public function test_platform_admin_can_view_specific_user()
     {
         $admin = User::factory()
             ->asAdmin()

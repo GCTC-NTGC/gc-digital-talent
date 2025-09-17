@@ -494,7 +494,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 null,
             ];
 
-            $workExperiences = $this->workExperiences->filter(function ($exp) {
+            return $this->workExperiences->filter(function ($exp) {
 
                 $isGovExp = $exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name ||
                     $exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name;
@@ -516,9 +516,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $positionTypeOrder),
                     fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $employmentTypeOrder),
                 ]);
-
-            // NOTE: After sorting, the first item should be their current substantive or term position
-            return $workExperiences->first() ?? null;
         });
     }
 

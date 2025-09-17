@@ -3,11 +3,13 @@
 namespace Tests\Feature;
 
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\EmploymentCategory;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
@@ -72,7 +74,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    public function testFilterByPoolCandidateStatuses(): void
+    public function test_filter_by_pool_candidate_statuses(): void
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
@@ -328,7 +330,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByCandidateExpiryDate(): void
+    public function test_filter_by_candidate_expiry_date(): void
     {
         // myPool will be people we're querying for and should be returned
         $myPool = Pool::factory()->create(['name' => [
@@ -545,7 +547,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByLanguageAbility(): void
+    public function test_filter_by_language_ability(): void
     {
         User::factory()->count(1)->create([
             'looking_for_english' => false,
@@ -688,7 +690,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByOperationalRequirements(): void
+    public function test_filter_by_operational_requirements(): void
     {
         // Create initial data.
         User::factory()->count(5)->create([
@@ -850,7 +852,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByLocationPreferences(): void
+    public function test_filter_by_location_preferences(): void
     {
         // Create 5 new users with a ONTARIO location preference.
         User::factory()->count(5)->create([
@@ -946,7 +948,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByDiploma(): void
+    public function test_filter_by_diploma(): void
     {
         // Create initial set of 5 users with no diploma.
         User::factory()->count(5)->create([
@@ -1042,7 +1044,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByAcceptTemporary(): void
+    public function test_filter_by_accept_temporary(): void
     {
         // Create initial set of 5 users which wouldn't accept temporary.
         User::factory()->count(5)->create([
@@ -1138,7 +1140,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByProfileComplete(): void
+    public function test_filter_by_profile_complete(): void
     {
         // need some generic job titles for a complete profile
         $this->seed(ClassificationSeeder::class);
@@ -1266,7 +1268,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterBySkillsIntersectional(): void
+    public function test_filter_by_skills_intersectional(): void
     {
         // Create initial data set
         Skill::factory()->count(20)->create();
@@ -1481,7 +1483,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByGovEmployee(): void
+    public function test_filter_by_gov_employee(): void
     {
         // Create initial set of 5 users not with gov.
         User::factory()->count(5)->create([
@@ -1573,7 +1575,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testOrdering(): void
+    public function test_ordering(): void
     {
         // Create users for testing
         User::factory()->count(8)->create();
@@ -1632,7 +1634,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQuery(): void
+    public function test_count_applicants_query(): void
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
@@ -1755,7 +1757,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testAdminTableFilter(): void
+    public function test_admin_table_filter(): void
     {
         // Create 5 users
         User::factory()->create([
@@ -2088,7 +2090,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testNullFiltersEqualToUndefined(): void
+    public function test_null_filters_equal_to_undefined(): void
     {
         // Create users to test filters on
         User::factory(60)->create();
@@ -2163,7 +2165,7 @@ class UserTest extends TestCase
     }
 
     /** After running addSkills, the user should have a UserSkill for each added skill. */
-    public function testAddSkillsAddsUserSkills(): void
+    public function test_add_skills_adds_user_skills(): void
     {
         $skills = Skill::factory(3)->create();
         $this->platformAdmin->addSkills($skills->pluck('id'));
@@ -2174,7 +2176,7 @@ class UserTest extends TestCase
         }
     }
 
-    public function testAddSkillsRestoresSoftDeletedUserSkills(): void
+    public function test_add_skills_restores_soft_deleted_user_skills(): void
     {
         $userSkill = UserSkill::factory()->create([
             'user_id' => $this->platformAdmin->id,
@@ -2189,7 +2191,7 @@ class UserTest extends TestCase
         $this->assertContains($userSkill->id, $this->platformAdmin->refresh()->userSkills->pluck('id'));
     }
 
-    public function testAddSkillsDoesNotAddDuplicates(): void
+    public function test_add_skills_does_not_add_duplicates(): void
     {
         $skills = Skill::factory(3)->create();
         // The user will already have the first skill.
@@ -2208,7 +2210,7 @@ class UserTest extends TestCase
         $this->assertCount(3, $this->platformAdmin->userSkills);
     }
 
-    public function testRoleAssignmentScope(): void
+    public function test_role_assignment_scope(): void
     {
         $testPool = Pool::factory()->create();
         $testCommunity = Community::factory()->create();
@@ -2287,7 +2289,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    public function testUpdateUserIsStatusOrNonStatusRule(): void
+    public function test_update_user_is_status_or_non_status_rule(): void
     {
         $applicant = User::factory()->asApplicant()->create();
 
@@ -2343,7 +2345,7 @@ class UserTest extends TestCase
             ->assertGraphQLValidationError('user.indigenousCommunities', 'BothStatusNonStatus');
     }
 
-    public function testUserUpdatingSub(): void
+    public function test_user_updating_sub(): void
     {
         $this->seed(RolePermissionSeeder::class);
         $baseUser = User::factory()
@@ -2397,7 +2399,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testUsersNestedPoolCandidates(): void
+    public function test_users_nested_pool_candidates(): void
     {
         // applicant has one submitted and one draft application
         $applicant = User::factory()->asApplicant()->create();
@@ -2445,7 +2447,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    public function testIsVerifiedGovermentEmployeeAccessor()
+    public function test_is_verified_goverment_employee_accessor()
     {
         $user = User::factory()
             ->asGovEmployee()
@@ -2466,6 +2468,63 @@ class UserTest extends TestCase
         $user->computed_is_gov_employee = false;
         $user->save();
         $this->assertFalse($user->isVerifiedGovEmployee);
+
+    }
+
+    public function test_multiple_substantive_experiences()
+    {
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+
+        // Nonsubstantive
+        WorkExperience::factory()
+            ->create([
+                'user_id' => $user->id,
+                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+            ]);
+
+        $exp1 = WorkExperience::factory()
+            ->asSubstantive()
+            ->create(['user_id' => $user->id]);
+
+        $exp2 = WorkExperience::factory()
+            ->asSubstantive()
+            ->create(['user_id' => $user->id]);
+
+        $this->actingAs($user, 'api')
+            ->graphQL('query Me { me { currentSubstantiveExperience { id } } }')
+            ->assertJsonFragment([[
+                ['id' => $exp1->id],
+                ['id' => $exp2->id],
+            ]]);
+
+        $this->assertCount(2, $user->current_substantive_experience);
+
+    }
+
+    public function test_no_substantive_experiences()
+    {
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+
+        // Nonsubstantive
+        WorkExperience::factory()
+            ->create([
+                'user_id' => $user->id,
+                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+            ]);
+
+        $this->actingAs($user, 'api')
+            ->graphQL('query Me { me { currentSubstantiveExperience { id } } }')
+            ->assertJsonFragment([
+                'currentSubstantiveExperience' => [],
+            ]);
+
+        $this->assertEmpty($user->current_substantive_experience);
 
     }
 }
