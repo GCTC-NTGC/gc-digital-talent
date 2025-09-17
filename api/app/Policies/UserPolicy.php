@@ -81,6 +81,10 @@ class UserPolicy
      */
     public function viewEmployeeWFA(User $user, User $model)
     {
+        if ($user->isAbleTo('view-any-employeeWFA')) {
+            return true;
+        }
+
         if ($user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id) {
             return true;
         }
