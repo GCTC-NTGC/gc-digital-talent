@@ -72,7 +72,7 @@ class EmployeeWFATest extends TestCase
             ->create();
     }
 
-    public function test_community_recruiter_can_view_in_community()
+    public function testCommunityRecruiterCanViewInCommunity()
     {
         // Unrelated user who should not appear
         User::factory()
@@ -110,7 +110,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(1, $results);
     }
 
-    public function test_community_recruiter_cannot_view_outside_community()
+    public function testCommunityRecruiterCannotViewOutsideCommunity()
     {
         // No community interest but will apply to pool
         $user = User::factory()
@@ -145,7 +145,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(0, $results);
     }
 
-    public function test_community_recruiter_cannot_query_employee_wfa_outside_community()
+    public function testCommunityRecruiterCannotQueryEmployeeWfaOutsideCommunity()
     {
         // Unrelated community
         $community = Community::factory()->create();
@@ -159,7 +159,7 @@ class EmployeeWFATest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function test_community_recruiter_can_view_specific_user_in_community()
+    public function testCommunityRecruiterCanViewSpecificUserInCommunity()
     {
         $recruiter = User::factory()
             ->asCommunityRecruiter($this->community->id)
@@ -170,7 +170,7 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['employeeWFA' => ['wfaInterest' => ['value' => $this->employee->wfa_interest]]]);
     }
 
-    public function test_platform_admin_can_view_specific_user()
+    public function testPlatformAdminCanViewSpecificUser()
     {
         $admin = User::factory()
             ->asAdmin()
