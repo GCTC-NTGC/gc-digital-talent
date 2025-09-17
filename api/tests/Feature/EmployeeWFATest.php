@@ -32,9 +32,11 @@ class EmployeeWFATest extends TestCase
         employeeWFAPaginatedAdminTable {
             data {
                 id
-                wfaInterest { value }
-                wfaDate
-                wfaUpdatedAt
+                employeeWFA {
+                    wfaInterest { value }
+                    wfaDate
+                    wfaUpdatedAt
+                }
             }
         }
     }
@@ -70,7 +72,7 @@ class EmployeeWFATest extends TestCase
             ->create(['user_id' => $this->employee->id]);
     }
 
-    public function testUserCanUpdateOwnWfa()
+    public function test_user_can_update_own_wfa()
     {
         $futureDate = config('constants.far_future_datetime');
         $this->actingAs($this->employee, 'api')
@@ -89,7 +91,7 @@ class EmployeeWFATest extends TestCase
             ]);
     }
 
-    public function testUpdatedAtSet()
+    public function test_updated_at_set()
     {
         $beforeRes = $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
@@ -119,7 +121,7 @@ class EmployeeWFATest extends TestCase
         $this->assertTrue($after->greaterThan($before));
     }
 
-    public function testNotApplicableSetsDateToNull()
+    public function test_not_applicable_sets_date_to_null()
     {
         // Ensure we have a date to being with
         $this->employee->wfa_date = config('constants.far_future_datetime');
@@ -135,7 +137,7 @@ class EmployeeWFATest extends TestCase
             ])->assertJsonFragment(['wfaDate' => null]);
     }
 
-    public function testPlatformAdminCanViewAny()
+    public function test_platform_admin_can_view_any()
     {
         $admin = User::factory()
             ->asAdmin()
@@ -146,7 +148,7 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['id' => $this->employee->id]);
     }
 
-    public function testCommunityRecruiterCanViewInCommunity()
+    public function test_community_recruiter_can_view_in_community()
     {
         // Unrelated user who should not appear
         User::factory()
@@ -184,7 +186,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(1, $results);
     }
 
-    public function testCommunityRecruiterCannotViewOutsideCommunity()
+    public function test_community_recruiter_cannot_view_outside_community()
     {
         // No community interest but will apply to pool
         $user = User::factory()
@@ -219,7 +221,7 @@ class EmployeeWFATest extends TestCase
         $this->assertCount(0, $results);
     }
 
-    public function testCommunityRecruiterCannotQueryEmployeeWfaOutsideCommunity()
+    public function test_community_recruiter_cannot_query_employee_wfa_outside_community()
     {
         // Unrelated community
         $community = Community::factory()->create();

@@ -383,11 +383,11 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   classification: Classification @belongsTo(relation: "currentClassification")
 }
 
+# Streamlined User, intended for querying in large collections while remaining performant
+# Include only fields as needed for admin purposes
 type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
   id: UUID!
-  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
-  wfaDate: DateTime @rename(attribute: "wfa_date")
-  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
+  employeeWFA: EmployeeWFA @self
 
   # User profile info for table
   firstName: String @rename(attribute: "first_name")
