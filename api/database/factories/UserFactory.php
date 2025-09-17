@@ -220,13 +220,6 @@ class UserFactory extends Factory
             if (! $isGovEmployee) {
                 return;
             }
-
-            if ($withWfa) {
-                $user->wfa_interest = $this->faker->randomElement(WFAInterest::cases())->name;
-                $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year');
-                $user->saveQuietly();
-            }
-
             // Government employee counts as an user who has a work experience with
             //  - an employment type of government of Canada or Canadian armed forces and,
             //  - that experience has no end date (is current)
@@ -240,6 +233,15 @@ class UserFactory extends Factory
                     WorkExperienceGovEmployeeType::TERM->name,
                 ]),
             ]);
+
+            if ($withWfa) {
+                $user->wfa_interest = $this->faker->randomElement(WFAInterest::cases())->name;
+                $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year');
+                $user->saveQuietly();
+
+                $factory = $factory->asSubstantive();
+            }
+
             $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
         });
     }
