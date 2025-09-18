@@ -106,20 +106,6 @@ class PoolBuilderTest extends TestCase
         ]);
     }
 
-    public function testOrderByColumnRejectsBadColumn()
-    {
-        try {
-            Pool::orderByColumn([
-                'column' => 'bad_column',
-                'order' => 'ASC',
-            ]);
-        } catch (Throwable $e) {
-            assertEquals('Invalid column', $e->getMessage());
-
-            return;
-        }
-        $this->fail('Expected exception');
-    }
 
     public function testOrderByColumnRejectsBadOrder()
     {

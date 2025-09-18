@@ -202,10 +202,6 @@ class PoolBuilder extends Builder
         $order = $args['order'];
         $nulls = $args['nulls'] ?? null;
 
-        // verify if column name is valid
-        /** @var \App\Models\Pool */
-        $model = $this->model;
-
         // build column name qualified with table name
         $tableName = $this->model->getTable();
         $columnSql = "\"$tableName\".\"$column\"";
