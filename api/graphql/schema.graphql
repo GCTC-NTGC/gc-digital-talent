@@ -429,7 +429,7 @@ type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
 type EmployeeWFA @model(class: "\\App\\Models\\User") {
   id: UUID!
   wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
-  wfaDate: DateTime @rename(attribute: "wfa_date")
+  wfaDate: Date @rename(attribute: "wfa_date")
   wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
 }
 
@@ -2006,7 +2006,7 @@ input UpdateEmployeeWFAInput @validator {
   # Usually the ID parameter is at the mutation level but we need it here for the validator.
   id: UUID!
   wfaInterest: WFAInterest @rename(attribute: "wfa_interest")
-  wfaDate: DateTime @rename(attribute: "wfa_date")
+  wfaDate: Date @rename(attribute: "wfa_date")
 }
 
 input CreateCommunityInterestInput @validator {

@@ -236,7 +236,7 @@ class UserFactory extends Factory
 
             if ($withWfa) {
                 $user->wfa_interest = $this->faker->randomElement(WFAInterest::cases())->name;
-                $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year');
+                $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d');
                 $user->saveQuietly();
 
                 $factory = $factory->asSubstantive();

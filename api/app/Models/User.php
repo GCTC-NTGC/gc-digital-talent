@@ -140,7 +140,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'preferred_language_for_interview' => LanguageCode::class,
         'preferred_language_for_exam' => LanguageCode::class,
         'first_official_language' => LanguageCode::class,
-        'wfa_date' => 'datetime',
+        'wfa_date' => 'date',
         'wfa_updated_at' => 'datetime',
     ];
 

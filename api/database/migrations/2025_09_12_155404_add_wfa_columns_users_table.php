@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('wfa_interest')->nullable();
-            $table->dateTime('wfa_date')->nullable();
+            $table->date('wfa_date')->nullable();
             $table->dateTime('wfa_updated_at')->nullable();
         });
     }

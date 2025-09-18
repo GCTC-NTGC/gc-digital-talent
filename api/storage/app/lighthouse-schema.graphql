@@ -972,7 +972,7 @@ type UserEmployeeWFA {
 type EmployeeWFA {
   id: UUID!
   wfaInterest: LocalizedWFAInterest
-  wfaDate: DateTime
+  wfaDate: Date
   wfaUpdatedAt: DateTime
 }
 
@@ -1965,7 +1965,7 @@ input UpdateEmployeeProfileInput {
 input UpdateEmployeeWFAInput {
   id: UUID!
   wfaInterest: WFAInterest
-  wfaDate: DateTime
+  wfaDate: Date
 }
 
 input CreateCommunityInterestInput {

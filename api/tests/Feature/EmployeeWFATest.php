@@ -76,7 +76,7 @@ class EmployeeWFATest extends TestCase
 
     public function testUserCanUpdateOwnWfa()
     {
-        $futureDate = config('constants.far_future_datetime');
+        $futureDate = config('constants.far_future_date');
         $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
@@ -118,7 +118,7 @@ class EmployeeWFATest extends TestCase
     public function testNotApplicableSetsDateToNull()
     {
         // Ensure we have a date to being with
-        $this->employee->wfa_date = config('constants.far_future_datetime');
+        $this->employee->wfa_date = config('constants.far_future_date');
         $this->employee->save();
 
         $this->actingAs($this->employee, 'api')
