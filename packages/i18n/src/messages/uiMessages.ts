@@ -77,18 +77,18 @@ const uiMessages = defineMessages({
       "Title for a list of steps indicating the current step of the total number of step",
   },
   stepCompleted: {
-    defaultMessage: "<hidden>Step completed, </hidden>{label}",
-    id: "9zyjjw",
+    defaultMessage: "Step completed, {label}",
+    id: "Q6sBsq",
     description: "Prefix when a step has been completed.",
   },
   stepError: {
-    defaultMessage: "<hidden>Step error, </hidden>{label}",
-    id: "sfQN9S",
+    defaultMessage: "Step error, {label}",
+    id: "TJ7su7",
     description: "Prefix when a step has an error.",
   },
   stepActive: {
-    defaultMessage: "<hidden>Step, current, </hidden>{label}",
-    id: "0bcof1",
+    defaultMessage: "Step, current, {label}",
+    id: "CLDOSg",
     description: "Prefix when a step is the currently active one.",
   },
   readMore: {
