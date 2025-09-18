@@ -4,7 +4,7 @@ import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
   getFragment,
@@ -19,6 +19,7 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
+import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
 import accessors from "../Table/accessors";
 import { expiryCell, statusCell } from "./cells";
@@ -53,6 +54,9 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
+      finalDecision {
+        value
+      }
       pool {
         id
         processNumber
@@ -86,12 +90,14 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
 
 interface PoolStatusTableProps {
   currentPoolId?: Scalars["ID"]["output"];
+  onlyRecruitmentProcesses?: boolean;
   userQuery: FragmentType<typeof PoolStatusTable_Fragment>;
 }
 
 const PoolStatusTable = ({
   currentPoolId,
   userQuery,
+  onlyRecruitmentProcesses = false,
 }: PoolStatusTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -220,15 +226,16 @@ const PoolStatusTable = ({
     }),
   ] as ColumnDef<PoolStatusTablePoolCandidateFragmentType>[];
 
-  let data;
+  let data = unpackMaybes(user.poolCandidates);
   if (currentPoolId) {
-    data =
-      user.poolCandidates
-        ?.filter(notEmpty)
-        .filter((poolCandidates) => poolCandidates.pool.id != currentPoolId) ??
-      [];
-  } else {
-    data = user.poolCandidates?.filter(notEmpty) ?? [];
+    data = data.filter(
+      (poolCandidates) => poolCandidates.pool.id != currentPoolId,
+    );
+  }
+  if (onlyRecruitmentProcesses) {
+    data = data.filter(({ finalDecision }) =>
+      isQualifiedFinalDecision(finalDecision.value),
+    );
   }
 
   return (
