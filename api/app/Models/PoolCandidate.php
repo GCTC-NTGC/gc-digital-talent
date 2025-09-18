@@ -63,6 +63,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
+ * @property array $flexible_work_locations
  * @property string $assessment_step_id
  */
 class PoolCandidate extends Model
@@ -619,6 +620,16 @@ class PoolCandidate extends Model
         return null;
     }
 
+    /**
+     * Flexible Work Locations filtering
+     */
+    public function scopeWhereFlexibleWorkLocationsIn($query, array $locations)
+    {
+        return $query->whereHas('user', function ($userQuery) use ($locations) {
+            $userQuery->whereFlexibleWorkLocationsIn($locations);
+        });
+    }
+
     // mark the pool candidate as qualified
     public function qualify(Carbon $expiryDate)
     {
@@ -637,6 +648,5 @@ class PoolCandidate extends Model
         $finalDecision = $this->computeFinalDecision();
         $this->computed_final_decision = $finalDecision['decision'];
         $this->computed_final_decision_weight = $finalDecision['weight'];
-
     }
 }

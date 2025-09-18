@@ -40,6 +40,7 @@ return [
     'priority_number' => 'Numéro de priorité',
     'work_location' => 'Lieu de travail',
     'location_preferences' => 'Préférences pour le lieu de travail',
+    'flexible_work_locations' => 'Options de lieu de travail flexible',
     'location_exemptions' => 'Exemptions de lieux',
     'contract_duration' => 'Préférence pour la durée de l\'emploi',
     'accept_temporary' => 'Accepter les temporaires',

@@ -228,6 +228,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Flexible work location options",
+    "fr": [
+      "Options de lieu de travail flexible",
+      "Options flexibles de lieu de travail"
+    ]
+  },
+  {
     "en": "Create department",
     "fr": [
       "Créez un ministère",
@@ -246,6 +253,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajouter un rôle dans la collectivité",
       "Ajoutez un rôle dans la collectivité"
+    ]
+  },
+  {
+    "en": "Work location preferences",
+    "fr": [
+      "Préférences pour le lieu de travail",
+      "Préférences de lieu de travail"
     ]
   },
   {

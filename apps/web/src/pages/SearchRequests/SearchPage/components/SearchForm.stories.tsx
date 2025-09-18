@@ -9,7 +9,11 @@ import {
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
-import { LanguageAbility, WorkRegion } from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
+  LanguageAbility,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 
 import { SearchForm } from "./SearchForm";
 
@@ -36,6 +40,7 @@ const SearchRequestOptions = {
   data: {
     languageAbilities: fakeLocalizedEnum(LanguageAbility),
     workRegions: fakeLocalizedEnum(WorkRegion),
+    flexibleWorkLocations: fakeLocalizedEnum(FlexibleWorkLocation),
   },
 };
 

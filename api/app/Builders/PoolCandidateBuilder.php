@@ -140,6 +140,17 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
+    public function whereFlexibleWorkLocationsIn(?array $flexibleWorkLocations): self
+    {
+        if (empty($flexibleWorkLocations)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($flexibleWorkLocations) {
+            $query->whereFlexibleWorkLocationsIn($flexibleWorkLocations);
+        });
+    }
+
     public function whereLanguageAbility(?string $languageAbility): self
     {
         if (empty($languageAbility)) {

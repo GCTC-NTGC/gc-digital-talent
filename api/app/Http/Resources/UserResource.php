@@ -6,6 +6,7 @@ use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -107,6 +108,7 @@ class UserResource extends JsonResource
             'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
             'hasDiploma' => $this->has_diploma,
             'locationPreferences' => $this->localizeEnumArray($this->location_preferences, WorkRegion::class),
+            'flexibleWorkLocations' => $this->localizeEnumArray($this->flexible_work_locations, FlexibleWorkLocation::class),
             'locationExemptions' => $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->localizeEnumArray($this->accepted_operational_requirements, OperationalRequirement::class),
             'positionDuration' => $this->position_duration,

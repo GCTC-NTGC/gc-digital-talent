@@ -1,6 +1,7 @@
 import isEmpty from "lodash/isEmpty";
 
 import {
+  LocalizedFlexibleWorkLocation,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
   Maybe,
@@ -13,18 +14,23 @@ export interface PartialUser
     "positionDuration" | "locationExemptions" | "currentCity"
   > {
   locationPreferences?: Maybe<Maybe<Pick<LocalizedWorkRegion, "value">>[]>;
+  flexibleWorkLocations?: Maybe<
+    Maybe<Pick<LocalizedFlexibleWorkLocation, "value">>[]
+  >;
   currentProvince?: Maybe<Pick<LocalizedProvinceOrTerritory, "value">>;
 }
 
 export function hasAllEmptyFields({
   positionDuration,
   locationPreferences,
+  flexibleWorkLocations,
   currentCity,
   currentProvince,
 }: PartialUser): boolean {
   return (
     isEmpty(positionDuration) &&
     isEmpty(locationPreferences) &&
+    isEmpty(flexibleWorkLocations) &&
     !currentCity &&
     !currentProvince
   );
@@ -33,12 +39,14 @@ export function hasAllEmptyFields({
 export function hasEmptyRequiredFields({
   positionDuration,
   locationPreferences,
+  flexibleWorkLocations,
   currentCity,
   currentProvince,
 }: PartialUser): boolean {
   return (
     isEmpty(positionDuration) ||
     isEmpty(locationPreferences) ||
+    isEmpty(flexibleWorkLocations) ||
     !currentCity ||
     !currentProvince
   );

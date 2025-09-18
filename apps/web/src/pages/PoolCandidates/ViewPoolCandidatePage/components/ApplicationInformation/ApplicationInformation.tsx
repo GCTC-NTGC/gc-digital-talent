@@ -42,6 +42,7 @@ import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
 import profileMessages from "~/messages/profileMessages";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
@@ -126,6 +127,9 @@ interface ApplicationInformationProps {
     typeof ApplicationInformation_PoolCandidateFragment
   >;
   snapshot: User & { bilingualEvaluation?: BilingualEvaluation }; // recreated from Json
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
   defaultOpen?: boolean;
 }
 
@@ -133,6 +137,7 @@ const ApplicationInformation = ({
   poolQuery,
   snapshot,
   applicationQuery,
+  optionsQuery,
   defaultOpen = false,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
@@ -370,6 +375,7 @@ const ApplicationInformation = ({
                 snapshot,
                 WorkPreferencesDisplay_Fragment,
               )}
+              optionsQuery={optionsQuery}
               labels={getLabels(intl)}
             />
           </Accordion.Content>

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\EmploymentCategory;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
@@ -1150,6 +1151,7 @@ class UserTest extends TestCase
         User::factory()->count(5)->create([
             'current_province' => null,
             'location_preferences' => null,
+            'flexible_work_locations' => [],
             'looking_for_english' => null,
             'looking_for_french' => null,
             'looking_for_bilingual' => null,
@@ -1159,13 +1161,14 @@ class UserTest extends TestCase
         User::factory()->count(2)->create([
             'current_province' => 'ONTARIO',
             'location_preferences' => null,
+            'flexible_work_locations' => [],
             'looking_for_english' => false,
             'looking_for_french' => true,
             'looking_for_bilingual' => false,
         ]);
         User::factory()->count(2)->create([
             'current_province' => 'ONTARIO',
-            'location_preferences' => ['PRAIRIE'],
+            'flexible_work_locations' => [],
             'looking_for_english' => null,
             'looking_for_french' => null,
             'looking_for_bilingual' => null,
@@ -1180,6 +1183,7 @@ class UserTest extends TestCase
             ->create([
                 'current_province' => 'ONTARIO',
                 'location_preferences' => ['PRAIRIE'],
+                'flexible_work_locations' => [FlexibleWorkLocation::HYBRID->name],
                 'looking_for_english' => null,
                 'looking_for_french' => true,
                 'looking_for_bilingual' => null,

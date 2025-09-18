@@ -6,7 +6,6 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -51,6 +50,8 @@ class UserBuilder extends Builder
             });
             $this->whereNotNull('location_preferences');
             $this->whereJsonLength('location_preferences', '>', 0);
+            $this->whereNotNull('flexible_work_locations');
+            $this->whereJsonLength('flexible_work_locations', '>', 0);
             $this->whereJsonLength('position_duration', '>', 0);
             $this->whereNotNull('citizenship');
             $this->whereNotNull('armed_forces_status');
@@ -193,6 +194,22 @@ class UserBuilder extends Builder
                 } else {
                     $query->orWhereJsonContains('location_preferences', $workRegion);
                 }
+            }
+        });
+    }
+
+    /**
+     * Flexible Work Locations filtering
+     */
+    public function whereFlexibleWorkLocationsIn(?array $flexibleWorkLocations): self
+    {
+        if (empty($flexibleWorkLocations)) {
+            return $this;
+        }
+
+        return $this->where(function ($query) use ($flexibleWorkLocations) {
+            foreach ($flexibleWorkLocations as $location) {
+                $query->orWhereJsonContains('flexible_work_locations', $location);
             }
         });
     }

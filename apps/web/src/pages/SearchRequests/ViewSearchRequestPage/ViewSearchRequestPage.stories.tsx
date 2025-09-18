@@ -8,7 +8,13 @@ import {
   allModes,
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
-import { PoolCandidateSearchStatus } from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
+  makeFragmentData,
+  PoolCandidateSearchStatus,
+} from "@gc-digital-talent/graphql";
+
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import { ViewSearchRequest } from "./components/ViewSearchRequest";
 
@@ -37,10 +43,50 @@ export default {
   },
 } as Meta<typeof ViewSearchRequest>;
 
+const flexibleWorkOptionsQuery = makeFragmentData(
+  {
+    flexibleWorkLocation: [
+      {
+        value: FlexibleWorkLocation.Remote,
+        label: {
+          __typename: undefined,
+          en: undefined,
+          fr: undefined,
+          localized: "REMOTE LOCALIZED",
+        },
+      },
+      {
+        value: FlexibleWorkLocation.Hybrid,
+        label: {
+          __typename: undefined,
+          en: undefined,
+          fr: undefined,
+          localized: "HYBRID LOCALIZED",
+        },
+      },
+      {
+        value: FlexibleWorkLocation.Onsite,
+        label: {
+          __typename: undefined,
+          en: undefined,
+          fr: undefined,
+          localized: "ONSITE LOCALIZED",
+        },
+      },
+    ],
+  },
+  FlexibleWorkLocationOptions_Fragment,
+);
+
 const Template: StoryFn<typeof ViewSearchRequest> = (args) => {
   const { searchRequestQuery } = args;
 
-  return <ViewSearchRequest searchRequestQuery={searchRequestQuery} />;
+  return (
+    <ViewSearchRequest
+      searchRequestQuery={searchRequestQuery}
+      flexibleLocationOptionsQuery={flexibleWorkOptionsQuery}
+    />
+  );
 };
 
 export const Default = Template.bind({});
