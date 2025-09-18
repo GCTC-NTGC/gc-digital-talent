@@ -2494,13 +2494,13 @@ class UserTest extends TestCase
             ->create(['user_id' => $user->id]);
 
         $this->actingAs($user, 'api')
-            ->graphQL('query Me { me { currentSubstantiveExperience { id } } }')
+            ->graphQL('query Me { me { currentSubstantiveExperiences { id } } }')
             ->assertJsonFragment([[
                 ['id' => $exp1->id],
                 ['id' => $exp2->id],
             ]]);
 
-        $this->assertCount(2, $user->current_substantive_experience);
+        $this->assertCount(2, $user->current_substantive_experiences);
 
     }
 
@@ -2519,9 +2519,9 @@ class UserTest extends TestCase
             ]);
 
         $this->actingAs($user, 'api')
-            ->graphQL('query Me { me { currentSubstantiveExperience { id } } }')
+            ->graphQL('query Me { me { currentSubstantiveExperiences { id } } }')
             ->assertJsonFragment([
-                'currentSubstantiveExperience' => [],
+                'currentSubstantiveExperiences' => [],
             ]);
 
         $this->assertEmpty($user->current_substantive_experiences);
