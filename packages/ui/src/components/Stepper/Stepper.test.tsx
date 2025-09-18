@@ -87,7 +87,7 @@ describe("Stepper", () => {
     rerender(<Stepper {...defaultProps} currentIndex={1} />);
 
     const stepTwo = await screen.findByRole("link", {
-      name: "Step Two",
+      name: "Step error, Step Two",
     });
 
     expect(stepTwo).toBeInTheDocument();
