@@ -397,6 +397,7 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
+    positionDuration: unpackMaybes(applicantFilter?.positionDuration),
     languageAbility: enumInputToLocalizedEnum(
       applicantFilter?.languageAbility,
       optionsData?.languageAbilities,

@@ -4,7 +4,6 @@ import {
   unpackMaybes,
   empty,
   notEmpty,
-  pickMap,
   emptyToNull,
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
@@ -118,14 +117,20 @@ export const applicantFilterToQueryArgs = (
       ...filter,
       equity: filter?.equity,
       qualifiedInClassifications: filter?.qualifiedInClassifications
-        ? pickMap(filter.qualifiedInClassifications, ["group", "level"])
+        ? unpackMaybes(filter.qualifiedInClassifications).flatMap(
+            ({ group, level }) => ({ group, level }),
+          )
         : undefined,
-      skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
+      skills: filter?.skills
+        ? unpackMaybes(filter.skills).flatMap(({ id }) => ({ id }))
+        : undefined,
       hasDiploma: undefined, // disconnect education selection for CountApplicants_Query
 
       // Override the filter's pool if one is provided separately.
-      pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
       flexibleWorkLocations: unpackMaybes(adjustedFlexibleWorkLocations),
+      pools: poolId
+        ? [{ id: poolId }]
+        : unpackMaybes(filter?.pools).flatMap(({ id }) => ({ id })),
     },
   };
 };
