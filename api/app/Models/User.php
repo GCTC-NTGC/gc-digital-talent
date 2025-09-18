@@ -103,7 +103,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
- * @property ?\App\Models\WorkExperience $current_substantive_experience
+ * @property ?\App\Models\WorkExperience $current_substantive_experiences
  * @property ?string $wfa_interest
  * @property ?\Illuminate\Support\Carbon $wfa_date
  * @property ?\Illuminate\Support\Carbon $wfa_updated_at
@@ -478,7 +478,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         );
     }
 
-    public function currentSubstantiveExperience(): Attribute
+    public function currentSubstantiveExperiences(): Attribute
     {
         return Attribute::make(get: function () {
             $employmentTypeOrder = [

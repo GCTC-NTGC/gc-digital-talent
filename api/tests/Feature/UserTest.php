@@ -2524,7 +2524,7 @@ class UserTest extends TestCase
                 'currentSubstantiveExperience' => [],
             ]);
 
-        $this->assertEmpty($user->current_substantive_experience);
+        $this->assertEmpty($user->current_substantive_experiences);
 
     }
 }
