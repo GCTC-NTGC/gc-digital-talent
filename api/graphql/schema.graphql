@@ -2002,9 +2002,7 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_c_suite_role_title")
 }
 
-input UpdateEmployeeWFAInput @validator {
-  # Usually the ID parameter is at the mutation level but we need it here for the validator.
-  id: UUID!
+input UpdateEmployeeWFAInput {
   wfaInterest: WFAInterest @rename(attribute: "wfa_interest")
   wfaDate: Date @rename(attribute: "wfa_date")
 }
@@ -3016,6 +3014,7 @@ type Mutation {
     employeeWFA: UpdateEmployeeWFAInput! @spread
   ): EmployeeWFA
     @guard
+    @validator
     @update(model: "User")
     @canFind(ability: "updateEmployeeWFA", find: "id", model: "User")
   createCommunityInterest(

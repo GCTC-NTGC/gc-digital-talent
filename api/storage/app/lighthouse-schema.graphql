@@ -1963,7 +1963,6 @@ input UpdateEmployeeProfileInput {
 }
 
 input UpdateEmployeeWFAInput {
-  id: UUID!
   wfaInterest: WFAInterest
   wfaDate: Date
 }

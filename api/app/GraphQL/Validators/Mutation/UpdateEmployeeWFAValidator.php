@@ -1,11 +1,11 @@
 <?php
 
-namespace App\GraphQL\Validators;
+namespace App\GraphQL\Validators\Mutation;
 
 use App\Rules\HasSubstantiveExperience;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UpdateEmployeeWFAInputValidator extends Validator
+final class UpdateEmployeeWFAValidator extends Validator
 {
     /**
      * Return the validation rules.

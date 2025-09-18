@@ -7,7 +7,9 @@ use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use App\Models\WorkExperience;
 use Carbon\Carbon;
+use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -81,7 +83,6 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'id' => $this->employee->id,
                     'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
                     'wfaDate' => $futureDate,
                 ],
@@ -91,6 +92,38 @@ class EmployeeWFATest extends TestCase
                 ],
                 'wfaDate' => $futureDate,
             ]);
+    }
+
+    public function testUserCannotUpdateWithZeroSubstantiveExperiences()
+    {
+        $user = User::factory()->asApplicant()->create();
+
+        $this->actingAs($user, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $user->id,
+                'employeeWFA' => [
+                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                ],
+            ])->assertGraphQLValidationError('id', ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
+    }
+
+    public function testUserCannotUpdateWithMoreThanOneSubstantiveExperiences()
+    {
+        $user = User::factory()->asApplicant()->create();
+
+        WorkExperience::factory(2)
+            ->asSubstantive()
+            ->create([
+                'user_id' => $user->id,
+            ]);
+
+        $res = $this->actingAs($user, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $user->id,
+                'employeeWFA' => [
+                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                ],
+            ])->assertGraphQLValidationError('id', ApiErrorEnums::TOO_MANY_SUBSTANTIVE_EXPERIENCES);
     }
 
     public function testUpdatedAtSet()
@@ -107,7 +140,6 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'id' => $this->employee->id,
                     'wfaInterest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
                 ],
             ])->assertJsonFragment([
@@ -125,7 +157,6 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'id' => $this->employee->id,
                     'wfaInterest' => null,
                 ],
             ])->assertJsonFragment(['wfaDate' => null]);
