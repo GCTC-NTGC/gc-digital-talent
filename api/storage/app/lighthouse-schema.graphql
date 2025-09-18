@@ -368,6 +368,11 @@ type LocalizedTimeFrame implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedWFAInterest implements LocalizedEnumOption {
+  value: WFAInterest!
+  label: LocalizedString!
+}
+
 type LocalizedWorkExperienceGovEmployeeType implements LocalizedEnumOption {
   value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
@@ -438,6 +443,13 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
+  employeeWFAPaginatedAdminTable(
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): UserEmployeeWFAPaginator!
   poolsPaginated(
     includeIds: [UUID!]
     excludeIds: [UUID!]
@@ -529,6 +541,7 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
+  updateEmployeeWFA(id: UUID!, employeeWFA: UpdateEmployeeWFAInput!): EmployeeWFA
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
@@ -743,6 +756,7 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
+  employeeWFA: EmployeeWFA
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -750,6 +764,7 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  currentSubstantiveExperiences: [WorkExperience!]
   userSkills(includeSkillIds: [UUID]): [UserSkill]
   topTechnicalSkillsRanking: [UserSkill]
   topBehaviouralSkillsRanking: [UserSkill]
@@ -929,6 +944,42 @@ type BasicGovEmployeeProfile {
   role: String
   department: Department
   classification: Classification
+}
+
+type UserEmployeeWFA {
+  id: UUID!
+  employeeWFA: EmployeeWFA
+  firstName: String
+  lastName: String
+  classification: Classification
+  department: Department
+  workEmail: Email
+  isWoman: Boolean
+  hasDisability: Boolean
+  isVisibleMinority: Boolean
+  indigenousCommunities: [LocalizedIndigenousCommunity]
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
+  citizenship: LocalizedCitizenshipStatus
+  armedForcesStatus: LocalizedArmedForcesStatus
+  preferredLang: LocalizedLanguage
+  preferredLanguageForInterview: LocalizedLanguage
+  preferredLanguageForExam: LocalizedLanguage
+  firstOfficialLanguage: LocalizedLanguage
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+  locationPreferences: [LocalizedWorkRegion]
+  locationExemptions: String
+  userSkills(includeSkillIds: [UUID]): [UserSkill]
+  communityInterests(id: UUID): [CommunityInterest!]
+}
+
+type EmployeeWFA {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest
+  wfaDate: Date
+  wfaUpdatedAt: DateTime
 }
 
 type GeneralQuestion {
@@ -1923,6 +1974,11 @@ input UpdateEmployeeProfileInput {
   careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
 }
 
+input UpdateEmployeeWFAInput {
+  wfaInterest: WFAInterest
+  wfaDate: Date
+}
+
 input CreateCommunityInterestInput {
   userId: UUID!
   community: CommunityBelongsTo!
@@ -2793,6 +2849,15 @@ type UserPublicProfilePaginator {
 
   "A list of UserPublicProfile items."
   data: [UserPublicProfile!]!
+}
+
+"A paginated list of UserEmployeeWFA items."
+type UserEmployeeWFAPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of UserEmployeeWFA items."
+  data: [UserEmployeeWFA!]!
 }
 
 "A paginated list of Pool items."
@@ -3836,6 +3901,14 @@ enum TimeFrame {
   THIS_YEAR
   ONE_TO_TWO_YEARS
   THREE_OR_MORE_YEARS
+}
+
+enum WFAInterest {
+  NOT_APPLICABLE
+  TERM_ENDING
+  LETTER_RECEIVED
+  NOT_SURE
+  VOLUNTARY_DEPARTURE
 }
 
 enum WhenSkillUsed {

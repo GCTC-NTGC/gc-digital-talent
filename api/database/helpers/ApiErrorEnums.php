@@ -66,6 +66,11 @@ class ApiErrorEnums
 
     const DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY = 'DevelopmentProgramNotValidForCommunity';
 
+    // Employee WFA validation
+    const MISSING_SUBSTANTIVE_EXPERIENCE = 'MissingSubstantiveExperience';
+
+    const TOO_MANY_SUBSTANTIVE_EXPERIENCES = 'TooManySubstantiveExperiences';
+
     // Government Employee Details
     const NOT_GOVERNMENT_EMAIL = 'NotGovernmentEmail';
 

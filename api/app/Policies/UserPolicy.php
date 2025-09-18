@@ -75,6 +75,34 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view the WFA information.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewEmployeeWFA(User $user, User $model)
+    {
+        if ($user->isAbleTo('view-any-employeeWFA')) {
+            return true;
+        }
+
+        if ($user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id) {
+            return true;
+        }
+
+        $teams = $user->rolesTeams()->get();
+
+        $teamIds = $teams->filter(
+            fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team)
+        )->pluck('id')->toArray();
+
+        if (! empty($teamIds) && ($this->applicantHasAppliedToPoolInTeams($model, $teamIds) || $this->teamsUserHasSharedProfileWith($model, $teamIds))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @return \Illuminate\Auth\Access\Response|bool
@@ -103,6 +131,14 @@ class UserPolicy
     public function updateSub(User $user)
     {
         return $user->isAbleTo('update-any-userSub');
+    }
+
+    /**
+     * Determine whether the user can update the WFA info for the model.
+     */
+    public function updateEmployeeWFA(User $user, User $model): bool
+    {
+        return $user->isAbleTo('update-own-employeeWFA') && $model->id === $user->id;
     }
 
     /**
