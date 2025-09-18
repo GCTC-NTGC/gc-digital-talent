@@ -179,7 +179,7 @@ export const EmailVerificationDialog = ({
     setSubmitACodeMessage(null);
     if (!canRequestCode) {
       setRequestACodeMessage("throttled");
-      return Promise.reject(new Error("Wait before trying again."));
+      return Promise.resolve();
     }
     let emailTypes: EmailType[];
     switch (emailType) {
@@ -226,9 +226,7 @@ export const EmailVerificationDialog = ({
     setRequestACodeMessage(null);
     if (!emailAddressContacted) {
       setSubmitACodeMessage("must-request-code");
-      return Promise.reject(
-        new Error("Must request a code before submitting one."),
-      );
+      return Promise.resolve();
     }
     const mutationResult = executeSubmitACodeMutation({
       code: verificationCode,

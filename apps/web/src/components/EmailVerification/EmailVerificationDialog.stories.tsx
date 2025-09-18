@@ -30,28 +30,31 @@ export default {
 };
 
 const Template: StoryFn<typeof EmailVerificationDialog> = (args) => {
-  return <EmailVerificationDialog defaultOpen {...args} />;
+  return (
+    <EmailVerificationDialog
+      {...args}
+      defaultOpen
+      onVerificationSuccess={action("onVerificationSuccess")}
+    />
+  );
 };
 
 export const ContactEmail = Template.bind({});
 ContactEmail.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@example.com",
-  onVerificationSuccess: action("onVerificationSuccess"),
 };
 
 export const WorkEmail = Template.bind({});
 WorkEmail.args = {
   emailType: EmailType.Work,
   emailAddress: "user@canada.ca",
-  onVerificationSuccess: action("onVerificationSuccess"),
 };
 
 export const CodeRequested = Template.bind({});
 CodeRequested.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@example.com",
-  onVerificationSuccess: action("onVerificationSuccess"),
 };
 CodeRequested.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
@@ -63,7 +66,6 @@ export const Throttled = Template.bind({});
 Throttled.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@example.com",
-  onVerificationSuccess: action("onVerificationSuccess"),
 };
 Throttled.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
@@ -76,7 +78,6 @@ export const EmailChanged = Template.bind({});
 EmailChanged.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@example.com",
-  onVerificationSuccess: action("onVerificationSuccess"),
 };
 EmailChanged.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
@@ -92,7 +93,6 @@ export const ContactMatchesWork = Template.bind({});
 ContactMatchesWork.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@gc.ca",
-  onVerificationSuccess: action("onVerificationSuccess"),
 };
 ContactMatchesWork.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
@@ -104,7 +104,6 @@ export const MustRequestCode = Template.bind({});
 MustRequestCode.args = {
   emailType: EmailType.Contact,
   emailAddress: "user@gc.ca",
-  onVerificationSuccess: action("onVerificationSuccess"),
 };
 MustRequestCode.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
