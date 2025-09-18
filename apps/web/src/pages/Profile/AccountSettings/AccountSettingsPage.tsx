@@ -14,6 +14,7 @@ import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -149,6 +150,11 @@ const AccountSettingsPage = () => {
                   {showTestDialogTriggers ? (
                     <>
                       <p>
+                        {intl.formatMessage(commonMessages.email)}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                        {data.me.email}
+                      </p>
+                      <p>
                         <EmailVerificationDialog
                           defaultOpen={false}
                           emailType={EmailType.Contact}
@@ -167,6 +173,11 @@ const AccountSettingsPage = () => {
                             })}
                           </Button>
                         </EmailVerificationDialog>
+                      </p>
+                      <p>
+                        {intl.formatMessage(commonMessages.workEmail)}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                        {data.me.workEmail}
                       </p>
                       <p>
                         <EmailVerificationDialog

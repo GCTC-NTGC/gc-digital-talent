@@ -89,7 +89,6 @@ export const EmailVerificationDialog = ({
   );
   const requestACodeFormMethods = useForm<RequestACodeFormValues>({
     defaultValues: {
-      emailAddress: initialEmailAddress ?? undefined,
       emailType: dialogEmailType,
     },
   });
@@ -170,6 +169,16 @@ export const EmailVerificationDialog = ({
       setRequestACodeMessage(null);
     }
   }, [emailAddressContacted, requestACodeMessage, watchEmailAddressInput]);
+
+  /*  Populate the initial email address in the form.
+   *  This can change if the email address is updated and the dialog is reopened.
+   *  Therefore, it is a useEffect instead of using ReactHookForms default values.
+   */
+  useEffect(() => {
+    if (initialEmailAddress) {
+      requestACodeFormMethods.setValue("emailAddress", initialEmailAddress);
+    }
+  }, [initialEmailAddress, requestACodeFormMethods]);
 
   const submitHandlerRequestACode: SubmitHandler<RequestACodeFormValues> = ({
     emailAddress,
