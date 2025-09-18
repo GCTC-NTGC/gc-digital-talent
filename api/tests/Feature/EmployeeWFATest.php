@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Enums\WFAInterest;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -70,6 +72,70 @@ class EmployeeWFATest extends TestCase
             ->withCommunityInterests([$this->community->id])
             ->asGovEmployee()
             ->create();
+    }
+
+    public function testUserCanUpdateOwnWfa()
+    {
+        $futureDate = config('constants.far_future_datetime');
+        $this->actingAs($this->employee, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $this->employee->id,
+                'employeeWFA' => [
+                    'id' => $this->employee->id,
+                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaDate' => $futureDate,
+                ],
+            ])->assertJsonFragment([
+                'wfaInterest' => [
+                    'value' => WFAInterest::LETTER_RECEIVED->name,
+                ],
+                'wfaDate' => $futureDate,
+            ]);
+    }
+
+    public function testUpdatedAtSet()
+    {
+        // Mock date we expect to get after saving
+        $nowInUtc = '2999-12-28 20:00:00';
+        Carbon::setTestNow($nowInUtc);
+
+        $this->actingAs($this->employee, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $this->employee->id,
+                'employeeWFA' => [
+                    'id' => $this->employee->id,
+                    'wfaInterest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
+                ],
+            ])->assertJsonFragment([
+                'wfaUpdatedAt' => $nowInUtc,
+            ]);
+    }
+
+    public function testNotApplicableSetsDateToNull()
+    {
+        // Ensure we have a date to being with
+        $this->employee->wfa_date = config('constants.far_future_datetime');
+        $this->employee->save();
+
+        $this->actingAs($this->employee, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $this->employee->id,
+                'employeeWFA' => [
+                    'id' => $this->employee->id,
+                    'wfaInterest' => null,
+                ],
+            ])->assertJsonFragment(['wfaDate' => null]);
+    }
+
+    public function testPlatformAdminCanViewAny()
+    {
+        $admin = User::factory()
+            ->asAdmin()
+            ->create();
+
+        $this->actingAs($admin, 'api')
+            ->graphQL($this->query)
+            ->assertJsonFragment(['id' => $this->employee->id]);
     }
 
     public function testCommunityRecruiterCanViewInCommunity()
