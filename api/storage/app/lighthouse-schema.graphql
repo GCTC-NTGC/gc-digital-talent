@@ -965,6 +965,8 @@ type UserEmployeeWFA {
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   locationPreferences: [LocalizedWorkRegion]
   locationExemptions: String
+  userSkills(includeSkillIds: [UUID]): [UserSkill]
+  communityInterests(id: UUID): [CommunityInterest!]
 }
 
 type EmployeeWFA {
