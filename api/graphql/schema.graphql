@@ -125,7 +125,7 @@ type User {
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
   # Employee WFA info
-  employeeWFA: EmployeeWFA @self @canFind(abaility: "viewEmployeeWFA")
+  employeeWFA: EmployeeWFA @self @canFind(ability: "viewEmployeeWFA")
 
   # Pool info
   poolCandidates: [PoolCandidate]
