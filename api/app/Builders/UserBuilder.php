@@ -595,6 +595,9 @@ class UserBuilder extends Builder
                 $teamIds = $allCommunityTeams
                     ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('teamable_id')->toArray();
 
+                // NOTE: We only want to show users who have added this community and consented to share profile
+                // While users with this permission may see those who have applied to a process in their community
+                // we do not want to show those by default
                 $query->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
                     // User has expressed interest in community
                     $commInterestQuery->whereIn('community_id', $teamIds)
