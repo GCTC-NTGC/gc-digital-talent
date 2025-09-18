@@ -345,19 +345,6 @@ export const useAdminPoolPages = (
       },
     ],
     [
-      "screening",
-      {
-        title: intl.formatMessage({
-          defaultMessage: "Screening and assessment",
-          id: "R8Naqm",
-          description: "Heading for the information of an application",
-        }),
-        link: {
-          url: paths.screeningAndEvaluation(pool.id),
-        },
-      },
-    ],
-    [
       "candidates",
       {
         icon: UserGroupIcon,
