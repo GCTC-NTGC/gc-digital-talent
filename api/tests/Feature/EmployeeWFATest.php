@@ -99,6 +99,10 @@ class EmployeeWFATest extends TestCase
         $nowInUtc = '2999-12-28 20:00:00';
         Carbon::setTestNow($nowInUtc);
 
+        // Ensure interest is different
+        $this->employee->wfa_interest = WFAInterest::NOT_SURE->name;
+        $this->employee->save();
+
         $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
