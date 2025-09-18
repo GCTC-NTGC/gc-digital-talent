@@ -106,7 +106,6 @@ class PoolBuilderTest extends TestCase
         ]);
     }
 
-
     public function testOrderByColumnRejectsBadOrder()
     {
         try {
