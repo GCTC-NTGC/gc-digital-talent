@@ -403,10 +403,6 @@
     "defaultMessage": "Administration des programmes",
     "description": "Full name of abbreviation for PM"
   },
-  "CLDOSg": {
-    "defaultMessage": "Étape, actuelle, {label}",
-    "description": "Prefix when a step is the currently active one."
-  },
   "CYirJF": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l'annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."

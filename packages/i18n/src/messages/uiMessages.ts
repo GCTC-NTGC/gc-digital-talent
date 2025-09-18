@@ -86,11 +86,6 @@ const uiMessages = defineMessages({
     id: "TJ7su7",
     description: "Prefix when a step has an error.",
   },
-  stepActive: {
-    defaultMessage: "Step, current, {label}",
-    id: "CLDOSg",
-    description: "Prefix when a step is the currently active one.",
-  },
   readMore: {
     defaultMessage: "Read more<hidden> {context}</hidden>",
     id: "cCWdDX",
