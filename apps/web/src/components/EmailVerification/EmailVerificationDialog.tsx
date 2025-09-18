@@ -297,7 +297,7 @@ export const EmailVerificationDialog = ({
               className="mb-6 flex flex-col gap-6"
             >
               <p>{intl.formatMessage(descriptions[dialogEmailType])}</p>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 xs:flex-row">
                 <div className="grow">
                   <Input
                     id="emailAddress"
@@ -322,10 +322,9 @@ export const EmailVerificationDialog = ({
                     }}
                   />
                 </div>
-                <div className="self-end">
+                <div className="w-full self-center xs:w-auto xs:self-end">
                   <Submit
-                    mode="solid"
-                    className="font-bold"
+                    className="block w-full"
                     text={intl.formatMessage({
                       defaultMessage: "Send verification email",
                       id: "xKj/Lr",
