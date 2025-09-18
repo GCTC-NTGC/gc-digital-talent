@@ -11,7 +11,7 @@ import {
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 export const positionDurationToEmploymentDuration = (
-  durations: Maybe<PositionDuration>[],
+  durations?: Maybe<PositionDuration | undefined>[],
 ): string => {
   if (durations?.includes(PositionDuration.Temporary)) {
     return EmploymentDuration.Term;
