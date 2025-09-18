@@ -234,7 +234,7 @@ const PoolStatusTable = ({
   }
   if (onlyRecruitmentProcesses) {
     data = data.filter(({ finalDecision }) =>
-      isQualifiedFinalDecision(finalDecision.value),
+      isQualifiedFinalDecision(finalDecision?.value),
     );
   }
 
