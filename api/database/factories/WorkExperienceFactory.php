@@ -171,4 +171,19 @@ class WorkExperienceFactory extends Factory
             }
         });
     }
+
+    /**
+     *  Make this a "substantive" experience
+     */
+    public function asSubstantive()
+    {
+        return $this->state(function () {
+            return [
+                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'end_date' => null,
+                'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            ];
+        });
+    }
 }

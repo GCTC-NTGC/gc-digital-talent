@@ -124,6 +124,9 @@ type User {
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
+  # Employee WFA info
+  employeeWFA: EmployeeWFA @self @canFind(ability: "viewEmployeeWFA")
+
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["whereAuthorizedToView"])
@@ -140,6 +143,9 @@ type User {
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
+  currentSubstantiveExperiences: [WorkExperience!]
+    @rename(attribute: "current_substantive_experiences")
+    @with(relation: "workExperiences")
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
@@ -375,6 +381,56 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+}
+
+# Streamlined User, intended for querying in large collections while remaining performant
+# Include only fields as needed for admin purposes
+type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
+  id: UUID!
+  employeeWFA: EmployeeWFA @self
+
+  # User profile info for table
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  classification: Classification @belongsTo(relation: "currentClassification")
+  department: Department @belongsTo
+  workEmail: Email @rename(attribute: "work_email")
+  isWoman: Boolean @rename(attribute: "is_woman")
+  hasDisability: Boolean @rename(attribute: "has_disability")
+  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [LocalizedIndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+  priorityNumber: String @rename(attribute: "priority_number")
+  citizenship: LocalizedCitizenshipStatus
+  armedForcesStatus: LocalizedArmedForcesStatus
+    @rename(attribute: "armed_forces_status")
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: LocalizedLanguage
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: LocalizedLanguage
+    @rename(attribute: "preferred_language_for_exam")
+  firstOfficialLanguage: LocalizedLanguage
+    @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+    @rename(attribute: "estimated_language_ability")
+  locationPreferences: [LocalizedWorkRegion]
+    @rename(attribute: "location_preferences")
+  locationExemptions: String @rename(attribute: "location_exemptions")
+  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
+  communityInterests(id: UUID @eq): [CommunityInterest!]
+    @belongsToMany(scopes: ["authorizedToView"])
+}
+
+type EmployeeWFA @model(class: "\\App\\Models\\User") {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: Date @rename(attribute: "wfa_date")
+  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
 }
 
 type GeneralQuestion {
@@ -1383,6 +1439,14 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
+  employeeWFAPaginatedAdminTable: [UserEmployeeWFA]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereAuthorizedToViewEmployeeWFAAdminTable"]
+      model: "App\\Models\\User"
+    )
+    @guard
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["whereHasTalentSearchablePublishingGroups"])
@@ -1936,6 +2000,11 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "next_role_c_suite_role_title")
   careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
     @rename(attribute: "career_objective_c_suite_role_title")
+}
+
+input UpdateEmployeeWFAInput {
+  wfaInterest: WFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: Date @rename(attribute: "wfa_date")
 }
 
 input CreateCommunityInterestInput @validator {
@@ -2940,6 +3009,14 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
+  updateEmployeeWFA(
+    id: UUID!
+    employeeWFA: UpdateEmployeeWFAInput! @spread
+  ): EmployeeWFA
+    @guard
+    @validator
+    @update(model: "User")
+    @canFind(ability: "updateEmployeeWFA", find: "id", model: "User")
   createCommunityInterest(
     communityInterest: CreateCommunityInterestInput! @spread
   ): CommunityInterest
