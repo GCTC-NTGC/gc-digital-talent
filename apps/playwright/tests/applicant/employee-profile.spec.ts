@@ -1,6 +1,9 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
+import EmployeeProfile, {
+  EMPLOYEE_PROFILE_FORM,
+} from "~/fixtures/EmployeeProfile";
 import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
@@ -289,5 +292,45 @@ test.describe("Employee Profile", () => {
         name: /complete - goals and work style/i,
       }),
     ).toBeVisible();
+  });
+
+  test.describe("Workforce adjustment", () => {
+    test("Can set not applicable", async ({ appPage }) => {
+      const employeeProfile = new EmployeeProfile(appPage.page);
+      await loginBySub(employeeProfile.page, sub);
+      await employeeProfile.goToEmployeeProfile();
+
+      await employeeProfile.toggleForm(EMPLOYEE_PROFILE_FORM.Wfa);
+
+      await employeeProfile.page
+        .getByRole("radio", { name: /this section does not apply to me/i })
+        .click();
+
+      await expect(
+        employeeProfile.page.getByRole("heading", { name: /key details/i }),
+      ).toBeHidden();
+
+      await employeeProfile.submitForm(EMPLOYEE_PROFILE_FORM.Wfa);
+
+      await expect(
+        employeeProfile.page.getByText(/this section does not apply to me/i),
+      ).toBeVisible();
+    });
+
+    test("Error with no experiences", async ({ appPage }) => {
+      const employeeProfile = new EmployeeProfile(appPage.page);
+      await loginBySub(employeeProfile.page, sub);
+      await employeeProfile.goToEmployeeProfile();
+
+      await employeeProfile.toggleForm(EMPLOYEE_PROFILE_FORM.Wfa);
+
+      await employeeProfile.page
+        .getByRole("radio", { name: /i believe my position may be affected/i })
+        .click();
+
+      await expect(
+        employeeProfile.page.getByText(/missing a substantive experience/i),
+      ).toBeVisible();
+    });
   });
 });
