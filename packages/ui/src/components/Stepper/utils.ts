@@ -75,8 +75,7 @@ export const messageMap = new Map<
   Omit<StepState, "disabled">,
   MessageDescriptor
 >([
-  ["active", uiMessages.stepActive],
-  ["active-error", uiMessages.stepActive],
+  ["active-error", uiMessages.stepError],
   ["completed", uiMessages.stepCompleted],
   ["error", uiMessages.stepError],
 ]);
