@@ -174,7 +174,6 @@ export const EmailVerificationDialog = ({
    *  Therefore, it is a useEffect instead of using ReactHookForms default values.
    */
   useEffect(() => {
-    console.debug(`useeffect: ${initialEmailAddress}`);
     if (initialEmailAddress) {
       requestACodeFormMethods.setValue("emailAddress", initialEmailAddress);
     }
