@@ -29,8 +29,8 @@ const internalLink = (href: string, chunks: ReactNode) => (
   <Link href={href}>{chunks}</Link>
 );
 
-const researchAndDevelopmentLink = (locale: Locales, chunks: ReactNode) => (
-  <Link external href={`/${locale}/talent-cloud/report`}>
+const researchAndDevelopmentLink = (href: string, chunks: ReactNode) => (
+  <Link external href={href}>
     {chunks}
   </Link>
 );
@@ -274,7 +274,7 @@ export const Component = () => {
                     accessibilityLink: (chunks: ReactNode) =>
                       internalLink(paths.accessibility(), chunks),
                     researchLink: (chunks: ReactNode) =>
-                      researchAndDevelopmentLink(locale, chunks),
+                      researchAndDevelopmentLink(paths.tcReport(), chunks),
                   },
                 )}
               </Text>

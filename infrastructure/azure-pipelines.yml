@@ -80,7 +80,6 @@ jobs:
             api/**
             apps/web/dist/**
             infrastructure/**
-            tc-report/**
           TargetFolder: "$(Build.ArtifactStagingDirectory)/Stage"
 
       - task: ArchiveFiles@2

@@ -20,7 +20,7 @@ hero:
       style: white
       label: Download the Report
       title: Download the whole report to your computer. Just a head's up - the report is very large, so we recommend downloading it over WiFi connections.
-      route: /tc-report/assets/talent-cloud-report-en.pdf
+      route: /assets/talent-cloud-report-en.pdf
   subsection:
     title: Jump Right In
     subtitle: This is a long report. The Table of Contents lays out everything in detail. But for those who know what they want, and are hoping to skip ahead, we thought we’d leave our users a quick map on where to find what you’re looking for.
