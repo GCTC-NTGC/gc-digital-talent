@@ -41,7 +41,7 @@ class AuditQueryMiddleware
         if (! is_null($user)) {
             $applicableRoles = [];
             foreach ($elevatedRoles as $elevatedRole) {
-                if($user->hasRole($elevatedRole)) {
+                if ($user->hasRole($elevatedRole)) {
                     array_push($applicableRoles, $elevatedRole);
                 }
             }
@@ -54,11 +54,11 @@ class AuditQueryMiddleware
                 $requestContents = $request->getContent();
 
                 // log request, other than notification queries
-                if(! preg_match('/\"operationName\":\"NotificationCount\"/', $requestContents)) {
+                if (! preg_match('/\"operationName\":\"NotificationCount\"/', $requestContents)) {
                     $this->logger->info(
                         $message.' '.$requestContents
                     );
-                 }
+                }
             }
         }
 
