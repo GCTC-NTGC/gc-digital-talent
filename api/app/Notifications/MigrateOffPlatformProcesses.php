@@ -53,7 +53,7 @@ class MigrateOffPlatformProcesses extends Notification implements CanBeSentViaGc
       if (Language::EN->localeMatches($locale)) {
           // English notification
           $message = new GcNotifyEmailMessage(
-              config('notify.templates.re-enter_off-platform_en'),
+              config('notify.templates.re_enter_off_platform_en'),
               $notifiable->email,
               [
                   'first name+last name' => $notifiable->full_name,
@@ -62,7 +62,7 @@ class MigrateOffPlatformProcesses extends Notification implements CanBeSentViaGc
       } else {
           // French notification
           $message = new GcNotifyEmailMessage(
-              config('notify.templates.re-enter_off-platform_fr'),
+              config('notify.templates.re_enter_off_platform_fr'),
               $notifiable->email,
               [
                   'first name+last name' => $notifiable->full_name,
