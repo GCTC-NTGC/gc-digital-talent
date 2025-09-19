@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\WFAInterest;
+use App\Enums\WFaInterest;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -83,12 +83,12 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WFaInterest::LETTER_RECEIVED->name,
                     'wfaDate' => $futureDate,
                 ],
             ])->assertJsonFragment([
                 'wfaInterest' => [
-                    'value' => WFAInterest::LETTER_RECEIVED->name,
+                    'value' => WfaInterest::LETTER_RECEIVED->name,
                 ],
                 'wfaDate' => $futureDate,
             ]);
@@ -102,7 +102,7 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $user->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WfaInterest::LETTER_RECEIVED->name,
                 ],
             ])->assertGraphQLValidationError('id', ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
     }
@@ -121,7 +121,7 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $user->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WfaInterest::LETTER_RECEIVED->name,
                 ],
             ])->assertGraphQLValidationError('id', ApiErrorEnums::TOO_MANY_SUBSTANTIVE_EXPERIENCES);
     }
@@ -133,14 +133,14 @@ class EmployeeWFATest extends TestCase
         Carbon::setTestNow($nowInUtc);
 
         // Ensure interest is different
-        $this->employee->wfa_interest = WFAInterest::NOT_SURE->name;
+        $this->employee->wfa_interest = WfaInterest::NOT_SURE->name;
         $this->employee->save();
 
         $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
+                    'wfaInterest' => WfaInterest::VOLUNTARY_DEPARTURE->name,
                 ],
             ])->assertJsonFragment([
                 'wfaUpdatedAt' => $nowInUtc,
