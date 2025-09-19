@@ -43,7 +43,6 @@ import {
   PoolStatus,
   Scalars,
   PublishingGroup,
-  Maybe,
   PoolSkillType,
   FragmentType,
   getFragment,
@@ -51,6 +50,7 @@ import {
 import { useLogger } from "@gc-digital-talent/logger";
 
 import {
+  contactEmailTag,
   formatClassificationString,
   getFullPoolTitleHtml,
   getShortPoolTitleLabel,
@@ -86,22 +86,11 @@ import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
 import WhoCanApplyText from "./components/WhoCanApplyText";
 import SalaryRangeDialog from "./components/SalaryRangeDialog";
 import SecurityClearanceDialog from "./components/SecurityClearanceDialog";
-
 interface SectionContent {
   id: string;
   linkText?: string;
   title: string;
 }
-
-const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
-  return email ? (
-    <Link external href={`mailto:${email}`}>
-      {chunks}
-    </Link>
-  ) : (
-    <>{chunks}</>
-  );
-};
 
 const internalLink = (href: string, chunks: ReactNode) => (
   <Link href={href}>{chunks}</Link>
@@ -290,6 +279,11 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    community {
+      key
+    }
+    contactEmail
+
     ...AreaOfSelectionNote
     ...WhoCanApplyText
   }
@@ -398,8 +392,8 @@ export const PoolPoster = ({
     ),
   );
 
-  // TODO: community does not have a contactEmail field #13443
-  const contactEmail = "";
+  const contactEmail =
+    pool.contactEmail ?? intl.formatMessage(commonMessages.notFound);
 
   const canApply = !!(pool?.status?.value === PoolStatus.Published);
 
@@ -1279,14 +1273,14 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "Please <a>contact the team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
-                          id: "YK/RNP",
+                            "For accommodation requests or questions about this process, please contact the recruitment team at <link>{contactEmail}</link>.",
+                          id: "bz55F8",
                           description:
                             "Opening sentence asking if accommodations are needed",
                         },
                         {
-                          a: (chunks: ReactNode) =>
-                            anchorTag(chunks, contactEmail), // TODO: what is the new source of the contactEmail?
+                          contactEmail,
+                          link: () => contactEmailTag(contactEmail),
                         },
                       )}
                     </Text>

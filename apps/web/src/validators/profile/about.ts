@@ -1,18 +1,22 @@
 import { empty } from "@gc-digital-talent/helpers";
-import { User } from "@gc-digital-talent/graphql";
-
-export type PartialUser = Pick<
+import {
+  LocalizedArmedForcesStatus,
+  LocalizedCitizenshipStatus,
+  LocalizedLanguage,
+  Maybe,
   User,
-  | "firstName"
-  | "lastName"
-  | "email"
-  | "telephone"
-  | "preferredLang"
-  | "preferredLanguageForInterview"
-  | "preferredLanguageForExam"
-  | "citizenship"
-  | "armedForcesStatus"
->;
+} from "@gc-digital-talent/graphql";
+
+type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
+
+export interface PartialUser
+  extends Pick<User, "firstName" | "lastName" | "email" | "telephone"> {
+  preferredLang?: PartialLanguage;
+  preferredLanguageForInterview?: PartialLanguage;
+  preferredLanguageForExam?: PartialLanguage;
+  citizenship?: Maybe<Pick<LocalizedCitizenshipStatus, "value">>;
+  armedForcesStatus?: Maybe<Pick<LocalizedArmedForcesStatus, "value">>;
+}
 
 export function hasAllEmptyFields({
   firstName,

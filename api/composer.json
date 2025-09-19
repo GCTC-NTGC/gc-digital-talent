@@ -64,7 +64,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.4.6"
+      "php": "8.4.10"
     },
     "allow-plugins": {
       "composer/package-versions-deprecated": true

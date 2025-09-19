@@ -25,6 +25,16 @@ type LocalizedEnumString {
   label: LocalizedString!
 }
 
+type Definition {
+  term: String!
+  definition: LocalizedString!
+}
+
+type DefinedString {
+  display: LocalizedString!
+  definitions: [Definition!]
+}
+
 type UserAuthInfo {
   id: UUID!
   sub: String
@@ -114,6 +124,9 @@ type User {
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
+  # Employee WFA info
+  employeeWFA: EmployeeWFA @self @canFind(ability: "viewEmployeeWFA")
+
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["whereAuthorizedToView"])
@@ -130,6 +143,9 @@ type User {
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
+  currentSubstantiveExperiences: [WorkExperience!]
+    @rename(attribute: "current_substantive_experiences")
+    @with(relation: "workExperiences")
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
@@ -147,8 +163,10 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
+    @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
+  offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
@@ -177,6 +195,17 @@ type CommunityInterest {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  createdAt: DateTime @rename(attribute: "created_at")
+}
+
+type OffPlatformRecruitmentProcess {
+  id: UUID!
+  user: User! @belongsTo @canResolved(ability: "view")
+  processNumber: String! @rename(attribute: "process_number")
+  department: Department @belongsTo
+  classification: Classification! @belongsTo
+  platform: LocalizedHiringPlatform!
+  platformOther: String @rename(attribute: "platform_other")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -354,6 +383,56 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   classification: Classification @belongsTo(relation: "currentClassification")
 }
 
+# Streamlined User, intended for querying in large collections while remaining performant
+# Include only fields as needed for admin purposes
+type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
+  id: UUID!
+  employeeWFA: EmployeeWFA @self
+
+  # User profile info for table
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  classification: Classification @belongsTo(relation: "currentClassification")
+  department: Department @belongsTo
+  workEmail: Email @rename(attribute: "work_email")
+  isWoman: Boolean @rename(attribute: "is_woman")
+  hasDisability: Boolean @rename(attribute: "has_disability")
+  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [LocalizedIndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+  priorityNumber: String @rename(attribute: "priority_number")
+  citizenship: LocalizedCitizenshipStatus
+  armedForcesStatus: LocalizedArmedForcesStatus
+    @rename(attribute: "armed_forces_status")
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: LocalizedLanguage
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: LocalizedLanguage
+    @rename(attribute: "preferred_language_for_exam")
+  firstOfficialLanguage: LocalizedLanguage
+    @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+    @rename(attribute: "estimated_language_ability")
+  locationPreferences: [LocalizedWorkRegion]
+    @rename(attribute: "location_preferences")
+  locationExemptions: String @rename(attribute: "location_exemptions")
+  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
+  communityInterests(id: UUID @eq): [CommunityInterest!]
+    @belongsToMany(scopes: ["authorizedToView"])
+}
+
+type EmployeeWFA @model(class: "\\App\\Models\\User") {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: Date @rename(attribute: "wfa_date")
+  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
+}
+
 type GeneralQuestion {
   id: ID!
   pool: Pool @belongsTo
@@ -379,6 +458,8 @@ type Pool implements HasRoleAssignments {
   owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
   name: LocalizedString
+  displayName: DefinedString
+  fullDisplayName: DefinedString
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -438,6 +519,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "area_of_selection")
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type GeneralQuestionResponse {
@@ -635,6 +717,8 @@ type Classification {
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  displayName: LocalizedString @rename(attribute: "display_name")
 }
 
 type GenericJobTitle {
@@ -888,8 +972,8 @@ type ApplicantFilter {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
-  qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
-  workStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
+  qualifiedInClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
+  qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -1204,10 +1288,11 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
     @scope(name: "whereSkillsIntersectional")
     @pluck(key: "id") # AND filtering skills as opposed to OR
-  qualifiedClassifications: [ClassificationFilterInput]
-    @scope(name: "whereQualifiedClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  qualifiedInClassifications: [ClassificationFilterInput]
+    @scope(name: "whereQualifiedInClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
   # should be considered qualifiedWorkStreams
-  workStreams: [IdInput] @scope(name: "whereQualifiedStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  qualifiedInWorkStreams: [IdInput]
+    @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
     @scope(name: "whereHasPoolCandidateCommunity")
     @pluck(key: "id")
@@ -1354,6 +1439,14 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
+  employeeWFAPaginatedAdminTable: [UserEmployeeWFA]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereAuthorizedToViewEmployeeWFAAdminTable"]
+      model: "App\\Models\\User"
+    )
+    @guard
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["whereHasTalentSearchablePublishingGroups"])
@@ -1562,6 +1655,7 @@ type Query {
   ): [LocalizedEnumOption!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
+    orderByClassification: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1677,7 +1771,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1750,7 +1844,7 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1830,7 +1924,7 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
     @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
@@ -1908,6 +2002,11 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_c_suite_role_title")
 }
 
+input UpdateEmployeeWFAInput {
+  wfaInterest: WFAInterest @rename(attribute: "wfa_interest")
+  wfaDate: Date @rename(attribute: "wfa_date")
+}
+
 input CreateCommunityInterestInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   community: CommunityBelongsTo!
@@ -1942,6 +2041,25 @@ input UpdateCommunityInterestInput @validator {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+}
+
+input CreateOffPlatformRecruitmentProcessInput @validator {
+  userId: UUID! @rename(attribute: "user_id")
+  processNumber: String! @rename(attribute: "process_number")
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo!
+  platform: HiringPlatform!
+  platformOther: String @rename(attribute: "platform_other")
+}
+
+input UpdateOffPlatformRecruitmentProcessInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
+  processNumber: String @rename(attribute: "process_number")
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo
+  platform: HiringPlatform
+  platformOther: String @rename(attribute: "platform_other")
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -1996,6 +2114,8 @@ input CreateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
+  isAvailableInSearch: Boolean! @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input ClassificationBelongsToMany {
@@ -2021,6 +2141,8 @@ input UpdateClassificationInput {
   maxSalary: Int
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
+  isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -2306,8 +2428,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
-  qualifiedClassifications: ClassificationBelongsToMany
-  workStreams: WorkStreamBelongsToMany
+  qualifiedInClassifications: ClassificationBelongsToMany
+  qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -2596,6 +2718,7 @@ input UpdatePoolInput {
   areaOfSelection: PoolAreaOfSelection @rename(attribute: "area_of_selection")
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -2607,6 +2730,7 @@ input UpdatePublishedPoolInput @validator {
   whatToExpectAdmission: LocalizedStringInput
     @rename(attribute: "what_to_expect_admission")
   aboutUs: LocalizedStringInput @rename(attribute: "about_us")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input CreatePoolSkillInput @validator {
@@ -2885,6 +3009,14 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
+  updateEmployeeWFA(
+    id: UUID!
+    employeeWFA: UpdateEmployeeWFAInput! @spread
+  ): EmployeeWFA
+    @guard
+    @validator
+    @update(model: "User")
+    @canFind(ability: "updateEmployeeWFA", find: "id", model: "User")
   createCommunityInterest(
     communityInterest: CreateCommunityInterestInput! @spread
   ): CommunityInterest
@@ -2898,6 +3030,24 @@ type Mutation {
     @update(model: "CommunityInterest")
     @canFind(ability: "update", find: "id", model: "CommunityInterest")
   deleteCommunityInterest(id: UUID! @whereKey): CommunityInterest
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
+  createOffPlatformRecruitmentProcess(
+    process: CreateOffPlatformRecruitmentProcessInput! @spread
+  ): OffPlatformRecruitmentProcess
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateOffPlatformRecruitmentProcess(
+    process: UpdateOffPlatformRecruitmentProcessInput! @spread
+  ): OffPlatformRecruitmentProcess
+    @guard
+    @update
+    @canFind(ability: "update", find: "id")
+  deleteOffPlatformRecruitmentProcess(
+    id: UUID! @whereKey
+  ): OffPlatformRecruitmentProcess
     @delete
     @guard
     @canFind(ability: "delete", find: "id")

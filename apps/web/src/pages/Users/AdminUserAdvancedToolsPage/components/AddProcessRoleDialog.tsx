@@ -17,6 +17,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import messages from "~/messages/processMessages";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import useAvailablePools from "../useAvailablePools";
 import {
@@ -124,6 +125,7 @@ const AddProcessRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:

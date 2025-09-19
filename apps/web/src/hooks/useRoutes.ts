@@ -67,6 +67,9 @@ const getRoutes = (lang: Locales) => {
     communityUpdate: (communityId: string) =>
       [adminUrl, "communities", communityId, "edit"].join("/"),
 
+    // Admin - Roles and Permissions
+    rolesAndPermissions: () => `${adminUrl}/roles-and-permissions`,
+
     // Admin - Pools
     poolTable: () => [adminUrl, "pools"].join("/"),
     poolCreate: () => [adminUrl, "pools", "create"].join("/"),
@@ -75,8 +78,6 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "pools", poolId, "edit"].join("/"),
     assessmentPlanBuilder: (poolId: string) =>
       [adminUrl, "pools", poolId, "plan"].join("/"),
-    screeningAndEvaluation: (poolId: string) =>
-      [adminUrl, "pools", poolId, "screening"].join("/"),
     poolPreview: (poolId: string) =>
       [adminUrl, "pools", poolId, "preview"].join("/"),
     poolManageAccess: (poolId: string) =>
@@ -112,8 +113,7 @@ const getRoutes = (lang: Locales) => {
     userRecruitment: (userId: string) =>
       `${adminUrl}/users/${userId}/recruitment`,
     userAdvancedTools: (userId: string) => `${adminUrl}/users/${userId}/tools`,
-    userProfile: (userId: string) =>
-      [adminUrl, "users", userId, "profile"].join("/"),
+    userProfile: (userId: string) => [adminUrl, "users", userId].join("/"),
     userUpdate: (userId: string) =>
       [adminUrl, "users", userId, "edit"].join("/"),
 
@@ -386,6 +386,9 @@ const getRoutes = (lang: Locales) => {
     // Comptrollership
     comptrollershipExecutivesPage: () =>
       [baseUrl, "comptrollership-executives"].join("/"),
+
+    // DND
+    dndDigitalCareers: () => `${baseUrl}/dnd`,
 
     /**
      * Deprecated

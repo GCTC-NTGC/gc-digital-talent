@@ -35,14 +35,6 @@ const main: StorybookConfig = {
     const { mergeConfig } = await import("vite");
     return mergeConfig(config, {
       plugins: [
-        ...(config.plugins ?? []).filter(
-          (plugin) =>
-            plugin &&
-            "name" in plugin &&
-            // Filter out git version plugin to hardcode for
-            // Stable snapshots
-            plugin.name !== "git-version",
-        ),
         // Weird thing to get tailwind working with storybook
         (await import("@tailwindcss/vite")).default(),
       ],

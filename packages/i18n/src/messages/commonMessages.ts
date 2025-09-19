@@ -160,8 +160,8 @@ const commonMessages = defineMessages({
     description: "Title displayed preferred communication language",
   },
   workingLanguageAbility: {
-    defaultMessage: "Working language ability",
-    id: "HEGXL7",
+    defaultMessage: "Working language",
+    id: "5hkdf2",
     description: "Title displayed working language ability",
   },
   unspecified: {
@@ -547,6 +547,16 @@ const commonMessages = defineMessages({
     defaultMessage: "Government employee",
     id: "bOA3EH",
     description: "Label for the government employee field",
+  },
+  organization: {
+    defaultMessage: "Organization",
+    id: "Phlp8j",
+    description: "Label displayed for organization input",
+  },
+  displayName: {
+    defaultMessage: "Display name",
+    id: "/l02AA",
+    description: "Label displayed for a display name field",
   },
 });
 

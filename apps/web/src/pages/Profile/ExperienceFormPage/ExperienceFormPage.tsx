@@ -56,6 +56,8 @@ import {
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import adminMessages from "~/messages/adminMessages";
+import ExperienceWorkStreams from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -83,10 +85,10 @@ const addSubTitle = defineMessage({
 });
 
 type FormAction = "return" | "add-another";
-type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
+interface FormValues extends ExperienceFormValues<AllExperienceFormValues> {
   experienceType?: ExperienceType;
   action: FormAction;
-};
+}
 
 export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormSkill on Skill {
@@ -554,6 +556,13 @@ export const ExperienceForm = ({
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
+              {type === "work" && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id="workStreams">
+                    {intl.formatMessage(adminMessages.workStreams)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
@@ -585,6 +594,13 @@ export const ExperienceForm = ({
                     skills={[...skills]}
                   />
                 </TableOfContents.Section>
+
+                {type === "work" && (
+                  <TableOfContents.Section id="workStreams">
+                    <ExperienceWorkStreams />
+                  </TableOfContents.Section>
+                )}
+
                 <Separator space="lg" />
                 {edit ? (
                   <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">

@@ -232,13 +232,14 @@ const allSelectionLimitations: Record<
   },
 } as const;
 
-type PoolNameSectionProps = SectionProps<
-  PoolNameSubmitData,
-  FragmentType<typeof EditPoolName_Fragment>
-> & {
+interface PoolNameSectionProps
+  extends SectionProps<
+    PoolNameSubmitData,
+    FragmentType<typeof EditPoolName_Fragment>
+  > {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
   departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
-};
+}
 
 const PoolNameSection = ({
   poolQuery,
@@ -432,12 +433,7 @@ const PoolNameSection = ({
                 />
                 <Select
                   id="stream"
-                  label={intl.formatMessage({
-                    defaultMessage: "Work stream",
-                    id: "UKw7sB",
-                    description:
-                      "Label displayed on the pool form stream/job title field.",
-                  })}
+                  label={intl.formatMessage(processMessages.stream)}
                   name="stream"
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,

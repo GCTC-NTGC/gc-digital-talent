@@ -1,22 +1,38 @@
 import isEmpty from "lodash/isEmpty";
 
-import { User, Pool } from "@gc-digital-talent/graphql";
+import {
+  User,
+  Pool,
+  LocalizedLanguage,
+  Maybe,
+  LocalizedEstimatedLanguageAbility,
+  LocalizedEvaluatedLanguageAbility,
+} from "@gc-digital-talent/graphql";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-export type PartialUser = Pick<
-  User,
-  | "lookingForEnglish"
-  | "lookingForFrench"
-  | "lookingForBilingual"
-  | "estimatedLanguageAbility"
-  | "firstOfficialLanguage"
-  | "secondLanguageExamCompleted"
-  | "secondLanguageExamValidity"
-  | "writtenLevel"
-  | "comprehensionLevel"
-  | "verbalLevel"
+type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
+type PartialEvaluatedLanguage = Maybe<
+  Pick<LocalizedEvaluatedLanguageAbility, "value">
 >;
+
+export interface PartialUser
+  extends Pick<
+    User,
+    | "lookingForEnglish"
+    | "lookingForFrench"
+    | "lookingForBilingual"
+    | "secondLanguageExamCompleted"
+    | "secondLanguageExamValidity"
+  > {
+  firstOfficialLanguage?: PartialLanguage;
+  estimatedLanguageAbility?: Maybe<
+    Pick<LocalizedEstimatedLanguageAbility, "value">
+  >;
+  writtenLevel?: PartialEvaluatedLanguage;
+  comprehensionLevel?: PartialEvaluatedLanguage;
+  verbalLevel?: PartialEvaluatedLanguage;
+}
 
 export function hasAllEmptyFields({
   lookingForEnglish,

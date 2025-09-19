@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
-import { ChipProps, IconType, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import { ChipProps, IconType, Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -84,6 +84,14 @@ export const formatClassificationString = ({
 }: formatClassificationStringProps): string => {
   return `${group}-${level < 10 ? "0" : ""}${level}`;
 };
+
+export const formatClassificationAriaString = ({
+  group,
+  level,
+}: formatClassificationStringProps): string => {
+  const tokens = [...Array.from(group), level.toString()];
+  return tokens.join(" ");
+};
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
@@ -129,7 +137,7 @@ export const formattedPoolPosterTitle = ({
       <>
         {title ?? ""} <span>{UNICODE_CHAR.LEFT_PAREN}</span>
         {wrapAbbr(groupAndLevel, intl)}
-        {streamString ?? <span className="m1-1">{streamString}</span>}
+        {streamString && ` ${streamString}`}
         <span>{UNICODE_CHAR.RIGHT_PAREN}</span>
       </>
     ),
@@ -144,11 +152,12 @@ interface PoolTitleOptions {
   short?: boolean;
 }
 
-type PoolTitle = Maybe<
-  Pick<Pool, "name" | "publishingGroup" | "workStream"> & {
-    classification?: Maybe<Pick<Classification, "group" | "level">>;
-  }
->;
+type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
+interface PartialPoolWithClassification extends PartialPool {
+  classification?: Maybe<Pick<Classification, "group" | "level">>;
+}
+
+type PoolTitle = Maybe<PartialPoolWithClassification>;
 
 export const poolTitle = (
   intl: IntlShape,
@@ -336,19 +345,6 @@ export const useAdminPoolPages = (
       },
     ],
     [
-      "screening",
-      {
-        title: intl.formatMessage({
-          defaultMessage: "Screening and assessment",
-          id: "R8Naqm",
-          description: "Heading for the information of an application",
-        }),
-        link: {
-          url: paths.screeningAndEvaluation(pool.id),
-        },
-      },
-    ],
-    [
       "candidates",
       {
         icon: UserGroupIcon,
@@ -465,3 +461,13 @@ export function getClassificationName(
   const nameStr = getLocalizedName(name, intl);
   return `${groupLevelStr} (${nameStr})`;
 }
+
+export const contactEmailTag = (email?: Maybe<string>) => {
+  return email ? (
+    <Link external href={`mailto:${email}`}>
+      {email}
+    </Link>
+  ) : (
+    <>{email}</>
+  );
+};

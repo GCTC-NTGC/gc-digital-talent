@@ -122,6 +122,11 @@ const createRoute = (locale: Locales) =>
                 import("../pages/InclusivityEquityPage/InclusivityEquityPage"),
             },
             {
+              path: "dnd",
+              lazy: () =>
+                import("../pages/DNDDigitalCareersPage/DNDDigitalCareersPage"),
+            },
+            {
               path: "directive-on-digital-talent",
               children: [
                 {
@@ -624,6 +629,13 @@ const createRoute = (locale: Locales) =>
                     import("../pages/AdminDashboardPage/AdminDashboardPage"),
                 },
                 {
+                  path: "roles-and-permissions",
+                  lazy: () =>
+                    import(
+                      "../pages/Auth/RolesAndPermissionsPage/RolesAndPermissionsPage"
+                    ),
+                },
+                {
                   path: "users",
                   children: [
                     {
@@ -766,13 +778,6 @@ const createRoute = (locale: Locales) =>
                                 ),
                             },
                           ],
-                        },
-                        {
-                          path: "screening",
-                          lazy: () =>
-                            import(
-                              "../pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage"
-                            ),
                         },
                         {
                           path: "manage-access",

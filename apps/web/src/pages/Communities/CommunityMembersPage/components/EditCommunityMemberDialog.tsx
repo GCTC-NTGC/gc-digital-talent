@@ -25,19 +25,19 @@ import {
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
+import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 
-type EditCommunityMemberDialogProps = ComponentPropsWithoutRef<
-  typeof DropdownMenu.Item
-> & {
+interface EditCommunityMemberDialogProps
+  extends ComponentPropsWithoutRef<typeof DropdownMenu.Item> {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
-};
+}
 
 const EditCommunityMemberDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,
@@ -162,6 +162,7 @@ const EditCommunityMemberDialog = forwardRef<
           })}
         </Dialog.Header>
         <Dialog.Body>
+          <RolesAndPermissionsPageMessage />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-y-6">

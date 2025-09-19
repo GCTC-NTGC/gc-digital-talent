@@ -258,14 +258,14 @@ class UserBuilder extends Builder
      *
      * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
-    public function whereQualifiedClassificationsIn(?array $classifications): self
+    public function whereQualifiedInClassificationsIn(?array $classifications): self
     {
         if (empty($classifications)) {
             return $this;
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            $query->whereQualifiedClassificationsIn($classifications);
+            $query->whereQualifiedInClassificationsIn($classifications);
         });
     }
 
@@ -273,14 +273,14 @@ class UserBuilder extends Builder
      * Scopes the query to only return users who are available in a pool with one of the specified streams.
      * If $streams is empty, this scope will be ignored.
      */
-    public function whereQualifiedStreamsIn(?array $streams): self
+    public function whereQualifiedInWorkStreamsIn(?array $streams): self
     {
         if (empty($streams)) {
             return $this;
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($streams) {
-            $query->whereQualifiedStreamsIn($streams);
+            $query->whereQualifiedInWorkStreamsIn($streams);
         });
     }
 
@@ -313,12 +313,12 @@ class UserBuilder extends Builder
             $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
                 $query->wherePublished();
 
-                if (array_key_exists('qualifiedClassifications', $filters)) {
-                    $query->whereClassifications($filters['qualifiedClassifications']);
+                if (array_key_exists('qualifiedInClassifications', $filters)) {
+                    $query->whereClassifications($filters['qualifiedInClassifications']);
                 }
 
-                if (array_key_exists('workStreams', $filters)) {
-                    $query->whereWorkStreamsIn($filters['workStreams']);
+                if (array_key_exists('qualifiedInWorkStreams', $filters)) {
+                    $query->whereWorkStreamsIn($filters['qualifiedInWorkStreams']);
                 }
             })
                 ->whereAvailable()
@@ -569,5 +569,53 @@ class UserBuilder extends Builder
 
         // otherwise: use the regular authorized to view scope
         return $this->whereAuthorizedToView();
+    }
+
+    /**
+     * Used only for the WFA table
+     *
+     * User can only see profiles that have been shared with a community
+     * they are a part of.
+     */
+    public function whereAuthorizedToViewEmployeeWFAAdminTable(): self
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user->isAbleTo('view-any-employeeWFA')) {
+            return $this;
+        }
+
+        $filterCountBefore = count($this->getQuery()->wheres);
+        $query = $this->where(function (Builder $query) use ($user) {
+            if ($user->isAbleTo('view-team-employeeWFA')) {
+                $allCommunityTeams = $user->rolesTeams()
+                    ->where('teamable_type', "App\Models\Community")
+                    ->get();
+                $teamIds = $allCommunityTeams
+                    ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('teamable_id')->toArray();
+
+                // NOTE: We only want to show users who have added this community and consented to share profile
+                // While users with this permission may see those who have applied to a process in their community
+                // we do not want to show those by default
+                $query->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
+                    // User has expressed interest in community
+                    $commInterestQuery->whereIn('community_id', $teamIds)
+                        ->where('consent_to_share_profile', true);
+                });
+
+                if ($user->isAbleTo('view-own-employeeWFA')) {
+                    $query->orWhere('id', $user->id);
+                }
+            }
+        });
+
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return $query;
+        }
+
+        // fall through - query will return nothing
+        return $this->where('id', null);
     }
 }

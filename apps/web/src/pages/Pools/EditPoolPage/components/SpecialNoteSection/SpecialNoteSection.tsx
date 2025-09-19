@@ -54,11 +54,12 @@ interface FormValues {
 
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
-type SpecialNoteSectionProps = SectionProps<
-  SpecialNoteSubmitData,
-  FragmentType<typeof EditPoolSpecialNote_Fragment>
-> &
-  PublishedEditableSectionProps;
+interface SpecialNoteSectionProps
+  extends SectionProps<
+      SpecialNoteSubmitData,
+      FragmentType<typeof EditPoolSpecialNote_Fragment>
+    >,
+    PublishedEditableSectionProps {}
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
@@ -198,7 +199,7 @@ const SpecialNoteSection = ({
               {watchHasSpecialNote && (
                 <div className="mb-6 grid gap-6 sm:grid-cols-2">
                   <RichTextInput
-                    id="whatToExpectEn"
+                    id="specialNoteEn"
                     label={intl.formatMessage({
                       defaultMessage: "Special note",
                       id: "LlE+CS",
@@ -210,7 +211,7 @@ const SpecialNoteSection = ({
                     readOnly={!canEdit}
                   />
                   <RichTextInput
-                    id="whatToExpectFr"
+                    id="specialNoteFr"
                     label={intl.formatMessage({
                       defaultMessage: "Special note",
                       id: "LlE+CS",

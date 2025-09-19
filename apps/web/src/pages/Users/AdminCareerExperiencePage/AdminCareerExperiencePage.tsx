@@ -77,6 +77,7 @@ const AdminCareerExperience = ({
             </p>
             <CareerTimelineSection
               experiencesQuery={unpackMaybes(experiences)}
+              showEdit={false}
             />
           </TableOfContents.Section>
         </TableOfContents.Content>

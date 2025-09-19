@@ -1,13 +1,17 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
+  Pending,
   PreviewList,
   PreviewMetaData,
+  Separator,
   Well,
 } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import {
@@ -15,66 +19,80 @@ import {
   isQualifiedFinalDecision,
 } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
+import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
+import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatformProcessDialog";
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
-import OffPlatformProcessesDialog from "./OffPlatformProcessesDialog";
+import DeleteOldOffPlatformProcessesDialog from "./DeleteOldOffPlatformProcessesDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
-  fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {
-    ...ReviewRecruitmentProcessDialog
+  fragment ReviewRecruitmentProcessPreviewList on User {
     id
-    finalDecisionAt
-    suspendedAt
-    placedAt
-    status {
-      value
+    oldOffPlatformRecruitmentProcesses
+    offPlatformRecruitmentProcesses {
+      ...OffPlatformRecruitmentProcessList
     }
-    finalDecision {
-      value
-    }
-    pool {
+    poolCandidates {
+      ...ReviewRecruitmentProcessDialog
       id
-      name {
-        localized
+      finalDecisionAt
+      suspendedAt
+      placedAt
+      status {
+        value
       }
-      classification {
-        group
-        level
-        minSalary
-        maxSalary
+      finalDecision {
+        value
+      }
+      pool {
+        id
+        name {
+          localized
+        }
+        classification {
+          group
+          level
+          minSalary
+          maxSalary
+        }
       }
     }
+  }
+`);
+
+const ReviewOffPlatformRecruitmentProcesses_Query = graphql(/* GraphQL */ `
+  query ReviewOffPlatformRecruitmentProcesses {
+    ...OffPlatformProcessDialog
   }
 `);
 
 interface ReviewRecruitmentProcessPreviewListProps {
   recruitmentProcessesQuery: FragmentType<
     typeof ReviewRecruitmentProcessPreviewList_Fragment
-  >[];
-  userId: string;
-  offPlatformRecruitmentProcesses?: string | null;
+  >;
 }
 
 const ReviewRecruitmentProcessPreviewList = ({
   recruitmentProcessesQuery,
-  userId,
-  offPlatformRecruitmentProcesses,
 }: ReviewRecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
 
-  const recruitmentProcesses = getFragment(
+  const user = getFragment(
     ReviewRecruitmentProcessPreviewList_Fragment,
     recruitmentProcessesQuery,
   );
 
-  const recruitmentProcessesFiltered = recruitmentProcesses
-    ? recruitmentProcesses.filter(
-        (recruitmentProcess) =>
-          recruitmentProcess.finalDecisionAt &&
-          isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
-      )
-    : []; // filter for qualified recruitment processes
+  const recruitmentProcesses = unpackMaybes(user?.poolCandidates);
+  const recruitmentProcessesFiltered = recruitmentProcesses.filter(
+    (recruitmentProcess) =>
+      recruitmentProcess.finalDecisionAt &&
+      isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+  ); // filter for qualified recruitment processes
+
+  const [{ data: offPlatformProcessData, fetching, error }] = useQuery({
+    query: ReviewOffPlatformRecruitmentProcesses_Query,
+  });
 
   return (
     <>
@@ -170,13 +188,12 @@ const ReviewRecruitmentProcessPreviewList = ({
           </p>
         </Well>
       )}
-      <div className="mt-6 border-t-gray-300 pt-6">
+      <Separator space="sm" />
+      <Pending fetching={fetching} error={error} inline>
         <Heading level="h3" size="h6" className="mb-0.75 font-bold">
-          {intl.formatMessage({
-            defaultMessage: "Off-platform recruitment processes",
-            id: "tpXtAJ",
-            description: "Off-platform section header",
-          })}
+          {intl.formatMessage(
+            navigationMessages.offPlatformRecruitmentProcesses,
+          )}
         </Heading>
         <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
           {intl.formatMessage({
@@ -186,20 +203,28 @@ const ReviewRecruitmentProcessPreviewList = ({
             description: "Off-platform section information",
           })}
         </p>
-        <p className="mb-6">
-          {offPlatformRecruitmentProcesses ??
-            intl.formatMessage({
-              defaultMessage:
-                "No off-platform process information has been provided.",
-              id: "dbeDy2",
-              description: "Null state for off-platform section",
-            })}
-        </p>
-        <OffPlatformProcessesDialog
-          userId={userId}
-          offPlatformRecruitmentProcesses={offPlatformRecruitmentProcesses}
+        {user?.oldOffPlatformRecruitmentProcesses ? (
+          <div className="mb-6 rounded-md border p-6">
+            <p className="mb-3">{user.oldOffPlatformRecruitmentProcesses}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-100">
+              {intl.formatMessage({
+                defaultMessage:
+                  "We've changed the way we collect information about off-platform recruitment processes. The information shown here will be deleted as of December 31, 2025. Please use our new format and add each process you've been qualified in using the \"Add an off-platform process\" button.",
+                id: "/0kzjJ",
+                description:
+                  "Message informing the user about the update to off-platform processes",
+                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+              })}{" "}
+              <DeleteOldOffPlatformProcessesDialog userId={user.id} />
+            </p>
+          </div>
+        ) : null}
+        <OffPlatformRecruitmentProcessList
+          processesQuery={user?.offPlatformRecruitmentProcesses ?? []}
+          editDialogQuery={offPlatformProcessData}
         />
-      </div>
+        <OffPlatformProcessDialog query={offPlatformProcessData} />
+      </Pending>
     </>
   );
 };

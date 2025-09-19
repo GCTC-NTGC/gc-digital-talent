@@ -13,7 +13,7 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input } from "@gc-digital-talent/forms";
+import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Experience,
@@ -199,7 +199,7 @@ export const ApplicationCareerTimeline = ({
   const methods = useForm<FormValues>();
   const {
     setValue,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
 
   const [sortAndFilterValues, setSortAndFilterValues] =
@@ -388,12 +388,8 @@ export const ApplicationCareerTimeline = ({
       )}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Input
-            id="experienceCount"
+          <HiddenInput
             name="experienceCount"
-            label=""
-            type="number"
-            hidden
             rules={{
               min: {
                 value: 1,
@@ -404,6 +400,13 @@ export const ApplicationCareerTimeline = ({
                 }),
               },
             }}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="experienceCount"
+            render={({ message }) => (
+              <Field.Error className="mt-3">{message}</Field.Error>
+            )}
           />
 
           <Separator />

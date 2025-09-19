@@ -15,6 +15,7 @@ use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Observers\PoolCandidateObserver;
+use App\Traits\EnrichedNotifiable;
 use App\ValueObjects\ProfileSnapshot;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -66,6 +67,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class PoolCandidate extends Model
 {
+    use EnrichedNotifiable;
     use HasFactory;
     use LogsActivity;
     use SoftDeletes;
@@ -505,7 +507,15 @@ class PoolCandidate extends Model
             $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
         } elseif ($totalSteps === count($decisions)) {
             $lastStepDecision = end($decisions);
-            if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
+            $arrayOfStepDecisions = array_map(function ($decision) {
+                return $decision['decision'];
+            }, $decisions);
+
+            if (
+                $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name &&
+                ! in_array(null, $arrayOfStepDecisions) &&
+                ! in_array(AssessmentDecision::UNSUCCESSFUL->name, $arrayOfStepDecisions)
+            ) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
@@ -590,7 +600,7 @@ class PoolCandidate extends Model
         };
 
         $assessmentStatus = $this->computed_assessment_status;
-        $currentStep = $this->assessmentStep?->sort_order;
+        $currentStep = $this->assessmentStep->sort_order ?? 0;
 
         if ($decision === FinalDecision::TO_ASSESS->name && $currentStep) {
             $weight = $weight + $currentStep * 10;

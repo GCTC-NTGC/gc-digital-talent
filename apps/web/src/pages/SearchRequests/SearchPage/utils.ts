@@ -1,13 +1,12 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
+import { IntlShape } from "react-intl";
 
 import {
   unpackMaybes,
   empty,
-  hasKey,
   notEmpty,
-  pickMap,
+  emptyToNull,
 } from "@gc-digital-talent/helpers";
-import { EmploymentDuration } from "@gc-digital-talent/i18n";
+import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   ApplicantFilterInput,
   Classification,
@@ -17,16 +16,47 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { FormValues, NullSelection } from "~/types/searchRequest";
-import { formatClassificationString } from "~/utils/poolUtils";
+import {
+  formatClassificationAriaString,
+  formatClassificationString,
+} from "~/utils/poolUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
 export const getClassificationLabel = (
-  { group, level }: Pick<Classification, "group" | "level">,
-  labels: Record<string, MessageDescriptor>,
+  {
+    group,
+    level,
+    name: genericName,
+    displayName,
+  }: Pick<Classification, "group" | "level" | "name" | "displayName">,
   intl: IntlShape,
 ) => {
-  const key = `${group}-${level < 10 ? "0" : ""}${level}`;
-  return !hasKey(labels, key) ? key : intl.formatMessage(labels[key]);
+  const groupAndLevel = formatClassificationString({ group, level });
+  const separator = intl.formatMessage(commonMessages.dividingColon);
+  const name =
+    emptyToNull(displayName?.localized) ?? emptyToNull(genericName?.localized);
+
+  if (name) {
+    return `${groupAndLevel}${separator}${name}`;
+  }
+  return groupAndLevel;
+};
+
+export const getClassificationAriaLabel = ({
+  group,
+  level,
+  name: genericName,
+  displayName,
+}: Pick<Classification, "group" | "level" | "name" | "displayName">) => {
+  const groupAndLevel = formatClassificationAriaString({ group, level });
+  const separator = " ";
+  const name =
+    emptyToNull(displayName?.localized) ?? emptyToNull(genericName?.localized);
+
+  if (name) {
+    return `${name}${separator}${groupAndLevel}`;
+  }
+  return groupAndLevel;
 };
 
 /**
@@ -79,14 +109,20 @@ export const applicantFilterToQueryArgs = (
     where: {
       ...filter,
       equity: filter?.equity,
-      qualifiedClassifications: filter?.qualifiedClassifications
-        ? pickMap(filter.qualifiedClassifications, ["group", "level"])
+      qualifiedInClassifications: filter?.qualifiedInClassifications
+        ? unpackMaybes(filter.qualifiedInClassifications).flatMap(
+            ({ group, level }) => ({ group, level }),
+          )
         : undefined,
-      skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
+      skills: filter?.skills
+        ? unpackMaybes(filter.skills).flatMap(({ id }) => ({ id }))
+        : undefined,
       hasDiploma: undefined, // disconnect education selection for CountApplicants_Query
 
       // Override the filter's pool if one is provided separately.
-      pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
+      pools: poolId
+        ? [{ id: poolId }]
+        : unpackMaybes(filter?.pools).flatMap(({ id }) => ({ id })),
     },
   };
 };
@@ -104,7 +140,7 @@ export const dataToFormValues = (
   data: ApplicantFilterInput,
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
 ): FormValues => {
-  const stream = data?.workStreams?.find(notEmpty);
+  const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
 
   return {
     classification: getCurrentClassification(selectedClassifications),
@@ -146,7 +182,7 @@ export const formValuesToData = (
   });
 
   return {
-    qualifiedClassifications: [selectedClassification].filter(notEmpty),
+    qualifiedInClassifications: [selectedClassification].filter(notEmpty),
     skills: values.skills
       ? values.skills
           .filter((id) => !!id)
@@ -172,6 +208,6 @@ export const formValuesToData = (
       ? durationSelectionToEnum(values.employmentDuration)
       : undefined,
     locationPreferences: values.locationPreferences ?? [],
-    workStreams: values.stream ? [{ id: values.stream }] : undefined,
+    qualifiedInWorkStreams: values.stream ? [{ id: values.stream }] : undefined,
   };
 };

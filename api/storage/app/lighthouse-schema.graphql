@@ -183,6 +183,11 @@ type LocalizedGovPositionType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedHiringPlatform implements LocalizedEnumOption {
+  value: HiringPlatform!
+  label: LocalizedString!
+}
+
 type LocalizedIndigenousCommunity implements LocalizedEnumOption {
   value: IndigenousCommunity!
   label: LocalizedString!
@@ -358,6 +363,11 @@ type LocalizedTimeFrame implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedWFAInterest implements LocalizedEnumOption {
+  value: WFAInterest!
+  label: LocalizedString!
+}
+
 type LocalizedWorkExperienceGovEmployeeType implements LocalizedEnumOption {
   value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
@@ -428,6 +438,13 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
+  employeeWFAPaginatedAdminTable(
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): UserEmployeeWFAPaginator!
   poolsPaginated(
     includeIds: [UUID!]
     excludeIds: [UUID!]
@@ -501,6 +518,7 @@ type Query {
   ): TrainingOpportunityPaginator!
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
+    orderByClassification: SortOrder
     orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 500."
@@ -518,9 +536,13 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
+  updateEmployeeWFA(id: UUID!, employeeWFA: UpdateEmployeeWFAInput!): EmployeeWFA
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
+  createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
+  updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
+  deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User
@@ -659,6 +681,16 @@ type LocalizedEnumString {
   label: LocalizedString!
 }
 
+type Definition {
+  term: String!
+  definition: LocalizedString!
+}
+
+type DefinedString {
+  display: LocalizedString!
+  definitions: [Definition!]
+}
+
 type UserAuthInfo {
   id: UUID!
   sub: String
@@ -718,6 +750,7 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
+  employeeWFA: EmployeeWFA
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -725,6 +758,7 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  currentSubstantiveExperiences: [WorkExperience!]
   userSkills(includeSkillIds: [UUID]): [UserSkill]
   topTechnicalSkillsRanking: [UserSkill]
   topBehaviouralSkillsRanking: [UserSkill]
@@ -736,7 +770,8 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
+  offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
@@ -756,6 +791,17 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  createdAt: DateTime
+}
+
+type OffPlatformRecruitmentProcess {
+  id: UUID!
+  user: User!
+  processNumber: String!
+  department: Department
+  classification: Classification!
+  platform: LocalizedHiringPlatform!
+  platformOther: String
 }
 
 type DevelopmentProgramInterest {
@@ -894,6 +940,42 @@ type BasicGovEmployeeProfile {
   classification: Classification
 }
 
+type UserEmployeeWFA {
+  id: UUID!
+  employeeWFA: EmployeeWFA
+  firstName: String
+  lastName: String
+  classification: Classification
+  department: Department
+  workEmail: Email
+  isWoman: Boolean
+  hasDisability: Boolean
+  isVisibleMinority: Boolean
+  indigenousCommunities: [LocalizedIndigenousCommunity]
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
+  citizenship: LocalizedCitizenshipStatus
+  armedForcesStatus: LocalizedArmedForcesStatus
+  preferredLang: LocalizedLanguage
+  preferredLanguageForInterview: LocalizedLanguage
+  preferredLanguageForExam: LocalizedLanguage
+  firstOfficialLanguage: LocalizedLanguage
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+  locationPreferences: [LocalizedWorkRegion]
+  locationExemptions: String
+  userSkills(includeSkillIds: [UUID]): [UserSkill]
+  communityInterests(id: UUID): [CommunityInterest!]
+}
+
+type EmployeeWFA {
+  id: UUID!
+  wfaInterest: LocalizedWFAInterest
+  wfaDate: Date
+  wfaUpdatedAt: DateTime
+}
+
 type GeneralQuestion {
   id: ID!
   pool: Pool
@@ -919,6 +1001,8 @@ type Pool implements HasRoleAssignments {
   owner: UserPublicProfile
   community: Community
   name: LocalizedString
+  displayName: DefinedString
+  fullDisplayName: DefinedString
   classification: Classification
   operationalRequirements: [LocalizedOperationalRequirement]
   poolCandidates: [PoolCandidate]
@@ -956,6 +1040,7 @@ type Pool implements HasRoleAssignments {
   department: Department
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
+  contactEmail: String
 }
 
 type GeneralQuestionResponse {
@@ -1100,6 +1185,8 @@ type Classification {
   minSalary: Int
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
+  isAvailableInSearch: Boolean
+  displayName: LocalizedString
 }
 
 type GenericJobTitle {
@@ -1288,8 +1375,8 @@ type ApplicantFilter {
   locationPreferences: [LocalizedWorkRegion]
   positionDuration: [PositionDuration]
   skills: [Skill]
-  qualifiedClassifications: [Classification]
-  workStreams: [WorkStream!]
+  qualifiedInClassifications: [Classification]
+  qualifiedInWorkStreams: [WorkStream!]
   pools: [Pool]
   community: Community
 }
@@ -1561,8 +1648,8 @@ input ApplicantFilterInput {
   pools: [IdInput]
   skills: [IdInput]
   skillsIntersectional: [IdInput]
-  qualifiedClassifications: [ClassificationFilterInput]
-  workStreams: [IdInput]
+  qualifiedInClassifications: [ClassificationFilterInput]
+  qualifiedInWorkStreams: [IdInput]
   community: IdInput
 }
 
@@ -1718,7 +1805,7 @@ input CreateUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1767,7 +1854,7 @@ input UpdateUserAsAdminInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1825,7 +1912,7 @@ input UpdateUserAsUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  offPlatformRecruitmentProcesses: String
+  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1875,6 +1962,11 @@ input UpdateEmployeeProfileInput {
   careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
 }
 
+input UpdateEmployeeWFAInput {
+  wfaInterest: WFAInterest
+  wfaDate: Date
+}
+
 input CreateCommunityInterestInput {
   userId: UUID!
   community: CommunityBelongsTo!
@@ -1902,6 +1994,24 @@ input UpdateCommunityInterestInput {
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+}
+
+input CreateOffPlatformRecruitmentProcessInput {
+  userId: UUID!
+  processNumber: String!
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo!
+  platform: HiringPlatform!
+  platformOther: String
+}
+
+input UpdateOffPlatformRecruitmentProcessInput {
+  id: UUID!
+  processNumber: String
+  department: DepartmentBelongsTo
+  classification: ClassificationBelongsTo
+  platform: HiringPlatform
+  platformOther: String
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -1950,6 +2060,8 @@ input CreateClassificationInput {
   level: Int!
   minSalary: Int
   maxSalary: Int
+  isAvailableInSearch: Boolean!
+  displayName: LocalizedStringInput
 }
 
 input ClassificationBelongsToMany {
@@ -1970,6 +2082,8 @@ input UpdateClassificationInput {
   group: String
   minSalary: Int
   maxSalary: Int
+  isAvailableInSearch: Boolean
+  displayName: LocalizedStringInput
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -2194,8 +2308,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  qualifiedClassifications: ClassificationBelongsToMany
-  workStreams: WorkStreamBelongsToMany
+  qualifiedInClassifications: ClassificationBelongsToMany
+  qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -2452,6 +2566,7 @@ input UpdatePoolInput {
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection
   selectionLimitations: [PoolSelectionLimitation!]
+  contactEmail: String
 }
 
 input UpdatePublishedPoolInput {
@@ -2462,6 +2577,7 @@ input UpdatePublishedPoolInput {
   specialNote: LocalizedStringInput
   whatToExpectAdmission: LocalizedStringInput
   aboutUs: LocalizedStringInput
+  contactEmail: String
 }
 
 input CreatePoolSkillInput {
@@ -2720,6 +2836,15 @@ type UserPublicProfilePaginator {
 
   "A list of UserPublicProfile items."
   data: [UserPublicProfile!]!
+}
+
+"A paginated list of UserEmployeeWFA items."
+type UserEmployeeWFAPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of UserEmployeeWFA items."
+  data: [UserEmployeeWFA!]!
 }
 
 "A paginated list of Pool items."
@@ -3459,6 +3584,11 @@ enum GovPositionType {
   ASSIGNMENT
 }
 
+enum HiringPlatform {
+  GC_JOBS
+  OTHER
+}
+
 enum IndigenousCommunity {
   STATUS_FIRST_NATIONS
   NON_STATUS_FIRST_NATIONS
@@ -3752,6 +3882,14 @@ enum TimeFrame {
   THIS_YEAR
   ONE_TO_TWO_YEARS
   THREE_OR_MORE_YEARS
+}
+
+enum WFAInterest {
+  NOT_APPLICABLE
+  TERM_ENDING
+  LETTER_RECEIVED
+  NOT_SURE
+  VOLUNTARY_DEPARTURE
 }
 
 enum WhenSkillUsed {

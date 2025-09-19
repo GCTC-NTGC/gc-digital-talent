@@ -1,0 +1,186 @@
+import { defineMessages, IntlShape } from "react-intl";
+
+import {
+  DATE_FORMAT_LONG_STRING,
+  formatDate,
+} from "@gc-digital-talent/date-helpers";
+
+interface JobFair {
+  title: string;
+  lang?: string;
+  href: {
+    en: string;
+    fr: string;
+  };
+  date: string;
+  location: string;
+}
+
+interface FormattedDateArgs {
+  y: number;
+  m: number;
+  d: number;
+  intl: IntlShape;
+}
+
+const formattedDate = ({ y, m, d, intl }: FormattedDateArgs) =>
+  formatDate({
+    date: new Date(y, m - 1, d),
+    intl,
+    formatString: DATE_FORMAT_LONG_STRING,
+  });
+
+const locations = defineMessages({
+  montreal: {
+    defaultMessage: "Montréal, Quebec",
+    id: "RojSQE",
+    description: "Location name of Montreal, Quebec",
+  },
+  ottawa: {
+    defaultMessage: "Ottawa, Ontario",
+    id: "FxOKfM",
+    description: "Location name of Ottawa, Ontario",
+  },
+});
+
+const getJobFairs = (intl: IntlShape): JobFair[] => [
+  {
+    title: intl.formatMessage({
+      defaultMessage: "TechFair – McGill University",
+      id: "s0bXMy",
+      description: "Heading for TechFair job fair",
+    }),
+    href: {
+      en: "https://www.mcgill.ca/careers4engineers/techfair",
+      fr: "https://www.mcgill.ca/careers4engineers/fr/techfair",
+    },
+    date: intl.formatMessage({
+      defaultMessage: "September 25 and 26, 2025",
+      id: "9Qc9PO",
+      description: "Date for TechFair",
+    }),
+    location: intl.formatMessage(locations.montreal),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "Career Expo University of Ottawa",
+      id: "q5nhMd",
+      description: "Heading for TechFair job fair",
+    }),
+    href: {
+      en: "https://www.uottawa.ca/en/events-all/career-expo",
+      fr: "https://www.uottawa.ca/fr/tous-evenements/expo-carrieres",
+    },
+    date: formattedDate({ y: 2025, m: 10, d: 2, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "Fall Career & Networking Fair – Carleton University",
+      id: "D9ZUyu",
+      description: "Heading for Carleton networking/career fair",
+    }),
+    href: {
+      en: "https://carleton.ca/career/events/career-fairs/",
+      fr: "https://carleton.ca/career/events/career-fairs/",
+    },
+    date: formattedDate({ y: 2025, m: 10, d: 15, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "Foire de l’emploi - La Cité",
+      id: "gy65G/",
+      description: "Heading for Foire de l’emploi fair",
+    }),
+    lang: "fr",
+    href: {
+      en: "https://www.collegelacite.ca/foire-de-emploi-etudiants",
+      fr: "https://www.collegelacite.ca/foire-de-emploi-etudiants",
+    },
+    date: formattedDate({ y: 2025, m: 10, d: 22, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "STEM Career Fair – University of Ottawa",
+      id: "jQXsnP",
+      description: "Heading for STEM career fair",
+    }),
+    href: {
+      en: "https://www.uottawa.ca/en/events-all/stem-career-fair",
+      fr: "https://www.uottawa.ca/fr/tous-evenements/salon-carriere-stim",
+    },
+    date: formattedDate({ y: 2025, m: 10, d: 23, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage:
+        "Women in STEM Career and Networking Fair – Carleton University",
+      id: "lBX7NE",
+      description: "Heading for Women in STEM career fair",
+    }),
+    href: {
+      en: "https://carleton.ca/engineering-design/career-fair-for-women-in-stem/",
+      fr: "https://carleton.ca/engineering-design/career-fair-for-women-in-stem/",
+    },
+    date: formattedDate({ y: 2025, m: 11, d: 20, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "Winter Career & Networking Fair – Carleton University",
+      id: "ZJsUbj",
+      description: "Heading for winter career fair",
+    }),
+    href: {
+      en: "https://carleton.ca/career/cu-event/winter-career-networking-fair/",
+      fr: "https://carleton.ca/career/cu-event/winter-career-networking-fair/",
+    },
+    date: formattedDate({ y: 2026, m: 2, d: 4, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "Career Networking Fair – Algonquin College",
+      id: "LCLNos",
+      description: "Heading for Algonquin career fair",
+    }),
+    href: {
+      en: "https://www.algonquincollege.com/coop-career-centre/career-fairs/",
+      fr: "https://www.algonquincollege.com/coop-career-centre/career-fairs/",
+    },
+    date: formattedDate({ y: 2026, m: 2, d: 10, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "Foire de l’emploi - La Cité",
+      id: "gy65G/",
+      description: "Heading for Foire de l’emploi fair",
+    }),
+    lang: "fr",
+    href: {
+      en: "https://www.collegelacite.ca/foire-de-emploi-etudiants",
+      fr: "https://www.collegelacite.ca/foire-de-emploi-etudiants",
+    },
+    date: formattedDate({ y: 2026, m: 2, d: 19, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+  {
+    title: intl.formatMessage({
+      defaultMessage: "Career Week Job Fair – University of Ottawa",
+      id: "qytMp/",
+      description: "Heading for career week job fair",
+    }),
+    href: {
+      en: "https://www.uottawa.ca/en/events-all/career-week-job-fair",
+      fr: "https://www.uottawa.ca/fr/tous-evenements/salon-lemploi-semaine-carriere",
+    },
+    date: formattedDate({ y: 2026, m: 2, d: 19, intl }),
+    location: intl.formatMessage(locations.ottawa),
+  },
+];
+
+export default getJobFairs;

@@ -145,7 +145,7 @@ class AssessmentStepTest extends TestCase
                     'en' => 'en',
                     'fr' => 'fr',
                 ],
-                'sortOrder' => 3,
+                'sortOrder' => 2,
             ]);
     }
 
@@ -182,7 +182,7 @@ class AssessmentStepTest extends TestCase
                     'en' => 'en',
                     'fr' => 'fr',
                 ],
-                'sortOrder' => 3,
+                'sortOrder' => 2,
             ]);
     }
 

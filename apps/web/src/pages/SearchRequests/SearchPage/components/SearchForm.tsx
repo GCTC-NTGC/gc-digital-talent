@@ -27,11 +27,9 @@ import {
   WorkStream,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { useLogger } from "@gc-digital-talent/logger";
 
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
-import { isClassificationGroup } from "~/types/classificationGroup";
 
 import { formValuesToData } from "../utils";
 import { useCandidateCount, useInitialFilters } from "../hooks";
@@ -52,7 +50,10 @@ const styledCount = (chunks: ReactNode) => (
 );
 
 interface SearchFormProps {
-  classifications: Pick<Classification, "group" | "level" | "id">[];
+  classifications: Pick<
+    Classification,
+    "group" | "level" | "id" | "name" | "displayName"
+  >[];
   skills: Skill[];
   workStreams: WorkStream[];
 }
@@ -65,14 +66,7 @@ export const SearchForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const logger = useLogger();
   const { defaultValues, initialFilters } = useInitialFilters();
-
-  classifications.forEach(({ group }) => {
-    if (!isClassificationGroup(group)) {
-      logger.error(`Unexpected classification: ${group}`);
-    }
-  });
 
   const [applicantFilter, setApplicantFilter] =
     useState<ApplicantFilterInput>(initialFilters);
@@ -112,7 +106,7 @@ export const SearchForm = ({
         allPools: values.allPools,
         candidateCount: values.count,
         selectedClassifications:
-          applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+          applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
       },
     });
   };
@@ -163,7 +157,7 @@ export const SearchForm = ({
     ].join("\n"),
   );
 
-  const selectedClassificationIsIT1 = applicantFilter.qualifiedClassifications
+  const selectedClassificationIsIT1 = applicantFilter.qualifiedInClassifications
     ?.filter(notEmpty)
     .some(
       (classification) =>
@@ -187,8 +181,8 @@ export const SearchForm = ({
               <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. All candidates in pools were assessed and successfully qualified.",
-                  id: "Il8ztR",
+                    "If you're looking for talent, you've come to the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. All candidates in these recruitment processes have been assessed and successfully qualified.",
+                  id: "vjZ960",
                   description:
                     "Content displayed in the find talent page explaining the page and what it offers to users.",
                 })}
@@ -196,8 +190,8 @@ export const SearchForm = ({
               <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Use the filters to specify your requirements. We will show you an estimated number of qualified candidates who match your criteria as you enter your information. Select “Request candidates” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
-                  id: "KhOXZ3",
+                    "Based on your filters, we’ll show you an estimated number of qualified candidates who match your criteria.",
+                  id: "q3JL9y",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
@@ -346,6 +340,12 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       id
       group
       level
+      name {
+        localized
+      }
+      displayName {
+        localized
+      }
     }
     workStreams(talentSearchable: true) {
       id

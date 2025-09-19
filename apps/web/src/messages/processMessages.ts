@@ -12,9 +12,9 @@ const messages = defineMessages({
     description: "Label for a process' classification",
   },
   stream: {
-    defaultMessage: "Stream",
-    id: "9pYlYz",
-    description: "Label for a process' stream",
+    defaultMessage: "Work stream",
+    id: "EJV1DF",
+    description: "Label for a process work stream",
   },
   employmentDuration: {
     defaultMessage: "Employment duration",
@@ -95,6 +95,11 @@ const messages = defineMessages({
     defaultMessage: "Additional questions",
     id: "JhBsgc",
     description: "Title of additional questions",
+  },
+  contactEmail: {
+    defaultMessage: "Contact email",
+    id: "DNLEfN",
+    description: "Title of contact email",
   },
   generalQuestions: {
     defaultMessage: "General questions",

@@ -80,6 +80,7 @@ class PoolFactory extends Factory
             'classification_id' => $classification->id,
             'department_id' => $departmentId,
             'community_id' => $communityId,
+            'contact_email' => $this->faker->email(),
         ];
     }
 
@@ -318,10 +319,15 @@ class PoolFactory extends Factory
     {
         return $this->afterCreating(function (Pool $pool, $noOfAssessmentSteps) {
             $steps = [];
-            $this->createAssessmentStepWithPoolSkills($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name);
+
+            // Only select from steps that do not appear in the first two positions
+            // First position created automatically, second step should be created via `withQuestions`
+            $availableTypes = array_filter(array_column(AssessmentStepType::cases(), 'name'), function ($item) {
+                return $item !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+            });
 
             for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
-                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement(array_column(AssessmentStepType::cases(), 'name'))->name);
+                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement($availableTypes)->name);
             }
         });
     }

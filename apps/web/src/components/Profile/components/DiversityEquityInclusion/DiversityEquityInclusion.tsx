@@ -3,7 +3,13 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Ul, Well } from "@gc-digital-talent/ui";
-import { Pool, UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+  UpdateUserAsUserInput,
+} from "@gc-digital-talent/graphql";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
@@ -15,13 +21,37 @@ import { getSectionTitle } from "../../utils";
 
 type AccordionItems = "information" | "";
 
+const ProfileDiversityEquityInclusion_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileDiversityEquityInclusion on User {
+    id
+    hasDisability
+    isWoman
+    isVisibleMinority
+    indigenousDeclarationSignature
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+  }
+`);
+
+interface DiversityEquityInclusionProps
+  extends SectionProps<Pick<Pool, "publishingGroup">> {
+  query: FragmentType<typeof ProfileDiversityEquityInclusion_Fragment>;
+}
+
 const DiversityEquityInclusion = ({
-  user,
+  query,
   onUpdate,
   pool,
-}: SectionProps<Pick<Pool, "publishingGroup">>) => {
+}: DiversityEquityInclusionProps) => {
   const intl = useIntl();
   const title = getSectionTitle("dei");
+  const user = getFragment(ProfileDiversityEquityInclusion_Fragment, query);
   const isComplete = !hasEmptyRequiredFields(user, {
     publishingGroup: pool?.publishingGroup,
   }); // no empty required fields so false returns, means complete is true

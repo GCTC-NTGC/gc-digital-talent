@@ -21,6 +21,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import experienceMessages from "~/messages/experienceMessages";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import processMessages from "~/messages/processMessages";
 
 import {
   AccordionSection,
@@ -246,12 +247,7 @@ const FullCareerExperiences = ({
               aria-pressed={selectedView === "workStream"}
               aria-describedby={showExperienceByLabelId}
             >
-              {intl.formatMessage({
-                defaultMessage: "Work stream",
-                id: "UKw7sB",
-                description:
-                  "Label displayed on the pool form stream/job title field.",
-              })}
+              {intl.formatMessage(processMessages.stream)}
             </Button>
           </div>
         ) : (

@@ -14,6 +14,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import JobPlacementDialog from "~/components/PoolCandidateDialogs/JobPlacementDialog";
 import {
+  isDisqualifiedStatus,
   isQualifiedStatus,
   isRemovedStatus,
   isRevertableStatus,
@@ -200,10 +201,12 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        <RemoveCandidateDialog
-          removalQuery={poolCandidate}
-          optionsQuery={data}
-        />
+        {!isRemovedStatus(status) && !isDisqualifiedStatus(status) && (
+          <RemoveCandidateDialog
+            removalQuery={poolCandidate}
+            optionsQuery={data}
+          />
+        )}
 
         <Link
           href={paths.userProfile(poolCandidate.user.id)}

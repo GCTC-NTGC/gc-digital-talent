@@ -5,9 +5,12 @@ namespace App\Models;
 use App\Builders\UserBuilder;
 use App\Casts\LanguageCode;
 use App\Enums\EmailType;
+use App\Enums\EmploymentCategory;
+use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
@@ -100,7 +103,12 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
+ * @property ?\App\Models\WorkExperience $current_substantive_experiences
+ * @property ?string $wfa_interest
+ * @property ?\Illuminate\Support\Carbon $wfa_date
+ * @property ?\Illuminate\Support\Carbon $wfa_updated_at
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
+ * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -132,6 +140,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'preferred_language_for_interview' => LanguageCode::class,
         'preferred_language_for_exam' => LanguageCode::class,
         'first_official_language' => LanguageCode::class,
+        'wfa_date' => 'date',
+        'wfa_updated_at' => 'datetime',
     ];
 
     protected $fillable = [
@@ -349,9 +359,19 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
+    public function communityInterests(): HasMany
+    {
+        return $this->hasMany(CommunityInterest::class);
+    }
+
     public function employeeProfile(): HasOne
     {
         return $this->hasOne(EmployeeProfile::class, 'id');
+    }
+
+    public function offPlatformRecruitmentProcesses(): HasMany
+    {
+        return $this->hasMany(OffPlatformRecruitmentProcess::class);
     }
 
     // This method will add the specified skills to UserSkills if they don't exist yet.
@@ -456,6 +476,47 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
         );
+    }
+
+    public function currentSubstantiveExperiences(): Attribute
+    {
+        return Attribute::make(get: function () {
+            $employmentTypeOrder = [
+                WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                WorkExperienceGovEmployeeType::TERM->name,
+            ];
+
+            $positionTypeOrder = [
+                GovPositionType::SUBSTANTIVE->name,
+                GovPositionType::ACTING->name,
+                GovPositionType::SECONDMENT->name,
+                GovPositionType::ASSIGNMENT->name,
+                null,
+            ];
+
+            return $this->workExperiences->filter(function ($exp) {
+
+                $isGovExp = $exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name ||
+                    $exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name;
+                $isCurrent = is_null($exp->end_date) || $exp->end_date->isFuture();
+                $isTermOrIndeterminate =
+                    $exp->gov_employment_type === WorkExperienceGovEmployeeType::INDETERMINATE->name;
+                $isSubstantiveOrTerm = false;
+                if ($isTermOrIndeterminate) {
+                    $isSubstantiveOrTerm = $exp->gov_position_type === GovPositionType::SUBSTANTIVE->name;
+                } elseif ($exp->gov_employment_type === WorkExperienceGovEmployeeType::TERM->name) {
+                    $isTermOrIndeterminate = true;
+                    $isSubstantiveOrTerm = true;
+                }
+
+                return $isGovExp && $isCurrent && $isTermOrIndeterminate && $isSubstantiveOrTerm;
+            })
+                ->sortByDesc('start_date')
+                ->sortBy([
+                    fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $positionTypeOrder),
+                    fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $employmentTypeOrder),
+                ]);
+        });
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema

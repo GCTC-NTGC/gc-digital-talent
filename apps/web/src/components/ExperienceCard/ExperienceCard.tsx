@@ -43,6 +43,7 @@ import EducationContent from "./EducationContent";
 import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
 import WorkStreamContent from "./WorkContent/WorkStreamsContent";
+import PersonalContent from "./PersonalContent";
 
 type EditMode = "link" | "dialog";
 
@@ -335,8 +336,8 @@ const ExperienceCard = ({
     defaultValue: false,
     onChange: onOpenChange,
   });
-  const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
   const experienceLabels = getExperienceFormLabels(intl);
+  const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
@@ -566,8 +567,13 @@ const ExperienceCard = ({
                 headingLevel={contentHeadingLevel}
               />
             )}
-            {/** Personal type has no custom content so separator is redundant */}
-            {!isPersonalExperience(experience) && <Separator space="sm" />}
+            {isPersonalExperience(experience) && (
+              <PersonalContent
+                experience={experience}
+                headingLevel={contentHeadingLevel}
+              />
+            )}
+            <Separator space="sm" />
             <ContentSection
               title={experienceLabels.details}
               headingLevel={headingLevel}
@@ -575,12 +581,6 @@ const ExperienceCard = ({
               {experience.details ??
                 intl.formatMessage(commonMessages.notAvailable)}
             </ContentSection>
-            {isWorkExperience(experience) && (
-              <WorkStreamContent
-                workStreams={experience.workStreams}
-                headingLevel={headingLevel}
-              />
-            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
@@ -631,6 +631,12 @@ const ExperienceCard = ({
                   )}
                 </div>
               </>
+            )}
+            {isWorkExperience(experience) && (
+              <WorkStreamContent
+                workStreams={experience.workStreams}
+                headingLevel={headingLevel}
+              />
             )}
           </Collapsible.Content>
         </Collapsible.Root>

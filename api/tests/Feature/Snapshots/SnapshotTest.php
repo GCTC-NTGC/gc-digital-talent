@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Snapshots;
 
 use App\Enums\EmploymentCategory;
 use App\Enums\Language;
@@ -54,6 +54,7 @@ class SnapshotTest extends TestCase
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
             ->asApplicant()
+            ->withOffPlatformRecruitmentProcesses()
             ->create();
 
         AwardExperience::factory()->create(['user_id' => $user->id]);

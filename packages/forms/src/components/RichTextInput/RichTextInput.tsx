@@ -12,18 +12,19 @@ import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 
-type RichTextInputProps = Omit<
+type BaseHTMLProps = Omit<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  "ref"
-> &
-  CommonInputProps & {
-    /** Sets a limit on how many words can be submitted with this input */
-    wordLimit?: number;
-    /** Set this component to be read only */
-    readOnly?: boolean;
-    /** Determine if the option to add headings is enabled */
-    allowHeadings?: boolean;
-  };
+  "ref" | "name" | "id"
+>;
+
+interface RichTextInputProps extends BaseHTMLProps, CommonInputProps {
+  /** Sets a limit on how many words can be submitted with this input */
+  wordLimit?: number;
+  /** Set this component to be read only */
+  readOnly?: boolean;
+  /** Determine if the option to add headings is enabled */
+  allowHeadings?: boolean;
+}
 
 const RichTextInput = ({
   id,

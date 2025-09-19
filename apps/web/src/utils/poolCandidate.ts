@@ -45,6 +45,7 @@ import {
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
+import { contactEmailTag } from "./poolUtils";
 
 export const isDisqualifiedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -228,12 +229,7 @@ const computeInAssessmentStatusChip = (
   }
 
   return {
-    label:
-      intl.formatMessage(poolCandidateMessages.toAssess) +
-      intl.formatMessage(commonMessages.dividingColon) +
-      intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-        stepNumber: currentStep,
-      }),
+    label: intl.formatMessage(poolCandidateMessages.toAssess),
     color: "warning",
   };
 };
@@ -393,8 +389,8 @@ const applicationStatusDescriptions = defineMessages({
   },
   UNSUCCESSFUL_EMPLOYEE: {
     defaultMessage:
-      "Your application was unsuccessful. For job opportunities internal to the Government of Canada, you may request an informal conversation about this decision. To proceed with this, please reach out to the department or recruitment team responsible for advertising the job.",
-    id: "8lxSJM",
+      "Your application was unsuccessful. For job opportunities internal to the Government of Canada, you may request an informal conversation about this decision. To proceed with this, please reach out to the department or recruitment team responsible for advertising the job at <link>{contactEmail}</link>.",
+    id: "oN9syr",
     description:
       "Status description for a disqualified application to an employee-only pool",
   },
@@ -419,6 +415,7 @@ export const getApplicationStatusChip = (
   assessmentStep: Maybe<number> | undefined,
   assessmentStatus: PoolCandidate["assessmentStatus"],
   screeningQuestionsCount: Pool["screeningQuestionsCount"],
+  contactEmail: Pool["contactEmail"],
   intl: IntlShape,
 ): StatusChipWithDescription => {
   // Draft applications
@@ -451,6 +448,14 @@ export const getApplicationStatusChip = (
         label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
+          {
+            contactEmail:
+              contactEmail ?? intl.formatMessage(commonMessages.notFound),
+            link: () =>
+              contactEmailTag(
+                contactEmail ?? intl.formatMessage(commonMessages.notFound),
+              ),
+          },
         ),
         value: applicationStatus.UNSUCCESSFUL,
       };

@@ -51,12 +51,6 @@ body:
       placeholder: |
         - [ ] Criteria 1
         - [ ] Criteria 2
-  - type: textarea
-    id: blocking-issues
-    attributes:
-      label: 🛑 Blocking Issues
-      description: Issues that block this issue.
-      value: "Blocked by "
   - type: markdown
     attributes:
       value: |

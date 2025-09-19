@@ -111,7 +111,7 @@ const CareerObjectiveSection = ({
       >
         {employeeProfile.careerObjectiveIsCSuiteRole
           ? intl.formatMessage(employeeProfileMessages.isCSuiteRoleTitle)
-          : intl.formatMessage(commonMessages.notProvided)}
+          : intl.formatMessage(employeeProfileMessages.isNotCSuiteRoleTitle)}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.cSuiteRoleTitle)}

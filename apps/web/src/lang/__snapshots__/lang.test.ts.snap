@@ -3,6 +3,13 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
+    "en": "Education requirement",
+    "fr": [
+      "Exigences en matière d'études",
+      "Exigence d’études"
+    ]
+  },
+  {
     "en": "Work stream information",
     "fr": [
       "Informations sur le volet de travail",
@@ -53,6 +60,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "cloud computing",
+    "fr": [
+      "intégration de systèmes",
+      "l'informatique en nuage;"
+    ]
+  },
+  {
     "en": "Citizenship status",
     "fr": [
       "Statut de citoyenneté",
@@ -92,6 +106,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Exigence linguistique",
       "Exigences relatives à la langue"
+    ]
+  },
+  {
+    "en": "cyber security",
+    "fr": [
+      "la cybersécurité;",
+      "cybersécurité"
     ]
   },
   {
@@ -239,13 +260,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Demander un bon",
       "Demandez un bon"
-    ]
-  },
-  {
-    "en": "Edit off-platform process information",
-    "fr": [
-      "Modifiez les renseignements sur les processus hors plateforme",
-      "Modifier les renseignements sur les processus hors plateforme."
     ]
   },
   {

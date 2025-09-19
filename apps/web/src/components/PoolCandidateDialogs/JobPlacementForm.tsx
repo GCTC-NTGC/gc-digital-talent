@@ -81,6 +81,14 @@ const JobPlacementForm = ({ optionsQuery }: JobPlacementFormProps) => {
         ),
       };
     }
+    if (option.value === PlacementType.PlacedTentative.toString()) {
+      return {
+        ...option,
+        contentBelow: intl.formatMessage(
+          poolCandidateMessages.PlacedTentativeDesc,
+        ),
+      };
+    }
 
     return option;
   });

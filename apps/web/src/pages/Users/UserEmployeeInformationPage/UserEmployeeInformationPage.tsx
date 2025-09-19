@@ -147,9 +147,9 @@ export const UserEmployeeInformation = ({
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
               level="h2"
+              size="h3"
               icon={FlagIcon}
               color="secondary"
-              center
               className="mt-0 font-normal sm:justify-start sm:text-left"
             >
               {intl.formatMessage(commonMessages.communityInterest)}
@@ -203,6 +203,7 @@ export const UserEmployeeInformation = ({
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
             <Heading
               level="h2"
+              size="h3"
               icon={ChartBarSquareIcon}
               color="secondary"
               className="mt-0 font-normal sm:justify-start sm:text-left"

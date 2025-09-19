@@ -6,7 +6,12 @@ import {
   getOperationalRequirement,
   getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
-import { PositionDuration } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  PositionDuration,
+} from "@gc-digital-talent/graphql";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { Ul } from "@gc-digital-talent/ui";
 
@@ -14,26 +19,49 @@ import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import { PartialUser } from "./types";
+export const WorkPreferencesDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment WorkPreferencesDisplay on User {
+    acceptedOperationalRequirements {
+      value
+      label {
+        localized
+      }
+    }
+    positionDuration
+    locationPreferences {
+      value
+      label {
+        localized
+      }
+    }
+    locationExemptions
+    currentCity
+    currentProvince {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface DisplayProps {
-  user: PartialUser;
+  query: FragmentType<typeof WorkPreferencesDisplay_Fragment>;
   labels: FieldLabels;
 }
 
-const Display = ({
-  labels,
-  user: {
+const Display = ({ query, labels }: DisplayProps) => {
+  const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const user = getFragment(WorkPreferencesDisplay_Fragment, query);
+  const {
     acceptedOperationalRequirements,
     positionDuration,
     locationPreferences,
     locationExemptions,
     currentCity,
     currentProvince,
-  },
-}: DisplayProps) => {
-  const intl = useIntl();
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  } = user;
   const locations = locationPreferences?.filter(notEmpty);
   const acceptedRequirements =
     acceptedOperationalRequirements?.filter(notEmpty);
@@ -72,7 +100,11 @@ const Display = ({
         )}
       </div>
       <FieldDisplay label={labels.currentLocation}>
-        {formatLocation({ city: currentCity, region: currentProvince, intl })}
+        {formatLocation({
+          city: currentCity,
+          region: currentProvince,
+          intl,
+        })}
       </FieldDisplay>
       <div>
         <FieldDisplay

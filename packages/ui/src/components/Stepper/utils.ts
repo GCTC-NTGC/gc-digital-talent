@@ -11,7 +11,7 @@ export const step = tv({
   slots: {
     link: "group/step block w-full outline-none focus-visible:bg-transparent!",
     icon: "-top-0.5 left-1/2 size-7 rounded-full",
-    tail: "top-0.5 bottom-auto left-1/2 h-[calc(100%+var(--spacing)*6)] w-0.75",
+    tail: "top-0.5 bottom-auto left-1/2 h-[calc(100%+var(--spacing)*6)] w-0.75 bg-gray-200 dark:bg-gray-600",
     text: "ml-1.5 block pb-6 pl-9 text-black no-underline group-focus-visible/step:underline dark:text-white",
   },
   variants: {
@@ -21,17 +21,14 @@ export const step = tv({
       },
       active: {
         icon: "bg-secondary iap:bg-primary iap:text-white",
-        tail: "bg-gray-100 dark:bg-gray-600",
         text: "font-bold group-hover/step:text-secondary dark:group-hover/step:text-secondary-200",
       },
       "active-error": {
         icon: "bg-error iap:bg-error",
-        tail: "bg-gray-100 dark:bg-gray-600",
         text: "font-bold group-hover/step:text-error dark:group-hover/step:text-error-300",
       },
       error: {
         icon: "bg-error iap:bg-error",
-        tail: "bg-gray-100 dark:bg-gray-600",
         text: "group-hover/step:text-error dark:group-hover/step:text-error-300",
       },
       completed: {
@@ -51,12 +48,12 @@ export const step = tv({
     {
       slots: ["icon", "tail"],
       state: "default",
-      class: "bg-gray-100 dark:bg-gray-600",
+      class: "bg-gray-200 dark:bg-gray-600",
     },
     {
       slots: ["icon", "tail"],
       state: "disabled",
-      class: "bg-gray-100 dark:bg-gray-600",
+      class: "bg-gray-200 dark:bg-gray-600",
     },
   ],
 });
