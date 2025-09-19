@@ -28,12 +28,38 @@ class AuditQueryMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-        if (! is_null($user) && $user->hasRole('platform_admin')) {
-            $referer = request()->headers->get('referer');
-            $message = 'Request from platform admin, '.$user['email'].', '.$referer.',';
-            $this->logger->info(
-                $message.' '.$request->getContent()
-            );
+
+        $elevatedRoles =
+        [
+            'platform_admin',
+            'community_admin',
+            'community_recruiter',
+            'community_talent_coordinator',
+            'process_operator',
+        ];
+
+        if (! is_null($user)) {
+            $applicableRoles = [];
+            foreach ($elevatedRoles as $elevatedRole) {
+                if ($user->hasRole($elevatedRole)) {
+                    array_push($applicableRoles, $elevatedRole);
+                }
+            }
+
+            if (! empty($applicableRoles) && (count($applicableRoles) > 0)) {
+                $rolesString = implode(', ', $applicableRoles);
+
+                $referer = request()->headers->get('referer');
+                $message = 'Request from ['.$rolesString.'], '.$user['email'].', '.$referer.',';
+                $requestContents = $request->getContent();
+
+                // log request, other than notification queries
+                if (! preg_match('/\"operationName\":\"NotificationCount\"/', $requestContents)) {
+                    $this->logger->info(
+                        $message.' '.$requestContents
+                    );
+                }
+            }
         }
 
         return $next($request);
