@@ -37,6 +37,10 @@ import {
   hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
   hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
 } from "~/validators/employeeProfile/goalsWorkStyle";
+import {
+  hasAllEmptyFields as wfaHasAllEmptyFields,
+  hasEmptyRequiredFields as wfaHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/wfa";
 
 import messages from "./messages";
 import GoalsWorkStyleSection, {
@@ -50,6 +54,9 @@ import NextRoleSection, {
 import CareerObjectiveSection, {
   EmployeeProfileCareerObjective_Fragment,
 } from "./components/CareerObjective/CareerObjectiveSection";
+import WfaSection, {
+  EmployeeProfileWfa_Fragment,
+} from "./components/WfaSection/WfaSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -57,6 +64,7 @@ const SECTION_ID = {
   NEXT_ROLE: "next-role-section",
   CAREER_OBJECTIVE: "career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
+  WFA: "wfa-section",
 };
 
 const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
@@ -64,6 +72,7 @@ const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
     ...EmployeeProfileCareerDevelopmentOptions
     ...EmployeeProfileNextRoleOptions
     ...EmployeeProfileCareerObjectiveOptions
+    ...EmployeeWfaOptions
   }
 `);
 
@@ -76,6 +85,7 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
       ...EmployeeProfileNextRole
       ...EmployeeProfileGoalsWorkStyle
     }
+    ...EmployeeProfileWfa
   }
 `);
 
@@ -150,13 +160,15 @@ const EmployeeProfile = ({
     EmployeeProfileGoalsWorkStyle_Fragment,
     user.employeeProfile,
   );
+  const wfa = getFragment(EmployeeProfileWfa_Fragment, user);
 
   let overallStatus: Status = "success";
   if (
     careerDevelopmentHasEmptyRequiredFields(careerDevelopment) ||
     nextRoleHasEmptyRequiredFields(nextRole) ||
     careerObjectiveHasEmptyRequiredFields(careerObjective) ||
-    goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+    goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle) ||
+    wfaHasEmptyRequiredFields(wfa.employeeWFA)
   ) {
     overallStatus = "error";
   }
@@ -274,6 +286,27 @@ const EmployeeProfile = ({
                       )}
                     />
                   </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <StatusItem
+                      asListItem={false}
+                      title={intl.formatMessage(messages.wfa)}
+                      status={
+                        wfaHasEmptyRequiredFields(wfa.employeeWFA)
+                          ? "error"
+                          : wfaHasAllEmptyFields(wfa.employeeWFA)
+                            ? "optional"
+                            : "success"
+                      }
+                      scrollTo={SECTION_ID.GOALS_WORK_STYLE}
+                      hiddenContextPrefix={intl.formatMessage(
+                        wfaHasEmptyRequiredFields(wfa.employeeWFA)
+                          ? commonMessages.incomplete
+                          : wfaHasAllEmptyFields(wfa.employeeWFA)
+                            ? commonMessages.optional
+                            : commonMessages.complete,
+                      )}
+                    />
+                  </TableOfContents.ListItem>
                 </TableOfContents.List>
               </TableOfContents.ListItem>
             </TableOfContents.List>
@@ -322,6 +355,9 @@ const EmployeeProfile = ({
                 <GoalsWorkStyleSection
                   employeeProfileQuery={user.employeeProfile}
                 />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.WFA}>
+                <WfaSection employeeWfaQuery={user} optionsQuery={options} />
               </TableOfContents.Section>
             </div>
           </TableOfContents.Content>
