@@ -86,12 +86,12 @@ const SubstantiveExperiences = ({ query }: SubstantiveExperiencesProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-y-3">
+      <div className="mb-6 flex flex-col gap-y-3">
         {experiences.map((exp) => (
           <ExperienceCard key={exp.id} experienceQuery={exp} showEdit={false} />
         ))}
         {!isCPA && (
-          <Warning>
+          <Warning className="mb-0">
             <p>
               {intl.formatMessage({
                 defaultMessage: "This position is not with a CPA department",

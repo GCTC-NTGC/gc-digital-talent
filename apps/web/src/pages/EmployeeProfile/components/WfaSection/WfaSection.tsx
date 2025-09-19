@@ -27,6 +27,7 @@ import {
   commonMessages,
   errorMessages,
   formMessages,
+  getWfaInterestFirstPerson,
   narrowEnumType,
 } from "@gc-digital-talent/i18n";
 
@@ -171,9 +172,9 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
   const wfaInterests = narrowEnumType(
     unpackMaybes(options.wfaInterests),
     "WfaInterest",
-  ).map(({ value, label }: LocalizedWfaInterest) => ({
+  ).map(({ value }: LocalizedWfaInterest) => ({
     value,
-    label: label?.localized ?? intl.formatMessage(commonMessages.notAvailable),
+    label: intl.formatMessage(getWfaInterestFirstPerson(value)),
   }));
 
   const communityInterests = unpackMaybes(
