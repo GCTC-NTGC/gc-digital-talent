@@ -285,15 +285,11 @@ export const EmailVerificationDialog = ({
         <Dialog.Header
           subtitle={intl.formatMessage(subtitles[dialogEmailType])}
         >
-          {
-            <h2 className="text-lg font-bold">
-              {intl.formatMessage({
-                defaultMessage: "Email verification",
-                id: "7Q61+y",
-                description: "Title for email verification dialog",
-              })}
-            </h2>
-          }
+          {intl.formatMessage({
+            defaultMessage: "Email verification",
+            id: "7Q61+y",
+            description: "Title for email verification dialog",
+          })}
         </Dialog.Header>
         <Dialog.Body>
           {/* "Request a code" part of dialog */}
