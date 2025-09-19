@@ -51,9 +51,14 @@ class AuditQueryMiddleware
 
                 $referer = request()->headers->get('referer');
                 $message = 'Request from ['.$rolesString.'], '.$user['email'].', '.$referer.',';
-                $this->logger->info(
-                    $message.' '.$request->getContent()
-                );
+                $requestContents = $request->getContent();
+
+                // log request, other than notification queries
+                if(! preg_match('/\"operationName\":\"NotificationCount\"/', $requestContents)) {
+                    $this->logger->info(
+                        $message.' '.$requestContents
+                    );
+                 }
             }
         }
 
