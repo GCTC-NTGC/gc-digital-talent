@@ -8,13 +8,20 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  LocalizedWfaInterest,
   Maybe,
   Scalars,
   WfaInterest,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { Button, Heading, ToggleSection } from "@gc-digital-talent/ui";
-import { RadioGroup, Submit } from "@gc-digital-talent/forms";
+import {
+  Button,
+  Heading,
+  Link,
+  ToggleSection,
+  Ul,
+} from "@gc-digital-talent/ui";
+import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -26,9 +33,12 @@ import {
 import { hasAllEmptyFields } from "~/validators/employeeProfile/wfa";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useRoutes from "~/hooks/useRoutes";
 
 import messages from "../../messages";
 import Display from "./Display";
+import SubstantiveExperiences from "./SubstantiveExperiences";
+import Warning from "./Warning";
 
 const EmployeeWfaOptions_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeWfaOptions on Query {
@@ -57,6 +67,7 @@ export const EmployeeProfileWfa_Fragment = graphql(/** GraphQL */ `
     }
     currentSubstantiveExperiences {
       id
+      ...SubstantiveExperiences
       ...ExperienceCard
     }
     employeeProfile {
@@ -103,6 +114,7 @@ interface WfaSectionProps {
 
 const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const [{ fetching }, executeMutation] = useMutation(
     UpdateEmployeeWfa_Mutation,
   );
@@ -120,6 +132,9 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(user?.employeeWFA),
   });
+  const { watch, handleSubmit } = methods;
+
+  const interest = watch("wfaInterest");
 
   const handleError = () => {
     toast.error(
@@ -156,10 +171,14 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
   const wfaInterests = narrowEnumType(
     unpackMaybes(options.wfaInterests),
     "WfaInterest",
-  ).map(({ value, label }) => ({
+  ).map(({ value, label }: LocalizedWfaInterest) => ({
     value,
-    label: label.localized ?? intl.formatMessage(commonMessages.notAvailable),
+    label: label?.localized ?? intl.formatMessage(commonMessages.notAvailable),
   }));
+
+  const communityInterests = unpackMaybes(
+    user.employeeProfile?.communityInterests,
+  );
 
   return (
     <ToggleSection.Root
@@ -187,8 +206,8 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(handleSave)}>
-              <Heading level="h4" size="h5" className="mt-0">
+            <form onSubmit={handleSubmit(handleSave)}>
+              <Heading level="h4" size="h5" className="mt-0 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Workforce adjustment information",
                   id: "9+lpKK",
@@ -203,7 +222,117 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 items={wfaInterests}
               />
-              <div className="flex flex-wrap items-center gap-6">
+              {interest && interest !== WfaInterest.NotApplicable && (
+                <>
+                  <Heading level="h4" size="h5" className="font-bold">
+                    {intl.formatMessage({
+                      defaultMessage: "Key details",
+                      id: "hoCTmy",
+                      description:
+                        "Title for key details related to workfoce adjustment",
+                    })}
+                  </Heading>
+                  <p className="my-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "To be able to support you in the best way possible, it’s crucial to verify that the information about your current position is up to date.",
+                      id: "e4uyTF",
+                      description:
+                        "Description for the key details of workforce adjustment",
+                    })}
+                  </p>
+                  <Heading level="h5" size="h6">
+                    {intl.formatMessage(messages.currentSubstantivePosition)}
+                  </Heading>
+                  <SubstantiveExperiences
+                    query={unpackMaybes(user.currentSubstantiveExperiences)}
+                  />
+                  <DateInput
+                    name="wfaDate"
+                    id="wfaDate"
+                    legend={intl.formatMessage(messages.expectedEndDate)}
+                    content={intl.formatMessage({
+                      defaultMessage:
+                        "If possible, verify your expected end date.",
+                      id: "qDzAG6",
+                      description: "Help text for the wfa expected end date",
+                    })}
+                  />
+                  <Heading level="h5" size="h6">
+                    {intl.formatMessage(messages.currentCommunity)}
+                  </Heading>
+                  {communityInterests.length > 0 ? (
+                    <Ul space="sm">
+                      {communityInterests.map((ci) => (
+                        <li key={ci.community.id}>
+                          {ci?.community?.name?.localized ??
+                            intl.formatMessage(commonMessages.notAvailable)}
+                        </li>
+                      ))}
+                    </Ul>
+                  ) : (
+                    <Warning>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Missing functional community",
+                          id: "3QXxlE",
+                          description:
+                            "Title for when a user is missing a functional community",
+                        })}
+                      </p>
+                      <p className="mb-6">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "This functionality is managed by recruitment teams from our functional communities. Add the relevant functional communities to your profile so that they’ll see your workforce adjustment information.",
+                          id: "76I4K2",
+                          description:
+                            "Help text for resolving missing community warning",
+                        })}
+                      </p>
+                      <Link
+                        color="warning"
+                        mode="inline"
+                        href={`${paths.createCommunityInterest()}?from=${paths.employeeProfile()}`}
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Add a functional community",
+                          id: "XE8xbj",
+                          description:
+                            "Link text to add a functional community",
+                        })}
+                      </Link>
+                    </Warning>
+                  )}
+                  <Heading level="h5" size="h6">
+                    {intl.formatMessage({
+                      defaultMessage: "Privacy and confidentiality",
+                      id: "2Csd16",
+                      description:
+                        "Title for the privacy and confidentiality section of wfa form",
+                    })}
+                  </Heading>
+                  <p className="my-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "We know that workforce adjustment is a vulnerable time and we’re committed to treating your information with the utmost care and confidentiality.",
+                      id: "VjMgWb",
+                      description:
+                        "Paragraph one for privacy and confidentiality section of wfa form",
+                    })}
+                  </p>
+                  <p className="my-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The information you share here will only be visible to a small group of authorized administrators, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you’ve added to your profile. <strong>This information will not be made public anywhere on the platform nor will they contact your manager or department without your explicit consent</strong>.",
+                      id: "rl7hQk",
+                      description:
+                        "Paragraph two for privacy and confidentiality section of wfa form",
+                    })}
+                  </p>
+                </>
+              )}
+
+              <div className="mt-6 flex flex-wrap items-center gap-6">
                 <Submit
                   text={intl.formatMessage(formMessages.saveChanges)}
                   aria-label={intl.formatMessage({

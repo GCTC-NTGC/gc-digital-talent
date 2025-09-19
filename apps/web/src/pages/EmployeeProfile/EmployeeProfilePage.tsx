@@ -297,7 +297,7 @@ const EmployeeProfile = ({
                             ? "optional"
                             : "success"
                       }
-                      scrollTo={SECTION_ID.GOALS_WORK_STYLE}
+                      scrollTo={SECTION_ID.WFA}
                       hiddenContextPrefix={intl.formatMessage(
                         wfaHasEmptyRequiredFields(wfa.employeeWFA)
                           ? commonMessages.incomplete

@@ -48,7 +48,7 @@ const Display = ({ user }: DisplayProps) => {
               label={intl.formatMessage(messages.currentSubstantivePosition)}
             >
               {experiences.length > 0 ? (
-                <div className="flex flex-col gap-y-3">
+                <div className="mt-3 flex flex-col gap-y-3">
                   {experiences.map((exp) => (
                     <ExperienceCard
                       key={exp.id}
