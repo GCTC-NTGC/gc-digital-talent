@@ -907,6 +907,13 @@ type UserFileGenerationErrorNotification implements Notification {
   fileName: String
 }
 
+type MigrateOffPlatformProcessesNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email
