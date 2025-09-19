@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\WfaInterest;
 use App\Models\User;
 
 class UserObserver
@@ -19,9 +20,10 @@ class UserObserver
         if ($user->isDirty(['wfa_date', 'wfa_interest'])) {
             $newInterest = $user->wfa_interest;
 
-            if (is_null($newInterest)) {
+            if (is_null($newInterest) || $newInterest === WfaInterest::NOT_APPLICABLE->name) {
                 $user->wfa_date = null;
             }
+
             $user->wfa_updated_at = now();
         }
     }
