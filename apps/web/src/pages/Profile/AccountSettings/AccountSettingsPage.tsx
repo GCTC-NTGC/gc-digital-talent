@@ -4,14 +4,17 @@ import { useQuery } from "urql";
 import { ReactNode } from "react";
 
 import {
+  Button,
   Container,
   Pending,
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -19,6 +22,7 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import EmailVerificationDialog from "~/components/EmailVerification/EmailVerificationDialog";
 
 import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";
@@ -27,6 +31,8 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
   query AccountSettings {
     me {
       id
+      email
+      workEmail
       enabledEmailNotifications
       enabledInAppNotifications
     }
@@ -59,6 +65,11 @@ const AccountSettingsPage = () => {
   const [{ data, fetching, error }] = useQuery({
     query: AccountSettings_Query,
   });
+
+  // hide dialog triggers unless wanting to test them
+  const searchParams = new URLSearchParams(window.location.search);
+  const showTestDialogTriggers =
+    searchParams.get("test-dialog-triggers") === "true";
 
   const enabledEmailNotifications = unpackMaybes(
     data?.me?.enabledEmailNotifications,
@@ -136,6 +147,60 @@ const AccountSettingsPage = () => {
                   >
                     {sections.accountManagement.title}
                   </TableOfContents.Heading>
+                  {showTestDialogTriggers ? (
+                    <>
+                      <p>
+                        {intl.formatMessage(commonMessages.email)}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                        {data.me.email}
+                      </p>
+                      <p>
+                        <EmailVerificationDialog
+                          defaultOpen={false}
+                          emailType={EmailType.Contact}
+                          emailAddress={data.me.email}
+                          onVerificationSuccess={function (): void {
+                            toast.info(
+                              "EmailVerificationDialog contact onVerificationSuccess",
+                            );
+                          }}
+                        >
+                          <Button mode="inline">
+                            {intl.formatMessage({
+                              defaultMessage: "Update contact email",
+                              id: "Xc3Y7t",
+                              description: "Link to update the contact email",
+                            })}
+                          </Button>
+                        </EmailVerificationDialog>
+                      </p>
+                      <p>
+                        {intl.formatMessage(commonMessages.workEmail)}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                        {data.me.workEmail}
+                      </p>
+                      <p>
+                        <EmailVerificationDialog
+                          defaultOpen={false}
+                          emailType={EmailType.Work}
+                          emailAddress={data.me.workEmail}
+                          onVerificationSuccess={function (): void {
+                            toast.info(
+                              "EmailVerificationDialog work onVerificationSuccess",
+                            );
+                          }}
+                        >
+                          <Button mode="inline">
+                            {intl.formatMessage({
+                              defaultMessage: "Verify a GC work email",
+                              id: "Vd9VIn",
+                              description: "Link to update the work email",
+                            })}
+                          </Button>
+                        </EmailVerificationDialog>
+                      </p>
+                    </>
+                  ) : null}
                   <p className="mb-6">
                     {intl.formatMessage({
                       defaultMessage:
