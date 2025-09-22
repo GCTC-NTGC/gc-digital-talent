@@ -13,8 +13,12 @@ import {
   WorkforceAdjustmentRowFragment,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  getEmploymentEquityGroup,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import Table, {
@@ -25,6 +29,8 @@ import useRoutes from "~/hooks/useRoutes";
 import { getClassificationName } from "~/utils/poolUtils";
 import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
+import pageTitles from "~/messages/pageTitles";
+import profileMessages from "~/messages/profileMessages";
 
 const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
   fragment WorkforceAdjustmentRow on UserEmployeeWFA {
@@ -72,6 +78,16 @@ const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
     isVisibleMinority
     indigenousCommunities {
       value
+    }
+    acceptedOperationalRequirements {
+      label {
+        localized
+      }
+    }
+    locationPreferences {
+      label {
+        localized
+      }
     }
     userSkills {
       skill {
@@ -210,15 +226,138 @@ const WorkforceAdjustmentTable = () => {
         enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "WFA status updated date",
-          id: "Rix3Ze",
+          id: "H7dCJ/",
           description:
-            "Column title for what the employee WFa info was last updated",
+            "Column title for what the employee WFA info was last updated",
         }),
         cell: ({
           row: {
             original: { employeeWFA },
           },
         }) => cells.date(employeeWFA?.wfaUpdatedAt, intl),
+      },
+    ),
+    columnHelper.accessor(
+      ({ employeeWFA }) => accessors.date(employeeWFA?.wfaDate),
+      {
+        id: "wfaDate",
+        enableColumnFilter: false,
+        header: intl.formatMessage({
+          defaultMessage: "Position end date",
+          id: "O4dmgB",
+          description:
+            "Column title for when a WFA employee expects to end their position",
+        }),
+        cell: ({
+          row: {
+            original: { employeeWFA },
+          },
+        }) => cells.date(employeeWFA?.wfaDate, intl),
+      },
+    ),
+    columnHelper.accessor(({ department }) => department?.name.localized, {
+      id: "department",
+      enableColumnFilter: false,
+      header: intl.formatMessage({
+        defaultMessage: "Employee department",
+        id: "p/a8C6",
+        description: "Column title for an employees department",
+      }),
+    }),
+    columnHelper.accessor(
+      ({ communityInterests }) => {
+        const streams = unpackMaybes(
+          communityInterests?.flatMap((interest) =>
+            interest.community.workStreams?.flatMap(
+              (stream) => stream.name?.localized,
+            ),
+          ),
+        );
+
+        return uniqueItems(streams).join(", ");
+      },
+      {
+        id: "workStreams",
+        enableColumnFilter: false,
+        enableSorting: false,
+        header: intl.formatMessage(pageTitles.workStreams),
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        isWoman,
+        isVisibleMinority,
+        hasDisability,
+        indigenousCommunities,
+      }) => {
+        let equity: string[] = [];
+        if (isWoman) {
+          equity = [
+            ...equity,
+            intl.formatMessage(getEmploymentEquityGroup("woman")),
+          ];
+        }
+
+        if (isVisibleMinority) {
+          equity = [
+            ...equity,
+            intl.formatMessage(getEmploymentEquityGroup("minority")),
+          ];
+        }
+
+        if (hasDisability) {
+          equity = [
+            ...equity,
+            intl.formatMessage(getEmploymentEquityGroup("disability")),
+          ];
+        }
+
+        if (indigenousCommunities && indigenousCommunities?.length > 0) {
+          equity = [
+            ...equity,
+            intl.formatMessage(getEmploymentEquityGroup("indigenous")),
+          ];
+        }
+
+        return equity.join(", ");
+      },
+      {
+        id: "employmentEquity",
+        enableColumnFilter: false,
+        enableSorting: false,
+        header: intl.formatMessage(commonMessages.employmentEquity),
+      },
+    ),
+    columnHelper.accessor(
+      ({ acceptedOperationalRequirements }) =>
+        unpackMaybes(
+          acceptedOperationalRequirements?.flatMap(
+            (pref) => pref?.label.localized,
+          ),
+        ).join(", "),
+      {
+        id: "workPreferences",
+        header: intl.formatMessage(navigationMessages.workPreferences),
+      },
+    ),
+    columnHelper.accessor(
+      ({ locationPreferences }) =>
+        unpackMaybes(
+          locationPreferences?.flatMap((pref) => pref?.label.localized),
+        ).join(", "),
+      {
+        id: "locationPreferences",
+        header: intl.formatMessage(profileMessages.workLocationPreferences),
+      },
+    ),
+    columnHelper.accessor(
+      ({ userSkills }) =>
+        unpackMaybes(
+          userSkills?.flatMap((userSkill) => userSkill?.skill.name.localized),
+        ).join(", "),
+      {
+        id: "skills",
+        header: intl.formatMessage(navigationMessages.skills),
       },
     ),
   ] as ColumnDef<WorkforceAdjustmentRowFragment>[];
@@ -229,10 +368,20 @@ const WorkforceAdjustmentTable = () => {
       columns={columns}
       isLoading={fetching}
       caption={intl.formatMessage({
-        defaultMessage: "Employee WFA",
-        id: "mVvkCz",
+        defaultMessage:
+          "Information about employees’ workforce adjustment situation",
+        id: "pOR8Lg",
         description: "Caption for the workforce adjustment table",
       })}
+      hiddenColumnIds={[
+        "wfaDate",
+        "department",
+        "workStreams",
+        "employmentEquity",
+        "workPreferences",
+        "locationPreferences",
+        "skills",
+      ]}
       pagination={{
         internal: false,
         initialState: INITIAL_STATE.paginationState,
