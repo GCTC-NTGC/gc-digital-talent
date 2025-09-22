@@ -1,10 +1,19 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import {
+  EmploymentCategory,
+  GovPositionType,
+  User,
+  WorkExperienceGovEmployeeType,
+} from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import EmployeeProfile, {
   EMPLOYEE_PROFILE_FORM,
 } from "~/fixtures/EmployeeProfile";
 import { loginBySub } from "~/utils/auth";
+import { getClassifications } from "~/utils/classification";
+import { getDepartments } from "~/utils/departments";
+import { createWorkExperience } from "~/utils/experiences";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles } from "~/utils/user";
@@ -12,13 +21,14 @@ import { createUserWithRoles } from "~/utils/user";
 test.describe("Employee Profile", () => {
   let uniqueTestId: string;
   let sub: string;
+  let user: User | undefined;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
-    await createUserWithRoles(adminCtx, {
+    user = await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
         sub,
@@ -331,6 +341,67 @@ test.describe("Employee Profile", () => {
       await expect(
         employeeProfile.page.getByText(/missing a substantive experience/i),
       ).toBeVisible();
+    });
+
+    test("Warning with no communities", async ({ appPage }) => {
+      const employeeProfile = new EmployeeProfile(appPage.page);
+      await loginBySub(employeeProfile.page, sub);
+      await employeeProfile.goToEmployeeProfile();
+
+      await employeeProfile.toggleForm(EMPLOYEE_PROFILE_FORM.Wfa);
+
+      await employeeProfile.page
+        .getByRole("radio", { name: /i believe my position may be affected/i })
+        .click();
+
+      await expect(
+        employeeProfile.page.getByText(/missing functional community/i),
+      ).toBeVisible();
+    });
+
+    test("Success with substantive experience", async ({ appPage }) => {
+      const ctx = await graphql.newContext(sub);
+      const departments = await getDepartments(ctx, {});
+      const classifications = await getClassifications(ctx, {});
+
+      await createWorkExperience(ctx, {
+        userId: user?.id ?? "",
+        workExperience: {
+          startDate: "2020-01-01",
+          employmentCategory: EmploymentCategory.GovernmentOfCanada,
+          govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
+          govPositionType: GovPositionType.Substantive,
+          departmentId: departments[0].id,
+          classificationId: classifications[0].id,
+        },
+      });
+
+      const employeeProfile = new EmployeeProfile(appPage.page);
+      await loginBySub(employeeProfile.page, sub);
+      await employeeProfile.goToEmployeeProfile();
+
+      await employeeProfile.toggleForm(EMPLOYEE_PROFILE_FORM.Wfa);
+      await employeeProfile.page
+        .getByRole("radio", { name: /i believe my position may be affected/i })
+        .click();
+
+      const endDate = employeeProfile.page.getByRole("group", {
+        name: /expected end date/i,
+      });
+      await endDate.getByRole("spinbutton", { name: /year/i }).fill("2999");
+      await endDate
+        .getByRole("combobox", { name: /month/i })
+        .selectOption("01");
+      await endDate.getByRole("spinbutton", { name: /day/i }).fill("01");
+
+      await employeeProfile.page
+        .getByRole("button", { name: /save workforce adjustment/i })
+        .click();
+      await employeeProfile.waitForGraphqlResponse("UpdateEmployeeWfa");
+
+      await expect(
+        employeeProfile.page.getByRole("alert").last(),
+      ).toContainText(/workforce adjustment information updated successfully/);
     });
   });
 });
