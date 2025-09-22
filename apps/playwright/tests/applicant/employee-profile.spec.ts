@@ -2,7 +2,6 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import {
   EmploymentCategory,
   GovPositionType,
-  User,
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 
@@ -338,7 +337,7 @@ test.describe("Employee Profile", () => {
         .click();
 
       await expect(
-        employeeProfile.page.getByText(/missing a substantive experience/i),
+        employeeProfile.page.getByText(/missing a substantive position/i),
       ).toBeVisible();
     });
 
