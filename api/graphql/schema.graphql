@@ -418,6 +418,8 @@ type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
     @rename(attribute: "second_language_exam_validity")
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
     @rename(attribute: "estimated_language_ability")
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
+    @rename(attribute: "accepted_operational_requirements")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")

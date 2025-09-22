@@ -965,6 +965,7 @@ type UserEmployeeWFA {
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
   locationExemptions: String
   userSkills(includeSkillIds: [UUID]): [UserSkill]
