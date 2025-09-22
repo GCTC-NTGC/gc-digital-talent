@@ -33,7 +33,7 @@ describe("Stepper", () => {
 
     // 5 total steps, default index set should be 4th step
     const step = await screen.findByRole("link", {
-      name: "Step, current, Step Five",
+      name: "Step Five",
     });
 
     expect(step).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe("Stepper", () => {
     });
 
     const stepOne = await screen.findByRole("link", {
-      name: "Step, current, Step One",
+      name: "Step One",
     });
 
     expect(stepOne).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe("Stepper", () => {
     rerender(<Stepper {...defaultProps} currentIndex={1} />);
 
     const stepTwo = await screen.findByRole("link", {
-      name: "Step, current, Step Two",
+      name: "Step error, Step Two",
     });
 
     expect(stepTwo).toBeInTheDocument();

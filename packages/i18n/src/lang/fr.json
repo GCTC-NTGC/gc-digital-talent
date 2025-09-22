@@ -87,10 +87,6 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Title of IT Apprenticeship Program for Indigenous Peoples"
   },
-  "0bcof1": {
-    "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
-    "description": "Prefix when a step is the currently active one."
-  },
   "0ieoVD": {
     "defaultMessage": "Chargement des résultats…",
     "description": "Message to display when a search is currently loading results."
@@ -334,10 +330,6 @@
   "9wqUyU": {
     "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
     "description": "Error message that contact email for this process must be filled"
-  },
-  "9zyjjw": {
-    "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
-    "description": "Prefix when a step has been completed."
   },
   "A1fb/r": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
@@ -735,6 +727,10 @@
     "defaultMessage": "Accepté",
     "description": "Indicates a user has accepted some criteria"
   },
+  "Q6sBsq": {
+    "defaultMessage": "Étape complétée, {label}",
+    "description": "Prefix when a step has been completed."
+  },
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
     "description": "The operational requirement described as regular overtime."
@@ -818,6 +814,10 @@
   "TCs69O": {
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
+  },
+  "TJ7su7": {
+    "defaultMessage": "Erreur au niveau de l’étape, {label}",
+    "description": "Prefix when a step has an error."
   },
   "TO/Q6I": {
     "defaultMessage": "Femme",
@@ -1590,10 +1590,6 @@
   "sbmUVq": {
     "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
     "description": "Prompt text for a user selecting an employment equity group for their profile"
-  },
-  "sfQN9S": {
-    "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
-    "description": "Prefix when a step has an error."
   },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
