@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Enums\WfaInterest;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 
 class UserObserver
 {
@@ -21,7 +20,7 @@ class UserObserver
         $interestDirty = $user->isDirty('wfa_interest');
         $wfaDateDirty = $user->isDirty('wfa_date');
 
-        if($interestDirty || $wfaDateDirty) {
+        if ($interestDirty || $wfaDateDirty) {
             $user->wfa_updated_at = now();
         }
 
