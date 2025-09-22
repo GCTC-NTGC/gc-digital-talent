@@ -12,6 +12,7 @@ use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Notifications\VerifyEmail;
+use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
@@ -185,6 +186,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function newEloquentBuilder($query): Builder
     {
         return new UserBuilder($query);
+    }
+
+    /**
+     * The "booted" method of the model.
+     * Activates the Observer class
+     */
+    protected static function booted(): void
+    {
+        User::observe(UserObserver::class);
     }
 
     /**

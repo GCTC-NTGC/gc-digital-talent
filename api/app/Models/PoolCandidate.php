@@ -178,7 +178,7 @@ class PoolCandidate extends Model
     /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
-        return $this->belongsTo(Pool::class)->select(Pool::getSelectableColumns())->withTrashed();
+        return $this->belongsTo(Pool::class)->withTrashed();
     }
 
     /** @return BelongsTo<Department, $this> */
