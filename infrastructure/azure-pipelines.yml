@@ -50,6 +50,10 @@ jobs:
           # Vite requires build-time variable to have the VITE_ prefix
           VITE_API_URI: /graphql
           VITE_API_PROTECTED_URI: /admin/graphql
+          VITE_APP_URL:
+          VITE_APP_TITLE:
+          VITE_APP_DESCRIPTION:
+          VITE_APP_DOMAIN:
 
       - task: CopyFiles@2
         displayName: "Copy files to staging directory"
