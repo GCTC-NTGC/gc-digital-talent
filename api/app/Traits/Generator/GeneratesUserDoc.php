@@ -371,7 +371,8 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
             $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
-             if ($withSkills) {
+
+            if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
 
                 if ($experience->userSkills->count() > 0) {
