@@ -13,7 +13,7 @@ import EmployeeProfile, {
 import { loginBySub } from "~/utils/auth";
 import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
-import { createWorkExperience } from "~/utils/experiences";
+import { defaultWorkExperience } from "~/utils/experiences";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles } from "~/utils/user";
@@ -21,14 +21,13 @@ import { createUserWithRoles } from "~/utils/user";
 test.describe("Employee Profile", () => {
   let uniqueTestId: string;
   let sub: string;
-  let user: User | undefined;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
-    user = await createUserWithRoles(adminCtx, {
+    await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
         sub,
@@ -360,20 +359,33 @@ test.describe("Employee Profile", () => {
     });
 
     test("Success with substantive experience", async ({ appPage }) => {
-      const ctx = await graphql.newContext(sub);
-      const departments = await getDepartments(ctx, {});
-      const classifications = await getClassifications(ctx, {});
+      const adminCtx = await graphql.newContext();
+      const departments = await getDepartments(adminCtx, {});
+      const classifications = await getClassifications(adminCtx, {});
+      const expSub = `playwright.sub.experiences.${uniqueTestId}`;
 
-      await createWorkExperience(ctx, {
-        userId: user?.id ?? "",
-        workExperience: {
-          startDate: "2020-01-01",
-          employmentCategory: EmploymentCategory.GovernmentOfCanada,
-          govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
-          govPositionType: GovPositionType.Substantive,
-          departmentId: departments[0].id,
-          classificationId: classifications[0].id,
+      await createUserWithRoles(adminCtx, {
+        user: {
+          email: `${expSub}-with-experiences@example.org`,
+          sub: expSub,
+          isGovEmployee: true,
+          workEmail: `${sub}@gc.ca`,
+          workEmailVerifiedAt: nowUTCDateTime(),
+          workExperiences: {
+            create: [
+              {
+                ...defaultWorkExperience,
+                startDate: "2020-01-01",
+                employmentCategory: EmploymentCategory.GovernmentOfCanada,
+                govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
+                govPositionType: GovPositionType.Substantive,
+                departmentId: departments[0].id,
+                classificationId: classifications[0].id,
+              },
+            ],
+          },
         },
+        roles: ["guest", "base_user", "applicant"],
       });
 
       const employeeProfile = new EmployeeProfile(appPage.page);
