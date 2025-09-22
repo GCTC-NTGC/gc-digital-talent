@@ -341,9 +341,41 @@ test.describe("Employee Profile", () => {
       ).toBeVisible();
     });
 
-    test("Warning with no communities", async ({ appPage }) => {
+    test("Warning with no communities or CPA department", async ({ appPage }) => {
+      const adminCtx = await graphql.newContext();
+      const classifications = await getClassifications(adminCtx, {});
+      const departments = await getDepartments(adminCtx, {});
+      const nonCPADept = departments.find((dep) => !dep.isCorePublicAdministration);
+      const nonCPASub = `playwright.sub.nonCPA.${uniqueTestId}`;
+
+      await createUserWithRoles(adminCtx, {
+        user: {
+          email: `${nonCPASub}-nonCPA@example.org`,
+          sub: nonCPASub,
+          isGovEmployee: true,
+          workEmail: `${sub}-nonCPA@gc.ca`,
+          workEmailVerifiedAt: nowUTCDateTime(),
+          workExperiences: {
+            create: [
+              {
+                ...defaultWorkExperience,
+                startDate: "2020-01-01",
+                employmentCategory: EmploymentCategory.GovernmentOfCanada,
+                govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
+                govPositionType: GovPositionType.Substantive,
+                departmentId: nonCPADept?.id,
+                classificationId: classifications[0].id,
+              },
+            ],
+          },
+        },
+        roles: ["guest", "base_user", "applicant"],
+      });
+
+
+
       const employeeProfile = new EmployeeProfile(appPage.page);
-      await loginBySub(employeeProfile.page, sub);
+      await loginBySub(employeeProfile.page, nonCPASub);
       await employeeProfile.goToEmployeeProfile();
 
       await employeeProfile.toggleForm(EMPLOYEE_PROFILE_FORM.Wfa);
@@ -352,6 +384,10 @@ test.describe("Employee Profile", () => {
         .getByRole("radio", { name: /i believe my position may be affected/i })
         .click();
 
+
+      await expect(
+        employeeProfile.page.getByText(/this position is not with a cpa department/i),
+      ).toBeVisible();
       await expect(
         employeeProfile.page.getByText(/missing functional community/i),
       ).toBeVisible();
@@ -368,7 +404,7 @@ test.describe("Employee Profile", () => {
           email: `${expSub}-with-experiences@example.org`,
           sub: expSub,
           isGovEmployee: true,
-          workEmail: `${sub}@gc.ca`,
+          workEmail: `${sub}-with-experiences@gc.ca`,
           workEmailVerifiedAt: nowUTCDateTime(),
           workExperiences: {
             create: [
@@ -388,7 +424,7 @@ test.describe("Employee Profile", () => {
       });
 
       const employeeProfile = new EmployeeProfile(appPage.page);
-      await loginBySub(employeeProfile.page, sub);
+      await loginBySub(employeeProfile.page, expSub);
       await employeeProfile.goToEmployeeProfile();
 
       await employeeProfile.toggleForm(EMPLOYEE_PROFILE_FORM.Wfa);
@@ -412,7 +448,7 @@ test.describe("Employee Profile", () => {
 
       await expect(
         employeeProfile.page.getByRole("alert").last(),
-      ).toContainText(/workforce adjustment information updated successfully/);
+      ).toContainText(/workforce adjustment information updated successfully/i);
     });
   });
 });
