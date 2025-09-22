@@ -11,6 +11,8 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
+import WorkforceAdjustmentTable from "./components/WorkforceAdjustmentTable";
+
 const IndexWorkforceAdjustmentPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -42,7 +44,7 @@ const IndexWorkforceAdjustmentPage = () => {
       <SEO title={pageTitle} description={description} />
       <Hero title={pageTitle} subtitle={description} crumbs={crumbs} />
       <Container size="full" className="my-18">
-        {/** <WorkforceAdjustmentTable /> */}
+        <WorkforceAdjustmentTable />
       </Container>
     </>
   );
