@@ -61,6 +61,7 @@ const Step = ({
   const Icon = getIconFromState(state);
   const message = messageMap.get(state);
   const { link, icon, tail, text } = step({ state });
+  const ariaLabel = message ? intl.formatMessage(message, { label }) : label;
 
   return (
     <li className="relative">
@@ -69,6 +70,7 @@ const Step = ({
         state={state}
         preventDisable={preventDisable}
         className={link()}
+        aria-label={ariaLabel}
       >
         <span className="absolute -top-0.5 left-0 h-full w-9">
           {!last && <div className={tail()} />}
@@ -82,9 +84,7 @@ const Step = ({
             )}
           </span>
         </span>
-        <span className={text()}>
-          {message ? intl.formatMessage(message, { label }) : label}
-        </span>
+        <span className={text()}>{label}</span>
       </StepLink>
     </li>
   );

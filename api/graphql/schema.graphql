@@ -2993,6 +2993,11 @@ input UpdateJobPosterTemplateInput @validator {
   jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
 }
 
+input SendUserEmailsVerificationInput @validator {
+  emailAddress: String!
+  emailTypes: [EmailType]
+}
+
 type Mutation {
   # User mutations
   createUser(user: CreateUserInput! @spread): User
@@ -3075,8 +3080,16 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
+
+  # Older style where email address must be saved ahead of time and only a single email type at a time.  Will probably be deprecated soon.
   sendUserEmailVerification(emailType: EmailType): User @guard
   verifyUserEmail(emailType: EmailType, code: String!): User @guard
+
+  # Newer style where address can be verified before saving it.
+  sendUserEmailsVerification(
+    sendUserEmailsVerificationInput: SendUserEmailsVerificationInput! @spread
+  ): User @guard
+  verifyUserEmails(code: String!): User @guard
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(

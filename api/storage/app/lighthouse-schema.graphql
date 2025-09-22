@@ -552,6 +552,8 @@ type Mutation {
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User
   verifyUserEmail(emailType: EmailType, code: String!): User
+  sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
+  verifyUserEmails(code: String!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
@@ -2804,6 +2806,11 @@ input UpdateJobPosterTemplateInput {
   nonessentialTechnicalSkillsNotes: LocalizedStringInput
   classification: ClassificationBelongsTo
   jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
+}
+
+input SendUserEmailsVerificationInput {
+  emailAddress: String!
+  emailTypes: [EmailType]
 }
 
 "Information about pagination using a fully featured paginator."

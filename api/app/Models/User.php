@@ -12,7 +12,6 @@ use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Notifications\VerifyEmail;
-use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
@@ -651,14 +650,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         });
     }
 
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
-    {
-        User::observe(UserObserver::class);
-    }
-
     // Prepares the parameters for Laratrust and then calls the function to modify the roles
     private function callRolesFunction($roleInput, $functionName)
     {
@@ -801,6 +792,24 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasVerifiedEmail(EmailType::WORK);
     }
 
+    /*
+    * Set the contact email address and verified_at together at the same time
+    */
+    public function setVerifiedContactEmail(string $emailAddress)
+    {
+        $this->email = $emailAddress;
+        $this->email_verified_at = Carbon::now();
+    }
+
+    /*
+    * Set the work email address and verified_at together at the same time
+    */
+    public function setVerifiedWorkEmail(string $emailAddress)
+    {
+        $this->work_email = $emailAddress;
+        $this->work_email_verified_at = Carbon::now();
+    }
+
     /** @return HasMany<TalentNomination, $this> */
     public function talentNominationsAsSubmitter(): HasMany
     {
@@ -875,15 +884,45 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
-     * Scope a query to only include users with the specified flexible work locations.
+     * Interact with the user's contact email.
      */
-    public function scopeWhereFlexibleWorkLocationsIn($query, array $locations)
+    protected function email(): Attribute
     {
-        return $query->where(function ($q) use ($locations) {
-            foreach ($locations as $location) {
-                $q->orWhereJsonContains('flexible_work_locations', $location);
+        return Attribute::make(
+            get: fn (?string $value) => $value,
+            set: function (?string $value) {
+                $updatedAttributes = ['email' => $value];
+
+                // reset verified_at timestamp if email changes
+                $oldValue = $this->getOriginal('email');
+                if ($value != $oldValue) {
+                    $updatedAttributes['email_verified_at'] = null;
+                }
+
+                return $updatedAttributes;
             }
-        });
+        );
+    }
+
+    /**
+     * Interact with the user's work email.
+     */
+    protected function workEmail(): Attribute
+    {
+        return Attribute::make(
+            get: fn (?string $value) => $value,
+            set: function (?string $value) {
+                $updatedAttributes = ['work_email' => $value];
+
+                // reset verified_at timestamp if email changes
+                $oldValue = $this->getOriginal('work_email');
+                if ($value != $oldValue) {
+                    $updatedAttributes['work_email_verified_at'] = null;
+                }
+
+                return $updatedAttributes;
+            }
+        );
     }
 
     public static function scopeWhereGeneralSearch(Builder $query, ?string $searchTerm): Builder

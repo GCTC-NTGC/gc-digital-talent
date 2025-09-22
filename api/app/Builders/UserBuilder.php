@@ -635,4 +635,15 @@ class UserBuilder extends Builder
         // fall through - query will return nothing
         return $this->where('id', null);
     }
+
+    /**
+     * Scope a query to only include users with the specified flexible work locations.
+     */
+    public function scopeWhereFlexibleWorkLocationsIn($query, array $locations)
+    {
+        return $query->where(function ($q) use ($locations) {
+            foreach ($locations as $location) {
+                $q->orWhereJsonContains('flexible_work_locations', $location);
+            }
+        });
 }
