@@ -127,4 +127,9 @@ export default defineMessages({
     id: "P4BgMG",
     description: "Short title for the create job poster template page",
   },
+  workforceAdjustment: {
+    defaultMessage: "Workforce adjustment",
+    id: "1R1uGn",
+    description: "Title for the workforce adjustment page",
+  },
 });
