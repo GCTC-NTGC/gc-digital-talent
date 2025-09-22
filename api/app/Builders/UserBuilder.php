@@ -646,4 +646,5 @@ class UserBuilder extends Builder
                 $q->orWhereJsonContains('flexible_work_locations', $location);
             }
         });
+    }
 }
