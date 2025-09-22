@@ -925,6 +925,18 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         );
     }
 
+    /**
+     * Scope a query to only include users with the specified flexible work locations.
+     */
+    public function scopeWhereFlexibleWorkLocationsIn($query, array $locations)
+    {
+        return $query->where(function ($q) use ($locations) {
+            foreach ($locations as $location) {
+                $q->orWhereJsonContains('flexible_work_locations', $location);
+            }
+        });
+    }
+
     public static function scopeWhereGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
         if ($searchTerm) {
