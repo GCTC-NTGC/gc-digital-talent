@@ -5,18 +5,25 @@ import { useMutation, useQuery } from "urql";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useFormContext } from "react-hook-form";
 
-import { Button, Card, Heading, Pending, Well } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Card,
+  Heading,
+  Pending,
+  Separator,
+  Well,
+} from "@gc-digital-talent/ui";
 import {
   BasicForm,
-  Checkbox,
   FieldLabels,
   Input,
   RadioGroup,
+  Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
   graphql,
@@ -111,92 +118,83 @@ export const GettingStartedFormFields = ({
           defaultSelected={Language.En}
         />
       </div>
-      <div className="mb-1.5">
-        <Input
-          id="email"
-          type="email"
-          name="email"
-          label={labels.email}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
+      <div className="mb-6 flex flex-col gap-2 xs:flex-row">
+        <div className="grow">
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            label={labels.email}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        </div>
+        <div className="w-full self-center xs:w-auto xs:self-end">
+          <Submit
+            className="block w-full"
+            text={intl.formatMessage({
+              defaultMessage: "Send verification email",
+              id: "xKj/Lr",
+              description: "Button to send verification code",
+            })}
+            submittedText={intl.formatMessage({
+              defaultMessage: "Send verification email",
+              id: "xKj/Lr",
+              description: "Button to send verification code",
+            })}
+          />
+        </div>
+      </div>
+      <div className="mb-6 flex flex-col gap-6">
+        {true ? (
+          <Input
+            id="verificationCode"
+            name="verificationCode"
+            type="text"
+            label={intl.formatMessage({
+              defaultMessage: "Verification code",
+              id: "T+ypau",
+              description: "label for verification code input",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        ) : null}
       </div>
       <div className="mb-6">
         <Well>
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "This email will be used for communication and notifications. In the next step, we'll ask you to verify this email using a code we'll send to your inbox.",
-              id: "eRbVle",
+                "By registering and providing your email address, you agree to receive email communication from GC Digital Talent and its partner functional communities in the Government of Canada. You can control which types of notifications you receive and how you receive them in your account settings page.",
+              id: "sHEsjv",
               description:
-                "Message on getting started page about the contact email address - part 1.",
+                "Message on getting started page about the contact email address",
             })}
           </p>
-          <p>
+        </Well>
+      </div>
+      <div className="-mx-6 sm:-mx-9">
+        <Separator decorative orientation="horizontal" />
+      </div>
+      <div className="flex flex-col items-center gap-x-3 gap-y-1.5 sm:flex-row sm:justify-end">
+        <div>
+          <Button
+            mode="solid"
+            color="primary"
+            onClick={() => setValue("skipVerification", false)}
+            {...skipVerificationProps}
+          >
             {intl.formatMessage({
-              defaultMessage:
-                "If you are a <strong>Government of Canada employee</strong>, you can choose to use your work email, however we recommend a personal email to facilitate your privacy and continued access should you leave the public service.",
-              id: "ErosNs",
+              defaultMessage: "Save and continue",
+              id: "MQB4IA",
               description:
-                "Message on getting started page about the contact email address - part 2.",
+                "Button text to save a form step and continue to the next one",
             })}
-          </p>
-        </Well>
-      </div>
-      <div className="mb-1.5">
-        <Checkbox
-          id="emailConsent"
-          name="emailConsent"
-          boundingBox
-          boundingBoxLabel={labels.emailConsent}
-          label={intl.formatMessage({
-            defaultMessage:
-              "I agree to receive email notifications from GC Digital Talent.",
-            id: "NwlRd5",
-            description: "Text for the option consent to email notifications.",
-          })}
-        />
-      </div>
-      <div className="mb-6">
-        <Well>
-          {intl.formatMessage({
-            defaultMessage:
-              "You can control which types of notifications you receive at a more granular level in your account settings.",
-            id: "MzmK82",
-            description:
-              "Message on getting started page about email notification consent.",
-          })}
-        </Well>
-      </div>
-      <div className="flex flex-col flex-wrap items-start gap-x-3 gap-y-1.5 sm:flex-row sm:items-center">
-        <Button
-          mode="solid"
-          color="primary"
-          onClick={() => setValue("skipVerification", false)}
-          {...skipVerificationProps}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Verify your contact email",
-            id: "LpCMiC",
-            description: "Verify your contact email text",
-          })}
-        </Button>
-        <Button
-          mode="inline"
-          color="primary"
-          {...skipVerificationProps}
-          onClick={() => {
-            setValue("skipVerification", true);
-          }}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Save and skip verification",
-            id: "NpznI5",
-            description:
-              "Button label for submit and skip email verification button on getting started form.",
-          })}
-        </Button>
+          </Button>
+        </div>
       </div>
     </>
   );
@@ -233,7 +231,11 @@ export const GettingStartedForm = ({
       description:
         "Label displayed for the last name field in getting started form.",
     }),
-    email: intl.formatMessage(commonMessages.email),
+    email: intl.formatMessage({
+      defaultMessage: "Contact email",
+      id: "etD6Xy",
+      description: "Title for contact email input",
+    }),
     preferredLang: intl.formatMessage({
       defaultMessage: "Preferred contact language",
       id: "AumMAr",
@@ -283,7 +285,7 @@ export const GettingStartedForm = ({
         overlap
       >
         <section className="mb-18">
-          <Card className="xs:p-12">
+          <Card space="lg">
             <BasicForm
               onSubmit={onSubmit}
               cacheKey={cacheKey}
@@ -443,26 +445,6 @@ const GettingStarted = () => {
         );
       });
   };
-
-  // OK to navigate to next page once we have a user ID and an email
-  const shouldNavigate = meId && email;
-  useEffect(() => {
-    if (shouldNavigate) {
-      if (verifyEmail) {
-        void navigate({
-          pathname: paths.emailVerification(),
-          search: from
-            ? createSearchParams({ from, emailAddress: email }).toString()
-            : "",
-        });
-      } else {
-        void navigate({
-          pathname: paths.employeeInformation(),
-          search: from ? createSearchParams({ from }).toString() : "",
-        });
-      }
-    }
-  }, [navigate, shouldNavigate, from, email, verifyEmail, paths]);
 
   return (
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>
