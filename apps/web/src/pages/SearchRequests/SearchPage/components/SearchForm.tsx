@@ -25,6 +25,7 @@ import {
   ApplicantFilterInput,
   Skill,
   WorkStream,
+  FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -74,8 +75,17 @@ export const SearchForm = ({
   const { fetching, candidateCount, results } =
     useCandidateCount(applicantFilter);
 
+  // set some fields to a desired default
+  const defaultValuesAdjusted = {
+    ...defaultValues,
+    flexibleWorkLocations: [
+      FlexibleWorkLocation.Remote,
+      FlexibleWorkLocation.Hybrid,
+    ],
+  };
+
   const methods = useForm<FormValues>({
-    defaultValues,
+    defaultValues: defaultValuesAdjusted,
     mode: "onSubmit",
     reValidateMode: "onBlur",
   });
