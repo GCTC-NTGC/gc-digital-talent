@@ -191,21 +191,12 @@ const FormFields = ({
       </Field.Fieldset>
       <Field.Fieldset className="flex flex-col gap-6">
         <Field.Legend className="mb-6 text-lg font-bold lg:text-xl">
-          {labels.workLocationPreferences}
+          {intl.formatMessage({
+            defaultMessage: "In-person work location preference",
+            id: "Aip5WP",
+            description: "Profile form header for preferences section",
+          })}
         </Field.Legend>
-        <Checklist
-          idPrefix="work-location"
-          legend={labels.workLocationPreferences}
-          name="locationPreferences"
-          id="locationPreferences"
-          items={localizedEnumToOptions(
-            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
-              /* remove 'Telework' enum from checklist of options */
-              (region) => !(region.value === (WorkRegion.Telework as string)),
-            ),
-            intl,
-          )}
-        />
         <p>
           {intl.formatMessage({
             defaultMessage:
@@ -224,6 +215,19 @@ const FormFields = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+        />
+        <Checklist
+          idPrefix="work-location"
+          legend={labels.workLocationPreferences}
+          name="locationPreferences"
+          id="locationPreferences"
+          items={localizedEnumToOptions(
+            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
+              /* remove 'Telework' enum from checklist of options */
+              (region) => !(region.value === (WorkRegion.Telework as string)),
+            ),
+            intl,
+          )}
         />
         <p>{labels.locationExemptions}</p>
         <TextArea

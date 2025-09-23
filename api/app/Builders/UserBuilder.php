@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
 use App\Models\User;
@@ -634,5 +635,49 @@ class UserBuilder extends Builder
 
         // fall through - query will return nothing
         return $this->where('id', null);
+    }
+
+    // special scope for search page with custom logic to simultaneously handle WORK REGION and FLEXIBLE WORK LOCATION
+    public function whereFlexibleLocationAndRegionSpecialMatching(?array $workRegions, ?array $flexibleLocations): self
+    {
+        if (! $workRegions && ! $flexibleLocations) {
+            return $this;
+        }
+
+        // combine multiple orWhere statements to achieve desired outcome
+        $this->where(function ($query) use ($workRegions, $flexibleLocations) {
+
+            // if remote passed in, OR match all remote
+            if ($flexibleLocations && in_array(FlexibleWorkLocation::REMOTE->name, $flexibleLocations)) {
+                $query->orWhere(function ($query) {
+                    $query->whereJsonContains('flexible_work_locations', FlexibleWorkLocation::REMOTE->name);
+                });
+            }
+
+            // if hybrid passed in, OR match (HYBRID AND REGION)
+            if ($flexibleLocations && in_array(FlexibleWorkLocation::HYBRID->name, $flexibleLocations)) {
+                $query->orWhere(function ($query) use ($workRegions) {
+                    $query->whereJsonContains('flexible_work_locations', FlexibleWorkLocation::HYBRID->name)
+                        ->whereLocationPreferencesIn($workRegions); // this scope can handle empty work regions
+                });
+            }
+
+            // if onsite passed in OR match (ONSITE AND REGION)
+            if ($flexibleLocations && in_array(FlexibleWorkLocation::ONSITE->name, $flexibleLocations)) {
+                $query->orWhere(function ($query) use ($workRegions) {
+                    $query->whereJsonContains('flexible_work_locations', FlexibleWorkLocation::ONSITE->name)
+                        ->whereLocationPreferencesIn($workRegions); // this scope can handle empty work regions
+                });
+            }
+
+            // regions were passed in, no flexible locations so only filter off regions
+            // likely impossible state
+            if (! $flexibleLocations) {
+                $query->whereLocationPreferencesIn($workRegions);
+            }
+
+        });
+
+        return $this;
     }
 }
