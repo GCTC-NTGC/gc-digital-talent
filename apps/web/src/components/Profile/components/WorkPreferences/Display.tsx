@@ -128,26 +128,6 @@ const Display = ({ query, labels, optionsQuery }: DisplayProps) => {
       </FieldDisplay>
       <div>
         <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Job locations",
-            id: "K+F5H7",
-            description: "Job locations label",
-          })}
-        />
-        {locations?.length ? (
-          <Ul>
-            {locations.map((location) => (
-              <li key={location.value}>
-                {intl.formatMessage(getWorkRegionsDetailed(location.value))}
-              </li>
-            ))}
-          </Ul>
-        ) : (
-          notProvided
-        )}
-      </div>
-      <div>
-        <FieldDisplay
           label={intl.formatMessage(
             profileMessages.flexibleWorkLocationOptions,
           )}
@@ -165,6 +145,26 @@ const Display = ({ query, labels, optionsQuery }: DisplayProps) => {
             </li>
           ))}
         </Ul>
+      </div>
+      <div>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Job locations",
+            id: "K+F5H7",
+            description: "Job locations label",
+          })}
+        />
+        {locations?.length ? (
+          <Ul>
+            {locations.map((location) => (
+              <li key={location.value}>
+                {intl.formatMessage(getWorkRegionsDetailed(location.value))}
+              </li>
+            ))}
+          </Ul>
+        ) : (
+          notProvided
+        )}
       </div>
       <FieldDisplay
         label={intl.formatMessage({
