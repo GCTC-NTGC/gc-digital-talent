@@ -6,6 +6,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
+
 import { FormValues } from "./WorkforceAdjustmentFilterDialog";
 
 function arrayToIdInput(arr?: string[]): IdInput[] {
@@ -84,8 +86,20 @@ export function transformEmployeeWFAFilterInputToFormValues(
 
 export function transformStateToWhereClause(
   filterState: EmployeeWfaFilterInput | undefined,
+  searchState: SearchState | undefined,
 ): InputMaybe<EmployeeWfaFilterInput> | undefined {
-  if (typeof filterState === "undefined") return undefined;
+  console.log({ searchState });
+  if (
+    typeof filterState === "undefined" &&
+    typeof searchState?.term === "undefined" &&
+    typeof searchState?.type === "undefined"
+  ) {
+    return undefined;
+  }
 
-  return filterState;
+  return {
+    generalSearch:
+      searchState?.term && !searchState.type ? searchState.term : undefined,
+    ...filterState,
+  };
 }

@@ -13,7 +13,6 @@ import {
   EmployeeWfaFilterInput,
   getFragment,
   graphql,
-  WfaInterest,
   WorkforceAdjustmentRowFragment,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
@@ -22,7 +21,6 @@ import {
   commonMessages,
   getEmploymentEquityGroup,
   navigationMessages,
-  OperationalRequirements,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -39,6 +37,7 @@ import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
 import pageTitles from "~/messages/pageTitles";
 import profileMessages from "~/messages/profileMessages";
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
 import WorkforceAdjustmentFilterDialog, {
   FormValues,
@@ -151,7 +150,7 @@ const defaultState = {
     departments: [],
     workSteams: [],
     wfaInterests: [],
-    equity: [],
+    equity: undefined,
     languageAbility: undefined,
     positionDuration: undefined,
     operationalRequirements: [],
@@ -185,6 +184,9 @@ const WorkforceAdjustmentTable = () => {
         }
       : INITIAL_STATE.paginationState,
   );
+  const [searchState, setSearchState] = useState<SearchState>(
+    initialState.searchState ?? INITIAL_STATE.searchState,
+  );
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -197,6 +199,17 @@ const WorkforceAdjustmentTable = () => {
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
+  };
+
+  const handleSearchStateChange = ({ term, type }: SearchState) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    setSearchState({
+      term: term ?? INITIAL_STATE.searchState.term,
+      type: type ?? INITIAL_STATE.searchState.type,
+    });
   };
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
@@ -216,7 +229,7 @@ const WorkforceAdjustmentTable = () => {
     variables: {
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      where: transformStateToWhereClause(filterState),
+      where: transformStateToWhereClause(filterState, searchState),
     },
   });
 
@@ -238,6 +251,7 @@ const WorkforceAdjustmentTable = () => {
             </Link>
           ) : null;
         },
+        enableColumnFilter: false,
         meta: {
           isRowTitle: true,
         },
@@ -248,6 +262,7 @@ const WorkforceAdjustmentTable = () => {
         classification ? getClassificationName(classification, intl) : null,
       {
         id: "classification",
+        enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Current employee classification",
           id: "AkjJT0",
@@ -259,6 +274,7 @@ const WorkforceAdjustmentTable = () => {
       ({ preferredLang }) => preferredLang?.label?.localized ?? null,
       {
         id: "preferredLang",
+        enableColumnFilter: false,
         header: intl.formatMessage(commonMessages.workingLanguageAbility),
       },
     ),
@@ -266,6 +282,7 @@ const WorkforceAdjustmentTable = () => {
       ({ employeeWFA }) => employeeWFA?.wfaInterest?.label.localized ?? null,
       {
         id: "wfaInterest",
+        enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "WFA status",
           id: "/39iac",
@@ -275,6 +292,7 @@ const WorkforceAdjustmentTable = () => {
     ),
     columnHelper.accessor("workEmail", {
       id: "workEmail",
+      enableColumnFilter: false,
       header: intl.formatMessage(commonMessages.workEmail),
       cell: ({ getValue }) => cells.email(getValue()),
     }),
@@ -396,6 +414,7 @@ const WorkforceAdjustmentTable = () => {
         ).join(", "),
       {
         id: "workPreferences",
+        enableColumnFilter: false,
         header: intl.formatMessage(navigationMessages.workPreferences),
       },
     ),
@@ -406,6 +425,7 @@ const WorkforceAdjustmentTable = () => {
         ).join(", "),
       {
         id: "locationPreferences",
+        enableColumnFilter: false,
         header: intl.formatMessage(profileMessages.workLocationPreferences),
       },
     ),
@@ -416,6 +436,7 @@ const WorkforceAdjustmentTable = () => {
         ).join(", "),
       {
         id: "skills",
+        enableColumnFilter: false,
         header: intl.formatMessage(navigationMessages.skills),
       },
     ),
@@ -450,6 +471,23 @@ const WorkforceAdjustmentTable = () => {
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
+      }}
+      search={{
+        internal: false,
+        label: intl.formatMessage({
+          defaultMessage: "Search users",
+          id: "ZatPPs",
+          description: "Label for the user table search input",
+        }),
+        onChange: ({ term, type }: SearchState) => {
+          handleSearchStateChange({ term, type });
+        },
+        overrideAllTableMsg: intl.formatMessage({
+          defaultMessage: "Full profile",
+          id: "803us1",
+          description:
+            "Text in table search form column dropdown when no column is selected.",
+        }),
       }}
       filter={{
         state: filterRef.current,
