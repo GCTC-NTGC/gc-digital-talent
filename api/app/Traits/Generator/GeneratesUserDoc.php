@@ -603,10 +603,11 @@ trait GeneratesUserDoc
                 });
             }
 
+            $workStreamsByCommunity = [];
+
             if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
                 $experience->loadMissing(['workStreams']);
                 if ($experience->workStreams && count($experience->workStreams) > 0) {
-                    $workStreamsByCommunity = [];
                     foreach ($experience->workStreams as $workStream) {
                         if (isset($workStreamsByCommunity[$workStream->community_id])) {
                             $workStreamsByCommunity[$workStream->community_id]['workStreams'][] = $workStream->name[$this->lang];
