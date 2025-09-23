@@ -1,10 +1,17 @@
+import { SortingState } from "@tanstack/react-table";
+
 import {
   EmployeeWfaFilterInput,
   IdInput,
   InputMaybe,
+  OrderByRelationWithColumnAggregateFunction,
   PositionDuration,
+  QueryEmployeeWfaPaginatedAdminTableOrderByCurrentClassificationColumn,
+  QueryEmployeeWfaPaginatedAdminTableOrderByRelationOrderByClause,
+  QueryPoolsPaginatedOrderByClassificationColumn,
+  SortOrder,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
@@ -115,4 +122,64 @@ export function transformStateToWhereClause(
       searchState?.term && !searchState.type ? searchState.term : undefined,
     ...filterState,
   };
+}
+
+export function transformSortStateToOrderByClause(
+  sortState: SortingState,
+):
+  | QueryEmployeeWfaPaginatedAdminTableOrderByRelationOrderByClause[]
+  | undefined {
+  const columnMap = new Map<string, string>([
+    ["name", "first_name"],
+    ["preferredLang", "preferred_lang"],
+    ["wfaInterest", "wfa_interest"],
+    ["workEmail", "work_email"],
+    ["wfaUpdatedAt", "wfa_updated_at"],
+    ["wfaDate", "wfa_date"],
+    ["hasPriorityEntitlement", "has_priority_entitlement"],
+
+    // Relations
+    ["classification", "classification"],
+  ]);
+
+  const sortingRule = sortState?.find((rule) => {
+    const columnName = columnMap.get(rule.id);
+    return !!columnName;
+  });
+
+  if (sortingRule && sortingRule.id === "classification") {
+    return [
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        currentClassification: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column:
+            QueryEmployeeWfaPaginatedAdminTableOrderByCurrentClassificationColumn.Group,
+        },
+      },
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        currentClassification: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column:
+            QueryEmployeeWfaPaginatedAdminTableOrderByCurrentClassificationColumn.Level,
+        },
+      },
+    ];
+  }
+
+  const orderBy = sortState
+    ?.map((rule) => {
+      const columnName = columnMap.get(rule.id);
+      if (!columnName) return undefined;
+      return {
+        column: columnName,
+        order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
+      };
+    })
+    .filter(notEmpty);
+
+  return orderBy?.length ? orderBy : undefined;
 }

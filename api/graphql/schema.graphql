@@ -1461,6 +1461,12 @@ type Query {
     @canModel(ability: "viewBasicInfo", model: "User")
   employeeWFAPaginatedAdminTable(
     where: EmployeeWfaFilterInput
+    orderBy: _
+      @orderBy(
+        relations: [
+          { relation: "currentClassification", columns: ["group", "level"] }
+        ]
+      )
   ): [UserEmployeeWFA]!
     @paginate(
       defaultCount: 10

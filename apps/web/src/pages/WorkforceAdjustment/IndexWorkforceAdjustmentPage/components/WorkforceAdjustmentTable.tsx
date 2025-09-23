@@ -2,6 +2,7 @@ import {
   ColumnDef,
   createColumnHelper,
   PaginationState,
+  SortingState,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useMemo, useRef, useState } from "react";
@@ -45,6 +46,7 @@ import WorkforceAdjustmentFilterDialog, {
 import {
   transformEmployeeWFAFilterInputToFormValues,
   transformFormValuesToEmployeeWFAFilterInput,
+  transformSortStateToOrderByClause,
   transformStateToWhereClause,
 } from "./utils";
 
@@ -120,10 +122,16 @@ const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
 const WorkforceAdjustmentTable_Query = graphql(/** GraphQL */ `
   query WorkforceAdjustmentTable(
     $where: EmployeeWfaFilterInput
+    $orderBy: [QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause!]
     $first: Int
     $page: Int
   ) {
-    employeeWFAPaginatedAdminTable(where: $where, first: $first, page: $page) {
+    employeeWFAPaginatedAdminTable(
+      where: $where
+      orderBy: $orderBy
+      first: $first
+      page: $page
+    ) {
       data {
         ...WorkforceAdjustmentRow
       }
@@ -189,6 +197,9 @@ const WorkforceAdjustmentTable = () => {
   const [searchState, setSearchState] = useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
+  const [sortState, setSortState] = useState<SortingState | undefined>(
+    initialState.sortState ?? [{ id: "createdDate", desc: false }],
+  );
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -232,6 +243,9 @@ const WorkforceAdjustmentTable = () => {
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       where: transformStateToWhereClause(filterState, searchState),
+      orderBy: sortState
+        ? transformSortStateToOrderByClause(sortState)
+        : undefined,
     },
   });
 
@@ -254,6 +268,7 @@ const WorkforceAdjustmentTable = () => {
           ) : null;
         },
         enableColumnFilter: false,
+        enableSorting: true,
         meta: {
           isRowTitle: true,
         },
@@ -265,6 +280,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "classification",
         enableColumnFilter: false,
+        enableSorting: true,
         header: intl.formatMessage({
           defaultMessage: "Current employee classification",
           id: "AkjJT0",
@@ -277,6 +293,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "preferredLang",
         enableColumnFilter: false,
+        enableSorting: true,
         header: intl.formatMessage(commonMessages.workingLanguageAbility),
       },
     ),
@@ -285,6 +302,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "wfaInterest",
         enableColumnFilter: false,
+        enableSorting: true,
         header: intl.formatMessage({
           defaultMessage: "WFA status",
           id: "/39iac",
@@ -295,6 +313,7 @@ const WorkforceAdjustmentTable = () => {
     columnHelper.accessor("workEmail", {
       id: "workEmail",
       enableColumnFilter: false,
+      enableSorting: true,
       header: intl.formatMessage(commonMessages.workEmail),
       cell: ({ getValue }) => cells.email(getValue()),
     }),
@@ -303,6 +322,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "wfaUpdatedAt",
         enableColumnFilter: false,
+        enableSorting: true,
         header: intl.formatMessage({
           defaultMessage: "WFA status updated date",
           id: "H7dCJ/",
@@ -321,6 +341,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "wfaDate",
         enableColumnFilter: false,
+        enableSorting: true,
         header: intl.formatMessage({
           defaultMessage: "Position end date",
           id: "O4dmgB",
@@ -403,7 +424,6 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "employmentEquity",
         enableColumnFilter: false,
-        enableSorting: false,
         header: intl.formatMessage(commonMessages.employmentEquity),
       },
     ),
@@ -419,6 +439,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "hasPriorityEntitlement",
         enableColumnFilter: false,
+        enableSorting: true,
         header: intl.formatMessage(profileMessages.priorityStatus),
       },
     ),
@@ -506,6 +527,11 @@ const WorkforceAdjustmentTable = () => {
           description:
             "Text in table search form column dropdown when no column is selected.",
         }),
+      }}
+      sort={{
+        internal: false,
+        onSortChange: setSortState,
+        initialState: defaultState.sortState,
       }}
       filter={{
         state: filterRef.current,
