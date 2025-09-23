@@ -336,6 +336,23 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
             $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+            if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
+
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
+                }
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
         }
 
         if ($type === CommunityExperience::class) {
@@ -344,6 +361,23 @@ trait GeneratesUserDoc
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+            if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
+
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
+                }
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
         }
 
         if ($type === EducationExperience::class) {
@@ -396,6 +430,23 @@ trait GeneratesUserDoc
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+                 if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
+
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
+                }
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
         }
 
         if ($type === WorkExperience::class) {
@@ -558,6 +609,8 @@ trait GeneratesUserDoc
                 }
             }
 
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
 
@@ -574,7 +627,6 @@ trait GeneratesUserDoc
                     }
                 });
             }
-            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
         }
     }
 
