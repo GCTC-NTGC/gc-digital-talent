@@ -620,13 +620,13 @@ trait GeneratesUserDoc
                     }
                 }
             }
-               $section->addText($this->localize('common.work_streams'));
-                    collect(Arr::sortRecursive($workStreamsByCommunity))->each(function ($community) use ($section) {
-                        $section->addListItem($community['community'], 0);
-                        foreach ($community['workStreams'] as $workStream) {
-                            $section->addListItem($workStream, 1);
-                        }
-                    });
+            $section->addText($this->localize('common.work_streams'));
+            collect(Arr::sortRecursive($workStreamsByCommunity))->each(function ($community) use ($section) {
+                $section->addListItem($community['community'], 0);
+                foreach ($community['workStreams'] as $workStream) {
+                    $section->addListItem($workStream, 1);
+                }
+            });
         }
     }
 
