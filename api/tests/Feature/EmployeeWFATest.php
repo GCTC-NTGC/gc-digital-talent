@@ -8,10 +8,15 @@ use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\WFAInterest;
 use App\Enums\WorkRegion;
+use App\Models\Classification;
 use App\Models\Community;
+use App\Models\CommunityInterest;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\Skill;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
@@ -381,24 +386,84 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['total' => 1]);
     }
 
-    public function testOperationalRequirementsFilter()
+    public function testClassificationsFilter()
     {
-        User::factory()
-            ->asApplicant()
-            ->create([
-                'accepted_operational_requirements' => [],
-            ]);
+        $classification = Classification::factory()->create();
 
-        $this->employee->accepted_operational_requirements = [OperationalRequirement::DRIVERS_LICENSE->name];
+        $this->employee->computed_classification = $classification->id;
         $this->employee->save();
 
-        $this->admin->accepted_operational_requirements = [OperationalRequirement::ON_CALL->name];
+        $this->admin->computed_classification = null;
         $this->admin->save();
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->query, [
                 'where' => [
-                    'oprtationalRequirements' => [OperationalRequirement::DRIVERS_LICENSE->name],
+                    'classifications' => [['id' => $classification->id]],
+                ],
+            ])
+            ->assertJsonFragment(['id' => $this->employee->id])
+            ->assertJsonFragment(['total' => 1]);
+    }
+
+    public function testDepartmentsFilter()
+    {
+        $dept = Department::factory()->create();
+
+        $this->employee->computed_department = $dept->id;
+        $this->employee->save();
+
+        $this->admin->computed_department = null;
+        $this->admin->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->query, [
+                'where' => [
+                    'departments' => [['id' => $dept->id]],
+                ],
+            ])
+            ->assertJsonFragment(['id' => $this->employee->id])
+            ->assertJsonFragment(['total' => 1]);
+    }
+
+    public function testSkillsFilter()
+    {
+        $skill = Skill::factory()->create();
+
+        UserSkill::factory()
+            ->create([
+                'user_id' => $this->employee->id,
+                'skill_id' => $skill->id,
+            ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->query, [
+                'where' => [
+                    'skills' => [['id' => $skill->id]],
+                ],
+            ])
+            ->assertJsonFragment(['id' => $this->employee->id])
+            ->assertJsonFragment(['total' => 1]);
+    }
+
+    public function testWorkStreamsFilter()
+    {
+        $community = Community::factory()
+            ->withWorkStreams()
+            ->create();
+        $interest = CommunityInterest::factory()
+            ->withWorkStreams()
+            ->create([
+                'community_id' => $community->id,
+                'user_id' => $this->employee->id,
+            ]);
+
+        $stream = $interest->workStreams()->first();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->query, [
+                'where' => [
+                    'workStreams' => [['id' => $stream->id]],
                 ],
             ])
             ->assertJsonFragment(['id' => $this->employee->id])
