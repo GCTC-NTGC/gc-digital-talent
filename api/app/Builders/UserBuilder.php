@@ -160,8 +160,12 @@ class UserBuilder extends Builder
         return $this;
     }
 
-    public function whereDepartmentsIn(?array $departmentIds): self
+    public function whereDepartmentIn(?array $departmentIds): self
     {
+        if(empty($departmentIds)) {
+            return $this;
+        }
+
         return $this->whereHas('department', function ($query) use ($departmentIds) {
             return $query->whereIn('id', $departmentIds);
         });
@@ -500,6 +504,40 @@ class UserBuilder extends Builder
                 $query->whereIn('role_id', $roleIds);
             });
         });
+    }
+
+    public function whereClassificationIn(?array $classificationIds): self
+    {
+        if(empty($classificationIds)) {
+            return $this;
+        }
+
+        return $this->whereHas('currentClassification', function (Builder $query) use ($classificationIds) {
+            $query->whereIn('id', $classificationIds);
+        });
+    }
+
+    public function whereCommunityWorkStreamsIn(?array $workStreamIds): self
+    {
+        if(empty($workStreamIds)) {
+            return $this;
+        }
+
+        return $this->whereHas('communityInterests', function (Builder $interestQuery) use ($workStreamIds) {
+            $interestQuery->where('consent_to_share_profile', true)
+                ->whereHas('workStreams', function (Builder $streamQuery) use ($workStreamIds) {
+                    $streamQuery->whereIn('community_interest_work_stream.work_stream_id', $workStreamIds);
+                });
+        });
+    }
+
+    public function whereWfaInterestIn(?array $wfaInterests): self
+    {
+        if(empty($wfaInterests)) {
+            return $this;
+        }
+
+        return $this->whereIn('wfa_interest', $wfaInterests);
     }
 
     public function whereAuthorizedToView(?array $args = null): self

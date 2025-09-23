@@ -439,6 +439,8 @@ type Query {
     page: Int
   ): UserPublicProfilePaginator!
   employeeWFAPaginatedAdminTable(
+    where: EmployeeWfaFilterInput
+
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
 
@@ -1611,6 +1613,22 @@ input UserFilterInput {
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String
+}
+
+input EmployeeWfaFilterInput {
+  workEmail: String
+  name: String
+  generalSearch: String
+  equity: EquitySelectionsInput
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  wfaInterests: [WFAInterest]
+  skills: [IdInput]
+  classifications: [IdInput]
+  departments: [IdInput]
+  workStreams: [IdInput]
 }
 
 input PoolFilterInput {

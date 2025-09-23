@@ -1246,6 +1246,23 @@ input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
 }
 
+input EmployeeWfaFilterInput {
+  workEmail: String @scope(name: "whereWorkEmail")
+  name: String @scope(name: "whereName")
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  equity: EquitySelectionsInput @scope(name: "whereEquityIn")
+  languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
+  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
+  operationalRequirements: [OperationalRequirement]
+    @scope(name: "whereOperationalRequirementsIn")
+  positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
+  wfaInterests: [WFAInterest] @scope(name: "whereWfaInterestIn")
+  skills: [IdInput] @scope(name: "whereSkillsAdditive")
+  classifications: [IdInput] @scope(name: "whereClassificationIn")
+  departments: [IdInput] @scope(name: "whereDepartmentIn")
+  workStreams: [IdInput] @scope(name: "whereCommunityWorkStreamsIn")
+}
+
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
@@ -1441,7 +1458,9 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginatedAdminTable: [UserEmployeeWFA]!
+  employeeWFAPaginatedAdminTable(
+    where: EmployeeWfaFilterInput
+  ): [UserEmployeeWFA]!
     @paginate(
       defaultCount: 10
       maxCount: 1000
