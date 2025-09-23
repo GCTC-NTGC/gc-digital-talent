@@ -64,7 +64,7 @@ WithResults.parameters = {
   apiResponses: {
     CountApplicants: {
       data: {
-        countApplicants: faker.number.int({ max: 50 }),
+        countApplicantsForSearch: faker.number.int({ max: 50 }),
         countPoolCandidatesByPool: poolResponse.map((pool) => ({
           pool,
           candidateCount: faker.number.int({ max: 10 }),

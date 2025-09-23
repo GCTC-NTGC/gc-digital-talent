@@ -39,7 +39,7 @@ export const useInitialFilters = (): UseInitialState => {
 
 const CandidateCount_Query = graphql(/* GraphQL */ `
   query CandidateCount($where: ApplicantFilterInput) {
-    countApplicants(where: $where)
+    countApplicantsForSearch(where: $where)
     countPoolCandidatesByPool(where: $where) {
       pool {
         id
@@ -76,7 +76,7 @@ export const useCandidateCount = (
     variables: queryArgs,
   });
 
-  const candidateCount = data?.countApplicants ?? 0;
+  const candidateCount = data?.countApplicantsForSearch ?? 0;
 
   /**
    * Announce the candidate count to users in a less verbose way
