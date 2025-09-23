@@ -6,9 +6,7 @@ use App\Models\User;
 use App\Notifications\MigrateOffPlatformProcesses;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
-use Throwable;
 
 class SendNotificationsMigrateOffPlatformProcesses extends Command
 {

@@ -15,10 +15,7 @@ class MigrateOffPlatformProcesses extends Notification implements CanBeSentViaGc
     /**
      * Create a new notification instance.
      */
-    public function __construct()
-    {
-
-    }
+    public function __construct() {}
 
     /**
      * Get the notification's delivery channels.
@@ -30,7 +27,7 @@ class MigrateOffPlatformProcesses extends Notification implements CanBeSentViaGc
         // $notificationFamily = NotificationFamily::SYSTEM_MESSAGE->name;
         // Can't ignore system messages
 
-        return   [ 'database', GcNotifyEmailChannel::class];
+        return ['database', GcNotifyEmailChannel::class];
     }
 
     /**
@@ -41,7 +38,7 @@ class MigrateOffPlatformProcesses extends Notification implements CanBeSentViaGc
      */
     public function toArray(object $_): array
     {
-         return []; // no customization to in-app message
+        return []; // no customization to in-app message
     }
 
     /**
@@ -49,27 +46,27 @@ class MigrateOffPlatformProcesses extends Notification implements CanBeSentViaGc
      */
     public function toGcNotifyEmail(User $notifiable): GcNotifyEmailMessage
     {
-      $locale = $this->locale ?? $notifiable->preferredLocale();
-      if (Language::EN->localeMatches($locale)) {
-          // English notification
-          $message = new GcNotifyEmailMessage(
-              config('notify.templates.re_enter_off_platform_en'),
-              $notifiable->email,
-              [
-                  'first name+last name' => $notifiable->full_name,
-              ]
-          );
-      } else {
-          // French notification
-          $message = new GcNotifyEmailMessage(
-              config('notify.templates.re_enter_off_platform_fr'),
-              $notifiable->email,
-              [
-                  'first name+last name' => $notifiable->full_name,
-              ]
-          );
-      }
+        $locale = $this->locale ?? $notifiable->preferredLocale();
+        if (Language::EN->localeMatches($locale)) {
+            // English notification
+            $message = new GcNotifyEmailMessage(
+                config('notify.templates.re_enter_off_platform_en'),
+                $notifiable->email,
+                [
+                    'first name+last name' => $notifiable->full_name,
+                ]
+            );
+        } else {
+            // French notification
+            $message = new GcNotifyEmailMessage(
+                config('notify.templates.re_enter_off_platform_fr'),
+                $notifiable->email,
+                [
+                    'first name+last name' => $notifiable->full_name,
+                ]
+            );
+        }
 
-      return $message;
+        return $message;
     }
 }
