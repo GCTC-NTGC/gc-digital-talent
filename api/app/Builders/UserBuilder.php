@@ -162,7 +162,7 @@ class UserBuilder extends Builder
 
     public function whereDepartmentIn(?array $departmentIds): self
     {
-        if(empty($departmentIds)) {
+        if (empty($departmentIds)) {
             return $this;
         }
 
@@ -508,7 +508,7 @@ class UserBuilder extends Builder
 
     public function whereClassificationIn(?array $classificationIds): self
     {
-        if(empty($classificationIds)) {
+        if (empty($classificationIds)) {
             return $this;
         }
 
@@ -519,7 +519,7 @@ class UserBuilder extends Builder
 
     public function whereCommunityWorkStreamsIn(?array $workStreamIds): self
     {
-        if(empty($workStreamIds)) {
+        if (empty($workStreamIds)) {
             return $this;
         }
 
@@ -533,7 +533,7 @@ class UserBuilder extends Builder
 
     public function whereWfaInterestIn(?array $wfaInterests): self
     {
-        if(empty($wfaInterests)) {
+        if (empty($wfaInterests)) {
             return $this;
         }
 
