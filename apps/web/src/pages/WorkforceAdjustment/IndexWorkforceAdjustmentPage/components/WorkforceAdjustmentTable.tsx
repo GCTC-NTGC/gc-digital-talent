@@ -4,12 +4,16 @@ import {
   PaginationState,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useQuery } from "urql";
+import { SubmitHandler } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 
 import {
+  EmployeeWfaFilterInput,
   getFragment,
   graphql,
+  WfaInterest,
   WorkforceAdjustmentRowFragment,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
@@ -18,9 +22,13 @@ import {
   commonMessages,
   getEmploymentEquityGroup,
   navigationMessages,
+  OperationalRequirements,
 } from "@gc-digital-talent/i18n";
 
-import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -31,6 +39,15 @@ import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
 import pageTitles from "~/messages/pageTitles";
 import profileMessages from "~/messages/profileMessages";
+
+import WorkforceAdjustmentFilterDialog, {
+  FormValues,
+} from "./WorkforceAdjustmentFilterDialog";
+import {
+  transformEmployeeWFAFilterInputToFormValues,
+  transformFormValuesToEmployeeWFAFilterInput,
+  transformStateToWhereClause,
+} from "./utils";
 
 const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
   fragment WorkforceAdjustmentRow on UserEmployeeWFA {
@@ -101,8 +118,12 @@ const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
 `);
 
 const WorkforceAdjustmentTable_Query = graphql(/** GraphQL */ `
-  query WorkforceAdjustmentTable($first: Int, $page: Int) {
-    employeeWFAPaginatedAdminTable(first: $first, page: $page) {
+  query WorkforceAdjustmentTable(
+    $where: EmployeeWfaFilterInput
+    $first: Int
+    $page: Int
+  ) {
+    employeeWFAPaginatedAdminTable(where: $where, first: $first, page: $page) {
       data {
         ...WorkforceAdjustmentRow
       }
@@ -125,12 +146,37 @@ const columnHelper = createColumnHelper<WorkforceAdjustmentRowFragment>();
 const defaultState = {
   ...INITIAL_STATE,
   sortState: [{ id: "wfaUpdatedAt", desc: false }],
+  filters: {
+    classifications: [],
+    departments: [],
+    workSteams: [],
+    wfaInterests: [],
+    equity: [],
+    languageAbility: undefined,
+    positionDuration: undefined,
+    operationalRequirements: [],
+    workRegions: [],
+    skills: [],
+  },
 };
 
 const WorkforceAdjustmentTable = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
+  const searchParams = new URLSearchParams(window.location.search);
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: EmployeeWfaFilterInput | undefined = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as EmployeeWfaFilterInput)
+        : undefined,
+    [filtersEncoded],
+  );
+  const filterRef = useRef<EmployeeWfaFilterInput | undefined>(initialFilters);
+  const [filterState, setFilterState] = useState<EmployeeWfaFilterInput>(
+    initialFilters ?? {},
+  );
   const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.paginationState
       ? {
@@ -153,11 +199,24 @@ const WorkforceAdjustmentTable = () => {
     }));
   };
 
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    const transformedData = transformFormValuesToEmployeeWFAFilterInput(data);
+    setFilterState(transformedData);
+    if (!isEqual(transformedData, filterRef.current)) {
+      filterRef.current = transformedData;
+    }
+  };
+
   const [{ data, fetching }] = useQuery({
     query: WorkforceAdjustmentTable_Query,
     variables: {
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
+      where: transformStateToWhereClause(filterState),
     },
   });
 
@@ -391,6 +450,20 @@ const WorkforceAdjustmentTable = () => {
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
+      }}
+      filter={{
+        state: filterRef.current,
+        component: (
+          <WorkforceAdjustmentFilterDialog
+            onSubmit={handleFilterSubmit}
+            resetValues={transformEmployeeWFAFilterInputToFormValues(
+              defaultState.filters,
+            )}
+            initialValues={transformEmployeeWFAFilterInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
       }}
     />
   );
