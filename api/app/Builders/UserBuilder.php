@@ -540,6 +540,15 @@ class UserBuilder extends Builder
         return $this->whereIn('wfa_interest', $wfaInterests);
     }
 
+    public function whereHasPriorityEntitlement(?bool $hasPriority): self
+    {
+        if (! isset($hasPriority) || is_null($hasPriority)) {
+            return $this;
+        }
+
+        return $this->where('has_priority_entitlement', $hasPriority);
+    }
+
     public function whereAuthorizedToView(?array $args = null): self
     {
         /** @var \App\Models\User | null */

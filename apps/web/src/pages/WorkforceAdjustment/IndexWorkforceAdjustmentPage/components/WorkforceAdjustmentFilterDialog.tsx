@@ -14,6 +14,7 @@ import {
   Checklist,
   Combobox,
   enumToOptions,
+  RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -32,6 +33,9 @@ import FilterDialog, {
 import { getClassificationName } from "~/utils/poolUtils";
 import pageTitles from "~/messages/pageTitles";
 import adminMessages from "~/messages/adminMessages";
+import profileMessages from "~/messages/profileMessages";
+
+import { HasPriorityEntitlementValue } from "./utils";
 
 export interface FormValues {
   classifications?: string[];
@@ -44,6 +48,7 @@ export interface FormValues {
   operationalRequirements?: OperationalRequirement[];
   workRegions?: WorkRegion[];
   skills?: string[];
+  hasPriorityEntitlement?: HasPriorityEntitlementValue;
 }
 
 const context: Partial<OperationContext> = {
@@ -189,6 +194,36 @@ const WorkforceAdjustmentFilterDialog = ({
             {
               value: "isVisibleMinority",
               label: intl.formatMessage(getEmploymentEquityGroup("minority")),
+            },
+          ]}
+        />
+        <RadioGroup
+          idPrefix="hasPriorityEntitlement"
+          name="hasPriorityEntitlement"
+          legend={intl.formatMessage(profileMessages.priorityStatus)}
+          items={[
+            {
+              value: "yes",
+              label: intl.formatMessage({
+                defaultMessage: "Yes, candidate has a priority entitlement",
+                id: "Ez7YTI",
+                description:
+                  "Option label to filter employees by those who have priority enititlement",
+              }),
+            },
+            {
+              value: "no",
+              label: intl.formatMessage({
+                defaultMessage:
+                  "No, candidate does not have a priority entitlement",
+                id: "j4H1ff",
+                description:
+                  "Option label to filter employees by those who do not have priority enititlement",
+              }),
+            },
+            {
+              value: "both",
+              label: intl.formatMessage(commonMessages.all),
             },
           ]}
         />

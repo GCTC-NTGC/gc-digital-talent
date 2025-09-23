@@ -10,6 +10,8 @@ import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
 import { FormValues } from "./WorkforceAdjustmentFilterDialog";
 
+export type HasPriorityEntitlementValue = "yes" | "no" | "both";
+
 function arrayToIdInput(arr?: string[]): IdInput[] {
   return arr?.map((id) => ({ id })) ?? [];
 }
@@ -17,6 +19,11 @@ function arrayToIdInput(arr?: string[]): IdInput[] {
 export function transformFormValuesToEmployeeWFAFilterInput(
   data: FormValues,
 ): EmployeeWfaFilterInput {
+  let hasPriorityEntitlement: boolean | undefined;
+  if (data.hasPriorityEntitlement !== "both") {
+    hasPriorityEntitlement = data.hasPriorityEntitlement === "yes";
+  }
+
   return {
     classifications: arrayToIdInput(data.classifications),
     departments: arrayToIdInput(data.departments),
@@ -30,6 +37,7 @@ export function transformFormValuesToEmployeeWFAFilterInput(
       : undefined,
     operationalRequirements: data.operationalRequirements,
     locationPreferences: data.workRegions,
+    hasPriorityEntitlement,
 
     equity: {
       ...(data.equity?.includes("isWoman") && { isWoman: true }),
@@ -64,6 +72,11 @@ export function transformEmployeeWFAFilterInputToFormValues(
     equity = [...equity, "hasDisability"];
   }
 
+  let hasPriorityEntitlement: HasPriorityEntitlementValue = "both";
+  if (typeof data?.hasPriorityEntitlement !== "undefined") {
+    hasPriorityEntitlement = data.hasPriorityEntitlement ? "yes" : "no";
+  }
+
   return {
     classifications: flattenIdInput(data?.classifications),
     departments: flattenIdInput(data?.departments),
@@ -81,6 +94,7 @@ export function transformEmployeeWFAFilterInputToFormValues(
     workRegions: unpackMaybes(data?.locationPreferences),
 
     equity,
+    hasPriorityEntitlement,
   };
 }
 
@@ -88,7 +102,6 @@ export function transformStateToWhereClause(
   filterState: EmployeeWfaFilterInput | undefined,
   searchState: SearchState | undefined,
 ): InputMaybe<EmployeeWfaFilterInput> | undefined {
-  console.log({ searchState });
   if (
     typeof filterState === "undefined" &&
     typeof searchState?.term === "undefined" &&

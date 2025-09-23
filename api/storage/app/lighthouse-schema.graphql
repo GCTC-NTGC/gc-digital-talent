@@ -1625,6 +1625,7 @@ input EmployeeWfaFilterInput {
   operationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
   wfaInterests: [WFAInterest]
+  hasPriorityEntitlement: Boolean
   skills: [IdInput]
   classifications: [IdInput]
   departments: [IdInput]

@@ -92,6 +92,7 @@ const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
     isWoman
     hasDisability
     isVisibleMinority
+    hasPriorityEntitlement
     indigenousCommunities {
       value
     }
@@ -154,6 +155,7 @@ const defaultState = {
     languageAbility: undefined,
     positionDuration: undefined,
     operationalRequirements: [],
+    hasPriorityEntitlement: undefined,
     workRegions: [],
     skills: [],
   },
@@ -406,6 +408,21 @@ const WorkforceAdjustmentTable = () => {
       },
     ),
     columnHelper.accessor(
+      ({ hasPriorityEntitlement }) => {
+        if (typeof hasPriorityEntitlement === "undefined") {
+          return null;
+        }
+        return hasPriorityEntitlement
+          ? intl.formatMessage(commonMessages.yes)
+          : intl.formatMessage(commonMessages.no);
+      },
+      {
+        id: "hasPriorityEntitlement",
+        enableColumnFilter: false,
+        header: intl.formatMessage(profileMessages.priorityStatus),
+      },
+    ),
+    columnHelper.accessor(
       ({ acceptedOperationalRequirements }) =>
         unpackMaybes(
           acceptedOperationalRequirements?.flatMap(
@@ -458,6 +475,7 @@ const WorkforceAdjustmentTable = () => {
         "department",
         "workStreams",
         "employmentEquity",
+        "hasPriorityEntitlement",
         "workPreferences",
         "locationPreferences",
         "skills",

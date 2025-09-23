@@ -520,6 +520,12 @@ class EmployeeWFATest extends TestCase
                 ['accepted_operational_requirements' => [OperationalRequirement::DRIVERS_LICENSE->name]],
             ],
 
+            'priority entitlement' => [
+                ['hasPriorityEntitlement' => true],
+                ['has_priority_entitlement' => false],
+                ['has_priority_entitlement' => true],
+            ],
+
             'general search' => [
                 // Use a UUID to ensure we are specific about what we are searching for
                 ['generalSearch' => 'f945ed74-9d28-4232-bc2b-808b9554a40f'],
