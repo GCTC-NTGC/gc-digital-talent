@@ -2867,6 +2867,10 @@
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
   },
+  "Aip5WP": {
+    "defaultMessage": "Préférence pour le lieu de travail en personne",
+    "description": "Profile form header for preferences section"
+  },
   "AjVbZs": {
     "defaultMessage": "Bilingue avancé (C B C)",
     "description": "Bilingual advanced language requirement"
