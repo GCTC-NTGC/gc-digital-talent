@@ -3,7 +3,10 @@ import { useMutation, useQuery } from "urql";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { graphql } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -19,7 +22,6 @@ const GettingStarted_Query = graphql(/** GraphQL */ `
   query GettingStarted_Query {
     ...GettingStartedOptions_Query
     me {
-      id
       ...GettingStartedInitialValues_Query
     }
   }
@@ -33,13 +35,11 @@ const GettingStarted_Mutation = graphql(/** GraphQL */ `
   }
 `);
 
-const UpdateEmailNotifications_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateEmailNotifications_Mutation(
-    $enabledEmailNotifications: [NotificationFamily]
+const EmailVerificationRequestACode_Mutation = graphql(/* GraphQL */ `
+  mutation EmailVerificationRequestACode(
+    $input: SendUserEmailsVerificationInput!
   ) {
-    updateEnabledNotifications(
-      enabledEmailNotifications: $enabledEmailNotifications
-    ) {
+    sendUserEmailsVerification(sendUserEmailsVerificationInput: $input) {
       id
     }
   }
@@ -54,8 +54,8 @@ const GettingStartedPage = () => {
   });
 
   const [, executeGeneralMutation] = useMutation(GettingStarted_Mutation);
-  const [, executeNotificationMutation] = useMutation(
-    UpdateEmailNotifications_Mutation,
+  const [, executeRequestACodeMutation] = useMutation(
+    EmailVerificationRequestACode_Mutation,
   );
 
   const crumbs = useBreadcrumbs({
@@ -72,9 +72,44 @@ const GettingStartedPage = () => {
     return Promise.resolve();
   };
 
-  const handleRequestEmail = async (formValues: FormValues) => {
-    console.debug("handleRequestEmail", formValues);
-    return Promise.resolve();
+  const handleRequestEmail = async ({ email: emailAddress }: FormValues) => {
+    if (!emailAddress) {
+      throw new Error("Email address is required");
+    }
+
+    let emailTypes: EmailType[];
+    if (workEmailDomainRegex.test(emailAddress)) {
+      // Appears to be a valid work email address.  We'll update both at the same time.
+      emailTypes = [EmailType.Contact, EmailType.Work];
+    } else {
+      emailTypes = [EmailType.Contact];
+    }
+
+    const mutationResult = executeRequestACodeMutation({
+      input: {
+        emailAddress,
+        emailTypes,
+      },
+    }).then((result) => {
+      if (!result.data?.sendUserEmailsVerification?.id) {
+        throw new Error("Send email error");
+      }
+    });
+
+    return mutationResult
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Verification email sent!",
+            id: "oepQr+",
+            description:
+              "Title for a message confirming that the verification email was sent.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.error));
+      });
   };
 
   return (
@@ -92,9 +127,8 @@ const GettingStartedPage = () => {
         <section className="mb-18">
           <Card space="lg">
             <Pending fetching={fetching || !authContext.isLoaded} error={error}>
-              {data?.me?.id ? (
+              {data?.me ? (
                 <GettingStartedForm
-                  cacheKey={`getting-started-${data.me.id}`}
                   initialValuesQuery={data.me}
                   optionsQuery={data}
                   onSubmit={handleSubmit}
