@@ -95,7 +95,6 @@ const Select = ({
         aria-invalid={isInvalid}
         defaultValue=""
         {...register(name, rules)}
-         
         className={select({ state: fieldState, class: className })}
         {...rest}
       >

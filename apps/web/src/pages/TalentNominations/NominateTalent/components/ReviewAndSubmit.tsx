@@ -54,7 +54,6 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   }
 
   const handleSubmit = async (values: BaseFormValues) => {
-     
     await submit(values.intent);
   };
 
