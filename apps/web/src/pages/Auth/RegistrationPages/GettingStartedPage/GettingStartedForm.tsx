@@ -194,7 +194,6 @@ const initialValuesToFormValues = (
 };
 
 export interface GettingStartedFormProps {
-  cacheKey?: string;
   initialValuesQuery: FragmentType<typeof GettingStartedInitialValues_Query>;
   optionsQuery: FragmentType<typeof GettingStartedOptions_Query>;
   onSubmit: SubmitHandler<FormValues>;
@@ -202,7 +201,6 @@ export interface GettingStartedFormProps {
 }
 
 export const GettingStartedForm = ({
-  cacheKey,
   initialValuesQuery,
   optionsQuery,
   onSubmit,
@@ -225,7 +223,6 @@ export const GettingStartedForm = ({
   return (
     <BasicForm
       onSubmit={onSubmit}
-      cacheKey={cacheKey}
       labels={formattedLabels}
       options={{
         defaultValues: initialValuesToFormValues(initialValues),
