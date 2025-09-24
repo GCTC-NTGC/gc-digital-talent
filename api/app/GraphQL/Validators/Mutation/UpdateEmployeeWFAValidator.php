@@ -15,7 +15,7 @@ final class UpdateEmployeeWFAValidator extends Validator
     public function rules(): array
     {
         return [
-            'id' => [new HasSubstantiveExperience],
+            'id' => [new HasSubstantiveExperience($this->data['wfa_interest'] ?? null)],
         ];
     }
 }

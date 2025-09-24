@@ -107,6 +107,23 @@ class EmployeeWFATest extends TestCase
             ])->assertGraphQLValidationError('id', ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
     }
 
+    public function testUserCanUpdateToNotApplicableWithZeroSubstantiveExperiences()
+    {
+        $user = User::factory()->asApplicant()->create();
+
+        $this->actingAs($user, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $user->id,
+                'employeeWFA' => [
+                    'wfaInterest' => WfaInterest::NOT_APPLICABLE->name,
+                ],
+            ])->assertJsonFragment([
+                'wfaInterest' => [
+                    'value' => WfaInterest::NOT_APPLICABLE->name,
+                ],
+            ]);
+    }
+
     public function testUserCannotUpdateWithMoreThanOneSubstantiveExperiences()
     {
         $user = User::factory()->asApplicant()->create();
