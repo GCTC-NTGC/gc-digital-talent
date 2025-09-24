@@ -3,7 +3,7 @@ import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
-import { useFormContext } from "react-hook-form";
+import { SubmitHandler, useFormContext } from "react-hook-form";
 
 import {
   Button,
@@ -49,13 +49,13 @@ const specificTitle = defineMessage({
   description: "Main heading in getting started page.",
 });
 
-type FormValues = Pick<
-  UpdateUserAsUserInput,
-  "firstName" | "lastName" | "email" | "preferredLang"
-> & {
-  emailConsent?: boolean;
-  skipVerification?: boolean;
-};
+interface FormValues {
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  preferredLang: string | null;
+  verificationCode: string | null;
+}
 
 export const GettingStarted_QueryFragment = graphql(/** GraphQL */ `
   fragment GettingStarted_QueryFragment on Query {
@@ -82,6 +82,9 @@ export const GettingStartedFormFields = ({
   const { setValue, register } = useFormContext();
   const skipVerificationProps = register("skipVerification");
   const result = getFragment(GettingStarted_QueryFragment, query);
+  const [emailAddressContacted, setEmailAddressContacted] = useState<
+    string | null
+  >("dummy@eample.org"); // what address was an email sent to
 
   return (
     <>
@@ -147,16 +150,12 @@ export const GettingStartedFormFields = ({
         </div>
       </div>
       <div className="mb-6 flex flex-col gap-6">
-        {true ? (
+        {emailAddressContacted ? (
           <Input
             id="verificationCode"
             name="verificationCode"
             type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Verification code",
-              id: "T+ypau",
-              description: "label for verification code input",
-            })}
+            label={labels.verificationCode}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -203,11 +202,7 @@ export const GettingStartedFormFields = ({
 export interface GettingStartedFormProps {
   cacheKey?: string;
   query?: FragmentType<typeof GettingStarted_QueryFragment>;
-  handleSubmit: (
-    data: UpdateUserAsUserInput,
-    emailConsent?: boolean,
-    skipVerification?: boolean,
-  ) => Promise<void>;
+  handleSubmit: SubmitHandler<FormValues>;
 }
 
 export const GettingStartedForm = ({
@@ -242,11 +237,10 @@ export const GettingStartedForm = ({
       description:
         "Legend text for required language preference in getting started form",
     }),
-    emailConsent: intl.formatMessage({
-      defaultMessage: "Email notification consent",
-      id: "Ia+zNM",
-      description:
-        "Legend text for email notification consent checkbox in getting started form",
+    verificationCode: intl.formatMessage({
+      defaultMessage: "Verification code",
+      id: "T+ypau",
+      description: "label for verification code input",
     }),
   };
 
@@ -260,16 +254,13 @@ export const GettingStartedForm = ({
   });
 
   const onSubmit = async (values: FormValues) => {
-    await handleSubmit(
-      {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        preferredLang: values.preferredLang,
-      },
-      values.emailConsent,
-      values.skipVerification,
-    );
+    await handleSubmit({
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      preferredLang: values.preferredLang,
+      verificationCode: values.verificationCode,
+    });
   };
 
   return (
@@ -404,46 +395,47 @@ const GettingStarted = () => {
     });
 
   const onSubmit = async (
-    input: UpdateUserAsUserInput,
-    emailConsent = false,
-    skipVerification = false,
+    // input: UpdateUserAsUserInput,
+    // emailConsent = false,
+    // skipVerification = false,
+    formValues: FormValues,
   ) => {
-    setVerifyEmail(!skipVerification);
-    if (meId === undefined || meId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          id: "4bjh8X",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    const notificationInput = emailConsent
-      ? [NotificationFamily.ApplicationUpdate, NotificationFamily.JobAlert]
-      : [];
-    await handleCreateAccount(meId, input, notificationInput)
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Account successfully created.",
-            id: "DK870a",
-            description:
-              "Message displayed to user if account is created successfully.",
-          }),
-        );
-        // navigation will happen on useEffect after authorization context has updated
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: creating account failed.",
-            id: "BruLeg",
-            description:
-              "Message displayed to user if account fails to get updated.",
-          }),
-        );
-      });
+    // setVerifyEmail(!skipVerification);
+    // if (meId === undefined || meId === "") {
+    //   toast.error(
+    //     intl.formatMessage({
+    //       defaultMessage: "Error: user not found",
+    //       id: "4bjh8X",
+    //       description: "Message displayed to user if user is not found",
+    //     }),
+    //   );
+    //   return;
+    // }
+    // const notificationInput = emailConsent
+    //   ? [NotificationFamily.ApplicationUpdate, NotificationFamily.JobAlert]
+    //   : [];
+    // await handleCreateAccount(meId, input, notificationInput)
+    //   .then(() => {
+    //     toast.success(
+    //       intl.formatMessage({
+    //         defaultMessage: "Account successfully created.",
+    //         id: "DK870a",
+    //         description:
+    //           "Message displayed to user if account is created successfully.",
+    //       }),
+    //     );
+    //     // navigation will happen on useEffect after authorization context has updated
+    //   })
+    //   .catch(() => {
+    //     toast.error(
+    //       intl.formatMessage({
+    //         defaultMessage: "Error: creating account failed.",
+    //         id: "BruLeg",
+    //         description:
+    //           "Message displayed to user if account fails to get updated.",
+    //       }),
+    //     );
+    //   });
   };
 
   return (
