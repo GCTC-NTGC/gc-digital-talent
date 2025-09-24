@@ -115,7 +115,7 @@ const Featured = () => {
         level="h2"
         size="h3"
         className="mt-0 mb-12 font-normal"
-        color="success"
+        color="primary"
         icon={MagnifyingGlassCircleIcon}
       >
         {intl.formatMessage({
