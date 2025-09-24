@@ -1631,6 +1631,7 @@ input EmployeeWfaFilterInput {
   classifications: [IdInput]
   departments: [IdInput]
   workStreams: [IdInput]
+  communities: [IdInput]
 }
 
 input PoolFilterInput {

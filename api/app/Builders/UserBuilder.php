@@ -531,6 +531,20 @@ class UserBuilder extends Builder
         });
     }
 
+    public function whereCommunitiesIn(?array $communityIds): self
+    {
+        if (empty($communityIds)) {
+            return $this;
+        }
+
+        return $this->whereHas('communityInterests', function (Builder $interestQuery) use ($communityIds) {
+            $interestQuery->where('consent_to_share_profile', true)
+                ->whereHas('community', function (Builder $communityQuery) use ($communityIds) {
+                    $communityQuery->whereIn('id', $communityIds);
+                });
+        });
+    }
+
     public function whereWfaInterestIn(?array $wfaInterests): self
     {
         if (empty($wfaInterests)) {
