@@ -323,6 +323,10 @@
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
   },
+  "/QXIF+": {
+    "defaultMessage": "Réaménagement des effectifs et nouveaux débouchés",
+    "description": "Heading for the WFA section"
+  },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
@@ -1170,6 +1174,10 @@
   "31HF1c": {
     "defaultMessage": "Vous n’avez pas encore ajouté d’éléments à votre parcours professionnel.",
     "description": "Message to user when no career timeline items have been attached to profile."
+  },
+  "31yjJ1": {
+    "defaultMessage": "En savoir plus<hidden> sur les ressources de la plateforme pour les spécialistes en RH</hidden>",
+    "description": "Link text to learn more about platform resources"
   },
   "34NvoS": {
     "defaultMessage": "L'ancienneté du poste",
@@ -2755,6 +2763,10 @@
     "defaultMessage": "Filtrer les demandes et consigner les résultats de l’évaluation",
     "description": "Permissions related to assessing candidates"
   },
+  "AFE4wk": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n'est qu'une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada.",
+    "description": "Description of the Office of the Chief Information Officer"
+  },
   "AFYUht": {
     "defaultMessage": "Archiver et désactiver {departmentName} de la plateforme.",
     "description": "Dialog subtitle"
@@ -3323,6 +3335,10 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
+  "Cv2CaU": {
+    "defaultMessage": "À venir cet automne",
+    "description": "Indication that more WFA information is coming in the fall"
+  },
   "Cvl9dd": {
     "defaultMessage": "Langue de la formation",
     "description": "The language of the training opportunity"
@@ -3426,6 +3442,10 @@
   "DOQi5y": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet",
     "description": "Lead in text for the delete user form."
+  },
+  "DOZYQ5": {
+    "defaultMessage": "Découvrez les débouchés du numérique dans la Défense nationale du Canada (MDN) et mettez votre expertise au service de projets qui contribuent à la sécurité nationale et renforcent les assises numériques du MDN et des Forces armées canadiennes.",
+    "description": "Summary for career opportunities with DND"
   },
   "DOmsNQ": {
     "defaultMessage": "Non démontrée suffisamment dans le cadre de la présente méthode d’évaluation – faire passer à de plus amples mises à l’essai. (Ne s’applique qu’aux occasions où les points sont cumulatifs à l’échelle des méthodes d’évaluation. Ne s’applique pas dans les cas où les candidats doivent répondre à certains critères essentiels à chaque étape).",
@@ -3766,6 +3786,10 @@
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
+  },
+  "EtIovH": {
+    "defaultMessage": "Le gouvernement du Canada se transforme à mesure qu'il cible de nouvelles priorités. Cette mutation influera possiblement sur la situation professionnelle de membres du personnel. Si vous comptez parmi ces membres et que vous faites partie des collectivités fonctionnelles soutenues par notre plateforme, nous pouvons peut-être vous aider.",
+    "description": "Summary of WFA section"
   },
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
@@ -5855,6 +5879,10 @@
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
     "description": "More descriptive label for the textarea in the skills in detail section"
   },
+  "Osh6TL": {
+    "defaultMessage": "Découvrez les ressources d'aide aux spécialistes en RH et en recrutement au sein du gouvernement, dont la bibliothèque de compétences et les modèles d'offre d'emploi.",
+    "description": "Description of platform resources for HR."
+  },
   "OvL68O": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
@@ -6755,6 +6783,10 @@
     "defaultMessage": "Décision finale annulée",
     "description": "Message displayed when a pool candidate final decision has been updated by an admin"
   },
+  "T+oEYC": {
+    "defaultMessage": "Ressources de la plateforme pour les spécialistes en RH",
+    "description": "Title for HR resources was created"
+  },
   "T+ypau": {
     "defaultMessage": "Code de vérification",
     "description": "label for verification code input"
@@ -7469,6 +7501,10 @@
   "WYJnLs": {
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
+  },
+  "WcGmlt": {
+    "defaultMessage": "Ressources pour le personnel membre de la Collectivité numérique",
+    "description": "Heading for the resources section of the homepage"
   },
   "We0XLh": {
     "defaultMessage": "Cette nomination pour une mutation latérale est approuvée.",
@@ -10152,6 +10188,10 @@
   "iEIzSc": {
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table column header My roles"
+  },
+  "iERL9L": {
+    "defaultMessage": "En savoir plus<hidden> sur les carriers dans la numérique à la Défense nationale</hidden>",
+    "description": "Link text for the digital careers at DND page"
   },
   "iFyi4k": {
     "defaultMessage": "La mise à jour du sujet a échoué.",
