@@ -8,7 +8,6 @@ import {
   PositionDuration,
   QueryEmployeeWfaPaginatedAdminTableOrderByCurrentClassificationColumn,
   QueryEmployeeWfaPaginatedAdminTableOrderByRelationOrderByClause,
-  QueryPoolsPaginatedOrderByClassificationColumn,
   SortOrder,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
