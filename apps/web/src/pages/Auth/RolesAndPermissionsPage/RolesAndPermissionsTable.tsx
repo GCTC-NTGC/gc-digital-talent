@@ -64,10 +64,6 @@ const cell = (value: boolean, intl: IntlShape) => {
   );
 };
 
-const meta = {
-  enableHiding: false,
-};
-
 const RolesAndPermissionsTable = ({
   data,
   title,
@@ -83,7 +79,7 @@ const RolesAndPermissionsTable = ({
         id: "PBNcYK",
         description: "Header for permissions column in table",
       }),
-      ...meta,
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.ProcessOperator, {
       id: ROLE_NAME.ProcessOperator,
@@ -94,25 +90,31 @@ const RolesAndPermissionsTable = ({
         </span>
       ),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      meta: {
+        hideMobileHeader: false,
+        mobileHeader:
+          intl.formatMessage(messages.processOperator) +
+          intl.formatMessage(commonMessages.asterisk),
+      },
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.CommunityRecruiter, {
       id: ROLE_NAME.CommunityRecruiter,
       header: intl.formatMessage(messages.communityRecruiter),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.CommunityTalentCoordinator, {
       id: ROLE_NAME.CommunityTalentCoordinator,
       header: intl.formatMessage(messages.communityTalentCoordinator),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.CommunityAdmin, {
       id: ROLE_NAME.CommunityAdmin,
       header: intl.formatMessage(messages.communityAdmin),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      enableHiding: false,
     }),
   ] as ColumnDef<RolePermissionRow>[];
 
