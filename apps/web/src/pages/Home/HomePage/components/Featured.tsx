@@ -212,7 +212,7 @@ const Featured = () => {
           })}
           links={[
             {
-              href: paths.skillTable(),
+              href: paths.skills(),
               mode: "solid",
               label: intl.formatMessage({
                 defaultMessage:
