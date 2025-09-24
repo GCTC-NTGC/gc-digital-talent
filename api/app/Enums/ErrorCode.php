@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Enums;
+
+enum ErrorCode
+{
+    // Update user
+    case UPDATE_USER_BOTH_STATUS_NON_STATUS;
+    case SKILL_USED_ACTIVE_POSTER;
+    case FAILED_DUE_SKILL_DELETED;
+    case CANNOT_REOPEN_DELETED_SKILL;
+    case ESSENTIAL_SKILLS_CONTAINS_DELETED;
+    case NONESSENTIAL_SKILLS_CONTAINS_DELETED;
+
+}

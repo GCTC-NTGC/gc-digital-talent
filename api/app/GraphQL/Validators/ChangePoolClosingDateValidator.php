@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Enums\PoolSkillType;
 use App\Models\Pool;
 use App\Rules\PoolSkillsNotDeleted;
@@ -56,7 +57,7 @@ final class ChangePoolClosingDateValidator extends Validator
         return [
             'closingDate.after_or_equal' => ApiErrorEnums::PROCESS_CLOSING_DATE_EXTEND,
             'closingDate.after' => ApiErrorEnums::PROCESS_CLOSING_DATE_FUTURE,
-            'id.App\\Rules\\PoolSkillsNotDeleted' => ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL,
+            'id.App\\Rules\\PoolSkillsNotDeleted' => ErrorCode::CANNOT_REOPEN_DELETED_SKILL->name,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolSelectionLimitation;
@@ -9,7 +10,6 @@ use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Rules\SkillNotDeleted;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -98,8 +98,8 @@ final class PoolIsCompleteValidator extends Validator
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
             'essential_skills.required' => 'EssentialSkillRequired',
-            'essential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::ESSENTIAL_SKILLS_CONTAINS_DELETED,
-            'nonessential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::NONESSENTIAL_SKILLS_CONTAINS_DELETED,
+            'essential_skills.*.id.'.SkillNotDeleted::class => ErrorCode::ESSENTIAL_SKILLS_CONTAINS_DELETED->name,
+            'nonessential_skills.*.id.'.SkillNotDeleted::class => ErrorCode::NONESSENTIAL_SKILLS_CONTAINS_DELETED->name,
             'key_tasks.en.required' => 'EnglishWorkTasksRequired',
             'key_tasks.fr.required' => 'FrenchWorkTasksRequired',
             'your_impact.en.required' => 'EnglishYourImpactRequired',
