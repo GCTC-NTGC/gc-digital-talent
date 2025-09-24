@@ -129,13 +129,19 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
     fallbackIcon: QuestionMarkCircleIcon,
     optional: true,
   });
+  const initialFormValues = dataToFormValues(user?.employeeWFA);
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(user?.employeeWFA),
+    defaultValues: initialFormValues,
   });
-  const { watch, handleSubmit } = methods;
+  const { watch, handleSubmit, reset } = methods;
 
   const interest = watch("wfaInterest");
+
+  const handleOpenChange = (open: boolean) => {
+    reset(initialFormValues);
+    setIsEditing(open);
+  };
 
   const handleError = () => {
     toast.error(
@@ -185,7 +191,7 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
     <ToggleSection.Root
       id="wfa-form"
       open={isEditing}
-      onOpenChange={setIsEditing}
+      onOpenChange={handleOpenChange}
     >
       <ToggleSection.Header
         icon={icon.icon}
@@ -228,7 +234,7 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                   <Heading level="h4" size="h5" className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Key details",
-                      id: 'GPizcR',
+                      id: "GPizcR",
                       description:
                         "Title for key details related to workforce adjustment",
                     })}
