@@ -1,16 +1,16 @@
+import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import {
   ToastContainer,
   Slide,
   CloseButton as ReactToastifyCloseButton,
   ToastContainerProps,
 } from "react-toastify/unstyled";
+import { useIntl } from "react-intl";
 import { ComponentPropsWithoutRef } from "react";
 import { tv } from "tailwind-variants";
-import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import "react-toastify/ReactToastify.css";
 import "./toast.css";
-import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
