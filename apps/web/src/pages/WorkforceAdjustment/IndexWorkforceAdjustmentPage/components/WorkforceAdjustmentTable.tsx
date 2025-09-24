@@ -16,13 +16,14 @@ import {
   graphql,
   WorkforceAdjustmentRowFragment,
 } from "@gc-digital-talent/graphql";
-import { Link } from "@gc-digital-talent/ui";
+import { Link, Ul } from "@gc-digital-talent/ui";
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getEmploymentEquityGroup,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import {
   INITIAL_STATE,
@@ -39,11 +40,13 @@ import accessors from "~/components/Table/accessors";
 import pageTitles from "~/messages/pageTitles";
 import profileMessages from "~/messages/profileMessages";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import useCurrentUserCommunityRoles from "~/hooks/useCurrentUserCommunityRoles";
 
 import WorkforceAdjustmentFilterDialog, {
   FormValues,
 } from "./WorkforceAdjustmentFilterDialog";
 import {
+  filterAndFlattentCommunitiesFromInterests,
   transformEmployeeWFAFilterInputToFormValues,
   transformFormValuesToEmployeeWFAFilterInput,
   transformSortStateToOrderByClause,
@@ -83,6 +86,10 @@ const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
     }
     communityInterests {
       community {
+        id
+        name {
+          localized
+        }
         workStreams {
           id
           name {
@@ -159,6 +166,7 @@ const defaultState = {
     departments: [],
     workSteams: [],
     wfaInterests: [],
+    communities: [],
     equity: undefined,
     languageAbility: undefined,
     positionDuration: undefined,
@@ -381,6 +389,36 @@ const WorkforceAdjustmentTable = () => {
         enableColumnFilter: false,
         enableSorting: false,
         header: intl.formatMessage(pageTitles.workStreams),
+      },
+    ),
+    columnHelper.accessor(
+      ({ communityInterests }) => {
+        const communities = unpackMaybes(
+          communityInterests?.flatMap(
+            (interest) => interest.community.name?.localized,
+          ),
+        );
+
+        return uniqueItems(communities).join(", ");
+      },
+      {
+        id: "communities",
+        header: intl.formatMessage(pageTitles.communities),
+        cell: ({ row: { original } }) => {
+          const communities = unpackMaybes(
+            original.communityInterests?.flatMap(
+              (interest) => interest.community.name?.localized,
+            ),
+          );
+
+          return communities.length > 0 ? (
+            <Ul>
+              {communities.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </Ul>
+          ) : null;
+        },
       },
     ),
     columnHelper.accessor(
