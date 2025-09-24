@@ -31,7 +31,7 @@ return [
     'work_streams' => 'Work streams',
     'in' => 'in',
     'from' => 'from',
-    'featured_skills' => 'Featured skills :',
+    'featured_skills' => 'Featured skills',
     'en_only' => 'English-only positions',
     'fr_only' => 'French-only positions',
     'bilingual' => 'Bilingual positions',
