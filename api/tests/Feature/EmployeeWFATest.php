@@ -83,7 +83,7 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFaInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WfaInterest::LETTER_RECEIVED->name,
                     'wfaDate' => $futureDate,
                 ],
             ])->assertJsonFragment([
