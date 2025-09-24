@@ -98,7 +98,7 @@ export const Required: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const submitBtn = canvas.getByRole("button", { name: /submit/i });
-    // eslint-disable-next-line testing-library/no-node-access
+     
     await userEvent.click(submitBtn);
   },
 };

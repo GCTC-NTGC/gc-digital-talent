@@ -71,7 +71,7 @@ function useAsyncFileDownload(): UseAsyncFileDownloadReturn {
         link.href = blobUrl;
         link.setAttribute("download", fileName);
         document.body.appendChild(link);
-        // eslint-disable-next-line testing-library/no-node-access
+         
         link.click();
         link.parentNode?.removeChild(link);
 

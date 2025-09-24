@@ -29,9 +29,9 @@ import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContai
 import dndProfileSquare from "~/assets/img/profile-dnd-square.webp";
 import dndProfileLandscape from "~/assets/img/profile-dnd-landscape.webp";
 import processMessages from "~/messages/processMessages";
+import pageTitles from "~/messages/pageTitles";
 
 import getJobFairs from "./jobFairs";
-import pageTitles from "~/messages/pageTitles";
 
 const note = tv({
   base: "font-sm text-gray-600 dark:text-gray-200",
