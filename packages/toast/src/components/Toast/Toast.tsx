@@ -10,6 +10,9 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import "react-toastify/ReactToastify.css";
 import "./toast.css";
+import { useIntl } from "react-intl";
+
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 const closeBtn = tv({
   base: "absolute top-6 right-6 z-[9] flex cursor-pointer items-center rounded-full bg-transparent text-black transition-colors ease-in outline-none focus-visible:bg-focus dark:text-white",
@@ -31,16 +34,19 @@ type CloseButtonProps = ComponentPropsWithoutRef<
   typeof ReactToastifyCloseButton
 >;
 
-const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => (
-  <button
-    type="button"
-    className={closeBtn({ type })}
-    aria-label={ariaLabel}
-    onClick={closeToast}
-  >
-    <XCircleIcon className="size-6" />
-  </button>
-);
+const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => {
+  const intl = useIntl();
+  return (
+    <button
+      type="button"
+      className={closeBtn({ type })}
+      aria-label={ariaLabel ?? intl.formatMessage(commonMessages.dismiss)}
+      onClick={closeToast}
+    >
+      <XCircleIcon className="size-6" />
+    </button>
+  );
+};
 
 interface ToastProps {
   disableTransition?: boolean;
