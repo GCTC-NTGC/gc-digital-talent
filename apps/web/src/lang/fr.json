@@ -4739,10 +4739,6 @@
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
   },
-  "JRlnNk": {
-    "defaultMessage": "Gestion de la collectivité numérique",
-    "description": "Title for the Digital Community Management"
-  },
   "JSE20b": {
     "defaultMessage": "Quelles contributions le candidat retenu devra-t-il ou la candidate retenue devra-t-elle apporter?",
     "description": "list item for job poster template key tasks section, paragraph 2"
@@ -5666,6 +5662,10 @@
   "NflJW7": {
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
+  },
+  "NjHXGh": {
+    "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
+    "description": "Link text for the Office of the Chief Information Officer"
   },
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
@@ -7193,10 +7193,6 @@
   "VAI+TU": {
     "defaultMessage": "Il n’est pas nécessaire d’évaluer chaque critère essentiel au moyen de chaque méthode d’évaluation. À titre d’exemple, un examen ou des questions d’entrevue techniques permettent mieux d’évaluer les allégations de compétences techniques faites par les candidats, alors que les entrevues ou les vérifications des références sont davantage adaptées pour vérifier les compétences comportementales.",
     "description": "Second paragraph of second answer of the Frequently Asked Questions for logging in"
-  },
-  "VBsMcq": {
-    "defaultMessage": "En savoir plus<hidden> sur la Gestion de la collectivité numérique</hidden>",
-    "description": "Link text for Digital Community Management"
   },
   "VC9Tuf": {
     "defaultMessage": "Cette action supprimera le ministère des archives et le restaurera dans la plateforme. Tous ses renseignements précédents pourront à nouveau être consultés.",
@@ -10137,6 +10133,10 @@
     "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."
   },
+  "i9cA5V": {
+    "defaultMessage": "Bureau du dirigeant principal de l'information",
+    "description": "Title for the Office of the Chief Information Officer"
+  },
   "i9ovz7": {
     "defaultMessage": "Postes bilingues",
     "description": "Sub-heading for language requirements dialog"
@@ -13052,10 +13052,6 @@
   "w1/0Cd": {
     "defaultMessage": "Diplôme exigé",
     "description": "Diploma required"
-  },
-  "w1Lego": {
-    "defaultMessage": "Derrière la plateforme Talents numériques du <abbreviation>GC</abbreviation>, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
-    "description": "Description for the Digital Community Management"
   },
   "w1aZlG": {
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
