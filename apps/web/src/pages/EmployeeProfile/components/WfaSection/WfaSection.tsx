@@ -211,9 +211,9 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
               <Heading level="h4" size="h5" className="mt-0 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Workforce adjustment information",
-                  id: "9+lpKK",
+                  id: "XBWnI6",
                   description:
-                    "Title for the information specifically related to workfoce adjustment",
+                    "Title for the information specifically related to workforce adjustment",
                 })}
               </Heading>
               <RadioGroup
@@ -228,9 +228,9 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                   <Heading level="h4" size="h5" className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Key details",
-                      id: "hoCTmy",
+                      id: 'GPizcR',
                       description:
-                        "Title for key details related to workfoce adjustment",
+                        "Title for key details related to workforce adjustment",
                     })}
                   </Heading>
                   <p className="my-6">

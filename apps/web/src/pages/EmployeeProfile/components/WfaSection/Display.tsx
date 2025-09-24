@@ -95,9 +95,9 @@ const Display = ({ user }: DisplayProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "The recruitment team of your functional community will contact you.",
-                    id: "PUTcqK",
+                    id: "w43VIb",
                     description:
-                      "Expectation of recrtuitment team contact after wfa",
+                      "Expectation of recruitment team contact after wfa",
                   })}
                 </li>
                 <li>
