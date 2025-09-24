@@ -43,7 +43,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { splitAndJoin } from "~/utils/nameUtils";
 
-import messages from "../utils/messages";
+import messages from "../GettingStartedPage/messages";
 
 const specificTitle = defineMessage({
   defaultMessage: "Employee information",
