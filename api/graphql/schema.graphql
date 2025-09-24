@@ -634,6 +634,8 @@ type PoolCandidate {
     @with(relation: "educationRequirementEducationExperiences")
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
+  educationRequirementExperienceIds: [UUID!]
+    @rename(attribute: "education_requirement_experience_ids")
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
