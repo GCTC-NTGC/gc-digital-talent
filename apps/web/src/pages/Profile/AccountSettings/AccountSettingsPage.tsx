@@ -82,20 +82,20 @@ const AccountSettingsPage = () => {
   const formattedSubTitle = intl.formatMessage(subTitle);
 
   const sections: Record<SectionKey, Section> = {
-    accountManagement: {
-      id: "account-management",
-      title: intl.formatMessage({
-        defaultMessage: "Account management",
-        id: "efBMD2",
-        description: "Title for the account management.",
-      }),
-    },
     notificationSettings: {
       id: "notification-settings",
       title: intl.formatMessage({
         defaultMessage: "Notification settings",
         id: "mZ1C/0",
         description: "Title for the notification settings.",
+      }),
+    },
+    accountManagement: {
+      id: "account-management",
+      title: intl.formatMessage({
+        defaultMessage: "Account management",
+        id: "efBMD2",
+        description: "Title for the account management.",
       }),
     },
   };
@@ -135,6 +135,32 @@ const AccountSettingsPage = () => {
                 </TableOfContents.List>
               </TableOfContents.Navigation>
               <TableOfContents.Content>
+                <TableOfContents.Section
+                  id={sections.notificationSettings.id}
+                  className="mt-12 xs:mt-18"
+                >
+                  <TableOfContents.Heading
+                    size="h3"
+                    icon={Cog8ToothIcon}
+                    color="secondary"
+                    className="mt-0 mb-6"
+                  >
+                    {sections.notificationSettings.title}
+                  </TableOfContents.Heading>
+                  <p className="mb-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The settings provided in this section allow you to control the types of notifications you receive and where they are delivered. Email notifications are delivered to the contact email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu.",
+                      id: "J/gp3y",
+                      description:
+                        "Subtitle for notification settings section on account settings page.",
+                    })}
+                  </p>
+                  <NotificationSettings
+                    enabledEmailNotifications={enabledEmailNotifications}
+                    enabledInAppNotifications={enabledInAppNotifications}
+                  />
+                </TableOfContents.Section>
                 <TableOfContents.Section
                   id={sections.accountManagement.id}
                   className="mt-12 xs:mt-18"
@@ -211,32 +237,6 @@ const AccountSettingsPage = () => {
                     })}
                   </p>
                   <AccountManagement />
-                </TableOfContents.Section>
-                <TableOfContents.Section
-                  id={sections.notificationSettings.id}
-                  className="mt-12 xs:mt-18"
-                >
-                  <TableOfContents.Heading
-                    size="h3"
-                    icon={Cog8ToothIcon}
-                    color="secondary"
-                    className="mt-0 mb-6"
-                  >
-                    {sections.notificationSettings.title}
-                  </TableOfContents.Heading>
-                  <p className="mb-6">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The settings provided in this section allow you to control the types of notifications you receive and where they are delivered. Email notifications are delivered to the contact email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu.",
-                      id: "J/gp3y",
-                      description:
-                        "Subtitle for notification settings section on account settings page.",
-                    })}
-                  </p>
-                  <NotificationSettings
-                    enabledEmailNotifications={enabledEmailNotifications}
-                    enabledInAppNotifications={enabledInAppNotifications}
-                  />
                 </TableOfContents.Section>
               </TableOfContents.Content>
             </TableOfContents.Wrapper>
