@@ -3,7 +3,7 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import { ReactNode } from "react";
 
 import { CardFlat, Container, Heading } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -32,40 +32,10 @@ const About = () => {
           <CardFlat
             color="black"
             title={intl.formatMessage({
-              defaultMessage: "Directive on Digital Talent",
-              id: "xXwUGs",
-              description: "Title for the digital talent directive page",
-            })}
-            links={[
-              {
-                external: true,
-                mode: "solid",
-                href: paths.directive(),
-                label: intl.formatMessage({
-                  defaultMessage: "Check out the Directive",
-                  id: "sGPKUt",
-                  description:
-                    "Link text to read the directive on digital talent",
-                }),
-              },
-            ]}
-          >
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Learn more about the Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
-                id: "L0ugLs",
-                description:
-                  "Summary of the directive on digital talent featured item",
-              })}
-            </p>
-          </CardFlat>
-          <CardFlat
-            color="black"
-            title={intl.formatMessage({
-              defaultMessage: "Digital Community Management",
-              id: "JRlnNk",
-              description: "Title for the Digital Community Management",
+              defaultMessage: "Office of the Chief Information Officer",
+              id: "i9cA5V",
+              description:
+                "Title for the Office of the Chief Information Officer",
             })}
             links={[
               {
@@ -73,13 +43,14 @@ const About = () => {
                 mode: "solid",
                 href:
                   locale === "en"
-                    ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/gcdigital-community-about-us.html#dcmo"
-                    : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/collectivite-gcnumerique-a-propos.html#dcmo",
+                    ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
+                    : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeante-principale-information.html",
                 label: intl.formatMessage({
                   defaultMessage:
-                    "Learn more<hidden> about Digital Community Management</hidden>",
-                  id: "VBsMcq",
-                  description: "Link text for Digital Community Management",
+                    "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",
+                  id: "NjHXGh",
+                  description:
+                    "Link text for the Office of the Chief Information Officer",
                 }),
               },
             ]}
@@ -88,15 +59,42 @@ const About = () => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "Behind the <abbreviation>GC</abbreviation> Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians.",
-                  id: "w1Lego",
+                    "<abbreviation>GC</abbreviation> Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada.",
+                  id: "AFE4wk",
                   description:
-                    "Description for the Digital Community Management",
+                    "Description of the Office of the Chief Information Officer",
                 },
                 {
-                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
+                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
                 },
               )}
+            </p>
+          </CardFlat>
+          <CardFlat
+            color="black"
+            title={intl.formatMessage(commonMessages.iapTitle)}
+            links={[
+              {
+                mode: "solid",
+                href: paths.iap(),
+                label: intl.formatMessage({
+                  defaultMessage:
+                    "Learn more<hidden> about the IT Apprenticeship Program for Indigenous Peoples</hidden>",
+                  id: "6tqGpT",
+                  description:
+                    "Link text to the IT Apprenticeship Program for Indigenous Peoples",
+                }),
+              },
+            ]}
+          >
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
+                id: "TUi+jx",
+                description:
+                  "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage",
+              })}
             </p>
           </CardFlat>
           <CardFlat

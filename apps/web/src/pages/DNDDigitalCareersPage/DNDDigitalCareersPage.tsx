@@ -31,6 +31,7 @@ import dndProfileLandscape from "~/assets/img/profile-dnd-landscape.webp";
 import processMessages from "~/messages/processMessages";
 
 import getJobFairs from "./jobFairs";
+import pageTitles from "~/messages/pageTitles";
 
 const note = tv({
   base: "font-sm text-gray-600 dark:text-gray-200",
@@ -50,11 +51,7 @@ export const Component = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Digital careers at National Defence",
-    id: "YtI+mg",
-    description: "Title for the DND digital careers page",
-  });
+  const pageTitle = intl.formatMessage(pageTitles.dnd);
 
   const desc = intl.formatMessage({
     defaultMessage:
