@@ -4104,7 +4104,7 @@
     "description": "Null message description for asset skills table."
   },
   "GMglI5": {
-    "defaultMessage": "Adresse courriel vérifiée",
+    "defaultMessage": "Adresse courriel confirmée",
     "description": "The email address has been verified to be owned by user"
   },
   "GNhFh2": {
@@ -12542,7 +12542,7 @@
     "description": "Label for a employee profile about you field"
   },
   "tUIvbq": {
-    "defaultMessage": "Adresse courriel non validée",
+    "defaultMessage": "Adresse courriel non confirmée",
     "description": "The email address has not been verified to be owned by user"
   },
   "tXLRmG": {
