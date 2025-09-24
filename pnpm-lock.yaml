@@ -1040,12 +1040,18 @@ importers:
 
   packages/toast:
     dependencies:
+      '@gc-digital-talent/i18n':
+        specifier: workspace:*
+        version: link:../i18n
       '@gc-digital-talent/ui':
         specifier: workspace:*
         version: link:../ui
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.1.1)
+      react-intl:
+        specifier: ^7.1.11
+        version: 7.1.11(react@19.1.1)(typescript@5.9.2)
       react-toastify:
         specifier: ^11.0.5
         version: 11.0.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
