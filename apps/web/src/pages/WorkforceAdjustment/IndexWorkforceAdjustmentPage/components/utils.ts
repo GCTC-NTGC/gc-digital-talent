@@ -35,6 +35,7 @@ export function transformFormValuesToEmployeeWFAFilterInput(
     departments: arrayToIdInput(data.departments),
     workStreams: arrayToIdInput(data.workStreams),
     skills: arrayToIdInput(data.skills),
+    communities: arrayToIdInput(data.communities),
 
     wfaInterests: data.wfaInterests,
     languageAbility: data.languageAbility,
@@ -88,6 +89,7 @@ export function transformEmployeeWFAFilterInputToFormValues(
     departments: flattenIdInput(data?.departments),
     workStreams: flattenIdInput(data?.workStreams),
     skills: flattenIdInput(data?.skills),
+    communities: flattenIdInput(data?.communities),
 
     wfaInterests: unpackMaybes(data?.wfaInterests),
     languageAbility: data?.languageAbility ?? undefined,

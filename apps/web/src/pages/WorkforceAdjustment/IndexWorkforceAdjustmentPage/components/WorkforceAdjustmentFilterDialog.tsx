@@ -26,6 +26,7 @@ import {
   narrowEnumType,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
+import { narrowTeambleType } from "@gc-digital-talent/auth";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -41,6 +42,7 @@ export interface FormValues {
   classifications?: string[];
   departments?: string[];
   workStreams?: string[];
+  communities?: string[];
   wfaInterests?: WfaInterest[];
   equity?: string[];
   languageAbility?: LanguageAbility;
@@ -57,6 +59,21 @@ const context: Partial<OperationContext> = {
 
 const WorkforceAdjustmentFilterData_Query = graphql(/* GraphQL */ `
   query WorkforceAdjustmentFilterData {
+    me {
+      authInfo {
+        roleAssignments {
+          teamable {
+            __typename
+            id
+            ... on Community {
+              name {
+                localized
+              }
+            }
+          }
+        }
+      }
+    }
     skills {
       id
       key
@@ -126,6 +143,14 @@ const WorkforceAdjustmentFilterDialog = ({
     context,
   });
 
+  const assignments = unpackMaybes(
+    data?.me?.authInfo?.roleAssignments?.flatMap(
+      (assignment) => assignment?.teamable,
+    ),
+  );
+
+  const communities = narrowTeambleType(assignments, "Community");
+
   return (
     <FilterDialog<FormValues>
       options={{ defaultValues: initialValues }}
@@ -170,6 +195,16 @@ const WorkforceAdjustmentFilterDialog = ({
           options={unpackMaybes(data?.workStreams).map((stream) => ({
             value: stream.id,
             label: stream.name?.localized ?? notAvailable,
+          }))}
+        />
+        <Combobox
+          id="communities"
+          name="communities"
+          label={intl.formatMessage(pageTitles.communities)}
+          isMulti
+          options={communities.map((community) => ({
+            value: community.id,
+            label: community.name?.localized ?? notAvailable,
           }))}
         />
       </div>
