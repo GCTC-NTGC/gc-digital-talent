@@ -116,6 +116,9 @@ enum ErrorCode
     // Skill
     case SKILL_NOT_FOUND;
 
+    // Talent event
+    case TALENT_EVENT_IS_CLOSED;
+
     // Talent nominations
     case NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE;
     case NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE;
