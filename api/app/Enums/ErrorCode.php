@@ -35,6 +35,9 @@ enum ErrorCode
     case CANNOT_SET_ASSESSMENT_DECISION_LEVEL_FOR_THIS_TYPE_OR_DECISION;
     case ASSESSMENT_RESULT_ALREADY_EXISTS;
 
+    // Classification
+    case CLASSIFICATION_NOT_FOUND;
+
     // Community
     case COMMUNITY_NOT_FOUND;
     case COMMUNITY_INTEREST_EXISTS;
@@ -44,6 +47,7 @@ enum ErrorCode
 
     // Department
     case DEPARTMENT_NUMBER_IN_USE;
+    case DEPARTMENT_NOT_FOUND;
 
     // Development Program
     case DEVELOPMENT_PROGRAM_NOT_FOUND;
@@ -74,6 +78,7 @@ enum ErrorCode
     case CONTACT_EMAIL_REQUIRED;
     case PROCESS_CLOSING_DATE_EXTEND;
     case PROCESS_CLOSING_DATE_FUTURE;
+    case CHANGE_JUSTIFICATION_REQUIRED;
 
     // Pool candidate
     case INVALID_STATUS_DISQUALIFICATION;
@@ -118,5 +123,7 @@ enum ErrorCode
     case TOO_MANY_SUBSTANTIVE_EXPERIENCES;
     case NOT_GOVERNMENT_EMAIL;
     case NOT_VERIFIED_GOVERNMENT_EMPLOYEE;
+    case EMAIL_ADDRESS_IN_USE;
+    case SUB_IN_USE;
 
 }

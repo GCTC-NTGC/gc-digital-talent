@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Rules\IsStatusOrNonStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -62,9 +63,9 @@ final class UpdateUserAsAdminInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'email.unique' => 'EmailAddressInUse',
-            'workEmail.unique' => 'EmailAddressInUse',
-            'sub.unique' => 'SubInUse',
+            'email.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+            'workEmail.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+            'sub.unique' => ErrorCode::SUB_IN_USE->name,
         ];
     }
 }

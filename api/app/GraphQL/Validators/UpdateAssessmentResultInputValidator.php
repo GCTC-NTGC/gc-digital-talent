@@ -4,6 +4,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
+use App\Enums\ErrorCode;
 use App\Models\AssessmentResult;
 use App\Rules\AssessmentResultJustificationsConsistent;
 use Illuminate\Validation\Rule;
@@ -49,7 +50,7 @@ final class UpdateAssessmentResultInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
+            'assessmentDecisionLevel.prohibited' => ErrorCode::CANNOT_SET_ASSESSMENT_DECISION_LEVEL_FOR_THIS_TYPE_OR_DECISION->name,
         ];
     }
 }
