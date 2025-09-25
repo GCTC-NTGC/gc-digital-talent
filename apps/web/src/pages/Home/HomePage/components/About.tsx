@@ -108,7 +108,7 @@ const About = () => {
             })}
             links={[
               {
-                href: `/${locale}/talent-cloud/report`,
+                href: paths.tcReport(),
                 external: true,
                 mode: "solid",
                 label: intl.formatMessage({
