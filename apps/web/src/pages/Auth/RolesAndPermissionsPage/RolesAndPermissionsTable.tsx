@@ -1,12 +1,12 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { ReactNode, useId } from "react";
+import { ReactNode } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
@@ -68,7 +68,6 @@ const RolesAndPermissionsTable = ({
   title,
 }: RolesAndPermissionsTableProps) => {
   const intl = useIntl();
-  const id = useId();
 
   const columns = [
     columnHelper.accessor("permission", {
