@@ -1828,7 +1828,7 @@
     "description": "Final question on revert final decision dialog on view pool candidate page"
   },
   "5r5XSh": {
-    "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
+    "defaultMessage": "Veuillez confirmer votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
   "5sZWgB": {
@@ -2756,7 +2756,7 @@
     "description": "Label for a nominations nominee"
   },
   "ADPfNp": {
-    "defaultMessage": "Valider dès maintenant",
+    "defaultMessage": "Confirmer maintenant",
     "description": "Button to start the email address verification process"
   },
   "ADk6dX": {
@@ -4128,7 +4128,7 @@
     "description": "Null message description for asset skills table."
   },
   "GMglI5": {
-    "defaultMessage": "Adresse courriel vérifiée",
+    "defaultMessage": "Adresse courriel confirmée",
     "description": "The email address has been verified to be owned by user"
   },
   "GNhFh2": {
@@ -4616,7 +4616,7 @@
     "description": "Heading for the 'edit a community' form"
   },
   "IrV/w5": {
-    "defaultMessage": "Valider l’adresse courriel",
+    "defaultMessage": "Confirmer l’adresse courriel",
     "description": "breadcrumb for email verification page"
   },
   "Is1RHA": {
@@ -5256,7 +5256,7 @@
     "description": "Label for Special note"
   },
   "LpCMiC": {
-    "defaultMessage": "Vérifiez votre adresse courriel de contact",
+    "defaultMessage": "Confirmer votre adresse courriel de correspondance",
     "description": "Verify your contact email text"
   },
   "LphzpW": {
@@ -5416,7 +5416,7 @@
     "description": "Text explaining the importance of reporting technical issues"
   },
   "MZ0uNW": {
-    "defaultMessage": "Veuillez vérifier votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
+    "defaultMessage": "Veuillez confirmer votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
     "description": "instructions for email verification form"
   },
   "MZChNU": {
@@ -5700,7 +5700,7 @@
     "description": "Label for the new job posted notification"
   },
   "NpznI5": {
-    "defaultMessage": "Sauvegarder et ignorer la vérification",
+    "defaultMessage": "Sauvegarder et ignorer la confirmation",
     "description": "Button label for submit and skip email verification button on getting started form."
   },
   "NwlRd5": {
@@ -6816,7 +6816,7 @@
     "description": "Nav menu trigger for resource links sub menu"
   },
   "T7irec": {
-    "defaultMessage": "Vérifiez votre adresse courriel professionnelle",
+    "defaultMessage": "Confirmer votre adresse courriel professionnelle",
     "description": "Verify your work email text"
   },
   "T8J2Lp": {
@@ -9255,7 +9255,7 @@
     "description": "Subtitle for the update job poster template page"
   },
   "eRbVle": {
-    "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de vérifier cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
+    "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de confirmer cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
     "description": "Message on getting started page about the contact email address - part 1."
   },
   "eS/PsM": {
@@ -10394,7 +10394,7 @@
     "description": "Header for requirement section of assessment results table"
   },
   "jBjIJT": {
-    "defaultMessage": "En fournissant et en vérifiant votre adresse courriel professionnelle, vous aurez accès à des outils, à des caractéristiques et à des occasions propres aux employés. Il peut être nécessaire de revérifier les adresses courriel professionnelles périodiquement. Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à communiquer avec nous.",
+    "defaultMessage": "En fournissant et en vérifiant votre adresse courriel professionnelle, vous aurez accès à des outils, à des caractéristiques et à des occasions propres aux employés. Il peut être nécessaire de reconfirmer les adresses courriel professionnelles périodiquement. Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à communiquer avec nous.",
     "description": "Message on getting started page about the contact email address - part 2."
   },
   "jDv8lx": {
@@ -12582,7 +12582,7 @@
     "description": "Label for a employee profile about you field"
   },
   "tUIvbq": {
-    "defaultMessage": "Adresse courriel non validée",
+    "defaultMessage": "Adresse courriel non confirmée",
     "description": "The email address has not been verified to be owned by user"
   },
   "tXLRmG": {
