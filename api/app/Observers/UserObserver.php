@@ -24,7 +24,7 @@ class UserObserver
             $user->wfa_updated_at = now();
         }
 
-        if (is_null($user->wfa_interest) || $user->wfa_interest === WfaInterest::NOT_APPLICABLE->name) {
+        if (is_null($user->wfa_interest) || $user->wfa_interest === WfaInterest::NOT_APPLICABLE->name || $user->wfa_interest === WfaInterest::VOLUNTARY_DEPARTURE->name) {
             $user->wfa_date = null;
         }
     }

@@ -40,6 +40,7 @@ import messages from "../../messages";
 import Display from "./Display";
 import SubstantiveExperiences from "./SubstantiveExperiences";
 import Warning from "./Warning";
+import { intersection } from "lodash";
 
 const EmployeeWfaOptions_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeWfaOptions on Query {
@@ -257,61 +258,69 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                   <SubstantiveExperiences
                     query={unpackMaybes(user.currentSubstantiveExperiences)}
                   />
-                  <DateInput
-                    name="wfaDate"
-                    id="wfaDate"
-                    legend={intl.formatMessage(messages.expectedEndDate)}
-                    content={intl.formatMessage({
-                      defaultMessage:
-                        "If possible, verify your expected end date.",
-                      id: "qDzAG6",
-                      description: "Help text for the wfa expected end date",
-                    })}
-                  />
-                  <Heading level="h5" size="h6">
-                    {intl.formatMessage(messages.currentCommunity)}
-                  </Heading>
-                  {communityInterests.length > 0 ? (
-                    <Ul space="sm">
-                      {communityInterests.map((ci) => (
-                        <li key={ci.community.id}>
-                          {ci?.community?.name?.localized ??
-                            intl.formatMessage(commonMessages.notAvailable)}
-                        </li>
-                      ))}
-                    </Ul>
-                  ) : (
-                    <Warning>
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Missing functional community",
-                          id: "3QXxlE",
-                          description:
-                            "Title for when a user is missing a functional community",
-                        })}
-                      </p>
-                      <p className="mb-6">
-                        {intl.formatMessage({
+                  {![
+                    WfaInterest.VoluntaryDeparture,
+                    WfaInterest.NotApplicable,
+                  ].includes(interest) && (
+                    <>
+                      <DateInput
+                        name="wfaDate"
+                        id="wfaDate"
+                        legend={intl.formatMessage(messages.expectedEndDate)}
+                        content={intl.formatMessage({
                           defaultMessage:
-                            "This functionality is managed by recruitment teams from our functional communities. Add the relevant functional communities to your profile so that they’ll see your workforce adjustment information.",
-                          id: "76I4K2",
+                            "If possible, verify your expected end date.",
+                          id: "qDzAG6",
                           description:
-                            "Help text for resolving missing community warning",
+                            "Help text for the wfa expected end date",
                         })}
-                      </p>
-                      <Link
-                        color="warning"
-                        mode="inline"
-                        href={`${paths.createCommunityInterest()}?from=${paths.employeeProfile()}`}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Add a functional community",
-                          id: "XE8xbj",
-                          description:
-                            "Link text to add a functional community",
-                        })}
-                      </Link>
-                    </Warning>
+                      />
+                      <Heading level="h5" size="h6">
+                        {intl.formatMessage(messages.currentCommunity)}
+                      </Heading>
+                      {communityInterests.length > 0 ? (
+                        <Ul space="sm">
+                          {communityInterests.map((ci) => (
+                            <li key={ci.community.id}>
+                              {ci?.community?.name?.localized ??
+                                intl.formatMessage(commonMessages.notAvailable)}
+                            </li>
+                          ))}
+                        </Ul>
+                      ) : (
+                        <Warning>
+                          <p>
+                            {intl.formatMessage({
+                              defaultMessage: "Missing functional community",
+                              id: "3QXxlE",
+                              description:
+                                "Title for when a user is missing a functional community",
+                            })}
+                          </p>
+                          <p className="mb-6">
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "This functionality is managed by recruitment teams from our functional communities. Add the relevant functional communities to your profile so that they’ll see your workforce adjustment information.",
+                              id: "76I4K2",
+                              description:
+                                "Help text for resolving missing community warning",
+                            })}
+                          </p>
+                          <Link
+                            color="warning"
+                            mode="inline"
+                            href={`${paths.createCommunityInterest()}?from=${paths.employeeProfile()}`}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage: "Add a functional community",
+                              id: "XE8xbj",
+                              description:
+                                "Link text to add a functional community",
+                            })}
+                          </Link>
+                        </Warning>
+                      )}
+                    </>
                   )}
                   <Heading level="h5" size="h6">
                     {intl.formatMessage({
