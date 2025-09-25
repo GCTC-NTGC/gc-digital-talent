@@ -9,6 +9,7 @@ import {
   PositionDuration,
   Skill,
   WorkStream,
+  FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
 import fakeSkills from "./fakeSkills";
@@ -41,6 +42,9 @@ const generateApplicantFilters = (
 
     locationPreferences: faker.helpers
       .arrayElements<WorkRegion>(Object.values(WorkRegion))
+      .map((req) => toLocalizedEnum(req)),
+    flexibleWorkLocations: faker.helpers
+      .arrayElements<FlexibleWorkLocation>(Object.values(FlexibleWorkLocation))
       .map((req) => toLocalizedEnum(req)),
     operationalRequirements: faker.helpers
       .arrayElements<OperationalRequirement>(operationalRequirements)

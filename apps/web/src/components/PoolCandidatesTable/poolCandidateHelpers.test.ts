@@ -17,6 +17,7 @@ const defaultFormValues: FormValues = {
   departments: [],
   languageAbility: "",
   workRegion: [],
+  flexibleWorkLocations: [],
   operationalRequirement: [],
   equity: [],
   pools: [],

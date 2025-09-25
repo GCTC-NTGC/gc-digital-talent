@@ -12,6 +12,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 import {
   CreatePoolCandidateSearchRequestInput,
+  FlexibleWorkLocation,
   LanguageAbility,
   makeFragmentData,
   PoolCandidateSearchRequestReason,
@@ -89,6 +90,7 @@ export default {
           requestReasons: fakeLocalizedEnum(PoolCandidateSearchRequestReason),
           languageAbilities: fakeLocalizedEnum(LanguageAbility),
           workRegions: fakeLocalizedEnum(WorkRegion),
+          flexibleWorkLocations: fakeLocalizedEnum(FlexibleWorkLocation),
           operationalRequirements: fakeLocalizedEnum(OperationalRequirements),
           workStreams: fakeWorkStreams(),
         },
