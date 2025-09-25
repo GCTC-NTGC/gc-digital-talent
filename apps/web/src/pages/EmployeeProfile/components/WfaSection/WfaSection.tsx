@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { FormProvider, useForm } from "react-hook-form";
-import { intersection } from "lodash";
 
 import {
   EmployeeWfa,
