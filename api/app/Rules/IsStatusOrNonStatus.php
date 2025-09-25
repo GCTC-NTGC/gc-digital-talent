@@ -19,7 +19,7 @@ class IsStatusOrNonStatus implements ValidationRule
                 in_array(IndigenousCommunity::STATUS_FIRST_NATIONS->name, $value) &&
                 in_array(IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name, $value)
             ) {
-                $fail(ErrorCode::UPDATE_USER_BOTH_STATUS_NON_STATUS->name);
+                $fail(ErrorCode::BOTH_STATUS_NON_STATUS->name);
             }
         }
     }

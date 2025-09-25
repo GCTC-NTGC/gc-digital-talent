@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Models\Community;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -259,7 +259,7 @@ class TalentNominationEventTest extends TestCase
                     'community' => ['connect' => Str::uuid()],
                 ],
             ])
-            ->assertGraphQLValidationError('talentNominationEvent.community.connect', ApiErrorEnums::COMMUNITY_NOT_FOUND);
+            ->assertGraphQLValidationError('talentNominationEvent.community.connect', ErrorCode::COMMUNITY_NOT_FOUND->name);
     }
 
     public function testDevelopmentProgramInCommunityValidation()
@@ -279,6 +279,6 @@ class TalentNominationEventTest extends TestCase
                     ],
                 ],
             ])
-            ->assertGraphQLValidationError('talentNominationEvent.developmentPrograms.sync.0', ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY);
+            ->assertGraphQLValidationError('talentNominationEvent.developmentPrograms.sync.0', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
     }
 }

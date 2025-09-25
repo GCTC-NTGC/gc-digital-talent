@@ -566,7 +566,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('UnarchivePoolInvalidStatus');
+            ->assertGraphQLErrorMessage(ErrorCode::UNARCHIVE_POOL_INVALID_STATUS->name);
     }
 
     public function testCannotPublishWithDeletedSkill(): void
@@ -596,7 +596,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('EssentialSkillsContainsDeleted');
+            ->assertGraphQLErrorMessage(ErrorCode::ESSENTIAL_SKILLS_CONTAINS_DELETED->name);
 
         $pool->setEssentialPoolSkills([$skill1->id]);
 
@@ -837,7 +837,7 @@ class PoolTest extends TestCase
                 'id' => $completePool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('AssessmentStepMissingSkills');
+            ->assertGraphQLErrorMessage(ErrorCode::ASSESSMENT_STEP_MISSING_SKILLS->name);
 
         $completePool->load(['assessmentSteps', 'poolSkills']);
         foreach ($completePool->assessmentSteps as $assessmentStep) {
@@ -987,7 +987,7 @@ class PoolTest extends TestCase
                 'id' => $completePool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('PoolSkillsWithoutAssessments');
+            ->assertGraphQLErrorMessage(ErrorCode::POOL_SKILLS_WITHOUT_ASSESSMENTS->name);
 
         $completePool->load(['assessmentSteps', 'poolSkills']);
         foreach ($completePool->assessmentSteps as $assessmentStep) {
