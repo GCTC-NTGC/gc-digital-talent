@@ -14,24 +14,24 @@ class UserObserver
         //
     }
 
+    public function updating(User $user)
+    {
+        if ($user->isDirty(['wfa_date', 'wfa_interest'])) {
+            $newInterest = $user->wfa_interest;
+
+            if (is_null($newInterest)) {
+                $user->wfa_date = null;
+            }
+            $user->wfa_updated_at = now();
+        }
+    }
+
     /**
      * Handle the User "updated" event.
      */
     public function updated(User $user): void
     {
-        $oldContactEmail = $user->getOriginal('email');
-        $newContactEmail = $user->email;
-        if ($newContactEmail != $oldContactEmail && ! is_null($user->email_verified_at)) {
-            $user->email_verified_at = null;
-        }
-
-        $oldWorkEmail = $user->getOriginal('work_email');
-        $newWorkEmail = $user->work_email;
-        if ($newWorkEmail != $oldWorkEmail && ! is_null($user->work_email_verified_at)) {
-            $user->work_email_verified_at = null;
-        }
-
-        $user->saveQuietly();
+        //
     }
 
     /**

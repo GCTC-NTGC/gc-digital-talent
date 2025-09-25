@@ -323,6 +323,10 @@
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
   },
+  "/QXIF+": {
+    "defaultMessage": "Réaménagement des effectifs et nouveaux débouchés",
+    "description": "Heading for the WFA section"
+  },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
@@ -915,6 +919,10 @@
     "defaultMessage": "Avant de supprimer ces renseignements, assurez-vous d'avoir ajouté vos processus de recrutement hors plateforme en utilisant le nouveau bouton « Ajouter un processus hors plateforme » sur votre tableau de bord.",
     "description": "Explanation of delete old off platform processes dialog part 1"
   },
+  "2/S+Ro": {
+    "defaultMessage": "Confirmer votre adresse courriel",
+    "description": "Button text for email verification dialog trigger"
+  },
   "2/fjEP": {
     "defaultMessage": "Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation?",
     "description": "Button text to toggle the accordion for accommodations contact"
@@ -1166,6 +1174,10 @@
   "31HF1c": {
     "defaultMessage": "Vous n’avez pas encore ajouté d’éléments à votre parcours professionnel.",
     "description": "Message to user when no career timeline items have been attached to profile."
+  },
+  "31yjJ1": {
+    "defaultMessage": "En savoir plus<hidden> sur les ressources de la plateforme pour les spécialistes en RH</hidden>",
+    "description": "Link text to learn more about platform resources"
   },
   "34NvoS": {
     "defaultMessage": "L'ancienneté du poste",
@@ -1816,7 +1828,7 @@
     "description": "Final question on revert final decision dialog on view pool candidate page"
   },
   "5r5XSh": {
-    "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
+    "defaultMessage": "Veuillez confirmer votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
   "5sZWgB": {
@@ -2094,6 +2106,10 @@
   "7L19hE": {
     "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
     "description": "Subtitle for training opportunity single page"
+  },
+  "7Q61+y": {
+    "defaultMessage": "Confirmation de l'adresse courriel",
+    "description": "Title for email verification dialog"
   },
   "7Q6mMp": {
     "defaultMessage": "Enregistrer des compétences techniques constituant un atout",
@@ -2740,12 +2756,16 @@
     "description": "Label for a nominations nominee"
   },
   "ADPfNp": {
-    "defaultMessage": "Valider dès maintenant",
+    "defaultMessage": "Confirmer maintenant",
     "description": "Button to start the email address verification process"
   },
   "ADk6dX": {
     "defaultMessage": "Filtrer les demandes et consigner les résultats de l’évaluation",
     "description": "Permissions related to assessing candidates"
+  },
+  "AFE4wk": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n'est qu'une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada.",
+    "description": "Description of the Office of the Chief Information Officer"
   },
   "AFYUht": {
     "defaultMessage": "Archiver et désactiver {departmentName} de la plateforme.",
@@ -3311,6 +3331,10 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
+  "Cv2CaU": {
+    "defaultMessage": "À venir cet automne",
+    "description": "Indication that more WFA information is coming in the fall"
+  },
   "Cvl9dd": {
     "defaultMessage": "Langue de la formation",
     "description": "The language of the training opportunity"
@@ -3414,6 +3438,10 @@
   "DOQi5y": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet",
     "description": "Lead in text for the delete user form."
+  },
+  "DOZYQ5": {
+    "defaultMessage": "Découvrez les débouchés du numérique dans la Défense nationale du Canada (MDN) et mettez votre expertise au service de projets qui contribuent à la sécurité nationale et renforcent les assises numériques du MDN et des Forces armées canadiennes.",
+    "description": "Summary for career opportunities with DND"
   },
   "DOmsNQ": {
     "defaultMessage": "Non démontrée suffisamment dans le cadre de la présente méthode d’évaluation – faire passer à de plus amples mises à l’essai. (Ne s’applique qu’aux occasions où les points sont cumulatifs à l’échelle des méthodes d’évaluation. Ne s’applique pas dans les cas où les candidats doivent répondre à certains critères essentiels à chaque étape).",
@@ -3755,6 +3783,10 @@
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
   },
+  "EtIovH": {
+    "defaultMessage": "Le gouvernement du Canada se transforme à mesure qu'il cible de nouvelles priorités. Cette mutation influera possiblement sur la situation professionnelle de membres du personnel. Si vous comptez parmi ces membres et que vous faites partie des collectivités fonctionnelles soutenues par notre plateforme, nous pouvons peut-être vous aider.",
+    "description": "Summary of WFA section"
+  },
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
     "description": "Description of a decorative image of a woman and a laptop"
@@ -3798,6 +3830,10 @@
   "F1OHq7": {
     "defaultMessage": "Vous vous êtes déconnecté(e) de la plateforme avec succès",
     "description": "Title for the alert displayed after a user signs out"
+  },
+  "F2ChSj": {
+    "defaultMessage": "L'adresse courriel fournie a changé depuis l'envoi du dernier code de confirmation. Veuillez demander un nouveau courriel de confirmation.",
+    "description": "Body for a message informing the user that they changed the address and need to request a new code."
   },
   "F3UR4F": {
     "defaultMessage": "En apprendre sur le MDN",
@@ -4088,7 +4124,7 @@
     "description": "Null message description for asset skills table."
   },
   "GMglI5": {
-    "defaultMessage": "Adresse courriel vérifiée",
+    "defaultMessage": "Adresse courriel confirmée",
     "description": "The email address has been verified to be owned by user"
   },
   "GNhFh2": {
@@ -4576,7 +4612,7 @@
     "description": "Heading for the 'edit a community' form"
   },
   "IrV/w5": {
-    "defaultMessage": "Valider l’adresse courriel",
+    "defaultMessage": "Confirmer l’adresse courriel",
     "description": "breadcrumb for email verification page"
   },
   "Is1RHA": {
@@ -4722,10 +4758,6 @@
   "JIvR0C": {
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
-  },
-  "JRlnNk": {
-    "defaultMessage": "Gestion de la collectivité numérique",
-    "description": "Title for the Digital Community Management"
   },
   "JSE20b": {
     "defaultMessage": "Quelles contributions le candidat retenu devra-t-il ou la candidate retenue devra-t-elle apporter?",
@@ -5216,7 +5248,7 @@
     "description": "Label for Special note"
   },
   "LpCMiC": {
-    "defaultMessage": "Vérifiez votre adresse courriel de contact",
+    "defaultMessage": "Confirmer votre adresse courriel de correspondance",
     "description": "Verify your contact email text"
   },
   "LphzpW": {
@@ -5376,7 +5408,7 @@
     "description": "Text explaining the importance of reporting technical issues"
   },
   "MZ0uNW": {
-    "defaultMessage": "Veuillez vérifier votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
+    "defaultMessage": "Veuillez confirmer votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
     "description": "instructions for email verification form"
   },
   "MZChNU": {
@@ -5643,6 +5675,10 @@
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
   },
+  "NjHXGh": {
+    "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
+    "description": "Link text for the Office of the Chief Information Officer"
+  },
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
@@ -5652,7 +5688,7 @@
     "description": "Label for the new job posted notification"
   },
   "NpznI5": {
-    "defaultMessage": "Sauvegarder et ignorer la vérification",
+    "defaultMessage": "Sauvegarder et ignorer la confirmation",
     "description": "Button label for submit and skip email verification button on getting started form."
   },
   "NwlRd5": {
@@ -5830,6 +5866,10 @@
   "Opn8nz": {
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
     "description": "More descriptive label for the textarea in the skills in detail section"
+  },
+  "Osh6TL": {
+    "defaultMessage": "Découvrez les ressources d'aide aux spécialistes en RH et en recrutement au sein du gouvernement, dont la bibliothèque de compétences et les modèles d'offre d'emploi.",
+    "description": "Description of platform resources for HR."
   },
   "OvL68O": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
@@ -6062,6 +6102,10 @@
   "PvH5lJ": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
+  },
+  "PvS4Lq": {
+    "defaultMessage": "Votre adresse courriel de correspondance servira à valider votre statut de membre du personnel",
+    "description": "Title for a message informing the user that their contact email will be used as a work email."
   },
   "PwB71+": {
     "defaultMessage": "Veuillez sélectionner une ou plusieurs options de nomination pour continuer.",
@@ -6631,6 +6675,10 @@
     "defaultMessage": "Menu principal",
     "description": "Label for the main navigation"
   },
+  "SYEKUz": {
+    "defaultMessage": "Le code saisi est invalide. Veuillez en demander un nouveau.",
+    "description": "Error message when the code is not valid."
+  },
   "SZeO9P": {
     "defaultMessage": "Éducation actuelle",
     "description": "Label displayed on Education Experience form for current education bounded box"
@@ -6719,6 +6767,10 @@
     "defaultMessage": "Décision finale annulée",
     "description": "Message displayed when a pool candidate final decision has been updated by an admin"
   },
+  "T+oEYC": {
+    "defaultMessage": "Ressources de la plateforme pour les spécialistes en RH",
+    "description": "Title for HR resources was created"
+  },
   "T+ypau": {
     "defaultMessage": "Code de vérification",
     "description": "label for verification code input"
@@ -6748,7 +6800,7 @@
     "description": "Nav menu trigger for resource links sub menu"
   },
   "T7irec": {
-    "defaultMessage": "Vérifiez votre adresse courriel professionnelle",
+    "defaultMessage": "Confirmer votre adresse courriel professionnelle",
     "description": "Verify your work email text"
   },
   "T8J2Lp": {
@@ -7011,6 +7063,10 @@
     "defaultMessage": "Autochtone selon la définition de ce programme",
     "description": "Heading for the definition of Indigenous dialog"
   },
+  "UOpnBD": {
+    "defaultMessage": "Veuillez saisir le code reçu dans le champ fourni. Si vous ne l'avez pas reçu, vous pouvez le redemander au moyen du bouton fourni.",
+    "description": "Body for a message confirming that the verification email was sent."
+  },
   "UQlyXu": {
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
@@ -7061,6 +7117,10 @@
   "Uo2kBO": {
     "defaultMessage": "Retirer {userName} de la collectivité {communityName}.",
     "description": "Label for the dialog trigger to remove a user from a community"
+  },
+  "UoTwQ8": {
+    "defaultMessage": "Veuillez confirmer votre adresse courriel professionnelle du gouvernement du Canada pour valider votre statut de membre du personnel.",
+    "description": "Work email subtitle"
   },
   "UoUzWJ": {
     "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
@@ -7149,10 +7209,6 @@
   "VAI+TU": {
     "defaultMessage": "Il n’est pas nécessaire d’évaluer chaque critère essentiel au moyen de chaque méthode d’évaluation. À titre d’exemple, un examen ou des questions d’entrevue techniques permettent mieux d’évaluer les allégations de compétences techniques faites par les candidats, alors que les entrevues ou les vérifications des références sont davantage adaptées pour vérifier les compétences comportementales.",
     "description": "Second paragraph of second answer of the Frequently Asked Questions for logging in"
-  },
-  "VBsMcq": {
-    "defaultMessage": "En savoir plus<hidden> sur la Gestion de la collectivité numérique</hidden>",
-    "description": "Link text for Digital Community Management"
   },
   "VC9Tuf": {
     "defaultMessage": "Cette action supprimera le ministère des archives et le restaurera dans la plateforme. Tous ses renseignements précédents pourront à nouveau être consultés.",
@@ -7245,6 +7301,10 @@
   "Vck6JW": {
     "defaultMessage": "<strong>Description</strong> : bons pour examens de certification en ligne attestant les compétences reconnues liées à des domaines clés des TI.",
     "description": "An item in a list of points about cert exams"
+  },
+  "Vd9VIn": {
+    "defaultMessage": "Confirmer une adresse courriel professionnelle du GC",
+    "description": "Link to update the work email"
   },
   "Vfa3Ek": {
     "defaultMessage": "Compétence mise à jour avec succès!",
@@ -7425,6 +7485,10 @@
   "WYJnLs": {
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
+  },
+  "WcGmlt": {
+    "defaultMessage": "Ressources pour le personnel membre de la Collectivité numérique",
+    "description": "Heading for the resources section of the homepage"
   },
   "We0XLh": {
     "defaultMessage": "Cette nomination pour une mutation latérale est approuvée.",
@@ -7629,6 +7693,10 @@
   "Xb11ag": {
     "defaultMessage": "Une personne tierce a soumis cette candidature au nom de l’autrice ou l’auteur de la mise en candidature. Vous trouverez leurs coordonnées ici.",
     "description": "Information in dialog about submitter being different from nominator"
+  },
+  "Xc3Y7t": {
+    "defaultMessage": "Modifier l'adresse courriel de correspondance",
+    "description": "Link to update the contact email"
   },
   "XcS2q2": {
     "defaultMessage": "Rôle retiré avec succès",
@@ -8770,6 +8838,10 @@
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
   },
+  "cw6MTQ": {
+    "defaultMessage": "Pour que votre adresse courriel professionnelle puisse être confirmée, son domaine doit correspondre à un modèle connu du gouvernement du Canada (par exemple @canada.ca, @ministère.gc.ca, etc.).",
+    "description": "Work email title paragraph"
+  },
   "cweZUH": {
     "defaultMessage": "Cette section <strong>facultative</strong> vous permet de fournir un context additionnel pour le ministère, la direction ou l’équipe qui embauchera grâce à ce processus.",
     "description": "Describes the 'about us' section of a process' advertisement."
@@ -9155,7 +9227,7 @@
     "description": "Subtitle for the update job poster template page"
   },
   "eRbVle": {
-    "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de vérifier cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
+    "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de confirmer cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
     "description": "Message on getting started page about the contact email address - part 1."
   },
   "eS/PsM": {
@@ -9285,6 +9357,10 @@
   "exPEA1": {
     "defaultMessage": "Nom de l'auteur(trice) de la mise en candidature",
     "description": "Label for the text input for the nominators name"
+  },
+  "exfH1c": {
+    "defaultMessage": "Sauvegarder et ajouter une adresse courriel",
+    "description": "Button to save and add email"
   },
   "exxM/M": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
@@ -9441,6 +9517,10 @@
   "fY0W2V": {
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
     "description": "Notification when a user attempts to apply to a pool when they already have an application there."
+  },
+  "fa+z9W": {
+    "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
+    "description": "Contact email title paragraph"
   },
   "fdSRLv": {
     "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajoutez des volets de travail ».",
@@ -10061,6 +10141,10 @@
     "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."
   },
+  "i9cA5V": {
+    "defaultMessage": "Bureau du dirigeant principal de l'information",
+    "description": "Title for the Office of the Chief Information Officer"
+  },
   "i9ovz7": {
     "defaultMessage": "Postes bilingues",
     "description": "Sub-heading for language requirements dialog"
@@ -10076,6 +10160,10 @@
   "iEIzSc": {
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table column header My roles"
+  },
+  "iERL9L": {
+    "defaultMessage": "En savoir plus<hidden> sur les carrières dans la numérique à la Défense nationale</hidden>",
+    "description": "Link text for the digital careers at DND page"
   },
   "iFyi4k": {
     "defaultMessage": "La mise à jour du sujet a échoué.",
@@ -10278,7 +10366,7 @@
     "description": "Header for requirement section of assessment results table"
   },
   "jBjIJT": {
-    "defaultMessage": "En fournissant et en vérifiant votre adresse courriel professionnelle, vous aurez accès à des outils, à des caractéristiques et à des occasions propres aux employés. Il peut être nécessaire de revérifier les adresses courriel professionnelles périodiquement. Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à communiquer avec nous.",
+    "defaultMessage": "En fournissant et en vérifiant votre adresse courriel professionnelle, vous aurez accès à des outils, à des caractéristiques et à des occasions propres aux employés. Il peut être nécessaire de reconfirmer les adresses courriel professionnelles périodiquement. Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à communiquer avec nous.",
     "description": "Message on getting started page about the contact email address - part 2."
   },
   "jDv8lx": {
@@ -11469,6 +11557,10 @@
     "defaultMessage": "organisations",
     "description": "label for organization metadata"
   },
+  "oepQr+": {
+    "defaultMessage": "Courriel de confirmation envoyé!",
+    "description": "Title for a message confirming that the verification email was sent."
+  },
   "ogWY8Q": {
     "defaultMessage": "Le membre du personnel fait preuve des comportements attendus en matière de compétences et de mérite et a maximisé son développement professionnel dans son poste actuel. Les occasions latérales lui permettraient d'acquérir une expérience élargie, d'améliorer ses compétences, de satisfaire ses aspirations actuelles et de maintenir son engagement. Un membre du personnel doit avoir obtenu des résultats valides à l'évaluation de langue seconde (ELS) pour être jugé prêt pour une mutation latérale.",
     "description": "Description for the lateral movement nomination option on the details step"
@@ -12381,6 +12473,10 @@
     "defaultMessage": "Ces notes sont uniquement disponibles ici et ne seront pas communiquées aux candidates et candidats.",
     "description": "Description for the notes about this request section of the single search request view."
   },
+  "t7hBcy": {
+    "defaultMessage": "Vous devez confirmer votre adresse courriel pour continuer. Veuillez utiliser le bouton « Envoyer le courriel de confirmation » et saisir le code reçu dans le champ prévu à cet effet.",
+    "description": "Body for a message informing the user that they must request a code."
+  },
   "tBGvoD": {
     "defaultMessage": "Nous vous remercions de votre intérêt dans ce programme. Nous attendons de vos nouvelles avec impatience!",
     "description": "Third paragraph for apply now dialog"
@@ -12454,7 +12550,7 @@
     "description": "Label for a employee profile about you field"
   },
   "tUIvbq": {
-    "defaultMessage": "Adresse courriel non validée",
+    "defaultMessage": "Adresse courriel non confirmée",
     "description": "The email address has not been verified to be owned by user"
   },
   "tXLRmG": {
@@ -12709,6 +12805,10 @@
     "defaultMessage": "« Je comprends que je fais partie d'une collectivité qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
   },
+  "upuqPk": {
+    "defaultMessage": "Ajoutez et confirmez une adresse courriel de correspondance aux fins de la communication et des notifications.",
+    "description": "Contact email subtitle"
+  },
   "uqI3Vf": {
     "defaultMessage": "Annulez et revenez aux ministères",
     "description": "Button label to return to the departments table"
@@ -12960,10 +13060,6 @@
   "w1/0Cd": {
     "defaultMessage": "Diplôme exigé",
     "description": "Diploma required"
-  },
-  "w1Lego": {
-    "defaultMessage": "Derrière la plateforme Talents numériques du <abbreviation>GC</abbreviation>, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
-    "description": "Description for the Digital Community Management"
   },
   "w1aZlG": {
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
@@ -13236,6 +13332,10 @@
   "xJfPRe": {
     "defaultMessage": "Mettez à jour votre niveau de compétence et gérez les expériences professionnelles associées à cette compétence.",
     "description": "Subtitle for the self skill evaluation page"
+  },
+  "xKj/Lr": {
+    "defaultMessage": "Envoyer le courriel de confirmation",
+    "description": "Button to send verification code"
   },
   "xKvQtM": {
     "defaultMessage": "Consultez, créez ou modifiez des modèles d’offre d’emploi.",
@@ -13705,6 +13805,10 @@
     "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
     "description": "Reminder what general questions are used for."
   },
+  "zIMhFQ": {
+    "defaultMessage": " Veuillez attendre {seconds} s avant de demander un autre courriel de confirmation.",
+    "description": "Body for a message informing the user that they must wait before requesting another email."
+  },
   "zIv0jm": {
     "defaultMessage": "Ordre décroissant",
     "description": "Message added to indicate a table column is sorted in descending order"
@@ -13792,6 +13896,10 @@
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
+  },
+  "zn/6gt": {
+    "defaultMessage": "Nous avons remarqué que l'adresse courriel fournie est également une adresse courriel professionnelle du gouvernement du Canada. Cette adresse, une fois confirmée, vous servira dès lors à correspondre et à valider votre statut de membre du personnel.",
+    "description": "Body for a message informing the user that their contact email will be used as a work email."
   },
   "znWT8z": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",

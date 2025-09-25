@@ -54,7 +54,6 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   }
 
   const handleSubmit = async (values: BaseFormValues) => {
-    // eslint-disable-next-line testing-library/no-node-access
     await submit(values.intent);
   };
 

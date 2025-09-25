@@ -114,33 +114,6 @@ class Pool extends Model
         'contact_email',
     ];
 
-    // expose the required columns to be accessed via relationship tables
-    protected static $selectableColumns = [
-        'id',
-        'name',
-        'user_id',
-        'publishing_group',
-        'published_at',
-        'archived_at',
-        'closing_date',
-        'is_remote',
-        'key_tasks',
-        'special_note',
-        'advertisement_language',
-        'classification_id',
-        'closing_reason',
-        'process_number',
-        'department_id',
-        'community_id',
-        'area_of_selection',
-        'work_stream_id',
-        'security_clearance',
-        'advertisement_location',
-        'opportunity_length',
-        'selection_limitations',
-        'contact_email',
-    ];
-
     /**
      * Boot function for using with User Events
      *
@@ -421,11 +394,6 @@ class Pool extends Model
     public function getTeamIdForRoleAssignmentAttribute()
     {
         return $this->team?->id;
-    }
-
-    public static function getSelectableColumns()
-    {
-        return self::$selectableColumns;
     }
 
     /**
