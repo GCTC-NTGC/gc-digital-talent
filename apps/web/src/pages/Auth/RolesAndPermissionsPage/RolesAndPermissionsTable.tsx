@@ -7,7 +7,6 @@ import { tv } from "tailwind-variants";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Heading, Well } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
@@ -83,19 +82,8 @@ const RolesAndPermissionsTable = ({
     }),
     columnHelper.accessor(ROLE_NAME.ProcessOperator, {
       id: ROLE_NAME.ProcessOperator,
-      header: () => (
-        <span aria-describedby={id}>
-          {intl.formatMessage(messages.processOperator) +
-            intl.formatMessage(commonMessages.asterisk)}
-        </span>
-      ),
+      header: intl.formatMessage(messages.processOperator),
       cell: ({ getValue }) => cell(getValue(), intl),
-      meta: {
-        hideMobileHeader: false,
-        mobileHeader:
-          intl.formatMessage(messages.processOperator) +
-          intl.formatMessage(commonMessages.asterisk),
-      },
       enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.CommunityRecruiter, {
@@ -124,17 +112,6 @@ const RolesAndPermissionsTable = ({
         {title}
       </Heading>
       <Table<RolePermissionRow> caption={title} data={data} columns={columns} />
-      <Well className="my-6" id={id}>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "*Process Operators have permissions only for the processes they've been assigned to.",
-            id: "oFXAgt",
-            description:
-              "Footnote about permissions regarding the process operator role",
-          })}
-        </p>
-      </Well>
     </>
   );
 };
