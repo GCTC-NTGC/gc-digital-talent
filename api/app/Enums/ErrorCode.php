@@ -9,6 +9,7 @@ enum ErrorCode
     case KEY_IN_USE;
     case EXPIRY_DATE_REQUIRED;
     case EXPIRY_DATE_AFTER_TODAY;
+    case ARRAY_CONTAINS_DUPLICATES;
 
     // Application
     case APPLICATION_NOT_SUBMITTED;
@@ -51,6 +52,7 @@ enum ErrorCode
     // Department
     case DEPARTMENT_NUMBER_IN_USE;
     case DEPARTMENT_NOT_FOUND;
+    case DEPARTMENT_MUST_NOT_BE_ARCHIVED;
 
     // Development Program
     case DEVELOPMENT_PROGRAM_NOT_FOUND;
