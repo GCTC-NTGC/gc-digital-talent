@@ -286,28 +286,28 @@ const EmployeeProfile = ({
                       )}
                     />
                   </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <StatusItem
-                      asListItem={false}
-                      title={intl.formatMessage(messages.wfa)}
-                      status={
-                        wfaHasEmptyRequiredFields(wfa.employeeWFA)
-                          ? "error"
-                          : wfaHasAllEmptyFields(wfa.employeeWFA)
-                            ? "optional"
-                            : "success"
-                      }
-                      scrollTo={SECTION_ID.WFA}
-                      hiddenContextPrefix={intl.formatMessage(
-                        wfaHasEmptyRequiredFields(wfa.employeeWFA)
-                          ? commonMessages.incomplete
-                          : wfaHasAllEmptyFields(wfa.employeeWFA)
-                            ? commonMessages.optional
-                            : commonMessages.complete,
-                      )}
-                    />
-                  </TableOfContents.ListItem>
                 </TableOfContents.List>
+                <TableOfContents.ListItem>
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(messages.wfa)}
+                    status={
+                      wfaHasEmptyRequiredFields(wfa.employeeWFA)
+                        ? "error"
+                        : wfaHasAllEmptyFields(wfa.employeeWFA)
+                          ? "optional"
+                          : "success"
+                    }
+                    scrollTo={SECTION_ID.WFA}
+                    hiddenContextPrefix={intl.formatMessage(
+                      wfaHasEmptyRequiredFields(wfa.employeeWFA)
+                        ? commonMessages.incomplete
+                        : wfaHasAllEmptyFields(wfa.employeeWFA)
+                          ? commonMessages.optional
+                          : commonMessages.complete,
+                    )}
+                  />
+                </TableOfContents.ListItem>
               </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
