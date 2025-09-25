@@ -17,6 +17,7 @@ import { formattedDate } from "~/utils/dateUtils";
 import processMessages from "~/messages/processMessages";
 
 import messages from "../../messages";
+import CPAWarning from "./CPAWarning";
 
 interface DisplayProps {
   user: EmployeeProfileWfaFragment;
@@ -29,6 +30,11 @@ const Display = ({ user }: DisplayProps) => {
   );
   const experiences = unpackMaybes(user.currentSubstantiveExperiences);
   const communities = unpackMaybes(user.employeeProfile?.communityInterests);
+
+  // Could be more, confirm at least one is CPA
+  const isCPA = experiences
+    .flatMap((exp) => !!exp.department?.isCorePublicAdministration)
+    .reduce((acc, curr) => acc || curr, false);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -61,6 +67,7 @@ const Display = ({ user }: DisplayProps) => {
                 notProvided
               )}
             </ToggleForm.FieldDisplay>
+            {!isCPA && <CPAWarning />}
             <ToggleForm.FieldDisplay
               label={intl.formatMessage(messages.expectedEndDate)}
             >

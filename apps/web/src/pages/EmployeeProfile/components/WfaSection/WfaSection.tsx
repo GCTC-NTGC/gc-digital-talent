@@ -68,6 +68,9 @@ export const EmployeeProfileWfa_Fragment = graphql(/** GraphQL */ `
     }
     currentSubstantiveExperiences {
       id
+      department {
+        isCorePublicAdministration
+      }
       ...SubstantiveExperiences
       ...ExperienceCard
     }
