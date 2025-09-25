@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use Carbon\Carbon;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -22,7 +23,7 @@ final class ChangeApplicationSuspendedAtValidator extends Validator
     public function messages(): array
     {
         return [
-            'submitted_at' => 'The application must be submitted.',
+            'submitted_at' => ErrorCode::APPLICATION_NOT_SUBMITTED->name,
         ];
     }
 }

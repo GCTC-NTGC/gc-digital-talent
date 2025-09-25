@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -27,7 +28,7 @@ final class DeleteApplicationValidator extends Validator
     public function messages(): array
     {
         return [
-            'in' => ':attribute InvalidValueDeletion',
+            'in' => ErrorCode::APPLICATION_NOT_DRAFT->name,
         ];
     }
 }
