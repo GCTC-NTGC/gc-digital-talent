@@ -7,6 +7,8 @@ enum ErrorCode
     // General
     case ALREADY_SUBMITTED;
     case KEY_IN_USE;
+    case EXPIRY_DATE_REQUIRED;
+    case EXPIRY_DATE_AFTER_TODAY;
 
     // Application
     case APPLICATION_NOT_SUBMITTED;
@@ -73,8 +75,21 @@ enum ErrorCode
     case PROCESS_CLOSING_DATE_EXTEND;
     case PROCESS_CLOSING_DATE_FUTURE;
 
+    // Pool candidate
+    case INVALID_STATUS_DISQUALIFICATION;
+    case INVALID_STATUS_PLACING;
+    case INVALID_STATUS_QUALIFICATION;
+    case INVALID_STATUS_REVERT_FINAL_DECISION;
+    case CANDIDATE_NOT_PLACED;
+
     // Pool skill
     case POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES;
+
+    // Role
+    case TEAM_ID_REQUIRED;
+    case TEAM_DOES_NOT_EXIST;
+    case ROLE_NOT_TEAM_ROLE;
+    case ROLE_NOT_FOUND;
 
     // Skill
     case SKILL_NOT_FOUND;
