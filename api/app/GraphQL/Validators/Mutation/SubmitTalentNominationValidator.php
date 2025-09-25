@@ -169,7 +169,7 @@ final class SubmitTalentNominationValidator extends Validator
     public function messages(): array
     {
         return [
-            'submitted_at.prohibited' => ErrorCode::ALREADY_SUBMITTED->name,
+            'submitted_at.prohibited' => ErrorCode::TALENT_NOMINATION_ALREADY_SUBMITTED->name,
             'skills.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.*.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
         ];

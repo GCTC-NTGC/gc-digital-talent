@@ -327,7 +327,7 @@ class PoolApplicationTest extends TestCase
             ->graphQL($this->submitMutationDocument, $submitArgs)
             ->assertJson([
                 'errors' => [[
-                    'message' => ErrorCode::ALREADY_SUBMITTED->name,
+                    'message' => ErrorCode::APPLICATION_ALREADY_SUBMITTED->name,
                 ]],
             ]);
     }

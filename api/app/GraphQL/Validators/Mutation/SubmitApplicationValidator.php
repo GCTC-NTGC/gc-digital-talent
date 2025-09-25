@@ -54,7 +54,7 @@ final class SubmitApplicationValidator extends Validator
     public function messages(): array
     {
         return [
-            'submitted_at.prohibited' => ErrorCode::ALREADY_SUBMITTED->name,
+            'submitted_at.prohibited' => ErrorCode::APPLICATION_ALREADY_SUBMITTED->name,
             'signature.required' => ErrorCode::APPLICATION_SIGNATURE_REQUIRED->name,
         ];
     }

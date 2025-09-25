@@ -524,7 +524,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('ArchivePoolInvalidStatus');
+            ->assertGraphQLErrorMessage(ErrorCode::ARCHIVE_POOL_INVALID_STATUS->name);
     }
 
     public function testCanUnarchiveArchived(): void
