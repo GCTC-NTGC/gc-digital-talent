@@ -1,4 +1,4 @@
-"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."schema
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
@@ -634,6 +634,7 @@ type PoolCandidate {
     @with(relation: "educationRequirementEducationExperiences")
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
+  # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
   # record of decision
