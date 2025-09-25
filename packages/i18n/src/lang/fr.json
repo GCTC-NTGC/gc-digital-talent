@@ -455,6 +455,10 @@
     "defaultMessage": "Je consens à travailler dans la Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec).",
     "description": "The work region of Canada described as National Capital."
   },
+  "FO4QJP": {
+    "defaultMessage": "Fermer",
+    "description": "Label for action to dismiss something"
+  },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
