@@ -77,6 +77,7 @@ const Display = ({ user }: DisplayProps) => {
             </ToggleForm.FieldDisplay>
             <ToggleForm.FieldDisplay
               label={intl.formatMessage(messages.currentCommunity)}
+              hasError={!communities.length}
             >
               {communities.length > 0 ? (
                 <Ul space="sm">
@@ -88,7 +89,7 @@ const Display = ({ user }: DisplayProps) => {
                   ))}
                 </Ul>
               ) : (
-                notProvided
+                intl.formatMessage(commonMessages.missingInformation)
               )}
             </ToggleForm.FieldDisplay>
             <ToggleForm.FieldDisplay
