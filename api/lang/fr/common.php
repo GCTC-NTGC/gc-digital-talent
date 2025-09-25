@@ -28,10 +28,10 @@ return [
     'not_interested' => 'Non intéressé(e)',
     'essential_skills' => 'Compétences essentielles',
     'nonessential_skills' => 'Compétences constituant un atout',
-    'work_streams' => 'Volets de travail',
+    'work_streams' => 'Volets de travail :',
     'in' => 'à',
     'from' => 'de',
-    'featured_skills' => 'Compétences mises en évidence',
+    'featured_skills' => 'Compétences mises en évidence :',
     // position types
     'en_only' => 'Postes en anglais uniquement',
     'fr_only' => 'Postes en français uniquement',
