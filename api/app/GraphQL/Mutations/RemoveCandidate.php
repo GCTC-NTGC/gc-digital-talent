@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\CandidateRemovalReason;
+use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Carbon;
@@ -45,15 +46,15 @@ final class RemoveCandidate
             case PoolCandidateStatus::PLACED_CASUAL->name:
             case PoolCandidateStatus::PLACED_TERM->name:
             case PoolCandidateStatus::PLACED_INDETERMINATE->name:
-                throw ValidationException::withMessages(['id' => 'RemoveCandidateAlreadyPlaced']);
+                throw ValidationException::withMessages(['id' => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name]);
             case PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name:
             case PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name:
             case PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name:
             case PoolCandidateStatus::QUALIFIED_WITHDREW->name:
             case PoolCandidateStatus::REMOVED->name:
-                throw ValidationException::withMessages(['id' => 'RemoveCandidateAlreadyRemoved']);
+                throw ValidationException::withMessages(['id' => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name]);
             default:
-                throw ValidationException::withMessages(['id' => 'CandidateUnexpectedStatus']);
+                throw ValidationException::withMessages(['id' => ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name]);
         }
 
         $candidate->save();
