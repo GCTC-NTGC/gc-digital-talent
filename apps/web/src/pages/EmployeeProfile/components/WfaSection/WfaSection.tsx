@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { FormProvider, useForm } from "react-hook-form";
+import { intersection } from "lodash";
 
 import {
   EmployeeWfa,
@@ -20,6 +21,7 @@ import {
   Link,
   ToggleSection,
   Ul,
+  Well,
 } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -40,7 +42,6 @@ import messages from "../../messages";
 import Display from "./Display";
 import SubstantiveExperiences from "./SubstantiveExperiences";
 import Warning from "./Warning";
-import { intersection } from "lodash";
 
 const EmployeeWfaOptions_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeWfaOptions on Query {
@@ -322,32 +323,34 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                       )}
                     </>
                   )}
-                  <Heading level="h5" size="h6">
-                    {intl.formatMessage({
-                      defaultMessage: "Privacy and confidentiality",
-                      id: "2Csd16",
-                      description:
-                        "Title for the privacy and confidentiality section of wfa form",
-                    })}
-                  </Heading>
-                  <p className="my-6">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "We know that workforce adjustment is a vulnerable time and we’re committed to treating your information with the utmost care and confidentiality.",
-                      id: "VjMgWb",
-                      description:
-                        "Paragraph one for privacy and confidentiality section of wfa form",
-                    })}
-                  </p>
-                  <p className="my-6">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The information you share here will only be visible to a small group of authorized administrators, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you’ve added to your profile. <strong>This information will not be made public anywhere on the platform nor will they contact your manager or department without your explicit consent</strong>.",
-                      id: "rl7hQk",
-                      description:
-                        "Paragraph two for privacy and confidentiality section of wfa form",
-                    })}
-                  </p>
+                  <Well className="mt-12">
+                    <Heading level="h5" size="h6" className="mt-0">
+                      {intl.formatMessage({
+                        defaultMessage: "Privacy and confidentiality",
+                        id: "2Csd16",
+                        description:
+                          "Title for the privacy and confidentiality section of wfa form",
+                      })}
+                    </Heading>
+                    <p className="my-6">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "We know that workforce adjustment is a vulnerable time and we’re committed to treating your information with the utmost care and confidentiality.",
+                        id: "VjMgWb",
+                        description:
+                          "Paragraph one for privacy and confidentiality section of wfa form",
+                      })}
+                    </p>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "The information you share here will only be visible to a small group of authorized administrators, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you’ve added to your profile. <strong>This information will not be made public anywhere on the platform nor will they contact your manager or department without your explicit consent</strong>.",
+                        id: "rl7hQk",
+                        description:
+                          "Paragraph two for privacy and confidentiality section of wfa form",
+                      })}
+                    </p>
+                  </Well>
                 </>
               )}
 
