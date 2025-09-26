@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -28,7 +29,7 @@ final class UpdateDepartmentValidator extends Validator
     public function messages(): array
     {
         return [
-            'department.departmentNumber.unique' => 'DepartmentNumberInUse',
+            'department.departmentNumber.unique' => ErrorCode::DEPARTMENT_NUMBER_IN_USE->name,
         ];
     }
 }

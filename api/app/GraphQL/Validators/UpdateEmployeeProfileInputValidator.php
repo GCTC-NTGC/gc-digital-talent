@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Enums\ExecCoaching;
 use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
@@ -10,7 +11,6 @@ use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Models\WorkStream;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -202,16 +202,16 @@ final class UpdateEmployeeProfileInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'nextRoleCommunity.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
-            'careerObjectiveCommunity.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
-            'nextRoleClassification.connect.exists' => ApiErrorEnums::CLASSIFICATION_NOT_FOUND,
-            'careerObjectiveClassification.connect.exists' => ApiErrorEnums::CLASSIFICATION_NOT_FOUND,
-            'nextRoleWorkStreams.sync.*.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
-            'nextRoleWorkStreams.sync.*.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
-            'careerObjectiveWorkStreams.sync.*.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
-            'careerObjectiveWorkStreams.sync.*.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
-            'nextRoleDepartments.sync.*.exists' => ApiErrorEnums::DEPARTMENT_NOT_FOUND,
-            'careerObjectiveDepartments.sync.*.exists' => ApiErrorEnums::DEPARTMENT_NOT_FOUND,
+            'nextRoleCommunity.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
+            'careerObjectiveCommunity.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
+            'nextRoleClassification.connect.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
+            'careerObjectiveClassification.connect.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
+            'nextRoleWorkStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
+            'nextRoleWorkStreams.sync.*.in' => ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name,
+            'careerObjectiveWorkStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
+            'careerObjectiveWorkStreams.sync.*.in' => ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name,
+            'nextRoleDepartments.sync.*.exists' => ErrorCode::DEPARTMENT_NOT_FOUND->name,
+            'careerObjectiveDepartments.sync.*.exists' => ErrorCode::DEPARTMENT_NOT_FOUND->name,
         ];
     }
 }

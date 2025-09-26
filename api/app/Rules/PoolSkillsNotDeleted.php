@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Models\Skill;
 use Closure;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class PoolSkillsNotDeleted implements ValidationRule
@@ -22,7 +22,7 @@ class PoolSkillsNotDeleted implements ValidationRule
             ->get();
 
         if ($deletedSkillsIds->count() > 0) {
-            $fail(ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL);
+            $fail(ErrorCode::CANNOT_REOPEN_DELETED_SKILL->name);
         }
 
     }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Enums\NotificationFamily;
 use App\Models\Notification;
 use App\Models\User;
@@ -243,7 +244,7 @@ class NotificationTest extends TestCase
                     }
                 }
             ', ['enabledEmailNotifications' => [NotificationFamily::SYSTEM_MESSAGE->name]])
-            ->assertGraphQLValidationError('enabledEmailNotifications.0', 'CannotEnableNotificationFamily');
+            ->assertGraphQLValidationError('enabledEmailNotifications.0', ErrorCode::CANNOT_ENABLE_NOTIFICATION_FAMILY->name);
 
         // Other families can be enabled
         $response = $this->actingAs($this->candidateUser, 'api')

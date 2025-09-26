@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use App\Enums\NotificationFamily;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -29,7 +30,7 @@ final class UpdateEnabledNotificationsValidator extends Validator
     public function messages(): array
     {
         return [
-            'in' => 'CannotEnableNotificationFamily',
+            'in' => ErrorCode::CANNOT_ENABLE_NOTIFICATION_FAMILY->name,
         ];
     }
 }
