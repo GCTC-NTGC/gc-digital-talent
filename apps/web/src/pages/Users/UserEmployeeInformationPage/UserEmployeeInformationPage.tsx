@@ -40,8 +40,6 @@ const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE_AND_CAREER_OBJECTIVE: "next-role-and-career-objective-section",
-  NEXT_ROLE: "next-role-section",
-  CAREER_OBJECTIVE: "career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
 
@@ -110,22 +108,14 @@ export const UserEmployeeInformation = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={SECTION_ID.NEXT_ROLE}>
+                <TableOfContents.AnchorLink
+                  id={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+                >
                   {intl.formatMessage({
-                    defaultMessage: "Next role",
-                    id: "XdOWYL",
+                    defaultMessage: "Next role and career objective",
+                    id: "xst395",
                     description:
-                      "Title for Next role section of user employee information page",
-                  })}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={SECTION_ID.CAREER_OBJECTIVE}>
-                  {intl.formatMessage({
-                    defaultMessage: "Career objective",
-                    id: "ISPFsQ",
-                    description:
-                      "Title for Career objective section of user employee information page",
+                      "Title for Next role and career objective section of user employee information page",
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
@@ -222,7 +212,10 @@ export const UserEmployeeInformation = ({
             </p>
           </TableOfContents.Section>
           <Accordion.Root mode="card" type="multiple">
-            <Accordion.Item value={SECTION_ID.CAREER_PLANNING}>
+            <Accordion.Item
+              value={SECTION_ID.CAREER_DEVELOPMENT}
+              id={SECTION_ID.CAREER_DEVELOPMENT}
+            >
               <Accordion.Trigger
                 as="h3"
                 subtitle={intl.formatMessage({
@@ -250,7 +243,10 @@ export const UserEmployeeInformation = ({
               </Accordion.Content>
             </Accordion.Item>
 
-            <Accordion.Item value={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}>
+            <Accordion.Item
+              value={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+              id={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+            >
               <Accordion.Trigger
                 as="h3"
                 subtitle={intl.formatMessage({
@@ -271,17 +267,17 @@ export const UserEmployeeInformation = ({
                 </span>
               </Accordion.Trigger>
               <Accordion.Content>
-                <>
-                  <NextRoleSection employeeProfileQuery={employeeProfile} />
-                </>
-                <>
-                  <CareerObjectiveSection
-                    employeeProfileQuery={employeeProfile}
-                  />
-                </>
+                <NextRoleSection employeeProfileQuery={employeeProfile} />
+                <CareerObjectiveSection
+                  employeeProfileQuery={employeeProfile}
+                />
               </Accordion.Content>
             </Accordion.Item>
-            <Accordion.Item value={SECTION_ID.GOALS_WORK_STYLE}>
+
+            <Accordion.Item
+              value={SECTION_ID.GOALS_WORK_STYLE}
+              id={SECTION_ID.GOALS_WORK_STYLE}
+            >
               <Accordion.Trigger
                 as="h3"
                 subtitle={intl.formatMessage({
