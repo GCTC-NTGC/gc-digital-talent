@@ -1133,6 +1133,7 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: LocalizedEducationRequirementOption
   educationRequirementExperiences: [Experience]
+  educationRequirementExperienceIds: [UUID!]
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep

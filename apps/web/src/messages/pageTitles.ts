@@ -132,4 +132,9 @@ export default defineMessages({
     id: "1R1uGn",
     description: "Title for the workforce adjustment page",
   },
+  dnd: {
+    defaultMessage: "Digital careers at National Defence",
+    id: "YtI+mg",
+    description: "Title for the DND digital careers page",
+  },
 });

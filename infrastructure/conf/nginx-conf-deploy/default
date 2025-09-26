@@ -83,6 +83,15 @@ server {
     location = "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx" { return 301 "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx$is_args$args"; }
     location = "/documents/Trousse du gestionnaire - PATIPA.pptx" { return 301 "/static/documents/Trousse du gestionnaire - PATIPA.pptx$is_args$args"; }
 
+    # permanent redirect for known tc-report paths, serve from static hosting now
+    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
+        return 301 "/static/tc-report$request_uri";
+    }
+    # serve all other tc-report asset files from static hosting
+    location ~ ^/tc-report/(.+)$ {
+        return 301 "/static$request_uri";
+    }
+
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
 
@@ -167,12 +176,6 @@ server {
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
 
-    # serve tc-report asset files
-    location ~ ^/tc-report/(.+)$ {
-        add_header Cache-Control "public, max-age=604800"; # 1 week
-        try_files /tc-report/_site/$1 /tc-report/_site/$1/index.html =404;
-    }
-
     # serve other asset files
     location ~ "\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
         # contenthashed asset files get cached for a year
@@ -184,12 +187,6 @@ server {
         # unhashed assets get cached for an hour
         add_header Cache-Control "public, max-age=3600"; # 1 hour
         try_files /apps/web/dist/$uri =404;
-    }
-
-    # for known tc-report paths, serve tc-report files, and fall back to main SPA.
-    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
-        add_header Cache-Control "public, max-age=604800"; # 1 week
-        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
     }
 
     # for all other uris, serve SPA index with no caching

@@ -40,12 +40,16 @@ const generatePoolCandidate = (
       answer: faker.lorem.sentence(),
       screeningQuestion,
     })) ?? [];
+  const educationRequirementExperiences = fakeExperiences(1);
 
   return {
     id: faker.string.uuid(),
     pool,
     user,
-    educationRequirementExperiences: fakeExperiences(1),
+    educationRequirementExperiences,
+    educationRequirementExperienceIds: educationRequirementExperiences.flatMap(
+      ({ id }) => id,
+    ),
     educationRequirementOption: toLocalizedEnum(
       faker.helpers.arrayElement<EducationRequirementOption>(
         Object.values(EducationRequirementOption),
