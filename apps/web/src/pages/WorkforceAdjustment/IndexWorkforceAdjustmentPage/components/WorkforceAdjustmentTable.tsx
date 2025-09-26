@@ -23,7 +23,6 @@ import {
   getEmploymentEquityGroup,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 import {
   INITIAL_STATE,
@@ -40,13 +39,11 @@ import accessors from "~/components/Table/accessors";
 import pageTitles from "~/messages/pageTitles";
 import profileMessages from "~/messages/profileMessages";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
-import useCurrentUserCommunityRoles from "~/hooks/useCurrentUserCommunityRoles";
 
 import WorkforceAdjustmentFilterDialog, {
   FormValues,
 } from "./WorkforceAdjustmentFilterDialog";
 import {
-  filterAndFlattentCommunitiesFromInterests,
   transformEmployeeWFAFilterInputToFormValues,
   transformFormValuesToEmployeeWFAFilterInput,
   transformSortStateToOrderByClause,
