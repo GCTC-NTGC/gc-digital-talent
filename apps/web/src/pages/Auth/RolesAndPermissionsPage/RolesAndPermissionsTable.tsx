@@ -1,13 +1,12 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { ReactNode, useId } from "react";
+import { ReactNode } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { Heading, Well } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
@@ -64,16 +63,11 @@ const cell = (value: boolean, intl: IntlShape) => {
   );
 };
 
-const meta = {
-  enableHiding: false,
-};
-
 const RolesAndPermissionsTable = ({
   data,
   title,
 }: RolesAndPermissionsTableProps) => {
   const intl = useIntl();
-  const id = useId();
 
   const columns = [
     columnHelper.accessor("permission", {
@@ -83,36 +77,31 @@ const RolesAndPermissionsTable = ({
         id: "PBNcYK",
         description: "Header for permissions column in table",
       }),
-      ...meta,
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.ProcessOperator, {
       id: ROLE_NAME.ProcessOperator,
-      header: () => (
-        <span aria-describedby={id}>
-          {intl.formatMessage(messages.processOperator) +
-            intl.formatMessage(commonMessages.asterisk)}
-        </span>
-      ),
+      header: intl.formatMessage(messages.processOperator),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.CommunityRecruiter, {
       id: ROLE_NAME.CommunityRecruiter,
       header: intl.formatMessage(messages.communityRecruiter),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.CommunityTalentCoordinator, {
       id: ROLE_NAME.CommunityTalentCoordinator,
       header: intl.formatMessage(messages.communityTalentCoordinator),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      enableHiding: false,
     }),
     columnHelper.accessor(ROLE_NAME.CommunityAdmin, {
       id: ROLE_NAME.CommunityAdmin,
       header: intl.formatMessage(messages.communityAdmin),
       cell: ({ getValue }) => cell(getValue(), intl),
-      ...meta,
+      enableHiding: false,
     }),
   ] as ColumnDef<RolePermissionRow>[];
 
@@ -122,17 +111,6 @@ const RolesAndPermissionsTable = ({
         {title}
       </Heading>
       <Table<RolePermissionRow> caption={title} data={data} columns={columns} />
-      <Well className="my-6" id={id}>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "*Process Operators have permissions only for the processes they've been assigned to.",
-            id: "oFXAgt",
-            description:
-              "Footnote about permissions regarding the process operator role",
-          })}
-        </p>
-      </Well>
     </>
   );
 };

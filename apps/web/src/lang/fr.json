@@ -5155,10 +5155,6 @@
     "defaultMessage": "contiennent des renseignements protégés ou classifiés du gouvernement du Canada",
     "description": "Comments or contributions list item"
   },
-  "LDsiHk": {
-    "defaultMessage": "Aidez-nous à vous proposer les meilleures personnes candidates en précisant les compétences que vous recherchez.",
-    "description": "Describing the purpose of the skill filters on the Search page."
-  },
   "LEVK8x": {
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
     "description": "Message displayed to user after classification fails to get updated."
@@ -8041,6 +8037,10 @@
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
+  },
+  "YswsoL": {
+    "defaultMessage": "Aidez-nous à vous proposer les meilleures personnes candidates en précisant les compétences que vous recherchez. Vous trouverez la définition de chaque compétence dans notre <link>bibliothèque de compétences</link>.",
+    "description": "Describing the purpose of the skill filters on Search page."
   },
   "YtI+mg": {
     "defaultMessage": "Carrières dans le numérique à la Défense nationale",
@@ -11512,10 +11512,6 @@
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
-  },
-  "oFXAgt": {
-    "defaultMessage": "*Les responsables des processus ont uniquement les autorisations des processus auxquels ils ont été affectés.",
-    "description": "Footnote about permissions regarding the process operator role"
   },
   "oGA8Cz": {
     "defaultMessage": "Qu’il s’agisse d’un poste de cadre débutant ou d’un poste de dirigeant principal de l'information au sein du gouvernement du Canada, vous êtes au bon endroit pour franchir une nouvelle étape dans le leadership numérique.",
