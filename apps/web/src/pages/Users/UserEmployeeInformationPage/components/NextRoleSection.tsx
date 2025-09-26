@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Card, Ul } from "@gc-digital-talent/ui";
+import { Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -72,7 +72,7 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
   );
 
   return (
-    <Card className="grid gap-6 xs:grid-cols-2">
+    <div className="mb-1.5 flex flex-col gap-y-6">
       <FieldDisplay
         label={intl.formatMessage(
           employeeProfileMessages.targetClassificationGroup,
@@ -167,7 +167,7 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
         {employeeProfile.nextRoleAdditionalInformation ??
           intl.formatMessage(commonMessages.notProvided)}
       </FieldDisplay>
-    </Card>
+    </div>
   );
 };
 
