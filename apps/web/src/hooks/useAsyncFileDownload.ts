@@ -71,7 +71,6 @@ function useAsyncFileDownload(): UseAsyncFileDownloadReturn {
         link.href = blobUrl;
         link.setAttribute("download", fileName);
         document.body.appendChild(link);
-
         link.click();
         link.parentNode?.removeChild(link);
 

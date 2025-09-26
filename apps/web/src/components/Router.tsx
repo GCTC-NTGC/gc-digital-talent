@@ -1168,6 +1168,13 @@ const createRoute = (locale: Locales) =>
                     ),
                 },
                 {
+                  path: "wfa-employees",
+                  lazy: () =>
+                    import(
+                      "../pages/WorkforceAdjustment/IndexWorkforceAdjustmentPage/IndexWorkforceAdjustmentPage"
+                    ),
+                },
+                {
                   path: "*",
                   loader: () => {
                     throw new NotFoundError();

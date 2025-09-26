@@ -439,6 +439,9 @@ type Query {
     page: Int
   ): UserPublicProfilePaginator!
   employeeWFAPaginatedAdminTable(
+    where: EmployeeWfaFilterInput
+    orderBy: [QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause!]
+
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
 
@@ -972,6 +975,7 @@ type UserEmployeeWFA {
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
   locationExemptions: String
   userSkills(includeSkillIds: [UUID]): [UserSkill]
@@ -1618,6 +1622,24 @@ input UserFilterInput {
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String
+}
+
+input EmployeeWfaFilterInput {
+  workEmail: String
+  name: String
+  generalSearch: String
+  equity: EquitySelectionsInput
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  wfaInterests: [WFAInterest]
+  hasPriorityEntitlement: Boolean
+  skills: [IdInput]
+  classifications: [IdInput]
+  departments: [IdInput]
+  workStreams: [IdInput]
+  communities: [IdInput]
 }
 
 input PoolFilterInput {
@@ -2923,6 +2945,33 @@ type CommunityInterestWithSkillCountPaginator {
 
   "A list of CommunityInterestWithSkillCount items."
   data: [CommunityInterestWithSkillCount!]!
+}
+
+"Allowed column names for Query.employeeWFAPaginatedAdminTable.orderBy."
+enum QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn {
+  GROUP
+  LEVEL
+}
+
+"Aggregate specification for Query.employeeWFAPaginatedAdminTable.orderBy.currentClassification."
+input QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn
+}
+
+"Order by clause for Query.employeeWFAPaginatedAdminTable.orderBy."
+input QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  currentClassification: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
