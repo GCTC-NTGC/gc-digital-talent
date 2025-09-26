@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\EmailType;
+use App\Enums\ErrorCode;
 use App\Facades\Notify;
 use App\Models\User;
 use App\Notifications\VerifyEmails;
@@ -187,7 +188,7 @@ class UserVerifyEmailsTest extends TestCase
             [
                 'code' => '1234',
             ]
-        )->assertGraphQLErrorMessage('NotGovernmentEmail');
+        )->assertGraphQLErrorMessage(ErrorCode::NOT_GOVERNMENT_EMAIL->name);
 
         $this->assertDatabaseHas('users', [
             'id' => '00000000-0000-0000-0000-000000000001',
@@ -215,7 +216,7 @@ class UserVerifyEmailsTest extends TestCase
             [
                 'code' => '1234',
             ]
-        )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
+        )->assertGraphQLErrorMessage(ErrorCode::VERIFICATION_FAILED->name);
 
         $this->assertDatabaseHas('users', [
             'id' => '00000000-0000-0000-0000-000000000001',

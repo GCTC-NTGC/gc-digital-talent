@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -28,7 +29,7 @@ final class CreateCommunityValidator extends Validator
     public function messages(): array
     {
         return [
-            'community.key.unique' => 'CommunityKeyInUse',
+            'community.key.unique' => ErrorCode::KEY_IN_USE->name,
         ];
     }
 }

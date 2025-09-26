@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Models\Community;
 use App\Models\DevelopmentProgram;
 use App\Models\User;
@@ -119,7 +120,7 @@ class DevelopmentProgramInterestTest extends TestCase
                         ],
                     ],
                 ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', 'DevelopmentProgramCompletionDateProhibited');
+            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED->name);
     }
 
     /**
@@ -151,7 +152,7 @@ class DevelopmentProgramInterestTest extends TestCase
                         ],
                     ],
                 ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', 'DevelopmentProgramCompletionDateRequired');
+            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name);
     }
 
     /**
@@ -184,6 +185,6 @@ class DevelopmentProgramInterestTest extends TestCase
                         ],
                     ],
                 ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.developmentProgramId', 'DevelopmentProgramNotValidForCommunity');
+            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.developmentProgramId', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\EmailType;
+use App\Enums\ErrorCode;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -26,7 +27,7 @@ final class VerifyUserEmails
         $token = Cache::get($key); // refer to VerifyEmails->createVerificationCode
 
         if (is_null($token)) {
-            throw ValidationException::withMessages(['code' => 'VERIFICATION_FAILED']);
+            throw ValidationException::withMessages(['code' => ErrorCode::VERIFICATION_FAILED->name]);
         }
 
         $validator = Validator::make($token, [
@@ -61,7 +62,7 @@ final class VerifyUserEmails
         }
 
         if ($token['code'] !== $normalizedCode) {
-            throw ValidationException::withMessages(['code' => 'VERIFICATION_FAILED']);
+            throw ValidationException::withMessages(['code' => ErrorCode::VERIFICATION_FAILED->name]);
         }
 
         $newEmailAddress = $token['emailAddress'];

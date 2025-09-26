@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use Closure;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class LocalizedEnumExists implements ValidationRule
@@ -19,9 +19,9 @@ class LocalizedEnumExists implements ValidationRule
         $enum = 'App\\Enums\\'.$value;
 
         if (! enum_exists($enum)) {
-            $fail(ApiErrorEnums::ENUM_NOT_FOUND);
+            $fail(ErrorCode::ENUM_NOT_FOUND->name);
         } elseif (! method_exists($enum, 'localizedString')) {
-            $fail(ApiErrorEnums::ENUM_NOT_LOCALIZED);
+            $fail(ErrorCode::ENUM_NOT_LOCALIZED->name);
         }
     }
 }

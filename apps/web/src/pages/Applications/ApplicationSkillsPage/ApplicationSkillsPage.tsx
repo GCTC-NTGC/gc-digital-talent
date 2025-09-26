@@ -16,6 +16,7 @@ import { apiMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
+  ErrorCode,
   FragmentType,
   getFragment,
   graphql,
@@ -320,7 +321,7 @@ export const ApplicationSkills = ({
               max: {
                 value: 0,
                 message: intl.formatMessage(
-                  apiMessages.MISSING_ESSENTIAL_SKILLS,
+                  apiMessages[ErrorCode.ApplicationMissingEssentialSkills],
                 ),
               },
             }}

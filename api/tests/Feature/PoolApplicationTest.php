@@ -6,6 +6,7 @@ use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentStepType;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
+use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
 use App\Enums\SkillCategory;
@@ -24,7 +25,6 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -223,7 +223,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null,
             ],
             'errors' => [[
-                'message' => ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
+                'message' => ErrorCode::APPLICATION_POOL_NOT_PUBLISHED->name,
             ]],
         ];
 
@@ -251,7 +251,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null,
             ],
             'errors' => [[
-                'message' => ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
+                'message' => ErrorCode::APPLICATION_POOL_NOT_PUBLISHED->name,
             ]],
         ];
 
@@ -298,7 +298,7 @@ class PoolApplicationTest extends TestCase
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($this->submitMutationDocument, $submitArgs)->assertJson([
                 'errors' => [[
-                    'message' => ApiEnums::POOL_CANDIDATE_PROFILE_INCOMPLETE,
+                    'message' => ErrorCode::APPLICATION_PROFILE_INCOMPLETE->name,
                 ]],
             ]);
 
@@ -327,7 +327,7 @@ class PoolApplicationTest extends TestCase
             ->graphQL($this->submitMutationDocument, $submitArgs)
             ->assertJson([
                 'errors' => [[
-                    'message' => 'AlreadySubmitted',
+                    'message' => ErrorCode::APPLICATION_ALREADY_SUBMITTED->name,
                 ]],
             ]);
     }
@@ -436,7 +436,7 @@ class PoolApplicationTest extends TestCase
                 ]
             )->assertJson([
                 'errors' => [[
-                    'message' => ApiEnums::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
+                    'message' => ErrorCode::APPLICATION_MISSING_ESSENTIAL_SKILLS->name,
                 ]],
             ]);
     }
@@ -548,7 +548,7 @@ class PoolApplicationTest extends TestCase
                 ]
             )->assertJson([
                 'errors' => [[
-                    'message' => ApiEnums::POOL_CANDIDATE_POOL_CLOSED,
+                    'message' => ErrorCode::APPLICATION_POOL_CLOSED->name,
                 ]],
             ]);
 
@@ -614,7 +614,7 @@ class PoolApplicationTest extends TestCase
         // assert cannot submit with no question
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($this->submitMutationDocument, $submitArgs)->assertJsonFragment([
-                ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
+                ErrorCode::APPLICATION_MISSING_QUESTION_RESPONSE->name,
             ]);
 
         // Respond to the question
@@ -671,7 +671,7 @@ class PoolApplicationTest extends TestCase
         // assert cannot submit with no question
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($this->submitMutationDocument, $submitArgs)->assertJsonFragment([
-                ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
+                ErrorCode::APPLICATION_MISSING_QUESTION_RESPONSE->name,
             ]);
 
         // Respond to the question
@@ -863,7 +863,7 @@ class PoolApplicationTest extends TestCase
 
         $result = [
             'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
+                'message' => ErrorCode::APPLICATION_NOT_DRAFT->name,
             ]],
         ];
 
@@ -972,7 +972,7 @@ class PoolApplicationTest extends TestCase
             ->graphQL(
                 $this->suspendMutationDocument,
                 ['id' => $newPoolCandidate->id, 'isSuspended' => true]
-            )->assertJsonFragment(['message' => 'The application must be submitted.']);
+            )->assertJsonFragment(['message' => ErrorCode::APPLICATION_NOT_SUBMITTED->name]);
 
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL(
@@ -1043,7 +1043,7 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'id' => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE],
+                'id' => [ErrorCode::APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE->name],
             ]);
 
         $newPoolCandidate->education_requirement_option = EducationRequirementOption::EDUCATION->name;
@@ -1058,7 +1058,7 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'id' => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE],
+                'id' => [ErrorCode::APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE->name],
             ]);
 
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);

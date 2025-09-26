@@ -1,5 +1,7 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
 
+import { ErrorCode } from "@gc-digital-talent/graphql";
+
 // The messages in this object correspond to error messages emitted by the API.
 // Ideally, this could be automatically extracted from the schema but for now we do it manually.
 // The object keys match their source in the api and return a MessageDescriptor object
@@ -12,20 +14,20 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
 
   // users validation
-  SubInUse: {
+  [ErrorCode.SubInUse]: {
     defaultMessage:
       "Cannot update - this user identifier (sub) is already in use.",
     id: "6O1sjV",
     description:
       "Error message that the given user identifier is already in use when updating.",
   },
-  EmailAddressInUse: {
+  [ErrorCode.EmailAddressInUse]: {
     defaultMessage: "Cannot update - this email address is already in use.",
     id: "VqrVpT",
     description:
       "Error message that the given email address is already in use when updating.",
   },
-  BothStatusNonStatus: {
+  [ErrorCode.BothStatusNonStatus]: {
     defaultMessage:
       "Please select either Status First Nations or Non-Status First Nations.",
     id: "skfKnv",
@@ -51,7 +53,7 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "xSecEX",
     description: "Error message that the given skill key is already in use.",
   },
-  DuplicateUserSkill: {
+  [ErrorCode.DuplicateUserSkill]: {
     defaultMessage: "The skill you selected is already linked to your profile.",
     id: "wUJqDi",
     description:
@@ -73,7 +75,7 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
 
   // department validation
-  DepartmentNumberInUse: {
+  [ErrorCode.DepartmentNumberInUse]: {
     defaultMessage: "This department number is already in use",
     id: "xH10Pp",
     description:
@@ -81,58 +83,58 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
 
   // application validation
-  AlreadySubmitted: {
+  [ErrorCode.ApplicationAlreadySubmitted]: {
     defaultMessage: "Application is already submitted.",
     id: "76QTNv",
     description:
       "Error message that the given application is already submitted.",
   },
-  "pool candidates status InvalidValueDeletion": {
+  [ErrorCode.ApplicationNotDraft]: {
     defaultMessage:
       "This application cannot be deleted. You can only delete applications before submission.",
     id: "/I9tx9",
     description: "Error message that the application cannot be deleted.",
   },
 
-  ClosingDateRequired: {
+  [ErrorCode.ClosingDateRequired]: {
     defaultMessage: "You are missing a required field: Closing date",
     id: "oCrAvX",
     description: "Error message that the pool closing date is required.",
   },
-  "validator:closing_date.after": {
+  [ErrorCode.ClosingDateFuture]: {
     defaultMessage: "Closing date must be after today.",
     id: "csLjMi",
     description:
       "Error message that the given skill closing date must be after today.",
   },
 
-  "validator:submitted_at": {
+  [ErrorCode.ApplicationNotSubmitted]: {
     defaultMessage: "The application must be submitted.",
     id: "mhZmff",
     description:
       "Error message that the given application must already be submitted.",
   },
 
-  ApplicationDeleteFailed: {
+  [ErrorCode.ApplicationDeleteFailed]: {
     defaultMessage: "Error: deleting application failed",
     id: "M3c9Yo",
     description:
       "Message displayed to user after application fails to get deleted.",
   },
 
-  RemoveCandidateAlreadyPlaced: {
+  [ErrorCode.RemoveCandidateAlreadyPlaced]: {
     defaultMessage: "A candidate can't be removed after already being placed.",
     id: "72usGv",
     description:
       "Message displayed to user after attempting to remove an already placed candidate.",
   },
-  RemoveCandidateAlreadyRemoved: {
+  [ErrorCode.RemoveCandidateAlreadyRemoved]: {
     defaultMessage: "Candidate is already removed.",
     id: "vy6A5+",
     description:
       "Message displayed to user after attempting to remove an already removed candidate.",
   },
-  CandidateUnexpectedStatus: {
+  [ErrorCode.CandidateUnexpectedStatus]: {
     defaultMessage: "Candidate has unexpected status.",
     id: "AlECuf",
     description:
@@ -140,67 +142,67 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
 
   // assessmentStep updating
-  AssessmentStepsSamePool: {
+  [ErrorCode.AssessmentStepsSamePool]: {
     defaultMessage: "AssessmentSteps must belong to the same pool.",
     id: "XUR5dD",
     description:
       "Error message that the assessment steps must belong to the same pool.",
   },
-  AssessmentStepCannotSwap: {
+  [ErrorCode.AssessmentStepCannotSwap]: {
     defaultMessage: "One or both of the given steps cannot be swapped.",
     id: "l+x5JF",
     description:
       "Error message that one of the assessment steps cannot have its sort order changed.",
   },
-  ScreeningQuestionNotExist: {
+  [ErrorCode.ScreeningQuestionNotFound]: {
     defaultMessage: "Given screening question does not exist.",
     id: "2bzpLi",
     description:
       "Error message that the screening question could not be found.",
   },
-  PoolSkillNotValid: {
+  [ErrorCode.PoolSkillNotValid]: {
     defaultMessage: "PoolSkill does not exist for given pool.",
     id: "Hu321P",
     description: "Error message that a given pool skill is not valid.",
   },
 
   // RoD assorted
-  ExpiryDateRequired: {
+  [ErrorCode.ExpiryDateRequired]: {
     defaultMessage: "Expiry date is missing. Enter a date.",
     id: "mcL1kc",
     description: "Error message that an expiry date must be added",
   },
-  ExpiryDateAfterToday: {
+  [ErrorCode.ExpiryDateAfterToday]: {
     defaultMessage: "Expiry date must be after today. Enter a valid date.",
     id: "k8IB9g",
     description: "Error message that an expiry date must be in the future",
   },
-  InvalidStatusForQualification: {
+  [ErrorCode.InvalidStatusQualification]: {
     defaultMessage:
       "An error occurred during qualification. Contact support if this problem persists.",
     id: "or2gwQ",
     description: "Error message that qualifying a candidate failed",
   },
-  InvalidStatusForDisqualification: {
+  [ErrorCode.InvalidStatusDisqualification]: {
     defaultMessage:
       "An error occurred during disqualification. Contact support if this problem persists.",
     id: "IxWjU1",
     description: "Error message that disqualifying a candidate failed",
   },
-  InvalidStatusForRevertFinalDecision: {
+  [ErrorCode.InvalidStatusRevertFinalDecision]: {
     defaultMessage:
       "An error occurred while reverting final decision. Contact support if this problem persists.",
     id: "556RGm",
     description:
       "Error message that reverting the final decision for a candidate failed",
   },
-  InvalidStatusForPlacing: {
+  [ErrorCode.InvalidStatusPlacing]: {
     defaultMessage:
       "An error occurred while placing the candidate. Contact support if this problem persists.",
     id: "8kUa5H",
     description: "Error message that placing a candidate failed",
   },
-  CandidateNotPlaced: {
+  [ErrorCode.CandidateNotPlaced]: {
     defaultMessage:
       "An error occurred while placing the candidate. Contact support if this problem persists.",
     id: "8kUa5H",
@@ -208,13 +210,13 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
 
   // pool updating
-  UpdatePoolClosingDateFuture: {
+  [ErrorCode.ProcessClosingDateFuture]: {
     defaultMessage: "The pool must have a closing date after today.",
     id: "qmEyxS",
     description:
       "Error message that the pool closing date isn't in the future.",
   },
-  UpdatePoolClosingDateExtend: {
+  [ErrorCode.ProcessClosingDateExtend]: {
     defaultMessage:
       "Extended closing date must be after the current closing date.",
     id: "Ork8sR",
@@ -222,14 +224,14 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
       "Error message that the pool closing date isn't after the existing one",
   },
   // pool archiving
-  ArchivePoolInvalidStatus: {
+  [ErrorCode.ArchivePoolInvalidStatus]: {
     defaultMessage:
       "You cannot archive a pool unless it is in the closed status.",
     id: "7D58wn",
     description:
       "Error message when attempting to archive a pool with an invalid status.",
   },
-  UnarchivePoolInvalidStatus: {
+  [ErrorCode.UnarchivePoolInvalidStatus]: {
     defaultMessage:
       "You cannot un-archive a pool unless it is in the archived status.",
     id: "hpBnAk",
@@ -238,41 +240,41 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
 
   // pool publishing validation
-  EnglishWorkTasksRequired: {
+  [ErrorCode.EnglishKeyTasksRequired]: {
     defaultMessage:
       "You are missing a required field: Common tasks in this role (English)",
     id: "n0c2W8",
     description: "Error message that Work Tasks in English must be filled",
   },
-  FrenchWorkTasksRequired: {
+  [ErrorCode.FrenchKeyTasksRequired]: {
     defaultMessage:
       "You are missing a required field: Common tasks in this role (French)",
     id: "lYBehZ",
     description: "Error message that Work Tasks in French must be filled",
   },
-  EnglishYourImpactRequired: {
+  [ErrorCode.EnglishYourImpactRequired]: {
     defaultMessage: "You are missing a required field: Your impact (English)",
     id: "xmzq/b",
     description: "Error message that Your Impact in English must be filled",
   },
-  FrenchYourImpactRequired: {
+  [ErrorCode.FrenchYourImpactRequired]: {
     defaultMessage: "You are missing a required field: Your impact (French)",
     id: "exmV4s",
     description: "Error message that Your Impact in French must be filled",
   },
-  EnglishSpecialNoteRequired: {
+  [ErrorCode.EnglishSpecialNoteRequired]: {
     defaultMessage: "You are missing a required field: Special note (English)",
     id: "1NOBzf",
     description:
       "Error message that Special note for this process in English must be filled",
   },
-  FrenchSpecialNoteRequired: {
+  [ErrorCode.FrenchSpecialNoteRequired]: {
     defaultMessage: "You are missing a required field: Special note (French)",
     id: "ygMrNM",
     description:
       "Error message that Special note for this process in French must be filled",
   },
-  EssentialSkillRequired: {
+  [ErrorCode.EssentialSkillRequired]: {
     defaultMessage: "You must have at least one Essential Skill.",
     id: "Mco0Km",
     description: "Error message that at least one Essential Skill is required",
@@ -320,71 +322,70 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message that the pool advertisement must have publishing group filled.",
   },
-  AssessmentStepMissingSkills: {
+  [ErrorCode.AssessmentStepMissingSkills]: {
     defaultMessage:
       "Each assessment must include one or more skills for evaluation",
     description:
       "Error message that the pool advertisement assessments are lacking a skill",
     id: "7QH2G/",
   },
-  PoolSkillsWithoutAssessments: {
+  [ErrorCode.PoolSkillsWithoutAssessments]: {
     defaultMessage: "Each skill must be included in an assessment",
     description:
       "Error message that the pool advertisement skills are lacking an assessment",
     id: "kDw+xr",
   },
-  PoolSkillNotEssentialAndAssetTypes: {
+  [ErrorCode.PoolSkillNotEssentialAndAssetTypes]: {
     defaultMessage:
       "You can't include a skill as both essential and an asset in the same process. Please choose one and remove it from the other section.",
     description:
       "Error message that the pool advertisement skills cannot be both essential and asset",
     id: "kHtt2N",
   },
-
-  APPLICATION_EXISTS: {
+  [ErrorCode.ApplicationExists]: {
     defaultMessage: "You have already applied to this pool",
     description:
       "Message displayed when a user attempts to apply to pool more than once",
     id: "0OPWbJ",
   },
-  POOL_NOT_PUBLISHED: {
+  [ErrorCode.ApplicationPoolNotPublished]: {
     defaultMessage: "Unable to apply to this pool",
     id: "16AY+M",
     description:
       "Message displayed when user attempts to apply to an unpublished pool",
   },
-  POOL_CLOSED: {
+  [ErrorCode.ApplicationPoolClosed]: {
     defaultMessage: "Unable to apply to a closed pool",
     id: "Mm+Me1",
     description:
       "Message displayed when user attempts to apply to a closed pool",
   },
-  PROFILE_INCOMPLETE: {
+  [ErrorCode.ApplicationProfileIncomplete]: {
     defaultMessage: "Profile is incomplete",
     id: "C/tnCE",
     description:
       "Message displayed when user attempts to apply to a pool with an incomplete profile",
   },
-  MISSING_ESSENTIAL_SKILLS: {
+  [ErrorCode.ApplicationMissingEssentialSkills]: {
     defaultMessage:
       "Please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it.",
     id: "lXgeJr",
     description:
       "Message displayed when user attempts to apply to a pool without connecting all essential skills.",
   },
-  MISSING_LANGUAGE_REQUIREMENTS: {
+  [ErrorCode.ApplicationMissingLanguageRequirements]: {
     defaultMessage: "There is a missing language requirement",
     id: "A1fb/r",
     description:
       "Message displayed when user attempts to apply to a pool without the language requirement",
   },
-  SIGNATURE_REQUIRED: {
+  [ErrorCode.ApplicationSignatureRequired]: {
     defaultMessage: "Signature is a required field",
     id: "J30FT0",
     description:
       "Message displayed when user attempts to apply to a pool without a signature",
   },
-  EDUCATION_REQUIREMENT_INCOMPLETE: {
+  [ErrorCode.ApplicationEducationRequirementIncomplete]: {
     defaultMessage: "Education requirement is incomplete",
     id: "V3+fXY",
     description:
@@ -403,19 +404,19 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Message displayed when user attempts an action they are not allowed to do.",
   },
-  MISSING_QUESTION_RESPONSE: {
+  [ErrorCode.ApplicationMissingQuestionResponse]: {
     defaultMessage: "You must answer all screening questions",
     id: "LBqw5w",
     description:
       "Message displayed when user attempts to apply to a pool without answering all screening questions",
   },
-  VERIFICATION_FAILED: {
+  [ErrorCode.VerificationFailed]: {
     defaultMessage: "Verification failed.",
     id: "XFFFCu",
     description: "Error message that the verification was not successful.",
   },
 
-  SkillUsedByActivePoster: {
+  [ErrorCode.SkillUsedActivePoster]: {
     defaultMessage:
       "This skill cannot be deleted. The skill is in use by a process that is currently accepting applications.",
     id: "/qdFyj",
@@ -434,59 +435,59 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message for when attempting to delete a previously deleted skill",
   },
-  EssentialSkillsContainsDeleted: {
+  [ErrorCode.EssentialSkillsContainsDeleted]: {
     defaultMessage: "This operation failed. This skill was previously deleted.",
     id: "Me66rb",
     description:
       "Error message for when attempting to delete a previously deleted skill",
   },
-  NonEssentialSkillsContainsDeleted: {
+  [ErrorCode.NonessentialSkillsContainsDeleted]: {
     defaultMessage: "This operation failed. This skill was previously deleted.",
     id: "Me66rb",
     description:
       "Error message for when attempting to delete a previously deleted skill",
   },
-  TEAM_ID_REQUIRED: {
+  [ErrorCode.TeamIdRequired]: {
     defaultMessage:
       "An error occurred during role assignment. Contact support if this problem persists.",
     id: "9QsHXO",
     description:
       "Error message for when an error occurs during role assignment",
   },
-  TEAM_DOES_NOT_EXIST: {
+  [ErrorCode.TeamDoesNotExist]: {
     defaultMessage:
       "An error occurred during role assignment. Contact support if this problem persists.",
     id: "9QsHXO",
     description:
       "Error message for when an error occurs during role assignment",
   },
-  ROLE_NOT_TEAM_ROLE: {
+  [ErrorCode.RoleNotTeamRole]: {
     defaultMessage:
       "An error occurred during role assignment. Contact support if this problem persists.",
     id: "9QsHXO",
     description:
       "Error message for when an error occurs during role assignment",
   },
-  ROLE_NOT_FOUND: {
+  [ErrorCode.RoleNotFound]: {
     defaultMessage:
       "An error occurred during role assignment. Contact support if this problem persists.",
     id: "9QsHXO",
     description:
       "Error message for when an error occurs during role assignment",
   },
-  NotVerifiedGovEmployee: {
+  [ErrorCode.NotVerifiedGovernmentEmployee]: {
     defaultMessage: "This user hasn't verified their employee status",
     id: "m/VZ/H",
     description: "Error message for when a user is not verified",
   },
-  TalentEventIsClosed: {
+  [ErrorCode.TalentEventIsClosed]: {
     defaultMessage:
       "The deadline for this talent management event has passed. You can no longer submit a nomination.",
     id: "nuFcSO",
     description:
       "Error alerting the user it is to late to create/update a nomination",
   },
-  ContactEmailRequired: {
+  [ErrorCode.ContactEmailRequired]: {
     defaultMessage: "You are missing a required field: Contact email",
     id: "9wqUyU",
     description:

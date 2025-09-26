@@ -5155,10 +5155,6 @@
     "defaultMessage": "contiennent des renseignements protégés ou classifiés du gouvernement du Canada",
     "description": "Comments or contributions list item"
   },
-  "LDsiHk": {
-    "defaultMessage": "Aidez-nous à vous proposer les meilleures personnes candidates en précisant les compétences que vous recherchez.",
-    "description": "Describing the purpose of the skill filters on the Search page."
-  },
   "LEVK8x": {
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
     "description": "Message displayed to user after classification fails to get updated."
@@ -8041,6 +8037,10 @@
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
+  },
+  "YswsoL": {
+    "defaultMessage": "Aidez-nous à vous proposer les meilleures personnes candidates en précisant les compétences que vous recherchez. Vous trouverez la définition de chaque compétence dans notre <link>bibliothèque de compétences</link>.",
+    "description": "Describing the purpose of the skill filters on Search page."
   },
   "YtI+mg": {
     "defaultMessage": "Carrières dans le numérique à la Défense nationale",

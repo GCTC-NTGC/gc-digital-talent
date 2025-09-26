@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
@@ -279,7 +280,7 @@ class TalentNominationTest extends TestCase
                 ],
             ]);
 
-        $response->assertGraphQLValidationError('talentNomination.skills.sync.0', 'SKILL_NOT_KLC');
+        $response->assertGraphQLValidationError('talentNomination.skills.sync.0', ErrorCode::SKILL_NOT_KLC->name);
     }
 
     public function testCantNominateSelf()
@@ -316,7 +317,7 @@ class TalentNominationTest extends TestCase
                         'connect' => $event->id,
                     ],
                 ],
-            ])->assertGraphQLValidationError('talentNomination', 'TalentEventIsClosed');
+            ])->assertGraphQLValidationError('talentNomination', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
     }
 
     public function testCannotUpdateNominationsForClosedEvent()
@@ -336,11 +337,11 @@ class TalentNominationTest extends TestCase
                 'talentNomination' => [
                     'additionalComments' => 'New comments',
                 ],
-            ])->assertGraphQLValidationError('id', 'TalentEventIsClosed');
+            ])->assertGraphQLValidationError('id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
 
         $this->actingAs($this->employee1, 'api')
             ->graphQL($this->submitMutation, [
                 'id' => $nomination->id,
-            ])->assertGraphQLValidationError('id', 'TalentEventIsClosed');
+            ])->assertGraphQLValidationError('id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
     }
 }

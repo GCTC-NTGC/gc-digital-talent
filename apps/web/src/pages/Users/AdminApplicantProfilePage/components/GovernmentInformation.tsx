@@ -20,7 +20,7 @@ const GovernmentInformation = ({ query }: GovernmentInformationProps) => {
 
   return (
     <TableOfContents.Section id={GOV_INFO_ID}>
-      <Display query={user} readOnly />
+      <Display query={user} showEmailVerification readOnly />
     </TableOfContents.Section>
   );
 };

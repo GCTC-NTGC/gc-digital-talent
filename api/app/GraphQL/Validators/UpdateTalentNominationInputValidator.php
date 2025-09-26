@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationStep;
@@ -10,7 +11,6 @@ use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Rules\GovernmentEmailRegex;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -138,17 +138,17 @@ final class UpdateTalentNominationInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'nominator.connect.exists' => ApiErrorEnums::NOMINATOR_NOT_FOUND,
-            'nominatorFallbackClassification.connect.exists' => ApiErrorEnums::NOMINATOR_CLASSIFICATION_NOT_FOUND,
-            'nominatorFallbackDepartment.connect.exists' => ApiErrorEnums::NOMINATOR_DEPARTMENT_NOT_FOUND,
-            'nominee.connect.exists' => ApiErrorEnums::NOMINEE_NOT_FOUND,
-            'advancementReference.connect.exists' => ApiErrorEnums::ADVANCEMENT_REFERENCE_NOT_FOUND,
-            'advancementReferenceFallbackClassification.connect.exists' => ApiErrorEnums::ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND,
-            'advancementReferenceFallbackDepartment.connect.exists' => ApiErrorEnums::ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND,
-            'developmentPrograms.sync.exists' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_FOUND,
-            'skills.sync.exists' => ApiErrorEnums::SKILL_NOT_FOUND,
-            'skills.sync.*.in' => ApiErrorEnums::SKILL_NOT_KLC,
-            'skills.sync.prohibited' => ApiErrorEnums::SKILLS_NOT_ALLOWED_FOR_EVENT,
+            'nominator.connect.exists' => ErrorCode::NOMINATOR_NOT_FOUND->name,
+            'nominatorFallbackClassification.connect.exists' => ErrorCode::NOMINATOR_CLASSIFICATION_NOT_FOUND->name,
+            'nominatorFallbackDepartment.connect.exists' => ErrorCode::NOMINATOR_DEPARTMENT_NOT_FOUND->name,
+            'nominee.connect.exists' => ErrorCode::NOMINEE_NOT_FOUND->name,
+            'advancementReference.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_NOT_FOUND->name,
+            'advancementReferenceFallbackClassification.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND->name,
+            'advancementReferenceFallbackDepartment.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND->name,
+            'developmentPrograms.sync.exists' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_FOUND->name,
+            'skills.sync.exists' => ErrorCode::SKILL_NOT_FOUND->name,
+            'skills.sync.*.in' => ErrorCode::SKILL_NOT_KLC->name,
+            'skills.sync.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
         ];
     }
 }

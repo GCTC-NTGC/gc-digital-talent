@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Enums\WfaInterest;
 use App\Models\User;
 use Closure;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Arr;
@@ -36,11 +36,11 @@ class HasSubstantiveExperience implements DataAwareRule, ValidationRule
             $expCount = $user->current_substantive_experiences->count();
 
             if (! $expCount) {
-                $fail(ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
+                $fail(ErrorCode::MISSING_SUBSTANTIVE_EXPERIENCE->name);
             }
 
             if ($expCount > 1) {
-                $fail(ApiErrorEnums::TOO_MANY_SUBSTANTIVE_EXPERIENCES);
+                $fail(ErrorCode::TOO_MANY_SUBSTANTIVE_EXPERIENCES->name);
             }
         }
     }

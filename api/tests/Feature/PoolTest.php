@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
@@ -14,7 +15,6 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkStream;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -524,7 +524,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('ArchivePoolInvalidStatus');
+            ->assertGraphQLErrorMessage(ErrorCode::ARCHIVE_POOL_INVALID_STATUS->name);
     }
 
     public function testCanUnarchiveArchived(): void
@@ -566,7 +566,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('UnarchivePoolInvalidStatus');
+            ->assertGraphQLErrorMessage(ErrorCode::UNARCHIVE_POOL_INVALID_STATUS->name);
     }
 
     public function testCannotPublishWithDeletedSkill(): void
@@ -596,7 +596,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('EssentialSkillsContainsDeleted');
+            ->assertGraphQLErrorMessage(ErrorCode::ESSENTIAL_SKILLS_CONTAINS_DELETED->name);
 
         $pool->setEssentialPoolSkills([$skill1->id]);
 
@@ -641,7 +641,7 @@ class PoolTest extends TestCase
         )
             ->assertJsonFragment([
                 'validation' => [
-                    'id' => [ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL],
+                    'id' => [ErrorCode::CANNOT_REOPEN_DELETED_SKILL->name],
                 ],
             ]);
 
@@ -837,7 +837,7 @@ class PoolTest extends TestCase
                 'id' => $completePool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('AssessmentStepMissingSkills');
+            ->assertGraphQLErrorMessage(ErrorCode::ASSESSMENT_STEP_MISSING_SKILLS->name);
 
         $completePool->load(['assessmentSteps', 'poolSkills']);
         foreach ($completePool->assessmentSteps as $assessmentStep) {
@@ -987,7 +987,7 @@ class PoolTest extends TestCase
                 'id' => $completePool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('PoolSkillsWithoutAssessments');
+            ->assertGraphQLErrorMessage(ErrorCode::POOL_SKILLS_WITHOUT_ASSESSMENTS->name);
 
         $completePool->load(['assessmentSteps', 'poolSkills']);
         foreach ($completePool->assessmentSteps as $assessmentStep) {
