@@ -114,3 +114,7 @@ In GraphQL, queries can be built dynamically based on the types exposed in the s
 2. When a field represents a relationship to an array of child models, apply a scope directive to pre-filter the relationship results from the database and also apply a `can` directive with `resolved:true` to run a regular policy on each result.
 3. Querying an array of child models should return partial results if some of the children rows are filtered out by a scope directive or policy. It should not return an error.
 4. Partial results should not reveal that they are partial. They should not return nulls or placeholder values.
+
+### TypeScript
+
+TypeScript should be used to improve clarity, correctness, and maintainability. Favour explicit, meaningful types over `any`, prefer `unknown` when dealing with untyped data, and narrow types early with guards or unions. Avoid unnecessary type assertions (`as`) by modelling types correctly from the start. Be mindful of type complexity, since overly deep or abstract types can slow down builds and editor tooling—see Microsoft’s [TypeScript Performance Guide](https://github.com/microsoft/TypeScript/wiki/Performance) for strategies to keep projects fast.
