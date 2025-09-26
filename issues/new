@@ -1,0 +1,19 @@
+### Title:
+Request for Automated Test: Verify Presence of Verified/Unverified Chip for Work Email in Admin View
+
+### Body:
+**Description:**
+We need to implement an automated test that verifies the presence of the verified/unverified chip for the work email in the GC employee section of user profiles, specifically in the admin view.
+
+**Related Issue:**
+This request is related to issue #14711, which details a bug concerning the display of the verified/unverified chip in the user view. It is essential to ensure that the same behavior is observed in the admin view, as this impacts the functionality and user experience for administrators.
+
+**Context from Issue #14711:**
+The bug outlined in issue #14711 indicates that there are inconsistencies with how the verified/unverified chip is displayed. An automated test will help us ensure that any changes made in the future do not break this functionality and that the chip appears correctly for admins, matching the expected behavior in the user view.
+
+### Steps to Reproduce:
+1. Navigate to the admin view of user profiles.
+2. Check the display of the verified/unverified chip for work emails.
+
+### Expected Outcome:
+The automated test should confirm that the chip is displayed correctly in the admin view, similar to the user view.
