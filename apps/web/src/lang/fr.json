@@ -8006,6 +8006,10 @@
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
   },
+  "YswsoL": {
+    "defaultMessage": "Help us match you to the best candidates by telling us about the skills you need. You can find the definition for each skill in our <link>skills library</link>.",
+    "description": "Describing the purpose of the skill filters on Search page."
+  },
   "YtI+mg": {
     "defaultMessage": "Carrières dans le numérique à la Défense nationale",
     "description": "Title for the DND digital careers page"
