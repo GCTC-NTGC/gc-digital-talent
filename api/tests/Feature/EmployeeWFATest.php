@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Enums\WFAInterest;
 use App\Models\Community;
 use App\Models\Pool;
@@ -9,7 +10,6 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -104,7 +104,7 @@ class EmployeeWFATest extends TestCase
                 'employeeWFA' => [
                     'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
                 ],
-            ])->assertGraphQLValidationError('id', ApiErrorEnums::MISSING_SUBSTANTIVE_EXPERIENCE);
+            ])->assertGraphQLValidationError('id', ErrorCode::MISSING_SUBSTANTIVE_EXPERIENCE->name);
     }
 
     public function testUserCannotUpdateWithMoreThanOneSubstantiveExperiences()
@@ -123,7 +123,7 @@ class EmployeeWFATest extends TestCase
                 'employeeWFA' => [
                     'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
                 ],
-            ])->assertGraphQLValidationError('id', ApiErrorEnums::TOO_MANY_SUBSTANTIVE_EXPERIENCES);
+            ])->assertGraphQLValidationError('id', ErrorCode::TOO_MANY_SUBSTANTIVE_EXPERIENCES->name);
     }
 
     public function testUpdatedAtSet()

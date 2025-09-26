@@ -7,6 +7,7 @@ use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
+use App\Enums\ErrorCode;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
@@ -20,6 +21,7 @@ use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
+use Error;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
@@ -488,7 +490,7 @@ class PoolCandidateUpdateTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLErrorMessage('InvalidStatusForPlacing');
+            ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_PLACING->name);
 
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->poolCandidate->save();
@@ -527,7 +529,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'id' => $this->poolCandidate->id,
                 ]
             )
-            ->assertGraphQLErrorMessage('CandidateNotPlaced');
+            ->assertGraphQLErrorMessage(ErrorCode::CANDIDATE_NOT_PLACED->name);
 
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_CASUAL->name;
         $this->poolCandidate->save();
@@ -564,7 +566,7 @@ class PoolCandidateUpdateTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLErrorMessage('InvalidStatusForQualification');
+            ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_QUALIFICATION->name);
 
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->save();
@@ -615,7 +617,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
                 ]
             )
-            ->assertGraphQLErrorMessage('InvalidStatusForDisqualification');
+            ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_DISQUALIFICATION->name);
 
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->save();
@@ -679,7 +681,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'id' => $this->poolCandidate->id,
                 ]
             )
-            ->assertGraphQLErrorMessage('InvalidStatusForRevertFinalDecision');
+            ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_REVERT_FINAL_DECISION->name);
     }
 
     public function testPoolCandidateRemoval(): void
@@ -748,18 +750,18 @@ class PoolCandidateUpdateTest extends TestCase
 
         // Invalid statuses throw an error
         $failingStatusToError = [
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name => 'RemoveCandidateAlreadyRemoved',
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name => 'RemoveCandidateAlreadyRemoved',
-            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name => 'RemoveCandidateAlreadyRemoved',
-            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => 'RemoveCandidateAlreadyRemoved',
-            PoolCandidateStatus::REMOVED->name => 'RemoveCandidateAlreadyRemoved',
-            PoolCandidateStatus::UNDER_CONSIDERATION->name => 'RemoveCandidateAlreadyPlaced',
-            PoolCandidateStatus::PLACED_TENTATIVE->name => 'RemoveCandidateAlreadyPlaced',
-            PoolCandidateStatus::PLACED_CASUAL->name => 'RemoveCandidateAlreadyPlaced',
-            PoolCandidateStatus::PLACED_INDETERMINATE->name => 'RemoveCandidateAlreadyPlaced',
-            PoolCandidateStatus::PLACED_TERM->name => 'RemoveCandidateAlreadyPlaced',
-            PoolCandidateStatus::DRAFT->name => 'CandidateUnexpectedStatus',
-            PoolCandidateStatus::DRAFT_EXPIRED->name => 'CandidateUnexpectedStatus',
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
+            PoolCandidateStatus::REMOVED->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
+            PoolCandidateStatus::UNDER_CONSIDERATION->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
+            PoolCandidateStatus::PLACED_TENTATIVE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
+            PoolCandidateStatus::PLACED_CASUAL->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
+            PoolCandidateStatus::PLACED_TERM->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
+            PoolCandidateStatus::DRAFT->name => ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name,
+            PoolCandidateStatus::DRAFT_EXPIRED->name => ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name,
         ];
 
         foreach ($failingStatusToError as $status => $error) {
@@ -855,7 +857,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
-                ->assertGraphQLErrorMessage('CandidateUnexpectedStatus');
+                ->assertGraphQLErrorMessage(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
         }
     }
 

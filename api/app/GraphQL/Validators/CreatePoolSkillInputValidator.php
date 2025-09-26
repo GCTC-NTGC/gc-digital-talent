@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
-use Database\Helpers\ApiErrorEnums;
+use App\Enums\ErrorCode;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -26,7 +26,7 @@ final class CreatePoolSkillInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'skillId.unique' => ApiErrorEnums::POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES,
+            'skillId.unique' => ErrorCode::POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES->name,
         ];
     }
 }
