@@ -18,6 +18,7 @@ use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
 use App\ValueObjects\ProfileSnapshot;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -63,6 +65,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
+ * @property array<string> $education_requirement_experience_ids
  * @property string $assessment_step_id
  */
 class PoolCandidate extends Model
@@ -313,6 +316,19 @@ class PoolCandidate extends Model
             'value' => $category->name,
             'label' => PriorityWeight::localizedString($category->name),
         ];
+    }
+
+    /**
+     *  Array of education requirement experience IDs
+     *
+     *  This is used for referencing deleted experiences in the snapshot
+     */
+    public function educationRequirementExperienceIds(): Attribute
+    {
+        return Attribute::get(fn () => DB::table('pool_candidate_education_requirement_experience')
+            ->where('pool_candidate_id', $this->id)
+            ->pluck('experience_id')->all()
+        );
     }
 
     /**

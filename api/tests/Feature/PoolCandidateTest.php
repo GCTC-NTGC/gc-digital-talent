@@ -811,4 +811,18 @@ class PoolCandidateTest extends TestCase
             ])->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityCandidate->id]);
     }
+
+    public function testAccessingDeletedEducationExperienceIds()
+    {
+        $candidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->withSnapshot()
+            ->create();
+
+        $expected = $candidate->education_requirement_experiences->map(fn ($exp) => $exp->id)->toArray();
+        $candidate->education_requirement_experiences->each(fn ($exp) => $exp->delete());
+
+        $this->assertEqualsCanonicalizing($expected, $candidate->education_requirement_experience_ids);
+
+    }
 }

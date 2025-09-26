@@ -397,6 +397,9 @@ const getRoutes = (lang: Locales) => {
      * should contain redirects to new ones.
      */
     myProfileDeprecated: () => ["/", lang, "talent", "profile"].join("/"),
+
+    // TC Report mini-site
+    tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,
   };
 };
 

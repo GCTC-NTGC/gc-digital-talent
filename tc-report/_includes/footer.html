@@ -19,7 +19,7 @@
               {% if item.type == "absolute" %}
                 <a href="{{ item.route }}" title="{{ item.title }}">{{ item.label }}</a>
               {% else %}
-                <a href="{{ site.baseurl }}/{{ page.lang }}/{{ item.route }}" title="{{ item.title }}">{{ item.label }}</a>
+                <a href="{{ site.gcdt_baseurl }}/{{ page.lang }}/{{ item.route }}" title="{{ item.title }}">{{ item.label }}</a>
               {% endif %}
             </li>
             {% endfor %}
