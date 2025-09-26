@@ -63,7 +63,7 @@ class SkillLevelRequiredIfEssential implements DataAwareRule, ValidationRule
 
         // if the skill is essential the then requiredLevel should be required
         if ($newType === PoolSkillType::ESSENTIAL->name && is_null($newLevel)) {
-            $fail(ErrorCode::ESSENTIAL_SKILL_REQUIRES_LELVEL->name);
+            $fail(ErrorCode::ESSENTIAL_SKILL_REQUIRES_LEVEL->name);
         }
 
         // If the skill is an asset then requiredLevel should be null

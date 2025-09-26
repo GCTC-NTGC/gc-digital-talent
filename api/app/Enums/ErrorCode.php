@@ -64,7 +64,7 @@ enum ErrorCode
     case ENUM_NOT_LOCALIZED;
 
     // Job poster template
-    case ESSENTIAL_SKILL_REQUIRES_LELVEL;
+    case ESSENTIAL_SKILL_REQUIRES_LEVEL;
     case NONESSENTIAL_SKILL_PROHIBITS_LEVEL;
 
     // Notifications
