@@ -27,10 +27,6 @@ import DiversityEquityInclusionDisplay, {
 import GovernmentInformationDisplay, {
   GovernmentInformationDisplay_Fragment,
 } from "~/components/Profile/components/GovernmentInformation/Display";
-import LanguageProfileDisplay, {
-  BilingualEvaluation,
-  LanguageProfileDisplay_Fragment,
-} from "~/components/Profile/components/LanguageProfile/Display";
 import WorkPreferencesDisplay, {
   WorkPreferencesDisplay_Fragment,
 } from "~/components/Profile/components/WorkPreferences/Display";
@@ -41,6 +37,7 @@ import { getLabels } from "~/components/Profile/components/WorkPreferences/utils
 import profileMessages from "~/messages/profileMessages";
 import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
 import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
+import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfile/LanguageProfileSnapshot";
 
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
@@ -120,7 +117,6 @@ export const ApplicationInformation_PoolCandidateFragment = graphql(
 
 interface ApplicationInformationSnapshot extends User {
   version?: number;
-  bilingualEvaluation?: BilingualEvaluation;
 }
 
 interface ApplicationInformationProps {
@@ -349,13 +345,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.languageProfile)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <LanguageProfileDisplay
-              bilingualEvaluation={snapshot?.bilingualEvaluation}
-              query={makeFragmentData(
-                snapshot,
-                LanguageProfileDisplay_Fragment,
-              )}
-            />
+            <LanguageProfileSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.WORK_PREF}>
