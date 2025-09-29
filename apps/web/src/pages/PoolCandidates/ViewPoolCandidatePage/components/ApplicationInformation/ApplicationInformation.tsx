@@ -40,9 +40,8 @@ import processMessages from "~/messages/processMessages";
 import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
 import profileMessages from "~/messages/profileMessages";
 import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
-import { VersionedSnapshot } from "~/components/ProfileSnapshot/types";
+import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
 
-import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
 import DownloadButton from "../MoreActions/DownloadButton";
@@ -119,7 +118,8 @@ export const ApplicationInformation_PoolCandidateFragment = graphql(
   `,
 );
 
-interface ApplicationInformationSnapshot extends VersionedSnapshot, User {
+interface ApplicationInformationSnapshot extends User {
+  version?: number;
   bilingualEvaluation?: BilingualEvaluation;
 }
 
@@ -242,10 +242,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.personalAndContactInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <PersonalInformationSnapshot
-              snapshot={snapshot}
-              version={snapshot.version}
-            />
+            <PersonalInformationSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         {screeningQuestionResponses.length > 0 ? (
@@ -303,8 +300,8 @@ const ApplicationInformation = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <EducationRequirementsDisplay
-              experiences={snapshot.experiences}
+            <EducationRequirementSnapshot
+              snapshot={snapshot}
               educationRequirementQuery={application}
             />
           </Accordion.Content>
