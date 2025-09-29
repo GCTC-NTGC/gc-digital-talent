@@ -60,7 +60,7 @@ const CurrentPositionExperiences = ({
   const lastUpdated = data?.updatedDate
     ? formatDate({
         date: parseDateTimeUtc(data.updatedDate),
-        formatString: "MMMM d, yyyy",
+        formatString: "PPP",
         intl,
       })
     : intl.formatMessage(commonMessages.notProvided);

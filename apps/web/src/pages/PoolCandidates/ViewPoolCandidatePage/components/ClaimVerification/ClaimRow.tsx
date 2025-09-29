@@ -39,7 +39,7 @@ const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
           {
             expiryDate: formatDate({
               date: formDateStringToDate(expiry),
-              formatString: "MMMM d, yyyy",
+              formatString: "PPP",
               intl,
             }),
           },

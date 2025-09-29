@@ -187,7 +187,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           {talentEvent.openDate
             ? formatDate({
                 date: parseDateTimeUtc(talentEvent.openDate),
-                formatString: "MMMM d, yyyy",
+                formatString: "PPP",
                 intl,
               })
             : intl.formatMessage(commonMessages.notProvided)}
@@ -203,7 +203,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           {talentEvent.closeDate
             ? formatDate({
                 date: parseDateTimeUtc(talentEvent.closeDate),
-                formatString: "MMMM d, yyyy",
+                formatString: "PPP",
                 intl,
               })
             : intl.formatMessage(commonMessages.notProvided)}

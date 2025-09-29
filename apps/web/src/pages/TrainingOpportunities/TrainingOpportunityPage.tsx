@@ -107,7 +107,7 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
   if (trainingOpportunity.trainingStart) {
     trainingDateValue = formatDate({
       date: parseDateTimeUtc(trainingOpportunity.trainingStart),
-      formatString: "MMMM d, yyyy",
+      formatString: "PPP",
       intl,
     });
   }
@@ -121,11 +121,11 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
 
     trainingDateValue = `${formatDate({
       date: parseDateTimeUtc(trainingOpportunity.trainingStart),
-      formatString: "MMMM d, yyyy",
+      formatString: "PPP",
       intl,
     })} - ${formatDate({
       date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
-      formatString: "MMMM d, yyyy",
+      formatString: "PPP",
       intl,
     })}`;
   }
@@ -177,7 +177,7 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
                     date: parseDateTimeUtc(
                       trainingOpportunity?.registrationDeadline,
                     ),
-                    formatString: "MMMM d, yyyy",
+                    formatString: "PPP",
                     intl,
                   })
                 : intl.formatMessage(commonMessages.notFound)

@@ -75,13 +75,13 @@ const TalentNominationEventCard = ({
               {
                 openDate: formatDate({
                   date: parseDateTimeUtc(talentNominationEvent.openDate),
-                  formatString: "MMMM d, yyyy",
+                  formatString: "PPP",
                   intl,
                   timeZone: localTimeZone,
                 }),
                 closeDate: formatDate({
                   date: parseDateTimeUtc(talentNominationEvent.closeDate),
-                  formatString: "MMMM d, yyyy",
+                  formatString: "PPP",
                   intl,
                   timeZone: localTimeZone,
                 }),
