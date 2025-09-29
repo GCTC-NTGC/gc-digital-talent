@@ -18,7 +18,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
 import profileMessages from "~/messages/profileMessages";
 
-import { ProfileSnapshotProps } from "../types";
+import { SnapshotProps } from "../types";
 
 export interface PersonalInformationSnapshotV1 {
   firstName: Maybe<string>;
@@ -34,7 +34,7 @@ export interface PersonalInformationSnapshotV1 {
 }
 
 export type PersonalInformationV1Props =
-  ProfileSnapshotProps<PersonalInformationSnapshotV1>;
+  SnapshotProps<PersonalInformationSnapshotV1>;
 
 const PersonalInformationV1 = ({ snapshot }: PersonalInformationV1Props) => {
   const intl = useIntl();

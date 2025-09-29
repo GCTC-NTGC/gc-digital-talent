@@ -1,18 +1,28 @@
+import { ReactElement } from "react";
+
 import PersonalInformationV1, {
   PersonalInformationSnapshotV1,
 } from "./PersonalInformationV1";
-import { SnapshotComponent } from "../types";
-import SnapshotDisplay, { SnapshotDisplayProps } from "../SnapshotDisplay";
+import { getSupportedVersionComponent } from "../utils";
+import { SnapshotProps } from "../types";
 
-// Union to contain possible versions of props
-type VersionedProps = PersonalInformationSnapshotV1;
+type PersonalInformationSnapshotProps =
+  SnapshotProps<PersonalInformationSnapshotV1>;
 
-const componentMap = new Map<number, SnapshotComponent<VersionedProps>>([
-  [1, PersonalInformationV1],
-]);
+const componentMap = {
+  1: PersonalInformationV1,
+  // 2: PersonalInformationV2, // add when V2 exists
+};
 
-const PersonalInformationSnapshot = (
-  props: Omit<SnapshotDisplayProps<VersionedProps>, "components">,
-) => <SnapshotDisplay {...props} components={componentMap} />;
+export default function PersonalInformationSnapshot(
+  props: PersonalInformationSnapshotProps,
+): ReactElement | null {
+  const Component = getSupportedVersionComponent(
+    componentMap,
+    props.snapshot.version ?? 1,
+  );
 
-export default PersonalInformationSnapshot;
+  if (!Component) return null;
+
+  return <Component {...props} />;
+}

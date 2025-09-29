@@ -1,13 +1,7 @@
-import { JSX } from "react";
+import { ComponentType } from "react";
 
-export interface VersionedSnapshot {
-  version?: number;
+export interface SnapshotProps<TSnapshot extends object> {
+  snapshot: { version?: number } & Partial<TSnapshot>;
 }
 
-export interface ProfileSnapshotProps<T> {
-  snapshot: Partial<T>;
-}
-
-export type SnapshotComponent<T> = (
-  props: ProfileSnapshotProps<T>,
-) => JSX.Element;
+export type ComponentMap = Record<number, ComponentType<unknown>>;
