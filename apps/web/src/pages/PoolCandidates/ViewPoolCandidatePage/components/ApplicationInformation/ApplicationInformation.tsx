@@ -31,9 +31,6 @@ import LanguageProfileDisplay, {
   BilingualEvaluation,
   LanguageProfileDisplay_Fragment,
 } from "~/components/Profile/components/LanguageProfile/Display";
-import PersonalInformationDisplay, {
-  PersonalInformationDisplay_Fragment,
-} from "~/components/Profile/components/PersonalInformation/Display";
 import WorkPreferencesDisplay, {
   WorkPreferencesDisplay_Fragment,
 } from "~/components/Profile/components/WorkPreferences/Display";
@@ -42,6 +39,8 @@ import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
 import profileMessages from "~/messages/profileMessages";
+import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
+import { VersionedSnapshot } from "~/components/ProfileSnapshot/types";
 
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
@@ -120,12 +119,16 @@ export const ApplicationInformation_PoolCandidateFragment = graphql(
   `,
 );
 
+interface ApplicationInformationSnapshot extends VersionedSnapshot, User {
+  bilingualEvaluation?: BilingualEvaluation;
+}
+
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
   applicationQuery: FragmentType<
     typeof ApplicationInformation_PoolCandidateFragment
   >;
-  snapshot: User & { bilingualEvaluation?: BilingualEvaluation }; // recreated from Json
+  snapshot: ApplicationInformationSnapshot;
   defaultOpen?: boolean;
 }
 
@@ -239,11 +242,9 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.personalAndContactInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <PersonalInformationDisplay
-              query={makeFragmentData(
-                snapshot,
-                PersonalInformationDisplay_Fragment,
-              )}
+            <PersonalInformationSnapshot
+              snapshot={snapshot}
+              version={snapshot.version}
             />
           </Accordion.Content>
         </Accordion.Item>
