@@ -63,11 +63,13 @@ interface CareerObjectivePreviewProps {
     typeof CareerObjectivePreview_Fragment
   >;
   headingAs?: HeadingLevel;
+  careerObjectiveDialogSubtitle?: string;
 }
 
 const CareerObjectivePreview = ({
   careerObjectivePreviewQuery,
   headingAs,
+  careerObjectiveDialogSubtitle,
 }: CareerObjectivePreviewProps) => {
   const intl = useIntl();
   const careerObjectivePreviewFragment = getFragment(
@@ -147,6 +149,7 @@ const CareerObjectivePreview = ({
           <CareerObjectiveDialog
             careerObjectiveDialogQuery={careerObjectivePreviewFragment}
             trigger={<PreviewList.Button label={nodeToString(title)} />}
+            customSubtitle={careerObjectiveDialogSubtitle}
           />
         }
         headingAs={headingAs}

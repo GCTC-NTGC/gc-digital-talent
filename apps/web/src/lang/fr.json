@@ -2479,6 +2479,10 @@
     "defaultMessage": "Vous avez répondu aux questions générales suivantes :",
     "description": "Message in general questions section of the application review page."
   },
+  "96ClZg": {
+    "defaultMessage": "Le rôle suivant que l'employé·e entend jouer et son principal objectif de carrière, notamment la classification, les domaines de travail et les ministères.",
+    "description": "Subtitle for next role and career objective section"
+  },
   "97UAb8": {
     "defaultMessage": "Titre abrégé de cette expérience",
     "description": "Label displayed on Personal Experience form for experience title input"
@@ -7826,6 +7830,10 @@
     "defaultMessage": "Communication générale",
     "description": "Label for preferred language in profile details box."
   },
+  "Y82TrM": {
+    "defaultMessage": "Les préférences de l’employé·e en matière d’organisation, de promotion, de mentorat et de possibilités pour les cadres.",
+    "description": "Title for Career development preferences section of user employee information page"
+  },
   "Y93ht7": {
     "defaultMessage": "Vous n'avez aucune demande active pour l'instant.",
     "description": "Title for notice when there are no applications"
@@ -11937,6 +11945,10 @@
     "defaultMessage": "Une estimation du nombre de personnes candidates qualifiées correspondant à vos critères s’affichera automatiquement selon les filtres appliqués.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
   },
+  "q3scRY": {
+    "defaultMessage": "La possibilité pour l'employé·e de se décrire, d'expliquer comment il ou elle aborde sa carrière et comment elle travaille le mieux.",
+    "description": "Subtitle for goals and work style section"
+  },
   "q5FQbu": {
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
@@ -13472,6 +13484,10 @@
   "xnxf8m": {
     "defaultMessage": "Le fait de manifester son intérêt ne garantit pas la prise en considération d'une candidature à un poste au niveau de la direction. Votre intérêt, combiné à votre expérience professionnelle et à vos compétences, aide les recruteurs à déterminer si vous correspondez au profil recherché.",
     "description": "Context for an employee profile career development preference field"
+  },
+  "xst395": {
+    "defaultMessage": "Prochain rôle et objectif de carrière",
+    "description": "Title for Next role and career objective section of user employee information page"
   },
   "xtNiNu": {
     "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",

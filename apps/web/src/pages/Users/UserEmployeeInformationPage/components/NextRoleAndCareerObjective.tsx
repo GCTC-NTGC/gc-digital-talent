@@ -28,10 +28,14 @@ interface NextRoleAndCareerObjectiveProps {
     typeof NextRoleAndCareerObjective_Fragment
   >;
   sectionKey: string;
+  nextRoleDialogSubtitle?: string;
+  careerObjectiveDialogSubtitle?: string;
 }
 
 const NextRoleAndCareerObjective = ({
   nextRoleAndCareerObjectiveQuery,
+  nextRoleDialogSubtitle,
+  careerObjectiveDialogSubtitle,
 }: NextRoleAndCareerObjectiveProps) => {
   const intl = useIntl();
   const nextRoleAndCareerObjective = getFragment(
@@ -58,10 +62,11 @@ const NextRoleAndCareerObjective = ({
     return (
       <Well>
         <p>
+          {/* TODO: Add translations */}
           {intl.formatMessage({
             defaultMessage:
-              "The employee has not provided information about their next role or career objective.",
-            id: "Cieb3x",
+              "The employee hasn't added any information about their next role or career objective to their profile",
+            id: "ctOBXo",
             description:
               "Message displayed if employee hasn't filled out next role or career objective",
           })}
@@ -72,10 +77,14 @@ const NextRoleAndCareerObjective = ({
   return (
     <div className="space-y-6">
       {hasNextRole ? (
-        <NextRolePreview nextRolePreviewQuery={nextRoleAndCareerObjective} />
+        <NextRolePreview
+          nextRolePreviewQuery={nextRoleAndCareerObjective}
+          nextRoleDialogSubtitle={nextRoleDialogSubtitle}
+        />
       ) : (
         <Well>
           <p>
+            {/* TODO: Add translations */}
             {intl.formatMessage({
               defaultMessage:
                 "The employee has not provided information about the next role they'd like to achieve.",
@@ -92,10 +101,12 @@ const NextRoleAndCareerObjective = ({
       {hasCareerObjective ? (
         <CareerObjectivePreview
           careerObjectivePreviewQuery={nextRoleAndCareerObjective}
+          careerObjectiveDialogSubtitle={careerObjectiveDialogSubtitle}
         />
       ) : (
         <Well>
           <p>
+            {/* TODO: Add translations */}
             {intl.formatMessage({
               defaultMessage:
                 "The employee has not provided information about their ultimate career objective.",

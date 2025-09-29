@@ -271,6 +271,20 @@ export const UserEmployeeInformation = ({
                 <NextRoleAndCareerObjective
                   nextRoleAndCareerObjectiveQuery={userQuery}
                   sectionKey={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+                  nextRoleDialogSubtitle={intl.formatMessage({
+                    defaultMessage:
+                      "Learn more about the role this employee is seeking next in their career path.",
+                    id: "NQgGHA",
+                    description:
+                      "Subtitle for dialog viewing next role info for employees",
+                  })}
+                  careerObjectiveDialogSubtitle={intl.formatMessage({
+                    defaultMessage:
+                      "Learn more about the role this employee is working toward as their main career objective.",
+                    id: "aZEnPH",
+                    description:
+                      "Subtitle for dialog viewing career objective info for employees",
+                  })}
                 />
               </Accordion.Content>
             </Accordion.Item>

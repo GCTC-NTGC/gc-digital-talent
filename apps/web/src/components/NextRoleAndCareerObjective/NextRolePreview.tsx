@@ -60,11 +60,13 @@ export const NextRolePreview_Fragment = graphql(/* GraphQL */ `
 interface NextRolePreviewProps {
   nextRolePreviewQuery: FragmentType<typeof NextRolePreview_Fragment>;
   headingAs?: HeadingLevel;
+  nextRoleDialogSubtitle?: string;
 }
 
 const NextRolePreview = ({
   nextRolePreviewQuery,
   headingAs,
+  nextRoleDialogSubtitle,
 }: NextRolePreviewProps) => {
   const intl = useIntl();
   const nextRolePreviewFragment = getFragment(
@@ -142,6 +144,7 @@ const NextRolePreview = ({
           <NextRoleDialog
             nextRoleDialogQuery={nextRolePreviewFragment}
             trigger={<PreviewList.Button>{title}</PreviewList.Button>}
+            customSubtitle={nextRoleDialogSubtitle}
           />
         }
         headingAs={headingAs}
