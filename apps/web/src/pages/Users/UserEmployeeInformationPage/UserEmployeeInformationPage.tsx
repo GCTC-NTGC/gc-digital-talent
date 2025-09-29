@@ -31,8 +31,7 @@ import CommunityInterest, {
 import CareerDevelopmentSection, {
   CareerDevelopmentOptions_Fragment,
 } from "./components/CareerDevelopmentSection";
-import NextRoleSection from "./components/NextRoleSection";
-import CareerObjectiveSection from "./components/CareerObjectiveSection";
+import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
 
 const SECTION_ID = {
@@ -69,12 +68,14 @@ interface UserEmployeeInformationProps {
   careerDevelopmentOptionsQuery: FragmentType<
     typeof CareerDevelopmentOptions_Fragment
   >;
+  userQuery: FragmentType<typeof NextRoleAndCareerObjective_Fragment>;
 }
 
 export const UserEmployeeInformation = ({
   employeeProfileQuery,
   careerDevelopmentOptionsQuery,
   communityInterestOptionsQuery,
+  userQuery,
 }: UserEmployeeInformationProps) => {
   const intl = useIntl();
 
@@ -260,16 +261,16 @@ export const UserEmployeeInformation = ({
                 <span className="font-normal">
                   {intl.formatMessage({
                     defaultMessage: "Next role and career objective",
-                    id: "xst395",
+                    id: "QhFxW1",
                     description:
-                      "Title for Next role and career objective section of user employee information page",
+                      "Title for next role and career objective section",
                   })}
                 </span>
               </Accordion.Trigger>
               <Accordion.Content>
-                <NextRoleSection employeeProfileQuery={employeeProfile} />
-                <CareerObjectiveSection
-                  employeeProfileQuery={employeeProfile}
+                <NextRoleAndCareerObjective
+                  nextRoleAndCareerObjectiveQuery={userQuery}
+                  sectionKey={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
                 />
               </Accordion.Content>
             </Accordion.Item>
@@ -307,6 +308,17 @@ export const UserEmployeeInformation = ({
   );
 };
 
+export const NextRoleAndCareerObjective_Fragment = graphql(/* GraphQL */ `
+  fragment NextRoleAndCareerObjective on User {
+    ...NextRolePreview
+    ...CareerObjectivePreview
+    employeeProfile {
+      ...NextRoleInfo
+      ...CareerObjectiveInfo
+    }
+  }
+`);
+
 const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
   query UserEmployeeInformationPage($id: UUID!) {
     user(id: $id, trashed: WITH) {
@@ -314,6 +326,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
       employeeProfile {
         ...UserEmployeeInformation
       }
+      ...NextRoleAndCareerObjective
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
@@ -339,6 +352,7 @@ const UserEmployeeInformationPage = () => {
         {data?.user?.employeeProfile && data?.user?.isGovEmployee ? (
           <UserEmployeeInformation
             employeeProfileQuery={data?.user?.employeeProfile}
+            userQuery={data.user}
             careerDevelopmentOptionsQuery={data}
             communityInterestOptionsQuery={data}
           />
