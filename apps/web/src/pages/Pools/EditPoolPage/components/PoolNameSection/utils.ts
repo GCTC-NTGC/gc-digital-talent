@@ -25,7 +25,6 @@ export interface FormValues {
   stream?: WorkStream["id"];
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
-  processNumber?: string;
   publishingGroup?: Maybe<PublishingGroup>;
   opportunityLength?: Maybe<PoolOpportunityLength>;
 }
@@ -38,7 +37,6 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
   stream: initialData.workStream?.id ?? undefined,
   specificTitleEn: initialData.name?.en ?? "",
   specificTitleFr: initialData.name?.fr ?? "",
-  processNumber: initialData.processNumber ?? "",
   publishingGroup: initialData.publishingGroup?.value,
   opportunityLength: initialData.opportunityLength?.value,
 });
@@ -51,7 +49,6 @@ export type PoolNameSubmitData = Pick<
   | "department"
   | "name"
   | "workStream"
-  | "processNumber"
   | "publishingGroup"
   | "opportunityLength"
 >;
@@ -76,7 +73,6 @@ export const formValuesToSubmitData = (
     en: formValues.specificTitleEn,
     fr: formValues.specificTitleFr,
   },
-  processNumber: formValues.processNumber ?? null,
   publishingGroup: formValues.publishingGroup ?? undefined, // can't be set to null, assume not updating if empty
   opportunityLength: formValues.opportunityLength ?? undefined, // can't be set to null, assume not updating if empty
 });
