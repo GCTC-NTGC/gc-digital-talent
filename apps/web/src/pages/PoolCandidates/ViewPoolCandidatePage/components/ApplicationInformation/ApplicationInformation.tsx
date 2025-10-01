@@ -10,7 +10,6 @@ import {
   User,
   getFragment,
   graphql,
-  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading, Ul } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -21,15 +20,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import DiversityEquityInclusionDisplay, {
-  DiversityEquityInclusionDisplay_Fragment,
-} from "~/components/Profile/components/DiversityEquityInclusion/Display";
-import GovernmentInformationDisplay, {
-  GovernmentInformationDisplay_Fragment,
-} from "~/components/Profile/components/GovernmentInformation/Display";
-import WorkPreferencesDisplay, {
-  WorkPreferencesDisplay_Fragment,
-} from "~/components/Profile/components/WorkPreferences/Display";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
@@ -37,11 +27,13 @@ import profileMessages from "~/messages/profileMessages";
 import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
 import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
 import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfile/LanguageProfileSnapshot";
+import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
+import GovernmentInformationSnapshot from "~/components/ProfileSnapshot/GovernmentInformation/GovernmentInformationSnapshot";
+import DiversityEquityInclusionSnapshot from "~/components/ProfileSnapshot/DiversityEquityInclusion/DiversityEquityInclusionSnapshot";
 
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
 import DownloadButton from "../MoreActions/DownloadButton";
-import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
 
 const questionHeading = tv({
   base: "text-base lg:text-base",
@@ -361,12 +353,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.govEmployeeInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <GovernmentInformationDisplay
-              query={makeFragmentData(
-                snapshot,
-                GovernmentInformationDisplay_Fragment,
-              )}
-            />
+            <GovernmentInformationSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.DEI}>
@@ -374,12 +361,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <DiversityEquityInclusionDisplay
-              query={makeFragmentData(
-                snapshot,
-                DiversityEquityInclusionDisplay_Fragment,
-              )}
-            />
+            <DiversityEquityInclusionSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.SIGNATURE}>
