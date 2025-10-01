@@ -1,5 +1,3 @@
-import { IntlShape } from "react-intl";
-
 import {
   PositionDuration,
   ProfileWorkPreferencesFragment,
