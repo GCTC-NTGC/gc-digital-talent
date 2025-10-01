@@ -14,6 +14,7 @@ use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
+use App\Enums\SkillCategory;
 use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
 use App\ValueObjects\ProfileSnapshot;
@@ -388,8 +389,10 @@ class PoolCandidate extends Model
         $this->load([
             'pool.assessmentSteps',
             'pool.assessmentSteps.poolSkills',
+            'pool.assessmentSteps.poolSkills.skill',
             'assessmentResults',
             'assessmentResults.poolSkill',
+            'assessmentResults.poolSkill.skill',
         ]);
 
         $steps = $this->pool->assessmentSteps;
@@ -407,7 +410,7 @@ class PoolCandidate extends Model
                 $result = $stepResults->firstWhere('pool_skill_id', $poolSkill->id);
                 $decision = $result?->assessment_decision;
 
-                if ($poolSkill->type === PoolSkillType::ESSENTIAL->name) {
+                if ($poolSkill->type === PoolSkillType::ESSENTIAL->name && ! ($isApplicationScreening && $poolSkill->skill->category === SkillCategory::BEHAVIOURAL->name)) {
                     if (! $result || is_null($result->assessment_decision)) {
                         $hasToAssess = true;
 
