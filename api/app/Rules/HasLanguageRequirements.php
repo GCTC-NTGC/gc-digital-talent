@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Enums\PoolLanguage;
 use App\Models\Pool;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 
 class HasLanguageRequirements implements Rule
@@ -48,6 +48,6 @@ class HasLanguageRequirements implements Rule
      */
     public function message()
     {
-        return ApiEnums::POOL_CANDIDATE_MISSING_LANGUAGE_REQUIREMENTS;
+        return ErrorCode::APPLICATION_MISSING_LANGUAGE_REQUIREMENTS->name;
     }
 }

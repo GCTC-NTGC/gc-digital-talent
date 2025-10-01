@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -27,7 +27,7 @@ final class PlaceCandidateValidator extends Validator
         $statusesArray = [...$placedStatuses, PoolCandidateStatus::QUALIFIED_AVAILABLE->name];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages(['id' => ApiErrorEnums::INVALID_STATUS_PLACING]);
+            throw ValidationException::withMessages(['id' => ErrorCode::INVALID_STATUS_PLACING->name]);
         }
 
         return [

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\AssessmentStepType;
+use App\Enums\ErrorCode;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
 use App\Models\PoolSkill;
@@ -33,7 +34,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                 foreach ($incomingAssessmentStep['poolSkills']['sync'] as $skillID) {
                     $skill = PoolSkill::find($skillID);
                     if ($skill === null || $skill->pool_id !== $pool->id) {
-                        throw new Exception('PoolSkillNotValid');
+                        throw new Exception(ErrorCode::POOL_SKILL_NOT_VALID->name);
                     }
                 }
                 $assessmentStep->poolSkills()->sync($incomingAssessmentStep['poolSkills']['sync']);
@@ -45,7 +46,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                     array_push($incomingQuestionIds, $incomingQuestion['id']);
                     $questionToUpdate = $existingQuestions->find($incomingQuestion['id']);
                     if ($questionToUpdate === null) {
-                        throw new Exception('ScreeningQuestionNotExist');
+                        throw new Exception(ErrorCode::SCREENING_QUESTION_NOT_FOUND->name);
                     }
 
                     $questionToUpdate->question = $incomingQuestion['question'];
