@@ -33,7 +33,6 @@ import WorkPreferencesDisplay, {
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
-import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
 import profileMessages from "~/messages/profileMessages";
 import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
 import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
@@ -42,6 +41,7 @@ import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfil
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
 import DownloadButton from "../MoreActions/DownloadButton";
+import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
 
 const questionHeading = tv({
   base: "text-base lg:text-base",
@@ -353,13 +353,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <WorkPreferencesDisplay
-              query={makeFragmentData(
-                snapshot,
-                WorkPreferencesDisplay_Fragment,
-              )}
-              labels={getLabels(intl)}
-            />
+            <WorkPreferencesSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.GOV_INFO}>
