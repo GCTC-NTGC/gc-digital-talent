@@ -2732,6 +2732,7 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput @validator {
+  processNumber: String @rename(attribute: "process_number")
   changeJustification: String! @rename(attribute: "change_justification")
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
