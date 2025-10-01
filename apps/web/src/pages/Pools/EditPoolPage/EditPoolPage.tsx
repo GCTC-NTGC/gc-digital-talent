@@ -389,7 +389,6 @@ export const EditPoolForm = ({
       hasError: educationRequirementIsNull({
         workStream: pool.workStream,
         name: pool.name,
-        processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
       }),
       title: intl.formatMessage({
