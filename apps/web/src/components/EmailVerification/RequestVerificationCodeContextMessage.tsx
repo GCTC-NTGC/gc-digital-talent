@@ -3,17 +3,13 @@ import { useIntl } from "react-intl";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
-import { CODE_REQUEST_THROTTLE_DELAY_S } from "./RequestVerificationCodeForm";
-import { useEmailVerification } from "./EmailVerification";
+import { CODE_REQUEST_THROTTLE_DELAY_S } from "./SendVerificationEmailSubform";
+import { useEmailVerification } from "./EmailVerificationProvider";
 
-export type ContextMessage = "request-sent" | "throttled" | "address-changed";
-
-const RequestVerificationCodeContextMessage = () => {
+const RequestACodeContextMessage = () => {
   const intl = useIntl();
 
-  const {
-    state: { requestVerificationCodeContextMessage: message },
-  } = useEmailVerification();
+  const { requestACodeMessage: message } = useEmailVerification();
 
   if (message == null) return null;
 

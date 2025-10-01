@@ -3,16 +3,12 @@ import { useIntl } from "react-intl";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
-import { useEmailVerification } from "./EmailVerification";
+import { useEmailVerification } from "./EmailVerificationProvider";
 
-export type ContextMessage = "contact-matches-work" | "must-request-code";
-
-const SubmitVerificationCodeContextMessage = () => {
+const SubmitACodeContextMessage = () => {
   const intl = useIntl();
 
-  const {
-    state: { submitVerificationCodeContextMessage: message },
-  } = useEmailVerification();
+  const { submitACodeMessage: message } = useEmailVerification();
 
   if (message == null) return null;
 
