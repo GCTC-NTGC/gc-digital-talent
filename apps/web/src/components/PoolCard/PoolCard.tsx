@@ -28,6 +28,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { DATE_FORMAT_LOCALIZED } from "@gc-digital-talent/date-helpers/const";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -36,7 +37,6 @@ import { filterPoolSkillsByType } from "~/utils/skillUtils";
 import { getSalaryRange } from "~/utils/classification";
 
 import IconLabel from "./IconLabel";
-import { DATE_FORMAT_LOCALIZED } from "@gc-digital-talent/date-helpers/const";
 
 export const PoolCard_Fragment = graphql(/* GraphQL */ `
   fragment PoolCard on Pool {
