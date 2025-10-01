@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\Pool;
 use App\Models\User;
 use App\Models\WorkStream;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -251,7 +251,7 @@ class CommunityInterestTest extends TestCase
                     'community' => ['connect' => Str::uuid()],
                 ],
             ])
-            ->assertGraphQLValidationError('communityInterest.community.connect', ApiErrorEnums::COMMUNITY_NOT_FOUND);
+            ->assertGraphQLValidationError('communityInterest.community.connect', ErrorCode::COMMUNITY_NOT_FOUND->name);
     }
 
     public function testUniqueValidation()
@@ -266,7 +266,7 @@ class CommunityInterestTest extends TestCase
                     'community' => ['connect' => $community],
                 ],
             ])
-            ->assertGraphQLValidationError('communityInterest.community.connect', ApiErrorEnums::COMMUNITY_INTEREST_EXISTS);
+            ->assertGraphQLValidationError('communityInterest.community.connect', ErrorCode::COMMUNITY_INTEREST_EXISTS->name);
     }
 
     public function testWorkStreamInCommunityValidation()
@@ -287,7 +287,7 @@ class CommunityInterestTest extends TestCase
                     ],
                 ],
             ])
-            ->assertGraphQLValidationError('communityInterest.workStreams.sync.0', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY);
+            ->assertGraphQLValidationError('communityInterest.workStreams.sync.0', ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name);
     }
 
     // test querying CommunityInterests with various roles

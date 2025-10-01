@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Enums\PoolStatus;
 use App\Models\Pool;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 
 class PoolPublished implements Rule
@@ -44,6 +44,6 @@ class PoolPublished implements Rule
      */
     public function message()
     {
-        return ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED;
+        return ErrorCode::APPLICATION_POOL_NOT_PUBLISHED->name;
     }
 }

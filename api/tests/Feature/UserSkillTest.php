@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\ExperienceSkill;
@@ -259,7 +260,7 @@ class UserSkillTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLErrorMessage('DuplicateUserSkill');
+            ->assertGraphQLErrorMessage(ErrorCode::DUPLICATE_USER_SKILL->name);
     }
 
     public function testUserSkillCreationByRestoring(): void
@@ -1036,7 +1037,7 @@ class UserSkillTest extends TestCase
                         ],
                     ],
                 ]
-            )->assertGraphQLValidationError('userSkillRanking.improveTechnicalSkillsRanked', 'ArrayContainsDuplicates');
+            )->assertGraphQLValidationError('userSkillRanking.improveTechnicalSkillsRanked', ErrorCode::ARRAY_CONTAINS_DUPLICATES->name);
 
         // passes even if the same skill appears multiple times, so long as it is in separate arrays
         $this->actingAs($this->user, 'api')

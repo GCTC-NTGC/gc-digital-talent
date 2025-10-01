@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Enums\ExecCoaching;
 use App\Enums\Mentorship;
 use App\Enums\OrganizationTypeInterest;
@@ -12,7 +13,6 @@ use App\Models\Community;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\WorkStream;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -269,12 +269,12 @@ class EmployeeProfileTest extends TestCase
                     'id' => $this->user->id,
                     'employeeProfile' => $input,
                 ])
-            ->assertGraphQLValidationError('employeeProfile.nextRoleClassification.connect', ApiErrorEnums::CLASSIFICATION_NOT_FOUND)
-            ->assertGraphQLValidationError('employeeProfile.careerObjectiveClassification.connect', ApiErrorEnums::CLASSIFICATION_NOT_FOUND)
-            ->assertGraphQLValidationError('employeeProfile.nextRoleWorkStreams.sync.0', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY)
-            ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams.sync.0', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY)
-            ->assertGraphQLValidationError('employeeProfile.nextRoleDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND)
-            ->assertGraphQLValidationError('employeeProfile.careerObjectiveDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND);
+            ->assertGraphQLValidationError('employeeProfile.nextRoleClassification.connect', ErrorCode::CLASSIFICATION_NOT_FOUND->name)
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveClassification.connect', ErrorCode::CLASSIFICATION_NOT_FOUND->name)
+            ->assertGraphQLValidationError('employeeProfile.nextRoleWorkStreams.sync.0', ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name)
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams.sync.0', ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name)
+            ->assertGraphQLValidationError('employeeProfile.nextRoleDepartments.sync.0', ErrorCode::DEPARTMENT_NOT_FOUND->name)
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveDepartments.sync.0', ErrorCode::DEPARTMENT_NOT_FOUND->name);
     }
 
     public function testUpdateEmployeeProfileCommunityOtherCommunityValidation()

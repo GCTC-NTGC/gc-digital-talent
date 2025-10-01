@@ -12,14 +12,30 @@ export type ScrollLinkClickFunc = (
   section: HTMLElement | null,
 ) => void;
 
-const scrollToSection = (section: HTMLElement | null) => {
+const scrollToSection = (
+  section: HTMLElement | null,
+  offsetEl?: HTMLElement | null,
+) => {
   if (section) {
-    setTimeout(() => {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 10);
+    if (offsetEl) {
+      setTimeout(() => {
+        window.scrollTo({
+          behavior: "smooth",
+          top:
+            section.getBoundingClientRect().top -
+            document.body.getBoundingClientRect().top -
+            // NOTE: 16 adds a bit of a gap so text doesn't touch element
+            (offsetEl.getBoundingClientRect().height + 16),
+        });
+      }, 10);
+    } else {
+      setTimeout(() => {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 10);
+    }
   }
 };
 
@@ -29,6 +45,7 @@ export interface ScrollToLinkProps
   to: string;
   onScrollTo?: ScrollLinkClickFunc;
   disabled?: boolean;
+  offsetId?: string;
 }
 
 const ScrollToLink = ({
@@ -39,6 +56,7 @@ const ScrollToLink = ({
   mode = "text",
   block = false,
   size = "md",
+  offsetId = "main-nav",
   icon,
   utilityIcon,
   disabled = false,
@@ -56,12 +74,13 @@ const ScrollToLink = ({
     size,
     disabled,
   });
+  const offsetEl = document.getElementById(offsetId);
 
   useEffect(() => {
     if (hash && hash === `#${to}`) {
-      scrollToSection(targetSection);
+      scrollToSection(targetSection, offsetEl);
     }
-  }, [pathname, hash, to, targetSection]);
+  }, [pathname, hash, to, targetSection, offsetEl]);
 
   useEffect(() => {
     const section = document.getElementById(to.toString());
@@ -69,7 +88,7 @@ const ScrollToLink = ({
   }, [to]);
 
   const handleClick = (e: ClickEvent) => {
-    scrollToSection(targetSection);
+    scrollToSection(targetSection, offsetEl);
     if (onScrollTo) {
       onScrollTo(e, targetSection);
     }

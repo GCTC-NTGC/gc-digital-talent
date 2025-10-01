@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Models\Pool;
 use Closure;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class SkillNotUsedByActivePool implements ValidationRule
@@ -26,7 +26,7 @@ class SkillNotUsedByActivePool implements ValidationRule
             ->get();
 
         if (isset($activePoolsUsingSkill) && count($activePoolsUsingSkill) > 0) {
-            $fail(ApiErrorEnums::SKILL_USED_ACTIVE_POSTER);
+            $fail(ErrorCode::SKILL_USED_ACTIVE_POSTER->name);
         }
     }
 }

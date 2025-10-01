@@ -19,9 +19,7 @@ import { DIALOG_TYPE } from "./utils";
 
 const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningDialogSupportingEvidence on PoolCandidate {
-    educationRequirementExperiences {
-      id
-    }
+    educationRequirementExperienceIds
   }
 `);
 
@@ -44,8 +42,8 @@ const SupportingEvidence = ({
     query,
   );
   const educationRequirementExperienceIds = unpackMaybes(
-    candidate?.educationRequirementExperiences,
-  ).flatMap((exp) => exp.id);
+    candidate.educationRequirementExperienceIds,
+  );
   const experiencesFiltered =
     dialogType === DIALOG_TYPE.Education
       ? experiences.filter((experience) =>
