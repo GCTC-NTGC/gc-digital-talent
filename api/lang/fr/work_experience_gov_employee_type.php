@@ -2,8 +2,8 @@
 
 return [
     'student' => 'Étudiant',
-    'casual' => 'Simple',
-    'term' => 'Durée',
-    'indeterminate' => 'Indéterminé',
+    'casual' => 'Occasionnel',
+    'term' => 'Durée déterminée',
+    'indeterminate' => 'Durée indéterminée',
     'contractor' => 'Entrepreneur ou entrepreneuse',
 ];
