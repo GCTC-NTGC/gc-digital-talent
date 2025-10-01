@@ -127,6 +127,7 @@ const Menu = ({
           <div className="relative z-10">
             {showMenu ? (
               <NavMenu.Root
+                id="main-nav"
                 onKeyDown={handleKeyDown}
                 aria-label={
                   label ??
