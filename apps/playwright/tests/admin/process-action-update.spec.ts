@@ -47,6 +47,22 @@ test.describe("Update pool", () => {
     );
   });
 
+  test("Update process number", async ({ appPage }) => {
+    await appPage.page
+      .getByRole("button", { name: /edit process number/i })
+      .click();
+    await appPage.page
+      .getByRole("textbox", { name: /process number/i })
+      .fill("123");
+    await appPage.page
+      .getByRole("button", { name: /save process number/i })
+      .click();
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
+      /process updated successfully/i,
+    );
+  });
+
   test("Update pool closing date", async ({ appPage }) => {
     // Update closing date
     await appPage.page
