@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 
 import { Heading, Card, Link } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -75,13 +79,13 @@ const TalentNominationEventCard = ({
               {
                 openDate: formatDate({
                   date: parseDateTimeUtc(talentNominationEvent.openDate),
-                  formatString: "PPP",
+                  formatString: DATE_FORMAT_LOCALIZED,
                   intl,
                   timeZone: localTimeZone,
                 }),
                 closeDate: formatDate({
                   date: parseDateTimeUtc(talentNominationEvent.closeDate),
-                  formatString: "PPP",
+                  formatString: DATE_FORMAT_LOCALIZED,
                   intl,
                   timeZone: localTimeZone,
                 }),

@@ -13,7 +13,11 @@ import {
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -107,7 +111,7 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
   if (trainingOpportunity.trainingStart) {
     trainingDateValue = formatDate({
       date: parseDateTimeUtc(trainingOpportunity.trainingStart),
-      formatString: "PPP",
+      formatString: DATE_FORMAT_LOCALIZED,
       intl,
     });
   }
@@ -121,11 +125,11 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
 
     trainingDateValue = `${formatDate({
       date: parseDateTimeUtc(trainingOpportunity.trainingStart),
-      formatString: "PPP",
+      formatString: DATE_FORMAT_LOCALIZED,
       intl,
     })} - ${formatDate({
       date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
-      formatString: "PPP",
+      formatString: DATE_FORMAT_LOCALIZED,
       intl,
     })}`;
   }
@@ -177,7 +181,7 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
                     date: parseDateTimeUtc(
                       trainingOpportunity?.registrationDeadline,
                     ),
-                    formatString: "PPP",
+                    formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })
                 : intl.formatMessage(commonMessages.notFound)

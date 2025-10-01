@@ -11,6 +11,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 import {
+  DATE_FORMAT_LOCALIZED,
   formDateStringToDate,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
@@ -39,7 +40,7 @@ const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
           {
             expiryDate: formatDate({
               date: formDateStringToDate(expiry),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             }),
           },

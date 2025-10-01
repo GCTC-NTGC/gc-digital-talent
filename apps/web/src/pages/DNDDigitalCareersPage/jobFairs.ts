@@ -1,6 +1,9 @@
 import { defineMessages, IntlShape } from "react-intl";
 
-import { formatDate } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+} from "@gc-digital-talent/date-helpers";
 
 interface JobFair {
   title: string;
@@ -24,7 +27,7 @@ const formattedDate = ({ y, m, d, intl }: FormattedDateArgs) =>
   formatDate({
     date: new Date(y, m - 1, d),
     intl,
-    formatString: "PPP",
+    formatString: DATE_FORMAT_LOCALIZED,
   });
 
 const locations = defineMessages({

@@ -1,6 +1,8 @@
 // https://date-fns.org/docs/format
 // Date scalar formatting string
 export const DATE_FORMAT_STRING = "yyyy-MM-dd";
+export const DATE_FORMAT_LOCALIZED = "PPP";
+
 // DateTime scalar formatting string
 export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
 

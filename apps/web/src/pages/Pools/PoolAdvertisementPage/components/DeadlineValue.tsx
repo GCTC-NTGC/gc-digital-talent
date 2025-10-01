@@ -1,7 +1,11 @@
 import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
+import {
+  parseDateTimeUtc,
+  formatDate,
+  DATE_FORMAT_LOCALIZED,
+} from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface DeadlineValueProps {
@@ -26,7 +30,7 @@ const DeadlineValue = ({
       {
         closingDate: formatDate({
           date: parseDateTimeUtc(closingDate),
-          formatString: "PPP",
+          formatString: DATE_FORMAT_LOCALIZED,
           intl,
           timeZone: "Canada/Pacific",
         }),

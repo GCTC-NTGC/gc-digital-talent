@@ -36,6 +36,7 @@ import { filterPoolSkillsByType } from "~/utils/skillUtils";
 import { getSalaryRange } from "~/utils/classification";
 
 import IconLabel from "./IconLabel";
+import { DATE_FORMAT_LOCALIZED } from "@gc-digital-talent/date-helpers/const";
 
 export const PoolCard_Fragment = graphql(/* GraphQL */ `
   fragment PoolCard on Pool {
@@ -258,7 +259,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
                   {
                     closingDate: formatDate({
                       date: parseDateTimeUtc(pool.closingDate),
-                      formatString: "PPP",
+                      formatString: DATE_FORMAT_LOCALIZED,
                       intl,
                       timeZone: "Canada/Pacific",
                     }),
