@@ -596,8 +596,13 @@ export const getQualifiedRecruitmentStatusChip = (
   status: PoolCandidateStatus | null,
   intl: IntlShape,
 ): StatusChipWithDescription => {
-  // placed casual is an exception
-  if (placedAt && status !== PoolCandidateStatus.PlacedCasual) {
+  // UnderConsideration + PlacedTentative + PlacedCasual are exceptions
+  if (
+    placedAt &&
+    status !== PoolCandidateStatus.UnderConsideration &&
+    status !== PoolCandidateStatus.PlacedTentative &&
+    status !== PoolCandidateStatus.PlacedCasual
+  ) {
     return {
       color: "secondary",
       label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),
