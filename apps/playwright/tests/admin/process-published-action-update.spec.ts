@@ -50,7 +50,7 @@ test.describe("Update published process", () => {
       .getByRole("button", { name: /save process number/i })
       .click();
 
-    const justificationDialog =  appPage.page.getByRole("dialog", {
+    const justificationDialog = appPage.page.getByRole("dialog", {
       name: /change justification/i,
     });
 
