@@ -1,6 +1,6 @@
 import { useState, ReactNode } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -11,7 +11,10 @@ import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { subtitles } from "./messages";
 import SubmitACodeContextMessage from "./SubmitACodeContextMessage";
 import SendVerificationEmailSubform from "./SendVerificationEmailSubform";
-import { useEmailVerification } from "./EmailVerificationProvider";
+import EmailVerificationProvider, {
+  useEmailVerification,
+} from "./EmailVerificationProvider";
+import RequestACodeContextMessage from "./RequestACodeContextMessage";
 
 const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationSubmitACode($code: String!) {
@@ -21,11 +24,116 @@ const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface SubmitACodeFormValues {
+interface FormValues {
   verificationCode: string;
 }
 
-export interface EmailVerificationProps {
+interface EmailVerificationFormProps {
+  formEmailType: EmailType;
+  initialEmailAddress: string | null;
+  onFormSubmit: (formValues: FormValues) => Promise<void>;
+  onClickCancel: () => void;
+}
+
+const EmailVerificationForm = ({
+  formEmailType,
+  initialEmailAddress,
+  onFormSubmit,
+  onClickCancel,
+}: EmailVerificationFormProps) => {
+  const intl = useIntl();
+  const {
+    emailAddressContacted,
+    setRequestACodeMessage,
+    setSubmitACodeMessage,
+  } = useEmailVerification();
+
+  const formMethods = useForm<FormValues>();
+
+  const submitHandler = (formValues: FormValues): Promise<void> => {
+    setRequestACodeMessage(null);
+
+    // can't submit this form until a code has been requested
+    if (!emailAddressContacted) {
+      setSubmitACodeMessage("must-request-code");
+      return Promise.resolve();
+    }
+    // bubble to parent to execute mutation
+    const submissionResult = onFormSubmit(formValues);
+
+    return submissionResult.catch(() => {
+      formMethods.setError(
+        "verificationCode",
+        {
+          message: intl.formatMessage({
+            defaultMessage:
+              "The code you’ve entered is invalid. Please request a new code.",
+            id: "SYEKUz",
+            description: "Error message when the code is not valid.",
+          }),
+        },
+        { shouldFocus: true },
+      );
+    });
+  };
+
+  return (
+    <>
+      {/* "Request a code" part of dialog */}
+      <div className="mb-6">
+        <SendVerificationEmailSubform
+          emailType={formEmailType}
+          emailAddress={initialEmailAddress}
+        />
+      </div>
+      <div className="mb-6">
+        <RequestACodeContextMessage />
+      </div>
+      {/* "Submit a code" part of dialog */}
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(submitHandler)}>
+          <div className="mb-6">
+            {emailAddressContacted ? (
+              <Input
+                id="verificationCode"
+                name="verificationCode"
+                type="text"
+                label={intl.formatMessage({
+                  defaultMessage: "Verification code",
+                  id: "T+ypau",
+                  description: "label for verification code input",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+          </div>
+          <SubmitACodeContextMessage />
+          <Dialog.Footer>
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Save and add email",
+                id: "exfH1c",
+                description: "Button to save and add email",
+              })}
+              submittedText={intl.formatMessage({
+                defaultMessage: "Save and add email",
+                id: "exfH1c",
+                description: "Button to save and add email",
+              })}
+            />
+            <Button color="warning" mode="inline" onClick={onClickCancel}>
+              {intl.formatMessage(commonMessages.cancel)}
+            </Button>
+          </Dialog.Footer>
+        </form>
+      </FormProvider>
+    </>
+  );
+};
+
+export interface EmailVerificationDialogProps {
   emailType: EmailType;
   emailAddress: string | null;
   onVerificationSuccess: () => void;
@@ -39,97 +147,32 @@ export const EmailVerificationDialog = ({
   onVerificationSuccess,
   children,
   defaultOpen = false,
-}: EmailVerificationProps) => {
+}: EmailVerificationDialogProps) => {
   const intl = useIntl();
 
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
 
-  const {
-    emailAddressContacted,
-    setRequestACodeMessage,
-    setSubmitACodeMessage,
-    setEmailAddressContacted,
-  } = useEmailVerification();
-
-  const [, executeSubmitACodeMutation] = useMutation(
+  const [, executeMutation] = useMutation(
     EmailVerificationSubmitACode_Mutation,
   );
 
-  const submitACodeFormMethods = useForm<SubmitACodeFormValues>({
-    defaultValues: {
-      verificationCode: "",
-    },
-  });
-
-  // Reset all the states back, for example, when closing the dialog.
-  const resetDialog = () => {
-    setEmailAddressContacted(null);
-    setRequestACodeMessage(null);
-    setSubmitACodeMessage(null);
-    // setCanRequestCode(true);
-    submitACodeFormMethods.reset();
-  };
-
-  // Close or open the dialog
-  const handleDialogOpenChange = (open: boolean) => {
-    if (!open) {
-      resetDialog();
-    }
-    setOpen(open);
-  };
-
-  /*  Populate the initial email address in the form.
-   *  This can change if the email address is updated and the dialog is reopened.
-   *  Therefore, it is a useEffect instead of using ReactHookForms default values.
-   */
-  // useEffect(() => {
-  //   if (initialEmailAddress) {
-  //     requestACodeFormMethods.setValue("emailAddress", initialEmailAddress);
-  //   }
-  // }, [initialEmailAddress, requestACodeFormMethods]);
-
-  const submitHandlerSubmitACode: SubmitHandler<SubmitACodeFormValues> = ({
-    verificationCode,
-  }): Promise<void> => {
-    setRequestACodeMessage(null);
-    if (!emailAddressContacted) {
-      setSubmitACodeMessage("must-request-code");
-      return Promise.resolve();
-    }
-    const mutationResult = executeSubmitACodeMutation({
-      code: verificationCode,
+  const handleFormSubmit = (formValues: FormValues): Promise<void> => {
+    return executeMutation({
+      code: formValues.verificationCode,
     }).then((result) => {
       if (!result.data?.verifyUserEmails?.id) {
         throw new Error("Verify code error");
       }
+      // close the dialog
+      setOpen(false);
+
+      //fire event to parent
+      onVerificationSuccess();
     });
-
-    return mutationResult
-      .then(() => {
-        // close the dialog
-        handleDialogOpenChange(false);
-
-        //fire event to parent
-        onVerificationSuccess();
-      })
-      .catch(() => {
-        submitACodeFormMethods.setError(
-          "verificationCode",
-          {
-            message: intl.formatMessage({
-              defaultMessage:
-                "The code you’ve entered is invalid. Please request a new code.",
-              id: "SYEKUz",
-              description: "Error message when the code is not valid.",
-            }),
-          },
-          { shouldFocus: true },
-        );
-      });
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={handleDialogOpenChange}>
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
         {children || (
           <Button>
@@ -152,58 +195,17 @@ export const EmailVerificationDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <SendVerificationEmailSubform
-            emailType={dialogEmailType}
-            emailAddress={initialEmailAddress}
-          />
-          {/* "Submit a code" part of dialog */}
-          <FormProvider {...submitACodeFormMethods}>
-            <form
-              onSubmit={submitACodeFormMethods.handleSubmit(
-                submitHandlerSubmitACode,
-              )}
-            >
-              <div className="mb-6 flex flex-col gap-6">
-                {emailAddressContacted ? (
-                  <Input
-                    id="verificationCode"
-                    name="verificationCode"
-                    type="text"
-                    label={intl.formatMessage({
-                      defaultMessage: "Verification code",
-                      id: "T+ypau",
-                      description: "label for verification code input",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                ) : null}
-                <SubmitACodeContextMessage />
-              </div>
-              <Dialog.Footer>
-                <Submit
-                  text={intl.formatMessage({
-                    defaultMessage: "Save and add email",
-                    id: "exfH1c",
-                    description: "Button to save and add email",
-                  })}
-                  submittedText={intl.formatMessage({
-                    defaultMessage: "Save and add email",
-                    id: "exfH1c",
-                    description: "Button to save and add email",
-                  })}
-                />
-                <Button
-                  color="warning"
-                  mode="inline"
-                  onClick={() => handleDialogOpenChange(false)}
-                >
-                  {intl.formatMessage(commonMessages.cancel)}
-                </Button>
-              </Dialog.Footer>
-            </form>
-          </FormProvider>
+          {isOpen ? (
+            // reset everything on close as it is removed from the DOM
+            <EmailVerificationProvider>
+              <EmailVerificationForm
+                formEmailType={dialogEmailType}
+                initialEmailAddress={initialEmailAddress}
+                onFormSubmit={handleFormSubmit}
+                onClickCancel={() => setOpen(false)}
+              />
+            </EmailVerificationProvider>
+          ) : null}
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
