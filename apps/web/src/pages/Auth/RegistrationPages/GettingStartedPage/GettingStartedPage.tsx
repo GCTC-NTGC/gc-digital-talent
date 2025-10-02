@@ -3,7 +3,8 @@ import { useMutation, useQuery } from "urql";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import {  graphql } from "@gc-digital-talent/graphql";
+import { graphql, Language } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -17,17 +18,26 @@ import messages from "./messages";
 import GettingStartedForm, { FormValues } from "./GettingStartedForm";
 
 const GettingStarted_Query = graphql(/** GraphQL */ `
-  query GettingStarted_Query {
-    ...GettingStartedOptions_Query
+  query GettingStarted {
+    ...GettingStartedOptions
     me {
-      ...GettingStartedInitialValues_Query
+      id
+      ...GettingStartedInitialValues
     }
   }
 `);
 
-const GettingStarted_Mutation = graphql(/** GraphQL */ `
-  mutation GettingStarted_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {
+const GettingStartedUpdateUser_Mutation = graphql(/** GraphQL */ `
+  mutation GettingStartedUpdateUser($id: ID!, $user: UpdateUserAsUserInput!) {
     updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`);
+
+const GettingStartedVerifyEmail_Mutation = graphql(/* GraphQL */ `
+  mutation GettingStartedVerifyEmail($code: String!) {
+    verifyUserEmails(code: $code) {
       id
     }
   }
@@ -41,7 +51,12 @@ const GettingStartedPage = () => {
     query: GettingStarted_Query,
   });
 
-  const [, executeGeneralMutation] = useMutation(GettingStarted_Mutation);
+  const [, executeUpdateUserMutation] = useMutation(
+    GettingStartedUpdateUser_Mutation,
+  );
+  const [, executeVerifyEmailMutation] = useMutation(
+    GettingStartedVerifyEmail_Mutation,
+  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -52,9 +67,64 @@ const GettingStartedPage = () => {
     ],
   });
 
-  const handleSubmit = async (formValues: FormValues) => {
-    console.debug("handleSubmit", formValues);
-    return Promise.resolve();
+  const handleSubmit = async ({
+    firstName,
+    lastName,
+    preferredLang,
+    verificationCode,
+  }: FormValues) => {
+    // make TS happy but shouldn't happen
+    if (!data?.me?.id) {
+      throw new Error("No user ID provided");
+    }
+    if (!verificationCode) {
+      throw new Error("No verification provided");
+    }
+
+    try {
+      await executeUpdateUserMutation({
+        id: data?.me?.id,
+        user: {
+          firstName: firstName,
+          lastName: lastName,
+          preferredLang: preferredLang as Language,
+        },
+      }).then((result) => {
+        if (!result.data?.updateUserAsUser?.id) {
+          throw new Error("Failed to update user");
+        }
+      });
+    } catch (_) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Failed to update account information.",
+          id: "rAK3Dh",
+          description:
+            "Error message when updating a users account information",
+        }),
+      );
+      return; // bail out
+    }
+
+    // if the user was updated successfully then try to verify the email
+    try {
+      await executeVerifyEmailMutation({
+        code: verificationCode,
+      }).then((result) => {
+        if (!result.data?.verifyUserEmails?.id) {
+          throw new Error("Failed to verify email");
+        }
+      });
+    } catch (_) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Failed to verify the email address.",
+          id: "mqXAMf",
+          description: "Error message when the code is not valid.",
+        }),
+      );
+      return; // bail out
+    }
   };
 
   return (
