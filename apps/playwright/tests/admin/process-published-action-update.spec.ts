@@ -46,9 +46,7 @@ test.describe("Update published process", () => {
     await appPage.page
       .getByRole("textbox", { name: /process number/i })
       .fill("123");
-    await appPage.page
-      .getByRole("button", { name: /save changes/i })
-      .click();
+    await appPage.page.getByRole("button", { name: /save changes/i }).click();
 
     const justificationDialog = appPage.page.getByRole("dialog", {
       name: /change justification/i,
