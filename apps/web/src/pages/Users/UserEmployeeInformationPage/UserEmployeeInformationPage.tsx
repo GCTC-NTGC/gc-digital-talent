@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
-import { useQuery } from "urql";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import ArrowsRightLeftIcon from "@heroicons/react/24/outline/ArrowsRightLeftIcon";
+import { useQuery } from "urql";
 
 import {
   Accordion,
@@ -34,6 +35,9 @@ import CareerDevelopmentSection, {
 import NextRoleSection from "./components/NextRoleSection";
 import CareerObjectiveSection from "./components/CareerObjectiveSection";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
+import WorkforceAdjustmentSection, {
+  WorkforceAdjustmentSection_Fragment,
+} from "./components/WorkforceAdjustmentSection";
 
 const SECTION_ID = {
   COMMUNITY_INTEREST: "community-interest-section",
@@ -42,6 +46,7 @@ const SECTION_ID = {
   NEXT_ROLE: "next-role-section",
   CAREER_OBJECTIVE: "career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
+  WORKFORCE_ADJUSTMENT_SECTION: "workforce-adjustment-section",
 };
 
 const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
@@ -64,6 +69,7 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
 
 interface UserEmployeeInformationProps {
   employeeProfileQuery: FragmentType<typeof UserEmployeeInformation_Fragment>;
+  wfaQuery: FragmentType<typeof WorkforceAdjustmentSection_Fragment>;
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
   >;
@@ -139,6 +145,18 @@ export const UserEmployeeInformation = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
+          </TableOfContents.ListItem>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink
+              id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Workforce adjustment",
+                id: "5sZWgB",
+                description:
+                  "Title for workforce adjustment section of user employee information page",
+              })}
+            </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
         </TableOfContents.List>
       </TableOfContents.Navigation>
@@ -303,6 +321,19 @@ export const UserEmployeeInformation = ({
             </p>
             <GoalsWorkStyleSection employeeProfileQuery={employeeProfile} />
           </TableOfContents.Section>
+          <TableOfContents.Section id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}>
+            <Heading
+              level="h2"
+              size="h3"
+              icon={ArrowsRightLeftIcon}
+              color="secondary"
+              className="mt-0 font-normal sm:justify-start sm:text-left"
+            >
+              {/** TODO: Update with proper message */}
+              {intl.formatMessage(commonMessages.communityInterest)}
+            </Heading>
+            <WorkforceAdjustmentSection query={wfaQuery} />
+          </TableOfContents.Section>
         </div>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>
@@ -316,6 +347,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
       employeeProfile {
         ...UserEmployeeInformation
       }
+      ...WorkforceAdjustmentSection
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
@@ -343,6 +375,7 @@ const UserEmployeeInformationPage = () => {
             employeeProfileQuery={data?.user?.employeeProfile}
             careerDevelopmentOptionsQuery={data}
             communityInterestOptionsQuery={data}
+            wfaQuery={data}
           />
         ) : (
           <ThrowNotFound />
