@@ -1,0 +1,70 @@
+name: User Interface
+description: User interface changes and updates
+title: "✨ "
+projects: ["GCTC-NTGC/8"]
+type: "Feature"
+body:
+  - type: markdown
+    attributes:
+      value: "## ✨ User Interface"
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this UI issue!
+  - type: textarea
+    id: user_interface_details
+    attributes:
+      label: Details
+      description: Describe the UI changes that are being requested.
+  - type: markdown
+    attributes:
+      value: "## 🎨 Design"
+  - type: textarea
+    id: design
+    attributes:
+      label: Design file & designer
+      description: Include a link to the design file (if it exists) and the author.
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 📸 Screenshots
+      description: Paste a screenshot to help illustrate the feature.
+  - type: textarea
+    id: localization
+    attributes:
+      label: 🌎 Localization
+      description: Provide any new copy along with translations available.
+  - type: markdown
+    attributes:
+      value: "## 🙋‍♀️ Implementation"
+  - type: textarea
+    id: proposed-implementation
+    attributes:
+      label: Specifications
+      description: Describe the specifications for the change?
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the change is complete.  Add, remove, and fill in the list below as needed.
+      value: |
+        - [ ] X new pages exist in app at URL /example
+        - [ ] Y new components exist in UI package
+        - [ ] Z variants are configurable
+        - [ ] light and dark mode
+        - [ ] narrow and wide mode
+        - [ ] configurable color and size
+        - [ ] optional icon, title, actions, and footer
+        - [ ] certain functionality is configured
+        - [ ] certain security measures implemented
+        - [ ] certain validation is enabled
+        - [ ] certain navigation is set up
+        - [ ] certain accessiblity concerns are addressed
+        - [ ] storybook story linking to Figma
+        - [ ] automated testing for specific scenarios
+        - [ ] designer review
+  - type: markdown
+    attributes:
+      value: |
+        ### 🚢 Definition of Ready
+        Ensure the issue meets the criteria in our [Definition of Ready](../blob/main/documentation/definition-of-ready.md) before it can be accepted for development.
