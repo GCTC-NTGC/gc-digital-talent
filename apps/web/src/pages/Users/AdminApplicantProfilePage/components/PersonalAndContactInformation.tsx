@@ -22,7 +22,7 @@ const PersonalAndContactInformation = ({
 
   return (
     <TableOfContents.Section id={PERSONAL_CONTACT_INFO_ID}>
-      <Display query={user} showEmailVerification readOnly />
+      <Display query={user} />
     </TableOfContents.Section>
   );
 };
