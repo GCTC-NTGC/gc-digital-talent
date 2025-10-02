@@ -4,7 +4,11 @@ import { useState } from "react";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -167,7 +171,7 @@ const RecruitmentProcessDialog = ({
               {recruitmentProcess.finalDecisionAt
                 ? formatDate({
                     date: parseDateTimeUtc(recruitmentProcess.finalDecisionAt),
-                    formatString: "PPP",
+                    formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })
                 : nullMessage}
@@ -176,7 +180,7 @@ const RecruitmentProcessDialog = ({
               {recruitmentProcess.expiryDate
                 ? formatDate({
                     date: parseDateTimeUtc(recruitmentProcess.expiryDate),
-                    formatString: "PPP",
+                    formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })
                 : nullMessage}
