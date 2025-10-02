@@ -2,7 +2,7 @@ import { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
 import { boolToYesNo } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Classification,
   GovEmployeeType,

@@ -1,27 +1,56 @@
 import { useIntl } from "react-intl";
-import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
-import { Maybe } from "@gc-digital-talent/graphql";
+import { Button, Chip } from "@gc-digital-talent/ui";
 
 interface EmailVerificationStatusProps {
-  isEmailVerified?: Maybe<boolean>;
+  isEmailVerified?: boolean;
+  readOnly?: boolean;
+  onClickVerify: () => Promise<void>;
 }
 
 const EmailVerificationStatus = ({
   isEmailVerified,
+  onClickVerify,
+  readOnly,
 }: EmailVerificationStatusProps) => {
   const intl = useIntl();
 
   return isEmailVerified ? (
-    <CheckCircleIcon
-      className="size-6 text-success"
-      aria-label={intl.formatMessage({
+    <Chip color="success" className="-mb-0.25">
+      {intl.formatMessage({
         defaultMessage: "Verified",
         id: "GMglI5",
         description: "The email address has been verified to be owned by user",
       })}
-    />
-  ) : null;
+    </Chip>
+  ) : (
+    <>
+      <Chip color="error" className="-mb-0.25">
+        {intl.formatMessage({
+          defaultMessage: "Unverified",
+          id: "tUIvbq",
+          description:
+            "The email address has not been verified to be owned by user",
+        })}
+      </Chip>
+      {!readOnly && (
+        <Button
+          type="button"
+          mode="inline"
+          color="error"
+          className="-mt-0.25"
+          onClick={onClickVerify}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Verify now",
+            id: "ADPfNp",
+            description:
+              "Button to start the email address verification process",
+          })}
+        </Button>
+      )}
+    </>
+  );
 };
 
 export default EmailVerificationStatus;

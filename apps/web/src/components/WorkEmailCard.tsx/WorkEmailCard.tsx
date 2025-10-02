@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
 import { Button, Card } from "@gc-digital-talent/ui";
 import {
@@ -10,7 +11,6 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 
 import EmailVerificationDialog from "../EmailVerification/EmailVerificationDialog";
-import EmailVerificationStatus from "../Profile/components/EmailVerificationStatus";
 
 const WorkEmailCard_Fragment = graphql(/** GraphQL */ `
   fragment WorkEmailCard on User {
@@ -51,8 +51,14 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
           {workEmailFragment.workEmail ? (
             <span className="flex gap-1.5">
               {workEmailFragment.isWorkEmailVerified && (
-                <EmailVerificationStatus
-                  isEmailVerified={workEmailFragment.isWorkEmailVerified}
+                <CheckCircleIcon
+                  className="size-6 text-success"
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Verified",
+                    id: "GMglI5",
+                    description:
+                      "The email address has been verified to be owned by user",
+                  })}
                 />
               )}
               <span>{workEmailFragment.workEmail}</span>

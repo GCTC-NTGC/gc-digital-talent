@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
@@ -11,11 +12,16 @@ import {
 
 import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import useRoutes from "~/hooks/useRoutes";
+
+import EmailVerificationStatus from "../EmailVerificationStatus";
 
 export const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInformationDisplay on User {
     firstName
     lastName
+    email
+    isEmailVerified
     telephone
     preferredLang {
       value
@@ -52,16 +58,28 @@ export const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
 
 interface DisplayProps {
   query: FragmentType<typeof PersonalInformationDisplay_Fragment>;
+  showEmailVerification?: boolean;
+  readOnly?: boolean;
+  showEmail?: boolean;
 }
 
-const Display = ({ query }: DisplayProps) => {
+const Display = ({
+  query,
+  showEmailVerification = false,
+  readOnly = false,
+  showEmail = false,
+}: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const navigate = useNavigate();
+  const routes = useRoutes();
   const user = getFragment(PersonalInformationDisplay_Fragment, query);
 
   const {
     firstName,
     lastName,
+    email,
+    isEmailVerified,
     telephone,
     preferredLang,
     preferredLanguageForInterview,
@@ -69,6 +87,14 @@ const Display = ({ query }: DisplayProps) => {
     citizenship,
     armedForcesStatus,
   } = user;
+
+  const handleVerifyNowClick = async () => {
+    await navigate(
+      routes.verifyContactEmail({
+        emailAddress: email,
+      }),
+    );
+  };
 
   return (
     <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
@@ -92,6 +118,25 @@ const Display = ({ query }: DisplayProps) => {
       >
         {lastName ?? notProvided}
       </FieldDisplay>
+      {showEmail && (
+        <div className="xs:col-span-2 sm:col-span-3">
+          <FieldDisplay
+            hasError={!email}
+            label={intl.formatMessage(commonMessages.email)}
+          >
+            <div className="flex items-center gap-3">
+              <span>{email ?? notProvided}</span>
+              {showEmailVerification ? (
+                <EmailVerificationStatus
+                  isEmailVerified={!!isEmailVerified}
+                  onClickVerify={handleVerifyNowClick}
+                  readOnly={readOnly}
+                />
+              ) : null}
+            </div>
+          </FieldDisplay>
+        </div>
+      )}
       <FieldDisplay
         hasError={!telephone}
         label={intl.formatMessage(commonMessages.telephone)}

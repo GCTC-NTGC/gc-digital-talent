@@ -244,6 +244,7 @@ const ApplicationInformation = ({
                 snapshot,
                 PersonalInformationDisplay_Fragment,
               )}
+              showEmail
             />
           </Accordion.Content>
         </Accordion.Item>
@@ -384,6 +385,7 @@ const ApplicationInformation = ({
                 snapshot,
                 GovernmentInformationDisplay_Fragment,
               )}
+              showEmail
             />
           </Accordion.Content>
         </Accordion.Item>
