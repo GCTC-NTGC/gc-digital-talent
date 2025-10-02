@@ -33,6 +33,6 @@
     "jest-axe": "^10.0.0",
     "react": "^19.1.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }
