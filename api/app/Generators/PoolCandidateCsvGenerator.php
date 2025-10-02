@@ -589,6 +589,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 'assessmentSteps',
                 'assessmentSteps.poolSkills',
             ],
+            'assessmentStep',
         ]);
 
         $this->applyFilters($query, [
@@ -610,8 +611,6 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             'equity' => 'whereEquityIn',
             'hasDiploma' => 'whereHasDiploma',
             'languageAbility' => 'whereLanguageAbility',
-            'locationPreferences' => 'whereLocationPreferencesIn',
-            'operationalRequirements' => 'whereOperationalRequirementsIn',
             'positionDuration' => 'wherePositionDuration',
             'pools' => 'whereAvailableInPools',
             'skills' => 'whereSkillsAdditive',
@@ -622,7 +621,9 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         /** @var Builder<\App\Models\PoolCandidate> $query */
-        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])->whereNotDraft();
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+            ->whereNotDraft()
+            ->wherePoolCandidateSearchInputToSpecialLocationMatching($this->filters);
 
         return $query;
     }

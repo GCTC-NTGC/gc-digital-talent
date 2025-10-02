@@ -317,7 +317,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'skills' => 'skillsAdditive',
         ]);
 
-        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId]);
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+            ->whereUserFilterInputToSpecialLocationMatching($this->filters);
 
         return $query;
 

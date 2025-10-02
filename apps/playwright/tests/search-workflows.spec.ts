@@ -63,7 +63,10 @@ test.describe("Talent search", () => {
           OperationalRequirement.OvertimeOccasional,
         ],
         locationPreferences: [WorkRegion.Ontario],
-        flexibleWorkLocations: [FlexibleWorkLocation.Onsite],
+        flexibleWorkLocations: [
+          FlexibleWorkLocation.Onsite,
+          FlexibleWorkLocation.Remote,
+        ],
         personalExperiences: {
           create: [
             {
