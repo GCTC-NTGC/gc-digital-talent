@@ -62,7 +62,6 @@ const NextRoleAndCareerObjective = ({
     return (
       <Well>
         <p>
-          {/* TODO: Add translations */}
           {intl.formatMessage({
             defaultMessage:
               "The employee hasn't added any information about their next role or career objective to their profile",
@@ -84,7 +83,6 @@ const NextRoleAndCareerObjective = ({
       ) : (
         <Well>
           <p>
-            {/* TODO: Add translations */}
             {intl.formatMessage({
               defaultMessage:
                 "The employee has not provided information about the next role they'd like to achieve.",
@@ -106,7 +104,6 @@ const NextRoleAndCareerObjective = ({
       ) : (
         <Well>
           <p>
-            {/* TODO: Add translations */}
             {intl.formatMessage({
               defaultMessage:
                 "The employee has not provided information about their ultimate career objective.",

@@ -5608,7 +5608,7 @@
     "description": "Label for department select input in the request form"
   },
   "NQgGHA": {
-    "defaultMessage": "Learn more about the role this employee is seeking next in their career path.",
+    "defaultMessage": "En savoir plus sur le poste que cet employé souhaite occuper dans le cadre de son cheminement de carrière.",
     "description": "Subtitle for dialog viewing next role info for employees"
   },
   "NROIaL": {
@@ -6996,7 +6996,7 @@
     "description": "Title for the what to expect section"
   },
   "U5plJQ": {
-    "defaultMessage": "The employee has not provided information about the next role they'd like to achieve.",
+    "defaultMessage": "L’employé n’a fourni aucun renseignement sur le prochain poste qu’il aimerait occuper.",
     "description": "Message displayed if employee hasn't filled out next role"
   },
   "U86N4g": {
@@ -8219,7 +8219,7 @@
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
   },
   "ZhccbH": {
-    "defaultMessage": "The employee has not provided information about their ultimate career objective.",
+    "defaultMessage": "L’employé n’a fourni aucun renseignement sur son objectif professionnel ultime.",
     "description": "Message displayed if employee hasn't filled out career objective"
   },
   "ZiCXd1": {
@@ -8367,7 +8367,7 @@
     "description": "Label for the nominee's relation to the person nominating them"
   },
   "aZEnPH": {
-    "defaultMessage": "Learn more about the role this employee is working toward as their main career objective.",
+    "defaultMessage": "En savoir plus sur le poste que cet employé souhaite occuper pour atteindre son objectif professionnel principal.",
     "description": "Subtitle for dialog viewing career objective info for employees"
   },
   "aZUxFF": {
@@ -8867,7 +8867,7 @@
     "description": "First paragraph for remove skill dialog"
   },
   "ctOBXo": {
-    "defaultMessage": "The employee hasn't added any information about their next role or career objective to their profile",
+    "defaultMessage": "L’employé n’a ajouté aucun renseignement concernant son prochain poste ni son objectif de carrière à son profil.",
     "description": "Message displayed if employee hasn't filled out next role or career objective"
   },
   "cw6MTQ": {

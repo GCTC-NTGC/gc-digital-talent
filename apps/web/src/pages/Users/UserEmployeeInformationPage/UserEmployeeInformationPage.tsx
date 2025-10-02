@@ -268,7 +268,6 @@ export const UserEmployeeInformation = ({
                 </span>
               </Accordion.Trigger>
               <Accordion.Content>
-                {/* TODO: Add translations */}
                 <NextRoleAndCareerObjective
                   nextRoleAndCareerObjectiveQuery={userQuery}
                   sectionKey={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
