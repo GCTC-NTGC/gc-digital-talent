@@ -12,6 +12,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
 import EmailVerificationProvider from "~/components/EmailVerification/EmailVerificationProvider";
+import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 
 import messages from "./messages";
 import GettingStartedForm, { FormValues } from "./GettingStartedForm";
@@ -103,10 +104,10 @@ const GettingStartedPage = () => {
     // check if the email verification was successful
     if (
       verifyEmailResult.error?.graphQLErrors.some(
-        (graphQLError) => graphQLError.message == "VERIFICATION_FAILED",
+        (graphQLError) => graphQLError.message == API_CODE_VERIFICATION_FAILED,
       )
     ) {
-      throw new Error("VERIFICATION_FAILED");
+      throw new Error(API_CODE_VERIFICATION_FAILED);
     }
     if (!verifyEmailResult.data?.verifyUserEmails?.id) {
       throw new Error("Failed to verify email");
