@@ -214,6 +214,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Next role and career objective",
+    "fr": [
+      "Prochain type de poste et objectif de carrière",
+      "Prochain rôle et objectif de carrière"
+    ]
+  },
+  {
     "en": "Create work stream",
     "fr": [
       "Créez un volet de travail",
