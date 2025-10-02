@@ -41,7 +41,7 @@ body:
     id: specifications
     attributes:
       label: 📏 Specifications
-      description: Describe the specifications for the change?
+      description: Describe the specifications for the change.
   - type: textarea
     id: acceptance-criteria
     attributes:
@@ -59,7 +59,7 @@ body:
         - [ ] certain security measures implemented
         - [ ] certain validation is enabled
         - [ ] certain navigation is set up
-        - [ ] certain accessiblity concerns are addressed
+        - [ ] certain accessibility concerns are addressed
         - [ ] storybook story linking to Figma
         - [ ] automated testing for specific scenarios
         - [ ] designer review
