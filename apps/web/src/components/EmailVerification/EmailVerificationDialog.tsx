@@ -15,6 +15,7 @@ import EmailVerificationProvider, {
   useEmailVerification,
 } from "./EmailVerificationProvider";
 import RequestACodeContextMessage from "./RequestACodeContextMessage";
+import { API_CODE_VERIFICATION_FAILED } from "./constants";
 
 const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationSubmitACode($code: String!) {
@@ -61,19 +62,21 @@ const EmailVerificationForm = ({
     // bubble to parent to execute mutation
     const submissionResult = onFormSubmit(formValues);
 
-    return submissionResult.catch(() => {
-      formMethods.setError(
-        "verificationCode",
-        {
-          message: intl.formatMessage({
-            defaultMessage:
-              "The code you’ve entered is invalid. Please request a new code.",
-            id: "SYEKUz",
-            description: "Error message when the code is not valid.",
-          }),
-        },
-        { shouldFocus: true },
-      );
+    return submissionResult.catch((reason: Error) => {
+      if (reason.message == API_CODE_VERIFICATION_FAILED) {
+        formMethods.setError(
+          "verificationCode",
+          {
+            message: intl.formatMessage({
+              defaultMessage:
+                "The code you’ve entered is invalid. Please request a new code.",
+              id: "SYEKUz",
+              description: "Error message when the code is not valid.",
+            }),
+          },
+          { shouldFocus: true },
+        );
+      }
     });
   };
 

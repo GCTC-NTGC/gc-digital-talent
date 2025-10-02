@@ -2,10 +2,11 @@ import { useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Button, Heading, Separator, Well } from "@gc-digital-talent/ui";
+import { Heading, Separator, Well } from "@gc-digital-talent/ui";
 import {
   Input,
   RadioGroup,
+  Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -22,6 +23,7 @@ import SendVerificationEmailSubform from "~/components/EmailVerification/SendVer
 import RequestACodeContextMessage from "~/components/EmailVerification/RequestACodeContextMessage";
 import SubmitACodeContextMessage from "~/components/EmailVerification/SubmitACodeContextMessage";
 import { useEmailVerification } from "~/components/EmailVerification/EmailVerificationProvider";
+import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 
 import labels from "./labels";
 import messages from "./messages";
@@ -103,7 +105,7 @@ export const GettingStartedForm = ({
       return Promise.resolve(); // block form submission
     }
     return onSubmit(formValues).catch((reason: Error) => {
-      if (reason.message == "VERIFICATION_FAILED") {
+      if (reason.message == API_CODE_VERIFICATION_FAILED) {
         formMethods.setError(
           "verificationCode",
           {
@@ -220,14 +222,22 @@ export const GettingStartedForm = ({
           </div>
           <div className="flex flex-col items-center gap-x-3 gap-y-1.5 sm:flex-row sm:justify-end">
             <div>
-              <Button mode="solid" color="primary" type="submit">
-                {intl.formatMessage({
+              <Submit
+                mode="solid"
+                color="primary"
+                text={intl.formatMessage({
                   defaultMessage: "Save and continue",
                   id: "MQB4IA",
                   description:
                     "Button text to save a form step and continue to the next one",
                 })}
-              </Button>
+                submittedText={intl.formatMessage({
+                  defaultMessage: "Save and continue",
+                  id: "MQB4IA",
+                  description:
+                    "Button text to save a form step and continue to the next one",
+                })}
+              />
             </div>
           </div>
         </form>
