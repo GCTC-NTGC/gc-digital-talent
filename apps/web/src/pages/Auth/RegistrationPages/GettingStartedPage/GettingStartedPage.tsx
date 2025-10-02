@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "urql";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { graphql, Language } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -67,12 +66,12 @@ const GettingStartedPage = () => {
     ],
   });
 
-  const handleSubmit = async ({
+  const handleSubmit = ({
     firstName,
     lastName,
     preferredLang,
     verificationCode,
-  }: FormValues) => {
+  }: FormValues): Promise<void> => {
     // make TS happy but shouldn't happen
     if (!data?.me?.id) {
       throw new Error("No user ID provided");
@@ -81,50 +80,46 @@ const GettingStartedPage = () => {
       throw new Error("No verification provided");
     }
 
-    try {
-      await executeUpdateUserMutation({
+    return (
+      // first, try to update the user's personal information
+      executeUpdateUserMutation({
         id: data?.me?.id,
         user: {
           firstName: firstName,
           lastName: lastName,
           preferredLang: preferredLang as Language,
         },
-      }).then((result) => {
-        if (!result.data?.updateUserAsUser?.id) {
-          throw new Error("Failed to update user");
-        }
-      });
-    } catch (_) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Failed to update account information.",
-          id: "rAK3Dh",
-          description:
-            "Error message when updating a users account information",
-        }),
-      );
-      return; // bail out
-    }
-
-    // if the user was updated successfully then try to verify the email
-    try {
-      await executeVerifyEmailMutation({
-        code: verificationCode,
-      }).then((result) => {
-        if (!result.data?.verifyUserEmails?.id) {
-          throw new Error("Failed to verify email");
-        }
-      });
-    } catch (_) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Failed to verify the email address.",
-          id: "mqXAMf",
-          description: "Error message when the code is not valid.",
-        }),
-      );
-      return; // bail out
-    }
+      })
+        // check if the user update was successful
+        .then((result) => {
+          if (!result.data?.updateUserAsUser?.id) {
+            throw new Error("Failed to update user");
+          }
+        })
+        // second, try to verify the email
+        .then(() =>
+          executeVerifyEmailMutation({
+            code: verificationCode,
+          }),
+        )
+        // check if the email verification was successful
+        .then((result) => {
+          if (
+            result.error?.graphQLErrors.some(
+              (graphQLError) => graphQLError.message == "VERIFICATION_FAILED",
+            )
+          ) {
+            throw new Error("VERIFICATION_FAILED");
+          }
+          if (!result.data?.verifyUserEmails?.id) {
+            throw new Error("Failed to verify email");
+          }
+        })
+        // finally, navigate away
+        .then(() => {
+          // TODO: navigate to next page
+        })
+    );
   };
 
   return (

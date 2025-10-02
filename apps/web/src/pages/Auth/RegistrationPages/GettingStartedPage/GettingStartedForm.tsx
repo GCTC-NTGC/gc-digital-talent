@@ -1,10 +1,9 @@
 import { useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { Button, Heading, Separator, Well } from "@gc-digital-talent/ui";
 import {
-  BasicForm,
-  FieldLabels,
   Input,
   RadioGroup,
   localizedEnumToOptions,
@@ -93,20 +92,32 @@ export const GettingStartedForm = ({
 
   const options = getFragment(GettingStartedOptions_Query, optionsQuery);
 
-  const formattedLabels = Object.entries(labels)
-    .map(([key, value]) => [key, intl.formatMessage(value)])
-    .reduce<FieldLabels>(
-      (acc, value) => ({ ...acc, [value[0]]: value[1] }),
-      {},
-    );
+  const formMethods = useForm<FormValues>({
+    defaultValues: initialValuesToFormValues(initialValues),
+  });
 
-  const handlePersonalFormSubmit = (formValues: FormValues): Promise<void> => {
+  const submitHandler = (formValues: FormValues): Promise<void> => {
     if (!emailAddressContacted) {
       // the use hasn't tried to get a verification email yet
       setSubmitACodeMessage("must-request-code");
       return Promise.resolve(); // block form submission
     }
-    return onSubmit(formValues);
+    return onSubmit(formValues).catch((reason: Error) => {
+      if (reason.message == "VERIFICATION_FAILED") {
+        formMethods.setError(
+          "verificationCode",
+          {
+            message: intl.formatMessage({
+              defaultMessage:
+                "The code you’ve entered is invalid. Please request a new code.",
+              id: "SYEKUz",
+              description: "Error message when the code is not valid.",
+            }),
+          },
+          { shouldFocus: true },
+        );
+      }
+    });
   };
 
   return (
@@ -138,14 +149,8 @@ export const GettingStartedForm = ({
         <RequestACodeContextMessage />
       </div>
 
-      <BasicForm
-        onSubmit={handlePersonalFormSubmit}
-        labels={formattedLabels}
-        options={{
-          defaultValues: initialValuesToFormValues(initialValues),
-        }}
-      >
-        <>
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(submitHandler)}>
           {emailAddressContacted ? (
             <>
               <div className="mb-6 grid gap-6 xs:grid-cols-2">
@@ -153,7 +158,7 @@ export const GettingStartedForm = ({
                   id="firstName"
                   name="firstName"
                   type="text"
-                  label={formattedLabels.firstName}
+                  label={intl.formatMessage(labels.firstName)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -162,7 +167,7 @@ export const GettingStartedForm = ({
                   id="lastName"
                   name="lastName"
                   type="text"
-                  label={formattedLabels.lastName}
+                  label={intl.formatMessage(labels.lastName)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -171,7 +176,7 @@ export const GettingStartedForm = ({
               <div className="mb-6">
                 <RadioGroup
                   idPrefix="required-lang-preferences"
-                  legend={formattedLabels.preferredLang}
+                  legend={intl.formatMessage(labels.preferredLang)}
                   id="preferredLang"
                   name="preferredLang"
                   rules={{
@@ -186,7 +191,7 @@ export const GettingStartedForm = ({
                   id="verificationCode"
                   name="verificationCode"
                   type="text"
-                  label={formattedLabels.verificationCode}
+                  label={intl.formatMessage(labels.verificationCode)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -225,8 +230,8 @@ export const GettingStartedForm = ({
               </Button>
             </div>
           </div>
-        </>
-      </BasicForm>
+        </form>
+      </FormProvider>
     </>
   );
 };
