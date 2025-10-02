@@ -36,9 +36,6 @@ test.describe("Update pool", () => {
       .getByRole("combobox", { name: /work stream/i })
       .selectOption({ label: "Business Line Advisory Services" });
     await appPage.page
-      .getByRole("textbox", { name: /process number/i })
-      .fill("123");
-    await appPage.page
       .getByRole("button", { name: /save advertisement details/i })
       .click();
     await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
