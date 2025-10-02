@@ -1282,9 +1282,8 @@ input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope(name: "whereEquityIn")
   hasDiploma: Boolean @scope(name: "whereHasDiploma")
   languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
-  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
-  flexibleWorkLocations: [FlexibleWorkLocation]
-    @scope(name: "whereFlexibleWorkLocationsIn")
+  locationPreferences: [WorkRegion] # filtering occurs at a higher level, UserFilterInput or PoolCandidateSearchInput, with the field below
+  flexibleWorkLocations: [FlexibleWorkLocation] # filtering occurs at a higher level, UserFilterInput or PoolCandidateSearchInput, with the field above
   operationalRequirements: [OperationalRequirement]
     @scope(name: "whereOperationalRequirementsIn")
   positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
@@ -1424,6 +1423,7 @@ type Query {
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
+      @scope(name: "whereUserFilterInputToSpecialLocationMatching")
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
@@ -1534,6 +1534,7 @@ type Query {
     @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
+      @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
