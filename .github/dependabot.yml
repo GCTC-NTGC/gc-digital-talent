@@ -16,6 +16,10 @@ updates:
       - "tc-report"
     open-pull-requests-limit: 50
     groups:
+      chromatic:
+        patterns:
+          - "chromatic"
+          - "chromaui/action"
       formatjs:
         patterns:
           - "react-intl"
