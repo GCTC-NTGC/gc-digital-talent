@@ -17,6 +17,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
+  DATE_FORMAT_LOCALIZED,
   formDateStringToDate,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
@@ -53,7 +54,7 @@ const applicationDeadlineApproachingNotificationToInfo = (
   );
   const closingDateFormatted = formatDate({
     date: closingDateObject,
-    formatString: "PPP",
+    formatString: DATE_FORMAT_LOCALIZED,
     intl,
   });
 

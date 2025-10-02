@@ -28,6 +28,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { DATE_FORMAT_LOCALIZED } from "@gc-digital-talent/date-helpers/const";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -258,7 +259,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
                   {
                     closingDate: formatDate({
                       date: parseDateTimeUtc(pool.closingDate),
-                      formatString: "PPP",
+                      formatString: DATE_FORMAT_LOCALIZED,
                       intl,
                       timeZone: "Canada/Pacific",
                     }),
