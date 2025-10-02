@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Heading, Separator, Well } from "@gc-digital-talent/ui";
+import { Heading, Separator } from "@gc-digital-talent/ui";
 import {
   Input,
   RadioGroup,
@@ -24,6 +24,7 @@ import RequestACodeContextMessage from "~/components/EmailVerification/RequestAC
 import SubmitACodeContextMessage from "~/components/EmailVerification/SubmitACodeContextMessage";
 import { useEmailVerification } from "~/components/EmailVerification/EmailVerificationProvider";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
+import Caption from "~/components/BasicInformation/Caption";
 
 import labels from "./labels";
 import messages from "./messages";
@@ -111,8 +112,8 @@ export const GettingStartedForm = ({
           {
             message: intl.formatMessage({
               defaultMessage:
-                "The code you’ve entered is invalid. Please request a new code.",
-              id: "SYEKUz",
+                "The code you entered is not valid. Please check that the code entered matches the one you received in the email specified. If you’re still experiencing issues, try requesting a new code.",
+              id: "s/+kmV",
               description: "Error message when the code is not valid.",
             }),
           },
@@ -155,6 +156,20 @@ export const GettingStartedForm = ({
         <form onSubmit={formMethods.handleSubmit(submitHandler)}>
           {emailAddressContacted ? (
             <>
+              <div className="mb-6">
+                <Input
+                  id="verificationCode"
+                  name="verificationCode"
+                  type="text"
+                  label={intl.formatMessage(labels.verificationCode)}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+              </div>
+              <div className="mb-6">
+                <SubmitACodeContextMessage />
+              </div>
               <div className="mb-6 grid gap-6 xs:grid-cols-2">
                 <Input
                   id="firstName"
@@ -188,34 +203,18 @@ export const GettingStartedForm = ({
                   defaultSelected={Language.En}
                 />
               </div>
-              <div className="mb-6 flex flex-col gap-6">
-                <Input
-                  id="verificationCode"
-                  name="verificationCode"
-                  type="text"
-                  label={intl.formatMessage(labels.verificationCode)}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
             </>
           ) : null}
           <div className="mb-6">
-            <SubmitACodeContextMessage />
-          </div>
-          <div className="mb-6">
-            <Well>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "By registering and providing your email address, you agree to receive email communication from GC Digital Talent and its partner functional communities in the Government of Canada. You can control which types of notifications you receive and how you receive them in your account settings page.",
-                  id: "sHEsjv",
-                  description:
-                    "Message on getting started page about the contact email address",
-                })}
-              </p>
-            </Well>
+            <Caption>
+              {intl.formatMessage({
+                defaultMessage:
+                  "By registering and providing your email address, you agree to receive email communication from GC Digital Talent and its partner functional communities in the Government of Canada. You can control which types of notifications you receive and how you receive them in your account settings page.",
+                id: "sHEsjv",
+                description:
+                  "Message on getting started page about the contact email address",
+              })}
+            </Caption>
           </div>
           <div className="-mx-6 sm:-mx-9">
             <Separator decorative orientation="horizontal" />
