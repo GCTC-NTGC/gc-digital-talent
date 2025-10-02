@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Models\TalentNominationEvent;
 use Carbon\Carbon;
 use Closure;
@@ -24,7 +25,7 @@ class TalentEventOpenForCreatingNominations implements ValidationRule
                 $now = Carbon::now();
 
                 if ($now > $eventClosing) {
-                    $fail('TalentEventIsClosed');
+                    $fail(ErrorCode::TALENT_EVENT_IS_CLOSED->name);
                 }
             }
         }

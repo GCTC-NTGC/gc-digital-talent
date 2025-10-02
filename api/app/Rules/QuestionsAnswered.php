@@ -2,11 +2,11 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Models\GeneralQuestion;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestion;
 use Closure;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class QuestionsAnswered implements ValidationRule
@@ -38,7 +38,7 @@ class QuestionsAnswered implements ValidationRule
                 ->count();
 
             if ($responseCount < count($generalQuestions)) {
-                $fail(ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE);
+                $fail(ErrorCode::APPLICATION_MISSING_QUESTION_RESPONSE->name);
             }
         }
 
@@ -52,7 +52,7 @@ class QuestionsAnswered implements ValidationRule
                 ->count();
 
             if ($responseCount < count($screeningQuestions)) {
-                $fail(ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE);
+                $fail(ErrorCode::APPLICATION_MISSING_QUESTION_RESPONSE->name);
             }
         }
     }

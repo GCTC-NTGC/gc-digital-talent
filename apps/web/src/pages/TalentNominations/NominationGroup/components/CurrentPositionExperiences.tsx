@@ -5,6 +5,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   currentDate,
+  DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -60,7 +61,7 @@ const CurrentPositionExperiences = ({
   const lastUpdated = data?.updatedDate
     ? formatDate({
         date: parseDateTimeUtc(data.updatedDate),
-        formatString: "MMMM d, yyyy",
+        formatString: DATE_FORMAT_LOCALIZED,
         intl,
       })
     : intl.formatMessage(commonMessages.notProvided);

@@ -4,6 +4,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
+use App\Enums\ErrorCode;
 use App\Rules\AssessmentResultJustificationsConsistent;
 use App\Rules\AssessmentResultPoolConsistent;
 use Illuminate\Validation\Rule;
@@ -65,9 +66,9 @@ final class CreateAssessmentResultInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'poolSkillId' => 'SkillAssessmentResultMissingSkill',
-            'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
-            'assessmentStepId.unique' => 'AssessmentResultAlreadyExists',
+            'poolSkillId' => ErrorCode::SKILL_ASSESSMENT_RESULT_MISSING_SKILL->name,
+            'assessmentDecisionLevel.prohibited' => ErrorCode::CANNOT_SET_ASSESSMENT_DECISION_LEVEL_FOR_THIS_TYPE_OR_DECISION->name,
+            'assessmentStepId.unique' => ErrorCode::ASSESSMENT_RESULT_ALREADY_EXISTS->name,
         ];
     }
 }

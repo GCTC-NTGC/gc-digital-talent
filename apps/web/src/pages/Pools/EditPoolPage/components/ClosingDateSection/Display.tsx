@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { EditPoolClosingDateFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -23,7 +27,7 @@ const Display = ({ pool }: DisplayProps<EditPoolClosingDateFragment>) => {
         {closingDate
           ? formatDate({
               date: parseDateTimeUtc(closingDate),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
               timeZone: "Canada/Pacific",
             })

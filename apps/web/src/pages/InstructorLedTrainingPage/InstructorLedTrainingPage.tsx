@@ -31,7 +31,11 @@ import {
   TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -149,7 +153,7 @@ function getMetadata(
           <span className="font-bold">
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.registrationDeadline),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })}
           </span>
@@ -173,7 +177,7 @@ function getMetadata(
           <span className="font-bold">
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingStart),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })}
           </span>
@@ -197,13 +201,13 @@ function getMetadata(
           <span className="font-bold">
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingStart),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })}
             <span className="mx-1">{UNICODE_CHAR.HYPHEN}</span>
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })}
           </span>

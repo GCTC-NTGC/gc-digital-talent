@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Models\Department;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -16,7 +17,7 @@ class DepartmentNotArchived implements ValidationRule
         $department = Department::findOrFail($value);
 
         if (! is_null($department->archived_at)) {
-            $fail('DepartmentMustNotBeArchived');
+            $fail(ErrorCode::DEPARTMENT_MUST_NOT_BE_ARCHIVED->name);
         }
     }
 }

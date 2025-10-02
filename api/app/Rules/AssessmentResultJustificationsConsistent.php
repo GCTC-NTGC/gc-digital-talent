@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
+use App\Enums\ErrorCode;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -38,7 +39,7 @@ class AssessmentResultJustificationsConsistent implements ValidationRule
                 )
             ) > 0
         ) {
-            $fail('SkillJustificationsForEducationAssessment');
+            $fail(ErrorCode::SKILL_JUSTIFICATION_FOR_EDUCATION_ASSESSMENT->name);
         }
 
         if (
@@ -56,7 +57,7 @@ class AssessmentResultJustificationsConsistent implements ValidationRule
                 )
             ) > 0
         ) {
-            $fail('EducationJustificationsForSkillAssessment');
+            $fail(ErrorCode::EDUCATION_JUSTIFICATIONS_FOR_SKILL_ASSESSMENT->name);
         }
     }
 }

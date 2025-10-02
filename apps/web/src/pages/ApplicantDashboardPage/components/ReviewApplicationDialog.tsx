@@ -18,7 +18,11 @@ import {
   Ul,
   wrapParens,
 } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -278,7 +282,7 @@ const ReviewApplicationDialog = ({
                 {pool?.closingDate
                   ? formatDate({
                       date: parseDateTimeUtc(pool?.closingDate),
-                      formatString: "PPP",
+                      formatString: DATE_FORMAT_LOCALIZED,
                       intl,
                       timeZone: "Canada/Pacific",
                     })
@@ -292,7 +296,7 @@ const ReviewApplicationDialog = ({
                 {application.submittedAt
                   ? formatDate({
                       date: parseDateTimeUtc(application.submittedAt),
-                      formatString: "PPP",
+                      formatString: DATE_FORMAT_LOCALIZED,
                       intl,
                     })
                   : nullMessage}

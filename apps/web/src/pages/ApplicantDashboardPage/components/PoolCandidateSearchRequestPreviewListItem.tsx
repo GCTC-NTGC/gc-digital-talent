@@ -8,7 +8,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { PreviewList } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { formatClassificationString } from "~/utils/poolUtils";
@@ -111,7 +115,7 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   if (request.requestedDate) {
     const formattedDate = formatDate({
       date: parseDateTimeUtc(request.requestedDate),
-      formatString: "PPP",
+      formatString: DATE_FORMAT_LOCALIZED,
       intl,
     });
     metaDataProps.push({

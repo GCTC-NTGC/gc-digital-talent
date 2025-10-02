@@ -127,4 +127,9 @@ export default defineMessages({
     id: "P4BgMG",
     description: "Short title for the create job poster template page",
   },
+  dnd: {
+    defaultMessage: "Digital careers at National Defence",
+    id: "YtI+mg",
+    description: "Title for the DND digital careers page",
+  },
 });
