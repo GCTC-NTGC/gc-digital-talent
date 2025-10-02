@@ -57,7 +57,6 @@ export const formValuesToSubmitData = (
       currentClassification: {
         disconnect: true,
       },
-      workEmail: null,
       hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
       priorityNumber:
         values.priorityEntitlementYesNo === "yes" &&
@@ -75,7 +74,6 @@ export const formValuesToSubmitData = (
       currentClassification: {
         disconnect: true,
       },
-      workEmail: values.workEmail,
       hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
       priorityNumber:
         values.priorityEntitlementYesNo === "yes" &&
@@ -95,7 +93,6 @@ export const formValuesToSubmitData = (
             connect: classificationId,
           }
         : null,
-      workEmail: values.workEmail,
       hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
       priorityNumber:
         values.priorityEntitlementYesNo === "yes" &&
@@ -114,7 +111,6 @@ export const formValuesToSubmitData = (
           connect: classificationId,
         }
       : null,
-    workEmail: values.workEmail,
     hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
     priorityNumber:
       values.priorityEntitlementYesNo === "yes" &&
@@ -138,7 +134,6 @@ export const dataToFormValues = (
     currentClassificationLevel: data?.currentClassification?.level
       ? String(data.currentClassification.level)
       : undefined,
-    workEmail: data.workEmail,
   };
 };
 
@@ -168,7 +163,6 @@ export const getLabels = (intl: IntlShape) => ({
     id: "gnGAe8",
     description: "Label displayed on classification level input",
   }),
-  workEmail: intl.formatMessage(commonMessages.workEmail),
   priorityEntitlementYesNo: intl.formatMessage({
     defaultMessage: "Do you have a priority entitlement?",
     id: "/h9mNu",
