@@ -66,15 +66,6 @@ const FormFields = ({
           }}
         />
         <Input
-          id="email"
-          name="email"
-          type="email"
-          label={labels.email}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Input
           id="telephone"
           name="telephone"
           type="tel"

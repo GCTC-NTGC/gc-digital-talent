@@ -45,7 +45,6 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     firstName
     lastName
     telephone
-    email
     preferredLang {
       value
     }
@@ -85,8 +84,6 @@ const PersonalInformation = ({
     emptyRequired,
     fallbackIcon: UserIcon,
   });
-  const applicationContext = useApplicationContext();
-  const isInApplication = !!applicationContext.currentStepOrdinal;
   const [{ data, fetching }] = useQuery({
     query: PersonalInformationForm_Query,
   });
@@ -154,11 +151,7 @@ const PersonalInformation = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <NullDisplay />
-          ) : (
-            <Display query={user} showEmailVerification={!isInApplication} />
-          )}
+          {isNull ? <NullDisplay /> : <Display query={user} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (
