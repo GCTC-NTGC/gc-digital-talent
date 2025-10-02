@@ -66,12 +66,12 @@ const GettingStartedPage = () => {
     ],
   });
 
-  const handleSubmit = ({
+  const handleSubmit = async ({
     firstName,
     lastName,
     preferredLang,
     verificationCode,
-  }: FormValues): Promise<void> => {
+  }: FormValues) => {
     // make TS happy but shouldn't happen
     if (!data?.me?.id) {
       throw new Error("No user ID provided");
@@ -80,46 +80,40 @@ const GettingStartedPage = () => {
       throw new Error("No verification provided");
     }
 
-    return (
-      // first, try to update the user's personal information
-      executeUpdateUserMutation({
-        id: data?.me?.id,
-        user: {
-          firstName: firstName,
-          lastName: lastName,
-          preferredLang: preferredLang as Language,
-        },
-      })
-        // check if the user update was successful
-        .then((result) => {
-          if (!result.data?.updateUserAsUser?.id) {
-            throw new Error("Failed to update user");
-          }
-        })
-        // second, try to verify the email
-        .then(() =>
-          executeVerifyEmailMutation({
-            code: verificationCode,
-          }),
-        )
-        // check if the email verification was successful
-        .then((result) => {
-          if (
-            result.error?.graphQLErrors.some(
-              (graphQLError) => graphQLError.message == "VERIFICATION_FAILED",
-            )
-          ) {
-            throw new Error("VERIFICATION_FAILED");
-          }
-          if (!result.data?.verifyUserEmails?.id) {
-            throw new Error("Failed to verify email");
-          }
-        })
-        // finally, navigate away
-        .then(() => {
-          // TODO: navigate to next page
-        })
-    );
+    // first, try to update the user's personal information
+    const updateUserResult = await executeUpdateUserMutation({
+      id: data?.me?.id,
+      user: {
+        firstName: firstName,
+        lastName: lastName,
+        preferredLang: preferredLang as Language,
+      },
+    });
+
+    // check if the user update was successful
+    if (!updateUserResult.data?.updateUserAsUser?.id) {
+      throw new Error("Failed to update user");
+    }
+
+    // second, try to verify the email
+    const verifyEmailResult = await executeVerifyEmailMutation({
+      code: verificationCode,
+    });
+
+    // check if the email verification was successful
+    if (
+      verifyEmailResult.error?.graphQLErrors.some(
+        (graphQLError) => graphQLError.message == "VERIFICATION_FAILED",
+      )
+    ) {
+      throw new Error("VERIFICATION_FAILED");
+    }
+    if (!verifyEmailResult.data?.verifyUserEmails?.id) {
+      throw new Error("Failed to verify email");
+    }
+
+    // finally, navigate away
+    // TODO: navigate to next page
   };
 
   return (
