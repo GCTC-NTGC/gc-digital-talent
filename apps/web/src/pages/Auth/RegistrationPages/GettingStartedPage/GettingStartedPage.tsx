@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
+import { useNavigate } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, Language } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
@@ -46,7 +47,7 @@ const GettingStartedVerifyEmail_Mutation = graphql(/* GraphQL */ `
 const GettingStartedPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const authContext = useAuthorization();
+  const navigate = useNavigate();
   const [{ data, fetching, error }] = useQuery({
     query: GettingStarted_Query,
   });
@@ -114,7 +115,7 @@ const GettingStartedPage = () => {
     }
 
     // finally, navigate away
-    // TODO: navigate to next page
+    await navigate(paths.employeeInformation());
   };
 
   return (
@@ -131,7 +132,7 @@ const GettingStartedPage = () => {
       >
         <section className="mb-18">
           <Card space="lg">
-            <Pending fetching={fetching || !authContext.isLoaded} error={error}>
+            <Pending fetching={fetching} error={error}>
               {data?.me ? (
                 <EmailVerificationProvider>
                   <GettingStartedForm
