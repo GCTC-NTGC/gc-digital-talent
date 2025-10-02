@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
@@ -140,15 +139,11 @@ const SendVerificationEmailSubform = ({
       }
     });
 
-    return mutationResult
-      .then(() => {
-        setRequestACodeMessage("request-sent");
-        setCanRequestCode(false);
-        setEmailAddressContacted(emailAddress);
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(errorMessages.error));
-      });
+    return mutationResult.then(() => {
+      setRequestACodeMessage("request-sent");
+      setCanRequestCode(false);
+      setEmailAddressContacted(emailAddress);
+    });
   };
 
   // watch the form to see if the user changes the address input after requesting a code
