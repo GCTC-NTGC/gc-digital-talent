@@ -25,10 +25,10 @@ const labels = defineMessages({
       "Legend text for required language preference in getting started form",
   },
   verificationCode: {
-    defaultMessage: "Verification code",
-    id: "T+ypau",
+    defaultMessage: "Email verification code",
+    id: "SRnr1M",
     description: "label for verification code input",
   },
-} as const);
+});
 
 export default labels;

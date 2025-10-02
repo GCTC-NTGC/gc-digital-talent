@@ -15,7 +15,7 @@ import {
   FragmentType,
   getFragment,
   Language,
-  GettingStartedInitialValues_QueryFragment,
+  GettingStartedInitialValuesFragment,
   EmailType,
 } from "@gc-digital-talent/graphql";
 
@@ -28,7 +28,7 @@ import labels from "./labels";
 import messages from "./messages";
 
 export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
-  fragment GettingStartedInitialValues_Query on User {
+  fragment GettingStartedInitialValues on User {
     firstName
     lastName
     preferredLang {
@@ -39,7 +39,7 @@ export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
 `);
 
 export const GettingStartedOptions_Query = graphql(/** GraphQL */ `
-  fragment GettingStartedOptions_Query on Query {
+  fragment GettingStartedOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value
       label {
@@ -59,7 +59,7 @@ export interface FormValues {
 }
 
 const initialValuesToFormValues = (
-  initialValues: GettingStartedInitialValues_QueryFragment,
+  initialValues: GettingStartedInitialValuesFragment,
 ): FormValues => {
   return {
     firstName: initialValues.firstName ?? null,
