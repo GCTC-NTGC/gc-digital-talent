@@ -1,11 +1,17 @@
+import { execSync } from "child_process";
+
 import { test, expect } from "~/fixtures";
-import { generateUniqueTestId } from "~/utils/id";
+import { generateUniqueTestId, uuidRegEx } from "~/utils/id";
+import graphql from "~/utils/graphql";
+import { me } from "~/utils/user";
 
 import { loginBySub } from "../../utils/auth";
 
 test.describe("Registration", () => {
   test("New user goes to registration then profile", async ({ appPage }) => {
     const uniqueTestId = generateUniqueTestId();
+    const context = await graphql.newContext(uniqueTestId);
+    const uniqueEmailAddress = `${uniqueTestId}@gc.ca`;
     await loginBySub(appPage.page, String(uniqueTestId), false);
     await appPage.page.goto("/en/applicant");
 
@@ -15,6 +21,32 @@ test.describe("Registration", () => {
         level: 2,
       }),
     ).toBeVisible();
+
+    await appPage.page
+      .getByRole("textbox", { name: /email address/i })
+      .fill(uniqueEmailAddress);
+
+    await appPage.page
+      .getByRole("button", { name: /send verification email/i })
+      .click();
+
+    const { id: meUserId } = await me(context, {});
+    expect(meUserId).toMatch(uuidRegEx);
+
+    // pull the verification code from cache since we can't receive an email here
+    const verificationCode = execSync(
+      `php artisan tinker --execute="echo Cache::get('email-verification-${meUserId}')['code']"`,
+      {
+        cwd: "../../api",
+        stdio: "pipe",
+        encoding: "utf8",
+      },
+    );
+    expect(verificationCode).toMatch(/[A-Z0-9]{6}/);
+
+    await appPage.page
+      .getByRole("textbox", { name: /verification code/i })
+      .fill(verificationCode);
 
     await appPage.page
       .getByRole("textbox", { name: /first name/i })
@@ -30,56 +62,15 @@ test.describe("Registration", () => {
       .click();
 
     await appPage.page
-      .getByRole("textbox", {
-        name: /contact email address/i,
-      })
-      .fill(`playwright.${uniqueTestId}@example.org`);
-
-    await appPage.page
-      .getByRole("group", { name: /email notification consent/i })
-      .getByRole("checkbox", {
-        name: /i agree to receive email notifications/i,
-      })
+      .getByRole("button", { name: /save and continue/i })
       .click();
 
-    await appPage.page
-      .getByRole("button", { name: /verify your contact email/i })
-      .click();
-
-    await appPage.waitForGraphqlResponse("GettingStarted_Mutation");
-    await appPage.waitForGraphqlResponse("UpdateEmailNotifications_Mutation");
-
-    await expect(
-      appPage.page.getByRole("heading", {
-        name: /verify your contact email/i,
-        level: 2,
-      }),
-    ).toBeVisible();
-
-    await appPage.page.getByRole("button", { name: /skip for now/i }).click();
-
+    // end up on the next page successfully
     await expect(
       appPage.page.getByRole("heading", {
         name: /employee information/i,
         level: 2,
       }),
-    ).toBeVisible();
-
-    await appPage.page
-      .getByRole("group", {
-        name: /employee status/i,
-      })
-      .getByRole("radio", { name: /no/ })
-      .click();
-
-    await appPage.page
-      .getByRole("button", { name: /save and continue/i })
-      .click();
-
-    await appPage.waitForGraphqlResponse("EmployeeInformation_Mutation");
-
-    await expect(
-      appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
   });
 });
