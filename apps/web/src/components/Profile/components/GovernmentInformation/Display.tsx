@@ -72,8 +72,8 @@ const Display = ({
     : intl.formatMessage(governmentMessages.noGovEmployee);
 
   const priorityMessage = hasPriorityEntitlement
-    ? intl.formatMessage(governmentMessages.yesPriorityEnitlement)
-    : intl.formatMessage(governmentMessages.noPriorityEnititlement);
+    ? intl.formatMessage(governmentMessages.yesPriorityEntitlement)
+    : intl.formatMessage(governmentMessages.noPriorityEntitlement);
 
   const handleVerifyNowClick = async () => {
     await navigate(routes.verifyWorkEmail());

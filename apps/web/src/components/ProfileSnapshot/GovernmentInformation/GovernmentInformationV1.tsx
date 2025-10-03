@@ -47,8 +47,8 @@ const GovernmentInformationV1 = ({
     : intl.formatMessage(governmentMessages.noGovEmployee);
 
   const priorityMessage = hasPriorityEntitlement
-    ? intl.formatMessage(governmentMessages.yesPriorityEnitlement)
-    : intl.formatMessage(governmentMessages.noPriorityEnititlement);
+    ? intl.formatMessage(governmentMessages.yesPriorityEntitlement)
+    : intl.formatMessage(governmentMessages.noPriorityEntitlement);
 
   return (
     <div className="flex flex-col gap-y-6">
