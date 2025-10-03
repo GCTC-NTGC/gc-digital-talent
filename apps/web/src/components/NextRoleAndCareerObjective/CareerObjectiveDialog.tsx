@@ -22,12 +22,14 @@ interface CareerObjectiveDialogProps {
   >;
   trigger?: ReactNode;
   defaultOpen?: boolean;
+  customSubtitle?: string;
 }
 
 const CareerObjectiveDialog = ({
   careerObjectiveDialogQuery,
   trigger,
   defaultOpen = false,
+  customSubtitle,
 }: CareerObjectiveDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
@@ -49,20 +51,20 @@ const CareerObjectiveDialog = ({
     },
   );
 
+  const subtitle =
+    customSubtitle ??
+    intl.formatMessage({
+      defaultMessage:
+        "Learn more about the role this nominee is working toward as their main career objective.",
+      id: "1LkIfy",
+      description: "Subtitle for dialog viewing career objective info",
+    });
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>{trigger || <Button>{title}</Button>}</Dialog.Trigger>
       <Dialog.Content hasSubtitle>
-        <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "Learn more about the role this nominee is working toward as their main career objective.",
-            id: "1LkIfy",
-            description: "Subtitle for dialog viewing career objective info",
-          })}
-        >
-          {title}
-        </Dialog.Header>
+        <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>
         <Dialog.Body>
           {/* TODO: Add well with null message if fragment is undefined? */}
           {careerObjective.employeeProfile && (

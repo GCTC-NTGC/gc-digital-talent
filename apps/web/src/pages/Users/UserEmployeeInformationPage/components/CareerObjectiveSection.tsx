@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Card, Ul } from "@gc-digital-talent/ui";
+import { Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -77,7 +77,7 @@ const CareerObjectiveSection = ({
   );
 
   return (
-    <Card className="grid gap-6 xs:grid-cols-2">
+    <div className="flex flex-col gap-y-6">
       <FieldDisplay
         label={intl.formatMessage(
           employeeProfileMessages.targetClassificationGroup,
@@ -174,7 +174,7 @@ const CareerObjectiveSection = ({
         {employeeProfile.careerObjectiveAdditionalInformation ??
           intl.formatMessage(commonMessages.notProvided)}
       </FieldDisplay>
-    </Card>
+    </div>
   );
 };
 

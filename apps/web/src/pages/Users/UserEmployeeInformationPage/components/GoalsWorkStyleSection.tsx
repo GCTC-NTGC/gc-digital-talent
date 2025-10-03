@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Card, CardSeparator } from "@gc-digital-talent/ui";
+import { Separator } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -30,28 +30,28 @@ const GoalsWorkStyleSection = ({
   );
 
   return (
-    <Card className="flex flex-col gap-6 wrap-anywhere">
+    <div className="flex flex-col gap-y-6">
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}
       >
         {employeeProfile.aboutYou ??
           intl.formatMessage(commonMessages.notProvided)}
       </FieldDisplay>
-      <CardSeparator space="none" />
+      <Separator space="none" />
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
         {employeeProfile.learningGoals ??
           intl.formatMessage(commonMessages.notProvided)}
       </FieldDisplay>
-      <CardSeparator space="none" />
+      <Separator space="none" />
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >
         {employeeProfile.workStyle ??
           intl.formatMessage(commonMessages.notProvided)}
       </FieldDisplay>
-    </Card>
+    </div>
   );
 };
 

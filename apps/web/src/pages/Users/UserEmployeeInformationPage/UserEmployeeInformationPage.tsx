@@ -27,20 +27,19 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import CommunityInterest, {
   CommunityInterestOptions_Fragment,
 } from "~/components/CommunityInterest/CommunityInterest";
+import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 
 import CareerDevelopmentSection, {
   CareerDevelopmentOptions_Fragment,
 } from "./components/CareerDevelopmentSection";
-import NextRoleSection from "./components/NextRoleSection";
-import CareerObjectiveSection from "./components/CareerObjectiveSection";
+import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
 
 const SECTION_ID = {
   COMMUNITY_INTEREST: "community-interest-section",
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
-  NEXT_ROLE: "next-role-section",
-  CAREER_OBJECTIVE: "career-objective-section",
+  NEXT_ROLE_AND_CAREER_OBJECTIVE: "next-role-and-career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
 
@@ -70,12 +69,14 @@ interface UserEmployeeInformationProps {
   careerDevelopmentOptionsQuery: FragmentType<
     typeof CareerDevelopmentOptions_Fragment
   >;
+  userQuery: FragmentType<typeof NextRoleAndCareerObjective_Fragment>;
 }
 
 export const UserEmployeeInformation = ({
   employeeProfileQuery,
   careerDevelopmentOptionsQuery,
   communityInterestOptionsQuery,
+  userQuery,
 }: UserEmployeeInformationProps) => {
   const intl = useIntl();
 
@@ -109,22 +110,14 @@ export const UserEmployeeInformation = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={SECTION_ID.NEXT_ROLE}>
+                <TableOfContents.AnchorLink
+                  id={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+                >
                   {intl.formatMessage({
-                    defaultMessage: "Next role",
-                    id: "XdOWYL",
+                    defaultMessage: "Next role and career objective",
+                    id: "xst395",
                     description:
-                      "Title for Next role section of user employee information page",
-                  })}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={SECTION_ID.CAREER_OBJECTIVE}>
-                  {intl.formatMessage({
-                    defaultMessage: "Career objective",
-                    id: "ISPFsQ",
-                    description:
-                      "Title for Career objective section of user employee information page",
+                      "Title for Next role and career objective section of user employee information page",
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
@@ -220,89 +213,110 @@ export const UserEmployeeInformation = ({
               })}
             </p>
           </TableOfContents.Section>
-          <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
-            <Heading level="h3" size="h6">
-              {intl.formatMessage({
-                defaultMessage: "Career development preferences",
-                id: "wrolJv",
-                description:
-                  "Title for Career development preferences section of user employee information page",
-              })}
-            </Heading>
-            <p className="my-6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Find out about their interest in a variety of specific options related to recruitment, mentorship, and promotional opportunities.",
-                id: "Ll9cyc",
-                description:
-                  "Description for Career development preferences section of user employee information page",
-              })}
-            </p>
-            <CareerDevelopmentSection
-              employeeProfileQuery={employeeProfile}
-              careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
-            />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={SECTION_ID.NEXT_ROLE}>
-            <Heading level="h3" size="h6">
-              {intl.formatMessage({
-                defaultMessage: "Next role",
-                id: "XdOWYL",
-                description:
-                  "Title for Next role section of user employee information page",
-              })}
-            </Heading>
-            <p className="my-6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "In this section, the employee can share in which role they see themselves next.",
-                id: "SqDb3H",
-                description:
-                  "Description for Next role section of user employee information page",
-              })}
-            </p>
-            <NextRoleSection employeeProfileQuery={employeeProfile} />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={SECTION_ID.CAREER_OBJECTIVE}>
-            <Heading level="h3" size="h6">
-              {intl.formatMessage({
-                defaultMessage: "Career objective",
-                id: "ISPFsQ",
-                description:
-                  "Title for Career objective section of user employee information page",
-              })}
-            </Heading>
-            <p className="my-6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "We ask employees to describe their ultimate career objective. This is what they've answered.",
-                id: "3yMRCt",
-                description:
-                  "Description for Career objective section of user employee information page",
-              })}
-            </p>
-            <CareerObjectiveSection employeeProfileQuery={employeeProfile} />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
-            <Heading level="h3" size="h6">
-              {intl.formatMessage({
-                defaultMessage: "Goals and work style",
-                id: "5sZWgB",
-                description:
-                  "Title for Goals and work style section of user employee information page",
-              })}
-            </Heading>
-            <p className="my-6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Learn more about the employee and how they work.",
-                id: "Q7b1X0",
-                description:
-                  "Description for Goals and work style section of user employee information page",
-              })}
-            </p>
-            <GoalsWorkStyleSection employeeProfileQuery={employeeProfile} />
-          </TableOfContents.Section>
+          <Accordion.Root mode="card" type="multiple">
+            <Accordion.Item
+              value={SECTION_ID.CAREER_DEVELOPMENT}
+              id={SECTION_ID.CAREER_DEVELOPMENT}
+            >
+              <Accordion.Trigger
+                as="h3"
+                subtitle={intl.formatMessage({
+                  defaultMessage:
+                    "This employee's preferences around organizations, promotion, mentorship, and executive opportunities.",
+                  id: "Y82TrM",
+                  description:
+                    "Title for Career development preferences section of user employee information page",
+                })}
+              >
+                <span className="font-normal">
+                  {intl.formatMessage({
+                    defaultMessage: "Career development preferences",
+                    id: "wrolJv",
+                    description:
+                      "Title for Career development preferences section of user employee information page",
+                  })}
+                </span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <CareerDevelopmentSection
+                  employeeProfileQuery={employeeProfile}
+                  careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
+                />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item
+              value={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+              id={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+            >
+              <Accordion.Trigger
+                as="h3"
+                subtitle={intl.formatMessage({
+                  defaultMessage:
+                    "The next role the employee intends to achieve and their main career objective, including classification, work streams, and departments.",
+                  id: "96ClZg",
+                  description:
+                    "Subtitle for next role and career objective section",
+                })}
+              >
+                <span className="font-normal">
+                  {intl.formatMessage({
+                    defaultMessage: "Next role and career objective",
+                    id: "QhFxW1",
+                    description:
+                      "Title for next role and career objective section",
+                  })}
+                </span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <NextRoleAndCareerObjective
+                  nextRoleAndCareerObjectiveQuery={userQuery}
+                  sectionKey={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
+                  nextRoleDialogSubtitle={intl.formatMessage({
+                    defaultMessage:
+                      "Learn more about the role this employee is seeking next in their career path.",
+                    id: "NQgGHA",
+                    description:
+                      "Subtitle for dialog viewing next role info for employees",
+                  })}
+                  dialogSubtitle={intl.formatMessage({
+                    defaultMessage:
+                      "Learn more about the role this employee is working toward as their main career objective.",
+                    id: "aZEnPH",
+                    description:
+                      "Subtitle for dialog viewing career objective info for employees",
+                  })}
+                />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item
+              value={SECTION_ID.GOALS_WORK_STYLE}
+              id={SECTION_ID.GOALS_WORK_STYLE}
+            >
+              <Accordion.Trigger
+                as="h3"
+                subtitle={intl.formatMessage({
+                  defaultMessage:
+                    "The employee's opportunity to describe themself, how they approach their career, and how they work best.",
+                  id: "q3scRY",
+                  description: "Subtitle for goals and work style section",
+                })}
+              >
+                <span className="font-normal">
+                  {intl.formatMessage({
+                    defaultMessage: "Goals and work style",
+                    id: "5sZWgB",
+                    description:
+                      "Title for Goals and work style section of user employee information page",
+                  })}
+                </span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GoalsWorkStyleSection employeeProfileQuery={employeeProfile} />
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
         </div>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>
@@ -316,6 +330,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
       employeeProfile {
         ...UserEmployeeInformation
       }
+      ...NextRoleAndCareerObjective
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
@@ -341,6 +356,7 @@ const UserEmployeeInformationPage = () => {
         {data?.user?.employeeProfile && data?.user?.isGovEmployee ? (
           <UserEmployeeInformation
             employeeProfileQuery={data?.user?.employeeProfile}
+            userQuery={data.user}
             careerDevelopmentOptionsQuery={data}
             communityInterestOptionsQuery={data}
           />
