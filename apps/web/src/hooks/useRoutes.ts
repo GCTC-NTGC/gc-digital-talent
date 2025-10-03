@@ -390,6 +390,9 @@ const getRoutes = (lang: Locales) => {
     // DND
     dndDigitalCareers: () => `${baseUrl}/dnd`,
 
+    // Workforce adjustment
+    wfa: () => `${baseUrl}/workforce-adjustment`,
+
     /**
      * Deprecated
      *
