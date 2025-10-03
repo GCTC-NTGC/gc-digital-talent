@@ -154,22 +154,27 @@ export const GettingStartedForm = ({
 
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(submitHandler)}>
+          {/* only show code input if a code has already been requested */}
+          {emailAddressContacted ? (
+            <div className="mb-6">
+              <Input
+                id="verificationCode"
+                name="verificationCode"
+                type="text"
+                label={intl.formatMessage(labels.verificationCode)}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </div>
+          ) : null}
+          {/* always allow context message to be displayed */}
+          <div className="mb-6">
+            <SubmitACodeContextMessage />
+          </div>
+          {/* only show personal information inputs if a code has already been requested */}
           {emailAddressContacted ? (
             <>
-              <div className="mb-6">
-                <Input
-                  id="verificationCode"
-                  name="verificationCode"
-                  type="text"
-                  label={intl.formatMessage(labels.verificationCode)}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-              <div className="mb-6">
-                <SubmitACodeContextMessage />
-              </div>
               <div className="mb-6 grid gap-6 xs:grid-cols-2">
                 <Input
                   id="firstName"
