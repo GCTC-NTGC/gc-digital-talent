@@ -10,26 +10,34 @@ import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Container, Heading, Link, Ul, Image } from "@gc-digital-talent/ui";
+import { useTheme } from "@gc-digital-talent/theme";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
+import Instructions from "~/components/Instructions";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-import personDrawingOnOversizedClipboard from "~/assets/img/illustration-person-writing-on-oversized-clipboard.webp";
+import personDrawingOnClipboardDark from "~/assets/img/person-drawing-on-clipboard-dark.webp";
+import personDrawingOnClipboardLight from "~/assets/img/person-drawing-on-clipboard-light.webp";
 import stepOne from "~/assets/img/wfa-step-1.webp";
 import stepTwo from "~/assets/img/wfa-step-2.webp";
 import stepThree from "~/assets/img/wfa-step-3.webp";
 import stepFour from "~/assets/img/wfa-step-4.webp";
 import stepFive from "~/assets/img/wfa-step-5.webp";
 import stepSix from "~/assets/img/wfa-step-6.webp";
+import stepOneDark from "~/assets/img/wfa-dark-step-1.webp";
+import stepTwoDark from "~/assets/img/wfa-dark-step-2.webp";
+import stepThreeDark from "~/assets/img/wfa-dark-step-3.webp";
+import stepFourDark from "~/assets/img/wfa-dark-step-4.webp";
+import stepFiveDark from "~/assets/img/wfa-dark-step-5.webp";
+import stepSixDark from "~/assets/img/wfa-dark-step-6.webp";
 import digitalImg from "~/assets/img/wfa-digital-community-card.webp";
 import atipImg from "~/assets/img/wfa-atip-card.webp";
 import financeImg from "~/assets/img/wfa-finance-card.webp";
 import auditImg from "~/assets/img/wfa-audit-card.webp";
 import propertyImg from "~/assets/img/wfa-property-card.webp";
 import procurementImg from "~/assets/img/wfa-procurement-card.webp";
-import Instructions from "~/components/Instructions";
 
 const commonFeatureImgProps = {
   height: 300,
@@ -41,6 +49,7 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const { mode } = useTheme();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Functional community support for workforce adjustment",
@@ -104,17 +113,21 @@ export const Component = () => {
           })}
         </p>
         <div className="sm:flex sm:flex-row sm:gap-6">
-          <div className="hidden sm:block sm:shrink-0">
+          <div className="hidden sm:block">
             <Image
               loading="lazy"
-              src={personDrawingOnOversizedClipboard}
+              src={
+                mode == "dark"
+                  ? personDrawingOnClipboardDark
+                  : personDrawingOnClipboardLight
+              }
               width={209}
               height={167}
               className="block h-auto w-full object-cover object-center"
             />
           </div>
           <div className="sm:grow">
-            <p>
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage: "These tools might be for you if",
                 id: "S0Q5Qh",
@@ -277,7 +290,7 @@ export const Component = () => {
               },
               title: intl.formatMessage({
                 defaultMessage: "Procurement community",
-                id: '7owCVU',
+                id: "7owCVU",
                 description: "Title for procurement community WFA section",
               }),
               summary: <p>TO DO</p>,
@@ -424,7 +437,7 @@ export const Component = () => {
           })}
         </Heading>
         <Instructions.List className="sm:grid-cols-3">
-          <Instructions.Step img={{ src: stepOne }}>
+          <Instructions.Step img={{ src: stepOne, darkSrc: stepOneDark }}>
             <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "1. Create an account or sign in.",
@@ -433,7 +446,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step img={{ src: stepTwo }}>
+          <Instructions.Step img={{ src: stepTwo, darkSrc: stepTwoDark }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
@@ -453,7 +466,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step img={{ src: stepThree }}>
+          <Instructions.Step img={{ src: stepThree, darkSrc: stepThreeDark }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "3. Verify your work email address.",
@@ -472,7 +485,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step img={{ src: stepFour }}>
+          <Instructions.Step img={{ src: stepFour, darkSrc: stepFourDark }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
@@ -492,7 +505,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step img={{ src: stepFive }}>
+          <Instructions.Step img={{ src: stepFive, darkSrc: stepFiveDark }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
@@ -512,7 +525,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step img={{ src: stepSix }}>
+          <Instructions.Step img={{ src: stepSix, darkSrc: stepSixDark }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "6. Wait for our team to reach out.",
