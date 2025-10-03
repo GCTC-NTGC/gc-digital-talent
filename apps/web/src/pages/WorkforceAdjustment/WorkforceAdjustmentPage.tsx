@@ -1,24 +1,15 @@
 import { useIntl } from "react-intl";
-import { useState } from "react";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import FingerPrintIcon from "@heroicons/react/24/outline/FingerPrintIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import KeyIcon from "@heroicons/react/24/outline/KeyIcon";
 import LifebuoyIcon from "@heroicons/react/24/outline/LifebuoyIcon";
-import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
-import { commonMessages, getLocale, uiMessages } from "@gc-digital-talent/i18n";
-import {
-  Accordion,
-  Button,
-  CardFlat,
-  Container,
-  Heading,
-  Link,
-  Ul,
-} from "@gc-digital-talent/ui";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { Container, Heading, Link, Ul } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -36,18 +27,10 @@ const commonFeatureImgProps = {
   width: 400,
 };
 
-export const ALTERNATION_ACCORDION_ID = {
-  WHAT_IS_ALTERNATION: "what-is-an-alternation",
-  ALTERNATION_RESOURCES: "alternation-resources",
-} as const;
-
 export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const [expandedAlternations, setExpandedAlternations] = useState<string[]>(
-    [],
-  );
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Functional community support for workforce adjustment",
@@ -65,14 +48,6 @@ export const Component = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [{ label: pageTitle, url: paths.wfa() }],
   });
-
-  const toggleAccordions = () => {
-    if (expandedAlternations.length > 0) {
-      setExpandedAlternations([]);
-    } else {
-      setExpandedAlternations(Object.values(ALTERNATION_ACCORDION_ID));
-    }
-  };
 
   return (
     <>
@@ -295,40 +270,137 @@ export const Component = () => {
             }}
           />
         </div>
+        <Heading color="primary" icon={KeyIcon} className="font-normal">
+          {intl.formatMessage({
+            defaultMessage: "Understanding alternations",
+            id: "I2bTFm",
+            description: "Title for section explaining alternations",
+          })}
+        </Heading>
+        <p className="my-6">
+          {intl.formatMessage({
+            defaultMessage:
+              "An alternation is a process available to indeterminate employees in the core public administration (CPA) who have been informed through an official letter from their department that their current position will be discontinued and they are being workforce adjusted. These employees are then referred to as “affected employees”. One of the many options available to affected employees is the option of an alternation, which allows an affected employee to swap jobs with another employee in a stable indeterminate role (pending management approval of the match).",
+            id: "UPyYXO",
+            description: "Paragraph one, describing alternations",
+          })}
+        </p>
+        <p className="my-6">
+          {intl.formatMessage({
+            defaultMessage:
+              "Alternations can be a useful tool for helping those who want to stay in government find new jobs. It can also to a great option for those who are ready to leave the public service leave and are looking to maximize the financial benefits of departure. Employees are encouraged to speak directly to their departmental HR authority to understand the financial benefits available in their specific circumstance.",
+            id: "zTUeK9",
+            description: "Paragraph two, describing alternations",
+          })}
+        </p>
+        <p className="font-bold">
+          {intl.formatMessage({
+            defaultMessage:
+              "Learn more about alternations from official GC sources",
+            id: "VjES9l",
+            description:
+              "Lead in text for government resources on alternations",
+          }) + intl.formatMessage(commonMessages.dividingColon)}
+        </p>
+        <Ul space="sm">
+          <li>
+            <Link
+              external
+              href={
+                locale === "fr"
+                  ? "https://www.njc-cnm.gc.ca/directive/d12/fr"
+                  : "https://www.njc-cnm.gc.ca/directive/d12/en"
+              }
+            >
+              {intl.formatMessage({
+                defaultMessage: "Work Force Adjustment Directive",
+                id: "wdJpUS",
+                description: "Link text for work force adjustment directive",
+              })}
+            </Link>
+          </li>
+          <li>
+            <Link
+              external
+              href={
+                locale === "fr"
+                  ? "https://www.canada.ca/fr/services-publics-approvisionnement/services/paye-pension/administration-paye/ressources-centre-services-paye/roles-responsabilites-lies-processus-paye/gerer-reamenagement-effectifs.html"
+                  : "https://www.canada.ca/en/public-services-procurement/services/pay-pension/pay-administration/pay-centre-resources/pay-process-roles-responsibilities/managing-work-force-adjustment.html"
+              }
+            >
+              {intl.formatMessage({
+                defaultMessage:
+                  "Government of Canada resources for managing workforce adjustment",
+                id: "hKzP42",
+                description: "Link text for managing workforce adjustment",
+              })}
+            </Link>
+          </li>
+          <li>
+            {intl.formatMessage({
+              defaultMessage: "Canada School of Public Service Course",
+              id: "KEYurm",
+              description:
+                "Lead in text for link to workforce adjustment course",
+            }) + intl.formatMessage(commonMessages.dividingColon)}
+            <Link
+              external
+              href={
+                locale === "fr"
+                  ? "https://catalogue.csps-efpc.gc.ca/product?catalog=COR1-J15&cm_locale=fr"
+                  : "https://catalogue.csps-efpc.gc.ca/product?catalog=COR1-J15&cm_locale=en"
+              }
+            >
+              {intl.formatMessage({
+                defaultMessage: "Workforce Adjustment Process (COR1-J15)",
+                id: "XN7vop",
+                description: "Link text for workforce adjustment course",
+              })}
+            </Link>
+          </li>
+          <li>
+            <Link
+              external
+              href={
+                locale === "fr"
+                  ? "https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/remuneration/conventions-collectives.html"
+                  : "https://www.canada.ca/en/treasury-board-secretariat/topics/pay/collective-agreements.html"
+              }
+            >
+              {intl.formatMessage({
+                defaultMessage: "Collective agreements for the public service",
+                id: "PqrUAO",
+                description:
+                  "Link text for public service collective agreements",
+              })}
+            </Link>
+          </li>
+        </Ul>
         <Heading
           color="primary"
           icon={IdentificationIcon}
           className="font-normal"
         >
           {intl.formatMessage({
-            defaultMessage: "Protecting privacy",
-            id: "Y2C4Nc",
+            defaultMessage: "CPA and non-CPA employees",
+            id: "edaphB",
             description:
-              "Title for protecting privacy related to workforce adjustment",
+              "Title for information about core public adminiatration employees related to worforce adjustment",
           })}
         </Heading>
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "We know that workforce adjustment can be a vulnerable time and we’re committed to treating your information with the utmost care and confidentiality. <strong>Nothing you share will be made public</strong>.",
-            id: "sINpeV",
+              "GC employees inside and outside the core public administration (CPA) can take advantage of job pools and new opportunities on the platform and can put themselves forward as a workforce affected employee in search of a new role (if they have received a WFA letter from their department). That said, alternations are only available between employees with indeterminate positions within the CPA.",
+            id: "GKE4/d",
             description:
-              "Paragraph one, describing how we protect privacy for workforce adjustment",
-          })}
-        </p>
-        <p className="my-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "When you create a profile, your information will only be visible to <strong>a small group of authorized administrators</strong>, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you add to your profile. They will not share your information with your manager or department without your explicit consent.",
-            id: "eeOFt9",
-            description:
-              "Paragraph two, describing how we protect privacy for workforce adjustment",
+              "Description of core public administration employees related to workforce adjustment",
           })}
         </p>
         <Heading color="primary" icon={PuzzlePieceIcon} className="font-normal">
           {intl.formatMessage({
-            defaultMessage: "Help us understand your situation",
-            id: "Ph+wt8",
+            defaultMessage: "How to use this service",
+            id: "9lhQKQ",
             description:
               "Title for how to share workforce adjustment information",
           })}
@@ -489,162 +561,38 @@ export const Component = () => {
             description: "Paragraph three, describing the alternation process",
           })}
         </p>
-        <div className="mb-6 flex justify-end">
-          <Button onClick={toggleAccordions} mode="inline">
-            {expandedAlternations.length > 0
-              ? intl.formatMessage(uiMessages.collapseAll)
-              : intl.formatMessage(uiMessages.expandAll)}
-          </Button>
-        </div>
-        <Accordion.Root
-          value={expandedAlternations}
-          onValueChange={setExpandedAlternations}
-          type="multiple"
-          mode="card"
-          size="sm"
-          className="my-6"
-        >
-          <Accordion.Item value={ALTERNATION_ACCORDION_ID.WHAT_IS_ALTERNATION}>
-            <Accordion.Trigger as="h3">
-              {intl.formatMessage({
-                defaultMessage: "What is an alternation",
-                id: "ufdN/y",
-                description: "Heading to describe what alternations are",
-              })}
-            </Accordion.Trigger>
-            <Accordion.Content>
-              <p className="mb-6">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Alternation is a process <strong>available to indeterminate employees</strong> who have been informed that their current position will be discontinued. It offers a way to remain employed within the Government of Canada.",
-                  id: "qZ9iJ7",
-                  description:
-                    "Paragraph one, describing what an alternation is",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The process involves an exchange of roles between an employee whose position is affected and another whose position is secure. For employees in secure roles, alternation provides a voluntary path to leave the public service while helping a colleague continue their career.",
-                  id: "3gl2t6",
-                  description:
-                    "Paragraph two, describing what an alternation is",
-                })}
-              </p>
-            </Accordion.Content>
-          </Accordion.Item>
-          <Accordion.Item
-            value={ALTERNATION_ACCORDION_ID.ALTERNATION_RESOURCES}
-          >
-            <Accordion.Trigger as="h3">
-              {intl.formatMessage({
-                defaultMessage: "Resources on alternations",
-                id: "/8qTk9",
-                description: "Heading for resources related to alternations",
-              })}
-            </Accordion.Trigger>
-            <Accordion.Content>
-              <p>TO DO</p>
-            </Accordion.Content>
-          </Accordion.Item>
-        </Accordion.Root>
-        <Heading color="primary" icon={UsersIcon} className="font-normal">
+        <p className="my-6 font-bold">
           {intl.formatMessage({
-            defaultMessage: "Who alternation is for",
-            id: "2+Uf4H",
-            description: "Title for the target audience of alternations",
+            defaultMessage:
+              "All final job offers and alternations must be approved by the relevant departmental HR and management teams.",
+            id: "JpFcnB",
+            description: "Notice that alternations must be approved",
           })}
-        </Heading>
-        <div className="my-6 grid gap-5 sm:grid-cols-2">
-          <CardFlat
-            color="primary"
-            title={intl.formatMessage({
-              defaultMessage: "Employees affected by workforce adjustment",
-              id: "IOVVUX",
-              description:
-                "Heading for the employees who are affected by workforce adjustment",
-            })}
-          >
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "If you’re an indeterminate employee affected by workforce adjustment—meaning you’ve been informed that your position will be discontinued—the alternation process may be a solution to continue your career with the Government of Canada.",
-                id: "vrcyAR",
-                description:
-                  "Description for employees affected by workforce adjustment",
-              })}
-            </p>
-          </CardFlat>
-          <CardFlat
-            color="primary"
-            title={intl.formatMessage({
-              defaultMessage: "Non-affected employees ",
-              id: "mjejGX",
-              description:
-                "Heading for the employees who are not affected by workforce adjustment",
-            })}
-          >
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "If you’re an indeterminate employee whose position is not at risk but are considering leaving the public service, you can express your interest in alternation. By participating, you support a colleague in retaining their employment while choosing one of the available options to transition out of the public service.",
-                id: "XmGF8v",
-                description:
-                  "Description for employees not affected by workforce adjustment",
-              })}
-            </p>
-          </CardFlat>
-        </div>
-        <p className="my-6">
-          <Link href="#" mode="solid">
-            {intl.formatMessage({
-              defaultMessage: "Check available alternation opportunities",
-              id: "GHluON",
-              description: "Link text for alternation opportunities",
-            })}
-          </Link>
         </p>
-        <Heading color="primary" icon={ListBulletIcon} className="font-normal">
+        <Heading color="primary" icon={FingerPrintIcon} className="font-normal">
           {intl.formatMessage({
-            defaultMessage:
-              "Benefits of choosing alternation for non-affected employees",
-            id: "/R2PzO",
-            description: "Title for the benefits of alternations",
-          })}
-        </Heading>
-        <p className="my-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "If you exchange your non-affected position through the alternation process, you may benefit from one of the following options",
-            id: "Rn+vCQ",
-            description: "Lead in text for list of benefits of alternations",
-          }) + intl.formatMessage(commonMessages.dividingColon)}
-        </p>
-        <Ul space="sm">
-          <li>
-            {intl.formatMessage({
-              defaultMessage:
-                "a lump-sum payment based on how long you've worked in the public service",
-              id: "pfPIW1",
-              description: "Benefit one, lump-sum payment",
-            })}
-          </li>
-          <li>
-            {intl.formatMessage({
-              defaultMessage:
-                "a lump-sum payment plus up to $17,000 in reimbursement for education and related expenses ",
-              id: "ujHDys",
-              description: "Benefit two, education reimbursement",
-            })}
-          </li>
-        </Ul>
-        <p className="my-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "For detailed information, refer to the workforce adjustment appendix in the IT collective agreement.",
-            id: "ltnxHw",
+            defaultMessage: "Protecting privacy",
+            id: "Y2C4Nc",
             description:
-              "Direction to more detailed information about workforce adjustment",
+              "Title for protecting privacy related to workforce adjustment",
+          })}
+        </Heading>
+        <p className="my-6">
+          {intl.formatMessage({
+            defaultMessage:
+              "We know that workforce adjustment can be a vulnerable time and we’re committed to treating your information with the utmost care and confidentiality. <strong>Nothing you share will be made public</strong>.",
+            id: "sINpeV",
+            description:
+              "Paragraph one, describing how we protect privacy for workforce adjustment",
+          })}
+        </p>
+        <p className="my-6">
+          {intl.formatMessage({
+            defaultMessage:
+              "When you create a profile, your information will only be visible to <strong>a small group of authorized administrators</strong>, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you add to your profile. They will not share your information with your manager or department without your explicit consent.",
+            id: "eeOFt9",
+            description:
+              "Paragraph two, describing how we protect privacy for workforce adjustment",
           })}
         </p>
       </Container>
