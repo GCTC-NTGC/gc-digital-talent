@@ -27,6 +27,7 @@ import {
   Pool,
   PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
+import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
@@ -596,44 +597,69 @@ export const getQualifiedRecruitmentStatusChip = (
   status: PoolCandidateStatus | null,
   intl: IntlShape,
 ): StatusChipWithDescription => {
-  // UnderConsideration + PlacedTentative + PlacedCasual are exceptions
-  if (
-    placedAt &&
-    status !== PoolCandidateStatus.UnderConsideration &&
-    status !== PoolCandidateStatus.PlacedTentative &&
-    status !== PoolCandidateStatus.PlacedCasual
-  ) {
-    return {
-      color: "secondary",
-      label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),
-      description: intl.formatMessage(
-        qualifiedRecruitmentStatusDescriptions.HIRED,
-      ),
-      value: qualifiedRecruitmentStatus.HIRED,
-    };
-  }
+  // there are three possible chips
+  const hiredChip = {
+    color: "secondary",
+    label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),
+    description: intl.formatMessage(
+      qualifiedRecruitmentStatusDescriptions.HIRED,
+    ),
+    value: qualifiedRecruitmentStatus.HIRED,
+  } as const;
 
-  if (suspendedAt) {
-    return {
-      color: "secondary",
-      label: intl.formatMessage(
-        qualifiedRecruitmentStatusLabels.NOT_INTERESTED,
-      ),
-      description: intl.formatMessage(
-        qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
-      ),
-      value: qualifiedRecruitmentStatus.NOT_INTERESTED,
-    };
-  }
+  const notInterestedChip = {
+    color: "secondary",
+    label: intl.formatMessage(qualifiedRecruitmentStatusLabels.NOT_INTERESTED),
+    description: intl.formatMessage(
+      qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
+    ),
+    value: qualifiedRecruitmentStatus.NOT_INTERESTED,
+  } as const;
 
-  return {
+  const openToJobsChip = {
     color: "success",
     label: intl.formatMessage(qualifiedRecruitmentStatusLabels.OPEN_TO_JOBS),
     description: intl.formatMessage(
       qualifiedRecruitmentStatusDescriptions.OPEN_TO_JOBS,
     ),
     value: qualifiedRecruitmentStatus.OPEN_TO_JOBS,
-  };
+  } as const;
+
+  if (suspendedAt) {
+    return notInterestedChip;
+  }
+
+  if (placedAt) {
+    switch (status) {
+      case null:
+      case PoolCandidateStatus.ApplicationReview:
+      case PoolCandidateStatus.Draft:
+      case PoolCandidateStatus.DraftExpired:
+      case PoolCandidateStatus.Expired:
+      case PoolCandidateStatus.NewApplication:
+      case PoolCandidateStatus.PlacedIndeterminate:
+      case PoolCandidateStatus.PlacedTerm:
+      case PoolCandidateStatus.QualifiedAvailable:
+      case PoolCandidateStatus.QualifiedUnavailable:
+      case PoolCandidateStatus.QualifiedWithdrew:
+      case PoolCandidateStatus.Removed:
+      case PoolCandidateStatus.ScreenedIn:
+      case PoolCandidateStatus.ScreenedOutApplication:
+      case PoolCandidateStatus.ScreenedOutAssessment:
+      case PoolCandidateStatus.ScreenedOutNotInterested:
+      case PoolCandidateStatus.ScreenedOutNotResponsive:
+      case PoolCandidateStatus.UnderAssessment:
+        return hiredChip;
+      case PoolCandidateStatus.PlacedCasual:
+      case PoolCandidateStatus.PlacedTentative:
+      case PoolCandidateStatus.UnderConsideration:
+        return openToJobsChip;
+      default:
+        return assertUnreachable(status);
+    }
+  }
+
+  return openToJobsChip;
 };
 
 export const priorityWeightAfterVerification = (
