@@ -54,6 +54,7 @@ export interface PublishedEditableSectionProps {
 export type SectionKey =
   | "basicInfo"
   | "poolName"
+  | "processNumber"
   | "closingDate"
   | "coreRequirements"
   | "specialNote"

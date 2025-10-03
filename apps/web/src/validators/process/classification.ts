@@ -7,17 +7,12 @@ import { Pool } from "@gc-digital-talent/graphql";
 export function isInNullState({
   workStream,
   name,
-  processNumber,
   publishingGroup,
-}: Pick<
-  Pool,
-  "workStream" | "name" | "processNumber" | "publishingGroup"
->): boolean {
+}: Pick<Pool, "workStream" | "name" | "publishingGroup">): boolean {
   return !!(
     !workStream &&
     !name?.en &&
     !name?.fr &&
-    !processNumber &&
     !publishingGroup &&
     !publishingGroup
   );
@@ -29,7 +24,6 @@ export function hasEmptyRequiredFields({
   department,
   workStream,
   name,
-  processNumber,
   publishingGroup,
   opportunityLength,
 }: Pick<
@@ -39,7 +33,6 @@ export function hasEmptyRequiredFields({
   | "department"
   | "workStream"
   | "name"
-  | "processNumber"
   | "publishingGroup"
   | "opportunityLength"
 >): boolean {
@@ -50,7 +43,6 @@ export function hasEmptyRequiredFields({
     !workStream ||
     !name?.en ||
     !name?.fr ||
-    !processNumber ||
     !publishingGroup ||
     !opportunityLength
   );

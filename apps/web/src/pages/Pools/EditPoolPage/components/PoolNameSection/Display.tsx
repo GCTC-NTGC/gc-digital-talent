@@ -32,7 +32,6 @@ const Display = ({
     department,
     workStream,
     name,
-    processNumber,
     publishingGroup,
     opportunityLength,
   } = pool;
@@ -153,12 +152,6 @@ const Display = ({
           label={intl.formatMessage(processMessages.employmentDuration)}
         >
           {getLocalizedName(opportunityLength?.label, intl)}
-        </ToggleForm.FieldDisplay>
-        <ToggleForm.FieldDisplay
-          hasError={!processNumber}
-          label={intl.formatMessage(processMessages.processNumber)}
-        >
-          {processNumber ?? notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!publishingGroup}

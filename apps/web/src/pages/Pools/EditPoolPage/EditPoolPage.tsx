@@ -54,6 +54,9 @@ import PoolNameSection, {
   PoolDepartment_Fragment,
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
+import ProcessNumberSection, {
+  type ProcessNumberSubmitData,
+} from "./components/ProcessNumberSection";
 import ClosingDateSection, {
   type ClosingDateSubmitData,
 } from "./components/ClosingDateSection/ClosingDateSection";
@@ -99,6 +102,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolGeneralQuestions
     ...EditPoolKeyTasks
     ...EditPoolName
+    ...EditPoolProcessNumber
     ...EditPoolSkills
     ...EditPoolSpecialNote
     ...EditPoolWhatToExpectAdmission
@@ -235,6 +239,7 @@ export type PoolSubmitData =
   | ClosingDateSubmitData
   | CoreRequirementsSubmitData
   | PoolNameSubmitData
+  | ProcessNumberSubmitData
   | WorkTasksSubmitData
   | YourImpactSubmitData
   | WhatToExpectSubmitData
@@ -286,7 +291,6 @@ export const EditPoolForm = ({
       department: pool.department,
       workStream: pool.workStream,
       name: pool.name,
-      processNumber: pool.processNumber,
       publishingGroup: pool.publishingGroup,
       opportunityLength: pool.opportunityLength,
     }) ||
@@ -325,7 +329,6 @@ export const EditPoolForm = ({
         department: pool.department,
         workStream: pool.workStream,
         name: pool.name,
-        processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
         opportunityLength: pool.opportunityLength,
       }),
@@ -334,6 +337,12 @@ export const EditPoolForm = ({
         id: "KEm64j",
         description: "Sub title for advertisement details",
       }),
+      inList: false,
+    },
+    processNumber: {
+      id: "process-number",
+      hasError: !pool.processNumber,
+      title: intl.formatMessage(processMessages.processNumber),
       inList: false,
     },
     closingDate: {
@@ -380,7 +389,6 @@ export const EditPoolForm = ({
       hasError: educationRequirementIsNull({
         workStream: pool.workStream,
         name: pool.name,
-        processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
       }),
       title: intl.formatMessage({
@@ -573,6 +581,12 @@ export const EditPoolForm = ({
                     departmentsQuery={departments}
                     sectionMetadata={sectionMetadata.poolName}
                     onSave={onSave}
+                  />
+                  <ProcessNumberSection
+                    poolQuery={pool}
+                    sectionMetadata={sectionMetadata.processNumber}
+                    onSave={onSave}
+                    onUpdatePublished={onUpdatePublished}
                   />
                   <ClosingDateSection
                     poolQuery={pool}
