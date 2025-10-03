@@ -124,6 +124,7 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               icon={UserCircleIcon}
               color="secondary"
               className="m-0"
+              id="basic-information"
             >
               {intl.formatMessage({
                 defaultMessage: "Basic information",
@@ -157,7 +158,10 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
             value={openSections}
             onValueChange={setOpenSections}
           >
-            <Accordion.Item value={SECTION_KEY.PERSONAL}>
+            <Accordion.Item
+              value={SECTION_KEY.PERSONAL}
+              id={PERSONAL_CONTACT_INFO_ID}
+            >
               <Accordion.Trigger as="h3">
                 {intl.formatMessage(
                   profileMessages.personalAndContactInformation,
@@ -168,7 +172,10 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               </Accordion.Content>
             </Accordion.Item>
 
-            <Accordion.Item value={SECTION_KEY.LANGUAGE}>
+            <Accordion.Item
+              value={SECTION_KEY.LANGUAGE}
+              id={LANGUAGE_PROFILE_ID}
+            >
               <Accordion.Trigger as="h3">
                 {intl.formatMessage(profileMessages.languageProfile)}
               </Accordion.Trigger>
@@ -177,7 +184,10 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               </Accordion.Content>
             </Accordion.Item>
 
-            <Accordion.Item value={SECTION_KEY.WORK_PREFERENCES}>
+            <Accordion.Item
+              value={SECTION_KEY.WORK_PREFERENCES}
+              id={WORK_PREFERENCES_ID}
+            >
               <Accordion.Trigger as="h3">
                 {intl.formatMessage(navigationMessages.workPreferences)}
               </Accordion.Trigger>
@@ -186,7 +196,7 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               </Accordion.Content>
             </Accordion.Item>
 
-            <Accordion.Item value={SECTION_KEY.DEI}>
+            <Accordion.Item value={SECTION_KEY.DEI} id={DEI_ID}>
               <Accordion.Trigger as="h3">
                 {intl.formatMessage(
                   navigationMessages.diversityEquityInclusion,
@@ -197,7 +207,7 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               </Accordion.Content>
             </Accordion.Item>
 
-            <Accordion.Item value={SECTION_KEY.GOV_INFO}>
+            <Accordion.Item value={SECTION_KEY.GOV_INFO} id={GOV_INFO_ID}>
               <Accordion.Trigger as="h3">
                 {intl.formatMessage(profileMessages.govEmployeeInformation)}
               </Accordion.Trigger>
