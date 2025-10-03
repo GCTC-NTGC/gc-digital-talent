@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 import { Card, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -140,7 +140,9 @@ const CreateCommunityInterestPage_Mutation = graphql(/* GraphQL */ `
 export const CreateCommunityInterestPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
+  const [searchParams] = useSearchParams();
   const { userAuthInfo } = useAuthorization();
+  const returnPath = searchParams?.get("from") ?? routes.applicantDashboard();
 
   const navigate = useNavigate();
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
@@ -196,7 +198,7 @@ export const CreateCommunityInterestPage = () => {
             description: "Toast for successful community interest creation",
           }),
         );
-        await navigate(routes.applicantDashboard());
+        await navigate(returnPath);
       })
       .catch(() => {
         toast.error(
