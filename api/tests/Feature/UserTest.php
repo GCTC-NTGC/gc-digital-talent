@@ -2450,7 +2450,7 @@ class UserTest extends TestCase
     public function testIsVerifiedGovermentEmployeeAccessor()
     {
         $user = User::factory()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create();
 
         $this->assertTrue($user->isVerifiedGovEmployee);

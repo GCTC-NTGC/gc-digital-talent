@@ -39,12 +39,12 @@ class UserZipGeneratorTest extends TestCase
 
         $targetUser1 = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->fillProfileData()
             ->create();
 
         $targetUser2 = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->fillProfileData()
             ->create();
 
         // act

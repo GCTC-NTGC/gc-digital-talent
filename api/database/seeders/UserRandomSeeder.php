@@ -50,8 +50,7 @@ class UserRandomSeeder extends Seeder
         // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(2)
-            ->withSkillsAndExperiences()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user
@@ -123,9 +122,7 @@ class UserRandomSeeder extends Seeder
         // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(10)
-            ->withSkillsAndExperiences()
-            ->withOffPlatformRecruitmentProcesses()
-            ->asGovEmployee(false)
+            ->fillProfileData()
             ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user

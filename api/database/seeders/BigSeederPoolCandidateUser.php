@@ -50,7 +50,7 @@ class BigSeederPoolCandidateUser extends Seeder
         for ($i = 0; $i < $limit; $i++) {
             User::factory()
                 ->asApplicant()
-                ->withSkillsAndExperiences()
+                ->fillProfileData()
                 ->afterCreating(function (User $user) use ($poolIds) {
                     $this->applyToPools($user, $poolIds);
                 })
@@ -62,13 +62,10 @@ class BigSeederPoolCandidateUser extends Seeder
         for ($i = 0; $i < $limit; $i++) {
             User::factory()
                 ->asApplicant()
-                ->withSkillsAndExperiences()
-                ->asGovEmployee()
-                ->withEmployeeProfile()
+                ->fillProfileData(true)
                 ->withCommunityInterests(
                     [$digitalCommunityId, $atipCommunityId, $financeCommunityId],
                 )
-                ->withOffPlatformRecruitmentProcesses()
                 ->afterCreating(function (User $user) use ($poolIds) {
                     $this->applyToPools($user, $poolIds);
                 })

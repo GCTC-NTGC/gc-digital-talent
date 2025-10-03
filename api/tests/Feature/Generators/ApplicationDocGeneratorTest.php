@@ -53,10 +53,8 @@ class ApplicationDocGeneratorTest extends TestCase
 
         $user = User::factory()
             ->asApplicant()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->withCommunityInterests([$community->id])
-            ->withEmployeeProfile()
-            ->withSkillsAndExperiences()
             ->create();
 
         EducationExperience::factory()

@@ -175,20 +175,12 @@ class UserFactory extends Factory
         $experience->syncSkills($syncDataExperience);
     }
 
-    public function withSkillsAndExperiences($count = 10, $skills = [])
-    {
-        return $this->afterCreating(function (User $user) use ($count, $skills) {
-            $userSkills = $this->getUserSkills($user, $count, $skills);
-            $this->createExperienceAndSyncSkills($user, $userSkills);
-        });
-    }
-
     /**
-     * Is government employee.
+     * Set certain fields and create related models based on if gov employee
      */
-    public function asGovEmployee($isGovEmployee = true, $isVerified = true, $withWfa = true)
+    public function fillProfileData($isGovEmployee = false)
     {
-        return $this->state(function () use ($isGovEmployee, $isVerified) {
+        return $this->state(function () use ($isGovEmployee) {
             if (! $isGovEmployee) {
                 return [
                     'work_email' => null,
@@ -207,7 +199,7 @@ class UserFactory extends Factory
 
             return [
                 'work_email' => $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca',
-                'work_email_verified_at' => $isVerified ? $this->faker->dateTimeBetween('-1 year', 'now') : null,
+                'work_email_verified_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
                 'computed_is_gov_employee' => true,
                 'computed_classification' => $randomClassification ? $randomClassification->id : null,
                 'computed_department' => $randomDepartment ? $randomDepartment->id : null,
@@ -216,33 +208,40 @@ class UserFactory extends Factory
                 'computed_gov_end_date' => $this->faker->dateTimeBetween('now', '+30 years'),
                 'computed_gov_role' => $this->faker->jobTitle(),
             ];
-        })->afterCreating(function (User $user) use ($isGovEmployee, $withWfa) {
-            if (! $isGovEmployee) {
-                return;
-            }
-            // Government employee counts as an user who has a work experience with
-            //  - an employment type of government of Canada or Canadian armed forces and,
-            //  - that experience has no end date (is current)
+        })->afterCreating(function (User $user) use ($isGovEmployee) {
             $userSkills = $this->getUserSkills($user);
-            $factory = WorkExperience::factory([
-                'user_id' => $user->id,
-                'end_date' => null,
-                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                'gov_employment_type' => $this->faker->randomElement([
-                    WorkExperienceGovEmployeeType::INDETERMINATE->name,
-                    WorkExperienceGovEmployeeType::TERM->name,
-                ]),
-            ]);
+            $this->createExperienceAndSyncSkills($user, $userSkills);
+            OffPlatformRecruitmentProcess::factory()
+                ->count(3)
+                ->create([
+                    'user_id' => $user->id,
+                ]);
 
-            if ($withWfa) {
+            if ($isGovEmployee) {
+                // Government employee counts as an user who has a work experience with
+                //  - an employment type of government of Canada or Canadian armed forces and,
+                //  - that experience has no end date (is current)
+                $userSkills = $this->getUserSkills($user);
+                $factory = WorkExperience::factory([
+                    'user_id' => $user->id,
+                    'end_date' => null,
+                    'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                    'gov_employment_type' => $this->faker->randomElement([
+                        WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                        WorkExperienceGovEmployeeType::TERM->name,
+                    ]),
+                ]);
+
                 $user->wfa_interest = $this->faker->randomElement(WFAInterest::cases())->name;
                 $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d');
                 $user->saveQuietly();
 
                 $factory = $factory->asSubstantive();
-            }
 
-            $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
+                $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
+
+                $this->withEmployeeProfile();
+            }
         });
     }
 
@@ -349,17 +348,6 @@ class UserFactory extends Factory
                         'community_id' => $communityId,
                     ]);
             }
-        });
-    }
-
-    public function withOffPlatformRecruitmentProcesses(int $count = 3)
-    {
-        return $this->afterCreating(function (User $user) use ($count) {
-            OffPlatformRecruitmentProcess::factory()
-                ->count($count)
-                ->create([
-                    'user_id' => $user->id,
-                ]);
         });
     }
 

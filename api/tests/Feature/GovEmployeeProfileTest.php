@@ -41,7 +41,7 @@ class GovEmployeeProfileTest extends TestCase
     {
         $email = 'employee@gc.ca';
         $testUser = User::factory()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create(['work_email' => $email]);
 
         $this->actingAs($this->baseUser, 'api')
@@ -59,7 +59,7 @@ class GovEmployeeProfileTest extends TestCase
     public function testCaseInsensitiveQuery()
     {
         $testUser = User::factory()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create(['work_email' => 'mUlTiCasEEmaiL@Gc.Ca']);
 
         $this->actingAs($this->baseUser, 'api')
@@ -78,7 +78,7 @@ class GovEmployeeProfileTest extends TestCase
     {
         $email = 'employee@gc.ca';
         User::factory()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create(['work_email' => $email, 'work_email_verified_at' => null]);
 
         $this->actingAs($this->baseUser, 'api')
