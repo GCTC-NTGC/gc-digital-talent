@@ -124,6 +124,7 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
               icon={UserCircleIcon}
               color="secondary"
               className="m-0"
+              id="basic-information"
             >
               {intl.formatMessage({
                 defaultMessage: "Basic information",
