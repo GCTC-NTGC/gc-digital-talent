@@ -267,7 +267,7 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                         name="wfaDate"
                         id="wfaDate"
                         legend={intl.formatMessage(messages.expectedEndDate)}
-                        content={intl.formatMessage({
+                        context={intl.formatMessage({
                           defaultMessage:
                             "If possible, verify your expected end date.",
                           id: "qDzAG6",
