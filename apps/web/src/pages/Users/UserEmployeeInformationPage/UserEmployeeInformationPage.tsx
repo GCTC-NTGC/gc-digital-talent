@@ -27,6 +27,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import CommunityInterest, {
   CommunityInterestOptions_Fragment,
 } from "~/components/CommunityInterest/CommunityInterest";
+import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 
 import CareerDevelopmentSection, {
   CareerDevelopmentOptions_Fragment,
@@ -321,17 +322,6 @@ export const UserEmployeeInformation = ({
     </TableOfContents.Wrapper>
   );
 };
-
-export const NextRoleAndCareerObjective_Fragment = graphql(/* GraphQL */ `
-  fragment NextRoleAndCareerObjective on User {
-    ...NextRolePreview
-    ...CareerObjectivePreview
-    employeeProfile {
-      ...NextRoleInfo
-      ...CareerObjectiveInfo
-    }
-  }
-`);
 
 const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
   query UserEmployeeInformationPage($id: UUID!) {

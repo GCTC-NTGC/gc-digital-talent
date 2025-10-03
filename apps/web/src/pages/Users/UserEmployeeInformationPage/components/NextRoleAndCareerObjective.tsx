@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Well } from "@gc-digital-talent/ui";
 
 import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
@@ -11,17 +11,7 @@ import {
   CareerObjectiveInfo_Fragment,
   NextRoleInfo_Fragment,
 } from "~/components/NextRoleAndCareerObjective/utils";
-
-export const NextRoleAndCareerObjective_Fragment = graphql(/* GraphQL */ `
-  fragment NextRoleAndCareerObjective on User {
-    ...NextRolePreview
-    ...CareerObjectivePreview
-    employeeProfile {
-      ...NextRoleInfo
-      ...CareerObjectiveInfo
-    }
-  }
-`);
+import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 
 interface NextRoleAndCareerObjectiveProps {
   nextRoleAndCareerObjectiveQuery: FragmentType<
