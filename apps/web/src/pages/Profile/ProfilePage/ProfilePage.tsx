@@ -16,7 +16,6 @@ import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
-import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import { SectionProps } from "~/components/Profile/types";
 import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
@@ -42,7 +41,6 @@ const subTitle = defineMessage(pageMessages.subTitle);
 
 export const UserProfile_Fragment = graphql(/** GraphQL */ `
   fragment UserProfile on User {
-    ...ProfilePersonalInformation
     ...ProfileWorkPreferences
     ...ProfileDiversityEquityInclusion
     ...ProfileGovernmentInformation
@@ -106,11 +104,6 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
           <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
-                  {intl.formatMessage(getSectionTitle("personal"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink
                   id={PAGE_SECTION_ID.WORK_PREFERENCES}
                 >
@@ -136,9 +129,6 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <div className="flex flex-col gap-y-18">
-              <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
-                <PersonalInformation {...sectionProps} />
-              </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
                 <WorkPreferences {...sectionProps} />
               </TableOfContents.Section>

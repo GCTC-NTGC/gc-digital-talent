@@ -14,6 +14,8 @@ import DiversityEquityInclusion from "~/components/Profile/components/DiversityE
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
+import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
 
 import StepNavigation from "./components/StepNavigation";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -104,7 +106,13 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         })}
       </p>
       <div className="mt-18 flex flex-col gap-y-18">
-        <PersonalInformation {...sectionProps} />
+        <div className="grid grid-cols-1 gap-1.5 xs:grid-cols-2">
+          <div className="col-span-2">
+            <PersonalInformation {...sectionProps} query={application.user} />
+          </div>
+          <ContactEmailCard query={application.user} />
+          <WorkEmailCard query={application.user} />
+        </div>
         <WorkPreferences {...sectionProps} />
         <div>
           <DiversityEquityInclusion {...sectionProps} />

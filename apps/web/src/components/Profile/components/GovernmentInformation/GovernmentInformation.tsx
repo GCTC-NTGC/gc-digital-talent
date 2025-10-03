@@ -21,9 +21,6 @@ import {
   hasAllEmptyFields,
 } from "~/validators/profile/governmentInformation";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-// not importing a whole page, just a context
-// eslint-disable-next-line no-restricted-imports
-import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 
 import { SectionProps } from "../../types";
 import FormActions from "../FormActions";
@@ -89,8 +86,6 @@ const GovernmentInformation = ({
     emptyRequired,
     fallbackIcon: BuildingLibraryIcon,
   });
-  const applicationContext = useApplicationContext();
-  const isInApplication = !!applicationContext.currentStepOrdinal;
 
   const [{ data }] = useQuery({ query: GovernmentInformationFormData_Query });
   const classifications = getFragment(
@@ -164,11 +159,7 @@ const GovernmentInformation = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <NullDisplay />
-          ) : (
-            <Display query={user} showEmailVerification={!isInApplication} />
-          )}
+          {isNull ? <NullDisplay /> : <Display query={user} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <BasicForm

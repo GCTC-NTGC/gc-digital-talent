@@ -58,12 +58,6 @@ test.describe("Profile Page", () => {
       expect(appPage.page.url()).toMatch(/\/en\/applicant/);
       await expect(
         appPage.page.getByRole("heading", {
-          name: "Personal and contact information",
-          level: 2,
-        }),
-      ).toBeVisible();
-      await expect(
-        appPage.page.getByRole("heading", {
           name: "Work preferences",
           level: 2,
         }),
