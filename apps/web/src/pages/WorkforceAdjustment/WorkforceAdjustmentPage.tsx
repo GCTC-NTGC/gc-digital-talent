@@ -9,16 +9,26 @@ import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import { Container, Heading, Link, Ul } from "@gc-digital-talent/ui";
+import { Container, Heading, Link, Ul, Image } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
-import createStep1Image from "~/assets/img/sign-up-step-1-light.webp";
-import createStep1ImageDark from "~/assets/img/sign-up-step-1-dark.webp";
+import personDrawingOnOversizedClipboard from "~/assets/img/illustration-person-writing-on-oversized-clipboard.webp";
+import stepOne from "~/assets/img/wfa-step-1.webp";
+import stepTwo from "~/assets/img/wfa-step-2.webp";
+import stepThree from "~/assets/img/wfa-step-3.webp";
+import stepFour from "~/assets/img/wfa-step-4.webp";
+import stepFive from "~/assets/img/wfa-step-5.webp";
+import stepSix from "~/assets/img/wfa-step-6.webp";
+import digitalImg from "~/assets/img/wfa-digital-community-card.webp";
+import atipImg from "~/assets/img/wfa-atip-card.webp";
+import financeImg from "~/assets/img/wfa-finance-card.webp";
+import auditImg from "~/assets/img/wfa-audit-card.webp";
+import propertyImg from "~/assets/img/wfa-property-card.webp";
+import procurementImg from "~/assets/img/wfa-procurement-card.webp";
 import Instructions from "~/components/Instructions";
 
 const commonFeatureImgProps = {
@@ -94,7 +104,15 @@ export const Component = () => {
           })}
         </p>
         <div className="sm:flex sm:flex-row sm:gap-6">
-          <div className="hidden sm:block sm:shrink-0" />
+          <div className="hidden sm:block sm:shrink-0">
+            <Image
+              loading="lazy"
+              src={personDrawingOnOversizedClipboard}
+              width={209}
+              height={167}
+              className="block h-auto w-full object-cover object-center"
+            />
+          </div>
           <div className="sm:grow">
             <p>
               {intl.formatMessage({
@@ -164,7 +182,7 @@ export const Component = () => {
           <FeatureBlock
             content={{
               img: {
-                path: peopleGatheredAroundLaptop,
+                path: digitalImg,
                 ...commonFeatureImgProps,
               },
               title: intl.formatMessage({
@@ -182,13 +200,13 @@ export const Component = () => {
           <FeatureBlock
             content={{
               img: {
-                path: peopleGatheredAroundLaptop,
+                path: atipImg,
                 ...commonFeatureImgProps,
               },
               title: intl.formatMessage({
-                defaultMessage: "Digital community",
-                id: "Z1sN3o",
-                description: "Title for digital community WFA section",
+                defaultMessage: "Access to Information and Privacy community",
+                id: "KM8u46",
+                description: "Title for ATIP community WFA section",
               }),
               summary: <p>TO DO</p>,
               link: {
@@ -200,13 +218,13 @@ export const Component = () => {
           <FeatureBlock
             content={{
               img: {
-                path: peopleGatheredAroundLaptop,
+                path: financeImg,
                 ...commonFeatureImgProps,
               },
               title: intl.formatMessage({
-                defaultMessage: "Digital community",
-                id: "Z1sN3o",
-                description: "Title for digital community WFA section",
+                defaultMessage: "Finance management community ",
+                id: "qDyXD4",
+                description: "Title for finance community WFA section",
               }),
               summary: <p>TO DO</p>,
               link: {
@@ -218,13 +236,13 @@ export const Component = () => {
           <FeatureBlock
             content={{
               img: {
-                path: peopleGatheredAroundLaptop,
+                path: auditImg,
                 ...commonFeatureImgProps,
               },
               title: intl.formatMessage({
-                defaultMessage: "Digital community",
-                id: "Z1sN3o",
-                description: "Title for digital community WFA section",
+                defaultMessage: "Internal audit community",
+                id: "3paKuD",
+                description: "Title for audit community WFA section",
               }),
               summary: <p>TO DO</p>,
               link: {
@@ -236,13 +254,13 @@ export const Component = () => {
           <FeatureBlock
             content={{
               img: {
-                path: peopleGatheredAroundLaptop,
+                path: propertyImg,
                 ...commonFeatureImgProps,
               },
               title: intl.formatMessage({
-                defaultMessage: "Digital community",
-                id: "Z1sN3o",
-                description: "Title for digital community WFA section",
+                defaultMessage: "Real property community",
+                id: "u8tKFI",
+                description: "Title for real property community WFA section",
               }),
               summary: <p>TO DO</p>,
               link: {
@@ -254,13 +272,13 @@ export const Component = () => {
           <FeatureBlock
             content={{
               img: {
-                path: peopleGatheredAroundLaptop,
+                path: procurementImg,
                 ...commonFeatureImgProps,
               },
               title: intl.formatMessage({
-                defaultMessage: "Digital community",
-                id: "Z1sN3o",
-                description: "Title for digital community WFA section",
+                defaultMessage: "Procurement community",
+                id: '7owCVU',
+                description: "Title for procurement community WFA section",
               }),
               summary: <p>TO DO</p>,
               link: {
@@ -406,9 +424,7 @@ export const Component = () => {
           })}
         </Heading>
         <Instructions.List className="sm:grid-cols-3">
-          <Instructions.Step
-            img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
-          >
+          <Instructions.Step img={{ src: stepOne }}>
             <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "1. Create an account or sign in.",
@@ -417,9 +433,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step
-            img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
-          >
+          <Instructions.Step img={{ src: stepTwo }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
@@ -439,9 +453,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step
-            img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
-          >
+          <Instructions.Step img={{ src: stepThree }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "3. Verify your work email address.",
@@ -460,9 +472,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step
-            img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
-          >
+          <Instructions.Step img={{ src: stepFour }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
@@ -482,9 +492,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step
-            img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
-          >
+          <Instructions.Step img={{ src: stepFive }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage:
@@ -504,9 +512,7 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step
-            img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
-          >
+          <Instructions.Step img={{ src: stepSix }}>
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "6. Wait for our team to reach out.",
