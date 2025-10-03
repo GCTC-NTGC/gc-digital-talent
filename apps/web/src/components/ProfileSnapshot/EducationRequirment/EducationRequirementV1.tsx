@@ -19,6 +19,8 @@ import ExperienceTreeItems, {
 } from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import { SnapshotExperience } from "~/utils/experienceUtils";
 
+import { SnapshotProps } from "../types";
+
 const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment EducationRequirement_PoolCandidate on PoolCandidate {
     pool {
@@ -26,26 +28,28 @@ const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
         group
       }
     }
+    educationRequirementExperienceIds
     educationRequirementOption {
       value
-    }
-    educationRequirementExperiences {
-      id
     }
   }
 `);
 
-interface EducationRequirementsDisplayProps {
+export interface EducationRequirementSnapshotV1 {
   experiences?: Maybe<Maybe<SnapshotExperience>[]>;
-  educationRequirementQuery: FragmentType<
+}
+
+export interface EducationRequirementV1Props
+  extends SnapshotProps<EducationRequirementSnapshotV1> {
+  educationRequirementQuery?: FragmentType<
     typeof EducationRequirement_PoolCandidateFragment
   >;
 }
 
-const EducationRequirementsDisplay = ({
+const EducationRequirementV1 = ({
   educationRequirementQuery,
-  experiences,
-}: EducationRequirementsDisplayProps) => {
+  snapshot,
+}: EducationRequirementV1Props) => {
   const intl = useIntl();
   const application = getFragment(
     EducationRequirement_PoolCandidateFragment,
@@ -54,9 +58,9 @@ const EducationRequirementsDisplay = ({
 
   const classificationGroup = application?.pool.classification?.group ?? "";
   const educationExperiences = unpackMaybes(
-    experiences?.filter((experience) => {
-      return application?.educationRequirementExperiences?.some(
-        (educationExperience) => educationExperience?.id === experience?.id,
+    snapshot.experiences?.filter((experience) => {
+      return application?.educationRequirementExperienceIds?.includes(
+        experience?.id ?? "",
       );
     }),
   );
@@ -84,7 +88,7 @@ const EducationRequirementsDisplay = ({
           },
         )}
       </p>
-      {application?.educationRequirementExperiences?.length ? (
+      {educationExperiences.length ? (
         <>
           <p className="my-6">
             {intl.formatMessage({
@@ -110,4 +114,4 @@ const EducationRequirementsDisplay = ({
   );
 };
 
-export default EducationRequirementsDisplay;
+export default EducationRequirementV1;

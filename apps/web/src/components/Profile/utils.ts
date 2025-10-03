@@ -3,10 +3,11 @@ import { IntlShape, MessageDescriptor, defineMessage } from "react-intl";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
+import { getLabels as getLangLabels } from "~/utils/languageUtils";
+import { getLabels as getWorkLabels } from "~/utils/workPreferenceUtils";
+
 import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
-import { getLabels as getWorkLabels } from "./components/WorkPreferences/utils";
 import { getLabels as getGovLabels } from "./components/GovernmentInformation/utils";
-import { getLabels as getLangLabels } from "./components/LanguageProfile/utils";
 import { SectionKey } from "./types";
 
 const sectionTitles = new Map<SectionKey, MessageDescriptor>([

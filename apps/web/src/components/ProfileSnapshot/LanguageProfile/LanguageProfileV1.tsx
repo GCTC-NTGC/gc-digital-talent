@@ -1,0 +1,247 @@
+import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
+
+import {
+  LocalizedEstimatedLanguageAbility,
+  LocalizedEvaluatedLanguageAbility,
+  LocalizedLanguage,
+  Maybe,
+} from "@gc-digital-talent/graphql";
+import { getOrThrowError } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Ul } from "@gc-digital-talent/ui";
+
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
+import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
+
+import { SnapshotProps } from "../types";
+
+export enum BilingualEvaluation {
+  CompletedEnglish = "COMPLETED_ENGLISH",
+  CompletedFrench = "COMPLETED_FRENCH",
+  NotCompleted = "NOT_COMPLETED",
+}
+
+const bilingualEvaluations = defineMessages({
+  [BilingualEvaluation.CompletedEnglish]: {
+    defaultMessage: "Yes, completed English evaluation",
+    id: "2ohWuK",
+    description: "Completed an English language evaluation",
+  },
+  [BilingualEvaluation.CompletedFrench]: {
+    defaultMessage: "Yes, completed French evaluation",
+    id: "DUuisY",
+    description: "Completed a French language evaluation",
+  },
+  [BilingualEvaluation.NotCompleted]: commonMessages.no,
+});
+
+const getBilingualEvaluation = (
+  bilingualEvaluationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    bilingualEvaluations,
+    bilingualEvaluationId,
+    `Invalid Language Ability '${bilingualEvaluationId}'`,
+  );
+
+export interface LanguageProfileSnapshotV1 {
+  lookingForEnglish?: Maybe<boolean>;
+  lookingForFrench?: Maybe<boolean>;
+  lookingForBilingual?: Maybe<boolean>;
+  firstOfficialLanguage?: Maybe<LocalizedLanguage>;
+  secondLanguageExamCompleted?: Maybe<boolean>;
+  secondLanguageExamValidity?: Maybe<boolean>;
+  estimatedLanguageAbility?: Maybe<LocalizedEstimatedLanguageAbility>;
+  writtenLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
+  comprehensionLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
+  verbalLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
+  bilingualEvaluation?: Maybe<BilingualEvaluation>;
+}
+
+export type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;
+
+const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
+  const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const labels = getLabels(intl);
+  const {
+    lookingForEnglish,
+    lookingForFrench,
+    lookingForBilingual,
+    firstOfficialLanguage,
+    secondLanguageExamCompleted,
+    secondLanguageExamValidity,
+    estimatedLanguageAbility,
+    writtenLevel,
+    comprehensionLevel,
+    verbalLevel,
+    bilingualEvaluation,
+  } = snapshot;
+
+  let examValidity = null;
+  if (secondLanguageExamValidity) {
+    examValidity = getExamValidityOptions(intl).find(
+      (option) => option.value === "currently_valid",
+    )?.label;
+  } else {
+    examValidity = getExamValidityOptions(intl).find(
+      (option) => option.value === "expired",
+    )?.label;
+  }
+
+  return (
+    <div className="grid gap-6">
+      <FieldDisplay
+        hasError={
+          !lookingForEnglish && !lookingForFrench && !lookingForBilingual
+        }
+        label={labels.consideredPositionLanguages}
+      >
+        {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
+          <Ul>
+            {lookingForEnglish && (
+              <li>
+                {intl.formatMessage({
+                  defaultMessage: "English-only positions",
+                  id: "b3c+iw",
+                  description: "English Positions message",
+                })}
+              </li>
+            )}
+            {lookingForFrench && (
+              <li>
+                {intl.formatMessage({
+                  defaultMessage: "French-only positions",
+                  id: "CFIG+8",
+                  description: "French Positions message",
+                })}
+              </li>
+            )}
+            {lookingForBilingual && (
+              <li>
+                {intl.formatMessage({
+                  defaultMessage: "Bilingual positions",
+                  id: "94Pgq+",
+                  description: "Bilingual Positions message",
+                })}
+              </li>
+            )}
+          </Ul>
+        ) : (
+          notProvided
+        )}
+      </FieldDisplay>
+      {/* If bilingual evaluation exists then show the old language profile snapshot, otherwise show new view */}
+      {bilingualEvaluation ? (
+        <>
+          <FieldDisplay
+            hasError={
+              lookingForBilingual &&
+              (!bilingualEvaluation ||
+                ((bilingualEvaluation ===
+                  BilingualEvaluation.CompletedEnglish ||
+                  bilingualEvaluation ===
+                    BilingualEvaluation.CompletedFrench) &&
+                  (!comprehensionLevel || !writtenLevel || !verbalLevel)))
+            }
+            label={intl.formatMessage({
+              defaultMessage: "Language evaluation",
+              id: "43xNhn",
+              description: "Language evaluation label",
+            })}
+          >
+            {bilingualEvaluation
+              ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
+              : notProvided}
+          </FieldDisplay>
+          {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
+            bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage:
+                  "Second language level (reading, writing, oral interaction)",
+                id: "qOi2J0",
+                description:
+                  "Second language level (reading, writing, oral interaction) label",
+              })}
+            >
+              {comprehensionLevel || writtenLevel || verbalLevel
+                ? getEvaluatedLanguageLevels(
+                    intl,
+                    comprehensionLevel,
+                    writtenLevel,
+                    verbalLevel,
+                  )
+                : notProvided}
+            </FieldDisplay>
+          )}
+          {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
+            !!estimatedLanguageAbility && (
+              <FieldDisplay
+                label={intl.formatMessage({
+                  defaultMessage: "Second language proficiency",
+                  id: "IexFo4",
+                  description: "Second language proficiency label",
+                })}
+              >
+                {estimatedLanguageAbility.label
+                  ? estimatedLanguageAbility.label.localized
+                  : notProvided}
+              </FieldDisplay>
+            )}
+        </>
+      ) : (
+        <div className="grid gap-6">
+          {lookingForBilingual && (
+            <>
+              <FieldDisplay label={labels.firstOfficialLang}>
+                {firstOfficialLanguage?.label
+                  ? firstOfficialLanguage.label.localized
+                  : notProvided}
+              </FieldDisplay>
+              <FieldDisplay label={labels.estimatedLanguageAbility}>
+                {estimatedLanguageAbility?.label
+                  ? estimatedLanguageAbility.label.localized
+                  : notProvided}
+              </FieldDisplay>
+              {secondLanguageExamCompleted ? (
+                <>
+                  <FieldDisplay
+                    label={labels.secondLanguageExamCompletedBoundingBoxLabel}
+                  >
+                    {secondLanguageExamCompleted
+                      ? labels.secondLanguageExamCompletedLabel
+                      : notProvided}
+                  </FieldDisplay>
+                  <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
+                    {examValidity}
+                  </FieldDisplay>
+                  <div className="grid gap-6 sm:grid-cols-3">
+                    <FieldDisplay label={labels.comprehensionLevel}>
+                      {comprehensionLevel?.label
+                        ? comprehensionLevel.label.localized
+                        : notProvided}
+                    </FieldDisplay>
+                    <FieldDisplay label={labels.writtenLevel}>
+                      {writtenLevel?.label
+                        ? writtenLevel.label.localized
+                        : notProvided}
+                    </FieldDisplay>
+                    <FieldDisplay label={labels.verbalLevel}>
+                      {verbalLevel?.label
+                        ? verbalLevel.label.localized
+                        : notProvided}
+                    </FieldDisplay>
+                  </div>
+                </>
+              ) : null}
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LanguageProfileV1;

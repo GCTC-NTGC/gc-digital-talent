@@ -17,7 +17,11 @@ import {
 import { Link } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
+import {
+  getEstimatedAbilityOptions,
+  getExamValidityOptions,
+} from "~/utils/languageUtils";
+
 import { FormValues } from "./types";
 
 const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
