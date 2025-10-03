@@ -278,7 +278,7 @@ export const UserEmployeeInformation = ({
                     description:
                       "Subtitle for dialog viewing next role info for employees",
                   })}
-                  careerObjectiveDialogSubtitle={intl.formatMessage({
+                  dialogSubtitle={intl.formatMessage({
                     defaultMessage:
                       "Learn more about the role this employee is working toward as their main career objective.",
                     id: "aZEnPH",

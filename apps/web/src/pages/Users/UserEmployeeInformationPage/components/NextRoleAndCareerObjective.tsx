@@ -29,13 +29,13 @@ interface NextRoleAndCareerObjectiveProps {
   >;
   sectionKey: string;
   nextRoleDialogSubtitle?: string;
-  careerObjectiveDialogSubtitle?: string;
+  dialogSubtitle?: string;
 }
 
 const NextRoleAndCareerObjective = ({
   nextRoleAndCareerObjectiveQuery,
   nextRoleDialogSubtitle,
-  careerObjectiveDialogSubtitle,
+  dialogSubtitle,
 }: NextRoleAndCareerObjectiveProps) => {
   const intl = useIntl();
   const nextRoleAndCareerObjective = getFragment(
@@ -78,7 +78,7 @@ const NextRoleAndCareerObjective = ({
       {hasNextRole ? (
         <NextRolePreview
           nextRolePreviewQuery={nextRoleAndCareerObjective}
-          nextRoleDialogSubtitle={nextRoleDialogSubtitle}
+          dialogSubtitle={nextRoleDialogSubtitle}
         />
       ) : (
         <Well>
@@ -99,7 +99,7 @@ const NextRoleAndCareerObjective = ({
       {hasCareerObjective ? (
         <CareerObjectivePreview
           careerObjectivePreviewQuery={nextRoleAndCareerObjective}
-          careerObjectiveDialogSubtitle={careerObjectiveDialogSubtitle}
+          dialogSubtitle={dialogSubtitle}
         />
       ) : (
         <Well>
