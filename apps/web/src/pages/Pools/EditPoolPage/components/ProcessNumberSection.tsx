@@ -144,8 +144,8 @@ const ProcessNumberSection = ({
                   label={intl.formatMessage(processMessages.processNumber)}
                   context={intl.formatMessage({
                     defaultMessage:
-                      "This process number is obtained from your HR shop",
-                    id: "Ao/+Ba",
+                      "This process number is obtained from your HR advisor",
+                    id: "teUR2H",
                     description:
                       "Additional context describing the pools process number.",
                   })}
