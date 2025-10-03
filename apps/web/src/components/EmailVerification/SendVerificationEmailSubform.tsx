@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
@@ -67,6 +66,27 @@ const SendVerificationEmailSubform = ({
 
   const timerIdRef = useRef<ReturnType<typeof setTimeout>>(null); // timer for throttling requests
 
+  const isThereAnEmailInUseError = (
+    result: Awaited<ReturnType<typeof executeMutation>>,
+  ): boolean =>
+    result.error?.graphQLErrors.some((graphQLError) => {
+      const validationErrors = graphQLError.extensions.validation;
+
+      if (
+        !!validationErrors &&
+        typeof validationErrors === "object" &&
+        "sendUserEmailsVerificationInput.emailAddress" in validationErrors &&
+        Array.isArray(
+          validationErrors["sendUserEmailsVerificationInput.emailAddress"],
+        )
+      ) {
+        return validationErrors[
+          "sendUserEmailsVerificationInput.emailAddress"
+        ].some((validationError) => validationError === "EmailAddressInUse");
+      }
+      return false;
+    }) ?? false;
+
   const submitHandler: SubmitHandler<FormValues> = ({
     emailAddress,
     emailType,
@@ -100,20 +120,30 @@ const SendVerificationEmailSubform = ({
         emailTypes,
       },
     }).then((result) => {
+      if (isThereAnEmailInUseError(result)) {
+        formMethods.setError(
+          "emailAddress",
+          {
+            message: intl.formatMessage({
+              defaultMessage: "This email address is already in use.",
+              id: "wBKhHG",
+              description:
+                "Error message when the email address is already in use.",
+            }),
+          },
+          { shouldFocus: true },
+        );
+      }
       if (!result.data?.sendUserEmailsVerification?.id) {
         throw new Error("Send email error");
       }
     });
 
-    return mutationResult
-      .then(() => {
-        setRequestACodeMessage("request-sent");
-        setCanRequestCode(false);
-        setEmailAddressContacted(emailAddress);
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(errorMessages.error));
-      });
+    return mutationResult.then(() => {
+      setRequestACodeMessage("request-sent");
+      setCanRequestCode(false);
+      setEmailAddressContacted(emailAddress);
+    });
   };
 
   // watch the form to see if the user changes the address input after requesting a code
