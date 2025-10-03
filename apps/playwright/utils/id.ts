@@ -18,3 +18,7 @@ export function generateUniqueTestId(prefix = "pw") {
   const now = new Date().toISOString().replace(/[-:.TZ]/g, "");
   return `${prefix}-${projectName}-${workerIndex}-${repeatEach}-${now}-${random}`;
 }
+
+// copied from apps/web/src/hooks/useRequiredParams.ts
+export const uuidRegEx =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;

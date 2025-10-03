@@ -16,7 +16,7 @@ import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 import {
   GettingStartedForm,
   GettingStartedFormProps,
-  GettingStarted_QueryFragment,
+  GettingStartedOptions_QueryFragment,
 } from "./GettingStartedPage";
 
 const mockDepartments = fakeDepartments();
@@ -48,24 +48,24 @@ const mockFragmentData = makeFragmentData(
       },
     ],
   },
-  GettingStarted_QueryFragment,
+  GettingStartedOptions_QueryFragment,
 );
 
 const renderGettingStartedForm = ({
-  query,
-  handleSubmit,
+  optionsQuery,
+  onSubmit,
 }: GettingStartedFormProps) =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
-      <GettingStartedForm query={query} handleSubmit={handleSubmit} />
+      <GettingStartedForm optionsQuery={optionsQuery} onSubmit={onSubmit} />
     </GraphqlProvider>,
   );
 
 describe("Getting Started Form tests", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
+      optionsQuery: mockFragmentData,
+      onSubmit: mockSave,
     });
 
     await axeTest(container);
@@ -73,8 +73,8 @@ describe("Getting Started Form tests", () => {
 
   it("should render fields", () => {
     renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
+      optionsQuery: mockFragmentData,
+      onSubmit: mockSave,
     });
 
     expect(
@@ -100,8 +100,8 @@ describe("Getting Started Form tests", () => {
 
   it("should not render with empty fields.", async () => {
     renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
+      optionsQuery: mockFragmentData,
+      onSubmit: mockSave,
     });
 
     fireEvent.submit(
@@ -113,8 +113,8 @@ describe("Getting Started Form tests", () => {
 
   it("should submit successfully with required fields", async () => {
     renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
+      optionsQuery: mockFragmentData,
+      onSubmit: mockSave,
     });
 
     const firstName = screen.getByRole("textbox", { name: /first name/i });
