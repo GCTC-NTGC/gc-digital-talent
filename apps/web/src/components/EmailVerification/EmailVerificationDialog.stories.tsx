@@ -18,7 +18,7 @@ export default {
       },
     },
     apiResponses: {
-      EmailVerificationRequestACode: {
+      SendUserEmailsVerification: {
         data: {
           sendUserEmailsVerification: {
             id: 1,

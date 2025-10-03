@@ -158,7 +158,7 @@ const AccountSettingsPage = () => {
                         <EmailVerificationDialog
                           defaultOpen={false}
                           emailType={EmailType.Contact}
-                          emailAddress={data.me.email}
+                          emailAddress={data.me.email ?? null}
                           onVerificationSuccess={function (): void {
                             toast.info(
                               "EmailVerificationDialog contact onVerificationSuccess",
@@ -183,7 +183,7 @@ const AccountSettingsPage = () => {
                         <EmailVerificationDialog
                           defaultOpen={false}
                           emailType={EmailType.Work}
-                          emailAddress={data.me.workEmail}
+                          emailAddress={data.me.workEmail ?? null}
                           onVerificationSuccess={function (): void {
                             toast.info(
                               "EmailVerificationDialog work onVerificationSuccess",
