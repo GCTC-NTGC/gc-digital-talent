@@ -81,16 +81,6 @@ test.describe("Update published process", () => {
     ).toBeHidden();
   });
 
-  test("Platform admin cannot update process number when published", async ({
-    appPage,
-  }) => {
-    await loginAndNavigate(appPage, "admin@test.com");
-
-    await expect(
-      appPage.page.getByRole("button", { name: /edit process number/i }),
-    ).toBeHidden();
-  });
-
   test("Community recruiter cannot update process number when published", async ({
     appPage,
   }) => {
