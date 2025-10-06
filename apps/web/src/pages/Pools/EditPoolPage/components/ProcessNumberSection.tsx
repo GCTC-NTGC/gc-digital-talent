@@ -114,7 +114,10 @@ const ProcessNumberSection = ({
         level="h3"
         size="h4"
         toggle={
-          <ToggleForm.LabelledTrigger sectionTitle={sectionMetadata.title} />
+          <ToggleForm.LabelledTrigger
+            disabled={!canEdit}
+            sectionTitle={sectionMetadata.title}
+          />
         }
         className="font-bold"
       >
