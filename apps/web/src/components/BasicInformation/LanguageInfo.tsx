@@ -4,9 +4,10 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 
+import { getLabels } from "~/utils/languageUtils";
+
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
-import { getLabels } from "../Profile/components/LanguageProfile/utils";
 import { getEstimatedLanguageAbility } from "./utils";
 import Caption from "./Caption";
 
