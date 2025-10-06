@@ -14,7 +14,7 @@ test.describe("Update published process", () => {
   let pool: Pool;
 
   async function loginAndNavigate(appPage: AppPage, sub: string) {
-    await loginBySub(appPage.page, "community@test.com");
+    await loginBySub(appPage.page, sub);
     await appPage.page.goto(`/en/admin/pools/${pool.id}/edit`);
     await appPage.waitForGraphqlResponse("EditPoolPage");
   }
