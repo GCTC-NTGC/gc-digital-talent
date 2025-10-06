@@ -63,7 +63,7 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
               <span>{workEmailFragment.workEmail}</span>
             </span>
           ) : (
-            <span className="font-bold text-gray-600">
+            <span className="font-bold text-gray-600 dark:text-gray-100">
               {intl.formatMessage({
                 defaultMessage: "No work email provided",
                 id: "Qjaglb",
