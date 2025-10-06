@@ -121,8 +121,8 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
       id: "personal-info",
       title: intl.formatMessage({
         defaultMessage: "Personal and contact information",
-        id: "GMLXGl",
-        description: "Title for the personal and contact info settings.",
+        id: "BWh6S1",
+        description: "Title for the personal and contact information section",
       }),
       status: aboutSectionHasEmptyRequiredFields(personalInfo)
         ? "error"
