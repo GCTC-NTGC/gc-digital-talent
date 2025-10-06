@@ -84,7 +84,7 @@ class UserBuilderTest extends TestCase
                 WorkRegion::NATIONAL_CAPITAL->name,
             ],
         ]);
-        $allUserInQu = User::factory()->create([
+        $allUserInQc = User::factory()->create([
             'flexible_work_locations' => [
                 FlexibleWorkLocation::REMOTE->name,
                 FlexibleWorkLocation::HYBRID->name,
@@ -108,12 +108,12 @@ class UserBuilderTest extends TestCase
             $hybridUserInBcOn->id,
             $onsiteUserInAtl->id,
             $hybridOnsiteUserInNcr->id,
-            $allUserInQu->id,
+            $allUserInQc->id,
             $this->platformAdmin->id, // platform admin pops up for this case
         ], $userIds);
 
         // remote, empty regions
-        // returns remoteUserInBC, allUserInQu
+        // returns remoteUserInBC, allUserInQc
         $userIds = User::whereFlexibleLocationAndRegionSpecialMatching(
             [],
             [
@@ -125,11 +125,11 @@ class UserBuilderTest extends TestCase
 
         assertEqualsCanonicalizing([
             $remoteUserInBC->id,
-            $allUserInQu->id,
+            $allUserInQc->id,
         ], $userIds);
 
         // remote and Hybrid, Ontario
-        // returns remoteUserInBC, hybridUserInBcOn, allUserInQu
+        // returns remoteUserInBC, hybridUserInBcOn, allUserInQc
         $userIds = User::whereFlexibleLocationAndRegionSpecialMatching(
             [
                 WorkRegion::ONTARIO->name,
@@ -145,7 +145,7 @@ class UserBuilderTest extends TestCase
         assertEqualsCanonicalizing([
             $remoteUserInBC->id,
             $hybridUserInBcOn->id,
-            $allUserInQu->id,
+            $allUserInQc->id,
         ], $userIds);
 
         // onsite, Atlantic
@@ -181,7 +181,7 @@ class UserBuilderTest extends TestCase
         assertEqualsCanonicalizing([], $userIds);
 
         // no flexible, Atlantic and Quebec
-        // returns onsiteUserInAtl, allUserInQu
+        // returns onsiteUserInAtl, allUserInQc
         $userIds = User::whereFlexibleLocationAndRegionSpecialMatching(
             [
                 WorkRegion::ATLANTIC->name,
@@ -194,7 +194,7 @@ class UserBuilderTest extends TestCase
 
         assertEqualsCanonicalizing([
             $onsiteUserInAtl->id,
-            $allUserInQu->id,
+            $allUserInQc->id,
         ], $userIds);
     }
 }
