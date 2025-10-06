@@ -6,11 +6,18 @@ import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { me } from "~/utils/user";
 import { loginBySub } from "~/utils/auth";
+import AppPage from "~/fixtures/AppPage";
 
 const UPDATE_PUBLISHED_MUTATION = "UpdatePublishedPool";
 
 test.describe("Update published process", () => {
   let pool: Pool;
+
+  async function loginAndNavigate(appPage: AppPage, sub: string) {
+    await loginBySub(appPage.page, "community@test.com");
+    await appPage.page.goto(`/en/admin/pools/${pool.id}/edit`);
+    await appPage.waitForGraphqlResponse("EditPoolPage");
+  }
 
   test.beforeAll(async () => {
     const communityCtx = await graphql.newContext("community@test.com");
@@ -35,10 +42,10 @@ test.describe("Update published process", () => {
     pool = createdPool;
   });
 
-  test("Can update process number when published", async ({ appPage }) => {
-    await loginBySub(appPage.page, "community@test.com");
-    await appPage.page.goto(`/en/admin/pools/${pool.id}/edit`);
-    await appPage.waitForGraphqlResponse("EditPoolPage");
+  test("Community admin can update process number when published", async ({
+    appPage,
+  }) => {
+    await loginAndNavigate(appPage, "community@test.com");
 
     await appPage.page
       .getByRole("button", { name: /edit process number/i })
@@ -62,5 +69,35 @@ test.describe("Update published process", () => {
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process updated successfully/i,
     );
+  });
+
+  test("Platform admin cannot update process number when published", async ({
+    appPage,
+  }) => {
+    await loginAndNavigate(appPage, "admin@test.com");
+
+    await expect(
+      appPage.page.getByRole("button", { name: /edit process number/i }),
+    ).toBeHidden();
+  });
+
+  test("Platform admin cannot update process number when published", async ({
+    appPage,
+  }) => {
+    await loginAndNavigate(appPage, "admin@test.com");
+
+    await expect(
+      appPage.page.getByRole("button", { name: /edit process number/i }),
+    ).toBeHidden();
+  });
+
+  test("Community recruiter cannot update process number when published", async ({
+    appPage,
+  }) => {
+    await loginAndNavigate(appPage, "recruiter@test.com");
+
+    await expect(
+      appPage.page.getByRole("button", { name: /edit process number/i }),
+    ).toBeHidden();
   });
 });
