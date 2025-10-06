@@ -3,6 +3,7 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useMutation, useQuery } from "urql";
 
 import {
+  Alert,
   Container,
   NotFound,
   Pending,
@@ -12,6 +13,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -97,9 +99,15 @@ interface AccountSettingsProps {
   personalInfoQuery: FragmentType<typeof PersonalInformation_Fragment>;
 }
 
+const AlertDismissedKey = "dismissed_alert_account_settings_collection_changed";
+
 const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [alertIsDismissed, setAlertIsDismissed] = useLocalStorage<boolean>(
+    AlertDismissedKey,
+    false,
+  );
 
   const personalInfo = getFragment(
     PersonalInformation_Fragment,
@@ -212,6 +220,29 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
+            {!alertIsDismissed ? (
+              <Alert.Root
+                type="info"
+                dismissible
+                onDismiss={() => setAlertIsDismissed(true)}
+                live={false}
+              >
+                <Alert.Title>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "How we collect employee information has changed",
+                    id: "JTb85y",
+                    description: "title for alert about changed collection",
+                  })}
+                </Alert.Title>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "In order to better capture your career journey in the public service, we now collect information about your classification, department, and more as part of your career experience. If you currently work in the Government of Canada, update your latest work experience to include this information.",
+                  id: "lgJ0nE",
+                  description: "body for alert about changed collection",
+                })}
+              </Alert.Root>
+            ) : null}
             <TableOfContents.Section id={sections.personalInfo.id}>
               <div className="grid grid-cols-1 gap-1.5 xs:grid-cols-2">
                 <div className="col-span-2">
