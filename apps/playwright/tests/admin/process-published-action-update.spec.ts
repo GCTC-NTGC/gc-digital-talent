@@ -74,7 +74,7 @@ test.describe("Update published process", () => {
   test("Platform admin cannot update process number when published", async ({
     appPage,
   }) => {
-    await loginAndNavigate(appPage, "admin@test.com");
+    await loginAndNavigate(appPage, "platform@test.com");
 
     await expect(
       appPage.page.getByRole("button", { name: /edit process number/i }),
