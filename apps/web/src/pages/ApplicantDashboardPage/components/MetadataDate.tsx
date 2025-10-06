@@ -1,6 +1,10 @@
 import { useIntl } from "react-intl";
 
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
@@ -47,7 +51,7 @@ export const ApplicationDate = ({
         {closingDate
           ? formatDate({
               date: parseDateTimeUtc(closingDate),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
               timeZone: "Canada/Pacific",
             })
@@ -73,7 +77,7 @@ export const ApplicationDate = ({
         {submittedAt
           ? formatDate({
               date: parseDateTimeUtc(submittedAt),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })
           : nullMessage}
@@ -96,7 +100,7 @@ export const ApplicationDate = ({
         {finalDecisionAt
           ? formatDate({
               date: parseDateTimeUtc(finalDecisionAt),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })
           : nullMessage}
@@ -131,7 +135,7 @@ export const RecruitmentDate = ({
         {finalDecisionAt
           ? formatDate({
               date: parseDateTimeUtc(finalDecisionAt),
-              formatString: "PPP",
+              formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })
           : nullMessage}

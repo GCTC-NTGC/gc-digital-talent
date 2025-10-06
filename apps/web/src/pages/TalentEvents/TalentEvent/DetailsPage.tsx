@@ -14,7 +14,11 @@ import {
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -187,7 +191,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           {talentEvent.openDate
             ? formatDate({
                 date: parseDateTimeUtc(talentEvent.openDate),
-                formatString: "MMMM d, yyyy",
+                formatString: DATE_FORMAT_LOCALIZED,
                 intl,
               })
             : intl.formatMessage(commonMessages.notProvided)}
@@ -203,7 +207,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           {talentEvent.closeDate
             ? formatDate({
                 date: parseDateTimeUtc(talentEvent.closeDate),
-                formatString: "MMMM d, yyyy",
+                formatString: DATE_FORMAT_LOCALIZED,
                 intl,
               })
             : intl.formatMessage(commonMessages.notProvided)}
