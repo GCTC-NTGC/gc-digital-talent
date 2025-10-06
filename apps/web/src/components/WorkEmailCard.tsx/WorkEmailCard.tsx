@@ -8,7 +8,6 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 
 import EmailVerificationDialog from "../EmailVerification/EmailVerificationDialog";
 
@@ -76,18 +75,14 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
       </div>
       <Card.Separator space="xs" />
       <EmailVerificationDialog
-        defaultOpen={false}
-        emailType={EmailType.Contact}
+        emailType={EmailType.Work}
         emailAddress={workEmailFragment.workEmail}
-        onVerificationSuccess={function (): void {
-          toast.info("EmailVerificationDialog contact onVerificationSuccess");
-        }}
       >
-        <Button mode="inline" className="max-w-max text-left">
+        <Button mode="inline" className="text-center xs:text-left">
           {intl.formatMessage({
-            defaultMessage: "Update contact email",
-            id: "Xc3Y7t",
-            description: "Link to update the contact email",
+            defaultMessage: "Verify a GC work email",
+            id: "Vd9VIn",
+            description: "Link to update the work email",
           })}
         </Button>
       </EmailVerificationDialog>

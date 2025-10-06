@@ -9,7 +9,6 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 
 import EmailVerificationDialog from "../EmailVerification/EmailVerificationDialog";
 
@@ -71,14 +70,10 @@ const ContactEmailCard = ({ query }: ContactEmailCardProps) => {
       </div>
       <Card.Separator space="xs" />
       <EmailVerificationDialog
-        defaultOpen={false}
         emailType={EmailType.Contact}
         emailAddress={contactEmail.email}
-        onVerificationSuccess={function (): void {
-          toast.info("EmailVerificationDialog contact onVerificationSuccess");
-        }}
       >
-        <Button mode="inline" className="max-w-max text-left">
+        <Button mode="inline" className="text-center xs:text-left">
           {intl.formatMessage({
             defaultMessage: "Update contact email",
             id: "Xc3Y7t",
