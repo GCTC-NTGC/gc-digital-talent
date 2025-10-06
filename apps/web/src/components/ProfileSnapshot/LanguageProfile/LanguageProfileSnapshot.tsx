@@ -18,7 +18,7 @@ export default function LanguageProfileSnapshot(
 ): ReactElement | null {
   const Component = getSupportedVersionComponent(
     componentMap,
-    props.snapshot.version ?? 1,
+    props.snapshot.version,
   );
 
   if (!Component) return null;

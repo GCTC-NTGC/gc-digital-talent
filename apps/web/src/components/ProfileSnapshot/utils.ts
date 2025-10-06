@@ -6,7 +6,7 @@ import { ComponentType } from "react";
  */
 export function getSupportedVersionComponent<TProps>(
   components: Record<number, ComponentType<TProps>>,
-  version: number,
+  version = 1,
 ): ComponentType<TProps> | null {
   const availableVersions = Object.keys(components)
     .map(Number)
