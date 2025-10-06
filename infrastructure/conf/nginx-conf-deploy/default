@@ -179,7 +179,7 @@ server {
     # serve other asset files
     location ~ "\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
         # contenthashed asset files get cached for a year
-        location ~ "-[A-z0-9]{8}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
+        location ~ "-[A-z0-9-]{8}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
             add_header Cache-Control "public, max-age=31536000"; # 1 year
             try_files /apps/web/dist/$uri =404;
         }

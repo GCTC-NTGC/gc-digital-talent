@@ -1,73 +1,46 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router";
 
+import { LocalizedGovEmployeeType, Maybe } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { wrapAbbr } from "~/utils/nameUtils";
-import profileMessages from "~/messages/profileMessages";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { wrapAbbr } from "~/utils/nameUtils";
+import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
+import profileMessages from "~/messages/profileMessages";
 
-import EmailVerificationStatus from "../EmailVerificationStatus";
+import { RelatedSnapshotModel, SnapshotProps } from "../types";
 
-export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
-  fragment GovernmentInformationDisplay on User {
-    workEmail
-    isWorkEmailVerified
-    isGovEmployee
-    hasPriorityEntitlement
-    priorityNumber
-    govEmployeeType {
-      value
-      label {
-        localized
-      }
-    }
-    department {
-      id
-      name {
-        localized
-      }
-    }
-    currentClassification {
-      group
-      level
-    }
-  }
-`);
-
-interface DisplayProps {
-  query: FragmentType<typeof GovernmentInformationDisplay_Fragment>;
-  showEmailVerification?: boolean;
-  readOnly?: boolean;
-  showEmail?: boolean;
+export interface GovernmentInformationSnapshotV1 {
+  isGovEmployee?: Maybe<boolean>;
+  department?: Maybe<RelatedSnapshotModel<"name">>;
+  govEmployeeType?: Maybe<LocalizedGovEmployeeType>;
+  currentClassification?: Maybe<{ group: string; level: number }>;
+  hasPriorityEntitlement?: Maybe<boolean>;
+  priorityNumber?: Maybe<string>;
+  workEmail?: Maybe<string>;
+  isWorkEmailVerified?: Maybe<boolean>;
 }
 
-const Display = ({
-  query,
-  showEmailVerification = false,
-  readOnly = false,
-  showEmail = false,
-}: DisplayProps) => {
+export type GovernmentInformationV1Props =
+  SnapshotProps<GovernmentInformationSnapshotV1>;
+
+const GovernmentInformationV1 = ({
+  snapshot,
+}: GovernmentInformationV1Props) => {
   const intl = useIntl();
-  const navigate = useNavigate();
-  const routes = useRoutes();
-  const user = getFragment(GovernmentInformationDisplay_Fragment, query);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {
-    workEmail,
-    isWorkEmailVerified,
     isGovEmployee,
     department,
     govEmployeeType,
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
-  } = user;
-
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
+    workEmail,
+    isWorkEmailVerified,
+  } = snapshot;
 
   const govEmployeeMessage = isGovEmployee
     ? intl.formatMessage(governmentMessages.yesGovEmployee)
@@ -76,10 +49,6 @@ const Display = ({
   const priorityMessage = hasPriorityEntitlement
     ? intl.formatMessage(governmentMessages.yesPriorityEntitlement)
     : intl.formatMessage(governmentMessages.noPriorityEntitlement);
-
-  const handleVerifyNowClick = async () => {
-    await navigate(routes.verifyWorkEmail());
-  };
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -96,7 +65,7 @@ const Display = ({
       {isGovEmployee && (
         <>
           <FieldDisplay label={intl.formatMessage(commonMessages.department)}>
-            {department ? department.name.localized : notProvided}
+            {department ? department?.name?.localized : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -121,27 +90,24 @@ const Display = ({
                 )
               : notProvided}
           </FieldDisplay>
-          {showEmail && (
-            <FieldDisplay
-              hasError={!workEmail}
-              label={intl.formatMessage({
-                defaultMessage: "Work email",
-                id: "tj9Dz3",
-                description: "Work email label",
-              })}
-            >
-              <div className="flex items-center gap-3">
-                <span>{workEmail ?? notProvided}</span>
-                {showEmailVerification && workEmail ? (
-                  <EmailVerificationStatus
-                    isEmailVerified={!!isWorkEmailVerified}
-                    onClickVerify={handleVerifyNowClick}
-                    readOnly={readOnly}
-                  />
-                ) : null}
-              </div>
-            </FieldDisplay>
-          )}
+          <FieldDisplay
+            hasError={!workEmail}
+            label={intl.formatMessage({
+              defaultMessage: "Work email",
+              id: "tj9Dz3",
+              description: "Work email label",
+            })}
+          >
+            <div className="flex items-center gap-3">
+              <span>{workEmail ?? notProvided}</span>
+              {workEmail ? (
+                <EmailVerificationStatus
+                  isEmailVerified={!!isWorkEmailVerified}
+                  readOnly
+                />
+              ) : null}
+            </div>
+          </FieldDisplay>
         </>
       )}
       <FieldDisplay
@@ -165,4 +131,4 @@ const Display = ({
   );
 };
 
-export default Display;
+export default GovernmentInformationV1;

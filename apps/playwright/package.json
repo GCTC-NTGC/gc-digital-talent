@@ -22,12 +22,12 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
     "@playwright/test": "^1.55.1",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.6.2",
     "axe-core": "^4.10.3",
-    "dotenv": "^17.2.2",
+    "dotenv": "^17.2.3",
     "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.2.2",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.45.0"
   },
   "dependencies": {
