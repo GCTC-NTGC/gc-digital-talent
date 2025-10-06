@@ -1,6 +1,5 @@
 import { IntlShape } from "react-intl";
 
-import { emptyToNull } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   ArmedForcesStatus,
@@ -70,7 +69,6 @@ export const formValuesToSubmitData = (
   return {
     ...data,
     id: initialUser.id,
-    email: emptyToNull(data.email),
   };
 };
 
