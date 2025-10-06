@@ -319,6 +319,10 @@
     "defaultMessage": "Groupe de classification",
     "description": "The classification group for a job poster template"
   },
+  "/LhwX1": {
+    "defaultMessage": "Enregistrer les renseignements relatifs au réaménagement des effectifs",
+    "description": "Text on a button to save workforce adjustment info"
+  },
   "/N8Owk": {
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
@@ -663,6 +667,10 @@
     "defaultMessage": "Nombre d'employées et employés",
     "description": "Label for number of employees field"
   },
+  "0vk6td": {
+    "defaultMessage": "Les renseignements relatifs au réaménagement des effectifs sont mis à jour avec succès!",
+    "description": "Message displayed when a user successfully updates wfa information:"
+  },
   "0w59dG": {
     "defaultMessage": "Votre parcours professionnel",
     "description": "Heading for career timeline section of the application review page."
@@ -970,6 +978,10 @@
   "2BCHZm": {
     "defaultMessage": "En ajoutant la {communityName} à mon profil, j’accepte mes informations soient partagés avec les gestionnaires de talents, le personnel des ressources humaines et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
     "description": "Statement for the input for the consent check"
+  },
+  "2Csd16": {
+    "defaultMessage": "Protection de la vie privée et confidentialité",
+    "description": "Title for the privacy and confidentiality section of wfa form"
   },
   "2CzVQo": {
     "defaultMessage": "Indiquez une ou plusieurs options de mutation latérale recommandées pour la candidate ou le candidat.",
@@ -1283,6 +1295,10 @@
     "defaultMessage": "Non intéressé(e)",
     "description": "Status label for a qualified application the candidate has marked not interested"
   },
+  "3QXxlE": {
+    "defaultMessage": "Collectivité fonctionnelle manquante",
+    "description": "Title for when a user is missing a functional community"
+  },
   "3RUGGK": {
     "defaultMessage": "Vous avez des questions? <link>Communiquez avec notre équipe de soutien</link>.",
     "description": "Paragraph two, instructions on how to submit a nomination"
@@ -1347,9 +1363,17 @@
     "defaultMessage": "Cette revendication a été vérifiée",
     "description": "Label for the verified claim option"
   },
+  "3kRiqA": {
+    "defaultMessage": "Rien ne garantit que cette mesure conduira à un nouveau poste.",
+    "description": "Expectation of not guaranteed position after wfa"
+  },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
     "description": "Description for rule pattern on key field"
+  },
+  "3pK4nh": {
+    "defaultMessage": "Poste d'attache actuel",
+    "description": "Label for users current substantive position"
   },
   "3qkzyD": {
     "defaultMessage": "Ne manquez pas de profiter des formations dirigées par un instructeur ou une instructrice réservées aux membres du personnel des TI du gouvernement du Canada. Nous ajoutons régulièrement de nouveaux cours axés sur les compétences et les domaines des TI les plus demandés au gouvernement.",
@@ -1710,6 +1734,10 @@
   "5HhVG9": {
     "defaultMessage": "Courriel professionnel de l'auteur(trice) de la mise en candidature",
     "description": "Label for the text input for the nominators work email"
+  },
+  "5J0qfS": {
+    "defaultMessage": "Le soutien au réaménagement des effectifs est géré par les équipes de recrutement de nos collectivités fonctionnelles. Ajoutez les collectivités fonctionnelles pertinentes à votre profil afin qu'elles puissent consulter vos renseignements relatifs au réaménagement des effectifs.",
+    "description": "Help text for resolving missing community warning"
   },
   "5LWxHq": {
     "defaultMessage": "Détails",
@@ -2482,6 +2510,10 @@
   "97UAb8": {
     "defaultMessage": "Titre abrégé de cette expérience",
     "description": "Label displayed on Personal Experience form for experience title input"
+  },
+  "9A34sR": {
+    "defaultMessage": "Veuillez noter que les échanges de postes ne sont disponibles que si votre poste d'attache se trouve dans un ministère de l'administration publique centrale.",
+    "description": "Description that wfa is only available for core public admin departments"
   },
   "9ALMEp": {
     "defaultMessage": "Informations complémentaires",
@@ -4135,6 +4167,10 @@
     "defaultMessage": "Sélectionnez un groupe de compétences ou plus",
     "description": "Placeholder displayed on the skill form skill families field."
   },
+  "GPizcR": {
+    "defaultMessage": "Détails clés",
+    "description": "Title for key details related to workforce adjustment"
+  },
   "GSHQHG": {
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
@@ -4767,6 +4803,10 @@
     "defaultMessage": "Quelles contributions le candidat retenu devra-t-il ou la candidate retenue devra-t-elle apporter?",
     "description": "list item for job poster template key tasks section, paragraph 2"
   },
+  "JSyD03": {
+    "defaultMessage": "Date de fin prévue",
+    "description": "Label for the expected end date"
+  },
   "JUejJU": {
     "defaultMessage": "Le bureau de gestion de la collectivité du numérique souhaite vous aider à trouver le bon talent.",
     "description": "Text telling users that Digital Community Management can still help them"
@@ -5066,6 +5106,10 @@
   "Kzbu79": {
     "defaultMessage": "Perfectionnement",
     "description": "Label for the development nomination type"
+  },
+  "L+N6IY": {
+    "defaultMessage": "Poste d'attache manquant",
+    "description": "Title for when a user is missing a substantive experience"
   },
   "L0eho2": {
     "defaultMessage": "Ouvert au public",
@@ -5611,6 +5655,10 @@
     "defaultMessage": "Il n’y a aucun statut sélectionné.",
     "description": "Message displayed when no statuses are shown"
   },
+  "NOjAPn": {
+    "defaultMessage": "La mise à jour des renseignements relatifs au réaménagement des effectifs a échoué",
+    "description": "Messages displayed when a user fails to update wfa information"
+  },
   "NP/fsS": {
     "defaultMessage": "Pour quel ministère travaillez-vous?",
     "description": "Label for department select input in the request form"
@@ -5802,6 +5850,10 @@
   "OU/MkT": {
     "defaultMessage": "Annulez et revenez aux possibilités de formation",
     "description": "Button label to return to the opportunities table"
+  },
+  "OU3MYy": {
+    "defaultMessage": "Collectivité fonctionnelle actuelle",
+    "description": "Label for users current functional community"
   },
   "OVWo88": {
     "defaultMessage": "Statut d'ancien combattant",
@@ -7330,6 +7382,10 @@
     "defaultMessage": "Ces renseignements sont automatiquement remplis pour vous en fonction de la classification sélectionnée pour l'occasion.",
     "description": "Null message for education requirement section"
   },
+  "VjMgWb": {
+    "defaultMessage": "Nous savons que le réaménagement des effectifs est une période sensible, et nous nous engageons à traiter vos renseignements avec le plus grand soin et de manière confidentielle.",
+    "description": "Paragraph one for privacy and confidentiality section of wfa form"
+  },
   "VlI6x0": {
     "defaultMessage": "membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
@@ -7417,6 +7473,10 @@
   "W5vrNy": {
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
+  },
+  "W9/kLq": {
+    "defaultMessage": "Situation de réaménagement des effectifs",
+    "description": "Label for users current wfa situation"
   },
   "W9HNlU": {
     "defaultMessage": "Coordonnées de la personne candidate",
@@ -7638,6 +7698,10 @@
     "defaultMessage": "personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
   },
+  "XBWnI6": {
+    "defaultMessage": "Renseignements relatifs au réaménagement des effectifs",
+    "description": "Title for the information specifically related to workforce adjustment"
+  },
   "XBfpuW": {
     "defaultMessage": "Ouvert",
     "description": "Simplified status label for a published process"
@@ -7649,6 +7713,10 @@
   "XDgkwV": {
     "defaultMessage": "Un homme autochtone travaille à un ordinateur.",
     "description": "Indigenous Apprenticeship man on computer image text alternative"
+  },
+  "XE8xbj": {
+    "defaultMessage": "Ajouter une collectivité fonctionnelle",
+    "description": "Link text to add a functional community"
   },
   "XFF/p+": {
     "defaultMessage": "Nom de l'événement",
@@ -8185,6 +8253,10 @@
   "ZWUMrM": {
     "defaultMessage": "Sélectionnez la classification et le volet de travail du poste que vous souhaitez pourvoir. Nous vous indiquerons le nombre de personnes candidates correspondent à votre sélection.",
     "description": "Message describing the classification filter of the search form."
+  },
+  "ZYdnjA": {
+    "defaultMessage": "Votre poste actuel est manquant, n'a pas marqué comme un poste d'attache ou n'a pas été marqué comme une expérience au gouvernement du Canada.",
+    "description": "Error message that appears when a user is missing a substantive experience"
   },
   "ZZLwb5": {
     "defaultMessage": "Niveaux de filtrage de sécurité",
@@ -9186,6 +9258,10 @@
     "defaultMessage": "À propos de nous",
     "description": "Label for a process about us"
   },
+  "e4uyTF": {
+    "defaultMessage": "Afin que nous puissions vous aider au mieux, il est essentiel que vous vérifiiez si les renseignements sur votre poste actuel sont à jour.",
+    "description": "Description for the key details of workforce adjustment"
+  },
   "e5BoL+": {
     "defaultMessage": "Cette bibliothèque contient une série de modèles pour des emplois courants dans les collectivités soutenues par Talents numériques du GC. Les modèles comprennent des informations suggérées et des recommandations pour des éléments tels que le titre du poste, les tâches courantes, les compétences essentielles et les compétences optionnelles. Parcourez la liste complète ou utilisez la barre de recherche et les filtres pour trouver des modèles qui correspondent aux spécificités du poste.",
     "description": "Description of how to use the form to filter job poster templates"
@@ -9525,6 +9601,10 @@
   "fQkgnT": {
     "defaultMessage": "Placement professionnel",
     "description": "Title displayed on the Pool Candidates table job placement column"
+  },
+  "fRZ1c1": {
+    "defaultMessage": "Les renseignements que vous partagez ici ne seront visibles que par un petit groupe d'administrateurs autorisés, dont les membres de l'équipe des services à clientèle de Talents numériques du GC et l'équipe de recrutement des collectivités fonctionnelles que vous avez ajoutées à votre profil. Ces renseignements ne seront rendus publics nulle part sur la plateforme ni partagées avec votre gestionnaire sans votre consentement explicite. Si vous recherchez d'un poste équivalent parce que vous avez reçu une lettre sur le réaménagement des effectifs, votre statut sera validé par l'équipe RH de votre département avant de passer aux étapes suivantes.",
+    "description": "Paragraph two for privacy and confidentiality section of wfa form"
   },
   "fRoNIK": {
     "defaultMessage": "Alertes emploi",
@@ -11805,6 +11885,10 @@
     "defaultMessage": "Ajouter une compétence technique constituant un atout",
     "description": "Button to add an asset technical skill"
   },
+  "pTXZxW": {
+    "defaultMessage": "Mettre à jour les renseignements sur votre poste actuel",
+    "description": "Link text to page to update experiences"
+  },
   "pVCsBB": {
     "defaultMessage": "Catégorie de travail",
     "description": "Label for pool advertisement stream"
@@ -11968,6 +12052,10 @@
   "qDYel8": {
     "defaultMessage": "Les détails de l’emploi ont été mis à jour avec succès ",
     "description": "Message displayed when a user successfully updates the job details"
+  },
+  "qDzAG6": {
+    "defaultMessage": "Si vous le pouvez, vérifiez votre date de fin prévue.",
+    "description": "Help text for the wfa expected end date"
   },
   "qEU5rz": {
     "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature.",
@@ -12377,6 +12465,10 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
+  "sY6Vti": {
+    "defaultMessage": "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person to whom you’ve been matched.",
+    "description": "Paragraph three for privacy and confidentiality section of wfa form"
+  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -12584,6 +12676,10 @@
   "tUIvbq": {
     "defaultMessage": "Adresse courriel non confirmée",
     "description": "The email address has not been verified to be owned by user"
+  },
+  "tVYhY2": {
+    "defaultMessage": "Ce poste ne se trouve pas dans un ministère de l'administration publique centrale",
+    "description": "Title for when the users substantive experience is not work a core public admin department"
   },
   "tXLRmG": {
     "defaultMessage": "Je ne suis pas à la recherche d'une promotion ou d'un avancement pour l'instant.",
@@ -13105,6 +13201,10 @@
     "defaultMessage": "Passez en revue votre parcours professionnel",
     "description": "Page title for the application career timeline page"
   },
+  "w43VIb": {
+    "defaultMessage": "L'équipe de recrutement de votre collectivité fonctionnelle communiquera avec vous.",
+    "description": "Expectation of recruitment team contact after wfa"
+  },
   "w4SSBu": {
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
     "description": "Content for the definition of Indigenous dialog"
@@ -13348,6 +13448,10 @@
   "xGMcBO": {
     "defaultMessage": "Priorité",
     "description": "Label for priority chip on view candidate page"
+  },
+  "xGsQso": {
+    "defaultMessage": "Réaménagement des effectifs",
+    "description": "Title for the users wfa information"
   },
   "xHAPBe": {
     "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",

@@ -300,8 +300,8 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                           <p className="mb-6">
                             {intl.formatMessage({
                               defaultMessage:
-                                "This functionality is managed by recruitment teams from our functional communities. Add the relevant functional communities to your profile so that they’ll see your workforce adjustment information.",
-                              id: "76I4K2",
+                                "Workforce adjustment support is managed by recruitment teams from our functional communities. Add the relevant functional communities to your profile so that they'll see your workforce adjustment information.",
+                              id: "5J0qfS",
                               description:
                                 "Help text for resolving missing community warning",
                             })}
@@ -340,13 +340,22 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                           "Paragraph one for privacy and confidentiality section of wfa form",
                       })}
                     </p>
+                    <p className="my-6">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "The information you share here will only be visible to a small group of authorized administrators, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you've added to your profile. This information will not be made public anywhere on the platform or shared with your manager without your explicit consent. If you’re an employee seeking a match because you’ve received a workforce adjustment letter, your status will be validated with your department’s HR team prior to proceeding to next steps.",
+                        id: "fRZ1c1",
+                        description:
+                          "Paragraph two for privacy and confidentiality section of wfa form",
+                      })}
+                    </p>
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "The information you share here will only be visible to a small group of authorized administrators, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you’ve added to your profile. <strong>This information will not be made public anywhere on the platform nor will they contact your manager or department without your explicit consent</strong>.",
-                        id: "rl7hQk",
+                          "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person to whom you’ve been matched.",
+                        id: "sY6Vti",
                         description:
-                          "Paragraph two for privacy and confidentiality section of wfa form",
+                          "Paragraph three for privacy and confidentiality section of wfa form",
                       })}
                     </p>
                   </Well>
