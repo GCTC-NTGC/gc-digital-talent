@@ -230,7 +230,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.personalAndContactInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <PersonalInformationSnapshot snapshot={snapshot} showEmail />
+            <PersonalInformationSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         {screeningQuestionResponses.length > 0 ? (
@@ -353,7 +353,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.govEmployeeInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <GovernmentInformationSnapshot snapshot={snapshot} showEmail />
+            <GovernmentInformationSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.DEI}>
