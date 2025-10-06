@@ -3,21 +3,14 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useMutation, useQuery } from "urql";
 
 import {
-  Button,
   Container,
   NotFound,
   Pending,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import {
-  EmailType,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -25,7 +18,6 @@ import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import EmailVerificationDialog from "~/components/EmailVerification/EmailVerificationDialog";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import { SectionProps } from "~/components/Profile/types";
 import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
@@ -113,11 +105,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
     PersonalInformation_Fragment,
     personalInfoQuery,
   );
-
-  // hide dialog triggers unless wanting to test them
-  const searchParams = new URLSearchParams(window.location.search);
-  const showTestDialogTriggers =
-    searchParams.get("test-dialog-triggers") === "true";
 
   const enabledEmailNotifications = unpackMaybes(
     personalInfo.enabledEmailNotifications,
@@ -272,41 +259,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
               >
                 {sections.accountManagement.title}
               </TableOfContents.Heading>
-              {showTestDialogTriggers ? (
-                <>
-                  <p>
-                    {intl.formatMessage(commonMessages.email)}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                    {personalInfo.email}
-                  </p>
-                  <p></p>
-                  <p>
-                    {intl.formatMessage(commonMessages.workEmail)}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                    {personalInfo.workEmail}
-                  </p>
-                  <p>
-                    <EmailVerificationDialog
-                      defaultOpen={false}
-                      emailType={EmailType.Work}
-                      emailAddress={personalInfo.workEmail}
-                      onVerificationSuccess={function (): void {
-                        toast.info(
-                          "EmailVerificationDialog work onVerificationSuccess",
-                        );
-                      }}
-                    >
-                      <Button mode="inline">
-                        {intl.formatMessage({
-                          defaultMessage: "Verify a GC work email",
-                          id: "Vd9VIn",
-                          description: "Link to update the work email",
-                        })}
-                      </Button>
-                    </EmailVerificationDialog>
-                  </p>
-                </>
-              ) : null}
               <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
