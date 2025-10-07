@@ -168,11 +168,9 @@ const WorkforceAdjustmentFilterDialog = ({
         <Combobox
           id="classifications"
           name="classifications"
-          label={intl.formatMessage({
-            defaultMessage: "Current employee classification",
-            id: "68IS4M",
-            description: "Label for employee classification input",
-          })}
+          label={intl.formatMessage(
+            employeeProfileMessages.currentEmployeeClassification,
+          )}
           isMulti
           options={unpackMaybes(data?.classifications).map(
             (classification) => ({
@@ -184,11 +182,9 @@ const WorkforceAdjustmentFilterDialog = ({
         <Combobox
           id="departments"
           name="departments"
-          label={intl.formatMessage({
-            defaultMessage: "Current employee department",
-            id: "kEtGY4",
-            description: "Label for employee department input",
-          })}
+          label={intl.formatMessage(
+            employeeProfileMessages.currentEmployeeDepartment,
+          )}
           isMulti
           options={unpackMaybes(data?.departments).map((dept) => ({
             value: dept.id,

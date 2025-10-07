@@ -101,6 +101,16 @@ const messages = defineMessages({
     id: "gYn0Zj",
     description: "Label text for employee profile, is not c-suite ",
   },
+  currentEmployeeClassification: {
+    defaultMessage: "Current employee classification",
+    id: "uuUmsh",
+    description: "Label for an employees classification",
+  },
+  currentEmployeeDepartment: {
+    defaultMessage: "Current employee department",
+    id: "nEjRp7",
+    description: "Label for an employees department",
+  },
 });
 
 export default messages;

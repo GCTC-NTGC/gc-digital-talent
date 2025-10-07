@@ -49,6 +49,8 @@ import {
   transformSortStateToOrderByClause,
   transformStateToWhereClause,
 } from "./utils";
+import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
 const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
   fragment WorkforceAdjustmentRow on UserEmployeeWFA {
@@ -286,11 +288,9 @@ const WorkforceAdjustmentTable = () => {
         id: "classification",
         enableColumnFilter: false,
         enableSorting: true,
-        header: intl.formatMessage({
-          defaultMessage: "Current employee classification",
-          id: "AkjJT0",
-          description: "Column title for employee classification",
-        }),
+        header: intl.formatMessage(
+          employeeProfileMessages.currentEmployeeClassification,
+        ),
       },
     ),
     columnHelper.accessor(
@@ -363,11 +363,7 @@ const WorkforceAdjustmentTable = () => {
     columnHelper.accessor(({ department }) => department?.name.localized, {
       id: "department",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Employee department",
-        id: "p/a8C6",
-        description: "Column title for an employees department",
-      }),
+      header: intl.formatMessage(tableMessages.employeeDepartment),
     }),
     columnHelper.accessor(
       ({ communityInterests }) => {
