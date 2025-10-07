@@ -159,7 +159,7 @@ class UserBuilder extends Builder
         return $this;
     }
 
-    public function whereDepartmentIn(?array $departmentIds): self
+    public function whereDepartmentsIn(?array $departmentIds): self
     {
         if (empty($departmentIds)) {
             return $this;

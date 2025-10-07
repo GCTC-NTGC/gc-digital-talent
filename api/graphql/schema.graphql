@@ -1270,7 +1270,7 @@ input EmployeeWfaFilterInput {
   hasPriorityEntitlement: Boolean @scope(name: "whereHasPriorityEntitlement")
   skills: [IdInput] @scope(name: "whereSkillsAdditive")
   classifications: [IdInput] @scope(name: "whereClassificationIn")
-  departments: [IdInput] @scope(name: "whereDepartmentIn")
+  departments: [IdInput] @scope(name: "whereDepartmentsIn")
   workStreams: [IdInput] @scope(name: "whereCommunityWorkStreamsIn")
   communities: [IdInput] @scope(name: "whereCommunitiesIn")
 }
