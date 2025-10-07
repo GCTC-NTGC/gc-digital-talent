@@ -2595,6 +2595,10 @@
     "defaultMessage": "Ministère",
     "description": "Title for department"
   },
+  "9aiDXn": {
+    "defaultMessage": "En savoir plus<hidden> sur le réaménagement des effectifs</hidden>",
+    "description": "Indication that more WFA information is coming in the fall"
+  },
   "9b+Xtt": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the community information section of a form"
@@ -3334,10 +3338,6 @@
   "CuHYqt": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
-  },
-  "Cv2CaU": {
-    "defaultMessage": "À venir cet automne",
-    "description": "Indication that more WFA information is coming in the fall"
   },
   "Cvl9dd": {
     "defaultMessage": "Langue de la formation",
