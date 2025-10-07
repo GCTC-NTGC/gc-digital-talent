@@ -64,9 +64,11 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
               <TableOfContents.AnchorLink
                 id={OFF_PLATFORM_RECRUITMENT_PROCESSES_ID}
               >
-                {intl.formatMessage(
-                  navigationMessages.offPlatformRecruitmentProcesses,
-                )}
+                {intl.formatMessage({
+                  defaultMessage: "Job applications",
+                  id: "aBGEsG",
+                  description: "Job applications expandable",
+                })}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>

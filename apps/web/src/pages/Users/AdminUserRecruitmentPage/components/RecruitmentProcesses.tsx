@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
@@ -30,7 +29,11 @@ const RecruitmentProcesses = ({ query }: RecruitmentProcessesProps) => {
         color="secondary"
         className="mt-0 mb-6"
       >
-        {intl.formatMessage(navigationMessages.recruitmentProcesses)}
+        {intl.formatMessage({
+          defaultMessage: "Job applications",
+          id: "aBGEsG",
+          description: "Job applications expandable",
+        })}
       </TableOfContents.Heading>
       <PoolStatusTable userQuery={user} />
     </TableOfContents.Section>
