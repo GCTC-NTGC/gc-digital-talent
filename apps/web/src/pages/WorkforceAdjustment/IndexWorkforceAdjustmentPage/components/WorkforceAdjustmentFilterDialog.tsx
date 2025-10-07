@@ -119,6 +119,14 @@ const WorkforceAdjustmentFilterData_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    wfaInterests: localizedEnumOptions(enumName: "WfaInterest") {
+      ... on LocalizedWfaInterest {
+        value
+        label {
+          localized
+        }
+      }
+    }
     workRegions: localizedEnumOptions(enumName: "WorkRegion") {
       ... on LocalizedWorkRegion {
         value
@@ -185,6 +193,16 @@ const WorkforceAdjustmentFilterDialog = ({
           options={unpackMaybes(data?.departments).map((dept) => ({
             value: dept.id,
             label: dept.name.localized ?? notAvailable,
+          }))}
+        />
+        <Combobox
+          id="wfaInterests"
+          name="wfaInterests"
+          label={intl.formatMessage(pageTitles.workforceAdjustment)}
+          isMulti
+          options={unpackMaybes(data?.wfaInterests).map((wfaInterest) => ({
+            value: wfaInterest.value,
+            label: wfaInterest.label?.localized ?? notAvailable,
           }))}
         />
         <Combobox
