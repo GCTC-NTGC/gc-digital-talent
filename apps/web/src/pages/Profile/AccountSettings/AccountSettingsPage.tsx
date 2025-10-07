@@ -230,15 +230,15 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
                 <Alert.Title>
                   {intl.formatMessage({
                     defaultMessage:
-                      "How we collect employee information has changed",
-                    id: "JTb85y",
+                      "We’ve changed how we collect employee information",
+                    id: "ozb92E",
                     description: "title for alert about changed collection",
                   })}
                 </Alert.Title>
                 {intl.formatMessage({
                   defaultMessage:
-                    "In order to better capture your career journey in the public service, we now collect information about your classification, department, and more as part of your career experience. If you currently work in the Government of Canada, update your latest work experience to include this information.",
-                  id: "lgJ0nE",
+                    "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your career experience. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
+                  id: "h9cjYs",
                   description: "body for alert about changed collection",
                 })}
               </Alert.Root>

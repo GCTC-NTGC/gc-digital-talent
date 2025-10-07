@@ -4775,10 +4775,6 @@
     "defaultMessage": "Quelles contributions le candidat retenu devra-t-il ou la candidate retenue devra-t-elle apporter?",
     "description": "list item for job poster template key tasks section, paragraph 2"
   },
-  "ozb92E": {
-    "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
-    "description": "title for alert about changed collection"
-  },
   "JUejJU": {
     "defaultMessage": "Le bureau de gestion de la collectivité du numérique souhaite vous aider à trouver le bon talent.",
     "description": "Text telling users that Digital Community Management can still help them"
@@ -9981,6 +9977,10 @@
     "defaultMessage": "Notes complémentaires",
     "description": "Label for approval notes"
   },
+  "h9cjYs": {
+    "defaultMessage": "Afin de mieux saisir les données sur votre parcours professionnel dans la fonction publique, nous recueillons dorénavant de l’information sur votre classification et votre ministère, entre autres, que nous consignons dans la section sur votre expérience professionnelle. Si vous travaillez actuellement au gouvernement du Canada, veuillez mettre à jour votre expérience professionnelle la plus récente.",
+    "description": "body for alert about changed collection"
+  },
   "hAAMFa": {
     "defaultMessage": "Agrandir toutes les sections d'informations complémentaires",
     "description": "Accessible link text to expand all accordions for more information"
@@ -10921,10 +10921,6 @@
     "defaultMessage": "Ministère ou organisme de la personne de référence",
     "description": "Label for a reference's department"
   },
-  "lgJ0nE": {
-    "defaultMessage": "Afin de mieux saisir les données sur votre parcours professionnel dans la fonction publique, nous recueillons dorénavant de l’information sur votre classification et votre ministère, entre autres, que nous consignons dans la section sur votre expérience professionnelle. Si vous travaillez actuellement au gouvernement du Canada, veuillez mettre à jour votre expérience professionnelle la plus récente.",
-    "description": "body for alert about changed collection"
-  },
   "lgp1Jx": {
     "defaultMessage": "Cette nomination pour un avancement est approuvée.",
     "description": "Label for advancement nomination is approved"
@@ -11704,6 +11700,10 @@
   "ox2by6": {
     "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
     "description": "Link text to a page to learn more about something"
+  },
+  "ozb92E": {
+    "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
+    "description": "title for alert about changed collection"
   },
   "p+YRN1": {
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
