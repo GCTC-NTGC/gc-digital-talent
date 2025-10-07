@@ -555,7 +555,7 @@ class UserBuilder extends Builder
 
     public function whereHasPriorityEntitlement(?bool $hasPriority): self
     {
-        if (! isset($hasPriority) || is_null($hasPriority)) {
+        if (! isset($hasPriority)) {
             return $this;
         }
 
