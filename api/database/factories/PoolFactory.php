@@ -317,13 +317,13 @@ class PoolFactory extends Factory
      */
     public function withAssessments($noOfAssessmentSteps = 2)
     {
-        return $this->afterCreating(function (Pool $pool, $noOfAssessmentSteps) {
+        return $this->afterCreating(function (Pool $pool) use ($noOfAssessmentSteps) {
             $steps = [];
 
             // Only select from steps that do not appear in the first two positions
             // First position created automatically, second step should be created via `withQuestions`
-            $availableTypes = array_filter(array_column(AssessmentStepType::cases(), 'name'), function ($item) {
-                return $item !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+            $availableTypes = array_filter(AssessmentStepType::cases(), function ($item) {
+                return $item !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION;
             });
 
             for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
