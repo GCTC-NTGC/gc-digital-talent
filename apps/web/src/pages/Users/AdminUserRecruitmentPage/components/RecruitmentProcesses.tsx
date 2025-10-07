@@ -17,7 +17,7 @@ interface RecruitmentProcessesProps {
   query: FragmentType<typeof AdminRecruitmentProcesses_Fragment>;
 }
 
-export const RECRUITMENT_PROCESSES_ID = "recrtuiment-processes";
+export const RECRUITMENT_PROCESSES_ID = "recruitment-processes";
 
 const RecruitmentProcesses = ({ query }: RecruitmentProcessesProps) => {
   const intl = useIntl();
