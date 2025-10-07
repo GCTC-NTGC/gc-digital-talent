@@ -329,6 +329,15 @@ export const UserEmployeeInformation = ({
             >
               {intl.formatMessage(workforceAdjustmentMessages.wfa)}
             </Heading>
+            <p className="my-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Learn more about this employee’s workforce adjustment situation.",
+                id: "pSP4YT",
+                description:
+                  "Lead in text for a users workforce adjustment information",
+              })}
+            </p>
             <Card>
               <UserWorkforceAdjustment query={wfaQuery} isAdmin />
             </Card>
