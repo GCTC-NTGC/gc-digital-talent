@@ -243,6 +243,10 @@
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "+z3V06": {
+    "defaultMessage": "Aucune adresse courriel de correspondance fournie",
+    "description": "Error message when contact email is null."
+  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -622,6 +626,10 @@
   "0cy9n/": {
     "defaultMessage": "Informations sur le groupe de compétences",
     "description": "Subtitle for viewing a specific skill family"
+  },
+  "0dAZ6V": {
+    "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, veuillez confirmer votre adresse courriel professionnelle et ajouter votre poste actuel à votre expérience de travail pour avoir accès aux outils du personnel.",
+    "description": "Gov of canada work email card description on account settings page"
   },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
@@ -5287,6 +5295,10 @@
     "defaultMessage": "Informations sur la classification",
     "description": "Subtitle for viewing a specific classification"
   },
+  "LvXaIZ": {
+    "defaultMessage": "Adresse courriel professionnelle du gouvernement of Canada",
+    "description": "Label for gov of canada work email"
+  },
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
     "description": "Title for Minimum experience or equivalent education"
@@ -6302,6 +6314,10 @@
   "QiQoIq": {
     "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
     "description": "Label for advancement nomination is rejected"
+  },
+  "Qjaglb": {
+    "defaultMessage": "Aucune adresse courriel professionnelle fournie",
+    "description": "Error message when work email is null."
   },
   "Qjpmm8": {
     "defaultMessage": "Quelle était votre part de responsabilité dans ce rôle?",
@@ -13256,6 +13272,10 @@
   "wm5GrF": {
     "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
     "description": "Validation text for department name input"
+  },
+  "wmSeI8": {
+    "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
+    "description": "Contact email card description on account settings page"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",
