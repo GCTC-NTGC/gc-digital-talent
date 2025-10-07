@@ -12,8 +12,9 @@ interface LabelledTriggerProps {
 
 const LabelledTrigger = ({ disabled, sectionTitle }: LabelledTriggerProps) => {
   const intl = useIntl();
+  if (disabled) return null;
 
-  return !disabled ? (
+  return (
     <SectionTrigger
       aria-label={intl.formatMessage(
         {
@@ -28,7 +29,7 @@ const LabelledTrigger = ({ disabled, sectionTitle }: LabelledTriggerProps) => {
     >
       {intl.formatMessage(commonMessages.edit)}
     </SectionTrigger>
-  ) : undefined;
+  );
 };
 
 export default LabelledTrigger;
