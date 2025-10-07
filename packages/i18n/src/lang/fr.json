@@ -459,6 +459,10 @@
     "defaultMessage": "Fermer",
     "description": "Label for action to dismiss something"
   },
+  "FdYDwk": {
+    "defaultMessage": "J’occupe un poste pour une durée indéterminée, j’ai reçu une lettre sur le réaménagement des effectifs et je souhaite rester",
+    "description": "Letter received WFA interest"
+  },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
@@ -1630,6 +1634,10 @@
   "tpXtAJ": {
     "defaultMessage": "Processus hors plateforme",
     "description": "Off-platform section header"
+  },
+  "trCVD0": {
+    "defaultMessage": "Mon poste pour une période déterminée n’est pas renouvelé ou prend fin tôt",
+    "description": "Term ending WFA interest"
   },
   "tyc8W0": {
     "defaultMessage": "(anglais)",
