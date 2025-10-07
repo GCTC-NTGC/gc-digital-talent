@@ -8,7 +8,11 @@ import {
   PreviewMetaData,
   Well,
 } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
@@ -110,7 +114,7 @@ const RecruitmentProcessPreviewList = ({
                     {expiryDate
                       ? formatDate({
                           date: parseDateTimeUtc(expiryDate),
-                          formatString: "PPP",
+                          formatString: DATE_FORMAT_LOCALIZED,
                           intl,
                         })
                       : intl.formatMessage(commonMessages.notFound)}

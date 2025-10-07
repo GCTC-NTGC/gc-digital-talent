@@ -7,7 +7,7 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
-use App\Enums\WFAInterest;
+use App\Enums\WfaInterest;
 use App\Enums\WorkRegion;
 use App\Models\Classification;
 use App\Models\Community;
@@ -102,12 +102,12 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WfaInterest::LETTER_RECEIVED->name,
                     'wfaDate' => $futureDate,
                 ],
             ])->assertJsonFragment([
                 'wfaInterest' => [
-                    'value' => WFAInterest::LETTER_RECEIVED->name,
+                    'value' => WfaInterest::LETTER_RECEIVED->name,
                 ],
                 'wfaDate' => $futureDate,
             ]);
@@ -121,9 +121,26 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $user->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WfaInterest::LETTER_RECEIVED->name,
                 ],
             ])->assertGraphQLValidationError('id', ErrorCode::MISSING_SUBSTANTIVE_EXPERIENCE->name);
+    }
+
+    public function testUserCanUpdateToNotApplicableWithZeroSubstantiveExperiences()
+    {
+        $user = User::factory()->asApplicant()->create();
+
+        $this->actingAs($user, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $user->id,
+                'employeeWFA' => [
+                    'wfaInterest' => WfaInterest::NOT_APPLICABLE->name,
+                ],
+            ])->assertJsonFragment([
+                'wfaInterest' => [
+                    'value' => WfaInterest::NOT_APPLICABLE->name,
+                ],
+            ]);
     }
 
     public function testUserCannotUpdateWithMoreThanOneSubstantiveExperiences()
@@ -140,7 +157,7 @@ class EmployeeWFATest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $user->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::LETTER_RECEIVED->name,
+                    'wfaInterest' => WfaInterest::LETTER_RECEIVED->name,
                 ],
             ])->assertGraphQLValidationError('id', ErrorCode::TOO_MANY_SUBSTANTIVE_EXPERIENCES->name);
     }
@@ -152,14 +169,14 @@ class EmployeeWFATest extends TestCase
         Carbon::setTestNow($nowInUtc);
 
         // Ensure interest is different
-        $this->employee->wfa_interest = WFAInterest::NOT_SURE->name;
+        $this->employee->wfa_interest = WfaInterest::NOT_SURE->name;
         $this->employee->save();
 
         $this->actingAs($this->employee, 'api')
             ->graphQL($this->mutation, [
                 'id' => $this->employee->id,
                 'employeeWFA' => [
-                    'wfaInterest' => WFAInterest::VOLUNTARY_DEPARTURE->name,
+                    'wfaInterest' => WfaInterest::VOLUNTARY_DEPARTURE->name,
                 ],
             ])->assertJsonFragment([
                 'wfaUpdatedAt' => $nowInUtc,

@@ -14,6 +14,7 @@ import {
   ExecCoaching,
   TalentNominationLateralMovementOption,
   LearningOpportunitiesInterest,
+  WfaInterest,
 } from "@gc-digital-talent/graphql";
 import { hasKey } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -1021,5 +1022,46 @@ export const getLearningOpportunitiesInterest = (
       : learningOpportunitiesInterestFalseLabels,
     messageKey,
     `Invalid learning opportunity interest '${messageKey}'`,
+  );
+};
+
+const wfaInterestFirstPerson = defineMessages({
+  [WfaInterest.NotApplicable]: {
+    defaultMessage: "This section does not apply to me",
+    id: "qOVygs",
+    description: "Not applicable WFA interest",
+  },
+  [WfaInterest.TermEnding]: {
+    defaultMessage:
+      "I have a term position that isn't being renewed or is being terminated early",
+    id: "trCVD0",
+    description: "Term ending WFA interest",
+  },
+  [WfaInterest.LetterReceived]: {
+    defaultMessage:
+      "I'm an indeterminate employee who has received a workforce adjustment letter and I'm looking to stay",
+    id: "FdYDwk",
+    description: "Letter received WFA interest",
+  },
+  [WfaInterest.NotSure]: {
+    defaultMessage: "I believe my position may be affected but I'm not sure",
+    id: "dXEHu0",
+    description: "Unsure WFA interest",
+  },
+  [WfaInterest.VoluntaryDeparture]: {
+    defaultMessage:
+      "I'm an indeterminate employee interested in voluntarily leaving the public service",
+    id: "N62XrS",
+    description: "Voluntary departure WFA interest",
+  },
+});
+
+export const getWfaInterestFirstPerson = (
+  wfaInterest: string,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    wfaInterestFirstPerson,
+    wfaInterest,
+    `Invalid WFA interest '${wfaInterest}'`,
   );
 };
