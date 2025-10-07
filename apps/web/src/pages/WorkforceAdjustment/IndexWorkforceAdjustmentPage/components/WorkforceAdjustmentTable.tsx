@@ -39,6 +39,8 @@ import accessors from "~/components/Table/accessors";
 import pageTitles from "~/messages/pageTitles";
 import profileMessages from "~/messages/profileMessages";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
 import WorkforceAdjustmentFilterDialog, {
   FormValues,
@@ -49,8 +51,6 @@ import {
   transformSortStateToOrderByClause,
   transformStateToWhereClause,
 } from "./utils";
-import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
 const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
   fragment WorkforceAdjustmentRow on UserEmployeeWFA {
