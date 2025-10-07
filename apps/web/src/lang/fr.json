@@ -13481,10 +13481,6 @@
     "defaultMessage": "Le fait de manifester son intérêt ne garantit pas la prise en considération d'une candidature à un poste au niveau de la direction. Votre intérêt, combiné à votre expérience professionnelle et à vos compétences, aide les recruteurs à déterminer si vous correspondez au profil recherché.",
     "description": "Context for an employee profile career development preference field"
   },
-  "xst395": {
-    "defaultMessage": "Prochain rôle et objectif de carrière",
-    "description": "Title for Next role and career objective section of user employee information page"
-  },
   "xtNiNu": {
     "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
     "description": "Introduction to the organize section in the assessment plan builder, paragraph 1"
