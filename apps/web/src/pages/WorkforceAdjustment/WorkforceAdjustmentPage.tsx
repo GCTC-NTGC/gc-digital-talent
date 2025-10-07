@@ -7,9 +7,17 @@ import KeyIcon from "@heroicons/react/24/outline/KeyIcon";
 import LifebuoyIcon from "@heroicons/react/24/outline/LifebuoyIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import { ReactNode } from "react";
 
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import { Container, Heading, Link, Ul, Image } from "@gc-digital-talent/ui";
+import {
+  Container,
+  Heading,
+  Link,
+  Ul,
+  Image,
+  LinkProps,
+} from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -45,6 +53,10 @@ const commonFeatureImgProps = {
   width: 400,
 };
 
+const inlineLink = (chunks: ReactNode, props: LinkProps) => (
+  <Link {...props}>{chunks}</Link>
+);
+
 export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -64,8 +76,14 @@ export const Component = () => {
     description: "Subtitle for the workforce adjustment information page",
   });
 
+  const comingInNovember = intl.formatMessage({
+    defaultMessage: "Coming in November",
+    id: "ibiCQI",
+    description: "Denoting that information will be added in November",
+  });
+
   const crumbs = useBreadcrumbs({
-    crumbs: [{ label: pageTitle, url: paths.wfa() }],
+    crumbs: [{ label: pageTitle, url: paths.wfaInfo() }],
   });
 
   return (
@@ -83,17 +101,9 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "While workforce adjustment is usually associated with times of fiscal constraint in the public sector, it’s actually not as uncommon as people might think. Workforce adjustment can be triggered in individual departments by things like organizational restructuring, sunsetting programs, and changing mandate priorities. As soon as five indeterminate FTEs in a department are cut at a time, the workforce adjustment protocols come into effect.",
-            id: "5OUbOp",
+              "While workforce adjustment is usually associated with times of fiscal constraint in the public sector, it’s not as uncommon as people might think. Workforce adjustment can be triggered in individual departments by things like organizational restructuring, sunsetting programs, and changing mandate priorities. Because of this, mobility and matching tools to support workforce adjustment are valuable on an ongoing basis, not just once in a while.",
+            id: "Lt8TKR",
             description: "Paragraph one, describing workforce adjustment",
-          })}
-        </p>
-        <p className="my-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "All that to say, mobility and matching tools to support workforce adjustment are valuable on an ongoing basis, not just once in a while.",
-            id: "nCFeYM",
-            description: "Paragraph two, describing workforce adjustment",
           })}
         </p>
         <Heading color="primary" icon={LifebuoyIcon} className="font-normal">
@@ -106,13 +116,13 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Our platform has released some new tools to better support employees facing workforce adjustment… and for those looking to leave the public service while leveraging the benefits package that workforce adjustment can offer.",
-            id: "6tP1HW",
+              "Our platform has released a new service to better support employees facing workforce adjustment. This is also useful for those in indeterminate positions who might be looking to leave the public service while leveraging the benefits package that workforce adjustment can offer.",
+            id: "WTjusd",
             description:
               "Introduction paragraph to support with workforce adjustment",
           })}
         </p>
-        <div className="sm:flex sm:flex-row sm:gap-6">
+        <div className="sm:flex sm:flex-row sm:items-center sm:gap-6">
           <div className="hidden sm:block">
             <Image
               loading="lazy"
@@ -129,8 +139,9 @@ export const Component = () => {
           <div className="sm:grow">
             <p className="mb-3">
               {intl.formatMessage({
-                defaultMessage: "These tools might be for you if",
-                id: "S0Q5Qh",
+                defaultMessage:
+                  "These tools might be for you if your job falls under one of the <strong>functional communities</strong> supported by this platform and",
+                id: "u+nIvK",
                 description:
                   "Lead in text for list of indicators workforce adjustment tools maybe be helpful",
               }) + intl.formatMessage(commonMessages.dividingColon)}
@@ -139,36 +150,27 @@ export const Component = () => {
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Your job falls under one of the <strong>functional communities</strong> supported by this platform",
-                  id: "vKVb4V",
-                  description:
-                    "Indicator one, functional communities use these tools",
+                    "you have a <strong>term position</strong> that isn't being renewed or is being terminated early ",
+                  id: "9ewyqo",
+                  description: "Indicator one, your term is not being renewed",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You have a <strong>term position</strong> that isn't being renewed or is being terminated early",
-                  id: "qWZblr",
+                    "you're an <strong>indeterminate employee</strong> who has received <strong>a workforce adjustment letter</strong> and you’re looking to stay",
+                  id: "5XkQs9",
                   description:
-                    "Indicator two, your term position is not being renewed",
+                    "Indicator two, you received a letter but would like to stay",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You're an indeterminate employee who has received a <strong>workforce adjustment letter</strong>",
-                  id: "wJiBDR",
-                  description: "Indicator three, you received WFA letter",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "You're an indeterminate employee interested in <strong>a package to leave the public service voluntarily</strong>",
-                  id: "dF2qSb",
+                    "you're an <strong>indeterminate employee</strong> interested in <strong>a package to leave the public service voluntarily</strong>",
+                  id: "56Mvji",
                   description:
-                    "Indicator four, you are interested in a package",
+                    "Indicator three, you would likle to leave voluntarily",
                 })}
               </li>
             </Ul>
@@ -185,8 +187,8 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "At this time, our services are available for employees whose current job falls under one of the functional communities supported by this platform. Basically, some functional community offices manage talent through this platform, and they won’t have roles to offer employees outside the scope of their mandate areas. (For those in other functional communities, we encourage you to explore options through GCX link.)",
-            id: "s2LoqF",
+              "At this time, our services are available for employees whose current job falls under one of the functional communities supported by this platform. Basically, some functional community offices manage talent through this platform, and they won’t have roles to offer employees outside the scope of their mandate areas. (For those in other functional communities, we encourage you to explore options through GCXchange.)",
+            id: "hXgwp/",
             description:
               "Paragraph describing the users who are supported by the workforce adjustment tools",
           })}
@@ -203,11 +205,49 @@ export const Component = () => {
                 id: "Z1sN3o",
                 description: "Title for digital community WFA section",
               }),
-              summary: <p>TO DO</p>,
-              link: {
-                path: "#",
-                label: "TO DO",
-              },
+              summary: (
+                <>
+                  <p className="mb-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This service is available to employees who meet one of the following criteria",
+                      id: "K1PlrC",
+                      description:
+                        "Lead in text describing WFA for the digital community",
+                    }) + intl.formatMessage(commonMessages.dividingColon)}
+                  </p>
+                  <Ul space="sm">
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage: "you’re an IT-classified employee",
+                        id: "6Nz7xW",
+                        description: "Criteria one, WFA for digital community",
+                      })}
+                    </li>
+                    <li>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "you’re an employee that falls under the definition of “digital talent” in the <link>Directive on Digital Talent</link>, including specified EX roles",
+                          id: "RA6QAP",
+                          description:
+                            "Criteria two, WFA for digital community",
+                        },
+                        {
+                          link: (chunks) =>
+                            inlineLink(chunks, {
+                              href:
+                                locale === "fr"
+                                  ? "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749"
+                                  : "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749",
+                              external: true,
+                            }),
+                        },
+                      )}
+                    </li>
+                  </Ul>
+                </>
+              ),
             }}
           />
           <FeatureBlock
@@ -221,11 +261,28 @@ export const Component = () => {
                 id: "KM8u46",
                 description: "Title for ATIP community WFA section",
               }),
-              summary: <p>TO DO</p>,
-              link: {
-                path: "#",
-                label: "TO DO",
-              },
+              summary: (
+                <>
+                  <p className="mb-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This service is available to employees who meet the following criterion",
+                      id: "tRkamq",
+                      description: "Lead in text for ATIP WFA criteria",
+                    }) + intl.formatMessage(commonMessages.dividingColon)}
+                  </p>
+                  <Ul space="sm">
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "you’re an AS- or PM-classified employee whose primary role is to deliver Government of Canada access to information services or privacy policy operations",
+                        id: "60WdXS",
+                        description: "Criteria one, WFA for ATIP community",
+                      })}
+                    </li>
+                  </Ul>
+                </>
+              ),
             }}
           />
           <FeatureBlock
@@ -239,11 +296,36 @@ export const Component = () => {
                 id: "qPx0RO",
                 description: "Title for finance community WFA section",
               }),
-              summary: <p>TO DO</p>,
-              link: {
-                path: "#",
-                label: "TO DO",
-              },
+              summary: (
+                <>
+                  <p className="mb-6">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This service is available to employees who meet one of the following criteria",
+                      id: "tomKhn",
+                      description:
+                        "Lead in text for finance community WFA criteria",
+                    }) + intl.formatMessage(commonMessages.dividingColon)}
+                  </p>
+                  <Ul space="sm">
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage: "you’re a CT-FIN-classified employee",
+                        id: "xa9uZU",
+                        description: "Criteria one, WFA for finance community",
+                      })}
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "you’re an EX-classified employee whose role makes you eligible to participate in the annual financial management EX talent management exercise run by the Office of the Comptroller General",
+                        id: "U+/Gvv",
+                        description: "Criteria two, WFA for finance community",
+                      })}
+                    </li>
+                  </Ul>
+                </>
+              ),
             }}
           />
           <FeatureBlock
@@ -257,11 +339,7 @@ export const Component = () => {
                 id: "3paKuD",
                 description: "Title for audit community WFA section",
               }),
-              summary: <p>TO DO</p>,
-              link: {
-                path: "#",
-                label: "TO DO",
-              },
+              summary: <p>{comingInNovember}</p>,
             }}
           />
           <FeatureBlock
@@ -275,11 +353,7 @@ export const Component = () => {
                 id: "u8tKFI",
                 description: "Title for real property community WFA section",
               }),
-              summary: <p>TO DO</p>,
-              link: {
-                path: "#",
-                label: "TO DO",
-              },
+              summary: <p>{comingInNovember}</p>,
             }}
           />
           <FeatureBlock
@@ -293,11 +367,7 @@ export const Component = () => {
                 id: "7owCVU",
                 description: "Title for procurement community WFA section",
               }),
-              summary: <p>TO DO</p>,
-              link: {
-                path: "#",
-                label: "TO DO",
-              },
+              summary: <p>{comingInNovember}</p>,
             }}
           />
         </div>
@@ -311,17 +381,25 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "An alternation is a process available to indeterminate employees in the core public administration (CPA) who have been informed through an official letter from their department that their current position will be discontinued and they are being workforce adjusted. These employees are then referred to as “affected employees”. One of the many options available to affected employees is the option of an alternation, which allows an affected employee to swap jobs with another employee in a stable indeterminate role (pending management approval of the match).",
-            id: "UPyYXO",
+              "An alternation is a process available to indeterminate employees in the core public administration who have been informed through an official letter from their department that their current position will be discontinued. These employees are then referred to as “affected employees.”",
+            id: "yTHS2m",
             description: "Paragraph one, describing alternations",
           })}
         </p>
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Alternations can be a useful tool for helping those who want to stay in government find new jobs. It can also to a great option for those who are ready to leave the public service leave and are looking to maximize the financial benefits of departure. Employees are encouraged to speak directly to their departmental HR authority to understand the financial benefits available in their specific circumstance.",
-            id: "zTUeK9",
+              "One of the many options available to affected employees is the option of an alternation, which allows an affected employee to swap jobs with another employee in a stable indeterminate role (pending management approval of the match).",
+            id: "DswRdx",
             description: "Paragraph two, describing alternations",
+          })}
+        </p>
+        <p className="my-6">
+          {intl.formatMessage({
+            defaultMessage:
+              "Alternations can be a useful tool for helping those who want to stay in government find new jobs. It can also be a great option for those who are ready to leave the public service and are looking to maximize the financial benefits of departure. Employees are encouraged to speak directly to their departmental HR authority to understand the financial benefits available in their specific circumstance.",
+            id: "7KDWkQ",
+            description: "Paragraph three, describing alternations",
           })}
         </p>
         <p className="font-bold">
@@ -422,8 +500,8 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "GC employees inside and outside the core public administration (CPA) can take advantage of job pools and new opportunities on the platform and can put themselves forward as a workforce affected employee in search of a new role (if they have received a WFA letter from their department). That said, alternations are only available between employees with indeterminate positions within the CPA.",
-            id: "GKE4/d",
+              "Government of Canada employees inside and outside the core public administration (CPA) can take advantage of job pools and new opportunities on the platform and can put themselves forward as a workforce affected employee in search of a new role (if they have received a workforce adjustment letter from their department). That said, alternations are available only between employees with indeterminate positions within the CPA.",
+            id: "wWLIot",
             description:
               "Description of core public administration employees related to workforce adjustment",
           })}
@@ -439,28 +517,52 @@ export const Component = () => {
         <Instructions.List className="sm:grid-cols-3">
           <Instructions.Step img={{ src: stepOne, darkSrc: stepOneDark }}>
             <p className="font-bold">
-              {intl.formatMessage({
-                defaultMessage: "1. Create an account or sign in.",
-                id: "yTKPnH",
-                description: "Text for workforce adjustment -> create step.",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "1. <createLink>Create an account</createLink> or <signInLink>sign in</signInLink>.",
+                  id: "Eb/yFU",
+                  description: "Text for workforce adjustment -> create step.",
+                },
+                {
+                  createLink: (chunks) =>
+                    inlineLink(chunks, {
+                      href: paths.register(),
+                      className: "font-bold",
+                    }),
+                  signInLink: (chunks) =>
+                    inlineLink(chunks, {
+                      href: paths.login(),
+                      className: "font-bold",
+                    }),
+                },
+              )}
             </p>
           </Instructions.Step>
           <Instructions.Step img={{ src: stepTwo, darkSrc: stepTwoDark }}>
             <p className="mb-6 font-bold">
-              {intl.formatMessage({
-                defaultMessage:
-                  "2. Add your current government position to your career experience.",
-                id: "hgsWnO",
-                description:
-                  "Text for workforce adjustment -> work experience step.",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "2. Add your current government position to your <link>career experience</link>.",
+                  id: "mtK0Lu",
+                  description:
+                    "Text for workforce adjustment -> work experience step.",
+                },
+                {
+                  link: (chunks) =>
+                    inlineLink(chunks, {
+                      href: paths.careerTimeline(),
+                      className: "font-bold",
+                    }),
+                },
+              )}
             </p>
-            <p>
+            <p className="indent-0">
               {intl.formatMessage({
                 defaultMessage:
-                  "As a minimum, add the details around your current role, but info on past roles may increase your chances of a job match.",
-                id: "9d8ncY",
+                  "As a minimum, add the details around your current role, but information on past roles may increase your chances of a job match.",
+                id: "3ufutA",
                 description:
                   "Instructions for adding work experience for workforce adjustment",
               })}
@@ -468,18 +570,28 @@ export const Component = () => {
           </Instructions.Step>
           <Instructions.Step img={{ src: stepThree, darkSrc: stepThreeDark }}>
             <p className="mb-6 font-bold">
-              {intl.formatMessage({
-                defaultMessage: "3. Verify your work email address.",
-                id: "Kc8O0n",
-                description:
-                  "Text for workforce adjustment ->  verifying email step.",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "3. <link>Verify your work email address</link>.",
+                  id: "4IQkkv",
+                  description:
+                    "Text for workforce adjustment ->  verifying email step.",
+                },
+                {
+                  link: (chunks) =>
+                    inlineLink(chunks, {
+                      href: paths.profile(),
+                      className: "font-bold",
+                    }),
+                },
+              )}
             </p>
-            <p>
+            <p className="indent-0">
               {intl.formatMessage({
                 defaultMessage:
-                  "This will unlock employee tools that will be accessible for as long as you’re a GC employee.",
-                id: "NfTF2V",
+                  "This will unlock employee tools that will be accessible for as long as you’re a Government of Canada employee.",
+                id: "RRg/WX",
                 description:
                   "Description of what verifying email does for users",
               })}
@@ -487,15 +599,24 @@ export const Component = () => {
           </Instructions.Step>
           <Instructions.Step img={{ src: stepFour, darkSrc: stepFourDark }}>
             <p className="mb-6 font-bold">
-              {intl.formatMessage({
-                defaultMessage:
-                  "4. Complete the workforce adjustment section under Career Planning.",
-                id: "NDN9aW",
-                description:
-                  "Text for workforce adjustment -> completing workforce adjustment step.",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "4. <link>Complete the workforce adjustment section</link> under Career Planning.",
+                  id: "f/hhwB",
+                  description:
+                    "Text for workforce adjustment -> completing workforce adjustment step.",
+                },
+                {
+                  link: (chunks) =>
+                    inlineLink(chunks, {
+                      href: paths.employeeProfile(),
+                      className: "font-bold",
+                    }),
+                },
+              )}
             </p>
-            <p>
+            <p className="indent-0">
               {intl.formatMessage({
                 defaultMessage:
                   "The workforce adjustment tools are found in your employee profile. Be sure to confirm all the details needed in this section.",
@@ -507,15 +628,24 @@ export const Component = () => {
           </Instructions.Step>
           <Instructions.Step img={{ src: stepFive, darkSrc: stepFiveDark }}>
             <p className="mb-6 font-bold">
-              {intl.formatMessage({
-                defaultMessage:
-                  "5. Add the relevant functional community to your profile.",
-                id: "hVS+HH",
-                description:
-                  "Text for workforce adjustment -> adding communities step.",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "5. <link>Add the relevant functional community to your profile</link>.",
+                  id: "gNxa7i",
+                  description:
+                    "Text for workforce adjustment -> adding communities step.",
+                },
+                {
+                  link: (chunks) =>
+                    inlineLink(chunks, {
+                      href: paths.createCommunityInterest(),
+                      className: "font-bold",
+                    }),
+                },
+              )}
             </p>
-            <p>
+            <p className="indent-0">
               {intl.formatMessage({
                 defaultMessage:
                   "This is essential if you want our team to be able to help you find a job or alternations match.",
@@ -536,7 +666,7 @@ export const Component = () => {
                 description: "Text for workforce adjustment -> waiting step.",
               })}
             </p>
-            <p>
+            <p className="indent-0">
               {intl.formatMessage({
                 defaultMessage:
                   "Functional community admins are monitoring on an ongoing basis. Expect an email confirming that they’re looking for a match.",
@@ -562,24 +692,24 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Employees must understand, <strong>there is no guarantee of a new opportunity</strong>. All matches depend on the employee’s skills, current role, and the availability of alternations and new opportunities. That said, our functional community admins and client services team are here to support. Employees are not alone in this.",
-            id: "bmngvF",
+              "Employees must understand that <strong>there is no guarantee of a new opportunity</strong>. All matches depend on the employee’s skills, current role, and the availability of alternations and new opportunities. That said, our functional community admins and client services team are here to support. Employees are not alone in this.",
+            id: "u/LI10",
             description: "Paragraph one, describing the alternation process",
           })}
         </p>
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Once the workforce adjustment section of your profile is updated, it becomes visible for functional community administrators. They monitor this on an ongoing basis and use the platform’s matching functions to pair terms with new opportunities and support alternations between employees.",
-            id: "2rVcq1",
+              "Once the workforce adjustment section of your profile is updated, it becomes visible for functional community admins. They monitor this on an ongoing basis and use the platform’s matching functions to pair employees with new opportunities and alternations, if possible.",
+            id: "tvA/yP",
             description: "Paragraph two, describing the alternation process",
           })}
         </p>
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "Once a potential match appears, the person in the workforce adjustment situation is contacted to see if they’re willing to share their information with a potential match. The functional community admin then connects employees by email to potential job openings or alternations matches.",
-            id: "qyqC1P",
+              "Once a potential match appears, the employee is contacted to see if they’re willing to share their information with a potential match. The functional community admin then connects employees by email to potential job openings or alternations matches.",
+            id: "2tRVJE",
             description: "Paragraph three, describing the alternation process",
           })}
         </p>
@@ -611,8 +741,8 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "When you create a profile, your information will only be visible to <strong>a small group of authorized administrators</strong>, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you add to your profile. They will not share your information with your manager or department without your explicit consent.",
-            id: "eeOFt9",
+              "When you create a profile, your information will only be visible to <strong>a small group of authorized administrators</strong>, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you add to your profile. They will not share your information with your manager without your explicit consent.",
+            id: "/3m5C5",
             description:
               "Paragraph two, describing how we protect privacy for workforce adjustment",
           })}
