@@ -53,15 +53,15 @@ export const Component = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Functional community support for workforce adjustment",
-    id: "+FQFg0",
-    description: "Title for the worforce adjustment information page",
+    id: "9NuEKb",
+    description: "Title for the workforce adjustment information page",
   });
 
   const desc = intl.formatMessage({
     defaultMessage:
       "Get support from our platform while navigating changes to the public service workforce. ",
-    id: "Rg49p4",
-    description: "Subtitle for the worforce adjustment information page",
+    id: "7IXqsn",
+    description: "Subtitle for the workforce adjustment information page",
   });
 
   const crumbs = useBreadcrumbs({
@@ -107,9 +107,9 @@ export const Component = () => {
           {intl.formatMessage({
             defaultMessage:
               "Our platform has released some new tools to better support employees facing workforce adjustment… and for those looking to leave the public service while leveraging the benefits package that workforce adjustment can offer.",
-            id: "hEL2JL",
+            id: "6tP1HW",
             description:
-              "Introduction paragraph to support with worforce adjustment",
+              "Introduction paragraph to support with workforce adjustment",
           })}
         </p>
         <div className="sm:flex sm:flex-row sm:gap-6">
@@ -235,8 +235,8 @@ export const Component = () => {
                 ...commonFeatureImgProps,
               },
               title: intl.formatMessage({
-                defaultMessage: "Finance management community ",
-                id: "qDyXD4",
+                defaultMessage: "Finance management community",
+                id: "qPx0RO",
                 description: "Title for finance community WFA section",
               }),
               summary: <p>TO DO</p>,
@@ -414,9 +414,9 @@ export const Component = () => {
         >
           {intl.formatMessage({
             defaultMessage: "CPA and non-CPA employees",
-            id: "edaphB",
+            id: "WHpmzr",
             description:
-              "Title for information about core public adminiatration employees related to worforce adjustment",
+              "Title for information about core public administration employees related to workforce adjustment",
           })}
         </Heading>
         <p className="my-6">
@@ -441,8 +441,8 @@ export const Component = () => {
             <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "1. Create an account or sign in.",
-                id: "a7kHDR",
-                description: "Text for workfoce adjustment -> create step.",
+                id: "yTKPnH",
+                description: "Text for workforce adjustment -> create step.",
               })}
             </p>
           </Instructions.Step>
@@ -451,18 +451,18 @@ export const Component = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "2. Add your current government position to your career experience.",
-                id: "7bijBX",
+                id: "hgsWnO",
                 description:
-                  "Text for workfoce adjustment -> work experience step.",
+                  "Text for workforce adjustment -> work experience step.",
               })}
             </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:
                   "As a minimum, add the details around your current role, but info on past roles may increase your chances of a job match.",
-                id: "xB2VlY",
+                id: "9d8ncY",
                 description:
-                  "Instructions for adding work experience for workforce adjustmnet",
+                  "Instructions for adding work experience for workforce adjustment",
               })}
             </p>
           </Instructions.Step>
@@ -470,9 +470,9 @@ export const Component = () => {
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "3. Verify your work email address.",
-                id: "nyTeqb",
+                id: "Kc8O0n",
                 description:
-                  "Text for workfoce adjustment ->  verifying email step.",
+                  "Text for workforce adjustment ->  verifying email step.",
               })}
             </p>
             <p>
@@ -490,9 +490,9 @@ export const Component = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "4. Complete the workforce adjustment section under Career Planning.",
-                id: "STEQs9",
+                id: "NDN9aW",
                 description:
-                  "Text for workfoce adjustment -> completing workforce adjustment step.",
+                  "Text for workforce adjustment -> completing workforce adjustment step.",
               })}
             </p>
             <p>
@@ -510,9 +510,9 @@ export const Component = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "5. Add the relevant functional community to your profile.",
-                id: "kKs6C1",
+                id: "hVS+HH",
                 description:
-                  "Text for workfoce adjustment -> adding communities step.",
+                  "Text for workforce adjustment -> adding communities step.",
               })}
             </p>
             <p>
@@ -529,8 +529,8 @@ export const Component = () => {
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "6. Wait for our team to reach out.",
-                id: "3LMOt/",
-                description: "Text for workfoce adjustment -> waiting step.",
+                id: "FxQ2qX",
+                description: "Text for workforce adjustment -> waiting step.",
               })}
             </p>
             <p>
