@@ -7,6 +7,7 @@ const Test_DepartmentsQueryDocument = /* GraphQL */ `
     departments {
       id
       departmentNumber
+      isCorePublicAdministration
       name {
         en
         fr
