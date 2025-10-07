@@ -6,6 +6,7 @@ import { useQuery } from "urql";
 
 import {
   Accordion,
+  Card,
   Heading,
   Pending,
   TableOfContents,
@@ -28,6 +29,10 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import CommunityInterest, {
   CommunityInterestOptions_Fragment,
 } from "~/components/CommunityInterest/CommunityInterest";
+import workforceAdjustmentMessages from "~/messages/workforceAdjustmentMessages";
+import UserWorkforceAdjustment, {
+  UserWorkforceAdjustment_Fragment,
+} from "~/components/WorkforceAdjustment/UserWorkforceAdjustment";
 
 import CareerDevelopmentSection, {
   CareerDevelopmentOptions_Fragment,
@@ -35,9 +40,6 @@ import CareerDevelopmentSection, {
 import NextRoleSection from "./components/NextRoleSection";
 import CareerObjectiveSection from "./components/CareerObjectiveSection";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
-import WorkforceAdjustmentSection, {
-  WorkforceAdjustmentSection_Fragment,
-} from "./components/WorkforceAdjustmentSection";
 
 const SECTION_ID = {
   COMMUNITY_INTEREST: "community-interest-section",
@@ -69,7 +71,7 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
 
 interface UserEmployeeInformationProps {
   employeeProfileQuery: FragmentType<typeof UserEmployeeInformation_Fragment>;
-  wfaQuery: FragmentType<typeof WorkforceAdjustmentSection_Fragment>;
+  wfaQuery: FragmentType<typeof UserWorkforceAdjustment_Fragment>;
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
   >;
@@ -80,6 +82,7 @@ interface UserEmployeeInformationProps {
 
 export const UserEmployeeInformation = ({
   employeeProfileQuery,
+  wfaQuery,
   careerDevelopmentOptionsQuery,
   communityInterestOptionsQuery,
 }: UserEmployeeInformationProps) => {
@@ -150,12 +153,7 @@ export const UserEmployeeInformation = ({
             <TableOfContents.AnchorLink
               id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}
             >
-              {intl.formatMessage({
-                defaultMessage: "Workforce adjustment",
-                id: "5sZWgB",
-                description:
-                  "Title for workforce adjustment section of user employee information page",
-              })}
+              {intl.formatMessage(workforceAdjustmentMessages.wfa)}
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
         </TableOfContents.List>
@@ -329,10 +327,11 @@ export const UserEmployeeInformation = ({
               color="secondary"
               className="mt-0 font-normal sm:justify-start sm:text-left"
             >
-              {/** TODO: Update with proper message */}
-              {intl.formatMessage(commonMessages.communityInterest)}
+              {intl.formatMessage(workforceAdjustmentMessages.wfa)}
             </Heading>
-            <WorkforceAdjustmentSection query={wfaQuery} />
+            <Card>
+              <UserWorkforceAdjustment query={wfaQuery} />
+            </Card>
           </TableOfContents.Section>
         </div>
       </TableOfContents.Content>
@@ -347,7 +346,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
       employeeProfile {
         ...UserEmployeeInformation
       }
-      ...WorkforceAdjustmentSection
+      ...UserWorkforceAdjustment
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
@@ -375,7 +374,7 @@ const UserEmployeeInformationPage = () => {
             employeeProfileQuery={data?.user?.employeeProfile}
             careerDevelopmentOptionsQuery={data}
             communityInterestOptionsQuery={data}
-            wfaQuery={data}
+            wfaQuery={data.user}
           />
         ) : (
           <ThrowNotFound />

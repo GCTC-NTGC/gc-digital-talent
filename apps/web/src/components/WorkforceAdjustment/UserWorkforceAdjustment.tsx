@@ -1,7 +1,9 @@
 import { useIntl } from "react-intl";
 
 import {
-  EmployeeProfileWfaFragment,
+  FragmentType,
+  getFragment,
+  graphql,
   WfaInterest,
 } from "@gc-digital-talent/graphql";
 import {
@@ -15,19 +17,52 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import { formattedDate } from "~/utils/dateUtils";
 import processMessages from "~/messages/processMessages";
+import messages from "~/messages/workforceAdjustmentMessages";
 
-import messages from "../../messages";
 import CPAWarning from "./CPAWarning";
 
-interface DisplayProps {
-  user: EmployeeProfileWfaFragment;
+export const UserWorkforceAdjustment_Fragment = graphql(/** GraphQL */ `
+  fragment UserWorkforceAdjustment on User {
+    employeeWFA {
+      wfaInterest {
+        value
+        label {
+          localized
+        }
+      }
+      wfaDate
+    }
+    currentSubstantiveExperiences {
+      id
+      department {
+        isCorePublicAdministration
+      }
+      ...SubstantiveExperiences
+      ...ExperienceCard
+    }
+    employeeProfile {
+      communityInterests {
+        community {
+          id
+          name {
+            localized
+          }
+        }
+      }
+    }
+  }
+`);
+
+interface UserWorkforceAdjustmentProps {
+  query: FragmentType<typeof UserWorkforceAdjustment_Fragment>;
 }
 
-const Display = ({ user }: DisplayProps) => {
+const UserWorkforceAdjustment = ({ query }: UserWorkforceAdjustmentProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(
     commonMessages.missingOptionalInformation,
   );
+  const user = getFragment(UserWorkforceAdjustment_Fragment, query);
   const experiences = unpackMaybes(user.currentSubstantiveExperiences);
   const communities = unpackMaybes(user.employeeProfile?.communityInterests);
 
@@ -125,4 +160,4 @@ const Display = ({ user }: DisplayProps) => {
   );
 };
 
-export default Display;
+export default UserWorkforceAdjustment;
