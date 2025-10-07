@@ -141,10 +141,10 @@ export const Component = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "These tools might be for you if your job falls under one of the <strong>functional communities</strong> supported by this platform and",
-                id: "u+nIvK",
-                description:
-                  "Lead in text for list of indicators workforce adjustment tools maybe be helpful",
-              }) + intl.formatMessage(commonMessages.dividingColon)}
+                id: "xle1Ng",
+                description: "Lead in text for who these tools can help",
+              })}
+              {intl.formatMessage(commonMessages.dividingColon)}
             </p>
             <Ul space="sm">
               <li>
