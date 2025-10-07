@@ -1091,10 +1091,6 @@
     "defaultMessage": "Ce nom d’équipe est déjà utilisé",
     "description": "Error message that the given team name is already in use."
   },
-  "d93frv": {
-    "defaultMessage": "J’occupe un poste pour une durée indéterminée, mais j’ai reçu une lettre sur le réaménagement des effectifs",
-    "description": "Letter received WFA interest"
-  },
   "dBc/+T": {
     "defaultMessage": "Bibliothèque de compétences",
     "description": "Name of the skills library page"
@@ -1714,10 +1710,6 @@
   "wdfDZH": {
     "defaultMessage": "Je consens à travailler dans la région de la Colombie-Britannique.",
     "description": "The work region of Canada described as British Columbia."
-  },
-  "wjhC48": {
-    "defaultMessage": "Mon poste pour une période déterminée n’est pas renouvelé ou prend fin tôt",
-    "description": "Term ending WFA interest"
   },
   "wqBryV": {
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",

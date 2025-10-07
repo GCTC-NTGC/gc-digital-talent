@@ -1033,14 +1033,14 @@ const wfaInterestFirstPerson = defineMessages({
   },
   [WfaInterest.TermEnding]: {
     defaultMessage:
-      "I have a term position that isn't being renewed or is ending early",
-    id: "wjhC48",
+      "I have a term position that isn't being renewed or is being terminated early",
+    id: "trCVD0",
     description: "Term ending WFA interest",
   },
   [WfaInterest.LetterReceived]: {
     defaultMessage:
-      "I'm an indeterminate employee and have received a workforce adjustment letter",
-    id: "d93frv",
+      "I'm an indeterminate employee who has received a workforce adjustment letter and I'm looking to stay",
+    id: "FdYDwk",
     description: "Letter received WFA interest",
   },
   [WfaInterest.NotSure]: {
