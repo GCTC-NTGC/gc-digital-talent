@@ -19,10 +19,9 @@ import {
   EmailType,
 } from "@gc-digital-talent/graphql";
 
-import SendVerificationEmailSubform from "~/components/EmailVerification/SendVerificationEmailSubform";
-import RequestACodeContextMessage from "~/components/EmailVerification/RequestACodeContextMessage";
-import SubmitACodeContextMessage from "~/components/EmailVerification/SubmitACodeContextMessage";
-import { useEmailVerification } from "~/components/EmailVerification/EmailVerificationProvider";
+import EmailVerification, {
+  useEmailVerification,
+} from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 import Caption from "~/components/BasicInformation/Caption";
 
@@ -85,8 +84,10 @@ export const GettingStartedForm = ({
 }: GettingStartedFormProps) => {
   const intl = useIntl();
 
-  const { emailAddressContacted, setSubmitACodeMessage } =
-    useEmailVerification();
+  const {
+    state: { emailAddressContacted },
+    actions: { setSubmitVerificationCodeContextMessage: setSubmitCodeMessage },
+  } = useEmailVerification();
 
   const initialValues = getFragment(
     GettingStartedInitialValues_Query,
@@ -102,7 +103,7 @@ export const GettingStartedForm = ({
   const submitHandler = (formValues: FormValues): Promise<void> => {
     if (!emailAddressContacted) {
       // the use hasn't tried to get a verification email yet
-      setSubmitACodeMessage("must-request-code");
+      setSubmitCodeMessage("must-request-code");
       return Promise.resolve(); // block form submission
     }
     return onSubmit(formValues).catch((reason: Error) => {
@@ -143,13 +144,13 @@ export const GettingStartedForm = ({
         })}
       </p>
       <div className="mb-6">
-        <SendVerificationEmailSubform
+        <EmailVerification.RequestVerificationCodeForm
           emailType={EmailType.Contact}
           emailAddress={initialValues.email ?? null}
         />
       </div>
       <div className="mb-6">
-        <RequestACodeContextMessage />
+        <EmailVerification.RequestVerificationCodeContextMessage />
       </div>
 
       <FormProvider {...formMethods}>
@@ -170,7 +171,7 @@ export const GettingStartedForm = ({
           ) : null}
           {/* always allow context message to be displayed */}
           <div className="mb-6">
-            <SubmitACodeContextMessage />
+            <EmailVerification.SubmitVerificationCodeContextMessage />
           </div>
           {/* only show personal information inputs if a code has already been requested */}
           {emailAddressContacted ? (
