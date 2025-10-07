@@ -388,7 +388,7 @@ test.describe("Employee Profile", () => {
 
       await expect(
         employeeProfile.page.getByText(
-          /this position is not with a cpa department/i,
+          /this position is not with a core public administration department/i,
         ),
       ).toBeVisible();
       await expect(
