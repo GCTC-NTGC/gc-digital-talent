@@ -200,7 +200,10 @@ const WorkforceAdjustmentFilterDialog = ({
           name="wfaInterests"
           label={intl.formatMessage(pageTitles.workforceAdjustment)}
           isMulti
-          options={unpackMaybes(data?.wfaInterests).map((wfaInterest) => ({
+          options={narrowEnumType(
+            unpackMaybes(data?.wfaInterests),
+            "WfaInterest",
+          ).map((wfaInterest) => ({
             value: wfaInterest.value,
             label: wfaInterest.label?.localized ?? notAvailable,
           }))}
