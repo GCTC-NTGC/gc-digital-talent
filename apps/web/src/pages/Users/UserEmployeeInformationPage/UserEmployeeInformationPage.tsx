@@ -325,7 +325,7 @@ export const UserEmployeeInformation = ({
               size="h3"
               icon={ArrowsRightLeftIcon}
               color="secondary"
-              className="mt-0 font-normal sm:justify-start sm:text-left"
+              className="mt-0 mb-6 font-normal sm:justify-start sm:text-left"
             >
               {intl.formatMessage(workforceAdjustmentMessages.wfa)}
             </Heading>
