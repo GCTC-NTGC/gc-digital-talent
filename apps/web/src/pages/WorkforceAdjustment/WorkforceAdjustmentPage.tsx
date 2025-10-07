@@ -525,7 +525,10 @@ export const Component = () => {
               })}
             </p>
           </Instructions.Step>
-          <Instructions.Step img={{ src: stepSix, darkSrc: stepSixDark }}>
+          <Instructions.Step
+            img={{ src: stepSix, darkSrc: stepSixDark }}
+            includeArrow={false}
+          >
             <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "6. Wait for our team to reach out.",
