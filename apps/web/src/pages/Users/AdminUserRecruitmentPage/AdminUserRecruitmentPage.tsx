@@ -23,7 +23,7 @@ import profileMessages from "~/messages/profileMessages";
 
 import DownloadButton from "../DownloadButton";
 import RecruitmentProcesses, {
-  RECRUITMENT_PROCESSES_ID,
+  JOB_APPLICATIONS_ID,
 } from "./components/RecruitmentProcesses";
 import RecruitmentTools, {
   RECRUITMENT_TOOLS_ID,
@@ -56,7 +56,7 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
         <TableOfContents.Navigation>
           <TableOfContents.List>
             <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={RECRUITMENT_PROCESSES_ID}>
+              <TableOfContents.AnchorLink id={JOB_APPLICATIONS_ID}>
                 {intl.formatMessage({
                   defaultMessage: "Job applications",
                   id: "aBGEsG",

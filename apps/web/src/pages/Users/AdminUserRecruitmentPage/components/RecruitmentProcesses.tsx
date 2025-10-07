@@ -16,14 +16,14 @@ interface RecruitmentProcessesProps {
   query: FragmentType<typeof AdminRecruitmentProcesses_Fragment>;
 }
 
-export const RECRUITMENT_PROCESSES_ID = "recruitment-processes";
+export const JOB_APPLICATIONS_ID = "job-applications";
 
 const RecruitmentProcesses = ({ query }: RecruitmentProcessesProps) => {
   const intl = useIntl();
   const user = getFragment(AdminRecruitmentProcesses_Fragment, query);
 
   return (
-    <TableOfContents.Section id={RECRUITMENT_PROCESSES_ID} className="mb-18">
+    <TableOfContents.Section id={JOB_APPLICATIONS_ID} className="mb-18">
       <TableOfContents.Heading
         icon={ClipboardIcon}
         color="secondary"
