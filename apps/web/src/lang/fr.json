@@ -11885,6 +11885,10 @@
     "defaultMessage": "Ajouter une compétence technique constituant un atout",
     "description": "Button to add an asset technical skill"
   },
+  "pSP4YT": {
+    "defaultMessage": "En savoir plus sur la situation liée au réaménagement des effectifs de ce membre du personnel.",
+    "description": "Lead in text for a users workforce adjustment information"
+  },
   "pTXZxW": {
     "defaultMessage": "Mettre à jour les renseignements sur votre poste actuel",
     "description": "Link text to page to update experiences"
