@@ -57,18 +57,20 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
           <TableOfContents.List>
             <TableOfContents.ListItem>
               <TableOfContents.AnchorLink id={RECRUITMENT_PROCESSES_ID}>
-                {intl.formatMessage(navigationMessages.recruitmentProcesses)}
+                {intl.formatMessage({
+                  defaultMessage: "Job applications",
+                  id: "aBGEsG",
+                  description: "Job applications expandable",
+                })}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
               <TableOfContents.AnchorLink
                 id={OFF_PLATFORM_RECRUITMENT_PROCESSES_ID}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Job applications",
-                  id: "aBGEsG",
-                  description: "Job applications expandable",
-                })}
+                {intl.formatMessage(
+                  navigationMessages.offPlatformRecruitmentProcesses,
+                )}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
