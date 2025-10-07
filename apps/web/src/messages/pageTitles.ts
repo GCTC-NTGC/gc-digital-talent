@@ -129,8 +129,8 @@ export default defineMessages({
   },
   workforceAdjustment: {
     defaultMessage: "Workforce adjustment",
-    id: "1R1uGn",
-    description: "Title for the workforce adjustment page",
+    id: "xGsQso",
+    description: "Title for the users wfa information",
   },
   dnd: {
     defaultMessage: "Digital careers at National Defence",
