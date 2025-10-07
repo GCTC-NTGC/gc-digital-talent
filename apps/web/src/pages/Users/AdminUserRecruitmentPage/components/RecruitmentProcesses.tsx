@@ -32,7 +32,7 @@ const RecruitmentProcesses = ({ query }: RecruitmentProcessesProps) => {
       >
         {intl.formatMessage(navigationMessages.recruitmentProcesses)}
       </TableOfContents.Heading>
-      <PoolStatusTable userQuery={user} onlyRecruitmentProcesses />
+      <PoolStatusTable userQuery={user} />
     </TableOfContents.Section>
   );
 };
