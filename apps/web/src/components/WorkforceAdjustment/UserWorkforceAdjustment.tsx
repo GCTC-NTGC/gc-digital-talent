@@ -55,9 +55,13 @@ export const UserWorkforceAdjustment_Fragment = graphql(/** GraphQL */ `
 
 interface UserWorkforceAdjustmentProps {
   query: FragmentType<typeof UserWorkforceAdjustment_Fragment>;
+  isAdmin?: boolean;
 }
 
-const UserWorkforceAdjustment = ({ query }: UserWorkforceAdjustmentProps) => {
+const UserWorkforceAdjustment = ({
+  query,
+  isAdmin,
+}: UserWorkforceAdjustmentProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(
     commonMessages.missingOptionalInformation,
@@ -127,33 +131,35 @@ const UserWorkforceAdjustment = ({ query }: UserWorkforceAdjustmentProps) => {
                 intl.formatMessage(commonMessages.missingInformation)
               )}
             </ToggleForm.FieldDisplay>
-            <ToggleForm.FieldDisplay
-              label={
-                intl.formatMessage(processMessages.whatToExpect) +
-                intl.formatMessage(commonMessages.dividingColon)
-              }
-            >
-              <Ul space="sm">
-                <li>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The recruitment team of your functional community will contact you.",
-                    id: "w43VIb",
-                    description:
-                      "Expectation of recruitment team contact after wfa",
-                  })}
-                </li>
-                <li>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "There is no guarantee that this will lead to a new position.",
-                    id: "3kRiqA",
-                    description:
-                      "Expectation of not guaranteed position after wfa",
-                  })}
-                </li>
-              </Ul>
-            </ToggleForm.FieldDisplay>
+            {!isAdmin && (
+              <ToggleForm.FieldDisplay
+                label={
+                  intl.formatMessage(processMessages.whatToExpect) +
+                  intl.formatMessage(commonMessages.dividingColon)
+                }
+              >
+                <Ul space="sm">
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The recruitment team of your functional community will contact you.",
+                      id: "w43VIb",
+                      description:
+                        "Expectation of recruitment team contact after wfa",
+                    })}
+                  </li>
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There is no guarantee that this will lead to a new position.",
+                      id: "3kRiqA",
+                      description:
+                        "Expectation of not guaranteed position after wfa",
+                    })}
+                  </li>
+                </Ul>
+              </ToggleForm.FieldDisplay>
+            )}
           </>
         )}
     </div>

@@ -330,7 +330,7 @@ export const UserEmployeeInformation = ({
               {intl.formatMessage(workforceAdjustmentMessages.wfa)}
             </Heading>
             <Card>
-              <UserWorkforceAdjustment query={wfaQuery} />
+              <UserWorkforceAdjustment query={wfaQuery} isAdmin />
             </Card>
           </TableOfContents.Section>
         </div>
