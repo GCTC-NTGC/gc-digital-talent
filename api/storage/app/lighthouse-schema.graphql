@@ -1633,7 +1633,7 @@ input EmployeeWfaFilterInput {
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  wfaInterests: [WFAInterest]
+  wfaInterests: [WfaInterest]
   hasPriorityEntitlement: Boolean
   skills: [IdInput]
   classifications: [IdInput]

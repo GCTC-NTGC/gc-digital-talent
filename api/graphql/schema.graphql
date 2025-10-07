@@ -1266,7 +1266,7 @@ input EmployeeWfaFilterInput {
   operationalRequirements: [OperationalRequirement]
     @scope(name: "whereOperationalRequirementsIn")
   positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
-  wfaInterests: [WFAInterest] @scope(name: "whereWfaInterestIn")
+  wfaInterests: [WfaInterest] @scope(name: "whereWfaInterestIn")
   hasPriorityEntitlement: Boolean @scope(name: "whereHasPriorityEntitlement")
   skills: [IdInput] @scope(name: "whereSkillsAdditive")
   classifications: [IdInput] @scope(name: "whereClassificationIn")
