@@ -22,7 +22,7 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import EmailVerificationDialog from "~/components/EmailVerification/EmailVerificationDialog";
+import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
 
 import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";

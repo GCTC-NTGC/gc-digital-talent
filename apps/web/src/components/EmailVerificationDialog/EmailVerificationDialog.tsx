@@ -1,5 +1,5 @@
 import { useState, ReactNode } from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
@@ -8,14 +8,10 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
-import { subtitles } from "./messages";
-import SubmitACodeContextMessage from "./SubmitACodeContextMessage";
-import SendVerificationEmailSubform from "./SendVerificationEmailSubform";
-import EmailVerificationProvider, {
+import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
+import EmailVerification, {
   useEmailVerification,
-} from "./EmailVerificationProvider";
-import RequestACodeContextMessage from "./RequestACodeContextMessage";
-import { API_CODE_VERIFICATION_FAILED } from "./constants";
+} from "../EmailVerification/EmailVerification";
 
 const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationSubmitACode($code: String!) {
@@ -24,6 +20,21 @@ const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const subtitles: Record<EmailType, MessageDescriptor> = {
+  WORK: defineMessage({
+    defaultMessage:
+      "Verify your Government of Canada work email to confirm your status as an employee.",
+    id: "UoTwQ8",
+    description: "Work email subtitle",
+  }),
+  CONTACT: defineMessage({
+    defaultMessage:
+      "Add and verify a contact email that will be used for communication and notifications.",
+    id: "upuqPk",
+    description: "Contact email subtitle",
+  }),
+};
 
 interface FormValues {
   verificationCode: string;
@@ -44,19 +55,21 @@ const EmailVerificationForm = ({
 }: EmailVerificationFormProps) => {
   const intl = useIntl();
   const {
-    emailAddressContacted,
-    setRequestACodeMessage,
-    setSubmitACodeMessage,
+    state: { emailAddressContacted },
+    actions: {
+      setRequestVerificationCodeContextMessage: setRequestCodeMessage,
+      setSubmitVerificationCodeContextMessage: setSubmitCodeMessage,
+    },
   } = useEmailVerification();
 
   const formMethods = useForm<FormValues>();
 
   const submitHandler = (formValues: FormValues): Promise<void> => {
-    setRequestACodeMessage(null);
+    setRequestCodeMessage(null);
 
     // can't submit this form until a code has been requested
     if (!emailAddressContacted) {
-      setSubmitACodeMessage("must-request-code");
+      setSubmitCodeMessage("must-request-code");
       return Promise.resolve();
     }
     // bubble to parent to execute mutation
@@ -84,13 +97,13 @@ const EmailVerificationForm = ({
     <>
       {/* "Request a code" part of dialog */}
       <div className="mb-6">
-        <SendVerificationEmailSubform
+        <EmailVerification.RequestVerificationCodeForm
           emailType={formEmailType}
           emailAddress={initialEmailAddress}
         />
       </div>
       <div className="mb-6">
-        <RequestACodeContextMessage />
+        <EmailVerification.RequestVerificationCodeContextMessage />
       </div>
       {/* "Submit a code" part of dialog */}
       <FormProvider {...formMethods}>
@@ -112,7 +125,7 @@ const EmailVerificationForm = ({
               />
             ) : null}
           </div>
-          <SubmitACodeContextMessage />
+          <EmailVerification.SubmitVerificationCodeContextMessage />
           <Dialog.Footer>
             <Submit
               text={intl.formatMessage({
@@ -139,7 +152,7 @@ const EmailVerificationForm = ({
 export interface EmailVerificationDialogProps {
   emailType: EmailType;
   emailAddress: string | null;
-  onVerificationSuccess: () => void;
+  onVerificationSuccess?: () => void;
   children?: ReactNode;
   defaultOpen?: boolean;
 }
@@ -178,7 +191,7 @@ export const EmailVerificationDialog = ({
       setOpen(false);
 
       //fire event to parent
-      onVerificationSuccess();
+      onVerificationSuccess?.();
     });
   };
 
@@ -208,14 +221,14 @@ export const EmailVerificationDialog = ({
         <Dialog.Body>
           {isOpen ? (
             // reset everything on close as it is removed from the DOM
-            <EmailVerificationProvider>
+            <EmailVerification.Provider>
               <EmailVerificationForm
                 formEmailType={dialogEmailType}
                 initialEmailAddress={initialEmailAddress}
                 onFormSubmit={handleFormSubmit}
                 onClickCancel={() => setOpen(false)}
               />
-            </EmailVerificationProvider>
+            </EmailVerification.Provider>
           ) : null}
         </Dialog.Body>
       </Dialog.Content>

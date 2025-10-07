@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
@@ -12,10 +12,29 @@ import {
   workEmailDomainRegex,
 } from "@gc-digital-talent/helpers";
 
-import { descriptions, labels } from "./messages";
-import { useEmailVerification } from "./EmailVerificationProvider";
+import { useEmailVerification } from "./EmailVerification";
 
 export const CODE_REQUEST_THROTTLE_DELAY_S = 60;
+
+export const descriptions: Record<EmailType, MessageDescriptor> = {
+  WORK: defineMessage({
+    defaultMessage:
+      "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
+    id: "cw6MTQ",
+    description: "Work email title paragraph",
+  }),
+  CONTACT: defineMessage({
+    defaultMessage:
+      "This email will be used by recruitment and HR teams to contact you about opportunities, as well as to send notifications about your applications and other platform details.",
+    id: "fa+z9W",
+    description: "Contact email title paragraph",
+  }),
+};
+
+export const labels: Record<EmailType, MessageDescriptor> = {
+  WORK: commonMessages.workEmail,
+  CONTACT: commonMessages.email,
+};
 
 const SendUserEmailsVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailsVerification(
@@ -32,23 +51,27 @@ interface FormValues {
   emailType: string;
 }
 
-interface SendVerificationEmailSubformProps {
+interface RequestVerificationCodeFormProps {
   emailType: EmailType;
   emailAddress: string | null;
 }
 
-const SendVerificationEmailSubform = ({
+const RequestVerificationCodeForm = ({
   emailType: dialogEmailType,
   emailAddress: initialEmailAddress,
-}: SendVerificationEmailSubformProps) => {
+}: RequestVerificationCodeFormProps) => {
   const intl = useIntl();
 
   const {
-    requestACodeMessage,
-    emailAddressContacted,
-    setRequestACodeMessage,
-    setSubmitACodeMessage,
-    setEmailAddressContacted,
+    state: {
+      requestVerificationCodeContextMessage: requestCodeMessage,
+      emailAddressContacted,
+    },
+    actions: {
+      setRequestVerificationCodeContextMessage: setRequestCodeMessage,
+      setSubmitVerificationCodeContextMessage: setSubmitCodeMessage,
+      setEmailAddressContacted,
+    },
   } = useEmailVerification();
 
   const [, executeMutation] = useMutation(SendUserEmailsVerification_Mutation);
@@ -91,10 +114,10 @@ const SendVerificationEmailSubform = ({
     emailAddress,
     emailType,
   }): Promise<void> => {
-    setRequestACodeMessage(null);
-    setSubmitACodeMessage(null);
+    setRequestCodeMessage(null);
+    setSubmitCodeMessage(null);
     if (!canRequestCode) {
-      setRequestACodeMessage("throttled");
+      setRequestCodeMessage("throttled");
       return Promise.resolve();
     }
     let emailTypes: EmailType[];
@@ -103,7 +126,7 @@ const SendVerificationEmailSubform = ({
         if (workEmailDomainRegex.test(emailAddress)) {
           // Appears to be a valid work email address.  We'll update both at the same time.
           emailTypes = [EmailType.Contact, EmailType.Work];
-          setSubmitACodeMessage("contact-matches-work");
+          setSubmitCodeMessage("contact-matches-work");
         } else {
           emailTypes = [EmailType.Contact];
         }
@@ -140,7 +163,7 @@ const SendVerificationEmailSubform = ({
     });
 
     return mutationResult.then(() => {
-      setRequestACodeMessage("request-sent");
+      setRequestCodeMessage("request-sent");
       setCanRequestCode(false);
       setEmailAddressContacted(emailAddress);
     });
@@ -156,21 +179,21 @@ const SendVerificationEmailSubform = ({
       sentAddress != formAddress
     ) {
       // show message
-      setRequestACodeMessage("address-changed");
+      setRequestCodeMessage("address-changed");
       setCanRequestCode(true);
     } else if (
       notEmpty(sentAddress) &&
       notEmpty(formAddress) &&
       sentAddress == formAddress &&
-      requestACodeMessage == "address-changed"
+      requestCodeMessage == "address-changed"
     ) {
       // clear message if they undo the change
-      setRequestACodeMessage(null);
+      setRequestCodeMessage(null);
     }
   }, [
     emailAddressContacted,
-    requestACodeMessage,
-    setRequestACodeMessage,
+    requestCodeMessage,
+    setRequestCodeMessage,
     watchEmailAddressInput,
   ]);
 
@@ -179,7 +202,7 @@ const SendVerificationEmailSubform = ({
     if (!canRequestCode) {
       timerIdRef.current = setTimeout(() => {
         setCanRequestCode(true);
-        setRequestACodeMessage(null);
+        setRequestCodeMessage(null);
       }, CODE_REQUEST_THROTTLE_DELAY_S * 1000);
     }
 
@@ -195,7 +218,7 @@ const SendVerificationEmailSubform = ({
         clearTimeout(timerIdRef.current);
       }
     };
-  }, [canRequestCode, setRequestACodeMessage]);
+  }, [canRequestCode, setRequestCodeMessage]);
 
   return (
     <FormProvider {...formMethods}>
@@ -250,4 +273,4 @@ const SendVerificationEmailSubform = ({
   );
 };
 
-export default SendVerificationEmailSubform;
+export default RequestVerificationCodeForm;

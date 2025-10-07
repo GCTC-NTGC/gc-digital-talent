@@ -10,7 +10,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import EmailVerificationApi from "~/components/EmailVerification/EmailVerification";
+import EmailVerificationApi from "~/components/EmailVerification/EmailVerificationDeprecated";
 
 import messages from "./utils/messages";
 

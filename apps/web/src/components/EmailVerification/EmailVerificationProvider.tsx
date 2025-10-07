@@ -1,44 +1,47 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
-type RequestACodeContextMessage =
-  | "request-sent"
-  | "throttled"
-  | "address-changed";
-type SubmitACodeContextMessage = "contact-matches-work" | "must-request-code";
+import type { ContextMessage as RequestCodeMessage } from "./RequestVerificationCodeContextMessage";
+import type { ContextMessage as SubmitCodeMessage } from "./SubmitVerificationCodeContextMessage";
 
-export interface EmailVerificationState {
-  requestACodeMessage: RequestACodeContextMessage | null;
-  submitACodeMessage: SubmitACodeContextMessage | null;
+interface State {
+  requestVerificationCodeContextMessage: RequestCodeMessage | null;
+  submitVerificationCodeContextMessage: SubmitCodeMessage | null;
   emailAddressContacted: string | null;
-  setRequestACodeMessage: (message: RequestACodeContextMessage | null) => void;
-  setSubmitACodeMessage: (message: SubmitACodeContextMessage | null) => void;
+}
+
+interface Actions {
+  setRequestVerificationCodeContextMessage: (
+    message: RequestCodeMessage | null,
+  ) => void;
+  setSubmitVerificationCodeContextMessage: (
+    message: SubmitCodeMessage | null,
+  ) => void;
   setEmailAddressContacted: (emailAddress: string | null) => void;
 }
 
-const defaultEmailVerificationState: EmailVerificationState = {
-  requestACodeMessage: null,
-  submitACodeMessage: null,
-  emailAddressContacted: null,
-  setRequestACodeMessage: (_) => {
-    // NO-OP
-  },
-  setSubmitACodeMessage: (_) => {
-    // NO-OP
-  },
-  setEmailAddressContacted: (_) => {
-    // NO-OP
-  },
-};
+export interface Value {
+  state: State;
+  actions: Actions;
+}
 
-export const EmailVerificationContext = createContext<EmailVerificationState>(
-  defaultEmailVerificationState,
-);
-
-export const useEmailVerification = (): EmailVerificationState => {
-  const state = useContext(EmailVerificationContext);
-
-  return state;
-};
+export const EmailVerificationContext = createContext<Value>({
+  state: {
+    requestVerificationCodeContextMessage: null,
+    submitVerificationCodeContextMessage: null,
+    emailAddressContacted: null,
+  },
+  actions: {
+    setRequestVerificationCodeContextMessage: (_) => {
+      // NO-OP
+    },
+    setSubmitVerificationCodeContextMessage: (_) => {
+      // NO-OP
+    },
+    setEmailAddressContacted: (_) => {
+      // NO-OP
+    },
+  },
+});
 
 interface EmailVerificationProviderProps {
   children: ReactNode;
@@ -47,24 +50,32 @@ interface EmailVerificationProviderProps {
 const EmailVerificationProvider = ({
   children,
 }: EmailVerificationProviderProps) => {
-  const [requestACodeMessage, setRequestACodeMessage] =
-    useState<EmailVerificationState["requestACodeMessage"]>(null);
-  const [submitACodeMessage, setSubmitACodeMessage] =
-    useState<EmailVerificationState["submitACodeMessage"]>(null);
+  const [
+    requestVerificationCodeContextMessage,
+    setRequestVerificationCodeContextMessage,
+  ] = useState<State["requestVerificationCodeContextMessage"]>(null);
+  const [
+    submitVerificationCodeContextMessage,
+    setSubmitVerificationCodeContextMessage,
+  ] = useState<State["submitVerificationCodeContextMessage"]>(null);
   const [emailAddressContacted, setEmailAddressContacted] =
-    useState<EmailVerificationState["emailAddressContacted"]>(null);
-
-  const state = {
-    requestACodeMessage,
-    submitACodeMessage,
-    emailAddressContacted,
-    setRequestACodeMessage,
-    setSubmitACodeMessage,
-    setEmailAddressContacted,
-  };
+    useState<State["emailAddressContacted"]>(null);
 
   return (
-    <EmailVerificationContext.Provider value={state}>
+    <EmailVerificationContext.Provider
+      value={{
+        state: {
+          requestVerificationCodeContextMessage,
+          submitVerificationCodeContextMessage,
+          emailAddressContacted,
+        },
+        actions: {
+          setRequestVerificationCodeContextMessage,
+          setSubmitVerificationCodeContextMessage,
+          setEmailAddressContacted,
+        },
+      }}
+    >
       {children}
     </EmailVerificationContext.Provider>
   );
