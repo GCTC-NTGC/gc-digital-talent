@@ -1331,6 +1331,10 @@
     "defaultMessage": "Admissibilité du personnel",
     "description": "Heading for the employee eligibility card"
   },
+  "3duqOV": {
+    "defaultMessage": "Gérez votre nom, vos préférences de contact, votre citoyenneté et votre statut d'ancien combattant. Les employées et employés du gouvernement du Canada peuvent également vérifier leur adresse courriel professionnelle pour accéder aux outils du personnel.",
+    "description": "Description for the Personal and contact information section"
+  },
   "3dwnFt": {
     "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences suivants : {departmentName}.",
     "description": "Fine print for departmental preference for pool advertisement"
