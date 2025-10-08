@@ -243,6 +243,10 @@
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "+z3V06": {
+    "defaultMessage": "Aucune adresse courriel de correspondance fournie",
+    "description": "Error message when contact email is null."
+  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -626,6 +630,10 @@
   "0cy9n/": {
     "defaultMessage": "Informations sur le groupe de compétences",
     "description": "Subtitle for viewing a specific skill family"
+  },
+  "0dAZ6V": {
+    "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, veuillez confirmer votre adresse courriel professionnelle et ajouter votre poste actuel à votre expérience de travail pour avoir accès aux outils du personnel.",
+    "description": "Gov of canada work email card description on account settings page"
   },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
@@ -1338,6 +1346,10 @@
   "3deIgM": {
     "defaultMessage": "Admissibilité du personnel",
     "description": "Heading for the employee eligibility card"
+  },
+  "3duqOV": {
+    "defaultMessage": "Gérez votre nom, vos préférences de contact, votre citoyenneté et votre statut d'ancien combattant. Les employées et employés du gouvernement du Canada peuvent également vérifier leur adresse courriel professionnelle pour accéder aux outils du personnel.",
+    "description": "Description for the Personal and contact information section"
   },
   "3dwnFt": {
     "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences suivants : {departmentName}.",
@@ -5327,6 +5339,10 @@
     "defaultMessage": "Informations sur la classification",
     "description": "Subtitle for viewing a specific classification"
   },
+  "LvXaIZ": {
+    "defaultMessage": "Adresse courriel professionnelle du gouvernement of Canada",
+    "description": "Label for gov of canada work email"
+  },
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
     "description": "Title for Minimum experience or equivalent education"
@@ -6350,6 +6366,10 @@
   "QiQoIq": {
     "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
     "description": "Label for advancement nomination is rejected"
+  },
+  "Qjaglb": {
+    "defaultMessage": "Aucune adresse courriel professionnelle fournie",
+    "description": "Error message when work email is null."
   },
   "Qjpmm8": {
     "defaultMessage": "Quelle était votre part de responsabilité dans ce rôle?",
@@ -11761,6 +11781,10 @@
     "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
     "description": "Link text to a page to learn more about something"
   },
+  "ozb92E": {
+    "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
+    "description": "title for alert about changed collection"
+  },
   "p+YRN1": {
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
     "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
@@ -13137,6 +13161,10 @@
     "defaultMessage": "Indiquer comme lue",
     "description": "Button text to mark a notification as read"
   },
+  "vj9jcO": {
+    "defaultMessage": "Afin de mieux saisir les données sur votre parcours professionnel dans la fonction publique, nous recueillons dorénavant de l’information sur votre classification et votre ministère, entre autres, que nous consignons dans la section sur votre <a>expérience professionnelle</a>. Si vous travaillez actuellement au gouvernement du Canada, veuillez mettre à jour votre expérience professionnelle la plus récente.",
+    "description": "body for alert about changed collection"
+  },
   "vjZ960": {
     "defaultMessage": "Si vous êtes à la recherche de talents, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des personnes candidates qualifiées. Tous les candidates et candidats dans ces processus de recrutement ont été évalués et se sont qualifiés.",
     "description": "Content displayed in the find talent page explaining the page and what it offers to users."
@@ -13364,6 +13392,10 @@
   "wm5GrF": {
     "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
     "description": "Validation text for department name input"
+  },
+  "wmSeI8": {
+    "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
+    "description": "Contact email card description on account settings page"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",
