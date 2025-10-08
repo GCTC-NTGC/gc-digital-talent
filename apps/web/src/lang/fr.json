@@ -243,6 +243,10 @@
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "+z3V06": {
+    "defaultMessage": "Aucune adresse courriel de correspondance fournie",
+    "description": "Error message when contact email is null."
+  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -626,6 +630,10 @@
   "0cy9n/": {
     "defaultMessage": "Informations sur le groupe de compétences",
     "description": "Subtitle for viewing a specific skill family"
+  },
+  "0dAZ6V": {
+    "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, veuillez confirmer votre adresse courriel professionnelle et ajouter votre poste actuel à votre expérience de travail pour avoir accès aux outils du personnel.",
+    "description": "Gov of canada work email card description on account settings page"
   },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
@@ -1339,6 +1347,10 @@
     "defaultMessage": "Admissibilité du personnel",
     "description": "Heading for the employee eligibility card"
   },
+  "3duqOV": {
+    "defaultMessage": "Gérez votre nom, vos préférences de contact, votre citoyenneté et votre statut d'ancien combattant. Les employées et employés du gouvernement du Canada peuvent également vérifier leur adresse courriel professionnelle pour accéder aux outils du personnel.",
+    "description": "Description for the Personal and contact information section"
+  },
   "3dwnFt": {
     "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences suivants : {departmentName}.",
     "description": "Fine print for departmental preference for pool advertisement"
@@ -1398,10 +1410,6 @@
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
-  },
-  "3yMRCt": {
-    "defaultMessage": "Nous demandons aux membres du personnel de décrire leur objectif de carrière ultime. Voici ce qu'ils ont répondu.",
-    "description": "Description for Career objective section of user employee information page"
   },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
@@ -2506,6 +2514,10 @@
   "96AvU9": {
     "defaultMessage": "Vous avez répondu aux questions générales suivantes :",
     "description": "Message in general questions section of the application review page."
+  },
+  "96ClZg": {
+    "defaultMessage": "Le rôle suivant que l'employé·e entend jouer et son principal objectif de carrière, notamment la classification, les domaines de travail et les ministères.",
+    "description": "Subtitle for next role and career objective section"
   },
   "97UAb8": {
     "defaultMessage": "Titre abrégé de cette expérience",
@@ -4575,10 +4587,6 @@
     "defaultMessage": "Modifier les rôles dans le processus",
     "description": "Label for the form to edit a users process membership"
   },
-  "ISPFsQ": {
-    "defaultMessage": "Objectif de carrière",
-    "description": "Title for Career objective section of user employee information page"
-  },
   "ISSs88": {
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
@@ -5283,10 +5291,6 @@
     "defaultMessage": "Pas une employée ou un employé vérifié",
     "description": "Error message for unauthorized employee access"
   },
-  "Ll9cyc": {
-    "defaultMessage": "Renseignez-vous sur leur intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
-    "description": "Description for Career development preferences section of user employee information page"
-  },
   "LlE+CS": {
     "defaultMessage": "Note spéciale",
     "description": "Label for Special note"
@@ -5326,6 +5330,10 @@
   "Lv8q5A": {
     "defaultMessage": "Informations sur la classification",
     "description": "Subtitle for viewing a specific classification"
+  },
+  "LvXaIZ": {
+    "defaultMessage": "Adresse courriel professionnelle du gouvernement of Canada",
+    "description": "Label for gov of canada work email"
   },
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
@@ -5658,6 +5666,10 @@
   "NP/fsS": {
     "defaultMessage": "Pour quel ministère travaillez-vous?",
     "description": "Label for department select input in the request form"
+  },
+  "NQgGHA": {
+    "defaultMessage": "En savoir plus sur le poste que cet employé souhaite occuper dans le cadre de son cheminement de carrière.",
+    "description": "Subtitle for dialog viewing next role info for employees"
   },
   "NROIaL": {
     "defaultMessage": "Il manque certaines compétences à cette évaluation",
@@ -6203,10 +6215,6 @@
     "defaultMessage": "<strong>Heures d’ouverture :</strong> Du lundi au vendredi, de 8 h à 20 h (heure de l’Est)",
     "description": "Hours of operation info"
   },
-  "Q7b1X0": {
-    "defaultMessage": "Apprenez-en davantage sur le ou la membre du personnel et sa façon de travailler.",
-    "description": "Description for Goals and work style section of user employee information page"
-  },
   "Q83U92": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add experience in application education page."
@@ -6350,6 +6358,10 @@
   "QiQoIq": {
     "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
     "description": "Label for advancement nomination is rejected"
+  },
+  "Qjaglb": {
+    "defaultMessage": "Aucune adresse courriel professionnelle fournie",
+    "description": "Error message when work email is null."
   },
   "Qjpmm8": {
     "defaultMessage": "Quelle était votre part de responsabilité dans ce rôle?",
@@ -6807,10 +6819,6 @@
     "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base dont une personne candidate a besoin pour effectuer le travail. Cette liste comprend des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous recommandons de ne choisir que les compétences qui sont absolument nécessaires. Une liste plus courte de compétences requises permet de présenter des candidatures plus solides et simplifie le processus d’évaluation.",
     "description": "Description displayed on the job poster template 'essential technical skills' section."
   },
-  "SqDb3H": {
-    "defaultMessage": "Dans la présente section, le ou la membre du personnel peut faire part de ses souhaits concernant son prochain type de poste.",
-    "description": "Description for Next role section of user employee information page"
-  },
   "Sth/c4": {
     "defaultMessage": "Prochain type de poste",
     "description": "Title for next role dialog"
@@ -7054,6 +7062,10 @@
   "U0MY+6": {
     "defaultMessage": "À quoi vous attendre après avoir soumis votre demande",
     "description": "Title for the what to expect section"
+  },
+  "U5plJQ": {
+    "defaultMessage": "L’employé n’a fourni aucun renseignement sur le prochain poste qu’il aimerait occuper.",
+    "description": "Message displayed if employee hasn't filled out next role"
   },
   "U86N4g": {
     "defaultMessage": "Pour l’instant, sauvegardez et quittez",
@@ -7782,10 +7794,6 @@
     "defaultMessage": "Rôle retiré avec succès",
     "description": "Message displayed to user when a role has been removed from a user"
   },
-  "XdOWYL": {
-    "defaultMessage": "Prochain type de poste",
-    "description": "Title for Next role section of user employee information page"
-  },
   "XdynkW": {
     "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
     "description": "Heading for confirmation alert to delete a notification"
@@ -7889,6 +7897,10 @@
   "Y6X4Ok": {
     "defaultMessage": "Communication générale",
     "description": "Label for preferred language in profile details box."
+  },
+  "Y82TrM": {
+    "defaultMessage": "Les préférences de l’employé·e en matière d’organisation, de promotion, de mentorat et de possibilités pour les cadres.",
+    "description": "Title for Career development preferences section of user employee information page"
   },
   "Y93ht7": {
     "defaultMessage": "Vous n'avez aucune demande active pour l'instant.",
@@ -8298,6 +8310,10 @@
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
   },
+  "ZhccbH": {
+    "defaultMessage": "L’employé n’a fourni aucun renseignement sur son objectif professionnel ultime.",
+    "description": "Message displayed if employee hasn't filled out career objective"
+  },
   "ZiCXd1": {
     "defaultMessage": "la gestion de projets de TI;",
     "description": "First item in list of certification topics section"
@@ -8441,6 +8457,10 @@
   "aYyceB": {
     "defaultMessage": "Lien entre la personne candidate et l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominee's relation to the person nominating them"
+  },
+  "aZEnPH": {
+    "defaultMessage": "En savoir plus sur le poste que cet employé souhaite occuper pour atteindre son objectif professionnel principal.",
+    "description": "Subtitle for dialog viewing career objective info for employees"
   },
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
@@ -8937,6 +8957,10 @@
   "cqJw3g": {
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
+  },
+  "ctOBXo": {
+    "defaultMessage": "L’employé n’a ajouté aucun renseignement concernant son prochain poste ni son objectif de carrière à son profil.",
+    "description": "Message displayed if employee hasn't filled out next role or career objective"
   },
   "cw6MTQ": {
     "defaultMessage": "Pour que votre adresse courriel professionnelle puisse être confirmée, son domaine doit correspondre à un modèle connu du gouvernement du Canada (par exemple @canada.ca, @ministère.gc.ca, etc.).",
@@ -11761,6 +11785,10 @@
     "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
     "description": "Link text to a page to learn more about something"
   },
+  "ozb92E": {
+    "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
+    "description": "title for alert about changed collection"
+  },
   "p+YRN1": {
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
     "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
@@ -12024,6 +12052,10 @@
   "q3JL9y": {
     "defaultMessage": "Une estimation du nombre de personnes candidates qualifiées correspondant à vos critères s’affichera automatiquement selon les filtres appliqués.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
+  },
+  "q3scRY": {
+    "defaultMessage": "La possibilité pour l'employé·e de se décrire, d'expliquer comment il ou elle aborde sa carrière et comment elle travaille le mieux.",
+    "description": "Subtitle for goals and work style section"
   },
   "q5FQbu": {
     "defaultMessage": "À venir!",
@@ -13137,6 +13169,10 @@
     "defaultMessage": "Indiquer comme lue",
     "description": "Button text to mark a notification as read"
   },
+  "vj9jcO": {
+    "defaultMessage": "Afin de mieux saisir les données sur votre parcours professionnel dans la fonction publique, nous recueillons dorénavant de l’information sur votre classification et votre ministère, entre autres, que nous consignons dans la section sur votre <a>expérience professionnelle</a>. Si vous travaillez actuellement au gouvernement du Canada, veuillez mettre à jour votre expérience professionnelle la plus récente.",
+    "description": "body for alert about changed collection"
+  },
   "vjZ960": {
     "defaultMessage": "Si vous êtes à la recherche de talents, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des personnes candidates qualifiées. Tous les candidates et candidats dans ces processus de recrutement ont été évalués et se sont qualifiés.",
     "description": "Content displayed in the find talent page explaining the page and what it offers to users."
@@ -13364,6 +13400,10 @@
   "wm5GrF": {
     "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
     "description": "Validation text for department name input"
+  },
+  "wmSeI8": {
+    "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
+    "description": "Contact email card description on account settings page"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",

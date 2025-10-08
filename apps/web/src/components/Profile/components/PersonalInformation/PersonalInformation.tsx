@@ -2,8 +2,15 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
-import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
+import {
+  Alert,
+  Link,
+  Loading,
+  ToggleSection,
+  Well,
+} from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -13,6 +20,7 @@ import {
   graphql,
   Pool,
 } from "@gc-digital-talent/graphql";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -20,9 +28,7 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-// not importing a whole page, just a context
-// eslint-disable-next-line no-restricted-imports
-import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
+import useRoutes from "~/hooks/useRoutes";
 
 import { SectionProps } from "../../types";
 import FormActions from "../FormActions";
@@ -45,7 +51,6 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     firstName
     lastName
     telephone
-    email
     preferredLang {
       value
     }
@@ -69,6 +74,8 @@ interface PersonalInformationProps extends SectionProps<Pick<Pool, "id">> {
   query: FragmentType<typeof ProfilePersonalInformation_Fragment>;
 }
 
+const AlertDismissedKey = "dismissed_alert_account_settings_collection_changed";
+
 const PersonalInformation = ({
   query,
   onUpdate,
@@ -76,7 +83,12 @@ const PersonalInformation = ({
   pool,
 }: PersonalInformationProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const user = getFragment(ProfilePersonalInformation_Fragment, query);
+  const [alertIsDismissed, setAlertIsDismissed] = useLocalStorage<boolean>(
+    AlertDismissedKey,
+    false,
+  );
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
@@ -85,8 +97,6 @@ const PersonalInformation = ({
     emptyRequired,
     fallbackIcon: UserIcon,
   });
-  const applicationContext = useApplicationContext();
-  const isInApplication = !!applicationContext.currentStepOrdinal;
   const [{ data, fetching }] = useQuery({
     query: PersonalInformationForm_Query,
   });
@@ -140,6 +150,45 @@ const PersonalInformation = ({
       >
         {title ? intl.formatMessage(title) : null}
       </ToggleSection.Header>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "Manage your name, contact preferences, citizenship, and veteran status. Government of Canada employees can also verify their work email to gain access to employee tools.",
+          id: "3duqOV",
+          description:
+            "Description for the Personal and contact information section",
+        })}
+      </p>
+      {!alertIsDismissed ? (
+        <Alert.Root
+          type="info"
+          dismissible
+          onDismiss={() => setAlertIsDismissed(true)}
+          live={false}
+        >
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "We’ve changed how we collect employee information",
+              id: "ozb92E",
+              description: "title for alert about changed collection",
+            })}
+          </Alert.Title>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your <a>career experience</a>. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
+              id: "vj9jcO",
+              description: "body for alert about changed collection",
+            },
+            {
+              a: (chunks: ReactNode) => (
+                <Link href={paths.careerTimeline()}>{chunks}</Link>
+              ),
+            },
+          )}
+        </Alert.Root>
+      ) : null}
       {pool && emptyRequired && (
         <Well color="error">
           <p>
@@ -154,11 +203,7 @@ const PersonalInformation = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <NullDisplay />
-          ) : (
-            <Display query={user} showEmailVerification={!isInApplication} />
-          )}
+          {isNull ? <NullDisplay /> : <Display query={user} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (

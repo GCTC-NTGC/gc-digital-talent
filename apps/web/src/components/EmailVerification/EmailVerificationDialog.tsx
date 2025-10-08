@@ -55,7 +55,7 @@ interface SubmitACodeFormValues {
 export interface EmailVerificationProps {
   emailType: EmailType;
   emailAddress?: string | null;
-  onVerificationSuccess: () => void;
+  onVerificationSuccess?: () => void;
   children?: ReactNode;
   defaultOpen?: boolean;
 }
@@ -250,7 +250,7 @@ export const EmailVerificationDialog = ({
         handleDialogOpenChange(false);
 
         //fire event to parent
-        onVerificationSuccess();
+        onVerificationSuccess?.();
       })
       .catch(() => {
         submitACodeFormMethods.setError(

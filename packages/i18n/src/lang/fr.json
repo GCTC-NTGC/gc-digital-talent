@@ -684,7 +684,7 @@
     "description": "Label for level"
   },
   "OaB49n": {
-    "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
+    "defaultMessage": "J'ai la résidence permanente au Canada.",
     "description": "declaring one to be a permanent resident"
   },
   "OeTCOs": {
@@ -1352,7 +1352,7 @@
     "description": "The operational requirement described as 24/7 on-call."
   },
   "l4wLn9": {
-    "defaultMessage": "Je suis un citoyen canadien.",
+    "defaultMessage": "J'ai la citoyenneté canadienne.",
     "description": "declaring one to be a Canadian citizen"
   },
   "lXgeJr": {
