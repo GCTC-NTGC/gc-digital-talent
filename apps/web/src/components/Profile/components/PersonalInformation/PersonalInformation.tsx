@@ -150,6 +150,15 @@ const PersonalInformation = ({
       >
         {title ? intl.formatMessage(title) : null}
       </ToggleSection.Header>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "Manage your name, contact preferences, citizenship, and veteran status. Government of Canada employees can also verify their work email to gain access to employee tools.",
+          id: "3duqOV",
+          description:
+            "Description for the Personal and contact information section",
+        })}
+      </p>
       {!alertIsDismissed ? (
         <Alert.Root
           type="info"
