@@ -229,7 +229,7 @@ export const UserEmployeeInformation = ({
               })}
             </p>
           </TableOfContents.Section>
-          
+
           <Accordion.Root mode="card" type="multiple">
             <Accordion.Item
               value={SECTION_ID.CAREER_DEVELOPMENT}
