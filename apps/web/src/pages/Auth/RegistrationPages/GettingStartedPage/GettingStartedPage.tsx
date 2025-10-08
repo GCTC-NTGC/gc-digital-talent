@@ -12,8 +12,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
-import EmailVerificationProvider from "~/components/EmailVerification/EmailVerificationProvider";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
+import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import messages from "./messages";
 import GettingStartedForm, { FormValues } from "./GettingStartedForm";
@@ -134,13 +134,13 @@ const GettingStartedPage = () => {
           <Card space="lg">
             <Pending fetching={fetching} error={error}>
               {data?.me ? (
-                <EmailVerificationProvider>
+                <EmailVerification.Provider>
                   <GettingStartedForm
                     initialValuesQuery={data.me}
                     optionsQuery={data}
                     onSubmit={handleSubmit}
                   />
-                </EmailVerificationProvider>
+                </EmailVerification.Provider>
               ) : (
                 <ThrowNotFound
                   message={intl.formatMessage(profileMessages.userNotFound)}

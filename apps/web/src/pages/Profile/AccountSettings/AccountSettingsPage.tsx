@@ -18,7 +18,13 @@ import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
+import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
+import { SectionProps } from "~/components/Profile/types";
+import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
+import { aboutSectionHasEmptyRequiredFields } from "~/validators/profile";
+import messages from "~/messages/profileMessages";
+import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
+import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
 
 import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";
