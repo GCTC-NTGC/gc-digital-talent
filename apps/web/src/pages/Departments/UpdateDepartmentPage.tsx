@@ -63,7 +63,7 @@ export function formValuesToUpdateInput({
       fr: name?.fr,
     },
     size: size ?? undefined,
-    departmentNumber: departmentNumber ?? undefined,
+    departmentNumber: departmentNumber ? Number(departmentNumber) : undefined,
     orgIdentifier: orgIdentifier ? Number(orgIdentifier) : undefined,
     ...departmentTypeToInput(departmentType),
   };

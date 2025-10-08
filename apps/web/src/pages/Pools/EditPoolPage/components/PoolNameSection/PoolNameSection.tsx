@@ -63,7 +63,6 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    processNumber
     publishingGroup {
       value
       label {
@@ -495,20 +494,6 @@ const PoolNameSection = ({
                   )}
                   disabled={formDisabled}
                   doNotSort
-                />
-                <Input
-                  id="processNumber"
-                  name="processNumber"
-                  type="text"
-                  label={intl.formatMessage(processMessages.processNumber)}
-                  context={intl.formatMessage({
-                    defaultMessage:
-                      "This process number is obtained from your HR shop",
-                    id: "Ao/+Ba",
-                    description:
-                      "Additional context describing the pools process number.",
-                  })}
-                  disabled={formDisabled}
                 />
                 <Select
                   id="publishingGroup"

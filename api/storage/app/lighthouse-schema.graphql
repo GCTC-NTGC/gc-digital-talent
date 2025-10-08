@@ -2602,6 +2602,7 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput {
+  processNumber: String
   changeJustification: String!
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput

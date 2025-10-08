@@ -2911,10 +2911,6 @@
     "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
     "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
   },
-  "Ao/+Ba": {
-    "defaultMessage": "Ce numéro de processus est obtenu auprès de votre atelier RH",
-    "description": "Additional context describing the pools process number."
-  },
   "Aqz3Ma": {
     "defaultMessage": "La spécialisation est pertinente à l’exigence du diplôme",
     "description": "Text for education accepted information context in screening decision dialog"
@@ -7490,6 +7486,10 @@
     "defaultMessage": "{title} évaluation - {skillName}",
     "description": "Header for application screening decision dialog."
   },
+  "WBvYyt": {
+    "defaultMessage": "Enregistrer le numéro de processus",
+    "description": "Text on a button to save the process number"
+  },
   "WDKT2K": {
     "defaultMessage": "Qu'est-ce qu'une CléGC?",
     "description": "GCKey question for what is GCKey"
@@ -11885,6 +11885,10 @@
     "defaultMessage": "Ajouter une compétence technique constituant un atout",
     "description": "Button to add an asset technical skill"
   },
+  "pSP4YT": {
+    "defaultMessage": "En savoir plus sur la situation liée au réaménagement des effectifs de ce membre du personnel.",
+    "description": "Lead in text for a users workforce adjustment information"
+  },
   "pTXZxW": {
     "defaultMessage": "Mettre à jour les renseignements sur votre poste actuel",
     "description": "Link text to page to update experiences"
@@ -12700,6 +12704,10 @@
   "tc3sSC": {
     "defaultMessage": "L'équipe",
     "description": "Card title, team"
+  },
+  "teUR2H": {
+    "defaultMessage": "Ce numéro de processus provient de votre conseillère ou conseiller en RH",
+    "description": "Additional context describing the pools process number."
   },
   "tgPKAn": {
     "defaultMessage": "Nominations",
