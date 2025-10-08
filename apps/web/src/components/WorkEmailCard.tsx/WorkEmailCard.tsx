@@ -9,7 +9,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 
-import EmailVerificationDialog from "../EmailVerification/EmailVerificationDialog";
+import EmailVerificationDialog from "../EmailVerificationDialog/EmailVerificationDialog";
 
 const WorkEmailCard_Fragment = graphql(/** GraphQL */ `
   fragment WorkEmailCard on User {
@@ -76,7 +76,7 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
       <Card.Separator space="xs" />
       <EmailVerificationDialog
         emailType={EmailType.Work}
-        emailAddress={workEmailFragment.workEmail}
+        emailAddress={workEmailFragment.workEmail ?? null}
       >
         <Button mode="inline" className="text-center xs:text-left">
           {intl.formatMessage({
