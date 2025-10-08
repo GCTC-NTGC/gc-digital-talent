@@ -23,6 +23,13 @@ export function generateUniqueNumber() {
   // Use some playwright vars to add to the uniqueness for each run (shard, project, retry, etc.)
   const workerIndex = sanitize(process.env.TEST_WORKER_INDEX ?? "1");
   const repeatEach = sanitize(process.env.TEST_REPEAT_EACH_INDEX ?? "1");
-  const random = randomInt(1, 999);
+  const random = randomInt(1, 9999);
   return `${workerIndex}${repeatEach}${random}`;
+}
+
+export function fetchIdentificationNumber(url: string): string {
+  //  This function is primarily used to fetch the ID (UUID) from recently created department, this function can further be upgraded to accomodate future request
+  const currentURLParts = new URL(url).pathname.split("/");
+  const fetchID = currentURLParts[currentURLParts.indexOf("departments") + 1];
+  return fetchID;
 }

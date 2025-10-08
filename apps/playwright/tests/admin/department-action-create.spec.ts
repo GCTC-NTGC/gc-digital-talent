@@ -1,11 +1,18 @@
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { generateUniqueNumber, generateUniqueTestId } from "~/utils/id";
+import { deleteDepartment, getDepartments } from "~/utils/departments";
+import graphql from "~/utils/graphql";
+import {
+  generateUniqueNumber,
+  generateUniqueTestId,
+  fetchIdentificationNumber,
+} from "~/utils/id";
 
 test("Create department", async ({ appPage }) => {
   const uniqueTestId = generateUniqueTestId();
   const uniqueDepartmentNumber = generateUniqueNumber();
   const DEPARTMENT_TITLE = `Test department ${uniqueTestId}`;
+  const adminCtx = await graphql.newContext();
   await loginBySub(appPage.page, "platform@test.com");
   await appPage.page.goto("/en/admin/settings/departments");
   await appPage.waitForGraphqlResponse("Departments");
@@ -46,4 +53,9 @@ test("Create department", async ({ appPage }) => {
       name: /department information/i,
     }),
   ).toBeVisible();
+
+  const departmentID = fetchIdentificationNumber(appPage.page.url());
+  await deleteDepartment(adminCtx, {
+    id: departmentID,
+  });
 });
