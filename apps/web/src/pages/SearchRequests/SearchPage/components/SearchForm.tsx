@@ -69,13 +69,7 @@ export const SearchForm = ({
   const paths = useRoutes();
   const { defaultValues, initialFilters } = useInitialFilters();
 
-  const [applicantFilter, setApplicantFilter] =
-    useState<ApplicantFilterInput>(initialFilters);
-
-  const { fetching, candidateCount, results } =
-    useCandidateCount(applicantFilter);
-
-  // set some fields to a desired default
+  // set some fields to a desired default (form)
   const defaultValuesAdjusted = {
     ...defaultValues,
     flexibleWorkLocations: [
@@ -83,6 +77,22 @@ export const SearchForm = ({
       FlexibleWorkLocation.Hybrid,
     ],
   };
+
+  // set some fields to a desired default (query)
+  const initialFiltersAdjusted = {
+    ...initialFilters,
+    flexibleWorkLocations: [
+      FlexibleWorkLocation.Remote,
+      FlexibleWorkLocation.Hybrid,
+    ],
+  };
+
+  const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(
+    initialFiltersAdjusted,
+  );
+
+  const { fetching, candidateCount, results } =
+    useCandidateCount(applicantFilter);
 
   const methods = useForm<FormValues>({
     defaultValues: defaultValuesAdjusted,
