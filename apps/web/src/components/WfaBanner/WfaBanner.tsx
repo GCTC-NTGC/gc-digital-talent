@@ -73,7 +73,7 @@ const WfaBanner = () => {
           })}
         </li>
       </Ul>
-      <Link href="#">
+      <Link href="#" color="black">
         {intl.formatMessage({
           defaultMessage: "Learn more about new services to support you.",
           id: "wlfZcP",
