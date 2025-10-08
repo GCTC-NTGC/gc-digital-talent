@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
@@ -12,10 +12,29 @@ import {
   workEmailDomainRegex,
 } from "@gc-digital-talent/helpers";
 
-import { descriptions, labels } from "./messages";
 import { useEmailVerification } from "./EmailVerification";
 
 export const CODE_REQUEST_THROTTLE_DELAY_S = 60;
+
+export const descriptions: Record<EmailType, MessageDescriptor> = {
+  WORK: defineMessage({
+    defaultMessage:
+      "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
+    id: "cw6MTQ",
+    description: "Work email title paragraph",
+  }),
+  CONTACT: defineMessage({
+    defaultMessage:
+      "This email will be used by recruitment and HR teams to contact you about opportunities, as well as to send notifications about your applications and other platform details.",
+    id: "fa+z9W",
+    description: "Contact email title paragraph",
+  }),
+};
+
+export const labels: Record<EmailType, MessageDescriptor> = {
+  WORK: commonMessages.workEmail,
+  CONTACT: commonMessages.email,
+};
 
 const SendUserEmailsVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailsVerification(
