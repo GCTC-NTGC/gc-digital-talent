@@ -33,9 +33,9 @@ import flourishTopLight from "~/assets/img/browse_top_light.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
+import WfaBanner from "~/components/WfaBanner/WfaBanner";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
-import WfaBanner from "~/components/WfaBanner/WfaBanner";
 
 const flourish = tv({
   base: "absolute z-[1] w-[25vw]",
