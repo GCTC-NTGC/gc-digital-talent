@@ -102,11 +102,11 @@ export const applicantFilterToQueryArgs = (
     return {};
   }
 
-  // if an office region was selected, append ONSITE to the flexible locations region
-  const adjustedFlexibleWorkLocations =
-    filter?.locationPreferences && filter.locationPreferences.length > 0
-      ? [...(filter.flexibleWorkLocations ?? []), FlexibleWorkLocation.Onsite]
-      : [...(filter.flexibleWorkLocations ?? [])];
+  // always append ONSITE to the flexible locations region
+  const adjustedFlexibleWorkLocations = [
+    ...(filter.flexibleWorkLocations ?? []),
+    FlexibleWorkLocation.Onsite,
+  ];
 
   /* We must pick only the fields belonging to ApplicantFilterInput, because its possible
      the data object contains other props at runtime, and this will cause the

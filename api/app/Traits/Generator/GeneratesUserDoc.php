@@ -226,7 +226,6 @@ trait GeneratesUserDoc
         $user->location_preferences = array_filter($user->location_preferences ?? [], function ($location) {
             return $location !== WorkRegion::TELEWORK->name;
         });
-        $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
         $flexibleLocations = $user->flexible_work_locations ?? [];
         if (! empty($flexibleLocations)) {
             $section->addText($this->localizeHeading('flexible_work_locations'));
@@ -235,6 +234,7 @@ trait GeneratesUserDoc
                 $section->addListItem($localizedLocation);
             }
         }
+        $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
         $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
     }
 

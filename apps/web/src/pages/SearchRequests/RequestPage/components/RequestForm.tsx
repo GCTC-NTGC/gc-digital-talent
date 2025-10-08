@@ -277,15 +277,12 @@ export const RequestForm = ({
     ) {
       community = communities?.find((c) => c.key === "atip");
     }
-    // if an office region was selected, append ONSITE to the flexible locations region
-    const adjustedFlexibleWorkLocations =
-      applicantFilter?.locationPreferences &&
-      applicantFilter.locationPreferences.length > 0
-        ? [
-            ...(applicantFilter.flexibleWorkLocations ?? []),
-            FlexibleWorkLocation.Onsite,
-          ]
-        : [...(applicantFilter?.flexibleWorkLocations ?? [])];
+
+    // always append ONSITE to the flexible locations region
+    const adjustedFlexibleWorkLocations = [
+      ...(applicantFilter?.flexibleWorkLocations ?? []),
+      FlexibleWorkLocation.Onsite,
+    ];
 
     return {
       fullName: values.fullName ?? "",
