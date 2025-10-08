@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Models\AssessmentStep;
 use App\Models\PoolCandidate;
 use App\Models\PoolSkill;
@@ -42,12 +43,12 @@ class AssessmentResultPoolConsistent implements ValidationRule
                     $this->parentAssessmentStep->pool_id === $this->parentPoolCandidate->pool_id &&
                     $this->parentAssessmentStep->pool_id === $this->parentPoolSkill->pool_id)
             ) {
-                $fail('AssessmentResultReferencesMultiplePools');
+                $fail(ErrorCode::ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS->name);
             }
         } elseif (
             ! ($this->parentAssessmentStep->pool_id === $this->parentPoolCandidate->pool_id)
         ) {
-            $fail('AssessmentResultReferencesMultiplePools');
+            $fail(ErrorCode::ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS->name);
         }
     }
 }

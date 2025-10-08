@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Models\DevelopmentProgram;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -37,8 +37,8 @@ final class CreateTalentNominationEventInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'community.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
-            'developmentPrograms.sync.*.in' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY,
+            'community.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
+            'developmentPrograms.sync.*.in' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name,
         ];
     }
 }

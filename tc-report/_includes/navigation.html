@@ -10,7 +10,7 @@
       <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" style="margin-left: -.7rem;">
         {% for item in site.data.translations.navigation[page.lang] %}
           <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-            <a href="{{ item.route | prepend: site.baseurl }}" title="{{ item.title }}"
+            <a href="{{ item.route | prepend: site.gcdt_baseurl }}" title="{{ item.title }}"
               {% if include.style == "light" %}
                 data-h2-font-color="b(white)"
               {% endif %}

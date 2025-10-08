@@ -1,6 +1,6 @@
 <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" {% if include.color == "white" %}data-h2-font-color="b(white)"{% endif %}>
   {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
-  <a href="{{ site.baseurl }}/{{page.lang}}" title="{{ site.data.translations.breadcrumbs.home.title[page.lang] }}">{{ site.data.translations.site-title[page.lang] }}</a>
+  <a href="{{ site.gcdt_baseurl }}/{{page.lang}}" title="{{ site.data.translations.breadcrumbs.home.title[page.lang] }}">{{ site.data.translations.site-title[page.lang] }}</a>
   <!-- If the page layout is post then use this breadcrumb list. -->
   {% if page.layout == "post" %}
     / <a href="{{ site.baseurl }}/{{ page.lang }}/talent-cloud" title="{{ site.data.translations.breadcrumbs.talentCloud.title[page.lang] }}">{{ site.data.translations.talentCloud.title[page.lang] }}</a>

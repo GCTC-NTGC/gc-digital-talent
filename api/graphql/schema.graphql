@@ -365,6 +365,13 @@ type UserFileGenerationErrorNotification implements Notification {
   fileName: String
 }
 
+type MigrateOffPlatformProcessesNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
@@ -428,7 +435,7 @@ type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
 
 type EmployeeWFA @model(class: "\\App\\Models\\User") {
   id: UUID!
-  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
+  wfaInterest: LocalizedWfaInterest @rename(attribute: "wfa_interest")
   wfaDate: Date @rename(attribute: "wfa_date")
   wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
 }
@@ -634,6 +641,9 @@ type PoolCandidate {
     @with(relation: "educationRequirementEducationExperiences")
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
+  # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
+  educationRequirementExperienceIds: [UUID!]
+    @rename(attribute: "education_requirement_experience_ids")
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
@@ -2003,7 +2013,7 @@ input UpdateEmployeeProfileInput @validator {
 }
 
 input UpdateEmployeeWFAInput {
-  wfaInterest: WFAInterest @rename(attribute: "wfa_interest")
+  wfaInterest: WfaInterest @rename(attribute: "wfa_interest")
   wfaDate: Date @rename(attribute: "wfa_date")
 }
 
@@ -2722,6 +2732,7 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput @validator {
+  processNumber: String @rename(attribute: "process_number")
   changeJustification: String! @rename(attribute: "change_justification")
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")

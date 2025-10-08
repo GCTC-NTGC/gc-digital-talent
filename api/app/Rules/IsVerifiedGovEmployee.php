@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use App\Models\User;
 use Closure;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class IsVerifiedGovEmployee implements ValidationRule
@@ -20,7 +20,7 @@ class IsVerifiedGovEmployee implements ValidationRule
         $user = User::whereExactWorkEmail($value)->first();
 
         if ($user && ! $user->is_verified_gov_employee) {
-            $fail(ApiErrorEnums::NOT_VERIFIED_GOVERNMENT_EMPLOYEE);
+            $fail(ErrorCode::NOT_VERIFIED_GOVERNMENT_EMPLOYEE->name);
         }
 
     }

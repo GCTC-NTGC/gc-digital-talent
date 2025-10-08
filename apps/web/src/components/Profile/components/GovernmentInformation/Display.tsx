@@ -9,6 +9,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import governmentMessages from "~/messages/governmentMessages";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
@@ -67,28 +68,12 @@ const Display = ({
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const govEmployeeMessage = isGovEmployee
-    ? intl.formatMessage({
-        defaultMessage: "Yes, I am a Government of Canada employee.",
-        id: "KD5H5s",
-        description: "Message to state user is employed by government",
-      })
-    : intl.formatMessage({
-        defaultMessage: "No, I am not a Government of Canada employee.",
-        id: "usRTou",
-        description: "Message to state user is not employed by government",
-      });
+    ? intl.formatMessage(governmentMessages.yesGovEmployee)
+    : intl.formatMessage(governmentMessages.noGovEmployee);
 
   const priorityMessage = hasPriorityEntitlement
-    ? intl.formatMessage({
-        defaultMessage: "Yes, I do have a priority entitlement.",
-        id: "FVAQCH",
-        description: "affirm possession of priority entitlement",
-      })
-    : intl.formatMessage({
-        defaultMessage: "No, I do not have a priority entitlement.",
-        id: "I6Qz7N",
-        description: "affirm no entitlement",
-      });
+    ? intl.formatMessage(governmentMessages.yesPriorityEntitlement)
+    : intl.formatMessage(governmentMessages.noPriorityEntitlement);
 
   const handleVerifyNowClick = async () => {
     await navigate(routes.verifyWorkEmail());

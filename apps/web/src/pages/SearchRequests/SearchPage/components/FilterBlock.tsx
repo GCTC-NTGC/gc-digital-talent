@@ -5,7 +5,7 @@ import { HeadingRank } from "@gc-digital-talent/ui";
 interface FilterBlockProps {
   id: string;
   title?: string | ReactNode;
-  text: string;
+  text: ReactNode;
   children?: ReactNode;
   headingLevel?: HeadingRank;
 }

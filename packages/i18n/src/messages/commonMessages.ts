@@ -558,6 +558,11 @@ const commonMessages = defineMessages({
     id: "/l02AA",
     description: "Label displayed for a display name field",
   },
+  dismiss: {
+    defaultMessage: "Dismiss",
+    id: "FO4QJP",
+    description: "Label for action to dismiss something",
+  },
 });
 
 export default commonMessages;

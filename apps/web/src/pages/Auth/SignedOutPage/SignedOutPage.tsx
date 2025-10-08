@@ -15,7 +15,7 @@ import {
   LogoutReason,
   useAuthentication,
 } from "@gc-digital-talent/auth";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -32,7 +32,6 @@ const supportLink = (chunks: ReactNode, path: string) => (
 
 export const Component = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
   const returnPath = useReturnPath(paths.applicantDashboard());
@@ -175,7 +174,7 @@ export const Component = () => {
             </Link>
           </li>
           <li>
-            <Link href={`/${locale}/talent-cloud/report`} external>
+            <Link href={paths.tcReport()} external>
               {intl.formatMessage({
                 defaultMessage: "Talent Cloud report",
                 id: "L9mWLV",

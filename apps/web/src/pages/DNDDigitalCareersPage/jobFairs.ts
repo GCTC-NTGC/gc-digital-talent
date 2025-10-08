@@ -1,7 +1,7 @@
 import { defineMessages, IntlShape } from "react-intl";
 
 import {
-  DATE_FORMAT_LONG_STRING,
+  DATE_FORMAT_LOCALIZED,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
 
@@ -27,7 +27,7 @@ const formattedDate = ({ y, m, d, intl }: FormattedDateArgs) =>
   formatDate({
     date: new Date(y, m - 1, d),
     intl,
-    formatString: DATE_FORMAT_LONG_STRING,
+    formatString: DATE_FORMAT_LOCALIZED,
   });
 
 const locations = defineMessages({

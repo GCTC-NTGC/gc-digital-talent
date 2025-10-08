@@ -6,6 +6,7 @@ use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentDecisionLevel;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
+use App\Enums\ErrorCode;
 use App\Enums\PoolSkillType;
 use App\Facades\Notify;
 use App\Models\AssessmentResult;
@@ -284,7 +285,7 @@ class AssessmentResultTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', 'AssessmentResultReferencesMultiplePools');
+            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', ErrorCode::ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS->name);
         $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->createAssessmentResult,
@@ -295,7 +296,7 @@ class AssessmentResultTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', 'AssessmentResultReferencesMultiplePools');
+            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', ErrorCode::ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS->name);
         $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->createAssessmentResult,
@@ -307,7 +308,7 @@ class AssessmentResultTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', 'AssessmentResultReferencesMultiplePools');
+            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', ErrorCode::ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS->name);
 
         // success when all three reference one pool
         $this->actingAs($this->communityUser, 'api')
@@ -370,7 +371,7 @@ class AssessmentResultTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('updateAssessmentResult.justifications', 'EducationJustificationsForSkillAssessment');
+            ->assertGraphQLValidationError('updateAssessmentResult.justifications', ErrorCode::EDUCATION_JUSTIFICATIONS_FOR_SKILL_ASSESSMENT->name);
 
         // cannot have skill decision level for unsuccessful, input changes it from successful
         $this->actingAs($this->communityUser, 'api')
@@ -385,7 +386,7 @@ class AssessmentResultTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('updateAssessmentResult.assessmentDecisionLevel', 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision');
+            ->assertGraphQLValidationError('updateAssessmentResult.assessmentDecisionLevel', ErrorCode::CANNOT_SET_ASSESSMENT_DECISION_LEVEL_FOR_THIS_TYPE_OR_DECISION->name);
     }
 
     // test validation blocks creating skill assessment results missing a skill
@@ -409,6 +410,6 @@ class AssessmentResultTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('createAssessmentResult.poolSkillId', 'SkillAssessmentResultMissingSkill');
+            ->assertGraphQLValidationError('createAssessmentResult.poolSkillId', ErrorCode::SKILL_ASSESSMENT_RESULT_MISSING_SKILL->name);
     }
 }

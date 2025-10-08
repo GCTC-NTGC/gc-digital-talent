@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Rules\GovernmentEmailRegex;
 use App\Rules\IsStatusOrNonStatus;
 use Illuminate\Validation\Rule;
@@ -63,9 +64,9 @@ final class UpdateUserAsUserInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'email.unique' => 'EmailAddressInUse',
-            'workEmail.unique' => 'EmailAddressInUse',
-            'sub.unique' => 'SubInUse',
+            'email.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+            'workEmail.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+            'sub.unique' => ErrorCode::SUB_IN_USE->name,
         ];
     }
 }

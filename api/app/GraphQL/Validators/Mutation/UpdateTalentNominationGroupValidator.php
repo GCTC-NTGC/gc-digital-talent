@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentNominationGroupDecision;
 use App\Models\TalentNominationGroup;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -42,9 +42,9 @@ final class UpdateTalentNominationGroupValidator extends Validator
     public function messages(): array
     {
         return [
-            'talentNominationGroup.advancementDecision.prohibited' => ApiErrorEnums::NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE,
-            'talentNominationGroup.lateralMovementDecision.prohibited' => ApiErrorEnums::NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE,
-            'talentNominationGroup.developmentProgramsDecision.prohibited' => ApiErrorEnums::NO_NOMINATIONS_FOR_DEVELOPMENT_PROGRAMS_TO_DECIDE,
+            'talentNominationGroup.advancementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE->name,
+            'talentNominationGroup.lateralMovementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE->name,
+            'talentNominationGroup.developmentProgramsDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_DEVELOPMENT_PROGRAMS_TO_DECIDE->name,
         ];
     }
 }

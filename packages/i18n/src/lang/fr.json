@@ -455,6 +455,14 @@
     "defaultMessage": "Je consens à travailler dans la Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec).",
     "description": "The work region of Canada described as National Capital."
   },
+  "FO4QJP": {
+    "defaultMessage": "Fermer",
+    "description": "Label for action to dismiss something"
+  },
+  "FdYDwk": {
+    "defaultMessage": "J’occupe un poste pour une durée indéterminée, j’ai reçu une lettre sur le réaménagement des effectifs et je souhaite rester",
+    "description": "Letter received WFA interest"
+  },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
@@ -627,6 +635,10 @@
     "defaultMessage": "Renseignements manquants",
     "description": "Message for when specific item has missing information"
   },
+  "N62XrS": {
+    "defaultMessage": "J’occupe un poste pour une durée indéterminée, mais je souhaite quitter volontairement la fonction publique",
+    "description": "Voluntary departure WFA interest"
+  },
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
@@ -654,6 +666,10 @@
   "OBQ8b9": {
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
+  },
+  "OKhXQk": {
+    "defaultMessage": "Vous ne pouvez pas enregistrer cette situation de réaménagement des effectifs si votre poste actuel est absent, n'est pas marqué comme poste d'attache ou n'est pas marqué comme une expérience au sein du gouvernement du Canada. Veuillez mettre à jour votre expérience professionnelle pour continuer.",
+    "description": "Error message for when a user is missing a substantive experience for workforce adjustment"
   },
   "OLs1UJ": {
     "defaultMessage": "J'aimerais que quelqu'un me serve de mentor.",
@@ -1095,6 +1111,10 @@
     "defaultMessage": "Processus de recrutement",
     "description": "Name of the recruitment processes section"
   },
+  "dXEHu0": {
+    "defaultMessage": "Je ne sais pas vraiment si le réaménagement des effectifs touche mon poste",
+    "description": "Unsure WFA interest"
+  },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
@@ -1487,6 +1507,10 @@
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
   },
+  "qOVygs": {
+    "defaultMessage": "Cette section ne me concerne pas",
+    "description": "Not applicable WFA interest"
+  },
   "qP2HGB": {
     "defaultMessage": "Outils avancés",
     "description": "Name of Advanced tools page"
@@ -1610,6 +1634,10 @@
   "tpXtAJ": {
     "defaultMessage": "Processus hors plateforme",
     "description": "Off-platform section header"
+  },
+  "trCVD0": {
+    "defaultMessage": "Mon poste pour une période déterminée n’est pas renouvelé ou prend fin tôt",
+    "description": "Term ending WFA interest"
   },
   "tyc8W0": {
     "defaultMessage": "(anglais)",

@@ -21,7 +21,7 @@ use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
-use App\Enums\WFAInterest;
+use App\Enums\WfaInterest;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -232,7 +232,8 @@ class UserFactory extends Factory
                     ]),
                 ]);
 
-                $user->wfa_interest = $this->faker->randomElement(WFAInterest::cases())->name;
+            if ($withWfa) {
+                $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
                 $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d');
                 $user->saveQuietly();
 
