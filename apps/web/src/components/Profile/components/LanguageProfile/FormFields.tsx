@@ -4,11 +4,12 @@ import { Checklist, FieldLabels } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { FragmentType } from "@gc-digital-talent/graphql";
 
+import { getConsideredLangItems } from "~/utils/languageUtils";
+
 import useDirtyFields from "../../hooks/useDirtyFields";
 import ConsideredLanguages, {
   LanguageProfileOptions_Fragment,
 } from "./ConsideredLanguages";
-import { getConsideredLangItems } from "./utils";
 
 interface FormFieldProps {
   labels: FieldLabels;

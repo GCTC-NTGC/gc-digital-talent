@@ -31,6 +31,16 @@ updates:
           - "major"
           - "minor"
           - "patch"
+      react:
+        patterns:
+          - "@types/react"
+          - "@types/react-dom"
+          - "react"
+          - "react-dom"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
       storybook:
         patterns:
           - "@storybook*"

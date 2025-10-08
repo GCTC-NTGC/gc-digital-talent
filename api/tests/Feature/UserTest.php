@@ -3,11 +3,14 @@
 namespace Tests\Feature;
 
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\EmploymentCategory;
+use App\Enums\ErrorCode;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
@@ -2340,7 +2343,7 @@ class UserTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('user.indigenousCommunities', 'BothStatusNonStatus');
+            ->assertGraphQLValidationError('user.indigenousCommunities', ErrorCode::BOTH_STATUS_NON_STATUS->name);
     }
 
     public function testUserUpdatingSub(): void
@@ -2466,6 +2469,63 @@ class UserTest extends TestCase
         $user->computed_is_gov_employee = false;
         $user->save();
         $this->assertFalse($user->isVerifiedGovEmployee);
+
+    }
+
+    public function testMultipleSubstantiveExperiences()
+    {
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+
+        // Nonsubstantive
+        WorkExperience::factory()
+            ->create([
+                'user_id' => $user->id,
+                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+            ]);
+
+        $exp1 = WorkExperience::factory()
+            ->asSubstantive()
+            ->create(['user_id' => $user->id]);
+
+        $exp2 = WorkExperience::factory()
+            ->asSubstantive()
+            ->create(['user_id' => $user->id]);
+
+        $this->actingAs($user, 'api')
+            ->graphQL('query Me { me { currentSubstantiveExperiences { id } } }')
+            ->assertJsonFragment([[
+                ['id' => $exp1->id],
+                ['id' => $exp2->id],
+            ]]);
+
+        $this->assertCount(2, $user->current_substantive_experiences);
+
+    }
+
+    public function testNoSubstantiveExperiences()
+    {
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+
+        // Nonsubstantive
+        WorkExperience::factory()
+            ->create([
+                'user_id' => $user->id,
+                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+            ]);
+
+        $this->actingAs($user, 'api')
+            ->graphQL('query Me { me { currentSubstantiveExperiences { id } } }')
+            ->assertJsonFragment([
+                'currentSubstantiveExperiences' => [],
+            ]);
+
+        $this->assertEmpty($user->current_substantive_experiences);
 
     }
 }

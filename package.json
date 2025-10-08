@@ -5,9 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": ">=22.17.0",
-    "pnpm": ">=10.5.2"
+    "pnpm": ">=10.17.0"
   },
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.17.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --filter @gc-digital-talent/web",
@@ -44,10 +44,10 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
-    "@storybook/addon-a11y": "^9.1.5",
-    "@storybook/react-vite": "^9.1.5",
+    "@storybook/addon-a11y": "^9.1.8",
+    "@storybook/react-vite": "^9.1.8",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "storybook": "^9.1.5",
-    "turbo": "^2.5.6"
+    "storybook": "^9.1.8",
+    "turbo": "^2.5.8"
   }
 }

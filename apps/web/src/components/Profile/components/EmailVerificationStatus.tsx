@@ -5,7 +5,7 @@ import { Button, Chip } from "@gc-digital-talent/ui";
 interface EmailVerificationStatusProps {
   isEmailVerified?: boolean;
   readOnly?: boolean;
-  onClickVerify: () => Promise<void>;
+  onClickVerify?: () => Promise<void>;
 }
 
 const EmailVerificationStatus = ({

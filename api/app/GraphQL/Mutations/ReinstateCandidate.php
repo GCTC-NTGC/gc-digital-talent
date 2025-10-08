@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -30,7 +31,7 @@ final class ReinstateCandidate
                 $candidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
                 break;
             default:
-                throw ValidationException::withMessages(['id' => 'CandidateUnexpectedStatus']);
+                throw ValidationException::withMessages(['id' => ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name]);
         }
 
         $candidate->removed_at = null;

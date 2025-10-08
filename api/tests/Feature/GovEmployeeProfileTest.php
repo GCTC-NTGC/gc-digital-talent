@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Models\User;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -88,6 +88,6 @@ class GovEmployeeProfileTest extends TestCase
                 'data' => [
                     'govEmployeeProfile' => null,
                 ],
-            ])->assertGraphQLValidationError('workEmail', ApiErrorEnums::NOT_VERIFIED_GOVERNMENT_EMPLOYEE);
+            ])->assertGraphQLValidationError('workEmail', ErrorCode::NOT_VERIFIED_GOVERNMENT_EMPLOYEE->name);
     }
 }

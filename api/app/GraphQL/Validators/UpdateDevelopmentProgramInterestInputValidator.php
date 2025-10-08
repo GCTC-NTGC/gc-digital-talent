@@ -3,7 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\DevelopmentProgramParticipationStatus;
-use Database\Helpers\ApiErrorEnums;
+use App\Enums\ErrorCode;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -35,9 +35,9 @@ final class UpdateDevelopmentProgramInterestInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'completionDate.present' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED,
-            'completionDate.date' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED,
-            'completionDate.prohibited' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED,
+            'completionDate.present' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name,
+            'completionDate.date' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name,
+            'completionDate.prohibited' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED->name,
         ];
     }
 }

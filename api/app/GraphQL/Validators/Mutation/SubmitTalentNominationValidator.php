@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
@@ -9,7 +10,6 @@ use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Rules\GovernmentEmailRegex;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -169,9 +169,9 @@ final class SubmitTalentNominationValidator extends Validator
     public function messages(): array
     {
         return [
-            'submitted_at.prohibited' => 'AlreadySubmitted',
-            'skills.*.in' => ApiErrorEnums::SKILL_NOT_KLC,
-            'skills.*.prohibited' => ApiErrorEnums::SKILLS_NOT_ALLOWED_FOR_EVENT,
+            'submitted_at.prohibited' => ErrorCode::TALENT_NOMINATION_ALREADY_SUBMITTED->name,
+            'skills.*.in' => ErrorCode::SKILL_NOT_KLC->name,
+            'skills.*.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
         ];
     }
 }
