@@ -3,7 +3,7 @@ import { SubmitHandler } from "react-hook-form";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
 
-import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
+import { Alert, Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -13,6 +13,7 @@ import {
   graphql,
   Pool,
 } from "@gc-digital-talent/graphql";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -65,6 +66,8 @@ interface PersonalInformationProps extends SectionProps<Pick<Pool, "id">> {
   query: FragmentType<typeof ProfilePersonalInformation_Fragment>;
 }
 
+const AlertDismissedKey = "dismissed_alert_account_settings_collection_changed";
+
 const PersonalInformation = ({
   query,
   onUpdate,
@@ -73,6 +76,10 @@ const PersonalInformation = ({
 }: PersonalInformationProps) => {
   const intl = useIntl();
   const user = getFragment(ProfilePersonalInformation_Fragment, query);
+  const [alertIsDismissed, setAlertIsDismissed] = useLocalStorage<boolean>(
+    AlertDismissedKey,
+    false,
+  );
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
@@ -134,6 +141,29 @@ const PersonalInformation = ({
       >
         {title ? intl.formatMessage(title) : null}
       </ToggleSection.Header>
+      {!alertIsDismissed ? (
+        <Alert.Root
+          type="info"
+          dismissible
+          onDismiss={() => setAlertIsDismissed(true)}
+          live={false}
+        >
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "We’ve changed how we collect employee information",
+              id: "ozb92E",
+              description: "title for alert about changed collection",
+            })}
+          </Alert.Title>
+          {intl.formatMessage({
+            defaultMessage:
+              "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your career experience. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
+            id: "h9cjYs",
+            description: "body for alert about changed collection",
+          })}
+        </Alert.Root>
+      ) : null}
       {pool && emptyRequired && (
         <Well color="error">
           <p>
