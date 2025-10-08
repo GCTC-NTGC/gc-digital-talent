@@ -259,9 +259,9 @@ const WorkforceAdjustmentFilterDialog = ({
               value: "yes",
               label: intl.formatMessage({
                 defaultMessage: "Yes, candidate has a priority entitlement",
-                id: "Ez7YTI",
+                id: "HX/1VD",
                 description:
-                  "Option label to filter employees by those who have priority enititlement",
+                  "Option label to filter employees by those who have priority entitlement",
               }),
             },
             {
