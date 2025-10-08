@@ -1,6 +1,5 @@
 import { IntlShape } from "react-intl";
 
-import { emptyToNull } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   ArmedForcesStatus,
@@ -42,7 +41,6 @@ export const getLabels = (intl: IntlShape) => ({
     id: "dssZUt",
     description: "Label for surname field",
   }),
-  email: intl.formatMessage(commonMessages.email),
   citizenship: intl.formatMessage({
     defaultMessage: "Citizenship status",
     id: "7DUfu+",
@@ -60,7 +58,6 @@ export const dataToFormValues = (
   telephone: data?.telephone,
   firstName: data?.firstName,
   lastName: data?.lastName,
-  email: data?.email,
   citizenship: data?.citizenship?.value,
   armedForcesStatus: data?.armedForcesStatus?.value,
 });
@@ -72,7 +69,6 @@ export const formValuesToSubmitData = (
   return {
     ...data,
     id: initialUser.id,
-    email: emptyToNull(data.email),
   };
 };
 
