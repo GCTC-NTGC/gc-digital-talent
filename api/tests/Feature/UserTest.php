@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\EmploymentCategory;
-use App\Enums\FlexibleWorkLocation;
 use App\Enums\ErrorCode;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
