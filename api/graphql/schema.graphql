@@ -435,7 +435,7 @@ type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
 
 type EmployeeWFA @model(class: "\\App\\Models\\User") {
   id: UUID!
-  wfaInterest: LocalizedWFAInterest @rename(attribute: "wfa_interest")
+  wfaInterest: LocalizedWfaInterest @rename(attribute: "wfa_interest")
   wfaDate: Date @rename(attribute: "wfa_date")
   wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
 }
@@ -2013,7 +2013,7 @@ input UpdateEmployeeProfileInput @validator {
 }
 
 input UpdateEmployeeWFAInput {
-  wfaInterest: WFAInterest @rename(attribute: "wfa_interest")
+  wfaInterest: WfaInterest @rename(attribute: "wfa_interest")
   wfaDate: Date @rename(attribute: "wfa_date")
 }
 
@@ -2732,6 +2732,7 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput @validator {
+  processNumber: String @rename(attribute: "process_number")
   changeJustification: String! @rename(attribute: "change_justification")
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")

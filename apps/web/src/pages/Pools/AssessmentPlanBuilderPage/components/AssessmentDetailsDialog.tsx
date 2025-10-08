@@ -175,6 +175,33 @@ interface InitialValues
   screeningQuestions?: ScreeningQuestion[];
 }
 
+const getDefaultValues = (initialValues: InitialValues): FormValues => {
+  const { screeningQuestions, ...restInitial } = initialValues;
+  if (screeningQuestions) {
+    screeningQuestions.sort((a, b) =>
+      (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
+      (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
+        ? 1
+        : -1,
+    );
+  }
+
+  return {
+    ...restInitial,
+    screeningQuestionFieldArray: screeningQuestions?.map(
+      (initialScreeningQuestion) => ({
+        id: null, // filled by react-hook-form
+        screeningQuestion: {
+          id: initialScreeningQuestion.id,
+          sortOrder: initialScreeningQuestion.sortOrder,
+          en: initialScreeningQuestion.question?.en,
+          fr: initialScreeningQuestion.question?.fr,
+        },
+      }),
+    ),
+  };
+};
+
 interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
   poolSkillsQuery: FragmentType<
@@ -216,30 +243,8 @@ const AssessmentDetailsDialog = ({
     executeCreateOrUpdateScreeningQuestionAssessmentStepMutation,
   ] = useMutation(AssessmentDetailsDialog_ScreeningQuestionMutation);
 
-  if (initialValues.screeningQuestions) {
-    initialValues.screeningQuestions.sort((a, b) =>
-      (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
-      (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
-        ? 1
-        : -1,
-    );
-  }
-
   const methods = useForm<FormValues>({
-    defaultValues: {
-      ...initialValues,
-      screeningQuestionFieldArray: initialValues.screeningQuestions?.map(
-        (initialScreeningQuestion) => ({
-          id: null, // filled by react-hook-form
-          screeningQuestion: {
-            id: initialScreeningQuestion.id,
-            sortOrder: initialScreeningQuestion.sortOrder,
-            en: initialScreeningQuestion.question?.en,
-            fr: initialScreeningQuestion.question?.fr,
-          },
-        }),
-      ),
-    },
+    defaultValues: getDefaultValues(initialValues),
   });
   const {
     handleSubmit,
@@ -303,6 +308,11 @@ const AssessmentDetailsDialog = ({
       setValue("assessmentTitleFr", null);
     }
   }, [dialogMode, setValue]);
+
+  // NOTE: Required to update form when initial values change
+  useEffect(() => {
+    reset(getDefaultValues(initialValues));
+  }, [reset, initialValues]);
 
   const submitCreateAssessmentStepMutation = (
     values: FormValues,
