@@ -7,14 +7,16 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
-import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
 export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformationDisplay on User {
+    workEmail
+    isWorkEmailVerified
     isGovEmployee
     hasPriorityEntitlement
     priorityNumber
@@ -34,8 +36,6 @@ export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
       group
       level
     }
-    workEmail
-    isWorkEmailVerified
   }
 `);
 
@@ -43,26 +43,28 @@ interface DisplayProps {
   query: FragmentType<typeof GovernmentInformationDisplay_Fragment>;
   showEmailVerification?: boolean;
   readOnly?: boolean;
+  showEmail?: boolean;
 }
 
 const Display = ({
   query,
   showEmailVerification = false,
   readOnly = false,
+  showEmail = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const routes = useRoutes();
   const user = getFragment(GovernmentInformationDisplay_Fragment, query);
   const {
+    workEmail,
+    isWorkEmailVerified,
     isGovEmployee,
     department,
     govEmployeeType,
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
-    workEmail,
-    isWorkEmailVerified,
   } = user;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -119,25 +121,27 @@ const Display = ({
                 )
               : notProvided}
           </FieldDisplay>
-          <FieldDisplay
-            hasError={!workEmail}
-            label={intl.formatMessage({
-              defaultMessage: "Work email",
-              id: "tj9Dz3",
-              description: "Work email label",
-            })}
-          >
-            <div className="flex items-center gap-3">
-              <span>{workEmail ?? notProvided}</span>
-              {showEmailVerification && workEmail ? (
-                <EmailVerificationStatus
-                  isEmailVerified={!!isWorkEmailVerified}
-                  onClickVerify={handleVerifyNowClick}
-                  readOnly={readOnly}
-                />
-              ) : null}
-            </div>
-          </FieldDisplay>
+          {showEmail && (
+            <FieldDisplay
+              hasError={!workEmail}
+              label={intl.formatMessage({
+                defaultMessage: "Work email",
+                id: "tj9Dz3",
+                description: "Work email label",
+              })}
+            >
+              <div className="flex items-center gap-3">
+                <span>{workEmail ?? notProvided}</span>
+                {showEmailVerification && workEmail ? (
+                  <EmailVerificationStatus
+                    isEmailVerified={!!isWorkEmailVerified}
+                    onClickVerify={handleVerifyNowClick}
+                    readOnly={readOnly}
+                  />
+                ) : null}
+              </div>
+            </FieldDisplay>
+          )}
         </>
       )}
       <FieldDisplay
