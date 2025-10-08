@@ -10,7 +10,11 @@ import {
   Separator,
   Ul,
 } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -261,7 +265,7 @@ const ReviewTalentNominationDialog = ({
                       date: parseDateTimeUtc(
                         talentNomination.talentNominationEvent.closeDate,
                       ),
-                      formatString: "PPP",
+                      formatString: DATE_FORMAT_LOCALIZED,
                       intl,
                     })
                   : nullMessage}
@@ -274,7 +278,7 @@ const ReviewTalentNominationDialog = ({
                 {talentNomination.submittedAt
                   ? formatDate({
                       date: parseDateTimeUtc(talentNomination.submittedAt),
-                      formatString: "PPP",
+                      formatString: DATE_FORMAT_LOCALIZED,
                       intl,
                     })
                   : nullMessage}

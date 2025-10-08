@@ -43,6 +43,13 @@ describe("EditPoolPage", () => {
     );
 
     await user.click(
+      screen.getByRole("button", { name: /edit process number/i }),
+    );
+    await user.click(
+      screen.getByRole("button", { name: /save process number/i }),
+    );
+
+    await user.click(
       screen.getByRole("button", { name: /edit closing date/i }),
     );
     await user.click(
@@ -106,6 +113,6 @@ describe("EditPoolPage", () => {
       }),
     );
 
-    expect(handleSave).toHaveBeenCalledTimes(9);
+    expect(handleSave).toHaveBeenCalledTimes(10);
   });
 });

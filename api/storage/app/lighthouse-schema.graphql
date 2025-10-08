@@ -363,8 +363,8 @@ type LocalizedTimeFrame implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedWFAInterest implements LocalizedEnumOption {
-  value: WFAInterest!
+type LocalizedWfaInterest implements LocalizedEnumOption {
+  value: WfaInterest!
   label: LocalizedString!
 }
 
@@ -980,7 +980,7 @@ type UserEmployeeWFA {
 
 type EmployeeWFA {
   id: UUID!
-  wfaInterest: LocalizedWFAInterest
+  wfaInterest: LocalizedWfaInterest
   wfaDate: Date
   wfaUpdatedAt: DateTime
 }
@@ -1973,7 +1973,7 @@ input UpdateEmployeeProfileInput {
 }
 
 input UpdateEmployeeWFAInput {
-  wfaInterest: WFAInterest
+  wfaInterest: WfaInterest
   wfaDate: Date
 }
 
@@ -2580,6 +2580,7 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput {
+  processNumber: String
   changeJustification: String!
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
@@ -4008,7 +4009,7 @@ enum TimeFrame {
   THREE_OR_MORE_YEARS
 }
 
-enum WFAInterest {
+enum WfaInterest {
   NOT_APPLICABLE
   TERM_ENDING
   LETTER_RECEIVED

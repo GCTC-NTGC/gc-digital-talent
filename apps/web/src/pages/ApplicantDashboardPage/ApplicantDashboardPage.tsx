@@ -365,7 +365,11 @@ export const DashboardPage = ({
                 />
                 <ResourceBlock.SingleLinkItem
                   as="h3"
-                  state="complete"
+                  state={
+                    aboutSectionHasEmptyRequiredFields(currentUser)
+                      ? "incomplete"
+                      : "complete"
+                  }
                   title={intl.formatMessage(navigationMessages.accountSettings)}
                   href={paths.accountSettings()}
                   description={intl.formatMessage({
