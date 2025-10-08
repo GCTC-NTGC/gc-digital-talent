@@ -1,6 +1,6 @@
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { deleteDepartment, getDepartments } from "~/utils/departments";
+import { deleteDepartment } from "~/utils/departments";
 import graphql from "~/utils/graphql";
 import {
   generateUniqueNumber,
