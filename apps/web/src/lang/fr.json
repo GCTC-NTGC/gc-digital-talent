@@ -12465,10 +12465,6 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
-  "sY6Vti": {
-    "defaultMessage": "Si une correspondance avec une nouvelle possibilité d’emploi ou un échange de postes est trouvée, notre équipe vous contactera pour confirmer que vous consentez à partager vos renseignements avec la personne correspondante.",
-    "description": "Paragraph three for privacy and confidentiality section of wfa form"
-  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -12536,6 +12532,10 @@
   "spzerx": {
     "defaultMessage": "Modifier une compétence",
     "description": "Page title for the edit skill page."
+  },
+  "srGJ8c": {
+    "defaultMessage": "Si une nouvelle occasion ou un possible échange de postes se présente, notre équipe vous contactera pour confirmer que vous acceptez de transmettre vos renseignements personnels à la personne avec laquelle une correspondance a été établie.",
+    "description": "Paragraph three for privacy and confidentiality section of wfa form"
   },
   "sry9Wl": {
     "defaultMessage": "Voici les profils linguistiques que vous pouvez trouver sur la plateforme Talents numériques du GC",

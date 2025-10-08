@@ -352,8 +352,8 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person to whom you’ve been matched.",
-                        id: "sY6Vti",
+                          "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person you’ve been matched with.",
+                        id: "srGJ8c",
                         description:
                           "Paragraph three for privacy and confidentiality section of wfa form",
                       })}
