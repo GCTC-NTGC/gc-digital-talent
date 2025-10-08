@@ -581,7 +581,7 @@ export const Component = () => {
                 {
                   link: (chunks) =>
                     inlineLink(chunks, {
-                      href: paths.profile(),
+                      href: `${paths.profile()}#government-section`,
                       className: "font-bold",
                     }),
                 },
