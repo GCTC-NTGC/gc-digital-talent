@@ -2,8 +2,15 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
-import { Alert, Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
+import {
+  Alert,
+  Link,
+  Loading,
+  ToggleSection,
+  Well,
+} from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -21,6 +28,7 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useRoutes from "~/hooks/useRoutes";
 
 import { SectionProps } from "../../types";
 import FormActions from "../FormActions";
@@ -75,6 +83,7 @@ const PersonalInformation = ({
   pool,
 }: PersonalInformationProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const user = getFragment(ProfilePersonalInformation_Fragment, query);
   const [alertIsDismissed, setAlertIsDismissed] = useLocalStorage<boolean>(
     AlertDismissedKey,
@@ -156,12 +165,19 @@ const PersonalInformation = ({
               description: "title for alert about changed collection",
             })}
           </Alert.Title>
-          {intl.formatMessage({
-            defaultMessage:
-              "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your career experience. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
-            id: "h9cjYs",
-            description: "body for alert about changed collection",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your <a>career experience</a>. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
+              id: "vj9jcO",
+              description: "body for alert about changed collection",
+            },
+            {
+              a: (chunks: ReactNode) => (
+                <Link href={paths.careerTimeline()}>{chunks}</Link>
+              ),
+            },
+          )}
         </Alert.Root>
       ) : null}
       {pool && emptyRequired && (
