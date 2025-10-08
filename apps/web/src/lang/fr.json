@@ -1527,10 +1527,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
   },
-  "4Rs1gk": {
-    "defaultMessage": "Veuillez préciser si vous souhaitez exclure une ville d'une région.",
-    "description": "Location Exemptions field label for work location preference form"
-  },
   "4SNVtn": {
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
@@ -9133,6 +9129,10 @@
   "dcV5qH": {
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
     "description": "Text that appears in Employment equity dialogs explaining the act is under review."
+  },
+  "dcvRbO": {
+    "defaultMessage": "Veuillez préciser si vous souhaitez exclure une ville d'une région.",
+    "description": "Location Exemptions field label for work location preference form"
   },
   "deE+LO": {
     "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
