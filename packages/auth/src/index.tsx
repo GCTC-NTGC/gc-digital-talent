@@ -8,7 +8,7 @@ import useAuthentication from "./hooks/useAuthentication";
 import useAuthorization from "./hooks/useAuthorization";
 import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
 import hasRole from "./utils/hasRole";
-import { narrowTeambleType } from "./utils/narrowTeamableType";
+import { narrowTeamableType } from "./utils/narrowTeamableType";
 import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
@@ -33,7 +33,7 @@ export {
   useApiRoutes,
   apiRoutes,
   hasRole,
-  narrowTeambleType,
+  narrowTeamableType,
 };
 
 export {

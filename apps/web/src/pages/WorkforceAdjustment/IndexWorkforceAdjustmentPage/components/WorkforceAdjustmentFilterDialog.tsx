@@ -26,7 +26,7 @@ import {
   narrowEnumType,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { narrowTeambleType } from "@gc-digital-talent/auth";
+import { narrowTeamableType } from "@gc-digital-talent/auth";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -158,7 +158,7 @@ const WorkforceAdjustmentFilterDialog = ({
     ),
   );
 
-  const communities = narrowTeambleType(assignments, "Community");
+  const communities = narrowTeamableType(assignments, "Community");
 
   return (
     <FilterDialog<FormValues>
