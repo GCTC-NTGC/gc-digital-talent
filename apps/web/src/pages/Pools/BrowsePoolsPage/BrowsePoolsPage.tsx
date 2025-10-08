@@ -35,6 +35,7 @@ import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
+import WfaBanner from "~/components/WfaBanner/WfaBanner";
 
 const flourish = tv({
   base: "absolute z-[1] w-[25vw]",
@@ -147,6 +148,7 @@ export const Component = () => {
           className={flourish({ isTop: true })}
         />
         <Container className="relative z-[2]">
+          <WfaBanner />
           <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
           <Card className="mt-6">
             <div className="items-center justify-between gap-18 xs:flex">

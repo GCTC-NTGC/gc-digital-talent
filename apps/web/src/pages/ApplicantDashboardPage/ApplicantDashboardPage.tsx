@@ -30,6 +30,7 @@ import {
 } from "~/validators/profile";
 import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import WfaBanner from "~/components/WfaBanner/WfaBanner";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -272,6 +273,7 @@ export const DashboardPage = ({
       />
       <section className="my-18">
         <Container>
+          <WfaBanner />
           <div className="flex flex-col gap-6 xs:flex-row">
             <div className="flex flex-col gap-6">
               <ApplicationsProcessesTaskCard
