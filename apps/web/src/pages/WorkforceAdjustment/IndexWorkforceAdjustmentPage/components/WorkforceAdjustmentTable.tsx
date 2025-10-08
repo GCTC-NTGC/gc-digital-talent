@@ -163,7 +163,7 @@ const defaultState = {
   filters: {
     classifications: [],
     departments: [],
-    workSteams: [],
+    workStreams: [],
     wfaInterests: [],
     communities: [],
     equity: undefined,
