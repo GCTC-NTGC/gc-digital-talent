@@ -1,7 +1,9 @@
 import { useIntl } from "react-intl";
 
 import {
-  EmployeeProfileWfaFragment,
+  FragmentType,
+  getFragment,
+  graphql,
   WfaInterest,
 } from "@gc-digital-talent/graphql";
 import {
@@ -15,19 +17,56 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import { formattedDate } from "~/utils/dateUtils";
 import processMessages from "~/messages/processMessages";
+import messages from "~/messages/workforceAdjustmentMessages";
 
-import messages from "../../messages";
 import CPAWarning from "./CPAWarning";
 
-interface DisplayProps {
-  user: EmployeeProfileWfaFragment;
+export const UserWorkforceAdjustment_Fragment = graphql(/** GraphQL */ `
+  fragment UserWorkforceAdjustment on User {
+    employeeWFA {
+      wfaInterest {
+        value
+        label {
+          localized
+        }
+      }
+      wfaDate
+    }
+    currentSubstantiveExperiences {
+      id
+      department {
+        isCorePublicAdministration
+      }
+      ...SubstantiveExperiences
+      ...ExperienceCard
+    }
+    employeeProfile {
+      communityInterests {
+        community {
+          id
+          name {
+            localized
+          }
+        }
+      }
+    }
+  }
+`);
+
+interface UserWorkforceAdjustmentProps {
+  query: FragmentType<typeof UserWorkforceAdjustment_Fragment>;
+  isAdmin?: boolean;
 }
 
-const Display = ({ user }: DisplayProps) => {
+const UserWorkforceAdjustment = ({
+  query,
+  isAdmin,
+}: UserWorkforceAdjustmentProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(
     commonMessages.missingOptionalInformation,
   );
+  const user = getFragment(UserWorkforceAdjustment_Fragment, query);
   const experiences = unpackMaybes(user.currentSubstantiveExperiences);
   const communities = unpackMaybes(user.employeeProfile?.communityInterests);
 
@@ -92,37 +131,39 @@ const Display = ({ user }: DisplayProps) => {
                 intl.formatMessage(commonMessages.missingInformation)
               )}
             </ToggleForm.FieldDisplay>
-            <ToggleForm.FieldDisplay
-              label={
-                intl.formatMessage(processMessages.whatToExpect) +
-                intl.formatMessage(commonMessages.dividingColon)
-              }
-            >
-              <Ul space="sm">
-                <li>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The recruitment team of your functional community will contact you.",
-                    id: "w43VIb",
-                    description:
-                      "Expectation of recruitment team contact after wfa",
-                  })}
-                </li>
-                <li>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "There is no guarantee that this will lead to a new position.",
-                    id: "3kRiqA",
-                    description:
-                      "Expectation of not guaranteed position after wfa",
-                  })}
-                </li>
-              </Ul>
-            </ToggleForm.FieldDisplay>
+            {!isAdmin && (
+              <ToggleForm.FieldDisplay
+                label={
+                  intl.formatMessage(processMessages.whatToExpect) +
+                  intl.formatMessage(commonMessages.dividingColon)
+                }
+              >
+                <Ul space="sm">
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The recruitment team of your functional community will contact you.",
+                      id: "w43VIb",
+                      description:
+                        "Expectation of recruitment team contact after wfa",
+                    })}
+                  </li>
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There is no guarantee that this will lead to a new position.",
+                      id: "3kRiqA",
+                      description:
+                        "Expectation of not guaranteed position after wfa",
+                    })}
+                  </li>
+                </Ul>
+              </ToggleForm.FieldDisplay>
+            )}
           </>
         )}
     </div>
   );
 };
 
-export default Display;
+export default UserWorkforceAdjustment;

@@ -36,11 +36,10 @@ import { hasAllEmptyFields } from "~/validators/employeeProfile/wfa";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useRoutes from "~/hooks/useRoutes";
-
-import messages from "../../messages";
-import Display from "./Display";
-import SubstantiveExperiences from "./SubstantiveExperiences";
-import Warning from "./Warning";
+import messages from "~/messages/workforceAdjustmentMessages";
+import UserWorkforceAdjustment from "~/components/WorkforceAdjustment/UserWorkforceAdjustment";
+import SubstantiveExperiences from "~/components/WorkforceAdjustment/SubstantiveExperiences";
+import Warning from "~/components/WorkforceAdjustment/Warning";
 
 const EmployeeWfaOptions_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeWfaOptions on Query {
@@ -58,6 +57,7 @@ const EmployeeWfaOptions_Fragment = graphql(/** GraphQL */ `
 export const EmployeeProfileWfa_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfileWfa on User {
     id
+    ...UserWorkforceAdjustment
     employeeWFA {
       wfaInterest {
         value
@@ -213,7 +213,11 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
       </ToggleSection.Header>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <ToggleForm.NullDisplay /> : <Display user={user} />}
+          {isNull ? (
+            <ToggleForm.NullDisplay />
+          ) : (
+            <UserWorkforceAdjustment query={user} />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
