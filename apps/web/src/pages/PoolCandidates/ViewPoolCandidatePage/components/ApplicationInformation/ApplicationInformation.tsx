@@ -10,7 +10,6 @@ import {
   User,
   getFragment,
   graphql,
-  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading, Ul } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -21,30 +20,18 @@ import {
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import DiversityEquityInclusionDisplay, {
-  DiversityEquityInclusionDisplay_Fragment,
-} from "~/components/Profile/components/DiversityEquityInclusion/Display";
-import GovernmentInformationDisplay, {
-  GovernmentInformationDisplay_Fragment,
-} from "~/components/Profile/components/GovernmentInformation/Display";
-import LanguageProfileDisplay, {
-  BilingualEvaluation,
-  LanguageProfileDisplay_Fragment,
-} from "~/components/Profile/components/LanguageProfile/Display";
-import PersonalInformationDisplay, {
-  PersonalInformationDisplay_Fragment,
-} from "~/components/Profile/components/PersonalInformation/Display";
-import WorkPreferencesDisplay, {
-  WorkPreferencesDisplay_Fragment,
-} from "~/components/Profile/components/WorkPreferences/Display";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
-import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
 import profileMessages from "~/messages/profileMessages";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
+import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
+import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfile/LanguageProfileSnapshot";
+import GovernmentInformationSnapshot from "~/components/ProfileSnapshot/GovernmentInformation/GovernmentInformationSnapshot";
+import DiversityEquityInclusionSnapshot from "~/components/ProfileSnapshot/DiversityEquityInclusion/DiversityEquityInclusionSnapshot";
+import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
 
-import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
 import DownloadButton from "../MoreActions/DownloadButton";
@@ -121,12 +108,16 @@ export const ApplicationInformation_PoolCandidateFragment = graphql(
   `,
 );
 
+interface ApplicationInformationSnapshot extends User {
+  version?: number;
+}
+
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
   applicationQuery: FragmentType<
     typeof ApplicationInformation_PoolCandidateFragment
   >;
-  snapshot: User & { bilingualEvaluation?: BilingualEvaluation }; // recreated from Json
+  snapshot: ApplicationInformationSnapshot;
   optionsQuery:
     | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
     | undefined;
@@ -244,12 +235,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.personalAndContactInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <PersonalInformationDisplay
-              query={makeFragmentData(
-                snapshot,
-                PersonalInformationDisplay_Fragment,
-              )}
-            />
+            <PersonalInformationSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         {screeningQuestionResponses.length > 0 ? (
@@ -307,8 +293,8 @@ const ApplicationInformation = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <EducationRequirementsDisplay
-              experiences={snapshot.experiences}
+            <EducationRequirementSnapshot
+              snapshot={snapshot}
               educationRequirementQuery={application}
             />
           </Accordion.Content>
@@ -356,13 +342,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.languageProfile)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <LanguageProfileDisplay
-              bilingualEvaluation={snapshot?.bilingualEvaluation}
-              query={makeFragmentData(
-                snapshot,
-                LanguageProfileDisplay_Fragment,
-              )}
-            />
+            <LanguageProfileSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.WORK_PREF}>
@@ -370,13 +350,17 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <WorkPreferencesDisplay
+            {/* <WorkPreferencesDisplay
               query={makeFragmentData(
                 snapshot,
                 WorkPreferencesDisplay_Fragment,
               )}
               optionsQuery={optionsQuery}
               labels={getLabels(intl)}
+            /> */}
+            <WorkPreferencesSnapshot
+              snapshot={snapshot}
+              optionsQuery={optionsQuery}
             />
           </Accordion.Content>
         </Accordion.Item>
@@ -385,12 +369,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(profileMessages.govEmployeeInformation)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <GovernmentInformationDisplay
-              query={makeFragmentData(
-                snapshot,
-                GovernmentInformationDisplay_Fragment,
-              )}
-            />
+            <GovernmentInformationSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.DEI}>
@@ -398,12 +377,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <DiversityEquityInclusionDisplay
-              query={makeFragmentData(
-                snapshot,
-                DiversityEquityInclusionDisplay_Fragment,
-              )}
-            />
+            <DiversityEquityInclusionSnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.SIGNATURE}>

@@ -14,7 +14,7 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { Pool, Scalars } from "@gc-digital-talent/graphql";
+import { ErrorCode, Pool, Scalars } from "@gc-digital-talent/graphql";
 
 import { ProcessDialogProps } from "./types";
 
@@ -167,7 +167,7 @@ const ChangeDateDialog = ({
                       value: strToFormDate(minDate.toISOString()),
                       message: closingDate
                         ? intl.formatMessage(
-                            apiMessages.UpdatePoolClosingDateExtend,
+                            apiMessages[ErrorCode.ProcessClosingDateExtend],
                           )
                         : intl.formatMessage(errorMessages.futureDate),
                     },

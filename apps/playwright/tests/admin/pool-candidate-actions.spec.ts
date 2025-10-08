@@ -121,7 +121,7 @@ test.describe("Pool candidates", () => {
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await expect(
       appPage.page.getByText(
-        /This claim has been verified, expires on January 25, 2030/i,
+        /This claim has been verified, expires on January 25th, 2030/i,
       ),
     ).toBeVisible();
 

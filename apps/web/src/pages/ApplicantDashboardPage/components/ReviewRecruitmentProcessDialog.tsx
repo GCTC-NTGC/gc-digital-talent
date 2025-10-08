@@ -16,7 +16,11 @@ import {
   PreviewList,
   Separator,
 } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 
@@ -287,7 +291,7 @@ const ReviewRecruitmentProcessDialog = ({
               {recruitmentProcess.finalDecisionAt
                 ? formatDate({
                     date: parseDateTimeUtc(recruitmentProcess.finalDecisionAt),
-                    formatString: "PPP",
+                    formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })
                 : nullMessage}
@@ -296,7 +300,7 @@ const ReviewRecruitmentProcessDialog = ({
               {recruitmentProcess.expiryDate
                 ? formatDate({
                     date: parseDateTimeUtc(recruitmentProcess.expiryDate),
-                    formatString: "PPP",
+                    formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })
                 : nullMessage}

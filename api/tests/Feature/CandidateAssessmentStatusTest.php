@@ -776,6 +776,13 @@ class CandidateAssessmentStatusTest extends TestCase
             'skill_id' => Skill::factory()->create(['category' => SkillCategory::TECHNICAL->name])->id,
             'type' => PoolSkillType::ESSENTIAL->name,
         ]);
+
+        // Add an essential behavioural that does not need to be assessed to pass the first step
+        PoolSkill::create([
+            'pool_id' => $pool->id,
+            'skill_id' => Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name])->id,
+            'type' => PoolSkillType::ESSENTIAL->name,
+        ]);
         $stepOne = $pool->assessmentSteps->first();
         AssessmentStep::factory()
             ->afterCreating(function (AssessmentStep $step) use ($poolSkill) {

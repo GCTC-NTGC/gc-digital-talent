@@ -350,6 +350,23 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
             $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+            if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
+
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
+                }
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
         }
 
         if ($type === CommunityExperience::class) {
@@ -358,6 +375,23 @@ trait GeneratesUserDoc
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+            if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
+
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
+                }
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
         }
 
         if ($type === EducationExperience::class) {
@@ -385,6 +419,23 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
             $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+            if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
+
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
+                }
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
         }
 
         if ($type === PersonalExperience::class) {
@@ -393,6 +444,23 @@ trait GeneratesUserDoc
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
             $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+            if ($withSkills) {
+                $experience->load(['userSkills' => ['skill']]);
+
+                if ($experience->userSkills->count() > 0) {
+                    $section->addText($this->localize('common.featured_skills'));
+                }
+
+                $experience->userSkills->sortBy('skill.name.'.$this->lang)->each(function ($userSkill) use ($section) {
+                    $skillRun = $section->addListItemRun();
+                    /** @var UserSkill $userSkill */
+                    $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                    if (isset($userSkill->experience_skill->details)) {
+                        $skillRun->addText($this->colon().$userSkill->experience_skill->details);
+                    }
+                });
+            }
         }
 
         if ($type === WorkExperience::class) {
@@ -530,30 +598,7 @@ trait GeneratesUserDoc
                 $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
             }
 
-            if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
-                $experience->loadMissing(['workStreams']);
-                if ($experience->workStreams && count($experience->workStreams) > 0) {
-                    $workStreamsByCommunity = [];
-                    foreach ($experience->workStreams as $workStream) {
-                        if (isset($workStreamsByCommunity[$workStream->community_id])) {
-                            $workStreamsByCommunity[$workStream->community_id]['workStreams'][] = $workStream->name[$this->lang];
-                        } else {
-                            $community = Community::find($workStream->community_id);
-                            $workStreamsByCommunity[$workStream->community_id] = [
-                                'community' => $community->name[$this->lang],
-                                'workStreams' => [$workStream->name[$this->lang]],
-                            ];
-                        }
-                    }
-                    $section->addText($this->localize('common.work_streams'));
-                    collect(Arr::sortRecursive($workStreamsByCommunity))->each(function ($community) use ($section) {
-                        $section->addListItem($community['community'], 0);
-                        foreach ($community['workStreams'] as $workStream) {
-                            $section->addListItem($workStream, 1);
-                        }
-                    });
-                }
-            }
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
 
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
@@ -571,7 +616,32 @@ trait GeneratesUserDoc
                     }
                 });
             }
-            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+            if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+                $experience->loadMissing(['workStreams']);
+                if ($experience->workStreams && count($experience->workStreams) > 0) {
+                    $workStreamsByCommunity = [];
+                    foreach ($experience->workStreams as $workStream) {
+                        if (isset($workStreamsByCommunity[$workStream->community_id])) {
+                            $workStreamsByCommunity[$workStream->community_id]['workStreams'][] = $workStream->name[$this->lang];
+                        } else {
+                            $community = Community::find($workStream->community_id);
+                            $workStreamsByCommunity[$workStream->community_id] = [
+                                'community' => $community->name[$this->lang],
+                                'workStreams' => [$workStream->name[$this->lang]],
+                            ];
+                        }
+                    }
+
+                    $section->addText($this->localize('common.work_streams'));
+                    collect(Arr::sortRecursive($workStreamsByCommunity))->each(function ($community) use ($section) {
+                        $section->addListItem($community['community'], 0);
+                        foreach ($community['workStreams'] as $workStream) {
+                            $section->addListItem($workStream, 1);
+                        }
+                    });
+                }
+            }
         }
     }
 

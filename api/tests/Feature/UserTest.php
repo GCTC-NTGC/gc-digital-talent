@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
+use App\Enums\ErrorCode;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
@@ -2346,7 +2347,7 @@ class UserTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('user.indigenousCommunities', 'BothStatusNonStatus');
+            ->assertGraphQLValidationError('user.indigenousCommunities', ErrorCode::BOTH_STATUS_NON_STATUS->name);
     }
 
     public function testUserUpdatingSub(): void

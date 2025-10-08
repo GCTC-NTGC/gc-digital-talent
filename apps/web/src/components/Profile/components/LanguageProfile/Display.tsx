@@ -1,45 +1,11 @@
-import { MessageDescriptor, defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-
-import { getExamValidityOptions, getLabels } from "./utils";
-
-// A workaround is required to show the deprecated bilingual evaluation in the profile snapshot.
-// These changes will be removed a year from now. (Remove snapshot workaround for the bilingual evaluation field #9905)
-export enum BilingualEvaluation {
-  CompletedEnglish = "COMPLETED_ENGLISH",
-  CompletedFrench = "COMPLETED_FRENCH",
-  NotCompleted = "NOT_COMPLETED",
-}
-
-const bilingualEvaluations = defineMessages({
-  [BilingualEvaluation.CompletedEnglish]: {
-    defaultMessage: "Yes, completed English evaluation",
-    id: "2ohWuK",
-    description: "Completed an English language evaluation",
-  },
-  [BilingualEvaluation.CompletedFrench]: {
-    defaultMessage: "Yes, completed French evaluation",
-    id: "DUuisY",
-    description: "Completed a French language evaluation",
-  },
-  [BilingualEvaluation.NotCompleted]: commonMessages.no,
-});
-
-const getBilingualEvaluation = (
-  bilingualEvaluationId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    bilingualEvaluations,
-    bilingualEvaluationId,
-    `Invalid Language Ability '${bilingualEvaluationId}'`,
-  );
+import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 
 export const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfileDisplay on User {
@@ -83,10 +49,9 @@ export const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
 
 export interface DisplayProps {
   query: FragmentType<typeof LanguageProfileDisplay_Fragment>;
-  bilingualEvaluation?: BilingualEvaluation;
 }
 
-const Display = ({ query, bilingualEvaluation }: DisplayProps) => {
+const Display = ({ query }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const labels = getLabels(intl);
@@ -162,113 +127,50 @@ const Display = ({ query, bilingualEvaluation }: DisplayProps) => {
           notProvided
         )}
       </FieldDisplay>
-      {/* If bilingual evaluation exists then show the old language profile snapshot, otherwise show new view */}
-      {bilingualEvaluation ? (
+      {lookingForBilingual && (
         <>
-          <FieldDisplay
-            hasError={
-              lookingForBilingual &&
-              (!bilingualEvaluation ||
-                ((bilingualEvaluation ===
-                  BilingualEvaluation.CompletedEnglish ||
-                  bilingualEvaluation ===
-                    BilingualEvaluation.CompletedFrench) &&
-                  (!comprehensionLevel || !writtenLevel || !verbalLevel)))
-            }
-            label={intl.formatMessage({
-              defaultMessage: "Language evaluation",
-              id: "43xNhn",
-              description: "Language evaluation label",
-            })}
-          >
-            {bilingualEvaluation
-              ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
+          <FieldDisplay label={labels.firstOfficialLang}>
+            {firstOfficialLanguage?.label
+              ? firstOfficialLanguage.label.localized
               : notProvided}
           </FieldDisplay>
-          {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
-            bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
-            <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage:
-                  "Second language level (reading, writing, oral interaction)",
-                id: "qOi2J0",
-                description:
-                  "Second language level (reading, writing, oral interaction) label",
-              })}
-            >
-              {comprehensionLevel || writtenLevel || verbalLevel
-                ? getEvaluatedLanguageLevels(
-                    intl,
-                    comprehensionLevel,
-                    writtenLevel,
-                    verbalLevel,
-                  )
-                : notProvided}
-            </FieldDisplay>
-          )}
-          {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
-            !!estimatedLanguageAbility && (
-              <FieldDisplay
-                label={intl.formatMessage({
-                  defaultMessage: "Second language proficiency",
-                  id: "IexFo4",
-                  description: "Second language proficiency label",
-                })}
-              >
-                {estimatedLanguageAbility.label
-                  ? estimatedLanguageAbility.label.localized
-                  : notProvided}
-              </FieldDisplay>
-            )}
-        </>
-      ) : (
-        <div className="grid gap-6">
-          {lookingForBilingual && (
+          <FieldDisplay label={labels.estimatedLanguageAbility}>
+            {estimatedLanguageAbility?.label
+              ? estimatedLanguageAbility.label.localized
+              : notProvided}
+          </FieldDisplay>
+          {secondLanguageExamCompleted ? (
             <>
-              <FieldDisplay label={labels.firstOfficialLang}>
-                {firstOfficialLanguage?.label
-                  ? firstOfficialLanguage.label.localized
+              <FieldDisplay
+                label={labels.secondLanguageExamCompletedBoundingBoxLabel}
+              >
+                {secondLanguageExamCompleted
+                  ? labels.secondLanguageExamCompletedLabel
                   : notProvided}
               </FieldDisplay>
-              <FieldDisplay label={labels.estimatedLanguageAbility}>
-                {estimatedLanguageAbility?.label
-                  ? estimatedLanguageAbility.label.localized
-                  : notProvided}
+              <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
+                {examValidity}
               </FieldDisplay>
-              {secondLanguageExamCompleted ? (
-                <>
-                  <FieldDisplay
-                    label={labels.secondLanguageExamCompletedBoundingBoxLabel}
-                  >
-                    {secondLanguageExamCompleted
-                      ? labels.secondLanguageExamCompletedLabel
-                      : notProvided}
-                  </FieldDisplay>
-                  <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
-                    {examValidity}
-                  </FieldDisplay>
-                  <div className="grid gap-6 sm:grid-cols-3">
-                    <FieldDisplay label={labels.comprehensionLevel}>
-                      {comprehensionLevel?.label
-                        ? comprehensionLevel.label.localized
-                        : notProvided}
-                    </FieldDisplay>
-                    <FieldDisplay label={labels.writtenLevel}>
-                      {writtenLevel?.label
-                        ? writtenLevel.label.localized
-                        : notProvided}
-                    </FieldDisplay>
-                    <FieldDisplay label={labels.verbalLevel}>
-                      {verbalLevel?.label
-                        ? verbalLevel.label.localized
-                        : notProvided}
-                    </FieldDisplay>
-                  </div>
-                </>
-              ) : null}
+              <div className="grid gap-6 sm:grid-cols-3">
+                <FieldDisplay label={labels.comprehensionLevel}>
+                  {comprehensionLevel?.label
+                    ? comprehensionLevel.label.localized
+                    : notProvided}
+                </FieldDisplay>
+                <FieldDisplay label={labels.writtenLevel}>
+                  {writtenLevel?.label
+                    ? writtenLevel.label.localized
+                    : notProvided}
+                </FieldDisplay>
+                <FieldDisplay label={labels.verbalLevel}>
+                  {verbalLevel?.label
+                    ? verbalLevel.label.localized
+                    : notProvided}
+                </FieldDisplay>
+              </div>
             </>
-          )}
-        </div>
+          ) : null}
+        </>
       )}
     </div>
   );

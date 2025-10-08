@@ -15,8 +15,10 @@
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
+    "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
+    "react-intl": "^7.1.11",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
     "tailwind-variants": "^3.1.1"
@@ -25,10 +27,10 @@
     "@faker-js/faker": "^9.9.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@types/react": "^19.1.13",
+    "@types/react": "^19.2.0",
     "eslint": "^9.20.1",
-    "react": "^19.1.1",
+    "react": "^19.2.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }

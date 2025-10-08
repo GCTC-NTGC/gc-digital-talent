@@ -3,7 +3,11 @@ import { JSX } from "react";
 import { endOfDay } from "date-fns/endOfDay";
 import { isPast } from "date-fns/isPast";
 
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface NominationMetaDataDateProps {
@@ -24,7 +28,7 @@ export const NominationMetaDataDate = ({
         {intl.formatMessage(commonMessages.dividingColon)}
         {formatDate({
           date: parseDateTimeUtc(submittedAt),
-          formatString: "PPP",
+          formatString: DATE_FORMAT_LOCALIZED,
           intl,
         })}
       </span>
@@ -42,7 +46,7 @@ export const NominationMetaDataDate = ({
           {intl.formatMessage(commonMessages.dividingColon)}
           {formatDate({
             date: closeDateParsed,
-            formatString: "PPP",
+            formatString: DATE_FORMAT_LOCALIZED,
             intl,
           })}
         </span>
@@ -54,7 +58,7 @@ export const NominationMetaDataDate = ({
         {intl.formatMessage(commonMessages.dividingColon)}
         {formatDate({
           date: closeDateParsed,
-          formatString: "PPP",
+          formatString: DATE_FORMAT_LOCALIZED,
           intl,
         })}
       </span>

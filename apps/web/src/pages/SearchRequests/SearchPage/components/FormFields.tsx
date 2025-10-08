@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   CheckboxOption,
@@ -26,6 +27,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Link } from "@gc-digital-talent/ui";
 
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
@@ -33,6 +35,7 @@ import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import useRoutes from "~/hooks/useRoutes";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
@@ -74,12 +77,17 @@ interface FormFieldsProps {
   workStreams: WorkStream[];
 }
 
+const internalLink = (href: string, chunks: ReactNode) => (
+  <Link href={href}>{chunks}</Link>
+);
+
 const FormFields = ({
   classifications,
   skills,
   workStreams,
 }: FormFieldsProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const [{ data }] = useQuery({
     query: SearchRequestOptions_Query,
   });
@@ -198,13 +206,18 @@ const FormFields = ({
           id: "eFvsOG",
           description: "Title for the skill filters on search page.",
         })}
-        text={intl.formatMessage({
-          defaultMessage:
-            "Help us match you to the best candidates by telling us about the skills you need.",
-          id: "LDsiHk",
-          description:
-            "Describing the purpose of the skill filters on the Search page.",
-        })}
+        text={intl.formatMessage(
+          {
+            defaultMessage:
+              "Help us match you to the best candidates by telling us about the skills you need. You can find the definition for each skill in our <link>skills library</link>.",
+            id: "YswsoL",
+            description:
+              "Describing the purpose of the skill filters on Search page.",
+          },
+          {
+            link: (chunks: ReactNode) => internalLink(paths.skills(), chunks),
+          },
+        )}
       >
         <SkillBrowser skills={skills || []} name="skills" />
         <Field.Context className="mt-1.5">

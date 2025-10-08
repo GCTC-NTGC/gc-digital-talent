@@ -18,6 +18,7 @@ import {
   PoolOpportunityLength,
   PriorityWeight,
   SecurityStatus,
+  WfaInterest,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -369,5 +370,18 @@ export function sortFlexibleWorkLocations(
       FlexibleWorkLocation.Onsite,
     ],
     flexibleWorkLocationOptions,
+  );
+}
+
+export function sortWfaInterest(wfaInterests?: MaybeLocalizedEnums) {
+  return sortLocalizedEnums(
+    [
+      WfaInterest.NotApplicable,
+      WfaInterest.TermEnding,
+      WfaInterest.LetterReceived,
+      WfaInterest.NotSure,
+      WfaInterest.VoluntaryDeparture,
+    ],
+    wfaInterests,
   );
 }

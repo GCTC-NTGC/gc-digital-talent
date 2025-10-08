@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use App\Models\PoolCandidate;
 use App\Rules\HasEducationRequirement;
 use App\Rules\HasEssentialSkills;
@@ -9,7 +10,6 @@ use App\Rules\HasLanguageRequirements;
 use App\Rules\PoolNotClosed;
 use App\Rules\QuestionsAnswered;
 use App\Rules\UserProfileComplete;
-use Database\Helpers\ApiEnums;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class SubmitApplicationValidator extends Validator
@@ -54,8 +54,8 @@ final class SubmitApplicationValidator extends Validator
     public function messages(): array
     {
         return [
-            'submitted_at.prohibited' => 'AlreadySubmitted',
-            'signature.required' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED,
+            'submitted_at.prohibited' => ErrorCode::APPLICATION_ALREADY_SUBMITTED->name,
+            'signature.required' => ErrorCode::APPLICATION_SIGNATURE_REQUIRED->name,
         ];
     }
 }

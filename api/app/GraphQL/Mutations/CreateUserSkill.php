@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ErrorCode;
 use App\Models\UserSkill;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -30,7 +31,7 @@ final class CreateUserSkill
 
                 return $existingModel;
             }
-            throw ValidationException::withMessages(['skill_id' => 'DuplicateUserSkill']);
+            throw ValidationException::withMessages(['skill_id' => ErrorCode::DUPLICATE_USER_SKILL->name]);
         }
 
         $createdModel = UserSkill::create([

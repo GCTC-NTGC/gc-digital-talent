@@ -40,14 +40,18 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
       </div>
       <div className="grow p-6">{content.summary}</div>
       <div className="p-6 pt-0">
-        <Link
-          color="black"
-          mode="inline"
-          href={content.link.path}
-          external={content.link.external}
-        >
-          {content.link.label}
-        </Link>
+        {content.link.path !== "#" ? (
+          <Link
+            color="black"
+            mode="inline"
+            href={content.link.path}
+            external={content.link.external}
+          >
+            {content.link.label}
+          </Link>
+        ) : (
+          <span className="font-bold">{content.link.label}</span>
+        )}
       </div>
     </div>
   );

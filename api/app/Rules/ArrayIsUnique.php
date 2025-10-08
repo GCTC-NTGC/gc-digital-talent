@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\ErrorCode;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -14,7 +15,7 @@ class ArrayIsUnique implements ValidationRule
     {
         if ($value && gettype($value) === 'array') {
             if (! (count($value) === count(array_unique($value)))) {
-                $fail('ArrayContainsDuplicates');
+                $fail(ErrorCode::ARRAY_CONTAINS_DUPLICATES->name);
             }
         }
     }

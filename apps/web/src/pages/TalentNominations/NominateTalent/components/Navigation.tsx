@@ -8,7 +8,11 @@ import {
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -135,7 +139,7 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
                 date: parseDateTimeUtc(
                   talentNomination.talentNominationEvent.closeDate,
                 ),
-                formatString: "PPP",
+                formatString: DATE_FORMAT_LOCALIZED,
                 intl,
               })}
           </p>

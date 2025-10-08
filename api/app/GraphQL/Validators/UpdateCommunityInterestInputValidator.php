@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Enums\FinanceChiefDuty;
 use App\Enums\FinanceChiefRole;
 use App\Models\CommunityInterest;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -70,10 +70,10 @@ final class UpdateCommunityInterestInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'community.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
-            'workStreams.sync.*.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
-            'workStreams.sync.*.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
-            'interestInDevelopmentPrograms.create.*.developmentProgramId.in' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY,
+            'community.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
+            'workStreams.sync.*.in' => ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name,
+            'workStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
+            'interestInDevelopmentPrograms.create.*.developmentProgramId.in' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name,
         ];
     }
 }
