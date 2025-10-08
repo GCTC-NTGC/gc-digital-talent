@@ -46,7 +46,7 @@ body:
     id: acceptance-criteria
     attributes:
       label: ✅ Acceptance Criteria
-      description: A set of assumptions which, when tested, verify that the change is complete.  Add, remove, and fill in the example list as needed.
+      description: A set of assumptions which, when tested, verify that the change is complete. Add, remove, and fill in the example list as needed.
       value: |
         - [ ] X new pages exist in app at URL /example
         - [ ] Y new components exist in UI package
