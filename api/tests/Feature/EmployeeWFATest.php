@@ -72,7 +72,7 @@ class EmployeeWFATest extends TestCase
         $this->employee = User::factory()
             ->asApplicant()
             ->withCommunityInterests([$this->community->id])
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create();
     }
 
@@ -195,7 +195,7 @@ class EmployeeWFATest extends TestCase
         // Unrelated user who should not appear
         User::factory()
             ->asApplicant()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create();
 
         $recruiter = User::factory()
@@ -209,7 +209,7 @@ class EmployeeWFATest extends TestCase
         // No community interest but will apply to pool
         $user = User::factory()
             ->asApplicant()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create();
 
         PoolCandidate::factory()
@@ -233,7 +233,7 @@ class EmployeeWFATest extends TestCase
         // No community interest but will apply to pool
         $user = User::factory()
             ->asApplicant()
-            ->asGovEmployee()
+            ->fillProfileData(true)
             ->create();
 
         $pool = Pool::factory()

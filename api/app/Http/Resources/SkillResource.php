@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\SkillCategory;
+use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class SkillResource extends JsonResource
 {
+    use HasLocalizedEnums;
+
     /**
      * Transform the resource into an array.
      *
@@ -21,6 +25,7 @@ class SkillResource extends JsonResource
             'id' => $this->id,
             'key' => $this->key,
             'name' => $this->name,
+            'category' => $this->localizeEnum($this->category, SkillCategory::class),
             'description' => $this->description,
             'keywords' => $this->keywords,
         ];

@@ -205,11 +205,8 @@ class SnapshotShapeTest extends TestCase
         $community = Community::factory()->create();
         $user = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
-            ->asGovEmployee()
-            ->withEmployeeProfile()
+            ->fillProfileData(true)
             ->withCommunityInterests([$community->id])
-            ->withOffPlatformRecruitmentProcesses()
             ->create();
         $pool = Pool::factory()->withAssessments(3)->published()->create();
         $poolCandidate = PoolCandidate::factory()

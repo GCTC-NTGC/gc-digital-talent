@@ -40,7 +40,7 @@ class PoolCandidatesCsvTest extends TestCase
 
         $targetUser = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->fillProfileData()
             ->create();
 
         $application1 = PoolCandidate::factory()

@@ -58,8 +58,6 @@ class PoolTestSeeder extends Seeder
 
         // IAP
         Pool::factory()
-            ->withPoolSkills(0, 0)
-            ->withQuestions(0, 0)
             ->draft()
             ->createOrGetExisting(
                 [
@@ -78,8 +76,6 @@ class PoolTestSeeder extends Seeder
 
         // IT -01
         Pool::factory()
-            ->withPoolSkills(0, 0)
-            ->withQuestions(0, 0)
             ->withBookmark($adminUserId)
             ->draft()
             ->createOrGetExisting([

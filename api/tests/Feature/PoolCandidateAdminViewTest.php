@@ -284,8 +284,7 @@ class PoolCandidateAdminViewTest extends TestCase
             ->create([
                 'user_id' => User::factory()
                     ->asApplicant()
-                    ->withSkillsAndExperiences()
-                    ->asGovEmployee(),
+                    ->fillProfileData(true),
                 'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
             ]);
 

@@ -175,6 +175,14 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
       }
     }
     experiences {
