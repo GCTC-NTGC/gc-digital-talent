@@ -20,8 +20,8 @@ const IndexWorkforceAdjustmentPage = () => {
   const pageTitle = intl.formatMessage(pageTitles.workforceAdjustment);
   const description = intl.formatMessage({
     defaultMessage:
-      "Find GC employees interested in workforce adjustment mobility.",
-    id: "18TYiK",
+      "Find GC employees interested in workforce adjustment (WFA) mobility.",
+    id: "pX9VsK",
     description:
       "Description of the list of employee workforce adjustment information",
   });

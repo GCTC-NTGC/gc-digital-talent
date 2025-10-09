@@ -811,6 +811,10 @@
     "defaultMessage": "Alerte de réussite :",
     "description": "Descriptor for a success alert"
   },
+  "SyFJmn": {
+    "defaultMessage": "Révisé",
+    "description": "Label for an updated at date"
+  },
   "T/97gk": {
     "defaultMessage": "Supprimer l’article {index}",
     "description": "Button text to remove an item from repeatable fields"

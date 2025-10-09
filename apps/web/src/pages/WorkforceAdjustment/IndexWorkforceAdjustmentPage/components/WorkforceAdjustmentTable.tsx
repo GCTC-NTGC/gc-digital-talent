@@ -309,8 +309,8 @@ const WorkforceAdjustmentTable = () => {
         enableColumnFilter: false,
         enableSorting: true,
         header: intl.formatMessage({
-          defaultMessage: "WFA status",
-          id: "/39iac",
+          defaultMessage: "WFA situation",
+          id: "JR4LU8",
           description: "Column title for employee WFA status",
         }),
       },
@@ -328,12 +328,7 @@ const WorkforceAdjustmentTable = () => {
         id: "wfaUpdatedAt",
         enableColumnFilter: false,
         enableSorting: true,
-        header: intl.formatMessage({
-          defaultMessage: "WFA status updated date",
-          id: "H7dCJ/",
-          description:
-            "Column title for what the employee WFA info was last updated",
-        }),
+        header: intl.formatMessage(commonMessages.updated),
         cell: ({
           row: {
             original: { employeeWFA },
@@ -518,8 +513,8 @@ const WorkforceAdjustmentTable = () => {
       isLoading={fetching}
       caption={intl.formatMessage({
         defaultMessage:
-          "Information about employees’ workforce adjustment situation",
-        id: "pOR8Lg",
+          "Information about employees' workforce adjustment situation",
+        id: "pabyhH",
         description: "Caption for the workforce adjustment table",
       })}
       hiddenColumnIds={[

@@ -39,6 +39,7 @@ import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import permissionConstants from "~/constants/permissionConstants";
+import tableMessages from "~/components/Table/tableMessages";
 
 import {
   classificationAccessor,
@@ -409,11 +410,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     columnHelper.accessor(({ updatedDate }) => accessors.date(updatedDate), {
       id: "updatedDate",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Updated",
-        id: "R2sSy9",
-        description: "Title displayed for the User table Date Updated column",
-      }),
+      header: intl.formatMessage(commonMessages.updated),
       cell: ({
         row: {
           original: { updatedDate },
