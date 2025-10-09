@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { act } from "@testing-library/react";
+import { fireEvent, act, screen, waitFor } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
@@ -18,16 +18,24 @@ import {
   GettingStartedOptions_Query,
 } from "./GettingStartedForm";
 
-const mockSave = jest.fn();
+const mockSave = jest.fn().mockResolvedValue(undefined);
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+  executeMutation: jest.fn(() =>
+    fromValue({
+      // pretend that an email address verification email was sent
+      data: {
+        sendUserEmailsVerification: {
+          id: 1,
+        },
+      },
+    }),
+  ),
 };
 
 const mockInitialValuesData = makeFragmentData(
-  {
-    email: "example@example.org",
-  },
+  {},
   GettingStartedInitialValues_Query,
 );
 
@@ -72,16 +80,107 @@ const renderGettingStartedForm = ({
 
 describe("Getting Started Form tests", () => {
   it("should have no accessibility errors", async () => {
-    // Triggers the error `An update to Submit inside a test was not wrapped in act(...).`
-    // Switching the Submit components to Buttons in these files fixes it:
-    //  - apps/web/src/pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedForm.tsx
-    //  - apps/web/src/components/EmailVerification/RequestVerificationCodeForm.tsx
     const { container } = renderGettingStartedForm({
       initialValuesQuery: mockInitialValuesData,
       optionsQuery: mockOptionsData,
       onSubmit: mockSave,
     });
 
-    await axeTest(container);
+    await act(async () => {
+      await axeTest(container);
+    });
+  });
+
+  it("should render fields", async () => {
+    renderGettingStartedForm({
+      initialValuesQuery: mockInitialValuesData,
+      optionsQuery: mockOptionsData,
+      onSubmit: mockSave,
+    });
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /contact email address/i,
+      }),
+      { target: { value: "newuser@example.org" } },
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: /send verification email/i }),
+    );
+
+    // mutation fires - wait for confirmation message
+    await screen.findByText("Verification email sent!");
+
+    expect(
+      screen.getByRole("textbox", { name: /email verification code/i }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("textbox", { name: /first name/i }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("textbox", { name: /last name/i }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("group", { name: /preferred contact language/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("should submit successfully with required fields", async () => {
+    renderGettingStartedForm({
+      initialValuesQuery: mockInitialValuesData,
+      optionsQuery: mockOptionsData,
+      onSubmit: mockSave,
+    });
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /contact email address/i,
+      }),
+      { target: { value: "newuser@example.org" } },
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: /send verification email/i }),
+    );
+
+    // mutation fires - wait for confirmation message
+    await screen.findByText("Verification email sent!");
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /email verification code/i,
+      }),
+      { target: { value: "AAAAAA" } },
+    );
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /first name/i,
+      }),
+      { target: { value: "FirstName" } },
+    );
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /last name/i,
+      }),
+      { target: { value: "LastName" } },
+    );
+
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /english/i,
+      }),
+      { target: { value: "LastName" } },
+    );
+
+    fireEvent.submit(
+      screen.getByRole("button", { name: /save and continue/i }),
+    );
+    await waitFor(() => {
+      expect(mockSave).toHaveBeenCalledTimes(1);
+    });
   });
 });

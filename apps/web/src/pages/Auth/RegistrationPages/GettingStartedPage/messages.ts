@@ -16,6 +16,6 @@ const messages = defineMessages({
     id: "g+tCWe",
     description: "Subtitle for the registration pages",
   },
-} as const);
+});
 
 export default messages;
