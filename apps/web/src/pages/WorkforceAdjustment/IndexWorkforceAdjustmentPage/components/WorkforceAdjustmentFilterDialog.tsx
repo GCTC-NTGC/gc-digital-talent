@@ -193,6 +193,16 @@ const WorkforceAdjustmentFilterDialog = ({
           }))}
         />
         <Combobox
+          id="workStreams"
+          name="workStreams"
+          label={intl.formatMessage(pageTitles.workStreams)}
+          isMulti
+          options={unpackMaybes(data?.workStreams).map((stream) => ({
+            value: stream.id,
+            label: stream.name?.localized ?? notAvailable,
+          }))}
+        />
+        <Combobox
           id="wfaInterests"
           name="wfaInterests"
           label={intl.formatMessage(pageTitles.workforceAdjustment)}
@@ -203,16 +213,6 @@ const WorkforceAdjustmentFilterDialog = ({
           ).map((wfaInterest) => ({
             value: wfaInterest.value,
             label: wfaInterest.label?.localized ?? notAvailable,
-          }))}
-        />
-        <Combobox
-          id="workStreams"
-          name="workStreams"
-          label={intl.formatMessage(pageTitles.workStreams)}
-          isMulti
-          options={unpackMaybes(data?.workStreams).map((stream) => ({
-            value: stream.id,
-            label: stream.name?.localized ?? notAvailable,
           }))}
         />
         <Combobox
