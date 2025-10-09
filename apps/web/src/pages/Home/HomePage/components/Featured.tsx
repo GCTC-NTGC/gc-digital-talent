@@ -61,10 +61,11 @@ const Featured = () => {
       ),
       img: { path: wfaImg, width: 400, height: 300 },
       link: {
-        path: "#",
+        path: paths.wfaInfo(),
         label: intl.formatMessage({
-          defaultMessage: "Coming this fall",
-          id: "Cv2CaU",
+          defaultMessage:
+            "Learn more<hidden> about workforce adjustment</hidden>",
+          id: "9aiDXn",
           description:
             "Indication that more WFA information is coming in the fall",
         }),

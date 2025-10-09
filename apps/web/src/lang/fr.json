@@ -259,6 +259,10 @@
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
   },
+  "/3m5C5": {
+    "defaultMessage": "Lorsque vous créez un profil, seul <strong>un petit groupe d’administratrices et d’administrateurs autorisés</strong>, y compris l’équipe des services à la clientèle des talents numériques du GC et celle du recrutement des collectivités fonctionnelles que vous aurez ajoutées à votre profil, y auront accès. Ces personnes ne communiqueront aucun renseignement à votre gestionnaire sans votre consentement explicite.",
+    "description": "Paragraph two, describing how we protect privacy for workforce adjustment"
+  },
   "/3mqz9": {
     "defaultMessage": "Renseignements sur la demande",
     "description": "Heading for the request information section of the single search request view."
@@ -1159,6 +1163,10 @@
     "defaultMessage": "Je souhaite recevoir des offres de promotion et d'avancement.",
     "description": "The promotion move interest described as interested."
   },
+  "2tRVJE": {
+    "defaultMessage": "Si l’on trouve quelque chose, on communiquera avec vous pour voir si vous acceptez de donner accès à vos renseignements. C’est-à-dire que si la personne qui administre votre collectivité fonctionnelle a trouvé une offre d’emploi ou une possibilité d’échange de postes qui pourrait vous convenir, elle vous enverra un courriel, ainsi qu’aux autres personnes concernées.",
+    "description": "Paragraph three, describing the alternation process"
+  },
   "2vdIG6": {
     "defaultMessage": "L'équipe du Développement de la collectivité de la gestion financière (DCGF) du Bureau du contrôleur général du Secrétariat du Conseil du Trésor du Canada aide les spécialistes de la gestion financière fédérale à améliorer leurs compétences et à progresser dans leur carrière grâce au recrutement, au perfectionnement et au réseautage.",
     "description": "Card description, team"
@@ -1387,6 +1395,10 @@
     "defaultMessage": "Poste d'attache actuel",
     "description": "Label for users current substantive position"
   },
+  "3paKuD": {
+    "defaultMessage": "Collectivité de l’audit interne",
+    "description": "Title for audit community WFA section"
+  },
   "3qkzyD": {
     "defaultMessage": "Ne manquez pas de profiter des formations dirigées par un instructeur ou une instructrice réservées aux membres du personnel des TI du gouvernement du Canada. Nous ajoutons régulièrement de nouveaux cours axés sur les compétences et les domaines des TI les plus demandés au gouvernement.",
     "description": "First paragraph of it training opportunities section"
@@ -1407,6 +1419,10 @@
     "defaultMessage": "Télécharger la demande d'emploi",
     "description": "Button label for downloading an application snapshots"
   },
+  "3ufutA": {
+    "defaultMessage": "Entrez des renseignements sur votre poste actuel, mais aussi sur vos postes précédents, ce qui pourrait accroître vos chances de trouver un emploi.",
+    "description": "Instructions for adding work experience for workforce adjustment"
+  },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
@@ -1414,6 +1430,10 @@
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
+  },
+  "433KCh": {
+    "defaultMessage": "Prochaines étapes",
+    "description": "Title for what happens after submitting workforce adjustment information"
   },
   "436DA5": {
     "defaultMessage": "Croissance",
@@ -1478,6 +1498,10 @@
   "4I6WIU": {
     "defaultMessage": "Bienvenue",
     "description": "Title for the homepage"
+  },
+  "4IQkkv": {
+    "defaultMessage": "3. <link>Confirmez votre adresse courriel professionnelle</link>.",
+    "description": "Text for workforce adjustment ->  verifying email step."
   },
   "4Jc5pN": {
     "defaultMessage": "Ajouter une nouvelle compétence",
@@ -1687,6 +1711,10 @@
     "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
     "description": "The lateral move interest described as not interested."
   },
+  "56Mvji": {
+    "defaultMessage": "vous occupez un poste permanent et vous aimeriez recevoir <strong>une indemnité de départ pour quitter volontairement la fonction publique</strong>.",
+    "description": "Indicator three, you would likle to leave voluntarily"
+  },
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
     "description": "Button text to set no theme mode"
@@ -1774,6 +1802,10 @@
   "5WEzE3": {
     "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill portfolio"
+  },
+  "5XkQs9": {
+    "defaultMessage": "vous occupez un poste permanent, mais avez reçu <strong>une lettre sur le réaménagement des effectifs</strong> et vous aimeriez rester;",
+    "description": "Indicator two, you received a letter but would like to stay"
   },
   "5Y8vU5": {
     "defaultMessage": "En savoir plus<hidden> sur le processus de gestion des talents des cadres</hidden>",
@@ -1883,6 +1915,10 @@
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
   },
+  "60WdXS": {
+    "defaultMessage": "Être membre du groupe AS ou PM et avoir pour fonction principale l’exécution de services d’accès à l’information ou d’opérations liées aux politiques de la protection des renseignements personnels au gouvernement du Canada",
+    "description": "Criteria one, WFA for ATIP community"
+  },
   "64yExe": {
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
     "description": "Description of the limitation of managing talent management events"
@@ -1938,6 +1974,10 @@
   "6M8rIa": {
     "defaultMessage": "Les 3 principales compétences en matière de leadership",
     "description": "Label for a nominations leadership skill competencies"
+  },
+  "6Nz7xW": {
+    "defaultMessage": "Être membre du groupe TI",
+    "description": "Criteria one, WFA for digital community"
   },
   "6Q1N7Z": {
     "defaultMessage": "Veuillez sélectionner les expériences dans :",
@@ -2131,6 +2171,10 @@
     "defaultMessage": "Façonner l'avenir de la gestion financière",
     "description": "Section heading, things you can do now or later"
   },
+  "7IXqsn": {
+    "defaultMessage": "Notre plateforme vous offre de l’aide pour composer avec les changements que connaîtra le personnel de la fonction publique.",
+    "description": "Subtitle for the workforce adjustment information page"
+  },
   "7JQCZ0": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
@@ -2138,6 +2182,10 @@
   "7Je/3u": {
     "defaultMessage": "a un accès complet aux outils de gestion de la collectivité;",
     "description": "Description of the permission to manage communities"
+  },
+  "7KDWkQ": {
+    "defaultMessage": "L’échange de postes peut être utile pour aider les personnes qui veulent rester à la fonction publique à trouver un nouvel emploi, mais il constitue également une excellente solution pour celles qui veulent quitter la fonction publique et bénéficier d’indemnités de départs optimales. Nous vous encourageons à parler directement aux responsables des ressources humaines de votre ministère ou organisme pour vous faire expliquer les indemnités de départ auxquelles vous avez droit dans votre situation.",
+    "description": "Paragraph three, describing alternations"
   },
   "7L19hE": {
     "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
@@ -2214,6 +2262,10 @@
   "7oq1Qa": {
     "defaultMessage": "Décision finale",
     "description": "Title displayed on the Pool Candidates table final decision column"
+  },
+  "7owCVU": {
+    "defaultMessage": "Collectivité de l’approvisionnement",
+    "description": "Title for procurement community WFA section"
   },
   "7pCluO": {
     "defaultMessage": "Sélectionnez une exigence linguistique",
@@ -2583,6 +2635,10 @@
     "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
     "description": "Third section of text on the add user to pool dialog"
   },
+  "9NuEKb": {
+    "defaultMessage": "Soutien offert par les collectivités fonctionnelles au personnel en situation de réaménagement des effectifs",
+    "description": "Title for the workforce adjustment information page"
+  },
   "9OBHdP": {
     "defaultMessage": "{date} - Aujourd’hui",
     "description": "A date range that goes to the present day"
@@ -2639,6 +2695,10 @@
     "defaultMessage": "Ministère",
     "description": "Title for department"
   },
+  "9aiDXn": {
+    "defaultMessage": "En savoir plus<hidden> sur le réaménagement des effectifs</hidden>",
+    "description": "Indication that more WFA information is coming in the fall"
+  },
   "9b+Xtt": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the community information section of a form"
@@ -2655,6 +2715,10 @@
     "defaultMessage": "Le modèle d’offre d’emploi a été créé avec succès.",
     "description": "Message displayed when a user successfully creates the job poster template"
   },
+  "9ewyqo": {
+    "defaultMessage": "votre <strong>poste pour une période déterminée</strong> n’est pas renouvelé ou prend fin plus tôt que prévu;",
+    "description": "Indicator one, your term is not being renewed"
+  },
   "9fEw/Y": {
     "defaultMessage": "Notes explicatives sur la décision",
     "description": "Label for demonstrated notes text area in the screening decision dialog."
@@ -2670,6 +2734,10 @@
   "9gklPf": {
     "defaultMessage": "Raison de ne pas retenir cette nomination",
     "description": "label for rejection notes"
+  },
+  "9lhQKQ": {
+    "defaultMessage": "Comment utiliser le service",
+    "description": "Title for how to share workforce adjustment information"
   },
   "9mrSt3": {
     "defaultMessage": "Description de l'événement",
@@ -3375,10 +3443,6 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
-  "Cv2CaU": {
-    "defaultMessage": "À venir cet automne",
-    "description": "Indication that more WFA information is coming in the fall"
-  },
   "Cvl9dd": {
     "defaultMessage": "Langue de la formation",
     "description": "The language of the training opportunity"
@@ -3623,6 +3687,10 @@
     "defaultMessage": "Changer la date",
     "description": "Command to change a date"
   },
+  "DswRdx": {
+    "defaultMessage": "Une des nombreuses options offertes au personnel touché est la possibilité de faire un échange de postes, qui permet à une personne touchée d’échanger son poste avec celui d’une autre personne qui occupe un poste permanent stable (à condition que la gestion approuve cet échange).",
+    "description": "Paragraph two, describing alternations"
+  },
   "DvmNR7": {
     "defaultMessage": "Inscrivez-vous dès maintenant",
     "description": "Button text to apply for program"
@@ -3782,6 +3850,10 @@
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
+  },
+  "Eb/yFU": {
+    "defaultMessage": "1. <createLink>Créez un compte</createLink> ou <signInLink>connectez-vous</signInLink>.",
+    "description": "Text for workforce adjustment -> create step."
   },
   "Ed+xy1": {
     "defaultMessage": "Décision disqualifiée",
@@ -4050,6 +4122,10 @@
   "FxOKfM": {
     "defaultMessage": "Ottawa, Ontario",
     "description": "Location name of Ottawa, Ontario"
+  },
+  "FxQ2qX": {
+    "defaultMessage": "6. Attendez que notre équipe communique avec vous.",
+    "description": "Text for workforce adjustment -> waiting step."
   },
   "Fxs+ab": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences.",
@@ -4454,6 +4530,10 @@
   "I2CtZJ": {
     "defaultMessage": "Les commentaires ou les contributions seront supprimés s’ils :",
     "description": "Comments or contributions list title"
+  },
+  "I2bTFm": {
+    "defaultMessage": "Comprendre les échanges de postes",
+    "description": "Title for section explaining alternations"
   },
   "I2kLuc": {
     "defaultMessage": "Pour toute question concernant les bons pour examens de certification, veuillez contacter <mailLink>icommunity-icollectivite@tbs-sct.gc.ca</mailLink>.",
@@ -4891,6 +4971,10 @@
     "defaultMessage": "Passez en revue les <link>rôles et les autorisations</link> pour comprendre ce que chaque rôle peut ou ne peut pas faire.",
     "description": "Help text to direct users to more information on roles and permissions"
   },
+  "JpFcnB": {
+    "defaultMessage": "Les offres d’emploi et les échanges de postes doivent obtenir l’approbation des équipes de RH et de gestion compétentes de votre ministère ou organisme.",
+    "description": "Notice that alternations must be approved"
+  },
   "Jqt2vB": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Label for a process' closing date in pacific timezone"
@@ -4931,6 +5015,10 @@
     "defaultMessage": "Compétences constituant un atout",
     "description": "Title for optional skills"
   },
+  "K1PlrC": {
+    "defaultMessage": "Ce service est offert au personnel qui répond à l’un des critères suivants",
+    "description": "Lead in text describing WFA for the digital community"
+  },
   "K6Tzh1": {
     "defaultMessage": "Reliez votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
@@ -4959,6 +5047,10 @@
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a community member was added to a community"
   },
+  "KEYurm": {
+    "defaultMessage": "Cours de l’École de la fonction publique du Canada",
+    "description": "Lead in text for link to workforce adjustment course"
+  },
   "KEm64j": {
     "defaultMessage": "Détails de l'annonce",
     "description": "Sub title for advertisement details"
@@ -4978,6 +5070,10 @@
   "KJDxM1": {
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
+  },
+  "KM8u46": {
+    "defaultMessage": "Collectivité de l'accès à l'information et de protection des renseignements personnels (AIPRP)",
+    "description": "Title for ATIP community WFA section"
   },
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
@@ -5318,6 +5414,10 @@
   "Lt7tcM": {
     "defaultMessage": "Les comptes de médias sociaux du gouvernement du Canada sont une autre façon d’échanger avec les Canadiens et les Canadiennes, et de diffuser le contenu publié sur son site Web. Ces comptes facilitent l’accès à l’information et aux services du gouvernement du Canada, et donnent l’occasion aux intervenants d’interagir dans un environnement informatif et respectueux.",
     "description": "Paragraph for content and frequency section"
+  },
+  "Lt8TKR": {
+    "defaultMessage": "Bien que le réaménagement des effectifs soit habituellement associé à des périodes de restrictions budgétaires dans le secteur public, cet exercice est plus fréquent qu’on ne le croit. Il se produit au sein de ministères qui procèdent à des restructurations organisationnelles, qui éliminent graduellement certains programmes ou dont les priorités changent. Pour cette raison, les outils de mobilité et de jumelage sont utiles en tout temps pour réaménager les effectifs, non seulement en certaines périodes.",
+    "description": "Paragraph one, describing workforce adjustment"
   },
   "Lu5ppY": {
     "defaultMessage": "Tout sélectionner",
@@ -5927,6 +6027,10 @@
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
   },
+  "OltIDs": {
+    "defaultMessage": "Cette étape est essentielle si vous voulez que notre équipe soit capable de vous aider à trouver un emploi ou à faire un échange de poste.",
+    "description": "Description of why adding communities is important"
+  },
   "OoYh86": {
     "defaultMessage": "Les coordonnées suivantes seront fournies. Elles serviront aux personnes candidates qui ont des questions et des demandes d'accommodements, ainsi qu'aux membres du personnel qui souhaitent discuter de leur demande rejetée.",
     "description": "Describes the 'contact email' section of a process' advertisement"
@@ -6154,6 +6258,10 @@
   "PnyBYM": {
     "defaultMessage": "Allons-y!",
     "description": "Action button to move to the next step"
+  },
+  "PqrUAO": {
+    "defaultMessage": "Conventions collectives de la fonction publique",
+    "description": "Link text for public service collective agreements"
   },
   "PrTwov": {
     "defaultMessage": "Créez une collectivité",
@@ -6499,6 +6607,10 @@
     "defaultMessage": "Approbation pour les programmes de perfectionnement",
     "description": "Label for an nomination for development programs decision"
   },
+  "RA6QAP": {
+    "defaultMessage": "Présenter les caractéristiques du « talent numérique » aux termes de la <link>Directive sur les talents numériques</link>, y compris les titulaires de certains postes du groupe EX",
+    "description": "Criteria two, WFA for digital community"
+  },
   "RDAVsP": {
     "defaultMessage": "Lire la Directive",
     "description": "Link text to read the entire directive."
@@ -6566,6 +6678,10 @@
   "RRIxHw": {
     "defaultMessage": "Compétences de base en lecture, écriture et communication verbale.",
     "description": "Description for the beginner language ability"
+  },
+  "RRg/WX": {
+    "defaultMessage": "Vous aurez ainsi accès à des outils destinés au personnel de la fonction publique tant et aussi longtemps que vous travaillerez pour le gouvernement du Canada.",
+    "description": "Description of what verifying email does for users"
   },
   "RRlKyW": {
     "defaultMessage": "{label} navigation de page",
@@ -7047,6 +7163,10 @@
     "defaultMessage": "Revenir aux nominations",
     "description": "Link label to return to assessment tracker"
   },
+  "U+/Gvv": {
+    "defaultMessage": "Être membre du groupe EX et titulaire d’un poste admissible à l’exercice annuel de gestion des talents du groupe EX en gestion financière organisé par le Bureau du contrôleur général",
+    "description": "Criteria two, WFA for finance community"
+  },
   "U/Lv8i": {
     "defaultMessage": "Expérience inconnue",
     "description": "Title for unknown experiences"
@@ -7390,6 +7510,10 @@
     "defaultMessage": "Ces renseignements sont automatiquement remplis pour vous en fonction de la classification sélectionnée pour l'occasion.",
     "description": "Null message for education requirement section"
   },
+  "VjES9l": {
+    "defaultMessage": "Pour en savoir plus sur les échanges de postes, veuillez consulter les sources officielles suivantes du gouvernement du Canada",
+    "description": "Lead in text for government resources on alternations"
+  },
   "VjMgWb": {
     "defaultMessage": "Nous savons que le réaménagement des effectifs est une période sensible, et nous nous engageons à traiter vos renseignements avec le plus grand soin et de manière confidentielle.",
     "description": "Paragraph one for privacy and confidentiality section of wfa form"
@@ -7522,6 +7646,10 @@
     "defaultMessage": "{skillsCount} des {filteredSkillsTotal}",
     "description": "Title displayed on the candidate skill count column."
   },
+  "WHpmzr": {
+    "defaultMessage": "Fonctionnaires travaillant ou non au sein de l’APC",
+    "description": "Title for information about core public administration employees related to workforce adjustment"
+  },
   "WIbjog": {
     "defaultMessage": "Créez un ministère",
     "description": "Heading displayed above the Create Department form."
@@ -7553,6 +7681,10 @@
   "WT+5to": {
     "defaultMessage": "Autre grade avec spécialisation",
     "description": "Heading for the `other education with specialization` option for EC education requirements"
+  },
+  "WTjusd": {
+    "defaultMessage": "Notre plateforme offre désormais un nouveau service pour mieux soutenir le personnel visé par un réaménagement des effectifs. Ce service peut également être utile aux fonctionnaires occupant des postes permanents qui pourraient songer à quitter la fonction publique et à profiter ainsi des indemnités de départ offertes à cette occasion.",
+    "description": "Introduction paragraph to support with workforce adjustment"
   },
   "WVf1Wr": {
     "defaultMessage": "les fonctionnaires dont la classification est CT-FIN-04 et qui ont fait l'objet d'une candidature dans le cadre de la gestion des talents doivent créer un profil.",
@@ -7754,6 +7886,14 @@
     "defaultMessage": "La possibilité de formation a été créée avec succès!",
     "description": "Message displayed to user after a training opportunity is created successfully."
   },
+  "XL3TrV": {
+    "defaultMessage": "Obtenir du soutien en situation de réaménagement des effectifs",
+    "description": "Title for support with workforce adjustment"
+  },
+  "XN7vop": {
+    "defaultMessage": "Processus de réaménagement des effectifs (COR1-J15)",
+    "description": "Link text for workforce adjustment course"
+  },
   "XNzRga": {
     "defaultMessage": "Compétences techniques constituant un atout",
     "description": "Title for the nonessential technical skills"
@@ -7877,6 +8017,10 @@
   "Y1zzqe": {
     "defaultMessage": "Cette liste de compétences est en cours d’élaboration. De nouvelles compétences sont ajoutées de façon continue.",
     "description": "Message for skills page"
+  },
+  "Y2C4Nc": {
+    "defaultMessage": "Protection des renseignements personnels",
+    "description": "Title for protecting privacy related to workforce adjustment"
   },
   "Y2ULHN": {
     "defaultMessage": "Associer une expérience",
@@ -8173,6 +8317,10 @@
   "Z0G1WA": {
     "defaultMessage": "Processus",
     "description": "Title for processes"
+  },
+  "Z1sN3o": {
+    "defaultMessage": "Collectivité numérique",
+    "description": "Title for digital community WFA section"
   },
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
@@ -8781,6 +8929,10 @@
   "c11b35": {
     "defaultMessage": "Groupe, organisation ou collectivité",
     "description": "Label displayed on Community Experience form for organization input"
+  },
+  "c2pcX9": {
+    "defaultMessage": "Personnel visé par ce service",
+    "description": "Title for users supported by workforce adjustment tools"
   },
   "c4R8FH": {
     "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",
@@ -9510,6 +9662,10 @@
     "defaultMessage": "La formation ou le perfectionnement m'intéresse",
     "description": "Message when user expresses interest in training or development opportunities"
   },
+  "f/hhwB": {
+    "defaultMessage": "4. <link>Remplissez la section sur le réaménagement des effectifs</link> dans la section Planification de carrière.",
+    "description": "Text for workforce adjustment -> completing workforce adjustment step."
+  },
   "f/yvXg": {
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
@@ -9870,6 +10026,10 @@
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
   },
+  "gNxa7i": {
+    "defaultMessage": "5. <link>Ajoutez votre collectivité fonctionnelle dans votre profil</link>.  ",
+    "description": "Text for workforce adjustment -> adding communities step."
+  },
   "gOy6PW": {
     "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
     "description": "The lateral move interest described as not interested."
@@ -10109,6 +10269,10 @@
     "defaultMessage": "Voir l’expérience",
     "description": "Link text to view a specific experience"
   },
+  "hKzP42": {
+    "defaultMessage": "Ressources pour la gestion du réaménagement des effectifs",
+    "description": "Link text for managing workforce adjustment"
+  },
   "hL7Y6p": {
     "defaultMessage": "(Aucune compétence requise)",
     "description": "Message displayed when no skills are required for a pool"
@@ -10152,6 +10316,10 @@
   "hXWO/r": {
     "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
     "description": "First paragraph for the closed early pool deadlines dialog"
+  },
+  "hXgwp/": {
+    "defaultMessage": "Pour l’instant, nos services sont offerts aux fonctionnaires membres d’une des collectivités fonctionnelles que la plateforme soutient. Les bureaux de certaines collectivités fonctionnelles gèrent les talents au moyen de cette plateforme et ils n’auront pas de postes à offrir au personnel dans des domaines qui ne relèvent pas de leur mandat. (Nous encourageons les personnes qui font partie d’autres collectivités fonctionnelles à examiner les options offertes dans GCÉchange.)",
+    "description": "Paragraph describing the users who are supported by the workforce adjustment tools"
   },
   "hbcdJm": {
     "defaultMessage": "Notifications",
@@ -10353,6 +10521,10 @@
     "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
     "description": "Paragraph 2 of the 'About the program' section"
   },
+  "iTOQmE": {
+    "defaultMessage": "Les outils liés au réaménagement des effectifs se trouvent dans votre profil. Veuillez inscrire tous les renseignements demandés dans cette section.",
+    "description": "Instructions on where to find workforce adjustment tools"
+  },
   "iVAPnW": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
@@ -10372,6 +10544,10 @@
   "iZpJ6T": {
     "defaultMessage": "Les tâches principales servent à inspirer et à guider les gestionnaires lorsqu’ils utilisent ce modèle pour créer leurs offres d’emploi. Essayez de donner quatre à huit exemples et n’oubliez pas de terminer chaque phrase par un point.",
     "description": "Lead-in text for job poster template key tasks section, paragraph 1"
+  },
+  "ibiCQI": {
+    "defaultMessage": "À venir en novembre",
+    "description": "Denoting that information will be added in November"
   },
   "icYqDt": {
     "defaultMessage": "Bassin",
@@ -11325,6 +11501,10 @@
     "defaultMessage": "Candidat(e) precedent(e)",
     "description": "Link label to view previous candidate on view pool candidate page"
   },
+  "mtK0Lu": {
+    "defaultMessage": "2. Ajoutez votre poste actuel à votre <link>expérience professionnelle</link>.",
+    "description": "Text for workforce adjustment -> work experience step."
+  },
   "mwVSMJ": {
     "defaultMessage": "Retourner au portfolio de compétences",
     "description": "Link text to navigate from skill showcase to the skill portfolio page"
@@ -12037,6 +12217,10 @@
     "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",
     "description": "Message displayed when there are no employment equity categories available to be added."
   },
+  "q+MgTY": {
+    "defaultMessage": "Les personnes qui administrent les collectivités fonctionnelles surveillent la plateforme de façon continue. Vous devriez recevoir un courriel confirmant qu’elles essaient de vous trouver un poste.",
+    "description": "Description of what to do after completing all steps for workforce adjustment"
+  },
   "q+bkac": {
     "defaultMessage": "Davantage de renseignements sur l’équité en matière d’emploi",
     "description": "Heading for opening the accordion with information on employment equity"
@@ -12132,6 +12316,10 @@
   "qOi2J0": {
     "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
     "description": "Second language level (reading, writing, oral interaction) label"
+  },
+  "qPx0RO": {
+    "defaultMessage": "Collectivité de la gestion financière",
+    "description": "Title for finance community WFA section"
   },
   "qQ9ziR": {
     "defaultMessage": "Les personnes choisies devront travailler sur place dans la région de la capitale nationale.",
@@ -12477,6 +12665,10 @@
     "defaultMessage": "Informations complémentaires",
     "description": "Title for common questions"
   },
+  "sINpeV": {
+    "defaultMessage": "Nous savons que le réaménagement des effectifs peut être un moment difficile à vivre et nous nous engageons à traiter vos renseignements avec la plus grande prudence et de manière confidentielle. <strong>Aucun de vos renseignements ne sera rendu public</strong>.",
+    "description": "Paragraph one, describing how we protect privacy for workforce adjustment"
+  },
   "sIcsTo": {
     "defaultMessage": "Télécharger le document",
     "description": "Text label for button to download a document file of items in a table."
@@ -12697,6 +12889,10 @@
     "defaultMessage": "À quoi s’attendre",
     "description": "Label for a process what to expect after applying"
   },
+  "tRkamq": {
+    "defaultMessage": "Ce service est offert au personnel qui répond au critère suivant",
+    "description": "Lead in text for ATIP WFA criteria"
+  },
   "tS5VSg": {
     "defaultMessage": "Agrandir toutes les sections<hidden> relatives au profil et au plan de carrière</hidden>",
     "description": "Button text to open all profile and career plan accordions"
@@ -12785,6 +12981,10 @@
     "defaultMessage": "Les possibilités d'emploi au sein de cette collectivité m'intéressent.",
     "description": "Label for the community interest in work opportunities radio option"
   },
+  "tomKhn": {
+    "defaultMessage": "Ce service est offert au personnel qui répond à l’un des critères suivants",
+    "description": "Lead in text for finance community WFA criteria"
+  },
   "totVDg": {
     "defaultMessage": "Exigences relatives à la langue",
     "description": "Label for pool advertisement language requirement"
@@ -12817,6 +13017,10 @@
     "defaultMessage": "Rôles individuels",
     "description": "Label for the input to add roles to a user"
   },
+  "tvA/yP": {
+    "defaultMessage": "Une fois la section sur le réaménagement des effectifs de votre profil mise à jour, les personnes qui administrent votre collectivité fonctionnelle peuvent la voir. Celles-ci surveillent la plateforme de façon continue et, à l’aide de ses fonctions de jumelage, elles essaient de vous trouver un nouveau poste ou, le cas échéant, de trouver une personne prête à faire un échange de postes avec vous.",
+    "description": "Paragraph two, describing the alternation process"
+  },
   "tvQYG5": {
     "defaultMessage": "Avis",
     "description": "Title for the websites terms and conditions"
@@ -12824,6 +13028,10 @@
   "twNn98": {
     "defaultMessage": "La mise à jour des compétences comportementales essentielles a échoué.",
     "description": "Message displayed when a user fails to update the essential behavioural skills"
+  },
+  "u/LI10": {
+    "defaultMessage": "Vous devez comprendre que <strong>nous ne pouvons vous garantir que vous trouverez un nouvel emploi</strong>. Le tout dépend de vos compétences, de votre poste actuel et des nouveaux postes offerts ou des postes pouvant faire l’objet d’un échange. Mais n’oubliez pas que les personnes qui administrent votre collectivité fonctionnelle et l’équipe des services à la clientèle sont là pour vous aider en ne vous laisseront pas gérer ça tout seul ou toute seule.",
+    "description": "Paragraph one, describing the alternation process"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
@@ -12844,6 +13052,10 @@
   "u7IbDO": {
     "defaultMessage": "Comment le programme fonctionne",
     "description": "Title of the 'How the program works' section"
+  },
+  "u8tKFI": {
+    "defaultMessage": "Collectivité des biens immobiliers",
+    "description": "Title for real property community WFA section"
   },
   "u98IOx": {
     "defaultMessage": "Partie 1 : Création d’un compte CléGC",
@@ -13101,6 +13313,10 @@
     "defaultMessage": "EXposition",
     "description": "Subject line for contact email for EXposition"
   },
+  "vPr23M": {
+    "defaultMessage": "Réaménagement des effectifs de la fonction publique",
+    "description": "Title for introduction to workforce adjustment"
+  },
   "vQAVRN": {
     "defaultMessage": "Réservé temporairement au ministère partenaire",
     "description": "Description for the under consideration candidate placement type"
@@ -13277,6 +13493,10 @@
     "defaultMessage": "Cette demande a été vérifiée, {expiryDate}.",
     "description": "Message when a claim as been verified"
   },
+  "wBKhHG": {
+    "defaultMessage": "Cette adresse courriel est déjà utilisée.",
+    "description": "Error message when the email address is already in use."
+  },
   "wBSuFG": {
     "defaultMessage": "La mise à jour des compétences techniques constituant un atout",
     "description": "Message displayed when a user fails to update the nonessential technical skills"
@@ -13349,6 +13569,10 @@
     "defaultMessage": "Homme autochtone travaillant au sein de l'équipe chargée des politiques à l'aide d'un portable.",
     "description": "Description of a decorative image of a man and a laptop"
   },
+  "wWLIot": {
+    "defaultMessage": "Les fonctionnaires du gouvernement fédéral travaillant ou non au sein de l’administration publique centrale (APC) peuvent avoir recours aux bassins d’emplois et aux nouvelles offres d’emploi sur la plateforme, et peuvent s’y inscrire en tant que personnes touchées par un réaménagement des effectifs et à la recherche d’un nouveau poste (à condition d’avoir reçu une lettre sur le réaménagement des effectifs de leur ministère ou organisme). Cela dit, seules les personnes titulaires de postes permanents au sein de l’APC peuvent échanger leur poste entre elles.",
+    "description": "Description of core public administration employees related to workforce adjustment"
+  },
   "wYka/g": {
     "defaultMessage": "La personne candidate n'a pas fourni de renseignements sur le prochain type de poste qu'elle aime aimerait occuper.",
     "description": "Message displayed if nominee hasn't filled out next role info"
@@ -13372,6 +13596,10 @@
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
     "description": "First paragraph on success step of a talent nomination"
+  },
+  "wdJpUS": {
+    "defaultMessage": "Directive sur le réaménagement des effectifs",
+    "description": "Link text for work force adjustment directive"
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
@@ -13553,6 +13781,10 @@
     "defaultMessage": "<strong>Ma situation correspond à l'option de deux années d'études secondaires</strong>",
     "description": "Radio group option for education requirement filter in application education form."
   },
+  "xa9uZU": {
+    "defaultMessage": "Être membre du groupe CT-FIN",
+    "description": "Criteria one, WFA for finance community"
+  },
   "xb4jXA": {
     "defaultMessage": "Apprentissage intégré au travail et formation en TI",
     "description": "Title of the 'Work integrated learning and IT training' subsection"
@@ -13604,6 +13836,10 @@
   "xle+7f": {
     "defaultMessage": "Incomplet",
     "description": "Simplified status label for a incomplete process advertisement or assessment"
+  },
+  "xle1Ng": {
+    "defaultMessage": "Ces outils pourraient vous servir si vous faites partie d’une des <strong>collectivités fonctionnelles</strong> que la plateforme soutient et",
+    "description": "Lead in text for who these tools can help"
   },
   "xlx+3E": {
     "defaultMessage": "Télécharger la mise en candidature",
@@ -13776,6 +14012,10 @@
   "ySQ1Kf": {
     "defaultMessage": "Cote de sécurité",
     "description": "Heading for security clearance dialog"
+  },
+  "yTHS2m": {
+    "defaultMessage": "Un échange de postes est un processus auquel peuvent avoir recours les titulaires de postes permanents au sein de l’administration publique centrale qui ont reçu une lettre officielle de leur ministère ou organisme les informant que leur poste actuel sera aboli. Ces fonctionnaires font donc alors partie du « personnel touché ».",
+    "description": "Paragraph one, describing alternations"
   },
   "yTu6Ih": {
     "defaultMessage": "La gestion des fonctions de la plateforme est assurée par différentes personnes assumant certains rôles et possédant certaines autorisations, avec un accès limité aux données personnelles en fonction des besoins.",

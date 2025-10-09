@@ -13,7 +13,7 @@ import { EmailType } from "@gc-digital-talent/graphql";
 
 import EmailVerificationApi, {
   EmailVerificationProps,
-} from "./EmailVerification";
+} from "./EmailVerificationDeprecated";
 
 const getDefaultProps = (): EmailVerificationProps => ({
   emailType: EmailType.Contact,
