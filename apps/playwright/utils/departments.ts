@@ -28,3 +28,30 @@ export const getDepartments: GraphQLRequestFunc<Department[]> = async (ctx) => {
       (res: GraphQLResponse<"departments", Department[]>) => res.departments,
     );
 };
+
+const Test_DeleteDepartmentMutationDocument = /* GraphQL */ `
+  mutation Test_DeleteDepartment($id: ID!) {
+    deleteDepartment(id: $id) {
+      id
+    }
+  }
+`;
+
+interface DeleteDepartmentArgs {
+  id: string;
+}
+
+export const deleteDepartment: GraphQLRequestFunc<
+  Department,
+  DeleteDepartmentArgs
+> = async (ctx, { id }) => {
+  return await ctx
+    .post(Test_DeleteDepartmentMutationDocument, {
+      isPrivileged: true,
+      variables: { id },
+    })
+    .then(
+      (res: GraphQLResponse<"deleteDepartment", Department>) =>
+        res.deleteDepartment,
+    );
+};
