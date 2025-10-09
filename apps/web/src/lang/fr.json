@@ -3199,10 +3199,6 @@
     "defaultMessage": "Compétences comportementales facultatives",
     "description": "Heading for optional behavioural skills section"
   },
-  "BruLeg": {
-    "defaultMessage": "Erreur : échec de la création du compte.",
-    "description": "Message displayed to user if account fails to get updated."
-  },
   "Bs/9PZ": {
     "defaultMessage": "Mise à jour des réponses aux questions réussie!",
     "description": "Message displayed to users when saving question responses is successful."
@@ -3534,10 +3530,6 @@
   "DJL4F5": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
-  },
-  "DK870a": {
-    "defaultMessage": "Compte créé avec succès.",
-    "description": "Message displayed to user if account is created successfully."
   },
   "DNLEfN": {
     "defaultMessage": "Courriel de correspondance",
@@ -3890,10 +3882,6 @@
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
-  },
-  "ErosNs": {
-    "defaultMessage": "Si vous êtes <strong>un(e) employé(e) du gouvernement du Canada </strong>, vous pouvez choisir d'utiliser votre adresse courriel professionnelle, mais nous vous recommandons d'utiliser une adresse courriel personnelle afin de protéger votre confidentialité et de pouvoir continuer à y accéder si vous quittez la fonction publique.",
-    "description": "Message on getting started page about the contact email address - part 2."
   },
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
@@ -4678,10 +4666,6 @@
   "IWWSkL": {
     "defaultMessage": "Information sur le processus",
     "description": "Page title for the individual pool page"
-  },
-  "Ia+zNM": {
-    "defaultMessage": "Consentement notification par courriel",
-    "description": "Legend text for email notification consent checkbox in getting started form"
   },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
@@ -5543,10 +5527,6 @@
     "defaultMessage": "En attente de réponse",
     "description": "Label for pool candidate search requests that are awaiting a response"
   },
-  "MQB4IA": {
-    "defaultMessage": "Sauvegardez et continuez",
-    "description": "Button text to save a form step and continue to the next one"
-  },
   "MUxI+G": {
     "defaultMessage": "Il n’existe aucun résultat correspondant.",
     "description": "Title for when no skills match a users filters."
@@ -5678,10 +5658,6 @@
   "Mz7sON": {
     "defaultMessage": "Gérez vos compétences",
     "description": "Title for editing a users skills"
-  },
-  "MzmK82": {
-    "defaultMessage": "Vous pouvez contrôler les types de notifications que vous recevez de façon plus détaillée dans les paramètres de votre compte.",
-    "description": "Message on getting started page about email notification consent."
   },
   "N/1OYS": {
     "defaultMessage": "Il s'agissait d'un poste de direction ou de supervision.",
@@ -5854,10 +5830,6 @@
   "NpznI5": {
     "defaultMessage": "Sauvegarder et ignorer la confirmation",
     "description": "Button label for submit and skip email verification button on getting started form."
-  },
-  "NwlRd5": {
-    "defaultMessage": "J'accepte de recevoir des notifications par courriel de Talents numériques du GC.",
-    "description": "Text for the option consent to email notifications."
   },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
@@ -9509,10 +9481,6 @@
   "eOrKX2": {
     "defaultMessage": "Consultez ou mettez à jour ce modèle d’offre d’emploi.",
     "description": "Subtitle for the update job poster template page"
-  },
-  "eRbVle": {
-    "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de confirmer cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
-    "description": "Message on getting started page about the contact email address - part 1."
   },
   "eS/PsM": {
     "defaultMessage": "Modifier les rôles dans la collectivité",

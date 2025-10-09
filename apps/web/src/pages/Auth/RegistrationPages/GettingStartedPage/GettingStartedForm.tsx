@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -9,7 +9,7 @@ import {
   Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
   FragmentType,
@@ -26,7 +26,12 @@ import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/con
 import Caption from "~/components/BasicInformation/Caption";
 
 import labels from "./labels";
-import messages from "./messages";
+
+export const sectionTitle = defineMessage({
+  defaultMessage: "Getting started",
+  id: "QXiUo/",
+  description: "Main heading in getting started page.",
+});
 
 export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
   fragment GettingStartedInitialValues on User {
@@ -133,7 +138,7 @@ export const GettingStartedForm = ({
         color="secondary"
         className="mt-0 mb-6 font-normal"
       >
-        {intl.formatMessage(messages.gettingStartedSectionTitle)}
+        {intl.formatMessage(sectionTitle)}
       </Heading>
       <p className="mb-6">
         {intl.formatMessage({
@@ -230,18 +235,10 @@ export const GettingStartedForm = ({
               <Submit
                 mode="solid"
                 color="primary"
-                text={intl.formatMessage({
-                  defaultMessage: "Save and continue",
-                  id: "MQB4IA",
-                  description:
-                    "Button text to save a form step and continue to the next one",
-                })}
-                submittedText={intl.formatMessage({
-                  defaultMessage: "Save and continue",
-                  id: "MQB4IA",
-                  description:
-                    "Button text to save a form step and continue to the next one",
-                })}
+                text={intl.formatMessage(commonMessages.saveAndContinue)}
+                submittedText={intl.formatMessage(
+                  commonMessages.saveAndContinue,
+                )}
               />
             </div>
           </div>

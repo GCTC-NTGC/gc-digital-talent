@@ -16,11 +16,6 @@ const messages = defineMessages({
     id: "g+tCWe",
     description: "Subtitle for the registration pages",
   },
-  gettingStartedSectionTitle: {
-    defaultMessage: "Getting started",
-    id: "QXiUo/",
-    description: "Main heading in getting started page.",
-  },
 } as const);
 
 export default messages;

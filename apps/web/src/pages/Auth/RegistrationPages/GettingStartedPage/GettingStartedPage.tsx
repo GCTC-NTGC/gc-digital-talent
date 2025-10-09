@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { useNavigate } from "react-router";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -16,7 +16,10 @@ import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/con
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import messages from "./messages";
-import GettingStartedForm, { FormValues } from "./GettingStartedForm";
+import GettingStartedForm, {
+  FormValues,
+  sectionTitle as gettingStartedSectionTitle,
+} from "./GettingStartedForm";
 
 const GettingStarted_Query = graphql(/** GraphQL */ `
   query GettingStarted {
@@ -58,6 +61,9 @@ const GettingStartedPage = () => {
   const [, executeVerifyEmailMutation] = useMutation(
     GettingStartedVerifyEmail_Mutation,
   );
+
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -115,13 +121,16 @@ const GettingStartedPage = () => {
     }
 
     // finally, navigate away
-    await navigate(paths.employeeInformation());
+    await navigate({
+      pathname: paths.employeeInformation(),
+      search: from ? createSearchParams({ from }).toString() : "",
+    });
   };
 
   return (
     <>
       <SEO
-        title={intl.formatMessage(messages.gettingStartedSectionTitle)}
+        title={intl.formatMessage(gettingStartedSectionTitle)}
         description={intl.formatMessage(messages.subtitle)}
       />
       <Hero
@@ -129,6 +138,7 @@ const GettingStartedPage = () => {
         subtitle={intl.formatMessage(messages.subtitle)}
         crumbs={crumbs}
         overlap
+        centered
       >
         <section className="mb-18">
           <Card space="lg">

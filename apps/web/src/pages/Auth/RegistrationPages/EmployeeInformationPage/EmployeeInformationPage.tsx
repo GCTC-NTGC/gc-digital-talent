@@ -381,12 +381,7 @@ export const EmployeeInformationFormFields = ({
             setValue("skipVerification", true);
           }}
         >
-          {intl.formatMessage({
-            defaultMessage: "Save and continue",
-            id: "MQB4IA",
-            description:
-              "Button text to save a form step and continue to the next one",
-          })}
+          {intl.formatMessage(commonMessages.saveAndContinue)}
         </Button>
       )}
     </>
