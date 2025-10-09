@@ -3,7 +3,7 @@ import { action } from "storybook/actions";
 
 import { EmailType } from "@gc-digital-talent/graphql";
 
-import { EmailVerification } from "./EmailVerification";
+import { EmailVerification } from "./EmailVerificationDeprecated";
 
 export default {
   component: EmailVerification,

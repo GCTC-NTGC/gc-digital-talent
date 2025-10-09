@@ -39,6 +39,8 @@ export const checkFeatureFlag = (name: string): boolean => {
 /**
  * A convenience function which makes explicit all expected feature flags.
  */
-export const getFeatureFlags = () => ({});
+export const getFeatureFlags = () => ({
+  workforceAdjustment: checkFeatureFlag("FEATURE_WFA"),
+});
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

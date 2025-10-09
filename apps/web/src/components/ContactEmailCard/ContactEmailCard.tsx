@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import EmailVerificationDialog from "../EmailVerification/EmailVerificationDialog";
+import EmailVerificationDialog from "../EmailVerificationDialog/EmailVerificationDialog";
 
 const ContactEmailCard_Fragment = graphql(/** GraphQL */ `
   fragment ContactEmailCard on User {
@@ -71,7 +71,7 @@ const ContactEmailCard = ({ query }: ContactEmailCardProps) => {
       <Card.Separator space="xs" />
       <EmailVerificationDialog
         emailType={EmailType.Contact}
-        emailAddress={contactEmail.email}
+        emailAddress={contactEmail.email ?? null}
       >
         <Button mode="inline" className="text-center xs:text-left">
           {intl.formatMessage({
