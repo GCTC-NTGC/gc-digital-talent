@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Alert, Link, Ul } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -15,7 +16,8 @@ const isBannerDismissed = () =>
 const WfaBanner = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  if (isBannerDismissed()) {
+  const { workforceAdjustment } = useFeatureFlags();
+  if (isBannerDismissed() || !workforceAdjustment) {
     return null;
   }
 

@@ -38,7 +38,7 @@ const ActiveRecruitmentSection = ({
         size="h3"
         icon={RocketLaunchIcon}
         color="primary"
-        className="mb-6 font-normal"
+        className="mt-0 mb-6 font-normal"
       >
         {intl.formatMessage({
           defaultMessage: "Active talent recruitment processes",
