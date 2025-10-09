@@ -2,6 +2,8 @@ import { useIntl } from "react-intl";
 
 import { Alert, Link, Ul } from "@gc-digital-talent/ui";
 
+import useRoutes from "~/hooks/useRoutes";
+
 const WFA_BANNER_COOKIE = "wfaBannerDismissed";
 
 const isBannerDismissed = () =>
@@ -12,6 +14,7 @@ const isBannerDismissed = () =>
 
 const WfaBanner = () => {
   const intl = useIntl();
+  const paths = useRoutes();
   if (isBannerDismissed()) {
     return null;
   }
@@ -73,7 +76,7 @@ const WfaBanner = () => {
           })}
         </li>
       </Ul>
-      <Link href="#" color="black">
+      <Link href={paths.wfaInfo()} color="black">
         {intl.formatMessage({
           defaultMessage: "Learn more about new services to support you.",
           id: "wlfZcP",
