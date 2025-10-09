@@ -92,7 +92,10 @@
           ],
 
           // Feature flags
-          [],
+          [
+            "FEATURE_WFA",
+            filterUnusable("$FEATURE_WFA") ?? "<%= FEATURE_WFA %>",
+          ],
 
           // Azure application insights not used in dev
           [

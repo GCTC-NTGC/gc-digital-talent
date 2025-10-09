@@ -21,6 +21,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -88,6 +89,7 @@ export const UserEmployeeInformation = ({
   userQuery,
 }: UserEmployeeInformationProps) => {
   const intl = useIntl();
+  const { workforceAdjustment } = useFeatureFlags();
 
   const employeeProfile = getFragment(
     UserEmployeeInformation_Fragment,
@@ -142,13 +144,15 @@ export const UserEmployeeInformation = ({
               </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.ListItem>
-          <TableOfContents.ListItem>
-            <TableOfContents.AnchorLink
-              id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}
-            >
-              {intl.formatMessage(workforceAdjustmentMessages.wfa)}
-            </TableOfContents.AnchorLink>
-          </TableOfContents.ListItem>
+          {workforceAdjustment && (
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}
+              >
+                {intl.formatMessage(workforceAdjustmentMessages.wfa)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          )}
         </TableOfContents.List>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
@@ -334,29 +338,33 @@ export const UserEmployeeInformation = ({
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
-          <TableOfContents.Section id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}>
-            <Heading
-              level="h2"
-              size="h3"
-              icon={ArrowsRightLeftIcon}
-              color="secondary"
-              className="mb-6 font-normal sm:justify-start sm:text-left"
+          {workforceAdjustment && (
+            <TableOfContents.Section
+              id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}
             >
-              {intl.formatMessage(workforceAdjustmentMessages.wfa)}
-            </Heading>
-            <p className="my-6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Learn more about this employee’s workforce adjustment situation.",
-                id: "pSP4YT",
-                description:
-                  "Lead in text for a users workforce adjustment information",
-              })}
-            </p>
-            <Card>
-              <UserWorkforceAdjustment query={wfaQuery} isAdmin />
-            </Card>
-          </TableOfContents.Section>
+              <Heading
+                level="h2"
+                size="h3"
+                icon={ArrowsRightLeftIcon}
+                color="secondary"
+                className="mb-6 font-normal sm:justify-start sm:text-left"
+              >
+                {intl.formatMessage(workforceAdjustmentMessages.wfa)}
+              </Heading>
+              <p className="my-6">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Learn more about this employee’s workforce adjustment situation.",
+                  id: "pSP4YT",
+                  description:
+                    "Lead in text for a users workforce adjustment information",
+                })}
+              </p>
+              <Card>
+                <UserWorkforceAdjustment query={wfaQuery} isAdmin />
+              </Card>
+            </TableOfContents.Section>
+          )}
         </div>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>

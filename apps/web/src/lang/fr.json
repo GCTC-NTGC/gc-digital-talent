@@ -2695,10 +2695,6 @@
     "defaultMessage": "Ministère",
     "description": "Title for department"
   },
-  "9aiDXn": {
-    "defaultMessage": "En savoir plus<hidden> sur le réaménagement des effectifs</hidden>",
-    "description": "Indication that more WFA information is coming in the fall"
-  },
   "9b+Xtt": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the community information section of a form"
@@ -3442,6 +3438,10 @@
   "CuHYqt": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
+  },
+  "Cv2CaU": {
+    "defaultMessage": "À venir cet automne",
+    "description": "Indication that more WFA information is coming in the fall"
   },
   "Cvl9dd": {
     "defaultMessage": "Langue de la formation",
@@ -8901,6 +8901,10 @@
   "bz55F8": {
     "defaultMessage": "Si vous avez des demandes d'accommodements ou des questions relativement à ce processus, veuillez écrire à l'équipe de recrutement à l'adresse <link>{contactEmail}</link>.",
     "description": "Opening sentence asking if accommodations are needed"
+  },
+  "bzZnxS": {
+    "defaultMessage": "En savoir plus<hidden> sur le réaménagement des effectifs</hidden>",
+    "description": "Link text to the workforce adjustment info page"
   },
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
