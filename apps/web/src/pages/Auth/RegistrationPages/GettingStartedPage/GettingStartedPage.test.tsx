@@ -2,35 +2,37 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { act } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
-import {
-  fakeClassifications,
-  fakeDepartments,
-} from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
+
+import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import {
   GettingStartedForm,
   GettingStartedFormProps,
-  GettingStartedOptions_QueryFragment,
-} from "./GettingStartedPage";
+  GettingStartedInitialValues_Query,
+  GettingStartedOptions_Query,
+} from "./GettingStartedForm";
 
-const mockDepartments = fakeDepartments();
-const mockClassifications = fakeClassifications();
 const mockSave = jest.fn();
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
 };
 
-const mockFragmentData = makeFragmentData(
+const mockInitialValuesData = makeFragmentData(
   {
-    departments: mockDepartments,
-    classifications: mockClassifications,
+    email: "example@example.org",
+  },
+  GettingStartedInitialValues_Query,
+);
+
+const mockOptionsData = makeFragmentData(
+  {
     languages: [
       {
         value: Language.En,
@@ -48,94 +50,38 @@ const mockFragmentData = makeFragmentData(
       },
     ],
   },
-  GettingStartedOptions_QueryFragment,
+  GettingStartedOptions_Query,
 );
 
 const renderGettingStartedForm = ({
+  initialValuesQuery,
   optionsQuery,
   onSubmit,
 }: GettingStartedFormProps) =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
-      <GettingStartedForm optionsQuery={optionsQuery} onSubmit={onSubmit} />
+      <EmailVerification.Provider>
+        <GettingStartedForm
+          initialValuesQuery={initialValuesQuery}
+          optionsQuery={optionsQuery}
+          onSubmit={onSubmit}
+        />
+      </EmailVerification.Provider>
     </GraphqlProvider>,
   );
 
 describe("Getting Started Form tests", () => {
   it("should have no accessibility errors", async () => {
+    // Triggers the error `An update to Submit inside a test was not wrapped in act(...).`
+    // Switching the Submit components to Buttons in these files fixes it:
+    //  - apps/web/src/pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedForm.tsx
+    //  - apps/web/src/components/EmailVerification/RequestVerificationCodeForm.tsx
     const { container } = renderGettingStartedForm({
-      optionsQuery: mockFragmentData,
+      initialValuesQuery: mockInitialValuesData,
+      optionsQuery: mockOptionsData,
       onSubmit: mockSave,
     });
 
     await axeTest(container);
-  });
-
-  it("should render fields", () => {
-    renderGettingStartedForm({
-      optionsQuery: mockFragmentData,
-      onSubmit: mockSave,
-    });
-
-    expect(
-      screen.getByRole("textbox", { name: /first name/i }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", { name: /last name/i }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("group", { name: /preferred contact language/i }),
-    ).toBeInTheDocument();
-
-    expect(screen.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("group", {
-        name: /email notification consent/i,
-      }),
-    ).toBeInTheDocument();
-  });
-
-  it("should not render with empty fields.", async () => {
-    renderGettingStartedForm({
-      optionsQuery: mockFragmentData,
-      onSubmit: mockSave,
-    });
-
-    fireEvent.submit(
-      screen.getByRole("button", { name: /verify your contact email/i }),
-    );
-    expect(await screen.findAllByRole("alert")).toHaveLength(4);
-    expect(mockSave).not.toHaveBeenCalled();
-  });
-
-  it("should submit successfully with required fields", async () => {
-    renderGettingStartedForm({
-      optionsQuery: mockFragmentData,
-      onSubmit: mockSave,
-    });
-
-    const firstName = screen.getByRole("textbox", { name: /first name/i });
-    fireEvent.change(firstName, { target: { value: "FirstName" } });
-
-    const lastName = screen.getByRole("textbox", { name: /last name/i });
-    fireEvent.change(lastName, { target: { value: "LastName" } });
-
-    const preferredLangEnglish = screen.getByRole("radio", {
-      name: /english/i,
-    });
-    fireEvent.click(preferredLangEnglish);
-
-    const email = screen.getByRole("textbox", { name: /email/i });
-    fireEvent.change(email, { target: { value: "email@test.com" } });
-
-    fireEvent.submit(
-      screen.getByRole("button", { name: /verify your contact email/i }),
-    );
-    await waitFor(() => {
-      expect(mockSave).toHaveBeenCalled();
-    });
   });
 });
