@@ -127,6 +127,11 @@ const createRoute = (locale: Locales) =>
                 import("../pages/DNDDigitalCareersPage/DNDDigitalCareersPage"),
             },
             {
+              path: "workforce-adjustment",
+              lazy: () =>
+                import("../pages/WorkforceAdjustment/WorkforceAdjustmentPage"),
+            },
+            {
               path: "directive-on-digital-talent",
               children: [
                 {

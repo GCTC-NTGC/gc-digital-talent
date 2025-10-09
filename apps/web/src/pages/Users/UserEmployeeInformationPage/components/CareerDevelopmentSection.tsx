@@ -7,7 +7,7 @@ import {
   getMentorshipInterest,
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import { Card, CardSeparator, Ul } from "@gc-digital-talent/ui";
+import { Separator, Ul } from "@gc-digital-talent/ui";
 import {
   ExecCoaching,
   FragmentType,
@@ -223,7 +223,7 @@ const CareerDevelopmentSection = ({
   ).map((interest) => String(interest.value));
 
   return (
-    <Card className="flex flex-col gap-6">
+    <div className="flex flex-col gap-y-6">
       <FieldDisplay label={careerDevelopmentMessages.lateralMoveInterest}>
         {empty(employeeProfile.lateralMoveInterest)
           ? intl.formatMessage(commonMessages.notProvided)
@@ -273,7 +273,7 @@ const CareerDevelopmentSection = ({
           intl.formatMessage(commonMessages.notProvided)
         )}
       </FieldDisplay>
-      <CardSeparator space="xs" />
+      <Separator space="none" />
       <FieldDisplay label={careerDevelopmentMessages.promotionMoveInterest}>
         {empty(employeeProfile.promotionMoveInterest)
           ? intl.formatMessage(commonMessages.notProvided)
@@ -323,7 +323,7 @@ const CareerDevelopmentSection = ({
           intl.formatMessage(commonMessages.notProvided)
         )}
       </FieldDisplay>
-      <CardSeparator space="xs" />
+      <Separator space="none" />
       <FieldDisplay
         label={careerDevelopmentMessages.learningOpportunitiesInterest}
       >
@@ -366,7 +366,7 @@ const CareerDevelopmentSection = ({
           intl.formatMessage(commonMessages.notProvided)
         )}
       </FieldDisplay>
-      <CardSeparator space="xs" />
+      <Separator space="none" />
       <FieldDisplay
         label={careerDevelopmentMessages.eligibleRetirementYearKnown}
       >
@@ -385,7 +385,7 @@ const CareerDevelopmentSection = ({
             })
           : intl.formatMessage(commonMessages.notProvided)}
       </FieldDisplay>
-      <CardSeparator space="xs" />
+      <Separator space="none" />
       <FieldDisplay label={careerDevelopmentMessages.mentorshipStatus}>
         {employeeProfile.mentorshipStatus
           ? intl.formatMessage(
@@ -415,7 +415,7 @@ const CareerDevelopmentSection = ({
           intl.formatMessage(commonMessages.notProvided)
         )}
       </FieldDisplay>
-      <CardSeparator space="xs" />
+      <Separator space="none" />
       <FieldDisplay label={careerDevelopmentMessages.execInterest}>
         {empty(employeeProfile.execInterest)
           ? intl.formatMessage(commonMessages.notProvided)
@@ -448,7 +448,7 @@ const CareerDevelopmentSection = ({
           intl.formatMessage(commonMessages.notProvided)
         )}
       </FieldDisplay>
-    </Card>
+    </div>
   );
 };
 

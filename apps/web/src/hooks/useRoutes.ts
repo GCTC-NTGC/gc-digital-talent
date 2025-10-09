@@ -392,6 +392,7 @@ const getRoutes = (lang: Locales) => {
 
     // Workforce adjustment
     workforceAdjustmentEmployees: () => `${adminUrl}/wfa-employees`,
+    wfaInfo: () => `${baseUrl}/workforce-adjustment`,
 
     /**
      * Deprecated

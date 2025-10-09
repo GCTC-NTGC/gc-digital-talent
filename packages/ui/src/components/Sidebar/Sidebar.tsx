@@ -2,7 +2,7 @@ import { HTMLProps, ReactNode } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 const scrollbarWrapper = tv({
-  base: "sticky overflow-auto",
+  base: "sticky",
   variants: {
     // Temp fix for view pool candidate page
     scrollbar: {
