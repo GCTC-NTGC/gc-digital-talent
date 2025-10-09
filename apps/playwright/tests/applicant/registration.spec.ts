@@ -34,10 +34,12 @@ test.describe("Registration", () => {
     expect(meUserId).toMatch(uuidRegEx);
 
     // pull the verification code from cache since we can't receive an email here
+    const cacheGetCommand = `echo Cache::get('email-verification-${meUserId}')['code']`;
+    const tinkerCommand = `php artisan tinker --execute="${cacheGetCommand}"`;
+    const escapeQuotes = (s: string) => s.replace(/"/g, '\\"');
     const verificationCode = execSync(
-      `php artisan tinker --execute="echo Cache::get('email-verification-${meUserId}')['code']"`,
+      `docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "${escapeQuotes(tinkerCommand)}"`,
       {
-        cwd: "../../api",
         stdio: "pipe",
         encoding: "utf8",
       },
