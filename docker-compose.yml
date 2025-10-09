@@ -36,6 +36,7 @@ services:
     environment:
       - ROBOTS_FILENAME=dev.robots.txt
       - WEBSITE_SITE_NAME=localhost
+      - GCNOTIFY_API_KEY
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
