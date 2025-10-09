@@ -289,7 +289,7 @@ const WorkforceAdjustmentTable = () => {
         enableColumnFilter: false,
         enableSorting: true,
         header: intl.formatMessage(
-          employeeProfileMessages.currentEmployeeClassification,
+          employeeProfileMessages.substantiveClassification,
         ),
       },
     ),

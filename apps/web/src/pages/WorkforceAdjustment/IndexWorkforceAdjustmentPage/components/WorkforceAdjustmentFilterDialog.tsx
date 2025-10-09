@@ -170,7 +170,7 @@ const WorkforceAdjustmentFilterDialog = ({
           id="classifications"
           name="classifications"
           label={intl.formatMessage(
-            employeeProfileMessages.currentEmployeeClassification,
+            employeeProfileMessages.substantiveClassification,
           )}
           isMulti
           options={unpackMaybes(data?.classifications).map(
