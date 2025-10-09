@@ -3,14 +3,16 @@ import { useIntl } from "react-intl";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
-interface SubmitACodeContextMessageProps {
-  message: null | "contact-matches-work" | "must-request-code";
-}
+import { useEmailVerification } from "./EmailVerification";
 
-const SubmitACodeContextMessage = ({
-  message,
-}: SubmitACodeContextMessageProps) => {
+export type ContextMessage = "contact-matches-work" | "must-request-code";
+
+const SubmitVerificationCodeContextMessage = () => {
   const intl = useIntl();
+
+  const {
+    state: { submitVerificationCodeContextMessage: message },
+  } = useEmailVerification();
 
   if (message == null) return null;
 
@@ -57,4 +59,4 @@ const SubmitACodeContextMessage = ({
   }
 };
 
-export default SubmitACodeContextMessage;
+export default SubmitVerificationCodeContextMessage;
