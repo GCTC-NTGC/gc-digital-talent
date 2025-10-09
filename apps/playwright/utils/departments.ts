@@ -45,8 +45,9 @@ export const deleteDepartment: GraphQLRequestFunc<
   Department,
   DeleteDepartmentArgs
 > = async (ctx, { id }) => {
-  return ctx
+  return await ctx
     .post(Test_DeleteDepartmentMutationDocument, {
+      isPrivileged: true,
       variables: { id },
     })
     .then(
