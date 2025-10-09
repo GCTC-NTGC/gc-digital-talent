@@ -37,6 +37,7 @@ services:
       - ROBOTS_FILENAME=dev.robots.txt
       - WEBSITE_SITE_NAME=localhost
       - GCNOTIFY_API_KEY
+      - GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
