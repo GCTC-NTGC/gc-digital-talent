@@ -13277,6 +13277,10 @@
     "defaultMessage": "Cette demande a été vérifiée, {expiryDate}.",
     "description": "Message when a claim as been verified"
   },
+  "wBKhHG": {
+    "defaultMessage": "Cette adresse courriel est déjà utilisée.",
+    "description": "Error message when the email address is already in use."
+  },
   "wBSuFG": {
     "defaultMessage": "La mise à jour des compétences techniques constituant un atout",
     "description": "Message displayed when a user fails to update the nonessential technical skills"
