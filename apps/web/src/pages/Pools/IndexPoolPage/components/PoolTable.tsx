@@ -39,7 +39,6 @@ import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import permissionConstants from "~/constants/permissionConstants";
-import tableMessages from "~/components/Table/tableMessages";
 
 import {
   classificationAccessor,
