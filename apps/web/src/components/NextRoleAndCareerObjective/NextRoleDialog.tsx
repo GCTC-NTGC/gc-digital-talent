@@ -20,12 +20,14 @@ interface NextRoleDialogProps {
   nextRoleDialogQuery: FragmentType<typeof NextRoleDialog_Fragment>;
   trigger?: ReactNode;
   defaultOpen?: boolean;
+  customSubtitle?: string;
 }
 
 const NextRoleDialog = ({
   nextRoleDialogQuery,
   trigger,
   defaultOpen = false,
+  customSubtitle,
 }: NextRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
@@ -43,20 +45,20 @@ const NextRoleDialog = ({
     },
   );
 
+  const subtitle =
+    customSubtitle ??
+    intl.formatMessage({
+      defaultMessage:
+        "Learn more about the role this nominee is seeking next in their career path.",
+      id: "0Ejl5g",
+      description: "Subtitle for dialog viewing next role info",
+    });
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>{trigger || <Button>{title}</Button>}</Dialog.Trigger>
       <Dialog.Content hasSubtitle>
-        <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "Learn more about the role this nominee is seeking next in their career path.",
-            id: "0Ejl5g",
-            description: "Subtitle for dialog viewing next role info",
-          })}
-        >
-          {title}
-        </Dialog.Header>
+        <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>
         <Dialog.Body>
           {/* TODO: Add well with null message if fragment is undefined? */}
           {nextRole.employeeProfile && (

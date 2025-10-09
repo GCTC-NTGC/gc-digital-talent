@@ -4,7 +4,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
 
 import Display from "~/components/Profile/components/WorkPreferences/Display";
-import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
+import { getLabels } from "~/utils/workPreferenceUtils";
 
 const WorkPreferences_Fragment = graphql(/** GraphQL */ `
   fragment AdminWorkPreferences on User {
