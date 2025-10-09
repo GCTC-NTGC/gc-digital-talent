@@ -8138,6 +8138,10 @@
     "defaultMessage": "Télécharger Excel",
     "description": "Text label for button to download a excel file of items in a table."
   },
+  "YRcRHy": {
+    "defaultMessage": "Vous pouvez gérer ici vos données relatives au réaménagement des effectifs. <link>En savoir plus sur le réaménagement des effectifs</link> et découvrez si cela vous concerne.",
+    "description": "Description of workforce adjustment form"
+  },
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
