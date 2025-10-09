@@ -319,7 +319,6 @@ const EmployeeProfile = ({
                   icon={ChartBarSquareIcon}
                   color="primary"
                   className="mt-0 font-normal sm:text-left"
-                  center
                 >
                   {intl.formatMessage(commonMessages.careerPlanning)}
                 </Heading>

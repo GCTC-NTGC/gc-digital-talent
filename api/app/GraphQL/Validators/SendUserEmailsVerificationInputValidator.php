@@ -40,4 +40,14 @@ final class SendUserEmailsVerificationInputValidator extends Validator
             ],
         ];
     }
+
+    /**
+     * Return the validation messages
+     */
+    public function messages(): array
+    {
+        return [
+            'emailAddress.unique' => 'EmailAddressInUse',
+        ];
+    }
 }
