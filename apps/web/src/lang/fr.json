@@ -6823,6 +6823,10 @@
     "defaultMessage": "Raison de la clôture",
     "description": "Label for the reason for closing the pool"
   },
+  "SRnr1M": {
+    "defaultMessage": "Code de confirmation du courriel",
+    "description": "label for verification code input"
+  },
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
@@ -12585,6 +12589,10 @@
     "defaultMessage": "Question de sélection {index}",
     "description": "Legend for screening question fieldset"
   },
+  "s/+kmV": {
+    "defaultMessage": "Le code que vous avez saisi n'est pas valide. Veuillez vérifier si ce code correspond à celui que vous avez reçu par courriel à l'adresse spécifiée. Si le problème persiste, veuillez demander un nouveau code.",
+    "description": "Error message when the code is not valid."
+  },
   "s/BI/4": {
     "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux ont été nominés aux tables rondes en gestion des talents; EXposition ciblant les cadres supérieurs et Prolonger EXposition se concentrant sur les candidats de groupes et niveaux EX équivalents et EX moins un.  Les nominations sont compilées dans la base de données en gestion des talents numériques. Cette base de données constitue la source principale de données lorsque les organisations veulent d'obtenir des références tout au long de l'année.",
     "description": "Description of identifying digital talents"
@@ -12632,6 +12640,10 @@
   "sGT8ER": {
     "defaultMessage": "Informations complémentaires",
     "description": "Title for common questions"
+  },
+  "sHEsjv": {
+    "defaultMessage": "Par votre inscription et la transmission de votre adresse courriel, vous consentez à recevoir des communications électroniques de la plateforme Talents numériques du GC et de ses collectivités fonctionnelles partenaires au gouvernement du Canada. À la page des paramètres de compte, vous pouvez sélectionner les types de notifications et leur mode d'envoi.",
+    "description": "Message on getting started page about the contact email address"
   },
   "sINpeV": {
     "defaultMessage": "Nous savons que le réaménagement des effectifs peut être un moment difficile à vivre et nous nous engageons à traiter vos renseignements avec la plus grande prudence et de manière confidentielle. <strong>Aucun de vos renseignements ne sera rendu public</strong>.",
