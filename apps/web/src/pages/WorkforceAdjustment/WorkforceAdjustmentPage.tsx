@@ -610,7 +610,7 @@ export const Component = () => {
                 {
                   link: (chunks) =>
                     inlineLink(chunks, {
-                      href: paths.employeeProfile(),
+                      href: `${paths.employeeProfile()}#wfa-section`,
                       className: "font-bold",
                     }),
                 },
