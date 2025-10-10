@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { empty, notEmpty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getOperationalRequirement,
@@ -18,7 +18,9 @@ import { Ul } from "@gc-digital-talent/ui";
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
+import { FlexibleWorkLocationOptions_Fragment } from "./fragment";
 export const WorkPreferencesDisplay_Fragment = graphql(/** GraphQL */ `
   fragment WorkPreferencesDisplay on User {
     acceptedOperationalRequirements {
@@ -29,6 +31,12 @@ export const WorkPreferencesDisplay_Fragment = graphql(/** GraphQL */ `
     }
     positionDuration
     locationPreferences {
+      value
+      label {
+        localized
+      }
+    }
+    flexibleWorkLocations {
       value
       label {
         localized
@@ -48,9 +56,12 @@ export const WorkPreferencesDisplay_Fragment = graphql(/** GraphQL */ `
 interface DisplayProps {
   query: FragmentType<typeof WorkPreferencesDisplay_Fragment>;
   labels: FieldLabels;
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
-const Display = ({ query, labels }: DisplayProps) => {
+const Display = ({ query, labels, optionsQuery }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const user = getFragment(WorkPreferencesDisplay_Fragment, query);
@@ -58,11 +69,15 @@ const Display = ({ query, labels }: DisplayProps) => {
     acceptedOperationalRequirements,
     positionDuration,
     locationPreferences,
+    flexibleWorkLocations,
     locationExemptions,
     currentCity,
     currentProvince,
   } = user;
   const locations = locationPreferences?.filter(notEmpty);
+  const userLocations: string[] = unpackMaybes(flexibleWorkLocations).map(
+    (loc) => loc.value as string,
+  );
   const acceptedRequirements =
     acceptedOperationalRequirements?.filter(notEmpty);
 
@@ -70,6 +85,11 @@ const Display = ({ query, labels }: DisplayProps) => {
     positionDuration?.includes(PositionDuration.Temporary)
       ? profileMessages.anyDuration
       : profileMessages.permanentDuration,
+  );
+
+  const locationOptions = unpackMaybes(
+    getFragment(FlexibleWorkLocationOptions_Fragment, optionsQuery)
+      ?.flexibleWorkLocation,
   );
 
   return (
@@ -106,6 +126,26 @@ const Display = ({ query, labels }: DisplayProps) => {
           intl,
         })}
       </FieldDisplay>
+      <div>
+        <FieldDisplay
+          label={intl.formatMessage(
+            profileMessages.flexibleWorkLocationOptions,
+          )}
+        />
+        <Ul unStyled noIndent inside>
+          {locationOptions.map((location) => (
+            <li key={location.value}>
+              <BoolCheckIcon
+                value={userLocations.includes(location.value)}
+                trueLabel={intl.formatMessage(commonMessages.interested)}
+                falseLabel={intl.formatMessage(commonMessages.notInterested)}
+              >
+                {location.label.localized}
+              </BoolCheckIcon>
+            </li>
+          ))}
+        </Ul>
+      </div>
       <div>
         <FieldDisplay
           label={intl.formatMessage({

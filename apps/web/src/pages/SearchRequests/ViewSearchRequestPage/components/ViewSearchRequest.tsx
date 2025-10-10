@@ -22,6 +22,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
@@ -32,6 +33,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import Hero from "~/components/Hero";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -302,6 +304,14 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         label {
           en
           fr
+          localized
+        }
+      }
+      flexibleWorkLocations {
+        value
+        label {
+          en
+          fr
         }
       }
       positionDuration
@@ -377,10 +387,14 @@ interface SingleSearchRequestProps {
   searchRequestQuery: FragmentType<
     typeof ViewSearchRequest_SearchRequestFragment
   >;
+  flexibleLocationOptionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
 export const ViewSearchRequest = ({
   searchRequestQuery,
+  flexibleLocationOptionsQuery,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -401,6 +415,14 @@ export const ViewSearchRequest = ({
     positionType,
     reason,
   } = searchRequest;
+
+  const locationOptionsData = getFragment(
+    FlexibleWorkLocationOptions_Fragment,
+    flexibleLocationOptionsQuery,
+  );
+  const locationOptionsDataUnpacked = unpackMaybes(
+    locationOptionsData?.flexibleWorkLocation,
+  );
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -473,7 +495,10 @@ export const ViewSearchRequest = ({
             content={getLocalizedName(reason?.label, intl, true)}
           />
           <Separator space="sm" />
-          <SearchRequestFilters filters={abstractFilter} />
+          <SearchRequestFilters
+            filters={abstractFilter}
+            flexibleWorkLocationOptions={locationOptionsDataUnpacked}
+          />
           <Separator space="sm" />
 
           <div className="grid gap-6 sm:grid-cols-2">
@@ -540,6 +565,12 @@ const ViewSearchRequest_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const ViewSearchRequestPageOptions_Query = graphql(/* GraphQL */ `
+  query ViewSearchRequestPageOptions {
+    ...FlexibleWorkLocationOptionsFragment
+  }
+`);
+
 const ViewSearchRequestApi = ({
   searchRequestId,
 }: {
@@ -551,11 +582,21 @@ const ViewSearchRequestApi = ({
     variables: { id: searchRequestId },
   });
 
+  const [
+    { data: optionsData, fetching: optionsFetching, error: optionsError },
+  ] = useQuery({
+    query: ViewSearchRequestPageOptions_Query,
+  });
+
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending
+      fetching={fetching || optionsFetching}
+      error={error ?? optionsError}
+    >
       {searchRequestData?.poolCandidateSearchRequest ? (
         <ViewSearchRequest
           searchRequestQuery={searchRequestData.poolCandidateSearchRequest}
+          flexibleLocationOptionsQuery={optionsData}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

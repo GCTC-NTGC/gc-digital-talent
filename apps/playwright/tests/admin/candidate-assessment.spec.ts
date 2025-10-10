@@ -1,6 +1,7 @@
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
+  FlexibleWorkLocation,
   PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
@@ -56,6 +57,7 @@ test.describe("Pool candidates", () => {
         hasPriorityEntitlement: true,
         priorityNumber: "123",
         locationPreferences: [WorkRegion.Atlantic],
+        flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
         positionDuration: [PositionDuration.Permanent],
         personalExperiences: {
           create: [

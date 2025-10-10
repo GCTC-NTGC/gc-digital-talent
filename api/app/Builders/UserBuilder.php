@@ -4,9 +4,9 @@ namespace App\Builders;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -51,6 +51,8 @@ class UserBuilder extends Builder
             });
             $this->whereNotNull('location_preferences');
             $this->whereJsonLength('location_preferences', '>', 0);
+            $this->whereNotNull('flexible_work_locations');
+            $this->whereJsonLength('flexible_work_locations', '>', 0);
             $this->whereJsonLength('position_duration', '>', 0);
             $this->whereNotNull('citizenship');
             $this->whereNotNull('armed_forces_status');
@@ -193,6 +195,22 @@ class UserBuilder extends Builder
                 } else {
                     $query->orWhereJsonContains('location_preferences', $workRegion);
                 }
+            }
+        });
+    }
+
+    /**
+     * Flexible Work Locations filtering
+     */
+    public function whereFlexibleWorkLocationsIn(?array $flexibleWorkLocations): self
+    {
+        if (empty($flexibleWorkLocations)) {
+            return $this;
+        }
+
+        return $this->where(function ($query) use ($flexibleWorkLocations) {
+            foreach ($flexibleWorkLocations as $location) {
+                $query->orWhereJsonContains('flexible_work_locations', $location);
             }
         });
     }
@@ -617,5 +635,64 @@ class UserBuilder extends Builder
 
         // fall through - query will return nothing
         return $this->where('id', null);
+    }
+
+    // special scope for search page with custom logic to simultaneously handle WORK REGION and FLEXIBLE WORK LOCATION
+    public function whereFlexibleLocationAndRegionSpecialMatching(?array $workRegions, ?array $flexibleLocations): self
+    {
+        if (! $workRegions && ! $flexibleLocations) {
+            return $this;
+        }
+
+        // combine multiple orWhere statements to achieve desired outcome
+        $this->where(function ($query) use ($workRegions, $flexibleLocations) {
+
+            // if remote passed in, OR match all remote
+            if ($flexibleLocations && in_array(FlexibleWorkLocation::REMOTE->name, $flexibleLocations)) {
+                $query->orWhere(function ($query) {
+                    $query->whereJsonContains('flexible_work_locations', FlexibleWorkLocation::REMOTE->name);
+                });
+            }
+
+            // if hybrid passed in, OR match (HYBRID AND REGION)
+            if ($flexibleLocations && in_array(FlexibleWorkLocation::HYBRID->name, $flexibleLocations)) {
+                $query->orWhere(function ($query) use ($workRegions) {
+                    $query->whereJsonContains('flexible_work_locations', FlexibleWorkLocation::HYBRID->name)
+                        ->whereLocationPreferencesIn($workRegions); // this scope can handle empty work regions
+                });
+            }
+
+            // if onsite passed in OR match (ONSITE AND REGION)
+            if ($flexibleLocations && in_array(FlexibleWorkLocation::ONSITE->name, $flexibleLocations)) {
+                $query->orWhere(function ($query) use ($workRegions) {
+                    $query->whereJsonContains('flexible_work_locations', FlexibleWorkLocation::ONSITE->name)
+                        ->whereLocationPreferencesIn($workRegions); // this scope can handle empty work regions
+                });
+            }
+
+            // regions were passed in, no flexible locations so only filter off regions
+            // likely impossible state
+            if (! $flexibleLocations) {
+                $query->whereLocationPreferencesIn($workRegions);
+            }
+
+        });
+
+        return $this;
+    }
+
+    // Given input in the shape of UserFilterInput, adjust then call whereFlexibleLocationAndRegionSpecialMatching()
+    public function whereUserFilterInputToSpecialLocationMatching(?array $filter): self
+    {
+        if (array_key_exists('locationPreferences', $filter) || array_key_exists('flexibleWorkLocations', $filter)) {
+
+            $workRegions = array_key_exists('locationPreferences', $filter) ? $filter['locationPreferences'] : null;
+            $flexibleWorkLocations = array_key_exists('flexibleWorkLocations', $filter) ? $filter['flexibleWorkLocations'] : null;
+
+            $this->whereFlexibleLocationAndRegionSpecialMatching($workRegions, $flexibleWorkLocations);
+
+        }
+
+        return $this;
     }
 }

@@ -20,6 +20,7 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -38,6 +39,7 @@ import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
 import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import Hero from "~/components/Hero";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -131,17 +133,22 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         fr
       }
     }
+    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
   jobPlacementOptions: JobPlacementOptionsFragmentType;
+  flexibleWorkLocationOptions: FragmentType<
+    typeof FlexibleWorkLocationOptions_Fragment
+  >;
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
   jobPlacementOptions,
+  flexibleWorkLocationOptions,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -278,6 +285,7 @@ export const ViewPoolCandidate = ({
                     poolQuery={poolCandidate.pool}
                     snapshot={parsedSnapshot}
                     applicationQuery={poolCandidate}
+                    optionsQuery={flexibleWorkLocationOptions}
                   />
                 </ErrorBoundary>
                 <div className="my-12">
@@ -349,6 +357,7 @@ export const ViewPoolCandidatePage = () => {
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
           jobPlacementOptions={data}
+          flexibleWorkLocationOptions={data}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

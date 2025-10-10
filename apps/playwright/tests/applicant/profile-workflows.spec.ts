@@ -12,7 +12,7 @@ test.describe("User Profile", () => {
       .getByRole("button", { name: /edit work preferences/i })
       .click();
     await appPage.page
-      .getByRole("textbox", { name: /please indicate if there is a city/i })
+      .getByRole("textbox", { name: /location exclusions/i })
       .fill("Test locations");
     await appPage.page.getByRole("button", { name: /save changes/i }).click();
     await appPage.waitForGraphqlResponse("UpdateUserAsUser");
