@@ -14,7 +14,6 @@ import Breadcrumbs, {
 } from "./components/Breadcrumbs/Breadcrumbs";
 import { Container } from "./components/Container/Container";
 import Crumb from "./components/Breadcrumbs/Crumb";
-import Board from "./components/Board/Board";
 import CTAButton, { CTAButtonProps } from "./components/CallToAction/CTAButton";
 import CTALink, { CTALinkProps } from "./components/CallToAction/CTALink";
 import Card, { type CardProps } from "./components/Card/Card";
@@ -146,7 +145,6 @@ export {
   AlertDialog,
   Announcer,
   useAnnouncer,
-  Board,
   Breadcrumbs,
   Crumb,
   Button,
