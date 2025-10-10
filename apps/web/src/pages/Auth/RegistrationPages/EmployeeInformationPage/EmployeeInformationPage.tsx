@@ -43,7 +43,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { splitAndJoin } from "~/utils/nameUtils";
 
-import messages from "../utils/messages";
+import messages from "../GettingStartedPage/messages";
 
 const specificTitle = defineMessage({
   defaultMessage: "Employee information",
@@ -381,12 +381,7 @@ export const EmployeeInformationFormFields = ({
             setValue("skipVerification", true);
           }}
         >
-          {intl.formatMessage({
-            defaultMessage: "Save and continue",
-            id: "MQB4IA",
-            description:
-              "Button text to save a form step and continue to the next one",
-          })}
+          {intl.formatMessage(commonMessages.saveAndContinue)}
         </Button>
       )}
     </>

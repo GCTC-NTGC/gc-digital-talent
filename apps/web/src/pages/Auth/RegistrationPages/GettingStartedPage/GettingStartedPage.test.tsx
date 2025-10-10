@@ -2,35 +2,45 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, act, screen, waitFor } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
-import {
-  fakeClassifications,
-  fakeDepartments,
-} from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
+
+import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import {
   GettingStartedForm,
   GettingStartedFormProps,
-  GettingStarted_QueryFragment,
-} from "./GettingStartedPage";
+  GettingStartedInitialValues_Query,
+  GettingStartedOptions_Query,
+} from "./GettingStartedForm";
 
-const mockDepartments = fakeDepartments();
-const mockClassifications = fakeClassifications();
-const mockSave = jest.fn();
+const mockSave = jest.fn().mockResolvedValue(undefined);
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+  executeMutation: jest.fn(() =>
+    fromValue({
+      // pretend that an email address verification email was sent
+      data: {
+        sendUserEmailsVerification: {
+          id: 1,
+        },
+      },
+    }),
+  ),
 };
 
-const mockFragmentData = makeFragmentData(
+const mockInitialValuesData = makeFragmentData(
+  {},
+  GettingStartedInitialValues_Query,
+);
+
+const mockOptionsData = makeFragmentData(
   {
-    departments: mockDepartments,
-    classifications: mockClassifications,
     languages: [
       {
         value: Language.En,
@@ -48,34 +58,62 @@ const mockFragmentData = makeFragmentData(
       },
     ],
   },
-  GettingStarted_QueryFragment,
+  GettingStartedOptions_Query,
 );
 
 const renderGettingStartedForm = ({
-  query,
-  handleSubmit,
+  initialValuesQuery,
+  optionsQuery,
+  onSubmit,
 }: GettingStartedFormProps) =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
-      <GettingStartedForm query={query} handleSubmit={handleSubmit} />
+      <EmailVerification.Provider>
+        <GettingStartedForm
+          initialValuesQuery={initialValuesQuery}
+          optionsQuery={optionsQuery}
+          onSubmit={onSubmit}
+        />
+      </EmailVerification.Provider>
     </GraphqlProvider>,
   );
 
 describe("Getting Started Form tests", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
+      initialValuesQuery: mockInitialValuesData,
+      optionsQuery: mockOptionsData,
+      onSubmit: mockSave,
     });
 
-    await axeTest(container);
+    await act(async () => {
+      await axeTest(container);
+    });
   });
 
-  it("should render fields", () => {
+  it("should render fields", async () => {
     renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
+      initialValuesQuery: mockInitialValuesData,
+      optionsQuery: mockOptionsData,
+      onSubmit: mockSave,
     });
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /contact email address/i,
+      }),
+      { target: { value: "newuser@example.org" } },
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: /send verification email/i }),
+    );
+
+    // mutation fires - wait for confirmation message
+    await screen.findByText("Verification email sent!");
+
+    expect(
+      screen.getByRole("textbox", { name: /email verification code/i }),
+    ).toBeInTheDocument();
 
     expect(
       screen.getByRole("textbox", { name: /first name/i }),
@@ -88,54 +126,61 @@ describe("Getting Started Form tests", () => {
     expect(
       screen.getByRole("group", { name: /preferred contact language/i }),
     ).toBeInTheDocument();
-
-    expect(screen.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("group", {
-        name: /email notification consent/i,
-      }),
-    ).toBeInTheDocument();
-  });
-
-  it("should not render with empty fields.", async () => {
-    renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
-    });
-
-    fireEvent.submit(
-      screen.getByRole("button", { name: /verify your contact email/i }),
-    );
-    expect(await screen.findAllByRole("alert")).toHaveLength(4);
-    expect(mockSave).not.toHaveBeenCalled();
   });
 
   it("should submit successfully with required fields", async () => {
     renderGettingStartedForm({
-      query: mockFragmentData,
-      handleSubmit: mockSave,
+      initialValuesQuery: mockInitialValuesData,
+      optionsQuery: mockOptionsData,
+      onSubmit: mockSave,
     });
 
-    const firstName = screen.getByRole("textbox", { name: /first name/i });
-    fireEvent.change(firstName, { target: { value: "FirstName" } });
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /contact email address/i,
+      }),
+      { target: { value: "newuser@example.org" } },
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: /send verification email/i }),
+    );
 
-    const lastName = screen.getByRole("textbox", { name: /last name/i });
-    fireEvent.change(lastName, { target: { value: "LastName" } });
+    // mutation fires - wait for confirmation message
+    await screen.findByText("Verification email sent!");
 
-    const preferredLangEnglish = screen.getByRole("radio", {
-      name: /english/i,
-    });
-    fireEvent.click(preferredLangEnglish);
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /email verification code/i,
+      }),
+      { target: { value: "AAAAAA" } },
+    );
 
-    const email = screen.getByRole("textbox", { name: /email/i });
-    fireEvent.change(email, { target: { value: "email@test.com" } });
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /first name/i,
+      }),
+      { target: { value: "FirstName" } },
+    );
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /last name/i,
+      }),
+      { target: { value: "LastName" } },
+    );
+
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /english/i,
+      }),
+      { target: { value: "LastName" } },
+    );
 
     fireEvent.submit(
-      screen.getByRole("button", { name: /verify your contact email/i }),
+      screen.getByRole("button", { name: /save and continue/i }),
     );
     await waitFor(() => {
-      expect(mockSave).toHaveBeenCalled();
+      expect(mockSave).toHaveBeenCalledTimes(1);
     });
   });
 });

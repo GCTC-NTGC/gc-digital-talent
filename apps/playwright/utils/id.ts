@@ -33,3 +33,7 @@ export function fetchIdentificationNumber(url: string): string {
   const fetchID = currentURLParts[currentURLParts.indexOf("departments") + 1];
   return fetchID;
 }
+
+// copied from apps/web/src/hooks/useRequiredParams.ts
+export const uuidRegEx =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
