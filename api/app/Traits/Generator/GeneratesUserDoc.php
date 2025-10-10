@@ -222,10 +222,6 @@ trait GeneratesUserDoc
 
         $section->addText($this->localizeHeading('location_preferences'), $this->strong);
 
-        /* remove 'Telework' enum from location preferences */
-        $user->location_preferences = array_filter($user->location_preferences ?? [], function ($location) {
-            return $location !== WorkRegion::TELEWORK->name;
-        });
         $flexibleLocations = $user->flexible_work_locations ?? [];
         if (! empty($flexibleLocations)) {
             $section->addText($this->localizeHeading('flexible_work_locations'));
