@@ -568,6 +568,11 @@ const commonMessages = defineMessages({
     id: "FO4QJP",
     description: "Label for action to dismiss something",
   },
+  updated: {
+    defaultMessage: "Updated",
+    id: "SyFJmn",
+    description: "Label for an updated at date",
+  },
 });
 
 export default commonMessages;

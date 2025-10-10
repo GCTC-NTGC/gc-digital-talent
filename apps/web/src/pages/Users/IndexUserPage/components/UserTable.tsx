@@ -353,11 +353,7 @@ const UserTable = ({ title }: UserTableProps) => {
     columnHelper.accessor(({ updatedDate }) => accessors.date(updatedDate), {
       id: "updatedDate",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Updated",
-        id: "R2sSy9",
-        description: "Title displayed for the User table Date Updated column",
-      }),
+      header: intl.formatMessage(commonMessages.updated),
       cell: ({
         row: {
           original: { updatedDate },
