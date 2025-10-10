@@ -15,7 +15,7 @@ import profileMessages from "~/messages/profileMessages";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
-import messages from "./messages";
+import messages from "../messages";
 import GettingStartedForm, {
   FormValues,
   sectionTitle as gettingStartedSectionTitle,
