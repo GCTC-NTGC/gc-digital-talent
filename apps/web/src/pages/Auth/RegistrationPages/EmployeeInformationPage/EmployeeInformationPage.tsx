@@ -4,9 +4,13 @@ import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Link, Card, Heading } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Submit } from "@gc-digital-talent/forms";
+import {
+  EmploymentCategory,
+  GovPositionType,
+} from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -15,7 +19,11 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WorkFields from "~/components/ExperienceFormFields/WorkFields/WorkFields";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { WorkFormValues } from "~/types/experience";
+import {
+  ExperienceDetailsSubmissionData,
+  WorkFormValues,
+} from "~/types/experience";
+import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 
 import messages from "../messages";
 
@@ -84,12 +92,94 @@ export const EmployeeInformationForm = ({
   );
 };
 
+// A simpler copy from apps/web/src/utils/experienceUtils.tsx .
+// I can't use that since I'm not using the full combo-form.
+const formValuesToSubmitData = (
+  formValues: WorkFormValues,
+): ExperienceDetailsSubmissionData => {
+  const {
+    role,
+    organization,
+    team,
+    startDate,
+    endDate,
+    currentRole,
+    employmentCategory,
+    extSizeOfOrganization,
+    extRoleSeniority,
+    department: departmentId,
+    govEmploymentType,
+    govPositionType,
+    govContractorRoleSeniority,
+    govContractorType,
+    contractorFirmAgencyName,
+    classificationLevel: classificationId,
+    cafEmploymentType,
+    cafForce,
+    cafRank,
+    workStreams,
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber,
+    budgetManagement,
+    annualBudgetAllocation,
+    seniorManagementStatus,
+    cSuiteRoleTitle,
+    otherCSuiteRoleTitle,
+  } = formValues;
+
+  // for government employee experiences only, expected end date is present in end date field
+  // SUBSTANTIVE the exception, accessible solely through INDETERMINATE
+  const allowExpectedEndDate =
+    employmentCategory === EmploymentCategory.GovernmentOfCanada &&
+    govPositionType !== GovPositionType.Substantive;
+
+  const mappedData = {
+    role,
+    organization: organization ?? undefined, // this is different from the shared version but not sure why
+    division: team,
+    startDate,
+    endDate: allowExpectedEndDate || (!currentRole && endDate) ? endDate : null,
+    employmentCategory,
+    extSizeOfOrganization,
+    extRoleSeniority,
+    departmentId: departmentId ?? null,
+    govEmploymentType,
+    govPositionType,
+    govContractorRoleSeniority,
+    govContractorType,
+    contractorFirmAgencyName,
+    classificationId: classificationId ?? null,
+    cafEmploymentType,
+    cafForce,
+    cafRank,
+    workStreams: {
+      sync: workStreams,
+    },
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber: Number(supervisedEmployeesNumber),
+    budgetManagement,
+    annualBudgetAllocation: Number(annualBudgetAllocation),
+    seniorManagementStatus,
+    cSuiteRoleTitle,
+    otherCSuiteRoleTitle,
+  };
+
+  return mappedData;
+};
+
 const EmployeeInformationPage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
+  const { userAuthInfo } = useAuthorization();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
+  const { executeMutation, getMutationArgs } = useExperienceMutations(
+    "create",
+    "work",
+  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -103,7 +193,13 @@ const EmployeeInformationPage = () => {
   const navigationTarget = from ?? paths.applicantDashboard();
 
   const handleSubmit = async (formValues: WorkFormValues) => {
-    console.debug("handleSubmit", formValues);
+    if (!executeMutation) {
+      throw new Error("No mutation provided");
+    }
+    const submitData = formValuesToSubmitData(formValues);
+    const args = getMutationArgs(userAuthInfo?.id ?? "", submitData);
+    await executeMutation(args);
+    await navigate(navigationTarget);
   };
 
   return (
