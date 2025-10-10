@@ -215,24 +215,10 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                 ),
             },
             {
-              path: "email-verification",
-              lazy: () =>
-                import(
-                  "../pages/Auth/RegistrationPages/RegistrationContactEmailVerificationPage"
-                ),
-            },
-            {
               path: "employee-registration",
               lazy: () =>
                 import(
                   "../pages/Auth/RegistrationPages/EmployeeInformationPage/EmployeeInformationPage"
-                ),
-            },
-            {
-              path: "work-email-verification",
-              lazy: () =>
-                import(
-                  "../pages/Auth/RegistrationPages/RegistrationWorkEmailVerificationPage"
                 ),
             },
             {
