@@ -44,6 +44,7 @@ export function transformFormValuesToEmployeeWFAFilterInput(
       : undefined,
     operationalRequirements: data.operationalRequirements,
     locationPreferences: data.workRegions,
+    flexibleWorkLocations: data.flexibleWorkLocations,
     hasPriorityEntitlement,
 
     equity: {
@@ -99,6 +100,7 @@ export function transformEmployeeWFAFilterInputToFormValues(
         ? PositionDuration.Temporary
         : PositionDuration.Permanent,
     operationalRequirements: unpackMaybes(data?.operationalRequirements),
+    flexibleWorkLocations: unpackMaybes(data?.flexibleWorkLocations),
     workRegions: unpackMaybes(data?.locationPreferences),
 
     equity,
