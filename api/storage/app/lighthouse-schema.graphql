@@ -163,6 +163,11 @@ type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFlexibleWorkLocation implements LocalizedEnumOption {
+  value: FlexibleWorkLocation!
+  label: LocalizedString!
+}
+
 type LocalizedGovContractorRoleSeniority implements LocalizedEnumOption {
   value: GovContractorRoleSeniority!
   label: LocalizedString!
@@ -388,7 +393,8 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
-  countApplicants(where: ApplicantFilterInput): Int!
+  countApplicants(where: ApplicantFilterInput): Int! @deprecated(reason: "Use countApplicantsForSearch instead")
+  countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -750,6 +756,7 @@ type User {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1387,6 +1394,7 @@ type ApplicantFilter {
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedInClassifications: [Classification]
@@ -1675,6 +1683,7 @@ input ApplicantFilterInput {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   operationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
   pools: [IdInput]
@@ -1701,6 +1710,7 @@ input PoolCandidateSearchInput {
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
+  flexibleWorkLocations: [FlexibleWorkLocation]
   assessmentSteps: [Int!]
 }
 
@@ -1834,6 +1844,7 @@ input CreateUserInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1883,6 +1894,7 @@ input UpdateUserAsAdminInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1941,6 +1953,7 @@ input UpdateUserAsUserInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -2335,6 +2348,7 @@ input CreateApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   positionDuration: [PositionDuration]
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
@@ -3717,6 +3731,12 @@ enum FinanceChiefRole {
   HEAD_OF_HUMAN_RESOURCES
   HEAD_OF_PROCUREMENT
   OTHER
+}
+
+enum FlexibleWorkLocation {
+  REMOTE
+  HYBRID
+  ONSITE
 }
 
 enum GenericJobTitleKey {

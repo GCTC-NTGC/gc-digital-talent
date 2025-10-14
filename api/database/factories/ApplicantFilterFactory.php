@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
@@ -42,6 +43,13 @@ class ApplicantFilterFactory extends Factory
             'location_preferences' => $this->faker->randomElements(
                 array_column(WorkRegion::cases(), 'name'),
                 $this->faker->numberBetween(1, 3)
+            ),
+            'flexible_work_locations' => array_merge(
+                [FlexibleWorkLocation::ONSITE->name],
+                $this->faker->randomElements(
+                    [FlexibleWorkLocation::REMOTE->name, FlexibleWorkLocation::HYBRID->name],
+                    $this->faker->numberBetween(0, 2)
+                )
             ),
             'operational_requirements' => $this->faker->optional->randomElements(
                 array_column(OperationalRequirement::cases(), 'name'),

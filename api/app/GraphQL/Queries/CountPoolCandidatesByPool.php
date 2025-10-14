@@ -2,9 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\User;
 
 final class CountPoolCandidatesByPool
 {
@@ -60,9 +58,12 @@ final class CountPoolCandidatesByPool
                 $userQuery->whereOperationalRequirementsIn($filters['operationalRequirements']);
             }
 
-            // locationPreferences
-            if (array_key_exists('locationPreferences', $filters)) {
-                $userQuery->whereLocationPreferencesIn($filters['locationPreferences']);
+            // for search page, use the special scope that interacts with two fields
+            if (array_key_exists('locationPreferences', $filters) || array_key_exists('flexibleWorkLocations', $filters)) {
+                $workRegions = array_key_exists('locationPreferences', $filters) ? $filters['locationPreferences'] : null;
+                $flexibleWorkLocations = array_key_exists('flexibleWorkLocations', $filters) ? $filters['flexibleWorkLocations'] : null;
+
+                $userQuery->whereFlexibleLocationAndRegionSpecialMatching($workRegions, $flexibleWorkLocations);
             }
 
             // positionDuration

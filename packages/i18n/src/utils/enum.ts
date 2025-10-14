@@ -7,6 +7,7 @@ import {
   EducationStatus,
   EducationType,
   EvaluatedLanguageAbility,
+  FlexibleWorkLocation,
   LocalizedEnumString,
   LocalizedString,
   Maybe,
@@ -349,6 +350,19 @@ export function sortWorkRegion(workRegions?: MaybeLocalizedEnums) {
       WorkRegion.BritishColumbia,
     ],
     workRegions,
+  );
+}
+
+export function sortFlexibleWorkLocations(
+  flexibleWorkLocationOptions?: MaybeLocalizedEnums,
+) {
+  return sortLocalizedEnums(
+    [
+      FlexibleWorkLocation.Remote,
+      FlexibleWorkLocation.Hybrid,
+      FlexibleWorkLocation.Onsite,
+    ],
+    flexibleWorkLocationOptions,
   );
 }
 
