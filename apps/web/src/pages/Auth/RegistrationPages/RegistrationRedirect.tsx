@@ -37,12 +37,9 @@ export const Component = () => {
   });
 
   const email = data?.me?.email;
-  const isGovEmployee = data?.me?.isGovEmployee;
   const paths = useRoutes();
   const isToAccountPage = pathname === paths.registrationAccount();
-  const isToExperiencePage =
-    pathname === paths.emailVerification() ||
-    pathname === paths.registrationExperience();
+  const isToExperiencePage = pathname === paths.registrationExperience();
 
   useEffect(() => {
     /**
@@ -64,20 +61,6 @@ export const Component = () => {
           },
         );
       }
-
-      // If the user has an email but empty isGovEmployee
-      // instead redirect to employee registration page
-      if (!empty(email) && empty(isGovEmployee) && !isToExperiencePage) {
-        void navigate(
-          {
-            pathname: paths.registrationExperience(),
-            search: createSearchParams({ from: pathname }).toString(),
-          },
-          {
-            replace: true,
-          },
-        );
-      }
     }
   }, [
     loggedIn,
@@ -89,7 +72,6 @@ export const Component = () => {
     navigate,
     paths,
     isToExperiencePage,
-    isGovEmployee,
   ]);
 
   return <Outlet />;
