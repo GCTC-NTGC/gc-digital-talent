@@ -185,7 +185,7 @@ const EmployeeInformationPage = () => {
     crumbs: [
       {
         label: intl.formatMessage(messages.breadcrumb),
-        url: paths.employeeInformation(),
+        url: paths.registrationExperience(),
       },
     ],
   });

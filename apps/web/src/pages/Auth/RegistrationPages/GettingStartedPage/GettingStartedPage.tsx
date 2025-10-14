@@ -69,7 +69,7 @@ const GettingStartedPage = () => {
     crumbs: [
       {
         label: intl.formatMessage(messages.breadcrumb),
-        url: paths.gettingStarted(),
+        url: paths.registrationAccount(),
       },
     ],
   });
@@ -122,7 +122,7 @@ const GettingStartedPage = () => {
 
     // finally, navigate away
     await navigate({
-      pathname: paths.employeeInformation(),
+      pathname: paths.registrationExperience(),
       search: from ? createSearchParams({ from }).toString() : "",
     });
   };
