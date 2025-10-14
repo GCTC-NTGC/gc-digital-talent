@@ -31,13 +31,13 @@ Sending messages to the service requires the app to be configured with the templ
 After the `api/.env` file has been updated, the settings will need to be applied. A queue worker will also need to be started since messages are sent asynchronously from a queue.
 
 1. If the API has been optimized, clear it with `artisan optimize:clear`
-   - The base makefile [refresh_api.sh](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile#L25) will complete this.
+   - The makefile `refresh_api` shortcuts ([1](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile#L25) [2](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix#L32)) will complete this.
 2. Restart PHP-FPM with `pkill -o -USR2 php-fpm`
    - Alternatively, just restart the webserver container
    - The .nix makefile [refresh_api](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix#L32) shortcut will complete steps 1 and 2.
 3. Check the configuration by running `artisan tinker --execute="echo config('notify.client.apiKey')"`
 4. Start a queue worker to send the messages. `runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work`
-   - The make files have shortcuts ([1](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile#L53) [2](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix#L64)) for this.
+   - The make file `queue_work shortcuts ([1](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile#L53) [2](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix#L64)) will complete this.
 5. Send a test message with ` ./artisan send-notifications:test example@example.org`
 
 ### Troubleshooting
