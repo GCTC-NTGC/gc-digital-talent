@@ -268,9 +268,9 @@ const WorkforceAdjustmentFilterDialog = ({
               value: "no",
               label: intl.formatMessage({
                 defaultMessage: "No priority entitlement",
-                id: "WVFwC3",
+                id: "F9JI3w",
                 description:
-                  "Option label to filter employees by those who do not have priority enititlement",
+                  "Option label to filter employees by those who do not have priority entitlement",
               }),
             },
             {

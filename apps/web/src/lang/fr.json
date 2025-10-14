@@ -3991,6 +3991,10 @@
     "defaultMessage": "Une liste préparée à partir du portfolio de compétences qui présente une histoire plus ciblée et personnalisée sur les forces et les domaines d'intérêt de cet utilisateur ou de cette utilisatrice.",
     "description": "Description of a users skill showcase"
   },
+  "F9JI3w": {
+    "defaultMessage": "Pas de droit de priorité",
+    "description": "Option label to filter employees by those who do not have priority entitlement"
+  },
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
@@ -7717,10 +7721,6 @@
   "WTjusd": {
     "defaultMessage": "Notre plateforme offre désormais un nouveau service pour mieux soutenir le personnel visé par un réaménagement des effectifs. Ce service peut également être utile aux fonctionnaires occupant des postes permanents qui pourraient songer à quitter la fonction publique et à profiter ainsi des indemnités de départ offertes à cette occasion.",
     "description": "Introduction paragraph to support with workforce adjustment"
-  },
-  "WVFwC3": {
-    "defaultMessage": "Pas de droit de priorité",
-    "description": "Option label to filter employees by those who do not have priority enititlement"
   },
   "WVf1Wr": {
     "defaultMessage": "les fonctionnaires dont la classification est CT-FIN-04 et qui ont fait l'objet d'une candidature dans le cadre de la gestion des talents doivent créer un profil.",
