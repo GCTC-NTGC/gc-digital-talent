@@ -354,13 +354,12 @@ const WorkforceAdjustmentFilterDialog = ({
           idPrefix="workRegions"
           name="workRegions"
           legend={intl.formatMessage(navigationMessages.workLocation)}
-          items={narrowEnumType(
-            unpackMaybes(data?.workRegions),
-            "WorkRegion",
-          ).map((req) => ({
-            value: req.value,
-            label: req.label.localized ?? notAvailable,
-          }))}
+          items={narrowEnumType(unpackMaybes(data?.workRegions), "WorkRegion")
+            .filter(({ value }) => value !== WorkRegion.Telework)
+            .map((req) => ({
+              value: req.value,
+              label: req.label.localized ?? notAvailable,
+            }))}
         />
         <div className="xs:col-span-3">
           <Combobox
