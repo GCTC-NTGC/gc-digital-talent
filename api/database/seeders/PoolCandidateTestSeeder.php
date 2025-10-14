@@ -127,7 +127,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 5 - Screened-out Non-Canadian
         User::factory()
             ->asApplicant()
-            ->fillProfilwithNonGovProfileeData()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
