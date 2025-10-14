@@ -24,12 +24,13 @@ import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 import profileMessages from "~/messages/profileMessages";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
 import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
 import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfile/LanguageProfileSnapshot";
-import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
 import GovernmentInformationSnapshot from "~/components/ProfileSnapshot/GovernmentInformation/GovernmentInformationSnapshot";
 import DiversityEquityInclusionSnapshot from "~/components/ProfileSnapshot/DiversityEquityInclusion/DiversityEquityInclusionSnapshot";
+import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
 
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
@@ -117,6 +118,9 @@ interface ApplicationInformationProps {
     typeof ApplicationInformation_PoolCandidateFragment
   >;
   snapshot: ApplicationInformationSnapshot;
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
   defaultOpen?: boolean;
 }
 
@@ -124,6 +128,7 @@ const ApplicationInformation = ({
   poolQuery,
   snapshot,
   applicationQuery,
+  optionsQuery,
   defaultOpen = false,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
@@ -345,7 +350,18 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <WorkPreferencesSnapshot snapshot={snapshot} />
+            {/* <WorkPreferencesDisplay
+              query={makeFragmentData(
+                snapshot,
+                WorkPreferencesDisplay_Fragment,
+              )}
+              optionsQuery={optionsQuery}
+              labels={getLabels(intl)}
+            /> */}
+            <WorkPreferencesSnapshot
+              snapshot={snapshot}
+              optionsQuery={optionsQuery}
+            />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.GOV_INFO}>

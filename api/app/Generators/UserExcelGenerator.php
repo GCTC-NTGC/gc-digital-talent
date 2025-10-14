@@ -8,6 +8,7 @@ use App\Enums\CSuiteRoleTitle;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\HiringPlatform;
 use App\Enums\IndigenousCommunity;
@@ -60,6 +61,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'accept_temporary',
         'accepted_operational_requirements',
         'location_preferences',
+        'flexible_work_locations',
         'location_exemptions',
         'woman',
         'indigenous',
@@ -199,7 +201,14 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                     $user->priority_number ?? '', // Priority number
                     $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                    $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
+                    /* remove 'Telework' from location preferences */
+                    $this->localizeEnumArray(
+                        array_filter($user->location_preferences ?? [], function ($location) {
+                            return $location !== WorkRegion::TELEWORK->name;
+                        }),
+                        WorkRegion::class
+                    ), // Location preferences
+                    $this->localizeEnumArray($user->flexible_work_locations ?? [], FlexibleWorkLocation::class), // flexible work locations
                     $user->location_exemptions, // Location exemptions
                     $user->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
@@ -308,7 +317,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'skills' => 'skillsAdditive',
         ]);
 
-        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId]);
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+            ->whereUserFilterInputToSpecialLocationMatching($this->filters);
 
         return $query;
 

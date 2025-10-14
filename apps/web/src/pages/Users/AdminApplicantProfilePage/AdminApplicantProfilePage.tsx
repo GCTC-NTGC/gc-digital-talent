@@ -24,6 +24,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import { SECTION_KEY } from "./types";
 import PersonalAndContactInformation, {
@@ -56,9 +57,15 @@ const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
 
 interface AdminApplicantProfileProps {
   query: FragmentType<typeof AdminApplicantProfile_Fragment>;
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
-const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
+const AdminApplicantProfile = ({
+  query,
+  optionsQuery,
+}: AdminApplicantProfileProps) => {
   const intl = useIntl();
   const user = getFragment(AdminApplicantProfile_Fragment, query);
   const [openSections, setOpenSections] = useState<string[]>([]);
@@ -192,7 +199,7 @@ const AdminApplicantProfile = ({ query }: AdminApplicantProfileProps) => {
                 {intl.formatMessage(navigationMessages.workPreferences)}
               </Accordion.Trigger>
               <Accordion.Content>
-                <WorkPreferences query={user} />
+                <WorkPreferences query={user} optionsQuery={optionsQuery} />
               </Accordion.Content>
             </Accordion.Item>
 
@@ -227,6 +234,7 @@ const AdminApplicantProfilePage_Query = graphql(/** GraphQL */ `
     user(id: $id) {
       ...AdminApplicantProfile
     }
+    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 
@@ -245,7 +253,7 @@ const AdminApplicantProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.user ? (
-        <AdminApplicantProfile query={data.user} />
+        <AdminApplicantProfile query={data.user} optionsQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}

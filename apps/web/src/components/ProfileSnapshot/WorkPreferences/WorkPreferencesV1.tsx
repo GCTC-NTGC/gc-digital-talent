@@ -1,6 +1,9 @@
 import { useIntl } from "react-intl";
 
 import {
+  FragmentType,
+  getFragment,
+  LocalizedFlexibleWorkLocation,
   LocalizedOperationalRequirement,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
@@ -19,6 +22,8 @@ import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getLabels } from "~/utils/workPreferenceUtils";
 import { formatLocation } from "~/utils/userUtils";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import { SnapshotProps } from "../types";
 
@@ -31,11 +36,20 @@ export interface WorkPreferencesSnapshotV1 {
   locationExemptions: Maybe<string>;
   currentCity: Maybe<string>;
   currentProvince: Maybe<LocalizedProvinceOrTerritory>;
+  flexibleWorkLocations: Maybe<Maybe<LocalizedFlexibleWorkLocation>[]>;
 }
 
-export type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1>;
+export type WorkPreferencesV1Props =
+  SnapshotProps<WorkPreferencesSnapshotV1> & {
+    optionsQuery:
+      | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+      | undefined;
+  };
 
-const WorkPreferencesV1 = ({ snapshot }: WorkPreferencesV1Props) => {
+const WorkPreferencesV1 = ({
+  snapshot,
+  optionsQuery,
+}: WorkPreferencesV1Props) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const labels = getLabels(intl);
@@ -46,6 +60,7 @@ const WorkPreferencesV1 = ({ snapshot }: WorkPreferencesV1Props) => {
     locationExemptions,
     currentCity,
     currentProvince,
+    flexibleWorkLocations,
   } = snapshot;
 
   const locations = unpackMaybes(locationPreferences);
@@ -54,6 +69,14 @@ const WorkPreferencesV1 = ({ snapshot }: WorkPreferencesV1Props) => {
     positionDuration?.includes(PositionDuration.Temporary)
       ? profileMessages.anyDuration
       : profileMessages.permanentDuration,
+  );
+  const userLocations: string[] = unpackMaybes(flexibleWorkLocations).map(
+    (loc) => loc.value,
+  );
+
+  const locationOptions = unpackMaybes(
+    getFragment(FlexibleWorkLocationOptions_Fragment, optionsQuery)
+      ?.flexibleWorkLocation,
   );
 
   return (
@@ -90,6 +113,26 @@ const WorkPreferencesV1 = ({ snapshot }: WorkPreferencesV1Props) => {
           intl,
         })}
       </FieldDisplay>
+      <div>
+        <FieldDisplay
+          label={intl.formatMessage(
+            profileMessages.flexibleWorkLocationOptions,
+          )}
+        />
+        <Ul unStyled noIndent inside>
+          {locationOptions.map((location) => (
+            <li key={location.value}>
+              <BoolCheckIcon
+                value={userLocations.includes(location.value)}
+                trueLabel={intl.formatMessage(commonMessages.interested)}
+                falseLabel={intl.formatMessage(commonMessages.notInterested)}
+              >
+                {location.label.localized}
+              </BoolCheckIcon>
+            </li>
+          ))}
+        </Ul>
+      </div>
       <div>
         <FieldDisplay
           label={intl.formatMessage({

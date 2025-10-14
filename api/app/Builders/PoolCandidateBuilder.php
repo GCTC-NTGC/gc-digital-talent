@@ -140,6 +140,33 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
+    public function whereFlexibleWorkLocationsIn(?array $flexibleWorkLocations): self
+    {
+        if (empty($flexibleWorkLocations)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($flexibleWorkLocations) {
+            $query->whereFlexibleWorkLocationsIn($flexibleWorkLocations);
+        });
+    }
+
+    // Given input in the shape of PoolCandidateSearchInput, adjust then call User::whereFlexibleLocationAndRegionSpecialMatching()
+    public function wherePoolCandidateSearchInputToSpecialLocationMatching(?array $filter): self
+    {
+        if (array_key_exists('locationPreferences', $filter) || array_key_exists('flexibleWorkLocations', $filter)) {
+
+            return $this->whereHas('user', function ($userQuery) use ($filter) {
+                $workRegions = array_key_exists('locationPreferences', $filter) ? $filter['locationPreferences'] : null;
+                $flexibleWorkLocations = array_key_exists('flexibleWorkLocations', $filter) ? $filter['flexibleWorkLocations'] : null;
+
+                $userQuery->whereFlexibleLocationAndRegionSpecialMatching($workRegions, $flexibleWorkLocations);
+            });
+        }
+
+        return $this;
+    }
+
     public function whereLanguageAbility(?string $languageAbility): self
     {
         if (empty($languageAbility)) {

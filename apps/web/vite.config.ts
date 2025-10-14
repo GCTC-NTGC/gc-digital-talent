@@ -118,6 +118,7 @@ export default defineConfig(({ command }) => ({
     ),
     LOG_CONSOLE_LEVEL: getEnvVar("LOG_CONSOLE_LEVEL"),
     LOG_APPLICATIONINSIGHTS_LEVEL: getEnvVar("LOG_APPLICATIONINSIGHTS_LEVEL"),
+    FEATURE_WFA: getEnvVar("FEATURE_WFA"),
   },
   plugins: [
     react({
