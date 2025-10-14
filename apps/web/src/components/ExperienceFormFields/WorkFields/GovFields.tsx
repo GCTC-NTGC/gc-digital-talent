@@ -29,7 +29,7 @@ import {
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
@@ -470,7 +470,14 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                         required: intl.formatMessage(errorMessages.required),
                         min: {
                           value: watchStartDate ? String(watchStartDate) : "",
-                          message: intl.formatMessage(errorMessages.futureDate),
+                          message: intl.formatMessage(
+                            errorMessages.minDateLabel,
+                            {
+                              label: nodeToString(
+                                labels.startDate,
+                              ).toLowerCase(),
+                            },
+                          ),
                         },
                         max: {
                           value: strToFormDate(todayDate.toISOString()),
