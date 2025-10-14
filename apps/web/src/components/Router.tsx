@@ -6,8 +6,9 @@ import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { FeatureFlags, useFeatureFlags } from "@gc-digital-talent/env";
 
-const createRoute = (locale: Locales) =>
+const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -125,6 +126,16 @@ const createRoute = (locale: Locales) =>
               path: "dnd",
               lazy: () =>
                 import("../pages/DNDDigitalCareersPage/DNDDigitalCareersPage"),
+            },
+            {
+              path: "workforce-adjustment",
+              loader: () => {
+                if (!featureFlags.workforceAdjustment) {
+                  throw new NotFoundError();
+                }
+              },
+              lazy: () =>
+                import("../pages/WorkforceAdjustment/WorkforceAdjustmentPage"),
             },
             {
               path: "directive-on-digital-talent",
@@ -1218,7 +1229,8 @@ const createRoute = (locale: Locales) =>
 const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
-  const router = createRoute(locale);
+  const featureFlags = useFeatureFlags();
+  const router = createRoute(locale, featureFlags);
 
   return <RouterProvider router={router} />;
 };

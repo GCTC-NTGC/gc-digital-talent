@@ -34,4 +34,12 @@ export const getLabels = (intl: IntlShape) => ({
     description:
       "Location Exemptions field label for work location preference form",
   }),
+  flexibleWorkLocationOptions: intl.formatMessage(
+    profileMessages.flexibleWorkLocationOptions,
+  ),
+  locationExclusions: intl.formatMessage({
+    defaultMessage: "Location exclusions",
+    id: "+SoiCw",
+    description: "Location specifics label",
+  }),
 });

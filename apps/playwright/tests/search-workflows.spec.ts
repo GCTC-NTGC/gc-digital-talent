@@ -4,10 +4,12 @@ import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   Classification,
   EstimatedLanguageAbility,
+  FlexibleWorkLocation,
   OperationalRequirement,
   PoolCandidateStatus,
   Skill,
   SkillCategory,
+  WorkRegion,
   WorkStream,
 } from "@gc-digital-talent/graphql";
 
@@ -59,6 +61,11 @@ test.describe("Talent search", () => {
         estimatedLanguageAbility: EstimatedLanguageAbility.Intermediate,
         acceptedOperationalRequirements: [
           OperationalRequirement.OvertimeOccasional,
+        ],
+        locationPreferences: [WorkRegion.Ontario],
+        flexibleWorkLocations: [
+          FlexibleWorkLocation.Onsite,
+          FlexibleWorkLocation.Remote,
         ],
         personalExperiences: {
           create: [
@@ -153,6 +160,7 @@ test.describe("Talent search", () => {
 
     await expect(poolCard).toBeVisible();
 
+    // Update in #13844
     await appPage.page.getByRole("checkbox", { name: /ontario/i }).click();
 
     await expectNoCandidate(appPage.page);

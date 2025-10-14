@@ -11,8 +11,8 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
-import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import useRoutes from "~/hooks/useRoutes";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
@@ -60,12 +60,14 @@ interface DisplayProps {
   query: FragmentType<typeof PersonalInformationDisplay_Fragment>;
   showEmailVerification?: boolean;
   readOnly?: boolean;
+  showEmail?: boolean;
 }
 
 const Display = ({
   query,
   showEmailVerification = false,
   readOnly = false,
+  showEmail = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -116,23 +118,25 @@ const Display = ({
       >
         {lastName ?? notProvided}
       </FieldDisplay>
-      <div className="xs:col-span-2 sm:col-span-3">
-        <FieldDisplay
-          hasError={!email}
-          label={intl.formatMessage(commonMessages.email)}
-        >
-          <div className="flex items-center gap-3">
-            <span>{email ?? notProvided}</span>
-            {showEmailVerification ? (
-              <EmailVerificationStatus
-                isEmailVerified={!!isEmailVerified}
-                onClickVerify={handleVerifyNowClick}
-                readOnly={readOnly}
-              />
-            ) : null}
-          </div>
-        </FieldDisplay>
-      </div>
+      {showEmail && (
+        <div className="xs:col-span-2 sm:col-span-3">
+          <FieldDisplay
+            hasError={!email}
+            label={intl.formatMessage(commonMessages.email)}
+          >
+            <div className="flex items-center gap-3">
+              <span>{email ?? notProvided}</span>
+              {showEmailVerification ? (
+                <EmailVerificationStatus
+                  isEmailVerified={!!isEmailVerified}
+                  onClickVerify={handleVerifyNowClick}
+                  readOnly={readOnly}
+                />
+              ) : null}
+            </div>
+          </FieldDisplay>
+        </div>
+      )}
       <FieldDisplay
         hasError={!telephone}
         label={intl.formatMessage(commonMessages.telephone)}

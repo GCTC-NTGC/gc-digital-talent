@@ -150,6 +150,13 @@ query getProfile($userId: UUID!) {
         fr
       }
     }
+    flexibleWorkLocations {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
     acceptedOperationalRequirements {
       value

@@ -291,6 +291,10 @@
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
   },
+  "7pXmpr": {
+    "defaultMessage": "Préférences de lieu de travail",
+    "description": "Name of Work location preferences page"
+  },
   "7woRF/": {
     "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
     "description": "The executive coaching status described as not participating."
@@ -684,7 +688,7 @@
     "description": "Label for level"
   },
   "OaB49n": {
-    "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
+    "defaultMessage": "J'ai la résidence permanente au Canada.",
     "description": "declaring one to be a permanent resident"
   },
   "OeTCOs": {
@@ -822,10 +826,6 @@
   "T7IoJU": {
     "defaultMessage": "Je m'identifie comme membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
-  },
-  "TCs69O": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Name of Work location page"
   },
   "TJ7su7": {
     "defaultMessage": "Erreur au niveau de l’étape, {label}",
@@ -1127,6 +1127,10 @@
     "defaultMessage": "Veuillez entrer une adresse URL valide",
     "description": "Error message for an invalid link in the rich text editor"
   },
+  "dvom0v": {
+    "defaultMessage": "Options flexibles de lieu de travail",
+    "description": "Title for flexible work locations options"
+  },
   "dwYJOo": {
     "defaultMessage": "Exigences en matière de travail pratique",
     "description": "Title for the applied work experience requirements"
@@ -1194,6 +1198,10 @@
   "fhpH9E": {
     "defaultMessage": "Fermer",
     "description": "Title for close"
+  },
+  "g1qgjG": {
+    "defaultMessage": "Options de lieu de travail flexible",
+    "description": "Title for flexible work locations options"
   },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
@@ -1352,7 +1360,7 @@
     "description": "The operational requirement described as 24/7 on-call."
   },
   "l4wLn9": {
-    "defaultMessage": "Je suis un citoyen canadien.",
+    "defaultMessage": "J'ai la citoyenneté canadienne.",
     "description": "declaring one to be a Canadian citizen"
   },
   "lXgeJr": {

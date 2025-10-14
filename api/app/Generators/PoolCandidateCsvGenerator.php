@@ -13,6 +13,7 @@ use App\Enums\EducationRequirementOption;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\FinalDecision;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -106,6 +107,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'accept_temporary',
         'accepted_operational_requirements',
         'location_preferences',
+        'flexible_work_locations',
         'location_exemptions',
         'woman',
         'indigenous',
@@ -212,7 +214,14 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $userHydrated->priority_number ?? '', // Priority number
                     $userHydrated->position_duration ? $this->yesOrNo($userHydrated->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                    $this->localizeEnumArray($userHydrated->location_preferences, WorkRegion::class),
+                    /* remove 'Telework' from location preferences */
+                    $this->localizeEnumArray(
+                        array_filter($userHydrated->location_preferences ?? [], function ($location) {
+                            return $location !== WorkRegion::TELEWORK->name;
+                        }),
+                        WorkRegion::class
+                    ), // Location preferences
+                    $this->localizeEnumArray($userHydrated->flexible_work_locations ?? [], FlexibleWorkLocation::class), // Flexible work locations
                     $userHydrated->location_exemptions, // Location exemptions
                     $userHydrated->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),
@@ -580,6 +589,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 'assessmentSteps',
                 'assessmentSteps.poolSkills',
             ],
+            'assessmentStep',
         ]);
 
         $this->applyFilters($query, [
@@ -601,8 +611,6 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             'equity' => 'whereEquityIn',
             'hasDiploma' => 'whereHasDiploma',
             'languageAbility' => 'whereLanguageAbility',
-            'locationPreferences' => 'whereLocationPreferencesIn',
-            'operationalRequirements' => 'whereOperationalRequirementsIn',
             'positionDuration' => 'wherePositionDuration',
             'pools' => 'whereAvailableInPools',
             'skills' => 'whereSkillsAdditive',
@@ -613,7 +621,9 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         /** @var Builder<\App\Models\PoolCandidate> $query */
-        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])->whereNotDraft();
+        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+            ->whereNotDraft()
+            ->wherePoolCandidateSearchInputToSpecialLocationMatching($this->filters);
 
         return $query;
     }

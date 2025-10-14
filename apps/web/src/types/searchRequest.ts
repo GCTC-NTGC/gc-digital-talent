@@ -10,7 +10,7 @@ export const NullSelection = "NULL_SELECTION";
 
 export type FormValues = Pick<
   ApplicantFilterInput,
-  "locationPreferences" | "operationalRequirements"
+  "locationPreferences" | "operationalRequirements" | "flexibleWorkLocations"
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
   employmentDuration: string;

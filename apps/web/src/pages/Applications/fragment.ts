@@ -6,6 +6,9 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
     submittedAt
     user {
       ...UserProfile
+      ...ProfilePersonalInformation
+      ...ContactEmailCard
+      ...WorkEmailCard
       id
       firstName
       lastName
@@ -135,6 +138,13 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       isVisibleMinority
       hasDiploma
       locationPreferences {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      flexibleWorkLocations {
         value
         label {
           en
