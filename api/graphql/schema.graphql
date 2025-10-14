@@ -431,6 +431,8 @@ type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
     @rename(attribute: "accepted_operational_requirements")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   communityInterests(id: UUID @eq): [CommunityInterest!]
@@ -1266,6 +1268,8 @@ input EmployeeWfaFilterInput {
   generalSearch: String @scope(name: "whereGeneralSearch")
   equity: EquitySelectionsInput @scope(name: "whereEquityIn")
   languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
   locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
   operationalRequirements: [OperationalRequirement]
     @scope(name: "whereOperationalRequirementsIn")

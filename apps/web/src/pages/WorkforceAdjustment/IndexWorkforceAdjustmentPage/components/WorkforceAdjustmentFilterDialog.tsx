@@ -2,6 +2,7 @@ import { OperationContext, useQuery } from "urql";
 import { useIntl } from "react-intl";
 
 import {
+  FlexibleWorkLocation,
   graphql,
   LanguageAbility,
   LocalizedLanguageAbility,
@@ -49,6 +50,7 @@ export interface FormValues {
   languageAbility?: LanguageAbility;
   positionDuration?: PositionDuration;
   operationalRequirements?: OperationalRequirement[];
+  flexibleWorkLocations?: FlexibleWorkLocation[];
   workRegions?: WorkRegion[];
   skills?: string[];
   hasPriorityEntitlement?: HasPriorityEntitlementValue;
@@ -100,6 +102,16 @@ const WorkforceAdjustmentFilterData_Query = graphql(/* GraphQL */ `
       id
       name {
         localized
+      }
+    }
+    flexibleWorkLocations: localizedEnumOptions(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      ... on LocalizedFlexibleWorkLocation {
+        value
+        label {
+          localized
+        }
       }
     }
     languageAbilities: localizedEnumOptions(enumName: "LanguageAbility") {
@@ -321,6 +333,18 @@ const WorkforceAdjustmentFilterDialog = ({
           items={narrowEnumType(
             unpackMaybes(data?.operationalRequirements),
             "OperationalRequirement",
+          ).map((req) => ({
+            value: req.value,
+            label: req.label.localized ?? notAvailable,
+          }))}
+        />
+        <Checklist
+          idPrefix="flexibleWorkLocations"
+          name="flexibleWorkLocations"
+          legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
+          items={narrowEnumType(
+            unpackMaybes(data?.flexibleWorkLocations),
+            "FlexibleWorkLocation",
           ).map((req) => ({
             value: req.value,
             label: req.label.localized ?? notAvailable,

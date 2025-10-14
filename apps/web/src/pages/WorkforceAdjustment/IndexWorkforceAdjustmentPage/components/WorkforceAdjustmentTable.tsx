@@ -114,6 +114,11 @@ const WorkforceAdjustmentRow_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
+    flexibleWorkLocations {
+      label {
+        localized
+      }
+    }
     userSkills {
       skill {
         id
@@ -166,6 +171,7 @@ const defaultState = {
     workStreams: [],
     wfaInterests: [],
     communities: [],
+    flexibleWorkLocations: [],
     equity: undefined,
     languageAbility: undefined,
     positionDuration: undefined,
@@ -483,6 +489,20 @@ const WorkforceAdjustmentTable = () => {
       },
     ),
     columnHelper.accessor(
+      ({ flexibleWorkLocations }) =>
+        unpackMaybes(
+          flexibleWorkLocations?.flatMap(
+            (workLocation) => workLocation?.label.localized,
+          ),
+        ).join(", "),
+      {
+        id: "flexibleWorkLocations",
+        enableColumnFilter: false,
+        enableSorting: false,
+        header: intl.formatMessage(profileMessages.flexibleWorkLocationOptions),
+      },
+    ),
+    columnHelper.accessor(
       ({ locationPreferences }) =>
         unpackMaybes(
           locationPreferences?.flatMap((pref) => pref?.label.localized),
@@ -490,6 +510,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "locationPreferences",
         enableColumnFilter: false,
+        enableSorting: false,
         header: intl.formatMessage(profileMessages.workLocationPreferences),
       },
     ),
@@ -501,6 +522,7 @@ const WorkforceAdjustmentTable = () => {
       {
         id: "skills",
         enableColumnFilter: false,
+        enableSorting: false,
         header: intl.formatMessage(navigationMessages.skills),
       },
     ),
@@ -524,6 +546,7 @@ const WorkforceAdjustmentTable = () => {
         "employmentEquity",
         "hasPriorityEntitlement",
         "workPreferences",
+        "flexibleWorkLocations",
         "locationPreferences",
         "skills",
       ]}

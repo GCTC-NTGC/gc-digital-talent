@@ -984,6 +984,7 @@ type UserEmployeeWFA {
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   locationExemptions: String
   userSkills(includeSkillIds: [UUID]): [UserSkill]
   communityInterests(id: UUID): [CommunityInterest!]
@@ -1638,6 +1639,7 @@ input EmployeeWfaFilterInput {
   generalSearch: String
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
