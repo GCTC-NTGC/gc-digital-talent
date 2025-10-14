@@ -2448,10 +2448,10 @@ class UserTest extends TestCase
             ]);
     }
 
-    public function testIsVerifiedGovermentEmployeeAccessor()
+    public function testIsVerifiedGovernmentEmployeeAccessor()
     {
         $user = User::factory()
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->create();
 
         $this->assertTrue($user->isVerifiedGovEmployee);

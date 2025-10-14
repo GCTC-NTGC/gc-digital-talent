@@ -29,7 +29,7 @@ class UserTestSeeder extends Seeder
             ->asApplicant()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId, $testCommunityId])
             ->asAdmin()
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->create([
                 'first_name' => 'Dale',
                 'last_name' => 'Monroe',
@@ -40,7 +40,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->asAdmin()
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->create([
                 'first_name' => 'Dara',
                 'last_name' => 'Kennedy',
@@ -50,7 +50,7 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->fillProfileData()
+            ->withNonGovProfile()
             ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId, $financeCommunityId])
             ->create([
                 'first_name' => 'Gul',
@@ -61,7 +61,7 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $financeCommunityId])
             ->create([
                 'first_name' => 'Jaime',
@@ -81,7 +81,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->asProcessOperator(Pool::factory()->create()->id)
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->create([
                 'first_name' => 'Hui',
                 'last_name' => 'Wells',
@@ -92,7 +92,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->asCommunityRecruiter([$digitalCommunityId, $atipCommunityId])
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->create([
                 'first_name' => 'Ji-Min',
                 'last_name' => 'Holland',
@@ -103,7 +103,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->create([
                 'first_name' => 'Kyo',
                 'last_name' => 'Waters',
@@ -114,7 +114,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->asCommunityTalentCoordinator([$digitalCommunityId, $atipCommunityId])
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->create([
                 'first_name' => 'Berlin',
                 'last_name' => 'Sky',

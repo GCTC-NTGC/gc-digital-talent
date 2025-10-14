@@ -47,10 +47,10 @@ class UserRandomSeeder extends Seeder
         $digitalTalentPool = Pool::select('id')->where('name->en', 'CMO Digital Careers')->sole();
         $publishedPools = Pool::select('id')->whereNotNull('published_at')->get();
 
-        // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
+        // Government employees (see withGovEmployeeProfile function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(2)
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user
@@ -119,10 +119,10 @@ class UserRandomSeeder extends Seeder
             $applicantUserBehaviouralSkills[2]->save();
         }
 
-        // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
+        // Not government employees (see withGovEmployeeProfile function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(10)
-            ->fillProfileData()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user

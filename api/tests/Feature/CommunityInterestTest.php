@@ -84,7 +84,7 @@ class CommunityInterestTest extends TestCase
         $this->applicant = User::factory()
             ->asGuest()
             ->asApplicant()
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->withCommunityInterests(Community::factory()->count(3)->withWorkStreams()->create()->pluck('id')->toArray())
             ->create([
                 'email' => 'community-interested-user@test.com',
@@ -295,7 +295,7 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         /** @var \App\Models\User */
-        $owningUser = User::factory()->fillProfileData(true)->create();
+        $owningUser = User::factory()->withGovEmployeeProfile()->create();
         $communityInterestModel = CommunityInterest::factory()->create([
             'user_id' => $owningUser->id,
             'community_id' => $this->communityId,
@@ -372,17 +372,17 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         $communityInterestWithConsent = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
         ]);
         $communityInterestWithoutConsent = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => false,
         ]);
         $otherCommunityInterest = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => Community::factory(),
             'consent_to_share_profile' => true,
         ]);
@@ -410,28 +410,28 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         $communityInterestWithJobInterest = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => true,
             'training_interest' => false,
         ]);
         $communityInterestWithTrainingInterest = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => false,
             'training_interest' => true,
         ]);
         $communityInterestWithBothInterests = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => true,
             'training_interest' => true,
         ]);
         $communityInterestWithNoInterests = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => false,
@@ -498,7 +498,7 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         $isEmployee = CommunityInterest::factory()->create([
-            'user_id' => User::factory()->fillProfileData(true),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => true,

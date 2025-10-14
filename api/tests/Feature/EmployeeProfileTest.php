@@ -40,7 +40,7 @@ class EmployeeProfileTest extends TestCase
 
         $this->user = User::factory()
             ->asApplicant()
-            ->withEmployeeProfile()
+            ->withGovEmployeeProfile()
             ->create();
     }
 

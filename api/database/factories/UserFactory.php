@@ -176,24 +176,39 @@ class UserFactory extends Factory
     }
 
     /**
-     * Set certain fields and create related models based on if gov employee
+     * Set certain fields and create related models based on not being a gov employee
      */
-    public function fillProfileData($isGovEmployee = false)
+    public function withNonGovProfile()
     {
-        return $this->state(function () use ($isGovEmployee) {
-            if (! $isGovEmployee) {
-                return [
-                    'work_email' => null,
-                    'computed_is_gov_employee' => false,
-                    'computed_classification' => null,
-                    'computed_gov_employee_type' => null,
-                    'computed_gov_position_type' => null,
-                    'computed_gov_end_date' => null,
-                    'computed_department' => null,
-                    'computed_gov_role' => null,
+        return $this->state(function () {
+            return [
+                'work_email' => null,
+                'computed_is_gov_employee' => false,
+                'computed_classification' => null,
+                'computed_gov_employee_type' => null,
+                'computed_gov_position_type' => null,
+                'computed_gov_end_date' => null,
+                'computed_department' => null,
+                'computed_gov_role' => null,
 
-                ];
-            }
+            ];
+        })->afterCreating(function (User $user) {
+            $userSkills = $this->getUserSkills($user);
+            $this->createExperienceAndSyncSkills($user, $userSkills);
+            OffPlatformRecruitmentProcess::factory()
+                ->count(3)
+                ->create([
+                    'user_id' => $user->id,
+                ]);
+        });
+    }
+
+    /**
+     * Set certain fields and create related models based on being a gov employee
+     */
+    public function withGovEmployeeProfile()
+    {
+        return $this->state(function () {
             $randomClassification = Classification::inRandomOrder()->first();
             $randomDepartment = Department::inRandomOrder()->first();
 
@@ -208,50 +223,40 @@ class UserFactory extends Factory
                 'computed_gov_end_date' => $this->faker->dateTimeBetween('now', '+30 years'),
                 'computed_gov_role' => $this->faker->jobTitle(),
             ];
-        })->afterCreating(function (User $user) use ($isGovEmployee) {
+        })->afterCreating(function (User $user) {
+            // Government employee counts as an user who has a work experience with
+            //  - an employment type of government of Canada or Canadian armed forces and,
+            //  - that experience has no end date (is current)
             $userSkills = $this->getUserSkills($user);
-            $this->createExperienceAndSyncSkills($user, $userSkills);
+            $factory = WorkExperience::factory([
+                'user_id' => $user->id,
+                'end_date' => null,
+                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => $this->faker->randomElement([
+                    WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    WorkExperienceGovEmployeeType::TERM->name,
+                ]),
+            ]);
+
+            $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
+            $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d');
+            $user->saveQuietly();
+
+            $factory = $factory->asSubstantive();
+
+            $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
+
             OffPlatformRecruitmentProcess::factory()
                 ->count(3)
                 ->create([
                     'user_id' => $user->id,
                 ]);
 
-            if ($isGovEmployee) {
-                // Government employee counts as an user who has a work experience with
-                //  - an employment type of government of Canada or Canadian armed forces and,
-                //  - that experience has no end date (is current)
-                $userSkills = $this->getUserSkills($user);
-                $factory = WorkExperience::factory([
-                    'user_id' => $user->id,
-                    'end_date' => null,
-                    'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'gov_employment_type' => $this->faker->randomElement([
-                        WorkExperienceGovEmployeeType::INDETERMINATE->name,
-                        WorkExperienceGovEmployeeType::TERM->name,
-                    ]),
-                ]);
+            // Fill employee profile data
+            $lateralMoveInterestBool = $this->faker->boolean();
+            $promotionMoveInterestBool = $this->faker->boolean();
+            $retirementYearKnownBool = $this->faker->boolean();
 
-                $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
-                $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d');
-                $user->saveQuietly();
-
-                $factory = $factory->asSubstantive();
-
-                $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
-
-                $this->withEmployeeProfile();
-            }
-        });
-    }
-
-    public function withEmployeeProfile()
-    {
-        $lateralMoveInterestBool = $this->faker->boolean();
-        $promotionMoveInterestBool = $this->faker->boolean();
-        $retirementYearKnownBool = $this->faker->boolean();
-
-        return $this->afterCreating(function (User $user) use ($lateralMoveInterestBool, $promotionMoveInterestBool, $retirementYearKnownBool) {
             $nextRoleCommunity = $this->faker->boolean(80) ?
                 Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
                 null;

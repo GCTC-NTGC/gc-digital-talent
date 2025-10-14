@@ -47,7 +47,7 @@ class UserDocGeneratorTest extends TestCase
 
         $targetUser = User::factory()
             ->asApplicant()
-            ->fillProfileData(true)
+            ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();
 
