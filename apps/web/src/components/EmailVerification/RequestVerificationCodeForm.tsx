@@ -5,7 +5,7 @@ import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { EmailType, ErrorCode, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
   notEmpty,
@@ -105,7 +105,9 @@ const RequestVerificationCodeForm = ({
       ) {
         return validationErrors[
           "sendUserEmailsVerificationInput.emailAddress"
-        ].some((validationError) => validationError === "EmailAddressInUse");
+        ].some(
+          (validationError) => validationError === ErrorCode.EmailAddressInUse,
+        );
       }
       return false;
     }) ?? false;
