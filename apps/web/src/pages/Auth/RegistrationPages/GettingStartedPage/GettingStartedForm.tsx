@@ -107,7 +107,7 @@ export const GettingStartedForm = ({
 
   const submitHandler = (formValues: FormValues): Promise<void> => {
     if (!emailAddressContacted) {
-      // the use hasn't tried to get a verification email yet
+      // the user hasn't tried to get a verification email yet
       setSubmitCodeMessage("must-request-code");
       return Promise.resolve(); // block form submission
     }
