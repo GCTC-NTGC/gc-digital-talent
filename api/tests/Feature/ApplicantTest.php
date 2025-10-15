@@ -117,7 +117,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 7,
+                'countApplicantsForSearch' => 7,
             ],
         ]);
 
@@ -138,7 +138,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 3,
+                'countApplicantsForSearch' => 3,
             ],
         ]);
     }
@@ -252,7 +252,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 9,
+                'countApplicantsForSearch' => 9,
             ],
         ]);
 
@@ -279,7 +279,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 9,
+                'countApplicantsForSearch' => 9,
             ],
         ]);
 
@@ -304,7 +304,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 2,
+                'countApplicantsForSearch' => 2,
             ],
         ]);
 
@@ -328,7 +328,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 6,
+                'countApplicantsForSearch' => 6,
             ],
         ]);
     }
@@ -391,7 +391,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 1,
+                'countApplicantsForSearch' => 1,
             ],
         ]);
 
@@ -413,7 +413,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 2,
+                'countApplicantsForSearch' => 2,
             ],
         ]);
 
@@ -435,7 +435,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 4,
+                'countApplicantsForSearch' => 4,
             ],
         ]);
     }
@@ -483,7 +483,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 7,
+                'countApplicantsForSearch' => 7,
             ],
         ]);
 
@@ -505,7 +505,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 4,
+                'countApplicantsForSearch' => 4,
             ],
         ]);
     }
@@ -562,7 +562,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 8,
+                'countApplicantsForSearch' => 8,
             ],
         ]);
 
@@ -584,7 +584,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 4,
+                'countApplicantsForSearch' => 4,
             ],
         ]);
 
@@ -606,7 +606,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 7,
+                'countApplicantsForSearch' => 7,
             ],
         ]);
     }
@@ -663,7 +663,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 7,
+                'countApplicantsForSearch' => 7,
             ],
         ]);
 
@@ -685,7 +685,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 6,
+                'countApplicantsForSearch' => 6,
             ],
         ]);
 
@@ -707,7 +707,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 4,
+                'countApplicantsForSearch' => 4,
             ],
         ]);
     }
@@ -783,7 +783,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 7,
+                'countApplicantsForSearch' => 7,
             ],
         ]);
 
@@ -805,7 +805,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 7,
+                'countApplicantsForSearch' => 7,
             ],
         ]);
 
@@ -829,7 +829,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 6,
+                'countApplicantsForSearch' => 6,
             ],
         ]);
 
@@ -854,7 +854,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 4,
+                'countApplicantsForSearch' => 4,
             ],
         ]);
 
@@ -878,7 +878,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 0,
+                'countApplicantsForSearch' => 0,
             ],
         ]);
     }
@@ -949,7 +949,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 7,
+                'countApplicantsForSearch' => 7,
             ],
         ]);
 
@@ -973,7 +973,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 6,
+                'countApplicantsForSearch' => 6,
             ],
         ]);
 
@@ -998,7 +998,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 4,
+                'countApplicantsForSearch' => 4,
             ],
         ]);
 
@@ -1022,7 +1022,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 0,
+                'countApplicantsForSearch' => 0,
             ],
         ]);
     }
@@ -1685,7 +1685,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch(' => 1,
+                'countApplicantsForSearch' => 1,
             ],
         ]);
     }
@@ -1938,7 +1938,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'countApplicantsForSearch(' => 2,
+                    'countApplicantsForSearch' => 2,
                 ],
             ]);
 
@@ -1951,7 +1951,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'countApplicantsForSearch(' => 2,
+                    'countApplicantsForSearch' => 2,
                 ],
             ]);
 
@@ -1972,7 +1972,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'countApplicantsForSearch(' => 1,
+                    'countApplicantsForSearch' => 1,
                 ],
             ]);
 
