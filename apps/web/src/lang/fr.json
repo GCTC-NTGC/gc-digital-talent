@@ -2415,6 +2415,10 @@
     "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
     "description": "VRS contact info"
   },
+  "8MonD5": {
+    "defaultMessage": "Droit de priorité",
+    "description": "Option label to filter employees by those who have priority entitlement"
+  },
   "8Otaw9": {
     "defaultMessage": "Ministère {departmentId} introuvable.",
     "description": "Message displayed for department not found."
@@ -2742,6 +2746,10 @@
   "9gklPf": {
     "defaultMessage": "Raison de ne pas retenir cette nomination",
     "description": "label for rejection notes"
+  },
+  "9h6Gt/": {
+    "defaultMessage": "Ministère actuel",
+    "description": "Label for an employees department"
   },
   "9lhQKQ": {
     "defaultMessage": "Comment utiliser le service",
@@ -3983,6 +3991,10 @@
     "defaultMessage": "Une liste préparée à partir du portfolio de compétences qui présente une histoire plus ciblée et personnalisée sur les forces et les domaines d'intérêt de cet utilisateur ou de cette utilisatrice.",
     "description": "Description of a users skill showcase"
   },
+  "F9JI3w": {
+    "defaultMessage": "Pas de droit de priorité",
+    "description": "Option label to filter employees by those who do not have priority entitlement"
+  },
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
@@ -4894,6 +4906,10 @@
   "JIvR0C": {
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
+  },
+  "JR4LU8": {
+    "defaultMessage": "Situation liée au RE",
+    "description": "Column title for employee WFA status"
   },
   "JSE20b": {
     "defaultMessage": "Quelles contributions le candidat retenu devra-t-il ou la candidate retenue devra-t-elle apporter?",
@@ -5891,6 +5907,10 @@
     "defaultMessage": "Évaluations manquantes",
     "description": "No assessments for a skill"
   },
+  "O4dmgB": {
+    "defaultMessage": "Date de fin de poste",
+    "description": "Column title for when a WFA employee expects to end their position"
+  },
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante",
     "description": "Aria label for next page button in pagination nav"
@@ -6602,10 +6622,6 @@
   "R1yINv": {
     "defaultMessage": "Si vous ne savez pas comment décrire au mieux votre utilisation de la compétence, essayez de répondre à certaines des questions fournies ci-dessous.",
     "description": "Instructions on how to describe a skill"
-  },
-  "R2sSy9": {
-    "defaultMessage": "Révisé",
-    "description": "Title displayed for the User table Date Updated column"
   },
   "R5sGKY": {
     "defaultMessage": "Information sur le processus",
@@ -8833,6 +8849,10 @@
   "baAj/Z": {
     "defaultMessage": "Sélectionner une expérience",
     "description": "Title for select an experience action"
+  },
+  "baHWzA": {
+    "defaultMessage": "Classification d'attache",
+    "description": "Label for an employees classification"
   },
   "baSmVn": {
     "defaultMessage": "D'autres activités qui vous ont aidé à vous épanouir et à perfectionner vos compétences, y compris les passe-temps, les activités familiales et les activités extrascolaires.",
@@ -12161,6 +12181,10 @@
     "defaultMessage": "peut consulter les profils des membres du personnel qui montrent un intérêt concernant des possibilités d’emploi et de formation dans leur collectivité.",
     "description": "Description of the permission to view employee profiles for users interested in their community"
   },
+  "pX9VsK": {
+    "defaultMessage": "Trouvez le personnel du gouvernement du Canada qui s'intéresse à la mobilité dans le cadre du réaménagement des effectifs (RE)",
+    "description": "Description of the list of employee workforce adjustment information"
+  },
   "pXiwEH": {
     "defaultMessage": "Fermer immédiatement",
     "description": "Option to close the pool"
@@ -12176,6 +12200,10 @@
   "paTLlJ": {
     "defaultMessage": "Chercher les rôles",
     "description": "Label for the roles table search input"
+  },
+  "pabyhH": {
+    "defaultMessage": "Renseignements sur la situation des membres du personnel liée au réaménagement des effectifs",
+    "description": "Caption for the workforce adjustment table"
   },
   "pcAgJh": {
     "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",

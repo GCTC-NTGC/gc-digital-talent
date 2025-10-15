@@ -125,6 +125,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       href: adminRoutes.communityTalentPage(),
       roles: permissionConstants.viewCommunityTalent,
     },
+    {
+      label: intl.formatMessage(pageTitles.workforceAdjustment),
+      href: adminRoutes.workforceAdjustmentEmployees(),
+      roles: permissionConstants.viewWorkforceAdjustment,
+    },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
     hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
