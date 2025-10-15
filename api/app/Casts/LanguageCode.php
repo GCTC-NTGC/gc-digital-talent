@@ -29,6 +29,6 @@ class LanguageCode implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return ! is_string($value) ? strtolower($value) : null;
+        return is_string($value) ? strtolower($value) : null;
     }
 }
