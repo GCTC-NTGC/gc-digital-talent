@@ -160,8 +160,8 @@ importers:
         specifier: ^7.9.4
         version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-to-print:
-        specifier: ^3.1.1
-        version: 3.1.1(react@19.2.0)
+        specifier: ^3.2.0
+        version: 3.2.0(react@19.2.0)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -6416,8 +6416,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-to-print@3.1.1:
-    resolution: {integrity: sha512-N0MUMhpl8nkGri13BjP7zusj3B/j+1eMOTt8N8PYuhBYGzA4PqTXqcihJ9cZw996dvhV6mBdwafIQCg3Ap5bKg==}
+  react-to-print@3.2.0:
+    resolution: {integrity: sha512-IX2D0mebKMgYTBD6s5tf9B7YRL3RFWjRoevYK8JKgRwn94Rep7PFZyeOTGjCmXofKB1SKzvPSzDrAMG4I2PIwg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ~19
 
@@ -13273,7 +13273,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.2
 
-  react-to-print@3.1.1(react@19.2.0):
+  react-to-print@3.2.0(react@19.2.0):
     dependencies:
       react: 19.2.0
 
