@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this testing issue!
- - type: input
+  - type: input
     id: target-bug-feature
     attributes:
       label: 🎯 Target Bug(s) / Feature
