@@ -31,7 +31,7 @@ const WfaBanner = () => {
       type="info"
       dismissible
       onDismiss={handleDismiss}
-      className="mb-6"
+      className="mb-18"
     >
       <Alert.Title>
         {intl.formatMessage({
