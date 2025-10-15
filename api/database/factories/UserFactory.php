@@ -219,13 +219,13 @@ class UserFactory extends Factory
 
             return [
                 'work_email' => $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca',
-                'work_email_verified_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+                'work_email_verified_at' => $this->faker->dateTimeBetween('2010-01-01', '2019-12-31')->format('Y-m-d'),
                 'computed_is_gov_employee' => true,
                 'computed_classification' => $randomClassification ? $randomClassification->id : null,
                 'computed_department' => $randomDepartment ? $randomDepartment->id : null,
                 'computed_gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
                 'computed_gov_position_type' => $this->faker->randomElement(GovPositionType::cases())->name,
-                'computed_gov_end_date' => $this->faker->dateTimeBetween('now', '+30 years'),
+                'computed_gov_end_date' => $this->faker->dateTimeBetween('2030-01-01', '2039-12-31')->format('Y-m-d'),
                 'computed_gov_role' => $this->faker->jobTitle(),
             ];
         })->afterCreating(function (User $user) {
@@ -244,7 +244,7 @@ class UserFactory extends Factory
             ]);
 
             $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
-            $user->wfa_date = $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d');
+            $user->wfa_date = $this->faker->dateTimeBetween('2028-01-01', '2029-12-31')->format('Y-m-d');
             $user->saveQuietly();
 
             $factory = $factory->asSubstantive();
@@ -323,7 +323,7 @@ class UserFactory extends Factory
                 'next_role_community_other' => ! isset($nextRoleCommunity) ? $this->faker->company() : null,
                 'career_objective_community_other' => ! isset($careerObjectiveCommunity) ? $this->faker->company() : null,
                 'eligible_retirement_year_known' => $retirementYearKnownBool,
-                'eligible_retirement_year' => $retirementYearKnownBool ? $this->faker->date(max: '+35 years') : null,
+                'eligible_retirement_year' => $retirementYearKnownBool ? $this->faker->dateTimeBetween('2030-01-01', '2049-12-31')->format('Y-m-d') : null,
 
                 'next_role_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
                 'career_objective_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
