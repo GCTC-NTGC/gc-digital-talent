@@ -11,6 +11,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { PersonalFormValues, SubExperienceFormProps } from "~/types/experience";
 
@@ -105,11 +106,12 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
                   : {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
-                        value: String(watchStartDate),
-                        message: String(
-                          intl.formatMessage(errorMessages.dateMustFollow, {
-                            value: watchStartDate,
-                          }),
+                        value: watchStartDate ? String(watchStartDate) : "",
+                        message: intl.formatMessage(
+                          errorMessages.minDateLabel,
+                          {
+                            label: nodeToString(labels.startDate).toLowerCase(),
+                          },
                         ),
                       },
                     }
