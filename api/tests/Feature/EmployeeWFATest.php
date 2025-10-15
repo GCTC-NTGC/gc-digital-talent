@@ -319,7 +319,7 @@ class EmployeeWFATest extends TestCase
         // Loose user who should not appear
         User::factory()
             ->asApplicant()
-            ->asGovEmployee()
+            ->withGovEmployeeProfile()
             ->create([
                 'is_woman' => false,
                 'is_visible_minority' => false,
