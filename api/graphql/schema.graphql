@@ -1498,10 +1498,6 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
-  # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
-  countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["whereHasTalentSearchablePublishingGroups"])
-    @deprecated(reason: "Use countApplicantsForSearch instead")
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
