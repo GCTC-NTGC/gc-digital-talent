@@ -1,12 +1,20 @@
 import { ReactElement } from "react";
 
+import { FragmentType } from "@gc-digital-talent/graphql";
+
+import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+
 import WorkPreferencesV1, {
   WorkPreferencesSnapshotV1,
 } from "./WorkPreferencesV1";
 import { getSupportedVersionComponent } from "../utils";
 import { SnapshotProps } from "../types";
 
-type WorkPreferencesSnapshotProps = SnapshotProps<WorkPreferencesSnapshotV1>;
+type WorkPreferencesSnapshotProps = SnapshotProps<WorkPreferencesSnapshotV1> & {
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
+};
 
 const componentMap = {
   1: WorkPreferencesV1,

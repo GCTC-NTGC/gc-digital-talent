@@ -163,6 +163,11 @@ type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFlexibleWorkLocation implements LocalizedEnumOption {
+  value: FlexibleWorkLocation!
+  label: LocalizedString!
+}
+
 type LocalizedGovContractorRoleSeniority implements LocalizedEnumOption {
   value: GovContractorRoleSeniority!
   label: LocalizedString!
@@ -388,7 +393,8 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
-  countApplicants(where: ApplicantFilterInput): Int!
+  countApplicants(where: ApplicantFilterInput): Int! @deprecated(reason: "Use countApplicantsForSearch instead")
+  countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -439,6 +445,9 @@ type Query {
     page: Int
   ): UserPublicProfilePaginator!
   employeeWFAPaginatedAdminTable(
+    where: EmployeeWfaFilterInput
+    orderBy: [QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause!]
+
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
 
@@ -747,6 +756,7 @@ type User {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
@@ -972,7 +982,9 @@ type UserEmployeeWFA {
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   locationExemptions: String
   userSkills(includeSkillIds: [UUID]): [UserSkill]
   communityInterests(id: UUID): [CommunityInterest!]
@@ -1383,6 +1395,7 @@ type ApplicantFilter {
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
   locationPreferences: [LocalizedWorkRegion]
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedInClassifications: [Classification]
@@ -1620,6 +1633,25 @@ input UserPublicProfileFilterInput {
   publicProfileSearch: String
 }
 
+input EmployeeWfaFilterInput {
+  workEmail: String
+  name: String
+  generalSearch: String
+  equity: EquitySelectionsInput
+  languageAbility: LanguageAbility
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  wfaInterests: [WfaInterest]
+  hasPriorityEntitlement: Boolean
+  skills: [IdInput]
+  classifications: [IdInput]
+  departments: [IdInput]
+  workStreams: [IdInput]
+  communities: [IdInput]
+}
+
 input PoolFilterInput {
   generalSearch: String
   name: String
@@ -1653,6 +1685,7 @@ input ApplicantFilterInput {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   operationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
   pools: [IdInput]
@@ -1679,6 +1712,7 @@ input PoolCandidateSearchInput {
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
+  flexibleWorkLocations: [FlexibleWorkLocation]
   assessmentSteps: [Int!]
 }
 
@@ -1812,6 +1846,7 @@ input CreateUserInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1861,6 +1896,7 @@ input UpdateUserAsAdminInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -1919,6 +1955,7 @@ input UpdateUserAsUserInput {
   indigenousDeclarationSignature: String
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
@@ -2313,6 +2350,7 @@ input CreateApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   positionDuration: [PositionDuration]
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
@@ -2924,6 +2962,33 @@ type CommunityInterestWithSkillCountPaginator {
 
   "A list of CommunityInterestWithSkillCount items."
   data: [CommunityInterestWithSkillCount!]!
+}
+
+"Allowed column names for Query.employeeWFAPaginatedAdminTable.orderBy."
+enum QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn {
+  GROUP
+  LEVEL
+}
+
+"Aggregate specification for Query.employeeWFAPaginatedAdminTable.orderBy.currentClassification."
+input QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn
+}
+
+"Order by clause for Query.employeeWFAPaginatedAdminTable.orderBy."
+input QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  currentClassification: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -3668,6 +3733,12 @@ enum FinanceChiefRole {
   HEAD_OF_HUMAN_RESOURCES
   HEAD_OF_PROCUREMENT
   OTHER
+}
+
+enum FlexibleWorkLocation {
+  REMOTE
+  HYBRID
+  ONSITE
 }
 
 enum GenericJobTitleKey {

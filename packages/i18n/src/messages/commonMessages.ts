@@ -134,6 +134,11 @@ const commonMessages = defineMessages({
     id: "1UX8RD",
     description: "Title for contact email address",
   },
+  flexibleWorkLocations: {
+    defaultMessage: "Flexible work location options",
+    id: "g1qgjG",
+    description: "Title for flexible work locations options",
+  },
   inApp: {
     defaultMessage: "In-app",
     id: "l0aGCz",
@@ -562,6 +567,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Dismiss",
     id: "FO4QJP",
     description: "Label for action to dismiss something",
+  },
+  updated: {
+    defaultMessage: "Updated",
+    id: "SyFJmn",
+    description: "Label for an updated at date",
   },
 });
 

@@ -189,6 +189,6 @@ class HydrationTest extends TestCase
         assertEquals($userOrig->armed_forces_status, $userHyd->armed_forces_status);
 
         // enum array
-        assertEqualsCanonicalizing($userOrig->location_preferences, $userHyd->location_preferences);
+        assertEqualsCanonicalizing($userOrig->flexible_work_locations, $userHyd->flexible_work_locations);
     }
 }

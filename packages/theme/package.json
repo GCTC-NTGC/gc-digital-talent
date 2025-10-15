@@ -23,7 +23,7 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@types/react": "^19.2.0",
+    "@types/react": "^19.2.2",
     "eslint": "^9.20.1",
     "jest": "^30.2.0",
     "react": "^19.2.0",

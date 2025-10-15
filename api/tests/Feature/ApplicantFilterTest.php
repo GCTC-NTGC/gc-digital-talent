@@ -76,6 +76,7 @@ class ApplicantFilterTest extends TestCase
             'languageAbility' => $filter->language_ability,
             'operationalRequirements' => $filter->operational_requirements,
             'locationPreferences' => $filter->location_preferences,
+            'flexibleWorkLocations' => $filter->flexible_work_locations,
             'positionDuration' => $filter->position_duration,
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
@@ -154,6 +155,7 @@ class ApplicantFilterTest extends TestCase
                         languageAbility { value }
                         operationalRequirements { value }
                         locationPreferences { value }
+                        flexibleWorkLocations { value}
                         positionDuration
                     }
                 }
@@ -188,6 +190,19 @@ class ApplicantFilterTest extends TestCase
             $expectedLocationPreferences = null;
         }
 
+        $expectedFlexibleWorkLocations = [];
+        if ($filter->flexible_work_locations) {
+            foreach ($filter->flexible_work_locations as $loc) {
+                if ($loc) {
+                    $expectedFlexibleWorkLocations[] = [
+                        'value' => $loc,
+                    ];
+                }
+            }
+        } else {
+            $expectedFlexibleWorkLocations = null;
+        }
+
         $response->assertJsonFragment([
             'applicantFilter' => [
                 'id' => $filter->id,
@@ -203,6 +218,7 @@ class ApplicantFilterTest extends TestCase
                 ],
                 'operationalRequirements' => $expectedOperationalRequirements,
                 'locationPreferences' => $expectedLocationPreferences,
+                'flexibleWorkLocations' => $expectedFlexibleWorkLocations,
                 'positionDuration' => $filter->position_duration,
             ],
         ]);
@@ -466,6 +482,7 @@ class ApplicantFilterTest extends TestCase
                 'position_duration' => $candidate->user->position_duration,
                 'language_ability' => $filterLanguage,
                 'location_preferences' => $candidate->user->location_preferences,
+                'flexible_work_locations' => $candidate->user->flexible_work_locations,
                 'operational_requirements' => $candidate->user->accepted_operational_requirements,
                 'community_id' => $community->id,
             ]
@@ -556,6 +573,7 @@ class ApplicantFilterTest extends TestCase
                         }
                         languageAbility { value }
                         locationPreferences { value }
+                        flexibleWorkLocations { value }
                         operationalRequirements { value }
                         positionDuration
                         qualifiedInWorkStreams { id }
@@ -583,6 +601,7 @@ class ApplicantFilterTest extends TestCase
         $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
 
         $retrievedFilter['locationPreferences'] = $this->filterEnumToInput($retrievedFilter, 'locationPreferences');
+        $retrievedFilter['flexibleWorkLocations'] = $this->filterEnumToInput($retrievedFilter, 'flexibleWorkLocations');
         $retrievedFilter['operationalRequirements'] = $this->filterEnumToInput($retrievedFilter, 'operationalRequirements');
 
         // Now use the retrieved filter to get the same count

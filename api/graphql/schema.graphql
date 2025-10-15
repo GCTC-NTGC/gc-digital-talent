@@ -115,6 +115,8 @@ type User {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -425,8 +427,12 @@ type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
     @rename(attribute: "second_language_exam_validity")
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
     @rename(attribute: "estimated_language_ability")
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
+    @rename(attribute: "accepted_operational_requirements")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   communityInterests(id: UUID @eq): [CommunityInterest!]
@@ -979,6 +985,8 @@ type ApplicantFilter {
     @rename(attribute: "operational_requirements")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
@@ -1254,6 +1262,27 @@ input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
 }
 
+input EmployeeWfaFilterInput {
+  workEmail: String @scope(name: "whereWorkEmail")
+  name: String @scope(name: "whereName")
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  equity: EquitySelectionsInput @scope(name: "whereEquityIn")
+  languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
+  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
+  operationalRequirements: [OperationalRequirement]
+    @scope(name: "whereOperationalRequirementsIn")
+  positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
+  wfaInterests: [WfaInterest] @scope(name: "whereWfaInterestIn")
+  hasPriorityEntitlement: Boolean @scope(name: "whereHasPriorityEntitlement")
+  skills: [IdInput] @scope(name: "whereSkillsAdditive")
+  classifications: [IdInput] @scope(name: "whereClassificationIn")
+  departments: [IdInput] @scope(name: "whereDepartmentsIn")
+  workStreams: [IdInput] @scope(name: "whereCommunityWorkStreamsIn")
+  communities: [IdInput] @scope(name: "whereCommunitiesIn")
+}
+
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
@@ -1288,7 +1317,8 @@ input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope(name: "whereEquityIn")
   hasDiploma: Boolean @scope(name: "whereHasDiploma")
   languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
-  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
+  locationPreferences: [WorkRegion] # filtering occurs at a higher level, UserFilterInput or PoolCandidateSearchInput, with the field below
+  flexibleWorkLocations: [FlexibleWorkLocation] # filtering occurs at a higher level, UserFilterInput or PoolCandidateSearchInput, with the field above
   operationalRequirements: [OperationalRequirement]
     @scope(name: "whereOperationalRequirementsIn")
   positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
@@ -1329,6 +1359,8 @@ input PoolCandidateSearchInput {
   # There is also a stream field as part of ApplicantFilterInput however it includes scoping for availability.
   workStreams: [IdInput] @scope(name: "whereWorkStreamsIn")
   processNumber: String @scope(name: "whereProcessNumber")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
   assessmentSteps: [Int!] @scope(name: "whereAssessmentStepIn")
 }
 
@@ -1426,6 +1458,7 @@ type Query {
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
+      @scope(name: "whereUserFilterInputToSpecialLocationMatching")
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
@@ -1449,7 +1482,15 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginatedAdminTable: [UserEmployeeWFA]!
+  employeeWFAPaginatedAdminTable(
+    where: EmployeeWfaFilterInput
+    orderBy: _
+      @orderBy(
+        relations: [
+          { relation: "currentClassification", columns: ["group", "level"] }
+        ]
+      )
+  ): [UserEmployeeWFA]!
     @paginate(
       defaultCount: 10
       maxCount: 1000
@@ -1460,6 +1501,8 @@ type Query {
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["whereHasTalentSearchablePublishingGroups"])
+    @deprecated(reason: "Use countApplicantsForSearch instead")
+  countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
@@ -1534,6 +1577,7 @@ type Query {
     @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
+      @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
@@ -1777,6 +1821,8 @@ input CreateUserInput {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -1850,6 +1896,8 @@ input UpdateUserAsAdminInput @validator {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -1930,6 +1978,8 @@ input UpdateUserAsUserInput @validator {
   # Applicant info
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
@@ -2433,6 +2483,8 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany

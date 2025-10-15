@@ -127,6 +127,11 @@ export default defineMessages({
     id: "P4BgMG",
     description: "Short title for the create job poster template page",
   },
+  workforceAdjustment: {
+    defaultMessage: "Workforce adjustment",
+    id: "xGsQso",
+    description: "Title for the users wfa information",
+  },
   dnd: {
     defaultMessage: "Digital careers at National Defence",
     id: "YtI+mg",
