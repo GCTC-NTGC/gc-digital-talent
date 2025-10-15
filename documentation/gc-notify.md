@@ -6,7 +6,7 @@
 
 ## Local Testing
 
-The integration with GC Notify can be set up for testing locally as well as running on deployed servers. This document if focused on the former.
+The integration with GC Notify can be set up for testing locally as well as running on deployed servers. This document is focused on the former.
 
 ### API Key
 
