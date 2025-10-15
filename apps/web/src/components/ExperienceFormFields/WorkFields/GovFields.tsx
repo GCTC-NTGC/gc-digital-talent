@@ -501,7 +501,12 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
                         value: watchStartDate ? String(watchStartDate) : "",
-                        message: intl.formatMessage(errorMessages.futureDate),
+                        message: intl.formatMessage(
+                          errorMessages.minDateLabel,
+                          {
+                            label: nodeToString(labels.startDate).toLowerCase(),
+                          },
+                        ),
                       },
                       max: {
                         value: strToFormDate(todayDate.toISOString()),
