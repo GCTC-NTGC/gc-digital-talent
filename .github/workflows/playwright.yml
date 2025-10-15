@@ -65,7 +65,7 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
           cache: pnpm
@@ -98,7 +98,7 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
           cache: pnpm
