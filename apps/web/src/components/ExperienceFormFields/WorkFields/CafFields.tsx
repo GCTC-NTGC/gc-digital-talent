@@ -13,6 +13,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { CafFieldsOptionsQuery, graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 
@@ -139,7 +140,14 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
                         required: intl.formatMessage(errorMessages.required),
                         min: {
                           value: watchStartDate ? String(watchStartDate) : "",
-                          message: intl.formatMessage(errorMessages.futureDate),
+                          message: intl.formatMessage(
+                            errorMessages.minDateLabel,
+                            {
+                              label: nodeToString(
+                                labels.startDate,
+                              ).toLowerCase(),
+                            },
+                          ),
                         },
                       }
                 }

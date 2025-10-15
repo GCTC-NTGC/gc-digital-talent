@@ -18,6 +18,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import {
   SubExperienceFormProps,
@@ -169,12 +170,10 @@ const EducationFields = ({
                 : {
                     required: intl.formatMessage(errorMessages.required),
                     min: {
-                      value: String(watchStartDate),
-                      message: String(
-                        intl.formatMessage(errorMessages.dateMustFollow, {
-                          value: watchStartDate,
-                        }),
-                      ),
+                      value: watchStartDate ? String(watchStartDate) : "",
+                      message: intl.formatMessage(errorMessages.minDateLabel, {
+                        label: nodeToString(labels.startDate).toLowerCase(),
+                      }),
                     },
                   }
             }

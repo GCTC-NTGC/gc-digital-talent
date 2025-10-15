@@ -427,8 +427,12 @@ type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
     @rename(attribute: "second_language_exam_validity")
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
     @rename(attribute: "estimated_language_ability")
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
+    @rename(attribute: "accepted_operational_requirements")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
+  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
+    @rename(attribute: "flexible_work_locations")
   locationExemptions: String @rename(attribute: "location_exemptions")
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   communityInterests(id: UUID @eq): [CommunityInterest!]
@@ -1258,6 +1262,27 @@ input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
 }
 
+input EmployeeWfaFilterInput {
+  workEmail: String @scope(name: "whereWorkEmail")
+  name: String @scope(name: "whereName")
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  equity: EquitySelectionsInput @scope(name: "whereEquityIn")
+  languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
+  flexibleWorkLocations: [FlexibleWorkLocation]
+    @scope(name: "whereFlexibleWorkLocationsIn")
+  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
+  operationalRequirements: [OperationalRequirement]
+    @scope(name: "whereOperationalRequirementsIn")
+  positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
+  wfaInterests: [WfaInterest] @scope(name: "whereWfaInterestIn")
+  hasPriorityEntitlement: Boolean @scope(name: "whereHasPriorityEntitlement")
+  skills: [IdInput] @scope(name: "whereSkillsAdditive")
+  classifications: [IdInput] @scope(name: "whereClassificationIn")
+  departments: [IdInput] @scope(name: "whereDepartmentsIn")
+  workStreams: [IdInput] @scope(name: "whereCommunityWorkStreamsIn")
+  communities: [IdInput] @scope(name: "whereCommunitiesIn")
+}
+
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
@@ -1457,7 +1482,15 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginatedAdminTable: [UserEmployeeWFA]!
+  employeeWFAPaginatedAdminTable(
+    where: EmployeeWfaFilterInput
+    orderBy: _
+      @orderBy(
+        relations: [
+          { relation: "currentClassification", columns: ["group", "level"] }
+        ]
+      )
+  ): [UserEmployeeWFA]!
     @paginate(
       defaultCount: 10
       maxCount: 1000

@@ -383,6 +383,10 @@
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
   },
+  "BYWN9B": {
+    "defaultMessage": "La date doit être égale ou postérieure à la {label}",
+    "description": "Error message when a date was entered that is less than the minimum required, referencing an associated input label"
+  },
   "BcEpFb": {
     "defaultMessage": "Publié",
     "description": "Status is published"
@@ -814,6 +818,10 @@
   "Ss95s5": {
     "defaultMessage": "Alerte de réussite :",
     "description": "Descriptor for a success alert"
+  },
+  "SyFJmn": {
+    "defaultMessage": "Révisé",
+    "description": "Label for an updated at date"
   },
   "T/97gk": {
     "defaultMessage": "Supprimer l’article {index}",

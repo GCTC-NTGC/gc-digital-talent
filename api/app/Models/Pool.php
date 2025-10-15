@@ -403,18 +403,18 @@ class Pool extends Model
     {
         return Attribute::make(
             get: function ($_, $attributes) {
-                $locale = app()->getlocale();
-                $this->loadmissing(['classification']);
+                $locale = app()->getLocale();
+                $this->loadMissing(['classification']);
                 $definitions = [];
-                if ($definition = $this->classification->getdefinition()) {
+                if ($definition = $this->classification->getDefinition()) {
                     $definitions = [$definition];
                 }
 
                 return [
                     'display' => [
-                        'en' => $this->formatdisplayname($attributes, 'en', false),
-                        'fr' => $this->formatdisplayname($attributes, 'fr', false),
-                        'localized' => $this->formatdisplayname($attributes, $locale, false),
+                        'en' => $this->formatDisplayName($attributes, 'en', false),
+                        'fr' => $this->formatDisplayName($attributes, 'fr', false),
+                        'localized' => $this->formatDisplayName($attributes, $locale, false),
                     ],
                     'definitions' => $definitions,
                 ];
@@ -429,18 +429,18 @@ class Pool extends Model
     {
         return Attribute::make(
             get: function ($_, $attributes) {
-                $locale = app()->getlocale();
-                $this->loadmissing(['classification']);
+                $locale = app()->getLocale();
+                $this->loadMissing(['classification']);
                 $definitions = [];
-                if ($definition = $this->classification->getdefinition()) {
+                if ($definition = $this->classification->getDefinition()) {
                     $definitions = [$definition];
                 }
 
                 return [
                     'display' => [
-                        'en' => $this->formatdisplayname($attributes, 'en', true),
-                        'fr' => $this->formatdisplayname($attributes, 'fr', true),
-                        'localized' => $this->formatdisplayname($attributes, $locale, true),
+                        'en' => $this->formatDisplayName($attributes, 'en', true),
+                        'fr' => $this->formatDisplayName($attributes, 'fr', true),
+                        'localized' => $this->formatDisplayName($attributes, $locale, true),
                     ],
                     'definitions' => $definitions,
                 ];
