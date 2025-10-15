@@ -110,6 +110,12 @@ const errorMessages = defineMessages({
     description:
       "Error message when a date was entered that is greater than the maximum required",
   },
+  minDateLabel: {
+    defaultMessage: "The date must be after or equal to the {label}",
+    id: "BYWN9B",
+    description:
+      "Error message when a date was entered that is less than the minimum required, referencing an associated input label",
+  },
   requestRejected: {
     defaultMessage:
       "Your request wasn't completed. Please try again or contact our team for help.",

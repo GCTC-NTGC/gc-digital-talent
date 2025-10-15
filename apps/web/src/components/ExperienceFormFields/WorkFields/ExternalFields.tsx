@@ -17,6 +17,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 
@@ -160,7 +161,14 @@ const ExternalFields = ({
                         required: intl.formatMessage(errorMessages.required),
                         min: {
                           value: watchStartDate ? String(watchStartDate) : "",
-                          message: intl.formatMessage(errorMessages.futureDate),
+                          message: intl.formatMessage(
+                            errorMessages.minDateLabel,
+                            {
+                              label: nodeToString(
+                                labels.startDate,
+                              ).toLowerCase(),
+                            },
+                          ),
                         },
                       }
                 }
