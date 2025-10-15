@@ -52,6 +52,7 @@ import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
+import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
@@ -261,30 +262,7 @@ export const ViewPool = ({
                 })}
               </Link>
             )}
-            <Link
-              mode="inline"
-              color="primary"
-              href={
-                advertisementStatus === "submitted"
-                  ? paths.pool(pool.id)
-                  : paths.poolPreview(pool.id)
-              }
-              newTab
-            >
-              {advertisementStatus === "submitted"
-                ? intl.formatMessage({
-                    defaultMessage: "View advertisement",
-                    id: "8gyWTT",
-                    description:
-                      "Link text to view a specific pool advertisement",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Preview advertisement",
-                    id: "AhZlU1",
-                    description:
-                      "Link text to preview a specific pool advertisement",
-                  })}
-            </Link>
+            <ProcessPreviewLink status={advertisementStatus} id={pool.id} />
           </ProcessCard.Footer>
         </ProcessCard.Root>
         <ProcessCard.Root>
