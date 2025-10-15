@@ -8,6 +8,9 @@
 
 The integration with GC Notify can be set up for testing locally as well as running on deployed servers. This document is focused on the former.
 
+> [!IMPORTANT]  
+> To send emails to yourself a teammate will need to send you an invitation to create an account on the service.
+
 ### API Key
 
 Connecting to the GC Notify service requires setting an API key in the environment variable named `GCNOTIFY_API_KEY`. Locally, set it in the `api/.env` file.
