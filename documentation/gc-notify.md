@@ -44,7 +44,7 @@ After the `api/.env` file has been updated, the settings will need to be applied
 
 1. I never received a message.
    - Do you have the API key and template IDs set in your `api/.env` file?
-   - Did you optimize:clear and restart FPM after setting your environment variables?
+   - Did you `optimize:clear` and restart FPM after setting your environment variables?
    - Did you start a queue worker?
    - Are you using the `team` API key or just the `test` one?
    - Is the email address you sent to either in the safelist or belonging to a team member?
