@@ -31,6 +31,7 @@ use App\Models\CommunityExperience;
 use App\Models\CommunityInterest;
 use App\Models\Department;
 use App\Models\EducationExperience;
+use App\Models\Experience;
 use App\Models\OffPlatformRecruitmentProcess;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -153,25 +154,14 @@ class UserFactory extends Factory
     }
 
     /**
-     * Add an experience with skills to the user
+     * Sync user skills to an experience
      *
-     * @param  User  $user  The user to attach the experience to
+     * @param  Experience  $experience  The experience to attach the skills to
      * @param  Collection<UserSkill>  $skills  The skills assigned to this experience
-     * @param  Factory<AwardExperience | CommunityExperience | EducationExperience | PersonalExperience | WorkExperience>  $factory  Define a specific factory to use
      */
-    private function createExperienceAndSyncSkills(User $user, Collection $skills, ?Factory $factory = null)
+    private function syncSkillsToExperience(Experience $experience)
     {
-        $experienceFactories = [
-            AwardExperience::factory(['user_id' => $user->id]),
-            CommunityExperience::factory(['user_id' => $user->id]),
-            EducationExperience::factory(['user_id' => $user->id]),
-            PersonalExperience::factory(['user_id' => $user->id]),
-            WorkExperience::factory(['user_id' => $user->id]),
-        ];
-
-        $factory ??= $this->faker->randomElement($experienceFactories);
-
-        $experience = $factory->create();
+        $skills = $this->getUserSkills($experience->user);
         $skillsForExperience = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
         $syncDataExperience = array_map(function ($skill) {
             return ['id' => $skill->id, 'details' => $this->faker->text()];
@@ -198,8 +188,16 @@ class UserFactory extends Factory
 
             ];
         })->afterCreating(function (User $user) {
-            $userSkills = $this->getUserSkills($user);
-            $this->createExperienceAndSyncSkills($user, $userSkills);
+            // Don't include work experience to avoid it being government
+            $experienceFactories = [
+                AwardExperience::factory(['user_id' => $user->id]),
+                CommunityExperience::factory(['user_id' => $user->id]),
+                EducationExperience::factory(['user_id' => $user->id]),
+                PersonalExperience::factory(['user_id' => $user->id]),
+            ];
+            $experience = $this->faker->randomElement($experienceFactories)->create();
+            $this->syncSkillsToExperience($experience);
+
             OffPlatformRecruitmentProcess::factory()
                 ->count(3)
                 ->create([
@@ -232,8 +230,7 @@ class UserFactory extends Factory
             // Government employee counts as an user who has a work experience with
             //  - an employment type of government of Canada or Canadian armed forces and,
             //  - that experience has no end date (is current)
-            $userSkills = $this->getUserSkills($user);
-            $factory = WorkExperience::factory([
+            $experience = WorkExperience::factory([
                 'user_id' => $user->id,
                 'end_date' => null,
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
@@ -241,15 +238,13 @@ class UserFactory extends Factory
                     WorkExperienceGovEmployeeType::INDETERMINATE->name,
                     WorkExperienceGovEmployeeType::TERM->name,
                 ]),
-            ]);
+            ])->asSubstantive()->create();
+
+            $this->syncSkillsToExperience($experience);
 
             $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
             $user->wfa_date = $this->faker->dateTimeBetween('2028-01-01', '2029-12-31')->format('Y-m-d');
             $user->saveQuietly();
-
-            $factory = $factory->asSubstantive();
-
-            $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
 
             OffPlatformRecruitmentProcess::factory()
                 ->count(3)
