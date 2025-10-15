@@ -1,7 +1,6 @@
 name: Chromatic
 
 on:
-  workflow_dispatch: # enables ability to manually trigger workflow.
   push:
     branches: ["main"]
     paths:
@@ -12,7 +11,6 @@ on:
   merge_group:
     branches: [main]
   pull_request:
-    types: [opened]
     paths:
       - .github/workflows/chromatic.yml
       - packages/**
@@ -21,8 +19,8 @@ on:
 jobs:
   chromatic:
     name: Chromatic
-    # Only run if not dependabot.
-    if: github.actor != 'dependabot[bot]'
+    # Only on rerun
+    if: ${{ github.run_attempt > 1 }}
     runs-on: ubuntu-24.04
     env:
       PNPM_VERSION: "10.17.0"
