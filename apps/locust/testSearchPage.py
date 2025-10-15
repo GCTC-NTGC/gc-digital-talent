@@ -8,7 +8,7 @@ class TestSearchPage(HttpUser):
     def candidate_count(self):
         query = """
 query CandidateCount($where: ApplicantFilterInput) {
-  countApplicants(where: $where)
+  countApplicantsForSearch(where: $where)
   countPoolCandidatesByPool(where: $where) {
     pool {
       id

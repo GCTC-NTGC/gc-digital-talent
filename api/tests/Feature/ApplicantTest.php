@@ -108,8 +108,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -117,7 +117,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7,
+                'countApplicantsForSearch(' => 7,
             ],
         ]);
 
@@ -125,8 +125,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -138,7 +138,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 3,
+                'countApplicantsForSearch(' => 3,
             ],
         ]);
     }
@@ -239,8 +239,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -252,7 +252,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 9,
+                'countApplicantsForSearch(' => 9,
             ],
         ]);
 
@@ -260,8 +260,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -279,7 +279,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 9,
+                'countApplicantsForSearch(' => 9,
             ],
         ]);
 
@@ -287,8 +287,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -304,7 +304,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 2,
+                'countApplicantsForSearch(' => 2,
             ],
         ]);
 
@@ -312,8 +312,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -328,7 +328,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 6,
+                'countApplicantsForSearch(' => 6,
             ],
         ]);
     }
@@ -377,8 +377,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -391,7 +391,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 1,
+                'countApplicantsForSearch(' => 1,
             ],
         ]);
 
@@ -399,8 +399,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -413,7 +413,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 2,
+                'countApplicantsForSearch(' => 2,
             ],
         ]);
 
@@ -421,8 +421,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -435,7 +435,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 4,
+                'countApplicantsForSearch(' => 4,
             ],
         ]);
     }
@@ -469,8 +469,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -483,7 +483,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7,
+                'countApplicantsForSearch(' => 7,
             ],
         ]);
 
@@ -491,8 +491,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -505,7 +505,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 4,
+                'countApplicantsForSearch(' => 4,
             ],
         ]);
     }
@@ -548,8 +548,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -562,7 +562,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 8,
+                'countApplicantsForSearch(' => 8,
             ],
         ]);
 
@@ -570,8 +570,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -584,7 +584,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 4,
+                'countApplicantsForSearch(' => 4,
             ],
         ]);
 
@@ -592,8 +592,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -606,7 +606,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7,
+                'countApplicantsForSearch(' => 7,
             ],
         ]);
     }
@@ -649,8 +649,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -663,7 +663,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7,
+                'countApplicantsForSearch(' => 7,
             ],
         ]);
 
@@ -671,8 +671,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -685,7 +685,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 6,
+                'countApplicantsForSearch(' => 6,
             ],
         ]);
 
@@ -693,8 +693,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -707,7 +707,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 4,
+                'countApplicantsForSearch(' => 4,
             ],
         ]);
     }
@@ -770,8 +770,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -783,7 +783,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7,
+                'countApplicantsForSearch(' => 7,
             ],
         ]);
 
@@ -791,8 +791,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -805,7 +805,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7,
+                'countApplicantsForSearch(' => 7,
             ],
         ]);
 
@@ -813,8 +813,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -829,7 +829,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 6,
+                'countApplicantsForSearch(' => 6,
             ],
         ]);
 
@@ -837,8 +837,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -854,7 +854,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 4,
+                'countApplicantsForSearch(' => 4,
             ],
         ]);
 
@@ -862,8 +862,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -878,7 +878,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 0,
+                'countApplicantsForSearch(' => 0,
             ],
         ]);
     }
@@ -935,8 +935,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -949,7 +949,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7,
+                'countApplicantsForSearch(' => 7,
             ],
         ]);
 
@@ -957,8 +957,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -973,7 +973,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 6,
+                'countApplicantsForSearch(' => 6,
             ],
         ]);
 
@@ -981,8 +981,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -998,7 +998,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 4,
+                'countApplicantsForSearch(' => 4,
             ],
         ]);
 
@@ -1006,8 +1006,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -1022,7 +1022,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 0,
+                'countApplicantsForSearch(' => 0,
             ],
         ]);
     }
@@ -1676,8 +1676,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -1685,7 +1685,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 1,
+                'countApplicantsForSearch(' => 1,
             ],
         ]);
     }
@@ -1919,8 +1919,8 @@ class ApplicantTest extends TestCase
         ]);
 
         $query = /* GraphQL */ '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ';
 
@@ -1938,7 +1938,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'countApplicants' => 2,
+                    'countApplicantsForSearch(' => 2,
                 ],
             ]);
 
@@ -1951,7 +1951,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'countApplicants' => 2,
+                    'countApplicantsForSearch(' => 2,
                 ],
             ]);
 
@@ -1972,7 +1972,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'countApplicants' => 1,
+                    'countApplicantsForSearch(' => 1,
                 ],
             ]);
 

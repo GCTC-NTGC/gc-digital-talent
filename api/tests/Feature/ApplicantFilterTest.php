@@ -508,8 +508,8 @@ class ApplicantFilterTest extends TestCase
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -517,7 +517,7 @@ class ApplicantFilterTest extends TestCase
             ]
         );
         // Sanity check - we should have at least one candidate in the filter.
-        $firstCount = $response->json('data.countApplicants');
+        $firstCount = $response->json('data.countApplicantsForSearch(');
         $this->assertGreaterThan(0, $firstCount);
 
         // Store the filter with a search request
@@ -608,14 +608,14 @@ class ApplicantFilterTest extends TestCase
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
                 'where' => $retrievedFilter,
             ]
         );
-        $this->assertEquals($firstCount, $response->json('data.countApplicants'));
+        $this->assertEquals($firstCount, $response->json('data.countApplicantsForSearch('));
     }
 }

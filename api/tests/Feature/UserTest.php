@@ -1721,8 +1721,8 @@ class UserTest extends TestCase
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -1735,7 +1735,7 @@ class UserTest extends TestCase
         );
         $response->assertJson([
             'data' => [
-                'countApplicants' => 14, // including base admin user
+                'countApplicantsForSearch(' => 14, // including base admin user
             ],
         ]);
 
@@ -1743,8 +1743,8 @@ class UserTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
+            query countApplicantsForSearch($where: ApplicantFilterInput) {
+                countApplicantsForSearch(where: $where)
             }
         ',
             [
@@ -1757,7 +1757,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 9, // including base admin user
+                'countApplicantsForSearch(' => 9, // including base admin user
             ],
         ]);
     }
