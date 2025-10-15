@@ -41,7 +41,7 @@ After the `api/.env` file has been updated, the settings will need to be applied
 3. Check the configuration by running `php artisan tinker --execute="echo config('notify.client.apiKey')"`.
 4. Start a queue worker to send the messages. `php artisan queue:work`
    - Alternatively, use the "queue work" makefile shortcuts.
-5. Send a test message with `php artisan send-notifications:test example@example.org`
+5. Send a test message with `php artisan send-notifications:test example@example.org`.
 
 ### Troubleshooting
 
