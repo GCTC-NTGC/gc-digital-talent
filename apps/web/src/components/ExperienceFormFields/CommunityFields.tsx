@@ -9,6 +9,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import {
   SubExperienceFormProps,
@@ -111,12 +112,10 @@ const CommunityFields = ({
                 : {
                     required: intl.formatMessage(errorMessages.required),
                     min: {
-                      value: String(startDate),
-                      message: String(
-                        intl.formatMessage(errorMessages.mustBeGreater, {
-                          value: startDate,
-                        }),
-                      ),
+                      value: startDate ? String(startDate) : "",
+                      message: intl.formatMessage(errorMessages.minDateLabel, {
+                        label: nodeToString(labels.startDate).toLowerCase(),
+                      }),
                     },
                   }
             }
