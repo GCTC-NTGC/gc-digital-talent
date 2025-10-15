@@ -54,6 +54,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $work_stream_id
  * @property ?string $area_of_selection
  * @property array $selection_limitations
+ * @property bool $is_remote
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property ?\Illuminate\Support\Carbon $closing_date
