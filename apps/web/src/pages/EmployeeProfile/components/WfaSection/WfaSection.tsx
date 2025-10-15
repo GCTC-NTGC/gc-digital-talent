@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { FormProvider, useForm } from "react-hook-form";
+import { ReactNode } from "react";
 
 import {
   EmployeeWfa,
@@ -40,6 +41,10 @@ import messages from "~/messages/workforceAdjustmentMessages";
 import UserWorkforceAdjustment from "~/components/WorkforceAdjustment/UserWorkforceAdjustment";
 import SubstantiveExperiences from "~/components/WorkforceAdjustment/SubstantiveExperiences";
 import Warning from "~/components/WorkforceAdjustment/Warning";
+
+const wfaLink = (chunks: ReactNode, href: string) => (
+  <Link href={href}>{chunks}</Link>
+);
 
 const EmployeeWfaOptions_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeWfaOptions on Query {
@@ -211,6 +216,19 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
       >
         {intl.formatMessage(messages.wfa)}
       </ToggleSection.Header>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "This section allows you to manage your workforce adjustment details. <link>Learn about workforce adjustment</link> and if it applies to you.",
+            id: "YRcRHy",
+            description: "Description of workforce adjustment form",
+          },
+          {
+            link: (chunks) => wfaLink(chunks, paths.wfaInfo()),
+          },
+        )}
+      </p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
@@ -356,8 +374,8 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person to whom you’ve been matched.",
-                        id: "sY6Vti",
+                          "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person you’ve been matched with.",
+                        id: "srGJ8c",
                         description:
                           "Paragraph three for privacy and confidentiality section of wfa form",
                       })}

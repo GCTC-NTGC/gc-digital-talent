@@ -6499,6 +6499,10 @@
     "defaultMessage": "Précédent",
     "description": "Link text to navigate to the previous item"
   },
+  "QiOSUi": {
+    "defaultMessage": "Titulaire d’un poste permanent, vous avez reçu une lettre sur le réaménagement des effectifs et vous cherchez un nouvel emploi ou une personne avec qui faire un échange de postes.",
+    "description": "Item one, indeterminate employee that received wfa letter"
+  },
   "QiQoIq": {
     "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
     "description": "Label for advancement nomination is rejected"
@@ -7450,6 +7454,10 @@
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Phrase marking lack of interest in community work opportunities"
   },
+  "VGu61z": {
+    "defaultMessage": "Votre poste pour une période déterminée n’est pas renouvelé ou prend fin plus tôt que prévu et vous aimeriez vous trouver autre chose rapidement.",
+    "description": "Item two, term employee that is not being renewed"
+  },
   "VHG9Gm": {
     "defaultMessage": "Désélectionner <hidden> rangées sélectionnées</hidden>",
     "description": "Button text to deselect all table rows"
@@ -8173,6 +8181,10 @@
   "YO7woE": {
     "defaultMessage": "Télécharger Excel",
     "description": "Text label for button to download a excel file of items in a table."
+  },
+  "YRcRHy": {
+    "defaultMessage": "Vous pouvez gérer ici vos données relatives au réaménagement des effectifs. <link>En savoir plus sur le réaménagement des effectifs</link> et découvrez si cela vous concerne.",
+    "description": "Description of workforce adjustment form"
   },
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
@@ -9058,6 +9070,10 @@
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
   },
+  "cT3RkN": {
+    "defaultMessage": "Vous occupez un poste permanent stable et aimeriez recevoir une indemnité de départ pour quitter volontairement la fonction publique.",
+    "description": "Item two, indeterminate employee interested in a package"
+  },
   "cT6KeA": {
     "defaultMessage": "Veuillez choisir une option pour continuer.",
     "description": "Alert message informing user to select an option first in application education page."
@@ -9541,6 +9557,10 @@
   "eGqjYh": {
     "defaultMessage": "Rôles dans le processus",
     "description": "Heading for updating a user's process roles"
+  },
+  "eI2/4I": {
+    "defaultMessage": "Nouveaux services de plateforme pour soutenir le personnel touché par le réaménagement des effectifs",
+    "description": "Title for banner about workforce adjustment"
   },
   "eJPU4G": {
     "defaultMessage": "Modifiez les informations sur la compétence",
@@ -12769,10 +12789,6 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
-  "sY6Vti": {
-    "defaultMessage": "Si une correspondance avec une nouvelle possibilité d’emploi ou un échange de postes est trouvée, notre équipe vous contactera pour confirmer que vous consentez à partager vos renseignements avec la personne correspondante.",
-    "description": "Paragraph three for privacy and confidentiality section of wfa form"
-  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -12840,6 +12856,10 @@
   "spzerx": {
     "defaultMessage": "Modifier une compétence",
     "description": "Page title for the edit skill page."
+  },
+  "srGJ8c": {
+    "defaultMessage": "Si une nouvelle occasion ou un possible échange de postes se présente, notre équipe vous contactera pour confirmer que vous acceptez de transmettre vos renseignements personnels à la personne avec laquelle une correspondance a été établie.",
+    "description": "Paragraph three for privacy and confidentiality section of wfa form"
   },
   "sry9Wl": {
     "defaultMessage": "Voici les profils linguistiques que vous pouvez trouver sur la plateforme Talents numériques du GC",
@@ -13701,6 +13721,10 @@
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
   },
+  "wlfZcP": {
+    "defaultMessage": "Pour en savoir plus sur les nouveaux services qui peuvent vous aider.",
+    "description": "Link text to the workforce adjustment information page"
+  },
   "wm5GrF": {
     "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
     "description": "Validation text for department name input"
@@ -14224,6 +14248,10 @@
   "yzvT6g": {
     "defaultMessage": "Ajoutez un rôle dans la collectivité",
     "description": "Button label for the form to add a community membership to a user"
+  },
+  "z+emiI": {
+    "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, que vous êtes membre d’une des collectivités fonctionnelles auxquelles cette plateforme offre du soutien et que vous vous reconnaissez dans l’une des descriptions suivantes, nous serons peut-être en mesure de vous aider.",
+    "description": "Lead in text for who workforce adjustment tools can help"
   },
   "z20NMR": {
     "defaultMessage": "Autres rôles",
