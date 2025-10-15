@@ -42,6 +42,7 @@ import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog, {
@@ -52,7 +53,6 @@ import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
-import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {

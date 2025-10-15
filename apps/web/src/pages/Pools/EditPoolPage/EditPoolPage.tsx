@@ -11,6 +11,7 @@ import {
   TableOfContents,
   Heading,
   Container,
+  Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -48,6 +49,8 @@ import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import processMessages from "~/messages/processMessages";
+import { getAdvertisementStatus } from "~/utils/poolUtils";
+import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
@@ -111,6 +114,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolContactEmail
 
     id
+    isComplete
     workStream {
       id
       name {
@@ -282,6 +286,11 @@ export const EditPoolForm = ({
       "Define the information and requirements for this recruitment process.",
     id: "Kyf9At",
     description: "Description of a process' advertisement",
+  });
+
+  const advertisementStatus = getAdvertisementStatus({
+    publishedAt: pool.publishedAt,
+    isComplete: pool.isComplete,
   });
 
   const basicInfoHasError =
@@ -558,6 +567,8 @@ export const EditPoolForm = ({
                   </TableOfContents.ListItem>
                 ))}
             </TableOfContents.List>
+            <Separator decorative orientation="horizontal" space="sm" />
+            <ProcessPreviewLink status={advertisementStatus} id={pool.id} />
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <div className="flex flex-col gap-y-18">
