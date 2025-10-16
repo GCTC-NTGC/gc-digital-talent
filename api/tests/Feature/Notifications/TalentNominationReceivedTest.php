@@ -34,7 +34,7 @@ class TalentNominationReceivedTest extends TestCase
     private static function makeGovEmployee(string $name, $locale = 'en'): User
     {
         return User::factory()
-            ->asGovEmployee()
+            ->withGovEmployeeProfile()
             ->create([
                 'first_name' => $name.'_first_name',
                 'last_name' => $name.'_last_name',

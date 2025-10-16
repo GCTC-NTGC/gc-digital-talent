@@ -46,14 +46,16 @@ const RequestVerificationCodeContextMessage = () => {
           <p>
             {intl.formatMessage(
               {
-                defaultMessage:
-                  "Please wait {seconds}s before requesting another verification email.",
-                id: "zIMhFQ",
+                defaultMessage: `Please wait {delay, plural,
+                    one { # second }
+                    other { # seconds }
+                  } before requesting another verification email.`,
+                id: "Vl0+/x",
                 description:
                   "Body for a message informing the user that they must wait before requesting another email.",
               },
               {
-                seconds: CODE_REQUEST_THROTTLE_DELAY_S,
+                delay: CODE_REQUEST_THROTTLE_DELAY_S,
               },
             )}
           </p>

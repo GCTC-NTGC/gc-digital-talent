@@ -47,11 +47,8 @@ class UserDocGeneratorTest extends TestCase
 
         $targetUser = User::factory()
             ->asApplicant()
-            ->asGovEmployee()
+            ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
-            ->withEmployeeProfile()
-            ->withSkillsAndExperiences()
-            ->withOffPlatformRecruitmentProcesses()
             ->create();
 
         // Faker seed makes skill ranks the same.

@@ -615,6 +615,10 @@
     "defaultMessage": "Vitrine de compétences",
     "description": "Name of the skill showcase page"
   },
+  "MQB4IA": {
+    "defaultMessage": "Sauvegardez et continuez",
+    "description": "Button text to save a form step and continue to the next one"
+  },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
     "description": "Error message that at least one Essential Skill is required"

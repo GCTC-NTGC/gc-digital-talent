@@ -568,6 +568,11 @@ const commonMessages = defineMessages({
     id: "FO4QJP",
     description: "Label for action to dismiss something",
   },
+  saveAndContinue: {
+    defaultMessage: "Save and continue",
+    id: "MQB4IA",
+    description: "Button text to save a form step and continue to the next one",
+  },
   updated: {
     defaultMessage: "Updated",
     id: "SyFJmn",

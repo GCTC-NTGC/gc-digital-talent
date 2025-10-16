@@ -39,12 +39,12 @@ class UserExcelGeneratorTest extends TestCase
 
         $targetUser1 = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->create();
 
         $targetUser2 = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withGovEmployeeProfile()
             ->create();
 
         // act
