@@ -1,8 +1,12 @@
 import { ReactNode, useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+
+import useRoutes from "~/hooks/useRoutes";
 
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
@@ -19,17 +23,40 @@ const dialogSubtitle = defineMessage({
   description: "Subtitle for the dialog to unlock the employee tools",
 });
 
+export const UnlockEmployeeTools_Query = graphql(/** GraphQL */ `
+  fragment UnlockEmployeeTools on User {
+    isWorkEmailVerified
+    workExperiences {
+      employmentCategory {
+        value
+      }
+      startDate
+      endDate
+    }
+  }
+`);
+
 interface UnlockEmployeeToolsDialogProps {
   children?: ReactNode;
   defaultOpen?: boolean;
+  query: FragmentType<typeof UnlockEmployeeTools_Query>;
 }
 
 const UnlockEmployeeToolsDialog = ({
   children,
   defaultOpen = false,
+  query,
 }: UnlockEmployeeToolsDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
+  const paths = useRoutes();
+  const data = getFragment(UnlockEmployeeTools_Query, query);
+
+  const hasVerifiedWorkEmail = !!data.isWorkEmailVerified;
+
+  const hasCurrentGCWorkExperience = false;
+  // unpackMaybes(data.workExperiences)
+  //.filter((e) => e.employmentCategory ===)
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
@@ -51,14 +78,14 @@ const UnlockEmployeeToolsDialog = ({
             })}
           </p>
           <div className="flex flex-col gap-6 sm:flex-row">
-            <BoolCheckIcon>
+            <BoolCheckIcon value={hasVerifiedWorkEmail}>
               {intl.formatMessage({
                 defaultMessage: "Verified work email",
                 id: "xVcPXK",
                 description: "A label for status icon checking work email",
               })}
             </BoolCheckIcon>
-            <BoolCheckIcon>
+            <BoolCheckIcon value={hasCurrentGCWorkExperience}>
               {intl.formatMessage({
                 defaultMessage: "Current GC work experience",
                 id: "jDaXen",
@@ -67,21 +94,29 @@ const UnlockEmployeeToolsDialog = ({
             </BoolCheckIcon>
           </div>
           <Dialog.Footer className="flex flex-col gap-6 sm:flex-row">
-            <Button>
-              {intl.formatMessage({
-                defaultMessage: "Verify work email",
-                id: "OvusdX",
-                description: "Label to go to email verification",
-              })}
-            </Button>
-            <Button>
-              {intl.formatMessage({
-                defaultMessage: "Add GC work experience",
-                id: "izAPZA",
-                description: "Label to go to adding experiences",
-              })}
-            </Button>
-            <Button mode="inline" color="warning">
+            {!hasVerifiedWorkEmail ? (
+              <Link mode="solid" href={paths.accountSettings()}>
+                {intl.formatMessage({
+                  defaultMessage: "Verify work email",
+                  id: "OvusdX",
+                  description: "Label to go to email verification",
+                })}
+              </Link>
+            ) : null}
+            {!hasCurrentGCWorkExperience ? (
+              <Link mode="solid" href={paths.createExperience()}>
+                {intl.formatMessage({
+                  defaultMessage: "Add GC work experience",
+                  id: "izAPZA",
+                  description: "Label to go to adding experiences",
+                })}
+              </Link>
+            ) : null}
+            <Button
+              mode="inline"
+              color="warning"
+              onClick={() => setOpen(false)}
+            >
               {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </Dialog.Footer>
