@@ -71,14 +71,22 @@ const UnlockEmployeeToolsDialog = ({
             })}
           </p>
           <div className="flex flex-col gap-6 sm:flex-row">
-            <BoolCheckIcon value={hasVerifiedWorkEmail}>
+            <BoolCheckIcon
+              value={hasVerifiedWorkEmail}
+              trueLabel={intl.formatMessage(commonMessages.yes)}
+              falseLabel={intl.formatMessage(commonMessages.no)}
+            >
               {intl.formatMessage({
                 defaultMessage: "Verified work email",
                 id: "xVcPXK",
                 description: "A label for status icon checking work email",
               })}
             </BoolCheckIcon>
-            <BoolCheckIcon value={hasCurrentGCWorkExperience}>
+            <BoolCheckIcon
+              value={hasCurrentGCWorkExperience}
+              trueLabel={intl.formatMessage(commonMessages.yes)}
+              falseLabel={intl.formatMessage(commonMessages.no)}
+            >
               {intl.formatMessage({
                 defaultMessage: "Current GC work experience",
                 id: "jDaXen",
