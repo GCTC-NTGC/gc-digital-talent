@@ -34,8 +34,10 @@ import {
   FinalDecision,
   PoolAreaOfSelection,
   FlexibleWorkLocation,
-  LocalizedEnumString,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
+  LocalizedCandidateSuspendedFilter,
+  WorkRegion,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -601,23 +603,23 @@ export const addSearchToPoolCandidateFilterInput = (
 
 // map the enum to a custom string per value
 export const candidateSuspendedFilterToCustomOptions = (
-  suspendedFilterEnums: LocalizedEnumString[],
+  suspendedFilterEnums: LocalizedCandidateSuspendedFilter[],
   intl: IntlShape,
 ): Radio[] => {
   return suspendedFilterEnums.map((enumObject) => {
-    if (enumObject.value === (CandidateSuspendedFilter.Active as string)) {
+    if (enumObject.value === CandidateSuspendedFilter.Active) {
       return {
         value: enumObject.value,
         label: intl.formatMessage(tableMessages.openJobOffers),
       };
     }
-    if (enumObject.value === (CandidateSuspendedFilter.Suspended as string)) {
+    if (enumObject.value === CandidateSuspendedFilter.Suspended) {
       return {
         value: enumObject.value,
         label: intl.formatMessage(tableMessages.notInterested),
       };
     }
-    if (enumObject.value === (CandidateSuspendedFilter.All as string)) {
+    if (enumObject.value === CandidateSuspendedFilter.All) {
       return {
         value: enumObject.value,
         label: intl.formatMessage(commonMessages.all),
@@ -626,7 +628,31 @@ export const candidateSuspendedFilterToCustomOptions = (
 
     return {
       value: enumObject.value,
-      label: getLocalizedName(enumObject.label, intl),
+      label: enumObject.label.localized,
     };
   });
+};
+
+export const SORT_ORDER = {
+  FLEXIBLE_WORK_LOCATION: [
+    FlexibleWorkLocation.Remote,
+    FlexibleWorkLocation.Hybrid,
+    FlexibleWorkLocation.Onsite,
+  ],
+  PRIORITY_WEIGHT: [
+    PriorityWeight.PriorityEntitlement,
+    PriorityWeight.Veteran,
+    PriorityWeight.CitizenOrPermanentResident,
+    PriorityWeight.Other,
+  ],
+  WORK_REGION: [
+    WorkRegion.Telework,
+    WorkRegion.NationalCapital,
+    WorkRegion.Atlantic,
+    WorkRegion.Quebec,
+    WorkRegion.Ontario,
+    WorkRegion.North,
+    WorkRegion.Prairie,
+    WorkRegion.BritishColumbia,
+  ],
 };

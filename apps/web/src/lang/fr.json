@@ -2271,9 +2271,9 @@
     "defaultMessage": "Comment les données d’autodéclaration sont-elles utilisées?",
     "description": "Title for how self-declaration data is used section"
   },
-  "7oq1Qa": {
+  "vtnz6B": {
     "defaultMessage": "Décision finale",
-    "description": "Title displayed on the Pool Candidates table final decision column"
+    "description": "Label for an applications final decision"
   },
   "7owCVU": {
     "defaultMessage": "Collectivité de l’approvisionnement",

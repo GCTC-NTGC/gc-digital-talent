@@ -4,7 +4,6 @@ import {
   Checklist,
   Combobox,
   HiddenInput,
-  Radio,
   RadioGroup,
   SwitchInput,
   Select,
@@ -23,13 +22,14 @@ import {
   getEmploymentEquityGroup,
   getLocalizedName,
   navigationMessages,
-  sortPriorityWeight,
-  sortWorkRegion,
-  sortFlexibleWorkLocations,
+  narrowEnumType,
+  sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
 import adminMessages from "~/messages/adminMessages";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import applicationMessages from "~/messages/applicationMessages";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -37,7 +37,7 @@ import FilterDialog, {
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 import tableMessages from "./tableMessages";
-import { candidateSuspendedFilterToCustomOptions } from "./helpers";
+import { candidateSuspendedFilterToCustomOptions, SORT_ORDER } from "./helpers";
 
 const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {
@@ -48,15 +48,13 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     skills {
       id
       name {
-        en
-        fr
+        localized
       }
     }
     communities {
       id
       name {
-        en
-        fr
+        localized
       }
     }
     departments {
@@ -65,80 +63,112 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         localized
       }
     }
-    operationalRequirements: localizedEnumStrings(
-      enumName: "OperationalRequirement"
-    ) {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    priorityWeights: localizedEnumStrings(enumName: "PriorityWeight") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    statuses: localizedEnumStrings(enumName: "PoolCandidateStatus") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-    expiryFilters: localizedEnumStrings(enumName: "CandidateExpiryFilter") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    suspendedFilters: localizedEnumStrings(
-      enumName: "CandidateSuspendedFilter"
-    ) {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
-      value
-      label {
-        en
-        fr
-      }
-    }
     workStreams {
       id
       name {
         localized
       }
     }
-    flexibleWorkLocations: localizedEnumStrings(
+    expiryFilters: localizedEnumOptions(enumName: "CandidateExpiryFilter") {
+      ... on LocalizedCandidateExpiryFilter {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    finalDecisions: localizedEnumOptions(enumName: "FinalDecision") {
+      ... on LocalizedFinalDecision {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    flexibleWorkLocations: localizedEnumOptions(
       enumName: "FlexibleWorkLocation"
     ) {
-      value
-      label {
-        en
-        fr
+      ... on LocalizedFlexibleWorkLocation {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    languageAbilities: localizedEnumOptions(enumName: "LanguageAbility") {
+      ... on LocalizedLanguageAbility {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    operationalRequirements: localizedEnumOptions(
+      enumName: "OperationalRequirement"
+    ) {
+      ... on LocalizedOperationalRequirement {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    placements: localizedEnumOptions(enumName: "PlacementType") {
+      ... on LocalizedPlacementType {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    priorityWeights: localizedEnumOptions(enumName: "PriorityWeight") {
+      ... on LocalizedPriorityWeight {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    publishingGroups: localizedEnumOptions(enumName: "PublishingGroup") {
+      ... on LocalizedPublishingGroup {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    removalReasons: localizedEnumOptions(enumName: "CandidateRemovalReason") {
+      ... on LocalizedCandidateRemovalReason {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    statuses: localizedEnumOptions(enumName: "PoolCandidateStatus") {
+      ... on LocalizedPoolCandidateStatus {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    suspendedFilters: localizedEnumOptions(
+      enumName: "CandidateSuspendedFilter"
+    ) {
+      ... on LocalizedCandidateSuspendedFilter {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    workRegions: localizedEnumOptions(enumName: "WorkRegion") {
+      ... on LocalizedWorkRegion {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -163,12 +193,8 @@ const PoolCandidateFilterDialog = ({
 }: PoolCandidateFilterDialogProps) => {
   const intl = useIntl();
   const data = getFragment(PoolCandidateFilterDialog_Query, query);
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
-  const classifications = unpackMaybes(data?.classifications);
-  const departments = unpackMaybes(data?.departments);
-  const skills = unpackMaybes(data?.skills);
-  const communities = unpackMaybes(data?.communities);
-  const workStreams = unpackMaybes(data?.workStreams);
   const assessmentSteps = unpackMaybes(availableSteps)
     .filter((step) => !!step.sortOrder && step.sortOrder > 0)
     .sort((a, b) => (a?.sortOrder ?? 0) - (b?.sortOrder ?? 0));
@@ -178,34 +204,233 @@ const PoolCandidateFilterDialog = ({
     label: intl.formatMessage(message),
   });
 
-  const suspendedStatusOptions: Radio[] =
-    candidateSuspendedFilterToCustomOptions(
-      unpackMaybes(data?.suspendedFilters),
-      intl,
-    );
-
   return (
     <FilterDialog<FormValues>
       options={{ defaultValues: initialValues }}
-      // Remove hidden pools filter from count
+      // Remove hidden pools filters from count
       {...(hidePoolFilter && {
-        modifyFilterCount: -1,
+        modifyFilterCount: -5,
       })}
       {...{ resetValues, onSubmit }}
     >
-      <div className="grid gap-6 xs:grid-cols-3">
-        {hidePoolFilter ? (
-          <HiddenInput name="pools" />
-        ) : (
-          <div className="xs:col-span-3">
-            <PoolFilterInput />
+      {!hidePoolFilter ? (
+        <>
+          <Heading level="h3" size="h5" className="mt-0 mb-6 font-bold">
+            {intl.formatMessage({
+              defaultMessage: "Process filters",
+              id: "+dlRCu",
+              description:
+                "Heading for filters associated with a candidates process",
+            })}
+          </Heading>
+          <div className="mb-6 grid gap-6 xs:grid-cols-2">
+            <Checklist
+              idPrefix="publishingGroups"
+              name="publishingGroups"
+              legend={intl.formatMessage(adminMessages.publishingGroups)}
+              items={narrowEnumType(
+                unpackMaybes(data?.publishingGroups),
+                "PublishingGroup",
+              ).map((publishingGroup) => ({
+                value: publishingGroup.value,
+                label: publishingGroup.label?.localized ?? notAvailable,
+              }))}
+            />
+            <Select
+              id="community"
+              name="community"
+              enableNull
+              label={intl.formatMessage(adminMessages.community)}
+              nullSelection={intl.formatMessage(
+                commonMessages.selectACommunity,
+              )}
+              options={unpackMaybes(data?.communities).map(({ id, name }) => ({
+                value: id,
+                label: name?.localized ?? notAvailable,
+              }))}
+            />
+            <Combobox
+              id="classifications"
+              name="classifications"
+              isMulti
+              label={intl.formatMessage(adminMessages.classifications)}
+              options={unpackMaybes(data?.classifications).map(
+                ({ group, level }) => ({
+                  value: `${group}-${level}`,
+                  label: `${group}-${level < 10 ? "0" : ""}${level}`,
+                }),
+              )}
+            />
+            <Combobox
+              id="stream"
+              name="stream"
+              isMulti
+              label={intl.formatMessage(adminMessages.streams)}
+              options={unpackMaybes(data?.workStreams).map((workStream) => ({
+                value: workStream.id,
+                label: workStream.name?.localized ?? notAvailable,
+              }))}
+            />
+            <div className="xs:col-span-2">
+              <PoolFilterInput />
+            </div>
           </div>
+        </>
+      ) : (
+        <HiddenInput name="pools" />
+      )}
+
+      <Heading
+        level="h3"
+        size="h5"
+        className={`${!hidePoolFilter && "mt-0"}mb-6 font-bold`}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Application status filters",
+          id: "Jp/+vi",
+          description:
+            "Heading for filters associated with an applications status",
+        })}
+      </Heading>
+
+      <div className="mb-6 grid gap-6 xs:grid-cols-3">
+        <Combobox
+          id="finalDecisions"
+          name="finalDecisions"
+          isMulti
+          label={intl.formatMessage(applicationMessages.finalDecision)}
+          options={narrowEnumType(
+            unpackMaybes(data?.finalDecisions),
+            "FinalDecision",
+          ).map((finalDecision) => ({
+            value: finalDecision.value,
+            label: finalDecision.label?.localized ?? notAvailable,
+          }))}
+        />
+        {assessmentSteps.length > 0 && (
+          <Combobox
+            id="assessmentSteps"
+            name="assessmentSteps"
+            isMulti
+            label={intl.formatMessage(commonMessages.currentStep)}
+            options={assessmentSteps.map((step) => ({
+              value: String(step.sortOrder ?? 0),
+              label:
+                intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                  stepNumber: step.sortOrder,
+                }) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                // NOTE: we do want to pass on empty strings
+                // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                ((step.title?.localized || step.type?.label.localized) ??
+                  notAvailable),
+            }))}
+          />
         )}
-        <Checklist
-          idPrefix="publishingGroups"
-          name="publishingGroups"
-          legend={intl.formatMessage(adminMessages.publishingGroups)}
-          items={localizedEnumToOptions(data?.publishingGroups, intl)}
+        <Combobox
+          id="placementTypes"
+          name="placementTypes"
+          isMulti
+          label={intl.formatMessage(commonMessages.jobPlacement)}
+          options={narrowEnumType(
+            unpackMaybes(data?.placements),
+            "PlacementType",
+          ).map((placementType) => ({
+            value: placementType.value,
+            label: placementType.label?.localized ?? notAvailable,
+          }))}
+        />
+        <Combobox
+          id="removalReasons"
+          name="removalReasons"
+          isMulti
+          label={intl.formatMessage({
+            defaultMessage: "Removed reason",
+            id: "wCNteG",
+            description: "Label for the reason a candidate was removed",
+          })}
+          options={narrowEnumType(
+            unpackMaybes(data?.removalReasons),
+            "CandidateRemovalReason",
+          ).map((removalReason) => ({
+            value: removalReason.value,
+            label: removalReason.label?.localized ?? notAvailable,
+          }))}
+        />
+        <RadioGroup
+          idPrefix="expiryStatus"
+          name="expiryStatus"
+          legend={intl.formatMessage({
+            defaultMessage: "Expiry status",
+            description: "Label for the expiry status field",
+            id: "HDiUEc",
+          })}
+          items={narrowEnumType(
+            unpackMaybes(data?.expiryFilters),
+            "CandidateExpiryFilter",
+          ).map((expiryFilter) => ({
+            value: expiryFilter.value,
+            label: expiryFilter.label?.localized ?? notAvailable,
+          }))}
+        />
+        <RadioGroup
+          idPrefix="suspendedStatus"
+          name="suspendedStatus"
+          legend={intl.formatMessage(tableMessages.interestJobOffers)}
+          items={candidateSuspendedFilterToCustomOptions(
+            narrowEnumType(
+              unpackMaybes(data?.suspendedFilters),
+              "CandidateSuspendedFilter",
+            ),
+            intl,
+          )}
+        />
+      </div>
+      <Combobox
+        id="poolCandidateStatus"
+        name="poolCandidateStatus"
+        isMulti
+        label={intl.formatMessage(commonMessages.status)}
+        options={narrowEnumType(
+          unpackMaybes(data?.statuses),
+          "PoolCandidateStatus",
+        ).map((status) => ({
+          value: status.value,
+          label: status.label?.localized ?? notAvailable,
+        }))}
+        contextColor="warning"
+        context={intl.formatMessage({
+          defaultMessage:
+            "This is a temporary way to filter candidates based on the old statuses. This filter is based on old information and it is possible to show inaccurate results. For better results use other available filters.",
+          description:
+            "Warning about the status filter being a temporary solution",
+          id: "JQdPSK",
+        })}
+      />
+
+      <Heading level="h3" size="h5" className="mb-6 font-bold">
+        {intl.formatMessage({
+          defaultMessage: "Candidate profile filters",
+          id: "gTSsh4",
+          description:
+            "Heading for filters associated with a candidates profile",
+        })}
+      </Heading>
+
+      <div className="grid gap-6 xs:grid-cols-3">
+        <Select
+          id="languageAbility"
+          name="languageAbility"
+          enableNull
+          nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
+          label={intl.formatMessage(commonMessages.workingLanguageAbility)}
+          options={narrowEnumType(
+            unpackMaybes(data?.languageAbilities),
+            "LanguageAbility",
+          ).map((languageAbility) => ({
+            value: languageAbility.value,
+            label: languageAbility.label?.localized ?? notAvailable,
+          }))}
         />
         <Checklist
           idPrefix="equity"
@@ -231,169 +456,87 @@ const PoolCandidateFilterDialog = ({
           idPrefix="priorityWeight"
           name="priorityWeight"
           legend={intl.formatMessage(adminMessages.category)}
-          items={localizedEnumToOptions(
-            sortPriorityWeight(data?.priorityWeights),
-            intl,
-          )}
-        />
-        <Combobox
-          id="classifications"
-          name="classifications"
-          isMulti
-          label={intl.formatMessage(adminMessages.classifications)}
-          options={classifications.map(({ group, level }) => ({
-            value: `${group}-${level}`,
-            label: `${group}-${level < 10 ? "0" : ""}${level}`,
+          items={sortLocalizedEnumOptions(
+            SORT_ORDER.PRIORITY_WEIGHT,
+            narrowEnumType(
+              unpackMaybes(data?.priorityWeights),
+              "PriorityWeight",
+            ),
+          ).map((priorityWeight) => ({
+            value: priorityWeight.value,
+            label: priorityWeight.label?.localized ?? notAvailable,
           }))}
-        />
-        <Combobox
-          id="stream"
-          name="stream"
-          isMulti
-          label={intl.formatMessage(adminMessages.streams)}
-          options={workStreams.map((workStream) => ({
-            value: workStream.id,
-            label:
-              workStream.name?.localized ??
-              intl.formatMessage(commonMessages.notFound),
-          }))}
-        />
-        {assessmentSteps.length > 0 && (
-          <Combobox
-            id="assessmentSteps"
-            name="assessmentSteps"
-            isMulti
-            label={intl.formatMessage(commonMessages.currentStep)}
-            options={assessmentSteps.map((step) => ({
-              value: String(step.sortOrder ?? 0),
-              label:
-                intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                  stepNumber: step.sortOrder,
-                }) +
-                intl.formatMessage(commonMessages.dividingColon) +
-                // NOTE: we do want or to pass on empty strings
-                // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-                ((step.title?.localized || step.type?.label.localized) ??
-                  intl.formatMessage(commonMessages.notAvailable)),
-            }))}
-          />
-        )}
-        <Combobox
-          id="poolCandidateStatus"
-          name="poolCandidateStatus"
-          isMulti
-          label={intl.formatMessage(commonMessages.status)}
-          options={localizedEnumToOptions(data?.statuses, intl)}
         />
         <Checklist
           idPrefix="operationalRequirement"
           name="operationalRequirement"
           legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={localizedEnumToOptions(data?.operationalRequirements, intl)}
+          items={narrowEnumType(
+            unpackMaybes(data?.operationalRequirements),
+            "OperationalRequirement",
+          ).map((operationalRequirement) => ({
+            value: operationalRequirement.value,
+            label: operationalRequirement.label?.localized ?? notAvailable,
+          }))}
         />
         <Checklist
           idPrefix="flexibleWorkLocations"
           name="flexibleWorkLocations"
           legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
-          items={localizedEnumToOptions(
-            sortFlexibleWorkLocations(
+          items={sortLocalizedEnumOptions(
+            SORT_ORDER.FLEXIBLE_WORK_LOCATION,
+            narrowEnumType(
               unpackMaybes(data?.flexibleWorkLocations),
+              "FlexibleWorkLocation",
             ),
-            intl,
-          )}
+          ).map((flexibleWorkLocation) => ({
+            value: flexibleWorkLocation.value,
+            label: flexibleWorkLocation.label?.localized ?? notAvailable,
+          }))}
         />
         <Checklist
           idPrefix="workRegion"
           name="workRegion"
           legend={intl.formatMessage(navigationMessages.workLocation)}
-          items={localizedEnumToOptions(
-            /* remove 'Telework' from checklist */
-            sortWorkRegion(unpackMaybes(data?.workRegions)).filter(
-              /* remove 'Telework' enum from checklist of options */
-              (region) => !(region.value === (WorkRegion.Telework as string)),
-            ),
-            intl,
-          )}
-        />
-        <RadioGroup
-          idPrefix="expiryStatus"
-          name="expiryStatus"
-          legend={intl.formatMessage({
-            defaultMessage: "Expiry status",
-            description: "Label for the expiry status field",
-            id: "HDiUEc",
-          })}
-          items={localizedEnumToOptions(data?.expiryFilters, intl)}
-        />
-        <RadioGroup
-          idPrefix="suspendedStatus"
-          name="suspendedStatus"
-          legend={intl.formatMessage({
-            defaultMessage: "Candidacy status",
-            description: "Label for the candidacy status field",
-            id: "NxrKpM",
-          })}
-          items={localizedEnumToOptions(data?.suspendedFilters, intl)}
-        />
-
-        <div className="space-y-6">
-          <Select
-            id="languageAbility"
-            name="languageAbility"
-            enableNull
-            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
-            options={localizedEnumToOptions(data?.languageAbilities, intl)}
-          />
-          <Select
-            id="community"
-            name="community"
-            enableNull
-            label={intl.formatMessage(adminMessages.community)}
-            nullSelection={intl.formatMessage(commonMessages.selectACommunity)}
-            options={communities.map(({ id, name }) => ({
-              value: id,
-              label: getLocalizedName(name, intl),
+          items={sortLocalizedEnumOptions(
+            SORT_ORDER.WORK_REGION,
+            narrowEnumType(unpackMaybes(data?.workRegions), "WorkRegion"),
+          )
+            /* remove 'Telework' enum from checklist of options */
+            .filter((workRegion) => workRegion.value !== WorkRegion.Telework)
+            .map((workRegion) => ({
+              value: workRegion.value,
+              label: workRegion.label?.localized ?? notAvailable,
             }))}
-          />
-          <RadioGroup
-            idPrefix="suspendedStatus"
-            name="suspendedStatus"
-            legend={intl.formatMessage(tableMessages.interestJobOffers)}
-            items={suspendedStatusOptions}
-          />
-        </div>
-        <SwitchInput
-          id="govEmployee"
-          name="govEmployee"
-          color="secondary"
-          value="true"
-          label={intl.formatMessage(commonMessages.governmentEmployee)}
         />
-        <div className="xs:col-span-3">
+        <div className="flex flex-col gap-6 xs:col-span-3">
+          <SwitchInput
+            id="govEmployee"
+            name="govEmployee"
+            color="secondary"
+            value="true"
+            label={intl.formatMessage(commonMessages.governmentEmployee)}
+          />
           <Combobox
             id="departments"
             name="departments"
             isMulti
             label={intl.formatMessage(tableMessages.employeeDepartment)}
-            options={departments.map((dept) => ({
+            options={unpackMaybes(data?.departments).map((dept) => ({
               value: dept.id,
               label:
                 dept.name?.localized ??
                 intl.formatMessage(commonMessages.notFound),
             }))}
           />
-        </div>
-
-        <div className="xs:col-span-3">
           <Combobox
             id="skills"
             name="skills"
             isMulti
             label={intl.formatMessage(adminMessages.skills)}
-            options={skills.map(({ id, name }) => ({
+            options={unpackMaybes(data?.skills).map(({ id, name }) => ({
               value: id,
-              label: getLocalizedName(name, intl),
+              label: name.localized ?? notAvailable,
             }))}
           />
         </div>
