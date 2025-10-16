@@ -217,13 +217,10 @@ const EmployeeInformationPage = () => {
       >
         <section className="mb-18">
           <Card space="lg">
-            {/* <Pending fetching={fetching} error={error}> */}
             <EmployeeInformationForm
               navigationTarget={navigationTarget}
               onSubmit={handleSubmit}
             />
-
-            {/* </Pending> */}
           </Card>
         </section>
       </Hero>
