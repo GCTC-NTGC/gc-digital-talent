@@ -341,8 +341,7 @@ function transformSortStateToOrderByClause(
   }
 
   if (
-    sortingRule &&
-    sortingRule.id === "skillCount" &&
+    sortingRule?.id === "skillCount" &&
     filterState?.applicantFilter?.skills &&
     filterState.applicantFilter.skills.length > 0
   ) {

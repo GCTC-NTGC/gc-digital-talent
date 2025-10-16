@@ -301,7 +301,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     }
   }, [sortingState, sort?.onSortChange, sort]);
 
-  const hasNoData = !isLoading && (!data || data.length === 0);
+  const hasNoData = !isLoading && data?.length === 0;
   const hasNoVisibleRows = !isLoading && table.getRowModel().rows.length <= 0;
   const captionId = `${id}-caption`;
   const hidableColumns = table
