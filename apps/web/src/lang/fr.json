@@ -7534,6 +7534,10 @@
     "defaultMessage": "Nous savons que le réaménagement des effectifs est une période sensible, et nous nous engageons à traiter vos renseignements avec le plus grand soin et de manière confidentielle.",
     "description": "Paragraph one for privacy and confidentiality section of wfa form"
   },
+  "Vl0+/x": {
+    "defaultMessage": " Veuillez attendre {delay, plural, one { # seconde } other { # secondes } } avant de demander un autre courriel de confirmation.",
+    "description": "Body for a message informing the user that they must wait before requesting another email."
+  },
   "VlI6x0": {
     "defaultMessage": "membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
@@ -14316,10 +14320,6 @@
   "zH8887": {
     "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
     "description": "Reminder what general questions are used for."
-  },
-  "zIMhFQ": {
-    "defaultMessage": " Veuillez attendre {seconds} s avant de demander un autre courriel de confirmation.",
-    "description": "Body for a message informing the user that they must wait before requesting another email."
   },
   "zIv0jm": {
     "defaultMessage": "Ordre décroissant",
