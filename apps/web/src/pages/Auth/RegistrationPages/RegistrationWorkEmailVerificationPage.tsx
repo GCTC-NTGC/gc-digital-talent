@@ -12,7 +12,7 @@ import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import EmailVerificationApi from "~/components/EmailVerification/EmailVerificationDeprecated";
 
-import messages from "./utils/messages";
+import messages from "./GettingStartedPage/messages";
 
 const WorkEmailVerification_Query = graphql(/* GraphQL */ `
   query WorkEmailVerification {
