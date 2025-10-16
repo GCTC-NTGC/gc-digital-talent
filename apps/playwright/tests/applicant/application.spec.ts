@@ -310,7 +310,7 @@ test.describe("Application", () => {
     // Quit trying to skip and continue step three honestly
     await expect(
       application.page.locator("text=Your career timeline currently includes:"),
-    ).toHaveCount(0);
+    ).toBeHidden();
     await expect(
       application.page.getByText(
         /you don’t have any career timeline experiences yet./i,
