@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { EmailType, ErrorCode, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
   notEmpty,
@@ -15,21 +15,6 @@ import {
 import { useEmailVerification } from "./EmailVerification";
 
 export const CODE_REQUEST_THROTTLE_DELAY_S = 60;
-
-export const descriptions: Record<EmailType, MessageDescriptor> = {
-  WORK: defineMessage({
-    defaultMessage:
-      "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
-    id: "cw6MTQ",
-    description: "Work email title paragraph",
-  }),
-  CONTACT: defineMessage({
-    defaultMessage:
-      "This email will be used by recruitment and HR teams to contact you about opportunities, as well as to send notifications about your applications and other platform details.",
-    id: "fa+z9W",
-    description: "Contact email title paragraph",
-  }),
-};
 
 export const labels: Record<EmailType, MessageDescriptor> = {
   WORK: commonMessages.workEmail,
@@ -105,7 +90,9 @@ const RequestVerificationCodeForm = ({
       ) {
         return validationErrors[
           "sendUserEmailsVerificationInput.emailAddress"
-        ].some((validationError) => validationError === "EmailAddressInUse");
+        ].some(
+          (validationError) => validationError === ErrorCode.EmailAddressInUse,
+        );
       }
       return false;
     }) ?? false;
@@ -226,7 +213,6 @@ const RequestVerificationCodeForm = ({
         onSubmit={formMethods.handleSubmit(submitHandler)}
         className="mb-6 flex flex-col gap-6"
       >
-        <p>{intl.formatMessage(descriptions[dialogEmailType])}</p>
         <div className="flex flex-col gap-2 xs:flex-row">
           <div className="grow">
             <Input
