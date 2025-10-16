@@ -41,7 +41,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 1 - Perfect Priority
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
@@ -65,7 +65,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 2 - Entry-level Veteran
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
@@ -86,7 +86,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 3 - Assertive Non-veteran
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
@@ -107,7 +107,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 4 - Absent Canadian
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
@@ -127,7 +127,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 5 - Screened-out Non-Canadian
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
@@ -146,7 +146,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 6 - Failed Notes Wizard
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
@@ -166,7 +166,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 7 - Entry-level Holder
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
@@ -185,7 +185,7 @@ class PoolCandidateTestSeeder extends Seeder
         // 8 - Unsuccessful Priority
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,

@@ -37,18 +37,18 @@ class CommunityInterestUserCsvGeneratorTest extends TestCase
         $community = Community::factory()->withWorkStreams()->create();
 
         $communityRecruiter = User::factory()
-            ->asGovEmployee()
+            ->withGovEmployeeProfile()
             ->asCommunityRecruiter($community->id)
             ->create();
 
-        $employee1 = User::factory()->asGovEmployee()->create();
+        $employee1 = User::factory()->withGovEmployeeProfile()->create();
         $interest1 = CommunityInterest::factory()->create([
             'user_id' => $employee1->id,
             'community_id' => $community->id,
             'consent_to_share_profile' => true,
         ]);
 
-        $employee2 = User::factory()->asGovEmployee()->create();
+        $employee2 = User::factory()->withGovEmployeeProfile()->create();
         $interest2 = CommunityInterest::factory()->create([
             'user_id' => $employee2->id,
             'community_id' => $community->id,

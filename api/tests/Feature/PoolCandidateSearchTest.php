@@ -432,7 +432,7 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
-            'user_id' => User::factory()->asGovEmployee(),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -440,7 +440,7 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
-            'user_id' => User::factory()->asGovEmployee(false),
+            'user_id' => User::factory()->withNonGovProfile(),
         ]);
 
         $query =
@@ -687,7 +687,7 @@ class PoolCandidateSearchTest extends TestCase
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
-                'user_id' => User::factory()->asGovEmployee(),
+                'user_id' => User::factory()->withGovEmployeeProfile(),
             ]);
 
         $this->actingAs($this->communityRecruiter, 'api')

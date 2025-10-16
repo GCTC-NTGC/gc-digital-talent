@@ -54,7 +54,7 @@ class SnapshotTest extends TestCase
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
             ->asApplicant()
-            ->withOffPlatformRecruitmentProcesses()
+            ->withGovEmployeeProfile()
             ->create();
 
         AwardExperience::factory()->create(['user_id' => $user->id]);

@@ -56,20 +56,4 @@ class PoolCandidateSearchRequestFactory extends Factory
             'initial_result_count' => $this->faker->optional->numberBetween(0, 999),
         ];
     }
-
-    /**
-     * Simulate requests created before the addition of new required fields, for convenient testing/seeding or viewing in frontend
-     */
-    public function withOldRequests($chanceOfTrue = 20)
-    {
-        return $this->afterCreating(function (PoolCandidateSearchRequest $request) use ($chanceOfTrue) {
-            $isOldRequest = $this->faker->boolean($chanceOfTrue);
-            if ($isOldRequest) {
-                $request->manager_job_title = null;
-                $request->position_type = null;
-                $request->hr_advisor_email = null;
-                $request->save();
-            }
-        });
-    }
 }

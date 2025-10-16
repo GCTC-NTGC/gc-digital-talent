@@ -40,7 +40,7 @@ class UsersThruPoolCandidatesExcelGeneratorTest extends TestCase
 
         $targetUser1 = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withGovEmployeeProfile()
             ->create();
 
         $application1 = PoolCandidate::factory()
@@ -50,7 +50,7 @@ class UsersThruPoolCandidatesExcelGeneratorTest extends TestCase
 
         $targetUser2 = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withGovEmployeeProfile()
             ->create();
 
         $application2 = PoolCandidate::factory()
