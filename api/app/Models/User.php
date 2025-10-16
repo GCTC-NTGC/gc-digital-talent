@@ -489,6 +489,64 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         );
     }
 
+    public function latestCurrentGovernmentWorkExperience(): Attribute
+    {
+        $employmentTypeOrder = [
+            WorkExperienceGovEmployeeType::INDETERMINATE->name,
+            WorkExperienceGovEmployeeType::TERM->name,
+            null,
+        ];
+
+        $positionTypeOrder = [
+            GovPositionType::ACTING->name,
+            GovPositionType::SECONDMENT->name,
+            GovPositionType::ASSIGNMENT->name,
+            GovPositionType::SUBSTANTIVE->name,
+            null,
+        ];
+
+        return Attribute::make(get: function () use ($employmentTypeOrder, $positionTypeOrder) {
+            $currentExperiences = $this->workExperiences()
+                ->whereIn('employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
+                ->whereNotIn('gov_employment_type', [
+                    WorkExperienceGovEmployeeType::STUDENT->name,
+                    WorkExperienceGovEmployeeType::CASUAL->name,
+                    WorkExperienceGovEmployeeType::CONTRACTOR->name,
+                ])
+                ->where(function (Builder $query) {
+                    $query->whereNull('end_date')
+                        ->orWhere('end_date', '>=', now());
+                })
+                ->orderBy('start_date', 'DESC')
+                ->get();
+
+            if (! $currentExperiences->count()) {
+                return null;
+            }
+
+            $latest = $currentExperiences->first();
+            $startDate = Carbon::parse($latest->start_date);
+            $sameStartDate = $currentExperiences->where(function ($experience) use ($startDate) {
+                // Is same month and year
+                return $experience?->start_date && $startDate->isSameMonth($experience->start_date, true);
+            });
+
+            if ($sameStartDate->count()) {
+                $prioritySortedExperiences = $sameStartDate
+                    ->sortBy('created_at')
+                    ->sortBy([
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $this->positionTypeOrder),
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $this->employmentTypeOrder),
+                    ]);
+
+                $latest = $prioritySortedExperiences->first();
+            }
+
+            return $latest;
+        });
+
+    }
+
     public function currentSubstantiveExperiences(): Attribute
     {
         return Attribute::make(get: function () {
