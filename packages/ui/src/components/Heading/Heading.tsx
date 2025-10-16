@@ -75,11 +75,22 @@ export interface HeadingProps
     Omit<HTMLAttributes<HTMLHeadingElement>, "color" | "icon"> {
   level?: HeadingVariants["size"];
   icon?: IconType;
+  iconClassName?: string;
 }
 
 const Heading = forwardRef<HeadingRef, HeadingProps>(
   (
-    { level = "h2", size, icon, color, center, children, className, ...rest },
+    {
+      level = "h2",
+      size,
+      icon,
+      color,
+      center,
+      children,
+      className,
+      iconClassName,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const El = level;
@@ -93,7 +104,7 @@ const Heading = forwardRef<HeadingRef, HeadingProps>(
 
     return (
       <El ref={forwardedRef} className={base({ class: className })} {...rest}>
-        {Icon && <Icon className={iconStyles()} />}
+        {Icon && <Icon className={iconStyles({ class: iconClassName })} />}
         {children}
       </El>
     );
