@@ -4,7 +4,6 @@ import { defineMessage, useIntl } from "react-intl";
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -26,12 +25,8 @@ const dialogSubtitle = defineMessage({
 export const UnlockEmployeeTools_Query = graphql(/** GraphQL */ `
   fragment UnlockEmployeeTools on User {
     isWorkEmailVerified
-    workExperiences {
-      employmentCategory {
-        value
-      }
-      startDate
-      endDate
+    latestCurrentGovernmentWorkExperience {
+      id
     }
   }
 `);
@@ -53,10 +48,8 @@ const UnlockEmployeeToolsDialog = ({
   const data = getFragment(UnlockEmployeeTools_Query, query);
 
   const hasVerifiedWorkEmail = !!data.isWorkEmailVerified;
-
-  const hasCurrentGCWorkExperience = false;
-  // unpackMaybes(data.workExperiences)
-  //.filter((e) => e.employmentCategory ===)
+  const hasCurrentGCWorkExperience =
+    !!data.latestCurrentGovernmentWorkExperience?.id;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>

@@ -19,7 +19,7 @@ NothingVerified.args = {
   query: makeFragmentData(
     {
       isWorkEmailVerified: false,
-      workExperiences: [],
+      latestCurrentGovernmentWorkExperience: null,
     },
     UnlockEmployeeTools_Query,
   ),
@@ -30,7 +30,9 @@ FullyVerified.args = {
   query: makeFragmentData(
     {
       isWorkEmailVerified: true,
-      workExperiences: [],
+      latestCurrentGovernmentWorkExperience: {
+        id: "1",
+      },
     },
     UnlockEmployeeTools_Query,
   ),
