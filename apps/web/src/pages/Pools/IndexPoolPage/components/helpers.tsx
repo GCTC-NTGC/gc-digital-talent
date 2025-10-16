@@ -179,7 +179,7 @@ export function getOrderByClause(
   // Team is handled by another arg
   if (sortingRule?.id === "team") return undefined;
 
-  if (sortingRule && sortingRule.id === "classification") {
+  if (sortingRule?.id === "classification") {
     return [
       {
         column: undefined,
