@@ -8219,7 +8219,7 @@
     "description": "Button text to confirm deleting a notification"
   },
   "Yaxm1W": {
-    "defaultMessage": "Date du début",
+    "defaultMessage": "Date de début",
     "description": "Label displayed on an Experience form for start date input"
   },
   "Yb8Ylg": {
@@ -8291,7 +8291,7 @@
     "description": "Null state messages for career timeline list"
   },
   "YqutpD": {
-    "defaultMessage": "À quel point dois-je commencer ma demande tôt?",
+    "defaultMessage": "Combien de temps à l'avance devrais-je commencer ma demande?",
     "description": "Button text to toggle the accordion for early application"
   },
   "Ysf8wI": {

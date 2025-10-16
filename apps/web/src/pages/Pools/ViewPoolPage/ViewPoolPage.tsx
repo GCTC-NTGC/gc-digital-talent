@@ -42,6 +42,7 @@ import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog, {
@@ -261,30 +262,7 @@ export const ViewPool = ({
                 })}
               </Link>
             )}
-            <Link
-              mode="inline"
-              color="primary"
-              href={
-                advertisementStatus === "submitted"
-                  ? paths.pool(pool.id)
-                  : paths.poolPreview(pool.id)
-              }
-              newTab
-            >
-              {advertisementStatus === "submitted"
-                ? intl.formatMessage({
-                    defaultMessage: "View advertisement",
-                    id: "8gyWTT",
-                    description:
-                      "Link text to view a specific pool advertisement",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Preview advertisement",
-                    id: "AhZlU1",
-                    description:
-                      "Link text to preview a specific pool advertisement",
-                  })}
-            </Link>
+            <ProcessPreviewLink status={advertisementStatus} id={pool.id} />
           </ProcessCard.Footer>
         </ProcessCard.Root>
         <ProcessCard.Root>

@@ -40,7 +40,7 @@ class ApplicationZipGeneratorTest extends TestCase
 
         $targetUser = User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
+            ->withNonGovProfile()
             ->create();
 
         $application1 = PoolCandidate::factory()
