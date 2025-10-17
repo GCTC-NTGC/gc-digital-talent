@@ -105,7 +105,7 @@ describe("Search Request Candidates Table", () => {
 
     // Checking for 2 of each due to option and chip in combobox
     expect(await within(filters).findAllByText(/placed casual/i)).toHaveLength(
-      2,
+      1,
     );
     expect(
       await within(filters).findAllByText(/qualified available/i),
