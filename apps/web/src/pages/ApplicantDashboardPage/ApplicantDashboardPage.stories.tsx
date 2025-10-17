@@ -12,10 +12,7 @@ import {
   DashboardPage as ApplicantDashboardPage,
   ApplicantDashboardPage_Fragment,
 } from "./ApplicantDashboardPage";
-import {
-  CareerDevelopmentTaskCard_Fragment,
-  CareerDevelopmentTaskCardOptions_Fragment,
-} from "./components/CareerDevelopmentTaskCard";
+import { CareerDevelopmentTaskCardOptions_Fragment } from "./components/CareerDevelopmentTaskCard";
 
 const mockUser = fakeUser();
 
@@ -42,20 +39,11 @@ export const VerifiedGovernmentEmployee: Story = {
       me: {
         ...makeFragmentData(
           {
-            ...{
-              ...mockUser,
-              isGovEmployee: true,
-              workEmail: "user@domain.tld",
-              isVerifiedGovEmployee: true,
-              employeeProfile: {
-                ...makeFragmentData(
-                  {
-                    lateralMoveInterest: false,
-                    promotionMoveInterest: false,
-                  },
-                  CareerDevelopmentTaskCard_Fragment,
-                ),
-              },
+            ...mockUser,
+            isVerifiedGovEmployee: true,
+            employeeProfile: {
+              lateralMoveInterest: false,
+              promotionMoveInterest: false,
             },
           },
           ApplicantDashboardPage_Fragment,
@@ -100,13 +88,8 @@ export const NonEmployee: Story = {
               ...mockUser,
               isVerifiedGovEmployee: false,
               employeeProfile: {
-                ...makeFragmentData(
-                  {
-                    lateralMoveInterest: false,
-                    promotionMoveInterest: false,
-                  },
-                  CareerDevelopmentTaskCard_Fragment,
-                ),
+                lateralMoveInterest: false,
+                promotionMoveInterest: false,
               },
             },
           },

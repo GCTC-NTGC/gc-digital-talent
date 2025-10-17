@@ -77,7 +77,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       }
     }
     employeeProfile {
-      ...CareerDevelopmentTaskCard
       lateralMoveInterest
       promotionMoveInterest
       eligibleRetirementYear
@@ -181,6 +180,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     }
     ...TalentManagementTaskCard
     ...ApplicationsProcessesTaskCard
+    ...CareerDevelopmentTaskCardUser
   }
 `);
 
@@ -286,11 +286,10 @@ export const DashboardPage = ({
               <ApplicationsProcessesTaskCard
                 applicationsProcessesTaskCardQuery={currentUser}
               />
-              {currentUser?.isVerifiedGovEmployee &&
-              currentUser?.employeeProfile ? (
+              {currentUser?.employeeProfile ? (
                 <CareerDevelopmentTaskCard
-                  careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
-                  careerDevelopmentOptionsQuery={applicantDashboardQuery}
+                  userQuery={currentUser}
+                  optionsQuery={applicantDashboardQuery}
                 />
               ) : null}
               {displayTalentManagementTaskCard ? (
