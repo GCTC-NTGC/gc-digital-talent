@@ -2271,10 +2271,6 @@
     "defaultMessage": "Comment les données d’autodéclaration sont-elles utilisées?",
     "description": "Title for how self-declaration data is used section"
   },
-  "vtnz6B": {
-    "defaultMessage": "Décision finale",
-    "description": "Label for an applications final decision"
-  },
   "7owCVU": {
     "defaultMessage": "Collectivité de l’approvisionnement",
     "description": "Title for procurement community WFA section"
@@ -5858,10 +5854,6 @@
   "NpznI5": {
     "defaultMessage": "Sauvegarder et ignorer la confirmation",
     "description": "Button label for submit and skip email verification button on getting started form."
-  },
-  "NxrKpM": {
-    "defaultMessage": "Statut de la candidature",
-    "description": "Label for the candidacy status field"
   },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
@@ -13504,6 +13496,10 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
+  },
+  "vtnz6B": {
+    "defaultMessage": "Décision finale",
+    "description": "Label for an applications final decision"
   },
   "vvnsjr": {
     "defaultMessage": "Votre objectif de carrière",
