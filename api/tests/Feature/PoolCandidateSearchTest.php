@@ -4,8 +4,11 @@ namespace Tests\Feature;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\FinalDecision;
+use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\Classification;
@@ -17,6 +20,7 @@ use Carbon\Carbon;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -694,6 +698,158 @@ class PoolCandidateSearchTest extends TestCase
             ->graphQL($query, [
                 'where' => [
                     'departments' => [$expectedCandidate->user->department->id],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
+
+    public function testScopeFinalDecisionIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'computed_final_decision' => Arr::where(array_column(FinalDecision::cases(), 'name'), function ($finalDecision) {
+                    return $finalDecision !== FinalDecision::DISQUALIFIED->name;
+                }),
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'computed_final_decision' => FinalDecision::DISQUALIFIED->name,
+            ]);
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'finalDecisions' => [FinalDecision::DISQUALIFIED->name],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
+
+    public function testScopePlacementTypesIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'pool_candidate_status' => Arr::where(array_column(PoolCandidateStatus::cases(), 'name'), function ($status) {
+                    return $status !== PlacementType::PLACED_CASUAL->name;
+                }),
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'pool_candidate_status' => PlacementType::PLACED_CASUAL->name,
+            ]);
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'placementTypes' => [PlacementType::PLACED_CASUAL->name],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+    }
+
+    public function testScopeRemovalReasonIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'removal_reason' => Arr::where(array_column(CandidateRemovalReason::cases(), 'name'), function ($status) {
+                    return $status !== CandidateRemovalReason::INELIGIBLE->name;
+                }),
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'removal_reason' => CandidateRemovalReason::INELIGIBLE->name,
+            ]);
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'placementTypes' => [CandidateRemovalReason::INELIGIBLE->name],
                 ],
             ])->assertJsonFragment([
                 'data' => [
