@@ -281,7 +281,7 @@ const PoolCandidateFilterDialog = ({
       <Heading
         level="h3"
         size="h5"
-        className={`${!hidePoolFilter && "mt-0"}mb-6 font-bold`}
+        className={`${!hidePoolFilter ? "mt-12" : "mt-0"} mb-6 font-bold`}
       >
         {intl.formatMessage({
           defaultMessage: "Application status filters",
@@ -406,7 +406,7 @@ const PoolCandidateFilterDialog = ({
         })}
       />
 
-      <Heading level="h3" size="h5" className="mb-6 font-bold">
+      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Candidate profile filters",
           id: "gTSsh4",
