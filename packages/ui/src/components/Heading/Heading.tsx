@@ -80,17 +80,7 @@ export interface HeadingProps
 
 const Heading = forwardRef<HeadingRef, HeadingProps>(
   (
-    {
-      level = "h2",
-      size,
-      icon,
-      color,
-      center,
-      children,
-      className,
-      iconClassName,
-      ...rest
-    },
+    { level = "h2", size, icon, color, center, children, className, ...rest },
     forwardedRef,
   ) => {
     const El = level;
@@ -104,7 +94,7 @@ const Heading = forwardRef<HeadingRef, HeadingProps>(
 
     return (
       <El ref={forwardedRef} className={base({ class: className })} {...rest}>
-        {Icon && <Icon className={iconStyles({ class: iconClassName })} />}
+        {Icon && <Icon className={iconStyles()} />}
         {children}
       </El>
     );

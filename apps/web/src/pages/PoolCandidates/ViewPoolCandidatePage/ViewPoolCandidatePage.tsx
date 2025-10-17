@@ -270,10 +270,9 @@ export const ViewPoolCandidate = ({
             <Heading
               icon={ExclamationTriangleIcon}
               color="warning"
-              className="m-0 mb-6"
+              className="mt-0 mb-6 items-center"
               level="h2"
               size="h3"
-              iconClassName="mt-0.5"
             >
               {intl.formatMessage(screeningAndAssessmentTitle)}
             </Heading>
