@@ -2151,13 +2151,13 @@ input QualifyCandidateInput {
 
 input PlaceCandidateInput {
   placementType: PlacementType!
-  departmentId: UUID!
+  departmentId: DepartmentBelongsTo!
 }
 
 input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
-  departmentId: UUID!
+  departmentId: DepartmentBelongsTo!
 }
 
 input CreateDepartmentInput {
@@ -2453,7 +2453,7 @@ input WorkExperienceInput {
   cafForce: CafForce
   cafRank: CafRank
   classificationId: String
-  departmentId: String
+  departmentId: DepartmentBelongsTo
   workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
@@ -2565,7 +2565,7 @@ input CreatePoolInput {
 }
 
 input DuplicatePoolInput {
-  departmentId: ID
+  departmentId: DepartmentBelongsTo
 }
 
 input CreateGeneralQuestionInput {
