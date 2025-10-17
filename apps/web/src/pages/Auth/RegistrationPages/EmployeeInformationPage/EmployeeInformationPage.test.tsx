@@ -14,7 +14,7 @@ import {
   EmployeeInformationForm,
   EmployeeInformationFormProps,
 } from "./EmployeeInformationPage";
-import { employmentCategoriesApiResponse } from "./EmployeeInformationForm.stories";
+import { getFakeWorkFieldOptionsResponse } from "./testUtils";
 
 export const tryGetOperationName = (request: GraphQLRequest): string | null => {
   const definitions = request.query.definitions;
@@ -29,7 +29,7 @@ const mockClient = {
     const operationName = tryGetOperationName(request);
     switch (operationName) {
       case "WorkFieldOptions":
-        return fromValue(employmentCategoriesApiResponse);
+        return fromValue(getFakeWorkFieldOptionsResponse());
       default:
         return fromValue({});
     }
