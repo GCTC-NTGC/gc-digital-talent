@@ -86,7 +86,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
                     'govEmploymentType' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
                     'govPositionType' => GovPositionType::ACTING->name,
                     'classificationId' => $this->classification->id,
-                    'departmentId' => $this->department->id,
+                    'departmentId' => ['connect' => $this->department->id],
                     'startDate' => config('constants.past_date'),
                     'endDate' => null,
                 ],
