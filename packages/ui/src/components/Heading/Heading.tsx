@@ -75,7 +75,6 @@ export interface HeadingProps
     Omit<HTMLAttributes<HTMLHeadingElement>, "color" | "icon"> {
   level?: HeadingVariants["size"];
   icon?: IconType;
-  iconClassName?: string;
 }
 
 const Heading = forwardRef<HeadingRef, HeadingProps>(
