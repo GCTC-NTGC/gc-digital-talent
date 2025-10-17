@@ -438,7 +438,7 @@ class PoolCandidateBuilder extends Builder
         $placementCases = array_column(PlacementType::cases(), 'name');
         $diff = array_diff($placementTypes, $placementCases);
 
-        if (empty($placementType) || ! empty($diff)) {
+        if (empty($placementTypes) || ! empty($diff)) {
             return $this;
         }
 
