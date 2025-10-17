@@ -25,8 +25,8 @@ final class DuplicatePool
             'closing_date' => null,
             'published_at' => null,
         ]);
-        if (! is_null($args['departmentId'])) {
-            $newPool->department()->associate($args['departmentId']);
+        if (! is_null($args['departmentId']['connect'])) {
+            $newPool->department()->associate($args['departmentId']['connect']);
         }
 
         $newPool->save();

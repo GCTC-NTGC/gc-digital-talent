@@ -31,7 +31,7 @@ final class PlaceCandidateValidator extends Validator
         }
 
         return [
-            'poolCandidate.departmentId' => ['uuid', 'required', Rule::exists('departments', 'id')],
+            'poolCandidate.departmentId.connect' => ['uuid', 'required', Rule::exists('departments', 'id')],
         ];
     }
 
