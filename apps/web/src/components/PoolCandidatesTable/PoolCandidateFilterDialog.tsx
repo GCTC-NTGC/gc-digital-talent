@@ -7,7 +7,6 @@ import {
   RadioGroup,
   SwitchInput,
   Select,
-  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   FragmentType,
@@ -20,7 +19,6 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getEmploymentEquityGroup,
-  getLocalizedName,
   navigationMessages,
   narrowEnumType,
   sortLocalizedEnumOptions,
