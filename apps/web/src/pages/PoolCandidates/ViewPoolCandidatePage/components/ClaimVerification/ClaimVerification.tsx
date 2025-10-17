@@ -52,7 +52,12 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
 
   return (
     <>
-      <Heading icon={InformationCircleIcon} color="warning">
+      <Heading
+        icon={InformationCircleIcon}
+        color="warning"
+        level="h2"
+        size="h3"
+      >
         {intl.formatMessage({
           defaultMessage: "Other information",
           id: "blGYmQ",
