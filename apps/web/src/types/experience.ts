@@ -36,6 +36,7 @@ import {
   GovContractorRoleSeniority,
   GovContractorType,
   CSuiteRoleTitle,
+  DepartmentBelongsTo,
 } from "@gc-digital-talent/graphql";
 
 import { SimpleAnyExperience } from "~/utils/experienceUtils";
@@ -176,7 +177,7 @@ export interface ExperienceDetailsSubmissionData {
   employmentCategory?: EmploymentCategory | null;
   extSizeOfOrganization?: ExternalSizeOfOrganization | null;
   extRoleSeniority?: ExternalRoleSeniority | null;
-  departmentId?: string | null;
+  departmentId?: DepartmentBelongsTo | null;
   classificationId?: string | null;
   govEmploymentType?: GovEmployeeType | null;
   govPositionType?: GovPositionType | null;
