@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import { Client, gql, OperationContext, useQuery } from "urql";
+import { LoaderFunctionArgs, useLoaderData } from "react-router";
 
 import {
   Pending,
@@ -12,6 +13,9 @@ import {
   graphql,
   getFragment,
   ApplicantDashboardQuery,
+  UserAuthInfo,
+  Skill,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
@@ -31,6 +35,8 @@ import {
 import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
+import { graphqlClientContext } from "~/middleware/graphqlClientMiddleware";
+import { RouteContext } from "~/middleware/routeContext";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -188,11 +194,47 @@ interface DashboardPageProps {
   applicantDashboardQuery: ApplicantDashboardQuery;
 }
 
+const TestQuery_Fragment = graphql(/** GraphQL */ `
+  query TestMiddlewareQuery {
+    me {
+      authInfo {
+        sub
+      }
+    }
+    skills {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
+interface ClientLoaderData {
+  user?: Maybe<Partial<UserAuthInfo>>;
+  skills?: Maybe<Partial<Skill>[]>;
+}
+
+export const clientLoader = async ({
+  context,
+}: LoaderFunctionArgs<RouteContext<Client>>): Promise<ClientLoaderData> => {
+  const client = context.get(graphqlClientContext);
+
+  const res = await client.query(TestQuery_Fragment, {}).toPromise();
+  return {
+    user: res.data?.me?.authInfo,
+    skills: res.data?.skills,
+  };
+};
+
 export const DashboardPage = ({
   applicantDashboardQuery,
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const data = useLoaderData<ClientLoaderData>();
+
+  console.log({ data });
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -479,4 +521,7 @@ export const Component = () => (
     <ApplicantDashboardPageApi />
   </RequireAuth>
 );
+
+export default Component;
+
 Component.displayName = "ApplicantDashboardPage";

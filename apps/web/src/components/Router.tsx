@@ -10,13 +10,14 @@ import { FeatureFlags, useFeatureFlags } from "@gc-digital-talent/env";
 
 import { convert } from "~/utils/routing";
 import intlMiddleware from "~/middleware/intlMiddleware";
+import graphqlClientMiddleware from "~/middleware/graphqlClientMiddleware";
 
 const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
   createBrowserRouter(
     [
       {
         path: `/`,
-        middleware: [intlMiddleware],
+        middleware: [intlMiddleware, graphqlClientMiddleware],
         lazy: () => import("./Layout/MainLayout").then(convert),
         HydrateFallback: Loading,
         children: [
@@ -258,7 +259,7 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                     lazy: () =>
                       import(
                         "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
-                      ),
+                      ).then(convert),
                   },
                   {
                     path: "dashboard",
