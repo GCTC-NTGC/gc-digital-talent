@@ -40,7 +40,7 @@ class AssessmentStepFactory extends Factory
         return [
             'pool_id' => Pool::factory(),
             'type' => $this->faker->randomElement($validAssessmentStepTypes),
-            'sort_order' => $this->faker->numberBetween(1, 10),
+            'sort_order' => 1, // override in factory call for other steps
             'title' => ['en' => $title.' EN?', 'fr' => $title.' FR?'],
         ];
     }
