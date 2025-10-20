@@ -1,7 +1,6 @@
 /* eslint-disable testing-library/no-debugging-utils */
 import { ReactNode, useEffect, useMemo, useRef } from "react";
 import { authExchange } from "@urql/exchange-auth";
-import { JwtPayload, jwtDecode } from "jwt-decode";
 import {
   Client,
   createClient,
@@ -34,22 +33,8 @@ import {
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
-import { allowableClockSkewSeconds, apiHost, apiUri } from "../../constants";
-
-const isTokenProbablyExpired = (accessToken: string | null): boolean => {
-  let tokenProbablyExpired = false;
-  if (accessToken) {
-    const decoded = jwtDecode<JwtPayload>(accessToken);
-    if (decoded.exp) {
-      const tokenExpiryDateSeconds = decoded.exp;
-      const safeTokenExpiryDateSeconds =
-        tokenExpiryDateSeconds - allowableClockSkewSeconds; // allow for the client's machine to be a bit off
-      tokenProbablyExpired = Date.now() > safeTokenExpiryDateSeconds * 1000; // JWT expiry date in seconds to milliseconds
-    }
-  }
-
-  return tokenProbablyExpired;
-};
+import { apiHost, apiUri } from "../../constants";
+import isTokenProbablyExpired from "../../utils/isTokenExpired";
 
 const ClientProvider = ({
   client,
