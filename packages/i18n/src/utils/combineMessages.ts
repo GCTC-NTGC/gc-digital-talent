@@ -1,7 +1,7 @@
 import type { Messages } from "../types";
 import CommonFrench from "../lang/frCompiled.json";
 
-const useIntlLanguages = (
+const combineMessages = (
   locale: string | null,
   messages: Messages | undefined,
 ) => {
@@ -13,4 +13,4 @@ const useIntlLanguages = (
     : undefined;
 };
 
-export default useIntlLanguages;
+export default combineMessages;

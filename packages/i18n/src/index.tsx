@@ -3,7 +3,6 @@ import richTextElements from "./components/richTextElements";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
-import useIntlLanguages from "./hooks/useIntlMessages";
 import useLocale from "./hooks/useLocale";
 import {
   isLocale,
@@ -83,6 +82,7 @@ import {
 import type { Locales, Messages } from "./types";
 import { appendLanguageName } from "./utils/lang";
 import getIntl from "./utils/getIntl";
+import combineMessages from "./utils/combineMessages";
 
 export {
   richTextElements,
@@ -90,6 +90,7 @@ export {
   getLocale,
   oppositeLocale,
   changeLocale,
+  combineMessages,
   localizePath,
   localeRedirect,
   getLocalizedName,
@@ -108,7 +109,6 @@ export {
   LanguageProvider,
   LocaleProvider,
   NestedLanguageProvider,
-  useIntlLanguages,
   useLocale,
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
