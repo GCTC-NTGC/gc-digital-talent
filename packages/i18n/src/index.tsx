@@ -82,6 +82,7 @@ import {
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
 import { appendLanguageName } from "./utils/lang";
+import getIntl from "./utils/getIntl";
 
 export {
   richTextElements,
@@ -92,6 +93,7 @@ export {
   localizePath,
   localeRedirect,
   getLocalizedName,
+  getIntl,
   localizeCurrency,
   localizeSalaryRange,
   apiMessages,

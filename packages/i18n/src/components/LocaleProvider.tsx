@@ -1,29 +1,12 @@
 import { createContext, ReactNode, useState, useEffect, useMemo } from "react";
 
 import { Locales } from "../types";
-import { isLocale, localeRedirect } from "../utils/localize";
-
-const STORED_LOCALE = "stored_locale";
-
-function getPathLocale(pathname: string): Locales | null {
-  const pathLocale = pathname.split("/")[1]; // Note: for an absolute path which starts with /, the first element is an empty string.
-  return isLocale(pathLocale) ? pathLocale : null;
-}
-
-const guessLocale = (): Locales => {
-  const locale: string | undefined =
-    // Check for stored locale in localStorage.
-    localStorage.getItem(STORED_LOCALE) ??
-    // If nothing is stored, check for the browser's locale.
-    navigator?.language?.split("-")[0];
-
-  // If stored locale or browser locale is unavailable or invalid, default to english
-  if (isLocale(locale)) {
-    return locale;
-  }
-
-  return "en";
-};
+import {
+  getDesiredLocale,
+  getPathLocale,
+  localeRedirect,
+  STORED_LOCALE,
+} from "../utils/localize";
 
 export interface LocaleState {
   locale: Locales;
@@ -45,7 +28,7 @@ interface LocaleProviderProps {
 
 const LocaleProvider = ({ children }: LocaleProviderProps) => {
   const pathLocale = getPathLocale(window.location.pathname);
-  const desiredLocale = pathLocale ?? guessLocale(); // figure it out from the path, storage, or browser
+  const desiredLocale = getDesiredLocale();
   const [locale, setLocale] = useState<Locales>(desiredLocale);
 
   useEffect(() => {
