@@ -45,7 +45,7 @@ const ActivityDetails = ({ query }: ActivityDetailsProps) => {
       </TableOfContents.Heading>
       <Card className="grid gap-6 sm:grid-cols-3">
         <FieldDisplay label={intl.formatMessage(commonMessages.created)}>
-          {user.authInfo.createdDate ?? notAvailable}
+          {user.authInfo?.createdDate ?? notAvailable}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
@@ -54,10 +54,10 @@ const ActivityDetails = ({ query }: ActivityDetailsProps) => {
             description: "Label for last time user signed in",
           })}
         >
-          {user.authInfo.lastSignInDate ?? notAvailable}
+          {user.authInfo?.lastSignInDate ?? notAvailable}
         </FieldDisplay>
         <FieldDisplay label={intl.formatMessage(commonMessages.updated)}>
-          {user.authInfo.updatedDate ?? notAvailable}
+          {user.authInfo?.updatedDate ?? notAvailable}
         </FieldDisplay>
       </Card>
     </TableOfContents.Section>
