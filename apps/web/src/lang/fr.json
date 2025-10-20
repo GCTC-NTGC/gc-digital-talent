@@ -14285,10 +14285,6 @@
     "defaultMessage": "Michif",
     "description": "Name of Michif language"
   },
-  "zAqJMe": {
-    "defaultMessage": "Créé",
-    "description": "Title displayed on the Pool table Date Created column"
-  },
   "zCjdD9": {
     "defaultMessage": "Nommez des talents pour des programmes d'avancement, de mutation latérale ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",
     "description": "Subtitle explaining talent nominations expandable within Talent management card"
