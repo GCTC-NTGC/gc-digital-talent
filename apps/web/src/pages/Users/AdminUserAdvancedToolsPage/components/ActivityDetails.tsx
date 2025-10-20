@@ -49,8 +49,8 @@ const ActivityDetails = ({ query }: ActivityDetailsProps) => {
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Last sign in",
-            id: "2/oCa3",
+            defaultMessage: "Last sign-in",
+            id: '6lfcJc',
             description: "Label for last time user signed in",
           })}
         >
