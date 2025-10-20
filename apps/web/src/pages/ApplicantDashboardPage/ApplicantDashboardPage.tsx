@@ -212,7 +212,7 @@ const TestQuery_Fragment = graphql(/** GraphQL */ `
 
 interface ClientLoaderData {
   user?: Maybe<Partial<UserAuthInfo>>;
-  skills?: Maybe<Partial<Skill>[]>;
+  skills?: Maybe<Partial<Maybe<Skill>>[]>;
 }
 
 export const clientLoader = async ({
@@ -496,7 +496,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const ApplicantDashboardPageApi = () => {
+export const Component = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
@@ -515,12 +515,6 @@ export const ApplicantDashboardPageApi = () => {
     </Pending>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ApplicantDashboardPageApi />
-  </RequireAuth>
-);
 
 export default Component;
 

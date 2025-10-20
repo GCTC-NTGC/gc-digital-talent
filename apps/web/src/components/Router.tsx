@@ -2,7 +2,10 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
-import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
+import {
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
@@ -11,13 +14,15 @@ import { FeatureFlags, useFeatureFlags } from "@gc-digital-talent/env";
 import { convert } from "~/utils/routing";
 import intlMiddleware from "~/middleware/intlMiddleware";
 import graphqlClientMiddleware from "~/middleware/graphqlClientMiddleware";
+import userMiddleware from "~/middleware/authMiddleware";
+import makeProtectedRouteMiddleware from "~/middleware/protectedRouteMiddleware";
 
 const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
   createBrowserRouter(
     [
       {
         path: `/`,
-        middleware: [intlMiddleware, graphqlClientMiddleware],
+        middleware: [intlMiddleware, graphqlClientMiddleware, userMiddleware],
         lazy: () => import("./Layout/MainLayout").then(convert),
         HydrateFallback: Loading,
         children: [
@@ -256,6 +261,9 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                 children: [
                   {
                     index: true,
+                    middleware: [
+                      makeProtectedRouteMiddleware([ROLE_NAME.Applicant]),
+                    ],
                     lazy: () =>
                       import(
                         "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
