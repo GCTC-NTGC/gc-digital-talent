@@ -1,11 +1,15 @@
 import { createContext, MiddlewareFunction } from "react-router";
 
-import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
+import { ACCESS_TOKEN, hasRole, RoleName } from "@gc-digital-talent/auth";
 import { graphql, Maybe, UserAuthInfo } from "@gc-digital-talent/graphql";
+import { UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import { graphqlClientContext } from "./graphqlClientMiddleware";
+import { RouteContext } from "./routeContext";
 
-export const userContext = createContext<Maybe<UserAuthInfo> | null>();
+type UserContext = Maybe<Partial<UserAuthInfo>>;
+
+export const userContext = createContext<UserContext>();
 
 const UserMiddleware_Query = graphql(/** GraphQL */ `
   query UserMiddleware {
@@ -31,6 +35,19 @@ const UserMiddleware_Query = graphql(/** GraphQL */ `
     }
   }
 `);
+
+export function guardByRoles(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: RouteContext<any>,
+  roles: RoleName[],
+) {
+  const user = context.get(userContext) as Maybe<Partial<UserAuthInfo>>;
+  const isAuthorized = hasRole(roles, user?.roleAssignments);
+
+  if (!isAuthorized) {
+    throw new UnauthorizedError();
+  }
+}
 
 const userMiddleware: MiddlewareFunction = async ({ context }, next) => {
   // User is not logged in so set undefined

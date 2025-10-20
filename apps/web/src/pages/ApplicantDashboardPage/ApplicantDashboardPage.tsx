@@ -8,7 +8,7 @@ import {
   NotFound,
   Container,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   graphql,
   getFragment,
@@ -18,7 +18,7 @@ import {
   Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { NotFoundError } from "@gc-digital-talent/helpers";
+import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -37,6 +37,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
 import { graphqlClientContext } from "~/middleware/graphqlClientMiddleware";
 import { RouteContext } from "~/middleware/routeContext";
+import { guardByRoles, userContext } from "~/middleware/authMiddleware";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -219,6 +220,8 @@ export const clientLoader = async ({
   context,
 }: LoaderFunctionArgs<RouteContext<Client>>): Promise<ClientLoaderData> => {
   const client = context.get(graphqlClientContext);
+  // Middleware throws before react, so check here for nice error boundary
+  guardByRoles(context, [ROLE_NAME.Applicant]);
 
   const res = await client.query(TestQuery_Fragment, {}).toPromise();
   return {

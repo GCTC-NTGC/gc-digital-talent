@@ -16,6 +16,7 @@ import intlMiddleware from "~/middleware/intlMiddleware";
 import graphqlClientMiddleware from "~/middleware/graphqlClientMiddleware";
 import userMiddleware from "~/middleware/authMiddleware";
 import makeProtectedRouteMiddleware from "~/middleware/protectedRouteMiddleware";
+import protectedRouteMiddleware from "~/middleware/protectedRouteMiddleware";
 
 const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
   createBrowserRouter(
@@ -261,9 +262,7 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                 children: [
                   {
                     index: true,
-                    middleware: [
-                      makeProtectedRouteMiddleware([ROLE_NAME.Applicant]),
-                    ],
+                    middleware: [protectedRouteMiddleware],
                     lazy: () =>
                       import(
                         "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
