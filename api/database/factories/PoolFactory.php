@@ -328,7 +328,7 @@ class PoolFactory extends Factory
             });
 
             for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
-                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement($availableTypes)->name, $i + 1);
+                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement($availableTypes)->name, $i + 3); // 1 and 2 are reserved so start at 3
             }
         });
     }
