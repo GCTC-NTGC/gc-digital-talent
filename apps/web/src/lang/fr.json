@@ -9495,7 +9495,7 @@
     "description": "Description of how to use the form to filter job poster templates"
   },
   "e5N39X": {
-    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>#</b></testId> candidats correspondants} one {<testId><b>#</b></testId> candidats correspondants} other {<testId><b>#</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>#</b> bassins} one {<b>#</b> bassins} other {<b>#</b> bassins} }",
+    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>#</b></testId> candidats correspondants} one {<testId><b>#</b></testId> candidat correspondant} other {<testId><b>#</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>#</b> bassins} one {<b>#</b> bassin} other {<b>#</b> bassins} }",
     "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "e5xrSy": {
