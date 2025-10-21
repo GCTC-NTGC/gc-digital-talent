@@ -71,6 +71,9 @@ import Separator, {
 } from "./components/Separator/Separator";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
+import StatusItem, {
+  Status as StatusItemStatus,
+} from "./components/StatusItem/StatusItem";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import { StepType } from "./components/Stepper/types";
 import Switch, { SwitchProps } from "./components/Switch/Switch";
@@ -128,6 +131,7 @@ export type {
   SeparatorProps,
   SidebarProps,
   SpoilerProps,
+  StatusItemStatus,
   StepperProps,
   StepType,
   SwitchProps,
@@ -191,6 +195,7 @@ export {
   Separator,
   Sidebar,
   Spoiler,
+  StatusItem,
   Stepper,
   Switch,
   TableOfContents,

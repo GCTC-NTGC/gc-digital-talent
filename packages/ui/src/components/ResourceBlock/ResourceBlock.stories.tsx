@@ -4,6 +4,10 @@ import { faker } from "@faker-js/faker/locale/en";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import { RootProps } from "./Root";
+import Ul from "../List/Ul";
+import StatusItem from "../StatusItem/StatusItem";
+import Button from "../Button";
+import Link from "../Link";
 
 import ResourceBlock from "./";
 
@@ -44,11 +48,20 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
         }
         key={colour}
       >
-        <ResourceBlock.SingleLinkItem
-          title={faker.lorem.words(10)}
-          href={faker.internet.url()}
-          description={faker.lorem.paragraph()}
-        />
+        <ResourceBlock.RawContentItem title={faker.lorem.words(10)} as="h3">
+          <Ul unStyled space="sm">
+            <li>
+              <Button mode="text" color="black">
+                <StatusItem status="not done" title="Item 1" />
+              </Button>
+            </li>
+            <li>
+              <Link href="#" color="black">
+                <StatusItem status="locked" title="Item 2" />
+              </Link>
+            </li>
+          </Ul>
+        </ResourceBlock.RawContentItem>
         <ResourceBlock.LinkMenuItem
           links={[
             {
