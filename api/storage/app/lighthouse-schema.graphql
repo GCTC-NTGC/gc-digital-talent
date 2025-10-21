@@ -2151,13 +2151,13 @@ input QualifyCandidateInput {
 
 input PlaceCandidateInput {
   placementType: PlacementType!
-  departmentId: DepartmentBelongsTo!
+  department: DepartmentBelongsTo!
 }
 
 input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
-  departmentId: DepartmentBelongsTo!
+  department: DepartmentBelongsTo!
 }
 
 input CreateDepartmentInput {
@@ -2565,7 +2565,7 @@ input CreatePoolInput {
 }
 
 input DuplicatePoolInput {
-  departmentId: DepartmentBelongsTo
+  department: DepartmentBelongsTo
 }
 
 input CreateGeneralQuestionInput {

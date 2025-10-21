@@ -419,7 +419,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'id' => $this->poolCandidate->id,
                     'poolCandidate' => [
                         'placementType' => PlacementType::PLACED_CASUAL->name,
-                        'departmentId' => ['connect' => $department->id],
+                        'department' => ['connect' => $department->id],
                     ],
                 ]
             )
@@ -486,7 +486,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'id' => $this->poolCandidate->id,
                     'poolCandidate' => [
                         'placementType' => PlacementType::PLACED_CASUAL->name,
-                        'departmentId' => ['connect' => $department->id],
+                        'department' => ['connect' => $department->id],
                     ],
                 ]
             )
@@ -503,7 +503,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'id' => $this->poolCandidate->id,
                     'poolCandidate' => [
                         'placementType' => PlacementType::PLACED_CASUAL->name,
-                        'departmentId' => ['connect' => $department->id],
+                        'department' => ['connect' => $department->id],
                     ],
                 ]
             )->json('data.placeCandidate');

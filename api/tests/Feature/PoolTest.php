@@ -1764,7 +1764,7 @@ class PoolTest extends TestCase
                 }',
                 [
                     'id' => $original->id,
-                    'pool' => ['departmentId' => ['connect' => $department->id]],
+                    'pool' => ['department' => ['connect' => $department->id]],
                 ]
             );
 
