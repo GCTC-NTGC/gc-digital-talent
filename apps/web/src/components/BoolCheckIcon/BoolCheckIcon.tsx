@@ -1,6 +1,6 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import { ReactNode } from "react";
+import { ReactNode, useId } from "react";
 import { tv } from "tailwind-variants";
 
 import { Maybe } from "@gc-digital-talent/graphql";
@@ -35,12 +35,21 @@ const BoolCheckIcon = ({
   className,
   ...rest
 }: BoolCheckIconProps) => {
+  const id = useId();
   const Icon = value ? CheckCircleIcon : XCircleIcon;
   const { base, icon } = boolCheck({ checked: value ?? false });
 
   return (
     <div className={base({ class: className })} {...rest}>
-      <Icon className={icon()} aria-label={value ? trueLabel : falseLabel} />
+      <span hidden id={id}>
+        {value ? trueLabel : falseLabel}
+      </span>
+      <Icon
+        className={icon()}
+        role="img"
+        aria-hidden="false"
+        aria-labelledby={id}
+      />
       <span>{children}</span>
     </div>
   );
