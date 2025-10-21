@@ -144,7 +144,7 @@
     "description": "Heading for the digital government job opportunities"
   },
   "+cS81c": {
-    "defaultMessage": "{total, plural, =0 {0 résultats trouvés} one {# résultat trouvé} other { # résultats trouvés}}",
+    "defaultMessage": "{total, plural, =0 {0 résultat trouvé} one {# résultat trouvé} other { # résultats trouvés}}",
     "description": "Message announced to assistive technology when number of items in a table changes"
   },
   "+cn9MN": {
@@ -568,7 +568,7 @@
     "description": "Application step for skill requirements, introduction, description, paragraph two"
   },
   "0NKan4": {
-    "defaultMessage": "{count, plural, =0 {0 expériences} one {# expérience} other {# expériences}}",
+    "defaultMessage": "{count, plural, =0 {0 expérience} one {# expérience} other {# expériences}}",
     "description": "Number of experiences linked to a skill"
   },
   "0NbdGD": {
@@ -2940,7 +2940,7 @@
     "description": "Heading for Frequently Asked Questions section on sign in page"
   },
   "AVlXEr": {
-    "defaultMessage": "{count, plural, =0 {0 éléments sélectionnés} one {# élément sélectionné} other {# éléments sélectionnés}}",
+    "defaultMessage": "{count, plural, =0 {0 élément sélectionné} one {# élément sélectionné} other {# éléments sélectionnés}}",
     "description": "Message displayed for the number of rows selected in a table"
   },
   "AWk4BX": {
@@ -4444,7 +4444,7 @@
     "description": "Title for action to remove a candidate infinitive"
   },
   "HYUyl0": {
-    "defaultMessage": "{count, plural, =0 {0 demandes} one {# demande} other {# demandes}}",
+    "defaultMessage": "{count, plural, =0 {0 demande} one {# demande} other {# demandes}}",
     "description": "The number of applicants to a specific process"
   },
   "HYeViW": {
@@ -9479,7 +9479,7 @@
     "description": "Description of how to use the form to filter job poster templates"
   },
   "e5N39X": {
-    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>#</b></testId> candidats correspondants} one {<testId><b>#</b></testId> candidat correspondant} other {<testId><b>#</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>#</b> bassins} one {<b>#</b> bassin} other {<b>#</b> bassins} }",
+    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>#</b></testId> candidat correspondant} one {<testId><b>#</b></testId> candidat correspondant} other {<testId><b>#</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>#</b> bassin} one {<b>#</b> bassin} other {<b>#</b> bassins} }",
     "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "e5xrSy": {
