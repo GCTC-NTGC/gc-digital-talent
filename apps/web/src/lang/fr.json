@@ -2075,6 +2075,10 @@
     "defaultMessage": "Étape {stepNumber}",
     "description": "Number of a specific step"
   },
+  "6lfcJc": {
+    "defaultMessage": "Dernière connexion",
+    "description": "Label for last time user signed in"
+  },
   "6mCorq": {
     "defaultMessage": "La valeur doit correspondre au nom au complet de l'utilisateur : {name}",
     "description": "Placeholder text for user name input in the delete user dialog"
@@ -6426,6 +6430,10 @@
   "QXB3EX": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
     "description": "Body of a note describing that a pool is only open to employees at-level"
+  },
+  "QXIC/M": {
+    "defaultMessage": "Précisions sur les activités",
+    "description": "Title of admin user activity details section"
   },
   "QXiUo/": {
     "defaultMessage": "Pour commencer",
