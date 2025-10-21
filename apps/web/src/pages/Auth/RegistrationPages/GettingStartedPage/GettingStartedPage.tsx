@@ -15,7 +15,7 @@ import profileMessages from "~/messages/profileMessages";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
-import messages from "./messages";
+import messages from "../messages";
 import GettingStartedForm, {
   FormValues,
   sectionTitle as gettingStartedSectionTitle,
@@ -69,7 +69,7 @@ const GettingStartedPage = () => {
     crumbs: [
       {
         label: intl.formatMessage(messages.breadcrumb),
-        url: paths.gettingStarted(),
+        url: paths.registrationAccount(),
       },
     ],
   });
@@ -122,7 +122,7 @@ const GettingStartedPage = () => {
 
     // finally, navigate away
     await navigate({
-      pathname: paths.employeeInformation(),
+      pathname: paths.registrationExperience(),
       search: from ? createSearchParams({ from }).toString() : "",
     });
   };

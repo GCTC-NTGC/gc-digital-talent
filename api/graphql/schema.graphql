@@ -41,6 +41,8 @@ type UserAuthInfo {
   roleAssignments: [RoleAssignment] @hasMany
   createdDate: DateTime @rename(attribute: "created_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  updatedDate: DateTime @rename(attribute: "updated_at")
+  lastSignInDate: DateTime @rename(attribute: "last_sign_in_at")
 }
 
 type User {

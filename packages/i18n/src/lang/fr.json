@@ -859,6 +859,10 @@
     "defaultMessage": "Désignation professionnelle",
     "description": "Option for education requirement, professional designation"
   },
+  "TgQyrU": {
+    "defaultMessage": "Créé",
+    "description": "Label for a created at date"
+  },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"

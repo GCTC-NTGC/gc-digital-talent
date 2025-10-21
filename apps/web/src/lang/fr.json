@@ -1011,10 +1011,6 @@
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
     "description": "Title for community dashboard on the talent cloud admin portal."
   },
-  "2HGCCF": {
-    "defaultMessage": "Nous utilisons également cette information pour vous offrir une expérience plus contextualisée, y compris des recommandations de possibilités fondées sur votre situation de l'emploi, votre classification, et plus encore.",
-    "description": "Message after main heading in employee information page - paragraph 2."
-  },
   "2HNbTn": {
     "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
     "description": "Description of the 'Training and development opportunities' section"
@@ -1599,10 +1595,6 @@
     "defaultMessage": "(Aucun fourni)",
     "description": "Message displayed when a given field has no values to display, that no information is present."
   },
-  "4bjh8X": {
-    "defaultMessage": "Erreur : utilisateur introuvable",
-    "description": "Message displayed to user if user is not found"
-  },
   "4cN/oN": {
     "defaultMessage": "Pour la raison suivante",
     "description": "Lead in text for a decisions reason"
@@ -2074,6 +2066,10 @@
   "6lcN/j": {
     "defaultMessage": "Étape {stepNumber}",
     "description": "Number of a specific step"
+  },
+  "6lfcJc": {
+    "defaultMessage": "Dernière connexion",
+    "description": "Label for last time user signed in"
   },
   "6mCorq": {
     "defaultMessage": "La valeur doit correspondre au nom au complet de l'utilisateur : {name}",
@@ -3478,10 +3474,6 @@
   "CxZGd2": {
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for government of canada email input in the request form"
-  },
-  "CylcP4": {
-    "defaultMessage": "Ministère d'attache",
-    "description": "Label for department select input in Employee Info Form"
   },
   "CzK1qY": {
     "defaultMessage": "Supprimé",
@@ -5183,10 +5175,6 @@
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
   },
-  "KtXvdO": {
-    "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
-    "description": "Message on getting started page about the contact email address - part 1."
-  },
   "Kv7YgK": {
     "defaultMessage": "Votre rôle",
     "description": "Label for the role of the user submitting a nomination"
@@ -5855,10 +5843,6 @@
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
   },
-  "NpznI5": {
-    "defaultMessage": "Sauvegarder et ignorer la confirmation",
-    "description": "Button label for submit and skip email verification button on getting started form."
-  },
   "NxrKpM": {
     "defaultMessage": "Statut de la candidature",
     "description": "Label for the candidacy status field"
@@ -6426,6 +6410,10 @@
   "QXB3EX": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
     "description": "Body of a note describing that a pool is only open to employees at-level"
+  },
+  "QXIC/M": {
+    "defaultMessage": "Précisions sur les activités",
+    "description": "Title of admin user activity details section"
   },
   "QXiUo/": {
     "defaultMessage": "Pour commencer",
@@ -7091,10 +7079,6 @@
     "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
     "description": "title for a list of fund objectives"
   },
-  "Td2+oC": {
-    "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
-    "description": "Label displayed for is a government employee option"
-  },
   "Tf8eTw": {
     "defaultMessage": "Ce rôle n’avait aucun lien avec le gouvernement du Canada.",
     "description": "Description for the external employment category option in work experience"
@@ -7485,10 +7469,6 @@
   "VYzAZy": {
     "defaultMessage": "Ce processus est à <heavyWarning>l'étape d’ébauche</heavyWarning> et n'a pas encore été annoncé.",
     "description": "Message displayed to admins when a process is in draft mode"
-  },
-  "VZnDzi": {
-    "defaultMessage": "Nous aimerions maintenant savoir si vous êtes actuellement employé(e) du gouvernement du Canada. Nous recueillons cette information parce qu'elle nous aide à comprendre, de manière globale, comment les compétences numériques sont réparties entre les différents ministères.",
-    "description": "Message after main heading in employee information page - paragraph 1."
   },
   "VaToft": {
     "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
@@ -8642,6 +8622,10 @@
     "defaultMessage": "Lien entre la personne candidate et l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominee's relation to the person nominating them"
   },
+  "aZESX1": {
+    "defaultMessage": "Sauter cette étape",
+    "description": "label to skip this step"
+  },
   "aZEnPH": {
     "defaultMessage": "En savoir plus sur le poste que cet employé souhaite occuper pour atteindre son objectif professionnel principal.",
     "description": "Subtitle for dialog viewing career objective info for employees"
@@ -9495,7 +9479,7 @@
     "description": "Description of how to use the form to filter job poster templates"
   },
   "e5N39X": {
-    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>#</b></testId> candidats correspondants} one {<testId><b>#</b></testId> candidats correspondants} other {<testId><b>#</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>#</b> bassins} one {<b>#</b> bassins} other {<b>#</b> bassins} }",
+    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>#</b></testId> candidats correspondants} one {<testId><b>#</b></testId> candidat correspondant} other {<testId><b>#</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>#</b> bassins} one {<b>#</b> bassin} other {<b>#</b> bassins} }",
     "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "e5xrSy": {
@@ -9997,6 +9981,10 @@
   "g3DJi0": {
     "defaultMessage": "Utilisez le bouton « Créer un modèle » pour commencer.",
     "description": "Instructions for adding a job poster template item."
+  },
+  "g3vPKp": {
+    "defaultMessage": "Pour amorcer la création de votre profil, parlez nous de votre dernier emploi. Si vous n'êtes pas encore en mesure de le faire, vous pouvez sauter cette étape à la fin du formulaire.",
+    "description": "Description for Add your work experience section"
   },
   "g4F/WB": {
     "defaultMessage": "Favoris du processus retirés.",
@@ -10740,10 +10728,6 @@
   "jAWP0X": {
     "defaultMessage": "Exigence",
     "description": "Header for requirement section of assessment results table"
-  },
-  "jBjIJT": {
-    "defaultMessage": "En fournissant et en vérifiant votre adresse courriel professionnelle, vous aurez accès à des outils, à des caractéristiques et à des occasions propres aux employés. Il peut être nécessaire de reconfirmer les adresses courriel professionnelles périodiquement. Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à communiquer avec nous.",
-    "description": "Message on getting started page about the contact email address - part 2."
   },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
@@ -11701,10 +11685,6 @@
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Education requirement (IT Apprenticeship Program for Indigenous Peoples)"
   },
-  "nWy6LP": {
-    "defaultMessage": "Veuillez indiquer votre groupe et votre niveau de classification du poste d'attache actuels. Si vous occupez un poste intérimaire, cela signifie que vous devez sélectionner votre classification et votre niveau d'origine avant d'occuper le poste intérimaire.",
-    "description": "Text blurb, asking about classification and level in the employee info page"
-  },
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
@@ -11892,10 +11872,6 @@
   "oN9syr": {
     "defaultMessage": "Votre demande n'a pas été retenue. Pour les offres d'emploi internes au gouvernement du Canada, vous pouvez demander d'avoir une conversation informelle concernant cette décision. Pour ce faire, veuillez écrire au ministère ou à l'équipe de recrutement responsable de la publication de l'offre d'emploi à l'adresse <link>{contactEmail}</link>.",
     "description": "Status description for a disqualified application to an employee-only pool"
-  },
-  "oPXTG/": {
-    "defaultMessage": "Statut de l'employé(e)",
-    "description": "Employee Status in Employee Info Form"
   },
   "oR+6vE": {
     "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
@@ -13141,10 +13117,6 @@
     "defaultMessage": "Partie 1 : Création d’un compte CléGC",
     "description": "Heading for section of the sign up page showing the create steps"
   },
-  "uA8hbm": {
-    "defaultMessage": "Renseignements sur l'employé(e)",
-    "description": "Main heading in employee information page."
-  },
   "uD105N": {
     "defaultMessage": "Non lus",
     "description": "Link text to show all unread items in a list"
@@ -13312,6 +13284,10 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
+  },
+  "v1dIUn": {
+    "defaultMessage": "Ajouter votre expérience de travail la plus récente",
+    "description": "Section title for the Add work experience section."
   },
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
@@ -14105,10 +14081,6 @@
     "defaultMessage": "La gestion des fonctions de la plateforme est assurée par différentes personnes assumant certains rôles et possédant certaines autorisations, avec un accès limité aux données personnelles en fonction des besoins.",
     "description": "Paragraph two, describing managing platform functionalities"
   },
-  "yUSG9Z": {
-    "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
-    "description": "Label displayed for is not a government employee option"
-  },
   "yV/mQS": {
     "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classificationString} ou un équivalent organisationnel dans leur poste d'attache.",
     "description": "At-level application criteria"
@@ -14284,10 +14256,6 @@
   "zAl7ZH": {
     "defaultMessage": "Michif",
     "description": "Name of Michif language"
-  },
-  "zAqJMe": {
-    "defaultMessage": "Créé",
-    "description": "Title displayed on the Pool table Date Created column"
   },
   "zCjdD9": {
     "defaultMessage": "Nommez des talents pour des programmes d'avancement, de mutation latérale ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",

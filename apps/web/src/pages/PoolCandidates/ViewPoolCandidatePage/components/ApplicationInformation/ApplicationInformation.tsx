@@ -175,7 +175,13 @@ const ApplicationInformation = ({
     <>
       <div className="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
         {/** Note: Change to `margin-bottom` when application screening is added  */}
-        <Heading icon={UserCircleIcon} color="secondary" className="m-0">
+        <Heading
+          icon={UserCircleIcon}
+          color="secondary"
+          className="m-0"
+          level="h2"
+          size="h3"
+        >
           {intl.formatMessage({
             defaultMessage: "Application information",
             id: "R/z71a",
