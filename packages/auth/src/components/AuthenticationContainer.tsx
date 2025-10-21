@@ -44,7 +44,7 @@ interface logoutAndRefreshPageParameters {
   // the "end session" URI of the auth provider
   logoutUri: string;
   // the logout landing page of our app (whitelisted)
-  postLogoutRedirectUri: string;
+  postLogoutRedirectUri?: string;
   // if we want to go to another path else after logout
   postLogoutOverridePath?: string;
   // a function to broadcast the logout event to other tabs
@@ -119,9 +119,11 @@ const logoutAndRefreshPage = ({
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
     window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}&id_token_hint=${idToken}`;
-  } else {
+  } else if (postLogoutRedirectUri) {
     // at least a hard refresh to URI to restart react app
     window.location.href = postLogoutRedirectUri;
+  } else {
+    window.location.reload();
   }
 };
 
@@ -275,7 +277,6 @@ const AuthenticationContainer = ({
           logger.notice("Failed to refresh auth state.");
           logoutAndRefreshPage({
             logoutUri,
-            postLogoutRedirectUri,
             logoutReason: "session-expired",
           });
         }
