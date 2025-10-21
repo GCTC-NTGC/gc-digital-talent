@@ -580,7 +580,7 @@
     "description": "The behavioural skill level for beginner"
   },
   "KeleaV": {
-    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultat équivalent} one {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> option disponible} one {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
+    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultat équivalent} one {<strong>1</strong> résultat équivalent} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> option disponible} one {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
     "description": "Message showing number of matching items from all available options in combobox menu"
   },
   "Ko0JX/": {
