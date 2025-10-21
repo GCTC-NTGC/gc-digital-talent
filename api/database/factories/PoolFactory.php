@@ -323,9 +323,7 @@ class PoolFactory extends Factory
 
             // Only select from steps that do not appear in the first two positions
             // First position created automatically, second step should be created via `withQuestions`
-            $availableTypes = array_filter(AssessmentStepType::cases(), function ($item) {
-                return $item !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION;
-            });
+            $availableTypes = AssessmentStepType::uncontrolledStepTypes();
 
             for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
                 $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement($availableTypes)->name, $i + 3); // 1 and 2 are reserved so start at 3
