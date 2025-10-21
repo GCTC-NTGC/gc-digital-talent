@@ -160,8 +160,6 @@ const StatusItem = ({
   let effectiveIconColor = iconColor;
   switch (status) {
     case "optional":
-      effectiveIconColor = "primary";
-      break;
     case "not done":
     case "locked":
       effectiveIconColor = "black";

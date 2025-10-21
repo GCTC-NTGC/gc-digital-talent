@@ -6,6 +6,9 @@ import {
   ResourceBlock,
   NotFound,
   Container,
+  Ul,
+  StatusItem,
+  Link,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
@@ -221,24 +224,24 @@ export const DashboardPage = ({
     governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
     languageInformationSectionHasEmptyRequiredFields(currentUser) ||
     workPreferencesSectionHasEmptyRequiredFields(currentUser)
-      ? "incomplete"
-      : "complete";
+      ? "error"
+      : "success";
 
   const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
     currentUser?.employeeProfile ?? {},
   )
-    ? "incomplete"
-    : "complete";
+    ? "error"
+    : "success";
 
   const careerExperienceState =
     currentUser.experiences && currentUser.experiences?.length > 0
-      ? "complete"
-      : "incomplete";
+      ? "success"
+      : "error";
 
   const skillsPortfolioState =
     currentUser.userSkills && currentUser.userSkills?.length > 0
-      ? "complete"
-      : "incomplete";
+      ? "success"
+      : "optional";
 
   return (
     <>
@@ -303,87 +306,118 @@ export const DashboardPage = ({
                 headingColor="warning"
                 headingAs="h2"
                 title={intl.formatMessage({
-                  defaultMessage: "Your information",
-                  id: "Jlk0bi",
-                  description: "Card title for a 'your information' card",
+                  defaultMessage: "Your account",
+                  id: "1EPYob",
+                  description: "Card title for a 'your account' resource card",
                 })}
               >
-                <ResourceBlock.SingleLinkItem
-                  as="h3"
-                  state={personalInformationState}
+                <ResourceBlock.RawContentItem
                   title={intl.formatMessage({
-                    defaultMessage: "Personal information",
-                    id: "g8Ur9z",
-                    description:
-                      "applicant dashboard card title for profile card",
+                    defaultMessage: "Applicant profile",
+                    id: "UV4T7x",
+                    description: "Name of a resource block in 'Your account'",
                   })}
-                  href={paths.profile()}
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Name, contact info, employment equity, language proficiency, and work preferences.",
-                    id: "aDCqiX",
-                    description:
-                      "Helper instructions for an 'Personal information' card",
+                  as="h3"
+                >
+                  <Ul unStyled space="sm" className="mt-3">
+                    <li>
+                      <Link href={paths.profile()} color="black">
+                        <StatusItem
+                          status={personalInformationState}
+                          title={intl.formatMessage({
+                            defaultMessage: "Personal information",
+                            id: "g8Ur9z",
+                            description:
+                              "applicant dashboard card title for profile card",
+                          })}
+                        />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href={paths.careerTimeline()} color="black">
+                        <StatusItem
+                          status={careerExperienceState}
+                          title={intl.formatMessage(
+                            navigationMessages.careerExperience,
+                          )}
+                        />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href={paths.skillPortfolio()} color="black">
+                        <StatusItem
+                          status={skillsPortfolioState}
+                          title={intl.formatMessage(
+                            navigationMessages.skillPortfolio,
+                          )}
+                        />
+                      </Link>
+                    </li>
+                  </Ul>
+                </ResourceBlock.RawContentItem>
+
+                <ResourceBlock.RawContentItem
+                  title={intl.formatMessage({
+                    defaultMessage: "GC employee profile",
+                    id: "MkyQ1t",
+                    description: "Name of a resource block in 'Your account'",
                   })}
-                />
-                {currentUser?.isVerifiedGovEmployee ? (
-                  <ResourceBlock.SingleLinkItem
-                    as="h3"
-                    state={employeeProfileState}
-                    title={intl.formatMessage(
-                      navigationMessages.employeeProfileGC,
-                    )}
-                    href={paths.employeeProfile()}
-                    description={intl.formatMessage({
-                      defaultMessage:
-                        "Career development preferences and career goals.",
-                      id: "GBfPU+",
-                      description:
-                        "Helper instructions for an 'employee profile' card",
-                    })}
-                  />
-                ) : null}
+                  as="h3"
+                >
+                  <Ul unStyled space="sm" className="mt-3">
+                    <li>
+                      <Link href={paths.employeeProfile()} color="black">
+                        <StatusItem
+                          // TODO
+                          status={"success"}
+                          title={intl.formatMessage({
+                            defaultMessage: "Employee verification",
+                            id: "VpjQL1",
+                            description:
+                              "Label for status of employee verification",
+                          })}
+                        />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href={paths.employeeProfile()} color="black">
+                        <StatusItem
+                          // TODO
+                          status={"success"}
+                          title={intl.formatMessage({
+                            defaultMessage: "Functional communities",
+                            id: "QuVtMh",
+                            description:
+                              "Label for functional communities field",
+                          })}
+                        />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href={paths.employeeProfile()} color="black">
+                        <StatusItem
+                          status={employeeProfileState}
+                          title={intl.formatMessage(
+                            commonMessages.careerPlanning,
+                          )}
+                        />
+                      </Link>
+                    </li>
+                  </Ul>
+                </ResourceBlock.RawContentItem>
+
                 <ResourceBlock.SingleLinkItem
                   as="h3"
-                  state={careerExperienceState}
-                  title={intl.formatMessage(
-                    navigationMessages.careerExperience,
-                  )}
-                  href={paths.careerTimeline()}
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Work, education, volunteering, awards, and more.",
-                    id: "RSUZix",
-                    description:
-                      "Helper instructions for an 'Career experience' card",
+                  title={intl.formatMessage({
+                    defaultMessage: "Settings and privacy",
+                    id: "6I6YTz",
+                    description: "Link to the account settings page",
                   })}
-                />
-                <ResourceBlock.SingleLinkItem
-                  as="h3"
-                  state={skillsPortfolioState}
-                  title={intl.formatMessage(navigationMessages.skillPortfolio)}
-                  href={paths.skillPortfolio()}
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Manage skills and edit top skills or skills you'd like to learn.",
-                    id: "NUrFMU",
-                    description:
-                      "Helper instructions for an 'Skills portfolio' card",
-                  })}
-                />
-                <ResourceBlock.SingleLinkItem
-                  as="h3"
-                  state={
-                    aboutSectionHasEmptyRequiredFields(currentUser)
-                      ? "incomplete"
-                      : "complete"
-                  }
-                  title={intl.formatMessage(navigationMessages.accountSettings)}
                   href={paths.accountSettings()}
                   description={intl.formatMessage({
                     defaultMessage:
-                      "Learn about GCKey and manage notifications.",
-                    id: "dj+m3H",
+                      "Name, contact info, privacy settings, notifications, and more.",
+                    id: "zniUBO",
                     description:
                       "Helper instructions for an 'Account settings' card",
                   })}
