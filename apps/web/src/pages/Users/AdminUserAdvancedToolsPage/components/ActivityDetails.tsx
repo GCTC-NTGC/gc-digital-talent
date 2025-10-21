@@ -4,6 +4,7 @@ import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Card, TableOfContents } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -45,7 +46,13 @@ const ActivityDetails = ({ query }: ActivityDetailsProps) => {
       </TableOfContents.Heading>
       <Card className="grid gap-6 sm:grid-cols-3">
         <FieldDisplay label={intl.formatMessage(commonMessages.created)}>
-          {user.authInfo?.createdDate ?? notAvailable}
+          {user.authInfo?.createdDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.authInfo.createdDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : notAvailable}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
@@ -54,10 +61,22 @@ const ActivityDetails = ({ query }: ActivityDetailsProps) => {
             description: "Label for last time user signed in",
           })}
         >
-          {user.authInfo?.lastSignInDate ?? notAvailable}
+          {user.authInfo?.lastSignInDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.authInfo.lastSignInDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : notAvailable}
         </FieldDisplay>
         <FieldDisplay label={intl.formatMessage(commonMessages.updated)}>
-          {user.authInfo?.updatedDate ?? notAvailable}
+          {user.authInfo?.updatedDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.authInfo.updatedDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : notAvailable}
         </FieldDisplay>
       </Card>
     </TableOfContents.Section>
