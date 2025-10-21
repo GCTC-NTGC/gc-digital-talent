@@ -708,6 +708,8 @@ type UserAuthInfo {
   roleAssignments: [RoleAssignment]
   createdDate: DateTime
   deletedDate: DateTime
+  updatedDate: DateTime
+  lastSignInDate: DateTime
 }
 
 type User {

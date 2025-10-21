@@ -341,7 +341,9 @@ export const getExperienceFormLabels = (
 /**
  * Massages the form values to a shape
  * that can we can POST to the API in
- * a mutation
+ * a mutation.
+ *
+ * A simpler copy exists for just creating a work experience in apps/web/src/pages/Auth/RegistrationPages/EmployeeInformationPage/EmployeeInformationPage.tsx with no skills.
  *
  * @param type  ExperienceType
  * @param data  ExperienceFormValues<AllExperienceFormValues>

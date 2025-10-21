@@ -267,16 +267,17 @@ export const ViewPoolCandidate = ({
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <div className="mb-6">
-              <Heading
-                icon={ExclamationTriangleIcon}
-                color="warning"
-                className="mt-0 mb-6"
-              >
-                {intl.formatMessage(screeningAndAssessmentTitle)}
-              </Heading>
-              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
-            </div>
+            <Heading
+              icon={ExclamationTriangleIcon}
+              color="warning"
+              className="mt-0 mb-6 items-center"
+              level="h2"
+              size="h3"
+            >
+              {intl.formatMessage(screeningAndAssessmentTitle)}
+            </Heading>
+            <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
+
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
               <div className="mt-12">

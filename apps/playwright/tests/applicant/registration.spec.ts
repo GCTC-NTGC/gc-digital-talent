@@ -65,11 +65,66 @@ test.describe("Registration", () => {
       .getByRole("button", { name: /save and continue/i })
       .click();
 
-    // end up on the next page successfully
+    // end up on the Add your recent experience page successfully
     await expect(
       appPage.page.getByRole("heading", {
-        name: /employee information/i,
+        name: /add your most recent work experience/i,
         level: 2,
+      }),
+    ).toBeVisible();
+
+    await appPage.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill("test role");
+
+    await appPage.page
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", { name: /external organization/i })
+      .click();
+
+    await appPage.page
+      .getByRole("textbox", { name: /organization/i })
+      .fill("test organization");
+
+    await appPage.page
+      .getByRole("textbox", { name: /team/i })
+      .fill("test team");
+
+    await appPage.page
+      .getByRole("group", { name: /size/i })
+      // this is escaped in the regex, not js
+      // eslint-disable-next-line no-useless-escape
+      .getByRole("radio", { name: /1\-35/i })
+      .click();
+
+    await appPage.page
+      .getByRole("group", { name: /seniority/i })
+      .getByRole("radio", { name: /intern/i })
+      .click();
+
+    const startDate = appPage.page.getByRole("group", {
+      name: /start date/i,
+    });
+    await startDate.getByRole("spinbutton", { name: /year/i }).fill("2000");
+    await startDate
+      .getByRole("combobox", { name: /month/i })
+      .selectOption("01");
+
+    const endDate = appPage.page.getByRole("group", {
+      name: /end date/i,
+    });
+    await endDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
+    await endDate.getByRole("combobox", { name: /month/i }).selectOption("01");
+
+    await appPage.page
+      .getByRole("button", { name: /save and continue/i })
+      .click();
+
+    // end up on the dashboard page successfully
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: /welcome back/i,
+        level: 1,
       }),
     ).toBeVisible();
   });

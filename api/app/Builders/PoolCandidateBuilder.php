@@ -556,7 +556,9 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
-        return $this->whereIn('assessment_step', $sortOrder);
+        return $this->whereHas('assessmentStep', function (Builder $query) use ($sortOrder) {
+            $query->whereIn('sort_order', $sortOrder);
+        });
     }
 
     public function orderByClaimVerification(?array $args): self
