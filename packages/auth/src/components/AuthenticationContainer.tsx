@@ -118,7 +118,7 @@ const logoutAndRefreshPage = ({
   broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}&id_token_hint=${idToken}`;
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri ?? window.location.href)}&id_token_hint=${idToken}`;
   } else if (postLogoutRedirectUri) {
     // at least a hard refresh to URI to restart react app
     window.location.href = postLogoutRedirectUri;
@@ -253,6 +253,7 @@ const AuthenticationContainer = ({
         const response = await fetch(
           `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
         );
+        console.log(response);
         if (response.ok) {
           const responseBody: TokenRefreshResponseBody =
             (await response.json()) as TokenRefreshResponseBody;
