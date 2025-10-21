@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Client, gql, OperationContext, useQuery } from "urql";
+import { Client, OperationContext, useQuery } from "urql";
 import { LoaderFunctionArgs, useLoaderData } from "react-router";
 
 import {
@@ -8,7 +8,7 @@ import {
   NotFound,
   Container,
 } from "@gc-digital-talent/ui";
-import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   graphql,
   getFragment,
@@ -18,12 +18,11 @@ import {
   Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
 import {
@@ -37,7 +36,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
 import { graphqlClientContext } from "~/middleware/graphqlClientMiddleware";
 import { RouteContext } from "~/middleware/routeContext";
-import { guardByRoles, userContext } from "~/middleware/authMiddleware";
+import { guardByRoles } from "~/middleware/authMiddleware";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
