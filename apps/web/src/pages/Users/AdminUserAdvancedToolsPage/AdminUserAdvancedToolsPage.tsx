@@ -31,12 +31,17 @@ import SupportTools, {
 import RolePermissions, {
   ROLE_PERMISSIONS_ID,
 } from "./components/RolesAndPermissions";
+import ActivityDetails, {
+  ACTIVITY_DETAILS_ID,
+  activityDetailsTitle,
+} from "./components/ActivityDetails";
 
 const AdminUserAdvancedTools_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserAdvancedTools on User {
     id
     ...AccountInformationForm
     ...AdminUserSupportTools
+    ...UserActivityDetails
     ...UserRoleTable
   }
 `);
@@ -75,6 +80,11 @@ const AdminUserAdvancedTools = ({
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={ACTIVITY_DETAILS_ID}>
+                {intl.formatMessage(activityDetailsTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
               <TableOfContents.AnchorLink id={SUPPORT_TOOLS_ID}>
                 {intl.formatMessage(supportToolsTitle)}
               </TableOfContents.AnchorLink>
@@ -88,6 +98,7 @@ const AdminUserAdvancedTools = ({
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <AccountInformation query={user} optionsQuery={options} />
+          <ActivityDetails query={user} />
           <SupportTools query={user} />
           <RolePermissions query={user} optionsQuery={options} />
         </TableOfContents.Content>

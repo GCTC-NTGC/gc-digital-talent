@@ -578,6 +578,11 @@ const commonMessages = defineMessages({
     id: "SyFJmn",
     description: "Label for an updated at date",
   },
+  created: {
+    defaultMessage: "Created",
+    id: "TgQyrU",
+    description: "Label for a created at date",
+  },
 });
 
 export default commonMessages;
