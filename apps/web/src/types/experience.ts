@@ -177,7 +177,7 @@ export interface ExperienceDetailsSubmissionData {
   employmentCategory?: EmploymentCategory | null;
   extSizeOfOrganization?: ExternalSizeOfOrganization | null;
   extRoleSeniority?: ExternalRoleSeniority | null;
-  departmentId?: DepartmentBelongsTo | null;
+  department?: DepartmentBelongsTo | null;
   classificationId?: string | null;
   govEmploymentType?: GovEmployeeType | null;
   govPositionType?: GovPositionType | null;

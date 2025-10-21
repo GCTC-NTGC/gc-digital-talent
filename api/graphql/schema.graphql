@@ -2603,9 +2603,7 @@ input WorkExperienceInput {
   cafForce: CafForce @rename(attribute: "caf_force")
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
-  departmentId: DepartmentBelongsTo
-    @pluck(key: "connect")
-    @rename(attribute: "department_id")
+  department: DepartmentBelongsTo
   workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
   supervisedEmployees: Boolean @rename(attribute: "supervised_employees")

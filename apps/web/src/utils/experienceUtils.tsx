@@ -443,7 +443,7 @@ export const formValuesToSubmitData = (
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,
-      departmentId: departmentId ? { connect: departmentId } : null,
+      department: departmentId ? { connect: departmentId } : null,
       govEmploymentType,
       govPositionType,
       govContractorRoleSeniority,

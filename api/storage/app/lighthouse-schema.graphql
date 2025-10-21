@@ -2453,7 +2453,7 @@ input WorkExperienceInput {
   cafForce: CafForce
   cafRank: CafRank
   classificationId: String
-  departmentId: DepartmentBelongsTo
+  department: DepartmentBelongsTo
   workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
