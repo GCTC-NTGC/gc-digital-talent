@@ -253,7 +253,6 @@ const AuthenticationContainer = ({
         const response = await fetch(
           `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
         );
-        console.log(response);
         if (response.ok) {
           const responseBody: TokenRefreshResponseBody =
             (await response.json()) as TokenRefreshResponseBody;
