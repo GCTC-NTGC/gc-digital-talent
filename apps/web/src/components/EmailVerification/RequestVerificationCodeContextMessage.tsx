@@ -20,7 +20,7 @@ const RequestVerificationCodeContextMessage = () => {
   switch (message) {
     case "request-sent":
       return (
-        <Well color="success">
+        <Well color="success" id="unsaved-emailAddress">
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Verification email sent!",
@@ -42,7 +42,7 @@ const RequestVerificationCodeContextMessage = () => {
       );
     case "throttled":
       return (
-        <Well color="error">
+        <Well color="error" id="unsaved-emailAddress">
           <p>
             {intl.formatMessage(
               {
@@ -63,7 +63,7 @@ const RequestVerificationCodeContextMessage = () => {
       );
     case "address-changed":
       return (
-        <Well color="error">
+        <Well color="error" id="unsaved-emailAddress">
           <p>
             {intl.formatMessage({
               defaultMessage:
