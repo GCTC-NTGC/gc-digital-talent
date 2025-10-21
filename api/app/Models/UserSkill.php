@@ -33,7 +33,7 @@ class UserSkill extends Model
 
     protected $keyType = 'string';
 
-    protected $touches = ['post'];
+    protected $touches = ['user'];
 
     protected $casts = [
         'top_skills_rank' => 'integer',

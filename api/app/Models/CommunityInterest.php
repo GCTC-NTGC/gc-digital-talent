@@ -36,7 +36,7 @@ class CommunityInterest extends Model
 
     protected $keyType = 'string';
 
-    protected $touches = ['post'];
+    protected $touches = ['user'];
 
     /**
      * The attributes that should be cast.
