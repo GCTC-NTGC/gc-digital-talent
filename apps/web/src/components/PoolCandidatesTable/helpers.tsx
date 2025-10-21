@@ -501,7 +501,7 @@ export function transformFormValuesToFilterState(
         }),
       },
       pools: data.pools.flatMap((id) => ({ id })),
-      skills: data.pools.flatMap((id) => ({ id })),
+      skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
     },
     poolCandidateStatus: data.poolCandidateStatus,
