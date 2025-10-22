@@ -1,11 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
 import { faker } from "@faker-js/faker/locale/en";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import TaskCard from "./TaskCard";
 import Well from "../Well/Well";

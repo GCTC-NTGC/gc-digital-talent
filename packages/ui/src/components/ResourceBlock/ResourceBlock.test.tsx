@@ -1,11 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
 import { composeStories } from "@storybook/react-vite";
 import { ComponentProps } from "react";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import * as stories from "./ResourceBlock.stories";
 import { RootProps } from "./Root";

@@ -1,12 +1,11 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { ComponentPropsWithoutRef, useState } from "react";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import Button from "../Button";
 import DropdownMenu from "./DropdownMenu";
@@ -71,14 +70,6 @@ const renderDropdownMenu = (
 
 describe("DropdownMenu", () => {
   const user = userEvent.setup();
-
-  window.ResizeObserver =
-    window.ResizeObserver ||
-    jest.fn().mockImplementation(() => ({
-      disconnect: jest.fn(),
-      observe: jest.fn(),
-      unobserve: jest.fn(),
-    }));
 
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderDropdownMenu({});
