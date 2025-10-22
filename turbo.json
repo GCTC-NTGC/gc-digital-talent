@@ -132,6 +132,12 @@
     "test": {
       "outputLogs": "new-only"
     },
+    "test:coverage": {
+      "outputLogs": "new-only"
+    },
+    "test:watch": {
+      "outputLogs": "new-only"
+    },
     "clean": {
       "cache": false
     },

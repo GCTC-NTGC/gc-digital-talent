@@ -32,6 +32,8 @@
     "storybook:web": "pnpm --filter @gc-digital-talent/web run storybook:web",
     "build-storybook": "storybook build",
     "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "test:coverage": "pnpm vitest run",
     "watch": "turbo run watch --filter @gc-digital-talent/web --filter @gc-digital-talent/graphql",
     "e2e:playwright": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright",
     "e2e:playwright:chromium": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:chromium",
@@ -44,10 +46,13 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
+    "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@storybook/addon-a11y": "^9.1.8",
     "@storybook/react-vite": "^9.1.8",
+    "@vitest/coverage-v8": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.7.0",
     "storybook": "^9.1.8",
-    "turbo": "^2.5.8"
+    "turbo": "^2.5.8",
+    "vitest": "^3.2.4"
   }
 }

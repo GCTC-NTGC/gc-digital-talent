@@ -1,18 +1,18 @@
-name: Jest
+name: Vitest
 
 on:
   push:
     branches: [main]
   pull_request:
     paths:
-      - .github/workflows/*jest*.yml
+      - .github/workflows/*vitest*.yml
       - apps/**
       - packages/**
   merge_group:
     branches: [main]
 jobs:
-  jest:
-    name: Jest
+  vitest:
+    name: Vitest
     runs-on: ubuntu-24.04
     env:
       PNPM_VERSION: "10.17.0"
@@ -51,10 +51,11 @@ jobs:
         working-directory: ./
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            pnpm run test -- --coverage
+          pnpm run vitest:coverage
           else
-            pnpm run test
+            pnpm run vitest
           fi
+
       - name: "Upload coverage report to Codecov"
         if: github.actor != 'dependabot[bot]'
         uses: codecov/codecov-action@v5
@@ -62,3 +63,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
           fail_ci_if_error: false
+          directory: coverage
