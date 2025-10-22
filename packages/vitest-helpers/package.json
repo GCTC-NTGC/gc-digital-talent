@@ -6,7 +6,10 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./config": "./src/config/index.js",
+    "./config": {
+      "import": "./src/config/index.js",
+      "types": "./src/config/config.d.ts"
+    },
     "./setup": {
       "import": "./src/setup.ts",
       "types": "./src/setup.ts"
