@@ -51,9 +51,9 @@ jobs:
         working-directory: ./
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-          pnpm run vitest:coverage
+            pnpm run test:coverage
           else
-            pnpm run vitest
+            pnpm run test
           fi
 
       - name: "Upload coverage report to Codecov"
