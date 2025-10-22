@@ -46,7 +46,7 @@ test.describe("Employee Profile", () => {
     // Confirm the employee profile starts considered incomplete
     await expect(
       appPage.page.getByRole("link", {
-        name: /employee profile \(incomplete\)/i,
+        name: /incomplete - career planning/i,
       }),
     ).toBeVisible();
 
@@ -156,7 +156,7 @@ test.describe("Employee Profile", () => {
     await appPage.waitForGraphqlResponse("ApplicantDashboard");
     await expect(
       appPage.page.getByRole("link", {
-        name: /employee profile \(complete\)/i,
+        name: /complete - career planning/i,
       }),
     ).toBeVisible();
   });

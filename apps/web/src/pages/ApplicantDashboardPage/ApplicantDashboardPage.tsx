@@ -251,6 +251,14 @@ export const DashboardPage = ({
       ? "success"
       : "optional";
 
+  const stateDescriptions = {
+    error: commonMessages.incomplete,
+    success: commonMessages.complete,
+    optional: commonMessages.missingOptionalInformation,
+    "not done": commonMessages.notProvided,
+    locked: commonMessages.notAvailable,
+  };
+
   const careerPlanningState = careerDevelopmentHasEmptyRequiredFields(
     currentUser.employeeProfile ?? {},
   )
@@ -341,6 +349,9 @@ export const DashboardPage = ({
                           title={intl.formatMessage(
                             navigationMessages.profilePage,
                           )}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions[personalInformationState],
+                          )}
                         />
                       </Link>
                     </li>
@@ -351,6 +362,9 @@ export const DashboardPage = ({
                           title={intl.formatMessage(
                             navigationMessages.careerExperience,
                           )}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions[careerExperienceState],
+                          )}
                         />
                       </Link>
                     </li>
@@ -360,6 +374,9 @@ export const DashboardPage = ({
                           status={skillsPortfolioState}
                           title={intl.formatMessage(
                             navigationMessages.skillPortfolio,
+                          )}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions[skillsPortfolioState],
                           )}
                         />
                       </Link>
@@ -385,6 +402,9 @@ export const DashboardPage = ({
                               description:
                                 "Label for status of employee verification",
                             })}
+                            hiddenContextPrefix={intl.formatMessage(
+                              stateDescriptions[employeeVerificationState],
+                            )}
                           />
                         </Button>
                       </UnlockEmployeeToolsDialog>
@@ -404,6 +424,9 @@ export const DashboardPage = ({
                               description:
                                 "Label for functional communities field",
                             })}
+                            hiddenContextPrefix={intl.formatMessage(
+                              stateDescriptions[functionalCommunitiesState],
+                            )}
                           />
                         </Link>
                       ) : (
@@ -418,6 +441,9 @@ export const DashboardPage = ({
                                 description:
                                   "Label for functional communities field",
                               })}
+                              hiddenContextPrefix={intl.formatMessage(
+                                stateDescriptions.locked,
+                              )}
                             />
                           </Button>
                         </UnlockEmployeeToolsDialog>
@@ -435,6 +461,9 @@ export const DashboardPage = ({
                             title={intl.formatMessage(
                               commonMessages.careerPlanning,
                             )}
+                            hiddenContextPrefix={intl.formatMessage(
+                              stateDescriptions[careerPlanningState],
+                            )}
                           />
                         </Link>
                       ) : (
@@ -445,6 +474,9 @@ export const DashboardPage = ({
                               status="locked"
                               title={intl.formatMessage(
                                 commonMessages.careerPlanning,
+                              )}
+                              hiddenContextPrefix={intl.formatMessage(
+                                stateDescriptions.locked,
                               )}
                             />
                           </Button>
