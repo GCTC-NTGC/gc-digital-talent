@@ -3,12 +3,13 @@ import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGla
 import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
 import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
-import wfaImg from "~/assets/img/wfa-hero-card.webp";
+import platformResourcesImg from "~/assets/img/platform-resources-hero-card.webp";
 import dndImg from "~/assets/img/dnd-hero-card.webp";
 import pageTitles from "~/messages/pageTitles";
 
@@ -43,30 +44,30 @@ const Featured = () => {
       },
     },
     {
-      key: "workforce-adjustment",
+      key: "platform-resources",
       title: intl.formatMessage({
-        defaultMessage: "Workforce adjustment and new opportunities",
-        id: "/QXIF+",
-        description: "Heading for the WFA section",
+        defaultMessage: "Platform resources for HR professionals",
+        id: "T+oEYC",
+        description: "Title for HR resources was created",
       }),
       summary: (
         <p className="mb-6">
           {intl.formatMessage({
             defaultMessage:
-              "The Government of Canada is undergoing changes as it pivots to new priorities. For some employees, this may mean a change in work situation. If this is you and you’re in one of the functional communities supported by our platform, we might be able to help.",
-            id: "EtIovH",
-            description: "Summary of WFA section",
+              "Explore the resources available to support HR and recruitment experts across the government, including resources such as the skills library and job advertisement templates.",
+            id: "Osh6TL",
+            description: "Description of platform resources for HR.",
           })}
         </p>
       ),
-      img: { path: wfaImg, width: 400, height: 300 },
+      img: { path: platformResourcesImg, width: 400, height: 300 },
       link: {
-        path: paths.wfaInfo(),
+        path: paths.jobPosterTemplates(),
         label: intl.formatMessage({
           defaultMessage:
-            "Learn more<hidden> about workforce adjustment</hidden>",
-          id: "bzZnxS",
-          description: "Link text to the workforce adjustment info page",
+            "Learn more<hidden> resources for human resource professionals</hidden>",
+          id: "31yjJ1",
+          description: "Link text to learn more about platform resources",
         }),
       },
     },
@@ -205,20 +206,16 @@ const Featured = () => {
         </CardFlat>
         <CardFlat
           color="primary"
-          title={intl.formatMessage({
-            defaultMessage: "Platform resources for HR professionals",
-            id: "T+oEYC",
-            description: "Title for HR resources was created",
-          })}
+          title={intl.formatMessage(navigationMessages.skillsLibrary)}
           links={[
             {
               href: paths.skills(),
               mode: "solid",
               label: intl.formatMessage({
                 defaultMessage:
-                  "Learn more<hidden> resources for human resource professionals</hidden>",
-                id: "31yjJ1",
-                description: "Link text to learn more about platform resources",
+                  "Learn more<hidden> about the skills library</hidden>",
+                id: "E9tQRp",
+                description: "Link text to learn more about skills library",
               }),
             },
           ]}
@@ -226,9 +223,9 @@ const Featured = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Explore the resources available to support HR and recruitment experts across the government, including resources such as the skills library and job advertisement templates.",
-              id: "Osh6TL",
-              description: "Description of platform resources for HR.",
+                "The skills library is a centralized resource that defines and organizes key skills of the functional communities using the platform. It provides clear descriptions of each skill, helping create a shared understanding for hiring managers, HR professionals, and candidates alike.",
+              id: "cREOBT",
+              description: "Description of skills library",
             })}
           </p>
         </CardFlat>

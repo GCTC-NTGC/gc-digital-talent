@@ -335,10 +335,6 @@
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
   },
-  "/QXIF+": {
-    "defaultMessage": "Réaménagement des effectifs et nouveaux débouchés",
-    "description": "Heading for the WFA section"
-  },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
@@ -3455,10 +3451,6 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
-  "Cv2CaU": {
-    "defaultMessage": "À venir cet automne",
-    "description": "Indication that more WFA information is coming in the fall"
-  },
   "Cvl9dd": {
     "defaultMessage": "Langue de la formation",
     "description": "The language of the training opportunity"
@@ -3902,10 +3894,6 @@
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
-  },
-  "EtIovH": {
-    "defaultMessage": "Le gouvernement du Canada se transforme à mesure qu'il cible de nouvelles priorités. Cette mutation influera possiblement sur la situation professionnelle de membres du personnel. Si vous comptez parmi ces membres et que vous faites partie des collectivités fonctionnelles soutenues par notre plateforme, nous pouvons peut-être vous aider.",
-    "description": "Summary of WFA section"
   },
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
@@ -8929,10 +8917,6 @@
   "bz55F8": {
     "defaultMessage": "Si vous avez des demandes d'accommodements ou des questions relativement à ce processus, veuillez écrire à l'équipe de recrutement à l'adresse <link>{contactEmail}</link>.",
     "description": "Opening sentence asking if accommodations are needed"
-  },
-  "bzZnxS": {
-    "defaultMessage": "En savoir plus<hidden> sur le réaménagement des effectifs</hidden>",
-    "description": "Link text to the workforce adjustment info page"
   },
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
