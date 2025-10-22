@@ -45,7 +45,7 @@ export function formValuesToPlaceCandidateInput(
   }
   return {
     poolCandidate: {
-      departmentId: formValues.placedDepartment ?? "",
+      department: { connect: formValues.placedDepartment ?? "" },
       placementType: formValues.placementType,
     },
   };
@@ -67,7 +67,7 @@ export function formValuesToQualifyAndPlaceCandidateInput(
   return {
     poolCandidate: {
       expiryDate: formValues.expiryDate,
-      departmentId: formValues.placedDepartment ?? "",
+      department: { connect: formValues.placedDepartment ?? "" },
       placementType: formValues.placementType,
     },
   };

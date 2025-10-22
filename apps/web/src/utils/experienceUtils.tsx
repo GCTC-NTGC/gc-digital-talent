@@ -445,7 +445,7 @@ export const formValuesToSubmitData = (
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,
-      departmentId: departmentId ?? null,
+      department: departmentId ? { connect: departmentId } : null,
       govEmploymentType,
       govPositionType,
       govContractorRoleSeniority,
