@@ -70,8 +70,12 @@ export default tseslint.config(
 
       "import/extensions": [
         "error",
-        "never",
+        "ignorePackages",
         {
+          js: "never",
+          ts: "never",
+          tsx: "never",
+          mjs: "always",
           json: "always",
         },
       ],
