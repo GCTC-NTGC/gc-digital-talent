@@ -8,6 +8,7 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
+use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Pool;
@@ -46,9 +47,11 @@ class PoolCandidateSearchTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->community = Community::factory()->create();
-        $this->pool = Pool::factory()->create([
-            'community_id' => $this->community->id,
-        ]);
+        $this->pool = Pool::factory()
+            ->withAssessments()
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         $this->processOperator = User::factory()
             ->asApplicant()
             ->asProcessOperator($this->pool->id)
@@ -432,7 +435,7 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
-            'user_id' => User::factory()->asGovEmployee(),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -440,7 +443,7 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
-            'user_id' => User::factory()->asGovEmployee(false),
+            'user_id' => User::factory()->withNonGovProfile(),
         ]);
 
         $query =
@@ -687,13 +690,70 @@ class PoolCandidateSearchTest extends TestCase
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
-                'user_id' => User::factory()->asGovEmployee(),
+                'user_id' => User::factory()->withGovEmployeeProfile(),
             ]);
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
                 'where' => [
                     'departments' => [$expectedCandidate->user->department->id],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
+
+    public function testScopeAssessmentStepIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        $assessmentSteps = $this->pool->assessmentSteps;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->withAssessmentResults()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedAssessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        $expectedCandidate->assessment_step_id = $expectedAssessmentStep->id;
+        $expectedCandidate->save();
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'assessmentSteps' => [$expectedAssessmentStep->sort_order],
                 ],
             ])->assertJsonFragment([
                 'data' => [

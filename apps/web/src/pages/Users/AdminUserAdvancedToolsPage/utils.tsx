@@ -193,7 +193,7 @@ export interface CommunityAssignment {
 export const isCommunityTeamable = (
   teamable: Teamable | undefined | null,
 ): teamable is CommunityTeamable => {
-  if (teamable && teamable.__typename === "Community") {
+  if (teamable?.__typename === "Community") {
     return true;
   }
   return false;
@@ -202,7 +202,7 @@ export const isCommunityTeamable = (
 export const isPoolTeamable = (
   teamable: Teamable | undefined | null,
 ): teamable is PoolTeamable => {
-  if (teamable && teamable.__typename === "Pool") {
+  if (teamable?.__typename === "Pool") {
     return true;
   }
   return false;

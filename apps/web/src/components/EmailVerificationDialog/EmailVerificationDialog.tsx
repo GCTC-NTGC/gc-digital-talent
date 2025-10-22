@@ -36,6 +36,21 @@ export const subtitles: Record<EmailType, MessageDescriptor> = {
   }),
 };
 
+export const descriptions: Record<EmailType, MessageDescriptor> = {
+  WORK: defineMessage({
+    defaultMessage:
+      "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
+    id: "cw6MTQ",
+    description: "Work email title paragraph",
+  }),
+  CONTACT: defineMessage({
+    defaultMessage:
+      "This email will be used by recruitment and HR teams to contact you about opportunities, as well as to send notifications about your applications and other platform details.",
+    id: "fa+z9W",
+    description: "Contact email title paragraph",
+  }),
+};
+
 interface FormValues {
   verificationCode: string;
 }
@@ -96,6 +111,7 @@ const EmailVerificationForm = ({
   return (
     <>
       {/* "Request a code" part of dialog */}
+      <p className="mb-6">{intl.formatMessage(descriptions[formEmailType])}</p>
       <div className="mb-6">
         <EmailVerification.RequestVerificationCodeForm
           emailType={formEmailType}

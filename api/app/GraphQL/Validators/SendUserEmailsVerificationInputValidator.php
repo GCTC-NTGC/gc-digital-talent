@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\EmailType;
+use App\Enums\ErrorCode;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -47,7 +48,7 @@ final class SendUserEmailsVerificationInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'emailAddress.unique' => 'EmailAddressInUse',
+            'emailAddress.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
         ];
     }
 }

@@ -47,11 +47,10 @@ class UserRandomSeeder extends Seeder
         $digitalTalentPool = Pool::select('id')->where('name->en', 'CMO Digital Careers')->sole();
         $publishedPools = Pool::select('id')->whereNotNull('published_at')->get();
 
-        // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
+        // Government employees (see withGovEmployeeProfile function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(2)
-            ->withSkillsAndExperiences()
-            ->asGovEmployee()
+            ->withGovEmployeeProfile()
             ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user
@@ -71,7 +70,9 @@ class UserRandomSeeder extends Seeder
             ->createQuietly();
 
         // applicant@test.com bespoke seeding
-        $applicant = User::where('sub', 'applicant@test.com')->sole();
+        $applicant = User::where('sub', 'applicant@test.com')
+            ->with(['userSkills' => fn ($userSkills) => $userSkills->chaperone()])
+            ->sole();
         $this->seedPoolCandidate($applicant, $publishedPools->random());
         $this->seedExperienceForPoolWithEssentialSkills($applicant, $digitalTalentPool);
         $applicantUserSkills = $applicant->userSkills;
@@ -86,9 +87,12 @@ class UserRandomSeeder extends Seeder
         }
         // Add skills to showcase lists
         // technical skills
-        $applicantUserTechnicalSkills = UserSkill::where('user_id', $applicant->id)->whereHas('skill', function ($query) {
-            $query->where('category', 'TECHNICAL');
-        })->get();
+        $applicantUserTechnicalSkills = UserSkill::where('user_id', $applicant->id)
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->with('user')
+            ->get();
         if ($applicantUserTechnicalSkills->has(0)) {
             $applicantUserTechnicalSkills[0]->top_skills_rank = 1;
             $applicantUserTechnicalSkills[0]->save();
@@ -103,9 +107,12 @@ class UserRandomSeeder extends Seeder
             $applicantUserTechnicalSkills[2]->save();
         }
         // behavioural skills
-        $applicantUserBehaviouralSkills = UserSkill::where('user_id', $applicant->id)->whereHas('skill', function ($query) {
-            $query->where('category', 'BEHAVIOURAL');
-        })->get();
+        $applicantUserBehaviouralSkills = UserSkill::where('user_id', $applicant->id)
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->with('user')
+            ->get();
         if ($applicantUserBehaviouralSkills->has(0)) {
             $applicantUserBehaviouralSkills[0]->top_skills_rank = 1;
             $applicantUserBehaviouralSkills[0]->save();
@@ -120,12 +127,10 @@ class UserRandomSeeder extends Seeder
             $applicantUserBehaviouralSkills[2]->save();
         }
 
-        // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
+        // Not government employees (see withGovEmployeeProfile function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(10)
-            ->withSkillsAndExperiences()
-            ->withOffPlatformRecruitmentProcesses()
-            ->asGovEmployee(false)
+            ->withNonGovProfile()
             ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user

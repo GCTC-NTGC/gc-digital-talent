@@ -39,18 +39,18 @@ class NominationsCsvGeneratorTest extends TestCase
         $community = Community::factory()->withWorkStreams()->create();
 
         $talentCoordinator = User::factory()
-            ->asGovEmployee()
+            ->withGovEmployeeProfile()
             ->asCommunityTalentCoordinator($community->id)
             ->create();
 
-        $employee1 = User::factory()->asGovEmployee()->create();
+        $employee1 = User::factory()->withGovEmployeeProfile()->create();
         CommunityInterest::factory()->create([
             'user_id' => $employee1->id,
             'community_id' => $community->id,
             'consent_to_share_profile' => true,
         ]);
 
-        $employee2 = User::factory()->asGovEmployee()->create();
+        $employee2 = User::factory()->withGovEmployeeProfile()->create();
         CommunityInterest::factory()->create([
             'user_id' => $employee2->id,
             'community_id' => $community->id,
