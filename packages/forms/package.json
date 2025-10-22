@@ -12,10 +12,9 @@
     "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "test": "jest --detectOpenHandles --forceExit"
-  },
-  "jest": {
-    "preset": "@gc-digital-talent/jest-presets/jest/browser"
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@gc-digital-talent/date-helpers": "workspace:*",
@@ -42,23 +41,19 @@
     "@faker-js/faker": "^9.9.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
-    "@gc-digital-talent/jest-helpers": "workspace:*",
-    "@gc-digital-talent/jest-presets": "workspace:*",
+    "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.7.2",
     "@types/react": "^19.2.2",
     "eslint": "^9.20.1",
-    "jest": "^30.2.0",
-    "jest-environment-jsdom": "^30.2.0",
     "react": "^19.2.0",
     "react-hook-form": "^7.65.0",
     "react-intl": "^7.1.11",
     "tsconfig": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }

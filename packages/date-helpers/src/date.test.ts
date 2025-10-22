@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { createIntl, createIntlCache } from "react-intl";
 import { parseISO } from "date-fns/parseISO";
 import { tz } from "@date-fns/tz";
