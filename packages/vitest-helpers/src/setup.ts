@@ -1,8 +1,7 @@
+/// <reference types="vitest-axe" />
 import "@testing-library/jest-dom";
-import * as matchers from "vitest-axe/matchers";
-import { expect, vi } from "vitest";
-
-expect.extend(matchers);
+import "vitest-axe/extend-expect";
+import { vi } from "vitest";
 
 // ClipboardEvent
 const ClipboardEventMock = vi.fn(() => ({
@@ -19,7 +18,7 @@ const DragEventMock = vi.fn(() => ({
 vi.stubGlobal("DragEvent", DragEventMock);
 
 // matchMedia
-const matchMediaMock = vi.fn((query) => ({
+const matchMediaMock = vi.fn((query: string) => ({
   matches: false,
   media: query,
   onchange: null,

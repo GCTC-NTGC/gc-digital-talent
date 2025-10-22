@@ -3,10 +3,14 @@
   "license": "AGPL-3.0",
   "version": "1.0.0",
   "type": "module",
+  "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
     "./config": "./src/config/index.js",
-    "./setup": "./src/setup.js"
+    "./setup": {
+      "import": "./src/setup.ts",
+      "types": "./src/setup.ts"
+    }
   },
   "scripts": {
     "prettier": "prettier --check .",
@@ -18,7 +22,7 @@
     "react-intl": "^7.1.11",
     "react-router": "^7.9.4",
     "vitest": "^3.2.4",
-    "vitest-axe": "^0.1.0"
+    "vitest-axe": "1.0.0-pre.3"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
