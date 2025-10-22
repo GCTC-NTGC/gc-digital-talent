@@ -55,9 +55,11 @@ class AssessmentResultTestSeeder extends Seeder
         $dcmPoolSkills = $pool->poolSkills()->pluck('id')->toArray();
         $dcmAssessment1 = AssessmentStep::factory()->create([
             'pool_id' => $pool->id,
+            'sort_order' => 1,
         ]);
         $dcmAssessment2 = AssessmentStep::factory()->create([
             'pool_id' => $pool->id,
+            'sort_order' => 2,
         ]);
         AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
             'assessment_step_id' => $dcmAssessment1->id,
