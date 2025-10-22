@@ -19,8 +19,8 @@ on:
 jobs:
   chromatic:
     name: Chromatic
-    # Only on rerun
-    if: ${{ github.run_attempt > 1 }}
+    # On pull request open, merge, or rerun
+    if: ${ {github.event.pull_request.opened == true} || {github.event.pull_request.merged == true} || { github.run_attempt > 1 } }
     runs-on: ubuntu-24.04
     env:
       PNPM_VERSION: "10.17.0"
