@@ -165,12 +165,11 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                 // This does not work without proper connect/disconnect in the schema
                 // Rule::exists('classifications', 'id'),
             ],
-            'workExperience.department' => [
+            'workExperience.department.connect' => [
                 Rule::requiredIf(
                     $this->arg('workExperience.employmentCategory') === EmploymentCategory::GOVERNMENT_OF_CANADA->name
                 ),
-                // This does not work without proper connect/disconnect in the schema
-                // Rule::exists('departments', 'id'),
+                Rule::exists('departments', 'id'),
             ],
             'workExperience.supervisedEmployeesNumber' => [
                 Rule::requiredIf(

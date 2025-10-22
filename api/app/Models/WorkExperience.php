@@ -230,6 +230,7 @@ class WorkExperience extends Experience
     /**
      * Return the department model related to the experience
      */
+    /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
