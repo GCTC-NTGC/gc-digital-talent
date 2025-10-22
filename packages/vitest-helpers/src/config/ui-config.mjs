@@ -1,6 +1,6 @@
 import { defineProject, mergeConfig } from "vitest/config";
 
-import baseConfig from "./base-config.js";
+import baseConfig from "./base-config.mjs";
 
 export default mergeConfig(
   baseConfig,
