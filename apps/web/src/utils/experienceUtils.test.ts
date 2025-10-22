@@ -1,8 +1,9 @@
 /**
- * @jest-environment jsdom
+ * @vi-environment jsdom
  */
 
 import { IntlShape } from "react-intl";
+import { vi } from "vitest";
 
 import { experienceGenerators } from "@gc-digital-talent/fake-data";
 
@@ -47,7 +48,7 @@ describe("experience utils test", () => {
 
   describe("experience duration", () => {
     beforeEach(() => {
-      jest.useRealTimers(); // some tests will mock the time and this will reset it for the next test
+      vi.useRealTimers(); // some tests will mock the time and this will reset it for the next test
     });
 
     // make a fake award experience for the given award date
@@ -83,13 +84,13 @@ describe("experience utils test", () => {
       expect(months).toBe(2);
     });
     test("no end date", () => {
-      jest.useFakeTimers().setSystemTime(new Date("1970-01-31"));
+      vi.useFakeTimers().setSystemTime(new Date("1970-01-31"));
       const experience = fakeCommunityExperience("1970-01-01", null);
       const months = experienceDurationMonths(experience);
       expect(months).toBe(1);
     });
     test("future end date", () => {
-      jest.useFakeTimers().setSystemTime(new Date("1970-01-31"));
+      vi.useFakeTimers().setSystemTime(new Date("1970-01-31"));
       const experience = fakeCommunityExperience("1970-01-01", "2000-01-01");
       const months = experienceDurationMonths(experience);
       expect(months).toBe(1);

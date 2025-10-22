@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import { vi } from "vitest";
 
-import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   AssessmentDecision,
@@ -54,7 +51,7 @@ const defaultFilters: ResultFilters = {
   [AssessmentDecision.Unsuccessful]: true,
 };
 
-const mockFn = jest.fn();
+const mockFn = vi.fn();
 
 // This should always make the component visible
 const defaultProps: AssessmentStepTrackerProps = {
@@ -70,7 +67,7 @@ const defaultProps: AssessmentStepTrackerProps = {
   onSubmitDialog: mockFn,
 };
 const mockClient = {
-  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+  executeQuery: vi.fn(() => pipe(fromValue({}), delay(0))),
 };
 
 const renderAssessmentStepTracker = (

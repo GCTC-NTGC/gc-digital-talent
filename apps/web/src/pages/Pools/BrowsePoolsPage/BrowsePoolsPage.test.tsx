@@ -1,12 +1,11 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 import { Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
