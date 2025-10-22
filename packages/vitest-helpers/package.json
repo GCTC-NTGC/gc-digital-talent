@@ -1,0 +1,37 @@
+{
+  "name": "@gc-digital-talent/vitest-helpers",
+  "license": "AGPL-3.0",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": "./src/config/index.js",
+    "./setup": "./src/setup.js"
+  },
+  "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@gc-digital-talent/i18n": "workspace:*",
+    "react-helmet-async": "^2.0.5",
+    "react-intl": "^7.1.11",
+    "react-router": "^7.9.4",
+    "vitest": "^3.2.4",
+    "vitest-axe": "^0.1.0"
+  },
+  "devDependencies": {
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.2.2",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.20.1",
+    "jsdom": "^26.0.0",
+    "react": "^19.2.0",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}
