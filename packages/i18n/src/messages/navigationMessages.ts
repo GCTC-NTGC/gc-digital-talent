@@ -237,6 +237,11 @@ const navigationMessages = defineMessages({
     id: "tpXtAJ",
     description: "Off-platform section header",
   },
+  profilePage: {
+    defaultMessage: "Personal information",
+    id: "g8Ur9z",
+    description: "applicant dashboard card title for profile card",
+  },
 });
 
 export default navigationMessages;

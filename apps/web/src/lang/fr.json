@@ -4211,10 +4211,6 @@
     "defaultMessage": "Fournir quelques détails",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "GBfPU+": {
-    "defaultMessage": "Préférences en matière de développement de carrière et objectifs de carrière.",
-    "description": "Helper instructions for an 'employee profile' card"
-  },
   "GDCKBX": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for goals and work style section"
@@ -4962,10 +4958,6 @@
   "JlTf/G": {
     "defaultMessage": "Ce processus est <heavySecondary>ouvert</heavySecondary> et accepte les candidatures jusqu'au <heavySecondary>{closingDate}</heavySecondary>.",
     "description": "Message displayed to admins when a process is published"
-  },
-  "Jlk0bi": {
-    "defaultMessage": "Vos informations",
-    "description": "Card title for a 'your information' card"
   },
   "Jp/oeD": {
     "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
@@ -5782,10 +5774,6 @@
   "NUjAy0": {
     "defaultMessage": "Dupliquer le processus",
     "description": "Title to duplicate a process"
-  },
-  "NUrFMU": {
-    "defaultMessage": "Gérez vos compétences et modifiez votre liste de compétences principales ou de celles que vous aimeriez acquérir.",
-    "description": "Helper instructions for an 'Skills portfolio' card"
   },
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
@@ -6682,10 +6670,6 @@
   "RRlKyW": {
     "defaultMessage": "{label} navigation de page",
     "description": "Label for the table pagination"
-  },
-  "RSUZix": {
-    "defaultMessage": "Travail, études, bénévolat, prix, etc.",
-    "description": "Helper instructions for an 'Career experience' card"
   },
   "RSUgO3": {
     "defaultMessage": "Ajoutez une compétence",
@@ -8570,10 +8554,6 @@
     "defaultMessage": "Candidatures",
     "description": "Job applications expandable"
   },
-  "aDCqiX": {
-    "defaultMessage": "Nom, coordonnées, équité en matière d'emploi, compétences linguistiques et préférences en matière de travail.",
-    "description": "Helper instructions for an 'Personal information' card"
-  },
   "aEbSvx": {
     "defaultMessage": "Compétences techniques constituant un atout",
     "description": "The asset technical skills of a job poster template"
@@ -9345,10 +9325,6 @@
   "diSBjl": {
     "defaultMessage": "Langues officielles",
     "description": "Heading for comments and interaction section"
-  },
-  "dj+m3H": {
-    "defaultMessage": "En savoir plus sur CléGC et gérer les notifications.",
-    "description": "Helper instructions for an 'Account settings' card"
   },
   "dkXjDY": {
     "defaultMessage": "{monthCount, plural, one {# mois} other {# mois}}",

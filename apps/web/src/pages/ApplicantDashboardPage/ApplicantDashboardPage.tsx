@@ -321,15 +321,15 @@ export const DashboardPage = ({
                 headingAs="h2"
                 title={intl.formatMessage({
                   defaultMessage: "Your account",
-                  id: "1EPYob",
-                  description: "Card title for a 'your account' resource card",
+                  id: "CBedVL",
+                  description: "Nav menu trigger for account links sub menu",
                 })}
               >
                 <ResourceBlock.RawContentItem
                   title={intl.formatMessage({
                     defaultMessage: "Applicant profile",
-                    id: "UV4T7x",
-                    description: "Name of a resource block in 'Your account'",
+                    id: "zn0wg9",
+                    description: "Title of a resource card with profile links",
                   })}
                   as="h3"
                 >
@@ -338,12 +338,9 @@ export const DashboardPage = ({
                       <Link href={paths.profile()} color="black">
                         <StatusItem
                           status={personalInformationState}
-                          title={intl.formatMessage({
-                            defaultMessage: "Personal information",
-                            id: "g8Ur9z",
-                            description:
-                              "applicant dashboard card title for profile card",
-                          })}
+                          title={intl.formatMessage(
+                            navigationMessages.profilePage,
+                          )}
                         />
                       </Link>
                     </li>
@@ -371,11 +368,9 @@ export const DashboardPage = ({
                 </ResourceBlock.RawContentItem>
 
                 <ResourceBlock.RawContentItem
-                  title={intl.formatMessage({
-                    defaultMessage: "GC employee profile",
-                    id: "MkyQ1t",
-                    description: "Name of a resource block in 'Your account'",
-                  })}
+                  title={intl.formatMessage(
+                    navigationMessages.employeeProfileGC,
+                  )}
                   as="h3"
                 >
                   <Ul unStyled space="sm" className="mt-3">
