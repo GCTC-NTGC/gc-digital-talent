@@ -245,18 +245,17 @@ export const DashboardPage = ({
     ? "success"
     : "not done";
 
-  const functionalCommunitiesState = currentUser.isVerifiedGovEmployee
-    ? currentUser.employeeProfile?.communityInterests &&
-      currentUser.employeeProfile.communityInterests.length > 0
+  const functionalCommunitiesState =
+    currentUser.employeeProfile?.communityInterests &&
+    currentUser.employeeProfile.communityInterests.length > 0
       ? "success"
-      : "optional"
-    : "locked";
+      : "optional";
 
-  const careerPlanningState = currentUser.isVerifiedGovEmployee
-    ? careerDevelopmentHasEmptyRequiredFields(currentUser.employeeProfile ?? {})
-      ? "error"
-      : "success"
-    : "locked";
+  const careerPlanningState = careerDevelopmentHasEmptyRequiredFields(
+    currentUser.employeeProfile ?? {},
+  )
+    ? "error"
+    : "success";
 
   return (
     <>
@@ -396,30 +395,66 @@ export const DashboardPage = ({
                       </UnlockEmployeeToolsDialog>
                     </li>
                     <li>
-                      <Link
-                        href={paths.createCommunityInterest()}
-                        color="black"
-                      >
-                        <StatusItem
-                          status={functionalCommunitiesState}
-                          title={intl.formatMessage({
-                            defaultMessage: "Functional communities",
-                            id: "QuVtMh",
-                            description:
-                              "Label for functional communities field",
-                          })}
-                        />
-                      </Link>
+                      {currentUser.isVerifiedGovEmployee ? (
+                        // is a verified gov employee
+                        <Link
+                          href={paths.createCommunityInterest()}
+                          color="black"
+                        >
+                          <StatusItem
+                            status={functionalCommunitiesState}
+                            title={intl.formatMessage({
+                              defaultMessage: "Functional communities",
+                              id: "QuVtMh",
+                              description:
+                                "Label for functional communities field",
+                            })}
+                          />
+                        </Link>
+                      ) : (
+                        // is not a verified gov employee
+                        <UnlockEmployeeToolsDialog query={currentUser}>
+                          <Button mode="text" color="black">
+                            <StatusItem
+                              status="locked"
+                              title={intl.formatMessage({
+                                defaultMessage: "Functional communities",
+                                id: "QuVtMh",
+                                description:
+                                  "Label for functional communities field",
+                              })}
+                            />
+                          </Button>
+                        </UnlockEmployeeToolsDialog>
+                      )}
                     </li>
                     <li>
-                      <Link href={paths.employeeProfile()} color="black">
-                        <StatusItem
-                          status={careerPlanningState}
-                          title={intl.formatMessage(
-                            commonMessages.careerPlanning,
-                          )}
-                        />
-                      </Link>
+                      {currentUser.isVerifiedGovEmployee ? (
+                        // is a verified gov employee
+                        <Link
+                          href={`${paths.employeeProfile()}#career-planning-section`}
+                          color="black"
+                        >
+                          <StatusItem
+                            status={careerPlanningState}
+                            title={intl.formatMessage(
+                              commonMessages.careerPlanning,
+                            )}
+                          />
+                        </Link>
+                      ) : (
+                        // is not a verified gov employee
+                        <UnlockEmployeeToolsDialog query={currentUser}>
+                          <Button mode="text" color="black">
+                            <StatusItem
+                              status="locked"
+                              title={intl.formatMessage(
+                                commonMessages.careerPlanning,
+                              )}
+                            />
+                          </Button>
+                        </UnlockEmployeeToolsDialog>
+                      )}
                     </li>
                   </Ul>
                 </ResourceBlock.RawContentItem>
