@@ -103,6 +103,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
+ * @property ?\App\Models\WorkExperience $latest_current_government_work_experience
  * @property ?\App\Models\WorkExperience $current_substantive_experiences
  * @property ?string $wfa_interest
  * @property ?\Illuminate\Support\Carbon $wfa_date
@@ -491,21 +492,21 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function latestCurrentGovernmentWorkExperience(): Attribute
     {
-        $employmentTypeOrder = [
-            WorkExperienceGovEmployeeType::INDETERMINATE->name,
-            WorkExperienceGovEmployeeType::TERM->name,
-            null,
-        ];
+        return Attribute::make(get: function () {
+            $employmentTypeOrder = [
+                WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                WorkExperienceGovEmployeeType::TERM->name,
+                null,
+            ];
 
-        $positionTypeOrder = [
-            GovPositionType::ACTING->name,
-            GovPositionType::SECONDMENT->name,
-            GovPositionType::ASSIGNMENT->name,
-            GovPositionType::SUBSTANTIVE->name,
-            null,
-        ];
+            $positionTypeOrder = [
+                GovPositionType::ACTING->name,
+                GovPositionType::SECONDMENT->name,
+                GovPositionType::ASSIGNMENT->name,
+                GovPositionType::SUBSTANTIVE->name,
+                null,
+            ];
 
-        return Attribute::make(get: function () use ($employmentTypeOrder, $positionTypeOrder) {
             $currentExperiences = $this->workExperiences()
                 ->whereIn('employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
                 ->whereNotIn('gov_employment_type', [
@@ -535,8 +536,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $prioritySortedExperiences = $sameStartDate
                     ->sortBy('created_at')
                     ->sortBy([
-                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $this->positionTypeOrder),
-                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $this->employmentTypeOrder),
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $positionTypeOrder),
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $employmentTypeOrder),
                     ]);
 
                 $latest = $prioritySortedExperiences->first();

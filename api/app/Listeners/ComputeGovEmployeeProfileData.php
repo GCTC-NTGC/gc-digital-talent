@@ -38,12 +38,12 @@ class ComputeGovEmployeeProfileData
 
         $user->update([
             'computed_is_gov_employee' => true,
-            'computed_gov_employee_type' => $latest?->gov_employment_type,
-            'computed_classification' => $latest?->classification_id,
-            'computed_department' => $latest?->department_id,
-            'computed_gov_position_type' => $latest?->gov_position_type,
-            'computed_gov_end_date' => $latest?->end_date,
-            'computed_gov_role' => $latest?->role,
+            'computed_gov_employee_type' => $latest->gov_employment_type,
+            'computed_classification' => $latest->classification_id,
+            'computed_department' => $latest->department_id,
+            'computed_gov_position_type' => $latest->gov_position_type,
+            'computed_gov_end_date' => $latest->end_date,
+            'computed_gov_role' => $latest->role,
         ]);
     }
 }
