@@ -9,6 +9,7 @@ import {
   Ul,
   StatusItem,
   Link,
+  Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
@@ -26,7 +27,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
 import {
-  aboutSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
@@ -34,6 +34,7 @@ import {
 import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
+import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -96,6 +97,9 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
           localized
         }
         value
+      }
+      communityInterests {
+        id
       }
     }
     lookingForEnglish
@@ -184,6 +188,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     ...TalentManagementTaskCard
     ...ApplicationsProcessesTaskCard
     ...CareerDevelopmentTaskCardUser
+    ...UnlockEmployeeTools
   }
 `);
 
@@ -220,18 +225,11 @@ export const DashboardPage = ({
     !!currentUser?.poolCandidateSearchRequests?.length;
 
   const personalInformationState =
-    aboutSectionHasEmptyRequiredFields(currentUser) ||
+    workPreferencesSectionHasEmptyRequiredFields(currentUser) ||
     governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
-    languageInformationSectionHasEmptyRequiredFields(currentUser) ||
-    workPreferencesSectionHasEmptyRequiredFields(currentUser)
+    languageInformationSectionHasEmptyRequiredFields(currentUser)
       ? "error"
       : "success";
-
-  const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
-    currentUser?.employeeProfile ?? {},
-  )
-    ? "error"
-    : "success";
 
   const careerExperienceState =
     currentUser.experiences && currentUser.experiences?.length > 0
@@ -242,6 +240,23 @@ export const DashboardPage = ({
     currentUser.userSkills && currentUser.userSkills?.length > 0
       ? "success"
       : "optional";
+
+  const employeeVerificationState = currentUser.isVerifiedGovEmployee
+    ? "success"
+    : "not done";
+
+  const functionalCommunitiesState = currentUser.isVerifiedGovEmployee
+    ? currentUser.employeeProfile?.communityInterests &&
+      currentUser.employeeProfile.communityInterests.length > 0
+      ? "success"
+      : "optional"
+    : "locked";
+
+  const careerPlanningState = currentUser.isVerifiedGovEmployee
+    ? careerDevelopmentHasEmptyRequiredFields(currentUser.employeeProfile ?? {})
+      ? "error"
+      : "success"
+    : "locked";
 
   return (
     <>
@@ -366,24 +381,27 @@ export const DashboardPage = ({
                 >
                   <Ul unStyled space="sm" className="mt-3">
                     <li>
-                      <Link href={paths.employeeProfile()} color="black">
-                        <StatusItem
-                          // TODO
-                          status={"success"}
-                          title={intl.formatMessage({
-                            defaultMessage: "Employee verification",
-                            id: "VpjQL1",
-                            description:
-                              "Label for status of employee verification",
-                          })}
-                        />
-                      </Link>
+                      <UnlockEmployeeToolsDialog query={currentUser}>
+                        <Button mode="text" color="black">
+                          <StatusItem
+                            status={employeeVerificationState}
+                            title={intl.formatMessage({
+                              defaultMessage: "Employee verification",
+                              id: "VpjQL1",
+                              description:
+                                "Label for status of employee verification",
+                            })}
+                          />
+                        </Button>
+                      </UnlockEmployeeToolsDialog>
                     </li>
                     <li>
-                      <Link href={paths.employeeProfile()} color="black">
+                      <Link
+                        href={paths.createCommunityInterest()}
+                        color="black"
+                      >
                         <StatusItem
-                          // TODO
-                          status={"success"}
+                          status={functionalCommunitiesState}
                           title={intl.formatMessage({
                             defaultMessage: "Functional communities",
                             id: "QuVtMh",
@@ -396,7 +414,7 @@ export const DashboardPage = ({
                     <li>
                       <Link href={paths.employeeProfile()} color="black">
                         <StatusItem
-                          status={employeeProfileState}
+                          status={careerPlanningState}
                           title={intl.formatMessage(
                             commonMessages.careerPlanning,
                           )}
