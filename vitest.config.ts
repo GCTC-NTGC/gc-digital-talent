@@ -1,4 +1,4 @@
-import { defineConfig, configDefaults } from "vitest/config";
+import { defineConfig } from "vitest/config";
 
 import { uiConfig } from "@gc-digital-talent/vitest-helpers/config";
 
@@ -10,9 +10,7 @@ export default defineConfig({
       provider: "v8",
       enabled: true,
       reporter: ["text", "lcov"],
-      include: ["src/**.{ts,tsx,js}"],
       exclude: [
-        ...configDefaults.coverage.exclude,
         "**/node_modules/**",
         "./tc-report/**",
         "./.storybook/**",
