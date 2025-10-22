@@ -5,7 +5,6 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import { RootProps } from "./Root";
 import Ul from "../List/Ul";
-import StatusItem from "../StatusItem/StatusItem";
 import Button from "../Button";
 import Link from "../Link";
 
@@ -52,12 +51,12 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
           <Ul unStyled space="sm">
             <li>
               <Button mode="text" color="black">
-                <StatusItem status="not done" title="Item 1" />
+                Item 1
               </Button>
             </li>
             <li>
               <Link href="#" color="black">
-                <StatusItem status="locked" title="Item 2" />
+                Item 2
               </Link>
             </li>
           </Ul>

@@ -7,7 +7,6 @@ import {
   NotFound,
   Container,
   Ul,
-  StatusItem,
   Link,
   Button,
 } from "@gc-digital-talent/ui";
@@ -35,6 +34,7 @@ import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeePr
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
 import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
+import StatusItem from "~/components/StatusItem/StatusItem";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";

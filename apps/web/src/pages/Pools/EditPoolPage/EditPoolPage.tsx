@@ -12,7 +12,6 @@ import {
   Heading,
   Container,
   Separator,
-  StatusItem,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -32,6 +31,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
+import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import {
   hasEmptyRequiredFields as poolNameError,

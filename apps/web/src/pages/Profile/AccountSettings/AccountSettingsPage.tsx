@@ -7,8 +7,6 @@ import {
   NotFound,
   Pending,
   TableOfContents,
-  StatusItem,
-  StatusItemStatus,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -22,6 +20,7 @@ import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import { SectionProps } from "~/components/Profile/types";
+import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
 import { aboutSectionHasEmptyRequiredFields } from "~/validators/profile";
 import messages from "~/messages/profileMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
@@ -79,7 +78,7 @@ export type SectionKey =
 interface Section {
   id: string;
   title: string;
-  status?: StatusItemStatus;
+  status?: Status;
 }
 
 const pageTitle = defineMessage({

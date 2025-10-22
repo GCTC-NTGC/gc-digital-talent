@@ -10,8 +10,6 @@ import {
   Pending,
   TableOfContents,
   ThrowNotFound,
-  StatusItem,
-  StatusItemStatus,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
@@ -23,6 +21,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
+import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
 import {
   hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
   hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
@@ -165,7 +164,7 @@ const EmployeeProfile = ({
   );
   const wfa = getFragment(EmployeeProfileWfa_Fragment, user);
 
-  let overallStatus: StatusItemStatus = "success";
+  let overallStatus: Status = "success";
   if (
     careerDevelopmentHasEmptyRequiredFields(careerDevelopment) ||
     nextRoleHasEmptyRequiredFields(nextRole) ||

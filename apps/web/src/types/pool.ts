@@ -1,8 +1,6 @@
-import {
-  HeadingProps,
-  IconType,
-  StatusItemStatus,
-} from "@gc-digital-talent/ui";
+import { HeadingProps, IconType } from "@gc-digital-talent/ui";
+
+import { Status } from "~/components/StatusItem/StatusItem";
 
 export interface EditPoolSectionMetadata {
   id: string;
@@ -12,7 +10,7 @@ export interface EditPoolSectionMetadata {
   hasError?: boolean;
   icon?: IconType;
   color?: HeadingProps["color"];
-  status?: StatusItemStatus;
+  status?: Status;
   inList?: boolean;
 }
 
