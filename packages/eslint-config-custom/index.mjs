@@ -40,16 +40,16 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.{ts,tsx,mjs}"],
     extends: [importFlatConfigs.recommended, importFlatConfigs.typescript],
     plugins: {
       "no-only-tests": noOnlyTests,
     },
     settings: {
       react: {
-        version: "18.0",
+        version: "detect",
       },
-      "import/extensions": [".ts", ".tsx"],
+      "import/extensions": [".ts", ".tsx", ".mjs"],
       "import/parsers": {
         "@typescript-eslint/parser": [".ts", ".tsx"],
       },

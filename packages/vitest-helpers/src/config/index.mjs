@@ -1,4 +1,4 @@
-import baseConfig from "./base-config.mjs";
-import uiConfig from "./ui-config.mjs";
+import baseConfig from "./base-config";
+import uiConfig from "./ui-config";
 
 export { baseConfig, uiConfig };
