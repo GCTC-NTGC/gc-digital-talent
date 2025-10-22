@@ -3,7 +3,6 @@ import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGla
 import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -16,7 +15,6 @@ import pageTitles from "~/messages/pageTitles";
 const Featured = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { workforceAdjustment } = useFeatureFlags();
 
   const featured = [
     {
@@ -62,25 +60,15 @@ const Featured = () => {
         </p>
       ),
       img: { path: wfaImg, width: 400, height: 300 },
-      link: workforceAdjustment
-        ? {
-            path: paths.wfaInfo(),
-            label: intl.formatMessage({
-              defaultMessage:
-                "Learn more<hidden> about workforce adjustment</hidden>",
-              id: "bzZnxS",
-              description: "Link text to the workforce adjustment info page",
-            }),
-          }
-        : {
-            path: "#",
-            label: intl.formatMessage({
-              defaultMessage: "Coming this fall",
-              id: "Cv2CaU",
-              description:
-                "Indication that more WFA information is coming in the fall",
-            }),
-          },
+      link: {
+        path: paths.wfaInfo(),
+        label: intl.formatMessage({
+          defaultMessage:
+            "Learn more<hidden> about workforce adjustment</hidden>",
+          id: "bzZnxS",
+          description: "Link text to the workforce adjustment info page",
+        }),
+      },
     },
     {
       key: "comptrollership-executives",
