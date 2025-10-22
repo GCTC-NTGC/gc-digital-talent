@@ -14,6 +14,7 @@ export default defineConfig({
         "**/node_modules/**",
         "./tc-report/**",
         "./.storybook/**",
+        "**/*.stories.{ts,tsx}",
         "./apps/playwright/**",
         "**/dist/**",
         "**/assets/**",
