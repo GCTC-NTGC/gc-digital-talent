@@ -1,279 +1,136 @@
-import { useEffect, useState } from "react";
-import { createSearchParams, useNavigate, useSearchParams } from "react-router";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
-import { useFormContext } from "react-hook-form";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 
-import { Button, Card, Heading, Pending, Well } from "@gc-digital-talent/ui";
-import {
-  BasicForm,
-  Checkbox,
-  FieldLabels,
-  Input,
-  RadioGroup,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { emptyToNull } from "@gc-digital-talent/helpers";
-import {
-  graphql,
-  FragmentType,
-  getFragment,
-  Language,
-  UpdateUserAsUserInput,
-  NotificationFamily,
-} from "@gc-digital-talent/graphql";
-import { getFromSessionStorage } from "@gc-digital-talent/storage";
+import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql, Language } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import profileMessages from "~/messages/profileMessages";
+import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
+import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
-import messages from "../utils/messages";
+import messages from "../messages";
+import GettingStartedForm, {
+  FormValues,
+  sectionTitle as gettingStartedSectionTitle,
+} from "./GettingStartedForm";
 
-const specificTitle = defineMessage({
-  defaultMessage: "Getting started",
-  id: "QXiUo/",
-  description: "Main heading in getting started page.",
-});
-
-type FormValues = Pick<
-  UpdateUserAsUserInput,
-  "firstName" | "lastName" | "email" | "preferredLang"
-> & {
-  emailConsent?: boolean;
-  skipVerification?: boolean;
-};
-
-export const GettingStarted_QueryFragment = graphql(/** GraphQL */ `
-  fragment GettingStarted_QueryFragment on Query {
-    languages: localizedEnumStrings(enumName: "Language") {
-      value
-      label {
-        en
-        fr
-      }
+const GettingStarted_Query = graphql(/** GraphQL */ `
+  query GettingStarted {
+    ...GettingStartedOptions
+    me {
+      id
+      ...GettingStartedInitialValues
     }
   }
 `);
 
-export interface GettingStartedFormFieldsProps {
-  labels: FieldLabels;
-  query?: FragmentType<typeof GettingStarted_QueryFragment>;
-}
+const GettingStartedUpdateUser_Mutation = graphql(/** GraphQL */ `
+  mutation GettingStartedUpdateUser($id: ID!, $user: UpdateUserAsUserInput!) {
+    updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`);
 
-export const GettingStartedFormFields = ({
-  labels,
-  query,
-}: GettingStartedFormFieldsProps) => {
-  const intl = useIntl();
-  const { setValue, register } = useFormContext();
-  const skipVerificationProps = register("skipVerification");
-  const result = getFragment(GettingStarted_QueryFragment, query);
+const GettingStartedVerifyEmail_Mutation = graphql(/* GraphQL */ `
+  mutation GettingStartedVerifyEmail($code: String!) {
+    verifyUserEmails(code: $code) {
+      id
+    }
+  }
+`);
 
-  return (
-    <>
-      <div className="mb-6 grid gap-6 xs:grid-cols-2">
-        <Input
-          id="firstName"
-          name="firstName"
-          type="text"
-          label={labels.firstName}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Input
-          id="lastName"
-          name="lastName"
-          type="text"
-          label={labels.lastName}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-      </div>
-      <div className="mb-6">
-        <RadioGroup
-          idPrefix="required-lang-preferences"
-          legend={labels.preferredLang}
-          id="preferredLang"
-          name="preferredLang"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={localizedEnumToOptions(result?.languages, intl)}
-          defaultSelected={Language.En}
-        />
-      </div>
-      <div className="mb-1.5">
-        <Input
-          id="email"
-          type="email"
-          name="email"
-          label={labels.email}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-      </div>
-      <div className="mb-6">
-        <Well>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This email will be used for communication and notifications. In the next step, we'll ask you to verify this email using a code we'll send to your inbox.",
-              id: "eRbVle",
-              description:
-                "Message on getting started page about the contact email address - part 1.",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "If you are a <strong>Government of Canada employee</strong>, you can choose to use your work email, however we recommend a personal email to facilitate your privacy and continued access should you leave the public service.",
-              id: "ErosNs",
-              description:
-                "Message on getting started page about the contact email address - part 2.",
-            })}
-          </p>
-        </Well>
-      </div>
-      <div className="mb-1.5">
-        <Checkbox
-          id="emailConsent"
-          name="emailConsent"
-          boundingBox
-          boundingBoxLabel={labels.emailConsent}
-          label={intl.formatMessage({
-            defaultMessage:
-              "I agree to receive email notifications from GC Digital Talent.",
-            id: "NwlRd5",
-            description: "Text for the option consent to email notifications.",
-          })}
-        />
-      </div>
-      <div className="mb-6">
-        <Well>
-          {intl.formatMessage({
-            defaultMessage:
-              "You can control which types of notifications you receive at a more granular level in your account settings.",
-            id: "MzmK82",
-            description:
-              "Message on getting started page about email notification consent.",
-          })}
-        </Well>
-      </div>
-      <div className="flex flex-col flex-wrap items-start gap-x-3 gap-y-1.5 sm:flex-row sm:items-center">
-        <Button
-          mode="solid"
-          color="primary"
-          onClick={() => setValue("skipVerification", false)}
-          {...skipVerificationProps}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Verify your contact email",
-            id: "LpCMiC",
-            description: "Verify your contact email text",
-          })}
-        </Button>
-        <Button
-          mode="inline"
-          color="primary"
-          {...skipVerificationProps}
-          onClick={() => {
-            setValue("skipVerification", true);
-          }}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Save and skip verification",
-            id: "NpznI5",
-            description:
-              "Button label for submit and skip email verification button on getting started form.",
-          })}
-        </Button>
-      </div>
-    </>
-  );
-};
-
-export interface GettingStartedFormProps {
-  cacheKey?: string;
-  query?: FragmentType<typeof GettingStarted_QueryFragment>;
-  handleSubmit: (
-    data: UpdateUserAsUserInput,
-    emailConsent?: boolean,
-    skipVerification?: boolean,
-  ) => Promise<void>;
-}
-
-export const GettingStartedForm = ({
-  cacheKey,
-  query,
-  handleSubmit,
-}: GettingStartedFormProps) => {
+const GettingStartedPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
+  const [{ data, fetching, error }] = useQuery({
+    query: GettingStarted_Query,
+  });
 
-  const labels = {
-    firstName: intl.formatMessage({
-      defaultMessage: "First name",
-      id: "pJBmIm",
-      description:
-        "Label displayed for the first name field in getting started form.",
-    }),
-    lastName: intl.formatMessage({
-      defaultMessage: "Last name",
-      id: "ARdTh3",
-      description:
-        "Label displayed for the last name field in getting started form.",
-    }),
-    email: intl.formatMessage(commonMessages.email),
-    preferredLang: intl.formatMessage({
-      defaultMessage: "Preferred contact language",
-      id: "AumMAr",
-      description:
-        "Legend text for required language preference in getting started form",
-    }),
-    emailConsent: intl.formatMessage({
-      defaultMessage: "Email notification consent",
-      id: "Ia+zNM",
-      description:
-        "Legend text for email notification consent checkbox in getting started form",
-    }),
-  };
+  const [, executeUpdateUserMutation] = useMutation(
+    GettingStartedUpdateUser_Mutation,
+  );
+  const [, executeVerifyEmailMutation] = useMutation(
+    GettingStartedVerifyEmail_Mutation,
+  );
+
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
 
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
         label: intl.formatMessage(messages.breadcrumb),
-        url: paths.gettingStarted(),
+        url: paths.registrationAccount(),
       },
     ],
   });
 
-  const onSubmit = async (values: FormValues) => {
-    await handleSubmit(
-      {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        preferredLang: values.preferredLang,
+  const handleSubmit = async ({
+    firstName,
+    lastName,
+    preferredLang,
+    verificationCode,
+  }: FormValues) => {
+    // make TS happy but shouldn't happen
+    if (!data?.me?.id) {
+      throw new Error("No user ID provided");
+    }
+    if (!verificationCode) {
+      throw new Error("No verification provided");
+    }
+
+    // first, try to update the user's personal information
+    const updateUserResult = await executeUpdateUserMutation({
+      id: data?.me?.id,
+      user: {
+        firstName: firstName,
+        lastName: lastName,
+        preferredLang: preferredLang as Language,
       },
-      values.emailConsent,
-      values.skipVerification,
-    );
+    });
+
+    // check if the user update was successful
+    if (!updateUserResult.data?.updateUserAsUser?.id) {
+      throw new Error("Failed to update user");
+    }
+
+    // second, try to verify the email
+    const verifyEmailResult = await executeVerifyEmailMutation({
+      code: verificationCode,
+    });
+
+    // check if the email verification was successful
+    if (
+      verifyEmailResult.error?.graphQLErrors.some(
+        (graphQLError) => graphQLError.message == API_CODE_VERIFICATION_FAILED,
+      )
+    ) {
+      throw new Error(API_CODE_VERIFICATION_FAILED);
+    }
+    if (!verifyEmailResult.data?.verifyUserEmails?.id) {
+      throw new Error("Failed to verify email");
+    }
+
+    // finally, navigate away
+    await navigate({
+      pathname: paths.registrationExperience(),
+      search: from ? createSearchParams({ from }).toString() : "",
+    });
   };
 
   return (
     <>
       <SEO
-        title={intl.formatMessage(specificTitle)}
+        title={intl.formatMessage(gettingStartedSectionTitle)}
         description={intl.formatMessage(messages.subtitle)}
       />
       <Hero
@@ -281,39 +138,25 @@ export const GettingStartedForm = ({
         subtitle={intl.formatMessage(messages.subtitle)}
         crumbs={crumbs}
         overlap
+        centered
       >
         <section className="mb-18">
-          <Card className="xs:p-12">
-            <BasicForm
-              onSubmit={onSubmit}
-              cacheKey={cacheKey}
-              labels={labels}
-              options={{
-                defaultValues: cacheKey
-                  ? getFromSessionStorage(cacheKey, {})
-                  : {},
-              }}
-            >
-              <Heading
-                level="h2"
-                size="h3"
-                icon={FlagIcon}
-                color="secondary"
-                className="mt-0 mb-6 font-normal"
-              >
-                {intl.formatMessage(specificTitle)}
-              </Heading>
-              <p className="mb-6">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Before we take you to your profile, we need to collect some required information to complete your account set up.",
-                  id: "x6saT3",
-                  description:
-                    "Message after main heading in create account page.",
-                })}
-              </p>
-              <GettingStartedFormFields labels={labels} query={query} />
-            </BasicForm>
+          <Card space="lg">
+            <Pending fetching={fetching} error={error}>
+              {data?.me ? (
+                <EmailVerification.Provider>
+                  <GettingStartedForm
+                    initialValuesQuery={data.me}
+                    optionsQuery={data}
+                    onSubmit={handleSubmit}
+                  />
+                </EmailVerification.Provider>
+              ) : (
+                <ThrowNotFound
+                  message={intl.formatMessage(profileMessages.userNotFound)}
+                />
+              )}
+            </Pending>
           </Card>
         </section>
       </Hero>
@@ -321,164 +164,10 @@ export const GettingStartedForm = ({
   );
 };
 
-const GettingStarted_Query = graphql(/** GraphQL */ `
-  query GettingStarted_Query {
-    ...GettingStarted_QueryFragment
-    me {
-      email
-    }
-  }
-`);
-
-const GettingStarted_Mutation = graphql(/** GraphQL */ `
-  mutation GettingStarted_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {
-    updateUserAsUser(id: $id, user: $user) {
-      id
-    }
-  }
-`);
-
-const UpdateEmailNotifications_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateEmailNotifications_Mutation(
-    $enabledEmailNotifications: [NotificationFamily]
-  ) {
-    updateEnabledNotifications(
-      enabledEmailNotifications: $enabledEmailNotifications
-    ) {
-      id
-    }
-  }
-`);
-
-const GettingStarted = () => {
-  const intl = useIntl();
-  const navigate = useNavigate();
-  const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const from = searchParams.get("from");
-  const authContext = useAuthorization();
-  const [{ data, fetching, error }] = useQuery({
-    query: GettingStarted_Query,
-  });
-
-  const [verifyEmail, setVerifyEmail] = useState<boolean>(true);
-
-  const email = data?.me?.email;
-  const meId = authContext?.userAuthInfo?.id;
-
-  const [, executeGeneralMutation] = useMutation(GettingStarted_Mutation);
-  const [, executeNotificationMutation] = useMutation(
-    UpdateEmailNotifications_Mutation,
-  );
-  const handleCreateAccount = (
-    id: string,
-    generalInput: UpdateUserAsUserInput,
-    notificationInput: NotificationFamily[],
-  ) =>
-    executeGeneralMutation({
-      id,
-      user: {
-        ...generalInput,
-        id,
-        email: emptyToNull(generalInput.email),
-      },
-    }).then(async (generalResult) => {
-      if (generalResult.data?.updateUserAsUser) {
-        await executeNotificationMutation({
-          enabledEmailNotifications: notificationInput,
-        }).then((notificationResult) => {
-          if (notificationResult.data?.updateEnabledNotifications) {
-            return generalResult.data?.updateUserAsUser;
-          }
-          return Promise.reject(
-            new Error(notificationResult.error?.toString()),
-          );
-        });
-      } else {
-        return Promise.reject(new Error(generalResult.error?.toString()));
-      }
-
-      return null;
-    });
-
-  const onSubmit = async (
-    input: UpdateUserAsUserInput,
-    emailConsent = false,
-    skipVerification = false,
-  ) => {
-    setVerifyEmail(!skipVerification);
-    if (meId === undefined || meId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          id: "4bjh8X",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    const notificationInput = emailConsent
-      ? [NotificationFamily.ApplicationUpdate, NotificationFamily.JobAlert]
-      : [];
-    await handleCreateAccount(meId, input, notificationInput)
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Account successfully created.",
-            id: "DK870a",
-            description:
-              "Message displayed to user if account is created successfully.",
-          }),
-        );
-        // navigation will happen on useEffect after authorization context has updated
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: creating account failed.",
-            id: "BruLeg",
-            description:
-              "Message displayed to user if account fails to get updated.",
-          }),
-        );
-      });
-  };
-
-  // OK to navigate to next page once we have a user ID and an email
-  const shouldNavigate = meId && email;
-  useEffect(() => {
-    if (shouldNavigate) {
-      if (verifyEmail) {
-        void navigate({
-          pathname: paths.emailVerification(),
-          search: from
-            ? createSearchParams({ from, emailAddress: email }).toString()
-            : "",
-        });
-      } else {
-        void navigate({
-          pathname: paths.employeeInformation(),
-          search: from ? createSearchParams({ from }).toString() : "",
-        });
-      }
-    }
-  }, [navigate, shouldNavigate, from, email, verifyEmail, paths]);
-
-  return (
-    <Pending fetching={fetching || !authContext.isLoaded} error={error}>
-      <GettingStartedForm
-        cacheKey={`getting-started-${meId}`}
-        query={data}
-        handleSubmit={onSubmit}
-      />
-    </Pending>
-  );
-};
-
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <GettingStarted />
+    <GettingStartedPage />
   </RequireAuth>
 );
 
-export default GettingStarted;
+export default GettingStartedPage;

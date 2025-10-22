@@ -26,6 +26,8 @@ abstract class Experience extends Model
 
     protected $keyType = 'string';
 
+    protected $touches = ['user'];
+
     protected static $hydrationFields;
 
     abstract public function getTitle(): string;

@@ -39,9 +39,10 @@ const getRoutes = (lang: Locales) => {
     login: () => [baseUrl, "login-info"].join("/"),
     loggedOut: () => [baseUrl, "logged-out"].join("/"),
     userDeleted: () => [baseUrl, "user-deleted"].join("/"),
-    gettingStarted: () => [baseUrl, "getting-started"].join("/"),
+    registrationAccount: () => [baseUrl, "registration", "account"].join("/"),
+    registrationExperience: () =>
+      [baseUrl, "registration", "experience"].join("/"),
     emailVerification: () => [baseUrl, "email-verification"].join("/"),
-    employeeInformation: () => [baseUrl, "employee-registration"].join("/"),
     workEmailVerification: () => [baseUrl, "work-email-verification"].join("/"),
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),

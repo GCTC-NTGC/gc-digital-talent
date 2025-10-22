@@ -51,6 +51,8 @@ class UserDocGeneratorTest extends TestCase
             ->withCommunityInterests([$community->id])
             ->create();
 
+        $targetUser->loadMissing(['userSkills']);
+
         // Faker seed makes skill ranks the same.
         // This is not realistic data so we are forcing them
         // to be different
@@ -58,6 +60,7 @@ class UserDocGeneratorTest extends TestCase
             ->sortBy(fn ($userSkill) => $userSkill->skill->key)
             ->values()
             ->each(function ($userSkill, $index) {
+                $userSkill->loadMissing(['user']);
                 if ($userSkill->top_skills_rank) {
                     $userSkill->top_skills_rank = $index + 1;
                     $userSkill->save();

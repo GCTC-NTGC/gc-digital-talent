@@ -55,7 +55,10 @@ final class VerifyUserEmails
                 Rule::unique('users', 'email')->ignore($user->id, 'id'),
                 Rule::unique('users', 'work_email')->ignore($user->id, 'id'),
             ],
-        ]);
+        ],
+            [
+                'emailAddress.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+            ]);
 
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->errors()->toArray());
