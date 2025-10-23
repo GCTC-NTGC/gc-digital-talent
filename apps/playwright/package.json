@@ -31,6 +31,6 @@
     "typescript-eslint": "^8.46.2"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.10.2"
+    "@axe-core/playwright": "^4.11.0"
   }
 }
