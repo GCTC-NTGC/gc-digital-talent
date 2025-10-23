@@ -14,7 +14,7 @@ final class QualifyAndPlaceCandidate
         $candidate = PoolCandidate::findOrFail($args['id']);
         $expiryDate = $args['expiryDate'];
         $placementType = $args['placementType'];
-        $departmentId = $args['departmentId'];
+        $departmentId = $args['department']['connect']; // validator asserts this value is valid
 
         $candidate->qualify($expiryDate);
         $candidate->place($placementType, $departmentId);

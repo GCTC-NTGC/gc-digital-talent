@@ -15,7 +15,6 @@ const defaultFormValues: FormValues = {
   classifications: [],
   stream: [],
   departments: [],
-  languageAbility: "",
   workRegion: [],
   flexibleWorkLocations: [],
   operationalRequirement: [],
@@ -29,6 +28,9 @@ const defaultFormValues: FormValues = {
   govEmployee: "",
   community: "",
   assessmentSteps: [],
+  finalDecisions: [],
+  placementTypes: [],
+  removalReasons: [],
 };
 
 describe("Transform form values to filter state", () => {

@@ -1716,6 +1716,9 @@ input PoolCandidateSearchInput {
   processNumber: String
   flexibleWorkLocations: [FlexibleWorkLocation]
   assessmentSteps: [Int!]
+  finalDecisions: [FinalDecision!]
+  placementTypes: [PlacementType!]
+  removalReasons: [CandidateRemovalReason!]
 }
 
 input PoolCandidateSearchRequestInput {
@@ -2153,13 +2156,13 @@ input QualifyCandidateInput {
 
 input PlaceCandidateInput {
   placementType: PlacementType!
-  departmentId: UUID!
+  department: DepartmentBelongsTo!
 }
 
 input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
-  departmentId: UUID!
+  department: DepartmentBelongsTo!
 }
 
 input CreateDepartmentInput {
@@ -2455,7 +2458,7 @@ input WorkExperienceInput {
   cafForce: CafForce
   cafRank: CafRank
   classificationId: String
-  departmentId: String
+  department: DepartmentBelongsTo
   workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
@@ -2567,7 +2570,7 @@ input CreatePoolInput {
 }
 
 input DuplicatePoolInput {
-  departmentId: ID
+  department: DepartmentBelongsTo
 }
 
 input CreateGeneralQuestionInput {

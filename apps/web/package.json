@@ -50,7 +50,7 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "@microsoft/applicationinsights-web": "^3.3.10",
-    "@tailwindcss/vite": "^4.1.14",
+    "@tailwindcss/vite": "^4.1.16",
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
@@ -62,7 +62,7 @@
     "react-intl": "^7.1.11",
     "react-router": "^7.9.4",
     "react-to-print": "^3.2.0",
-    "tailwindcss": "^4.1.14",
+    "tailwindcss": "^4.1.16",
     "tailwind-merge": "^3.3.1",
     "tailwind-variants": "^3.1.1",
     "urql": "^5.0.1"

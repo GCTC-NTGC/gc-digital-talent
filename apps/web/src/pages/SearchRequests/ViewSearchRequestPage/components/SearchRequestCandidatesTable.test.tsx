@@ -65,16 +65,19 @@ const mockClient = {
         provinces: [],
         statuses: [
           {
+            __typename: "LocalizedPoolCandidateStatus",
             value: PoolCandidateStatus.PlacedCasual,
-            label: { en: "Placed casual", fr: "Placed casual" },
+            label: { localized: "Placed casual" },
           },
           {
+            __typename: "LocalizedPoolCandidateStatus",
             value: PoolCandidateStatus.QualifiedAvailable,
-            label: { en: "Qualified available", fr: "Qualified available" },
+            label: { localized: "Qualified available" },
           },
           {
+            __typename: "LocalizedPoolCandidateStatus",
             value: PoolCandidateStatus.PlacedTentative,
-            label: { en: "Offer in progress", fr: "Offer in progress" },
+            label: { localized: "Offer in progress" },
           },
         ],
       },

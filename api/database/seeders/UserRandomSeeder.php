@@ -70,7 +70,9 @@ class UserRandomSeeder extends Seeder
             ->createQuietly();
 
         // applicant@test.com bespoke seeding
-        $applicant = User::where('sub', 'applicant@test.com')->sole();
+        $applicant = User::where('sub', 'applicant@test.com')
+            ->with(['userSkills' => fn ($userSkills) => $userSkills->chaperone()])
+            ->sole();
         $this->seedPoolCandidate($applicant, $publishedPools->random());
         $this->seedExperienceForPoolWithEssentialSkills($applicant, $digitalTalentPool);
         $applicantUserSkills = $applicant->userSkills;
@@ -85,9 +87,12 @@ class UserRandomSeeder extends Seeder
         }
         // Add skills to showcase lists
         // technical skills
-        $applicantUserTechnicalSkills = UserSkill::where('user_id', $applicant->id)->whereHas('skill', function ($query) {
-            $query->where('category', 'TECHNICAL');
-        })->get();
+        $applicantUserTechnicalSkills = UserSkill::where('user_id', $applicant->id)
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->with('user')
+            ->get();
         if ($applicantUserTechnicalSkills->has(0)) {
             $applicantUserTechnicalSkills[0]->top_skills_rank = 1;
             $applicantUserTechnicalSkills[0]->save();
@@ -102,9 +107,12 @@ class UserRandomSeeder extends Seeder
             $applicantUserTechnicalSkills[2]->save();
         }
         // behavioural skills
-        $applicantUserBehaviouralSkills = UserSkill::where('user_id', $applicant->id)->whereHas('skill', function ($query) {
-            $query->where('category', 'BEHAVIOURAL');
-        })->get();
+        $applicantUserBehaviouralSkills = UserSkill::where('user_id', $applicant->id)
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->with('user')
+            ->get();
         if ($applicantUserBehaviouralSkills->has(0)) {
             $applicantUserBehaviouralSkills[0]->top_skills_rank = 1;
             $applicantUserBehaviouralSkills[0]->save();

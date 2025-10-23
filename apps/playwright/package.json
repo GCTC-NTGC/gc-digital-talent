@@ -28,9 +28,9 @@
     "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.2.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.1"
+    "typescript-eslint": "^8.46.2"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.10.2"
+    "@axe-core/playwright": "^4.11.0"
   }
 }

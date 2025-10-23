@@ -1364,6 +1364,9 @@ input PoolCandidateSearchInput {
   flexibleWorkLocations: [FlexibleWorkLocation]
     @scope(name: "whereFlexibleWorkLocationsIn")
   assessmentSteps: [Int!] @scope(name: "whereAssessmentStepIn")
+  finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
+  placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
+  removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
 }
 
 input PoolCandidateSearchRequestInput {
@@ -2229,13 +2232,13 @@ input QualifyCandidateInput {
 
 input PlaceCandidateInput {
   placementType: PlacementType!
-  departmentId: UUID!
+  department: DepartmentBelongsTo!
 }
 
 input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
-  departmentId: UUID!
+  department: DepartmentBelongsTo!
 }
 
 input CreateDepartmentInput {
@@ -2605,7 +2608,7 @@ input WorkExperienceInput {
   cafForce: CafForce @rename(attribute: "caf_force")
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
-  departmentId: String @rename(attribute: "department_id")
+  department: DepartmentBelongsTo
   workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
   supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
@@ -2716,7 +2719,7 @@ input CreatePoolInput {
 }
 
 input DuplicatePoolInput {
-  departmentId: ID
+  department: DepartmentBelongsTo
 }
 
 input CreateGeneralQuestionInput {

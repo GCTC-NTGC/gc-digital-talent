@@ -117,18 +117,19 @@ class PoolFactory extends Factory
         });
     }
 
-    private function createAssessmentStep($pool, $type)
+    private function createAssessmentStep($pool, $type, $sortOrder = 1)
     {
         return AssessmentStep::factory()
             ->create([
                 'pool_id' => $pool->id,
                 'type' => $type,
+                'sort_order' => $sortOrder,
             ]);
     }
 
-    private function createAssessmentStepWithPoolSkills($pool, $type)
+    private function createAssessmentStepWithPoolSkills($pool, $type, $stepNumber = 1)
     {
-        $step = $this->createAssessmentStep($pool, $type);
+        $step = $this->createAssessmentStep($pool, $type, $stepNumber);
         $poolSkillArray = $pool->poolSkills->pluck('id')->toArray();
         $step->poolSkills()->sync($poolSkillArray);
 
@@ -322,12 +323,10 @@ class PoolFactory extends Factory
 
             // Only select from steps that do not appear in the first two positions
             // First position created automatically, second step should be created via `withQuestions`
-            $availableTypes = array_filter(AssessmentStepType::cases(), function ($item) {
-                return $item !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION;
-            });
+            $availableTypes = AssessmentStepType::uncontrolledStepTypes();
 
             for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
-                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement($availableTypes)->name);
+                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement($availableTypes)->name, $i + 3); // 1 and 2 are reserved so start at 3
             }
         });
     }

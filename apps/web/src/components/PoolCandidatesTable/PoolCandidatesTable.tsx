@@ -408,6 +408,9 @@ const defaultState = {
     publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
     assessmentSteps: [],
+    finalDecisions: [],
+    removalReasons: [],
+    placementTypes: [],
   },
 };
 

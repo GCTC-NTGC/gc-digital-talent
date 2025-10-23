@@ -473,6 +473,7 @@ class EmployeeWFATest extends TestCase
             ->create([
                 'community_id' => $community->id,
                 'user_id' => $this->employee->id,
+                'consent_to_share_profile' => true,
             ]);
 
         $stream = $interest->workStreams()->first();
