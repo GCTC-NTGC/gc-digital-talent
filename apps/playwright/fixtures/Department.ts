@@ -95,6 +95,10 @@ class Department extends AppPage {
       isRegulatory,
       isScience,
     });
+
+    await this.page.getByRole("button", { name: /save changes/i }).click();
+
+    await this.waitForGraphqlResponse("UpdateDepartment");
   }
 
   async fillName(name?: InputMaybe<LocalizedStringInput>) {
