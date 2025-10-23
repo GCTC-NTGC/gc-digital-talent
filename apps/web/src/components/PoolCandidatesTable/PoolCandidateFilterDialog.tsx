@@ -284,8 +284,8 @@ const PoolCandidateFilterDialog = ({
         className={`${!hidePoolFilter ? "mt-12" : "mt-0"} mb-6 font-bold`}
       >
         {intl.formatMessage({
-          defaultMessage: "Application status filters",
-          id: "Jp/+vi",
+          defaultMessage: "Application filters",
+          id: "/eEV1T",
           description:
             "Heading for filters associated with an applications status",
         })}
@@ -343,8 +343,8 @@ const PoolCandidateFilterDialog = ({
           name="removalReasons"
           isMulti
           label={intl.formatMessage({
-            defaultMessage: "Removed reason",
-            id: "wCNteG",
+            defaultMessage: "Reason for removal",
+            id: "mPxtB3",
             description: "Label for the reason a candidate was removed",
           })}
           options={narrowEnumType(
@@ -399,17 +399,17 @@ const PoolCandidateFilterDialog = ({
         contextColor="warning"
         context={intl.formatMessage({
           defaultMessage:
-            "This is a temporary way to filter candidates based on the old statuses. This filter is based on old information and it is possible to show inaccurate results. For better results use other available filters.",
+            "This is a temporary way to filter candidates based on the old statuses. This filter is based on old information and it's possible that it shows inaccurate results. For better results, use the other available filters.",
           description:
             "Warning about the status filter being a temporary solution",
-          id: "JQdPSK",
+          id: "4PiCoE",
         })}
       />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
-          defaultMessage: "Candidate profile filters",
-          id: "gTSsh4",
+          defaultMessage: "Profile filters",
+          id: "WqxVxb",
           description:
             "Heading for filters associated with a candidates profile",
         })}

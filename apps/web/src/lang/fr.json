@@ -159,6 +159,10 @@
     "defaultMessage": "Ministères",
     "description": "Title for departments"
   },
+  "+dlRCu": {
+    "defaultMessage": "Filtres de processus",
+    "description": "Heading for filters associated with a candidates process"
+  },
   "+do6jV": {
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
@@ -386,6 +390,10 @@
   "/dy2CX": {
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
+  },
+  "/eEV1T": {
+    "defaultMessage": "Filtres de demandes",
+    "description": "Heading for filters associated with an applications status"
   },
   "/eyJbp": {
     "defaultMessage": "Il semble que cette adresse courriel professionnelle ne soit pas liée à un profil. Les personnes candidates doivent disposer d'un compte sur Talents numériques du GC pour pouvoir être nommées. Veuillez contacter la candidate ou le candidat et leur demander de créer un profil avant de continuer.",
@@ -1539,6 +1547,10 @@
     "defaultMessage": "La mise à jour des rôles de l'utilisateur a échoué.",
     "description": "Error message for updating user roles"
   },
+  "4PiCoE": {
+    "defaultMessage": "Il s'agit d'un moyen temporaire par lequel filtrer les candidatures selon les anciens statuts. Ce filtre s'appuie sur des données qui datent, ce qui risque de fausser les résultats affichés. Pour obtenir de meilleurs résultats, veuillez appliquer les autres filtres offerts.",
+    "description": "Warning about the status filter being a temporary solution"
+  },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
@@ -2266,6 +2278,10 @@
   "7mdPUJ": {
     "defaultMessage": "Comment les données d’autodéclaration sont-elles utilisées?",
     "description": "Title for how self-declaration data is used section"
+  },
+  "7oq1Qa": {
+    "defaultMessage": "Décision finale",
+    "description": "Title displayed on the Pool Candidates table final decision column"
   },
   "7owCVU": {
     "defaultMessage": "Collectivité de l’approvisionnement",
@@ -7774,6 +7790,10 @@
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
   },
+  "WqxVxb": {
+    "defaultMessage": "Filtres de profils",
+    "description": "Heading for filters associated with a candidates profile"
+  },
   "WrTLaB": {
     "defaultMessage": "Les fonctionnaires qui désirent devenir des cadres de la gestion financière",
     "description": "Employee group list item label"
@@ -11396,6 +11416,10 @@
   "mOx5K1": {
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
     "description": "Label displayed for current role input"
+  },
+  "mPxtB3": {
+    "defaultMessage": "Motif de retrait",
+    "description": "Label for the reason a candidate was removed"
   },
   "mQkyM8": {
     "defaultMessage": "Au sujet des dates limites des demandes",
