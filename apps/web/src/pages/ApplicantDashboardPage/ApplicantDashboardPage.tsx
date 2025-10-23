@@ -7,7 +7,6 @@ import {
   NotFound,
   Container,
   Ul,
-  Link,
   Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -343,43 +342,40 @@ export const DashboardPage = ({
                 >
                   <Ul unStyled space="sm" className="mt-3">
                     <li>
-                      <Link href={paths.profile()} color="black">
-                        <StatusItem
-                          status={personalInformationState}
-                          title={intl.formatMessage(
-                            navigationMessages.profilePage,
-                          )}
-                          hiddenContextPrefix={intl.formatMessage(
-                            stateDescriptions[personalInformationState],
-                          )}
-                        />
-                      </Link>
+                      <StatusItem
+                        status={personalInformationState}
+                        title={intl.formatMessage(
+                          navigationMessages.profilePage,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[personalInformationState],
+                        )}
+                        href={paths.profile()}
+                      />
                     </li>
                     <li>
-                      <Link href={paths.careerTimeline()} color="black">
-                        <StatusItem
-                          status={careerExperienceState}
-                          title={intl.formatMessage(
-                            navigationMessages.careerExperience,
-                          )}
-                          hiddenContextPrefix={intl.formatMessage(
-                            stateDescriptions[careerExperienceState],
-                          )}
-                        />
-                      </Link>
+                      <StatusItem
+                        status={careerExperienceState}
+                        title={intl.formatMessage(
+                          navigationMessages.careerExperience,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[careerExperienceState],
+                        )}
+                        href={paths.careerTimeline()}
+                      />
                     </li>
                     <li>
-                      <Link href={paths.skillPortfolio()} color="black">
-                        <StatusItem
-                          status={skillsPortfolioState}
-                          title={intl.formatMessage(
-                            navigationMessages.skillPortfolio,
-                          )}
-                          hiddenContextPrefix={intl.formatMessage(
-                            stateDescriptions[skillsPortfolioState],
-                          )}
-                        />
-                      </Link>
+                      <StatusItem
+                        status={skillsPortfolioState}
+                        title={intl.formatMessage(
+                          navigationMessages.skillPortfolio,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[skillsPortfolioState],
+                        )}
+                        href={paths.skillPortfolio()}
+                      />
                     </li>
                   </Ul>
                 </ResourceBlock.RawContentItem>
@@ -412,23 +408,20 @@ export const DashboardPage = ({
                     <li>
                       {currentUser.isVerifiedGovEmployee ? (
                         // is a verified gov employee
-                        <Link
+
+                        <StatusItem
+                          status={functionalCommunitiesState}
+                          title={intl.formatMessage({
+                            defaultMessage: "Functional communities",
+                            id: "QuVtMh",
+                            description:
+                              "Label for functional communities field",
+                          })}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions[functionalCommunitiesState],
+                          )}
                           href={paths.createCommunityInterest()}
-                          color="black"
-                        >
-                          <StatusItem
-                            status={functionalCommunitiesState}
-                            title={intl.formatMessage({
-                              defaultMessage: "Functional communities",
-                              id: "QuVtMh",
-                              description:
-                                "Label for functional communities field",
-                            })}
-                            hiddenContextPrefix={intl.formatMessage(
-                              stateDescriptions[functionalCommunitiesState],
-                            )}
-                          />
-                        </Link>
+                        />
                       ) : (
                         // is not a verified gov employee
                         <UnlockEmployeeToolsDialog query={currentUser}>
@@ -452,20 +445,16 @@ export const DashboardPage = ({
                     <li>
                       {currentUser.isVerifiedGovEmployee ? (
                         // is a verified gov employee
-                        <Link
+                        <StatusItem
+                          status={careerPlanningState}
+                          title={intl.formatMessage(
+                            commonMessages.careerPlanning,
+                          )}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions[careerPlanningState],
+                          )}
                           href={`${paths.employeeProfile()}#career-planning-section`}
-                          color="black"
-                        >
-                          <StatusItem
-                            status={careerPlanningState}
-                            title={intl.formatMessage(
-                              commonMessages.careerPlanning,
-                            )}
-                            hiddenContextPrefix={intl.formatMessage(
-                              stateDescriptions[careerPlanningState],
-                            )}
-                          />
-                        </Link>
+                        />
                       ) : (
                         // is not a verified gov employee
                         <UnlockEmployeeToolsDialog query={currentUser}>
