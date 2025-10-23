@@ -1,7 +1,3 @@
-/**
- * @vi-environment jsdom
- */
-
 import { IntlShape } from "react-intl";
 import { vi } from "vitest";
 
