@@ -11,7 +11,6 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
-  PublishingGroup,
   Maybe,
   Pool,
   PoolCandidatePoolNameOrderByInput,
@@ -34,10 +33,12 @@ import {
   FinalDecision,
   PoolAreaOfSelection,
   FlexibleWorkLocation,
-  LocalizedEnumString,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
+  LocalizedCandidateSuspendedFilter,
+  WorkRegion,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -46,15 +47,6 @@ import {
   getApplicationStatusChip,
   getCandidateStatusChip,
 } from "~/utils/poolCandidate";
-import {
-  stringToEnumCandidateExpiry,
-  stringToEnumCandidateSuspended,
-  stringToEnumLanguage,
-  stringToEnumLocation,
-  stringToEnumOperational,
-  stringToEnumPoolCandidateStatus,
-  stringToEnumPriorityWeight,
-} from "~/utils/userUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
@@ -341,8 +333,7 @@ function transformSortStateToOrderByClause(
   }
 
   if (
-    sortingRule &&
-    sortingRule.id === "skillCount" &&
+    sortingRule?.id === "skillCount" &&
     filterState?.applicantFilter?.skills &&
     filterState.applicantFilter.skills.length > 0
   ) {
@@ -442,19 +433,20 @@ export function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
-    publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
+    publishingGroups: unpackMaybes(input?.publishingGroups),
     classifications:
       input?.appliedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
-    languageAbility: input?.applicantFilter?.languageAbility ?? "",
-    workRegion:
-      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
-    operationalRequirement:
-      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
-    flexibleWorkLocations:
-      input?.applicantFilter?.flexibleWorkLocations?.filter(notEmpty) ?? [],
+    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
+    operationalRequirement: unpackMaybes(
+      input?.applicantFilter?.operationalRequirements,
+    ),
+    flexibleWorkLocations: unpackMaybes(
+      input?.applicantFilter?.flexibleWorkLocations,
+    ),
     equity: input?.applicantFilter?.equity
       ? [
           ...(input.applicantFilter.equity.hasDisability
@@ -469,21 +461,25 @@ export function transformPoolCandidateSearchInputToFormValues(
           ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
         ]
       : [],
-    pools:
-      input?.applicantFilter?.pools
-        ?.filter(notEmpty)
-        .map((poolFilter) => poolFilter.id) ?? [],
-    skills:
-      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
-    poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
+    pools: unpackMaybes(
+      input?.applicantFilter?.pools?.flatMap((pool) => pool?.id),
+    ),
+    skills: unpackMaybes(
+      input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
+    ),
+    priorityWeight: unpackMaybes(input?.priorityWeight),
+    poolCandidateStatus: unpackMaybes(input?.poolCandidateStatus),
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
-    assessmentSteps:
-      input?.assessmentSteps?.filter(notEmpty).map((s) => String(s)) ?? [],
+    assessmentSteps: unpackMaybes(
+      input?.assessmentSteps?.flatMap((step) => String(step)),
+    ),
+    finalDecisions: unpackMaybes(input?.finalDecisions),
+    removalReasons: unpackMaybes(input?.removalReasons),
+    placementTypes: unpackMaybes(input?.placementTypes),
   };
 }
 
@@ -492,25 +488,10 @@ export function transformFormValuesToFilterState(
 ): PoolCandidateSearchInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility
-        ? stringToEnumLanguage(data.languageAbility)
-        : undefined,
-      operationalRequirements: data.operationalRequirement
-        .map((requirement) => {
-          return stringToEnumOperational(requirement);
-        })
-        .filter(notEmpty),
-      locationPreferences: data.workRegion
-        .map((region) => {
-          return stringToEnumLocation(region);
-        })
-        .filter(notEmpty),
-      flexibleWorkLocations:
-        data.flexibleWorkLocations && data.flexibleWorkLocations.length > 0
-          ? data.flexibleWorkLocations.map(
-              (location) => location as FlexibleWorkLocation,
-            )
-          : undefined,
+      languageAbility: data.languageAbility,
+      operationalRequirements: data.operationalRequirement,
+      locationPreferences: data.workRegion,
+      flexibleWorkLocations: data.flexibleWorkLocations,
       equity: {
         ...(data.equity.includes("isWoman") && { isWoman: true }),
         ...(data.equity.includes("hasDisability") && { hasDisability: true }),
@@ -519,33 +500,17 @@ export function transformFormValuesToFilterState(
           isVisibleMinority: true,
         }),
       },
-      pools: data.pools.map((id) => {
-        return { id };
-      }),
-      skills: data.skills.map((id) => {
-        return { id };
-      }),
+      pools: data.pools.flatMap((id) => ({ id })),
+      skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
     },
-    poolCandidateStatus: data.poolCandidateStatus
-      .map((status) => {
-        return stringToEnumPoolCandidateStatus(status);
-      })
-      .filter(notEmpty),
-    priorityWeight: data.priorityWeight
-      .map((priorityWeight) => {
-        return stringToEnumPriorityWeight(priorityWeight);
-      })
-      .filter(notEmpty),
-    expiryStatus: data.expiryStatus
-      ? stringToEnumCandidateExpiry(data.expiryStatus)
-      : undefined,
-    suspendedStatus: data.suspendedStatus
-      ? stringToEnumCandidateSuspended(data.suspendedStatus)
-      : undefined,
+    poolCandidateStatus: data.poolCandidateStatus,
+    priorityWeight: data.priorityWeight,
+    expiryStatus: data.expiryStatus,
+    suspendedStatus: data.suspendedStatus,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     departments: data.departments,
-    publishingGroups: data.publishingGroups as PublishingGroup[],
+    publishingGroups: data.publishingGroups,
     appliedClassifications: data.classifications.map((classification) => {
       const splitString = classification.split("-");
       return { group: splitString[0], level: Number(splitString[1]) };
@@ -554,6 +519,9 @@ export function transformFormValuesToFilterState(
     assessmentSteps: data.assessmentSteps
       .filter(notEmpty)
       .map((step) => Number(step)),
+    finalDecisions: data.finalDecisions,
+    removalReasons: data.removalReasons,
+    placementTypes: data.placementTypes,
   };
 }
 
@@ -597,28 +565,31 @@ export const addSearchToPoolCandidateFilterInput = (
     assessmentSteps: fancyFilterState?.assessmentSteps?.map((val) =>
       Number(val),
     ),
+    finalDecisions: fancyFilterState?.finalDecisions,
+    removalReasons: fancyFilterState?.removalReasons,
+    placementTypes: fancyFilterState?.placementTypes,
   };
 };
 
 // map the enum to a custom string per value
 export const candidateSuspendedFilterToCustomOptions = (
-  suspendedFilterEnums: LocalizedEnumString[],
+  suspendedFilterEnums: LocalizedCandidateSuspendedFilter[],
   intl: IntlShape,
 ): Radio[] => {
   return suspendedFilterEnums.map((enumObject) => {
-    if (enumObject.value === (CandidateSuspendedFilter.Active as string)) {
+    if (enumObject.value === CandidateSuspendedFilter.Active) {
       return {
         value: enumObject.value,
         label: intl.formatMessage(tableMessages.openJobOffers),
       };
     }
-    if (enumObject.value === (CandidateSuspendedFilter.Suspended as string)) {
+    if (enumObject.value === CandidateSuspendedFilter.Suspended) {
       return {
         value: enumObject.value,
         label: intl.formatMessage(tableMessages.notInterested),
       };
     }
-    if (enumObject.value === (CandidateSuspendedFilter.All as string)) {
+    if (enumObject.value === CandidateSuspendedFilter.All) {
       return {
         value: enumObject.value,
         label: intl.formatMessage(commonMessages.all),
@@ -627,7 +598,31 @@ export const candidateSuspendedFilterToCustomOptions = (
 
     return {
       value: enumObject.value,
-      label: getLocalizedName(enumObject.label, intl),
+      label: enumObject.label.localized,
     };
   });
+};
+
+export const SORT_ORDER = {
+  FLEXIBLE_WORK_LOCATION: [
+    FlexibleWorkLocation.Remote,
+    FlexibleWorkLocation.Hybrid,
+    FlexibleWorkLocation.Onsite,
+  ],
+  PRIORITY_WEIGHT: [
+    PriorityWeight.PriorityEntitlement,
+    PriorityWeight.Veteran,
+    PriorityWeight.CitizenOrPermanentResident,
+    PriorityWeight.Other,
+  ],
+  WORK_REGION: [
+    WorkRegion.Telework,
+    WorkRegion.NationalCapital,
+    WorkRegion.Atlantic,
+    WorkRegion.Quebec,
+    WorkRegion.Ontario,
+    WorkRegion.North,
+    WorkRegion.Prairie,
+    WorkRegion.BritishColumbia,
+  ],
 };

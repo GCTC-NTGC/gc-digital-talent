@@ -41,7 +41,7 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version-file: "./.nvmrc"
           cache: pnpm
@@ -63,7 +63,7 @@ jobs:
           pnpm build
 
       - name: "Publish Storybook: all"
-        uses: chromaui/action@v13.2.0
+        uses: chromaui/action@v13.3.1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.

@@ -20,7 +20,7 @@ const RequestVerificationCodeContextMessage = () => {
   switch (message) {
     case "request-sent":
       return (
-        <Well color="success">
+        <Well color="success" id="unsaved-emailAddress">
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Verification email sent!",
@@ -42,18 +42,20 @@ const RequestVerificationCodeContextMessage = () => {
       );
     case "throttled":
       return (
-        <Well color="error">
+        <Well color="error" id="unsaved-emailAddress">
           <p>
             {intl.formatMessage(
               {
-                defaultMessage:
-                  "Please wait {seconds}s before requesting another verification email.",
-                id: "zIMhFQ",
+                defaultMessage: `Please wait {delay, plural,
+                    one { # second }
+                    other { # seconds }
+                  } before requesting another verification email.`,
+                id: "Vl0+/x",
                 description:
                   "Body for a message informing the user that they must wait before requesting another email.",
               },
               {
-                seconds: CODE_REQUEST_THROTTLE_DELAY_S,
+                delay: CODE_REQUEST_THROTTLE_DELAY_S,
               },
             )}
           </p>
@@ -61,7 +63,7 @@ const RequestVerificationCodeContextMessage = () => {
       );
     case "address-changed":
       return (
-        <Well color="error">
+        <Well color="error" id="unsaved-emailAddress">
           <p>
             {intl.formatMessage({
               defaultMessage:

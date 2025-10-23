@@ -612,10 +612,10 @@ class UserBuilder extends Builder
                             ->where(function (Builder $query) use ($teamIds) {
                                 $query
                                     ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                        return $query->whereIn('id', $teamIds);
+                                        return $query->whereIn('teams.id', $teamIds);
                                     })
                                     ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                                        return $query->whereIn('id', $teamIds);
+                                        return $query->whereIn('teams.id', $teamIds);
                                     });
                             });
                     });
@@ -623,7 +623,7 @@ class UserBuilder extends Builder
             }
 
             if ($user?->isAbleTo('view-own-user')) {
-                $query->orWhere('id', $user->id);
+                $query->orWhere('users.id', $user->id);
             }
         });
 
@@ -633,7 +633,7 @@ class UserBuilder extends Builder
         }
 
         // fall through - return nothing
-        return $this->where('id', null);
+        return $this->where('users.id', null);
     }
 
     public function whereAuthorizedToViewBasicInfo(): self
@@ -661,13 +661,13 @@ class UserBuilder extends Builder
         /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if ($user->isAbleTo('view-any-employeeWFA')) {
+        if ($user?->isAbleTo('view-any-employeeWFA')) {
             return $this;
         }
 
         $filterCountBefore = count($this->getQuery()->wheres);
         $query = $this->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-team-employeeWFA')) {
+            if ($user?->isAbleTo('view-team-employeeWFA')) {
                 $allCommunityTeams = $user->rolesTeams()
                     ->where('teamable_type', "App\Models\Community")
                     ->get();

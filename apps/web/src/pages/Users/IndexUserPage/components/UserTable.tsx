@@ -339,11 +339,7 @@ const UserTable = ({ title }: UserTableProps) => {
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Created",
-        id: "zAqJMe",
-        description: "Title displayed on the Pool table Date Created column",
-      }),
+      header: intl.formatMessage(commonMessages.created),
       cell: ({
         row: {
           original: { createdDate },

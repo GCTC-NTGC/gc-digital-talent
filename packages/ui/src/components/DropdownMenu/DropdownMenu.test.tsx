@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { act, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { ComponentPropsWithoutRef, useState } from "react";
 
@@ -88,9 +88,7 @@ describe("DropdownMenu", () => {
 
   it("should not have accessibility errors when open", async () => {
     const { container } = renderDropdownMenu({});
-    await act(async () => {
-      await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
 
     await axeTest(container);
   });
@@ -106,9 +104,7 @@ describe("DropdownMenu", () => {
   it("should render when opened", async () => {
     renderDropdownMenu({});
 
-    await act(async () => {
-      await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
 
     expect(
       screen.getByRole("menu", { name: /dropdown menu/i }),
@@ -118,9 +114,7 @@ describe("DropdownMenu", () => {
   it("change value when selected", async () => {
     renderDropdownMenu({});
 
-    await act(async () => {
-      await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
 
     const radioItemTwo = await screen.findByRole("menuitemradio", {
       name: /two/i,

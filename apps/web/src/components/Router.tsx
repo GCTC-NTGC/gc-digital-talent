@@ -208,32 +208,29 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               lazy: () => import("../pages/Auth/SignInPage/SignInPage"),
             },
             {
-              path: "getting-started",
-              lazy: () =>
-                import(
-                  "../pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedPage"
-                ),
-            },
-            {
-              path: "email-verification",
-              lazy: () =>
-                import(
-                  "../pages/Auth/RegistrationPages/RegistrationContactEmailVerificationPage"
-                ),
-            },
-            {
-              path: "employee-registration",
-              lazy: () =>
-                import(
-                  "../pages/Auth/RegistrationPages/EmployeeInformationPage/EmployeeInformationPage"
-                ),
-            },
-            {
-              path: "work-email-verification",
-              lazy: () =>
-                import(
-                  "../pages/Auth/RegistrationPages/RegistrationWorkEmailVerificationPage"
-                ),
+              path: "registration",
+              children: [
+                {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+                {
+                  path: "account",
+                  lazy: () =>
+                    import(
+                      "../pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedPage"
+                    ),
+                },
+                {
+                  path: "experience",
+                  lazy: () =>
+                    import(
+                      "../pages/Auth/RegistrationPages/EmployeeInformationPage/EmployeeInformationPage"
+                    ),
+                },
+              ],
             },
             {
               path: "applicant",

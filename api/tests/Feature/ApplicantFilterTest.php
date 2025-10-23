@@ -459,7 +459,7 @@ class ApplicantFilterTest extends TestCase
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(10)->availableInSearch()->create([
             'pool_id' => $pool->id,
-            'user_id' => User::factory()->withSkillsAndExperiences(10),
+            'user_id' => User::factory()->withNonGovProfile(),
         ]);
 
         // Generate a filter that matches at least one candidate

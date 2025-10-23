@@ -6,6 +6,8 @@ import {
 } from "react";
 import { RegisterOptions } from "react-hook-form";
 
+import { WellProps } from "@gc-digital-talent/ui";
+
 import { LabelProps } from "./components/Field";
 
 export type FieldLabels = Record<string, ReactNode>;
@@ -30,6 +32,8 @@ export interface CommonInputProps {
   id: string;
   /** Optional context which user can view by toggling a button. */
   context?: string | ReactNode;
+  /** Optional colour for the context (defaults to ..) */
+  contextColor?: WellProps["color"];
   /** Holds text for the label associated with the input element */
   label: string | ReactNode;
   /** A string specifying a name for the input control. */

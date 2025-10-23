@@ -7,6 +7,7 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\FinalDecision;
+use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
@@ -407,6 +408,43 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
+    public function whereFinalDecisionIn(?array $finalDecisions): self
+    {
+
+        if (empty($finalDecisions)) {
+            return $this;
+        }
+
+        return $this->whereIn('computed_final_decision', $finalDecisions);
+    }
+
+    public function whereRemovalReasonIn(?array $removalReasons): self
+    {
+
+        if (empty($removalReasons)) {
+            return $this;
+        }
+
+        return $this->whereIn('removal_reason', $removalReasons);
+    }
+
+    /**
+     * Placement type is a subset of statuses (currently)
+     * So, this works almost identical to whereStatusIn
+     * except, it discriminates statuses that are not placement types
+     */
+    public function wherePlacementTypeIn(?array $placementTypes): self
+    {
+        $placementCases = array_column(PlacementType::cases(), 'name');
+        $diff = array_diff($placementTypes, $placementCases);
+
+        if (empty($placementTypes) || ! empty($diff)) {
+            return $this;
+        }
+
+        return $this->whereIn('pool_candidate_status', $placementTypes);
+    }
+
     public function whereSkillsAdditive(?array $skills): self
     {
         if (empty($skills)) {
@@ -518,7 +556,9 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
-        return $this->whereIn('assessment_step', $sortOrder);
+        return $this->whereHas('assessmentStep', function (Builder $query) use ($sortOrder) {
+            $query->whereIn('sort_order', $sortOrder);
+        });
     }
 
     public function orderByClaimVerification(?array $args): self

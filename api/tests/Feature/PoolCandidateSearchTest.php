@@ -4,10 +4,14 @@ namespace Tests\Feature;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\FinalDecision;
+use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
+use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Pool;
@@ -17,6 +21,7 @@ use Carbon\Carbon;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -46,9 +51,11 @@ class PoolCandidateSearchTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->community = Community::factory()->create();
-        $this->pool = Pool::factory()->create([
-            'community_id' => $this->community->id,
-        ]);
+        $this->pool = Pool::factory()
+            ->withAssessments()
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         $this->processOperator = User::factory()
             ->asApplicant()
             ->asProcessOperator($this->pool->id)
@@ -432,7 +439,7 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
-            'user_id' => User::factory()->asGovEmployee(),
+            'user_id' => User::factory()->withGovEmployeeProfile(),
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -440,7 +447,7 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
-            'user_id' => User::factory()->asGovEmployee(false),
+            'user_id' => User::factory()->withNonGovProfile(),
         ]);
 
         $query =
@@ -687,13 +694,232 @@ class PoolCandidateSearchTest extends TestCase
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
-                'user_id' => User::factory()->asGovEmployee(),
+                'user_id' => User::factory()->withGovEmployeeProfile(),
             ]);
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
                 'where' => [
                     'departments' => [$expectedCandidate->user->department->id],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
+
+    public function testScopeAssessmentStepIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        $assessmentSteps = $this->pool->assessmentSteps;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->withAssessmentResults()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedAssessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        $expectedCandidate->assessment_step_id = $expectedAssessmentStep->id;
+        $expectedCandidate->save();
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'assessmentSteps' => [$expectedAssessmentStep->sort_order],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
+
+    public function testScopeFinalDecisionIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        $expectedDecision = FinalDecision::TO_ASSESS->name;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'computed_final_decision' => Arr::random(Arr::where(array_column(FinalDecision::cases(), 'name'), function ($finalDecision) use ($expectedDecision) {
+                    return $finalDecision !== $expectedDecision;
+                })),
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedCandidate->computed_final_decision = $expectedDecision;
+        $expectedCandidate->save();
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'finalDecisions' => [$expectedDecision],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
+
+    public function testScopePlacementTypesIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        $expectedPlacement = PlacementType::UNDER_CONSIDERATION->name;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ])->each(function ($candidate) use ($expectedPlacement) {
+                $candidate->pool_candidate_status = Arr::random(Arr::where(array_column(PoolCandidateStatus::cases(), 'name'), function ($status) use ($expectedPlacement) {
+                    return $status !== $expectedPlacement;
+                }));
+
+                $candidate->save();
+            });
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedCandidate->pool_candidate_status = $expectedPlacement;
+        $expectedCandidate->save();
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'placementTypes' => [$expectedPlacement],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+    }
+
+    public function testScopeRemovalReasonIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'removal_reason' => Arr::random(Arr::where(array_column(CandidateRemovalReason::cases(), 'name'), function ($status) {
+                    return $status !== CandidateRemovalReason::INELIGIBLE->name;
+                })),
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'removal_reason' => CandidateRemovalReason::INELIGIBLE->name,
+            ]);
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'removalReasons' => [CandidateRemovalReason::INELIGIBLE->name],
                 ],
             ])->assertJsonFragment([
                 'data' => [

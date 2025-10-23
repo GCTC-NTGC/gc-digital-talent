@@ -37,12 +37,9 @@ export const Component = () => {
   });
 
   const email = data?.me?.email;
-  const isGovEmployee = data?.me?.isGovEmployee;
   const paths = useRoutes();
-  const isToGettingStarted = pathname === paths.gettingStarted();
-  const isToEmployeeRegistration =
-    pathname === paths.emailVerification() ||
-    pathname === paths.employeeInformation();
+  const isToAccountPage = pathname === paths.registrationAccount();
+  const isToExperiencePage = pathname === paths.registrationExperience();
 
   useEffect(() => {
     /**
@@ -53,24 +50,10 @@ export const Component = () => {
      *  - User is not trying to go to the welcome page directly already
      */
     if (loggedIn && !fetching && !stale) {
-      if (empty(email) && !isToGettingStarted) {
+      if (empty(email) && !isToAccountPage) {
         void navigate(
           {
-            pathname: paths.gettingStarted(),
-            search: createSearchParams({ from: pathname }).toString(),
-          },
-          {
-            replace: true,
-          },
-        );
-      }
-
-      // If the user has an email but empty isGovEmployee
-      // instead redirect to employee registration page
-      if (!empty(email) && empty(isGovEmployee) && !isToEmployeeRegistration) {
-        void navigate(
-          {
-            pathname: paths.employeeInformation(),
+            pathname: paths.registrationAccount(),
             search: createSearchParams({ from: pathname }).toString(),
           },
           {
@@ -84,12 +67,11 @@ export const Component = () => {
     fetching,
     stale,
     email,
-    isToGettingStarted,
+    isToAccountPage,
     pathname,
     navigate,
     paths,
-    isToEmployeeRegistration,
-    isGovEmployee,
+    isToExperiencePage,
   ]);
 
   return <Outlet />;

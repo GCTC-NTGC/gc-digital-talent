@@ -9,13 +9,24 @@ import { CommonInputProps } from "../../types";
 export interface DescriptionsProps {
   name?: string;
   context?: CommonInputProps["context"];
+  contextColor?: CommonInputProps["contextColor"];
   errors?: FieldErrors;
   ids?: DescriptionIds;
 }
 
-const Descriptions = ({ context, errors, ids, name }: DescriptionsProps) => (
+const Descriptions = ({
+  context,
+  errors,
+  ids,
+  name,
+  contextColor,
+}: DescriptionsProps) => (
   <>
-    {context && <Context id={ids?.context}>{context}</Context>}
+    {context && (
+      <Context id={ids?.context} color={contextColor}>
+        {context}
+      </Context>
+    )}
     {name && (
       <ErrorMessage
         errors={errors}

@@ -13,7 +13,7 @@ final class PlaceCandidate
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
         $placementType = $args['placementType'];
-        $departmentId = $args['departmentId'];
+        $departmentId = $args['department']['connect']; // validator asserts this value is valid
 
         $candidate->place($placementType, $departmentId);
         $candidate->save();

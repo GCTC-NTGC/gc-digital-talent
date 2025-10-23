@@ -150,7 +150,7 @@ export function transformSortStateToOrderByClause(
     return !!columnName;
   });
 
-  if (sortingRule && sortingRule.id === "classification") {
+  if (sortingRule?.id === "classification") {
     return [
       {
         column: undefined,

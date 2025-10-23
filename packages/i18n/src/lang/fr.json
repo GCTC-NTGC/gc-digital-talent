@@ -516,7 +516,7 @@
     "description": "Error message that a given pool skill is not valid."
   },
   "HxxE2u": {
-    "defaultMessage": "{count, plural, =0 {0 options sélectionnées} one {1 option sélectionnée} other {# options sélectionnées}}",
+    "defaultMessage": "{count, plural, =0 {0 option sélectionnée} one {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
   "I1jrAG": {
@@ -580,7 +580,7 @@
     "description": "The behavioural skill level for beginner"
   },
   "KeleaV": {
-    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} one {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} one {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
+    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultat équivalent} one {<strong>1</strong> résultat équivalent} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> option disponible} one {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
     "description": "Message showing number of matching items from all available options in combobox menu"
   },
   "Ko0JX/": {
@@ -614,6 +614,10 @@
   "MBnBcY": {
     "defaultMessage": "Vitrine de compétences",
     "description": "Name of the skill showcase page"
+  },
+  "MQB4IA": {
+    "defaultMessage": "Sauvegardez et continuez",
+    "description": "Button text to save a form step and continue to the next one"
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -855,6 +859,10 @@
     "defaultMessage": "Désignation professionnelle",
     "description": "Option for education requirement, professional designation"
   },
+  "TgQyrU": {
+    "defaultMessage": "Créé",
+    "description": "Label for a created at date"
+  },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
@@ -952,7 +960,7 @@
     "description": "The operational requirement described as shift work."
   },
   "X3wRqo": {
-    "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} one {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
+    "defaultMessage": "{total, plural, =0 {<strong>0</strong> option disponible} one {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
     "description": "Message showing number of all available options in combobox menu"
   },
   "XCKYVJ": {

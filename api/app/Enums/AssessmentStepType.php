@@ -26,4 +26,20 @@ enum AssessmentStepType
     {
         return 'assessment_step_type';
     }
+
+    // Some step types are controlled and will cause the sort_order to snap to a new value when saving.
+    // These step types are free to use use, starting in step_order 3.
+    public static function uncontrolledStepTypes(): array
+    {
+        return [
+            AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
+            AssessmentStepType::TECHNICAL_EXAM_AT_HOME,
+            AssessmentStepType::PSC_EXAM,
+            AssessmentStepType::INTERVIEW_GROUP,
+            AssessmentStepType::INTERVIEW_INDIVIDUAL,
+            AssessmentStepType::INTERVIEW_FOLLOWUP,
+            AssessmentStepType::REFERENCE_CHECK,
+            AssessmentStepType::ADDITIONAL_ASSESSMENT,
+        ];
+    }
 }

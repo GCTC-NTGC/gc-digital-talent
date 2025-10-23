@@ -74,8 +74,7 @@ export function transformSortStateToOrderByClause(
   }
 
   if (
-    sortingRule &&
-    sortingRule.id === "skillCount" &&
+    sortingRule?.id === "skillCount" &&
     filterState?.skills &&
     filterState.skills.length > 0
   ) {

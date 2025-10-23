@@ -50,6 +50,7 @@ const Combobox = ({
   toggleLabel,
   name,
   context,
+  contextColor,
   options,
   rules = {},
   readOnly,
@@ -182,7 +183,10 @@ const Combobox = ({
           )
         }
       />
-      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
+      <Field.Descriptions
+        ids={descriptionIds}
+        {...{ errors, name, context, contextColor }}
+      />
     </Field.Wrapper>
   );
 };
