@@ -6,6 +6,7 @@ use App\Builders\UserBuilder;
 use App\Casts\LanguageCode;
 use App\Enums\EmailType;
 use App\Enums\EmploymentCategory;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
@@ -550,10 +551,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
-            is_null($this->attributes['location_preferences']) or
-            empty($this->attributes['location_preferences']) or
             is_null($this->attributes['flexible_work_locations']) or
             empty($this->attributes['flexible_work_locations']) or
+            ((in_array(FlexibleWorkLocation::HYBRID->name, $this->flexible_work_locations) or
+                in_array(FlexibleWorkLocation::ONSITE->name, $this->flexible_work_locations)) &&
+                (is_null($this->attributes['location_preferences']) or
+                empty($this->attributes['location_preferences']))
+            ) or
             empty($this->attributes['position_duration']) or
             is_null($this->attributes['citizenship']) or
             is_null($this->attributes['armed_forces_status'])
