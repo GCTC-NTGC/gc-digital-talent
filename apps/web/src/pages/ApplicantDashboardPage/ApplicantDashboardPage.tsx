@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import { Client, OperationContext, useQuery } from "urql";
+import { LoaderFunctionArgs, useLoaderData } from "react-router";
 
 import {
   Pending,
@@ -12,6 +13,9 @@ import {
   graphql,
   getFragment,
   ApplicantDashboardQuery,
+  UserAuthInfo,
+  Skill,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
@@ -19,7 +23,6 @@ import { NotFoundError } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
 import {
@@ -31,6 +34,9 @@ import {
 import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
+import { graphqlClientContext } from "~/middleware/graphqlClientMiddleware";
+import { RouteContext } from "~/middleware/routeContext";
+import { guardByRoles } from "~/middleware/authMiddleware";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -188,11 +194,49 @@ interface DashboardPageProps {
   applicantDashboardQuery: ApplicantDashboardQuery;
 }
 
+const TestQuery_Fragment = graphql(/** GraphQL */ `
+  query TestMiddlewareQuery {
+    me {
+      authInfo {
+        sub
+      }
+    }
+    skills {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
+interface ClientLoaderData {
+  user?: Maybe<Partial<UserAuthInfo>>;
+  skills?: Maybe<Partial<Maybe<Skill>>[]>;
+}
+
+export const clientLoader = async ({
+  context,
+}: LoaderFunctionArgs<RouteContext<Client>>): Promise<ClientLoaderData> => {
+  const client = context.get(graphqlClientContext);
+  // Middleware throws before react, so check here for nice error boundary
+  guardByRoles(context, [ROLE_NAME.Applicant]);
+
+  const res = await client.query(TestQuery_Fragment, {}).toPromise();
+  return {
+    user: res.data?.me?.authInfo,
+    skills: res.data?.skills,
+  };
+};
+
 export const DashboardPage = ({
   applicantDashboardQuery,
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const data = useLoaderData<ClientLoaderData>();
+
+  console.log({ data });
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -454,7 +498,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const ApplicantDashboardPageApi = () => {
+export const Component = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
@@ -474,9 +518,6 @@ export const ApplicantDashboardPageApi = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ApplicantDashboardPageApi />
-  </RequireAuth>
-);
+export default Component;
+
 Component.displayName = "ApplicantDashboardPage";

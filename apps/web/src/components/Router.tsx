@@ -8,11 +8,18 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 import { FeatureFlags, useFeatureFlags } from "@gc-digital-talent/env";
 
+import { convert } from "~/utils/routing";
+import intlMiddleware from "~/middleware/intlMiddleware";
+import graphqlClientMiddleware from "~/middleware/graphqlClientMiddleware";
+import userMiddleware from "~/middleware/authMiddleware";
+import protectedRouteMiddleware from "~/middleware/protectedRouteMiddleware";
+
 const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
   createBrowserRouter([
     {
       path: `/`,
-      lazy: () => import("./Layout/MainLayout"),
+      lazy: () => import("./Layout/MainLayout").then(convert),
+      middleware: [intlMiddleware, graphqlClientMiddleware, userMiddleware],
       HydrateFallback: Loading,
       children: [
         {
@@ -239,10 +246,11 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               children: [
                 {
                   index: true,
+                  middleware: [protectedRouteMiddleware],
                   lazy: () =>
                     import(
                       "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
-                    ),
+                    ).then(convert),
                 },
                 {
                   path: "dashboard",
