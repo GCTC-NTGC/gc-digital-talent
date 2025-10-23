@@ -5,13 +5,14 @@ import { IntlConfig } from "react-intl";
 import Providers from "../components/Providers";
 
 interface Options extends Omit<RenderOptions, "wrapper"> {
-  richTextElements: IntlConfig["defaultRichTextElements"];
+  richTextElements?: IntlConfig["defaultRichTextElements"];
 }
 
 const renderWithProviders = (
   ui: ReactElement,
-  { richTextElements, ...options }: Options,
+  opts: Options = {},
 ): ReturnType<typeof render> => {
+  const { richTextElements, ...options } = opts;
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <Providers richTextElements={richTextElements}>{children}</Providers>
   );
