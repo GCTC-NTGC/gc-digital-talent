@@ -159,6 +159,10 @@
     "defaultMessage": "Ministères",
     "description": "Title for departments"
   },
+  "+dlRCu": {
+    "defaultMessage": "Filtres de processus",
+    "description": "Heading for filters associated with a candidates process"
+  },
   "+do6jV": {
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
@@ -386,6 +390,10 @@
   "/dy2CX": {
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
+  },
+  "/eEV1T": {
+    "defaultMessage": "Filtres de demandes",
+    "description": "Heading for filters associated with an applications status"
   },
   "/eyJbp": {
     "defaultMessage": "Il semble que cette adresse courriel professionnelle ne soit pas liée à un profil. Les personnes candidates doivent disposer d'un compte sur Talents numériques du GC pour pouvoir être nommées. Veuillez contacter la candidate ou le candidat et leur demander de créer un profil avant de continuer.",
@@ -1538,6 +1546,10 @@
   "4O9Ymu": {
     "defaultMessage": "La mise à jour des rôles de l'utilisateur a échoué.",
     "description": "Error message for updating user roles"
+  },
+  "4PiCoE": {
+    "defaultMessage": "Il s'agit d'un moyen temporaire par lequel filtrer les candidatures selon les anciens statuts. Ce filtre s'appuie sur des données qui datent, ce qui risque de fausser les résultats affichés. Pour obtenir de meilleurs résultats, veuillez appliquer les autres filtres offerts.",
+    "description": "Warning about the status filter being a temporary solution"
   },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
@@ -5831,10 +5843,6 @@
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
   },
-  "NxrKpM": {
-    "defaultMessage": "Statut de la candidature",
-    "description": "Label for the candidacy status field"
-  },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
@@ -7765,6 +7773,10 @@
   "Wpj2OY": {
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
+  },
+  "WqxVxb": {
+    "defaultMessage": "Filtres de profils",
+    "description": "Heading for filters associated with a candidates profile"
   },
   "WrTLaB": {
     "defaultMessage": "Les fonctionnaires qui désirent devenir des cadres de la gestion financière",
@@ -11377,6 +11389,10 @@
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
     "description": "Label displayed for current role input"
   },
+  "mPxtB3": {
+    "defaultMessage": "Motif de retrait",
+    "description": "Label for the reason a candidate was removed"
+  },
   "mQkyM8": {
     "defaultMessage": "Au sujet des dates limites des demandes",
     "description": "Heading for the pool deadlines dialog"
@@ -13448,6 +13464,10 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
+  },
+  "vtnz6B": {
+    "defaultMessage": "Décision finale",
+    "description": "Label for an applications final decision"
   },
   "vvnsjr": {
     "defaultMessage": "Votre objectif de carrière",
