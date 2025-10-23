@@ -3755,6 +3755,10 @@
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
   },
+  "E9tQRp": {
+    "defaultMessage": "En savoir plus<hidden> sur la bibliothèque de compétences</hidden>",
+    "description": "Link text to learn more about skills library"
+  },
   "EAy2CJ": {
     "defaultMessage": "{poolCandidateName} a ajouté cette compétence à son portfolio de compétences, sans toutefois établir de lien avec une expérience professionnelle.",
     "description": "Disclaimer in well for claimed skill special case rendering"
@@ -9017,6 +9021,10 @@
   "cPOQCk": {
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
+  },
+  "cREOBT": {
+    "defaultMessage": "La bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. En fournissant des descriptions claires de chaque compétence, elle favorise une compréhension commune des responsables du recrutement, des membres des ressources humaines et des personnes candidates.",
+    "description": "Description of skills library"
   },
   "cT3RkN": {
     "defaultMessage": "Vous occupez un poste permanent stable et aimeriez recevoir une indemnité de départ pour quitter volontairement la fonction publique.",
