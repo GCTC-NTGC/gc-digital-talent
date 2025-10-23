@@ -156,6 +156,11 @@ const messages = {
       description:
         "Description for the `other education with specialization` option for EC education requirements",
     },
+    finalDecision: {
+      defaultMessage: "Final decision",
+      id: "vtnz6B",
+      description: "Label for an applications final decision",
+    },
   }),
 };
 

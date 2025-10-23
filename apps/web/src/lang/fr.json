@@ -159,6 +159,10 @@
     "defaultMessage": "Ministères",
     "description": "Title for departments"
   },
+  "+dlRCu": {
+    "defaultMessage": "Filtres de processus",
+    "description": "Heading for filters associated with a candidates process"
+  },
   "+do6jV": {
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
@@ -335,10 +339,6 @@
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
   },
-  "/QXIF+": {
-    "defaultMessage": "Réaménagement des effectifs et nouveaux débouchés",
-    "description": "Heading for the WFA section"
-  },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
@@ -386,6 +386,10 @@
   "/dy2CX": {
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
+  },
+  "/eEV1T": {
+    "defaultMessage": "Filtres de demandes",
+    "description": "Heading for filters associated with an applications status"
   },
   "/eyJbp": {
     "defaultMessage": "Il semble que cette adresse courriel professionnelle ne soit pas liée à un profil. Les personnes candidates doivent disposer d'un compte sur Talents numériques du GC pour pouvoir être nommées. Veuillez contacter la candidate ou le candidat et leur demander de créer un profil avant de continuer.",
@@ -1538,6 +1542,10 @@
   "4O9Ymu": {
     "defaultMessage": "La mise à jour des rôles de l'utilisateur a échoué.",
     "description": "Error message for updating user roles"
+  },
+  "4PiCoE": {
+    "defaultMessage": "Il s'agit d'un moyen temporaire par lequel filtrer les candidatures selon les anciens statuts. Ce filtre s'appuie sur des données qui datent, ce qui risque de fausser les résultats affichés. Pour obtenir de meilleurs résultats, veuillez appliquer les autres filtres offerts.",
+    "description": "Warning about the status filter being a temporary solution"
   },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
@@ -3451,10 +3459,6 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
-  "Cv2CaU": {
-    "defaultMessage": "À venir cet automne",
-    "description": "Indication that more WFA information is coming in the fall"
-  },
   "Cvl9dd": {
     "defaultMessage": "Langue de la formation",
     "description": "The language of the training opportunity"
@@ -3759,6 +3763,10 @@
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
   },
+  "E9tQRp": {
+    "defaultMessage": "En savoir plus<hidden> sur la bibliothèque de compétences</hidden>",
+    "description": "Link text to learn more about skills library"
+  },
   "EAy2CJ": {
     "defaultMessage": "{poolCandidateName} a ajouté cette compétence à son portfolio de compétences, sans toutefois établir de lien avec une expérience professionnelle.",
     "description": "Disclaimer in well for claimed skill special case rendering"
@@ -3898,10 +3906,6 @@
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
-  },
-  "EtIovH": {
-    "defaultMessage": "Le gouvernement du Canada se transforme à mesure qu'il cible de nouvelles priorités. Cette mutation influera possiblement sur la situation professionnelle de membres du personnel. Si vous comptez parmi ces membres et que vous faites partie des collectivités fonctionnelles soutenues par notre plateforme, nous pouvons peut-être vous aider.",
-    "description": "Summary of WFA section"
   },
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
@@ -5830,10 +5834,6 @@
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
-  },
-  "NxrKpM": {
-    "defaultMessage": "Statut de la candidature",
-    "description": "Label for the candidacy status field"
   },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
@@ -7766,6 +7766,10 @@
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
   },
+  "WqxVxb": {
+    "defaultMessage": "Filtres de profils",
+    "description": "Heading for filters associated with a candidates profile"
+  },
   "WrTLaB": {
     "defaultMessage": "Les fonctionnaires qui désirent devenir des cadres de la gestion financière",
     "description": "Employee group list item label"
@@ -8902,10 +8906,6 @@
     "defaultMessage": "Si vous avez des demandes d'accommodements ou des questions relativement à ce processus, veuillez écrire à l'équipe de recrutement à l'adresse <link>{contactEmail}</link>.",
     "description": "Opening sentence asking if accommodations are needed"
   },
-  "bzZnxS": {
-    "defaultMessage": "En savoir plus<hidden> sur le réaménagement des effectifs</hidden>",
-    "description": "Link text to the workforce adjustment info page"
-  },
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
     "description": "Description of how we use GCKey for authentication."
@@ -9005,6 +9005,10 @@
   "cPOQCk": {
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
+  },
+  "cREOBT": {
+    "defaultMessage": "La bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. En fournissant des descriptions claires de chaque compétence, elle favorise une compréhension commune des responsables du recrutement, des membres des ressources humaines et des personnes candidates.",
+    "description": "Description of skills library"
   },
   "cT3RkN": {
     "defaultMessage": "Vous occupez un poste permanent stable et aimeriez recevoir une indemnité de départ pour quitter volontairement la fonction publique.",
@@ -11377,6 +11381,10 @@
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
     "description": "Label displayed for current role input"
   },
+  "mPxtB3": {
+    "defaultMessage": "Motif de retrait",
+    "description": "Label for the reason a candidate was removed"
+  },
   "mQkyM8": {
     "defaultMessage": "Au sujet des dates limites des demandes",
     "description": "Heading for the pool deadlines dialog"
@@ -13448,6 +13456,10 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
+  },
+  "vtnz6B": {
+    "defaultMessage": "Décision finale",
+    "description": "Label for an applications final decision"
   },
   "vvnsjr": {
     "defaultMessage": "Votre objectif de carrière",

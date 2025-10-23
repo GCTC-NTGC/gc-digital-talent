@@ -79,6 +79,7 @@ import {
   localizedEnumToInput,
   localizedEnumArrayToInput,
   narrowEnumType,
+  sortLocalizedEnumOptions,
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
 import { appendLanguageName } from "./utils/lang";
@@ -130,6 +131,7 @@ export {
   sortPriorityWeight,
   sortSecurityStatus,
   sortWfaInterest,
+  sortLocalizedEnumOptions,
   appendLanguageName,
 };
 

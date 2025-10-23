@@ -1364,6 +1364,9 @@ input PoolCandidateSearchInput {
   flexibleWorkLocations: [FlexibleWorkLocation]
     @scope(name: "whereFlexibleWorkLocationsIn")
   assessmentSteps: [Int!] @scope(name: "whereAssessmentStepIn")
+  finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
+  placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
+  removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
 }
 
 input PoolCandidateSearchRequestInput {

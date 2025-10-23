@@ -7,5 +7,4 @@ failOnConsole();
 
 expect.extend(toHaveNoViolations);
 
-// @ts-expect-error: util.TextEncoder is compatible for our purposes in tests
 global.TextEncoder = TextEncoder;

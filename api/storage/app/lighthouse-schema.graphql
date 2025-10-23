@@ -1716,6 +1716,9 @@ input PoolCandidateSearchInput {
   processNumber: String
   flexibleWorkLocations: [FlexibleWorkLocation]
   assessmentSteps: [Int!]
+  finalDecisions: [FinalDecision!]
+  placementTypes: [PlacementType!]
+  removalReasons: [CandidateRemovalReason!]
 }
 
 input PoolCandidateSearchRequestInput {

@@ -89,6 +89,23 @@ function sortLocalizedEnums(
 }
 
 /**
+ * Sorts an array of localized enums where we know the value (not just a string)
+ * based on a sorted array of values
+ *
+ * @param orderArray - Array with target sorting of values
+ * @param localizedEnumArray  - Array of localized enums to be sorted
+ * @returns The sorted array of localized enums
+ */
+export function sortLocalizedEnumOptions<T extends string>(
+  orderArray: string[],
+  localizedEnumArray?: GenericLocalizedEnum<T>[],
+) {
+  return unpackMaybes(localizedEnumArray).sort(
+    (a, b) => orderArray.indexOf(a.value) - orderArray.indexOf(b.value),
+  );
+}
+
+/**
  * Converts an a form input value to a typecast localized enum
  *
  * @param input - The input value

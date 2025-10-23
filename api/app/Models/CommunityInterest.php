@@ -137,12 +137,12 @@ class CommunityInterest extends Model
         $query->where(function (Builder $query) use ($user) {
 
             // the user might be able to view their own interests
-            if ($user->isAbleTo('view-own-employeeProfile')) {
+            if ($user?->isAbleTo('view-own-employeeProfile')) {
                 $query->orWhere('user_id', $user->id);
             }
 
             // the user might be able to view their communities' interests
-            if ($user->isAbleTo('view-team-communityInterest')) {
+            if ($user?->isAbleTo('view-team-communityInterest')) {
                 $query->orWhere(function (Builder $query) use ($user) {
 
                     // all community teams that the user is a member in

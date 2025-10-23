@@ -661,13 +661,13 @@ class UserBuilder extends Builder
         /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if ($user->isAbleTo('view-any-employeeWFA')) {
+        if ($user?->isAbleTo('view-any-employeeWFA')) {
             return $this;
         }
 
         $filterCountBefore = count($this->getQuery()->wheres);
         $query = $this->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-team-employeeWFA')) {
+            if ($user?->isAbleTo('view-team-employeeWFA')) {
                 $allCommunityTeams = $user->rolesTeams()
                     ->where('teamable_type', "App\Models\Community")
                     ->get();
