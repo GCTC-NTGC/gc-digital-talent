@@ -1,10 +1,9 @@
 import { HelmetProvider } from "react-helmet-async";
-import { IntlProvider } from "react-intl";
+import { IntlProvider, IntlConfig } from "react-intl";
 import { BrowserRouter } from "react-router";
 import { ReactNode } from "react";
-import { vi } from "vitest";
 
-const richTextElements = {
+const defaultRichTextElements = {
   strong: vi.fn(),
   hidden: vi.fn(),
   heavyPrimary: vi.fn(),
@@ -25,14 +24,21 @@ const richTextElements = {
 
 interface ProvidersProps {
   children: ReactNode;
+  richTextElements?: IntlConfig["defaultRichTextElements"];
 }
 
-const Providers = ({ children }: ProvidersProps) => {
+const Providers = ({ children, richTextElements }: ProvidersProps) => {
   window.history.pushState({}, "Test page", "/");
 
   return (
     <HelmetProvider>
-      <IntlProvider locale="en" defaultRichTextElements={richTextElements}>
+      <IntlProvider
+        locale="en"
+        defaultRichTextElements={{
+          ...defaultRichTextElements,
+          ...richTextElements,
+        }}
+      >
         <BrowserRouter>{children}</BrowserRouter>
       </IntlProvider>
     </HelmetProvider>
