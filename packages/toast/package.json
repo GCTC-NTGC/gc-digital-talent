@@ -18,7 +18,7 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
-    "react-intl": "^7.1.11",
+    "react-intl": "^7.1.14",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
     "tailwind-variants": "^3.1.1"
