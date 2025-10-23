@@ -148,9 +148,11 @@ class Department extends AppPage {
       for (const key of keys) {
         const label = this.typeMap.get(key);
         if (label && this.typeIsSet(key, type)) {
-          await this.locators.type
-            .getByRole("checkbox", { name: label })
-            .click();
+          const el = this.locators.type.getByRole("checkbox", { name: label });
+          const isChecked = await el.isChecked();
+          if ((type?.[key] && !isChecked) || (!type?.[key] && isChecked)) {
+            await el.click();
+          }
         }
       }
     }
