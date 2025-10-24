@@ -22,6 +22,7 @@ import {
   navigationMessages,
   narrowEnumType,
   sortLocalizedEnumOptions,
+  ENUM_SORT_ORDER,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 
@@ -35,7 +36,7 @@ import FilterDialog, {
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 import tableMessages from "./tableMessages";
-import { candidateSuspendedFilterToCustomOptions, SORT_ORDER } from "./helpers";
+import { candidateSuspendedFilterToCustomOptions } from "./helpers";
 
 const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {
@@ -455,7 +456,7 @@ const PoolCandidateFilterDialog = ({
           name="priorityWeight"
           legend={intl.formatMessage(adminMessages.category)}
           items={sortLocalizedEnumOptions(
-            SORT_ORDER.PRIORITY_WEIGHT,
+            ENUM_SORT_ORDER.PRIORITY_WEIGHT,
             narrowEnumType(
               unpackMaybes(data?.priorityWeights),
               "PriorityWeight",
@@ -482,7 +483,7 @@ const PoolCandidateFilterDialog = ({
           name="flexibleWorkLocations"
           legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
           items={sortLocalizedEnumOptions(
-            SORT_ORDER.FLEXIBLE_WORK_LOCATION,
+            ENUM_SORT_ORDER.FLEXIBLE_WORK_LOCATION,
             narrowEnumType(
               unpackMaybes(data?.flexibleWorkLocations),
               "FlexibleWorkLocation",
@@ -497,7 +498,7 @@ const PoolCandidateFilterDialog = ({
           name="workRegion"
           legend={intl.formatMessage(navigationMessages.workLocation)}
           items={sortLocalizedEnumOptions(
-            SORT_ORDER.WORK_REGION,
+            ENUM_SORT_ORDER.WORK_REGION,
             narrowEnumType(unpackMaybes(data?.workRegions), "WorkRegion"),
           )
             /* remove 'Telework' enum from checklist of options */
