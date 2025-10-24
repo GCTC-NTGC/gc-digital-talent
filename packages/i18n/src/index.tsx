@@ -1,5 +1,4 @@
 import fr from "./lang/frCompiled.json";
-import richTextElements from "./components/richTextElements";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
@@ -85,7 +84,6 @@ import type { Locales, Messages } from "./types";
 import { appendLanguageName } from "./utils/lang";
 
 export {
-  richTextElements,
   isLocale,
   getLocale,
   oppositeLocale,

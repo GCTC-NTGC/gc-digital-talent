@@ -25,7 +25,8 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
-    "@gc-digital-talent/logger": "workspace:*"
+    "@gc-digital-talent/logger": "workspace:*",
+    "@gc-digital-talent/rich-text-elements": "workspace:*"
   },
   "devDependencies": {
     "@formatjs/cli": "^6.7.2",

@@ -746,6 +746,9 @@ importers:
       '@gc-digital-talent/logger':
         specifier: workspace:*
         version: link:../logger
+      '@gc-digital-talent/rich-text-elements':
+        specifier: workspace:*
+        version: link:../rich-text-elements
     devDependencies:
       '@formatjs/cli':
         specifier: ^6.7.2
@@ -811,6 +814,27 @@ importers:
       eslint:
         specifier: ^9.20.1
         version: 9.36.0(jiti@2.6.1)
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/rich-text-elements:
+    devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      '@types/react':
+        specifier: ^19.2.2
+        version: 19.2.2
+      eslint:
+        specifier: ^9.20.1
+        version: 9.36.0(jiti@2.6.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1123,6 +1147,9 @@ importers:
 
   packages/vitest-helpers:
     dependencies:
+      '@gc-digital-talent/rich-text-elements':
+        specifier: workspace:*
+        version: link:../rich-text-elements
       react-helmet-async:
         specifier: ^2.0.5
         version: 2.0.5(react@19.2.0)
