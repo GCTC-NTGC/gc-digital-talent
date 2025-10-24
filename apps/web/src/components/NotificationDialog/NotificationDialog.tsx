@@ -24,6 +24,8 @@ import notificationMessages from "~/messages/notificationMessages";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { parseInt } from "lodash";
 
 const Overlay = m.create(DialogPrimitive.Overlay);
 
@@ -154,6 +156,9 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
+const envPollingInterval = getRuntimeVariable("NOTIFICATION_POLLING_INTERVAL");
+const pollingInterval = envPollingInterval ? parseInt(envPollingInterval) : 1;
+
 interface NotificationDialog {
   /** Controllable open state */
   open?: boolean;
@@ -186,7 +191,7 @@ const NotificationDialog = ({
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
-    60,
+    pollingInterval * 60,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
   const buttonLabel = open
