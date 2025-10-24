@@ -1,13 +1,11 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
-
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { screen } from "@testing-library/react";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
 import SearchRequestTable from "./SearchRequestTable";

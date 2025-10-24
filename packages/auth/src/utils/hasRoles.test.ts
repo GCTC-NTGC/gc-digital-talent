@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";

@@ -1,13 +1,13 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { act, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
+import { vi } from "vitest";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 import { AuthorizationContainer } from "@gc-digital-talent/auth";
 import { EmailType } from "@gc-digital-talent/graphql";
 
@@ -18,12 +18,12 @@ import EmailVerificationApi, {
 const getDefaultProps = (): EmailVerificationProps => ({
   emailType: EmailType.Contact,
   emailAddress: "example@example.org",
-  onSkip: jest.fn(),
-  onVerificationSuccess: jest.fn(),
+  onSkip: vi.fn(),
+  onVerificationSuccess: vi.fn(),
 });
 
 const getMockClient = () => ({
-  executeMutation: jest.fn(() => pipe(fromValue({}), delay(0))),
+  executeMutation: vi.fn(() => pipe(fromValue({}), delay(0))),
 });
 
 const renderComponent = (
@@ -67,7 +67,7 @@ describe("EmailVerification", () => {
   });
 
   it("should generate a skip event when clicked", () => {
-    const handleSkip = jest.fn();
+    const handleSkip = vi.fn();
     renderComponent(
       {
         ...getDefaultProps(),
@@ -83,7 +83,7 @@ describe("EmailVerification", () => {
   });
 
   it("should make an API request to request a code on page load", () => {
-    const mutation = jest.fn(() => pipe(fromValue({}), delay(0)));
+    const mutation = vi.fn(() => pipe(fromValue({}), delay(0)));
     renderComponent(getDefaultProps(), {
       ...getMockClient(),
       executeMutation: mutation,
@@ -98,7 +98,7 @@ describe("EmailVerification", () => {
   });
 
   it("should make an API request when a code is requested", () => {
-    const mutation = jest.fn(() => pipe(fromValue({}), delay(0)));
+    const mutation = vi.fn(() => pipe(fromValue({}), delay(0)));
     renderComponent(getDefaultProps(), {
       ...getMockClient(),
       executeMutation: mutation,
@@ -120,7 +120,7 @@ describe("EmailVerification", () => {
   });
 
   it("should make an API request when a code is submitted", async () => {
-    const mutation = jest.fn(() => pipe(fromValue({}), delay(0)));
+    const mutation = vi.fn(() => pipe(fromValue({}), delay(0)));
     renderComponent(getDefaultProps(), {
       ...getMockClient(),
       executeMutation: mutation,

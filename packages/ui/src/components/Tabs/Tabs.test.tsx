@@ -1,12 +1,12 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { userEvent } from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
 import { ComponentPropsWithoutRef } from "react";
+import { vi } from "vitest";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import Tabs from "./Tabs";
 
@@ -37,7 +37,7 @@ const renderTabs = ({ ...rest }: TabsRootPrimitivePropsWithoutRef) => {
 
 describe("Tabs", () => {
   const user = userEvent.setup();
-  window.HTMLElement.prototype.scrollTo = jest.fn();
+  window.HTMLElement.prototype.scrollTo = vi.fn();
 
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderTabs({});

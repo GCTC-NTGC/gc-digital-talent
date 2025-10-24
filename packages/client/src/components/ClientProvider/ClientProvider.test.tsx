@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { vi } from "vitest";
 import { CombinedError } from "urql";
 import isEqual from "lodash/isEqual";
 
@@ -31,12 +32,12 @@ describe("ClientProvider tests", () => {
 
   test("If there is an accessToken that has not expired but is within allowable skew then willAuthError is true", () => {
     // 10 seconds before the token expires
-    jest.useFakeTimers().setSystemTime((2147483647 - 10) * 1000);
+    vi.useFakeTimers().setSystemTime((2147483647 - 10) * 1000);
     const accessToken =
       "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjIxNDc0ODM2NDcsImlhdCI6MH0.v5o7sfcTiqB21JrCZ1ytP0gJp4JeTuiEdO8yVBVro7Y"; // expires Jan 18 2038 (2147483647)
     const result = isTokenProbablyExpired(accessToken);
     expect(result).toEqual(true);
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   test("finds validation errors", () => {

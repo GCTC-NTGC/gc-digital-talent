@@ -1,14 +1,14 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { act, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { Provider as GraphqlProvider, GraphQLRequest } from "urql";
 import { fromValue } from "wonka";
 import { Kind } from "graphql";
+import { vi } from "vitest";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 
 import {
   EmployeeInformationForm,
@@ -25,7 +25,7 @@ export const tryGetOperationName = (request: GraphQLRequest): string | null => {
 };
 
 const mockClient = {
-  executeQuery: jest.fn((request: GraphQLRequest) => {
+  executeQuery: vi.fn((request: GraphQLRequest) => {
     const operationName = tryGetOperationName(request);
     switch (operationName) {
       case "WorkFieldOptions":
@@ -57,7 +57,7 @@ describe("Create Account Form tests", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderEmployeeInformationForm({
       navigationTarget,
-      onSubmit: jest.fn(),
+      onSubmit: vi.fn(),
     });
 
     await act(async () => await axeTest(container));
@@ -66,7 +66,7 @@ describe("Create Account Form tests", () => {
   it("should render fields", () => {
     renderEmployeeInformationForm({
       navigationTarget,
-      onSubmit: jest.fn(),
+      onSubmit: vi.fn(),
     });
 
     expect(
@@ -104,7 +104,7 @@ describe("Create Account Form tests", () => {
   });
 
   it("should not submit with empty fields.", async () => {
-    const mockSave = jest.fn();
+    const mockSave = vi.fn();
     renderEmployeeInformationForm({
       navigationTarget,
       onSubmit: mockSave,

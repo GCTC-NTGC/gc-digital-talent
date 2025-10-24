@@ -1,9 +1,7 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
-
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import PrivacyPolicy from "./PrivacyPolicy";
 

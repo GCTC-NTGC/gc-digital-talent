@@ -1,17 +1,14 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen, renderHook } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import { vi } from "vitest";
 
-import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import Pagination, { PaginationProps } from "./Pagination";
 import { DOTS, usePagination } from "./usePagination";
 
-const onCurrentPageChange = jest.fn();
-const onPageSizeChange = jest.fn();
+const onCurrentPageChange = vi.fn();
+const onPageSizeChange = vi.fn();
 
 const defaultProps: PaginationProps = {
   currentPage: 1,
@@ -125,7 +122,7 @@ describe("Pagination tests", () => {
   });
 
   it("Should handle clicks on right (next) arrow buttons correctly", async () => {
-    const handlePageChange = jest.fn();
+    const handlePageChange = vi.fn();
     const props = { ...defaultProps, onCurrentPageChange: handlePageChange };
     renderPagination(props);
 
@@ -137,7 +134,7 @@ describe("Pagination tests", () => {
   });
 
   it("Should handle clicks on left (previous) arrow buttons correctly", async () => {
-    const handlePageChange = jest.fn();
+    const handlePageChange = vi.fn();
     const lastPage = 5;
     const props = {
       ...defaultProps,
@@ -156,7 +153,7 @@ describe("Pagination tests", () => {
   });
 
   it("Should handle clicks on page buttons correctly", async () => {
-    const handlePageChange = jest.fn();
+    const handlePageChange = vi.fn();
     const props = {
       ...defaultProps,
       totalPages: 5,

@@ -1,11 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { ComponentPropsWithoutRef } from "react";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import Stepper from "./Stepper";
 import { defaultSteps } from "./testUtils";

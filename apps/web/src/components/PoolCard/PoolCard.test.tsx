@@ -1,10 +1,9 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { makeFragmentData, Pool } from "@gc-digital-talent/graphql";
 

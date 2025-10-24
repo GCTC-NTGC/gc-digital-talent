@@ -21,7 +21,12 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "../../packages/vitest-helpers/src/setup.d.ts"
+    ]
   },
   "exclude": [
     "**/node_modules",

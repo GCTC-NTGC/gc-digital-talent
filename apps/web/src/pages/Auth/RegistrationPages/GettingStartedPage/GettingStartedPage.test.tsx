@@ -1,12 +1,12 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { fireEvent, act, screen, waitFor } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
+import { vi } from "vitest";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
@@ -18,11 +18,11 @@ import {
   GettingStartedOptions_Query,
 } from "./GettingStartedForm";
 
-const mockSave = jest.fn().mockResolvedValue(undefined);
+const mockSave = vi.fn().mockResolvedValue(undefined);
 
 const mockClient = {
-  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  executeMutation: jest.fn(() =>
+  executeQuery: vi.fn(() => pipe(fromValue({}), delay(0))),
+  executeMutation: vi.fn(() =>
     fromValue({
       // pretend that an email address verification email was sent
       data: {

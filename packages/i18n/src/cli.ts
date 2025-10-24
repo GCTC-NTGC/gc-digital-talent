@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import yargs from "yargs/yargs";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import stringify from "json-stable-stringify"; // provides sorted output
 
 const argv = yargs(process.argv.slice(2))
@@ -75,7 +75,7 @@ const readDataFile = (
     return JSON.parse(fs.readFileSync(filename, "utf8")) as Messages;
   }
   if (ext === ".yml" || ext === ".yaml") {
-    return yaml.load(fs.readFileSync(filename, "utf8")) as Whitelist;
+    return load(fs.readFileSync(filename, "utf8")) as Whitelist;
   }
   // For unknown file types, throw error
   throw new Error(

@@ -1,26 +1,26 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
+import { vi } from "vitest";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
 import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 
 const mockClient = {
-  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+  executeQuery: vi.fn(() => pipe(fromValue({}), delay(0))),
 };
 
 const mockApplication = fakePoolCandidates(
   1,
 )[0] as ApplicationPoolCandidateFragmentType;
 
-const mockCallback = jest.fn();
+const mockCallback = vi.fn();
 
 const renderSelfDeclarationForm = () =>
   renderWithProviders(
