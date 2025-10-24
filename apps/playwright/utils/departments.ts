@@ -1,4 +1,4 @@
-import { Department } from "@gc-digital-talent/graphql";
+import { CreateDepartmentInput, Department } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
@@ -53,5 +53,28 @@ export const deleteDepartment: GraphQLRequestFunc<
     .then(
       (res: GraphQLResponse<"deleteDepartment", Department>) =>
         res.deleteDepartment,
+    );
+};
+
+const Test_CreateDepartmentMutationDocument = /* GraphQL */ `
+  mutation Test_CreateDepartment($department: CreateDepartmentInput!) {
+    createDepartment(department: $department) {
+      id
+    }
+  }
+`;
+
+export const createDepartment: GraphQLRequestFunc<
+  Department,
+  CreateDepartmentInput
+> = async (ctx, department) => {
+  return await ctx
+    .post(Test_CreateDepartmentMutationDocument, {
+      isPrivileged: true,
+      variables: { department },
+    })
+    .then(
+      (res: GraphQLResponse<"createDepartment", Department>) =>
+        res.createDepartment,
     );
 };
