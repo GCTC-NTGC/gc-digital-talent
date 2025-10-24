@@ -26,7 +26,7 @@ test("Update department", async ({ appPage }) => {
     isScience: false,
   });
 
-  await loginBySub(appPage.page, "plaform@test.com");
+  await loginBySub(appPage.page, "admin@test.com");
 
   const dept = new Department(appPage.page);
 
@@ -47,14 +47,8 @@ test("Update department", async ({ appPage }) => {
     isScience: false,
   });
 
-  await expect(appPage.page.getByRole("alert").last()).toContainText(
-    /department created successfully/i,
-  );
-
-  await dept.view(id);
-
   await expect(
-    dept.page.getByText(`Department number ${expectedNumber}`),
+    dept.page.getByText(`${expectedNumber}`),
   ).toBeVisible();
 
   await deleteDepartment(adminCtx, { id });

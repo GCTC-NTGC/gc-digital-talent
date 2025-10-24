@@ -58,8 +58,8 @@ class Department extends AppPage {
     this.locators = {
       [FIELD.NAME_EN]: page.getByRole("textbox", { name: /name \(english\)/i }),
       [FIELD.NAME_FR]: page.getByRole("textbox", { name: /name \(french\)/i }),
-      [FIELD.NUMBER]: page.getByRole("textbox", { name: /department number/i }),
-      [FIELD.ORG_ID]: page.getByRole("textbox", { name: /organization id/i }),
+      [FIELD.NUMBER]: page.getByRole("spinbutton", { name: /department number/i }),
+      [FIELD.ORG_ID]: page.getByRole("spinbutton", { name: /organization id/i }),
       [FIELD.TYPE]: page.getByRole("group", { name: /department type/i }),
       [FIELD.SIZE]: page.getByRole("combobox", { name: /department size/i }),
     };
