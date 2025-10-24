@@ -1,3 +1,4 @@
+import { expect } from "vitest";
 import { axe } from "vitest-axe";
 
 const axeTest = async (container: HTMLElement) => {
