@@ -17,6 +17,7 @@ import {
   IconButton,
   ButtonProps,
 } from "@gc-digital-talent/ui";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
@@ -24,8 +25,6 @@ import notificationMessages from "~/messages/notificationMessages";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
-import { parseInt } from "lodash";
 
 const Overlay = m.create(DialogPrimitive.Overlay);
 
