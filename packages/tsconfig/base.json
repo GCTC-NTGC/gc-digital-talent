@@ -19,7 +19,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "preserveSymlinks": true,
-    "types": ["vitest/globals", "../../packages/vitest-helpers/src/setup.d.ts"]
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "../../packages/vitest-helpers/src/setup.d.ts"
+    ]
   },
   "exclude": ["**/node_modules", "**/.*/"]
 }

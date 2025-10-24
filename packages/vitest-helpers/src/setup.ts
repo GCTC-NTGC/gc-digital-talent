@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom";
 import "vitest-axe/extend-expect";
 import { vi } from "vitest";
 import failOnConsole from "vitest-fail-on-console";
