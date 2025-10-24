@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@gc-digital-talent/i18n": "workspace:*",
+    "@gc-digital-talent/rich-text-elements": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",

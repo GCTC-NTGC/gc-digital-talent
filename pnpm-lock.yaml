@@ -11,6 +11,9 @@ importers:
       '@gc-digital-talent/i18n':
         specifier: workspace:*
         version: link:packages/i18n
+      '@gc-digital-talent/rich-text-elements':
+        specifier: workspace:*
+        version: link:packages/rich-text-elements
       '@gc-digital-talent/storybook-helpers':
         specifier: workspace:*
         version: link:packages/storybook-helpers
