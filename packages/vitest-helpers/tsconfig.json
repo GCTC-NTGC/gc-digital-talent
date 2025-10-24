@@ -1,6 +1,6 @@
 {
   "extends": "tsconfig/react-lib.json",
-  "include": ["src"],
+  "include": ["src", "src/setup.d.ts"],
   "exclude": ["**/node_modules", "**/.*/", "eslint.config.js"],
   "compilerOptions": {
     "allowJs": true

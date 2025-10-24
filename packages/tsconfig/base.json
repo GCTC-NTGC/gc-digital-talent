@@ -24,7 +24,8 @@
     "preserveSymlinks": true,
     "types": [
       "vitest/globals",
-      "@testing-library/jest-dom"
+      "@testing-library/jest-dom",
+      "../../packages/vitest-helpers/src/setup.d.ts"
     ]
   },
   "exclude": [

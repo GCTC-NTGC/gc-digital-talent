@@ -1,4 +1,3 @@
-/// <reference types="vitest-axe" />
 import "@testing-library/jest-dom";
 import "vitest-axe/extend-expect";
 import { vi } from "vitest";
