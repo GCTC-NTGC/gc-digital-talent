@@ -1959,6 +1959,10 @@
     "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Pour ajouter ou modifier une expérience dans votre parcours professionnel, revenez à la section <careerTimelineLink>Passez en revue votre parcours professionnel</careerTimelineLink>.",
     "description": "Lead in paragraph for adding experiences to a users skills"
   },
+  "6I6YTz": {
+    "defaultMessage": "Paramètres et confidentialité",
+    "description": "Link to the account settings page"
+  },
   "6IitrN": {
     "defaultMessage": "Vos cinq principales compétences comportementales",
     "description": "Page title for the top behavioural skills page"
@@ -2058,6 +2062,10 @@
   "6jBrNA": {
     "defaultMessage": "Vous pouvez lancer une nouvelle demande de talent en cliquant sur le bouton « Nouvelle demande » ou en accédant à la page « Trouver un talent » à partir du menu principal.",
     "description": "Body for notice when there are no pool candidate search requests"
+  },
+  "6kjRxg": {
+    "defaultMessage": "Pour déverrouiller des outils exclusifs au moyen de votre statut de membre du personnel, vous devez simplement confirmer votre adresse courriel professionnelle et ajouter à votre expérience professionnelle votre poste actuel au gouvernement du Canada.",
+    "description": "Subtitle for the dialog to unlock the employee tools"
   },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
@@ -6031,6 +6039,10 @@
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Sign in link text on the registration page."
   },
+  "OvusdX": {
+    "defaultMessage": "Confirmer une adresse courriel professionnelle",
+    "description": "Label to go to email verification"
+  },
   "P/DHOG": {
     "defaultMessage": "Modèles d'emplois",
     "description": "Text for the breadcrumb navigation link"
@@ -6310,6 +6322,10 @@
   "Q85PS8": {
     "defaultMessage": "Un responsable des processus s’occupe principalement d’effectuer les tâches concernant des processus de recrutement en particulier. Le rôle est souvent confié aux gestionnaires d’embauche qui collaborent avec une collectivité fonctionnelle pour recruter leurs prochains membres d’équipe.",
     "description": "Description of the process operator role"
+  },
+  "Q87hfV": {
+    "defaultMessage": "Déverrouiller les outils du personnel",
+    "description": "Title for the dialog to unlock the employee tools"
   },
   "Q8hjGZ": {
     "defaultMessage": "La fourniture de renseignements dans Talents numériques du GC est facultative. Si vous partagez vos renseignements personnels, Talents numériques du GC <link>s’engage à les protéger</link>.",
@@ -7518,6 +7534,10 @@
     "defaultMessage": "Toute personne ayant la citoyenneté canadienne",
     "description": "Canadian citizen only application criteria"
   },
+  "VpjQL1": {
+    "defaultMessage": "Confirmation des membres du personnel",
+    "description": "Label for status of employee verification"
+  },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
     "description": "Input label asking for the HR advisor's email address."
@@ -7769,6 +7789,10 @@
   "WrTLaB": {
     "defaultMessage": "Les fonctionnaires qui désirent devenir des cadres de la gestion financière",
     "description": "Employee group list item label"
+  },
+  "WswBQ+": {
+    "defaultMessage": "Confirmez votre statut de membre du personnel pour pouvoir consulter les outils de perfectionnement professionnel à l'interne.",
+    "description": "Subtitle for the dialog to unlock the employee tools"
   },
   "WvKRKa": {
     "defaultMessage": "Garder cette compétence dans mon profil",
@@ -10637,6 +10661,10 @@
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
   },
+  "izAPZA": {
+    "defaultMessage": "Ajouter une expérience professionnelle du GC",
+    "description": "Label to go to adding experiences"
+  },
   "j+GOVX": {
     "defaultMessage": "L'employée ou l'employé travaille à distance constamment, sans devoir être sur place.",
     "description": "Checklist option explanatory note"
@@ -10704,6 +10732,10 @@
   "jAWP0X": {
     "defaultMessage": "Exigence",
     "description": "Header for requirement section of assessment results table"
+  },
+  "jDaXen": {
+    "defaultMessage": "Expérience professionnelle actuelle",
+    "description": "A label for status icon checking work experience"
   },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
@@ -13805,6 +13837,10 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",
     "description": "Aria label for download guidance for human resources plain text link."
   },
+  "xVcPXK": {
+    "defaultMessage": "Adresse courriel professionnelle confirmée",
+    "description": "A label for status icon checking work email"
+  },
   "xXwUGs": {
     "defaultMessage": "Directive sur les talents numériques",
     "description": "Title for the digital talent directive page"
@@ -14357,9 +14393,17 @@
     "defaultMessage": "Nous avons remarqué que l'adresse courriel fournie est également une adresse courriel professionnelle du gouvernement du Canada. Cette adresse, une fois confirmée, vous servira dès lors à correspondre et à valider votre statut de membre du personnel.",
     "description": "Body for a message informing the user that their contact email will be used as a work email."
   },
+  "zn0wg9": {
+    "defaultMessage": "Profil de candidature",
+    "description": "Title of a resource card with profile links"
+  },
   "znWT8z": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Subtitle for skill requirements"
+  },
+  "zniUBO": {
+    "defaultMessage": "Nom, coordonnées, paramètres de confidentialité, notifications, et plus.",
+    "description": "Helper instructions for an 'Account settings' card"
   },
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
