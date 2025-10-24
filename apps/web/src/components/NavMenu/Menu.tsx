@@ -238,6 +238,8 @@ const Menu = ({
               color="black"
               mode="solid"
               icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+              aria-expanded={isMenuOpen}
+              aria-controls="main-nav"
               onClick={() => {
                 if (isNotificationDialogOpen) {
                   setNotificationDialogOpen(false);
