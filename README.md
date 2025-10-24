@@ -1,6 +1,6 @@
 # Welcome to the GC Digital Talent monorepo
 
-[![Lighthouse PHP](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml) [![CodeQL](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml) [![Jest](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/jest.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/jest.yml) [![Lint](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml) [![PHPUnit](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml) [![Playwright](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml) [![Translations](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml/badge.svg?branch=main)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml) [![codecov](https://codecov.io/github/GCTC-NTGC/gc-digital-talent/graph/badge.svg?token=GL1BG06350)](https://codecov.io/github/GCTC-NTGC/gc-digital-talent)
+[![Lighthouse PHP](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml) [![CodeQL](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml) [![Vitest](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/vitest.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/vitest.yml) [![Lint](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml) [![PHPUnit](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml) [![Playwright](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml) [![Translations](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml/badge.svg?branch=main)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml) [![codecov](https://codecov.io/github/GCTC-NTGC/gc-digital-talent/graph/badge.svg?token=GL1BG06350)](https://codecov.io/github/GCTC-NTGC/gc-digital-talent)
 
 The GC Digital Talent app is divided into multiple services, each treated as its own subproject:
 
@@ -25,7 +25,7 @@ We do several types of testing: (internal documentation linked when available)
   - **ESLint** feat. **Prettier** (JavaScript)
   - **Pint** (PHP)
 - _unit_ testing
-  - **Jest** (ReactJS)
+  - **Vitest** (ReactJS)
   - **PHPUnit** (PHP)
 - _visual regression_ testing
   - **Storybook** (ReactJS components)
@@ -50,7 +50,6 @@ Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.
 
 > [!TIP]
 > If using Docker Desktop, make sure virtualization is enabled in your machine's BIOS.
-
 
 ## Thanks
 

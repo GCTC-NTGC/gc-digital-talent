@@ -10,7 +10,7 @@ import rawWebFrMessages from "./fr.json";
 describe("message files", () => {
   /*
     To update expected changes to the snapshot:
-    `npx jest ./src/lang/lang.test.ts --testNamePattern="should have no changes to duplicate strings" --updateSnapshot`
+    `npx vitest ./src/lang/lang.test.ts --testNamePattern="should have no changes to duplicate strings" -u`
     */
   it("should have no changes to duplicate strings", () => {
     const enMessages: Record<string, { defaultMessage: string }> = {

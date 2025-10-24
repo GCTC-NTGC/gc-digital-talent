@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import {
   Experience,

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { createIntl, createIntlCache } from "react-intl";
 
 import { fakeClassifications } from "@gc-digital-talent/fake-data";
