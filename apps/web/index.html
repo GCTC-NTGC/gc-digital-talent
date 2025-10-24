@@ -113,6 +113,13 @@
             filterUnusable("$LOG_APPLICATIONINSIGHTS_LEVEL") ??
               "<%= LOG_APPLICATIONINSIGHTS_LEVEL %>",
           ],
+
+          // Polling intervals
+          [
+            "NOTIFICATION_POLLING_INTERVAL",
+            filterUnusable("$NOTIFICATION_POLLING_INTERVAL") ??
+              "<%= NOTIFICATION_POLLING_INTERVAL %>",
+          ],
         ]);
 
         window.__SERVER_CONFIG__ = data;

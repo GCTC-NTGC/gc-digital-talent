@@ -6,6 +6,7 @@ use App\Builders\UserBuilder;
 use App\Casts\LanguageCode;
 use App\Enums\EmailType;
 use App\Enums\EmploymentCategory;
+use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
@@ -103,6 +104,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
+ * @property ?\App\Models\WorkExperience $latest_current_government_work_experience
  * @property ?\App\Models\WorkExperience $current_substantive_experiences
  * @property ?string $wfa_interest
  * @property ?\Illuminate\Support\Carbon $wfa_date
@@ -489,6 +491,64 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         );
     }
 
+    public function latestCurrentGovernmentWorkExperience(): Attribute
+    {
+        return Attribute::make(get: function () {
+            $employmentTypeOrder = [
+                WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                WorkExperienceGovEmployeeType::TERM->name,
+                null,
+            ];
+
+            $positionTypeOrder = [
+                GovPositionType::ACTING->name,
+                GovPositionType::SECONDMENT->name,
+                GovPositionType::ASSIGNMENT->name,
+                GovPositionType::SUBSTANTIVE->name,
+                null,
+            ];
+
+            $currentExperiences = $this->workExperiences()
+                ->whereIn('employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
+                ->whereNotIn('gov_employment_type', [
+                    WorkExperienceGovEmployeeType::STUDENT->name,
+                    WorkExperienceGovEmployeeType::CASUAL->name,
+                    WorkExperienceGovEmployeeType::CONTRACTOR->name,
+                ])
+                ->where(function (Builder $query) {
+                    $query->whereNull('end_date')
+                        ->orWhere('end_date', '>=', now());
+                })
+                ->orderBy('start_date', 'DESC')
+                ->get();
+
+            if (! $currentExperiences->count()) {
+                return null;
+            }
+
+            $latest = $currentExperiences->first();
+            $startDate = Carbon::parse($latest->start_date);
+            $sameStartDate = $currentExperiences->where(function ($experience) use ($startDate) {
+                // Is same month and year
+                return $experience?->start_date && $startDate->isSameMonth($experience->start_date, true);
+            });
+
+            if ($sameStartDate->count()) {
+                $prioritySortedExperiences = $sameStartDate
+                    ->sortBy('created_at')
+                    ->sortBy([
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $positionTypeOrder),
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $employmentTypeOrder),
+                    ]);
+
+                $latest = $prioritySortedExperiences->first();
+            }
+
+            return $latest;
+        });
+
+    }
+
     public function currentSubstantiveExperiences(): Attribute
     {
         return Attribute::make(get: function () {
@@ -550,10 +610,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
-            is_null($this->attributes['location_preferences']) or
-            empty($this->attributes['location_preferences']) or
             is_null($this->attributes['flexible_work_locations']) or
             empty($this->attributes['flexible_work_locations']) or
+            ((in_array(FlexibleWorkLocation::HYBRID->name, $this->flexible_work_locations) or
+                in_array(FlexibleWorkLocation::ONSITE->name, $this->flexible_work_locations)) &&
+                (is_null($this->attributes['location_preferences']) or
+                empty($this->attributes['location_preferences']))
+            ) or
             empty($this->attributes['position_duration']) or
             is_null($this->attributes['citizenship']) or
             is_null($this->attributes['armed_forces_status'])

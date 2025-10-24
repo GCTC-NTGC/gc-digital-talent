@@ -5,6 +5,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   AccordionMetaData,
+  Button,
   PreviewList,
   TaskCard,
   Ul,
@@ -18,41 +19,46 @@ import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
+import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
-export const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
-  fragment CareerDevelopmentTaskCard on EmployeeProfile {
-    lateralMoveInterest
-    lateralMoveTimeFrame {
-      value
-      label {
-        localized
+export const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
+  fragment CareerDevelopmentTaskCardUser on User {
+    isVerifiedGovEmployee
+    employeeProfile {
+      lateralMoveInterest
+      lateralMoveTimeFrame {
+        value
+        label {
+          localized
+        }
+      }
+      lateralMoveOrganizationType {
+        value
+        label {
+          localized
+        }
+      }
+      promotionMoveInterest
+      promotionMoveTimeFrame {
+        value
+        label {
+          localized
+        }
+      }
+      promotionMoveOrganizationType {
+        value
+        label {
+          localized
+        }
+      }
+      communityInterests {
+        id
+        ...PreviewListItemFunctionalCommunity
       }
     }
-    lateralMoveOrganizationType {
-      value
-      label {
-        localized
-      }
-    }
-    promotionMoveInterest
-    promotionMoveTimeFrame {
-      value
-      label {
-        localized
-      }
-    }
-    promotionMoveOrganizationType {
-      value
-      label {
-        localized
-      }
-    }
-    communityInterests {
-      id
-      ...PreviewListItemFunctionalCommunity
-    }
+    ...UnlockEmployeeTools
   }
 `);
 
@@ -81,31 +87,29 @@ export const CareerDevelopmentTaskCardOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface CareerDevelopmentTaskCardProps {
-  careerDevelopmentTaskCardQuery: FragmentType<
-    typeof CareerDevelopmentTaskCard_Fragment
-  >;
-  careerDevelopmentOptionsQuery: FragmentType<
-    typeof CareerDevelopmentTaskCardOptions_Fragment
-  >;
+  userQuery: FragmentType<typeof CareerDevelopmentTaskCardUser_Fragment>;
+  optionsQuery: FragmentType<typeof CareerDevelopmentTaskCardOptions_Fragment>;
 }
 
 const CareerDevelopmentTaskCard = ({
-  careerDevelopmentTaskCardQuery,
-  careerDevelopmentOptionsQuery,
+  userQuery,
+  optionsQuery,
 }: CareerDevelopmentTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const careerDevelopmentMessages = messages(intl);
 
-  const careerDevelopmentTaskCardFragment = getFragment(
-    CareerDevelopmentTaskCard_Fragment,
-    careerDevelopmentTaskCardQuery,
+  const userFragment = getFragment(
+    CareerDevelopmentTaskCardUser_Fragment,
+    userQuery,
   );
 
-  const careerDevelopmentTaskCardOptions = getFragment(
+  const optionsFragment = getFragment(
     CareerDevelopmentTaskCardOptions_Fragment,
-    careerDevelopmentOptionsQuery,
+    optionsQuery,
   );
+
+  const { isVerifiedGovEmployee, employeeProfile } = userFragment ?? {};
 
   const {
     lateralMoveInterest,
@@ -114,7 +118,8 @@ const CareerDevelopmentTaskCard = ({
     promotionMoveInterest,
     promotionMoveTimeFrame,
     promotionMoveOrganizationType,
-  } = careerDevelopmentTaskCardFragment;
+    communityInterests,
+  } = employeeProfile ?? {};
 
   const lateralMoveOrganizationTypes = unpackMaybes(
     lateralMoveOrganizationType,
@@ -123,42 +128,73 @@ const CareerDevelopmentTaskCard = ({
     promotionMoveOrganizationType,
   ).map((interest) => String(interest.value));
 
-  const careerPlanningMetaData: AccordionMetaData = [
-    {
-      key: "edit-career-planning-key",
-      type: "link",
-      href: `${paths.employeeProfile()}#career-planning-section`,
-      color: "primary",
-      children: (
-        <>
-          {intl.formatMessage({
-            defaultMessage: "Edit career planning",
-            id: "jno96W",
-            description:
-              "Link to a page to edit your career planning information",
-          })}
-        </>
-      ),
-    },
-  ];
+  const { organizationTypeInterest } = optionsFragment;
 
-  const functionalCommunitiesMetaData: AccordionMetaData = [
-    {
-      key: "add-community-key",
-      type: "link",
-      href: paths.createCommunityInterest(),
-      color: "primary",
-      children: (
-        <>
-          {intl.formatMessage({
-            defaultMessage: "Add a community",
-            id: "kBEib8",
-            description: "Link to a page to add a functional community",
-          })}
-        </>
-      ),
-    },
-  ];
+  const editCareerPlanningLinkText = intl.formatMessage({
+    defaultMessage: "Edit career planning",
+    id: "jno96W",
+    description: "Link to a page to edit your career planning information",
+  });
+
+  const careerPlanningMetaData: AccordionMetaData = isVerifiedGovEmployee
+    ? // if verified, then a link to the employee profile page
+      [
+        {
+          key: "edit-career-planning-key",
+          type: "link",
+          href: `${paths.employeeProfile()}#career-planning-section`,
+          color: "primary",
+          children: <>{editCareerPlanningLinkText}</>,
+        },
+      ]
+    : // if not verified, then a dialog to get verified
+      [
+        {
+          key: "edit-career-planning-key",
+          type: "button-component",
+          component: (
+            <UnlockEmployeeToolsDialog query={userFragment}>
+              <Button mode="inline" size="sm">
+                {editCareerPlanningLinkText}
+              </Button>
+            </UnlockEmployeeToolsDialog>
+          ),
+        },
+      ];
+
+  const functionalCommunitiesMetaData: AccordionMetaData = isVerifiedGovEmployee
+    ? // if verified, then a link to the community interest page
+      [
+        {
+          key: "add-community-key",
+          type: "link",
+          href: paths.createCommunityInterest(),
+          color: "primary",
+          children: (
+            <>
+              {intl.formatMessage({
+                defaultMessage: "Add a community",
+                id: "kBEib8",
+                description: "Link to a page to add a functional community",
+              })}
+            </>
+          ),
+        },
+      ]
+    : // if not verified, then a dialog to get verified
+      [
+        {
+          key: "add-community-key",
+          type: "button-component",
+          component: (
+            <UnlockEmployeeToolsDialog query={userFragment}>
+              <Button mode="inline" size="sm">
+                {editCareerPlanningLinkText}
+              </Button>
+            </UnlockEmployeeToolsDialog>
+          ),
+        },
+      ];
 
   const missingInfo = (
     <p className="text-error-500 dark:text-error-100">
@@ -182,6 +218,7 @@ const CareerDevelopmentTaskCard = ({
           })}
           headingColor="primary"
           headingAs="h2"
+          locked={!userFragment.isVerifiedGovEmployee}
         >
           <TaskCard.Item>
             <Accordion.Root type="multiple">
@@ -241,9 +278,7 @@ const CareerDevelopmentTaskCard = ({
                       >
                         {lateralMoveOrganizationType ? (
                           <Ul space="md" unStyled>
-                            {unpackMaybes(
-                              careerDevelopmentTaskCardOptions?.organizationTypeInterest,
-                            ).map((x) => {
+                            {unpackMaybes(organizationTypeInterest).map((x) => {
                               const iconValue =
                                 lateralMoveOrganizationTypes.includes(x.value);
                               return (
@@ -317,9 +352,7 @@ const CareerDevelopmentTaskCard = ({
                       >
                         {promotionMoveOrganizationType ? (
                           <ul>
-                            {unpackMaybes(
-                              careerDevelopmentTaskCardOptions?.organizationTypeInterest,
-                            ).map((x) => {
+                            {unpackMaybes(organizationTypeInterest).map((x) => {
                               const iconValue =
                                 promotionMoveOrganizationTypes.includes(
                                   x.value,
@@ -379,19 +412,15 @@ const CareerDevelopmentTaskCard = ({
                     description: "Functional communities expandable",
                   })}
                   <span className="ml-1">
-                    {wrapParens(
-                      careerDevelopmentTaskCardFragment?.communityInterests
-                        ?.length ?? 0,
-                    )}
+                    {wrapParens(communityInterests?.length ?? 0)}
                   </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={functionalCommunitiesMetaData} />
                 <Accordion.Content>
                   <div className="mt-3 flex flex-col gap-6">
-                    {careerDevelopmentTaskCardFragment?.communityInterests
-                      ?.length ? (
+                    {communityInterests?.length ? (
                       <PreviewList.Root>
-                        {careerDevelopmentTaskCardFragment.communityInterests.map(
+                        {communityInterests.map(
                           (functionalCommunityInterestFragment) => (
                             <FunctionalCommunityListItem
                               key={functionalCommunityInterestFragment.id}
@@ -399,7 +428,7 @@ const CareerDevelopmentTaskCard = ({
                                 functionalCommunityInterestFragment
                               }
                               functionalCommunityListItemOptionsQuery={
-                                careerDevelopmentTaskCardOptions
+                                optionsFragment
                               }
                               headingAs="h4"
                             />

@@ -17,6 +17,7 @@ import {
   IconButton,
   ButtonProps,
 } from "@gc-digital-talent/ui";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
@@ -154,6 +155,9 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
+const envPollingInterval = getRuntimeVariable("NOTIFICATION_POLLING_INTERVAL");
+const pollingInterval = envPollingInterval ? parseInt(envPollingInterval) : 1;
+
 interface NotificationDialog {
   /** Controllable open state */
   open?: boolean;
@@ -186,7 +190,7 @@ const NotificationDialog = ({
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
-    60,
+    pollingInterval * 60,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
   const buttonLabel = open
