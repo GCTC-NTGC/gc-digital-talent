@@ -18,7 +18,6 @@ export default [
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.jest,
         Atomics: "readonly",
         SharedArrayBuffer: "readonly",
       },

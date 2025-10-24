@@ -3,10 +3,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "ES2020",
-    "lib": [
-      "ES2020",
-      "dom"
-    ],
+    "lib": ["ES2020", "dom"],
     "jsx": "react-jsx",
     "sourceMap": true,
     "inlineSourceMap": false,
@@ -22,14 +19,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "preserveSymlinks": true,
-    "types": [
-      "vitest/globals",
-      "@testing-library/jest-dom",
-      "../../packages/vitest-helpers/src/setup.d.ts"
-    ]
+    "types": ["vitest/globals", "../../packages/vitest-helpers/src/setup.d.ts"]
   },
-  "exclude": [
-    "**/node_modules",
-    "**/.*/"
-  ]
+  "exclude": ["**/node_modules", "**/.*/"]
 }

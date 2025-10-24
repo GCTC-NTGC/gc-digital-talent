@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { User } from "@gc-digital-talent/graphql";
 
 import { compareByDate } from "~/utils/experienceUtils";
