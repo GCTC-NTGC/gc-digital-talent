@@ -351,6 +351,7 @@ export const DashboardPage = ({
                           stateDescriptions[personalInformationState],
                         )}
                         href={paths.profile()}
+                        asListItem={false}
                       />
                     </li>
                     <li>
@@ -363,6 +364,7 @@ export const DashboardPage = ({
                           stateDescriptions[careerExperienceState],
                         )}
                         href={paths.careerTimeline()}
+                        asListItem={false}
                       />
                     </li>
                     <li>
@@ -375,6 +377,7 @@ export const DashboardPage = ({
                           stateDescriptions[skillsPortfolioState],
                         )}
                         href={paths.skillPortfolio()}
+                        asListItem={false}
                       />
                     </li>
                   </Ul>
@@ -389,7 +392,8 @@ export const DashboardPage = ({
                   <Ul unStyled space="sm" className="mt-3">
                     <li>
                       <UnlockEmployeeToolsDialog query={currentUser}>
-                        <Button mode="text" color="black">
+                        {/* The align-top keeps the containing li from adding 4px to the height 🤷 */}
+                        <Button className="align-top" mode="text" color="black">
                           <StatusItem
                             status={employeeVerificationState}
                             title={intl.formatMessage({
@@ -401,6 +405,7 @@ export const DashboardPage = ({
                             hiddenContextPrefix={intl.formatMessage(
                               stateDescriptions[employeeVerificationState],
                             )}
+                            asListItem={false}
                           />
                         </Button>
                       </UnlockEmployeeToolsDialog>
@@ -421,11 +426,16 @@ export const DashboardPage = ({
                             stateDescriptions[functionalCommunitiesState],
                           )}
                           href={paths.createCommunityInterest()}
+                          asListItem={false}
                         />
                       ) : (
                         // is not a verified gov employee
                         <UnlockEmployeeToolsDialog query={currentUser}>
-                          <Button mode="text" color="black">
+                          <Button
+                            className="align-top"
+                            mode="text"
+                            color="black"
+                          >
                             <StatusItem
                               status="locked"
                               title={intl.formatMessage({
@@ -437,6 +447,7 @@ export const DashboardPage = ({
                               hiddenContextPrefix={intl.formatMessage(
                                 stateDescriptions.locked,
                               )}
+                              asListItem={false}
                             />
                           </Button>
                         </UnlockEmployeeToolsDialog>
@@ -454,11 +465,16 @@ export const DashboardPage = ({
                             stateDescriptions[careerPlanningState],
                           )}
                           href={`${paths.employeeProfile()}#career-planning-section`}
+                          asListItem={false}
                         />
                       ) : (
                         // is not a verified gov employee
                         <UnlockEmployeeToolsDialog query={currentUser}>
-                          <Button mode="text" color="black">
+                          <Button
+                            className="align-top"
+                            mode="text"
+                            color="black"
+                          >
                             <StatusItem
                               status="locked"
                               title={intl.formatMessage(
