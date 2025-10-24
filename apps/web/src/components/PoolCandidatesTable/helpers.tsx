@@ -602,27 +602,3 @@ export const candidateSuspendedFilterToCustomOptions = (
     };
   });
 };
-
-export const SORT_ORDER = {
-  FLEXIBLE_WORK_LOCATION: [
-    FlexibleWorkLocation.Remote,
-    FlexibleWorkLocation.Hybrid,
-    FlexibleWorkLocation.Onsite,
-  ],
-  PRIORITY_WEIGHT: [
-    PriorityWeight.PriorityEntitlement,
-    PriorityWeight.Veteran,
-    PriorityWeight.CitizenOrPermanentResident,
-    PriorityWeight.Other,
-  ],
-  WORK_REGION: [
-    WorkRegion.Telework,
-    WorkRegion.NationalCapital,
-    WorkRegion.Atlantic,
-    WorkRegion.Quebec,
-    WorkRegion.Ontario,
-    WorkRegion.North,
-    WorkRegion.Prairie,
-    WorkRegion.BritishColumbia,
-  ],
-};
