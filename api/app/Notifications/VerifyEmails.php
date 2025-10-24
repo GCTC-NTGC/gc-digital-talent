@@ -60,7 +60,8 @@ class VerifyEmails extends Notification implements CanBeSentViaGcNotifyEmail
                 $templateId,
                 $this->emailAddress,
                 [
-                    'person name' => $notifiable->first_name,
+                    // if triggered during the onboarding flow the user might not have a first name yet
+                    'person name' => $notifiable->first_name ?? $this->emailAddress,
                     'verification code' => $this->createVerificationCode($notifiable),
                 ]
             );
