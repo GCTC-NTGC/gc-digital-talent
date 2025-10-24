@@ -47,9 +47,7 @@ test("Update department", async ({ appPage }) => {
     isScience: false,
   });
 
-  await expect(
-    dept.page.getByText(`${expectedNumber}`),
-  ).toBeVisible();
+  await expect(dept.page.getByText(`${expectedNumber}`)).toBeVisible();
 
   await deleteDepartment(adminCtx, { id });
 });
