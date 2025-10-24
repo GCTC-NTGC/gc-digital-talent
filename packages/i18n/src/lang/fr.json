@@ -1227,6 +1227,10 @@
     "defaultMessage": "Candidats",
     "description": "Name of Candidates page"
   },
+  "g8Ur9z": {
+    "defaultMessage": "Renseignements personnels",
+    "description": "applicant dashboard card title for profile card"
+  },
   "g9J8/u": {
     "defaultMessage": "Compte mis à jour avec succès.",
     "description": "Message displayed to user if account is updated successfully."

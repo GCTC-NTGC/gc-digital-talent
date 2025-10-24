@@ -104,6 +104,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
+ * @property ?\App\Models\WorkExperience $latest_current_government_work_experience
  * @property ?\App\Models\WorkExperience $current_substantive_experiences
  * @property ?string $wfa_interest
  * @property ?\Illuminate\Support\Carbon $wfa_date
@@ -488,6 +489,64 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
         );
+    }
+
+    public function latestCurrentGovernmentWorkExperience(): Attribute
+    {
+        return Attribute::make(get: function () {
+            $employmentTypeOrder = [
+                WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                WorkExperienceGovEmployeeType::TERM->name,
+                null,
+            ];
+
+            $positionTypeOrder = [
+                GovPositionType::ACTING->name,
+                GovPositionType::SECONDMENT->name,
+                GovPositionType::ASSIGNMENT->name,
+                GovPositionType::SUBSTANTIVE->name,
+                null,
+            ];
+
+            $currentExperiences = $this->workExperiences()
+                ->whereIn('employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
+                ->whereNotIn('gov_employment_type', [
+                    WorkExperienceGovEmployeeType::STUDENT->name,
+                    WorkExperienceGovEmployeeType::CASUAL->name,
+                    WorkExperienceGovEmployeeType::CONTRACTOR->name,
+                ])
+                ->where(function (Builder $query) {
+                    $query->whereNull('end_date')
+                        ->orWhere('end_date', '>=', now());
+                })
+                ->orderBy('start_date', 'DESC')
+                ->get();
+
+            if (! $currentExperiences->count()) {
+                return null;
+            }
+
+            $latest = $currentExperiences->first();
+            $startDate = Carbon::parse($latest->start_date);
+            $sameStartDate = $currentExperiences->where(function ($experience) use ($startDate) {
+                // Is same month and year
+                return $experience?->start_date && $startDate->isSameMonth($experience->start_date, true);
+            });
+
+            if ($sameStartDate->count()) {
+                $prioritySortedExperiences = $sameStartDate
+                    ->sortBy('created_at')
+                    ->sortBy([
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $positionTypeOrder) <=> array_search($b->gov_position_type, $positionTypeOrder),
+                        fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $employmentTypeOrder) <=> array_search($b->gov_employment_type, $employmentTypeOrder),
+                    ]);
+
+                $latest = $prioritySortedExperiences->first();
+            }
+
+            return $latest;
+        });
+
     }
 
     public function currentSubstantiveExperiences(): Attribute

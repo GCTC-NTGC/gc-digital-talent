@@ -34,11 +34,11 @@ const baseItem = tv({
 
 export interface BaseItemProps {
   title: ReactNode;
-  description: ReactNode;
+  content: ReactNode;
   state?: "incomplete" | "complete";
 }
 
-const BaseItem = ({ title, description, state }: BaseItemProps) => (
+const BaseItem = ({ title, content, state }: BaseItemProps) => (
   <div
     className={baseItem({
       class:
@@ -57,7 +57,7 @@ const BaseItem = ({ title, description, state }: BaseItemProps) => (
     >
       {title}
     </div>
-    <p className="text-sm text-gray-600 dark:text-gray-200">{description}</p>
+    {content}
   </div>
 );
 

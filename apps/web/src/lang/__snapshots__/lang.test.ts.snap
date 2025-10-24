@@ -317,6 +317,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
       "La personne candidate",
       "Personne candidate"
     ]
+  },
+  {
+    "en": "Applicant profile",
+    "fr": [
+      "Profil de candidature",
+      "Profil du (de la) candidat(e)"
+    ]
   }
 ]"
 `;
