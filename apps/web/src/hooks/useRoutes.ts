@@ -395,14 +395,6 @@ const getRoutes = (lang: Locales) => {
     workforceAdjustmentEmployees: () => `${adminUrl}/wfa-employees`,
     wfaInfo: () => `${baseUrl}/workforce-adjustment`,
 
-    /**
-     * Deprecated
-     *
-     * The following paths are deprecated and
-     * should contain redirects to new ones.
-     */
-    myProfileDeprecated: () => ["/", lang, "talent", "profile"].join("/"),
-
     // TC Report mini-site
     tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,
   };
