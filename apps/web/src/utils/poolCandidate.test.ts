@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { createIntl, createIntlCache } from "react-intl";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";

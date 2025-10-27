@@ -1,12 +1,12 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { ComponentPropsWithoutRef } from "react";
+import { vi } from "vitest";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import ToggleGroup from "./ToggleGroup";
 
@@ -40,7 +40,7 @@ describe("ToggleGroup", () => {
   });
 
   it("can only select one when single", async () => {
-    const mockChange = jest.fn();
+    const mockChange = vi.fn();
     renderToggleGroup({
       type: "single",
       onValueChange: mockChange,
@@ -60,7 +60,7 @@ describe("ToggleGroup", () => {
   });
 
   it("can select more than one when multiple", async () => {
-    const mockChange = jest.fn();
+    const mockChange = vi.fn();
     renderToggleGroup({
       type: "multiple",
       onValueChange: mockChange,

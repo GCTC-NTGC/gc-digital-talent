@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { IntlShape } from "react-intl";
 
 import { Locales } from "../types";

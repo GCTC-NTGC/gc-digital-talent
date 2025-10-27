@@ -1,14 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { userEvent } from "@testing-library/user-event";
 import { screen, within } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { faker } from "@faker-js/faker/locale/en";
 
-import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import {
   fakeApplicantFilters,
   fakePoolCandidates,

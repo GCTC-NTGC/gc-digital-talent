@@ -1,12 +1,11 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { ComponentPropsWithoutRef } from "react";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  axeTest,
+} from "@gc-digital-talent/vitest-helpers";
 
 import Button from "../Button";
 import AlertDialog from "./AlertDialog";

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";

@@ -3,10 +3,18 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 import { tv, VariantProps } from "tailwind-variants";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 
 import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
 
-export type Status = "error" | "success" | "warning" | "optional";
+export type Status =
+  | "error"
+  | "success"
+  | "warning"
+  | "optional"
+  | "not done"
+  | "locked";
 type Layout = "compact" | "hero";
 
 const statusItem = tv({
@@ -124,6 +132,12 @@ const StatusItem = ({
     case "optional":
       Icon = QuestionMarkCircleIcon;
       break;
+    case "not done":
+      Icon = XCircleIcon;
+      break;
+    case "locked":
+      Icon = LockClosedIcon;
+      break;
     default:
       Icon = icon;
   }
@@ -146,7 +160,9 @@ const StatusItem = ({
   let effectiveIconColor = iconColor;
   switch (status) {
     case "optional":
-      effectiveIconColor = "primary";
+    case "not done":
+    case "locked":
+      effectiveIconColor = "black";
       break;
     default:
       effectiveIconColor = status ?? iconColor;

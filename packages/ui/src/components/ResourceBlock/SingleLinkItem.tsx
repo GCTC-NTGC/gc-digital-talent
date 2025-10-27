@@ -24,7 +24,7 @@ interface SingleLinkItemProps {
   title: string;
   as?: HeadingRank;
   href: LinkProps["href"];
-  description: BaseItemProps["description"];
+  description: BaseItemProps["content"];
   state?: BaseItemProps["state"];
 }
 
@@ -62,7 +62,11 @@ const SingleLinkItem = ({
           </Link>
         </Wrapper>
       }
-      description={description}
+      content={
+        <p className="text-sm text-gray-600 dark:text-gray-200">
+          {description}
+        </p>
+      }
       state={state}
     />
   );

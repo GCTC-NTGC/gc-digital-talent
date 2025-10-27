@@ -1,19 +1,15 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
-
 import { screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
+import { vi } from "vitest";
 
-import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { AuthorizationContainer } from "@gc-digital-talent/auth";
 
 import { DashboardPage } from "./AdminDashboardPage";
 
 const mockClient = {
-  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+  executeQuery: vi.fn(() => pipe(fromValue({}), delay(0))),
 };
 
 const renderComponent = (role: string) =>

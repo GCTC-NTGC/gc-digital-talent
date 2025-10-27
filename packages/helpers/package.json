@@ -11,10 +11,9 @@
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
-    "test": "jest --detectOpenHandles --forceExit"
-  },
-  "jest": {
-    "preset": "@gc-digital-talent/jest-presets/jest/node"
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*",
@@ -25,10 +24,11 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@gc-digital-talent/jest-presets": "workspace:*",
+    "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/lodash": "^4.17.20",
     "@types/react": "^19.2.2",
     "eslint": "^9.20.1",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vitest": "^3.2.4"
   }
 }

@@ -6,6 +6,8 @@ import {
   ResourceBlock,
   NotFound,
   Container,
+  Ul,
+  Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
@@ -23,7 +25,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
 import {
-  aboutSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
@@ -31,6 +32,8 @@ import {
 import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
+import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
+import StatusItem from "~/components/StatusItem/StatusItem";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -77,7 +80,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       }
     }
     employeeProfile {
-      ...CareerDevelopmentTaskCard
       lateralMoveInterest
       promotionMoveInterest
       eligibleRetirementYear
@@ -94,6 +96,9 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
           localized
         }
         value
+      }
+      communityInterests {
+        id
       }
     }
     lookingForEnglish
@@ -181,6 +186,8 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     }
     ...TalentManagementTaskCard
     ...ApplicationsProcessesTaskCard
+    ...CareerDevelopmentTaskCardUser
+    ...UnlockEmployeeTools
   }
 `);
 
@@ -217,28 +224,45 @@ export const DashboardPage = ({
     !!currentUser?.poolCandidateSearchRequests?.length;
 
   const personalInformationState =
-    aboutSectionHasEmptyRequiredFields(currentUser) ||
+    workPreferencesSectionHasEmptyRequiredFields(currentUser) ||
     governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
-    languageInformationSectionHasEmptyRequiredFields(currentUser) ||
-    workPreferencesSectionHasEmptyRequiredFields(currentUser)
-      ? "incomplete"
-      : "complete";
-
-  const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
-    currentUser?.employeeProfile ?? {},
-  )
-    ? "incomplete"
-    : "complete";
+    languageInformationSectionHasEmptyRequiredFields(currentUser)
+      ? "error"
+      : "success";
 
   const careerExperienceState =
     currentUser.experiences && currentUser.experiences?.length > 0
-      ? "complete"
-      : "incomplete";
+      ? "success"
+      : "error";
 
   const skillsPortfolioState =
     currentUser.userSkills && currentUser.userSkills?.length > 0
-      ? "complete"
-      : "incomplete";
+      ? "success"
+      : "optional";
+
+  const employeeVerificationState = currentUser.isVerifiedGovEmployee
+    ? "success"
+    : "not done";
+
+  const functionalCommunitiesState =
+    currentUser.employeeProfile?.communityInterests &&
+    currentUser.employeeProfile.communityInterests.length > 0
+      ? "success"
+      : "optional";
+
+  const stateDescriptions = {
+    error: commonMessages.incomplete,
+    success: commonMessages.complete,
+    optional: commonMessages.missingOptionalInformation,
+    "not done": commonMessages.notProvided,
+    locked: commonMessages.notAvailable,
+  };
+
+  const careerPlanningState = careerDevelopmentHasEmptyRequiredFields(
+    currentUser.employeeProfile ?? {},
+  )
+    ? "error"
+    : "success";
 
   return (
     <>
@@ -286,11 +310,10 @@ export const DashboardPage = ({
               <ApplicationsProcessesTaskCard
                 applicationsProcessesTaskCardQuery={currentUser}
               />
-              {currentUser?.isVerifiedGovEmployee &&
-              currentUser?.employeeProfile ? (
+              {currentUser?.employeeProfile ? (
                 <CareerDevelopmentTaskCard
-                  careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
-                  careerDevelopmentOptionsQuery={applicantDashboardQuery}
+                  userQuery={currentUser}
+                  optionsQuery={applicantDashboardQuery}
                 />
               ) : null}
               {displayTalentManagementTaskCard ? (
@@ -304,87 +327,182 @@ export const DashboardPage = ({
                 headingColor="warning"
                 headingAs="h2"
                 title={intl.formatMessage({
-                  defaultMessage: "Your information",
-                  id: "Jlk0bi",
-                  description: "Card title for a 'your information' card",
+                  defaultMessage: "Your account",
+                  id: "CBedVL",
+                  description: "Nav menu trigger for account links sub menu",
                 })}
               >
-                <ResourceBlock.SingleLinkItem
-                  as="h3"
-                  state={personalInformationState}
+                <ResourceBlock.RawContentItem
                   title={intl.formatMessage({
-                    defaultMessage: "Personal information",
-                    id: "g8Ur9z",
-                    description:
-                      "applicant dashboard card title for profile card",
+                    defaultMessage: "Applicant profile",
+                    id: "zn0wg9",
+                    description: "Title of a resource card with profile links",
                   })}
-                  href={paths.profile()}
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Name, contact info, employment equity, language proficiency, and work preferences.",
-                    id: "aDCqiX",
-                    description:
-                      "Helper instructions for an 'Personal information' card",
-                  })}
-                />
-                {currentUser?.isVerifiedGovEmployee ? (
-                  <ResourceBlock.SingleLinkItem
-                    as="h3"
-                    state={employeeProfileState}
-                    title={intl.formatMessage(
-                      navigationMessages.employeeProfileGC,
-                    )}
-                    href={paths.employeeProfile()}
-                    description={intl.formatMessage({
-                      defaultMessage:
-                        "Career development preferences and career goals.",
-                      id: "GBfPU+",
-                      description:
-                        "Helper instructions for an 'employee profile' card",
-                    })}
-                  />
-                ) : null}
-                <ResourceBlock.SingleLinkItem
                   as="h3"
-                  state={careerExperienceState}
+                >
+                  <Ul unStyled space="sm" className="mt-3">
+                    <li>
+                      <StatusItem
+                        status={personalInformationState}
+                        title={intl.formatMessage(
+                          navigationMessages.profilePage,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[personalInformationState],
+                        )}
+                        href={paths.profile()}
+                        asListItem={false}
+                      />
+                    </li>
+                    <li>
+                      <StatusItem
+                        status={careerExperienceState}
+                        title={intl.formatMessage(
+                          navigationMessages.careerExperience,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[careerExperienceState],
+                        )}
+                        href={paths.careerTimeline()}
+                        asListItem={false}
+                      />
+                    </li>
+                    <li>
+                      <StatusItem
+                        status={skillsPortfolioState}
+                        title={intl.formatMessage(
+                          navigationMessages.skillPortfolio,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[skillsPortfolioState],
+                        )}
+                        href={paths.skillPortfolio()}
+                        asListItem={false}
+                      />
+                    </li>
+                  </Ul>
+                </ResourceBlock.RawContentItem>
+
+                <ResourceBlock.RawContentItem
                   title={intl.formatMessage(
-                    navigationMessages.careerExperience,
+                    navigationMessages.employeeProfileGC,
                   )}
-                  href={paths.careerTimeline()}
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Work, education, volunteering, awards, and more.",
-                    id: "RSUZix",
-                    description:
-                      "Helper instructions for an 'Career experience' card",
-                  })}
-                />
+                  as="h3"
+                >
+                  <Ul unStyled space="sm" className="mt-3">
+                    <li>
+                      <UnlockEmployeeToolsDialog query={currentUser}>
+                        {/* The align-top keeps the containing li from adding 4px to the height 🤷 */}
+                        <Button className="align-top" mode="text" color="black">
+                          <StatusItem
+                            status={employeeVerificationState}
+                            title={intl.formatMessage({
+                              defaultMessage: "Employee verification",
+                              id: "VpjQL1",
+                              description:
+                                "Label for status of employee verification",
+                            })}
+                            hiddenContextPrefix={intl.formatMessage(
+                              stateDescriptions[employeeVerificationState],
+                            )}
+                            asListItem={false}
+                          />
+                        </Button>
+                      </UnlockEmployeeToolsDialog>
+                    </li>
+                    <li>
+                      {currentUser.isVerifiedGovEmployee ? (
+                        // is a verified gov employee
+
+                        <StatusItem
+                          status={functionalCommunitiesState}
+                          title={intl.formatMessage({
+                            defaultMessage: "Functional communities",
+                            id: "QuVtMh",
+                            description:
+                              "Label for functional communities field",
+                          })}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions[functionalCommunitiesState],
+                          )}
+                          href={paths.createCommunityInterest()}
+                          asListItem={false}
+                        />
+                      ) : (
+                        // is not a verified gov employee
+                        <UnlockEmployeeToolsDialog query={currentUser}>
+                          <Button
+                            className="align-top"
+                            mode="text"
+                            color="black"
+                          >
+                            <StatusItem
+                              status="locked"
+                              title={intl.formatMessage({
+                                defaultMessage: "Functional communities",
+                                id: "QuVtMh",
+                                description:
+                                  "Label for functional communities field",
+                              })}
+                              hiddenContextPrefix={intl.formatMessage(
+                                stateDescriptions.locked,
+                              )}
+                              asListItem={false}
+                            />
+                          </Button>
+                        </UnlockEmployeeToolsDialog>
+                      )}
+                    </li>
+                    <li>
+                      {currentUser.isVerifiedGovEmployee ? (
+                        // is a verified gov employee
+                        <StatusItem
+                          status={careerPlanningState}
+                          title={intl.formatMessage(
+                            commonMessages.careerPlanning,
+                          )}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions[careerPlanningState],
+                          )}
+                          href={`${paths.employeeProfile()}#career-planning-section`}
+                          asListItem={false}
+                        />
+                      ) : (
+                        // is not a verified gov employee
+                        <UnlockEmployeeToolsDialog query={currentUser}>
+                          <Button
+                            className="align-top"
+                            mode="text"
+                            color="black"
+                          >
+                            <StatusItem
+                              status="locked"
+                              title={intl.formatMessage(
+                                commonMessages.careerPlanning,
+                              )}
+                              hiddenContextPrefix={intl.formatMessage(
+                                stateDescriptions.locked,
+                              )}
+                            />
+                          </Button>
+                        </UnlockEmployeeToolsDialog>
+                      )}
+                    </li>
+                  </Ul>
+                </ResourceBlock.RawContentItem>
+
                 <ResourceBlock.SingleLinkItem
                   as="h3"
-                  state={skillsPortfolioState}
-                  title={intl.formatMessage(navigationMessages.skillPortfolio)}
-                  href={paths.skillPortfolio()}
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Manage skills and edit top skills or skills you'd like to learn.",
-                    id: "NUrFMU",
-                    description:
-                      "Helper instructions for an 'Skills portfolio' card",
+                  title={intl.formatMessage({
+                    defaultMessage: "Settings and privacy",
+                    id: "6I6YTz",
+                    description: "Link to the account settings page",
                   })}
-                />
-                <ResourceBlock.SingleLinkItem
-                  as="h3"
-                  state={
-                    aboutSectionHasEmptyRequiredFields(currentUser)
-                      ? "incomplete"
-                      : "complete"
-                  }
-                  title={intl.formatMessage(navigationMessages.accountSettings)}
                   href={paths.accountSettings()}
                   description={intl.formatMessage({
                     defaultMessage:
-                      "Learn about GCKey and manage notifications.",
-                    id: "dj+m3H",
+                      "Name, contact info, privacy settings, notifications, and more.",
+                    id: "zniUBO",
                     description:
                       "Helper instructions for an 'Account settings' card",
                   })}

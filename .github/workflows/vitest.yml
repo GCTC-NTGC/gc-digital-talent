@@ -1,0 +1,66 @@
+name: Vitest
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - .github/workflows/*vitest*.yml
+      - apps/**
+      - packages/**
+  merge_group:
+    branches: [main]
+jobs:
+  vitest:
+    name: Vitest
+    runs-on: ubuntu-24.04
+    env:
+      PNPM_VERSION: "10.17.0"
+
+    steps:
+      - name: Get number of CPU cores
+        uses: SimenB/github-actions-cpu-cores@v2
+        id: cpu-cores
+
+      - uses: actions/checkout@v4
+
+      - name: "Copy .env"
+        working-directory: "./apps/web"
+        run: |
+          cp .env.example .env
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "./.nvmrc"
+          cache: pnpm
+
+      - name: "Install dependencies: workspace"
+        working-directory: ./
+        run: pnpm install
+
+      - name: "Setup: all workspaces"
+        working-directory: ./
+        run: |
+          pnpm run build:fresh
+
+      - name: "Run Unit Tests: all workspaces with coverage"
+        working-directory: ./
+        run: |
+          if [ github.actor != 'dependabot[bot]' ]; then
+            pnpm run test:coverage
+          else
+            pnpm run test
+          fi
+
+      - name: "Upload coverage report to Codecov"
+        if: github.actor != 'dependabot[bot]'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          fail_ci_if_error: false
+          directory: coverage

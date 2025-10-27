@@ -155,6 +155,10 @@ class PoolCandidateBuilder extends Builder
     // Given input in the shape of PoolCandidateSearchInput, adjust then call User::whereFlexibleLocationAndRegionSpecialMatching()
     public function wherePoolCandidateSearchInputToSpecialLocationMatching(?array $filter): self
     {
+        if (empty($filter)) {
+            return $this;
+        }
+
         if (array_key_exists('locationPreferences', $filter) || array_key_exists('flexibleWorkLocations', $filter)) {
 
             return $this->whereHas('user', function ($userQuery) use ($filter) {

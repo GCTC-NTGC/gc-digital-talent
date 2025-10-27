@@ -14,7 +14,7 @@ interface LinkMenuItemProps {
     isSelected?: boolean;
   }[];
   accessibleLabel?: string;
-  description: BaseItemProps["description"];
+  description: BaseItemProps["content"];
   state?: BaseItemProps["state"];
 }
 
@@ -27,7 +27,11 @@ const LinkMenuItem = ({
   const descriptionId = useId();
   const selectedLink = links.find((link) => link.isSelected) ?? links?.[0];
 
-  const wrappedDescription = <div id={descriptionId}>{description}</div>;
+  const wrappedDescription = (
+    <p className="text-sm text-gray-600 dark:text-gray-200" id={descriptionId}>
+      {description}
+    </p>
+  );
 
   const dropdown = (
     <DropdownMenu.Root>
@@ -57,7 +61,7 @@ const LinkMenuItem = ({
     </DropdownMenu.Root>
   );
   return (
-    <BaseItem title={dropdown} description={wrappedDescription} state={state} />
+    <BaseItem title={dropdown} content={wrappedDescription} state={state} />
   );
 };
 

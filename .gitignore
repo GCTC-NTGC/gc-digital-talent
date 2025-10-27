@@ -10,3 +10,5 @@ __pycache__
 
 *storybook.log
 storybook-static
+
+coverage

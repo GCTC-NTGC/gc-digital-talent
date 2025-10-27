@@ -1,14 +1,14 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen, waitFor, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { FormProvider, useForm } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import { ReactNode } from "react";
+import { vi } from "vitest";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 
 import DateInput, { DateInputProps } from "./DateInput";
 
@@ -42,7 +42,7 @@ const renderDateInput = ({ formProps, inputProps }: RenderDateInputProps) =>
     </Form>,
   );
 
-const mockSubmit = jest.fn();
+const mockSubmit = vi.fn();
 
 const defaultProps: RenderDateInputProps = {
   formProps: {
@@ -105,7 +105,7 @@ describe("DateInput", () => {
   });
 
   it("should not submit missing required fields", async () => {
-    const submitFn = jest.fn();
+    const submitFn = vi.fn();
 
     renderDateInput({
       formProps: {
@@ -129,7 +129,7 @@ describe("DateInput", () => {
   });
 
   it("should update input and submit", async () => {
-    const submitFn = jest.fn();
+    const submitFn = vi.fn();
 
     renderDateInput({
       formProps: {
@@ -169,7 +169,7 @@ describe("DateInput", () => {
   });
 
   it("not submit before min range", async () => {
-    const submitFn = jest.fn();
+    const submitFn = vi.fn();
 
     renderDateInput({
       formProps: {
@@ -220,7 +220,7 @@ describe("DateInput", () => {
   });
 
   it("doesn't fail min validation on null", async () => {
-    const submitFn = jest.fn();
+    const submitFn = vi.fn();
 
     renderDateInput({
       formProps: {
@@ -246,7 +246,7 @@ describe("DateInput", () => {
   });
 
   it("not submit after max range", async () => {
-    const submitFn = jest.fn();
+    const submitFn = vi.fn();
 
     renderDateInput({
       formProps: {
@@ -298,7 +298,7 @@ describe("DateInput", () => {
   });
 
   it("doesn't fail max validation on null", async () => {
-    const submitFn = jest.fn();
+    const submitFn = vi.fn();
 
     renderDateInput({
       formProps: {
@@ -324,7 +324,7 @@ describe("DateInput", () => {
   });
 
   it("not submit invalid date", async () => {
-    const submitFn = jest.fn();
+    const submitFn = vi.fn();
 
     renderDateInput({
       formProps: {

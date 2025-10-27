@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import "@testing-library/jest-dom";
 import { screen, waitFor, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import {
@@ -12,8 +8,12 @@ import {
 } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import { ReactNode } from "react";
+import { vi } from "vitest";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 
 import Input, { InputProps } from "../Input/Input";
 import Repeater, { RepeaterProps, RepeaterFieldsetProps } from "./Repeater";
@@ -110,7 +110,7 @@ const renderRepeater = ({ formProps, ...rest }: RenderRepeaterProps) =>
     </Form>,
   );
 
-const mockFn = jest.fn();
+const mockFn = vi.fn();
 
 const defaultProps: RenderRepeaterProps = {
   formProps: {
@@ -148,7 +148,7 @@ describe("Repeater", () => {
   });
 
   it("should add an item", async () => {
-    const addFn = jest.fn();
+    const addFn = vi.fn();
 
     renderRepeater({
       ...defaultProps,
@@ -172,7 +172,7 @@ describe("Repeater", () => {
   });
 
   it("should remove an item", async () => {
-    const removeFn = jest.fn();
+    const removeFn = vi.fn();
 
     renderRepeater({
       ...defaultProps,
@@ -208,7 +208,7 @@ describe("Repeater", () => {
   });
 
   it("should move an item", async () => {
-    const addFn = jest.fn();
+    const addFn = vi.fn();
 
     renderRepeater({
       ...defaultProps,

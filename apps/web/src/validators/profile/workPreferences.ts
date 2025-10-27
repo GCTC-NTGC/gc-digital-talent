@@ -1,6 +1,7 @@
 import isEmpty from "lodash/isEmpty";
 
 import {
+  FlexibleWorkLocation,
   LocalizedFlexibleWorkLocation,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
@@ -45,8 +46,13 @@ export function hasEmptyRequiredFields({
 }: PartialUser): boolean {
   return (
     isEmpty(positionDuration) ||
-    isEmpty(locationPreferences) ||
     isEmpty(flexibleWorkLocations) ||
+    (flexibleWorkLocations?.find(
+      (location) =>
+        location?.value === FlexibleWorkLocation.Hybrid ||
+        location?.value === FlexibleWorkLocation.Onsite,
+    ) &&
+      isEmpty(locationPreferences)) ||
     !currentCity ||
     !currentProvince
   );
