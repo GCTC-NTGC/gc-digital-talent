@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import {
@@ -32,7 +32,7 @@ describe("BrowsePoolsPage", () => {
     const { container } = renderBrowsePoolsPage({
       poolsQuery: [publishedPool],
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   // sort logic: by expiry date whichever one expires first should appear first on the list

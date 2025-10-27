@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
@@ -24,7 +24,7 @@ describe("PoolCard", () => {
       poolQuery: makeFragmentData(fakedPool, PoolCard_Fragment),
     });
 
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should render the card", () => {

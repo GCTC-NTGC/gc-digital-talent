@@ -1,6 +1,6 @@
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import Alert, { AlertProps } from "./Alert";
@@ -24,7 +24,7 @@ describe("Alert", () => {
       ...defaultProps,
       type: "error",
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors, info", async () => {
@@ -32,7 +32,7 @@ describe("Alert", () => {
       ...defaultProps,
       type: "info",
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors, success", async () => {
@@ -40,7 +40,7 @@ describe("Alert", () => {
       ...defaultProps,
       type: "success",
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors, warning", async () => {
@@ -48,7 +48,7 @@ describe("Alert", () => {
       ...defaultProps,
       type: "warning",
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors, error, dismissible", async () => {
@@ -57,7 +57,7 @@ describe("Alert", () => {
       type: "error",
       dismissible: true,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors, info, dismissible", async () => {
@@ -66,7 +66,7 @@ describe("Alert", () => {
       type: "info",
       dismissible: true,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors, success, dismissible", async () => {
@@ -75,7 +75,7 @@ describe("Alert", () => {
       type: "success",
       dismissible: true,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors, warning, dismissible", async () => {
@@ -84,6 +84,6 @@ describe("Alert", () => {
       type: "warning",
       dismissible: true,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });

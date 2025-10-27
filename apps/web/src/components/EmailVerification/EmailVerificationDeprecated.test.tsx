@@ -5,7 +5,7 @@ import { pipe, fromValue, delay } from "wonka";
 import { vi } from "vitest";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { AuthorizationContainer } from "@gc-digital-talent/auth";
@@ -48,7 +48,7 @@ describe("EmailVerification", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderComponent(getDefaultProps(), getMockClient());
     await waitFor(async () => {
-      await axeTest(container);
+      await expectNoAccessibilityErrors(container);
     });
   });
 

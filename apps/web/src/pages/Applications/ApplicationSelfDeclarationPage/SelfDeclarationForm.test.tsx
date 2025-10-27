@@ -4,7 +4,7 @@ import { pipe, fromValue, delay } from "wonka";
 import { vi } from "vitest";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
@@ -37,7 +37,7 @@ const renderSelfDeclarationForm = () =>
 describe("SelfDeclarationForm", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderSelfDeclarationForm();
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not display communities if not Indigenous", () => {

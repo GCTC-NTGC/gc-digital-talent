@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { composeStories } from "@storybook/react-vite";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
@@ -22,6 +22,6 @@ const defaultProps = Default.args as RootProps;
 describe("Preview List", () => {
   it("should not have accessibility errors", async () => {
     const { container } = renderPreviewList(defaultProps);
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });
