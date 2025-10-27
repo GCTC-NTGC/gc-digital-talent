@@ -13,7 +13,6 @@
     }
   },
   "include": [
-    "globals.d.ts",
     "eslint.config.mjs",
     "playwright.config.ts",
     "constants",
