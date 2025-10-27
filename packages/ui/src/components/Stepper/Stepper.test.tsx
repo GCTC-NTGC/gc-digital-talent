@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import Stepper from "./Stepper";
@@ -24,7 +24,7 @@ describe("Stepper", () => {
     // These props present all different states available for a11y testing
     const { container } = renderStepper(defaultProps);
 
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should render active step", async () => {

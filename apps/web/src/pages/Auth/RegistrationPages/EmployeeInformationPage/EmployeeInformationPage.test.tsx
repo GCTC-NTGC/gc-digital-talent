@@ -6,7 +6,7 @@ import { Kind } from "graphql";
 import { vi } from "vitest";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
@@ -60,7 +60,7 @@ describe("Create Account Form tests", () => {
       onSubmit: vi.fn(),
     });
 
-    await act(async () => await axeTest(container));
+    await act(async () => await expectNoAccessibilityErrors(container));
   });
 
   it("should render fields", () => {

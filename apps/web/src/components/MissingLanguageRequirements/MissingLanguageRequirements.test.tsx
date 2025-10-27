@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import {
@@ -64,7 +64,7 @@ const renderMissingLanguageRequirements = (
 describe("MissingLanguageRequirements", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderMissingLanguageRequirements();
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should show error message if a unilingual applicant applies to a bilingual intermediate pool", () => {

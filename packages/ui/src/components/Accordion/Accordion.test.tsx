@@ -5,7 +5,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import Accordion from "./Accordion";
@@ -52,7 +52,7 @@ describe("Accordion", () => {
       type: "single",
       children: <DefaultChildren />,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors when multiple", async () => {
@@ -60,7 +60,7 @@ describe("Accordion", () => {
       type: "single",
       children: <DefaultChildren />,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should only open one when single", async () => {
