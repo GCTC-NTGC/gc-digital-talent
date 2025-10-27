@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
@@ -185,7 +185,14 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
             },
             {
               path: "logged-out",
-              loader: () => {
+              loader: ({ request }) => {
+                const url = new URL(request.url);
+                const from = url.searchParams.get("from");
+                if (from) {
+                  // eslint-disable-next-line @typescript-eslint/only-throw-error
+                  throw redirect(from);
+                }
+
                 const overridePath = sessionStorage.getItem(
                   POST_LOGOUT_OVERRIDE_PATH_KEY,
                 );
@@ -199,6 +206,7 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                     `Retrieved an unsafe uri from POST_LOGOUT_URI: ${overridePath}`,
                   );
                 }
+
                 return null;
               },
               lazy: () => import("../pages/Auth/SignedOutPage/SignedOutPage"),

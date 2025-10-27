@@ -53,6 +53,8 @@ interface logoutAndRefreshPageParameters {
   logoutReason?: LogoutReason;
   // Should we prevent the redirect when completing?
   preventRedirect?: boolean;
+  // URL user came from and should be returned to after a full logout
+  from?: string;
 }
 
 const logoutAndRefreshPage = ({
@@ -62,6 +64,7 @@ const logoutAndRefreshPage = ({
   broadcastLogoutMessage,
   logoutReason,
   preventRedirect = false,
+  from,
 }: logoutAndRefreshPageParameters): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
@@ -119,12 +122,20 @@ const logoutAndRefreshPage = ({
   // Post a logout message to the broadcast channel
   // so they know to logout as well
   broadcastLogoutMessage?.();
+
+  let redirectUri = postLogoutRedirectUri;
+  if (from) {
+    const searchParams = new URLSearchParams();
+    searchParams.append("from", window.location.href);
+    redirectUri = `${redirectUri}?${searchParams.toString()}`;
+  }
+
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}&id_token_hint=${idToken}`;
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(redirectUri)}&id_token_hint=${idToken}`;
   } else if (!preventRedirect) {
     // at least a hard refresh to URI to restart react app
-    window.location.href = postLogoutRedirectUri;
+    window.location.href = redirectUri;
   } else {
     window.location.reload();
   }
@@ -282,7 +293,15 @@ const AuthenticationContainer = ({
             logoutUri,
             postLogoutRedirectUri,
             logoutReason: "session-expired",
+            /**
+             * Failure prevents redirect when possible or,
+             * returns user to the page they were on to continue
+             *
+             * Allows router to handle errors and either load page
+             * or restart auth flow if necessary.
+             */
             preventRedirect: true,
+            from: window.location.href,
           });
         }
       },
