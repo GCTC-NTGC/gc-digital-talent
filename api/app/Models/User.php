@@ -996,4 +996,54 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             }
         );
     }
+
+    // TODO: find a better place for this
+    public static function searchStringToTsQuery(string $searchString): string
+    {
+        $tokenized = Str::of($searchString)->split('/[\s,]+/')
+            // allow prefix matching, switch AND/OR to symbols
+            ->map(fn ($t) => match (true) {
+                preg_match('/and/i', $t) == 1 => '&',
+                preg_match('/or/i', $t) == 1 => '|',
+                default => $t.':*'
+            })
+            // convert dash to exclamation for negation
+            ->map(fn ($t) => Str::startsWith($t, '-') ? Str::substrReplace($t, '!', 0, 1) : $t)
+            // assume ANDing all terms
+            ->join(' & ');
+
+        // remove extra & tokens
+        $tokenized = Str::replace(' & & & ', ' & ', $tokenized);
+        $tokenized = Str::replace(' & | & ', ' | ', $tokenized);
+
+        return $tokenized;
+    }
+
+    public static function scopeWhereGeneralSearch2(Builder $query, ?string $searchTerm): Builder
+    {
+        if ($searchTerm) {
+            $tsQuery = User::searchStringToTsQuery($searchTerm);
+
+            $query
+                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
+                // attach the tsquery to every row to use for filtering
+                ->crossJoinSub(function ($query) use ($tsQuery) {
+                    $query->selectRaw(
+                        'to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
+                        ['english', $tsQuery]
+                    );
+                }, 'calculations')
+                // filter rows against the tsquery
+                ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
+                // add the calculated rank column to allow for ordering by text search rank
+                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
+                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
+                ->addSelect(['users.*'])
+                ->from('users')
+                ->orderByDesc('calculations.tsquery');
+
+        }
+
+        return $query;
+    }
 }
