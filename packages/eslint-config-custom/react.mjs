@@ -27,6 +27,13 @@ export default [
     rules: {
       ...reactHooks.configs.recommended.rules,
       ...vitest.configs.recommended.rules,
+      "vitest/expect-expect": [
+        "error",
+        {
+          assertFunctionNames: ["expect", "axeTest"],
+          additionalTestBlockFunctions: [],
+        },
+      ],
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
       "formatjs/no-id": "off",
