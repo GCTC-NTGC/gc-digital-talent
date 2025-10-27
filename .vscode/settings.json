@@ -66,9 +66,8 @@
     "composer.json",
     "composer.lock",
     "tsconfig.json",
-    ".eslintrc",
+    ".eslintrc"
   ],
-  "jest.jestCommandLine": "test",
   "cSpell.ignoreRegExpList": [
     "/id\\: \\\"[A-Za-z0-9+\\/]{6}\\\"/g",
     "/\"[A-Za-z0-9+\\/]{6}\\\": {/g"
@@ -113,9 +112,6 @@
     }
   },
   "tailwindCSS.experimental.classRegex": [
-    [
-      "tv\\(([^)]*)\\)",
-      "[\"'`]([^\"'`]*)[\"'`]"
-    ]
+    ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
   ]
 }

@@ -16,7 +16,7 @@ The current implementation of collocation occurs by placing any `*.operations.gr
 
 ### 👺 Masking
 
-Fragment masking provides a way to strongly type the specific fragment used in a query for our consumption. Previously, some problems existed in the codebase where additional information was added to a component, but since the type system was very relaxed (it showed what *could* be queried, not what *was* being queried), sometimes the query was not updated and ended up with empty values.
+Fragment masking provides a way to strongly type the specific fragment used in a query for our consumption. Previously, some problems existed in the codebase where additional information was added to a component, but since the type system was very relaxed (it showed what _could_ be queried, not what _was_ being queried), sometimes the query was not updated and ended up with empty values.
 
 With fragment masking, a type error is returned if data is used that was never queried along with triggering a build error.
 
@@ -28,10 +28,9 @@ All examples are related and show how to build a page and its operations from th
 
 When defining a component that needs to consume data from the API, there are a few things to do for the code generator to work.
 
- 1. Import the `graphql` helper which accepts a graphql document string (for components, this will be a fragment)
- 2. Add the fragment to the prop types so it can be passed in
- 3. Mask the fragment for strong typing of the fields queried
-
+1.  Import the `graphql` helper which accepts a graphql document string (for components, this will be a fragment)
+2.  Add the fragment to the prop types so it can be passed in
+3.  Mask the fragment for strong typing of the fields queried
 
 ```tsx
 // PoolCard.tsx
@@ -65,7 +64,6 @@ const PoolCard = ({ pool: poolFragment }: PoolCardProps) => {
 }
 ```
 
-
 ### 📖 Storybook
 
 Since the props require a specific type that comes from the code generator, the mocked data passed into stories needs to be massaged. Thankfully, there is a nice little helper (`makeFragmentData`) to do this.
@@ -91,7 +89,7 @@ Similar to storybook, create the fragment using the helper (`makeFragmentData`).
 // PoolCard.tests.tsx
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import PoolCard, { PoolCard__PoolFragment } from "./PoolCard";
 
@@ -130,7 +128,7 @@ type PoolListProps = {
 
 const PoolList = ({ query }: PoolListProps) => {
   const pools = getFragment(PoolList_QueryFragment, query);
-  
+
   return pools.map((pool) => (
     <PoolCard key={pool.id} pool={pool} />
   ))
@@ -148,8 +146,7 @@ export const PoolPage_Query = graphql(/* GraphQL */ `
 
 const PoolPage = ({ pools: poolsFragment }: PoolPageProps) => {
   const [{data}] = useQuery({ query: PoolPage_Query })
-  
+
   return <PoolList query={data} />;
 }
 ```
-
