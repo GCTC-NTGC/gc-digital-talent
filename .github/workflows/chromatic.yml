@@ -19,7 +19,7 @@ on:
 jobs:
   chromatic:
     name: Chromatic
-    # On pull request open, merge, or  rerun
+    # On pull request open, merge, or rerun
     if: (github.event.pull_request.opened == true || github.event.pull_request.merged == true || github.run_attempt > 1) && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-24.04
     env:
