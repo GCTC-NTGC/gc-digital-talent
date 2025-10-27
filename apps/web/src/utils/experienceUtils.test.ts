@@ -8,7 +8,7 @@ import { experienceDurationMonths, getExperienceDate } from "./experienceUtils";
 describe("experience utils test", () => {
   const intl = { locale: "en" } as IntlShape;
 
-  test("test function getExperienceDate", () => {
+  test("function getExperienceDate", () => {
     const fakeAward = experienceGenerators.awardExperiences()[0];
     const fakeWork = experienceGenerators.workExperiences()[0];
 
