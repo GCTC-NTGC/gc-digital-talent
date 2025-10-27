@@ -3,7 +3,7 @@ import { fromValue } from "wonka";
 import { screen } from "@testing-library/react";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
@@ -45,7 +45,7 @@ const renderSearchRequestsTable = () =>
 describe("SearchRequestsTable", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderSearchRequestsTable();
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("Should render the table", () => {

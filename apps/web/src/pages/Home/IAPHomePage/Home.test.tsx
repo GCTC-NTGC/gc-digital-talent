@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import { Home } from "./Home";
@@ -22,6 +22,6 @@ describe("Basic test for Home", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderHome();
 
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });

@@ -11,7 +11,7 @@ import { ReactNode } from "react";
 import { vi } from "vitest";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
@@ -144,7 +144,7 @@ describe("Repeater", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderRepeater(defaultProps);
 
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should add an item", async () => {

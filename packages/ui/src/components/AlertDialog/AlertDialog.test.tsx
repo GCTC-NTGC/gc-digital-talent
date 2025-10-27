@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import Button from "../Button";
@@ -51,7 +51,7 @@ describe("AlertDialog", () => {
     const { container } = renderAlertDialog({
       children: <DefaultChildren />,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors when open", async () => {
@@ -59,7 +59,7 @@ describe("AlertDialog", () => {
       children: <DefaultChildren />,
       defaultOpen: true,
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not render when closed", () => {

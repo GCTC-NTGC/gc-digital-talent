@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 import { vi } from "vitest";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
@@ -64,7 +64,7 @@ describe("DateInput", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderDateInput(defaultProps);
 
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should render subfields", () => {

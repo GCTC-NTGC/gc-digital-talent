@@ -5,7 +5,7 @@ import { vi } from "vitest";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import ToggleGroup from "./ToggleGroup";
@@ -29,14 +29,14 @@ describe("ToggleGroup", () => {
     const { container } = renderToggleGroup({
       type: "single",
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should have no accessibility errors when multiple", async () => {
     const { container } = renderToggleGroup({
       type: "multiple",
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("can only select one when single", async () => {

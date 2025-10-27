@@ -1,6 +1,6 @@
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import HomePage from "./HomePage";
@@ -12,6 +12,6 @@ const renderHomepage = () => {
 describe("DigitalTalentHomePage", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderHomepage();
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });

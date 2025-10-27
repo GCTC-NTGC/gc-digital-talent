@@ -1,6 +1,6 @@
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import AccessibilityStatementPage from "./AccessibilityStatementPage";
@@ -12,6 +12,6 @@ const renderAccessibilityStatementPage = () => {
 describe("AccessibilityStatementPage", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderAccessibilityStatementPage();
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });

@@ -4,7 +4,7 @@ import { pipe, fromValue, delay } from "wonka";
 import { vi } from "vitest";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
@@ -87,7 +87,7 @@ describe("Getting Started Form tests", () => {
     });
 
     await act(async () => {
-      await axeTest(container);
+      await expectNoAccessibilityErrors(container);
     });
   });
 

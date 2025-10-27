@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef, useState } from "react";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import Button from "../Button";
@@ -74,14 +74,14 @@ describe("DropdownMenu", () => {
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderDropdownMenu({});
 
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors when open", async () => {
     const { container } = renderDropdownMenu({});
     await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
 
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not render when closed", () => {

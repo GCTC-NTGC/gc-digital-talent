@@ -30,7 +30,7 @@ export default [
       "vitest/expect-expect": [
         "error",
         {
-          assertFunctionNames: ["expect", "axeTest"],
+          assertFunctionNames: ["expect", "expectNoAccessibilityErrors"],
           additionalTestBlockFunctions: [],
         },
       ],
