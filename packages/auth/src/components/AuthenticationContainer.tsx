@@ -44,13 +44,15 @@ interface logoutAndRefreshPageParameters {
   // the "end session" URI of the auth provider
   logoutUri: string;
   // the logout landing page of our app (whitelisted)
-  postLogoutRedirectUri?: string;
+  postLogoutRedirectUri: string;
   // if we want to go to another path else after logout
   postLogoutOverridePath?: string;
   // a function to broadcast the logout event to other tabs
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
   logoutReason?: LogoutReason;
+  // Should we prevent the redirect when completing?
+  preventRedirect?: boolean;
 }
 
 const logoutAndRefreshPage = ({
@@ -59,6 +61,7 @@ const logoutAndRefreshPage = ({
   postLogoutOverridePath,
   broadcastLogoutMessage,
   logoutReason,
+  preventRedirect = false,
 }: logoutAndRefreshPageParameters): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
@@ -118,8 +121,8 @@ const logoutAndRefreshPage = ({
   broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri ?? window.location.href)}&id_token_hint=${idToken}`;
-  } else if (postLogoutRedirectUri) {
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}&id_token_hint=${idToken}`;
+  } else if (!preventRedirect) {
     // at least a hard refresh to URI to restart react app
     window.location.href = postLogoutRedirectUri;
   } else {
@@ -277,7 +280,9 @@ const AuthenticationContainer = ({
           logger.notice("Failed to refresh auth state.");
           logoutAndRefreshPage({
             logoutUri,
+            postLogoutRedirectUri,
             logoutReason: "session-expired",
+            preventRedirect: true,
           });
         }
       },
