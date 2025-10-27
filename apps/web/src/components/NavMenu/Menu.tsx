@@ -124,11 +124,13 @@ const Menu = ({
           onOpenToggle={handleOpenToggle}
           onOpenChange={setMenuOpen}
         >
-          <div className="relative z-10">
+          <div
+            className="relative z-10"
+            // NOTE: Do not remove, required by anchor link offsets
+            id="main-nav"
+          >
             {showMenu ? (
               <NavMenu.Root
-                // NOTE: Do not remove, required by anchor link offsets
-                id="main-nav"
                 onKeyDown={handleKeyDown}
                 aria-label={
                   label ??
@@ -238,6 +240,8 @@ const Menu = ({
               color="black"
               mode="solid"
               icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+              aria-expanded={isMenuOpen}
+              aria-controls="main-nav"
               onClick={() => {
                 if (isNotificationDialogOpen) {
                   setNotificationDialogOpen(false);
