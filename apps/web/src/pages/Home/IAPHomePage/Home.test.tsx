@@ -13,7 +13,8 @@ describe("Basic test for Home", () => {
   it("should render", () => {
     renderHome();
     expect(
-      screen.getByRole("h1", {
+      screen.getByRole("heading", {
+        level: 1,
         name: "IT Apprenticeship Program for Indigenous Peoples",
       }),
     ).toBeInTheDocument();
