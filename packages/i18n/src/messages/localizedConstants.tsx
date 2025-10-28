@@ -237,7 +237,8 @@ export const getEducationRequirementOption = (
 export const EmploymentDuration = {
   Term: "TERM",
   Indeterminate: "INDETERMINATE",
-};
+} as const;
+
 const employmentDurationShort = defineMessages({
   [EmploymentDuration.Term]: {
     defaultMessage: "Term",
