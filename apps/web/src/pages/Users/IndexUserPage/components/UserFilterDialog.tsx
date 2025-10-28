@@ -10,16 +10,13 @@ import {
   narrowEnumType,
   navigationMessages,
   sortLocalizedEnumOptions,
-  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import {
-  Checkbox,
   Checklist,
   Combobox,
   Select,
   SwitchInput,
   enumToOptions,
-  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
