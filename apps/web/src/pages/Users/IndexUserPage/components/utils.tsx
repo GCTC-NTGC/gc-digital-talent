@@ -45,6 +45,7 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
+  newSearch: boolean,
 ): InputMaybe<UserFilterInput> | undefined {
   if (
     filterState === undefined &&
@@ -56,7 +57,10 @@ export function transformUserInput(
 
   return {
     // search bar
-    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+    generalSearch:
+      searchBarTerm && !searchType && !newSearch ? searchBarTerm : undefined,
+    generalSearch2:
+      searchBarTerm && !searchType && newSearch ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
     workEmail: searchType === "workEmail" ? searchBarTerm : undefined,
     name: searchType === "candidateName" ? searchBarTerm : undefined,

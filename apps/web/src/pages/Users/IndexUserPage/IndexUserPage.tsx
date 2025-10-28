@@ -1,6 +1,8 @@
 import { defineMessage, useIntl } from "react-intl";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Checkbox } from "@gc-digital-talent/forms";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -22,6 +24,8 @@ export const subTitle = defineMessage({
 export const IndexUserPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
+  const methods = useForm<{ newSearch: boolean }>();
+  const isNewSearchChecked = methods.watch("newSearch");
 
   const formattedPageTitle = intl.formatMessage(pageTitles.users);
   const formattedSubTitle = intl.formatMessage(subTitle);
@@ -44,7 +48,20 @@ export const IndexUserPage = () => {
         crumbs={navigationCrumbs}
       />
       <AdminContentWrapper table>
-        <UserTable title={formattedPageTitle} />
+        <FormProvider {...methods}>
+          <form className="mb-6">
+            <Checkbox
+              id="newSearch"
+              label={intl.formatMessage({
+                defaultMessage: "New search",
+                id: "yRtJNi",
+                description: "Try the new search",
+              })}
+              name={"newSearch"}
+            />
+          </form>
+        </FormProvider>
+        <UserTable title={formattedPageTitle} newSearch={isNewSearchChecked} />
       </AdminContentWrapper>
     </>
   );
