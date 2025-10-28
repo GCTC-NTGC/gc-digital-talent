@@ -9,7 +9,7 @@ interface AdminContentWrapperProps {
 }
 
 const adminContentWrapper = tv({
-  base: "py-18",
+  base: "py-24",
   variants: {
     overflowScrollbar: {
       true: "pb-18",
