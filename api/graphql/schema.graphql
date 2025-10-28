@@ -1449,6 +1449,7 @@ input CommunityInterestFilterInput {
   promotionMoveInterest: Boolean @scope
   languageAbility: LanguageAbility @scope
   positionDuration: [PositionDuration] @scope
+  flexibleWorkLocations: [FlexibleWorkLocation] @scope
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope

@@ -291,6 +291,19 @@ class CommunityInterest extends Model
         return $query;
     }
 
+    public function scopeFlexibleWorkLocations(Builder $query, ?array $workLocations): Builder
+    {
+        if (empty($workLocations)) {
+            return $query;
+        }
+
+        $query->whereHas('user', function ($query) use ($workLocations) {
+            $query->whereFlexibleWorkLocationsIn($workLocations);
+        });
+
+        return $query;
+    }
+
     public function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         if (empty($operationalRequirements)) {
