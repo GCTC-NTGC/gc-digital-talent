@@ -32,11 +32,8 @@ import {
   PoolCandidate,
   FinalDecision,
   PoolAreaOfSelection,
-  FlexibleWorkLocation,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
   LocalizedCandidateSuspendedFilter,
-  WorkRegion,
-  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
