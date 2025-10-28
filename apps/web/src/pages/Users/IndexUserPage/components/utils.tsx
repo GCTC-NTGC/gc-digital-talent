@@ -1,8 +1,12 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   InputMaybe,
   OrderByClause,
@@ -13,12 +17,7 @@ import {
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 
-import {
-  durationToEnumPositionDuration,
-  stringToEnumLanguage,
-  stringToEnumLocation,
-  stringToEnumOperational,
-} from "~/utils/userUtils";
+import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
 import { FormValues } from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
@@ -30,10 +29,13 @@ export function rolesAccessor(
   if (!roleAssignments) return null;
 
   const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
-  const rolesFiltered = roles.filter(notEmpty);
-  const rolesToDisplay = rolesFiltered
+  const rolesToDisplay = unpackMaybes(roles)
     .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
-    .map((role) => getLocalizedName(role.displayName, intl));
+    .map(
+      (role) =>
+        role.displayName?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
+    );
   const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
 
   return uniqueRolesToDisplay.join(", ");
@@ -103,23 +105,11 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility
-        ? stringToEnumLanguage(data.languageAbility)
-        : undefined,
-      locationPreferences: data.workRegion
-        .map((region) => {
-          return stringToEnumLocation(region);
-        })
-        .filter(notEmpty),
-      operationalRequirements: data.operationalRequirement
-        .map((requirement) => {
-          return stringToEnumOperational(requirement);
-        })
-        .filter(notEmpty),
-      skills: data.skills.map((skill) => {
-        const skillString = skill;
-        return { id: skillString };
-      }),
+      languageAbility: data.languageAbility,
+      locationPreferences: data.workRegion,
+      operationalRequirements: data.operationalRequirement,
+      flexibleWorkLocations: data.flexibleWorkLocations,
+      skills: data.skills.map((skill) => ({ id: skill })),
       positionDuration: data.employmentDuration
         ? [durationToEnumPositionDuration(data.employmentDuration)].filter(
             notEmpty,
@@ -128,10 +118,7 @@ export function transformFormValuesToUserFilterInput(
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
     isProfileComplete: data.profileComplete[0] ? true : undefined,
-    poolFilters: data.pools.map((pool) => {
-      const poolString = pool;
-      return { poolId: poolString };
-    }),
+    poolFilters: data.pools.map((pool) => ({ poolId: pool })),
     roles: data.roles,
     trashed: data.trashed[0] ? Trashed.Only : undefined,
   };
@@ -142,13 +129,17 @@ export function transformUserFilterInputToFormValues(
 ): FormValues {
   const positionDuration = input?.applicantFilter?.positionDuration;
   return {
-    languageAbility: input?.applicantFilter?.languageAbility ?? "",
-    workRegion:
-      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
-    operationalRequirement:
-      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
-    skills:
-      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
+    operationalRequirement: unpackMaybes(
+      input?.applicantFilter?.operationalRequirements,
+    ),
+    flexibleWorkLocations: unpackMaybes(
+      input?.applicantFilter?.flexibleWorkLocations,
+    ),
+    skills: unpackMaybes(
+      input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
+    ),
     employmentDuration: !positionDuration?.length
       ? ""
       : positionDuration.includes(PositionDuration.Temporary)
@@ -156,11 +147,10 @@ export function transformUserFilterInputToFormValues(
         : "INDETERMINATE",
     govEmployee: input?.isGovEmployee ? "true" : "",
     profileComplete: input?.isProfileComplete ? "true" : "",
-    pools:
-      input?.poolFilters
-        ?.filter(notEmpty)
-        .map((poolFilter) => poolFilter.poolId) ?? [],
-    roles: input?.roles?.filter(notEmpty) ?? [],
+    pools: unpackMaybes(
+      input?.applicantFilter?.pools?.flatMap((pool) => pool?.id),
+    ),
+    roles: unpackMaybes(input?.roles),
     trashed: input?.trashed ? "true" : "",
   };
 }

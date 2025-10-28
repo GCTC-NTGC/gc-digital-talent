@@ -12,7 +12,11 @@ import { ReactNode, useState, useMemo, useRef } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
 
 import Table, {
@@ -52,6 +56,7 @@ const defaultState = {
   filters: {
     applicantFilter: {
       languageAbility: undefined,
+      flexibleWorkLocations: [],
       locationPreferences: [],
       operationalRequirements: [],
       positionDuration: undefined,
@@ -103,6 +108,12 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
           label {
             en
             fr
+          }
+        }
+        flexibleWorkLocations {
+          value
+          label {
+            localized
           }
         }
         lookingForEnglish
@@ -336,6 +347,23 @@ const UserTable = ({ title }: UserTableProps) => {
         header: intl.formatMessage(commonMessages.workingLanguageAbility),
       },
     ),
+    columnHelper.accessor(
+      ({ flexibleWorkLocations }) =>
+        flexibleWorkLocations
+          ? unpackMaybes(
+              flexibleWorkLocations.map(
+                (flexibleWorkLocation) =>
+                  flexibleWorkLocation?.label?.localized,
+              ),
+            ).join(", ")
+          : "",
+      {
+        id: "flexibleWorkLocations",
+        header: intl.formatMessage(navigationMessages.workLocation),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
       enableColumnFilter: false,
@@ -392,6 +420,7 @@ const UserTable = ({ title }: UserTableProps) => {
         "workEmail",
         "telephone",
         "preferredLang",
+        "flexibleWorkLocations",
         "createdDate",
         "updatedDate",
         "rolesAndPermissions",

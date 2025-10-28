@@ -9622,10 +9622,6 @@
     "defaultMessage": "Sauter cette étape pour l'instant",
     "description": "label for skip button"
   },
-  "eozWFc": {
-    "defaultMessage": "Filtres avancés",
-    "description": "Title for the additional filters"
-  },
   "epqtpM": {
     "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",
     "description": "Notice that deleting a skill removes it from a users skill showcase"

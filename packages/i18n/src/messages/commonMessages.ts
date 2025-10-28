@@ -583,6 +583,11 @@ const commonMessages = defineMessages({
     id: "TgQyrU",
     description: "Label for a created at date",
   },
+  advancedFilters: {
+    defaultMessage: "Advanced filters",
+    id: "eozWFc",
+    description: "Title for the additional filters",
+  },
 });
 
 export default commonMessages;

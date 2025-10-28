@@ -5,7 +5,7 @@ import {
   EmploymentDuration,
   commonMessages,
   getEmploymentDuration,
-  getLocalizedName,
+  narrowEnumType,
   navigationMessages,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
@@ -14,11 +14,19 @@ import {
   Checklist,
   Combobox,
   Select,
+  SwitchInput,
   enumToOptions,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
+  graphql,
+  LanguageAbility,
+  OperationalRequirement,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
+import { Heading } from "@gc-digital-talent/ui";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -30,9 +38,10 @@ import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export interface FormValues {
   pools: string[];
-  languageAbility: string;
-  operationalRequirement: string[];
-  workRegion: string[];
+  languageAbility?: LanguageAbility;
+  operationalRequirement: OperationalRequirement[];
+  workRegion: WorkRegion[];
+  flexibleWorkLocations: FlexibleWorkLocation[];
   employmentDuration: string;
   skills: string[];
   profileComplete: string;
@@ -50,44 +59,51 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
   query UserFilterData {
     skills {
       id
-      key
       name {
-        en
-        fr
-      }
-      category {
-        value
+        localized
       }
     }
     roles {
       id
       name
       displayName {
-        en
-        fr
+        localized
       }
     }
-    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
-      value
-      label {
-        en
-        fr
+    flexibleWorkLocations: localizedEnumOptions(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      ... on LocalizedFlexibleWorkLocation {
+        value
+        label {
+          localized
+        }
       }
     }
-    operationalRequirements: localizedEnumStrings(
+    languageAbilities: localizedEnumOptions(enumName: "LanguageAbility") {
+      ... on LocalizedLanguageAbility {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    operationalRequirements: localizedEnumOptions(
       enumName: "OperationalRequirement"
     ) {
-      value
-      label {
-        en
-        fr
+      ... on LocalizedOperationalRequirement {
+        value
+        label {
+          localized
+        }
       }
     }
-    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
-      value
-      label {
-        en
-        fr
+    workRegions: localizedEnumOptions(enumName: "WorkRegion") {
+      ... on LocalizedWorkRegion {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -101,120 +117,149 @@ const UserFilterDialog = ({
   initialValues,
 }: UserFilterDialogProps) => {
   const intl = useIntl();
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const [{ data, fetching }] = useQuery({
     query: UserFilterData_Query,
     context,
   });
 
-  const skills = unpackMaybes(data?.skills);
-  const roles = unpackMaybes(data?.roles);
-
   return (
     <FilterDialog<FormValues>
       options={{ defaultValues: initialValues }}
       {...{ onSubmit, resetValues }}
     >
+      <Heading level="h3" size="h5" className="mt-0 mb-6 font-bold">
+        {intl.formatMessage({
+          defaultMessage: "Process filters",
+          id: "+dlRCu",
+          description:
+            "Heading for filters associated with a candidates process",
+        })}
+      </Heading>
+      <PoolFilterInput />
+      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+        {intl.formatMessage({
+          defaultMessage: "Profile filters",
+          id: "WqxVxb",
+          description:
+            "Heading for filters associated with a candidates profile",
+        })}
+      </Heading>
+
+      <div className="mb-6 grid gap-6 xs:grid-cols-2">
+        <Select
+          id="languageAbility"
+          name="languageAbility"
+          enableNull
+          nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
+          label={intl.formatMessage(commonMessages.workingLanguageAbility)}
+          options={narrowEnumType(
+            unpackMaybes(data?.languageAbilities),
+            "LanguageAbility",
+          ).map((languageAbility) => ({
+            value: languageAbility.value,
+            label: languageAbility.label?.localized ?? notAvailable,
+          }))}
+        />
+        <Select
+          id="employmentDuration"
+          name="employmentDuration"
+          enableNull
+          nullSelection={intl.formatMessage({
+            defaultMessage: "Any duration",
+            id: "Swq+OD",
+            description: "Option label for allowing any employment duration",
+          })}
+          label={intl.formatMessage({
+            defaultMessage: "Duration preferences",
+            id: "2ingb6",
+            description: "Label for the employment duration field",
+          })}
+          options={enumToOptions(EmploymentDuration).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getEmploymentDuration(value, "short")),
+          }))}
+        />
+        <Checklist
+          idPrefix="workRegion"
+          name="workRegion"
+          legend={intl.formatMessage(navigationMessages.workLocation)}
+          items={localizedEnumToOptions(
+            sortWorkRegion(data?.workRegions),
+            intl,
+          )}
+        />
+      </div>
+
+      <div className="flex flex-col gap-y-6">
+        <Checklist
+          idPrefix="operationalRequirement"
+          name="operationalRequirement"
+          legend={intl.formatMessage(navigationMessages.workPreferences)}
+          items={narrowEnumType(
+            unpackMaybes(data?.operationalRequirements),
+            "OperationalRequirement",
+          ).map((operationalRequirement) => ({
+            value: operationalRequirement.value,
+            label: operationalRequirement.label?.localized ?? notAvailable,
+          }))}
+        />
+        <Checkbox
+          id="govEmployee"
+          name="govEmployee"
+          value="true"
+          label={intl.formatMessage(commonMessages.governmentEmployee)}
+        />
+        <Combobox
+          id="skills"
+          name="skills"
+          {...{ fetching }}
+          isMulti
+          label={intl.formatMessage(adminMessages.skills)}
+          options={unpackMaybes(data?.skills).map(({ id, name }) => ({
+            value: id,
+            label: name.localized ?? notAvailable,
+          }))}
+        />
+      </div>
+
+      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+        {intl.formatMessage(commonMessages.advancedFilters)}
+      </Heading>
+
       <div className="grid gap-6 xs:grid-cols-2">
-        <div className="xs:grid-cols-2">
-          <PoolFilterInput />
-        </div>
+        <Checklist
+          idPrefix="roles"
+          name="roles"
+          legend={intl.formatMessage(adminMessages.rolesAndPermissions)}
+          items={unpackMaybes(data?.roles)
+            .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
+            .map((role) => ({
+              value: role.id,
+              label: role.displayName?.localized ?? notAvailable,
+            }))}
+        />
         <div className="flex flex-col gap-y-6">
-          <Select
-            id="languageAbility"
-            name="languageAbility"
-            enableNull
-            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
-            options={localizedEnumToOptions(data?.languageAbilities, intl)}
-          />
-          <Select
-            id="employmentDuration"
-            name="employmentDuration"
-            enableNull
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Any duration",
-              id: "Swq+OD",
-              description: "Option label for allowing any employment duration",
-            })}
+          <SwitchInput
+            id="profileComplete"
+            name="profileComplete"
+            value="true"
             label={intl.formatMessage({
-              defaultMessage: "Duration preferences",
-              id: "2ingb6",
-              description: "Label for the employment duration field",
+              defaultMessage: "Profile complete",
+              id: "h7IJnu",
+              description: "Label for the profile complete field",
             })}
-            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getEmploymentDuration(value, "short")),
-            }))}
           />
-          <Checklist
-            idPrefix="workRegion"
-            name="workRegion"
-            legend={intl.formatMessage(navigationMessages.workLocation)}
-            items={localizedEnumToOptions(
-              sortWorkRegion(data?.workRegions),
-              intl,
-            )}
-          />
-        </div>
-        <div className="flex flex-col gap-y-6">
-          <Checklist
-            idPrefix="roles"
-            name="roles"
-            legend={intl.formatMessage(adminMessages.rolesAndPermissions)}
-            items={roles
-              .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
-              .map((role) => ({
-                value: role.id,
-                label: getLocalizedName(role.displayName, intl),
-              }))}
-          />
-          <div className="flex flex-wrap gap-3">
-            <Checkbox
-              id="profileComplete"
-              name="profileComplete"
-              value="true"
-              label={intl.formatMessage({
-                defaultMessage: "Profile complete",
-                id: "h7IJnu",
-                description: "Label for the profile complete field",
-              })}
-            />
-            <Checkbox
-              id="govEmployee"
-              name="govEmployee"
-              value="true"
-              label={intl.formatMessage(commonMessages.governmentEmployee)}
-            />
-            <Checkbox
-              id="trashed"
-              name="trashed"
-              value="true"
-              label={intl.formatMessage({
-                defaultMessage: "Deleted",
-                id: "CzK1qY",
-                description: "Label for the trashed field",
-              })}
-            />
-          </div>
-          <Checklist
-            idPrefix="operationalRequirement"
-            name="operationalRequirement"
-            legend={intl.formatMessage(navigationMessages.workPreferences)}
-            items={localizedEnumToOptions(data?.operationalRequirements, intl)}
-          />
-        </div>
-        <div className="xs:col-span-2">
-          <Combobox
-            id="skills"
-            name="skills"
-            {...{ fetching }}
-            isMulti
-            label={intl.formatMessage(adminMessages.skills)}
-            options={skills.map(({ id, name }) => ({
-              value: id,
-              label: getLocalizedName(name, intl),
-            }))}
+          <SwitchInput
+            id="trashed"
+            name="trashed"
+            value="true"
+            label={intl.formatMessage({
+              defaultMessage: "Deleted",
+              id: "CzK1qY",
+              description: "Label for the trashed field",
+            })}
           />
         </div>
       </div>

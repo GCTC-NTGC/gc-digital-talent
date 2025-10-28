@@ -1167,6 +1167,10 @@
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
     "description": "Title for the unexpected error page."
   },
+  "eozWFc": {
+    "defaultMessage": "Filtres avancés",
+    "description": "Title for the additional filters"
+  },
   "euigxa": {
     "defaultMessage": "Aucun renseignement n'a été fourni.",
     "description": "Sentence when some form of information not provided"
