@@ -36,6 +36,14 @@ import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
+export const OTHER_FILTER = {
+  PROFILE_COMPLETE: "profileComplete",
+  TRASHED: "trashed",
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+export type OtherFilter = ObjectValues<typeof OTHER_FILTER>;
+
 export interface FormValues {
   pools: string[];
   languageAbility?: LanguageAbility;
@@ -44,10 +52,9 @@ export interface FormValues {
   flexibleWorkLocations: FlexibleWorkLocation[];
   employmentDuration?: TEmploymentDuration;
   skills: string[];
-  profileComplete: string;
   govEmployee: string;
   roles: string[];
-  trashed: string;
+  otherFilters: OtherFilter[];
 }
 
 const context: Partial<OperationContext> = {
@@ -249,7 +256,7 @@ const UserFilterDialog = ({
         {intl.formatMessage(commonMessages.advancedFilters)}
       </Heading>
 
-      <div className="grid gap-6 xs:grid-cols-2">
+      <div className="grid items-start gap-6 xs:grid-cols-2">
         <Checklist
           idPrefix="roles"
           name="roles"
@@ -261,28 +268,33 @@ const UserFilterDialog = ({
               label: role.displayName?.localized ?? notAvailable,
             }))}
         />
-        <div className="flex flex-col gap-y-6">
-          <SwitchInput
-            id="profileComplete"
-            name="profileComplete"
-            value="true"
-            label={intl.formatMessage({
-              defaultMessage: "Profile complete",
-              id: "h7IJnu",
-              description: "Label for the profile complete field",
-            })}
-          />
-          <SwitchInput
-            id="trashed"
-            name="trashed"
-            value="true"
-            label={intl.formatMessage({
-              defaultMessage: "Deleted",
-              id: "CzK1qY",
-              description: "Label for the trashed field",
-            })}
-          />
-        </div>
+        <Checklist
+          idPrefix="otherFilters"
+          name="otherFilters"
+          legend={intl.formatMessage({
+            defaultMessage: "Other filters",
+            id: "dyIyt6",
+            description: "Legend for uncategorized filters",
+          })}
+          items={[
+            {
+              value: OTHER_FILTER.PROFILE_COMPLETE,
+              label: intl.formatMessage({
+                defaultMessage: "Profile complete",
+                id: "h7IJnu",
+                description: "Label for the profile complete field",
+              }),
+            },
+            {
+              value: OTHER_FILTER.TRASHED,
+              label: intl.formatMessage({
+                defaultMessage: "Deleted",
+                id: "CzK1qY",
+                description: "Label for the trashed field",
+              }),
+            },
+          ]}
+        />
       </div>
     </FilterDialog>
   );

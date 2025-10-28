@@ -63,8 +63,8 @@ const defaultState = {
       skills: [],
     },
     isGovEmployee: undefined,
-    isProfileComplete: undefined,
     poolFilters: [],
+    otherFilters: [],
   },
 };
 

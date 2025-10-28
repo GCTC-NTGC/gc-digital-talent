@@ -19,7 +19,7 @@ import {
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
-import { FormValues } from "./UserFilterDialog";
+import { FormValues, OTHER_FILTER, OtherFilter } from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export function rolesAccessor(
@@ -117,10 +117,14 @@ export function transformFormValuesToUserFilterInput(
         : undefined,
     },
     isGovEmployee: data.govEmployee ? true : undefined,
-    isProfileComplete: data.profileComplete ? true : undefined,
+    isProfileComplete: data.otherFilters.includes(OTHER_FILTER.PROFILE_COMPLETE)
+      ? true
+      : undefined,
     poolFilters: data.pools.map((pool) => ({ poolId: pool })),
     roles: data.roles,
-    trashed: data.trashed ? Trashed.Only : undefined,
+    trashed: data.otherFilters.includes(OTHER_FILTER.TRASHED)
+      ? Trashed.Only
+      : undefined,
   };
 }
 
@@ -128,6 +132,14 @@ export function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   const positionDuration = input?.applicantFilter?.positionDuration;
+  let otherFilters: OtherFilter[] = [];
+  if (input?.isProfileComplete) {
+    otherFilters = [...otherFilters, OTHER_FILTER.PROFILE_COMPLETE];
+  }
+  if (input?.trashed) {
+    otherFilters = [...otherFilters, OTHER_FILTER.TRASHED];
+  }
+
   return {
     languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
@@ -146,11 +158,10 @@ export function transformUserFilterInputToFormValues(
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,
     govEmployee: input?.isGovEmployee ? "true" : "",
-    profileComplete: input?.isProfileComplete ? "true" : "",
     pools: unpackMaybes(
       input?.applicantFilter?.pools?.flatMap((pool) => pool?.id),
     ),
     roles: unpackMaybes(input?.roles),
-    trashed: input?.trashed ? "true" : "",
+    otherFilters,
   };
 }
