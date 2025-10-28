@@ -2955,6 +2955,10 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
+  "AXJKYq": {
+    "defaultMessage": "Filtres de profils d'employé(e)",
+    "description": "Heading for filters associated with employee profiles"
+  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -7058,6 +7062,10 @@
   "TXl1qY": {
     "defaultMessage": "Gestionnaire",
     "description": "Title for manager full name"
+  },
+  "TYdl+S": {
+    "defaultMessage": "Filtres de collectivités",
+    "description": "Heading for filters associated with communities"
   },
   "Ta28fI": {
     "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
