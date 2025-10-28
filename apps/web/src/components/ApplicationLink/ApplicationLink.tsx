@@ -59,7 +59,7 @@ const ApplicationLink = ({
   }
 
   return (
-    <Link mode="solid" color="primary" href={href} {...linkProps}>
+    <Link mode="solid" color="secondary" href={href} {...linkProps}>
       {linkTextLabel}
     </Link>
   );
