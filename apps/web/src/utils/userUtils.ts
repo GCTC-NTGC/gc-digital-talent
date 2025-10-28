@@ -14,7 +14,12 @@ import {
   PriorityWeight,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  EmploymentDuration,
+  getLocalizedName,
+  TEmploymentDuration,
+} from "@gc-digital-talent/i18n";
 
 // convert string type to Enum types for various selections
 export function stringToEnumLanguage(
@@ -98,12 +103,12 @@ export function stringToEnumCandidateSuspended(
 
 // options on copy are TERM or INDETERMINATE
 export function durationToEnumPositionDuration(
-  selection: string,
+  selection: TEmploymentDuration,
 ): PositionDuration | undefined {
-  if (selection === "TERM") {
+  if (selection === EmploymentDuration.Term) {
     return PositionDuration.Temporary;
   }
-  if (selection === "INDETERMINATE") {
+  if (selection === EmploymentDuration.Indeterminate) {
     return PositionDuration.Permanent;
   }
   return undefined;

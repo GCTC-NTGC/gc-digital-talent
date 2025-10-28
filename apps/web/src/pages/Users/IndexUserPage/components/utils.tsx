@@ -6,7 +6,7 @@ import {
   uniqueItems,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   InputMaybe,
   OrderByClause,
@@ -111,16 +111,16 @@ export function transformFormValuesToUserFilterInput(
       flexibleWorkLocations: data.flexibleWorkLocations,
       skills: data.skills.map((skill) => ({ id: skill })),
       positionDuration: data.employmentDuration
-        ? [durationToEnumPositionDuration(data.employmentDuration)].filter(
-            notEmpty,
-          )
+        ? unpackMaybes([
+            durationToEnumPositionDuration(data.employmentDuration),
+          ])
         : undefined,
     },
-    isGovEmployee: data.govEmployee[0] ? true : undefined,
-    isProfileComplete: data.profileComplete[0] ? true : undefined,
+    isGovEmployee: data.govEmployee ? true : undefined,
+    isProfileComplete: data.profileComplete ? true : undefined,
     poolFilters: data.pools.map((pool) => ({ poolId: pool })),
     roles: data.roles,
-    trashed: data.trashed[0] ? Trashed.Only : undefined,
+    trashed: data.trashed ? Trashed.Only : undefined,
   };
 }
 
@@ -141,10 +141,10 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
     ),
     employmentDuration: !positionDuration?.length
-      ? ""
+      ? undefined
       : positionDuration.includes(PositionDuration.Temporary)
-        ? "TERM"
-        : "INDETERMINATE",
+        ? EmploymentDuration.Term
+        : EmploymentDuration.Indeterminate,
     govEmployee: input?.isGovEmployee ? "true" : "",
     profileComplete: input?.isProfileComplete ? "true" : "",
     pools: unpackMaybes(

@@ -2,11 +2,14 @@ import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 
 import {
+  ENUM_SORT_ORDER,
   EmploymentDuration,
+  TEmploymentDuration,
   commonMessages,
   getEmploymentDuration,
   narrowEnumType,
   navigationMessages,
+  sortLocalizedEnumOptions,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import {
@@ -42,7 +45,7 @@ export interface FormValues {
   operationalRequirement: OperationalRequirement[];
   workRegion: WorkRegion[];
   flexibleWorkLocations: FlexibleWorkLocation[];
-  employmentDuration: string;
+  employmentDuration?: TEmploymentDuration;
   skills: string[];
   profileComplete: string;
   govEmployee: string;
@@ -138,6 +141,7 @@ const UserFilterDialog = ({
         })}
       </Heading>
       <PoolFilterInput />
+
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Profile filters",
@@ -146,7 +150,6 @@ const UserFilterDialog = ({
             "Heading for filters associated with a candidates profile",
         })}
       </Heading>
-
       <div className="mb-6 grid gap-6 xs:grid-cols-2">
         <Select
           id="languageAbility"
@@ -182,13 +185,34 @@ const UserFilterDialog = ({
           }))}
         />
         <Checklist
+          idPrefix="flexibleWorkLocations"
+          name="flexibleWorkLocations"
+          legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
+          items={sortLocalizedEnumOptions(
+            ENUM_SORT_ORDER.FLEXIBLE_WORK_LOCATION,
+            narrowEnumType(
+              unpackMaybes(data?.flexibleWorkLocations),
+              "FlexibleWorkLocation",
+            ),
+          ).map((flexibleWorkLocation) => ({
+            value: flexibleWorkLocation.value,
+            label: flexibleWorkLocation.label?.localized ?? notAvailable,
+          }))}
+        />
+        <Checklist
           idPrefix="workRegion"
           name="workRegion"
           legend={intl.formatMessage(navigationMessages.workLocation)}
-          items={localizedEnumToOptions(
-            sortWorkRegion(data?.workRegions),
-            intl,
-          )}
+          items={sortLocalizedEnumOptions(
+            ENUM_SORT_ORDER.WORK_REGION,
+            narrowEnumType(unpackMaybes(data?.workRegions), "WorkRegion"),
+          )
+            /* remove 'Telework' enum from checklist of options */
+            .filter((workRegion) => workRegion.value !== WorkRegion.Telework)
+            .map((workRegion) => ({
+              value: workRegion.value,
+              label: workRegion.label?.localized ?? notAvailable,
+            }))}
         />
       </div>
 
@@ -205,7 +229,7 @@ const UserFilterDialog = ({
             label: operationalRequirement.label?.localized ?? notAvailable,
           }))}
         />
-        <Checkbox
+        <SwitchInput
           id="govEmployee"
           name="govEmployee"
           value="true"
