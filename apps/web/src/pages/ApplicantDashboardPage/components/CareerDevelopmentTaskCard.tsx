@@ -162,6 +162,12 @@ const CareerDevelopmentTaskCard = ({
         },
       ];
 
+  const addACommunityLinkText = intl.formatMessage({
+    defaultMessage: "Add a community",
+    id: "kBEib8",
+    description: "Link to a page to add a functional community",
+  });
+
   const functionalCommunitiesMetaData: AccordionMetaData = isVerifiedGovEmployee
     ? // if verified, then a link to the community interest page
       [
@@ -170,15 +176,7 @@ const CareerDevelopmentTaskCard = ({
           type: "link",
           href: paths.createCommunityInterest(),
           color: "primary",
-          children: (
-            <>
-              {intl.formatMessage({
-                defaultMessage: "Add a community",
-                id: "kBEib8",
-                description: "Link to a page to add a functional community",
-              })}
-            </>
-          ),
+          children: <>{addACommunityLinkText}</>,
         },
       ]
     : // if not verified, then a dialog to get verified
@@ -189,7 +187,7 @@ const CareerDevelopmentTaskCard = ({
           component: (
             <UnlockEmployeeToolsDialog query={userFragment}>
               <Button mode="inline" size="sm">
-                {editCareerPlanningLinkText}
+                {addACommunityLinkText}
               </Button>
             </UnlockEmployeeToolsDialog>
           ),
