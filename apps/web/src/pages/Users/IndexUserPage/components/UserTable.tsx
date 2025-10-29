@@ -359,7 +359,7 @@ const UserTable = ({ title }: UserTableProps) => {
           : "",
       {
         id: "flexibleWorkLocations",
-        header: intl.formatMessage(navigationMessages.workLocation),
+        header: intl.formatMessage(navigationMessages.flexibleWorkLocations),
         enableColumnFilter: false,
         enableSorting: false,
       },
