@@ -36,6 +36,8 @@ test.describe("User search", () => {
   });
 
   test("User can be searched by name", async ({ appPage }) => {
+    // eslint-disable-next-line playwright/no-conditional-in-test
+    const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, "admin@test.com", false);
     await appPage.page.goto("/admin/users");
     await appPage.page.getByRole("button", { name: /filter by/i }).click();
@@ -44,12 +46,12 @@ test.describe("User search", () => {
       .click();
     await appPage.page
       .getByRole("textbox", { name: /search users/i })
-      .fill("Dale");
+      .fill(userName);
     await expect(
       appPage.page.getByRole("cell", {
-        name: user.firstName ?? "",
-        exact: true,
+        name: userName,
       }),
-    ).toBeVisible();
+      // Two, one for select, second for link
+    ).toHaveCount(2);
   });
 });
