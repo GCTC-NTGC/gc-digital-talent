@@ -21,6 +21,7 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentDuration,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -583,7 +584,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
           : "",
       {
         id: "flexibleWorkLocations",
-        header: intl.formatMessage(talentRequestMessages.workLocation),
+        header: intl.formatMessage(navigationMessages.flexibleWorkLocations),
         enableColumnFilter: false,
         enableSorting: false,
       },
