@@ -2683,10 +2683,6 @@
     "defaultMessage": "Utilisateur",
     "description": "Label for the user select field on community membership form"
   },
-  "9Qc9PO": {
-    "defaultMessage": "les 25 et 26 septembre 2025",
-    "description": "Date for TechFair"
-  },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
@@ -3526,10 +3522,6 @@
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
-  },
-  "D9ZUyu": {
-    "defaultMessage": "Salon de l’emploi et du réseautage (automne) — Université Carleton",
-    "description": "Heading for Carleton networking/career fair"
   },
   "DA7fMg": {
     "defaultMessage": "Identifiant",
@@ -10193,10 +10185,6 @@
     "defaultMessage": "Veuillez sélectionner au moins une compétence essentielle ou une compétence constituant un atout pour cette méthode d'évaluation.",
     "description": "Error message for when a skill is not selected for assessment"
   },
-  "gy65G/": {
-    "defaultMessage": "Foire de l’emploi — La Cité",
-    "description": "Heading for Foire de l’emploi fair"
-  },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
@@ -10772,10 +10760,6 @@
   "jQ+wCE": {
     "defaultMessage": "Retirer une compétence",
     "description": "Label to remove the skill"
-  },
-  "jQXsnP": {
-    "defaultMessage": "Salon de carrière STIM — Université d’Ottawa",
-    "description": "Heading for STEM career fair"
   },
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
@@ -12289,10 +12273,6 @@
     "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
     "description": "Button text to hide all advanced filters"
   },
-  "q5nhMd": {
-    "defaultMessage": "Expo carrières — Université d’Ottawa",
-    "description": "Heading for TechFair job fair"
-  },
   "q70oUn": {
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
@@ -12664,10 +12644,6 @@
   "s/BI/4": {
     "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux ont été nominés aux tables rondes en gestion des talents; EXposition ciblant les cadres supérieurs et Prolonger EXposition se concentrant sur les candidats de groupes et niveaux EX équivalents et EX moins un.  Les nominations sont compilées dans la base de données en gestion des talents numériques. Cette base de données constitue la source principale de données lorsque les organisations veulent d'obtenir des références tout au long de l'année.",
     "description": "Description of identifying digital talents"
-  },
-  "s0bXMy": {
-    "defaultMessage": "TechFair — Université McGill",
-    "description": "Heading for TechFair job fair"
   },
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
