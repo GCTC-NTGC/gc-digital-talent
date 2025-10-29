@@ -86,20 +86,6 @@ const getJobFairs = (intl: IntlShape): JobFair[] => [
   },
   {
     title: intl.formatMessage({
-      defaultMessage: "Foire de l’emploi - La Cité",
-      id: "gy65G/",
-      description: "Heading for Foire de l’emploi fair",
-    }),
-    lang: "fr",
-    href: {
-      en: "https://www.collegelacite.ca/foire-de-emploi-etudiants",
-      fr: "https://www.collegelacite.ca/foire-de-emploi-etudiants",
-    },
-    date: formattedDate({ y: 2026, m: 2, d: 19, intl }),
-    location: intl.formatMessage(locations.ottawa),
-  },
-  {
-    title: intl.formatMessage({
       defaultMessage: "Career Week Job Fair – University of Ottawa",
       id: "qytMp/",
       description: "Heading for career week job fair",
