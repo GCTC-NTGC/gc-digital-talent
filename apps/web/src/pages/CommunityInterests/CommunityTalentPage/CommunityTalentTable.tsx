@@ -21,6 +21,7 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentDuration,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -43,7 +44,6 @@ import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
-import talentRequestMessages from "~/messages/talentRequestMessages";
 import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";
@@ -583,7 +583,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
           : "",
       {
         id: "flexibleWorkLocations",
-        header: intl.formatMessage(talentRequestMessages.workLocation),
+        header: intl.formatMessage(navigationMessages.flexibleWorkLocations),
         enableColumnFilter: false,
         enableSorting: false,
       },

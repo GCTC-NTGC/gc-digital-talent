@@ -33,6 +33,7 @@ import {
   getArmedForcesStatusesProfile,
   getEducationRequirementOption,
   EmploymentDuration,
+  type TEmploymentDuration,
   getEmploymentDuration,
   getWorkRegionsDetailed,
   getOperationalRequirement,
@@ -163,5 +164,11 @@ export {
   ENUM_SORT_ORDER,
 };
 
-export type { Locales, Messages, MaybeLocalizedEnums, GenericLocalizedEnum };
+export type {
+  Locales,
+  Messages,
+  MaybeLocalizedEnums,
+  GenericLocalizedEnum,
+  TEmploymentDuration,
+};
 export { fr };

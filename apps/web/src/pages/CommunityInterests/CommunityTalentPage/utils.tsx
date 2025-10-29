@@ -168,10 +168,6 @@ export function transformCommunityTalentInput(
   };
 }
 
-type ObjectValues<T> = T[keyof T];
-
-export type TEmploymentDuration = ObjectValues<typeof EmploymentDuration>;
-
 export function transformFormValuesToCommunityInterestFilterInput(
   data: FormValues,
 ): CommunityInterestFilterInput {

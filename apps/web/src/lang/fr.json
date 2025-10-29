@@ -9398,6 +9398,10 @@
     "defaultMessage": "<strong>{areaOfStudy}</strong> de {institution}",
     "description": "Study at institution without type, HTML"
   },
+  "dyIyt6": {
+    "defaultMessage": "Autres filtres",
+    "description": "Legend for uncategorized filters"
+  },
   "dycByE": {
     "defaultMessage": "« inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
@@ -9629,10 +9633,6 @@
   "eoIad5": {
     "defaultMessage": "Sauter cette étape pour l'instant",
     "description": "label for skip button"
-  },
-  "eozWFc": {
-    "defaultMessage": "Filtres avancés",
-    "description": "Title for the additional filters"
   },
   "epqtpM": {
     "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",

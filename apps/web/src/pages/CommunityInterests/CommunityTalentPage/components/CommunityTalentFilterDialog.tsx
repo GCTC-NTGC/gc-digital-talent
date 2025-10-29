@@ -4,6 +4,7 @@ import { OperationContext, useQuery } from "urql";
 import {
   ENUM_SORT_ORDER,
   EmploymentDuration,
+  TEmploymentDuration,
   commonMessages,
   getEmploymentDuration,
   narrowEnumType,
@@ -30,8 +31,6 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
-
-import { TEmploymentDuration } from "../utils";
 
 export interface FormValues {
   communities: string[];
