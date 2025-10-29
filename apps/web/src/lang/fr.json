@@ -4615,6 +4615,10 @@
     "defaultMessage": "Description du cours",
     "description": "Heading for section course description"
   },
+  "IFjA9G": {
+    "defaultMessage": "Vue collectivité",
+    "description": "Community role name for nav menu"
+  },
   "IH+bPG": {
     "defaultMessage": "Reçue",
     "description": "Status label for a submitted (but not reviewed) application"
@@ -8602,6 +8606,10 @@
     "defaultMessage": "Consultez la CléGC",
     "description": "Link text for visiting the GCKey website"
   },
+  "aXKkrb": {
+    "defaultMessage": "Vue candidat(e)",
+    "description": "Applicant role name for nav menu"
+  },
   "aYgVQT": {
     "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
@@ -8821,10 +8829,6 @@
   "baSmVn": {
     "defaultMessage": "D'autres activités qui vous ont aidé à vous épanouir et à perfectionner vos compétences, y compris les passe-temps, les activités familiales et les activités extrascolaires.",
     "description": "Description for personal experience section"
-  },
-  "bdzq6l": {
-    "defaultMessage": "Candidat(e)",
-    "description": "Applicant role name for nav menu"
   },
   "be2aA/": {
     "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",
@@ -9421,10 +9425,6 @@
   "e+6lnP": {
     "defaultMessage": "La création de l'intérêt pour la collectivité a échoué",
     "description": "Toast for error during community interest creation"
-  },
-  "e/Z582": {
-    "defaultMessage": "Collectivité",
-    "description": "Community role name for nav menu"
   },
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
@@ -10317,10 +10317,6 @@
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
   },
-  "hS+J7B": {
-    "defaultMessage": "Admin",
-    "description": "Admin role name for nav menu"
-  },
   "hS96pl": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
     "description": "Text notifying user which process roles will be removed from the user"
@@ -10688,6 +10684,10 @@
   "j7+E9C": {
     "defaultMessage": "Vous êtes à la limite!",
     "description": "Title for warning message when the user has added the maximum assessments to the assessment plan"
+  },
+  "j7953D": {
+    "defaultMessage": "Vue admin",
+    "description": "Admin role name for nav menu"
   },
   "j7nWu/": {
     "defaultMessage": "Vous avez réussi à mettre à jour vos compétences!",
