@@ -91,4 +91,19 @@ test.describe("User information", () => {
     await loginAndVisitUser(appPage, "admin@test.com", user);
     await assertSuccess(appPage.page);
   });
+
+  test("User can be searched by name", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com", false);
+    await appPage.page.goto("/admin/users");
+    await appPage.page.getByRole("button", { name: /filter by/i }).click();
+    await appPage.page
+      .getByRole("menuitemradio", { name: /candidate name/i })
+      .click();
+    await appPage.page
+      .getByRole("textbox", { name: / search users/i })
+      .fill("Dale");
+    await expect(
+      appPage.page.getByRole("cell", { name: /dale/i }),
+    ).toBeVisible();
+  });
 });
