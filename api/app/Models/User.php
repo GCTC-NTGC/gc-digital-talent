@@ -1036,11 +1036,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 // filter rows against the tsquery
                 ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
                 // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
+                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS search_rank'))
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
                 ->addSelect(['users.*'])
                 ->from('users')
-                ->orderByDesc('calculations.tsquery');
+                ->orderByDesc('search_rank');
 
         }
 

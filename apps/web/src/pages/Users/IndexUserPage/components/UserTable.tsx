@@ -50,7 +50,7 @@ const columnHelper = createColumnHelper<User>();
 
 const defaultState = {
   ...INITIAL_STATE,
-  sortState: [{ id: "createdDate", desc: false }],
+  sortState: [],
   // Note: lodash/isEqual is comparing undefined
   // so we need to actually set it here
   filters: {
