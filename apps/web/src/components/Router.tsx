@@ -189,8 +189,10 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                 const url = new URL(request.url);
                 const from = url.searchParams.get("from");
                 if (from) {
-                  // eslint-disable-next-line @typescript-eslint/only-throw-error
-                  throw redirect(from);
+                  if (from.startsWith("/")) {
+                    // eslint-disable-next-line @typescript-eslint/only-throw-error
+                    throw redirect(from);
+                  }
                 }
 
                 const overridePath = sessionStorage.getItem(
