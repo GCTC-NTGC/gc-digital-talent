@@ -59,7 +59,7 @@ export function transformUserInput(
     generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
     workEmail: searchType === "workEmail" ? searchBarTerm : undefined,
-    name: searchType === "name" ? searchBarTerm : undefined,
+    name: searchType === "candidateName" ? searchBarTerm : undefined,
     telephone: searchType === "phone" ? searchBarTerm : undefined,
 
     // from fancy filter
