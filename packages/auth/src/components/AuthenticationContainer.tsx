@@ -123,19 +123,19 @@ const logoutAndRefreshPage = ({
   // so they know to logout as well
   broadcastLogoutMessage?.();
 
-  let redirectUri = postLogoutRedirectUri;
+  let nextLocation = postLogoutRedirectUri;
   if (from) {
     const searchParams = new URLSearchParams();
     searchParams.append("from", window.location.href);
-    redirectUri = `${redirectUri}?${searchParams.toString()}`;
+    nextLocation = `${nextLocation}?${searchParams.toString()}`;
   }
 
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(redirectUri)}&id_token_hint=${idToken}`;
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(nextLocation)}&id_token_hint=${idToken}`;
   } else if (!preventRedirect) {
     // at least a hard refresh to URI to restart react app
-    window.location.href = redirectUri;
+    window.location.href = nextLocation;
   } else {
     window.location.reload();
   }
