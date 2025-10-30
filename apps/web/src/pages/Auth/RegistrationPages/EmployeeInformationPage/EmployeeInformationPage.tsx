@@ -134,7 +134,7 @@ const formValuesToSubmitData = (
     employmentCategory === EmploymentCategory.GovernmentOfCanada &&
     govPositionType !== GovPositionType.Substantive;
 
-  const mappedData = {
+  const mappedData: ExperienceDetailsSubmissionData = {
     role,
     organization: organization ?? undefined, // this is different from the shared version but not sure why
     division: team,
@@ -143,7 +143,7 @@ const formValuesToSubmitData = (
     employmentCategory,
     extSizeOfOrganization,
     extRoleSeniority,
-    departmentId: departmentId ?? null,
+    department: { connect: departmentId },
     govEmploymentType,
     govPositionType,
     govContractorRoleSeniority,
