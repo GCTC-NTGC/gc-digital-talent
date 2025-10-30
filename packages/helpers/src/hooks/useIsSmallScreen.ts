@@ -14,19 +14,21 @@ function useIsSmallScreen(threshold: string): boolean;
 function useIsSmallScreen(threshold: string): boolean {
   const value = breakpoints[threshold as Breakpoint] ?? threshold;
   const query = `(max-width: ${value})`;
+  const getMatches = () =>
+    typeof window !== "undefined" ? window.matchMedia(query).matches : false;
 
-  const [isSmallScreen, setIsSmallScreen] = useState(
-    typeof window !== "undefined" ? window.matchMedia(query).matches : false,
-  );
+  const [isSmallScreen, setIsSmallScreen] = useState(getMatches);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
 
     const mql = window.matchMedia(query);
-    const handler = () => setIsSmallScreen(mql.matches);
+    const handler = () => {
+      const matches = mql.matches;
+      setIsSmallScreen((prev) => (prev !== matches ? matches : prev));
+    };
 
     mql.addEventListener("change", handler);
-    setIsSmallScreen(mql.matches);
 
     return () => {
       mql.removeEventListener("change", handler);
