@@ -169,8 +169,8 @@ importers:
         specifier: ^7.1.11
         version: 7.1.11(react@19.2.0)(typescript@5.9.3)
       react-router:
-        specifier: ^7.9.4
-        version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.9.5
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-to-print:
         specifier: ^3.2.0
         version: 3.2.0(react@19.2.0)
@@ -784,8 +784,8 @@ importers:
         specifier: ^7.1.11
         version: 7.1.11(react@19.2.0)(typescript@5.9.3)
       react-router:
-        specifier: ^7.9.4
-        version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.9.5
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -893,8 +893,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@19.2.0)
       react-router:
-        specifier: ^7.9.4
-        version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.9.5
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       urql:
         specifier: ^5.0.1
         version: 5.0.1(@urql/core@5.2.0(graphql@16.11.0))(react@19.2.0)
@@ -1087,8 +1087,8 @@ importers:
         specifier: ^2.13.6
         version: 2.13.6(@types/react@19.2.2)(react@19.2.0)
       react-router:
-        specifier: ^7.9.4
-        version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.9.5
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -1160,8 +1160,8 @@ importers:
         specifier: ^7.1.11
         version: 7.1.11(react@19.2.0)(typescript@5.9.3)
       react-router:
-        specifier: ^7.9.4
-        version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.9.5
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.9.2)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
@@ -6576,8 +6576,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-router@7.9.4:
-    resolution: {integrity: sha512-SD3G8HKviFHg9xj7dNODUKDFgpG4xqD5nhyd0mYoB5iISepuZAvzSr8ywxgxKJ52yRzf/HWtVHc9AWwoTbljvA==}
+  react-router@7.9.5:
+    resolution: {integrity: sha512-JmxqrnBZ6E9hWmf02jzNn9Jm3UqyeimyiwzD69NjxGySG6lIz/1LVPsoTCwN7NBX2XjCEa1LIX5EMz1j2b6u6A==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -6756,8 +6756,8 @@ packages:
   sentence-case@3.0.4:
     resolution: {integrity: sha512-8LS0JInaQMCRoQ7YUytAo/xUu5W2XnQxV2HI/6uM6U7CITS1RqPElr30V6uIqyMKM9lJGRVFy5/4CuzcixNYSg==}
 
-  set-cookie-parser@2.7.1:
-    resolution: {integrity: sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==}
+  set-cookie-parser@2.7.2:
+    resolution: {integrity: sha512-oeM1lpU/UvhTxw+g3cIfxXHyJRc/uidd3yK1P242gzHds0udQBYzs3y8j4gCCW+ZJ7ad0yctld8RYO+bdurlvw==}
 
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
@@ -13990,11 +13990,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.2
 
-  react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-router@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       cookie: 1.0.2
       react: 19.2.0
-      set-cookie-parser: 2.7.1
+      set-cookie-parser: 2.7.2
     optionalDependencies:
       react-dom: 19.2.0(react@19.2.0)
 
@@ -14198,7 +14198,7 @@ snapshots:
       tslib: 2.8.1
       upper-case-first: 2.0.2
 
-  set-cookie-parser@2.7.1: {}
+  set-cookie-parser@2.7.2: {}
 
   set-function-length@1.2.2:
     dependencies:
