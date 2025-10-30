@@ -107,6 +107,7 @@ export default defineConfig(({ command }) => ({
     // Vite requires build-time env variables to have the VITE_ prefix
     API_URI: getEnvVar("VITE_API_URI"),
     API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
+    APP_HOST: getEnvVar("VITE_APP_HOST"),
     BUILD_DATE: JSON.stringify(new Date()),
 
     // run-time variables

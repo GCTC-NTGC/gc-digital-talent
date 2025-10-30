@@ -7,6 +7,7 @@ import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 import { FeatureFlags, useFeatureFlags } from "@gc-digital-talent/env";
+import { urlMatchesAppHostName } from "~/utils/utils";
 
 const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
   createBrowserRouter([
@@ -188,11 +189,12 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               loader: ({ request }) => {
                 const url = new URL(request.url);
                 const from = url.searchParams.get("from");
-                if (from) {
-                  if (from.startsWith("/")) {
-                    // eslint-disable-next-line @typescript-eslint/only-throw-error
-                    throw redirect(from);
-                  }
+                if (
+                  from &&
+                  (urlMatchesAppHostName(from) || from.startsWith("/"))
+                ) {
+                  // eslint-disable-next-line @typescript-eslint/only-throw-error
+                  throw redirect(from);
                 }
 
                 const overridePath = sessionStorage.getItem(
