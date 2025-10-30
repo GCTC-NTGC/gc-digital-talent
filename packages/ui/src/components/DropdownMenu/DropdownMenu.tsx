@@ -17,7 +17,7 @@ const Trigger = forwardRef<
 ));
 
 const content = tv({
-  base: "max-w-screen rounded-md bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
+  base: "max-h-(--radix-dropdown-menu-content-available-height) max-w-screen overflow-y-auto rounded-md bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
 });
 
 const StyledContent = forwardRef<
@@ -25,7 +25,7 @@ const StyledContent = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Content
-    className={content({ class: ["z-10", className] })}
+    className={content({ class: className })}
     ref={forwardedRef}
     {...rest}
   />
