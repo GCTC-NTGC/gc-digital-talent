@@ -49,11 +49,11 @@
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
-    "@storybook/addon-a11y": "^9.1.13",
-    "@storybook/react-vite": "^9.1.13",
+    "@storybook/addon-a11y": "^10.0.1",
+    "@storybook/react-vite": "^10.0.1",
     "@vitest/coverage-v8": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "storybook": "^9.1.13",
+    "storybook": "^10.0.1",
     "turbo": "^2.5.8",
     "vitest": "^3.2.4"
   }

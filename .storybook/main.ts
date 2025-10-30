@@ -1,4 +1,4 @@
-import path from "path";
+import { resolve } from "path";
 import dotenv from "dotenv";
 import type { StorybookConfig } from "@storybook/react-vite";
 
@@ -46,7 +46,7 @@ const main: StorybookConfig = {
       resolve: {
         extensions: [".ts", ".tsx", ".json", ".js"],
         alias: {
-          "~": path.resolve(__dirname, "..", "apps/web/src"),
+          "~": resolve(import.meta.dirname, "..", "apps/web/src"),
         },
       },
     });
