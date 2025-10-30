@@ -1,6 +1,9 @@
-import path from "path";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
 import dotenv from "dotenv";
 import type { StorybookConfig } from "@storybook/react-vite";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const webStories = "../apps/web/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
 const designFormsStories =
@@ -46,7 +49,7 @@ const main: StorybookConfig = {
       resolve: {
         extensions: [".ts", ".tsx", ".json", ".js"],
         alias: {
-          "~": path.resolve(__dirname, "..", "apps/web/src"),
+          "~": resolve(__dirname, "..", "apps/web/src"),
         },
       },
     });
