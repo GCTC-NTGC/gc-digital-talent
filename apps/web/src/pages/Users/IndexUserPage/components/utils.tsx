@@ -59,7 +59,7 @@ export function transformUserInput(
     // search bar
     generalSearch:
       searchBarTerm && !searchType && !newSearch ? searchBarTerm : undefined,
-    generalSearch2:
+    generalSearchBeta:
       searchBarTerm && !searchType && newSearch ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
     workEmail: searchType === "workEmail" ? searchBarTerm : undefined,

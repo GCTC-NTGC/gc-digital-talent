@@ -1019,7 +1019,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $tokenized;
     }
 
-    public static function scopeWhereGeneralSearch2(Builder $query, ?string $searchTerm): Builder
+    public static function scopeWhereGeneralSearchBeta(Builder $query, ?string $searchTerm): Builder
     {
         if ($searchTerm) {
             $tsQuery = User::searchStringToTsQuery($searchTerm);
