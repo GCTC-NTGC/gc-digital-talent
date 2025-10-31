@@ -39,8 +39,8 @@ const root = tv({
       error: "",
     },
     small: {
-      true: "p-3 has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr]",
-      false: "p-6 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*7)_1fr]",
+      true: "p-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr]",
+      false: "p-6 has-[>svg]:grid-cols-[calc(var(--spacing)*7)_1fr]",
     },
   },
   compoundVariants: [
@@ -158,7 +158,7 @@ const Root = ({
 
 const title = tv({
   slots: {
-    icon: "h-auto w-full align-top",
+    icon: "h-auto w-full",
     heading: "mb-.25 col-start-2 font-bold",
   },
   variants: {
@@ -167,7 +167,7 @@ const title = tv({
         heading: "text-sm/6",
       },
       false: {
-        heading: "leading-7",
+        heading: "leading-6",
       },
     },
     color: {
