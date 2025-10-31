@@ -1,0 +1,352 @@
+import {
+  ComponentPropsWithoutRef,
+  createContext,
+  ReactNode,
+  use,
+  useCallback,
+} from "react";
+import { tv, VariantProps } from "tailwind-variants";
+import { twMerge } from "tailwind-merge";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import { useIntl } from "react-intl";
+import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
+
+import { uiMessages } from "@gc-digital-talent/i18n";
+
+import useControllableState from "../../hooks/useControllableState";
+import { HeadingRank, IconType } from "../../types";
+import Separator from "../Separator";
+import IconButton, { IconButtonProps } from "../Button/IconButton";
+
+type DivProps = ComponentPropsWithoutRef<"div">;
+
+const root = tv({
+  base: "group relative grid-cols-2 gap-x-3 rounded-lg p-6 has-[>svg]:grid",
+  variants: {
+    mode: {
+      inline: "border",
+      card: "bg-white shadow-xl dark:bg-gray-700",
+    },
+    color: {
+      gray: "",
+      primary: "",
+      secondary: "",
+      success: "",
+      warning: "",
+      error: "",
+    },
+    small: {
+      true: "p-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr]",
+      false: "p-6 has-[>svg]:grid-cols-[calc(var(--spacing)*7)_1fr]",
+    },
+  },
+  compoundVariants: [
+    {
+      mode: "inline",
+      color: "gray",
+      class:
+        "bg-gray-100/20 text-gray-600 dark:bg-gray-700/20 dark:text-gray-200",
+    },
+    {
+      mode: "inline",
+      color: "primary",
+      class:
+        "bg-primary-100/20 text-primary-600 dark:bg-primary-700/20 dark:text-primary-200",
+    },
+    {
+      mode: "inline",
+      color: "secondary",
+      class:
+        "bg-secondary-100/20 text-secondary-600 dark:bg-secondary-700/20 dark:text-secondary-200",
+    },
+    {
+      mode: "inline",
+      color: "success",
+      class:
+        "bg-success-100/20 text-success-600 dark:bg-success-700/20 dark:text-success-200",
+    },
+    {
+      mode: "inline",
+      color: "warning",
+      class:
+        "bg-warning-100/20 text-warning-600 dark:bg-warning-700/20 dark:text-warning-200",
+    },
+    {
+      mode: "inline",
+      color: "error",
+      class:
+        "bg-error-100/20 text-error-600 dark:bg-error-700/20 dark:text-error-200",
+    },
+  ],
+});
+
+export type RootVariants = VariantProps<typeof root>;
+
+interface NoticeContextValue extends RootVariants {
+  onDismiss?: () => void;
+}
+
+const NoticeContext = createContext<NoticeContextValue>({
+  mode: "inline",
+  color: "gray",
+  small: false,
+});
+
+export interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
+  defaultOpen?: boolean;
+  open?: boolean;
+  onDismiss?: () => void;
+  onOpenChange?: (newOpen: boolean) => void;
+}
+
+const Root = ({
+  mode = "inline",
+  color = "gray",
+  small = false,
+  children,
+  onDismiss,
+  onOpenChange,
+  open: openProp,
+  defaultOpen = true,
+  className,
+  ...rest
+}: NoticeProps) => {
+  const intl = useIntl();
+  const [open = true, setOpen] = useControllableState<boolean>({
+    controlledProp: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
+  let iconColor: IconButtonProps["color"];
+  if (mode === "inline") {
+    iconColor = color === "gray" ? "black" : color;
+  }
+
+  const handleDismiss = useCallback(() => {
+    setOpen(false);
+    onDismiss?.();
+  }, [setOpen, onDismiss]);
+
+  return (
+    <NoticeContext.Provider
+      value={{ mode, color, small, onDismiss: handleDismiss }}
+    >
+      {open && (
+        <div
+          {...rest}
+          className={root({ mode, color, small, class: className })}
+        >
+          {onDismiss && (
+            <IconButton
+              icon={XMarkIcon}
+              size="sm"
+              className="absolute top-2 right-2"
+              color={iconColor ?? "black"}
+              onClick={handleDismiss}
+              label={intl.formatMessage(uiMessages.closeAlert)}
+            />
+          )}
+          {children}
+        </div>
+      )}
+    </NoticeContext.Provider>
+  );
+};
+
+const title = tv({
+  slots: {
+    icon: "h-auto w-full",
+    heading: "mb-.25 col-start-2 font-bold",
+  },
+  variants: {
+    small: {
+      true: {
+        heading: "text-sm/6",
+      },
+      false: {
+        heading: "sm:leading-7",
+      },
+    },
+    color: {
+      gray: "",
+      primary: "",
+      secondary: "",
+      success: "",
+      warning: "",
+      error: "",
+    },
+  },
+  compoundSlots: [
+    {
+      slots: ["icon", "heading"],
+      color: "gray",
+      class: "text-gray-600 dark:text-gray-200",
+    },
+    {
+      slots: ["icon", "heading"],
+      color: "primary",
+      class: "text-primary-600 dark:text-primary-200",
+    },
+    {
+      slots: ["icon", "heading"],
+      color: "secondary",
+      class: "text-secondary-600 dark:text-secondary-200",
+    },
+    {
+      slots: ["icon", "heading"],
+      color: "success",
+      class: "text-success-600 dark:text-success-200",
+    },
+    {
+      slots: ["icon", "heading"],
+      color: "warning",
+      class: "text-warning-600 dark:text-warning-200",
+    },
+    {
+      slots: ["icon", "heading"],
+      color: "error",
+      class: "text-error-600 dark:text-error-200",
+    },
+  ],
+});
+
+export const iconMap = new Map<RootVariants["color"], IconType>([
+  ["gray", BellAlertIcon],
+  ["primary", BellAlertIcon],
+  ["secondary", BellAlertIcon],
+  ["success", CheckCircleIcon],
+  ["warning", ExclamationCircleIcon],
+  ["error", ExclamationTriangleIcon],
+]);
+
+interface TitleProps {
+  icon?: IconType;
+  as: HeadingRank;
+  children: ReactNode;
+  defaultIcon?: boolean;
+}
+
+const Title = ({
+  icon: iconEl,
+  as: Heading,
+  defaultIcon = false,
+  children,
+}: TitleProps) => {
+  const { small, color } = use(NoticeContext);
+  const { icon, heading } = title({ small, color });
+  let Icon = iconEl;
+  if (!iconEl && defaultIcon) {
+    Icon = iconMap.get(color);
+  }
+
+  return (
+    <>
+      {Icon && <Icon className={icon()} />}
+      <Heading className={heading()}>{children}</Heading>
+    </>
+  );
+};
+
+const Content = ({ children, className, ...rest }: DivProps) => (
+  <div {...rest} className={twMerge("col-start-2", className)}>
+    {children}
+  </div>
+);
+
+const actions = tv({
+  base: "col-start-2 flex flex-wrap items-center gap-6",
+  variants: {
+    small: {
+      true: "mt-3",
+      false: "mt-4.5",
+    },
+  },
+});
+
+const Actions = ({ className, ...rest }: DivProps) => {
+  const { small } = use(NoticeContext);
+  return <div className={actions({ small, class: className })} {...rest} />;
+};
+
+const footer = tv({
+  slots: {
+    base: "col-span-2",
+    separator: "bg-gray-600 dark:bg-gray-200",
+    content: "col-start-2",
+  },
+  variants: {
+    mode: {
+      inline: "",
+      card: "",
+    },
+    small: {
+      true: "-mx-3",
+      false: "-mx-6",
+    },
+    color: {
+      gray: "",
+      primary: "",
+      secondary: "",
+      success: "",
+      warning: "",
+      error: "",
+    },
+  },
+  compoundVariants: [
+    {
+      mode: "inline",
+      color: "primary",
+      class: { separator: "bg-primary-600 dark:bg-primary-200" },
+    },
+    {
+      mode: "inline",
+      color: "secondary",
+      class: { separator: "bg-secondary-600 dark:bg-secondary-200" },
+    },
+    {
+      mode: "inline",
+      color: "success",
+      class: { separator: "bg-success-600 dark:bg-success-200" },
+    },
+    {
+      mode: "inline",
+      color: "warning",
+      class: { separator: "bg-warning-600 dark:bg-warning-200" },
+    },
+    {
+      mode: "inline",
+      color: "error",
+      class: { separator: "bg-error-600 dark:bg-error-200" },
+    },
+  ],
+});
+
+const Footer = ({ className, ...rest }: DivProps) => {
+  const { color, mode, small } = use(NoticeContext);
+  const { separator, base, content } = footer({ color, mode, small });
+
+  return (
+    <>
+      <div className={base()}>
+        <Separator
+          decorative
+          orientation="horizontal"
+          space={small ? "xs" : "sm"}
+          className={separator()}
+        />
+      </div>
+      <div className={content({ class: className })} {...rest} />
+    </>
+  );
+};
+
+export default {
+  Root,
+  Title,
+  Content,
+  Actions,
+  Footer,
+};
