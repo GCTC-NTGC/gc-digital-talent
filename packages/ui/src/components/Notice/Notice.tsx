@@ -20,8 +20,8 @@ const root = tv({
   base: "group relative grid grid-cols-2 gap-x-3 rounded-lg p-6",
   variants: {
     mode: {
-      inline: "border has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr]",
-      card: "bg-white shadow-xl has-[>svg]:grid-cols-[calc(var(--spacing)*7)_1fr] dark:bg-gray-700",
+      inline: "border",
+      card: "bg-white shadow-xl dark:bg-gray-700",
     },
     color: {
       gray: "",
@@ -30,6 +30,10 @@ const root = tv({
       success: "",
       warning: "",
       error: "",
+    },
+    small: {
+      true: "p-3 has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr]",
+      false: "p-6 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*7)_1fr]",
     },
   },
   compoundVariants: [
@@ -81,6 +85,7 @@ interface NoticeContextValue extends RootVariants {
 const NoticeContext = createContext<NoticeContextValue>({
   mode: "inline",
   color: "gray",
+  small: false,
 });
 
 export interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
@@ -93,6 +98,7 @@ export interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
 const Root = ({
   mode = "inline",
   color = "gray",
+  small = false,
   children,
   onDismiss,
   onOpenChange,
@@ -117,9 +123,14 @@ const Root = ({
   }, [setOpen, onDismiss]);
 
   return (
-    <NoticeContext.Provider value={{ mode, color, onDismiss: handleDismiss }}>
+    <NoticeContext.Provider
+      value={{ mode, color, small, onDismiss: handleDismiss }}
+    >
       {open && (
-        <div {...rest} className={root({ mode, color, class: className })}>
+        <div
+          {...rest}
+          className={root({ mode, color, small, class: className })}
+        >
           {onDismiss && (
             <IconButton
               icon={XMarkIcon}
@@ -142,11 +153,11 @@ const title = tv({
     heading: "mb-.25 col-start-2 font-bold",
   },
   variants: {
-    mode: {
-      inline: {
+    small: {
+      true: {
         heading: "text-sm/6",
       },
-      card: {
+      false: {
         heading: "leading-7",
       },
     },
@@ -200,12 +211,12 @@ interface TitleProps {
 }
 
 const Title = ({ icon: Icon, as: Heading, children }: TitleProps) => {
-  const { mode, color } = use(NoticeContext);
-  const { icon, heading } = title({ mode, color });
+  const { small, color } = use(NoticeContext);
+  const { icon, heading } = title({ small, color });
 
   return (
     <>
-      {Icon && <Icon className={icon({ mode, color })} />}
+      {Icon && <Icon className={icon()} />}
       <Heading className={heading()}>{children}</Heading>
     </>
   );
@@ -217,22 +228,35 @@ const Content = ({ children, className, ...rest }: DivProps) => (
   </div>
 );
 
-const Actions = ({ className, ...rest }: DivProps) => (
-  <div
-    className={twMerge(
-      "col-start-2 mt-4.5 flex flex-col flex-wrap items-center gap-4.5 sm:flex-row",
-      className,
-    )}
-    {...rest}
-  />
-);
+const actions = tv({
+  base: "col-start-2 flex flex-col flex-wrap items-center gap-6 sm:flex-row",
+  variants: {
+    small: {
+      true: "mt-3",
+      false: "mt-4.5",
+    },
+  },
+});
+
+const Actions = ({ className, ...rest }: DivProps) => {
+  const { small } = use(NoticeContext);
+  return <div className={actions({ small, class: className })} {...rest} />;
+};
 
 const footer = tv({
-  base: "bg-gray-600 dark:bg-gray-200",
+  slots: {
+    base: "col-span-2",
+    separator: "bg-gray-600 dark:bg-gray-200",
+    content: "col-start-2",
+  },
   variants: {
     mode: {
       inline: "",
       card: "",
+    },
+    small: {
+      true: "-mx-3",
+      false: "-mx-6",
     },
     color: {
       gray: "",
@@ -247,45 +271,46 @@ const footer = tv({
     {
       mode: "inline",
       color: "primary",
-      class: "bg-primary-600 dark:bg-primary-200",
+      class: { separator: "bg-primary-600 dark:bg-primary-200" },
     },
     {
       mode: "inline",
       color: "secondary",
-      class: "bg-secondary-600 dark:bg-secondary-200",
+      class: { separator: "bg-secondary-600 dark:bg-secondary-200" },
     },
     {
       mode: "inline",
       color: "success",
-      class: "bg-success-600 dark:bg-success-200",
+      class: { separator: "bg-success-600 dark:bg-success-200" },
     },
     {
       mode: "inline",
       color: "warning",
-      class: "bg-warning-600 dark:bg-warning-200",
+      class: { separator: "bg-warning-600 dark:bg-warning-200" },
     },
     {
       mode: "inline",
       color: "error",
-      class: "bg-error-600 dark:bg-error-200",
+      class: { separator: "bg-error-600 dark:bg-error-200" },
     },
   ],
 });
 
 const Footer = ({ className, ...rest }: DivProps) => {
-  const { color, mode } = use(NoticeContext);
+  const { color, mode, small } = use(NoticeContext);
+  const { separator, base, content } = footer({ color, mode, small });
 
   return (
     <>
-      <div className="col-span-2 -mx-6">
+      <div className={base()}>
         <Separator
           decorative
           orientation="horizontal"
-          space="sm"
-          className={footer({ mode, color })}
+          space={small ? "xs" : "sm"}
+          className={separator()}
         />
       </div>
-      <div className={twMerge("col-start-2", className)} {...rest} />
+      <div className={content({ class: className })} {...rest} />
     </>
   );
 };

@@ -88,3 +88,39 @@ export const Card: StoryObj<typeof Notice.Root> = {
     </Container>
   ),
 };
+
+export const Small: StoryObj<typeof Notice.Root> = {
+  args: {
+    small: true,
+  },
+  render: (args) => (
+    <Container>
+      <Notice.Root {...args}>
+        <Notice.Title icon={AcademicCapIcon} as="h2">
+          Small
+        </Notice.Title>
+        <Notice.Content>
+          <p>{faker.lorem.sentences(2)}</p>
+        </Notice.Content>
+        <Notice.Actions>
+          <Button
+            mode="inline"
+            color={args.color === "gray" ? "black" : args.color}
+          >
+            Button
+          </Button>
+          <Link
+            mode="inline"
+            color={args.color === "gray" ? "black" : args.color}
+            href="#"
+          >
+            Link
+          </Link>
+        </Notice.Actions>
+        <Notice.Footer>
+          <p>{faker.lorem.sentence()}</p>
+        </Notice.Footer>
+      </Notice.Root>
+    </Container>
+  ),
+};
