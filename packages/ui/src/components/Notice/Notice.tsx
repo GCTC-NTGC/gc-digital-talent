@@ -8,13 +8,18 @@ import {
 import { tv, VariantProps } from "tailwind-variants";
 import { twMerge } from "tailwind-merge";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import { useIntl } from "react-intl";
+import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
+
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 import useControllableState from "../../hooks/useControllableState";
 import { HeadingRank, IconType } from "../../types";
 import Separator from "../Separator";
 import IconButton, { IconButtonProps } from "../Button/IconButton";
-import { useIntl } from "react-intl";
-import { uiMessages } from "@gc-digital-talent/i18n";
 
 type DivProps = ComponentPropsWithoutRef<"div">;
 
@@ -208,15 +213,34 @@ const title = tv({
   ],
 });
 
+export const iconMap = new Map<RootVariants["color"], IconType>([
+  ["gray", BellAlertIcon],
+  ["primary", BellAlertIcon],
+  ["secondary", BellAlertIcon],
+  ["success", CheckCircleIcon],
+  ["warning", ExclamationCircleIcon],
+  ["error", ExclamationTriangleIcon],
+]);
+
 interface TitleProps {
   icon?: IconType;
   as: HeadingRank;
   children: ReactNode;
+  defaultIcon?: boolean;
 }
 
-const Title = ({ icon: Icon, as: Heading, children }: TitleProps) => {
+const Title = ({
+  icon: iconEl,
+  as: Heading,
+  defaultIcon = false,
+  children,
+}: TitleProps) => {
   const { small, color } = use(NoticeContext);
   const { icon, heading } = title({ small, color });
+  let Icon = iconEl;
+  if (!iconEl && defaultIcon) {
+    Icon = iconMap.get(color);
+  }
 
   return (
     <>
