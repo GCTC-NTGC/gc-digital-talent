@@ -13,6 +13,8 @@ import useControllableState from "../../hooks/useControllableState";
 import { HeadingRank, IconType } from "../../types";
 import Separator from "../Separator";
 import IconButton, { IconButtonProps } from "../Button/IconButton";
+import { useIntl } from "react-intl";
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 type DivProps = ComponentPropsWithoutRef<"div">;
 
@@ -107,6 +109,7 @@ const Root = ({
   className,
   ...rest
 }: NoticeProps) => {
+  const intl = useIntl();
   const [open = true, setOpen] = useControllableState<boolean>({
     controlledProp: openProp,
     defaultValue: defaultOpen,
@@ -138,6 +141,7 @@ const Root = ({
               className="absolute top-2 right-2"
               color={iconColor ?? "black"}
               onClick={handleDismiss}
+              label={intl.formatMessage(uiMessages.closeAlert)}
             />
           )}
           {children}
