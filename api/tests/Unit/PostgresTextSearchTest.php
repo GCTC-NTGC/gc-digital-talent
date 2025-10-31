@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Models\User;
+use App\Utilities\PostgresTextSearch;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
-class TextSearchTest extends TestCase
+class PostgresTextSearchTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -16,7 +16,7 @@ class TextSearchTest extends TestCase
     #[DataProvider('tsQueryBuilderProvider')]
     public function testBuildTsQuery(string $searchString, string $expectedOutput)
     {
-        $actualOutput = User::searchStringToTsQuery($searchString);
+        $actualOutput = PostgresTextSearch::searchStringToQueryText($searchString);
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 
