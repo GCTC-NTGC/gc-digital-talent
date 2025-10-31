@@ -88,7 +88,7 @@ const AdminCareerExperience = ({
 
 const AdminCareerExperiencePage_Query = graphql(/* GraphQL */ `
   query AdminCareerExperiencePage($id: UUID!) {
-    user(id: $id) {
+    user(id: $id, trashed: WITH) {
       id
       experiences {
         ...AdminCareerExperience

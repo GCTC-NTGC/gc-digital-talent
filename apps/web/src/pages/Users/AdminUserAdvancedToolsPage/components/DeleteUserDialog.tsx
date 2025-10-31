@@ -63,9 +63,9 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
   const handleError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error deleting user.",
-        id: "Em4r7U",
-        description: "Error message when attempting to delete a user.",
+        defaultMessage: "Error archiving user.",
+        id: "/YLOnK",
+        description: "Error message when attempting to soft-delete a user.",
       }),
     );
   };
@@ -82,9 +82,9 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
 
         toast.success(
           intl.formatMessage({
-            defaultMessage: "User deleted successfully!",
-            id: "l6wb1k",
-            description: "Success message after deleting a user",
+            defaultMessage: "User archived successfully!",
+            id: "qo/Sx2",
+            description: "Success message after soft-deleting a user",
           }),
         );
         setIsOpen(false);
@@ -93,9 +93,9 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Delete this user",
-    id: "5jm/N7",
-    description: "Label on the button to open the delete user dialog",
+    defaultMessage: "Archive this user",
+    id: "9lnzm2",
+    description: "Label on the button to open the soft-delete user dialog",
   });
 
   return (
@@ -116,9 +116,9 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "You are about to delete the following user from the platform",
-              id: "V6h+Kn",
-              description: "Lead in text for the delete user form.",
+                "You are about to archive the following user from the platform",
+              id: "XhzYOl",
+              description: "Lead in text for the soft-delete user form.",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <Ul className="my-3">
@@ -172,9 +172,9 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
-                        defaultMessage: "Delete user",
-                        id: "5l+q/p",
-                        description: "Submit button in delete user dialog",
+                        defaultMessage: "Archive user",
+                        id: "aMPh5q",
+                        description: "Submit button in soft-delete user dialog",
                       })}
                 </Button>
                 <Dialog.Close>
