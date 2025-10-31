@@ -34,37 +34,43 @@ const root = tv({
     {
       mode: "inline",
       color: "gray",
-      class: "text-gray-600 dark:text-gray-200",
+      class:
+        "bg-gray-100/20 text-gray-600 dark:bg-gray-700/20 dark:text-gray-200",
     },
     {
       mode: "inline",
       color: "primary",
-      class: "text-primary-600 dark:text-primary-200",
+      class:
+        "bg-primary-100/20 text-primary-600 dark:bg-primary-700/20 dark:text-primary-200",
     },
     {
       mode: "inline",
       color: "secondary",
-      class: "text-secondary-600 dark:text-secondary-200",
+      class:
+        "bg-secondary-100/20 text-secondary-600 dark:bg-secondary-700/20 dark:text-secondary-200",
     },
     {
       mode: "inline",
       color: "success",
-      class: "text-success-600 dark:text-success-200",
+      class:
+        "bg-success-100/20 text-success-600 dark:bg-success-700/20 dark:text-success-200",
     },
     {
       mode: "inline",
       color: "warning",
-      class: "text-warning-600 dark:text-warning-200",
+      class:
+        "bg-warning-100/20 text-warning-600 dark:bg-warning-700/20 dark:text-warning-200",
     },
     {
       mode: "inline",
       color: "error",
-      class: "text-error-600 dark:text-error-200",
+      class:
+        "bg-error-100/20 text-error-600 dark:bg-error-700/20 dark:text-error-200",
     },
   ],
 });
 
-type RootVariants = VariantProps<typeof root>;
+export type RootVariants = VariantProps<typeof root>;
 
 interface NoticeContextValue extends RootVariants {
   onDismiss?: () => void;
@@ -75,7 +81,7 @@ const NoticeContext = createContext<NoticeContextValue>({
   color: "gray",
 });
 
-interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
+export interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
   defaultOpen?: boolean;
   open?: boolean;
   onDismiss?: () => void;
@@ -125,7 +131,9 @@ const title = tv({
       inline: {
         heading: "text-sm/6",
       },
-      card: "",
+      card: {
+        heading: "leading-7",
+      },
     },
     color: {
       gray: "",
@@ -150,7 +158,7 @@ const title = tv({
     {
       slots: ["icon", "heading"],
       color: "secondary",
-      class: "text-secondary-700 dark:text-secondary-200",
+      class: "text-secondary-600 dark:text-secondary-200",
     },
     {
       slots: ["icon", "heading"],
@@ -188,29 +196,11 @@ const Title = ({ icon: Icon, as: Heading, children }: TitleProps) => {
   );
 };
 
-const content = tv({
-  base: "col-start-2",
-  variants: {
-    color: {
-      gray: "text-gray-700 dark:text-gray-100",
-      primary: "text-primary-700 dark:text-primary-100",
-      secondary: "text-secondary-700 dark:text-secondary-100",
-      success: "text-success-700 dark:text-success-100",
-      warning: "text-warning-700 dark:text-warning-100",
-      error: "text-error-700 dark:text-error-100",
-    },
-  },
-});
-
-const Content = ({ children, className, ...rest }: DivProps) => {
-  const { color } = use(NoticeContext);
-
-  return (
-    <div {...rest} className={content({ color, class: className })}>
-      {children}
-    </div>
-  );
-};
+const Content = ({ children, className, ...rest }: DivProps) => (
+  <div {...rest} className={twMerge("col-start-2", className)}>
+    {children}
+  </div>
+);
 
 const Actions = ({ className, ...rest }: DivProps) => (
   <div
