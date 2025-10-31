@@ -51,24 +51,22 @@ const MainNavMenu = () => {
     <Menu
       accountLinks={
         accountLinks && (
-          <>
-            <NavMenu.Item>
-              <NavMenu.Trigger
-                color={isSmallScreen ? "black" : "white"}
-                fixedColor={!isSmallScreen}
-                block={false}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Your account",
-                  id: "CBedVL",
-                  description: "Nav menu trigger for account links sub menu",
-                })}
-              </NavMenu.Trigger>
-              <NavMenu.Content>
-                <NavMenu.List>{accountLinks}</NavMenu.List>
-              </NavMenu.Content>
-            </NavMenu.Item>
-          </>
+          <NavMenu.Item>
+            <NavMenu.Trigger
+              color={isSmallScreen ? "black" : "white"}
+              fixedColor={!isSmallScreen}
+              block={false}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Your account",
+                id: "CBedVL",
+                description: "Nav menu trigger for account links sub menu",
+              })}
+            </NavMenu.Trigger>
+            <NavMenu.Content>
+              <NavMenu.List>{accountLinks}</NavMenu.List>
+            </NavMenu.Content>
+          </NavMenu.Item>
         )
       }
     >
@@ -78,38 +76,34 @@ const MainNavMenu = () => {
           label={intl.formatMessage(navigationMessages.home)}
         />
         {showRoleSwitcher ? (
-          <>
-            <NavMenu.Item className={borderItem({ borderRight: true })}>
-              <NavMenu.Trigger
-                color={isSmallScreen ? "black" : "white"}
-                fixedColor={!isSmallScreen}
-                block={false}
-              >
-                {roleNames[navRole]}
-              </NavMenu.Trigger>
-              <NavMenu.Content>
-                <NavMenu.List>
-                  {roleLinks.map((roleLink) => (
-                    <NavMenu.Item key={roleLink.name}>
-                      <NavMenu.Link
-                        title={roleLink.name}
-                        href={roleLink.href}
-                        type="subMenuLink"
-                      >
-                        {roleLink.name}
-                      </NavMenu.Link>
-                    </NavMenu.Item>
-                  ))}
-                </NavMenu.List>
-              </NavMenu.Content>
-            </NavMenu.Item>
-          </>
+          <NavMenu.Item className={borderItem({ borderRight: true })}>
+            <NavMenu.Trigger
+              color={isSmallScreen ? "black" : "white"}
+              fixedColor={!isSmallScreen}
+              block={false}
+            >
+              {roleNames[navRole]}
+            </NavMenu.Trigger>
+            <NavMenu.Content>
+              <NavMenu.List>
+                {roleLinks.map((roleLink) => (
+                  <NavMenu.Item key={roleLink.name}>
+                    <NavMenu.Link
+                      title={roleLink.name}
+                      href={roleLink.href}
+                      type="subMenuLink"
+                    >
+                      {roleLink.name}
+                    </NavMenu.Link>
+                  </NavMenu.Item>
+                ))}
+              </NavMenu.List>
+            </NavMenu.Content>
+          </NavMenu.Item>
         ) : null}
-      </NavMenu.List>
 
-      {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
+        {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
 
-      <NavMenu.List type="main">
         {mainLinks}
         {systemSettings && (
           <NavMenu.Item>
