@@ -1,5 +1,4 @@
 export function urlMatchesAppHostName(url: string): boolean {
-  const pattern = new URLPattern({ hostname: APP_HOST });
-  console.log({ url, APP_HOST, pattern, matches: pattern.test(url) });
+  const pattern = new URLPattern({ hostname: window.location.hostname });
   return pattern.test(url);
 }

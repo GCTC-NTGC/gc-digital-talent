@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
 declare const IS_DEV_SERVER: boolean;
-declare const APP_HOST: string;
 declare const API_HOST: string;
 declare const API_URI: string;
 declare const API_PROTECTED_URI: string;

@@ -7,6 +7,7 @@ import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 import { FeatureFlags, useFeatureFlags } from "@gc-digital-talent/env";
+
 import { urlMatchesAppHostName } from "~/utils/utils";
 
 const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
