@@ -193,7 +193,7 @@ export const Small: StoryObj<typeof Notice.Root> = {
       <div className="flex flex-col gap-y-6">
         <Notice.Root {...args} mode="inline">
           <Notice.Title icon={AcademicCapIcon} as="h2">
-            Small
+            Small (inline)
           </Notice.Title>
           <Notice.Content>
             <p>{faker.lorem.paragraph()}</p>
@@ -221,8 +221,73 @@ export const Small: StoryObj<typeof Notice.Root> = {
         </Notice.Root>
         <Notice.Root {...args} mode="card">
           <Notice.Title icon={AcademicCapIcon} as="h2">
-            Small
+            Small (card)
           </Notice.Title>
+          <Notice.Content>
+            <p>{faker.lorem.paragraph()}</p>
+          </Notice.Content>
+          <Notice.Actions>
+            <Button
+              mode="inline"
+              size="sm"
+              color={args.color === "gray" ? "black" : args.color}
+            >
+              Button
+            </Button>
+            <Link
+              mode="inline"
+              color={args.color === "gray" ? "black" : args.color}
+              href="#"
+              size="sm"
+            >
+              Link
+            </Link>
+          </Notice.Actions>
+          <Notice.Footer>
+            <p>{faker.lorem.sentence()}</p>
+          </Notice.Footer>
+        </Notice.Root>
+      </div>
+    </Container>
+  ),
+};
+
+export const NoIcon: StoryObj<typeof Notice.Root> = {
+  args: {
+    onDismiss: () => action("dismiss")(),
+    color: "gray",
+  },
+  render: (args) => (
+    <Container>
+      <div className="flex flex-col gap-y-6">
+        <Notice.Root {...args} mode="inline">
+          <Notice.Title as="h2">No icon (inline)</Notice.Title>
+          <Notice.Content>
+            <p>{faker.lorem.paragraph()}</p>
+          </Notice.Content>
+          <Notice.Actions>
+            <Button
+              mode="inline"
+              size="sm"
+              color={args.color === "gray" ? "black" : args.color}
+            >
+              Button
+            </Button>
+            <Link
+              mode="inline"
+              color={args.color === "gray" ? "black" : args.color}
+              href="#"
+              size="sm"
+            >
+              Link
+            </Link>
+          </Notice.Actions>
+          <Notice.Footer>
+            <p>{faker.lorem.sentence()}</p>
+          </Notice.Footer>
+        </Notice.Root>
+        <Notice.Root {...args} mode="card">
+          <Notice.Title as="h2">No icon (card)</Notice.Title>
           <Notice.Content>
             <p>{faker.lorem.paragraph()}</p>
           </Notice.Content>

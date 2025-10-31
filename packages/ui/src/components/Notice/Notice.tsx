@@ -24,7 +24,7 @@ import IconButton, { IconButtonProps } from "../Button/IconButton";
 type DivProps = ComponentPropsWithoutRef<"div">;
 
 const root = tv({
-  base: "group relative grid grid-cols-2 gap-x-3 rounded-lg p-6",
+  base: "group relative grid-cols-2 gap-x-3 rounded-lg p-6 has-[>svg]:grid",
   variants: {
     mode: {
       inline: "border",
