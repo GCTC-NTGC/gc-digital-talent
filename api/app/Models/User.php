@@ -998,25 +998,111 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     // TODO: find a better place for this
+    // https://www.postgresql.org/docs/current/textsearch-controls.html#TEXTSEARCH-PARSING-QUERIES
+    // public static function searchStringToTsQuery(string $searchString): string
+    // {
+    //     $tokenized = Str::of($searchString)->split('/\s+/')
+    //         // allow prefix matching, switch AND/OR to symbols
+    //         ->map(fn ($t) => match (true) {
+    //             preg_match('/and/i', $t) == 1 => '&',   // and symbol
+    //             preg_match('/or/i', $t) == 1 => '|',    // or symbol
+    //             default => $t.':*'                      // prefix matching for everything else
+    //         })
+    //         // convert dash to exclamation for negation
+    //         ->map(fn ($t) => Str::startsWith($t, '-') ? Str::substrReplace($t, '!', 0, 1) : $t)
+    //         // assume ANDing all terms
+    //         ->join(' & ');
+
+    //     // remove extra & tokens
+    //     $tokenized = Str::replace(' & & & ', ' & ', $tokenized);
+    //     $tokenized = Str::replace(' & | & ', ' | ', $tokenized);
+
+    //     return $tokenized;
+    // }
+
     public static function searchStringToTsQuery(string $searchString): string
     {
-        $tokenized = Str::of($searchString)->split('/[\s,]+/')
-            // allow prefix matching, switch AND/OR to symbols
-            ->map(fn ($t) => match (true) {
-                preg_match('/and/i', $t) == 1 => '&',
-                preg_match('/or/i', $t) == 1 => '|',
-                default => $t.':*'
+        $nodes = User::stringToNodes($searchString);
+
+        return User::nodeToString($nodes);
+    }
+
+    private static function stringToNodes(string $s, string $leafJoiner = ' & '): array
+    {
+        $result = preg_match('/".*?"/', $s, $matches, PREG_OFFSET_CAPTURE);
+        if ($result == 1) {
+            $matchText = $matches[0][0];
+            $matchIndex = $matches[0][1];
+
+            $stringBefore = substr($s, 0, $matchIndex);
+            $quotedString = substr($s, $matchIndex + 1, strlen($matchText) - 2); // +1 to start after the opening quote, -2 to trim the length of the opening and closing quotes
+            $stringAfter = substr($s, $matchIndex + strlen($matchText));
+
+            return [
+                'join' => ' & ',
+                'nodes' => [
+                    User::stringToNodes($stringBefore),
+                    User::stringToNodes($quotedString, ' <-> '),
+                    User::stringToNodes($stringAfter),
+                ],
+            ];
+        }
+
+        // there's an AND, so split on that
+        $index = stripos($s, ' and ');
+        if ($index !== false) {
+            return [
+                'join' => ' & ',
+                'nodes' => [
+                    User::stringToNodes(substr($s, 0, $index)),
+                    User::stringToNodes(substr($s, $index + strlen(' and '))),
+                ],
+            ];
+        }
+
+        // there's an OR, so split on that
+        $index = stripos($s, ' or ');
+        if ($index !== false) {
+            return [
+                'join' => ' | ',
+                'nodes' => [
+                    User::stringToNodes(substr($s, 0, $index)),
+                    User::stringToNodes(substr($s, $index + strlen(' or '))),
+                ],
+            ];
+        }
+
+        // it's a plain string so just split it on white spaces to make a collection of leafs
+        return [
+            'join' => $leafJoiner,
+            'nodes' => Str::of($s)
+                ->split('/\s+/')
+                ->filter(fn ($s) => strlen($s) > 0),
+        ];
+    }
+
+    private static function nodeToString(array $n): string
+    {
+        $joiner = $n['join'];
+        $subnodes = collect($n['nodes']);
+
+        return $subnodes
+            ->map(fn ($n) => match (true) {
+                is_string($n) => User::singleTermToTsTerm($n),  // if it's a string, pass it thought
+                is_array($n) => User::nodeToString($n),         // if it's another node, convert it to a string, first
+                default => throw new \Error('Unexpected type')
             })
-            // convert dash to exclamation for negation
-            ->map(fn ($t) => Str::startsWith($t, '-') ? Str::substrReplace($t, '!', 0, 1) : $t)
-            // assume ANDing all terms
-            ->join(' & ');
+            ->filter(fn ($s) => strlen($s) > 0)
+            ->join($joiner);
+    }
 
-        // remove extra & tokens
-        $tokenized = Str::replace(' & & & ', ' & ', $tokenized);
-        $tokenized = Str::replace(' & | & ', ' | ', $tokenized);
+    private static function singleTermToTsTerm(string $s): string
+    {
+        if (Str::startsWith($s, '-')) {
+            $s = Str::substrReplace($s, '!', 0, 1);
+        }
 
-        return $tokenized;
+        return $s.':*';
     }
 
     public static function scopeWhereGeneralSearchBeta(Builder $query, ?string $searchTerm): Builder

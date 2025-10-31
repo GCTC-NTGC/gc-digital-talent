@@ -28,21 +28,25 @@ class TextSearchTest extends TestCase
                 'searchString' => 'term',
                 'expectedOutput' => 'term:*',
             ],
-            'multiple terms with extra spacing and commas' => [
-                'searchString' => 'term1,   term2,        term3',
+            'multiple terms with extra spacing' => [
+                'searchString' => ' term1   term2        term3        ',
                 'expectedOutput' => 'term1:* & term2:* & term3:*',
             ],
             'negation with dash' => [
                 'searchString' => 'term1 -term2',
                 'expectedOutput' => 'term1:* & !term2:*',
             ],
-            'handles explicit and-ing' => [
+            'explicit and-ing' => [
                 'searchString' => 'term1 AND term2',
                 'expectedOutput' => 'term1:* & term2:*',
             ],
-            'handles explicit or-ing' => [
+            'explicit or-ing' => [
                 'searchString' => 'term1 OR term2',
                 'expectedOutput' => 'term1:* | term2:*',
+            ],
+            'quotes' => [
+                'searchString' => ' term1 "term2 term3"   "term4 term5" term6',
+                'expectedOutput' => 'term1:* & term2:* <-> term3:* & term4:* <-> term5:* & term6:*',
             ],
         ];
     }
