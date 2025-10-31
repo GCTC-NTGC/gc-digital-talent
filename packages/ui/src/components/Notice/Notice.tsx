@@ -1,19 +1,28 @@
-import { createContext, ReactNode, use, useCallback } from "react";
+import {
+  ComponentPropsWithoutRef,
+  createContext,
+  ReactNode,
+  use,
+  useCallback,
+} from "react";
 import { tv, VariantProps } from "tailwind-variants";
+import { twMerge } from "tailwind-merge";
 
 import useControllableState from "../../hooks/useControllableState";
 import { HeadingRank, IconType } from "../../types";
+import Separator from "../Separator";
+
+type DivProps = ComponentPropsWithoutRef<"div">;
 
 const root = tv({
   base: "group relative grid grid-cols-2 gap-x-3 rounded-lg p-6",
   variants: {
     mode: {
-      inline:
-        "border has-[.Notice__Icon]:grid-cols-[calc(var(--spacing)*6)_1fr]",
-      card: "bg-white shadow-xl has-[.Notice__Icon]:grid-cols-[calc(var(--spacing)*7)_1fr] dark:bg-gray-600",
+      inline: "border has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr]",
+      card: "bg-white shadow-xl has-[>svg]:grid-cols-[calc(var(--spacing)*7)_1fr] dark:bg-gray-700",
     },
     color: {
-      gray: "text-gray-500",
+      gray: "",
       primary: "",
       secondary: "",
       success: "",
@@ -21,6 +30,38 @@ const root = tv({
       error: "",
     },
   },
+  compoundVariants: [
+    {
+      mode: "inline",
+      color: "gray",
+      class: "text-gray-600 dark:text-gray-200",
+    },
+    {
+      mode: "inline",
+      color: "primary",
+      class: "text-primary-600 dark:text-primary-200",
+    },
+    {
+      mode: "inline",
+      color: "secondary",
+      class: "text-secondary-600 dark:text-secondary-200",
+    },
+    {
+      mode: "inline",
+      color: "success",
+      class: "text-success-600 dark:text-success-200",
+    },
+    {
+      mode: "inline",
+      color: "warning",
+      class: "text-warning-600 dark:text-warning-200",
+    },
+    {
+      mode: "inline",
+      color: "error",
+      class: "text-error-600 dark:text-error-200",
+    },
+  ],
 });
 
 type RootVariants = VariantProps<typeof root>;
@@ -34,8 +75,7 @@ const NoticeContext = createContext<NoticeContextValue>({
   color: "gray",
 });
 
-interface NoticeProps extends RootVariants {
-  children: ReactNode;
+interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
   defaultOpen?: boolean;
   open?: boolean;
   onDismiss?: () => void;
@@ -50,6 +90,8 @@ const Root = ({
   onOpenChange,
   open: openProp,
   defaultOpen = true,
+  className,
+  ...rest
 }: NoticeProps) => {
   const [open = true, setOpen] = useControllableState<boolean>({
     controlledProp: openProp,
@@ -64,20 +106,24 @@ const Root = ({
 
   return (
     <NoticeContext.Provider value={{ mode, color, onDismiss: handleDismiss }}>
-      {open && <div className={root({ mode, color })}>{children}</div>}
+      {open && (
+        <div {...rest} className={root({ mode, color, class: className })}>
+          {children}
+        </div>
+      )}
     </NoticeContext.Provider>
   );
 };
 
 const title = tv({
   slots: {
-    icon: "Notice__Icon h-auto w-full",
-    heading: "mb-.25 font-bold",
+    icon: "h-auto w-full align-top",
+    heading: "mb-.25 col-start-2 font-bold",
   },
   variants: {
     mode: {
       inline: {
-        heading: "text-sm",
+        heading: "text-sm/6",
       },
       card: "",
     },
@@ -94,32 +140,32 @@ const title = tv({
     {
       slots: ["icon", "heading"],
       color: "gray",
-      class: "text-gray-500 dark:text-gray-200",
+      class: "text-gray-600 dark:text-gray-200",
     },
     {
       slots: ["icon", "heading"],
-      color: "gray",
-      class: "text-primary-500 dark:text-primary-200",
+      color: "primary",
+      class: "text-primary-600 dark:text-primary-200",
     },
     {
       slots: ["icon", "heading"],
-      color: "gray",
-      class: "text-secondary-500 dark:text-secondary-200",
+      color: "secondary",
+      class: "text-secondary-700 dark:text-secondary-200",
     },
     {
       slots: ["icon", "heading"],
-      color: "gray",
-      class: "text-success-500 dark:text-success-200",
+      color: "success",
+      class: "text-success-600 dark:text-success-200",
     },
     {
       slots: ["icon", "heading"],
-      color: "gray",
-      class: "text-warning-500 dark:text-warning-200",
+      color: "warning",
+      class: "text-warning-600 dark:text-warning-200",
     },
     {
       slots: ["icon", "heading"],
-      color: "gray",
-      class: "text-error-500 dark:text-error-200",
+      color: "error",
+      class: "text-error-600 dark:text-error-200",
     },
   ],
 });
@@ -142,7 +188,107 @@ const Title = ({ icon: Icon, as: Heading, children }: TitleProps) => {
   );
 };
 
+const content = tv({
+  base: "col-start-2",
+  variants: {
+    color: {
+      gray: "text-gray-700 dark:text-gray-100",
+      primary: "text-primary-700 dark:text-primary-100",
+      secondary: "text-secondary-700 dark:text-secondary-100",
+      success: "text-success-700 dark:text-success-100",
+      warning: "text-warning-700 dark:text-warning-100",
+      error: "text-error-700 dark:text-error-100",
+    },
+  },
+});
+
+const Content = ({ children, className, ...rest }: DivProps) => {
+  const { color } = use(NoticeContext);
+
+  return (
+    <div {...rest} className={content({ color, class: className })}>
+      {children}
+    </div>
+  );
+};
+
+const Actions = ({ className, ...rest }: DivProps) => (
+  <div
+    className={twMerge(
+      "col-start-2 mt-4.5 flex flex-col flex-wrap items-center gap-4.5 sm:flex-row",
+      className,
+    )}
+    {...rest}
+  />
+);
+
+const footer = tv({
+  base: "bg-gray-600 dark:bg-gray-200",
+  variants: {
+    mode: {
+      inline: "",
+      card: "",
+    },
+    color: {
+      gray: "",
+      primary: "",
+      secondary: "",
+      success: "",
+      warning: "",
+      error: "",
+    },
+  },
+  compoundVariants: [
+    {
+      mode: "inline",
+      color: "primary",
+      class: "bg-primary-600 dark:bg-primary-200",
+    },
+    {
+      mode: "inline",
+      color: "secondary",
+      class: "bg-secondary-600 dark:bg-secondary-200",
+    },
+    {
+      mode: "inline",
+      color: "success",
+      class: "bg-success-600 dark:bg-success-200",
+    },
+    {
+      mode: "inline",
+      color: "warning",
+      class: "bg-warning-600 dark:bg-warning-200",
+    },
+    {
+      mode: "inline",
+      color: "error",
+      class: "bg-error-600 dark:bg-error-200",
+    },
+  ],
+});
+
+const Footer = ({ className, ...rest }: DivProps) => {
+  const { color, mode } = use(NoticeContext);
+
+  return (
+    <>
+      <div className="col-span-2 -mx-6">
+        <Separator
+          decorative
+          orientation="horizontal"
+          space="sm"
+          className={footer({ mode, color })}
+        />
+      </div>
+      <div className={twMerge("col-start-2", className)} {...rest} />
+    </>
+  );
+};
+
 export default {
   Root,
   Title,
+  Content,
+  Actions,
+  Footer,
 };
