@@ -91,6 +91,7 @@ export const Card: StoryObj<typeof Notice.Root> = {
 
 export const Small: StoryObj<typeof Notice.Root> = {
   args: {
+    onDismiss: () => action("dismiss")(),
     small: true,
   },
   render: (args) => (

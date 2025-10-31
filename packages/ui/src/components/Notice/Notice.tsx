@@ -135,7 +135,7 @@ const Root = ({
             <IconButton
               icon={XMarkIcon}
               size="sm"
-              className="absolute top-3 right-2"
+              className="absolute top-2 right-2"
               color={iconColor ?? "black"}
               onClick={handleDismiss}
             />
