@@ -18,12 +18,6 @@ const errorMessages = defineMessages({
     description:
       "Error message that this field must filled for the form to be valid.",
   },
-  telephone: {
-    defaultMessage: "This field must follow the pattern +123243234.",
-    id: "adbcoS",
-    description:
-      "Error message that the field must contain a phone number validated by the specified pattern.",
-  },
   futureDate: {
     defaultMessage: "This field must use future dates only.",
     id: "ZhQEUx",
@@ -39,12 +33,6 @@ const errorMessages = defineMessages({
     id: "5gS1sZ",
     description:
       "Error message that the provided value must be greater than some referenced minimum value.",
-  },
-  dateMustFollow: {
-    defaultMessage: "Date must not be before {value}.",
-    id: "RkxqoB",
-    description:
-      "Error message that the date provided must follow and not precede some referenced date",
   },
   overWordLimit: {
     defaultMessage: "This field must have less than {value} words.",

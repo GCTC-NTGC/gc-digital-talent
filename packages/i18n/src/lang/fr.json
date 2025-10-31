@@ -475,10 +475,6 @@
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
   },
-  "FvV+QW": {
-    "defaultMessage": "Renseignements gouvernementaux",
-    "description": "Name of Government information page"
-  },
   "GiYTD4": {
     "defaultMessage": "Ce champ doit contenir moins de {value} caractères.",
     "description": "Error Message displayed when the user passes some given character or letter limit."
@@ -499,10 +495,6 @@
     "defaultMessage": "Votre demande n'a pas été complétée. Veuillez réessayer ou contactez notre équipe pour obtenir de l'aide.",
     "description": "Message for Unauthorized or Request Rejected server response"
   },
-  "Gx8qCK": {
-    "defaultMessage": "À propos de moi",
-    "description": "Name of About me page"
-  },
   "Gz8vAO": {
     "defaultMessage": "Modifier l’article {index}",
     "description": "Button text to edit an item from repeatable fields"
@@ -518,10 +510,6 @@
   "HxxE2u": {
     "defaultMessage": "{count, plural, =0 {0 option sélectionnée} one {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
-  },
-  "I1jrAG": {
-    "defaultMessage": "Non accepté",
-    "description": "Indicates a user has not accepted some criteria"
   },
   "IBc2sp": {
     "defaultMessage": "Nom complet",
@@ -747,10 +735,6 @@
     "defaultMessage": "Organisation",
     "description": "Label displayed for organization input"
   },
-  "Pj4lW9": {
-    "defaultMessage": "Accepté",
-    "description": "Indicates a user has accepted some criteria"
-  },
   "Q6sBsq": {
     "defaultMessage": "Étape complétée, {label}",
     "description": "Prefix when a step has been completed."
@@ -790,10 +774,6 @@
   "RhkjXE": {
     "defaultMessage": "Durée de l'emploi",
     "description": "Title for employment length"
-  },
-  "RkxqoB": {
-    "defaultMessage": "La date ne doit pas être antérieure {value}",
-    "description": "Error message that the date provided must follow and not precede some referenced date"
   },
   "Ro+gP0": {
     "defaultMessage": "Accueil",
@@ -1051,10 +1031,6 @@
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Option for education requirement, graduation with degree"
   },
-  "adbcoS": {
-    "defaultMessage": "Ce champ doit suivre le modèle +123243234",
-    "description": "Error message that the field must contain a phone number validated by the specified pattern."
-  },
   "atqjXB": {
     "defaultMessage": "Annulez",
     "description": "Stop the current action"
@@ -1171,10 +1147,6 @@
     "defaultMessage": "Filtres avancés",
     "description": "Title for the additional filters"
   },
-  "euigxa": {
-    "defaultMessage": "Aucun renseignement n'a été fourni.",
-    "description": "Sentence when some form of information not provided"
-  },
   "exPBiQ": {
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
     "description": "Error message title for repeater component."
@@ -1238,10 +1210,6 @@
   "g9J8/u": {
     "defaultMessage": "Compte mis à jour avec succès.",
     "description": "Message displayed to user if account is updated successfully."
-  },
-  "gBoG9M": {
-    "defaultMessage": "Profil et candidatures",
-    "description": "Name of Profile and applications page"
   },
   "gH2uDM": {
     "defaultMessage": "Groupe",
@@ -1523,10 +1491,6 @@
     "defaultMessage": "Adresse courriel professionnelle",
     "description": "Title for work email address"
   },
-  "plwOsC": {
-    "defaultMessage": "Sélectionnez",
-    "description": "Default placeholder shown when Select field has nothing actively selected."
-  },
   "pnoSK6": {
     "defaultMessage": "Non sélectionnée",
     "description": "Label when an item is not selected"
@@ -1702,10 +1666,6 @@
   "v6T4Y0": {
     "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
     "description": "Error message that the date cannot be in the future."
-  },
-  "v9XiWV": {
-    "defaultMessage": "Informations linguistiques",
-    "description": "Name of Language information page"
   },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
