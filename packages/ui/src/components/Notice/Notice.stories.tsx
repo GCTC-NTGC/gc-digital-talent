@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
@@ -35,11 +36,13 @@ const colors: RootVariants["color"][] = [
   "error",
 ];
 
-const Template = (props: NoticeProps) =>
-  colors.map((color) => (
+const Template = (props: NoticeProps) => {
+  const mode = props.mode ?? "inline";
+
+  return colors.map((color) => (
     <Notice.Root key={color} {...props} color={color}>
       <Notice.Title icon={AcademicCapIcon} as="h2">
-        {props.mode} {color}
+        {mode.charAt(0).toUpperCase() + mode.slice(1)} {color}
       </Notice.Title>
       <Notice.Content>
         <p>{faker.lorem.sentences(2)}</p>
@@ -57,8 +60,12 @@ const Template = (props: NoticeProps) =>
       </Notice.Footer>
     </Notice.Root>
   ));
+};
 
 export const Default: StoryObj<typeof Notice.Root> = {
+  args: {
+    onDismiss: () => action("dismiss")(),
+  },
   render: (args) => (
     <Container>
       <div className="flex flex-col gap-y-6">
@@ -70,6 +77,7 @@ export const Default: StoryObj<typeof Notice.Root> = {
 
 export const Card: StoryObj<typeof Notice.Root> = {
   args: {
+    onDismiss: () => action("dismiss")(),
     mode: "card",
   },
   render: (args) => (

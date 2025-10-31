@@ -7,10 +7,12 @@ import {
 } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 import { twMerge } from "tailwind-merge";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
 import useControllableState from "../../hooks/useControllableState";
 import { HeadingRank, IconType } from "../../types";
 import Separator from "../Separator";
+import IconButton, { IconButtonProps } from "../Button/IconButton";
 
 type DivProps = ComponentPropsWithoutRef<"div">;
 
@@ -104,6 +106,10 @@ const Root = ({
     defaultValue: defaultOpen,
     onChange: onOpenChange,
   });
+  let iconColor: IconButtonProps["color"];
+  if (mode === "inline") {
+    iconColor = color === "gray" ? "black" : color;
+  }
 
   const handleDismiss = useCallback(() => {
     setOpen(false);
@@ -114,6 +120,15 @@ const Root = ({
     <NoticeContext.Provider value={{ mode, color, onDismiss: handleDismiss }}>
       {open && (
         <div {...rest} className={root({ mode, color, class: className })}>
+          {onDismiss && (
+            <IconButton
+              icon={XMarkIcon}
+              size="sm"
+              className="absolute top-3 right-2"
+              color={iconColor ?? "black"}
+              onClick={handleDismiss}
+            />
+          )}
           {children}
         </div>
       )}
