@@ -167,7 +167,7 @@ const title = tv({
         heading: "text-sm/6",
       },
       false: {
-        heading: "leading-6",
+        heading: "sm:leading-7",
       },
     },
     color: {
