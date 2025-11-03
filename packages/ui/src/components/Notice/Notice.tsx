@@ -1,6 +1,7 @@
 import {
   ComponentPropsWithoutRef,
   createContext,
+  forwardRef,
   ReactNode,
   use,
   useCallback,
@@ -83,7 +84,7 @@ const root = tv({
   ],
 });
 
-export type RootVariants = VariantProps<typeof root>;
+type RootVariants = VariantProps<typeof root>;
 
 interface NoticeContextValue extends RootVariants {
   onDismiss?: () => void;
@@ -102,59 +103,65 @@ export interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
   onOpenChange?: (newOpen: boolean) => void;
 }
 
-const Root = ({
-  mode = "inline",
-  color = "gray",
-  small = false,
-  children,
-  onDismiss,
-  onOpenChange,
-  open: openProp,
-  defaultOpen = true,
-  className,
-  ...rest
-}: NoticeProps) => {
-  const intl = useIntl();
-  const [open = true, setOpen] = useControllableState<boolean>({
-    controlledProp: openProp,
-    defaultValue: defaultOpen,
-    onChange: onOpenChange,
-  });
-  let iconColor: IconButtonProps["color"];
-  if (mode === "inline") {
-    iconColor = color === "gray" ? "black" : color;
-  }
+const Root = forwardRef<HTMLDivElement, NoticeProps>(
+  (
+    {
+      mode = "inline",
+      color = "gray",
+      small = false,
+      children,
+      onDismiss,
+      onOpenChange,
+      open: openProp,
+      defaultOpen = true,
+      className,
+      ...rest
+    },
+    forwardedRef,
+  ) => {
+    const intl = useIntl();
+    const [open = true, setOpen] = useControllableState<boolean>({
+      controlledProp: openProp,
+      defaultValue: defaultOpen,
+      onChange: onOpenChange,
+    });
+    let iconColor: IconButtonProps["color"];
+    if (mode === "inline") {
+      iconColor = color === "gray" ? "black" : color;
+    }
 
-  const handleDismiss = useCallback(() => {
-    setOpen(false);
-    onDismiss?.();
-  }, [setOpen, onDismiss]);
+    const handleDismiss = useCallback(() => {
+      setOpen(false);
+      onDismiss?.();
+    }, [setOpen, onDismiss]);
 
-  return (
-    <NoticeContext.Provider
-      value={{ mode, color, small, onDismiss: handleDismiss }}
-    >
-      {open && (
-        <div
-          {...rest}
-          className={root({ mode, color, small, class: className })}
-        >
-          {onDismiss && (
-            <IconButton
-              icon={XMarkIcon}
-              size="sm"
-              className="absolute top-2 right-2"
-              color={iconColor ?? "black"}
-              onClick={handleDismiss}
-              label={intl.formatMessage(uiMessages.closeAlert)}
-            />
-          )}
-          {children}
-        </div>
-      )}
-    </NoticeContext.Provider>
-  );
-};
+    return (
+      <NoticeContext.Provider
+        value={{ mode, color, small, onDismiss: handleDismiss }}
+      >
+        {open && (
+          <div
+            ref={forwardedRef}
+            {...rest}
+            className={root({ mode, color, small, class: className })}
+          >
+            {onDismiss && (
+              <IconButton
+                icon={XMarkIcon}
+                size="sm"
+                className="absolute top-2 right-2"
+                color={iconColor ?? "black"}
+                onClick={handleDismiss}
+                label={intl.formatMessage(uiMessages.closeAlert)}
+              />
+            )}
+            {children}
+          </div>
+        )}
+      </NoticeContext.Provider>
+    );
+  },
+);
 
 const title = tv({
   slots: {
@@ -213,7 +220,7 @@ const title = tv({
   ],
 });
 
-export const iconMap = new Map<RootVariants["color"], IconType>([
+const iconMap = new Map<RootVariants["color"], IconType>([
   ["gray", BellAlertIcon],
   ["primary", BellAlertIcon],
   ["secondary", BellAlertIcon],
@@ -224,14 +231,14 @@ export const iconMap = new Map<RootVariants["color"], IconType>([
 
 interface TitleProps {
   icon?: IconType;
-  as: HeadingRank | "p";
+  as?: HeadingRank | "p";
   children: ReactNode;
   defaultIcon?: boolean;
 }
 
 const Title = ({
   icon: iconEl,
-  as: Heading,
+  as: Heading = "p",
   defaultIcon = false,
   children,
 }: TitleProps) => {

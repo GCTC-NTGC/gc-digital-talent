@@ -5,7 +5,7 @@ import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import Notice, { NoticeProps, RootVariants } from "./Notice";
+import Notice, { NoticeProps } from "./Notice";
 import Button from "../Button";
 import Link from "../Link";
 import { Container } from "../Container/Container";
@@ -26,15 +26,6 @@ const meta = {
 } satisfies Meta<typeof Notice.Root>;
 
 export default meta;
-
-const colors: RootVariants["color"][] = [
-  "gray",
-  "primary",
-  "secondary",
-  "success",
-  "warning",
-  "error",
-];
 
 const Template = (props: NoticeProps) => {
   const mode = props.mode ?? "inline";

@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 import {
   AlertDialog,
-  Alert,
+  Notice,
   Button,
   Heading,
   Link,
@@ -44,75 +44,81 @@ export const Component = () => {
   switch (logoutReason) {
     case "session-expired":
       alert = (
-        <Alert.Root type="warning" live={false}>
-          <Alert.Title>
+        <Notice.Root color="warning" mode="card">
+          <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage: "Your session has expired. Please sign in again.",
               id: "qFIyZv",
               description:
                 "Title for the alert displayed after a user signs out",
             })}
-          </Alert.Title>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "NZ3laJ",
-              description: "Message displayed to a user after signing out",
-            })}
-          </p>
-        </Alert.Root>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+                id: "NZ3laJ",
+                description: "Message displayed to a user after signing out",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       );
       break;
     case "user-deleted":
       alert = (
-        <Alert.Root type="warning" live={false}>
-          <Alert.Title>
+        <Notice.Root color="warning" mode="card">
+          <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage: "User account deleted",
               id: "eMrYDr",
               description:
                 "Title for the alert displayed after a user signs into a deleted account",
             })}
-          </Alert.Title>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "This user account has been deleted. Please <inlineLink>contact us</inlineLink> if you have any questions.",
-                id: "DZfLMk",
-                description:
-                  "Message displayed to a user after signing into a deleted account",
-              },
-              {
-                inlineLink: (chunks: ReactNode) =>
-                  supportLink(chunks, paths.support()),
-              },
-            )}
-          </p>
-        </Alert.Root>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "This user account has been deleted. Please <inlineLink>contact us</inlineLink> if you have any questions.",
+                  id: "DZfLMk",
+                  description:
+                    "Message displayed to a user after signing into a deleted account",
+                },
+                {
+                  inlineLink: (chunks: ReactNode) =>
+                    supportLink(chunks, paths.support()),
+                },
+              )}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       );
       break;
     default:
       alert = (
-        <Alert.Root type="success" live={false}>
-          <Alert.Title>
+        <Notice.Root color="success" mode="card">
+          <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage: "You've successfully signed out of the platform",
               id: "F1OHq7",
               description:
                 "Title for the alert displayed after a user signs out",
             })}
-          </Alert.Title>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "NZ3laJ",
-              description: "Message displayed to a user after signing out",
-            })}
-          </p>
-        </Alert.Root>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+                id: "NZ3laJ",
+                description: "Message displayed to a user after signing out",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       );
   }
 
