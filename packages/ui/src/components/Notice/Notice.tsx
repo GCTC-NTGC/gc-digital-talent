@@ -17,7 +17,6 @@ import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTria
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import useControllableState from "../../hooks/useControllableState";
 import { HeadingRank, IconType } from "../../types";
 import Separator from "../Separator";
 import IconButton, { IconButtonProps } from "../Button/IconButton";
@@ -97,10 +96,7 @@ const NoticeContext = createContext<NoticeContextValue>({
 });
 
 export interface NoticeProps extends RootVariants, Omit<DivProps, "color"> {
-  defaultOpen?: boolean;
-  open?: boolean;
   onDismiss?: () => void;
-  onOpenChange?: (newOpen: boolean) => void;
 }
 
 const Root = forwardRef<HTMLDivElement, NoticeProps>(
@@ -111,53 +107,42 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
       small = false,
       children,
       onDismiss,
-      onOpenChange,
-      open: openProp,
-      defaultOpen = true,
       className,
       ...rest
     },
     forwardedRef,
   ) => {
     const intl = useIntl();
-    const [open = true, setOpen] = useControllableState<boolean>({
-      controlledProp: openProp,
-      defaultValue: defaultOpen,
-      onChange: onOpenChange,
-    });
     let iconColor: IconButtonProps["color"];
     if (mode === "inline") {
       iconColor = color === "gray" ? "black" : color;
     }
 
     const handleDismiss = useCallback(() => {
-      setOpen(false);
       onDismiss?.();
-    }, [setOpen, onDismiss]);
+    }, [onDismiss]);
 
     return (
       <NoticeContext.Provider
         value={{ mode, color, small, onDismiss: handleDismiss }}
       >
-        {open && (
-          <div
-            ref={forwardedRef}
-            {...rest}
-            className={root({ mode, color, small, class: className })}
-          >
-            {onDismiss && (
-              <IconButton
-                icon={XMarkIcon}
-                size="sm"
-                className="absolute top-2 right-2"
-                color={iconColor ?? "black"}
-                onClick={handleDismiss}
-                label={intl.formatMessage(uiMessages.closeAlert)}
-              />
-            )}
-            {children}
-          </div>
-        )}
+        <div
+          ref={forwardedRef}
+          {...rest}
+          className={root({ mode, color, small, class: className })}
+        >
+          {onDismiss && (
+            <IconButton
+              icon={XMarkIcon}
+              size="sm"
+              className="absolute top-2 right-2"
+              color={iconColor ?? "black"}
+              onClick={handleDismiss}
+              label={intl.formatMessage(uiMessages.closeAlert)}
+            />
+          )}
+          {children}
+        </div>
       </NoticeContext.Provider>
     );
   },
