@@ -175,7 +175,40 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
             ],
         ]);
 
-        $this->applyFilters($query, []);
+        $this->applyFilters($query, [
+            // Pool candidate search input renames
+            'email' => 'whereEmail',
+            'generalSearch' => 'whereGeneralSearch',
+            'name' => 'whereName',
+            'notes' => 'whereNotesLike',
+            'isGovEmployee' => 'whereIsGovEmployee',
+            'departments' => 'whereDepartmentsIn',
+            'poolCandidateStatus' => 'whereStatusIn',
+            'priorityWeight' => 'whereCandidateCategoryIn',
+            'expiryStatus' => 'whereExpiryStatus',
+            'suspendedStatus' => 'whereSuspendedStatus',
+            'publishingGroups' => 'wherePublishingGroupsIn',
+            'appliedClassifications' => 'whereAppliedClassificationsIn',
+            'workStreams' => 'whereWorkStreamsIn',
+            'processNumber' => 'whereProcessNumber',
+            'flexibleWorkLocations' => 'whereFlexibleWorkLocationsIn',
+            'assessmentSteps' => 'whereAssessmentStepsIn',
+            'finalDecisions' => 'whereFinalDecisionsIn',
+            'placementTypes' => 'wherePlacementTypeIn',
+            'removalReason' => 'whereRemovalReasonIn',
+
+            // Applicant filter input renames
+            'equity' => 'whereEquityIn',
+            'hasDiploma' => 'whereHasDiploma',
+            'languageAbility' => 'whereLanguageAbility',
+            'operationalRequirements' => 'whereOperationalRequirementsIn',
+            'positionDuration' => 'wherePositionDurationIn',
+            'pools' => 'whereAvailableInPools',
+            'skills' => 'whereSkillsAdditive',
+            'skillsIntersectional' => 'whereSkillsIntersectional',
+            'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
+            'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
+            'community' => 'whereCandidatesInCommunity', ]);
 
         /** @var Builder<PoolCandidate> $query */
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])->whereNotDraft();

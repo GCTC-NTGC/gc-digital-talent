@@ -313,7 +313,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         ]);
 
         $this->applyFilters($query, [
-            'roles' => 'roleAssignments',
+            'poolFilters' => 'wherePoolExists',
+            'isProfileComplete' => 'whereProfileComplete',
+            'isGovEmployee' => 'whereIsGovEmployee',
+            'telephone' => 'whereTelephone',
+            'email' => 'whereEmail',
+            'workEmail' => 'whereWorkEmail',
+            'name' => 'whereName',
+            'generalSearch' => 'whereGeneralSearch',
+            'roles' => 'whereRoleIn',
             'skills' => 'skillsAdditive',
         ]);
 
