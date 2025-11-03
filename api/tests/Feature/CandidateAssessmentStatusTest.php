@@ -107,6 +107,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $this->pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
             'assessment_step_id' => $this->pool->assessmentSteps->first()?->id,
         ]);
 
@@ -427,6 +429,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         $stepOne = $pool->assessmentSteps->first();
@@ -543,6 +547,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         AssessmentResult::factory()
@@ -625,6 +631,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         $assessmentStep = $pool->assessmentSteps->first();
@@ -724,6 +732,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         $stepOne = $pool->assessmentSteps->first();
@@ -795,6 +805,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
             'assessment_step_id' => $stepOne->id,
         ]);
 
@@ -947,6 +959,8 @@ class CandidateAssessmentStatusTest extends TestCase
                 'pool_candidate_status' => $status,
                 'submitted_at' => config('constants.past_date'),
                 'expiry_date' => config('constants.far_future_date'),
+                'removed_at' => null,
+                'final_decision_at' => null,
             ]);
 
             AssessmentResult::factory()
