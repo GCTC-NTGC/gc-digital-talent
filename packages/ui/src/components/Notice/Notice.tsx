@@ -224,7 +224,7 @@ export const iconMap = new Map<RootVariants["color"], IconType>([
 
 interface TitleProps {
   icon?: IconType;
-  as: HeadingRank;
+  as: HeadingRank | "p";
   children: ReactNode;
   defaultIcon?: boolean;
 }
