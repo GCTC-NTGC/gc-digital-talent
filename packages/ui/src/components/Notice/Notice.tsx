@@ -28,7 +28,7 @@ const root = tv({
   variants: {
     mode: {
       inline: "border",
-      card: "bg-white shadow-xl dark:bg-gray-700",
+      card: "bg-white shadow-xl dark:bg-gray-600",
     },
     color: {
       gray: "",
@@ -175,32 +175,32 @@ const title = tv({
     {
       slots: ["icon", "heading"],
       color: "gray",
-      class: "text-gray-600 dark:text-gray-200",
+      class: "text-gray-600 dark:text-gray-100",
     },
     {
       slots: ["icon", "heading"],
       color: "primary",
-      class: "text-primary-600 dark:text-primary-200",
+      class: "text-primary-600 dark:text-primary-100",
     },
     {
       slots: ["icon", "heading"],
       color: "secondary",
-      class: "text-secondary-600 dark:text-secondary-200",
+      class: "text-secondary-600 dark:text-secondary-100",
     },
     {
       slots: ["icon", "heading"],
       color: "success",
-      class: "text-success-600 dark:text-success-200",
+      class: "text-success-600 dark:text-success-100",
     },
     {
       slots: ["icon", "heading"],
       color: "warning",
-      class: "text-warning-600 dark:text-warning-200",
+      class: "text-warning-600 dark:text-warning-100",
     },
     {
       slots: ["icon", "heading"],
       color: "error",
-      class: "text-error-600 dark:text-error-200",
+      class: "text-error-600 dark:text-error-100",
     },
   ],
 });
