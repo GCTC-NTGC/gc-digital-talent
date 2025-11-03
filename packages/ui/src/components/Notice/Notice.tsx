@@ -249,7 +249,7 @@ const Content = ({ children, className, ...rest }: DivProps) => (
 );
 
 const actions = tv({
-  base: "col-start-2 flex flex-wrap items-center gap-6",
+  base: "col-start-2 flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center",
   variants: {
     small: {
       true: "mt-3",
