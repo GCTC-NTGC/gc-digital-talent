@@ -53,7 +53,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
 
   return (
     <Notice.Root color="success" mode="card">
-      <Notice.Title defaultIcon>{pageInfo.title}</Notice.Title>
+      <Notice.Title defaultIcon as="h2">
+        {pageInfo.title}
+      </Notice.Title>
       <Notice.Content>
         <p className="mb-3">
           {intl.formatMessage(
