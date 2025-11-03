@@ -771,8 +771,6 @@ class UserBuilder extends Builder
                         ['english', $combinedSearchTerm]
                     );
                 }, 'calculations')
-                // filter rows against the tsquery
-                ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
                 // add the calculated rank column to allow for ordering by text search rank
                 ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
@@ -797,21 +795,30 @@ class UserBuilder extends Builder
             // if the remaining string is empty, don't turn into an array to avoid matching to ""
             $arrayed = $whiteSpacingRemoved === '' ? null : explode(' ', $whiteSpacingRemoved);
 
-            if ($arrayed) {
-                foreach ($arrayed as $index => $value) {
-                    $this->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
-                        $query->whereAny([
-                            'first_name',
-                            'last_name',
-                            'email',
-                        ], 'ilike', "%{$value}%"
-                        );
-                        $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
-                            $query->whereNameAndEmailNotIn($matchesWithoutOperatorOrStartingSpace);
+            // this scope combines two clauses with an OR so it needs to be wrapped
+            $this->where(function ($query) use ($arrayed, $matchesWithoutOperatorOrStartingSpace) {
+
+                // clause 1: filter rows against the tsquery
+                $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery');
+
+                // clause 2: add "ilike" filters
+                if ($arrayed) {
+                    foreach ($arrayed as $index => $value) {
+                        $query->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
+                            $query->whereAny([
+                                'first_name',
+                                'last_name',
+                                'email',
+                            ], 'ilike', "%{$value}%"
+                            );
+                            $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
+                                $query->whereNameAndEmailNotIn($matchesWithoutOperatorOrStartingSpace);
+                            });
                         });
-                    });
+                    }
                 }
-            }
+            });
+
         }
 
         return $this;
