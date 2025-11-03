@@ -33,6 +33,6 @@ export function convert({
     loader: clientLoader,
     action: clientAction,
     // Note: Some pages are already modules, so lets use it if available
-    Component: DefaultComponent ?? Component,
+    Component: Component ?? DefaultComponent,
   };
 }
