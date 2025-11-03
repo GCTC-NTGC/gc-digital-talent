@@ -45,7 +45,7 @@ export const Component = () => {
     case "session-expired":
       alert = (
         <Notice.Root color="warning" mode="card">
-          <Notice.Title defaultIcon>
+          <Notice.Title defaultIcon as="h2">
             {intl.formatMessage({
               defaultMessage: "Your session has expired. Please sign in again.",
               id: "qFIyZv",
@@ -69,7 +69,7 @@ export const Component = () => {
     case "user-deleted":
       alert = (
         <Notice.Root color="warning" mode="card">
-          <Notice.Title defaultIcon>
+          <Notice.Title defaultIcon as="h2">
             {intl.formatMessage({
               defaultMessage: "User account deleted",
               id: "eMrYDr",
@@ -100,7 +100,7 @@ export const Component = () => {
     default:
       alert = (
         <Notice.Root color="success" mode="card">
-          <Notice.Title defaultIcon>
+          <Notice.Title defaultIcon as="h2">
             {intl.formatMessage({
               defaultMessage: "You've successfully signed out of the platform",
               id: "F1OHq7",
