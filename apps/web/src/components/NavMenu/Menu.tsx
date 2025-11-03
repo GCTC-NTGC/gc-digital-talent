@@ -32,11 +32,9 @@ import {
 import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
-import authMessages from "~/messages/authMessages";
 
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
-import NavItem from "./MenuItem";
 import MenuSeparator from "./MenuSeparator";
 
 export const borderItem = tv({
