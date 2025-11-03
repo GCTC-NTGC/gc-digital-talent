@@ -539,7 +539,7 @@ export const addSearchToPoolCandidateFilterInput = (
     // search bar
     generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
-    name: searchType === "name" ? searchBarTerm : undefined,
+    name: searchType === "candidateName" ? searchBarTerm : undefined,
     notes: searchType === "notes" ? searchBarTerm : undefined,
     processNumber: searchType === "processNumber" ? searchBarTerm : undefined,
 
