@@ -22,6 +22,10 @@ const meta = {
         dark: allModes.dark,
       },
     },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/guHeIIh8dqFVCks310Wv0G/Component-library?node-id=4849-92336&t=epSg2B3tLfjkZqQi-0",
+    },
   },
 } satisfies Meta<typeof Notice.Root>;
 
@@ -169,6 +173,19 @@ export const Card: StoryObj<typeof Notice.Root> = {
   render: (args) => (
     <Container>
       <Template {...args} />
+    </Container>
+  ),
+};
+
+export const Basic: StoryObj<typeof Notice.Root> = {
+  render: () => (
+    <Container>
+      <Notice.Root>
+        <Notice.Title>Basic notice</Notice.Title>
+        <Notice.Content>
+          <p>{faker.lorem.paragraph()}</p>
+        </Notice.Content>
+      </Notice.Root>
     </Container>
   ),
 };
