@@ -64,16 +64,9 @@ interface MenuProps {
     | ReactElement<NavItemProps>
     | ReactElement<NavItemProps>[]
     | null;
-  authParams?: string;
 }
 
-const Menu = ({
-  children,
-  label,
-  homeLink,
-  accountLinks,
-  authParams,
-}: MenuProps) => {
+const Menu = ({ children, label, homeLink }: MenuProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -126,7 +119,7 @@ const Menu = ({
         >
           <div
             className="relative z-10"
-            // NOTE: Do not remove, required by anchor link offsets
+            // NOTE: Do not remove 'id', required by anchor link offsets
             id="main-nav"
           >
             {showMenu ? (
@@ -178,45 +171,7 @@ const Menu = ({
                   </div>
 
                   <MenuSeparator orientation="horizontal" />
-
-                  <div className="flex flex-col sm:flex-row sm:items-center">
-                    {children}
-                  </div>
-
-                  <MenuSeparator orientation="horizontal" />
-
-                  <NavMenu.List type="main">
-                    {accountLinks}
-                    {loggedIn && (
-                      <>
-                        <NavMenu.Item
-                          className={borderItem({
-                            borderLeft: true,
-                            class: "hidden before:mr-3 sm:inline-flex",
-                          })}
-                        >
-                          <NotificationDialog
-                            open={isNotificationDialogOpen}
-                            onOpenChange={setNotificationDialogOpen}
-                          />
-                        </NavMenu.Item>
-                      </>
-                    )}
-                    {!loggedIn ? (
-                      <>
-                        <NavItem
-                          key="signIn"
-                          href={`${paths.login()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signIn)}
-                        />
-                        <NavItem
-                          key="signUp"
-                          href={`${paths.register()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signUp)}
-                        />
-                      </>
-                    ) : null}
-                  </NavMenu.List>
+                  {children}
                 </Container>
               </NavMenu.Root>
             ) : null}
