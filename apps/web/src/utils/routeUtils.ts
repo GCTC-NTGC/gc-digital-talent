@@ -6,6 +6,8 @@ interface RouteModule {
   // NOTE: We do not know the props, but usually none
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   default?: React.ComponentType<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Component?: React.ComponentType<any>;
   [key: string]: unknown; // Allows for additional fields
 }
 
@@ -22,13 +24,15 @@ type ConvertedRoute = Omit<
 export function convert({
   clientLoader,
   clientAction,
-  default: Component,
+  default: DefaultComponent,
+  Component,
   ...rest
 }: RouteModule): ConvertedRoute {
   return {
     ...rest,
     loader: clientLoader,
     action: clientAction,
-    Component,
+    // Note: Some pages are already modules, so lets use it if available
+    Component: DefaultComponent ?? Component,
   };
 }
