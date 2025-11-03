@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import {
   Language,
   ProvinceOrTerritory,
@@ -250,6 +249,7 @@ export const me: GraphQLRequestFunc<User> = async (ctx) => {
     .then((res: GraphQLResponse<"me", User>) => res.me);
 };
 
+// eslint-disable-next-line camelcase
 const Test_DeleteUser = /* GraphQL */ `
   mutation Test_DeleteUser($id: ID!) {
     deleteUser(id: $id) {
