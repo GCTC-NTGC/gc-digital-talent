@@ -28,7 +28,7 @@ const root = tv({
   variants: {
     mode: {
       inline: "border",
-      card: "bg-white shadow-xl dark:bg-gray-600",
+      card: "bg-white text-gray-700 shadow-xl dark:bg-gray-600 dark:text-gray-100",
     },
     color: {
       gray: "",
