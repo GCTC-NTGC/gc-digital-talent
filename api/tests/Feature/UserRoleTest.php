@@ -29,7 +29,6 @@ class UserRoleTest extends TestCase
     {
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
-        $this->bootRefreshesSchemaCache();
 
         $this->baseUser = User::factory()
             ->asApplicant()

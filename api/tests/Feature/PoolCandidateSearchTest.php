@@ -48,8 +48,6 @@ class PoolCandidateSearchTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->seed([RolePermissionSeeder::class,  DepartmentSeeder::class]);
 
-        $this->bootRefreshesSchemaCache();
-
         $this->community = Community::factory()->create();
         $this->pool = Pool::factory()
             ->withAssessments()

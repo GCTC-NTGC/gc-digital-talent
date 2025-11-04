@@ -34,7 +34,6 @@ class WorkExperienceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->bootRefreshesSchemaCache();
         $this->withoutExceptionHandling();
         $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);

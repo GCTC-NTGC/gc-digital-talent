@@ -50,7 +50,6 @@ class UserTest extends TestCase
     {
         parent::setUp();
         Notify::spy(); // don't send any notifications
-        $this->bootRefreshesSchemaCache();
         // Run necessary seeders
         $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);
