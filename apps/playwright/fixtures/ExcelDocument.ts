@@ -1,27 +1,40 @@
-import fs from "node:fs/promises";
-
-import { Page } from "@playwright/test";
-import mammoth from "mammoth";
+import * as ExcelJS from "exceljs";
 
 /**
- * Word document
+ * Excel document
  *
  * Page containing utilities for interacting with a word document
  */
-class WordDocument {
-  public readonly page: Page;
+class ExcelDocument {
+  async getContents(path: string) {
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.readFile(path);
 
-  constructor(public readonly newPage: Page) {
-    this.page = newPage;
-  }
+    const data: Record<string, object>[] = [];
+    const headers: string[] = [];
 
-  async setContent(path: string) {
-    const html = await mammoth
-      .convertToHtml({ path })
-      .then((result) => result.value);
+    const worksheet = workbook.getWorksheet(1);
 
-    await this.page.setContent(html);
+    if (worksheet) {
+      // Get headers from the first row
+      worksheet.getRow(1).eachCell((cell) => {
+        headers.push(cell.text);
+      });
+
+      worksheet.eachRow((row, rowNumber) => {
+        // Skip header row
+        if (rowNumber > 1) {
+          const rowData = {};
+          row.eachCell((cell, colNumber) => {
+            rowData[headers[colNumber - 1]] = cell.text;
+          });
+          data.push(rowData);
+        }
+      });
+    }
+
+    return data;
   }
 }
 
-export default WordDocument;
+export default ExcelDocument;
