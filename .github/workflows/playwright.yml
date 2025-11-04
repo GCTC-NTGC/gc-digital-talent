@@ -83,6 +83,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium webkit --with-deps
 
+      - name: Start queue for downloads
+        run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work" &
+
       - name: Run Tests
         run: pnpm run e2e:playwright --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - uses: actions/upload-artifact@v5
