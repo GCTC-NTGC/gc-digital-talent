@@ -12,6 +12,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
+import ExcelDocument from "~/fixtures/ExcelDocument";
 import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import WordDocument from "~/fixtures/WordDocument";
 import { createAndSubmitApplication } from "~/utils/applications";
@@ -112,7 +113,30 @@ test.describe("Application download", () => {
     // eslint-disable-next-line playwright/no-conditional-in-test
     const name = user.firstName ?? "Failed test, no user name";
 
-    await expect(doc.page.getByRole("heading", { name: new RegExp(name, "i") })).toBeVisible();
-    await expect(doc.page.getByText(new RegExp(`signed: ${name} signature`, "i"))).toBeVisible();
+    await expect(
+      doc.page.getByRole("heading", { name: new RegExp(name, "i") }),
+    ).toBeVisible();
+    await expect(
+      doc.page.getByText(new RegExp(`signed: ${name} signature`, "i")),
+    ).toBeVisible();
+  });
+
+  test("Verify profile excel contents", async ({ appPage }) => {
+    const candidatePage = new PoolCandidatePage(appPage.page);
+    await loginBySub(candidatePage.page, "admin@test.com");
+
+    // eslint-disable-next-line playwright/no-conditional-in-test
+    const name = user.firstName ?? "Failed test, no user name";
+
+    await candidatePage.searchForCandidate(name);
+
+    const path = await candidatePage.downloadProfileExcel();
+
+    const excel = new ExcelDocument();
+    const data = await excel.getContents(path);
+
+    console.log(data);
+
+    expect(data).toContain(name);
   });
 });
