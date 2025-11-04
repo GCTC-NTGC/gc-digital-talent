@@ -12,14 +12,14 @@ class PoolCandidatePage extends AppPage {
 
   async downloadApplication() {
     const downloadPromise = this.page.waitForEvent("download");
-    await this.page.getByRole("button", { name: /download/i }).click();
+    await this.page.getByRole("button", { name: /download/i }).first().click();
     await this.page
       .getByRole("menuitem", { name: /download application/i })
       .click();
 
     const download = await downloadPromise;
 
-    const path = "/tmp" + download.suggestedFilename();
+    const path = "/tmp/" + download.suggestedFilename();
 
     // Wait for the download process to complete and save the downloaded file somewhere.
     await download.saveAs(path);
