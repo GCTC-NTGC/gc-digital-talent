@@ -1,5 +1,3 @@
-import fs from "node:fs/promises";
-
 import { Page } from "@playwright/test";
 import mammoth from "mammoth";
 
