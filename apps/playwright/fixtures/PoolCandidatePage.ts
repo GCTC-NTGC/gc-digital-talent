@@ -31,7 +31,8 @@ class PoolCandidatePage extends AppPage {
   ): Promise<string> {
     const download = await downloadPromise;
 
-    const path = "/tmp/" + download.suggestedFilename();
+    const name = download.suggestedFilename();
+    const path = "/tmp/" + name;
 
     // Wait for the download process to complete and save the downloaded file somewhere.
     await download.saveAs(path);
@@ -48,7 +49,14 @@ class PoolCandidatePage extends AppPage {
     await this.page
       .getByRole("menuitem", { name: /download profiles excel/i })
       .click();
+
+    const now = new Date()
+    const today = now.toISOString().split('T')[0];
+
+    await this.page.getByRole("button", { name: /view notifications/i }).click();
+    await this.page.getByRole("link", { name: new RegExp(`profiles_${today}`, "i") }).first().click();
     return await this.resolveDownloadPromise(downloadPromise);
+
   }
 
   async downloadApplication() {
