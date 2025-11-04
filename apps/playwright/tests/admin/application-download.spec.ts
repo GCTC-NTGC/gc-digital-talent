@@ -130,7 +130,10 @@ test.describe("Application download", () => {
     const name = user.firstName ?? "Failed test, no user name";
 
     await candidatePage.searchForCandidate(name);
-    await candidatePage.page.getByRole("button", { name: new RegExp(`select ${name}`, "i") }).first().click();
+    await candidatePage.page
+      .getByRole("button", { name: new RegExp(`select ${name}`, "i") })
+      .first()
+      .click();
 
     const path = await candidatePage.downloadProfileExcel();
 
@@ -138,7 +141,6 @@ test.describe("Application download", () => {
     const data = await excel.getContents(path);
 
     const firstNames = data.map((profile) => profile["First name"]);
-
 
     expect(firstNames).toEqual([name]);
   });
