@@ -8,6 +8,7 @@ use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
 use App\Models\User;
+use App\Utilities\PostgresTextSearch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -818,6 +819,34 @@ class UserBuilder extends Builder
                     }
                 }
             });
+
+        }
+
+        return $this;
+    }
+
+    public function whereGeneralSearchBeta(?string $searchTerm): self
+    {
+        if ($searchTerm) {
+            $queryText = PostgresTextSearch::searchStringToQueryText($searchTerm);
+
+            $this
+                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
+                // attach the tsquery to every row to use for filtering
+                ->crossJoinSub(function ($query) use ($queryText) {
+                    $query->selectRaw(
+                        'to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
+                        ['english', $queryText]
+                    );
+                }, 'calculations')
+                // filter rows against the tsquery
+                ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
+                // add the calculated rank column to allow for ordering by text search rank
+                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS search_rank'))
+                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
+                ->addSelect(['users.*'])
+                ->from('users')
+                ->orderByDesc('search_rank');
 
         }
 

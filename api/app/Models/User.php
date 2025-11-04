@@ -17,7 +17,6 @@ use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
-use App\Utilities\PostgresTextSearch;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -35,7 +34,6 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
@@ -997,33 +995,5 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 return $updatedAttributes;
             }
         );
-    }
-
-    public static function scopeWhereGeneralSearchBeta(Builder $query, ?string $searchTerm): Builder
-    {
-        if ($searchTerm) {
-            $queryText = PostgresTextSearch::searchStringToQueryText($searchTerm);
-
-            $query
-                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
-                // attach the tsquery to every row to use for filtering
-                ->crossJoinSub(function ($query) use ($queryText) {
-                    $query->selectRaw(
-                        'to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
-                        ['english', $queryText]
-                    );
-                }, 'calculations')
-                // filter rows against the tsquery
-                ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
-                // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS search_rank'))
-                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-                ->addSelect(['users.*'])
-                ->from('users')
-                ->orderByDesc('search_rank');
-
-        }
-
-        return $query;
     }
 }
