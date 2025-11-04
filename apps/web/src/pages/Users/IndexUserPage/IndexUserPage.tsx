@@ -1,8 +1,10 @@
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import BeakerIcon from "@heroicons/react/16/solid/BeakerIcon";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Checkbox } from "@gc-digital-talent/forms";
+import { Heading, Well } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -24,8 +26,8 @@ export const subTitle = defineMessage({
 export const IndexUserPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const methods = useForm<{ newSearch: boolean }>();
-  const isNewSearchChecked = methods.watch("newSearch");
+  const methods = useForm<{ oldSearch: boolean }>();
+  const isOldSearchChecked = methods.watch("oldSearch");
 
   const formattedPageTitle = intl.formatMessage(pageTitles.users);
   const formattedSubTitle = intl.formatMessage(subTitle);
@@ -48,20 +50,38 @@ export const IndexUserPage = () => {
         crumbs={navigationCrumbs}
       />
       <AdminContentWrapper table>
-        <FormProvider {...methods}>
-          <form className="mb-6">
-            <Checkbox
-              id="newSearch"
-              label={intl.formatMessage({
-                defaultMessage: "New search",
-                id: "yRtJNi",
-                description: "Try the new search",
-              })}
-              name={"newSearch"}
-            />
-          </form>
-        </FormProvider>
-        <UserTable title={formattedPageTitle} newSearch={isNewSearchChecked} />
+        <UserTable title={formattedPageTitle} newSearch={!isOldSearchChecked} />
+
+        <Well className="mt-18">
+          <FormProvider {...methods}>
+            <form>
+              <Heading icon={BeakerIcon} size="h6" className="mt-0">
+                {intl.formatMessage({
+                  defaultMessage: "Testing a new table search",
+                  id: "wqzCx3",
+                  description: "Title for a note around testing new search",
+                })}
+              </Heading>
+              <p className="mb-4.5">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This table has changed. We are testing a new algorithm to find and display better results. Let us know if you encounter any problems with his table.",
+                  id: "v1yZ/G",
+                  description: "Body of a note around testing new search",
+                })}
+              </p>
+              <Checkbox
+                id="oldSearch"
+                label={intl.formatMessage({
+                  defaultMessage: "Use the old table search",
+                  id: "DDnn7i",
+                  description: "Check box to toggle new search",
+                })}
+                name={"oldSearch"}
+              />
+            </form>
+          </FormProvider>
+        </Well>
       </AdminContentWrapper>
     </>
   );
