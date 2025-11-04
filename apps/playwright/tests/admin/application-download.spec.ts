@@ -40,6 +40,7 @@ test.describe("Application download", () => {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
+        firstName: sub,
         sub,
         currentProvince: ProvinceOrTerritory.Alberta,
         currentCity: "Test city",
@@ -129,13 +130,12 @@ test.describe("Application download", () => {
     const name = user.firstName ?? "Failed test, no user name";
 
     await candidatePage.searchForCandidate(name);
+    await candidatePage.page.getByRole("button", { name: new RegExp(`select ${name}`, "i") }).first().click();
 
     const path = await candidatePage.downloadProfileExcel();
 
     const excel = new ExcelDocument();
     const data = await excel.getContents(path);
-
-    console.log(data);
 
     expect(data).toContain(name);
   });
