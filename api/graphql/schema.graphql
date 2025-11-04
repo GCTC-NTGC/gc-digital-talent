@@ -522,7 +522,7 @@ type Pool implements HasRoleAssignments {
   closingReason: String @rename(attribute: "closing_reason")
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
-  isComplete: Boolean
+  isComplete: Boolean @rename(attribute: "is_complete")
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany

@@ -10,7 +10,6 @@ use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
-use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -55,6 +54,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $work_stream_id
  * @property ?string $area_of_selection
  * @property array $selection_limitations
+ * @property bool $is_remote
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property ?\Illuminate\Support\Carbon $closing_date
@@ -112,6 +112,38 @@ class Pool extends Model
         'closing_reason',
         'archived_at',
         'contact_email',
+    ];
+
+    protected $completenessRequirements = [
+        'fields' => [
+            'name',
+            'opportunity_length',
+            'closing_date',
+            'advertisement_language',
+            'security_clearance',
+            'publishing_group',
+            'area_of_selection',
+            'contact_email',
+            'key_tasks',
+            'your_impact',
+            'classification_id',
+            'department_id',
+            'work_stream_id',
+        ],
+
+        'booleans' => [
+            'is_remote',
+        ],
+
+        'bilingual' => [
+            'name',
+            'your_impact',
+            'key_tasks',
+            'advertisement_location',
+            'special_note',
+            'about_us',
+            'what_to_expect_admission',
+        ],
     ];
 
     /**
@@ -354,24 +386,6 @@ class Pool extends Model
         return PoolStatus::DRAFT->name;
     }
 
-    // is the pool considered "complete"
-    public function getIsCompleteAttribute()
-    {
-        $pool = $this->load(['classification', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);
-
-        $poolCompleteValidation = new PoolIsCompleteValidator;
-        $validator = Validator::make($pool->toArray(),
-            $poolCompleteValidation->rules(),
-            $poolCompleteValidation->messages()
-        );
-
-        if ($validator->fails()) {
-            return false;
-        }
-
-        return true;
-    }
-
     // is the assessment plan for the pool considered "complete"
     public function getAssessmentPlanIsCompleteAttribute()
     {
@@ -480,5 +494,82 @@ class Pool extends Model
         return $classification
             ? $classification.$dividingColon.$name
             : $name;
+    }
+
+    // is the pool considered "complete"
+    public function isComplete(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->passesAllCompletenessChecks()
+        );
+    }
+
+    /**
+     * Check completeness of all required fields
+     */
+    protected function passesAllCompletenessChecks(): bool
+    {
+        return $this->hasAllRequiredFields()
+            && $this->hasAllRequiredBooleans()
+            && $this->hasCompleteBilingualFields()
+            && $this->hasEssentialSkills()
+            && $this->hasPoolSkillLevels()
+            && $this->hasRequiredLocation();
+    }
+
+    protected function hasAllRequiredFields(): bool
+    {
+        foreach ($this->completenessRequirements['fields'] as $field) {
+            if (blank($this->{$field})) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected function hasAllRequiredBooleans(): bool
+    {
+        foreach ($this->completenessRequirements['booleans'] as $field) {
+            if (! array_key_exists($field, $this->attributes)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected function hasCompleteBilingualFields(): bool
+    {
+        foreach ($this->completenessRequirements['bilingual'] as $field) {
+            $value = $this->{$field};
+
+            if (! is_array($value)) {
+                continue;
+            }
+
+            if (empty($value['en']) || empty($value['fr'])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected function hasEssentialSkills(): bool
+    {
+        return $this->essentialSkills->isNotEmpty();
+    }
+
+    protected function hasPoolSkillLevels(): bool
+    {
+        return $this->poolSkills->every(
+            fn ($skill) => filled($skill->required_skill_level)
+        );
+    }
+
+    protected function hasRequiredLocation(): bool
+    {
+        return $this->is_remote || filled($this->advertisement_location);
     }
 }
