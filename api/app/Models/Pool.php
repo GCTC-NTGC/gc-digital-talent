@@ -548,7 +548,10 @@ class Pool extends Model
                 continue;
             }
 
-            if (empty($value['en']) || empty($value['fr'])) {
+            if (
+                (empty($value['en']) && ! empty($value['fr'])) ||
+                (! empty($value['en']) && empty($value['fr']))
+            ) {
                 return false;
             }
         }
