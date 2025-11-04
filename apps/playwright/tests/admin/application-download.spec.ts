@@ -109,6 +109,10 @@ test.describe("Application download", () => {
     const doc = new WordDocument(appPage.page);
     await doc.setContent(path);
 
-    await expect(doc.page.getByText(user?.firstName ?? "N/A")).toBeVisible();
+    // eslint-disable-next-line playwright/no-conditional-in-test
+    const name = user.firstName ?? "Failed test, no user name";
+
+    await expect(doc.page.getByRole("heading", { name: new RegExp(name, "i") })).toBeVisible();
+    await expect(doc.page.getByText(new RegExp(`signed: ${name} signature`, "i"))).toBeVisible();
   });
 });
