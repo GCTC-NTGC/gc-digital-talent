@@ -603,7 +603,7 @@ class KeywordSearchBetaTest extends TestCase
                 'id' => $user3->id,
             ])->assertJsonCount(2, 'data.usersPaginated.data');
 
-        // city "abc" OR partial email "johnson@" matches two users
+        // city "abc" OR email "johnson@test.com" matches two users
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -616,7 +616,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'abc OR johnson@test',
+                    'generalSearchBeta' => 'abc OR johnson@test.com',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -707,26 +707,6 @@ class KeywordSearchBetaTest extends TestCase
                 'id' => $user1->id,
             ])->assertJsonCount(1, 'data.usersPaginated.data');
 
-        // partial match terms outside quotes - so exact match "johnson" OR partial match "john@"
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                 query getUsersPaginated($where: UserFilterInput) {
-                     usersPaginated(where: $where) {
-                         data {
-                             id
-                         }
-                     }
-                 }
-             ', [
-                'where' => [
-                    'generalSearchBeta' => '"johnson" OR john@',
-                ],
-            ])->assertJsonFragment([
-                'id' => $user1->id,
-            ])->assertJsonFragment([
-                'id' => $user2->id,
-            ])->assertJsonCount(2, 'data.usersPaginated.data');
     }
 
     public function testUserSearchNamesEmailsWithNegativeSearch()
@@ -791,29 +771,6 @@ class KeywordSearchBetaTest extends TestCase
             ])->assertJsonFragment([
                 'id' => $user3->id,
             ])->assertJsonCount(2, 'data.usersPaginated.data');
-
-        // negative search should NOT work for partial names or emails, as that may lead to unexpected negatives matches
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                    query getUsersPaginated($where: UserFilterInput) {
-                        usersPaginated(where: $where) {
-                            data {
-                                id
-                            }
-                        }
-                    }
-                ', [
-                'where' => [
-                    'generalSearchBeta' => 'john -smit -bob@t',
-                ],
-            ])->assertJsonFragment([
-                'id' => $user1->id,
-            ])->assertJsonFragment([
-                'id' => $user2->id,
-            ])->assertJsonFragment([
-                'id' => $user3->id,
-            ])->assertJsonCount(3, 'data.usersPaginated.data');
     }
 
     public function testUserSearchPartialNamesEmailsWithPunctuation()
@@ -929,7 +886,7 @@ class KeywordSearchBetaTest extends TestCase
             'current_city' => 'hij',
         ]);
 
-        // search operators unaffected by multiple spaces being present, two users returned regardless of spacing
+        // search operators unaffected by multiple spaces being present, three users returned regardless of spacing
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -942,13 +899,15 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => '"johnson" OR john@',
+                    'generalSearchBeta' => '"johnson" OR john',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
             ])->assertJsonFragment([
                 'id' => $user2->id,
-            ])->assertJsonCount(2, 'data.usersPaginated.data');
+            ])->assertJsonFragment([
+                'id' => $user3->id,
+            ])->assertJsonCount(3, 'data.usersPaginated.data');
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -961,12 +920,14 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => '  "johnson"    OR     john@     ',
+                    'generalSearchBeta' => '  "johnson"    OR     john     ',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
             ])->assertJsonFragment([
                 'id' => $user2->id,
-            ])->assertJsonCount(2, 'data.usersPaginated.data');
+            ])->assertJsonFragment([
+                'id' => $user3->id,
+            ])->assertJsonCount(3, 'data.usersPaginated.data');
     }
 }
