@@ -9,7 +9,7 @@ import AppPage from "./AppPage";
  */
 class PoolCandidatePage extends AppPage {
   async goToIndex() {
-    await this.page.goto("/en/admin/candidates");
+    await this.page.goto("/en/admin/pool-candidates");
   }
 
   async toGoCandidate(id: string) {
