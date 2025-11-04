@@ -23,22 +23,14 @@ class PostgresTextSearch
     // convert a search string to a node in an abstract syntax tree, called recursively
     private static function searchStringToNode(string $s, string $termJoiner = ' & '): array
     {
-        // if there is a quoted string, break that into "before", "quoted", and "after" search strings for conversion
-        $result = preg_match('/".*?"/', $s, $matches, PREG_OFFSET_CAPTURE);
-        if ($result == 1) {
-            $matchText = $matches[0][0];
-            $matchIndex = $matches[0][1];
-
-            $stringBefore = substr($s, 0, $matchIndex);
-            $quotedString = substr($s, $matchIndex + 1, strlen($matchText) - 2); // +1 to start after the opening quote, -2 to trim the length of the opening and closing quotes
-            $stringAfter = substr($s, $matchIndex + strlen($matchText));
-
+        // if there's an OR, split on that for conversion
+        $index = stripos($s, ' or ');
+        if ($index !== false) {
             return [
-                'join' => ' & ',
+                'join' => ' | ',
                 'nodes' => [
-                    self::searchStringToNode($stringBefore),
-                    self::searchStringToNode($quotedString, ' <-> '), // quoted strings use the 'followed by' operator
-                    self::searchStringToNode($stringAfter),
+                    self::searchStringToNode(substr($s, 0, $index)),
+                    self::searchStringToNode(substr($s, $index + strlen(' or '))),
                 ],
             ];
         }
@@ -55,14 +47,22 @@ class PostgresTextSearch
             ];
         }
 
-        // if there's an OR, split on that for conversion
-        $index = stripos($s, ' or ');
-        if ($index !== false) {
+        // if there is a quoted string, break that into "before", "quoted", and "after" search strings for conversion
+        $result = preg_match('/".*?"/', $s, $matches, PREG_OFFSET_CAPTURE);
+        if ($result == 1) {
+            $matchText = $matches[0][0];
+            $matchIndex = $matches[0][1];
+
+            $stringBefore = substr($s, 0, $matchIndex);
+            $quotedString = substr($s, $matchIndex + 1, strlen($matchText) - 2); // +1 to start after the opening quote, -2 to trim the length of the opening and closing quotes
+            $stringAfter = substr($s, $matchIndex + strlen($matchText));
+
             return [
-                'join' => ' | ',
+                'join' => ' & ',
                 'nodes' => [
-                    self::searchStringToNode(substr($s, 0, $index)),
-                    self::searchStringToNode(substr($s, $index + strlen(' or '))),
+                    self::searchStringToNode($stringBefore),
+                    self::searchStringToNode($quotedString, ' <-> '), // quoted strings use the 'followed by' operator
+                    self::searchStringToNode($stringAfter),
                 ],
             ];
         }

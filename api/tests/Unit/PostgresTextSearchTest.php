@@ -48,6 +48,10 @@ class PostgresTextSearchTest extends TestCase
                 'searchString' => ' term1 "term2 term3"   "term4 term5" term6',
                 'expectedOutput' => 'term1:* & term2:* <-> term3:* & term4:* <-> term5:* & term6:*',
             ],
+            'quote followed by or' => [
+                'searchString' => '"term1" OR term2',
+                'expectedOutput' => 'term1:* | term2:*',
+            ],
         ];
     }
 }
