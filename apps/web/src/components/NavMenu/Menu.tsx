@@ -32,9 +32,11 @@ import {
 import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
+import authMessages from "~/messages/authMessages";
 
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
+import NavItem from "./MenuItem";
 import MenuSeparator from "./MenuSeparator";
 
 export const borderItem = tv({
@@ -62,9 +64,18 @@ interface MenuProps {
     | ReactElement<NavItemProps>
     | ReactElement<NavItemProps>[]
     | null;
+  authParams?: string;
+  notificationItem?: ReactNode;
 }
 
-const Menu = ({ children, label, homeLink }: MenuProps) => {
+const Menu = ({
+  children,
+  label,
+  homeLink,
+  authParams,
+  accountLinks,
+  notificationItem,
+}: MenuProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -169,7 +180,56 @@ const Menu = ({ children, label, homeLink }: MenuProps) => {
                   </div>
 
                   <MenuSeparator orientation="horizontal" />
-                  {children}
+                  <div className="flex w-full flex-col sm:flex-row sm:items-center sm:justify-between">
+                    <NavMenu.List
+                      type="main"
+                      className="flex flex-col sm:flex-row sm:items-center"
+                    >
+                      {children}
+                    </NavMenu.List>
+
+                    <NavMenu.List
+                      type="main"
+                      className="flex flex-col sm:flex-row sm:items-center"
+                    >
+                      {accountLinks && (
+                        <NavMenu.Item>
+                          <NavMenu.Trigger
+                            color={isSmallScreen ? "black" : "white"}
+                            fixedColor={!isSmallScreen}
+                            block={false}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage: "Your account",
+                              id: "CBedVL",
+                              description:
+                                "Nav menu trigger for account links sub menu",
+                            })}
+                          </NavMenu.Trigger>
+                          <NavMenu.Content>
+                            <NavMenu.List>{accountLinks}</NavMenu.List>
+                          </NavMenu.Content>
+                        </NavMenu.Item>
+                      )}
+
+                      {notificationItem}
+
+                      {!loggedIn ? (
+                        <>
+                          <NavItem
+                            key="signIn"
+                            href={`${paths.login()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.signIn)}
+                          />
+                          <NavItem
+                            key="signUp"
+                            href={`${paths.register()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.signUp)}
+                          />
+                        </>
+                      ) : null}
+                    </NavMenu.List>
+                  </div>
                 </Container>
               </NavMenu.Root>
             ) : null}
