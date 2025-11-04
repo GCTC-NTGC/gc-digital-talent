@@ -137,6 +137,9 @@ test.describe("Application download", () => {
     const excel = new ExcelDocument();
     const data = await excel.getContents(path);
 
-    expect(data).toContain(name);
+    const firstNames = data.map((profile) => profile["First name"]);
+
+
+    expect(firstNames).toEqual([name]);
   });
 });
