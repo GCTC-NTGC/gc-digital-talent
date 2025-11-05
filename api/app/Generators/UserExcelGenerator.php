@@ -322,7 +322,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'name' => 'whereName',
             'generalSearch' => 'whereGeneralSearch',
             'roles' => 'whereRoleIn',
-            'skills' => 'skillsAdditive',
 
             // Applicant filter input renames
             'equity' => 'whereEquityIn',
