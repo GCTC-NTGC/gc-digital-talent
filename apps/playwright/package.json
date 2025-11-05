@@ -14,14 +14,18 @@
     "lint:fix": "eslint ./ --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "tsc": "tsc --project tsconfig.json --noEmit"
+    "tsc": "tsc --project tsconfig.json --noEmit",
+    "test-ct": "pnpm exec playwright test -c playwright-ct.config.ts"
   },
   "devDependencies": {
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
+    "@gc-digital-talent/ui": "workspace:*",
+    "@playwright/experimental-ct-react": "^1.56.1",
     "@playwright/test": "^1.55.1",
+    "@tailwindcss/vite": "^4.1.16",
     "@types/node": "^24.9.2",
     "axe-core": "^4.11.0",
     "dotenv": "^17.2.3",
@@ -30,7 +34,8 @@
     "exceljs": "^4.4.0",
     "mammoth": "^1.2.5",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.2"
+    "typescript-eslint": "^8.46.2",
+    "@vitejs/plugin-react": "^5.1.0"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0"

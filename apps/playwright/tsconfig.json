@@ -15,6 +15,7 @@
   "include": [
     "eslint.config.mjs",
     "playwright.config.ts",
+    "playwright-ct.config.ts",
     "constants",
     "fixtures",
     "tests",
