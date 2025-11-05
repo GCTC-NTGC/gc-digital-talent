@@ -44,7 +44,6 @@ class SkillFamilyTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
-        $this->bootRefreshesSchemaCache();
 
         $this->community = Community::factory()->create(['name' => 'test-team']);
         $this->teamPool = Pool::factory()->create([
