@@ -313,8 +313,28 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         ]);
 
         $this->applyFilters($query, [
-            'roles' => 'roleAssignments',
-            'skills' => 'skillsAdditive',
+            'poolFilters' => 'wherePoolExists',
+            'isProfileComplete' => 'whereProfileComplete',
+            'isGovEmployee' => 'whereIsGovEmployee',
+            'telephone' => 'whereTelephone',
+            'email' => 'whereEmail',
+            'workEmail' => 'whereWorkEmail',
+            'name' => 'whereName',
+            'generalSearch' => 'whereGeneralSearch',
+            'roles' => 'whereRoleIn',
+
+            // Applicant filter input renames
+            'equity' => 'whereEquityIn',
+            'hasDiploma' => 'whereHasDiploma',
+            'languageAbility' => 'whereLanguageAbility',
+            'operationalRequirements' => 'whereOperationalRequirementsIn',
+            'positionDuration' => 'wherePositionDurationIn',
+            'pools' => 'whereAvailableInPools',
+            'skills' => 'whereSkillsAdditive',
+            'skillsIntersectional' => 'whereSkillsIntersectional',
+            'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
+            'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
+            'community' => 'whereCandidatesInCommunity',
         ]);
 
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
