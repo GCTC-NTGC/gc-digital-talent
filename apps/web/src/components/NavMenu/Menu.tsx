@@ -214,38 +214,48 @@ const Menu = ({
 
                   <MenuSeparator orientation="horizontal" />
 
-                  <NavMenu.List type="main">
-                    {accountLinks}
-                    {loggedIn && (
-                      <>
-                        <NavMenu.Item
-                          className={borderItem({
-                            borderLeft: true,
-                            class: "hidden before:mr-3 sm:inline-flex",
-                          })}
-                        >
-                          <NotificationDialog
-                            open={isNotificationDialogOpen}
-                            onOpenChange={setNotificationDialogOpen}
+                  <div
+                    role="group"
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Account & Notifications navigation",
+                      id: "lY1LIh" /*  TODO: translate & update default message */,
+                      description:
+                        "Label for the account & notifications navigation",
+                    })}
+                  >
+                    <NavMenu.List type="main">
+                      {accountLinks}
+                      {loggedIn && (
+                        <>
+                          <NavMenu.Item
+                            className={borderItem({
+                              borderLeft: true,
+                              class: "hidden before:mr-3 sm:inline-flex",
+                            })}
+                          >
+                            <NotificationDialog
+                              open={isNotificationDialogOpen}
+                              onOpenChange={setNotificationDialogOpen}
+                            />
+                          </NavMenu.Item>
+                        </>
+                      )}
+                      {!loggedIn ? (
+                        <>
+                          <NavItem
+                            key="signIn"
+                            href={`${paths.login()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.signIn)}
                           />
-                        </NavMenu.Item>
-                      </>
-                    )}
-                    {!loggedIn ? (
-                      <>
-                        <NavItem
-                          key="signIn"
-                          href={`${paths.login()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signIn)}
-                        />
-                        <NavItem
-                          key="signUp"
-                          href={`${paths.register()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signUp)}
-                        />
-                      </>
-                    ) : null}
-                  </NavMenu.List>
+                          <NavItem
+                            key="signUp"
+                            href={`${paths.register()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.signUp)}
+                          />
+                        </>
+                      ) : null}
+                    </NavMenu.List>
+                  </div>
                 </Container>
               </NavMenu.Root>
             ) : null}
