@@ -14,6 +14,7 @@ import {
   graphql,
   WorkRegion,
   AssessmentStep,
+  FinalDecision,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -182,6 +183,13 @@ export type PoolCandidateFilterDialogProps =
       | null;
   };
 
+const finalDecisionStatusesToFilterOut: FinalDecision[] = [
+  FinalDecision.QualifiedExpired,
+  FinalDecision.QualifiedPlaced,
+  FinalDecision.DisqualifiedRemoved,
+  FinalDecision.ToAssessRemoved,
+];
+
 const PoolCandidateFilterDialog = ({
   query,
   onSubmit,
@@ -301,10 +309,15 @@ const PoolCandidateFilterDialog = ({
           options={narrowEnumType(
             unpackMaybes(data?.finalDecisions),
             "FinalDecision",
-          ).map((finalDecision) => ({
-            value: finalDecision.value,
-            label: finalDecision.label?.localized ?? notAvailable,
-          }))}
+          )
+            .filter(
+              (finalDecision) =>
+                !finalDecisionStatusesToFilterOut.includes(finalDecision.value),
+            )
+            .map((finalDecision) => ({
+              value: finalDecision.value,
+              label: finalDecision.label?.localized ?? notAvailable,
+            }))}
         />
         {assessmentSteps.length > 0 && (
           <Combobox
