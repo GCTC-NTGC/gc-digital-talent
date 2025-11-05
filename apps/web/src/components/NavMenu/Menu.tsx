@@ -65,16 +65,14 @@ interface MenuProps {
     | ReactElement<NavItemProps>[]
     | null;
   authParams?: string;
-  notificationItem?: ReactNode;
 }
 
 const Menu = ({
   children,
   label,
   homeLink,
-  authParams,
   accountLinks,
-  notificationItem,
+  authParams,
 }: MenuProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -180,56 +178,45 @@ const Menu = ({
                   </div>
 
                   <MenuSeparator orientation="horizontal" />
-                  <div className="flex w-full flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <NavMenu.List
-                      type="main"
-                      className="flex flex-col sm:flex-row sm:items-center"
-                    >
-                      {children}
-                    </NavMenu.List>
 
-                    <NavMenu.List
-                      type="main"
-                      className="flex flex-col sm:flex-row sm:items-center"
-                    >
-                      {accountLinks && (
-                        <NavMenu.Item>
-                          <NavMenu.Trigger
-                            color={isSmallScreen ? "black" : "white"}
-                            fixedColor={!isSmallScreen}
-                            block={false}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage: "Your account",
-                              id: "CBedVL",
-                              description:
-                                "Nav menu trigger for account links sub menu",
-                            })}
-                          </NavMenu.Trigger>
-                          <NavMenu.Content>
-                            <NavMenu.List>{accountLinks}</NavMenu.List>
-                          </NavMenu.Content>
-                        </NavMenu.Item>
-                      )}
-
-                      {notificationItem}
-
-                      {!loggedIn ? (
-                        <>
-                          <NavItem
-                            key="signIn"
-                            href={`${paths.login()}${authParams ?? ""}`}
-                            title={intl.formatMessage(authMessages.signIn)}
-                          />
-                          <NavItem
-                            key="signUp"
-                            href={`${paths.register()}${authParams ?? ""}`}
-                            title={intl.formatMessage(authMessages.signUp)}
-                          />
-                        </>
-                      ) : null}
-                    </NavMenu.List>
+                  <div className="flex flex-col sm:flex-row sm:items-center">
+                    {children}
                   </div>
+
+                  <MenuSeparator orientation="horizontal" />
+
+                  <NavMenu.List type="main">
+                    {accountLinks}
+                    {loggedIn && (
+                      <>
+                        <NavMenu.Item
+                          className={borderItem({
+                            borderLeft: true,
+                            class: "hidden before:mr-3 sm:inline-flex",
+                          })}
+                        >
+                          <NotificationDialog
+                            open={isNotificationDialogOpen}
+                            onOpenChange={setNotificationDialogOpen}
+                          />
+                        </NavMenu.Item>
+                      </>
+                    )}
+                    {!loggedIn ? (
+                      <>
+                        <NavItem
+                          key="signIn"
+                          href={`${paths.login()}${authParams ?? ""}`}
+                          title={intl.formatMessage(authMessages.signIn)}
+                        />
+                        <NavItem
+                          key="signUp"
+                          href={`${paths.register()}${authParams ?? ""}`}
+                          title={intl.formatMessage(authMessages.signUp)}
+                        />
+                      </>
+                    ) : null}
+                  </NavMenu.List>
                 </Container>
               </NavMenu.Root>
             ) : null}

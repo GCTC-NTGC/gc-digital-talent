@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { useState } from "react";
 
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { NavMenu } from "@gc-digital-talent/ui";
@@ -13,9 +12,7 @@ import useMainNavLinks from "./useMainNavLinks";
 import navMenuMessages from "./messages";
 import Menu, { borderItem } from "./Menu";
 import MenuSeparator from "./MenuSeparator";
-import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import HomeLink from "./HomeLink";
-import { useAuthentication } from "@gc-digital-talent/auth";
 
 const MainNavMenu = () => {
   const intl = useIntl();
@@ -23,8 +20,6 @@ const MainNavMenu = () => {
   const paths = useRoutes();
   const { navRole } = useNavContext();
   const { userAuthInfo } = useAuthorization();
-  const { loggedIn } = useAuthentication();
-  const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
 
   const { roleLinks, mainLinks, resourceLinks, accountLinks, systemSettings } =
     useMainNavLinks();
@@ -54,26 +49,30 @@ const MainNavMenu = () => {
 
   return (
     <Menu
-      accountLinks={accountLinks}
-      notificationItem={
-        loggedIn && (
-          <NavMenu.Item
-            className={borderItem({
-              borderLeft: true,
-              class: "hidden before:mr-3 sm:inline-flex",
-            })}
-          >
-            <NavMenu.Link href={paths.notifications()}>
-              <NotificationDialog
-                open={isNotificationDialogOpen}
-                onOpenChange={setNotificationDialogOpen}
-              />
-            </NavMenu.Link>
-          </NavMenu.Item>
+      accountLinks={
+        accountLinks && (
+          <>
+            <NavMenu.Item>
+              <NavMenu.Trigger
+                color={isSmallScreen ? "black" : "white"}
+                fixedColor={!isSmallScreen}
+                block={false}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Your account",
+                  id: "CBedVL",
+                  description: "Nav menu trigger for account links sub menu",
+                })}
+              </NavMenu.Trigger>
+              <NavMenu.Content>
+                <NavMenu.List>{accountLinks}</NavMenu.List>
+              </NavMenu.Content>
+            </NavMenu.Item>
+          </>
         )
       }
     >
-      <>
+      <NavMenu.List type="main">
         <HomeLink
           href={paths.home()}
           label={intl.formatMessage(navigationMessages.home)}
@@ -106,9 +105,11 @@ const MainNavMenu = () => {
             </NavMenu.Item>
           </>
         ) : null}
+      </NavMenu.List>
 
-        {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
+      {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
 
+      <NavMenu.List type="main">
         {mainLinks}
         {systemSettings && (
           <NavMenu.Item>
@@ -146,8 +147,9 @@ const MainNavMenu = () => {
             <NavMenu.List>{resourceLinks}</NavMenu.List>
           </NavMenu.Content>
         </NavMenu.Item>
-      </>
+      </NavMenu.List>
     </Menu>
   );
 };
+
 export default MainNavMenu;
