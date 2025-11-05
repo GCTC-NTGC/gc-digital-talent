@@ -2215,7 +2215,9 @@ input UpdateClassificationInput {
 }
 
 input UpdatePoolCandidateStatusInput {
-  expiryDate: Date @rename(attribute: "expiry_date")
+  expiryDate: Date
+    @rename(attribute: "expiry_date")
+    @rules(apply: ["after:today"])
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
