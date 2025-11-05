@@ -39,7 +39,6 @@ class AssessmentStepTest extends TestCase
     {
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
-        $this->bootRefreshesSchemaCache();
         $this->community = Community::factory()->create(['name' => 'test-community']);
         $this->pool = Pool::factory()->draft()->create([
             'community_id' => $this->community->id,

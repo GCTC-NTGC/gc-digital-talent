@@ -33,7 +33,6 @@ class ExperienceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->bootRefreshesSchemaCache();
         $this->withoutExceptionHandling();
         // Run necessary seeders
         $this->seed(ClassificationSeeder::class);
