@@ -208,7 +208,8 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
             'skillsIntersectional' => 'whereSkillsIntersectional',
             'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
             'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
-            'community' => 'whereCandidatesInCommunity', ]);
+            'community' => 'whereCandidatesInCommunity',
+        ]);
 
         /** @var Builder<PoolCandidate> $query */
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])->whereNotDraft();

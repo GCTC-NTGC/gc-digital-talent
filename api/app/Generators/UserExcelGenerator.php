@@ -323,6 +323,19 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'generalSearch' => 'whereGeneralSearch',
             'roles' => 'whereRoleIn',
             'skills' => 'skillsAdditive',
+
+            // Applicant filter input renames
+            'equity' => 'whereEquityIn',
+            'hasDiploma' => 'whereHasDiploma',
+            'languageAbility' => 'whereLanguageAbility',
+            'operationalRequirements' => 'whereOperationalRequirementsIn',
+            'positionDuration' => 'wherePositionDurationIn',
+            'pools' => 'whereAvailableInPools',
+            'skills' => 'whereSkillsAdditive',
+            'skillsIntersectional' => 'whereSkillsIntersectional',
+            'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
+            'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
+            'community' => 'whereCandidatesInCommunity',
         ]);
 
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
