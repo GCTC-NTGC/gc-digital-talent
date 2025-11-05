@@ -95,9 +95,38 @@ const Menu = ({
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
     if (event.key === "Escape") {
-      event.stopPropagation();
       setMenuOpen(false);
+      return;
     }
+
+    const nav = document.getElementById("main-nav");
+    // get all visible btns/links from nav
+    const navItems = Array.from(
+      nav?.querySelectorAll("button, a") || [],
+    ).filter(
+      (el) => el instanceof HTMLElement && el.offsetParent !== null,
+    ) as HTMLElement[];
+
+    if (!navItems.length) return;
+    // find index of focused element
+    const currentIndex = navItems.indexOf(
+      document.activeElement as HTMLElement,
+    );
+    // checks for arrow keys
+    const isNext = ["ArrowRight", "ArrowDown"].includes(event.key);
+    const isPrev = ["ArrowLeft", "ArrowUp"].includes(event.key);
+
+    if (!isNext && !isPrev) return;
+    event.preventDefault();
+    event.stopPropagation();
+    // calculate next index
+    const nextIndex = isNext
+      ? (currentIndex + 1) % navItems.length
+      : currentIndex > 0
+        ? currentIndex - 1
+        : navItems.length - 1;
+    // focus the element at next calculated index
+    navItems[nextIndex]?.focus();
   };
 
   useEffect(() => {
