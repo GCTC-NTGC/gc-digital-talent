@@ -827,9 +827,9 @@ class UserBuilder extends Builder
 
     public function whereGeneralSearchBeta(?string $searchTerm): self
     {
-        if ($searchTerm) {
-            $queryText = PostgresTextSearch::searchStringToQueryText($searchTerm);
+        $queryText = PostgresTextSearch::searchStringToQueryText($searchTerm);
 
+        if ($queryText) {
             $this
                 ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
                 // attach the tsquery to every row to use for filtering

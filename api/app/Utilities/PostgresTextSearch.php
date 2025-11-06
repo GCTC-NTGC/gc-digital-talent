@@ -8,6 +8,16 @@ use Illuminate\Support\Str;
 // https://www.postgresql.org/docs/current/textsearch-controls.html#TEXTSEARCH-PARSING-QUERIES
 class PostgresTextSearch
 {
+    public static $invalidPatterns =
+        '/'.
+        '^&'.'|'.       // & at the beginning
+        '&$'.'|'.       // & at the end
+        '^\|'.'|'.      // | at the beginning
+        '\|$'.'|'.      // | at the end
+        ':'.'|'.        // : anywhere
+        '(?!^)\!'.      // ! not at the beginning
+        '/';
+
     // convert a search string to query text
     // similar to websearch_to_tsquery but adds prefix matching to each term
     // refer to PostgresTextSearchTest for examples of the expected transform
@@ -93,11 +103,16 @@ class PostgresTextSearch
     }
 
     // turn a single term into query text
-    private static function singleTermToQueryText(string $t): string
+    private static function singleTermToQueryText(string $t): ?string
     {
         // handle negation
         if (Str::startsWith($t, '-')) {
             $t = Str::substrReplace($t, '!', 0, 1);
+        }
+
+        // remove terms with invalid patterns
+        if (preg_match(self::$invalidPatterns, $t) != false) {
+            return null;
         }
 
         // handle prefix searching
