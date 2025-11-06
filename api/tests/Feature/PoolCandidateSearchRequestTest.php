@@ -31,7 +31,6 @@ class PoolCandidateSearchRequestTest extends TestCase
     {
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
-        $this->bootRefreshesSchemaCache();
 
         $this->adminUser = User::factory()
             ->asApplicant()
