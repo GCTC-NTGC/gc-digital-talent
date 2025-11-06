@@ -49,7 +49,7 @@ class UserPage extends AppPage {
       .getByRole("button", { name: /view notifications/i })
       .click();
     await this.page
-      .getByRole("link", { name: new RegExp(`users_${today}`, "i") })
+      .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
       .first()
       .click();
     return await this.resolveDownloadPromise(downloadPromise);

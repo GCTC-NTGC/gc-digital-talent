@@ -8,13 +8,9 @@ test.describe("User Excel", () => {
     const userPage = new UserPage(appPage.page);
     await loginBySub(userPage.page, "admin@test.com", false);
     await userPage.goToIndex();
-    const buttons = await userPage.page
-      .getByRole("button", { name: /select/i })
-      .all();
-
-    for (const button of buttons) {
-      await button.click();
-    }
+    await userPage.waitForGraphqlResponse("UsersPaginated");
+    await userPage.page
+      .getByRole("button", { name: /select all/i }).click();
 
     const path = await userPage.downloadExcel();
     const excel = new ExcelDocument();
