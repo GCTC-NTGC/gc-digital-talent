@@ -311,6 +311,10 @@
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
   },
+  "/GsyBb": {
+    "defaultMessage": "Le tableau a été modifié. Nous mettons à l'essai un nouvel algorithme afin d'améliorer les résultats trouvés et affichés. Faites‑nous signe si vous éprouvez des difficultés.",
+    "description": "Body of a note around testing new search"
+  },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
@@ -13260,10 +13264,6 @@
   "v1dIUn": {
     "defaultMessage": "Ajouter votre expérience de travail la plus récente",
     "description": "Section title for the Add work experience section."
-  },
-  "v1yZ/G": {
-    "defaultMessage": "Le tableau a été modifié. Nous mettons à l'essai un nouvel algorithme afin d'améliorer les résultats trouvés et affichés. Faites‑nous signe si vous éprouvez des difficultés.",
-    "description": "Body of a note around testing new search"
   },
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",

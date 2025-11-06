@@ -65,8 +65,8 @@ export const IndexUserPage = () => {
               <p className="mb-4.5">
                 {intl.formatMessage({
                   defaultMessage:
-                    "This table has changed. We are testing a new algorithm to find and display better results. Let us know if you encounter any problems with his table.",
-                  id: "v1yZ/G",
+                    "This table has changed. We are testing a new algorithm to find and display better results. Let us know if you encounter any problems with this table.",
+                  id: "/GsyBb",
                   description: "Body of a note around testing new search",
                 })}
               </p>
