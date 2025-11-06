@@ -51,7 +51,7 @@
     "eslint": "^9.20.1",
     "react": "^19.2.0",
     "react-hook-form": "^7.65.0",
-    "react-intl": "^7.1.11",
+    "react-intl": "^7.1.14",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
