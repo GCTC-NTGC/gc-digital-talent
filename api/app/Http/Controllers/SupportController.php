@@ -11,6 +11,7 @@ use function Safe\parse_url;
 class SupportController extends Controller
 {
     private static $MAX_URL_LENGTH = 255;
+
     private static $MAX_USER_AGENT_LENGTH = 255;
 
     public function createTicket(Request $request)
