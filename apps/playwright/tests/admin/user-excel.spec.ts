@@ -1,23 +1,25 @@
 import { test, expect } from "~/fixtures";
+import ExcelDocument from "~/fixtures/ExcelDocument";
+import UserPage from "~/fixtures/UserPage";
 import { loginBySub } from "~/utils/auth";
 
 test.describe("User Excel", () => {
   test("Download user as Excel", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com", false);
-    await appPage.page.goto("/en/admin/users");
-    await appPage.page
-      .getByRole("textbox", { name: /search/i })
-      .fill("Applicant", { timeout: 30000 });
+    const userPage = new UserPage(appPage.page);
+    await loginBySub(userPage.page, "admin@test.com", false);
+    await userPage.goToIndex();
+    const buttons = await userPage.page
+      .getByRole("button", { name: /select/i })
+      .all();
 
-    await appPage.waitForGraphqlResponse("UsersPaginated");
+    for (const button of buttons) {
+      await button.click();
+    }
 
-    await appPage.page
-      .getByRole("button", { name: /select gul fields/i })
-      .click();
-    await appPage.page.getByRole("button", { name: /download excel/i }).click();
+    const path = await userPage.downloadExcel();
+    const excel = new ExcelDocument();
+    const data = await excel.getContents(path);
 
-    await expect(appPage.page.getByRole("alert")).toContainText(
-      /preparing your file for download/i,
-    );
+    expect(data.length).toBeGreaterThan(0);
   });
 });
