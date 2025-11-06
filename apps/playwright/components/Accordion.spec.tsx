@@ -6,6 +6,8 @@ import { Accordion } from "@gc-digital-talent/ui";
 test("MyComponent should be accessible", async ({ mount, page }) => {
   // Mount the component
   await mount(
+    <main>
+      <h1>Test</h1>
     <Accordion.Root type="single">
       <Accordion.Item value="one">
         <Accordion.Trigger>Accordion One</Accordion.Trigger>
@@ -19,7 +21,8 @@ test("MyComponent should be accessible", async ({ mount, page }) => {
           <p>Some text</p>
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion.Root>,
+    </Accordion.Root>
+    </main>,
   );
 
   // Analyze for accessibility violations
