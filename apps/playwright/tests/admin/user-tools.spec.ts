@@ -78,9 +78,7 @@ test.describe("User tools", () => {
     ).toBeHidden();
 
     // Soft-delete the user
-    await appPage.page
-      .getByRole("button", { name: /archive this user/i })
-      .click();
+    await appPage.page.getByRole("button", { name: /archive user/i }).click();
     await appPage.page
       .getByRole("textbox", { name: /user name/i })
       .fill(user.firstName + " " + user.lastName);
@@ -94,9 +92,7 @@ test.describe("User tools", () => {
     ).toBeVisible();
 
     // Restore the user
-    await appPage.page
-      .getByRole("button", { name: /restore this user/i })
-      .click();
+    await appPage.page.getByRole("button", { name: /restore user/i }).click();
     await appPage.page.getByRole("button", { name: /restore user/i }).click();
     await appPage.waitForGraphqlResponse("RestoreUser");
     await expect(appPage.page.getByRole("alert").last()).toContainText(

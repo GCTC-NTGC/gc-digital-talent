@@ -161,8 +161,8 @@ const SupportTools = ({ query }: SupportToolsProps) => {
           <Heading level="h3" size="h6">
             {intl.formatMessage({
               defaultMessage: "Restore user",
-              id: "u9JTZS",
-              description: "Heading for form to restore a soft-deleted user",
+              id: "CzZm8F",
+              description: "Label for restoring a user",
             })}
           </Heading>
           <p className="my-6">
@@ -195,8 +195,8 @@ const SupportTools = ({ query }: SupportToolsProps) => {
           <Heading level="h3" size="h6">
             {intl.formatMessage({
               defaultMessage: "Archive user",
-              id: "0Stlc3",
-              description: "Heading for form to soft-delete a user",
+              id: "Tdmlnn",
+              description: "Label for soft-deleting a user",
             })}
           </Heading>
           <p className="my-6">

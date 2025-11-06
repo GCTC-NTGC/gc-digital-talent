@@ -73,9 +73,9 @@ const RestoreUserDialog = ({ query }: RestoreUserDialogProps) => {
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Restore this user",
-    id: "mswxJf",
-    description: "Label on the button to open the restore user dialog",
+    defaultMessage: "Restore user",
+    id: "CzZm8F",
+    description: "Label for restoring a user",
   });
 
   const deletedDate = user.deletedDate
@@ -124,13 +124,7 @@ const RestoreUserDialog = ({ query }: RestoreUserDialogProps) => {
           </p>
           <Dialog.Footer>
             <Button mode="solid" color="warning" onClick={handleSubmit}>
-              {fetching
-                ? intl.formatMessage(commonMessages.saving)
-                : intl.formatMessage({
-                    defaultMessage: "Restore user",
-                    id: "VcONKV",
-                    description: "Submit button in restore user dialog",
-                  })}
+              {fetching ? intl.formatMessage(commonMessages.saving) : label}
             </Button>
             <Dialog.Close>
               <Button color="warning" mode="inline">

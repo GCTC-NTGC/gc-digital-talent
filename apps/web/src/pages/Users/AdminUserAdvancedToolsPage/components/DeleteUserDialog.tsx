@@ -93,9 +93,9 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Archive this user",
-    id: "9lnzm2",
-    description: "Label on the button to open the soft-delete user dialog",
+    defaultMessage: "Archive user",
+    id: "Tdmlnn",
+    description: "Label for soft-deleting a user",
   });
 
   return (
@@ -169,13 +169,7 @@ const DeleteUserDialog = ({ query }: DeleteUserDialogProps) => {
               </div>
               <Dialog.Footer>
                 <Button mode="solid" color="error" type="submit">
-                  {fetching
-                    ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage({
-                        defaultMessage: "Archive user",
-                        id: "aMPh5q",
-                        description: "Submit button in soft-delete user dialog",
-                      })}
+                  {fetching ? intl.formatMessage(commonMessages.saving) : label}
                 </Button>
                 <Dialog.Close>
                   <Button color="warning" mode="inline">
