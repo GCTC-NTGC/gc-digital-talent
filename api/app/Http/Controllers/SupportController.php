@@ -11,6 +11,7 @@ use function Safe\parse_url;
 class SupportController extends Controller
 {
     private static $MAX_URL_LENGTH = 255;
+    private static $MAX_USER_AGENT_LENGTH = 255;
 
     public function createTicket(Request $request)
     {
@@ -50,7 +51,10 @@ class SupportController extends Controller
             $parameters['custom_fields']['cf_page_url'] = $path;
         }
         if ($request->input('user_agent')) {
-            $parameters['custom_fields']['cf_user_agent'] = (string) $request->input('user_agent');
+            if (strlen($request->input('user_agent')) > self::$MAX_USER_AGENT_LENGTH) {
+                $user_agent = substr($path, 0, self::$MAX_USER_AGENT_LENGTH);
+            }
+            $parameters['custom_fields']['cf_user_agent'] = (string) $user_agent;
         }
         if ($request->cookie('ai_user')) {
             $parameters['custom_fields']['cf_application_insights_user_id'] = (string) $request->cookie('ai_user');
