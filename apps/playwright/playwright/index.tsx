@@ -1,2 +1,2 @@
 // Import styles, initialize component theme here.
-// import '../src/common.css';
+import "../../web/src/assets/css/tailwind.css";

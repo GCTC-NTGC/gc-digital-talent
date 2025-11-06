@@ -8,25 +8,21 @@ test("MyComponent should be accessible", async ({ mount, page }) => {
   await mount(
     <main>
       <h1>Test</h1>
-    <Accordion.Root type="single">
-      <Accordion.Item value="one">
-        <Accordion.Trigger>Accordion One</Accordion.Trigger>
-        <Accordion.Content>
-          <p>Some text</p>
-        </Accordion.Content>
-      </Accordion.Item>{" "}
-      <Accordion.Item value="two">
-        <Accordion.Trigger>Accordion Two</Accordion.Trigger>
-        <Accordion.Content>
-          <p>Some text</p>
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion.Root>
+      <Accordion.Root type="single" mode="card">
+        <Accordion.Item value="one">
+          <Accordion.Trigger subtitle="Subtitle">Accordion One</Accordion.Trigger>
+          <Accordion.Content>
+            <p>Some text</p>
+          </Accordion.Content>
+        </Accordion.Item>{" "}
+      </Accordion.Root>
     </main>,
   );
 
   // Analyze for accessibility violations
-  const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+  const accessibilityScanResults = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'])
+    .analyze();
 
   // Assert that no violations are found
   expect(accessibilityScanResults.violations).toEqual([]);
