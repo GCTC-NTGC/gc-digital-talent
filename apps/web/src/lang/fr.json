@@ -3535,6 +3535,10 @@
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
   },
+  "DDnn7i": {
+    "defaultMessage": "Utiliser l'ancienne recherche dans le tableau",
+    "description": "Check box to toggle new search"
+  },
   "DEdQkH": {
     "defaultMessage": "{count, plural, one {# évaluation} other {# évaluations}}",
     "description": "Number of assessments for a skill"
@@ -13257,6 +13261,10 @@
     "defaultMessage": "Ajouter votre expérience de travail la plus récente",
     "description": "Section title for the Add work experience section."
   },
+  "v1yZ/G": {
+    "defaultMessage": "Le tableau a été modifié. Nous mettons à l'essai un nouvel algorithme afin d'améliorer les résultats trouvés et affichés. Faites‑nous signe si vous éprouvez des difficultés.",
+    "description": "Body of a note around testing new search"
+  },
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
     "description": "Title for application updates checklist"
@@ -13664,6 +13672,10 @@
   "wmSeI8": {
     "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
     "description": "Contact email card description on account settings page"
+  },
+  "wqzCx3": {
+    "defaultMessage": "Mise à l'essai d'une nouvelle recherche dans le tableau",
+    "description": "Title for a note around testing new search"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",
