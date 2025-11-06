@@ -52,10 +52,11 @@ class SupportController extends Controller
             $parameters['custom_fields']['cf_page_url'] = $path;
         }
         if ($request->input('user_agent')) {
+            $user_agent = (string) $request->input('user_agent');
             if (strlen($request->input('user_agent')) > self::$MAX_USER_AGENT_LENGTH) {
-                $user_agent = substr($path, 0, self::$MAX_USER_AGENT_LENGTH);
+                $user_agent = substr($request->input('user_agent'), 0, self::$MAX_USER_AGENT_LENGTH);
             }
-            $parameters['custom_fields']['cf_user_agent'] = (string) $user_agent;
+            $parameters['custom_fields']['cf_user_agent'] = $user_agent;
         }
         if ($request->cookie('ai_user')) {
             $parameters['custom_fields']['cf_application_insights_user_id'] = (string) $request->cookie('ai_user');
