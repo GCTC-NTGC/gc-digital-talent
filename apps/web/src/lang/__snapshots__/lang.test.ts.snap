@@ -74,13 +74,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Delete user",
-    "fr": [
-      "Supprimer un utilisateur",
-      "Supprimer l'utilisateur"
-    ]
-  },
-  {
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",

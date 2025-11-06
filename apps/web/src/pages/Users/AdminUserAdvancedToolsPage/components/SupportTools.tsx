@@ -7,10 +7,12 @@ import { useMutation } from "urql";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, Heading, TableOfContents, Well } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import DeleteUserDialog from "./DeleteUserDialog";
+import RestoreUserDialog from "./RestoreUserDialog";
 
 interface FormValues {
   sub: string;
@@ -35,10 +37,12 @@ export const UpdateSub_Mutation = graphql(/* GraphQL */ `
 const SupportTools_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserSupportTools on User {
     id
+    deletedDate
     authInfo {
       sub
     }
     ...DeleteUserDialog
+    ...RestoreUserDialog
   }
 `);
 
@@ -152,22 +156,60 @@ const SupportTools = ({ query }: SupportToolsProps) => {
           </Button>
         </form>
       </FormProvider>
-      <Heading level="h3" size="h6">
-        {intl.formatMessage({
-          defaultMessage: "Delete user",
-          id: "sFNx/L",
-          description: "Heading for form to delete a user",
-        })}
-      </Heading>
-      <p className="my-6">
-        {intl.formatMessage({
-          defaultMessage:
-            'This will change the status of a user to "Deleted". This will prevent the user from appearing anywhere on the platform. This action cannot be undone.',
-          id: "I/xiHI",
-          description: "Description of the form to delete a user",
-        })}
-      </p>
-      <DeleteUserDialog query={user} />
+      {user.deletedDate ? (
+        <>
+          <Heading level="h3" size="h6">
+            {intl.formatMessage({
+              defaultMessage: "Restore user",
+              id: "CzZm8F",
+              description: "Label for restoring a user",
+            })}
+          </Heading>
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "This will remove the user from the archive and restore their profile on the platform. All of their previous information will be available again.",
+              id: "kTg84C",
+              description:
+                "Description of the form to restore a soft-deleted user",
+            })}
+          </p>
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage: "This user was archived on",
+              id: "j5IepM",
+              description:
+                "Description of the form to restore a soft-deleted user",
+            }) +
+              intl.formatMessage(commonMessages.dividingColon) +
+              formatDate({
+                date: parseDateTimeUtc(user.deletedDate),
+                formatString: "yyyy-MM-dd",
+                intl,
+              })}
+          </p>
+          <RestoreUserDialog query={user} />
+        </>
+      ) : (
+        <>
+          <Heading level="h3" size="h6">
+            {intl.formatMessage({
+              defaultMessage: "Archive user",
+              id: "Tdmlnn",
+              description: "Label for soft-deleting a user",
+            })}
+          </Heading>
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                'This will change the status of a user to "Archived". This will prevent the user from appearing anywhere on the platform.',
+              id: "I/3WDu",
+              description: "Description of the form to soft-delete a user",
+            })}
+          </p>
+          <DeleteUserDialog query={user} />
+        </>
+      )}
     </TableOfContents.Section>
   );
 };
