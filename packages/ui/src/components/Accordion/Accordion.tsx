@@ -237,7 +237,7 @@ const Trigger = forwardRef<
           <span className="flex grow flex-col">
             <Heading className={heading()}>{children}</Heading>
             {subtitle && (
-              <span className="dark:text-gray-200m mt-1 text-sm text-white">
+              <span className="dark:text-gray-200m mt-1 text-sm">
                 {subtitle}
               </span>
             )}
