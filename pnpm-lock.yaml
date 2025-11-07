@@ -39,7 +39,7 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@vitest/browser@3.2.4)(vitest@3.2.4)
       playwright:
-        specifier: ^1.55.1
+        specifier: ^1.56.1
         version: 1.56.1
       prettier-plugin-tailwindcss:
         specifier: ^0.7.1
