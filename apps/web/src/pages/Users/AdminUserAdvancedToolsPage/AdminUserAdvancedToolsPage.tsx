@@ -109,7 +109,7 @@ const AdminUserAdvancedTools = ({
 
 const AdminUserAdvancedToolsPage_Query = graphql(/** GraphQL */ `
   query AdminUserAdvancedToolsPage($id: UUID!) {
-    user(id: $id) {
+    user(id: $id, trashed: WITH) {
       ...AdminUserAdvancedTools
     }
     ...AdminUserAdvancedToolsOptions
