@@ -1,15 +1,16 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 const testConfig = {
-  AllSignInEmails: {
-    adminSignIn: "admin@test.com",
-    platformAdminSignIn: "platform@test.com",
-    applicantSignIn: "applicant@test.com",
+  allSignInEmails: {
+    adminSignIn: process.env.ADMIN ?? `admin@test.com`,
+    platformAdminSignIn: process.env.PLATFORM_ADMIN ?? `platform@test.com`,
+    applicantSignIn: process.env.APPLICANT ?? `applicant@test.com`,
   },
 
-  departmentsConfig: {
+  departments: {
     url: "/en/admin/settings/departments",
   },
 
-  usersConfig: {
+  users: {
     url: "/en/admin/users",
   },
 
