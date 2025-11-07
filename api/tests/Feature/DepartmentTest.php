@@ -50,7 +50,6 @@ class DepartmentTest extends TestCase
         parent::setUp();
 
         $this->setUpFaker();
-        $this->bootRefreshesSchemaCache();
         $this->seed(RolePermissionSeeder::class);
 
         $this->community = Community::factory()->create(['name' => 'test-team']);

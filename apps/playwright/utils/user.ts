@@ -248,3 +248,28 @@ export const me: GraphQLRequestFunc<User> = async (ctx) => {
     .post(Test_MeQueryDocument)
     .then((res: GraphQLResponse<"me", User>) => res.me);
 };
+
+// eslint-disable-next-line camelcase
+const Test_DeleteUser = /* GraphQL */ `
+  mutation Test_DeleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      id
+    }
+  }
+`;
+
+interface DeleteUserArgs {
+  id: string;
+}
+
+export const deleteUser: GraphQLRequestFunc<User, DeleteUserArgs> = async (
+  ctx,
+  { id },
+) => {
+  return await ctx
+    .post(Test_DeleteUser, {
+      isPrivileged: true,
+      variables: { id },
+    })
+    .then((res: GraphQLResponse<"deleteUser", User>) => res.deleteUser);
+};

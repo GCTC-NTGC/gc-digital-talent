@@ -9,6 +9,7 @@ import { DateInput } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
+  strToFormDate,
   DATE_FORMAT_STRING,
   formDateStringToDate,
   formatDate,
@@ -124,6 +125,8 @@ const ChangeExpiryDateDialog = ({
       intl,
     }) || title;
 
+  const todayDate = new Date();
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -150,7 +153,13 @@ const ChangeExpiryDateDialog = ({
               <DateInput
                 id="expiryDate"
                 name="expiryDate"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                  min: {
+                    value: strToFormDate(todayDate.toISOString()),
+                    message: intl.formatMessage(errorMessages.futureDate),
+                  },
+                }}
                 legend={intl.formatMessage({
                   defaultMessage: "Expiry date",
                   id: "THBjEx",
