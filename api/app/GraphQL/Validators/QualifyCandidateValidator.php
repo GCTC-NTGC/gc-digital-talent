@@ -22,7 +22,7 @@ final class QualifyCandidateValidator extends Validator
     {
         $id = $this->arg('id');
         $candidate = PoolCandidate::findOrFail($id);
-        $endOfDay = Carbon::now()->endOfDay();
+        $startOfDay = Carbon::now()->startOfDay();
 
         $statusesArray = [
             PoolCandidateStatus::NEW_APPLICATION->name,
@@ -36,7 +36,7 @@ final class QualifyCandidateValidator extends Validator
         }
 
         return [
-            'poolCandidate.expiryDate' => ['required', 'after:'.$endOfDay],
+            'poolCandidate.expiryDate' => ['required', 'after_or_equal:'.$startOfDay],
         ];
     }
 
