@@ -231,7 +231,7 @@ const AdminApplicantProfile = ({
 
 const AdminApplicantProfilePage_Query = graphql(/** GraphQL */ `
   query AdminApplicantProfilePage($id: UUID!) {
-    user(id: $id) {
+    user(id: $id, trashed: WITH) {
       ...AdminApplicantProfile
     }
     ...FlexibleWorkLocationOptionsFragment
