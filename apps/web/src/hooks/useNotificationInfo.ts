@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 
 import {
   ApplicationDeadlineApproachingNotification,
+  ApplicationDeadlineExtendedNotification,
   ApplicationStatusChangedNotification,
   MigrateOffPlatformProcessesNotification,
   NewJobPostedNotification,
@@ -81,6 +82,58 @@ const applicationDeadlineApproachingNotificationToInfo = (
         id: "OWYrdr",
         description:
           "Label for the application deadline approaching notification",
+      },
+      {
+        poolName: poolNameLocalized,
+        closingDate: closingDateFormatted,
+      },
+    ),
+  };
+};
+
+function isApplicationDeadlineExtendedNotification(
+  notification: GraphqlType,
+): notification is ApplicationDeadlineExtendedNotification {
+  return notification.__typename === "ApplicationDeadlineExtendedNotification";
+}
+
+const applicationDeadlineExtendedNotificationToInfo = (
+  notification: ApplicationDeadlineExtendedNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
+  const closingDateObject = formDateStringToDate(
+    notification.closingDate ?? "1900-01-01",
+  );
+  const closingDateFormatted = formatDate({
+    date: closingDateObject,
+    formatString: DATE_FORMAT_LOCALIZED,
+    intl,
+  });
+
+  return {
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "The deadline for {poolName} has been extended to {closingDate}. If you’re still interested, we encourage you to continue your application.",
+        id: "ad/yFz",
+        description: "Message for application deadline extended notification",
+      },
+      {
+        poolName: poolNameLocalized,
+        closingDate: closingDateFormatted,
+      },
+    ),
+    href: notification.poolCandidateId
+      ? paths.application(notification.poolCandidateId)
+      : "",
+    label: intl.formatMessage(
+      {
+        defaultMessage:
+          "The deadline for {poolName} has been extended to {closingDate}.",
+        id: "ffSxnV",
+        description: "Label for the application deadline extended notification",
       },
       {
         poolName: poolNameLocalized,
@@ -256,6 +309,14 @@ const useNotificationInfo = (
 
   if (isApplicationDeadlineApproachingNotification(notification)) {
     return applicationDeadlineApproachingNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
+  }
+
+  if (isApplicationDeadlineExtendedNotification(notification)) {
+    return applicationDeadlineExtendedNotificationToInfo(
       notification,
       paths,
       intl,
