@@ -29,11 +29,12 @@ class PoolObserver
 
         // Check if published pool's new closing date is greater than old date
         if (
-            ! $pool->status === PoolStatus::PUBLISHED
+            $pool->status === PoolStatus::PUBLISHED->name
             && ! is_null($oldClosingDate)
             && ! is_null($newClosingDate)
             && $newClosingDate->gte($oldClosingDate)
-        ) {
+            ) {
+
             $pool = Pool::find($pool->id);
             $pool->poolCandidates
                 ->where('pool_candidate_status', 'DRAFT') // Only send notification to draft applications
