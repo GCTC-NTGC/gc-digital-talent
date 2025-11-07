@@ -1396,37 +1396,37 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->submitted_at = config('constants.past_datetime');
-        $this->poolCandidate->expiry_date = $future;
+        $this->poolCandidate->expiry_date = $past;
         $this->poolCandidate->save();
 
         $this->actingAs($this->processOperatorUser, 'api')
             ->graphQL($mutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => [
-                    'expiryDate' => $past,
+                    'expiryDate' => $future,
                 ],
             ])->assertJsonFragment([
-                'expiryDate' => $past,
+                'expiryDate' => $future,
             ]);
 
         $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($mutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => [
-                    'expiryDate' => $past,
+                    'expiryDate' => $future,
                 ],
             ])->assertJsonFragment([
-                'expiryDate' => $past,
+                'expiryDate' => $future,
             ]);
 
         $this->actingAs($this->communityAdminUser, 'api')
             ->graphQL($mutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => [
-                    'expiryDate' => $past,
+                    'expiryDate' => $future,
                 ],
             ])->assertJsonFragment([
-                'expiryDate' => $past,
+                'expiryDate' => $future,
             ]);
     }
 }
