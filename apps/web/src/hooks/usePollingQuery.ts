@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { AnyVariables, UseQueryArgs, useQuery } from "urql";
 
-import useDocumentHasFocus from "./useDocumentHasFocus";
+import useIsWindowActive from "./useIsWindowActive";
 
 type QueryArgs<TData, TVariables extends AnyVariables> = UseQueryArgs<
   TVariables,
@@ -14,11 +14,11 @@ const usePollingQuery = <TData, TVariables extends AnyVariables>(
   disabled = false,
 ): ReturnType<typeof useQuery<TData, TVariables>> => {
   const [result, executeQuery] = useQuery<TData, TVariables>(queryArgs);
-  const documentHasFocus = useDocumentHasFocus();
+  const isWindowActive = useIsWindowActive();
 
   useEffect(() => {
     // Do nothing if we are already fetching
-    if (!result.fetching && !disabled && documentHasFocus) {
+    if (!result.fetching && !disabled && isWindowActive) {
       const timeout = setTimeout(() => {
         executeQuery({ requestPolicy: "network-only" });
       }, delay * 1000);
@@ -35,7 +35,7 @@ const usePollingQuery = <TData, TVariables extends AnyVariables>(
     queryArgs.variables,
     delay,
     disabled,
-    documentHasFocus,
+    isWindowActive,
   ]);
 
   return [result, executeQuery];
