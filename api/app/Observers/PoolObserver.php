@@ -33,7 +33,7 @@ class PoolObserver
             && ! is_null($oldClosingDate)
             && ! is_null($newClosingDate)
             && $newClosingDate->gte($oldClosingDate)
-            ) {
+        ) {
 
             $pool = Pool::find($pool->id);
             $pool->poolCandidates
