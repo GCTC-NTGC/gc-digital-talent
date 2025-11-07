@@ -94,7 +94,7 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
 
 const AdminUserRecruitmentPage_Query = graphql(/** GraphQL */ `
   query AdminUserRecruitmentPage($id: UUID!) {
-    user(id: $id) {
+    user(id: $id, trashed: WITH) {
       ...AdminUserRecruitment
     }
   }

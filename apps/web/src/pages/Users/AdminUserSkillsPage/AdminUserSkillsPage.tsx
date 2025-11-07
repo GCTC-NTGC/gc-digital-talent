@@ -92,7 +92,7 @@ const AdminUserSkills = ({ query }: AdminApplicantProfileProps) => {
 
 const AdminUserSkillsPage_Query = graphql(/** GraphQL */ `
   query AdminUserSkillsPage($id: UUID!) {
-    user(id: $id) {
+    user(id: $id, trashed: WITH) {
       ...AdminUserSkills
     }
   }
