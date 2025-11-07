@@ -85,6 +85,6 @@ describe("ClientProvider tests", () => {
         "Validation message 2.1",
         "Validation message 2.2",
       ]),
-    );
+    ).toBe(false);
   });
 });

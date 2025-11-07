@@ -6,6 +6,7 @@ import globals from "globals";
 import jsxA11Y from "eslint-plugin-jsx-a11y";
 import reactHooks from "eslint-plugin-react-hooks";
 import formatjs from "eslint-plugin-formatjs";
+import vitest from "@vitest/eslint-plugin";
 
 export default [
   ...baseConfig,
@@ -22,9 +23,17 @@ export default [
         SharedArrayBuffer: "readonly",
       },
     },
-    plugins: { react, "react-hooks": reactHooks },
+    plugins: { react, "react-hooks": reactHooks, vitest },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      ...vitest.configs.recommended.rules,
+      "vitest/expect-expect": [
+        "error",
+        {
+          assertFunctionNames: ["expect", "expectNoAccessibilityErrors"],
+          additionalTestBlockFunctions: [],
+        },
+      ],
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
       "formatjs/no-id": "off",

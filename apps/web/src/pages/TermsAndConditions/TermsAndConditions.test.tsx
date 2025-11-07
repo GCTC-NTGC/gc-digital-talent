@@ -1,6 +1,6 @@
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import TermsAndConditions from "./TermsAndConditions";
@@ -12,6 +12,6 @@ const renderTermsAndConditions = () => {
 describe("TermsAndConditions", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderTermsAndConditions();
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });

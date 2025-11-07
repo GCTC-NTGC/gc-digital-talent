@@ -139,12 +139,6 @@ const formMessages = defineMessages({
     id: "OOVZSs",
     description: "Message displayed for add button on repeater component.",
   },
-  defaultPlaceholder: {
-    defaultMessage: "Select",
-    id: "plwOsC",
-    description:
-      "Default placeholder shown when Select field has nothing actively selected.",
-  },
   phonePlaceholder: {
     defaultMessage: "+123243234",
     id: "uNArwM",

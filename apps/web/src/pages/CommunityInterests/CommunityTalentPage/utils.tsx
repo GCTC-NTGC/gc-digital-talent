@@ -13,17 +13,12 @@ import {
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  durationToEnumPositionDuration,
-  stringToEnumLanguage,
-  stringToEnumLocation,
-  stringToEnumOperational,
-} from "~/utils/userUtils";
+import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
 import { FormValues } from "./components/CommunityTalentFilterDialog";
 
@@ -169,6 +164,7 @@ export function transformCommunityTalentInput(
     locationPreferences: filterState?.locationPreferences,
     operationalRequirements: filterState?.operationalRequirements,
     skills: filterState?.skills,
+    flexibleWorkLocations: filterState?.flexibleWorkLocations,
   };
 }
 
@@ -176,31 +172,14 @@ export function transformFormValuesToCommunityInterestFilterInput(
   data: FormValues,
 ): CommunityInterestFilterInput {
   return {
-    communities: data.communities.map((id) => id),
-    workStreams: data.workStreams.map((id) => id),
+    ...data,
     jobInterest: data.mobilityInterest.includes("jobInterest"),
     trainingInterest: data.mobilityInterest.includes("trainingInterest"),
     lateralMoveInterest: data.mobilityType.includes("lateralMoveInterest"),
     promotionMoveInterest: data.mobilityType.includes("promotionMoveInterest"),
-    languageAbility: data.languageAbility
-      ? stringToEnumLanguage(data.languageAbility)
-      : undefined,
     positionDuration: data.employmentDuration
-      ? [durationToEnumPositionDuration(data.employmentDuration)].filter(
-          notEmpty,
-        )
+      ? unpackMaybes([durationToEnumPositionDuration(data.employmentDuration)])
       : undefined,
-    locationPreferences: data.workRegions
-      .map((region) => {
-        return stringToEnumLocation(region);
-      })
-      .filter(notEmpty),
-    operationalRequirements: data.operationalRequirements
-      .map((requirement) => {
-        return stringToEnumOperational(requirement);
-      })
-      .filter(notEmpty),
-    skills: data.skills.map((id) => id),
   };
 }
 
@@ -217,20 +196,20 @@ export function transformCommunityInterestFilterInputToFormValues(
   if (input?.promotionMoveInterest) mobilityType.push("promotionMoveInterest");
 
   return {
-    communities: input?.communities?.filter(notEmpty).map((id) => id) ?? [],
-    workStreams: input?.workStreams?.filter(notEmpty).map((id) => id) ?? [],
+    communities: unpackMaybes(input?.communities),
+    workStreams: unpackMaybes(input?.workStreams),
     mobilityInterest,
     mobilityType,
-    languageAbility: input?.languageAbility ?? "",
+    languageAbility: input?.languageAbility ?? undefined,
     employmentDuration: !positionDuration?.length
-      ? ""
+      ? undefined
       : positionDuration.includes(PositionDuration.Temporary)
-        ? "TERM"
-        : "INDETERMINATE",
-    workRegions: input?.locationPreferences?.filter(notEmpty) ?? [],
-    operationalRequirements:
-      input?.operationalRequirements?.filter(notEmpty) ?? [],
-    skills: input?.skills?.filter(notEmpty).map((id) => id) ?? [],
+        ? EmploymentDuration.Term
+        : EmploymentDuration.Indeterminate,
+    locationPreferences: unpackMaybes(input?.locationPreferences),
+    operationalRequirements: unpackMaybes(input?.operationalRequirements),
+    skills: unpackMaybes(input?.skills),
+    flexibleWorkLocations: unpackMaybes(input?.flexibleWorkLocations),
   };
 }
 

@@ -46,7 +46,6 @@ class ClassificationTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
-        $this->bootRefreshesSchemaCache();
 
         $this->community = Community::factory()->create(['name' => 'test-community']);
         $this->teamPool = Pool::factory()->create([

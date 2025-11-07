@@ -2,18 +2,18 @@ import { defineMessages } from "react-intl";
 
 const navMenuMessages = defineMessages({
   applicant: {
-    defaultMessage: "Applicant",
-    id: "bdzq6l",
+    defaultMessage: "Applicant view",
+    id: "aXKkrb",
     description: "Applicant role name for nav menu",
   },
   community: {
-    defaultMessage: "Community",
-    id: "e/Z582",
+    defaultMessage: "Community view",
+    id: "IFjA9G",
     description: "Community role name for nav menu",
   },
   admin: {
-    defaultMessage: "Admin",
-    id: "hS+J7B",
+    defaultMessage: "Admin view",
+    id: "j7953D",
     description: "Admin role name for nav menu",
   },
 });

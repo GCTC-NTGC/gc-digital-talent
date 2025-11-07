@@ -37,7 +37,6 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->seed(DepartmentSeeder::class);
-        $this->bootRefreshesSchemaCache();
         $this->adminUser = User::factory()
             ->asAdmin()
             ->create([

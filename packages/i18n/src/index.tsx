@@ -33,6 +33,7 @@ import {
   getArmedForcesStatusesProfile,
   getEducationRequirementOption,
   EmploymentDuration,
+  type TEmploymentDuration,
   getEmploymentDuration,
   getWorkRegionsDetailed,
   getOperationalRequirement,
@@ -79,6 +80,7 @@ import {
   localizedEnumArrayToInput,
   narrowEnumType,
   sortLocalizedEnumOptions,
+  ENUM_SORT_ORDER,
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
 import { appendLanguageName } from "./utils/lang";
@@ -159,7 +161,14 @@ export {
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
   getWfaInterestFirstPerson,
+  ENUM_SORT_ORDER,
 };
 
-export type { Locales, Messages, MaybeLocalizedEnums, GenericLocalizedEnum };
+export type {
+  Locales,
+  Messages,
+  MaybeLocalizedEnums,
+  GenericLocalizedEnum,
+  TEmploymentDuration,
+};
 export { fr };

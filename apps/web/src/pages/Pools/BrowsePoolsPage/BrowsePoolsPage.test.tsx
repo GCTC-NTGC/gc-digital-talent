@@ -3,7 +3,7 @@ import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 
 import {
-  axeTest,
+  expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
@@ -63,7 +63,7 @@ describe("BrowsePoolsPage", () => {
     const { container } = renderBrowsePoolsPage({
       pools: [publishedItJobsPool],
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should only show published jobs", () => {

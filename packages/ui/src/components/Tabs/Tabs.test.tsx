@@ -5,7 +5,7 @@ import { vi } from "vitest";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import Tabs from "./Tabs";
@@ -41,14 +41,14 @@ describe("Tabs", () => {
 
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderTabs({});
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should not have accessibility errors when open", async () => {
     const { container } = renderTabs({
       defaultValue: "one",
     });
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 
   it("should only render opened tabpanel", () => {

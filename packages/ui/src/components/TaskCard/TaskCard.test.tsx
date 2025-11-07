@@ -3,7 +3,7 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import TaskCard from "./TaskCard";
@@ -30,6 +30,6 @@ function renderComponent() {
 describe("TaskCard", () => {
   it("should not have accessibility errors", async () => {
     const { container } = renderComponent();
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });

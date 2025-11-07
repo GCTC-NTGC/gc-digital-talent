@@ -1798,6 +1798,7 @@ input CommunityInterestFilterInput {
   promotionMoveInterest: Boolean
   languageAbility: LanguageAbility
   positionDuration: [PositionDuration]
+  flexibleWorkLocations: [FlexibleWorkLocation]
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]

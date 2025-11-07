@@ -83,9 +83,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium webkit --with-deps
 
+      - name: Start queue for downloads
+        run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work" &
+
       - name: Run Tests
         run: pnpm run e2e:playwright --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: blob-report-${{ matrix.shardIndex }}
@@ -114,7 +117,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           path: all-blob-reports
           pattern: blob-report-*
@@ -124,7 +127,7 @@ jobs:
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
       - name: Upload HTML report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: html-report--attempt-${{ github.run_attempt }}
           path: playwright-report

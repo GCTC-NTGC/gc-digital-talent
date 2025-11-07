@@ -43,8 +43,6 @@ class ApplicantTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
-        $this->bootRefreshesSchemaCache();
-
         $this->adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()

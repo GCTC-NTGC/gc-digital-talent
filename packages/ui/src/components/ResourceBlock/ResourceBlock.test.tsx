@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 
 import {
   renderWithProviders,
-  axeTest,
+  expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
 import * as stories from "./ResourceBlock.stories";
@@ -22,6 +22,6 @@ const defaultProps = Default.args as RootProps;
 describe("ResourceBlock", () => {
   it("should not have accessibility errors", async () => {
     const { container } = renderComponent(defaultProps);
-    await axeTest(container);
+    await expectNoAccessibilityErrors(container);
   });
 });

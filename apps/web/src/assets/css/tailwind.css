@@ -273,3 +273,11 @@
 abbr:hover {
   cursor: help;
 }
+
+/*
+* Cannot directly style `DropdownMenu` content wrapper
+* Important required because `z-index: auto` set inline
+*/
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}

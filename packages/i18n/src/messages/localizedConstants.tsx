@@ -237,7 +237,12 @@ export const getEducationRequirementOption = (
 export const EmploymentDuration = {
   Term: "TERM",
   Indeterminate: "INDETERMINATE",
-};
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+
+export type TEmploymentDuration = ObjectValues<typeof EmploymentDuration>;
+
 const employmentDurationShort = defineMessages({
   [EmploymentDuration.Term]: {
     defaultMessage: "Term",

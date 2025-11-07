@@ -132,7 +132,6 @@ class PoolApplicationTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->setUpFaker();
-        $this->bootRefreshesSchemaCache();
 
         $community = Community::factory()->create();
 

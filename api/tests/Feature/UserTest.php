@@ -50,7 +50,6 @@ class UserTest extends TestCase
     {
         parent::setUp();
         Notify::spy(); // don't send any notifications
-        $this->bootRefreshesSchemaCache();
         // Run necessary seeders
         $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);
@@ -1762,7 +1761,10 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testAdminTableFilter(): void
+    /**
+     * @dataProvider adminTableFilterProvider
+     */
+    public function testAdminTableFilter($where, $expectedResultCount): void
     {
         // Create 5 users
         User::factory()->create([
@@ -1813,286 +1815,40 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => [],
+                'where' => $where,
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 6,
+                        'total' => $expectedResultCount,
                     ],
                 ],
             ],
         ]);
+    }
 
-        // Name filtering  //
-        // casing should not matter
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'name' => 'sAm',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 1,
-                    ],
-                ],
-            ],
-        ]);
-        // ensure single letter returns all relevant results
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'name' => 'r',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 3,
-                    ],
-                ],
-            ],
-        ]);
-        // test a full name
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'name' => 'BoB rOb',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 1,
-                    ],
-                ],
-            ],
-        ]);
-        // test name segments
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'name' => 'bo ro',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 1,
-                    ],
-                ],
-            ],
-        ]);
-        // test name segments but in reverse
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'name' => 'ro bo',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 1,
-                    ],
-                ],
-            ],
-        ]);
-
-        // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'name' => 'r',
-                    'telephone' => '12345',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 1,
-                    ],
-                ],
-            ],
-        ]);
-
-        // Assert email filter with partial email returns correct count
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'email' => 'user.com',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 4,
-                    ],
-                ],
-            ],
-        ]);
-
-        // Assert more than one search term results in AND filtering
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'generalSearch' => 'sam 67890',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 1,
-                    ],
-                ],
-            ],
-        ]);
-
-        // Assert filtering for last name in general search returns correct count
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'generalSearch' => 'man',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 1,
-                    ],
-                ],
-            ],
-        ]);
-
-        // Assert filtering general search and name search (both subqueries) filter as AND
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'generalSearch' => '@user.com',
-                    'name' => 'zak',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 0,
-                    ],
-                ],
-            ],
-        ]);
+    public static function adminTableFilterProvider()
+    {
+        return [
+            'no filters returns all five users plus admin@test.com' => [[], 6],
+            'name filtering, casing should not matter' => [['name' => 'sAm'], 1],
+            'ensure single letter returns all relevant results' => [['name' => 'r'], 3],
+            'test a full name' => [['name' => 'BoB rOb'], 1],
+            'test name segments' => [['name' => 'bo ro'], 1],
+            'test name segments but in reverse' => [['name' => 'ro bo'], 1],
+            'ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)' => [[
+                'name' => 'r',
+                'telephone' => '12345',
+            ], 1],
+            'assert email filter with partial email returns correct count' => [['email' => 'user.com'], 4],
+            'assert more than one search term results in AND filtering' => [['generalSearch' => 'sam 67890'], 1],
+            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'man'], 1],
+            'assert filtering general search and name search (both subqueries) filter as AND' => [[
+                'generalSearch' => '@user.com',
+                'name' => 'zak',
+            ], 0],
+        ];
     }
 
     public function testNullFiltersEqualToUndefined(): void

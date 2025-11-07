@@ -367,6 +367,10 @@
     "defaultMessage": "Courriel professionnel de la personne déposante",
     "description": "Label for the submitter's work email"
   },
+  "/YLOnK": {
+    "defaultMessage": "L'archivage de l'utilisateur a échoué.",
+    "description": "Error message when attempting to soft-delete a user."
+  },
   "/YaoWc": {
     "defaultMessage": "Vos principales compétences",
     "description": "Title for the top skills section of a users skill showcase"
@@ -1875,14 +1879,6 @@
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
   },
-  "5jm/N7": {
-    "defaultMessage": "Supprimer cet utilisateur",
-    "description": "Label on the button to open the delete user dialog"
-  },
-  "5l+q/p": {
-    "defaultMessage": "Supprimer un utilisateur",
-    "description": "Submit button in delete user dialog"
-  },
   "5lHi37": {
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
     "description": "Link text to email about the gaining hiring experience"
@@ -2683,10 +2679,6 @@
     "defaultMessage": "Utilisateur",
     "description": "Label for the user select field on community membership form"
   },
-  "9Qc9PO": {
-    "defaultMessage": "les 25 et 26 septembre 2025",
-    "description": "Date for TechFair"
-  },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
@@ -2962,6 +2954,10 @@
   "AWk4BX": {
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
+  },
+  "AXJKYq": {
+    "defaultMessage": "Filtres de profils d'employé(e)",
+    "description": "Heading for filters associated with employee profiles"
   },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
@@ -3487,6 +3483,10 @@
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
   },
+  "CzZm8F": {
+    "defaultMessage": "Restaurer l'utilisateur",
+    "description": "Label for restoring a user"
+  },
   "D/Ymty": {
     "defaultMessage": "Ministère d’attache",
     "description": "Label displayed on the pool form department field."
@@ -3522,10 +3522,6 @@
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
-  },
-  "D9ZUyu": {
-    "defaultMessage": "Salon de l’emploi et du réseautage (automne) — Université Carleton",
-    "description": "Heading for Carleton networking/career fair"
   },
   "DA7fMg": {
     "defaultMessage": "Identifiant",
@@ -3894,10 +3890,6 @@
   "ElnCxi": {
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Description for a form input for selecting a functional community"
-  },
-  "Em4r7U": {
-    "defaultMessage": "La suppression de l'utilisateur a échoué.",
-    "description": "Error message when attempting to delete a user."
   },
   "EoEEha": {
     "defaultMessage": "Volets de travail préférés pour l'emploi ou la formation",
@@ -4531,9 +4523,9 @@
     "defaultMessage": "État du coaching des cadres",
     "description": "Label for an employee profile career development preference field"
   },
-  "I/xiHI": {
-    "defaultMessage": "Cette action changera l'état de l'utilisateur pour « Supprimé ». Cet utilisateur n'apparaîtra plus nulle part sur la plateforme. Cette action ne peut pas être renversée.",
-    "description": "Description of the form to delete a user"
+  "I/3WDu": {
+    "defaultMessage": "Au moyen de cette procédure, le profil de l'utilisateur aura le statut « Archivé » et cessera d'apparaître ailleurs dans la plateforme.",
+    "description": "Description of the form to soft-delete a user"
   },
   "I2CtZJ": {
     "defaultMessage": "Les commentaires ou les contributions seront supprimés s’ils :",
@@ -4610,6 +4602,10 @@
   "IFTwDy": {
     "defaultMessage": "Description du cours",
     "description": "Heading for section course description"
+  },
+  "IFjA9G": {
+    "defaultMessage": "Vue collectivité",
+    "description": "Community role name for nav menu"
   },
   "IH+bPG": {
     "defaultMessage": "Reçue",
@@ -7059,9 +7055,17 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title for manager full name"
   },
+  "TYdl+S": {
+    "defaultMessage": "Filtres de collectivités",
+    "description": "Heading for filters associated with communities"
+  },
   "Ta28fI": {
     "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
     "description": "title for a list of fund objectives"
+  },
+  "Tdmlnn": {
+    "defaultMessage": "Archiver l'utilisateur",
+    "description": "Label for soft-deleting a user"
   },
   "Tf8eTw": {
     "defaultMessage": "Ce rôle n’avait aucun lien avec le gouvernement du Canada.",
@@ -7358,10 +7362,6 @@
     "defaultMessage": "Réduire toutes les sections d'informations complémentaires",
     "description": "Accessible link text to collapse all accordions for more information"
   },
-  "V6h+Kn": {
-    "defaultMessage": "Vous êtes sur le point de supprimer cet utilisateur de la plateforme",
-    "description": "Lead in text for the delete user form."
-  },
   "V95g4E": {
     "defaultMessage": "Possibilités de formation",
     "description": "Title for the index training opportunities page"
@@ -7597,6 +7597,10 @@
   "W5vrNy": {
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
+  },
+  "W8SKx+": {
+    "defaultMessage": "Vous êtes sur le point de restaurer le profil de l'utilisateur suivant sur la plateforme",
+    "description": "Lead in text for the restore user form."
   },
   "W9/kLq": {
     "defaultMessage": "Situation de réaménagement des effectifs",
@@ -7969,6 +7973,10 @@
   "XhiQW6": {
     "defaultMessage": "Ce poste exige le bilinguisme et une évaluation en langue seconde. On approfondit ces sujets dans la section suivante sur les postes bilingues.",
     "description": "Bilingual intermediate language requirement description"
+  },
+  "XhzYOl": {
+    "defaultMessage": "Vous êtes sur le point d'archiver le profil de l'utilisateur suivant de la plateforme",
+    "description": "Lead in text for the soft-delete user form."
   },
   "XkA6s1": {
     "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
@@ -8594,6 +8602,10 @@
     "defaultMessage": "Consultez la CléGC",
     "description": "Link text for visiting the GCKey website"
   },
+  "aXKkrb": {
+    "defaultMessage": "Vue candidat(e)",
+    "description": "Applicant role name for nav menu"
+  },
   "aYgVQT": {
     "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
@@ -8814,10 +8826,6 @@
     "defaultMessage": "D'autres activités qui vous ont aidé à vous épanouir et à perfectionner vos compétences, y compris les passe-temps, les activités familiales et les activités extrascolaires.",
     "description": "Description for personal experience section"
   },
-  "bdzq6l": {
-    "defaultMessage": "Candidat(e)",
-    "description": "Applicant role name for nav menu"
-  },
   "be2aA/": {
     "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",
     "description": "An item in a list of points about instructor-led classes"
@@ -8877,6 +8885,10 @@
   "bq1MMd": {
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
     "description": "Text telling users they can still be helped regardless of search results"
+  },
+  "bqS+15": {
+    "defaultMessage": "L'utilisateur a été restauré avec succès!",
+    "description": "Success message after restoring a soft-deleted user"
   },
   "br+QLe": {
     "defaultMessage": "Lien copié",
@@ -9390,6 +9402,10 @@
     "defaultMessage": "<strong>{areaOfStudy}</strong> de {institution}",
     "description": "Study at institution without type, HTML"
   },
+  "dyIyt6": {
+    "defaultMessage": "Autres filtres",
+    "description": "Legend for uncategorized filters"
+  },
   "dycByE": {
     "defaultMessage": "« inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
@@ -9409,10 +9425,6 @@
   "e+6lnP": {
     "defaultMessage": "La création de l'intérêt pour la collectivité a échoué",
     "description": "Toast for error during community interest creation"
-  },
-  "e/Z582": {
-    "defaultMessage": "Collectivité",
-    "description": "Community role name for nav menu"
   },
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
@@ -9621,10 +9633,6 @@
   "eoIad5": {
     "defaultMessage": "Sauter cette étape pour l'instant",
     "description": "label for skip button"
-  },
-  "eozWFc": {
-    "defaultMessage": "Filtres avancés",
-    "description": "Title for the additional filters"
   },
   "epqtpM": {
     "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",
@@ -10185,10 +10193,6 @@
     "defaultMessage": "Veuillez sélectionner au moins une compétence essentielle ou une compétence constituant un atout pour cette méthode d'évaluation.",
     "description": "Error message for when a skill is not selected for assessment"
   },
-  "gy65G/": {
-    "defaultMessage": "Foire de l’emploi — La Cité",
-    "description": "Heading for Foire de l’emploi fair"
-  },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
@@ -10308,10 +10312,6 @@
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
-  },
-  "hS+J7B": {
-    "defaultMessage": "Admin",
-    "description": "Admin role name for nav menu"
   },
   "hS96pl": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
@@ -10673,6 +10673,10 @@
     "defaultMessage": "Vos objectifs d'apprentissage",
     "description": "Label for a employee profile learning goals field"
   },
+  "j5IepM": {
+    "defaultMessage": "Cet utilisateur a été archivé le",
+    "description": "Description of the form to restore a soft-deleted user"
+  },
   "j5cMN5": {
     "defaultMessage": "Pourquoi cette offre d’emploi n’est-elle plus disponible?",
     "description": "Heading for the closed early pool deadlines dialog"
@@ -10680,6 +10684,10 @@
   "j7+E9C": {
     "defaultMessage": "Vous êtes à la limite!",
     "description": "Title for warning message when the user has added the maximum assessments to the assessment plan"
+  },
+  "j7953D": {
+    "defaultMessage": "Vue admin",
+    "description": "Admin role name for nav menu"
   },
   "j7nWu/": {
     "defaultMessage": "Vous avez réussi à mettre à jour vos compétences!",
@@ -10764,10 +10772,6 @@
   "jQ+wCE": {
     "defaultMessage": "Retirer une compétence",
     "description": "Label to remove the skill"
-  },
-  "jQXsnP": {
-    "defaultMessage": "Salon de carrière STIM — Université d’Ottawa",
-    "description": "Heading for STEM career fair"
   },
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
@@ -10957,6 +10961,10 @@
     "defaultMessage": "Échec de la soumission de l'évaluation",
     "description": "Submission failure in evaluation dialog"
   },
+  "kTg84C": {
+    "defaultMessage": "Cette action retirera l'utilisateur des archives et restaurera son profil sur la plateforme. Tous ses renseignements précédents pourront à nouveau être consultés.",
+    "description": "Description of the form to restore a soft-deleted user"
+  },
   "kUHaE/": {
     "defaultMessage": "Inuk",
     "description": "Label for Inuk community"
@@ -11120,10 +11128,6 @@
   "l4d7/6": {
     "defaultMessage": "Aucun possibilité de formation n'est actuellement affiché. Revenez plus tard.",
     "description": "Null message for instructor led training list"
-  },
-  "l6wb1k": {
-    "defaultMessage": "L'utilisateur a été supprimé avec succès!",
-    "description": "Success message after deleting a user"
   },
   "l75mNg": {
     "defaultMessage": "Collectivité des gestionnaires",
@@ -12281,10 +12285,6 @@
     "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
     "description": "Button text to hide all advanced filters"
   },
-  "q5nhMd": {
-    "defaultMessage": "Expo carrières — Université d’Ottawa",
-    "description": "Heading for TechFair job fair"
-  },
   "q70oUn": {
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
@@ -12412,6 +12412,10 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
+  },
+  "qo/Sx2": {
+    "defaultMessage": "L'utilisateur a été archivé avec succès!",
+    "description": "Success message after soft-deleting a user"
   },
   "qs09PP": {
     "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
@@ -12657,10 +12661,6 @@
     "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux ont été nominés aux tables rondes en gestion des talents; EXposition ciblant les cadres supérieurs et Prolonger EXposition se concentrant sur les candidats de groupes et niveaux EX équivalents et EX moins un.  Les nominations sont compilées dans la base de données en gestion des talents numériques. Cette base de données constitue la source principale de données lorsque les organisations veulent d'obtenir des références tout au long de l'année.",
     "description": "Description of identifying digital talents"
   },
-  "s0bXMy": {
-    "defaultMessage": "TechFair — Université McGill",
-    "description": "Heading for TechFair job fair"
-  },
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
@@ -12684,10 +12684,6 @@
   "sF6S0Z": {
     "defaultMessage": "Enregistrer les détails de la publicité",
     "description": "Text on a button to save advertisement details"
-  },
-  "sFNx/L": {
-    "defaultMessage": "Supprimer l'utilisateur",
-    "description": "Heading for form to delete a user"
   },
   "sGPKUt": {
     "defaultMessage": "Consulter la Directive",
@@ -12788,6 +12784,10 @@
   "slQ7q5": {
     "defaultMessage": "Candidat retiré avec succès",
     "description": "Success message for removing a candidate"
+  },
+  "sn+r8z": {
+    "defaultMessage": "La restauration de l'utilisateur a échoué.",
+    "description": "Error message when attempting to restore a soft-deleted user."
   },
   "soHyUi": {
     "defaultMessage": "Au fur et à mesure que les nominations de talents pour cet événement seront reçues, elles apparaîtront automatiquement ici.",
