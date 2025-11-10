@@ -21,7 +21,7 @@ import {
   formDateStringToDate,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 import { GraphqlType } from "@gc-digital-talent/helpers";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
@@ -252,7 +252,7 @@ const useNotificationInfo = (
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
-  const logger = useLogger();
+  const logger = getLogger();
 
   if (isApplicationDeadlineApproachingNotification(notification)) {
     return applicationDeadlineApproachingNotificationToInfo(

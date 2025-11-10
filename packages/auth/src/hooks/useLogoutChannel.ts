@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 const LOGOUT_MESSAGE = "LOGOUT";
 let singleChannel: BroadcastChannel | undefined;
@@ -20,7 +20,7 @@ const getChannel = (): BroadcastChannel | undefined => {
 };
 
 const useLogoutChannel = (onLogout: () => void) => {
-  const logger = useLogger();
+  const logger = getLogger();
   const channel = getChannel();
   // Prevents channel from being closed/reopened
   const isSubscribed = useRef(false);

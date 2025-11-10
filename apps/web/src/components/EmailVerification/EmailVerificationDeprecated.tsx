@@ -9,7 +9,7 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailVerification($emailType: EmailType) {
@@ -71,7 +71,7 @@ export const EmailVerification = ({
   onSkip,
 }: EmailVerificationProps) => {
   const intl = useIntl();
-  const logger = useLogger();
+  const logger = getLogger();
   const [, executeSendEmailMutation] = useMutation(
     SendUserEmailVerification_Mutation,
   );
@@ -262,7 +262,7 @@ const EmailVerificationApi = ({
   ...rest
 }: EmailVerificationProps) => {
   const intl = useIntl();
-  const logger = useLogger();
+  const logger = getLogger();
   const [, executeSendEmailMutation] = useMutation(
     SendUserEmailVerification_Mutation,
   );

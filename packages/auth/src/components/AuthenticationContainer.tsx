@@ -3,7 +3,7 @@
 import { ReactNode, createContext, useEffect, useMemo } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
-import { defaultLogger, useLogger } from "@gc-digital-talent/logger";
+import { defaultLogger, getLogger } from "@gc-digital-talent/logger";
 import { appInsights } from "@gc-digital-talent/app-insights";
 
 import {
@@ -180,7 +180,7 @@ const AuthenticationContainer = ({
   postLogoutRedirectUri,
   children,
 }: AuthenticationContainerProps) => {
-  const logger = useLogger();
+  const logger = getLogger();
   const { broadcastLogoutMessage } = useLogoutChannel(() => {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
       window.location.href = postLogoutRedirectUri;
