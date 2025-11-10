@@ -15,7 +15,8 @@ class PostgresTextSearch
         '^\|'.'|'.      // | at the beginning
         '\|$'.'|'.      // | at the end
         ':'.'|'.        // : anywhere
-        '(?!^)\!'.      // ! not at the beginning
+        '^.+?\!'.'|'.   // ! not at the beginning
+        '^\!$'.         // ! at the end
         '/';
 
     // convert a search string to query text

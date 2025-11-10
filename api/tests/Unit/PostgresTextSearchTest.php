@@ -53,7 +53,7 @@ class PostgresTextSearchTest extends TestCase
                 'expectedOutput' => 'term1:* | term2:*',
             ],
             'removes terms with invalid patterns' => [
-                'searchString' => 'term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9!',
+                'searchString' => 'term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! !',
                 'expectedOutput' => '',
             ],
             'allows terms with valid patterns' => [
