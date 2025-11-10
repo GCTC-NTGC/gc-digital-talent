@@ -116,8 +116,8 @@ const applicationDeadlineExtendedNotificationToInfo = (
     message: intl.formatMessage(
       {
         defaultMessage:
-          "The deadline for {poolName} has been extended to {closingDate}. If you’re still interested, we encourage you to continue your application.",
-        id: "ad/yFz",
+          "The deadline for {poolName} has been extended to {closingDate}. If you're still interested, we encourage you to continue your application.",
+        id: "QaB7J+",
         description: "Message for application deadline extended notification",
       },
       {
