@@ -3,8 +3,9 @@
 namespace Tests\Unit;
 
 use App\Services\OpenIdBearerTokenService;
+use App\Utilities\CarbonClock;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
-use Lcobucci\Clock\FrozenClock;
 use Tests\TestCase;
 
 class OpenIdBearerTokenTest extends TestCase
@@ -14,8 +15,6 @@ class OpenIdBearerTokenTest extends TestCase
      */
     protected $service_provider;
 
-    protected \DateTimeImmutable $now;
-
     protected \DateInterval $allowableClockSkew;
 
     const fakeRootUrl = 'http://test.com';
@@ -24,38 +23,56 @@ class OpenIdBearerTokenTest extends TestCase
 
     const fakeJwksUrl = self::fakeRootUrl.'/jwks';
 
-    const fakeIntrospectionUrl = self::fakeRootUrl.'/introspection';
+    protected bool $fakeIntrospectionIsActive;
+
+    protected int $fakeIntrospectionExpiry;
 
     protected function setUp(): void
     {
         parent::setUp(); // initializes Http facade
 
+        $fakeIntrospectionUrl = self::fakeRootUrl.'/introspection';
+
         Http::fake([
             self::fakeConfigUrl => Http::response('{ '.
                 '"issuer" : "'.self::fakeRootUrl.'", '.
                 '"jwks_uri" : "'.self::fakeJwksUrl.'",'.
-                '"introspection_endpoint" : "'.self::fakeIntrospectionUrl.'"'.
+                '"introspection_endpoint" : "'.$fakeIntrospectionUrl.'"'.
                 '}'),
             self::fakeJwksUrl => Http::response(file_get_contents('tests/Unit/resources/jwks.json')),
+            $fakeIntrospectionUrl => function () {
+                return Http::response(json_encode([
+                    'active' => $this->fakeIntrospectionIsActive,
+                    'exp' => $this->fakeIntrospectionExpiry,
+                ]));
+            },
         ]);
 
         // generate keys and tokens for testing at https://jwt.io/#debugger-io
         // make sure you set algorithm to RS256
 
-        $this->now = new \DateTimeImmutable('2020-01-01 00:02:00', new \DateTimeZone('UTC'));
+        Carbon::setTestNow('2020-01-01 00:02:00');
         $this->allowableClockSkew = \DateInterval::createFromDateString('4 minutes');
         $this->service_provider = new OpenIdBearerTokenService(
             self::fakeConfigUrl,
-            new FrozenClock($this->now),
+            new CarbonClock(),
             $this->allowableClockSkew
         );
     }
 
-    protected function setIntrospectionResponse(bool $isActive)
+    protected function setIntrospectionResponse(bool $isActive, ?int $expiryTimestamp = null)
     {
-        Http::fake([
-            self::fakeIntrospectionUrl => Http::response('{ "active": '.($isActive ? 'true' : 'false').' } '),
-        ]);
+        if (is_null($expiryTimestamp)) {
+            // calculate an expiry time stamp
+            if ($isActive) {
+                $expiryTimestamp = Carbon::now()->add(\DateInterval::createFromDateString('10 minutes'))->getTimestamp();
+            } else {
+                $expiryTimestamp = Carbon::now()->sub(\DateInterval::createFromDateString('10 minutes'))->getTimestamp();
+            }
+        }
+
+        $this->fakeIntrospectionIsActive = $isActive;
+        $this->fakeIntrospectionExpiry = $expiryTimestamp;
     }
 
     /**
@@ -226,8 +243,8 @@ class OpenIdBearerTokenTest extends TestCase
         $claims = $this->service_provider->validateAndGetClaims($token);  // will throw an exception for rejected tokens
 
         // checks that the test was properly set up
-        $this->assertTrue($this->now > $claims->get('exp'), 'test value for now was not after strict expiry date');
-        $this->assertTrue($this->now < $claims->get('exp')->add($this->allowableClockSkew), 'test value for now was not within the expiry date plus allowed skew');
+        $this->assertTrue(Carbon::now() > $claims->get('exp'), 'test value for now was not after strict expiry date');
+        $this->assertTrue(Carbon::now() < $claims->get('exp')->add($this->allowableClockSkew), 'test value for now was not within the expiry date plus allowed skew');
     }
 
     /**
@@ -253,5 +270,102 @@ class OpenIdBearerTokenTest extends TestCase
         $this->setIntrospectionResponse(false);
         $this->expectException(\Exception::class);
         $claims = $this->service_provider->validateAndGetClaims($token);
+    }
+
+    /**
+     * @test
+     * If a second introspection call is made in quick succession, the second response should be a cached one.
+     */
+    public function testThatASecondQuickIntrospectionRequestIsCached()
+    {
+        $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoyMTQ3NDgzNjQ3LCJpYXQiOjB9.qiOmlGVi-7K0B8eeZNYY21yZnXDn5pZWFMSLM6UH2uHUQ8mdcN0Ocd36Sq1vKvWeOgTvEm_MCl5GGCert16huUoEiILnlmf9F4i7L7wa1HIgPZnXKxKFbShbUUFMSn-6WxEQxF5g-s6cr77Lu6H_y2_osD39MFcpxTy5k5zJE8EXwQ2FGxmYhW4_qpNF3WQcMge5dfhaPaLpxH1lSrYHkCqnfGJkcTMRg3TPkQe1KWV4VUf2uGl06FleWCXuPgO__LSWeA2YHsyCV7tMPVDlOIOtiyZA1Pk4G_p2ur8a403NyIjdcXOscwIHd55vw--GOdMGSurLMS_rHfz0FD6bRSzW_6AWfBa4KQJVkoM_U6aUZ5yBEbzbsNh2u1H-OyEVBgu4R5XoyXfcn8-Z8nq_ciER8UyvVXTj9WnU--ELEZ_0Qxn4ovKqjXdL7eGwwQ5YercEh-iGiaHikEi2pD1YpfbpXE_uS3Wl2Acd8f_4sIzyQfbBfGoqIZb_cPKIm-gRhJlJn-dRdO_Hzy0rCkDngbSEg_VAeQQv-JAvOlQimI73scyWyLGLzuyOZV33Sy0NAsdOJ0xiM0C5HT_-Wc-ZFHW3uYWzixu60c0yRiJ2vV0-o-VTvpkALYPmy5n8SXSKKP59psvGzSydiX4dq5bk2XGq8wTsUGBOObTVZEN_j9E';
+        /** analyze token at https://jwt.io/
+        {
+        "kid": "key1",               -- should be validated by key1 (see the resources directory)
+        "typ": "JWT",
+        "alg": "RS256"
+        }
+        {
+        "sub": "1234567890",         -- arbitrary subscriber string
+        "iss": "http://test.com",    -- arbitrary issuer
+        "exp": 2147483647,           -- expires at end of time
+        "iat": 0                     -- issued at beginning of time
+        }
+         */
+        $this->setIntrospectionResponse(true);
+
+        HTTP::assertSentCount(0);
+        $this->service_provider->validateAndGetClaims($token);
+        Http::assertSentCount(3); // calls config, jwks, and introspection
+
+        $this->travel(1)->second();
+        $this->service_provider->validateAndGetClaims($token);
+        Http::assertSentCount(3); // hasn't changed, used cached response
+    }
+
+    /**
+     * @test
+     * If a second introspection call is made much later, the second response should not be a cached one.
+     */
+    public function testThatASecondLongIntrospectionRequestIsNotCached()
+    {
+        $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoyMTQ3NDgzNjQ3LCJpYXQiOjB9.qiOmlGVi-7K0B8eeZNYY21yZnXDn5pZWFMSLM6UH2uHUQ8mdcN0Ocd36Sq1vKvWeOgTvEm_MCl5GGCert16huUoEiILnlmf9F4i7L7wa1HIgPZnXKxKFbShbUUFMSn-6WxEQxF5g-s6cr77Lu6H_y2_osD39MFcpxTy5k5zJE8EXwQ2FGxmYhW4_qpNF3WQcMge5dfhaPaLpxH1lSrYHkCqnfGJkcTMRg3TPkQe1KWV4VUf2uGl06FleWCXuPgO__LSWeA2YHsyCV7tMPVDlOIOtiyZA1Pk4G_p2ur8a403NyIjdcXOscwIHd55vw--GOdMGSurLMS_rHfz0FD6bRSzW_6AWfBa4KQJVkoM_U6aUZ5yBEbzbsNh2u1H-OyEVBgu4R5XoyXfcn8-Z8nq_ciER8UyvVXTj9WnU--ELEZ_0Qxn4ovKqjXdL7eGwwQ5YercEh-iGiaHikEi2pD1YpfbpXE_uS3Wl2Acd8f_4sIzyQfbBfGoqIZb_cPKIm-gRhJlJn-dRdO_Hzy0rCkDngbSEg_VAeQQv-JAvOlQimI73scyWyLGLzuyOZV33Sy0NAsdOJ0xiM0C5HT_-Wc-ZFHW3uYWzixu60c0yRiJ2vV0-o-VTvpkALYPmy5n8SXSKKP59psvGzSydiX4dq5bk2XGq8wTsUGBOObTVZEN_j9E';
+        /** analyze token at https://jwt.io/
+        {
+        "kid": "key1",               -- should be validated by key1 (see the resources directory)
+        "typ": "JWT",
+        "alg": "RS256"
+        }
+        {
+        "sub": "1234567890",         -- arbitrary subscriber string
+        "iss": "http://test.com",    -- arbitrary issuer
+        "exp": 2147483647,           -- expires at end of time
+        "iat": 0                     -- issued at beginning of time
+        }
+         */
+        $this->setIntrospectionResponse(true);
+
+        HTTP::assertSentCount(0);
+        $this->service_provider->validateAndGetClaims($token);
+        HTTP::assertSentCount(3); // calls config, jwks, and introspection
+
+        // advance the clock by 30 seconds
+        $this->travel(30)->seconds();
+        $this->service_provider->validateAndGetClaims($token);
+        HTTP::assertSentCount(4); // made an extra call since it's not cached anymore
+    }
+
+    /**
+     * @test
+     * If a second introspection call is made in quick succession, but the token is expired, the second response should not be a cached one.
+     */
+    public function testThatASecondQuickIntrospectionRequestIsNotCachedWhenExpired()
+    {
+        $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoxNTc3ODM2ODA1LCJpYXQiOjB9.G_gs9jaBUUiew520AZMmthTb-Ykj75BoB2AL-Qh7_wfNjZCTeS89jciPLp_Uh1CQJSK64yW3IyVd8XqZjSSVOARlZox5LlcXdHwdkqAyGa2_iiMOdk8E_ILX0gKWn1KaJyuuAMVnIocMMR8NN3T-m5NT8aYBXUEYF9XRaXcQL1ZfdE_E2JO-6pPZW55SEytQwRpi_mshs-EPolyxenWrNRRCP9xxUiO_FJ8wN0zaeheeCWo2t6z6TGT9VVEqojpfM-N6dGkrZyyFYpoxwksSeGp4clIBDb4aN7tysz0oXxZuNbF7Ex9wv9oRslb9MaMTc1FR5hDZNRiCVlCLTqF4Bb2rF6x2UlVRN48xCQOhRN54psOxuYQL_BQUUXxYHDdRLdzfG-GgHyzkQbgYedWKx6oip--OoFD-P-PVcdyRiG7iBqAXqINUsDDLB5HvlCPXkBL4fRlG789ct25MnKCEcTJE1KMku9ge5QIz7wMume19bO-rgFZTufQI_lko6rfPqAKmn5__pZqACO56IaEMGR7Zw9gGXU9clPfn5s3M8yKV0w4x1cTXsfb4ad6MQvOrAFhpGMF0Q820QMAGa85dNCM5xQzAzfeJn7W4MeHIei02CuDGLfqMJF2IL3A2oxv4QvOfrDGlkneWa6yj0uQUd_HpSnMDihxMwos5svA7blQ';
+        /** analyze token at https://jwt.io/
+        {
+        "kid": "key1",               -- should be validated by key1 (see the resources directory)
+        "typ": "JWT",
+        "alg": "RS256"
+        }
+        {
+        "sub": "1234567890",         -- arbitrary subscriber string
+        "iss": "http://test.com",    -- arbitrary issuer
+        "exp": 1577836805,           -- expires at 2020-01-01 00:00:05 GMT
+        "iat": 0                     -- issued at beginning of time
+        }
+         */
+        HTTP::assertSentCount(0);
+
+        Carbon::setTestNow('2020-01-01 00:00:00'); // not yet expired
+        $this->setIntrospectionResponse(true, 1577836805);
+        $this->service_provider->validateAndGetClaims($token);
+
+        $this->expectException(\Exception::class);
+
+        // advance the clock by 6 seconds (more than 5 second expiry but less than the 10 second cache time)
+        Carbon::setTestNow('2020-01-01 00:00:06');
+        $this->setIntrospectionResponse(false, 1577836805);
+        $this->service_provider->validateAndGetClaims($token); // throws exception because token is expired, not cached
     }
 }
