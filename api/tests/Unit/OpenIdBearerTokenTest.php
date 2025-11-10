@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Services\OpenIdBearerTokenService;
 use App\Utilities\CarbonClock;
+use DateTimeImmutable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -25,7 +26,7 @@ class OpenIdBearerTokenTest extends TestCase
 
     protected bool $fakeIntrospectionIsActive;
 
-    protected int $fakeIntrospectionExpiry;
+    protected DateTimeImmutable $fakeIntrospectionExpiry;
 
     protected function setUp(): void
     {
@@ -43,7 +44,7 @@ class OpenIdBearerTokenTest extends TestCase
             $fakeIntrospectionUrl => function () {
                 return Http::response(json_encode([
                     'active' => $this->fakeIntrospectionIsActive,
-                    'exp' => $this->fakeIntrospectionExpiry,
+                    'exp' => $this->fakeIntrospectionExpiry->getTimestamp(),
                 ]));
             },
         ]);
@@ -60,19 +61,19 @@ class OpenIdBearerTokenTest extends TestCase
         );
     }
 
-    protected function setIntrospectionResponse(bool $isActive, ?int $expiryTimestamp = null)
+    protected function setIntrospectionResponse(bool $isActive, ?DateTimeImmutable $expiry = null)
     {
-        if (is_null($expiryTimestamp)) {
+        if (is_null($expiry)) {
             // calculate an expiry time stamp
             if ($isActive) {
-                $expiryTimestamp = Carbon::now()->add(\DateInterval::createFromDateString('10 minutes'))->getTimestamp();
+                $expiry = Carbon::now()->add('minutes', 1)->toDateTimeImmutable();
             } else {
-                $expiryTimestamp = Carbon::now()->sub(\DateInterval::createFromDateString('10 minutes'))->getTimestamp();
+                $expiry = Carbon::now()->sub('minutes', 1)->toDateTimeImmutable();
             }
         }
 
         $this->fakeIntrospectionIsActive = $isActive;
-        $this->fakeIntrospectionExpiry = $expiryTimestamp;
+        $this->fakeIntrospectionExpiry = $expiry;
     }
 
     /**
@@ -358,14 +359,14 @@ class OpenIdBearerTokenTest extends TestCase
         HTTP::assertSentCount(0);
 
         Carbon::setTestNow('2020-01-01 00:00:00'); // not yet expired
-        $this->setIntrospectionResponse(true, 1577836805);
+        $this->setIntrospectionResponse(true, Carbon::createFromTimeString('2020-01-01 00:00:05')->toImmutable());
         $this->service_provider->validateAndGetClaims($token);
 
         $this->expectException(\Exception::class);
 
         // advance the clock by 6 seconds (more than 5 second expiry but less than the 10 second cache time)
         Carbon::setTestNow('2020-01-01 00:00:06');
-        $this->setIntrospectionResponse(false, 1577836805);
+        $this->setIntrospectionResponse(false, Carbon::createFromTimeString('2020-01-01 00:00:05')->toImmutable());
         $this->service_provider->validateAndGetClaims($token); // throws exception because token is expired, not cached
     }
 }
