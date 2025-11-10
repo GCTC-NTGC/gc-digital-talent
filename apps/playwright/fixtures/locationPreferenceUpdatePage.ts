@@ -4,7 +4,6 @@ import { Key } from "react";
 import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
 import { loginBySub } from "~/utils/auth";
-import config from "~/constants/config";
 
 import AppPage from "./AppPage";
 
@@ -24,7 +23,7 @@ type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
 
 class LocationPreferenceUpdatePage extends AppPage {
-  readonly baseUrl: string = config.locationPreferenceConfig.url;
+  readonly baseUrl: string = "/en/applicant/personal-information";
   readonly locators: Record<Field, Locator>;
   readonly optionsMap = new Map<FlexibleWorkLocation, string>([
     [FlexibleWorkLocation.Hybrid, "Hybrid work"],
@@ -75,8 +74,8 @@ class LocationPreferenceUpdatePage extends AppPage {
     };
   }
 
-  async goToPersonalInformationPage() {
-    await loginBySub(this.page, config.AllSignInEmails.applicantSignIn);
+  async goToPersonalInformationPage(sub: string) {
+    await loginBySub(this.page, sub);
     await this.page.goto(`${this.baseUrl}`);
     await this.waitForGraphqlResponse("ProfileUser");
   }
