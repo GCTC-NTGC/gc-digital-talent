@@ -24,10 +24,17 @@ const usePollingQuery = <TData, TVariables extends AnyVariables>(
   useEffect(() => {
     remainingRef.current = delay * 1000;
     lastStartTimeRef.current = Date.now();
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
   }, [delay, disabled, queryArgs.variables]);
 
   useEffect(() => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
 
     // Do nothing if we are already fetching
     if (disabled || result.fetching) return undefined;
@@ -61,13 +68,6 @@ const usePollingQuery = <TData, TVariables extends AnyVariables>(
     disabled,
     isWindowActive,
   ]);
-
-  useEffect(() => {
-    if (!result.fetching && isWindowActive && !disabled) {
-      remainingRef.current = delay * 1000;
-      lastStartTimeRef.current = Date.now();
-    }
-  }, [result.fetching, isWindowActive, disabled, delay]);
 
   return [result, executeQuery];
 };
