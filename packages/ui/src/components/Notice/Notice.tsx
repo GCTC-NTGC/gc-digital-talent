@@ -39,11 +39,25 @@ const root = tv({
       error: "",
     },
     small: {
-      true: "p-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr]",
-      false: "p-6 has-[>svg]:grid-cols-[calc(var(--spacing)*7)_1fr]",
+      true: "p-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*5.75)_1fr]",
+      false: "p-4.5 has-[>svg]:grid-cols-[calc(var(--spacing)*6.75)_1fr]",
+    },
+    dismissable: {
+      true: "",
+      false: "",
     },
   },
   compoundVariants: [
+    {
+      small: true,
+      dismissable: true,
+      class: "p-3 pr-12",
+    },
+    {
+      small: false,
+      dismissable: true,
+      class: "p-4.5 pr-16.75",
+    },
     {
       mode: "inline",
       color: "gray",
@@ -124,18 +138,30 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
 
     return (
       <NoticeContext.Provider
-        value={{ mode, color, small, onDismiss: handleDismiss }}
+        value={{
+          mode,
+          color,
+          small,
+          dismissable: !!onDismiss,
+          onDismiss: handleDismiss,
+        }}
       >
         <div
           ref={forwardedRef}
           {...rest}
-          className={root({ mode, color, small, class: className })}
+          className={root({
+            mode,
+            color,
+            small,
+            dismissable: !!onDismiss,
+            class: className,
+          })}
         >
           {onDismiss && (
             <IconButton
               icon={XMarkIcon}
-              size="sm"
-              className="absolute top-2 right-2"
+              className="absolute top-3.25 right-3.25"
+              size={small ? "sm" : "md"}
               color={iconColor ?? "black"}
               onClick={handleDismiss}
               label={intl.formatMessage(uiMessages.closeAlert)}
@@ -156,10 +182,10 @@ const title = tv({
   variants: {
     small: {
       true: {
-        heading: "text-sm/6",
+        heading: "mb-px text-sm/6",
       },
       false: {
-        heading: "sm:leading-7",
+        heading: "mb-0.5",
       },
     },
     color: {
@@ -267,7 +293,7 @@ const footer = tv({
   slots: {
     base: "col-span-2",
     separator: "bg-gray-600 dark:bg-gray-200",
-    content: "col-start-2",
+    content: "col-start-2 text-sm",
   },
   variants: {
     mode: {
@@ -275,8 +301,12 @@ const footer = tv({
       card: "",
     },
     small: {
-      true: "-mx-3",
-      false: "-mx-6",
+      true: { base: "-mx-3", separator: "mt-4.5 mb-3" },
+      false: { base: "-mx-4.5", separator: "mt-6 mb-4.5" },
+    },
+    dismissable: {
+      true: "",
+      false: "",
     },
     color: {
       gray: "",
@@ -288,6 +318,16 @@ const footer = tv({
     },
   },
   compoundVariants: [
+    {
+      small: true,
+      dismissable: true,
+      class: "-mr-12 -ml-3",
+    },
+    {
+      small: false,
+      dismissable: true,
+      class: "-mr-16.75 -ml-4.5",
+    },
     {
       mode: "inline",
       color: "primary",
@@ -317,8 +357,13 @@ const footer = tv({
 });
 
 const Footer = ({ className, ...rest }: DivProps) => {
-  const { color, mode, small } = use(NoticeContext);
-  const { separator, base, content } = footer({ color, mode, small });
+  const { color, mode, small, dismissable } = use(NoticeContext);
+  const { separator, base, content } = footer({
+    color,
+    mode,
+    small,
+    dismissable,
+  });
 
   return (
     <>
@@ -326,7 +371,6 @@ const Footer = ({ className, ...rest }: DivProps) => {
         <Separator
           decorative
           orientation="horizontal"
-          space={small ? "xs" : "sm"}
           className={separator()}
         />
       </div>
