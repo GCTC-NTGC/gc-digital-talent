@@ -10,7 +10,6 @@ import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePag
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
-import config from "~/constants/config";
 
 test.describe("Location Preference Update", () => {
   let locationPrefPage: LocationPreferenceUpdatePage;
@@ -20,9 +19,7 @@ test.describe("Location Preference Update", () => {
 
   test("Work Location Update for Existing users", async ({ appPage }) => {
     locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
-    await locationPrefPage.goToPersonalInformationPage(
-      config.allSignInEmails.applicantSignIn,
-    );
+    await locationPrefPage.goToPersonalInformationPage("applicant@test.com");
     // Validate existing selected flexible work location options
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await locationPrefPage.navigateToEditWorkPreference();
