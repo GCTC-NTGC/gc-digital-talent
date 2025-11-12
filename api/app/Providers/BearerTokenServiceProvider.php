@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Services\OpenIdBearerTokenService;
-use App\Utilities\CarbonClock;
 use Illuminate\Support\ServiceProvider;
+use Psr\Clock\ClockInterface;
 
 class BearerTokenServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class BearerTokenServiceProvider extends ServiceProvider
         $this->app->singleton(OpenIdBearerTokenService::class, function () {
             return new OpenIdBearerTokenService(
                 config('oauth.server_root').'/.well-known/openid-configuration',
-                new CarbonClock(),
+                $this->app->make(ClockInterface::class),
                 config('oauth.allowable_clock_skew')
             );
         });

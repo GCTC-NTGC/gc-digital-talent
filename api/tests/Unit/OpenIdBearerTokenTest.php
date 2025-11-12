@@ -3,10 +3,10 @@
 namespace Tests\Unit;
 
 use App\Services\OpenIdBearerTokenService;
-use App\Utilities\CarbonClock;
 use DateTimeImmutable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
+use Psr\Clock\ClockInterface;
 use Tests\TestCase;
 
 class OpenIdBearerTokenTest extends TestCase
@@ -56,7 +56,7 @@ class OpenIdBearerTokenTest extends TestCase
         $this->allowableClockSkew = \DateInterval::createFromDateString('4 minutes');
         $this->service_provider = new OpenIdBearerTokenService(
             self::fakeConfigUrl,
-            new CarbonClock(),
+            $this->app->make(ClockInterface::class),
             $this->allowableClockSkew
         );
     }

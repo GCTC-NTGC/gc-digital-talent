@@ -186,6 +186,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ClockInterfaceProvider::class,
 
         // Additional Providers
         \Nuwave\Lighthouse\LighthouseServiceProvider::class,
