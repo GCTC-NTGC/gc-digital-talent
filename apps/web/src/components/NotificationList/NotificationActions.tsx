@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { tv } from "tailwind-variants";
+import { ArrowPathIcon } from "@heroicons/react/20/solid";
 
-import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
+import { Button, IconButton, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -36,12 +37,14 @@ interface NotificationActionsProps {
   onlyUnread?: boolean;
   inDialog?: boolean;
   onRead?: () => void;
+  onRefresh?: () => void;
 }
 
 const NotificationActions = ({
   onlyUnread,
   inDialog,
   onRead,
+  onRefresh,
 }: NotificationActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -131,6 +134,17 @@ const NotificationActions = ({
           description: "Button text to mark all notifications as read",
         })}
       </Button>
+      {onRefresh && (
+        <IconButton
+          icon={ArrowPathIcon}
+          onClick={onRefresh}
+          aria-label={intl.formatMessage({
+            defaultMessage: "Refresh notifications",
+            id: "9S5ylu",
+            description: "Button text to get notifications",
+          })}
+        />
+      )}
     </div>
   );
 };

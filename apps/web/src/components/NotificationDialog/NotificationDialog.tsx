@@ -137,7 +137,7 @@ const DialogPortalWithPresence = ({
               })}
             </DialogPrimitive.Description>
           </div>
-          <NotificationList live inDialog limit={30} onRead={handleRead} />
+          <NotificationList inDialog limit={30} onRead={handleRead} />
           <p className="m-6">
             <DialogPrimitive.Close asChild>
               <Link href={paths.notifications()} mode="solid" color="primary">
