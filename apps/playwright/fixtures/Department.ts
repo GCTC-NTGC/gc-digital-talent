@@ -8,9 +8,6 @@ import {
   UpdateDepartmentInput,
 } from "@gc-digital-talent/graphql";
 
-import dConfig from "~/constants/config";
-import { loginBySub } from "~/utils/auth";
-
 import AppPage from "./AppPage";
 
 const FIELD = {
@@ -42,7 +39,7 @@ type DepartmentType = keyof DepartmentTypeInput;
  */
 class Department extends AppPage {
   readonly locators: Record<Field, Locator>;
-  readonly baseUrl: string = dConfig.departmentsConfig.url;
+  readonly baseUrl: string = "/en/admin/settings/departments";
   readonly sizeMap = new Map<DepartmentSize, string>([
     [DepartmentSize.Micro, "Micro (up to 250 employees)"],
     [DepartmentSize.Small, "Small (up to 1000 employees)"],
@@ -72,46 +69,14 @@ class Department extends AppPage {
     };
   }
 
-  async loginDepartments() {
-    await loginBySub(this.page, dConfig.AllSignInEmails.adminSignIn);
-  }
-
   async view(id: string) {
     await this.page.goto(`${this.baseUrl}/${id}`);
     await this.waitForGraphqlResponse("ViewDepartmentPage");
   }
 
   async goToUpdate(id: string) {
-    await this.loginDepartments();
     await this.page.goto(`${this.baseUrl}/${id}/edit`);
     await this.waitForGraphqlResponse("Department");
-  }
-
-  async createDepartment(createDepartment: CreateDepartmentInput) {
-    await this.loginDepartments();
-    await this.page.goto(`${this.baseUrl}/create`);
-    await this.waitForGraphqlResponse("CreateDepartmentOptions");
-
-    await this.fillName(createDepartment.name);
-    await this.fillNumber(createDepartment.departmentNumber);
-    await this.fillOrgId(createDepartment.orgIdentifier);
-    await this.fillSize(createDepartment.size);
-
-    const {
-      isScience,
-      isRegulatory,
-      isCentralAgency,
-      isCorePublicAdministration,
-    } = createDepartment;
-    await this.fillType({
-      isCorePublicAdministration,
-      isCentralAgency,
-      isRegulatory,
-      isScience,
-    });
-
-    await this.page.getByRole("button", { name: /create department/i }).click();
-    await this.waitForGraphqlResponse("CreateDepartment");
   }
 
   async updateDepartment(id: string, department: UpdateDepartmentInput) {
@@ -146,7 +111,7 @@ class Department extends AppPage {
     }
 
     if (name?.fr) {
-      await this.locators.nameFr.fill(name.fr);
+      await this.locators.nameEn.fill(name.fr);
     }
   }
 

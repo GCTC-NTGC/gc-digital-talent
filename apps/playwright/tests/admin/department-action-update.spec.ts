@@ -2,6 +2,7 @@ import { DepartmentSize } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import Department from "~/fixtures/Department";
+import { loginBySub } from "~/utils/auth";
 import { deleteDepartment, createDepartment } from "~/utils/departments";
 import graphql from "~/utils/graphql";
 import { generateUniqueNumber, generateUniqueTestId } from "~/utils/id";
@@ -24,6 +25,8 @@ test("Update department", async ({ appPage }) => {
     isRegulatory: true,
     isScience: false,
   });
+
+  await loginBySub(appPage.page, "admin@test.com");
 
   const dept = new Department(appPage.page);
 
