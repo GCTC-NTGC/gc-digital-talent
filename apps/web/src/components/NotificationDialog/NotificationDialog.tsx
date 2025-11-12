@@ -22,6 +22,7 @@ import { getRuntimeVariable } from "@gc-digital-talent/env";
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
 import notificationMessages from "~/messages/notificationMessages";
+import { NOTIFICATION_POLLING_INTERVAL } from "~/constants/notifications";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
@@ -155,9 +156,6 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
-const envPollingInterval = getRuntimeVariable("NOTIFICATION_POLLING_INTERVAL");
-const pollingInterval = envPollingInterval ? parseInt(envPollingInterval) : 1;
-
 interface NotificationDialog {
   /** Controllable open state */
   open?: boolean;
@@ -190,8 +188,8 @@ const NotificationDialog = ({
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
-    pollingInterval * 60,
-    pollingInterval <= 0,
+    NOTIFICATION_POLLING_INTERVAL,
+    NOTIFICATION_POLLING_INTERVAL <= 0,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
   const buttonLabel = open

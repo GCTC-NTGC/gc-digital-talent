@@ -7,6 +7,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
+import { NOTIFICATION_POLLING_INTERVAL } from "~/constants/notifications";
 
 import NotificationActions from "./NotificationActions";
 import NotificationListPage from "./NotificationListPage";
@@ -83,7 +84,8 @@ const NotificationList = ({
         },
       },
     },
-    60,
+    NOTIFICATION_POLLING_INTERVAL,
+    NOTIFICATION_POLLING_INTERVAL <= 0,
   );
   const lastPage = maxPagesData?.notifications.paginatorInfo.lastPage ?? 1;
   let pagesToLoad =
