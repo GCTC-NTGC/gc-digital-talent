@@ -9,7 +9,7 @@ import { loginBySub } from "~/utils/auth";
 import { expect, test } from "~/fixtures";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 
-test.describe("Location Preference Update", () => {
+test.describe("Location Preference Validation", () => {
   let uniqueTestId: string;
   let adminCtx: GraphQLContext;
   let user: User;
