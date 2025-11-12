@@ -189,7 +189,7 @@ const NotificationDialog = ({
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
     NOTIFICATION_POLLING_INTERVAL,
-    NOTIFICATION_POLLING_INTERVAL <= 0,
+    NOTIFICATION_POLLING_INTERVAL <= 0 || open,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
   const buttonLabel = open
