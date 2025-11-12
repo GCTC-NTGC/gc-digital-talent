@@ -42,7 +42,7 @@ type DepartmentType = keyof DepartmentTypeInput;
  */
 class Department extends AppPage {
   readonly locators: Record<Field, Locator>;
-  readonly baseUrl: string = dConfig.departments.url;
+  readonly baseUrl: string = dConfig.departmentsConfig.url;
   readonly sizeMap = new Map<DepartmentSize, string>([
     [DepartmentSize.Micro, "Micro (up to 250 employees)"],
     [DepartmentSize.Small, "Small (up to 1000 employees)"],
@@ -73,7 +73,7 @@ class Department extends AppPage {
   }
 
   async loginDepartments() {
-    await loginBySub(this.page, dConfig.allSignInEmails.adminSignIn);
+    await loginBySub(this.page, dConfig.AllSignInEmails.adminSignIn);
   }
 
   async view(id: string) {
