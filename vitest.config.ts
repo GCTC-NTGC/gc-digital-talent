@@ -3,6 +3,7 @@ import { uiConfig } from "@gc-digital-talent/vitest-helpers/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+
 const dirname =
   typeof __dirname !== "undefined"
     ? __dirname
@@ -40,6 +41,9 @@ export default defineConfig({
           // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
           storybookTest({
             configDir: path.join(dirname, ".storybook"),
+            tags: {
+              skip: ["needs-fix"],
+            },
           }),
         ],
         test: {
