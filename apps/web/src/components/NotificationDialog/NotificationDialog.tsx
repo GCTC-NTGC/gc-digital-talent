@@ -17,7 +17,6 @@ import {
   IconButton,
   ButtonProps,
 } from "@gc-digital-talent/ui";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
