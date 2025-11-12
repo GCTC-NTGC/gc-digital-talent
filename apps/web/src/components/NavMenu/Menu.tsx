@@ -95,38 +95,9 @@ const Menu = ({
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
     if (event.key === "Escape") {
+      event.stopPropagation();
       setMenuOpen(false);
-      return;
     }
-
-    const nav = document.getElementById("main-nav");
-    // get all visible btns/links from nav
-    const navItems = Array.from(
-      nav?.querySelectorAll("button, a") || [],
-    ).filter(
-      (el) => el instanceof HTMLElement && el.offsetParent !== null,
-    ) as HTMLElement[];
-
-    if (!navItems.length) return;
-    // find index of focused element
-    const currentIndex = navItems.indexOf(
-      document.activeElement as HTMLElement,
-    );
-    // checks for arrow keys
-    const isNext = ["ArrowRight", "ArrowDown"].includes(event.key);
-    const isPrev = ["ArrowLeft", "ArrowUp"].includes(event.key);
-
-    if (!isNext && !isPrev) return;
-    event.preventDefault();
-    event.stopPropagation();
-    // calculate next index
-    const nextIndex = isNext
-      ? (currentIndex + 1) % navItems.length
-      : currentIndex > 0
-        ? currentIndex - 1
-        : navItems.length - 1;
-    // focus the element at next calculated index
-    navItems[nextIndex]?.focus();
   };
 
   useEffect(() => {
@@ -155,7 +126,7 @@ const Menu = ({
         >
           <div
             className="relative z-10"
-            // NOTE: Do not remove 'id', required by anchor link offsets
+            // NOTE: Do not remove, required by anchor link offsets
             id="main-nav"
           >
             {showMenu ? (
@@ -214,48 +185,38 @@ const Menu = ({
 
                   <MenuSeparator orientation="horizontal" />
 
-                  <div
-                    role="group"
-                    aria-label={intl.formatMessage({
-                      defaultMessage: "Account & Notifications navigation",
-                      id: "lY1LIh" /*  TODO: translate & update default message */,
-                      description:
-                        "Label for the account & notifications navigation",
-                    })}
-                  >
-                    <NavMenu.List type="main">
-                      {accountLinks}
-                      {loggedIn && (
-                        <>
-                          <NavMenu.Item
-                            className={borderItem({
-                              borderLeft: true,
-                              class: "hidden before:mr-3 sm:inline-flex",
-                            })}
-                          >
-                            <NotificationDialog
-                              open={isNotificationDialogOpen}
-                              onOpenChange={setNotificationDialogOpen}
-                            />
-                          </NavMenu.Item>
-                        </>
-                      )}
-                      {!loggedIn ? (
-                        <>
-                          <NavItem
-                            key="signIn"
-                            href={`${paths.login()}${authParams ?? ""}`}
-                            title={intl.formatMessage(authMessages.signIn)}
+                  <NavMenu.List type="main">
+                    {accountLinks}
+                    {loggedIn && (
+                      <>
+                        <NavMenu.Item
+                          className={borderItem({
+                            borderLeft: true,
+                            class: "hidden before:mr-3 sm:inline-flex",
+                          })}
+                        >
+                          <NotificationDialog
+                            open={isNotificationDialogOpen}
+                            onOpenChange={setNotificationDialogOpen}
                           />
-                          <NavItem
-                            key="signUp"
-                            href={`${paths.register()}${authParams ?? ""}`}
-                            title={intl.formatMessage(authMessages.signUp)}
-                          />
-                        </>
-                      ) : null}
-                    </NavMenu.List>
-                  </div>
+                        </NavMenu.Item>
+                      </>
+                    )}
+                    {!loggedIn ? (
+                      <>
+                        <NavItem
+                          key="signIn"
+                          href={`${paths.login()}${authParams ?? ""}`}
+                          title={intl.formatMessage(authMessages.signIn)}
+                        />
+                        <NavItem
+                          key="signUp"
+                          href={`${paths.register()}${authParams ?? ""}`}
+                          title={intl.formatMessage(authMessages.signUp)}
+                        />
+                      </>
+                    ) : null}
+                  </NavMenu.List>
                 </Container>
               </NavMenu.Root>
             ) : null}
