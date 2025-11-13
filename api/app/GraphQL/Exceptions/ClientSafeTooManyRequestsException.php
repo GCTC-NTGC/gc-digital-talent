@@ -9,6 +9,8 @@ use GraphQL\Error\ProvidesExtensions;
 
 class ClientSafeTooManyRequestsException extends \Exception implements ClientAware, ProvidesExtensions
 {
+    public const KEY = 'too_many_requests';
+
     public function __construct(
         string $message,
         protected int $remainingSeconds,
@@ -28,7 +30,7 @@ class ClientSafeTooManyRequestsException extends \Exception implements ClientAwa
     public function getExtensions(): array
     {
         return [
-            'too_many_requests' => [
+            self::KEY => [
                 'remaining_seconds' => $this->remainingSeconds,
             ],
         ];

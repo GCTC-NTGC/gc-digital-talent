@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
-import { GraphQLError } from "graphql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
@@ -13,7 +12,10 @@ import {
   workEmailDomainRegex,
 } from "@gc-digital-talent/helpers";
 
-import { getTooManyRequestsExtension } from "~/utils/graphqlExtensions";
+import {
+  getTooManyRequestsExtension,
+  getValidationExtension,
+} from "~/utils/graphqlExtensions";
 
 import { useEmailVerification } from "./EmailVerification";
 
@@ -71,29 +73,6 @@ const RequestVerificationCodeForm = ({
 
   const watchEmailAddressInput = formMethods.watch("emailAddress");
 
-  const isThereAnEmailInUseError = (
-    result: Awaited<ReturnType<typeof executeMutation>>,
-  ): boolean =>
-    result.error?.graphQLErrors.some((graphQLError) => {
-      const validationErrors = graphQLError.extensions.validation;
-
-      if (
-        !!validationErrors &&
-        typeof validationErrors === "object" &&
-        "sendUserEmailsVerificationInput.emailAddress" in validationErrors &&
-        Array.isArray(
-          validationErrors["sendUserEmailsVerificationInput.emailAddress"],
-        )
-      ) {
-        return validationErrors[
-          "sendUserEmailsVerificationInput.emailAddress"
-        ].some(
-          (validationError) => validationError === ErrorCode.EmailAddressInUse,
-        );
-      }
-      return false;
-    }) ?? false;
-
   const submitHandler: SubmitHandler<FormValues> = ({
     emailAddress,
     emailType,
@@ -124,7 +103,19 @@ const RequestVerificationCodeForm = ({
         emailTypes,
       },
     }).then((result) => {
-      if (isThereAnEmailInUseError(result)) {
+      // check for the email being already in use
+      const validationErrors =
+        result.error?.graphQLErrors
+          .map((e) => getValidationExtension(e.extensions))
+          .filter(notEmpty) ?? [];
+
+      if (
+        validationErrors.some((extension) =>
+          extension["sendUserEmailsVerificationInput.emailAddress"].includes(
+            ErrorCode.EmailAddressInUse,
+          ),
+        )
+      ) {
         formMethods.setError(
           "emailAddress",
           {
@@ -139,6 +130,7 @@ const RequestVerificationCodeForm = ({
         );
       }
 
+      // check if we're being throttled
       const tooManyRequestsErrors =
         result.error?.graphQLErrors
           .map((e) => getTooManyRequestsExtension(e.extensions))
