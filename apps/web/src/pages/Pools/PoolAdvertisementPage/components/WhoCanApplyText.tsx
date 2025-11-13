@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
 import {
@@ -8,7 +8,13 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+  Locales,
+} from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
@@ -35,6 +41,22 @@ const PoolWhoCanApplyText_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const veteransAndArmedForcesLink = (
+  locale: Locales,
+  chunks: ReactNode,
+): JSX.Element => (
+  <Link
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html"
+        : "https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/anciens-combattants-militaires.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
 const deriveWhoCanApplyMessages = (
   areaOfSelection: PoolAreaOfSelection,
   selectionLimitations: PoolSelectionLimitation[],
@@ -48,38 +70,50 @@ const deriveWhoCanApplyMessages = (
   let body;
   let finePrint;
 
+  const locale = getLocale(intl);
+
   if (areaOfSelection == PoolAreaOfSelection.Employees) {
     body = selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly)
       ? intl.formatMessage(
           {
             defaultMessage:
-              "Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an {classificationString} classification or organizational equivalent in their substantive role.",
-            id: "yV/mQS",
+              "Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an {classificationString} classification or organizational equivalent in their substantive role. <link>Eligible veterans and Canadian Armed Forces members may also apply.</link>",
+            id: "oyvQbj",
             description: "At-level application criteria",
           },
           {
             classificationString,
+            link: (chunks: ReactNode) =>
+              veteransAndArmedForcesLink(locale, chunks),
           },
         )
-      : intl.formatMessage({
-          defaultMessage:
-            "Employees of the Government of Canada or persons employed by a Government of Canada agency.",
-          id: "CoIL0K",
-          description: "Employee-only application criteria",
-        });
+      : intl.formatMessage(
+          {
+            defaultMessage:
+              "Employees of the Government of Canada, or persons employed by a Government of Canada agency, <link>and eligible veterans and Canadian Armed Forces members.</link>",
+            id: "oCWziK",
+            description: "Employee-only application criteria",
+          },
+          {
+            link: (chunks: ReactNode) =>
+              veteransAndArmedForcesLink(locale, chunks),
+          },
+        );
     finePrint = selectionLimitations?.includes(
       PoolSelectionLimitation.DepartmentalPreference,
     )
       ? intl.formatMessage(
           {
             defaultMessage:
-              "* Preference will be given to persons employed with the following departments or agencies: {departmentName}.",
-            id: "3dwnFt",
+              "* Preference will be given to <link>eligible veterans, eligible Canadian Armed Forces members,</link> and persons employed with the following departments or agencies: {department}.",
+            id: "y7iBsE",
             description:
-              "Fine print for departmental preference for pool advertisement",
+              "Fine print of a note describing that a pool is only open to employees with departmental preference",
           },
           {
-            departmentName,
+            department: departmentName,
+            link: (chunks: ReactNode) =>
+              veteransAndArmedForcesLink(locale, chunks),
           },
         )
       : null;
