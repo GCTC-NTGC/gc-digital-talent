@@ -38,6 +38,7 @@ interface NotificationActionsProps {
   inDialog?: boolean;
   onRead?: () => void;
   onRefresh?: () => void;
+  fetching?: boolean;
 }
 
 const NotificationActions = ({
@@ -45,6 +46,7 @@ const NotificationActions = ({
   inDialog,
   onRead,
   onRefresh,
+  fetching,
 }: NotificationActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -53,6 +55,8 @@ const NotificationActions = ({
 
   const [{ fetching: markingAllAsRead }, executeMarkAllAsReadMutation] =
     useMutation(MarkAllNotificationsAsRead_Mutation);
+
+  console.log(fetching);
 
   const handleMarkAllNotificationsAsRead = () => {
     executeMarkAllAsReadMutation({})
@@ -138,6 +142,9 @@ const NotificationActions = ({
         <IconButton
           icon={ArrowPathIcon}
           onClick={onRefresh}
+          {...(fetching && {
+            className: "origin-center animate-spin",
+          })}
           aria-label={intl.formatMessage({
             defaultMessage: "Refresh notifications",
             id: "9S5ylu",

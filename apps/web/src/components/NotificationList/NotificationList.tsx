@@ -43,7 +43,7 @@ const NotificationList = ({
   const [searchParams] = useSearchParams();
   const onlyUnread =
     searchParams.has("unread") && searchParams.get("unread") !== null;
-  const [{ data: maxPagesData }, executeQuery] = useQuery({
+  const [{ data: maxPagesData, fetching }, executeQuery] = useQuery({
     query: MaxNotificationPages_Query,
     variables: {
       where: { onlyUnread },
@@ -57,13 +57,19 @@ const NotificationList = ({
   }
 
   const pagesArray = Array.from(Array(pagesToLoad).keys());
+
+  const handleRefetch = () => {
+    executeQuery({ requestPolicy: "network-only" });
+  };
+
   return (
     <>
       <NotificationActions
         onRead={onRead}
         onlyUnread={onlyUnread}
         inDialog={inDialog}
-        onRefresh={executeQuery}
+        onRefresh={handleRefetch}
+        fetching={fetching}
       />
       <ul className={actions({ inDialog })}>
         {pagesArray.map((page) => {
