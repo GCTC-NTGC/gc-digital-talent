@@ -10,11 +10,11 @@ use App\Notifications\GcNotifyEmailChannel;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertEqualsCanonicalizing;
-use function PHPUnit\Framework\assertFalse;
 
 class ApplicationDeadlineExtendedTest extends TestCase
 {
@@ -84,6 +84,8 @@ class ApplicationDeadlineExtendedTest extends TestCase
     // Build the notification and send it to the live GC Notify service
     public function testCanSendGcNotify(): void
     {
+        FacadesNotification::fake();
+
         if (! config('notify.client.apiKey')) {
             $this->markTestSkipped('API key not found');
         }
@@ -96,9 +98,9 @@ class ApplicationDeadlineExtendedTest extends TestCase
             ]);
 
         $user->notify($this->fixtureNotification);
-        $exceptionThrown = false;
-
-        assertFalse($exceptionThrown);
+        FacadesNotification::assertSentTo(
+            [$user], ApplicationDeadlineExtended::class
+        );
     }
 
     // builds GC Notify email message correctly in English
