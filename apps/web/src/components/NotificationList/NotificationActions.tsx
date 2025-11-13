@@ -56,8 +56,6 @@ const NotificationActions = ({
   const [{ fetching: markingAllAsRead }, executeMarkAllAsReadMutation] =
     useMutation(MarkAllNotificationsAsRead_Mutation);
 
-  console.log(fetching);
-
   const handleMarkAllNotificationsAsRead = () => {
     executeMarkAllAsReadMutation({})
       .then(() => {
