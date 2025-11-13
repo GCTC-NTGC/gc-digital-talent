@@ -1,5 +1,5 @@
 import { IntlShape, useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 import {
   FragmentType,
@@ -40,6 +40,46 @@ const PoolAreaOfSelectionNote_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const veteransAndArmedForcesLink = (
+  locale: Locales,
+  chunks: ReactNode,
+): JSX.Element => (
+  <Link
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html"
+        : "https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/anciens-combattants-militaires.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const veteransAndArmedForcesStandaloneLink = (
+  locale: Locales,
+  intl: IntlShape,
+): JSX.Element => (
+  <Link
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html"
+        : "https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/anciens-combattants-militaires.html"
+    }
+  >
+    <p className="mt-3">
+      {intl.formatMessage({
+        defaultMessage:
+          "Eligible veterans and Canadian Armed Forces members may also apply.",
+        id: "Wwt3dl",
+        description:
+          "Link to veterans and armed forces members info page, separate sentence",
+      })}
+    </p>
+  </Link>
+);
+
 const deriveAreaOfSelectionMessages = (
   areaOfSelection: PoolAreaOfSelection,
   selectionLimitations: PoolSelectionLimitation[],
@@ -73,27 +113,36 @@ const deriveAreaOfSelectionMessages = (
           },
         ),
         // The body is the same as the message for just at-level. No mention of departmental preference.
-        body: intl.formatMessage(
-          {
-            defaultMessage:
-              "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-            id: "QXB3EX",
-            description:
-              "Body of a note describing that a pool is only open to employees at-level",
-          },
-          { classification: classificationString },
+        body: (
+          <>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+                  id: "QXB3EX",
+                  description:
+                    "Body of a note describing that a pool is only open to employees at-level",
+                },
+                { classification: classificationString },
+              )}
+            </p>
+            {veteransAndArmedForcesStandaloneLink(locale, intl)}
+          </>
         ),
         // The same message is used for just departmental preference. There is no mention of being at-level.
         finePrint: intl.formatMessage(
           {
             defaultMessage:
-              "* Preference will be given to persons employed with the following departments or agencies: {department}.",
-            id: "8t1KYs",
+              "* Preference will be given to <link>eligible veterans, eligible Canadian Armed Forces members,</link> and persons employed with the following departments or agencies: {department}.",
+            id: "y7iBsE",
             description:
               "Fine print of a note describing that a pool is only open to employees with departmental preference",
           },
           {
             department: departmentString,
+            link: (chunks: ReactNode) =>
+              veteransAndArmedForcesLink(locale, chunks),
           },
         ),
       };
@@ -113,17 +162,24 @@ const deriveAreaOfSelectionMessages = (
             classification: classificationString,
           },
         ),
-        body: intl.formatMessage(
-          {
-            defaultMessage:
-              "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-            id: "QXB3EX",
-            description:
-              "Body of a note describing that a pool is only open to employees at-level",
-          },
-          {
-            classification: classificationString,
-          },
+        body: (
+          <>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+                  id: "QXB3EX",
+                  description:
+                    "Body of a note describing that a pool is only open to employees at-level",
+                },
+                {
+                  classification: classificationString,
+                },
+              )}
+            </p>
+            {veteransAndArmedForcesStandaloneLink(locale, intl)}
+          </>
         ),
       };
     }
@@ -141,23 +197,32 @@ const deriveAreaOfSelectionMessages = (
             "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print.",
         }),
         // The same message is used for employees only. There is no mention of the departmental preference.
-        body: intl.formatMessage({
-          defaultMessage:
-            "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-          id: "FrQmN+",
-          description:
-            "Body of a note describing that a pool is only open to employees",
-        }),
+        body: (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+                id: "FrQmN+",
+                description:
+                  "Body of a note describing that a pool is only open to employees",
+              })}
+            </p>
+            {veteransAndArmedForcesStandaloneLink(locale, intl)}
+          </>
+        ),
         finePrint: intl.formatMessage(
           {
             defaultMessage:
-              "* Preference will be given to persons employed with the following departments or agencies: {department}.",
-            id: "8t1KYs",
+              "* Preference will be given to <link>eligible veterans, eligible Canadian Armed Forces members,</link> and persons employed with the following departments or agencies: {department}.",
+            id: "y7iBsE",
             description:
               "Fine print of a note describing that a pool is only open to employees with departmental preference",
           },
           {
             department: departmentString,
+            link: (chunks: ReactNode) =>
+              veteransAndArmedForcesLink(locale, chunks),
           },
         ),
       };
@@ -171,13 +236,20 @@ const deriveAreaOfSelectionMessages = (
         description:
           "Title of a note describing that a pool is only open to employees",
       }),
-      body: intl.formatMessage({
-        defaultMessage:
-          "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-        id: "FrQmN+",
-        description:
-          "Body of a note describing that a pool is only open to employees",
-      }),
+      body: (
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+              id: "FrQmN+",
+              description:
+                "Body of a note describing that a pool is only open to employees",
+            })}
+          </p>
+          {veteransAndArmedForcesStandaloneLink(locale, intl)}
+        </>
+      ),
     };
   }
 
