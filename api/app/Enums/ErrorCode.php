@@ -152,4 +152,6 @@ enum ErrorCode
     // User skill
     case DUPLICATE_USER_SKILL;
 
+    case TOO_MANY_REQUESTS;
+
 }
