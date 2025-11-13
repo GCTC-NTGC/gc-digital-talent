@@ -1367,10 +1367,6 @@
     "defaultMessage": "Gérez votre nom, vos préférences de contact, votre citoyenneté et votre statut d'ancien combattant. Les employées et employés du gouvernement du Canada peuvent également vérifier leur adresse courriel professionnelle pour accéder aux outils du personnel.",
     "description": "Description for the Personal and contact information section"
   },
-  "3dwnFt": {
-    "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences suivants : {departmentName}.",
-    "description": "Fine print for departmental preference for pool advertisement"
-  },
   "3e965x": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
@@ -2527,10 +2523,6 @@
     "defaultMessage": "Les personnes candidates peuvent accepter de donner accès à leur profil en utilisant l'outil « Collectivités fonctionnelles » de leur tableau de bord.",
     "description": "Null secondary message for nominee profile"
   },
-  "8t1KYs": {
-    "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
-    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
-  },
   "8umYON": {
     "defaultMessage": "Prochaines étapes",
     "description": "Title for what to expect section"
@@ -3442,10 +3434,6 @@
   "CnPVJe": {
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
     "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
-  },
-  "CoIL0K": {
-    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada.",
-    "description": "Employee-only application criteria"
   },
   "CsPyAD": {
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
@@ -7798,6 +7786,10 @@
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
   },
+  "Wwt3dl": {
+    "defaultMessage": "Les anciens combattants et les membres des Forces armées canadiennes admissibles peuvent également postuler.",
+    "description": "Link to veterans and armed forces members info page, separate sentence"
+  },
   "WxviCX": {
     "defaultMessage": "Voir l'annonce d'emploi<hidden> pour {processTitle}</hidden>",
     "description": "Link message that shows the job poster for the recruitment process."
@@ -11821,6 +11813,10 @@
     "defaultMessage": "Annulez et revenez à l'éditeur de compétence",
     "description": "Button label to return to the skills table"
   },
+  "oCWziK": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada, ou les personnes employées par une agence du gouvernement du Canada, <link>et les anciens combattants et les membres des Forces armées canadiennes admissibles.</link>",
+    "description": "Employee-only application criteria"
+  },
   "oDDr9J": {
     "defaultMessage": "Créez un groupe de compétences",
     "description": "Heading displayed above the Create Skill family form."
@@ -11992,6 +11988,10 @@
   "ox2by6": {
     "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
     "description": "Link text to a page to learn more about something"
+  },
+  "oyvQbj": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d'attache. <link>Les anciens combattants et les membres des Forces armées canadiennes admissibles peuvent également postuler.</link>",
+    "description": "At-level application criteria"
   },
   "ozb92E": {
     "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
@@ -13969,6 +13969,10 @@
     "defaultMessage": "Nous répondrons à votre demande dans les 14 jours. Si votre demande est approuvée, nous vous ferons parvenir un code pour le bon que vous pourrez utiliser pour réserver une date d'examen sur la plateforme du fournisseur.",
     "description": "First paragraph of what to expect section"
   },
+  "y7iBsE": {
+    "defaultMessage": "* La préférence sera accordée aux <link>anciens combattants admissibles, aux membres des Forces armées canadiennes admissibles et aux</link> personnes employées par les ministères ou agences (ministère) suivants : {department}.",
+    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
+  },
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
@@ -14072,10 +14076,6 @@
   "yTu6Ih": {
     "defaultMessage": "La gestion des fonctions de la plateforme est assurée par différentes personnes assumant certains rôles et possédant certaines autorisations, avec un accès limité aux données personnelles en fonction des besoins.",
     "description": "Paragraph two, describing managing platform functionalities"
-  },
-  "yV/mQS": {
-    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classificationString} ou un équivalent organisationnel dans leur poste d'attache.",
-    "description": "At-level application criteria"
   },
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",
