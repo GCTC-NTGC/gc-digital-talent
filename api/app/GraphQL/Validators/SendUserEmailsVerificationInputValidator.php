@@ -28,8 +28,8 @@ final class SendUserEmailsVerificationInputValidator extends Validator
                     [new GovernmentEmailRegex],
                     ['email']
                 ),
-                Rule::unique('users', 'email')->ignore($user->id, 'id'),
-                Rule::unique('users', 'work_email')->ignore($user->id, 'id'),
+                Rule::unique('users', 'email')->ignore($user?->id, 'id'),
+                Rule::unique('users', 'work_email')->ignore($user?->id, 'id'),
             ],
             'emailTypes' => [
                 'array',

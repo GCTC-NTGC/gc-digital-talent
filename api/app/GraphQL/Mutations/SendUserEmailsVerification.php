@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\ErrorCode;
+use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\Notifications\VerifyEmails;
 use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,7 @@ final class SendUserEmailsVerification
             $seconds = RateLimiter::availableIn($rateLimiterKey);
             Log::debug('Remaining time: '.$seconds);
 
-            return new Error(ErrorCode::TOO_MANY_REQUESTS->name);
+            return new ClientSafeTooManyRequestsException(ErrorCode::TOO_MANY_REQUESTS->name, $seconds);
 
         }
 
