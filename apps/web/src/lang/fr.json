@@ -2839,6 +2839,10 @@
     "defaultMessage": "Candidatures externes",
     "description": "Heading for creating profiles if not a GC employee"
   },
+  "A2XC6d": {
+    "defaultMessage": "<link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
+    "description": "Link to veterans and armed forces members info page, separate sentence"
+  },
   "A2stXT": {
     "defaultMessage": "Gérer une question d’ordre général",
     "description": "Title for general question dialog"
@@ -7785,10 +7789,6 @@
   "Wwb8Lb": {
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
-  },
-  "Wwt3dl": {
-    "defaultMessage": "Les anciens combattants et les membres des Forces armées canadiennes admissibles peuvent également postuler.",
-    "description": "Link to veterans and armed forces members info page, separate sentence"
   },
   "WxviCX": {
     "defaultMessage": "Voir l'annonce d'emploi<hidden> pour {processTitle}</hidden>",

@@ -60,24 +60,20 @@ const veteransAndArmedForcesStandaloneLink = (
   locale: Locales,
   intl: IntlShape,
 ): JSX.Element => (
-  <Link
-    external
-    href={
-      locale === "en"
-        ? "https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html"
-        : "https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/anciens-combattants-militaires.html"
-    }
-  >
-    <p className="mt-3">
-      {intl.formatMessage({
+  <p className="mt-3">
+    {intl.formatMessage(
+      {
         defaultMessage:
-          "Eligible veterans and Canadian Armed Forces members may also apply.",
-        id: "Wwt3dl",
+          "<link>Eligible veterans and Canadian Armed Forces members</link> may also apply.",
+        id: "A2XC6d",
         description:
           "Link to veterans and armed forces members info page, separate sentence",
-      })}
-    </p>
-  </Link>
+      },
+      {
+        link: (chunks: ReactNode) => veteransAndArmedForcesLink(locale, chunks),
+      },
+    )}
+  </p>
 );
 
 const deriveAreaOfSelectionMessages = (
