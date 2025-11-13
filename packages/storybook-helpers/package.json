@@ -15,8 +15,8 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^5.2.0",
-    "chromatic": "^13.3.2",
-    "graphql": "^16.11.0",
+    "chromatic": "^13.3.3",
+    "graphql": "^16.12.0",
     "lodash": "^4.17.21",
     "motion": "^12.23.24",
     "react-helmet-async": "^2.0.5",
@@ -27,15 +27,15 @@
   "devDependencies": {
     "@formatjs/ts-transformer": "^3.14.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@storybook/addon-a11y": "^10.0.1",
+    "@storybook/addon-a11y": "^10.0.5",
     "@storybook/addon-designs": "^11.0.1",
-    "@storybook/addon-themes": "^10.0.1",
-    "@storybook/builder-vite": "^10.0.1",
-    "@storybook/react-vite": "^10.0.1",
+    "@storybook/addon-themes": "^10.0.5",
+    "@storybook/builder-vite": "^10.0.5",
+    "@storybook/react-vite": "^10.0.5",
     "eslint": "^9.20.1",
     "react": "^19.1.1",
-    "storybook": "^10.0.1",
-    "storybook-react-intl": "^4.0.7",
+    "storybook": "^10.0.5",
+    "storybook-react-intl": "^10.0.1",
     "tsconfig": "workspace:*"
   }
 }

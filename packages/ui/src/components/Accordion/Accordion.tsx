@@ -220,35 +220,37 @@ const Trigger = forwardRef<
     });
 
     return (
-      <AccordionPrimitive.Header className={header()} {...titleProps}>
-        <AccordionPrimitive.Trigger
-          ref={forwardedRef}
-          className={btn()}
-          {...rest}
-        >
-          <span className="-mt-0.5 rounded-full p-1 transition-colors duration-150 group-focus-visible/btn:bg-focus group-focus-visible/btn:text-black">
-            <ChevronRightIcon
-              className={iconSize({
-                class:
-                  "rotate-0 transform leading-none transition-transform duration-150 group-data-[state=open]/btn:rotate-90",
-              })}
-            />
-          </span>
-          <span className="flex grow flex-col">
-            <Heading className={heading()}>{children}</Heading>
-            {subtitle && (
-              <span className="dark:text-gray-200m mt-1 text-sm">
-                {subtitle}
-              </span>
-            )}
-          </span>
-        </AccordionPrimitive.Trigger>
-        {(!!Icon || !!context) && (
-          <span className={ctx()}>
-            {context && <span>{context}</span>}
-            {Icon && <Icon className={iconSize()} />}
-          </span>
-        )}
+      <AccordionPrimitive.Header asChild>
+        <div className={header()} {...titleProps}>
+          <AccordionPrimitive.Trigger
+            ref={forwardedRef}
+            className={btn()}
+            {...rest}
+          >
+            <span className="-mt-0.5 rounded-full p-1 transition-colors duration-150 group-focus-visible/btn:bg-focus group-focus-visible/btn:text-black">
+              <ChevronRightIcon
+                className={iconSize({
+                  class:
+                    "rotate-0 transform leading-none transition-transform duration-150 group-data-[state=open]/btn:rotate-90",
+                })}
+              />
+            </span>
+            <span className="flex grow flex-col">
+              <Heading className={heading()}>{children}</Heading>
+              {subtitle && (
+                <span className="dark:text-gray-200m mt-1 text-sm">
+                  {subtitle}
+                </span>
+              )}
+            </span>
+          </AccordionPrimitive.Trigger>
+          {(!!Icon || !!context) && (
+            <span className={ctx()}>
+              {context && <span>{context}</span>}
+              {Icon && <Icon className={iconSize()} />}
+            </span>
+          )}
+        </div>
       </AccordionPrimitive.Header>
     );
   },
