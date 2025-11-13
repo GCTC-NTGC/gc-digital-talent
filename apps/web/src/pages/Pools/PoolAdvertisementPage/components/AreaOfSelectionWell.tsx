@@ -130,15 +130,13 @@ const deriveAreaOfSelectionMessages = (
         finePrint: intl.formatMessage(
           {
             defaultMessage:
-              "* Preference will be given to <link>eligible veterans, eligible Canadian Armed Forces members,</link> and persons employed with the following departments or agencies: {department}.",
-            id: "y7iBsE",
+              "* Preference will be given to eligible veterans, eligible Canadian Armed Forces members, and persons employed with the following departments or agencies: {department}.",
+            id: "mnrRuo",
             description:
               "Fine print of a note describing that a pool is only open to employees with departmental preference",
           },
           {
             department: departmentString,
-            link: (chunks: ReactNode) =>
-              veteransAndArmedForcesLink(locale, chunks),
           },
         ),
       };
@@ -210,15 +208,13 @@ const deriveAreaOfSelectionMessages = (
         finePrint: intl.formatMessage(
           {
             defaultMessage:
-              "* Preference will be given to <link>eligible veterans, eligible Canadian Armed Forces members,</link> and persons employed with the following departments or agencies: {department}.",
-            id: "y7iBsE",
+              "* Preference will be given to eligible veterans, eligible Canadian Armed Forces members, and persons employed with the following departments or agencies: {department}.",
+            id: "mnrRuo",
             description:
               "Fine print of a note describing that a pool is only open to employees with departmental preference",
           },
           {
             department: departmentString,
-            link: (chunks: ReactNode) =>
-              veteransAndArmedForcesLink(locale, chunks),
           },
         ),
       };

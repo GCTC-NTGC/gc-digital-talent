@@ -11497,6 +11497,10 @@
     "defaultMessage": "Intérêt pour les possibilités d'apprentissage",
     "description": "Label for an employee profile career development preference field"
   },
+  "mnrRuo": {
+    "defaultMessage": "* La préférence sera accordée aux anciens combattants admissibles, aux membres des Forces armées canadiennes admissibles et aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
+    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
+  },
   "moB11/": {
     "defaultMessage": "est en mesure d’attribuer les rôles de recruteur de la collectivité et de coordonnateur des talents de la collectivité.",
     "description": "Description of the permission to assign users to communities"
@@ -13968,10 +13972,6 @@
   "y6pG9A": {
     "defaultMessage": "Nous répondrons à votre demande dans les 14 jours. Si votre demande est approuvée, nous vous ferons parvenir un code pour le bon que vous pourrez utiliser pour réserver une date d'examen sur la plateforme du fournisseur.",
     "description": "First paragraph of what to expect section"
-  },
-  "y7iBsE": {
-    "defaultMessage": "* La préférence sera accordée aux <link>anciens combattants admissibles, aux membres des Forces armées canadiennes admissibles et aux</link> personnes employées par les ministères ou agences (ministère) suivants : {department}.",
-    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
   },
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
