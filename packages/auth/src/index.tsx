@@ -21,6 +21,8 @@ import {
   COMMUNITY_ROLES,
 } from "./const";
 import type { LogoutReason } from "./const";
+import getAuthenticationState from "./utils/authenticationState";
+import { AuthenticationState } from "./types";
 
 export {
   AuthenticationProvider,
@@ -34,6 +36,7 @@ export {
   apiRoutes,
   hasRole,
   narrowTeamableType,
+  getAuthenticationState,
 };
 
 export {
@@ -47,4 +50,4 @@ export {
   COMMUNITY_ROLES,
 };
 
-export type { RoleName, LogoutReason };
+export type { RoleName, LogoutReason, AuthenticationState };

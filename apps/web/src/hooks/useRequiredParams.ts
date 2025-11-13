@@ -2,9 +2,9 @@ import { Params, useParams } from "react-router";
 import { useIntl } from "react-intl";
 
 import {
-  useLogger,
   defaultLogger,
   type Logger,
+  getLogger,
 } from "@gc-digital-talent/logger";
 import { notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -66,7 +66,7 @@ const useRequiredParams = <
   message: string | undefined = undefined,
 ): Record<K, string> => {
   const intl = useIntl();
-  const logger = useLogger();
+  const logger = getLogger();
   const params: Params<string> = useParams<T>();
   const keyArray = Array.isArray(keys) ? keys : [keys];
   let nonEmptyParams: Record<K, string> = {} as Record<K, string>;
