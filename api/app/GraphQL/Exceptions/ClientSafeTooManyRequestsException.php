@@ -28,7 +28,9 @@ class ClientSafeTooManyRequestsException extends \Exception implements ClientAwa
     public function getExtensions(): array
     {
         return [
-            'remaining_seconds' => $this->remainingSeconds,
+            'too_many_requests' => [
+                'remaining_seconds' => $this->remainingSeconds,
+            ],
         ];
     }
 }

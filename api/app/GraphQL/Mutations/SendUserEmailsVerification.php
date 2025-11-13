@@ -40,7 +40,7 @@ final class SendUserEmailsVerification
             $seconds = RateLimiter::availableIn($rateLimiterKey);
             Log::debug('Remaining time: '.$seconds);
 
-            return new ClientSafeTooManyRequestsException(ErrorCode::TOO_MANY_REQUESTS->name, $seconds);
+            return new ClientSafeTooManyRequestsException(ErrorCode::RATE_LIMIT->name, $seconds);
 
         }
 
