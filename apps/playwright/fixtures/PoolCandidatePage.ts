@@ -50,12 +50,17 @@ class PoolCandidatePage extends AppPage {
       .getByRole("menuitem", { name: /download profiles excel/i })
       .click();
 
+    // Give server time to generate file
+    // eslint-disable-next-line playwright/no-wait-for-timeout
+    await this.page.waitForTimeout(100);
+
     const now = new Date();
     const today = now.toISOString().split("T")[0];
 
     await this.page
       .getByRole("button", { name: /view notifications/i })
       .click();
+    await this.waitForGraphqlResponse("Notifications");
     await this.page
       .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
       .first()
