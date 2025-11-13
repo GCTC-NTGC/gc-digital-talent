@@ -1,10 +1,5 @@
-import { useIntl, IntlShape } from "react-intl";
-import {
-  ColumnDef,
-  createColumnHelper,
-  CellContext,
-  Row,
-} from "@tanstack/react-table";
+import { useIntl } from "react-intl";
+import { ColumnDef, createColumnHelper, Row } from "@tanstack/react-table";
 import { useMutation } from "urql";
 
 import {
@@ -121,11 +116,6 @@ export const SkillPortfolioTable_SkillFragment = graphql(/* GraphQL */ `
   }
 `);
 
-type UserSkillCell = CellContext<
-  SkillPortfolioTableUserSkillFragmentType,
-  unknown
->;
-
 const columnHelper =
   createColumnHelper<SkillPortfolioTableUserSkillFragmentType>();
 
@@ -152,16 +142,6 @@ const skillLevelSort = (
     order.indexOf(a.original.skillLevel) - order.indexOf(b.original.skillLevel)
   );
 };
-
-const skillNameCell = (
-  cell: UserSkillCell,
-  intl: IntlShape,
-  paths: ReturnType<typeof useRoutes>,
-) => (
-  <Link href={paths.editUserSkill(cell.row.original.skill.id)}>
-    {getLocalizedName(cell.row.original.skill.name, intl)}
-  </Link>
-);
 
 interface SkillPortfolioTableProps {
   caption?: string;
@@ -204,7 +184,17 @@ const SkillPortfolioTable = ({
         description: "Skill name column header for the skill library table",
       }),
       sortingFn: normalizedText,
-      cell: (cell: UserSkillCell) => skillNameCell(cell, intl, paths),
+      cell: ({
+        getValue,
+        row: {
+          original: { skill },
+        },
+      }) =>
+        readOnly ? (
+          getValue()
+        ) : (
+          <Link href={paths.editUserSkill(skill.id)}>{getValue()}</Link>
+        ),
       enableHiding: false,
       enableColumnFilter: false,
       meta: {
@@ -214,7 +204,7 @@ const SkillPortfolioTable = ({
     columnHelper.accessor((row) => row.experiences?.length ?? 0, {
       id: "experiences",
       header: intl.formatMessage(navigationMessages.careerExperience),
-      cell: (cell: UserSkillCell) =>
+      cell: (cell) =>
         intl.formatMessage(
           {
             defaultMessage:
@@ -243,7 +233,7 @@ const SkillPortfolioTable = ({
             skill: { category },
           },
         },
-      }: UserSkillCell) =>
+      }) =>
         skillLevel
           ? intl.formatMessage(
               getSkillLevelName(
