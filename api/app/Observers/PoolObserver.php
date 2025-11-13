@@ -35,7 +35,6 @@ class PoolObserver
             && $newClosingDate->gte($oldClosingDate)
         ) {
 
-            $pool = Pool::find($pool->id);
             $pool->poolCandidates
                 ->where('pool_candidate_status', 'DRAFT') // Only send notification to draft applications
                 ->each(function ($poolCandidate) use ($newClosingDate) {
