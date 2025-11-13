@@ -43,13 +43,12 @@ const NotificationList = ({
   const [searchParams] = useSearchParams();
   const onlyUnread =
     searchParams.has("unread") && searchParams.get("unread") !== null;
-  const [{ data: maxPagesData, fetching: fetchingMaxPages }, executeQuery] =
-    useQuery({
-      query: MaxNotificationPages_Query,
-      variables: {
-        where: { onlyUnread },
-      },
-    });
+  const [{ data: maxPagesData }, executeQuery] = useQuery({
+    query: MaxNotificationPages_Query,
+    variables: {
+      where: { onlyUnread },
+    },
+  });
   const lastPage = maxPagesData?.notifications.paginatorInfo.lastPage ?? 1;
   let pagesToLoad =
     paginate && searchParams.has("page") ? Number(searchParams.get("page")) : 1;
