@@ -2683,6 +2683,10 @@
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
   },
+  "9S5ylu": {
+    "defaultMessage": "Actualiser les notifications",
+    "description": "Button text to get notifications"
+  },
   "9SO6OE": {
     "defaultMessage": "Événements actifs",
     "description": "Title for active events section"
