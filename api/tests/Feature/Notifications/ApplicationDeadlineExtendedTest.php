@@ -22,15 +22,19 @@ class ApplicationDeadlineExtendedTest extends TestCase
 
     private ApplicationDeadlineExtended $fixtureNotification;
 
+    private Carbon $closingDate;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
 
+        $this->closingDate = Carbon::parse('2999-12-31');
+
         $this->fixtureNotification = new ApplicationDeadlineExtended(
             'userName',
-            Carbon::parse('2999-12-31'),
+            $this->closingDate,
             'poolNameEn',
             'poolNameFr',
             '1',
@@ -106,6 +110,7 @@ class ApplicationDeadlineExtendedTest extends TestCase
     // builds GC Notify email message correctly in English
     public function testSetsGcNotifyEmailFieldsCorrectlyEn(): void
     {
+        $closingDatePacificTimeZoneEn = $this->closingDate->setTimezone('America/Vancouver')->translatedFormat('F j, Y');
         $user = User::factory()
             ->create([
                 'email' => 'example@example.org',
@@ -118,15 +123,18 @@ class ApplicationDeadlineExtendedTest extends TestCase
         assertEquals('example@example.org', $message->emailAddress);
         assertEquals([
             'user name' => 'userName',
-            'closing date' => 'December 31, 2999',
+            'closing date' => $closingDatePacificTimeZoneEn,
             'opportunity title' => 'poolNameEn',
             'application link' => config('app.url').'/en/applications/1'],
-            $message->messageVariables);
+            $message->messageVariables
+        );
     }
 
     // builds GC Notify email message correctly in French
     public function testSetsGcNotifyEmailFieldsCorrectlyFr(): void
     {
+        Carbon::setLocale('fr');
+        $closingDatePacificTimeZoneFr = $this->closingDate->setTimezone('America/Vancouver')->translatedFormat('j F Y');
         $user = User::factory()
             ->create([
                 'email' => 'example@example.org',
@@ -139,7 +147,7 @@ class ApplicationDeadlineExtendedTest extends TestCase
         assertEquals('example@example.org', $message->emailAddress);
         assertEquals([
             'user name' => 'userName',
-            'closing date' => '31 décembre 2999',
+            'closing date' => $closingDatePacificTimeZoneFr,
             'opportunity title' => 'poolNameFr',
             'application link' => config('app.url').'/fr/applications/1'],
             $message->messageVariables);
@@ -148,6 +156,7 @@ class ApplicationDeadlineExtendedTest extends TestCase
     // builds database message for in-app notification correctly
     public function testSavesDatabaseFieldsCorrectly(): void
     {
+        Carbon::setLocale('en');
         $user = User::factory()
             ->create([
                 'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
@@ -159,7 +168,7 @@ class ApplicationDeadlineExtendedTest extends TestCase
         $notification = Notification::all()->sole();
         assertEquals([
             'userName' => 'userName',
-            'closingDate' => '2999-12-31',
+            'closingDate' => $this->closingDate->setTimezone('America/Vancouver')->toDateString(),
             'poolName' => [
                 'en' => 'poolNameEn',
                 'fr' => 'poolNameFr',
