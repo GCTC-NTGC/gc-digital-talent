@@ -541,6 +541,11 @@ class PoolCandidate extends Model
             }
         }
 
+        // override to set current step as NULL if removed_at OR final_decision_at are set
+        if (! is_null($this->removed_at) || ! is_null($this->final_decision_at)) {
+            $currentStep = null;
+        }
+
         return [
             $currentStep,
             [

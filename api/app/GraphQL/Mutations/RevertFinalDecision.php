@@ -18,6 +18,9 @@ final class RevertFinalDecision
         $candidate->expiry_date = null;
         $candidate->final_decision_at = null;
 
+        [$currentStepId] = $candidate->computeAssessmentStatus();
+        $candidate->assessment_step_id = $currentStepId;
+
         $candidate->save();
 
         return $candidate;

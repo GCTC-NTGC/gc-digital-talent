@@ -4,13 +4,17 @@ namespace Tests\Feature;
 
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
+use App\Enums\CandidateRemovalReason;
+use App\Enums\DisqualificationReason;
 use App\Enums\OverallAssessmentStatus;
+use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolSkill;
@@ -18,6 +22,7 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -107,6 +112,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $this->pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
             'assessment_step_id' => $this->pool->assessmentSteps->first()?->id,
         ]);
 
@@ -427,6 +434,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         $stepOne = $pool->assessmentSteps->first();
@@ -543,6 +552,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         AssessmentResult::factory()
@@ -625,6 +636,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         $assessmentStep = $pool->assessmentSteps->first();
@@ -724,6 +737,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
         ]);
 
         $stepOne = $pool->assessmentSteps->first();
@@ -795,6 +810,8 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
             'assessment_step_id' => $stepOne->id,
         ]);
 
@@ -947,6 +964,8 @@ class CandidateAssessmentStatusTest extends TestCase
                 'pool_candidate_status' => $status,
                 'submitted_at' => config('constants.past_date'),
                 'expiry_date' => config('constants.far_future_date'),
+                'removed_at' => null,
+                'final_decision_at' => null,
             ]);
 
             AssessmentResult::factory()
@@ -965,5 +984,253 @@ class CandidateAssessmentStatusTest extends TestCase
                 assertEquals($candidate->pool_candidate_status, $status);
             }
         }
+    }
+
+    // step through the ROD mutations (qualify, revert, etc) and check what they set the current step to
+    public function testRODMutationsAndTheirEffectOnCurrentStep(): void
+    {
+        // define mutations
+        $qualifyCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation qualifyCandidate($id: UUID!, $poolCandidate: QualifyCandidateInput!) {
+            qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
+                id
+                finalDecisionAt
+                assessmentStep { sortOrder }
+            }
+          }
+    ';
+        $qualifyAndPlaceCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation qualifyAndPlaceCandidate($id: UUID!, $poolCandidate: QualifyAndPlaceCandidateInput!) {
+            qualifyAndPlaceCandidate(id: $id, poolCandidate: $poolCandidate) {
+                id
+                finalDecisionAt
+                assessmentStep { sortOrder }
+            }
+          }
+    ';
+        $revertPlaceCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation revertPlaceCandidate($id: UUID!) {
+            revertPlaceCandidate(id: $id) {
+                id
+                status { value }
+                placedAt
+                placedDepartment {
+                    id
+                }
+            }
+        }
+    ';
+        $disqualifyCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation disqualifyCandidate($id: UUID!, $reason: DisqualificationReason!) {
+            disqualifyCandidate(id: $id, reason: $reason) {
+                id
+                finalDecisionAt
+                assessmentStep { sortOrder }
+            }
+          }
+    ';
+        $revertFinalDecisionMutation =
+        /** @lang GraphQL */
+        '
+        mutation revertFinalDecision($id: UUID!) {
+            revertFinalDecision(id: $id) {
+                id
+                finalDecisionAt
+                assessmentStep { sortOrder }
+            }
+          }
+    ';
+        $removeCandidateMutation =
+            /** @lang GraphQL */
+            '
+        mutation removeCandidate($id: UUID!, $removalReason: CandidateRemovalReason!, $removalReasonOther: String) {
+            removeCandidate (
+                id: $id,
+                removalReason: $removalReason,
+                removalReasonOther: $removalReasonOther
+            ){
+                id
+                removedAt
+                assessmentStep { sortOrder }
+            }
+        }
+    ';
+        $reinstateCandidateMutation =
+            /** @lang GraphQL */
+            '
+        mutation reinstateCandidate($id: UUID!) {
+            reinstateCandidate (id: $id){
+                id
+                removedAt
+                assessmentStep { sortOrder }
+            }
+        }
+    ';
+        $communityAdminUser = User::factory()
+            ->asApplicant()
+            ->asCommunityAdmin($this->community->id)
+            ->create();
+        $candidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+            'removed_at' => null,
+            'final_decision_at' => null,
+        ]);
+        $department = Department::factory()->create();
+
+        // reliable date to assert against
+        Carbon::setTestNow('2000-01-01 00:00:00');
+
+        // qualify - current step null
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $qualifyCandidateMutation,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'expiryDate' => config('constants.far_future_date'),
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'finalDecisionAt' => '2000-01-01 00:00:00',
+                'assessmentStep' => null,
+            ]);
+
+        // revert - current step set
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $revertFinalDecisionMutation,
+                [
+                    'id' => $candidate->id,
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'finalDecisionAt' => null,
+                'assessmentStep' => [
+                    'sortOrder' => 1,
+                ],
+            ]);
+
+        // disqualify - current step null
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $disqualifyCandidateMutation,
+                [
+                    'id' => $candidate->id,
+                    'reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'finalDecisionAt' => '2000-01-01 00:00:00',
+                'assessmentStep' => null,
+            ]);
+
+        // revert - current step set
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $revertFinalDecisionMutation,
+                [
+                    'id' => $candidate->id,
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'finalDecisionAt' => null,
+                'assessmentStep' => [
+                    'sortOrder' => 1,
+                ],
+            ]);
+
+        // qualify and place - current step set
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $qualifyAndPlaceCandidateMutation,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'expiryDate' => config('constants.far_future_date'),
+                        'placementType' => PlacementType::UNDER_CONSIDERATION->name,
+                        'department' => ['connect' => $department->id],
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'finalDecisionAt' => '2000-01-01 00:00:00',
+                'assessmentStep' => null,
+            ]);
+
+        // revert place - current step unchanged
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $revertPlaceCandidateMutation,
+                [
+                    'id' => $candidate->id,
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+            ]);
+
+        // revert - current step
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $revertFinalDecisionMutation,
+                [
+                    'id' => $candidate->id,
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'finalDecisionAt' => null,
+                'assessmentStep' => [
+                    'sortOrder' => 1,
+                ],
+            ]);
+
+        // remove - current step null
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $removeCandidateMutation,
+                [
+                    'id' => $candidate->id,
+                    'removalReason' => CandidateRemovalReason::NOT_RESPONSIVE->name,
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'removedAt' => '2000-01-01 00:00:00',
+                'assessmentStep' => null,
+            ]);
+
+        // reinstate - current step set
+        $this->actingAs($communityAdminUser, 'api')
+            ->graphQL(
+                $reinstateCandidateMutation,
+                [
+                    'id' => $candidate->id,
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'removedAt' => null,
+                'assessmentStep' => [
+                    'sortOrder' => 1,
+                ],
+            ]);
     }
 }

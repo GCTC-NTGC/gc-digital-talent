@@ -15,6 +15,10 @@ final class QualifyCandidate
         $expiryDate = $args['expiryDate'];
 
         $candidate->qualify($expiryDate);
+
+        [$currentStepId] = $candidate->computeAssessmentStatus();
+        $candidate->assessment_step_id = $currentStepId;
+
         $candidate->save();
 
         return $candidate;
