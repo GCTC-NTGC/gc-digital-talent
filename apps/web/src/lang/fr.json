@@ -8454,6 +8454,10 @@
     "defaultMessage": "Trois types de possibilités d’apprentissage",
     "description": "Heading for section describing learning opportunities"
   },
+  "ZfLuWv": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada, les personnes employées par une agence du gouvernement du Canada, <link>et les anciens combattants et les membres des Forces armées canadiennes admissibles.</link>",
+    "description": "Employee-only application criteria"
+  },
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
@@ -11816,10 +11820,6 @@
   "oCL/sl": {
     "defaultMessage": "Annulez et revenez à l'éditeur de compétence",
     "description": "Button label to return to the skills table"
-  },
-  "oCWziK": {
-    "defaultMessage": "Les employées et employés du gouvernement du Canada, ou les personnes employées par une agence du gouvernement du Canada, <link>et les anciens combattants et les membres des Forces armées canadiennes admissibles.</link>",
-    "description": "Employee-only application criteria"
   },
   "oDDr9J": {
     "defaultMessage": "Créez un groupe de compétences",

@@ -90,8 +90,8 @@ const deriveWhoCanApplyMessages = (
       : intl.formatMessage(
           {
             defaultMessage:
-              "Employees of the Government of Canada, or persons employed by a Government of Canada agency, <link>and eligible veterans and Canadian Armed Forces members.</link>",
-            id: "oCWziK",
+              "Employees of the Government of Canada, persons employed by a Government of Canada agency, <link>and eligible veterans and Canadian Armed Forces members.</link>",
+            id: "ZfLuWv",
             description: "Employee-only application criteria",
           },
           {
