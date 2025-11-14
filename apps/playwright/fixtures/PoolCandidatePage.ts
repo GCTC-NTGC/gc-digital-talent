@@ -52,7 +52,7 @@ class PoolCandidatePage extends AppPage {
 
     // Give server time to generate file
     // eslint-disable-next-line playwright/no-wait-for-timeout
-    await this.page.waitForTimeout(1000);
+    await this.page.waitForTimeout(1500);
 
     const now = new Date();
     const today = now.toISOString().split("T")[0];
@@ -60,7 +60,9 @@ class PoolCandidatePage extends AppPage {
     await this.page
       .getByRole("button", { name: /view notifications/i })
       .click();
-    await this.waitForGraphqlResponse("Notifications");
+    await this.waitForGraphqlResponse("NotificationDialog");
+    await this.page.getByRole("button", { name: /refresh/i }).click();
+    await this.waitForGraphqlResponse("NotificationDialog");
     await this.page
       .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
       .first()
