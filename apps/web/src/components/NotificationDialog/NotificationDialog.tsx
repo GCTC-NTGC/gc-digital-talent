@@ -145,7 +145,7 @@ const DialogPortalWithPresence = ({
             onRead={onRead}
             onlyUnread
             inDialog
-            onRefresh={executeQuery}
+            onRefresh={() => executeQuery({ requestPolicy: "network-only" })}
             fetching={fetching}
           />
           <NotificationDialogList
