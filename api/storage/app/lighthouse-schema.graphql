@@ -896,6 +896,17 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolCandidateId: ID
 }
 
+type ApplicationDeadlineExtendedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userName: String
+  closingDate: Date
+  poolName: LocalizedString
+  poolCandidateId: ID
+}
+
 type NewJobPostedNotification implements Notification {
   id: ID!
   readAt: DateTime

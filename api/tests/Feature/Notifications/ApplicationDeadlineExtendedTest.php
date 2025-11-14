@@ -1,0 +1,180 @@
+<?php
+
+namespace Tests\Feature\Notifications;
+
+use App\Enums\NotificationFamily;
+use App\Models\Notification;
+use App\Models\User;
+use App\Notifications\ApplicationDeadlineExtended;
+use App\Notifications\GcNotifyEmailChannel;
+use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
+use Tests\TestCase;
+
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
+
+class ApplicationDeadlineExtendedTest extends TestCase
+{
+    use RefreshDatabase;
+
+    private ApplicationDeadlineExtended $fixtureNotification;
+
+    private Carbon $closingDate;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed(RolePermissionSeeder::class);
+
+        $this->closingDate = Carbon::parse('2999-12-31');
+
+        $this->fixtureNotification = new ApplicationDeadlineExtended(
+            'userName',
+            $this->closingDate,
+            'poolNameEn',
+            'poolNameFr',
+            '1',
+        );
+    }
+
+    // respects each user's notification preferences
+    public function testRespectsNotificationPreferencesNone(): void
+    {
+        $user = User::factory()
+            ->create([
+                'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            ]);
+        assertEqualsCanonicalizing([GcNotifyEmailChannel::class, 'database'], $this->fixtureNotification->via($user));
+    }
+
+    // respects each user's notification preferences
+    public function testRespectsNotificationPreferencesBoth(): void
+    {
+        $user = User::factory()
+            ->create([
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
+            ]);
+        assertEquals([], $this->fixtureNotification->via($user));
+    }
+
+    // respects each user's notification preferences
+    public function testRespectsNotificationPreferencesJustEmail(): void
+    {
+        $user = User::factory()
+            ->create([
+                'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
+            ]);
+        assertEquals([GcNotifyEmailChannel::class], $this->fixtureNotification->via($user));
+    }
+
+    // respects each user's notification preferences
+    public function testRespectsNotificationPreferencesJustInApp(): void
+    {
+        $user = User::factory()
+            ->create([
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            ]);
+        assertEquals(['database'], $this->fixtureNotification->via($user));
+    }
+
+    // Build the notification and send it to the live GC Notify service
+    public function testCanSendGcNotify(): void
+    {
+        FacadesNotification::fake();
+
+        if (! config('notify.client.apiKey')) {
+            $this->markTestSkipped('API key not found');
+        }
+
+        $user = User::factory()
+            ->create([
+                'email' => config('notify.smokeTest.emailAddress'),
+                'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
+            ]);
+
+        $user->notify($this->fixtureNotification);
+        FacadesNotification::assertSentTo(
+            [$user], ApplicationDeadlineExtended::class
+        );
+    }
+
+    // builds GC Notify email message correctly in English
+    public function testSetsGcNotifyEmailFieldsCorrectlyEn(): void
+    {
+        $closingDatePacificTimeZoneEn = $this->closingDate->setTimezone('America/Vancouver')->translatedFormat('F j, Y');
+        $user = User::factory()
+            ->create([
+                'email' => 'example@example.org',
+                'preferred_lang' => 'en',
+            ]);
+
+        $message = $this->fixtureNotification->toGcNotifyEmail($user);
+
+        assertEquals(config('notify.templates.application_deadline_extended_en'), $message->templateId);
+        assertEquals('example@example.org', $message->emailAddress);
+        assertEquals([
+            'user name' => 'userName',
+            'closing date' => $closingDatePacificTimeZoneEn,
+            'opportunity title' => 'poolNameEn',
+            'application link' => config('app.url').'/en/applications/1'],
+            $message->messageVariables
+        );
+    }
+
+    // builds GC Notify email message correctly in French
+    public function testSetsGcNotifyEmailFieldsCorrectlyFr(): void
+    {
+        Carbon::setLocale('fr');
+        $closingDatePacificTimeZoneFr = $this->closingDate->setTimezone('America/Vancouver')->translatedFormat('j F Y');
+        $user = User::factory()
+            ->create([
+                'email' => 'example@example.org',
+                'preferred_lang' => 'fr',
+            ]);
+
+        $message = $this->fixtureNotification->toGcNotifyEmail($user);
+
+        assertEquals(config('notify.templates.application_deadline_extended_fr'), $message->templateId);
+        assertEquals('example@example.org', $message->emailAddress);
+        assertEquals([
+            'user name' => 'userName',
+            'closing date' => $closingDatePacificTimeZoneFr,
+            'opportunity title' => 'poolNameFr',
+            'application link' => config('app.url').'/fr/applications/1'],
+            $message->messageVariables);
+    }
+
+    // builds database message for in-app notification correctly
+    public function testSavesDatabaseFieldsCorrectly(): void
+    {
+        Carbon::setLocale('en');
+        $user = User::factory()
+            ->create([
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            ]);
+
+        $user->notify($this->fixtureNotification);
+
+        $notification = Notification::all()->sole();
+        assertEquals([
+            'userName' => 'userName',
+            'closingDate' => $this->closingDate->setTimezone('America/Vancouver')->toDateString(),
+            'poolName' => [
+                'en' => 'poolNameEn',
+                'fr' => 'poolNameFr',
+            ],
+            'poolCandidateId' => '1',
+        ], $notification->data
+        );
+    }
+}

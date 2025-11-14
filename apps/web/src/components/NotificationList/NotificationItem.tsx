@@ -67,6 +67,15 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
       poolId
       poolCandidateId
     }
+    ... on ApplicationDeadlineExtendedNotification {
+      userName
+      closingDate
+      poolName {
+        en
+        fr
+      }
+      poolCandidateId
+    }
     ... on ApplicationStatusChangedNotification {
       poolName {
         en

@@ -10,6 +10,7 @@ use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
+use App\Observers\PoolObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -164,6 +165,14 @@ class Pool extends Model
                 'name' => 'pool-'.$pool->id,
             ]);
         });
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        Pool::observe(PoolObserver::class);
     }
 
     /**

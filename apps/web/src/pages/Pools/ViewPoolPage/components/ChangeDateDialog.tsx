@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Dialog, Button, Well } from "@gc-digital-talent/ui";
+import { Dialog, Button, Well, Heading } from "@gc-digital-talent/ui";
 import {
   convertDateTimeZone,
   strToFormDate,
@@ -152,27 +152,43 @@ const ChangeDateDialog = ({
                 ]}
               />
               {type === "extend" ? (
-                <DateInput
-                  id="expiryEndDate"
-                  legend={intl.formatMessage({
-                    defaultMessage: "End Date",
-                    id: "80DOGy",
-                    description:
-                      "Label displayed on the pool candidate form end date field.",
-                  })}
-                  name="expiryEndDate"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                    min: {
-                      value: strToFormDate(minDate.toISOString()),
-                      message: closingDate
-                        ? intl.formatMessage(
-                            apiMessages[ErrorCode.ProcessClosingDateExtend],
-                          )
-                        : intl.formatMessage(errorMessages.futureDate),
-                    },
-                  }}
-                />
+                <>
+                  <DateInput
+                    id="expiryEndDate"
+                    legend={intl.formatMessage({
+                      defaultMessage: "End Date",
+                      id: "80DOGy",
+                      description:
+                        "Label displayed on the pool candidate form end date field.",
+                    })}
+                    name="expiryEndDate"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: strToFormDate(minDate.toISOString()),
+                        message: closingDate
+                          ? intl.formatMessage(
+                              apiMessages[ErrorCode.ProcessClosingDateExtend],
+                            )
+                          : intl.formatMessage(errorMessages.futureDate),
+                      },
+                    }}
+                  />
+                  <Well color="warning" fontSize="caption" className="mt-6">
+                    <Heading level="h3" size="h6" className="mt-0">
+                      {intl.formatMessage(commonMessages.important)}
+                    </Heading>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "If you extend the closing date, all users with a draft application for this process will be notified. We won't send a notification if you close the process immediately.",
+                        id: "fYGCsZ",
+                        description:
+                          "Warning message for when admin extends closing date.",
+                      })}
+                    </p>
+                  </Well>
+                </>
               ) : (
                 <>
                   <p className="mb-6">
