@@ -40,6 +40,13 @@ class ProfileSnapshot implements Castable
 
     public function __construct(mixed $snapshot)
     {
+
+        if (! $snapshot) {
+            $this->profile = null;
+
+            return;
+        }
+
         $snapshot = json_decode($snapshot, true) ?? null;
 
         if (! $snapshot) {
