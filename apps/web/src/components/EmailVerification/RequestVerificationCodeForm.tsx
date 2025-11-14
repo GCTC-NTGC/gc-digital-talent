@@ -143,6 +143,7 @@ const RequestVerificationCodeForm = ({
         });
       }
 
+      setEmailAddressContacted(null);
       if (!result.data?.sendUserEmailsVerification?.id) {
         throw new Error("Send email error");
       }
