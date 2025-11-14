@@ -26,6 +26,7 @@ const main: StorybookConfig = {
     "@storybook/addon-designs",
     "@storybook/addon-themes",
     "storybook-react-intl",
+    "@storybook/addon-vitest"
   ],
   core: {
     builder: "@storybook/builder-vite",
