@@ -1,6 +1,5 @@
 import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { ReactNode } from "react";
-import { lte } from "lodash";
 
 import {
   ApplicationDeadlineApproachingNotification,
