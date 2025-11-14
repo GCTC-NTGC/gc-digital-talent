@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import Button from "../Button";
 import Accordion from "../Accordion/Accordion";
-import Alert from "../Alert/Alert";
+import Notice from "../Notice/Notice";
 import TreeView from "./TreeView";
 import Card from "../Card/Card";
 import Heading from "../Heading";
@@ -26,9 +26,11 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
         </Card>
       </TreeView.Head>
       <TreeView.Item noBranch>
-        <Alert.Root type="warning" className="m-0">
-          <Alert.Title>Error/Warning: {faker.lorem.sentences(1)}</Alert.Title>
-        </Alert.Root>
+        <Notice.Root color="warning" mode="card" className="m-0">
+          <Notice.Title defaultIcon>
+            Error/Warning: {faker.lorem.sentences(1)}
+          </Notice.Title>
+        </Notice.Root>
       </TreeView.Item>
       <TreeView.Item>
         <Accordion.Root type="single" mode="card" collapsible className="m-0">

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { Outlet, useLocation } from "react-router";
 import { useQuery } from "urql";
 
-import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
+import { ThrowNotFound, Pending, Notice } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -105,15 +105,15 @@ const UserHeader = ({ query }: UserHeaderProps) => {
         navTabs={pages}
       />
       {userDeleted ? (
-        <Alert.Root type="warning" live={false} className="mt-0 mb-12">
-          <p>
+        <Notice.Root color="warning" mode="card" className="mt-0 mb-12">
+          <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage: "This user has been deleted.",
               id: "aiYTNf",
               description: "Message displayed when admin views a deleted user.",
             })}
-          </p>
-        </Alert.Root>
+          </Notice.Title>
+        </Notice.Root>
       ) : null}
     </>
   );

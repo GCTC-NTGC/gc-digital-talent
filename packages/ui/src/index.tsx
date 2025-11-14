@@ -57,6 +57,7 @@ import NavMenu from "./components/NavMenu/NavMenu";
 import NavMenuProvider from "./components/NavMenu/NavMenuProvider";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
+import Notice, { type NoticeProps } from "./components/Notice/Notice";
 import Pending, {
   type PendingProps,
   LoadingErrorMessage,
@@ -121,6 +122,7 @@ export type {
   MenuLinkProps,
   MetadataItemProps,
   LoadingProps,
+  NoticeProps,
   PendingProps,
   PreviewMetaData,
   ChipProps,
@@ -177,6 +179,7 @@ export {
   NavMenu,
   NavMenuProvider,
   NavTabs,
+  Notice,
   Ol,
   Ul,
   Loading,

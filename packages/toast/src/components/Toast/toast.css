@@ -9,6 +9,9 @@
 
 .Toastify__toast {
   display: block;
+  background: none !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
 }
 
 .Toastify__toast-container--bottom-right {

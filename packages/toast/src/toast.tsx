@@ -1,26 +1,27 @@
 import { toast as toastify, ToastOptions } from "react-toastify/unstyled";
-import { ReactNode } from "react";
 
-import ToastAlert from "./components/ToastAlert/ToastAlert";
+import ToastAlert, {
+  type ToastMessage,
+} from "./components/ToastAlert/ToastAlert";
 
 const toast = {
-  success: (message: ReactNode, options?: ToastOptions) =>
-    toastify.success(<ToastAlert type="success">{message}</ToastAlert>, {
+  success: (message: ToastMessage, options?: ToastOptions) =>
+    toastify.success(<ToastAlert message={message} color="success" />, {
       icon: false,
       ...options,
     }),
-  error: (message: ReactNode, options?: ToastOptions) =>
-    toastify.error(<ToastAlert type="error">{message}</ToastAlert>, {
+  error: (message: ToastMessage, options?: ToastOptions) =>
+    toastify.error(<ToastAlert message={message} color="error" />, {
       icon: false,
       ...options,
     }),
-  warning: (message: ReactNode, options?: ToastOptions) =>
-    toastify.warning(<ToastAlert type="warning">{message}</ToastAlert>, {
+  warning: (message: ToastMessage, options?: ToastOptions) =>
+    toastify.warning(<ToastAlert message={message} color="warning" />, {
       icon: false,
       ...options,
     }),
-  info: (message: ReactNode, options?: ToastOptions) =>
-    toastify.info(<ToastAlert type="info">{message}</ToastAlert>, {
+  info: (message: ToastMessage, options?: ToastOptions) =>
+    toastify.info(<ToastAlert message={message} color="gray" />, {
       icon: false,
       ...options,
     }),
