@@ -26,7 +26,11 @@ class ClientSafeTooManyRequestsException extends \Exception implements ClientAwa
         return true;
     }
 
-    /** @return array{validation: array<string, array<int, string>>} */
+    /**
+     * Data to include within the "extensions" key of the formatted error.
+     *
+     * @return array<string, mixed>
+     */
     public function getExtensions(): array
     {
         return [
