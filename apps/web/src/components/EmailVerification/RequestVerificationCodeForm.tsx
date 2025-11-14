@@ -151,7 +151,6 @@ const RequestVerificationCodeForm = ({
 
     return mutationResult.then(() => {
       setRequestCodeMessage({ code: "request-sent" });
-      setEmailAddressContacted(emailAddress);
     });
   };
 
