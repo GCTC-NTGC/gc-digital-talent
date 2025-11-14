@@ -1,5 +1,6 @@
 import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { ReactNode } from "react";
+import { lte } from "lodash";
 
 import {
   ApplicationDeadlineApproachingNotification,
@@ -21,6 +22,7 @@ import {
   DATE_FORMAT_LOCALIZED,
   formDateStringToDate,
   formatDate,
+  parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { useLogger } from "@gc-digital-talent/logger";
 import { GraphqlType } from "@gc-digital-talent/helpers";
@@ -103,14 +105,15 @@ const applicationDeadlineExtendedNotificationToInfo = (
   intl: IntlShape,
 ): NotificationInfo => {
   const poolNameLocalized = getLocalizedName(notification.poolName, intl);
-  const closingDateObject = formDateStringToDate(
-    notification.closingDate ?? "1900-01-01",
-  );
-  const closingDateFormatted = formatDate({
-    date: closingDateObject,
-    formatString: DATE_FORMAT_LOCALIZED,
-    intl,
-  });
+  let closingDateFormatted = intl.formatMessage(commonMessages.notFound);
+
+  if (notification.closingDate) {
+    closingDateFormatted = formatDate({
+      date: parseDateTimeUtc(notification.closingDate),
+      formatString: DATE_FORMAT_LOCALIZED,
+      intl,
+    });
+  }
 
   return {
     message: intl.formatMessage(
