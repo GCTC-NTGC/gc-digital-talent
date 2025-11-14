@@ -56,7 +56,7 @@ class ApplicationDeadlineExtended extends Notification implements CanBeSentViaGc
     {
         return [
             'userName' => $this->userName,
-            'closingDate' => $this->closingDate->toDateString(),
+            'closingDate' => $this->closingDate->setTimezone('America/Vancouver')->toDateString(),
             'poolName' => [
                 'en' => $this->poolNameEn,
                 'fr' => $this->poolNameFr,
@@ -72,7 +72,7 @@ class ApplicationDeadlineExtended extends Notification implements CanBeSentViaGc
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
         $localizedClosingDateString = Carbon::executeWithLocale($locale,
-            fn () => $this->closingDate->translatedFormat($locale === 'en' ? 'F j, Y' : 'j F Y')
+            fn () => $this->closingDate->setTimezone('America/Vancouver')->translatedFormat($locale === 'en' ? 'F j, Y' : 'j F Y')
         );
 
         if (Language::EN->localeMatches($locale)) {
