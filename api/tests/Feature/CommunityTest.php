@@ -43,7 +43,6 @@ class CommunityTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
-        $this->bootRefreshesSchemaCache();
 
         // Create communities.
         $this->toBeDeletedUUID = $this->faker->UUID();

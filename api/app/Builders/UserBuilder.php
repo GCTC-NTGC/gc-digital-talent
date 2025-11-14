@@ -746,6 +746,10 @@ class UserBuilder extends Builder
     // Given input in the shape of UserFilterInput, adjust then call whereFlexibleLocationAndRegionSpecialMatching()
     public function whereUserFilterInputToSpecialLocationMatching(?array $filter): self
     {
+        if (empty($filter)) {
+            return $this;
+        }
+
         if (array_key_exists('locationPreferences', $filter) || array_key_exists('flexibleWorkLocations', $filter)) {
 
             $workRegions = array_key_exists('locationPreferences', $filter) ? $filter['locationPreferences'] : null;

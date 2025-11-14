@@ -27,7 +27,6 @@ class KeywordSearchTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->bootRefreshesSchemaCache();
 
         $this->seed(RolePermissionSeeder::class);
 
