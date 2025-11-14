@@ -52,7 +52,7 @@ class PoolCandidatePage extends AppPage {
 
     // Give server time to generate file
     // eslint-disable-next-line playwright/no-wait-for-timeout
-    await this.page.waitForTimeout(500);
+    await this.page.waitForTimeout(1000);
 
     const now = new Date();
     const today = now.toISOString().split("T")[0];
