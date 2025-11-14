@@ -39,8 +39,9 @@ const root = tv({
       error: "",
     },
     small: {
-      true: "p-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*5.75)_1fr]",
-      false: "p-4.5 has-[>svg]:grid-cols-[calc(var(--spacing)*6.75)_1fr]",
+      true: "p-4.5 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*5.75)_1fr] has-[>svg]:pl-3",
+      false:
+        "p-6 has-[>svg]:grid-cols-[calc(var(--spacing)*6.75)_1fr] has-[>svg]:pl-4.5",
     },
     dismissable: {
       true: "",
@@ -51,12 +52,12 @@ const root = tv({
     {
       small: true,
       dismissable: true,
-      class: "p-3 pr-12",
+      class: "p-4.5 pr-12 has-[>svg]:pl-3",
     },
     {
       small: false,
       dismissable: true,
-      class: "p-4.5 pr-16.75",
+      class: "p-6 pr-16.75 has-[>svg]:pl-4.5",
     },
     {
       mode: "inline",
@@ -176,7 +177,7 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
 
 const title = tv({
   slots: {
-    icon: "h-auto w-full",
+    icon: "h-auto w-full stroke-2",
     heading: "mb-.25 col-start-2 font-bold",
   },
   variants: {
@@ -321,12 +322,12 @@ const footer = tv({
     {
       small: true,
       dismissable: true,
-      class: "-mr-12 -ml-3",
+      class: "-mr-12 -ml-4.5 group-has-[>svg]:-ml-3",
     },
     {
       small: false,
       dismissable: true,
-      class: "-mr-16.75 -ml-4.5",
+      class: "-mr-16.75 -ml-6 group-has-[>svg]:-ml-4.5",
     },
     {
       mode: "inline",
