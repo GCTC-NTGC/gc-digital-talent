@@ -17,11 +17,11 @@ import {
   IconButton,
   ButtonProps,
 } from "@gc-digital-talent/ui";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
 import notificationMessages from "~/messages/notificationMessages";
+import { NOTIFICATION_POLLING_INTERVAL } from "~/constants/notifications";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
@@ -137,7 +137,7 @@ const DialogPortalWithPresence = ({
               })}
             </DialogPrimitive.Description>
           </div>
-          <NotificationList live inDialog limit={30} onRead={handleRead} />
+          <NotificationList inDialog limit={30} onRead={handleRead} />
           <p className="m-6">
             <DialogPrimitive.Close asChild>
               <Link href={paths.notifications()} mode="solid" color="primary">
@@ -154,9 +154,6 @@ const DialogPortalWithPresence = ({
     </Dialog.Portal>
   ) : null;
 };
-
-const envPollingInterval = getRuntimeVariable("NOTIFICATION_POLLING_INTERVAL");
-const pollingInterval = envPollingInterval ? parseInt(envPollingInterval) : 1;
 
 interface NotificationDialog {
   /** Controllable open state */
@@ -190,8 +187,8 @@ const NotificationDialog = ({
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
-    pollingInterval * 60,
-    pollingInterval <= 0,
+    NOTIFICATION_POLLING_INTERVAL,
+    NOTIFICATION_POLLING_INTERVAL <= 0 || open,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
   const buttonLabel = open

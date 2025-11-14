@@ -340,19 +340,19 @@ export const iconBtn = tv({
   variants: {
     color: {
       primary: {
-        base: "text-primary-500 hover:bg-primary-100 hover:text-primary-700 dark:text-primary-300",
+        base: "text-primary-500 hover:bg-primary-100 hover:text-primary-700 dark:text-primary-200",
       },
       secondary: {
-        base: "text-secondary-500 hover:bg-secondary-100 hover:text-secondary-700 dark:text-secondary-300",
+        base: "text-secondary-500 hover:bg-secondary-100 hover:text-secondary-700 dark:text-secondary-200",
       },
       success: {
-        base: "text-success-500 hover:bg-success-100 hover:text-success-700 dark:text-success-300",
+        base: "text-success-500 hover:bg-success-100 hover:text-success-700 dark:text-success-200",
       },
       warning: {
-        base: "text-warning-500 hover:bg-warning-100 hover:text-warning-700 dark:text-warning-300",
+        base: "text-warning-500 hover:bg-warning-100 hover:text-warning-700 dark:text-warning-200",
       },
       error: {
-        base: "text-error-500 hover:bg-error-100 hover:text-error-700 dark:text-error-300",
+        base: "text-error-500 hover:bg-error-100 hover:text-error-700 dark:text-error-100",
       },
       black: {
         base: "text-black hover:bg-gray-100 dark:text-white dark:hover:text-black",
