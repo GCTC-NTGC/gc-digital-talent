@@ -77,8 +77,8 @@ const deriveWhoCanApplyMessages = (
       ? intl.formatMessage(
           {
             defaultMessage:
-              "Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an {classificationString} classification or organizational equivalent in their substantive role. <link>Eligible veterans and Canadian Armed Forces members may also apply.</link>",
-            id: "oyvQbj",
+              "Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an {classificationString} classification or organizational equivalent in their substantive role. <link>Eligible veterans and Canadian Armed Forces members</link> may also apply.",
+            id: "0P05iS",
             description: "At-level application criteria",
           },
           {

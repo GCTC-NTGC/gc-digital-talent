@@ -583,6 +583,10 @@
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
   },
+  "0P05iS": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d'attache. <link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
+    "description": "At-level application criteria"
+  },
   "0P591/": {
     "defaultMessage": "Si la personne candidate n'est plus membre du personnel, cette mise en candidature doit être marquée comme « Non retenue ».",
     "description": "Instruction if nominee is no longer a Government of Canada employee"
@@ -11992,10 +11996,6 @@
   "ox2by6": {
     "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
     "description": "Link text to a page to learn more about something"
-  },
-  "oyvQbj": {
-    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d'attache. <link>Les anciens combattants et les membres des Forces armées canadiennes admissibles peuvent également postuler.</link>",
-    "description": "At-level application criteria"
   },
   "ozb92E": {
     "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
