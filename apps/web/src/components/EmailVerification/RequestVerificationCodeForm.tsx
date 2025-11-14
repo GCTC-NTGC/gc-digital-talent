@@ -79,6 +79,7 @@ const RequestVerificationCodeForm = ({
   }): Promise<void> => {
     setRequestCodeMessage(null);
     setSubmitCodeMessage(null);
+    setEmailAddressContacted(emailAddress);
 
     let emailTypes: EmailType[];
     switch (emailType) {
@@ -143,7 +144,6 @@ const RequestVerificationCodeForm = ({
         });
       }
 
-      setEmailAddressContacted(null);
       if (!result.data?.sendUserEmailsVerification?.id) {
         throw new Error("Send email error");
       }
@@ -177,7 +177,7 @@ const RequestVerificationCodeForm = ({
     }
   }, [
     emailAddressContacted,
-    requestCodeMessage,
+    requestCodeMessage?.code,
     setRequestCodeMessage,
     watchEmailAddressInput,
   ]);
