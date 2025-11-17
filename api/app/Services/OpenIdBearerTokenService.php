@@ -202,7 +202,7 @@ class OpenIdBearerTokenService
         $token = $config->parser()->parse($bearerToken);
 
         assert($token instanceof UnencryptedToken);
-        $config->setValidationConstraints(
+        $config = $config->withValidationConstraints(
             new IssuedBy($this->getConfigProperty('issuer')),
             new RelatedTo($token->claims()->get('sub')),
             new LooseValidAt($this->clock, $this->allowableClockSkew),
