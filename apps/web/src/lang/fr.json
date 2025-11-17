@@ -6419,6 +6419,10 @@
     "defaultMessage": "Une fois que vous en aurez ajouté quelques-unes, vous pourrez compter cette compétence selon l’une ou plusieurs de vos expériences.",
     "description": "Instructions displayed when user has no experiences to feature on a skill."
   },
+  "QaB7J+": {
+    "defaultMessage": "La date limite pour {poolName} a été reportée au {closingDate}. Si vous avez toujours un intérêt pour cette possibilité, nous vous invitons à poursuivre le processus de demande.",
+    "description": "Message for application deadline extended notification"
+  },
   "QagkWo": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add education experience in application education page."
@@ -9838,6 +9842,10 @@
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
     "description": "Notification when a user attempts to apply to a pool when they already have an application there."
   },
+  "fYGCsZ": {
+    "defaultMessage": "Si vous prolongez la date de clôture, tous les utilisateurs qui ont une ébauche de demande en cours pour ce processus en seront avisés. Aucune notification ne sera envoyée si vous fermez le processus immédiatement.",
+    "description": "Warning message for when admin extends closing date."
+  },
   "fa+z9W": {
     "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
     "description": "Contact email title paragraph"
@@ -9845,6 +9853,10 @@
   "fdSRLv": {
     "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajoutez des volets de travail ».",
     "description": "Subtitle when no work streams have been attached to experience"
+  },
+  "ffSxnV": {
+    "defaultMessage": "La date limite pour {poolName} a été reportée au {closingDate}.",
+    "description": "Label for the application deadline extended notification"
   },
   "fg2wla": {
     "defaultMessage": "Langue préférée pour l'examen écrit",
