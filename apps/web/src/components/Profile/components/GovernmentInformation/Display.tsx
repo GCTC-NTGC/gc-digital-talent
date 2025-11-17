@@ -72,6 +72,8 @@ const Display = ({
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
+    govPositionType,
+    govEndDate,
   } = user;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
