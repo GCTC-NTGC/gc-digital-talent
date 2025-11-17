@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
+import { formattedDate } from "~/utils/dateUtils";
 
 export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformationDisplay on User {
@@ -99,6 +100,14 @@ const Display = ({
   const isIndeterminate =
     govEmployeeType?.value === GovEmployeeType.Indeterminate;
 
+  // show end date for not indeterminate and is a gov employee
+  const showEndDate = !isIndeterminate && isGovEmployee;
+
+  // format end date using utility
+  const formattedEndDate = govEndDate
+    ? formattedDate(govEndDate, intl)
+    : notProvided;
+
   return (
     <div className="flex flex-col gap-y-6">
       <FieldDisplay
@@ -136,6 +145,18 @@ const Display = ({
               {govPositionType ? govPositionType.label.localized : notProvided}
             </FieldDisplay>
           )}
+          {showEndDate && (
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Expected end date",
+                id: "a3j1kD",
+                description: "Expected end date label",
+              })}
+            >
+              {formattedEndDate}
+            </FieldDisplay>
+          )}
+
           <FieldDisplay
             label={intl.formatMessage({
               defaultMessage: "Current group and classification",
