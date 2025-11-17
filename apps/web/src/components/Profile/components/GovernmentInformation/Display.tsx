@@ -3,7 +3,12 @@ import { useNavigate } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  GovEmployeeType,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
@@ -90,6 +95,10 @@ const Display = ({
     await navigate(routes.verifyWorkEmail());
   };
 
+  //check for employment type
+  const isIndeterminate =
+    govEmployeeType?.value === GovEmployeeType.Indeterminate;
+
   return (
     <div className="flex flex-col gap-y-6">
       <FieldDisplay
@@ -116,6 +125,17 @@ const Display = ({
           >
             {govEmployeeType ? govEmployeeType.label.localized : notProvided}
           </FieldDisplay>
+          {isIndeterminate && (
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Position type",
+                id: "oQ1r5J",
+                description: "Position type label",
+              })}
+            >
+              {govPositionType ? govPositionType.label.localized : notProvided}
+            </FieldDisplay>
+          )}
           <FieldDisplay
             label={intl.formatMessage({
               defaultMessage: "Current group and classification",
