@@ -36,6 +36,13 @@ export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
       group
       level
     }
+    govPositionType {
+      value
+      label {
+        localized
+      }
+    }
+    govEndDate
   }
 `);
 
