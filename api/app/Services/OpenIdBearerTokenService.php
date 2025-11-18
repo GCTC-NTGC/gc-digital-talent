@@ -15,7 +15,6 @@ use Illuminate\Validation\UnauthorizedException;
 // one that does it all.
 use Jose\Component\Core\JWKSet;
 use Jose\Component\Core\Util\RSAKey;
-use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
@@ -24,12 +23,13 @@ use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
+use Psr\Clock\ClockInterface;
 
 class OpenIdBearerTokenService
 {
     private Configuration $unsecuredConfig;
 
-    private Clock $clock;
+    private ClockInterface $clock;
 
     private string $configUri;
 
@@ -47,7 +47,7 @@ class OpenIdBearerTokenService
         );
     }
 
-    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
+    public function __construct(string $configUri, ClockInterface $clock, DateInterval $allowableClockSkew)
     {
         $this->unsecuredConfig = $this->fastSigner();
         $this->clock = $clock;
@@ -172,9 +172,15 @@ class OpenIdBearerTokenService
             }
 
             $isTokenActive = boolval($response->json('active'));
+            $expiryVal = $response->json('exp');
             // only cache active token
-            if ($isTokenActive) {
-                Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
+            if ($isTokenActive && is_numeric($expiryVal)) {
+                $expiryTimestamp = intval($expiryVal);
+                $nowTimestamp = $this->clock->now()->getTimestamp();
+                $cacheTime = min(10, $expiryTimestamp - $nowTimestamp); // cache for a few seconds, or up to expiry time
+                if ($cacheTime > 0) {
+                    Cache::put($cacheKey, $isTokenActive, $cacheTime);
+                }
             }
         }
 
@@ -196,7 +202,7 @@ class OpenIdBearerTokenService
         $token = $config->parser()->parse($bearerToken);
 
         assert($token instanceof UnencryptedToken);
-        $config->setValidationConstraints(
+        $config = $config->withValidationConstraints(
             new IssuedBy($this->getConfigProperty('issuer')),
             new RelatedTo($token->claims()->get('sub')),
             new LooseValidAt($this->clock, $this->allowableClockSkew),

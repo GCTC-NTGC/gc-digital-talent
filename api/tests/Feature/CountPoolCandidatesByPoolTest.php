@@ -35,7 +35,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
     {
         parent::setUp();
         Notify::spy(); // don't send any notifications
-        $this->bootRefreshesSchemaCache();
 
         $this->seed(RolePermissionSeeder::class);
     }

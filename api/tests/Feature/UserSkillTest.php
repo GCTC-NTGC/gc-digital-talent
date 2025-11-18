@@ -39,7 +39,6 @@ class UserSkillTest extends TestCase
         parent::setUp();
         // Run necessary seeders
         $this->seed(RolePermissionSeeder::class);
-        $this->bootRefreshesSchemaCache();
         $this->user = User::factory()
             ->asApplicant()
             ->create([

@@ -63,11 +63,6 @@ const commonMessages = defineMessages({
     id: "BXxvCZ",
     description: "Message for when no name value",
   },
-  noInformationProvided: {
-    defaultMessage: "No information has been provided.",
-    id: "euigxa",
-    description: "Sentence when some form of information not provided",
-  },
   missingInformation: {
     defaultMessage: "Missing information",
     id: "MuM7SN",
@@ -299,16 +294,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Select a community",
     id: "m0iNdp",
     description: "Null selection for community select input.",
-  },
-  accepted: {
-    defaultMessage: "Accepted",
-    id: "Pj4lW9",
-    description: "Indicates a user has accepted some criteria",
-  },
-  notAccepted: {
-    defaultMessage: "Not accepted",
-    id: "I1jrAG",
-    description: "Indicates a user has not accepted some criteria",
   },
   role: {
     defaultMessage: "Role",

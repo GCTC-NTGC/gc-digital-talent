@@ -4,7 +4,7 @@ import { AnimatePresence, m, usePresence } from "motion/react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { UseQueryExecute } from "urql";
+import { useQuery, UseQueryExecute } from "urql";
 
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -17,24 +17,24 @@ import {
   IconButton,
   ButtonProps,
 } from "@gc-digital-talent/ui";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
 import notificationMessages from "~/messages/notificationMessages";
+import { NOTIFICATION_POLLING_INTERVAL } from "~/constants/notifications";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
-import NotificationList from "../NotificationList/NotificationList";
+import NotificationActions from "../NotificationList/NotificationActions";
+import NotificationDialogList from "./NotificationDialogList";
 
 const Overlay = m.create(DialogPrimitive.Overlay);
 
-// For the sake of the bell icon, we only care if the user has at least 1 unread notification
-// This is to query to minimal amount of data to display the badge
-const NotificationCount_Query = graphql(/* GraphQL */ `
-  query NotificationCount {
-    notifications(where: { onlyUnread: true }, first: 1) {
+const NotificationDialog_Query = graphql(/* GraphQL */ `
+  query NotificationDialog {
+    notifications(first: 30) {
       data {
         id
+        ...NotificationDialogItem
       }
     }
   }
@@ -42,18 +42,22 @@ const NotificationCount_Query = graphql(/* GraphQL */ `
 
 interface DialogPortalWithPresenceProps {
   onClose: () => void;
-  executeQuery: UseQueryExecute;
+  onRead: UseQueryExecute;
 }
 
 const DialogPortalWithPresence = ({
   onClose,
-  executeQuery,
+  onRead,
 }: DialogPortalWithPresenceProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [isPresent] = usePresence();
   const [render, setRender] = useState<boolean>(isPresent);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [{ data, fetching }, executeQuery] = useQuery({
+    query: NotificationDialog_Query,
+    pause: !render,
+  });
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
@@ -77,7 +81,7 @@ const DialogPortalWithPresence = ({
 
   const handleRead = () => {
     onClose();
-    executeQuery();
+    onRead();
   };
 
   return render ? (
@@ -88,7 +92,7 @@ const DialogPortalWithPresence = ({
         animate={{ opacity: 0.85 }}
         exit={{ opacity: 0.85 }}
         transition={{ duration: 0.2 }}
-        className="fixed inset-0 z-[97] bg-gray-700/90"
+        className="fixed inset-0 z-48 bg-gray-700/90"
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
@@ -97,7 +101,7 @@ const DialogPortalWithPresence = ({
           animate={{ x: 0, scale: 1 }}
           exit={{ x: "100%", scale: 0.95 }}
           transition={{ duration: 0.2, ease: "easeInOut" }}
-          className="fixed inset-y-0 right-0 z-[98] m-3 ml-auto w-110 max-w-[95vw] overflow-y-auto rounded bg-white font-sans text-black shadow-lg dark:bg-gray-600 dark:text-white"
+          className="fixed inset-y-0 right-0 z-49 m-3 ml-auto w-110 max-w-[95vw] overflow-y-auto rounded bg-white font-sans text-black shadow-lg dark:bg-gray-600 dark:text-white"
         >
           <div className="p-6">
             <div className="mb-3 flex items-center justify-between gap-y-1.5">
@@ -137,7 +141,17 @@ const DialogPortalWithPresence = ({
               })}
             </DialogPrimitive.Description>
           </div>
-          <NotificationList live inDialog limit={30} onRead={handleRead} />
+          <NotificationActions
+            onRead={onRead}
+            onlyUnread
+            inDialog
+            onRefresh={() => executeQuery({ requestPolicy: "network-only" })}
+            fetching={fetching}
+          />
+          <NotificationDialogList
+            query={unpackMaybes(data?.notifications?.data)}
+            onRead={handleRead}
+          />
           <p className="m-6">
             <DialogPrimitive.Close asChild>
               <Link href={paths.notifications()} mode="solid" color="primary">
@@ -155,8 +169,17 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
-const envPollingInterval = getRuntimeVariable("NOTIFICATION_POLLING_INTERVAL");
-const pollingInterval = envPollingInterval ? parseInt(envPollingInterval) : 1;
+// For the sake of the bell icon, we only care if the user has at least 1 unread notification
+// This is to query to minimal amount of data to display the badge
+const NotificationCount_Query = graphql(/* GraphQL */ `
+  query NotificationCount {
+    notifications(where: { onlyUnread: true }, first: 1) {
+      data {
+        id
+      }
+    }
+  }
+`);
 
 interface NotificationDialog {
   /** Controllable open state */
@@ -166,6 +189,7 @@ interface NotificationDialog {
   /** Trigger color */
   color?: ButtonProps["color"];
 }
+
 const NotificationDialog = ({
   open,
   onOpenChange,
@@ -190,8 +214,8 @@ const NotificationDialog = ({
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
-    pollingInterval * 60,
-    pollingInterval <= 0,
+    NOTIFICATION_POLLING_INTERVAL,
+    NOTIFICATION_POLLING_INTERVAL <= 0 || open,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
   const buttonLabel = open
@@ -264,8 +288,8 @@ const NotificationDialog = ({
       <AnimatePresence initial={false}>
         {open && (
           <DialogPortalWithPresence
-            executeQuery={executeQuery}
             onClose={() => onOpenChange?.(false)}
+            onRead={executeQuery}
           />
         )}
       </AnimatePresence>
