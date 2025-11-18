@@ -31,7 +31,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12.22
+        image: postgres:13
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password1234
@@ -45,7 +45,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Add postgres extension pgcrypto # not included with postgres 12
-        run: docker run --rm --network ${{ job.container.network }} postgres:12.22 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'CREATE EXTENSION IF NOT EXISTS pgcrypto';"
+        run: docker run --rm --network ${{ job.container.network }} postgres:13 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'CREATE EXTENSION IF NOT EXISTS pgcrypto';"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
