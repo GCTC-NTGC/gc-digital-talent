@@ -47,6 +47,7 @@ use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -179,7 +180,25 @@ trait GeneratesUserDoc
             $department = $user->department()->first();
             $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class));
+            $isIndeterminate = $user->computed_gov_employee_type === GovEmployeeType::INDETERMINATE->name;
 
+            // Show position type only for Indeterminate employment
+            if ($isIndeterminate) {
+                $this->addLabelText(
+                    $section,
+                    $this->localizeHeading('position_type'),
+                    $this->localizeEnum($user->computed_gov_position_type, GovPositionType::class)
+                );
+            }
+            // Show end date for all non indeterminate employment types
+            if (! $isIndeterminate && $user->computed_gov_end_date) {
+                $formattedEndDate = $this->formatDate($user->computed_gov_end_date);
+                $this->addLabelText(
+                    $section,
+                    $this->localizeHeading('expected_end_date'),
+                    $formattedEndDate
+                );
+            }
             if (! $this->anonymous) {
                 $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
             }
@@ -1065,5 +1084,21 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.about'), $profile->career_planning_about_you ?? '');
         $this->addLabelText($section, $this->localize('gc_employee.learning_goals'), $profile->career_planning_learning_goals ?? '');
         $this->addLabelText($section, $this->localize('gc_employee.work_style'), $profile->career_planning_work_style ?? '');
+    }
+
+    /**
+     * Format estimated end date for all non indeterminate employment types
+     *
+     * @param  \DateTime|string|null  $date
+     * @param  string  $dateString
+     */
+    protected function formatDate($date): string
+    {
+        if (! $date) {
+            return '';
+        }
+
+        return Carbon::parse($date)->locale(App::getLocale())->translatedFormat('F Y');
+
     }
 }
