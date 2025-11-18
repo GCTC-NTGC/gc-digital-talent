@@ -31,7 +31,7 @@ const Overlay = m.create(DialogPrimitive.Overlay);
 
 const NotificationDialog_Query = graphql(/* GraphQL */ `
   query NotificationDialog {
-    notifications(where: { onlyUnread: true }, first: 30) {
+    notifications(first: 30) {
       data {
         id
         ...NotificationDialogItem
@@ -145,7 +145,7 @@ const DialogPortalWithPresence = ({
             onRead={onRead}
             onlyUnread
             inDialog
-            onRefresh={executeQuery}
+            onRefresh={() => executeQuery({ requestPolicy: "network-only" })}
             fetching={fetching}
           />
           <NotificationDialogList
