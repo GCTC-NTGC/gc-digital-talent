@@ -96,6 +96,24 @@ const JobPlacementForm = ({ optionsQuery }: JobPlacementFormProps) => {
   const underConsideration = options?.placementTypes?.find(
     (pt) => pt.value === PlacementType.UnderConsideration.toString(),
   );
+  const placedTerm = options?.placementTypes?.find(
+    (pt) => pt.value === PlacementType.PlacedTerm.toString(),
+  );
+  const placedIndeterminate = options?.placementTypes?.find(
+    (pt) => pt.value === PlacementType.PlacedIndeterminate.toString(),
+  );
+
+  const enumLabelMap = new Map<PlacementType, string>([
+    [
+      PlacementType.UnderConsideration,
+      getLocalizedName(underConsideration?.label, intl),
+    ],
+    [PlacementType.PlacedTerm, getLocalizedName(placedTerm?.label, intl)],
+    [
+      PlacementType.PlacedIndeterminate,
+      getLocalizedName(placedIndeterminate?.label, intl),
+    ],
+  ]);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -133,10 +151,12 @@ const JobPlacementForm = ({ optionsQuery }: JobPlacementFormProps) => {
           }}
         />
       )}
-      {watchPlacementType === PlacementType.UnderConsideration && (
+      {(watchPlacementType === PlacementType.UnderConsideration ||
+        watchPlacementType === PlacementType.PlacedTerm ||
+        watchPlacementType === PlacementType.PlacedIndeterminate) && (
         <Well>
           <p className="mb-1.5 font-bold">
-            {getLocalizedName(underConsideration?.label, intl)}
+            {enumLabelMap.get(watchPlacementType)}
           </p>
           <p>
             {intl.formatMessage({
