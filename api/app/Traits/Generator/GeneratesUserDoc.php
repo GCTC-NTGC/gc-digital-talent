@@ -613,30 +613,28 @@ trait GeneratesUserDoc
                 });
             }
 
-            if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
-                $experience->loadMissing(['workStreams']);
-                if ($experience->workStreams && count($experience->workStreams) > 0) {
-                    $workStreamsByCommunity = [];
-                    foreach ($experience->workStreams as $workStream) {
-                        if (isset($workStreamsByCommunity[$workStream->community_id])) {
-                            $workStreamsByCommunity[$workStream->community_id]['workStreams'][] = $workStream->name[$this->lang];
-                        } else {
-                            $community = Community::find($workStream->community_id);
-                            $workStreamsByCommunity[$workStream->community_id] = [
-                                'community' => $community->name[$this->lang],
-                                'workStreams' => [$workStream->name[$this->lang]],
-                            ];
-                        }
+            $experience->loadMissing(['workStreams']);
+            if ($experience->workStreams && count($experience->workStreams) > 0) {
+                $workStreamsByCommunity = [];
+                foreach ($experience->workStreams as $workStream) {
+                    if (isset($workStreamsByCommunity[$workStream->community_id])) {
+                        $workStreamsByCommunity[$workStream->community_id]['workStreams'][] = $workStream->name[$this->lang];
+                    } else {
+                        $community = Community::find($workStream->community_id);
+                        $workStreamsByCommunity[$workStream->community_id] = [
+                            'community' => $community->name[$this->lang],
+                            'workStreams' => [$workStream->name[$this->lang]],
+                        ];
                     }
-
-                    $section->addText($this->localize('common.work_streams'));
-                    collect(Arr::sortRecursive($workStreamsByCommunity))->each(function ($community) use ($section) {
-                        $section->addListItem($community['community'], 0);
-                        foreach ($community['workStreams'] as $workStream) {
-                            $section->addListItem($workStream, 1);
-                        }
-                    });
                 }
+
+                $section->addText($this->localize('common.work_streams'));
+                collect(Arr::sortRecursive($workStreamsByCommunity))->each(function ($community) use ($section) {
+                    $section->addListItem($community['community'], 0);
+                    foreach ($community['workStreams'] as $workStream) {
+                        $section->addListItem($workStream, 1);
+                    }
+                });
             }
         }
     }

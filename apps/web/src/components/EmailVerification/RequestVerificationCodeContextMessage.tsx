@@ -3,10 +3,12 @@ import { useIntl } from "react-intl";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
-import { CODE_REQUEST_THROTTLE_DELAY_S } from "./RequestVerificationCodeForm";
 import { useEmailVerification } from "./EmailVerification";
 
-export type ContextMessage = "request-sent" | "throttled" | "address-changed";
+export type ContextMessage =
+  | { code: "request-sent" }
+  | { code: "throttled"; remainingSeconds: number }
+  | { code: "address-changed" };
 
 const RequestVerificationCodeContextMessage = () => {
   const intl = useIntl();
@@ -17,7 +19,7 @@ const RequestVerificationCodeContextMessage = () => {
 
   if (message == null) return null;
 
-  switch (message) {
+  switch (message.code) {
     case "request-sent":
       return (
         <Well color="success" id="unsaved-emailAddress">
@@ -55,7 +57,7 @@ const RequestVerificationCodeContextMessage = () => {
                   "Body for a message informing the user that they must wait before requesting another email.",
               },
               {
-                delay: CODE_REQUEST_THROTTLE_DELAY_S,
+                delay: message.remainingSeconds,
               },
             )}
           </p>
