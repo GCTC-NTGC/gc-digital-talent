@@ -20,13 +20,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
@@ -194,12 +192,6 @@ class Pool extends Model
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
-    }
-
-    /** @return MorphMany<Activity, $this> */
-    public function activities(): MorphMany
-    {
-        return $this->morphMany(Activity::class, 'subject');
     }
 
     public function user(): BelongsTo
