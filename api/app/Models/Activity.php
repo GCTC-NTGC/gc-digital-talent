@@ -9,6 +9,8 @@ use Spatie\Activitylog\Models\Activity as SpatieActivity;
 
 class Activity extends SpatieActivity
 {
+    protected $keyType = 'string';
+
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
         /** @var \App\Models\User | null */

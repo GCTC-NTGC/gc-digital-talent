@@ -479,7 +479,7 @@ type ScreeningQuestion {
 
 type Activity @model(class: "\\App\\Models\\Activity") {
   id: ID!
-  causer: UserPublicProfile
+  causer: UserPublicProfile @with(relation: "causer")
   subjectType: String @rename(attribute: "subject_type")
   subjectId: UUID @rename(attribute: "subject_id")
   properties: JSON
@@ -565,6 +565,7 @@ type Pool implements HasRoleAssignments {
   contactEmail: String @rename(attribute: "contact_email")
   activities: [Activity!]
     @morphMany(relation: "activities", scopes: ["authorizedToViewPoolActivity"])
+    @orderBy(column: "created_at", direction: DESC)
 }
 
 type GeneralQuestionResponse {
