@@ -477,7 +477,17 @@ type ScreeningQuestion {
   sortOrder: Int @rename(attribute: "sort_order")
 }
 
-type ActivityLogItem {
+type Activity @model(class: "\\App\\Models\\Activity") {
+  id: ID!
+  causer: UserPublicProfile
+  subjectType: String @rename(attribute: "subject_type")
+  subjectId: UUID @rename(attribute: "subject_id")
+  properties: JSON
+  logName: String @rename(attribute: "log_name")
+  event: String
+  description: String
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
 interface HasRoleAssignments {
@@ -554,10 +564,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
   activities: [Activity!]
-    @morphMany(
-      relation: "activities"
-      scopes: ["whereAuthorizedToViewPoolActivity"]
-    )
+    @morphMany(relation: "activities", scopes: ["authorizedToViewPoolActivity"])
 }
 
 type GeneralQuestionResponse {

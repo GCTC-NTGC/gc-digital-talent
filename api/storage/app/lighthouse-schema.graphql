@@ -1025,6 +1025,19 @@ type ScreeningQuestion {
   sortOrder: Int
 }
 
+type Activity {
+  id: ID!
+  causer: UserPublicProfile
+  subjectType: String
+  subjectId: UUID
+  properties: JSON
+  logName: String
+  event: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -1076,6 +1089,7 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
+  activities: [Activity!]
 }
 
 type GeneralQuestionResponse {
