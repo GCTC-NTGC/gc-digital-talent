@@ -477,6 +477,9 @@ type ScreeningQuestion {
   sortOrder: Int @rename(attribute: "sort_order")
 }
 
+type ActivityLogItem {
+}
+
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -550,6 +553,11 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
+  activities: [Activity!]
+    @morphMany(
+      relation: "activities"
+      scopes: ["whereAuthorizedToViewPoolActivity"]
+    )
 }
 
 type GeneralQuestionResponse {
