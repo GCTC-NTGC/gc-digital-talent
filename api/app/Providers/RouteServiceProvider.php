@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::namespace($this->namespace)
                 ->group(base_path('routes/graphql.php'));
 
-            Route::middleware(['web', 'throttle:web'])
+            Route::middleware(['web'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
