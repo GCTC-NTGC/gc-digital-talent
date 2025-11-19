@@ -85,6 +85,8 @@ final class VerifyUserEmails
         }
         $user->save();
 
+        Cache::forget($key); // the token is redeemed, don't use it again
+
         return $user;
     }
 }

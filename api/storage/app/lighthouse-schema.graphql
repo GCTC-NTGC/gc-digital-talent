@@ -895,6 +895,17 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolCandidateId: ID
 }
 
+type ApplicationDeadlineExtendedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userName: String
+  closingDate: Date
+  poolName: LocalizedString
+  poolCandidateId: ID
+}
+
 type NewJobPostedNotification implements Notification {
   id: ID!
   readAt: DateTime
@@ -3668,6 +3679,7 @@ enum ErrorCode {
   SUB_IN_USE
   VERIFICATION_FAILED
   DUPLICATE_USER_SKILL
+  RATE_LIMIT
 }
 
 enum EstimatedLanguageAbility {

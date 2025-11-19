@@ -326,6 +326,18 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolCandidateId: ID
 }
 
+type ApplicationDeadlineExtendedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  userName: String
+  closingDate: Date
+  poolName: LocalizedString
+  poolCandidateId: ID
+}
+
 type NewJobPostedNotification implements Notification {
   id: ID!
   readAt: DateTime @rename(attribute: "read_at")

@@ -2,10 +2,13 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ErrorCode;
+use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\Notifications\VerifyEmails;
 use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
 
 final class SendUserEmailsVerification
 {
@@ -14,18 +17,31 @@ final class SendUserEmailsVerification
      */
     public function __invoke($_, array $args)
     {
-        try {
-            /** @var \App\Models\User | null */
-            $user = Auth::user();
-            $emailAddress = $args['emailAddress'];
-            $emailTypes = $args['emailTypes'];
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+        $emailAddress = $args['emailAddress'];
+        $emailTypes = $args['emailTypes'];
+        $rateLimiterKey = 'send-user-emails-verification:'.$user->id;
 
-            $message = new VerifyEmails($emailAddress, $emailTypes);
-            $user->notify($message);
+        try {
+            $executed = RateLimiter::attempt(
+                $rateLimiterKey,
+                $maxAttempts = 1,
+                fn () => $user->notify(new VerifyEmails($emailAddress, $emailTypes)),
+                $decaySeconds = 30
+            );
         } catch (\Throwable $e) {
             Log::error('Problem sending email verification code '.$e);
 
             return new Error($e->getMessage());
+        }
+
+        if (! $executed) {
+            $seconds = RateLimiter::availableIn($rateLimiterKey);
+            Log::debug('Remaining time: '.$seconds);
+
+            return new ClientSafeTooManyRequestsException(ErrorCode::RATE_LIMIT->name, $seconds);
+
         }
 
         return $user;

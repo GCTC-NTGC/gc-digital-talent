@@ -583,6 +583,10 @@
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
   },
+  "0P05iS": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d'attache. <link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
+    "description": "At-level application criteria"
+  },
   "0P591/": {
     "defaultMessage": "Si la personne candidate n'est plus membre du personnel, cette mise en candidature doit être marquée comme « Non retenue ».",
     "description": "Instruction if nominee is no longer a Government of Canada employee"
@@ -1366,10 +1370,6 @@
   "3duqOV": {
     "defaultMessage": "Gérez votre nom, vos préférences de contact, votre citoyenneté et votre statut d'ancien combattant. Les employées et employés du gouvernement du Canada peuvent également vérifier leur adresse courriel professionnelle pour accéder aux outils du personnel.",
     "description": "Description for the Personal and contact information section"
-  },
-  "3dwnFt": {
-    "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences suivants : {departmentName}.",
-    "description": "Fine print for departmental preference for pool advertisement"
   },
   "3e965x": {
     "defaultMessage": "Lieu de travail",
@@ -2527,10 +2527,6 @@
     "defaultMessage": "Les personnes candidates peuvent accepter de donner accès à leur profil en utilisant l'outil « Collectivités fonctionnelles » de leur tableau de bord.",
     "description": "Null secondary message for nominee profile"
   },
-  "8t1KYs": {
-    "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
-    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
-  },
   "8umYON": {
     "defaultMessage": "Prochaines étapes",
     "description": "Title for what to expect section"
@@ -2850,6 +2846,10 @@
   "A0KjaS": {
     "defaultMessage": "Candidatures externes",
     "description": "Heading for creating profiles if not a GC employee"
+  },
+  "A2XC6d": {
+    "defaultMessage": "<link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
+    "description": "Link to veterans and armed forces members info page, separate sentence"
   },
   "A2stXT": {
     "defaultMessage": "Gérer une question d’ordre général",
@@ -3446,10 +3446,6 @@
   "CnPVJe": {
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
     "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
-  },
-  "CoIL0K": {
-    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada.",
-    "description": "Employee-only application criteria"
   },
   "CsPyAD": {
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
@@ -6423,6 +6419,10 @@
     "defaultMessage": "Une fois que vous en aurez ajouté quelques-unes, vous pourrez compter cette compétence selon l’une ou plusieurs de vos expériences.",
     "description": "Instructions displayed when user has no experiences to feature on a skill."
   },
+  "QaB7J+": {
+    "defaultMessage": "La date limite pour {poolName} a été reportée au {closingDate}. Si vous avez toujours un intérêt pour cette possibilité, nous vous invitons à poursuivre le processus de demande.",
+    "description": "Message for application deadline extended notification"
+  },
   "QagkWo": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add education experience in application education page."
@@ -8466,6 +8466,10 @@
     "defaultMessage": "Trois types de possibilités d’apprentissage",
     "description": "Heading for section describing learning opportunities"
   },
+  "ZfLuWv": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada, les personnes employées par une agence du gouvernement du Canada, <link>et les anciens combattants et les membres des Forces armées canadiennes admissibles.</link>",
+    "description": "Employee-only application criteria"
+  },
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
@@ -9838,6 +9842,10 @@
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
     "description": "Notification when a user attempts to apply to a pool when they already have an application there."
   },
+  "fYGCsZ": {
+    "defaultMessage": "Si vous prolongez la date de clôture, tous les utilisateurs qui ont une ébauche de demande en cours pour ce processus en seront avisés. Aucune notification ne sera envoyée si vous fermez le processus immédiatement.",
+    "description": "Warning message for when admin extends closing date."
+  },
   "fa+z9W": {
     "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
     "description": "Contact email title paragraph"
@@ -9845,6 +9853,10 @@
   "fdSRLv": {
     "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajoutez des volets de travail ».",
     "description": "Subtitle when no work streams have been attached to experience"
+  },
+  "ffSxnV": {
+    "defaultMessage": "La date limite pour {poolName} a été reportée au {closingDate}.",
+    "description": "Label for the application deadline extended notification"
   },
   "fg2wla": {
     "defaultMessage": "Langue préférée pour l'examen écrit",
@@ -11508,6 +11520,10 @@
   "mnGISd": {
     "defaultMessage": "Intérêt pour les possibilités d'apprentissage",
     "description": "Label for an employee profile career development preference field"
+  },
+  "mnrRuo": {
+    "defaultMessage": "* La préférence sera accordée aux anciens combattants admissibles, aux membres des Forces armées canadiennes admissibles et aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
+    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
   },
   "moB11/": {
     "defaultMessage": "est en mesure d’attribuer les rôles de recruteur de la collectivité et de coordonnateur des talents de la collectivité.",
@@ -14076,10 +14092,6 @@
   "yTu6Ih": {
     "defaultMessage": "La gestion des fonctions de la plateforme est assurée par différentes personnes assumant certains rôles et possédant certaines autorisations, avec un accès limité aux données personnelles en fonction des besoins.",
     "description": "Paragraph two, describing managing platform functionalities"
-  },
-  "yV/mQS": {
-    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classificationString} ou un équivalent organisationnel dans leur poste d'attache.",
-    "description": "At-level application criteria"
   },
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",
