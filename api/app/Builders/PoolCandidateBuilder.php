@@ -703,6 +703,10 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
+    /**
+     * Get the team ID for a team based permission where
+     * the user has that permission.
+     */
     public function getTeamIdsForPermission(User $user, string $permission)
     {
         return DB::table('role_user')
@@ -725,7 +729,8 @@ class PoolCandidateBuilder extends Builder
             return $this->where('id', null);
         }
 
-        $axes = [
+        // Team based permissions that give a user access to a pool candidate
+        $permissions = [
             'view-team-draftPool',
             'view-team-applicantProfile',
             'view-team-communityTalent',
@@ -734,9 +739,18 @@ class PoolCandidateBuilder extends Builder
             'view-team-submittedApplication',
         ];
 
+        // Retrieve the Team IDs by each permission for use in whereIn clauses in the query
+        // This is required to restrict access based on the candidates who are within process
+        // that the user has access to via team based permissions
+        //
+        // This is used to avoid excessive calls to isAbleTo which is slow when there is no cache
+        // and adding unnecessary overhead when the user is assigned to many teams
+        //
+        // Each use of these should be wrapped in a single call to isAbleTo so that necessary
+        // checks are made before using the teams for that permission (ProtectedRequestUserChecker)
         $teamIdsByPermission = [];
-        foreach ($axes as $perm) {
-            $teamIdsByPermission[$perm] = $this->getTeamIdsForPermission($user, $perm); // from above
+        foreach ($permissions as $perm) {
+            $teamIdsByPermission[$perm] = $this->getTeamIdsForPermission($user, $perm);
         }
 
         return $this->andAuthorizedToViewCandidate($user, $teamIdsByPermission)
