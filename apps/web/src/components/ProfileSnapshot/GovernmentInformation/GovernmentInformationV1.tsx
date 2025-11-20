@@ -114,7 +114,8 @@ const GovernmentInformationV1 = ({
               label={intl.formatMessage({
                 defaultMessage: "Expected end date",
                 id: "0qwyH4",
-                description: "Expected end date label",
+                description:
+                  "Label displayed on an Experience form for expected end date input",
               })}
             >
               {formattedEndDate}
