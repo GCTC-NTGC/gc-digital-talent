@@ -223,35 +223,53 @@ export const createAndPublishPool: GraphQLRequestFunc<
     input,
   },
 ) => {
-  return createPool(ctx, {
-    userId,
-    teamId,
-    communityId,
-    classificationId,
-    departmentId,
-  }).then(async (pool) => {
-    let workStream = workStreamId;
-    if (!workStream) {
-      const workStreams = await getWorkStreams(ctx, {});
-      workStream = workStreams[0].id;
-    }
+    return createPool(ctx, {
+      userId,
+      teamId,
+      communityId,
+      classificationId,
+      departmentId,
+    }).then(async (pool) => {
+      let workStream = workStreamId;
+      if (!workStream) {
+        const workStreams = await getWorkStreams(ctx, {});
+        workStream = workStreams[0].id;
+      }
 
-    await updatePool(ctx, {
-      poolId: pool.id,
-      pool: {
-        ...defaultPool,
-        name: name ?? {
-          en: `Playwright Test Pool EN ${Date.now().valueOf()}`,
-          fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
+      await updatePool(ctx, {
+        poolId: pool.id,
+        pool: {
+          ...defaultPool,
+          name: name ?? {
+            en: `Playwright Test Pool EN ${Date.now().valueOf()}`,
+            fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
+          },
+          ...input,
+          workStream: { connect: workStream },
         },
-        ...input,
-        workStream: { connect: workStream },
-      },
-    });
+      });
 
-    if (skillIds) {
-      await Promise.all(
-        skillIds.map(async (skillId) => {
+      if (skillIds) {
+        await Promise.all(
+          skillIds.map(async (skillId) => {
+            await createPoolSkill(ctx, {
+              poolSkill: {
+                poolId: pool.id,
+                skillId,
+                type: PoolSkillType.Essential,
+                requiredLevel: SkillLevel.Beginner,
+              },
+            });
+          }),
+        );
+      } else {
+        const technicalSkill = await getSkills(ctx, {}).then((skills) => {
+          return skills.find(
+            (skill) => skill.category.value === SkillCategory.Technical,
+          );
+        });
+        const skillId = technicalSkill?.id;
+        if (skillId) {
           await createPoolSkill(ctx, {
             poolSkill: {
               poolId: pool.id,
@@ -260,27 +278,39 @@ export const createAndPublishPool: GraphQLRequestFunc<
               requiredLevel: SkillLevel.Beginner,
             },
           });
-        }),
-      );
-    } else {
-      const technicalSkill = await getSkills(ctx, {}).then((skills) => {
-        return skills.find(
-          (skill) => skill.category.value === SkillCategory.Technical,
-        );
-      });
-      const skillId = technicalSkill?.id;
-      if (skillId) {
-        await createPoolSkill(ctx, {
-          poolSkill: {
-            poolId: pool.id,
-            skillId,
-            type: PoolSkillType.Essential,
-            requiredLevel: SkillLevel.Beginner,
-          },
-        });
+        }
       }
-    }
 
-    return await publishPool(ctx, pool.id);
-  });
+      return await publishPool(ctx, pool.id);
+    });
+  };
+
+
+const Test_DeletePoolMutationDocument = /* GraphQL */ `
+  mutation Test_DeletePool($id: ID!) {
+    deletePool(id: $id) {
+      id
+    }
+  }
+`;
+
+
+interface DeletePoolArgs {
+  id: string;
+}
+
+export const deletePool: GraphQLRequestFunc<
+  Pool,
+  DeletePoolArgs
+> = async (ctx, { id }) => {
+  return await ctx
+    .post(Test_DeletePoolMutationDocument, {
+      isPrivileged: true,
+      variables: { id },
+    })
+    .then(
+      (res: GraphQLResponse<"deletePool", Pool>) =>
+        res.deletePool,
+    );
 };
+

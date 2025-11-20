@@ -4,7 +4,7 @@ import { expect, test } from "~/fixtures";
 import PoolPage from "~/fixtures/PoolPage";
 import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool, createPool } from "~/utils/pools";
+import { createAndPublishPool, deletePool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { me } from "~/utils/user";
 
@@ -35,6 +35,11 @@ test.describe("Process activity log", () => {
     user = currentUser;
   });
 
+  test.afterEach(async () => {
+    const adminCtx = await graphql.newContext();
+    await deletePool(adminCtx, { id });
+  });
+
   test("Shows activity events", async ({ appPage }) => {
     const poolPage = new PoolPage(appPage.page);
     await loginBySub(poolPage.page, "admin@test.com");
@@ -49,17 +54,27 @@ test.describe("Process activity log", () => {
 
     await poolPage.page.getByRole("button", { name: /save changes/i }).click();
 
-    await poolPage.page
+    const dialog = poolPage.page.getByRole("dialog", { name: /change justification/i });
+
+    await dialog
       .getByRole("textbox", { name: /change justification/i })
       .fill("Testing");
 
-    await poolPage.waitForGraphqlResponse("UpdatePool");
+    await dialog.getByRole("button", { name: /save changes/i }).click();
+
+    await poolPage.waitForGraphqlResponse("UpdatePublishedPool");
 
     await poolPage.goToActivity(id);
 
     await expect(
       poolPage.page.getByText(
-        new RegExp(`${user.firstName} ${user.lastName} updated`, "i"),
+        new RegExp(`${user.firstName} ${user.lastName} updated: process_number, change_justification`, "i"),
+      ),
+    ).toBeVisible();
+
+    await expect(
+      poolPage.page.getByText(
+        new RegExp(`${user.firstName} ${user.lastName} added: published_at`, "i"),
       ),
     ).toBeVisible();
   });
