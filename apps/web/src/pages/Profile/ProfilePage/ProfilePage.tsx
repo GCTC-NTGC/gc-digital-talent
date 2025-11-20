@@ -21,9 +21,10 @@ import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
-import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
+import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/Display";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
 
 import pageMessages from "./messages";
 
@@ -43,8 +44,9 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
   fragment UserProfile on User {
     ...ProfileWorkPreferences
     ...ProfileDiversityEquityInclusion
-    ...ProfileGovernmentInformation
+    ...ProfilePriorityEntitlements
     ...ProfileLanguageProfile
+    ...GovernmentInformationDisplay
   }
 `);
 
@@ -116,6 +118,13 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
+                >
+                  {intl.formatMessage(getSectionTitle("priority"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
                   {intl.formatMessage(getSectionTitle("government"))}
                 </TableOfContents.AnchorLink>
@@ -135,8 +144,13 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
               <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
                 <DiversityEquityInclusion {...sectionProps} />
               </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
+              >
+                <PriorityEntitlements {...sectionProps} />
+              </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
-                <GovernmentInformation {...sectionProps} />
+                <GovernmentInformation query={user} />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
                 <LanguageProfile {...sectionProps} />
