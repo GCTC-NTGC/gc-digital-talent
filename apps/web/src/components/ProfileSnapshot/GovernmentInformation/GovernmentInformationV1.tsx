@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 
 import {
   LocalizedGovEmployeeType,
+  LocalizedGovPositionType,
   Maybe,
   GovEmployeeType,
 } from "@gc-digital-talent/graphql";
@@ -21,7 +22,7 @@ export interface GovernmentInformationSnapshotV1 {
   isGovEmployee?: Maybe<boolean>;
   department?: Maybe<RelatedSnapshotModel<"name">>;
   govEmployeeType?: Maybe<LocalizedGovEmployeeType>;
-  govPositionType?: Maybe<LocalizedGovEmployeeType>;
+  govPositionType?: Maybe<LocalizedGovPositionType>;
   govEndDate?: Maybe<string>;
   currentClassification?: Maybe<{ group: string; level: number }>;
   hasPriorityEntitlement?: Maybe<boolean>;
