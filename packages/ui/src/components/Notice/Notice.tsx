@@ -39,9 +39,9 @@ const root = tv({
       error: "",
     },
     small: {
-      true: "p-4.5 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*5.75)_1fr] has-[>svg]:pl-3",
+      true: "p-4.5 text-sm has-[.NoticeFooter]:pb-3 has-[>svg]:grid-cols-[calc(var(--spacing)*5.325)_1fr] has-[>svg]:pl-3",
       false:
-        "p-6 has-[>svg]:grid-cols-[calc(var(--spacing)*6.75)_1fr] has-[>svg]:pl-4.5",
+        "p-6 has-[.NoticeFooter]:pb-4.5 has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr] has-[>svg]:pl-4.5",
     },
     dismissable: {
       true: "",
@@ -161,7 +161,7 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
           {onDismiss && (
             <IconButton
               icon={XMarkIcon}
-              className="absolute top-3.25 right-3.25"
+              className="absolute top-3 right-3"
               size={small ? "sm" : "md"}
               color={iconColor ?? "black"}
               onClick={handleDismiss}
@@ -276,7 +276,7 @@ const Content = ({ children, className, ...rest }: DivProps) => (
 );
 
 const actions = tv({
-  base: "col-start-2 flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center",
+  base: "col-start-2 flex flex-col flex-wrap items-start gap-4.5 sm:flex-row sm:items-center sm:gap-6",
   variants: {
     small: {
       true: "mt-3",
@@ -292,7 +292,7 @@ const Actions = ({ className, ...rest }: DivProps) => {
 
 const footer = tv({
   slots: {
-    base: "col-span-2",
+    base: "NoticeFooter col-span-2",
     separator: "bg-gray-600 dark:bg-gray-200",
     content: "col-start-2 text-sm",
   },
