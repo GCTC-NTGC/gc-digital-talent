@@ -102,7 +102,7 @@ const GovernmentInformationV1 = ({
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Position type",
-                id: "nZT/WM",
+                id: "oQ1r5J",
                 description: "Position type label",
               })}
             >

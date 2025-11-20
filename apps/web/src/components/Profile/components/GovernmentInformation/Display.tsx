@@ -15,7 +15,6 @@ import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
-
 import { formattedDate } from "~/utils/dateUtils";
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
@@ -138,7 +137,7 @@ const Display = ({
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Position type",
-                id: "nZT/WM",
+                id: "oQ1r5J",
                 description: "Position type label",
               })}
             >
