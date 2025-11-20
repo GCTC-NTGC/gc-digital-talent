@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
 import { Button, Card } from "@gc-digital-talent/ui";
@@ -14,10 +14,54 @@ import EmailVerificationDialog from "../EmailVerificationDialog/EmailVerificatio
 const WorkEmailCard_Fragment = graphql(/** GraphQL */ `
   fragment WorkEmailCard on User {
     id
+    email
     workEmail
     isWorkEmailVerified
   }
 `);
+
+// what text will trigger the <EmailVerificationDialog />
+const determineVerificationDialogText = (
+  intl: IntlShape,
+  email?: string | null,
+  workEmail?: string | null,
+  isWorkEmailVerified?: boolean | null,
+): string => {
+  // verified work email, same as contact email
+  if (!!workEmail && !!isWorkEmailVerified && !!email && workEmail === email) {
+    return intl.formatMessage({
+      defaultMessage: "Verify a different work email",
+      id: "buTxFT",
+      description:
+        "Link to update to a different email when initially your work email and contact email are the same",
+    });
+  }
+
+  // verified work email, distinct from contact email
+  if (!!workEmail && !!isWorkEmailVerified) {
+    return intl.formatMessage({
+      defaultMessage: "Update work email",
+      id: "sGHP+P",
+      description: "Link to update to email",
+    });
+  }
+
+  // unverified work email
+  if (!!workEmail && !isWorkEmailVerified) {
+    return intl.formatMessage({
+      defaultMessage: "Re-verify work email",
+      id: "mriIoW",
+      description: "Link to redo email verification",
+    });
+  }
+
+  // fallback, all other cases
+  return intl.formatMessage({
+    defaultMessage: "Verify a GC work email",
+    id: "Vd9VIn",
+    description: "Link to update the work email",
+  });
+};
 
 interface WorkEmailCardProps {
   query: FragmentType<typeof WorkEmailCard_Fragment>;
@@ -79,11 +123,12 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
         emailAddress={workEmailFragment.workEmail ?? null}
       >
         <Button mode="inline" className="text-center xs:text-left">
-          {intl.formatMessage({
-            defaultMessage: "Verify a GC work email",
-            id: "Vd9VIn",
-            description: "Link to update the work email",
-          })}
+          {determineVerificationDialogText(
+            intl,
+            workEmailFragment.email,
+            workEmailFragment.workEmail,
+            workEmailFragment.isWorkEmailVerified,
+          )}
         </Button>
       </EmailVerificationDialog>
     </Card>
