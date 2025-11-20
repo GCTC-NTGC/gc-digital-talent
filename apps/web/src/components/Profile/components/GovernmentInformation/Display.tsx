@@ -16,8 +16,8 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
 
-import EmailVerificationStatus from "../EmailVerificationStatus";
 import { formattedDate } from "~/utils/dateUtils";
+import EmailVerificationStatus from "../EmailVerificationStatus";
 
 export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformationDisplay on User {
@@ -138,7 +138,7 @@ const Display = ({
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Position type",
-                id: "oQ1r5J",
+                id: "nZT/WM",
                 description: "Position type label",
               })}
             >
@@ -149,7 +149,7 @@ const Display = ({
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Expected end date",
-                id: "a3j1kD",
+                id: "0qwyH4",
                 description: "Expected end date label",
               })}
             >
