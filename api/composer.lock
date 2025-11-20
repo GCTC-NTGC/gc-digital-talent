@@ -8432,16 +8432,16 @@
         },
         {
             "name": "web-token/jwt-library",
-            "version": "4.1.0",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-library.git",
-                "reference": "b05d01d4138b1e06328e29075a21a6da974935df"
+                "reference": "621ff3ec618c6a34f63d47e467cefe8788871d6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/b05d01d4138b1e06328e29075a21a6da974935df",
-                "reference": "b05d01d4138b1e06328e29075a21a6da974935df",
+                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/621ff3ec618c6a34f63d47e467cefe8788871d6f",
+                "reference": "621ff3ec618c6a34f63d47e467cefe8788871d6f",
                 "shasum": ""
             },
             "require": {
@@ -8505,7 +8505,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-token/jwt-library/issues",
-                "source": "https://github.com/web-token/jwt-library/tree/4.1.0"
+                "source": "https://github.com/web-token/jwt-library/tree/4.1.2"
             },
             "funding": [
                 {
@@ -8517,7 +8517,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-10-22T08:01:38+00:00"
+            "time": "2025-11-17T21:14:49+00:00"
         },
         {
             "name": "webonyx/graphql-php",
