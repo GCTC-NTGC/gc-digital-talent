@@ -54,7 +54,9 @@ test.describe("Process activity log", () => {
 
     await poolPage.page.getByRole("button", { name: /save changes/i }).click();
 
-    const dialog = poolPage.page.getByRole("dialog", { name: /change justification/i });
+    const dialog = poolPage.page.getByRole("dialog", {
+      name: /change justification/i,
+    });
 
     await dialog
       .getByRole("textbox", { name: /change justification/i })
@@ -68,13 +70,19 @@ test.describe("Process activity log", () => {
 
     await expect(
       poolPage.page.getByText(
-        new RegExp(`${user.firstName} ${user.lastName} updated: process_number, change_justification`, "i"),
+        new RegExp(
+          `${user.firstName} ${user.lastName} updated: process_number, change_justification`,
+          "i",
+        ),
       ),
     ).toBeVisible();
 
     await expect(
       poolPage.page.getByText(
-        new RegExp(`${user.firstName} ${user.lastName} added: published_at`, "i"),
+        new RegExp(
+          `${user.firstName} ${user.lastName} added: published_at`,
+          "i",
+        ),
       ),
     ).toBeVisible();
   });
