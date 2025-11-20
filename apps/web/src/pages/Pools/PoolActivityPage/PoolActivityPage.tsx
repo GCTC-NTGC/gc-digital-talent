@@ -19,6 +19,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 const PoolActivity_Fragment = graphql(/** GraphQL */ `
   fragment PoolActivity on Pool {
+    publishedAt
     activities {
       ...ActivityList
     }
@@ -38,7 +39,7 @@ const PoolActivity = ({ query }: PoolActivityProps) => {
       <Heading
         level="h2"
         icon={RectangleStackIcon}
-        className="mb-6"
+        className="mt-0 mb-6"
         color="secondary"
       >
         {intl.formatMessage({
@@ -47,7 +48,10 @@ const PoolActivity = ({ query }: PoolActivityProps) => {
           description: "Heading for the activity log for some resource",
         })}
       </Heading>
-      <ActivityList query={unpackMaybes(pool.activities)} />
+      <ActivityList
+        query={unpackMaybes(pool.activities)}
+        publishedAt={pool.publishedAt}
+      />
     </>
   );
 };

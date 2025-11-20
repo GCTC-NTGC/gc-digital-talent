@@ -3,11 +3,14 @@ import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
+import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import { tv, VariantProps } from "tailwind-variants";
+import { isAfter } from "date-fns/isAfter";
 
-import { Maybe } from "@gc-digital-talent/graphql";
+import { Maybe, Scalars } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import activityMessages from "~/messages/activityMessages";
 
@@ -36,7 +39,8 @@ type ActivityEventType =
   | "updated"
   | "added"
   | "deleted"
-  | "published";
+  | "published"
+  | "after-published";
 
 interface ActivityEventInfo {
   message: MessageDescriptor;
@@ -62,6 +66,14 @@ function isPublishEvent(propsObj: JSONRecord): boolean {
   }
 
   return false;
+}
+
+export function updatedAfterPublish(
+  createdAt?: Maybe<Scalars["DateTime"]["output"]>,
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>,
+): boolean {
+  if (!publishedAt || !createdAt) return false;
+  return isAfter(parseDateTimeUtc(createdAt), parseDateTimeUtc(publishedAt));
 }
 
 const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
@@ -105,11 +117,20 @@ const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
       color: "success",
     },
   ],
+  [
+    "after-published",
+    {
+      message: activityMessages.updated,
+      icon: ExclamationTriangleIcon,
+      color: "warning",
+    },
+  ],
 ]);
 
 export function getEventInfo(
   propsObj: JSONRecord,
   event?: Maybe<string>,
+  afterPublished?: boolean,
 ): ActivityEventInfo | undefined {
   let eventType: ActivityEventType = "updated";
   if (isEventType(event)) {
@@ -122,6 +143,10 @@ export function getEventInfo(
 
   if (isPublishEvent(propsObj)) {
     eventType = "published";
+  }
+
+  if ((eventType === "updated" || eventType == "added") && afterPublished) {
+    eventType = "after-published";
   }
 
   return eventInfoMap.get(eventType);

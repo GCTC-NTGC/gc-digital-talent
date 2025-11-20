@@ -1,13 +1,25 @@
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Maybe,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import { getEventInfo, icon, JSONRecord, normalizePropKeys } from "./utils";
+import {
+  getEventInfo,
+  icon,
+  JSONRecord,
+  normalizePropKeys,
+  updatedAfterPublish,
+} from "./utils";
 
 const activityItem = tv({
   base: "flex flex-col justify-between gap-6 py-6 sm:flex-row",
@@ -37,13 +49,20 @@ interface ActivityItemProps {
   query: FragmentType<typeof ActivityItem_Fragment>;
   className?: string;
   border?: boolean;
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
 }
 
-const ActivityItem = ({ query, className, border }: ActivityItemProps) => {
+const ActivityItem = ({
+  query,
+  className,
+  border,
+  publishedAt,
+}: ActivityItemProps) => {
   const intl = useIntl();
   const item = getFragment(ActivityItem_Fragment, query);
+  const isAfterPublish = updatedAfterPublish(item.createdAt, publishedAt);
   const propsObj = JSON.parse(String(item.properties)) as JSONRecord;
-  const info = getEventInfo(propsObj, item.event);
+  const info = getEventInfo(propsObj, item.event, isAfterPublish);
   const properties = normalizePropKeys(propsObj, intl);
 
   if (!info) {
