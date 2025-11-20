@@ -30,38 +30,78 @@ class PostgresTextSearchTest extends TestCase
                 'searchString' => 'term',
                 'expectedOutput' => 'term:*',
             ],
+            'exact, single term' => [
+                'matchingType' => 'EXACT',
+                'searchString' => 'term',
+                'expectedOutput' => 'term',
+            ],
             'prefix, multiple terms with extra spacing' => [
                 'matchingType' => 'PREFIX',
                 'searchString' => ' term1   term2        term3        ',
                 'expectedOutput' => 'term1:* & term2:* & term3:*',
+            ],
+            'exact, multiple terms with extra spacing' => [
+                'matchingType' => 'EXACT',
+                'searchString' => ' term1   term2        term3        ',
+                'expectedOutput' => 'term1 & term2 & term3',
             ],
             'prefix, negation with dash' => [
                 'matchingType' => 'PREFIX',
                 'searchString' => 'term1 -term2',
                 'expectedOutput' => 'term1:* & !term2:*',
             ],
+            'exact, negation with dash' => [
+                'matchingType' => 'EXACT',
+                'searchString' => 'term1 -term2',
+                'expectedOutput' => 'term1 & !term2',
+            ],
             'prefix, explicit and-ing' => [
                 'matchingType' => 'PREFIX',
                 'searchString' => 'term1 AND term2',
                 'expectedOutput' => 'term1:* & term2:*',
+            ],
+            'exact, explicit and-ing' => [
+                'matchingType' => 'EXACT',
+                'searchString' => 'term1 AND term2',
+                'expectedOutput' => 'term1 & term2',
             ],
             'prefix, explicit or-ing' => [
                 'matchingType' => 'PREFIX',
                 'searchString' => 'term1 OR term2',
                 'expectedOutput' => 'term1:* | term2:*',
             ],
+            'exact, explicit or-ing' => [
+                'matchingType' => 'EXACT',
+                'searchString' => 'term1 OR term2',
+                'expectedOutput' => 'term1 | term2',
+            ],
             'prefix, quotes' => [
                 'matchingType' => 'PREFIX',
                 'searchString' => ' term1 "term2 term3"   "term4 term5" term6',
                 'expectedOutput' => 'term1:* & term2:* <-> term3:* & term4:* <-> term5:* & term6:*',
+            ],
+            'exact, quotes' => [
+                'matchingType' => 'EXACT',
+                'searchString' => ' term1 "term2 term3"   "term4 term5" term6',
+                'expectedOutput' => 'term1 & term2 <-> term3 & term4 <-> term5 & term6',
             ],
             'prefix, quote followed by or' => [
                 'matchingType' => 'PREFIX',
                 'searchString' => '"term1" OR term2',
                 'expectedOutput' => 'term1:* | term2:*',
             ],
+            'exact, quote followed by or' => [
+                'matchingType' => 'EXACT',
+                'searchString' => '"term1" OR term2',
+                'expectedOutput' => 'term1 | term2',
+            ],
             'prefix, removes terms with invalid patterns' => [
                 'matchingType' => 'PREFIX',
+                'searchString' => 'term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! !',
+                'expectedOutput' => '',
+            ],
+            'exact, removes terms with invalid patterns' => [
+                'matchingType' => 'EXACT',
                 'searchString' => 'term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! !',
                 'expectedOutput' => '',
             ],
@@ -69,47 +109,6 @@ class PostgresTextSearchTest extends TestCase
                 'matchingType' => 'PREFIX',
                 'searchString' => 'te&rm1 te|rm2 !term3',
                 'expectedOutput' => 'te&rm1:* & te|rm2:* & !term3:*',
-            ],
-
-            'exact, single term' => [
-                'matchingType' => 'EXACT',
-                'searchString' => 'term',
-                'expectedOutput' => 'term',
-            ],
-            'exact, multiple terms with extra spacing' => [
-                'matchingType' => 'EXACT',
-                'searchString' => ' term1   term2        term3        ',
-                'expectedOutput' => 'term1 & term2 & term3',
-            ],
-            'exact, negation with dash' => [
-                'matchingType' => 'EXACT',
-                'searchString' => 'term1 -term2',
-                'expectedOutput' => 'term1 & !term2',
-            ],
-            'exact, explicit and-ing' => [
-                'matchingType' => 'EXACT',
-                'searchString' => 'term1 AND term2',
-                'expectedOutput' => 'term1 & term2',
-            ],
-            'exact, explicit or-ing' => [
-                'matchingType' => 'EXACT',
-                'searchString' => 'term1 OR term2',
-                'expectedOutput' => 'term1 | term2',
-            ],
-            'exact, quotes' => [
-                'matchingType' => 'EXACT',
-                'searchString' => ' term1 "term2 term3"   "term4 term5" term6',
-                'expectedOutput' => 'term1 & term2 <-> term3 & term4 <-> term5 & term6',
-            ],
-            'exact, quote followed by or' => [
-                'matchingType' => 'EXACT',
-                'searchString' => '"term1" OR term2',
-                'expectedOutput' => 'term1 | term2',
-            ],
-            'exact, removes terms with invalid patterns' => [
-                'matchingType' => 'EXACT',
-                'searchString' => 'term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! !',
-                'expectedOutput' => '',
             ],
             'exact, allows terms with valid patterns' => [
                 'matchingType' => 'EXACT',
