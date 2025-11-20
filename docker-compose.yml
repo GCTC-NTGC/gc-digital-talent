@@ -1,12 +1,12 @@
 services:
   postgres:
-    image: postgres:12.22
+    image: postgres:18.1
     restart: always
     environment:
       POSTGRES_PASSWORD: password1234
     volumes:
       - ./infrastructure/db:/docker-entrypoint-initdb.d/
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
     ports:
       - "5432:5432"
 
@@ -41,7 +41,7 @@ services:
       - GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN
       - GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_FR
       - GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_EN
-      - GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_FR      
+      - GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_FR
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
