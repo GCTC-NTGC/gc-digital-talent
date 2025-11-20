@@ -3160,6 +3160,9 @@ type Mutation {
     sendUserEmailsVerificationInput: SendUserEmailsVerificationInput! @spread
   ): User @guard
   verifyUserEmails(code: String!): User @guard
+  wipeUserWorkEmail(id: UUID!): User
+    @guard
+    @canFind(ability: "wipeWorkEmailInformation")
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(
