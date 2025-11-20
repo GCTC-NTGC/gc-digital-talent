@@ -10,6 +10,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import EmailVerificationDialog from "../EmailVerificationDialog/EmailVerificationDialog";
+import WipeWorkEmailDialog from "./WipeWorkEmailDialog";
 
 const WorkEmailCard_Fragment = graphql(/** GraphQL */ `
   fragment WorkEmailCard on User {
@@ -118,19 +119,27 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
         </p>
       </div>
       <Card.Separator space="xs" />
-      <EmailVerificationDialog
-        emailType={EmailType.Work}
-        emailAddress={workEmailFragment.workEmail ?? null}
-      >
-        <Button mode="inline" className="text-center xs:text-left">
-          {determineVerificationDialogText(
-            intl,
-            workEmailFragment.email,
-            workEmailFragment.workEmail,
-            workEmailFragment.isWorkEmailVerified,
-          )}
-        </Button>
-      </EmailVerificationDialog>
+      <div className="flex flex-col items-center gap-3 xs:flex-row">
+        <EmailVerificationDialog
+          emailType={EmailType.Work}
+          emailAddress={workEmailFragment.workEmail ?? null}
+        >
+          <Button mode="inline" className="text-center xs:text-left">
+            {determineVerificationDialogText(
+              intl,
+              workEmailFragment.email,
+              workEmailFragment.workEmail,
+              workEmailFragment.isWorkEmailVerified,
+            )}
+          </Button>
+        </EmailVerificationDialog>
+        {workEmailFragment.id && workEmailFragment.workEmail && (
+          <WipeWorkEmailDialog
+            id={workEmailFragment.id}
+            workEmail={workEmailFragment.workEmail}
+          />
+        )}
+      </div>
     </Card>
   );
 };
