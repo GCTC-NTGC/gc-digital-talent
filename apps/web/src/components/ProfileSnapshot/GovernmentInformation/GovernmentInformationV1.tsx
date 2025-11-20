@@ -102,8 +102,8 @@ const GovernmentInformationV1 = ({
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Position type",
-                id: "oQ1r5J",
-                description: "Position type label",
+                id: "0Dp1N4",
+                description: "Label for the position type radio group",
               })}
             >
               {govPositionType ? govPositionType.label.localized : notProvided}

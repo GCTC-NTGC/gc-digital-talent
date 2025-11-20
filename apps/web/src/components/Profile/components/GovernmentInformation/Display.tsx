@@ -16,6 +16,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
 import { formattedDate } from "~/utils/dateUtils";
+
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
 export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
@@ -137,8 +138,8 @@ const Display = ({
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Position type",
-                id: "oQ1r5J",
-                description: "Position type label",
+                id: "0Dp1N4",
+                description: "Label for the position type radio group",
               })}
             >
               {govPositionType ? govPositionType.label.localized : notProvided}
