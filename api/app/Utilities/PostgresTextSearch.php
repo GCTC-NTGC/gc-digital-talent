@@ -4,6 +4,12 @@ namespace App\Utilities;
 
 use Illuminate\Support\Str;
 
+enum PostgresTextSearchMatchingType
+{
+    case EXACT;
+    case PREFIX;
+}
+
 // https://www.postgresql.org/docs/current/datatype-textsearch.html#DATATYPE-TSQUERY
 // https://www.postgresql.org/docs/current/textsearch-controls.html#TEXTSEARCH-PARSING-QUERIES
 class PostgresTextSearch
@@ -19,16 +25,16 @@ class PostgresTextSearch
         '^\!$'.         // ! at the end
         '/';
 
-    // convert a search string to query text
+    // convert a search string to query text with prefix matching
     // similar to websearch_to_tsquery but adds prefix matching to each term
     // refer to PostgresTextSearchTest for examples of the expected transform
-    public static function searchStringToQueryText(string $searchString): string
+    public static function searchStringToQueryText(string $searchString, PostgresTextSearchMatchingType $matchingType): string
     {
         // parse the search string to an abstract syntax tree
         $nodes = self::searchStringToNode($searchString);
 
         // convert the abstract syntax tree to query text
-        return self::nodeToQueryText($nodes);
+        return self::nodeToQueryText($nodes, $matchingType);
     }
 
     // convert a search string to a node in an abstract syntax tree, called recursively
@@ -88,37 +94,38 @@ class PostgresTextSearch
     }
 
     // turn a node back into query text, called recursively
-    private static function nodeToQueryText(array $n): string
+    private static function nodeToQueryText(array $node, PostgresTextSearchMatchingType $matchingType): string
     {
-        $joiner = $n['join'];
-        $subnodes = collect($n['nodes']);
+        $joiner = $node['join'];
+        $subnodes = collect($node['nodes']);
 
         return $subnodes
-            ->map(fn ($n) => match (true) {
-                is_string($n) => self::singleTermToQueryText($n),  // if it's a single term, covert it to query text
-                is_array($n) => self::nodeToQueryText($n),         // if it's another node, recurse into it
+            ->map(fn ($node) => match (true) {
+                is_string($node) => self::singleTermToQueryText($node, $matchingType),  // if it's a single term, covert it to query text
+                is_array($node) => self::nodeToQueryText($node, $matchingType),         // if it's another node, recurse into it
                 default => throw new \Error('Unexpected type')
             })
-            ->filter(fn ($t) => strlen($t) > 0)
+            ->filter(fn ($term) => strlen($term) > 0)
             ->join($joiner);
     }
 
     // turn a single term into query text
-    private static function singleTermToQueryText(string $t): ?string
+    private static function singleTermToQueryText(string $term, PostgresTextSearchMatchingType $matchingType): ?string
     {
         // handle negation
-        if (Str::startsWith($t, '-')) {
-            $t = Str::substrReplace($t, '!', 0, 1);
+        if (Str::startsWith($term, '-')) {
+            $term = Str::substrReplace($term, '!', 0, 1);
         }
 
         // remove terms with invalid patterns
-        if (preg_match(self::$invalidPatterns, $t) != false) {
+        if (preg_match(self::$invalidPatterns, $term) != false) {
             return null;
         }
 
         // handle prefix searching
-        $t = $t.':*';
-
-        return $t;
+        return match ($matchingType) {
+            PostgresTextSearchMatchingType::EXACT => $term,
+            PostgresTextSearchMatchingType::PREFIX => $term.':*',
+        };
     }
 }
