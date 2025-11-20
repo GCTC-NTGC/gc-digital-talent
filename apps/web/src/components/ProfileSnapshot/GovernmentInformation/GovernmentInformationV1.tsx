@@ -1,6 +1,11 @@
 import { useIntl } from "react-intl";
 
-import { LocalizedGovEmployeeType, Maybe } from "@gc-digital-talent/graphql";
+import {
+  LocalizedGovEmployeeType,
+  LocalizedGovPositionType,
+  Maybe,
+  GovEmployeeType,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 
@@ -9,6 +14,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { wrapAbbr } from "~/utils/nameUtils";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
 import profileMessages from "~/messages/profileMessages";
+import { formattedDate } from "~/utils/dateUtils";
 
 import { RelatedSnapshotModel, SnapshotProps } from "../types";
 
@@ -16,6 +22,8 @@ export interface GovernmentInformationSnapshotV1 {
   isGovEmployee?: Maybe<boolean>;
   department?: Maybe<RelatedSnapshotModel<"name">>;
   govEmployeeType?: Maybe<LocalizedGovEmployeeType>;
+  govPositionType?: Maybe<LocalizedGovPositionType>;
+  govEndDate?: Maybe<string>;
   currentClassification?: Maybe<{ group: string; level: number }>;
   hasPriorityEntitlement?: Maybe<boolean>;
   priorityNumber?: Maybe<string>;
@@ -35,6 +43,8 @@ const GovernmentInformationV1 = ({
     isGovEmployee,
     department,
     govEmployeeType,
+    govPositionType,
+    govEndDate,
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
@@ -49,6 +59,18 @@ const GovernmentInformationV1 = ({
   const priorityMessage = hasPriorityEntitlement
     ? intl.formatMessage(governmentMessages.yesPriorityEntitlement)
     : intl.formatMessage(governmentMessages.noPriorityEntitlement);
+
+  //check for employment type
+  const isIndeterminate =
+    govEmployeeType?.value === GovEmployeeType.Indeterminate;
+
+  // show end date for not indeterminate and is a gov employee
+  const showEndDate = !isIndeterminate && isGovEmployee;
+
+  // format end date using utility
+  const formattedEndDate = govEndDate
+    ? formattedDate(govEndDate, intl)
+    : notProvided;
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -76,6 +98,29 @@ const GovernmentInformationV1 = ({
           >
             {govEmployeeType ? govEmployeeType.label.localized : notProvided}
           </FieldDisplay>
+          {isIndeterminate && (
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Position type",
+                id: "0Dp1N4",
+                description: "Label for the position type radio group",
+              })}
+            >
+              {govPositionType ? govPositionType.label.localized : notProvided}
+            </FieldDisplay>
+          )}
+          {showEndDate && (
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Expected end date",
+                id: "0qwyH4",
+                description:
+                  "Label displayed on an Experience form for expected end date input",
+              })}
+            >
+              {formattedEndDate}
+            </FieldDisplay>
+          )}
           <FieldDisplay
             label={intl.formatMessage({
               defaultMessage: "Current group and classification",
