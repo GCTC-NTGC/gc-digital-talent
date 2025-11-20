@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
+import uniqBy from "lodash/uniqBy";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Option, Select, Submit } from "@gc-digital-talent/forms";
@@ -163,6 +164,7 @@ export const CreatePoolForm = ({
     value: id,
     label: getLocalizedName(name, intl),
   }));
+  const communityOptionsUnique: Option[] = uniqBy(communityOptions, "value");
 
   return (
     <div className="my-18 sm:max-w-2xl">
@@ -191,7 +193,7 @@ export const CreatePoolForm = ({
               nullSelection={intl.formatMessage(
                 commonMessages.selectACommunity,
               )}
-              options={communityOptions}
+              options={communityOptionsUnique}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
