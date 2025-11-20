@@ -46,6 +46,7 @@ export default {
       },
     },
   },
+  tags: ["needs-fix"],
 } as Meta<typeof PoolCandidatesTable>;
 
 const Template: StoryFn<typeof PoolCandidatesTable> = (args) => {

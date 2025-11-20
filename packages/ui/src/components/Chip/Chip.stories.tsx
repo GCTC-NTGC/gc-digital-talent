@@ -21,6 +21,7 @@ export default {
       url: "https://www.figma.com/design/guHeIIh8dqFVCks310Wv0G/Component-library?node-id=11-4252",
     },
   },
+  tags: ["needs-fix"],
 } as Meta<typeof Chip>;
 
 const Template: StoryFn<typeof Chip> = (args) => {
