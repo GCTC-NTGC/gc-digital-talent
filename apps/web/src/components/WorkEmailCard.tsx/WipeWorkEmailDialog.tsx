@@ -53,8 +53,8 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Work email deleted",
-              id: "2XTv9f",
-              description: "Successfully clearing work email information",
+              id: "3bVNFv",
+              description: "Successfully cleared work email information",
             }),
           );
         } else {

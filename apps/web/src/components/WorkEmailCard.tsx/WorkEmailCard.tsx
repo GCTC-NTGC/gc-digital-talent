@@ -42,8 +42,8 @@ const determineVerificationDialogText = (
   if (!!workEmail && !!isWorkEmailVerified) {
     return intl.formatMessage({
       defaultMessage: "Update work email",
-      id: "sGHP+P",
-      description: "Link to update to email",
+      id: "9jO3/H",
+      description: "Link to update email",
     });
   }
 
