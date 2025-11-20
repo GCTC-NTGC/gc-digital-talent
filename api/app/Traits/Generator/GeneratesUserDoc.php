@@ -1090,7 +1090,6 @@ trait GeneratesUserDoc
      * Format estimated end date for all non indeterminate employment types
      *
      * @param  \DateTime|string|null  $date
-     * @param  string  $dateString
      */
     protected function formatDate($date): string
     {
