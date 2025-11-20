@@ -8,7 +8,6 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { Card } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ActivityItem from "./ActivityItem";
 
@@ -43,7 +42,23 @@ const ActivityList = ({ query, publishedAt }: ActivityListProps) => {
           ))}
         </ul>
       ) : (
-        <p>{intl.formatMessage(commonMessages.notAvailable)}</p>
+        <div className="text-center">
+          <p className="mb-.5 font-bold">
+            {intl.formatMessage({
+              defaultMessage: "This activity log is empty",
+              id: "kDTREC",
+              description: "Title for when an activity log has no items",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Activity information will appear here when available.",
+              id: "sEmaen",
+              description: "Description for when an activity log has no items",
+            })}
+          </p>
+        </div>
       )}
     </Card>
   );
