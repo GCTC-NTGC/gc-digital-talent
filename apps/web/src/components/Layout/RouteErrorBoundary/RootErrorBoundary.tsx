@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-elements */
+// NOTE: `a` needed here to avoid styling, etc
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { ReactNode } from "react";
