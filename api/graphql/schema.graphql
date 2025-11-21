@@ -1809,6 +1809,7 @@ input CreateUserInput {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
@@ -1955,12 +1956,6 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType
-    @rename(attribute: "computed_gov_employee_type")
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 

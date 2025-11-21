@@ -27,6 +27,7 @@ export const defaultUser: Partial<CreateUserInput> = {
   currentProvince: ProvinceOrTerritory.Alberta,
   currentCity: "Village",
   lookingForEnglish: true,
+  isGovEmployee: true,
   hasPriorityEntitlement: false,
   locationPreferences: [WorkRegion.Atlantic],
   flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],

@@ -1849,6 +1849,7 @@ input CreateUserInput {
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
   workEmailVerifiedAt: DateTime
   hasPriorityEntitlement: Boolean
   priorityNumber: String
@@ -1949,11 +1950,6 @@ input UpdateUserAsUserInput {
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
-  isGovEmployee: Boolean
-  workEmail: Email
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
