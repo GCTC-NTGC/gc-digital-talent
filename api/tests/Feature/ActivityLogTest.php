@@ -239,7 +239,7 @@ class ActivityLogTest extends TestCase
         assertEquals(1, count($actions->where('description', 'updated')->where('subject_type', 'App\Models\PoolCandidate'))); // narrow to updating
     }
 
-    public function testPoolActivityAuthorizationScope()
+    public function testProcessOperatorCanViewPoolActivity()
     {
         Pool::factory()->create(); // unexpected
 
@@ -247,6 +247,41 @@ class ActivityLogTest extends TestCase
 
         $user = User::factory()
             ->asProcessOperator($expected->id)
+            ->create();
+
+        $res = $this->actingAs($user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                query PoolActivity($id: UUID!) {
+                    pool(id: $id) {
+                        activities {
+                            subjectType
+                            subjectId
+                        }
+                    }
+                }
+                GRAPHQL,
+                ['id' => $expected->id]);
+
+        $rows = $res->json('data.pool.activities');
+
+        foreach ($rows as $row) {
+            // Only want pools the user is assigned to
+            $this->assertEquals($row, [
+                'subjectType' => 'App\Models\Pool',
+                'subjectId' => $expected->id,
+            ]);
+        }
+
+    }
+
+    public function testCommunityRecruiterCanViewPoolActivity()
+    {
+        Pool::factory()->create(); // unexpected
+
+        $expected = Pool::factory()->create();
+
+        $user = User::factory()
+            ->asCommunityRecruiter($expected->community_id)
             ->create();
 
         $res = $this->actingAs($user, 'api')
