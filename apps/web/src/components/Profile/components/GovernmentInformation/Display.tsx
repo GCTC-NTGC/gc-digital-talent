@@ -10,6 +10,7 @@ import {
   graphql,
   Maybe,
   Pool,
+  GovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { Heading, Well } from "@gc-digital-talent/ui";
 
@@ -17,6 +18,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
+import { formattedDate } from "~/utils/dateUtils";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 import { getSectionTitle } from "../../utils";
@@ -42,6 +44,13 @@ export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
       group
       level
     }
+    govPositionType {
+      value
+      label {
+        localized
+      }
+    }
+    govEndDate
   }
 `);
 
@@ -71,6 +80,8 @@ const Display = ({
     department,
     govEmployeeType,
     currentClassification,
+    govPositionType,
+    govEndDate,
   } = user;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -82,6 +93,18 @@ const Display = ({
   const handleVerifyNowClick = async () => {
     await navigate(routes.verifyWorkEmail());
   };
+
+  //check for employment type
+  const isIndeterminate =
+    govEmployeeType?.value === GovEmployeeType.Indeterminate;
+
+  // show end date for not indeterminate and is a gov employee
+  const showEndDate = !isIndeterminate && isGovEmployee;
+
+  // format end date using utility
+  const formattedEndDate = govEndDate
+    ? formattedDate(govEndDate, intl)
+    : notProvided;
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -144,6 +167,31 @@ const Display = ({
                   ? govEmployeeType.label.localized
                   : notProvided}
               </FieldDisplay>
+              {isIndeterminate && (
+                <FieldDisplay
+                  label={intl.formatMessage({
+                    defaultMessage: "Position type",
+                    id: "0Dp1N4",
+                    description: "Label for the position type radio group",
+                  })}
+                >
+                  {govPositionType
+                    ? govPositionType.label.localized
+                    : notProvided}
+                </FieldDisplay>
+              )}
+              {showEndDate && (
+                <FieldDisplay
+                  label={intl.formatMessage({
+                    defaultMessage: "Expected end date",
+                    id: "0qwyH4",
+                    description:
+                      "Label displayed on an Experience form for expected end date input",
+                  })}
+                >
+                  {formattedEndDate}
+                </FieldDisplay>
+              )}
               <FieldDisplay
                 label={intl.formatMessage({
                   defaultMessage: "Current group and classification",
