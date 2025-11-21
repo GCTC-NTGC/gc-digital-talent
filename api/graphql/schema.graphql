@@ -1892,6 +1892,8 @@ input UpdateUserAsAdminInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email") @lowerCase
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 

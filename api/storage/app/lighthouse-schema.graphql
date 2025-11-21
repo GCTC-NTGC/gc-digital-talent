@@ -1897,6 +1897,8 @@ input UpdateUserAsAdminInput {
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  workEmail: Email
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
