@@ -47,9 +47,9 @@ export const RouteErrorBoundary = () => {
   const error = useErrorMessages();
   const logger = useLogger();
 
-  logger.notice(
+  logger.error(
     JSON.stringify({
-      message: "ErrorBoundary triggered",
+      message: "RootErrorBoundary triggered",
       pathname: location.pathname,
       error,
     }),
