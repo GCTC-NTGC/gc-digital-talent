@@ -9386,10 +9386,6 @@
     "defaultMessage": "Si vous avez des questions ou des préoccupations, n'hésitez pas à <link>communiquer avec notre équipe de soutien</link>.",
     "description": "Instructions to contact support after nomination submission"
   },
-  "dvil3O": {
-    "defaultMessage": "Vous pouvez maintenant ajouter les détails de votre emploi au gouvernement du Canada directement dans votre expérience professionnelle. Nous garderons les renseignements indiqués ici dans votre profil jusqu'à ce que vous en ajoutiez de nouveaux dans votre expérience professionnelle actuelle.",
-    "description": "Description for warning message when the government information section is getting removed."
-  },
   "dwYJOo": {
     "defaultMessage": "Expérience professionnelle appliquée",
     "description": "Title for the applied work experience requirements"
@@ -10073,6 +10069,10 @@
   "gOy6PW": {
     "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
     "description": "The lateral move interest described as not interested."
+  },
+  "gQYdKH": {
+    "defaultMessage": "Vous pouvez maintenant ajouter les détails de votre emploi au gouvernement du Canada directement dans votre <link>expérience professionnelle</link>. Nous garderons les renseignements indiqués ici dans votre profil jusqu'à ce que vous en ajoutiez de nouveaux dans votre expérience professionnelle actuelle.",
+    "description": "Description for warning message when the government information section is getting removed."
   },
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
