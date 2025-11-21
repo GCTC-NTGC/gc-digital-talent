@@ -8,7 +8,13 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { Container, Heading, NotFound, Pending } from "@gc-digital-talent/ui";
+import {
+  Card,
+  Container,
+  Heading,
+  NotFound,
+  Pending,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -21,7 +27,8 @@ const PoolActivity_Fragment = graphql(/** GraphQL */ `
   fragment PoolActivity on Pool {
     publishedAt
     activities {
-      ...ActivityList
+      id
+      ...ActivityItem
     }
   }
 `);
@@ -33,6 +40,7 @@ interface PoolActivityProps {
 const PoolActivity = ({ query }: PoolActivityProps) => {
   const intl = useIntl();
   const pool = getFragment(PoolActivity_Fragment, query);
+  const activities = unpackMaybes(pool.activities);
 
   return (
     <>
@@ -48,10 +56,22 @@ const PoolActivity = ({ query }: PoolActivityProps) => {
           description: "Heading for the activity log for some resource",
         })}
       </Heading>
-      <ActivityList
-        query={unpackMaybes(pool.activities)}
-        publishedAt={pool.publishedAt}
-      />
+      <Card>
+        {activities.length > 0 ? (
+          <ActivityList.Root>
+            {activities.map((item, index) => (
+              <ActivityList.PoolItem
+                key={item.id}
+                query={item}
+                border={index > 0}
+                publishedAt={pool.publishedAt}
+              />
+            ))}
+          </ActivityList.Root>
+        ) : (
+          <ActivityList.Empty />
+        )}
+      </Card>
     </>
   );
 };

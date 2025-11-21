@@ -1,24 +1,17 @@
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Maybe,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import {
-  getEventInfo,
+  ActivityEventInfo,
   icon,
   JSONRecord,
   normalizePropKeys,
-  updatedAfterPublish,
 } from "./utils";
 
 const activityItem = tv({
@@ -31,7 +24,7 @@ const activityItem = tv({
   },
 });
 
-const ActivityItem_Fragment = graphql(/** GraphQL */ `
+export const ActivityItem_Fragment = graphql(/** GraphQL */ `
   fragment ActivityItem on Activity {
     id
     causer {
@@ -45,24 +38,23 @@ const ActivityItem_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface ActivityItemProps {
+export interface ActivityItemProps {
   query: FragmentType<typeof ActivityItem_Fragment>;
   className?: string;
   border?: boolean;
-  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  info: ActivityEventInfo;
+  properties: JSONRecord;
 }
 
 const ActivityItem = ({
   query,
   className,
   border,
-  publishedAt,
+  info,
+  properties: propsObj,
 }: ActivityItemProps) => {
   const intl = useIntl();
   const item = getFragment(ActivityItem_Fragment, query);
-  const isAfterPublish = updatedAfterPublish(item.createdAt, publishedAt);
-  const propsObj = JSON.parse(String(item.properties)) as JSONRecord;
-  const info = getEventInfo(propsObj, item.event, isAfterPublish);
   const properties = normalizePropKeys(propsObj, intl);
 
   if (!info) {
@@ -72,7 +64,7 @@ const ActivityItem = ({
   const Icon = info.icon;
 
   return (
-    <div className={activityItem({ class: className, border })}>
+    <li className={activityItem({ class: className, border })}>
       <div className="flex items-start gap-3">
         <div className={icon({ color: info.color })}>
           <Icon className="size-full" />
@@ -98,7 +90,7 @@ const ActivityItem = ({
             })
           : intl.formatMessage(commonMessages.notAvailable)}
       </div>
-    </div>
+    </li>
   );
 };
 
