@@ -720,6 +720,7 @@ class PoolCandidateBuilder extends Builder
             ->toArray();
     }
 
+    // main authorization scope for viewing PoolCandidateAdminView
     public function whereAuthorizedToViewPoolCandidateAdminView(): self
     {
         /** @var \App\Models\User | null */
