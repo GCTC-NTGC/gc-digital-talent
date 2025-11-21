@@ -53,6 +53,7 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
               description: "Successfully cleared work email information",
             }),
           );
+          setIsOpen(false);
         } else {
           void handleError();
         }
@@ -60,9 +61,7 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
       .catch(handleError);
   };
   const handleWipe = async () => {
-    await wipeWorkInformation().then(() => {
-      setIsOpen(false);
-    });
+    await wipeWorkInformation();
   };
 
   return (
