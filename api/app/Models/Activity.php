@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Database\Helpers\TeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Models\Activity as SpatieActivity;
 
 class Activity extends SpatieActivity
@@ -23,15 +23,7 @@ class Activity extends SpatieActivity
         }
 
         if ($user?->isAbleTo('view-team-poolActivityLog')) {
-            $teamIds = DB::table('role_user')
-                ->join('roles', 'roles.id', '=', 'role_user.role_id')
-                ->join('permission_role', 'roles.id', '=', 'permission_role.role_id')
-                ->join('permissions', 'permission_role.permission_id', '=', 'permissions.id')
-                ->where('role_user.user_id', $user->id)
-                ->where('permissions.name', 'view-team-poolActivityLog')
-                ->pluck('role_user.team_id')
-                ->unique()
-                ->toArray();
+            $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-poolActivityLog');
 
             return $query->whereHasMorph(
                 'subject',
