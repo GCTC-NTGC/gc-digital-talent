@@ -854,8 +854,14 @@ class UserBuilder extends Builder
                     $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.prefix_match_query');
                     $query->orWhereColumn('user_search_indices.searchable', '@@', 'calculations.exact_match_query');
                 })
-                // add the calculated rank column to allow for ordering by text search rank - add them up to boost exact matches
-                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.prefix_match_query) + ts_rank(user_search_indices.searchable, calculations.exact_match_query) AS search_rank'))
+                // add the calculated rank column to allow for ordering by text search rank
+                // weighting the exact matches a little heavier
+                ->addSelect(DB::raw(<<<'SQL'
+                        (
+                            (ts_rank(user_search_indices.searchable, calculations.prefix_match_query) * 0.9) +
+                            (ts_rank(user_search_indices.searchable, calculations.exact_match_query) * 1.1)
+                        ) / 2 AS search_rank
+                        SQL))
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
                 ->addSelect(['users.*'])
                 ->from('users')

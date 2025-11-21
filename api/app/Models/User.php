@@ -170,6 +170,16 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             // If you don't want scout to maintain the index for you
             // You can turn it off either for a Model or globally
             'maintain_index' => true,
+            // Ranking groups that will be assigned to fields
+            // when document is being parsed.
+            // Available groups: A, B, C and D (default).
+            'rank' => [
+                'fields' => [
+                    'first_name' => 'A',
+                    'last_name' => 'A',
+                    'email' => 'B',
+                ],
+            ],
         ];
     }
 
@@ -214,32 +224,41 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'awardExperiences',
         ]);
 
-        $result = collect([
-            $this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city,
-            $this->poolCandidates->pluck('notes'),
-            $this->workExperiences->pluck('role'),
-            $this->workExperiences->pluck('organization'),
-            $this->workExperiences->pluck('division'),
-            $this->workExperiences->pluck('details'),
-            $this->educationExperiences->pluck('thesis_title'),
-            $this->educationExperiences->pluck('institution'),
-            $this->educationExperiences->pluck('details'),
-            $this->educationExperiences->pluck('area_of_study'),
-            $this->personalExperiences->pluck('title'),
-            $this->personalExperiences->pluck('description'),
-            $this->personalExperiences->pluck('details'),
-            $this->communityExperiences->pluck('title'),
-            $this->communityExperiences->pluck('organization'),
-            $this->communityExperiences->pluck('project'),
-            $this->communityExperiences->pluck('details'),
-            $this->awardExperiences->pluck('title'),
-            $this->awardExperiences->pluck('details'),
-            $this->awardExperiences->pluck('issued_by'),
-        ])
-            ->flatten()
-            ->reject(function ($value) {
-                return is_null($value) || $value === '';
-            })->toArray();
+        $result = array_merge(
+            // some named fields for weighting
+            [
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'email' => $this->email,
+            ],
+            // everything else
+            collect([
+                $this->telephone, $this->current_province, $this->current_city,
+                $this->poolCandidates->pluck('notes'),
+                $this->workExperiences->pluck('role'),
+                $this->workExperiences->pluck('organization'),
+                $this->workExperiences->pluck('division'),
+                $this->workExperiences->pluck('details'),
+                $this->educationExperiences->pluck('thesis_title'),
+                $this->educationExperiences->pluck('institution'),
+                $this->educationExperiences->pluck('details'),
+                $this->educationExperiences->pluck('area_of_study'),
+                $this->personalExperiences->pluck('title'),
+                $this->personalExperiences->pluck('description'),
+                $this->personalExperiences->pluck('details'),
+                $this->communityExperiences->pluck('title'),
+                $this->communityExperiences->pluck('organization'),
+                $this->communityExperiences->pluck('project'),
+                $this->communityExperiences->pluck('details'),
+                $this->awardExperiences->pluck('title'),
+                $this->awardExperiences->pluck('details'),
+                $this->awardExperiences->pluck('issued_by'),
+            ])
+                ->flatten()
+                ->reject(function ($value) {
+                    return is_null($value) || $value === '';
+                })->toArray()
+        );
 
         if (! $result) {
             // SQL query doesn't handle empty arrays for some reason?
