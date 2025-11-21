@@ -99,6 +99,8 @@ return [
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
         'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
+
+        'poolActivityLog' => 'poolActivityLog',
     ],
 
     /*
@@ -692,6 +694,15 @@ return [
             'en' => 'View any basic government employee profile',
             'fr' => 'Voir tout profil de base d\'employé du gouvernement',
         ],
+
+        'view-any-poolActivityLog' => [
+            'en' => 'View Any Pool Activity Log',
+            'fr' => 'Afficher le journal des activités de la piscine',
+        ],
+        'view-team-poolActivityLog' => [
+            'en' => 'View team Pool Activity Log',
+            'fr' => 'Afficher le journal d\'activité du pool d\'équipes',
+        ],
     ],
 
     /*
@@ -969,6 +980,9 @@ return [
             'poolTeamMembers' => [
                 'team' => ['view'],
             ],
+            'poolActivityLog' => [
+                'team' => ['view'],
+            ],
         ],
 
         'community_recruiter' => [
@@ -1024,6 +1038,9 @@ return [
                 'team' => ['view'],
             ],
             'employeeWFA' => [
+                'team' => ['view'],
+            ],
+            'poolActivityLog' => [
                 'team' => ['view'],
             ],
         ],
@@ -1181,6 +1198,9 @@ return [
                 'any' => ['update'],
             ],
             'employeeWFA' => [
+                'any' => ['view'],
+            ],
+            'poolActivityLog' => [
                 'any' => ['view'],
             ],
         ],

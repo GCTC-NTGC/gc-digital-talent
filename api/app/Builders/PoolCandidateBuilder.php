@@ -13,6 +13,7 @@ use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Models\Skill;
 use App\Models\User;
+use Database\Helpers\TeamHelpers as HelpersTeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Carbon;
@@ -703,23 +704,6 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
-    /**
-     * Get the team ID for a team based permission where
-     * the user has that permission.
-     */
-    public function getTeamIdsForPermission(User $user, string $permission)
-    {
-        return DB::table('role_user')
-            ->join('roles', 'roles.id', '=', 'role_user.role_id')
-            ->join('permission_role', 'roles.id', '=', 'permission_role.role_id')
-            ->join('permissions', 'permission_role.permission_id', '=', 'permissions.id')
-            ->where('role_user.user_id', $user->id)
-            ->where('permissions.name', $permission)
-            ->pluck('role_user.team_id')
-            ->unique()
-            ->toArray();
-    }
-
     // main authorization scope for viewing PoolCandidateAdminView
     public function whereAuthorizedToViewPoolCandidateAdminView(): self
     {
@@ -751,7 +735,7 @@ class PoolCandidateBuilder extends Builder
         // checks are made before using the teams for that permission (ProtectedRequestUserChecker)
         $teamIdsByPermission = [];
         foreach ($permissions as $perm) {
-            $teamIdsByPermission[$perm] = $this->getTeamIdsForPermission($user, $perm);
+            $teamIdsByPermission[$perm] = HelpersTeamHelpers::getTeamIdsForPermission($user, $perm);
         }
 
         return $this->andAuthorizedToViewCandidate($user, $teamIdsByPermission)

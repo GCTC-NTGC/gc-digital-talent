@@ -284,3 +284,27 @@ export const createAndPublishPool: GraphQLRequestFunc<
     return await publishPool(ctx, pool.id);
   });
 };
+
+const Test_DeletePoolMutationDocument = /* GraphQL */ `
+  mutation Test_DeletePool($id: ID!) {
+    deletePool(id: $id) {
+      id
+    }
+  }
+`;
+
+interface DeletePoolArgs {
+  id: string;
+}
+
+export const deletePool: GraphQLRequestFunc<Pool, DeletePoolArgs> = async (
+  ctx,
+  { id },
+) => {
+  return await ctx
+    .post(Test_DeletePoolMutationDocument, {
+      isPrivileged: true,
+      variables: { id },
+    })
+    .then((res: GraphQLResponse<"deletePool", Pool>) => res.deletePool);
+};
