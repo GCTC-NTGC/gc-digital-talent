@@ -531,4 +531,22 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
     }
+
+    /**
+     * Only the user should be able to wipe their work email information
+     *
+     * @return void
+     */
+    public function testWipeWorkEmailInformation()
+    {
+        $this->assertTrue($this->applicant->can('wipeWorkEmailInformation', $this->applicant));
+
+        $this->assertFalse($this->guest->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->otherApplicant->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->processOperator->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->communityRecruiter->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->communityAdmin->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->communityTalentCoordinator->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->platformAdmin->can('wipeWorkEmailInformation', $this->applicant));
+    }
 }
