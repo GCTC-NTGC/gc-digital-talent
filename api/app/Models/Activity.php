@@ -11,12 +11,15 @@ class Activity extends SpatieActivity
 {
     protected $keyType = 'string';
 
+    public function scopeWhereIsPoolActivity(Builder $query)
+    {
+        return $query->where('subject_type', Pool::class);
+    }
+
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
         /** @var \App\Models\User | null */
         $user = Auth::user();
-
-        $query->where('subject_type', Pool::class);
 
         if ($user?->isAbleTo('view-any-poolActivityLog')) {
             return $query;
