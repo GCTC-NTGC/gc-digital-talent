@@ -111,8 +111,9 @@ const PriorityEntitlements = ({
         <Well color="error">
           <p>
             {intl.formatMessage({
-              defaultMessage: "You are missing required priority entitlements.",
-              id: "zzrQ3D",
+              defaultMessage:
+                "You are missing required priority entitlement information.",
+              id: "3MhIFU",
               description:
                 "Error message displayed when a users priority entitlements is incomplete",
             })}
