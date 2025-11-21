@@ -12,7 +12,7 @@ import { SubmitHandler } from "react-hook-form";
 import {
   commonMessages,
   getLocalizedName,
-  useIntlLanguages,
+  combineMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
@@ -139,8 +139,8 @@ const SkillTable = ({
 }: SkillTableProps) => {
   const intl = useIntl();
   const cache = createIntlCache();
-  const englishMessages = useIntlLanguages("en", messages);
-  const frenchMessages = useIntlLanguages("fr", messages);
+  const englishMessages = combineMessages("en", messages);
+  const frenchMessages = combineMessages("fr", messages);
   const intlEn = createIntl(
     {
       locale: "en",

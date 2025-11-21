@@ -2,8 +2,8 @@ import fr from "./lang/frCompiled.json";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
-import useIntlLanguages from "./hooks/useIntlMessages";
 import useLocale from "./hooks/useLocale";
+import getIntl from "./utils/getIntl";
 import {
   isLocale,
   getLocale,
@@ -15,6 +15,7 @@ import {
   localizeCurrency,
   localizeSalaryRange,
 } from "./utils/localize";
+import { combineMessages } from "./utils/utils";
 import {
   apiMessages,
   commonMessages,
@@ -107,7 +108,8 @@ export {
   LanguageProvider,
   LocaleProvider,
   NestedLanguageProvider,
-  useIntlLanguages,
+  combineMessages,
+  getIntl,
   useLocale,
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
