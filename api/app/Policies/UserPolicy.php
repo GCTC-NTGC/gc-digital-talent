@@ -205,6 +205,16 @@ class UserPolicy
         return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to restore their own model.
     }
 
+    /**
+     * Determine whether the user can wipe work email information.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function removeWorkEmailInformation(User $user, User $model)
+    {
+        return $user->isAbleTo('update-own-user') && $user->id === $model->id;
+    }
+
     /*******************  APPLICANT QUERIES  *******************/
 
     protected function applicantHasAppliedToPoolInTeams(User $applicant, $teamIds)

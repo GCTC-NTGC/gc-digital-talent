@@ -2759,6 +2759,10 @@
     "defaultMessage": "Ministère actuel",
     "description": "Label for an employees department"
   },
+  "9jO3/H": {
+    "defaultMessage": "Modifier l'adresse courriel professionnelle",
+    "description": "Link to update email"
+  },
   "9lhQKQ": {
     "defaultMessage": "Comment utiliser le service",
     "description": "Title for how to share workforce adjustment information"
@@ -5335,6 +5339,10 @@
     "defaultMessage": "Consultez nos possibilités d'emploi pour trouver un poste de gestionnaire qui vous inspire. Posez votre candidature pour jouer un rôle clé au sein de l'une des équipes de TI du gouvernement du Canada et avoir un impact significatif.",
     "description": "Summary for the feature about finding manager jobs"
   },
+  "LQpod/": {
+    "defaultMessage": "Souhaitez-vous vraiment retirer <underline>{workEmail}</underline>? Si vous la retirez alors que vous êtes un membre du personnel vérifié, l'accès aux outils du personnel sera suspendu jusqu'à ce que vous confirmiez une nouvelle adresse courriel professionnelle.",
+    "description": "Text to confirm deletion action"
+  },
   "LTpCFL": {
     "defaultMessage": "À propos de nous",
     "description": "Title for about us section on a pool advertisement."
@@ -6158,6 +6166,10 @@
   "PSIaKn": {
     "defaultMessage": "Statut de direction ou de supervision",
     "description": "Label for supervisory position field"
+  },
+  "PTfLmk": {
+    "defaultMessage": "Retirer cette adresse courriel professionnelle?",
+    "description": "Dialog header"
   },
   "PUYiNT": {
     "defaultMessage": "{skill} ({type})",
@@ -8346,6 +8358,10 @@
     "defaultMessage": "Collectivité numérique",
     "description": "Title for digital community WFA section"
   },
+  "Z2BMGx": {
+    "defaultMessage": "Retirer l'adresse courriel professionnelle",
+    "description": "Action text"
+  },
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
@@ -8473,6 +8489,10 @@
   "ZfLuWv": {
     "defaultMessage": "Les employées et employés du gouvernement du Canada, les personnes employées par une agence du gouvernement du Canada, <link>et les anciens combattants et les membres des Forces armées canadiennes admissibles.</link>",
     "description": "Employee-only application criteria"
+  },
+  "ZfaD1n": {
+    "defaultMessage": "Le retrait de l'adresse courriel a échoué",
+    "description": "Error for failing to delete"
   },
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
@@ -8917,6 +8937,10 @@
   "bu0Hi1": {
     "defaultMessage": "Auto-évaluation du niveau de compétence",
     "description": "Title for the skill level self-evaluation form"
+  },
+  "buTxFT": {
+    "defaultMessage": "Confirmer une autre adresse courriel professionnelle",
+    "description": "Link to update to a different email when initially your work email and contact email are the same"
   },
   "buZsS/": {
     "defaultMessage": "<strong>Veuillez sélectionner un niveau approprié de maîtrise de la deuxième langue sur la base des définitions fournies.</strong>",
@@ -11557,6 +11581,10 @@
     "defaultMessage": "Oui, il s'agit d'un poste de supervision",
     "description": "Checkbox selection that confirms a job opportunity will have supervising duties. "
   },
+  "mriIoW": {
+    "defaultMessage": "Confirmer à nouveau l'adresse courriel",
+    "description": "Link to redo email verification"
+  },
   "msr1cl": {
     "defaultMessage": "Compétences comportementales essentielles",
     "description": "Title for the essential behavioural skills"
@@ -12848,6 +12876,10 @@
   "sycoGU": {
     "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",
     "description": "Learn more dialog question six paragraph one"
+  },
+  "syjxpE": {
+    "defaultMessage": "Adresse courriel professionnelle retirée",
+    "description": "Successfully cleared work email information"
   },
   "syqHHS": {
     "defaultMessage": "Recommandations sur l'expérience latérale",
