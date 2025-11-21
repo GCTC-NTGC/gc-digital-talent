@@ -15,7 +15,7 @@ import "./toast.css";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 const closeBtn = tv({
-  base: "absolute top-6 right-6 z-[9] flex cursor-pointer items-center rounded-full bg-transparent text-black transition-colors ease-in outline-none focus-visible:bg-focus dark:text-white",
+  base: "absolute top-2 right-2 z-9 flex cursor-pointer items-center rounded-full bg-transparent text-gray-600 transition-colors ease-in outline-none focus-visible:bg-focus dark:text-gray-200",
   variants: {
     type: {
       default: "hover:bg-gray-100",
@@ -43,7 +43,7 @@ const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => {
       aria-label={ariaLabel ?? intl.formatMessage(commonMessages.dismiss)}
       onClick={closeToast}
     >
-      <XCircleIcon className="size-6" />
+      <XCircleIcon className="size-4.5" />
     </button>
   );
 };

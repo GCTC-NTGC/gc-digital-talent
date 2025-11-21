@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Alert, Container, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Notice, Container, Heading, Link, Well } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
@@ -51,16 +51,16 @@ export const Component = () => {
         crumbs={crumbs}
       />
       <Container className="my-18">
-        <Alert.Root type="info" dismissible live={false} className="mt-0 mb-12">
-          <p>
+        <Notice.Root mode="card" className="mt-0 mb-12">
+          <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage:
                 "This list of skills is under development. New skills are being added on an ongoing basis.",
               id: "Y1zzqe",
               description: "Message for skills page",
             })}
-          </p>
-        </Alert.Root>
+          </Notice.Title>
+        </Notice.Root>
         <SkillTable
           title={formattedPageTitle}
           paginationState={{ ...INITIAL_STATE.paginationState, pageSize: 20 }}

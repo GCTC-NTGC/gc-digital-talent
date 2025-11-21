@@ -95,7 +95,7 @@ test.describe("Login and logout", () => {
     // eventually, we should get to the "user deleted page"
     await expect(
       page.getByRole("heading", {
-        name: "Warning alert: User account deleted",
+        name: /user account deleted/i,
         level: 2,
       }),
     ).toBeVisible();
