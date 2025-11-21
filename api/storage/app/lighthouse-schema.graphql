@@ -1850,6 +1850,7 @@ input CreateUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   workEmailVerifiedAt: DateTime
   hasPriorityEntitlement: Boolean
   priorityNumber: String
