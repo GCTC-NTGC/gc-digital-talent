@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import { ReactNode } from "react";
 
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   getFragment,
@@ -10,11 +11,14 @@ import {
   Pool,
 } from "@gc-digital-talent/graphql";
 
+import useRoutes from "~/hooks/useRoutes";
+
 import Display from "./Display";
 import { getSectionTitle } from "../../utils";
 
 const ProfileGovernmentInformation_Fragment = graphql(/** GraphQL */ `
   fragment ProfileGovernmentInformation on User {
+    id
     ...GovernmentInformationDisplay
   }
 `);
@@ -27,6 +31,7 @@ interface GovernmentInformationProps {
 const GovernmentInformation = ({ query, pool }: GovernmentInformationProps) => {
   const user = getFragment(ProfileGovernmentInformation_Fragment, query);
   const intl = useIntl();
+  const paths = useRoutes();
 
   return (
     <>
@@ -52,13 +57,20 @@ const GovernmentInformation = ({ query, pool }: GovernmentInformationProps) => {
             })}
           </p>
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "You can now add Government of Canada employment details directly on your career experience. We will keep the details here on your file until you add new ones on your current work experience.",
-              id: "dvil3O",
-              description:
-                "Description for warning message when the government information section is getting removed.",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "You can now add Government of Canada employment details directly on your <link>career experience</link>. We will keep the details here on your file until you add new ones on your current work experience.",
+                id: "gQYdKH",
+                description:
+                  "Description for warning message when the government information section is getting removed.",
+              },
+              {
+                link: (chunks: ReactNode) => (
+                  <Link href={paths.careerTimeline()}>{chunks}</Link>
+                ),
+              },
+            )}
           </p>
         </Well>
         <div className="mt-6 flex flex-col gap-y-6">
