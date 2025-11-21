@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Button, AlertDialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -24,9 +23,6 @@ interface WipeWorkEmailDialogProps {
 const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
-
-  const methods = useForm();
-  const { handleSubmit } = methods;
 
   const dialogTitle = intl.formatMessage({
     defaultMessage: "Remove this work email?",
@@ -70,15 +66,15 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger>
+    <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialog.Trigger>
         <Button color="error" mode="inline">
           {intl.formatMessage(commonMessages.remove)}
         </Button>
-      </Dialog.Trigger>
-      <Dialog.Content>
-        <Dialog.Header>{dialogTitle}</Dialog.Header>
-        <Dialog.Body>
+      </AlertDialog.Trigger>
+      <AlertDialog.Content>
+        <AlertDialog.Title>{dialogTitle}</AlertDialog.Title>
+        <AlertDialog.Description>
           <p className="mb-6">
             {intl.formatMessage(
               {
@@ -92,27 +88,30 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
               },
             )}
           </p>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleWipe)}>
-              <Dialog.Footer>
-                <Button color="error" disabled={fetching} type="submit">
-                  {intl.formatMessage({
-                    defaultMessage: "Yes, remove this work email",
-                    id: "pL+3xG",
-                    description: "Action text",
-                  })}
-                </Button>
-                <Dialog.Close>
-                  <Button color="warning" mode="inline">
-                    {intl.formatMessage(commonMessages.cancel)}
-                  </Button>
-                </Dialog.Close>
-              </Dialog.Footer>
-            </form>
-          </FormProvider>
-        </Dialog.Body>
-      </Dialog.Content>
-    </Dialog.Root>
+          <AlertDialog.Footer>
+            <AlertDialog.Action>
+              <Button
+                color="error"
+                disabled={fetching}
+                type="submit"
+                onClick={handleWipe}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Yes, remove this work email",
+                  id: "pL+3xG",
+                  description: "Action text",
+                })}
+              </Button>
+            </AlertDialog.Action>
+            <AlertDialog.Cancel>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage(commonMessages.cancel)}
+              </Button>
+            </AlertDialog.Cancel>
+          </AlertDialog.Footer>
+        </AlertDialog.Description>
+      </AlertDialog.Content>
+    </AlertDialog.Root>
   );
 };
 
