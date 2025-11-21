@@ -2,7 +2,12 @@ import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
 import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import { isAfter } from "date-fns/isAfter";
 
-import { getFragment, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import {
+  ActivityProperties,
+  getFragment,
+  Maybe,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import activityMessages from "~/messages/activityMessages";
@@ -11,18 +16,14 @@ import ActivityItem, {
   ActivityItem_Fragment,
   ActivityItemProps,
 } from "./ActivityItem";
-import { getEventInfo, JSONRecord } from "./utils";
+import { getEventInfo, parseAttributes } from "./utils";
 
-function isPublishEvent(propsObj: JSONRecord): boolean {
-  if ("attributes" in propsObj && "old" in propsObj) {
-    if (
-      "published_at" in propsObj.attributes &&
-      "published_at" in propsObj.old
-    ) {
-      return (
-        typeof propsObj.attributes.published_at === "string" &&
-        !propsObj.old.published_at
-      );
+function isPublishEvent(propsObj?: Maybe<ActivityProperties>): boolean {
+  if (propsObj && "attributes" in propsObj && "old" in propsObj) {
+    const atts = parseAttributes(propsObj.attributes);
+    const old = parseAttributes(propsObj.old);
+    if ("published_at" in atts && "published_at" in old) {
+      return typeof atts.published_at === "string" && !old.published_at;
     }
   }
 
@@ -48,15 +49,14 @@ const PoolActivityItem = ({
   ...rest
 }: PoolActivityItemProps) => {
   const item = getFragment(ActivityItem_Fragment, query);
-  const propsObj = JSON.parse(String(item.properties)) as JSONRecord;
   const isAfterPublish = updatedAfterPublish(item.createdAt, publishedAt);
-  let info = getEventInfo(propsObj, item.event);
+  let info = getEventInfo(item.properties, item.event);
 
   if (!info) {
     return null;
   }
 
-  if (isPublishEvent(propsObj)) {
+  if (isPublishEvent(item.properties)) {
     info = {
       ...info,
       icon: DocumentArrowUpIcon,
@@ -73,9 +73,7 @@ const PoolActivityItem = ({
     };
   }
 
-  return (
-    <ActivityItem info={info} query={query} properties={propsObj} {...rest} />
-  );
+  return <ActivityItem info={info} query={query} {...rest} />;
 };
 
 export default PoolActivityItem;

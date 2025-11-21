@@ -4,7 +4,7 @@ import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import { tv, VariantProps } from "tailwind-variants";
 
-import { Maybe } from "@gc-digital-talent/graphql";
+import { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -25,10 +25,6 @@ export const icon = tv({
 });
 
 export type IconVariants = VariantProps<typeof icon>;
-
-type ActivityPropertiesKey = "attributes" | "old";
-
-export type JSONRecord = Record<ActivityPropertiesKey, Record<string, unknown>>;
 
 type ActivityEventType = "created" | "updated" | "added" | "deleted";
 
@@ -78,7 +74,7 @@ const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
 ]);
 
 export function getEventInfo(
-  propsObj: JSONRecord,
+  propsObj?: Maybe<ActivityProperties>,
   event?: Maybe<string>,
 ): ActivityEventInfo | undefined {
   let eventType: ActivityEventType = "updated";
@@ -86,7 +82,7 @@ export function getEventInfo(
     eventType = event;
   }
 
-  if (!("old" in propsObj)) {
+  if (propsObj && (!("old" in propsObj) || !propsObj.old)) {
     eventType = "added";
   }
 
@@ -97,24 +93,46 @@ function stripSuffix(str: string, len = 3): string {
   return str.slice(0, -len);
 }
 
+export type JSONRecord = Record<string, unknown>;
+
+function isRecord(obj: unknown): obj is Record<string, unknown> {
+  return typeof obj === "object" && obj !== null && !Array.isArray(obj);
+}
+
+export function parseAttributes(attr: unknown): JSONRecord {
+  if (isRecord(attr)) {
+    return attr;
+  }
+  if (typeof attr === "string" && attr.trim().startsWith("{")) {
+    try {
+      const parsed = JSON.parse(attr) as JSONRecord;
+      return isRecord(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  }
+  return {};
+}
+
 export function normalizePropKeys(
-  propsObj: JSONRecord,
   intl: IntlShape,
+  propsObj?: Maybe<ActivityProperties>,
 ): string[] {
-  // Attempt to guard against malformed JSON
-  if (!("attributes" in propsObj) || typeof propsObj.attributes !== "object") {
+  if (!propsObj?.attributes) {
     return [];
   }
+  // Should be safe to parse and cast after validating
+  const attributes = parseAttributes(propsObj.attributes);
 
   let modified: string[] = [];
-  Object.keys(propsObj.attributes).forEach((k) => {
+  Object.keys(attributes).forEach((k) => {
     if (k.endsWith("_id")) {
       modified = [...modified, stripSuffix(k)];
       return;
     }
 
     // Handle localized strings
-    const val = propsObj.attributes[k];
+    const val = attributes[k];
     if (val && typeof val === "object" && ("fr" in val || "en" in val)) {
       if ("fr" in val) {
         modified = [

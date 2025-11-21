@@ -4,12 +4,25 @@ namespace App\Models;
 
 use Database\Helpers\TeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity as SpatieActivity;
 
 class Activity extends SpatieActivity
 {
     protected $keyType = 'string';
+
+    protected function properties(): Attribute
+    {
+        return Attribute::get(function ($value) {
+            $data = is_array($value) ? $value : json_decode($value, true);
+
+            return [
+                'attributes' => $data['attributes'] ?? null,
+                'old' => $data['old'] ?? null,
+            ];
+        });
+    }
 
     public function scopeWhereIsPoolActivity(Builder $query)
     {

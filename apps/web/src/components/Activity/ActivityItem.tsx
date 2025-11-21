@@ -32,7 +32,10 @@ export const ActivityItem_Fragment = graphql(/** GraphQL */ `
       firstName
       lastName
     }
-    properties
+    properties {
+      old
+      attributes
+    }
     event
     createdAt
   }
@@ -43,7 +46,6 @@ export interface ActivityItemProps {
   className?: string;
   border?: boolean;
   info: ActivityEventInfo;
-  properties: JSONRecord;
 }
 
 const ActivityItem = ({
@@ -51,11 +53,10 @@ const ActivityItem = ({
   className,
   border,
   info,
-  properties: propsObj,
 }: ActivityItemProps) => {
   const intl = useIntl();
   const item = getFragment(ActivityItem_Fragment, query);
-  const properties = normalizePropKeys(propsObj, intl);
+  const properties = normalizePropKeys(intl, item.properties);
 
   if (!info) {
     return null;

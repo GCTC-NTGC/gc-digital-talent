@@ -477,12 +477,17 @@ type ScreeningQuestion {
   sortOrder: Int @rename(attribute: "sort_order")
 }
 
+type ActivityProperties {
+  attributes: JSON
+  old: JSON
+}
+
 type Activity @model(class: "\\App\\Models\\Activity") {
   id: ID!
   causer: UserPublicProfile @with(relation: "causer")
   subjectType: String @rename(attribute: "subject_type")
   subjectId: UUID @rename(attribute: "subject_id")
-  properties: JSON
+  properties: ActivityProperties
   logName: String @rename(attribute: "log_name")
   event: String
   description: String

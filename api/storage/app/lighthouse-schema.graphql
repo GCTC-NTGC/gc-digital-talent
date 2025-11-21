@@ -1025,12 +1025,17 @@ type ScreeningQuestion {
   sortOrder: Int
 }
 
+type ActivityProperties {
+  attributes: JSON
+  old: JSON
+}
+
 type Activity {
   id: ID!
   causer: UserPublicProfile
   subjectType: String
   subjectId: UUID
-  properties: JSON
+  properties: ActivityProperties
   logName: String
   event: String
   description: String
