@@ -32,8 +32,8 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
   const handleError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: failed to delete",
-        id: "jyECqY",
+        defaultMessage: "Removing work email has failed",
+        id: "ZfaD1n",
         description: "Error for failing to delete",
       }),
     );
@@ -48,8 +48,8 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
         if (result.data?.removeUserWorkEmail) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Work email deleted",
-              id: "3bVNFv",
+              defaultMessage: "Work email removed",
+              id: "syjxpE",
               description: "Successfully cleared work email information",
             }),
           );
@@ -77,9 +77,9 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
           <p className="mb-6">
             {intl.formatMessage(
               {
-                id: "Z/+VPX",
+                id: "LQpod/",
                 defaultMessage:
-                  "Are you sure you want to remove <underline>{workEmail}</underline>? Removing it while verified will pause access to your employee tools until you verify a new work email",
+                  "Are you sure you want to remove <underline>{workEmail}</underline>? Removing it while verified will pause access to your employee tools until you verify a new work email.",
                 description: "Text to confirm deletion action",
               },
               {
@@ -96,8 +96,8 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
                 onClick={handleWipe}
               >
                 {intl.formatMessage({
-                  defaultMessage: "Yes, remove this work email",
-                  id: "pL+3xG",
+                  defaultMessage: "Remove work email",
+                  id: "Z2BMGx",
                   description: "Action text",
                 })}
               </Button>
