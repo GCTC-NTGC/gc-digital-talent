@@ -7,12 +7,7 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import {
-  ActivityEventInfo,
-  icon,
-  JSONRecord,
-  normalizePropKeys,
-} from "./utils";
+import { ActivityEventInfo, icon, normalizePropKeys } from "./utils";
 
 const activityItem = tv({
   base: "flex flex-col justify-between gap-6 py-6 sm:flex-row",
