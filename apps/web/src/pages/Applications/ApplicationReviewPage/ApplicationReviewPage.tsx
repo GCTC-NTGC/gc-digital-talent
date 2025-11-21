@@ -151,6 +151,19 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         }
       })
       .catch(() => {
+        if (appInsights) {
+          const aiUserId = appInsights?.context?.user?.id || "unknown";
+          appInsights.trackEvent?.(
+            { name: "Job application submission error" },
+            {
+              aiUserId,
+              pageUrl: window.location.href,
+              timestamp: new Date().toISOString(),
+              referrer: document.referrer || "none",
+              source: "ApplicationReviewPage",
+            },
+          );
+        }
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: submitting application failed",

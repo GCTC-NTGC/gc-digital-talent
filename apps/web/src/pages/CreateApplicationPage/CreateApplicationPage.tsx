@@ -76,6 +76,23 @@ const CreateApplication = () => {
     description: "Application creation failed",
   });
 
+  function trackError(msg: string) {
+    if (appInsights) {
+      const aiUserId = appInsights?.context?.user?.id || "unknown";
+      appInsights.trackEvent?.(
+        { name: "Job application creation error" },
+        {
+          aiUserId,
+          pageUrl: window.location.href,
+          timestamp: new Date().toISOString(),
+          referrer: document.referrer || "none",
+          source: "CreateApplicationPage",
+          errorMessage: msg,
+        },
+      );
+    }
+  }
+
   // We use this ref to make sure we only try to apply once
   const mutationCounter = useRef<number>(0);
   // We use this ref to make sure we only start navigation and pop a toast once
@@ -191,6 +208,7 @@ const CreateApplication = () => {
             const message = intl.formatMessage(
               messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
             );
+            trackError(result.error.message);
             await navigateWithToast(newPath, () => toast.error(message));
           }
         } else if (result.error?.message) {
@@ -200,10 +218,12 @@ const CreateApplication = () => {
           const errorMessage = intl.formatMessage(
             messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
           );
+          trackError(result.error.message);
           await navigateWithToast(redirectPath, () =>
             toast.error(errorMessage),
           );
         } else {
+          trackError(genericErrorMessage);
           // Fallback to generic message
           await navigateWithToast(redirectPath, () =>
             toast.error(genericErrorMessage),
