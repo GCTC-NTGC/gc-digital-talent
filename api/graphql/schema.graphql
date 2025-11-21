@@ -565,7 +565,6 @@ type Pool implements HasRoleAssignments {
   contactEmail: String @rename(attribute: "contact_email")
   activities: [Activity!]
     @morphMany(relation: "activities", scopes: ["authorizedToViewPoolActivity"])
-    @orderBy(column: "created_at", direction: DESC)
 }
 
 type GeneralQuestionResponse {

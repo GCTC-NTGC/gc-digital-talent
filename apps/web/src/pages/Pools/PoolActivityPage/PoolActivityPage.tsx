@@ -18,6 +18,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import ActivityList from "~/components/Activity/ActivityList";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -28,6 +29,7 @@ const PoolActivity_Fragment = graphql(/** GraphQL */ `
     publishedAt
     activities {
       id
+      createdAt
       ...ActivityItem
     }
   }
@@ -40,7 +42,9 @@ interface PoolActivityProps {
 const PoolActivity = ({ query }: PoolActivityProps) => {
   const intl = useIntl();
   const pool = getFragment(PoolActivity_Fragment, query);
-  const activities = unpackMaybes(pool.activities);
+  const activities = unpackMaybes(pool.activities).sort((a, b) => {
+    return parseDateTimeUtc(b.createdAt) - parseDateTimeUtc(a.createdAt);
+  });
 
   return (
     <>
