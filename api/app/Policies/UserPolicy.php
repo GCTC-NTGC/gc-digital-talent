@@ -210,7 +210,7 @@ class UserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function wipeWorkEmailInformation(User $user, User $model)
+    public function removeWorkEmailInformation(User $user, User $model)
     {
         return $user->isAbleTo('update-own-user') && $user->id === $model->id;
     }

@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\User;
 
-final class WipeUserWorkEmail
+final class RemoveUserWorkEmail
 {
     /**
      * Wipe the user's work email and verification fields

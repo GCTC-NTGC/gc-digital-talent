@@ -7,9 +7,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
-const WipeWorkEmail_Mutation = graphql(/* GraphQL */ `
-  mutation WipeWorkEmail($id: UUID!) {
-    wipeUserWorkEmail(id: $id) {
+const RemoveUserWorkEmail_Mutation = graphql(/* GraphQL */ `
+  mutation RemoveUserWorkEmail($id: UUID!) {
+    removeUserWorkEmail(id: $id) {
       id
     }
   }
@@ -40,12 +40,12 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
   };
 
   const [{ fetching }, executeWipeWorkInformationMutation] = useMutation(
-    WipeWorkEmail_Mutation,
+    RemoveUserWorkEmail_Mutation,
   );
   const wipeWorkInformation = async () => {
     await executeWipeWorkInformationMutation({ id })
       .then((result) => {
-        if (result.data?.wipeUserWorkEmail) {
+        if (result.data?.removeUserWorkEmail) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Work email deleted",

@@ -537,16 +537,16 @@ class UserPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testWipeWorkEmailInformation()
+    public function testRemoveWorkEmailInformation()
     {
-        $this->assertTrue($this->applicant->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertTrue($this->applicant->can('removeWorkEmailInformation', $this->applicant));
 
-        $this->assertFalse($this->guest->can('wipeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->otherApplicant->can('wipeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->processOperator->can('wipeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->communityRecruiter->can('wipeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('wipeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('wipeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->platformAdmin->can('wipeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->guest->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->otherApplicant->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->processOperator->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->communityRecruiter->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->communityAdmin->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->communityTalentCoordinator->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->platformAdmin->can('removeWorkEmailInformation', $this->applicant));
     }
 }

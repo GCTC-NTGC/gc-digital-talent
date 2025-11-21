@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import EmailVerificationDialog from "../EmailVerificationDialog/EmailVerificationDialog";
-import WipeWorkEmailDialog from "./WipeWorkEmailDialog";
+import RemoveWorkEmailDialog from "./RemoveWorkEmailDialog";
 
 const WorkEmailCard_Fragment = graphql(/** GraphQL */ `
   fragment WorkEmailCard on User {
@@ -134,7 +134,7 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
           </Button>
         </EmailVerificationDialog>
         {workEmailFragment.id && workEmailFragment.workEmail && (
-          <WipeWorkEmailDialog
+          <RemoveWorkEmailDialog
             id={workEmailFragment.id}
             workEmail={workEmailFragment.workEmail}
           />
