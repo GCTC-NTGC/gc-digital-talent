@@ -703,8 +703,24 @@ class PoolCandidateBuilder extends Builder
         return $this->where('id', null);
     }
 
+    /**
+     * Get the team ID for a team based permission where
+     * the user has that permission.
+     */
+    public function getTeamIdsForPermission(User $user, string $permission)
+    {
+        return DB::table('role_user')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->join('permission_role', 'roles.id', '=', 'permission_role.role_id')
+            ->join('permissions', 'permission_role.permission_id', '=', 'permissions.id')
+            ->where('role_user.user_id', $user->id)
+            ->where('permissions.name', $permission)
+            ->pluck('role_user.team_id')
+            ->unique()
+            ->toArray();
+    }
+
     // main authorization scope for viewing PoolCandidateAdminView
-    // calls needed scoping functions
     public function whereAuthorizedToViewPoolCandidateAdminView(): self
     {
         /** @var \App\Models\User | null */
@@ -714,29 +730,48 @@ class PoolCandidateBuilder extends Builder
             return $this->where('id', null);
         }
 
-        // fetch all roleTeam relations in one place then reuse
-        $allRoleTeams = $user->rolesTeams()->get();
+        // Team based permissions that give a user access to a pool candidate
+        $permissions = [
+            'view-team-draftPool',
+            'view-team-applicantProfile',
+            'view-team-communityTalent',
+            'view-team-applicationAssessment',
+            'view-team-applicationStatus',
+            'view-team-submittedApplication',
+        ];
 
-        return $this
-            ->andAuthorizedToViewCandidate($user, $allRoleTeams)
-            ->andAuthorizedToViewRelatedPool($user, $allRoleTeams)
-            ->andAuthorizedToViewRelatedUser($user, $allRoleTeams)
-            ->andAuthorizedToViewNotes($user, $allRoleTeams)
-            ->andAuthorizedToViewStatus($user, $allRoleTeams);
+        // Retrieve the Team IDs by each permission for use in whereIn clauses in the query
+        // This is required to restrict access based on the candidates who are within process
+        // that the user has access to via team based permissions
+        //
+        // This is used to avoid excessive calls to isAbleTo which is slow when there is no cache
+        // and adding unnecessary overhead when the user is assigned to many teams
+        //
+        // Each use of these should be wrapped in a single call to isAbleTo so that necessary
+        // checks are made before using the teams for that permission (ProtectedRequestUserChecker)
+        $teamIdsByPermission = [];
+        foreach ($permissions as $perm) {
+            $teamIdsByPermission[$perm] = $this->getTeamIdsForPermission($user, $perm);
+        }
+
+        return $this->andAuthorizedToViewCandidate($user, $teamIdsByPermission)
+            ->andAuthorizedToViewRelatedPool($user, $teamIdsByPermission)
+            ->andAuthorizedToViewRelatedUser($user, $teamIdsByPermission)
+            ->andAuthorizedToViewNotes($user, $teamIdsByPermission)
+            ->andAuthorizedToViewStatus($user, $teamIdsByPermission);
     }
 
     // represents the functionality of PoolCandidatePolicy::view()
     // minus the view own ability as this is intended for admins not applicants
-    private function andAuthorizedToViewCandidate(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewCandidate(User $user, array $teamIdsByPermission): self
     {
+
         if ($user->isAbleTo('view-any-submittedApplication')) {
             return $this->whereNotNull('submitted_at');
         }
 
         if ($user->isAbleTo('view-team-submittedApplication')) {
-            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
-                return $user->isAbleTo('view-team-draftPool', $team);
-            })->pluck('id');
+            $teamIds = $teamIdsByPermission['view-team-submittedApplication'];
 
             return $this->where(function (Builder $query) use ($teamIds) {
                 $query->whereNotNull('submitted_at')
@@ -750,24 +785,22 @@ class PoolCandidateBuilder extends Builder
                         });
                     });
             });
+
         }
 
         // fall through
         return $this->where('id', null);
-
     }
 
     // represents the functionality of PoolPolicy::view()
-    private function andAuthorizedToViewRelatedPool(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewRelatedPool(User $user, array $teamIdsByPermission): self
     {
         if ($user->isAbleTo('view-any-pool')) {
             return $this;
         }
 
         if ($user->isAbleTo('view-team-draftPool')) {
-            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
-                return $user->isAbleTo('view-team-draftPool', $team);
-            })->pluck('id');
+            $teamIds = $teamIdsByPermission['view-team-draftPool'];
 
             return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
                 $poolQuery->orWhereNotNull('published_at');
@@ -791,7 +824,7 @@ class PoolCandidateBuilder extends Builder
 
     // represents the functionality of UserPolicy::view()
     // minus the view own ability as this is intended for admins not applicants
-    private function andAuthorizedToViewRelatedUser(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewRelatedUser(User $user, array $teamIdsByPermission): self
     {
         if ($user->isAbleTo('view-any-user')) {
             return $this;
@@ -801,11 +834,10 @@ class PoolCandidateBuilder extends Builder
             $user->isAbleTo('view-team-applicantProfile') ||
             $user->isAbleTo('view-team-communityTalent')
         ) {
-            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
-                return
-                $user->isAbleTo('view-team-applicantProfile', $team) ||
-                $user->isAbleTo('view-team-communityTalent', $team);
-            })->pluck('id');
+            $teamIds = array_unique(array_merge(
+                $teamIdsByPermission['view-team-applicantProfile'] ?? [],
+                $teamIdsByPermission['view-team-communityTalent'] ?? []
+            ));
 
             return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
                 $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
@@ -826,16 +858,14 @@ class PoolCandidateBuilder extends Builder
     }
 
     // represents the functionality of PoolCandidatePolicy::viewNotes()
-    private function andAuthorizedToViewNotes(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewNotes(User $user, array $teamIdsByPermission): self
     {
         if ($user->isAbleTo('view-any-applicationAssessment')) {
             return $this;
         }
 
         if ($user->isAbleTo('view-team-applicationAssessment')) {
-            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
-                return $user->isAbleTo('view-team-applicationAssessment', $team);
-            })->pluck('id');
+            $teamIds = $teamIdsByPermission['view-team-applicationAssessment'];
 
             return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
                 $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
@@ -855,16 +885,14 @@ class PoolCandidateBuilder extends Builder
     }
 
     // represents the functionality of PoolCandidatePolicy::viewStatus()
-    private function andAuthorizedToViewStatus(User $user, \Illuminate\Database\Eloquent\Collection $allRoleTeams): self
+    private function andAuthorizedToViewStatus(User $user, array $teamIdsByPermission): self
     {
         if ($user->isAbleTo('view-any-applicationStatus')) {
             return $this;
         }
 
         if ($user->isAbleTo('view-team-applicationStatus')) {
-            $teamIds = $allRoleTeams->filter(function ($team) use ($user) {
-                return $user->isAbleTo('view-team-applicationStatus', $team);
-            })->pluck('id');
+            $teamIds = $teamIdsByPermission['view-team-applicationStatus'];
 
             return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
                 $poolQuery->orWhere(function (Builder $query) use ($teamIds) {

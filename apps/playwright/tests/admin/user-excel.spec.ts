@@ -4,7 +4,14 @@ import UserPage from "~/fixtures/UserPage";
 import { loginBySub } from "~/utils/auth";
 
 test.describe("User Excel", () => {
-  test("Download user as Excel", async ({ appPage }) => {
+  // NOTE: Skipping until subscriptions are added so we know when the file has been generated
+  // This was broken when we removed the polling query
+  // Remember, you will need to modify the downloadExcel function for subscriptions likely
+  //
+  // REF: https://github.com/GCTC-NTGC/gc-digital-talent/issues/15038
+  //
+  // eslint-disable-next-line playwright/no-skipped-test
+  test.skip("Download user as Excel", async ({ appPage }) => {
     const userPage = new UserPage(appPage.page);
     await loginBySub(userPage.page, "admin@test.com", false);
     await userPage.goToIndex();
