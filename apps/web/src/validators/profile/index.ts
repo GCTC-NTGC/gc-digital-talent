@@ -7,9 +7,9 @@ import {
   type PartialUser as PartialUserDei,
 } from "./diversityEquityInclusion";
 import {
-  hasEmptyRequiredFields as governmentInformationSectionHasEmptyRequiredFields,
-  type PartialUser as PartialUserGovernment,
-} from "./governmentInformation";
+  hasEmptyRequiredFields as priorityEntitlementsHasEmptyRequiredFields,
+  type PartialUser as PartialUserPriority,
+} from "./priorityEntitlements";
 import {
   hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
   hasUnsatisfiedRequirements as languageInformationSectionHasUnsatisfiedRequirements,
@@ -27,7 +27,7 @@ import { hasMissingResponses as screeningQuestionsSectionHasMissingResponses } f
 export {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyRequiredFields,
+  priorityEntitlementsHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
   workPreferencesSectionHasEmptyRequiredFields,
@@ -37,7 +37,7 @@ export {
   screeningQuestionsSectionHasMissingResponses,
   PartialUserAbout,
   PartialUserDei,
-  PartialUserGovernment,
+  PartialUserPriority,
   PartialUserLanguage,
   PartialUserPreferences,
 };

@@ -5,6 +5,7 @@ export const PAGE_SECTION_ID = {
   WORK_PREFERENCES: "work-preferences-section",
   CAREER_TIMELINE_AND_RECRUITMENT: "career-timeline-section",
   SKILL_SHOWCASE: "skill-showcase",
+  PRIORITY_ENTITLEMENTS: "priority-entitlements",
 } as const;
 
 type ObjectValues<T> = T[keyof T];

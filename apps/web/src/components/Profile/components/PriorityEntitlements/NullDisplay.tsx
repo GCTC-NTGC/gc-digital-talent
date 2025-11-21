@@ -8,11 +8,10 @@ const NullDisplay = () => {
     <div className="text-center">
       <p className="mb-6 font-bold">
         {intl.formatMessage({
-          defaultMessage:
-            "This section asks whether you are currently a Government of Canada employee and other related questions.",
-          id: "CRXFbo",
+          defaultMessage: "This section asks about your priority entitlements.",
+          id: "lSKm4M",
           description:
-            "Descriptive text explaining the government information section of the application profile",
+            "Descriptive text explaining the priority entitlement section of the application profile",
         })}
       </p>
       <p>
@@ -20,10 +19,10 @@ const NullDisplay = () => {
           <Button mode="inline" color="primary">
             {intl.formatMessage({
               defaultMessage:
-                "Get started<hidden> on your government employee information</hidden>",
-              id: "yXXj1D",
+                "Get started<hidden> with providing priority entitlement information</hidden>",
+              id: "rWs8MO",
               description:
-                "Call to action to begin editing government information",
+                "Call to action to begin editing priority entitlement",
             })}
           </Button>
         </ToggleSection.Open>

@@ -6,12 +6,11 @@ import { empty } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
   getFragment,
-  GovEmployeeType,
   graphql,
+  GovEmployeeType,
 } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import useRoutes from "~/hooks/useRoutes";
 import governmentMessages from "~/messages/governmentMessages";
@@ -24,8 +23,6 @@ export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
     workEmail
     isWorkEmailVerified
     isGovEmployee
-    hasPriorityEntitlement
-    priorityNumber
     govEmployeeType {
       value
       label {
@@ -76,8 +73,6 @@ const Display = ({
     department,
     govEmployeeType,
     currentClassification,
-    hasPriorityEntitlement,
-    priorityNumber,
     govPositionType,
     govEndDate,
   } = user;
@@ -87,10 +82,6 @@ const Display = ({
   const govEmployeeMessage = isGovEmployee
     ? intl.formatMessage(governmentMessages.yesGovEmployee)
     : intl.formatMessage(governmentMessages.noGovEmployee);
-
-  const priorityMessage = hasPriorityEntitlement
-    ? intl.formatMessage(governmentMessages.yesPriorityEntitlement)
-    : intl.formatMessage(governmentMessages.noPriorityEntitlement);
 
   const handleVerifyNowClick = async () => {
     await navigate(routes.verifyWorkEmail());
@@ -157,7 +148,6 @@ const Display = ({
               {formattedEndDate}
             </FieldDisplay>
           )}
-
           <FieldDisplay
             label={intl.formatMessage({
               defaultMessage: "Current group and classification",
@@ -194,23 +184,6 @@ const Display = ({
             </FieldDisplay>
           )}
         </>
-      )}
-      <FieldDisplay
-        hasError={empty(hasPriorityEntitlement)}
-        label={intl.formatMessage(profileMessages.priorityStatus)}
-      >
-        {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
-      </FieldDisplay>
-      {hasPriorityEntitlement && (
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Priority number",
-            id: "hRzk4m",
-            description: "Priority number label",
-          })}
-        >
-          {priorityNumber ?? notProvided}
-        </FieldDisplay>
       )}
     </div>
   );

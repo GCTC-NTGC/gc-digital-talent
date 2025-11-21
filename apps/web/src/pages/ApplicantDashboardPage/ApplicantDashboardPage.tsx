@@ -25,9 +25,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
 import {
-  governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
+  priorityEntitlementsHasEmptyRequiredFields,
 } from "~/validators/profile";
 import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -225,8 +225,8 @@ export const DashboardPage = ({
 
   const personalInformationState =
     workPreferencesSectionHasEmptyRequiredFields(currentUser) ||
-    governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
-    languageInformationSectionHasEmptyRequiredFields(currentUser)
+    languageInformationSectionHasEmptyRequiredFields(currentUser) ||
+    priorityEntitlementsHasEmptyRequiredFields(currentUser)
       ? "error"
       : "success";
 
