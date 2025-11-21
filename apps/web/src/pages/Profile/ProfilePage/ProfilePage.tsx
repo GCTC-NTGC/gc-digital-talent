@@ -21,7 +21,7 @@ import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
-import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/Display";
+import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
@@ -45,8 +45,8 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
     ...ProfileWorkPreferences
     ...ProfileDiversityEquityInclusion
     ...ProfilePriorityEntitlements
+    ...ProfileGovernmentInformation
     ...ProfileLanguageProfile
-    ...GovernmentInformationDisplay
   }
 `);
 

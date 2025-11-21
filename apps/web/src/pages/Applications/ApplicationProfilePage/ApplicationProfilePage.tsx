@@ -11,7 +11,7 @@ import ProfileFormProvider from "~/components/Profile/components/ProfileFormCont
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/Display";
+import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
