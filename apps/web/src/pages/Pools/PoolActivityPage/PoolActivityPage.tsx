@@ -18,7 +18,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import ActivityList from "~/components/Activity/ActivityList";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -43,7 +43,9 @@ const PoolActivity = ({ query }: PoolActivityProps) => {
   const intl = useIntl();
   const pool = getFragment(PoolActivity_Fragment, query);
   const activities = unpackMaybes(pool.activities).sort((a, b) => {
-    return parseDateTimeUtc(b.createdAt) - parseDateTimeUtc(a.createdAt);
+    const aCreatedAt = a?.createdAt ? new Date(a.createdAt) : MAX_DATE;
+    const bCreatedAt = b?.createdAt ? new Date(b.createdAt) : MAX_DATE;
+    return bCreatedAt.getTime() - aCreatedAt.getTime();
   });
 
   return (
