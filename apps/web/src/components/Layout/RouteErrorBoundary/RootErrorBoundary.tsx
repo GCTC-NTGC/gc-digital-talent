@@ -1,23 +1,47 @@
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Button, Container, Flourish, Heading } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
+import { commonMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";
+import {
+  GocLogoEn,
+  GocLogoFr,
+  GocLogoWhiteEn,
+  GocLogoWhiteFr,
+} from "~/components/Svg";
+
+const logo = tv({
+  base: "h-auto w-72",
+  variants: {
+    isDark: {
+      true: "hidden dark:block",
+      false: "block dark:hidden",
+    },
+  },
+});
 
 const reloadLink = (chunks: ReactNode) => (
-  <Button mode="text" onClick={() => window.location.reload()}>
+  <Button
+    mode="text"
+    className="font-bold"
+    onClick={() => window.location.reload()}
+  >
     {chunks}
   </Button>
 );
 
 export const RouteErrorBoundary = () => {
   const intl = useIntl();
+  // eslint-disable-next-line no-restricted-syntax
+  const { locale } = useLocale();
   const { mode } = useTheme();
   const location = useLocation();
   const error = useErrorMessages();
@@ -35,7 +59,43 @@ export const RouteErrorBoundary = () => {
 
   return (
     <div className="flex h-screen flex-col justify-between">
-      <Flourish className="hidden sm:block" />
+      <div>
+        <Flourish className="hidden sm:block" />
+        <Container size="lg">
+          <div className="mt-6 flex flex-col items-center justify-between gap-3 xs:flex-row xs:items-start">
+            <div className="text-center xs:text-left">
+              <a
+                href={`https://www.canada.ca/${locale}.html`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {locale === "en" ? (
+                  <>
+                    <GocLogoEn className={logo({ isDark: false })} />
+                    <GocLogoWhiteEn className={logo({ isDark: true })} />
+                  </>
+                ) : (
+                  <>
+                    <GocLogoFr className={logo({ isDark: false })} />
+                    <GocLogoWhiteFr className={logo({ isDark: true })} />
+                  </>
+                )}
+                <span className="sr-only">
+                  {intl.formatMessage({
+                    defaultMessage: "Canada.ca",
+                    id: "gpcHeU",
+                    description:
+                      "Alt text for the Canada logo link in the Header.",
+                  })}
+                </span>
+              </a>
+            </div>
+            <p className="text-lg xs:text-2xl">
+              {intl.formatMessage(commonMessages.projectTitle)}
+            </p>
+          </div>
+        </Container>
+      </div>
       <div className="bg-gray-100 py-18 text-black dark:bg-gray-700 dark:text-white">
         <Container size="lg" center className="text-center">
           <Heading level="h1" size="h4" className="mt-0 font-bold">
@@ -56,8 +116,8 @@ export const RouteErrorBoundary = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "We’ve made some updates to the platform. Please <link>refresh the page</link> to continue.",
-                id: "towd7B",
+                  "Please <link>refresh the page</link> to continue.",
+                id: "+Gkfmv",
                 description: "Error message on the root of the app",
               },
               {
