@@ -3,7 +3,11 @@ import { tv } from "tailwind-variants";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATETIME_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -81,7 +85,7 @@ const ActivityItem = ({
         {item.createdAt
           ? formatDate({
               date: parseDateTimeUtc(item.createdAt),
-              formatString: "PPP • p",
+              formatString: DATETIME_FORMAT_LOCALIZED,
               intl,
             })
           : intl.formatMessage(commonMessages.notAvailable)}
