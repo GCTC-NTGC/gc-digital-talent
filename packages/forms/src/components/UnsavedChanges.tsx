@@ -45,7 +45,7 @@ const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
     .filter(notEmpty);
 
   return unsavedFields.length > 0 ? (
-    <Notice.Root mode="card" onDismiss={onDismiss}>
+    <Notice.Root mode="card" onDismiss={onDismiss} role="alert">
       <Notice.Title as="h2" defaultIcon>
         {intl.formatMessage(formMessages.unsavedTitle)}
       </Notice.Title>
