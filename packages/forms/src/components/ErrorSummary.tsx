@@ -4,7 +4,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { ReactNode, forwardRef, ComponentRef } from "react";
 
 import {
-  Alert,
+  Notice,
   ScrollToLink,
   ScrollLinkClickFunc,
   Link,
@@ -139,38 +139,46 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
     };
 
     return invalidFieldNames.length > 0 ? (
-      <Alert.Root type="error" ref={forwardedRef} tabIndex={-1}>
-        <Alert.Title>
+      <Notice.Root
+        color="error"
+        mode="card"
+        role="alert"
+        ref={forwardedRef}
+        tabIndex={-1}
+      >
+        <Notice.Title defaultIcon>
           {intl.formatMessage(errorMessages.summaryTitle)}
-        </Alert.Title>
-        <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
-        <Ul className="mt-3">
-          {invalidFieldNames.map((field) => {
-            return (
-              <li key={field.name}>
-                <ScrollToLink
-                  to={field.name}
-                  onScrollTo={handleErrorClick}
-                  mode="text"
-                  color="error"
-                >
-                  {field.label}
-                  {field.index ?? <span className="ml-1">{field.index}</span>}
-                </ScrollToLink>
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ErrorMessage name={field.name} />
-              </li>
-            );
-          })}
-        </Ul>
-        <Alert.Footer>
+        </Notice.Title>
+        <Notice.Content>
+          <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
+          <Ul className="mt-3">
+            {invalidFieldNames.map((field) => {
+              return (
+                <li key={field.name}>
+                  <ScrollToLink
+                    to={field.name}
+                    onScrollTo={handleErrorClick}
+                    mode="text"
+                    color="error"
+                  >
+                    {field.label}
+                    {field.index ?? <span className="ml-1">{field.index}</span>}
+                  </ScrollToLink>
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  <ErrorMessage name={field.name} />
+                </li>
+              );
+            })}
+          </Ul>
+        </Notice.Content>
+        <Notice.Footer>
           <p>
             {intl.formatMessage(errorMessages.summaryContact, {
               a: (chunks: ReactNode) => supportLink(chunks, locale),
             })}
           </p>
-        </Alert.Footer>
-      </Alert.Root>
+        </Notice.Footer>
+      </Notice.Root>
     ) : null;
   },
 );

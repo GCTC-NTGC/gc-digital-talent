@@ -3,7 +3,7 @@ import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
 import {
-  Alert,
+  Notice,
   Heading,
   ThrowNotFound,
   Button,
@@ -92,50 +92,52 @@ export const Component = () => {
         crumbs={crumbs}
       />
       <Container className="my-18">
-        <Alert.Root type="success" live={false} className="mb-18">
-          <Alert.Title>
+        <Notice.Root color="success" mode="card" className="mb-18">
+          <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage: "We have received your request",
               id: "7DYnwq",
               description:
                 "Paragraph one, message to user the request was received",
             })}
-          </Alert.Title>
-          <p className="mt-6">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Your tracking number for this request is: <strong>{requestId}</strong>",
-                id: "amxWPg",
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Your tracking number for this request is: <strong>{requestId}</strong>",
+                  id: "amxWPg",
+                  description:
+                    "Message to the user about the ID of their request for referencing the request",
+                },
+                { requestId },
+              )}
+            </p>
+            <Heading level="h3" size="h6" className="mt-6 mb-3 font-bold">
+              {intl.formatMessage({
+                defaultMessage: "What you can expect",
+                id: "N/Vcp3",
                 description:
-                  "Message to the user about the ID of their request for referencing the request",
-              },
-              { requestId },
-            )}
-          </p>
-          <Heading level="h3" size="h6" className="mt-6 mb-3 font-bold">
-            {intl.formatMessage({
-              defaultMessage: "What you can expect",
-              id: "N/Vcp3",
-              description:
-                "Heading for the section about user expectations for their request",
-            })}
-          </Heading>
-          <p className="mb-6">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "You will receive a follow up on your request within the next 5 to 10 business days. If you have not heard from us or have any questions, please get in touch with us at: <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
-                id: "LxXURC",
-                description:
-                  "Description of expected follow up time and contact information for an existing request",
-              },
-              {
-                mailLink,
-              },
-            )}
-          </p>
-          <div className="flex flex-wrap items-center gap-6 print:hidden">
+                  "Heading for the section about user expectations for their request",
+              })}
+            </Heading>
+            <p className="mb-6">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "You will receive a follow up on your request within the next 5 to 10 business days. If you have not heard from us or have any questions, please get in touch with us at: <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
+                  id: "LxXURC",
+                  description:
+                    "Description of expected follow up time and contact information for an existing request",
+                },
+                {
+                  mailLink,
+                },
+              )}
+            </p>
+          </Notice.Content>
+          <Notice.Actions className="print:hidden">
             <Button mode="solid" color="primary" onClick={() => handlePrint()}>
               {intl.formatMessage({
                 defaultMessage: "Print this information",
@@ -155,8 +157,8 @@ export const Component = () => {
                 description: "Link text to start a new talent request",
               })}
             </Link>
-          </div>
-        </Alert.Root>
+          </Notice.Actions>
+        </Notice.Root>
       </Container>
     </>
   ) : (
