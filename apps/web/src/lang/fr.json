@@ -79,6 +79,10 @@
     "defaultMessage": "Le <crtcLink>Conseil de la radiodiffusion et des télécommunications canadiennes</crtcLink> (CRTC) traite les plaintes liées à la radiodiffusion et aux télécommunications en vertu de la <crtcActLink>Loi sur le Conseil de la radiodiffusion et des télécommunications canadiennes</crtcActLink>.",
     "description": "Description of complaints to the Canadian Radio-television and Telecommunications Commission"
   },
+  "+Gkfmv": {
+    "defaultMessage": "Veuillez <link>actualiser la page</link> pour continuer.",
+    "description": "Error message on the root of the app"
+  },
   "+JIfBy": {
     "defaultMessage": "Dans quel ministère ou organisme les apprentis travailleront-ils?",
     "description": "Learn more dialog question nine heading"
