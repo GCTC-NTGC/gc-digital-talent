@@ -80,7 +80,7 @@ test.describe("Process activity log", () => {
     await expect(
       poolPage.page.getByText(
         new RegExp(
-          `${user.firstName} ${user.lastName} added: published_at`,
+          `${user.firstName} ${user.lastName} updated: published_at`,
           "i",
         ),
       ),
