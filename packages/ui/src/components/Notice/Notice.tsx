@@ -43,7 +43,7 @@ const root = tv({
       false:
         "p-6 has-[.NoticeFooter]:pb-4.5 has-[>svg]:grid-cols-[calc(var(--spacing)*6)_1fr] has-[>svg]:pl-4.5",
     },
-    dismissable: {
+    dismissible: {
       true: "",
       false: "",
     },
@@ -51,12 +51,12 @@ const root = tv({
   compoundVariants: [
     {
       small: true,
-      dismissable: true,
+      dismissible: true,
       class: "p-4.5 pr-12 has-[>svg]:pl-3",
     },
     {
       small: false,
-      dismissable: true,
+      dismissible: true,
       class: "p-6 pr-16.75 has-[>svg]:pl-4.5",
     },
     {
@@ -143,7 +143,7 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
           mode,
           color,
           small,
-          dismissable: !!onDismiss,
+          dismissible: !!onDismiss,
           onDismiss: handleDismiss,
         }}
       >
@@ -154,7 +154,7 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
             mode,
             color,
             small,
-            dismissable: !!onDismiss,
+            dismissible: !!onDismiss,
             class: className,
           })}
         >
@@ -305,7 +305,7 @@ const footer = tv({
       true: { base: "-mx-3", separator: "mt-4.5 mb-3" },
       false: { base: "-mx-4.5", separator: "mt-6 mb-4.5" },
     },
-    dismissable: {
+    dismissible: {
       true: "",
       false: "",
     },
@@ -321,12 +321,12 @@ const footer = tv({
   compoundVariants: [
     {
       small: true,
-      dismissable: true,
+      dismissible: true,
       class: "-mr-12 -ml-4.5 group-has-[>svg]:-ml-3",
     },
     {
       small: false,
-      dismissable: true,
+      dismissible: true,
       class: "-mr-16.75 -ml-6 group-has-[>svg]:-ml-4.5",
     },
     {
@@ -358,12 +358,12 @@ const footer = tv({
 });
 
 const Footer = ({ className, ...rest }: DivProps) => {
-  const { color, mode, small, dismissable } = use(NoticeContext);
+  const { color, mode, small, dismissible } = use(NoticeContext);
   const { separator, base, content } = footer({
     color,
     mode,
     small,
-    dismissable,
+    dismissible,
   });
 
   return (
