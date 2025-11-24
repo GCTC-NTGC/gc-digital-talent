@@ -172,7 +172,7 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
 `);
 
 const context: Partial<OperationContext> = {
-  requestPolicy: "cache-first",
+  requestPolicy: "cache-and-network",
 };
 
 const ProfilePage = () => {
