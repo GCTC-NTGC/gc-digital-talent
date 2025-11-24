@@ -90,11 +90,12 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                   "Description of review process and next steps for the applicant.",
               })}
             </p>
-            <Ul className="mb-9" space="md">
+            <Ul space="md">
               <li>
                 <Link
                   newTab
                   external
+                  color="black"
                   href={
                     locale === "en"
                       ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
@@ -114,6 +115,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                 <Link
                   newTab
                   external
+                  color="black"
                   href={
                     locale === "en"
                       ? "https://www.tbs-sct.canada.ca/tbsf-fsct/ssac-cdfs-eng.asp"
@@ -141,7 +143,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
               ? "https://forms-formulaires.alpha.canada.ca/fr/id/cmcc1uqjs009zxd01bx4jw8un"
               : "https://forms-formulaires.alpha.canada.ca/en/id/cmcc1uqjs009zxd01bx4jw8un"
           }
-          color="secondary"
+          color="success"
           mode="solid"
           external
           newTab
@@ -155,7 +157,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         <Link
           href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
           mode="inline"
-          color="secondary"
+          color="success"
         >
           {intl.formatMessage(navigationMessages.returnToDashboard)}
         </Link>
