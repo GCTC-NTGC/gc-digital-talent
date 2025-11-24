@@ -26,7 +26,7 @@ export const icon = tv({
 
 export type IconVariants = VariantProps<typeof icon>;
 
-type ActivityEventType = "created" | "updated" | "added" | "deleted";
+type ActivityEventType = "created" | "updated" | "deleted";
 
 export interface ActivityEventInfo {
   message: MessageDescriptor;
@@ -43,14 +43,6 @@ const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
     "created",
     {
       message: activityMessages.created,
-      icon: PlusIcon,
-      color: "primary",
-    },
-  ],
-  [
-    "added",
-    {
-      message: activityMessages.added,
       icon: PlusIcon,
       color: "primary",
     },
@@ -74,16 +66,11 @@ const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
 ]);
 
 export function getEventInfo(
-  propsObj?: Maybe<ActivityProperties>,
   event?: Maybe<string>,
 ): ActivityEventInfo | undefined {
   let eventType: ActivityEventType = "updated";
   if (isEventType(event)) {
     eventType = event;
-  }
-
-  if (propsObj && (!("old" in propsObj) || !propsObj.old)) {
-    eventType = "added";
   }
 
   return eventInfoMap.get(eventType);

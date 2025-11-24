@@ -50,7 +50,7 @@ const PoolActivityItem = ({
 }: PoolActivityItemProps) => {
   const item = getFragment(ActivityItem_Fragment, query);
   const isAfterPublish = updatedAfterPublish(item.createdAt, publishedAt);
-  let info = getEventInfo(item.properties, item.event);
+  let info = getEventInfo(item.event);
 
   if (!info) {
     return null;
