@@ -194,6 +194,10 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
         en
         fr
       }
+      community {
+        id
+        key
+      }
     }
   }
 `);
@@ -267,16 +271,12 @@ export const RequestForm = ({
       values?.positionType === true
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
-    const qualifiedStreams = applicantFilter?.qualifiedInWorkStreams;
-    let community = communities?.find((c) => c.key === "digital");
-    const ATIPStream = optionsData?.workStreams?.find(
-      (workStream) => workStream?.key === "ACCESS_INFORMATION_PRIVACY",
+    // We should always receive exactly one stream and only its ID
+    const selectedStreamId = applicantFilter?.qualifiedInWorkStreams?.[0]?.id;
+    const selectedStream = optionsData?.workStreams?.find(
+      (s) => s?.id === selectedStreamId,
     );
-    if (
-      qualifiedStreams?.some((workStream) => workStream?.id === ATIPStream?.id)
-    ) {
-      community = communities?.find((c) => c.key === "atip");
-    }
+    const community = selectedStream?.community;
 
     // always append ONSITE to the flexible locations region
     const adjustedFlexibleWorkLocations = [
@@ -295,7 +295,7 @@ export const RequestForm = ({
       hrAdvisorEmail: values.hrAdvisorEmail ?? "",
       wasEmpty: candidateCount === 0 && !state.allPools,
       community: {
-        connect: community?.id ?? communities[0].id,
+        connect: community?.id,
       },
       applicantFilter: {
         create: {
@@ -314,7 +314,7 @@ export const RequestForm = ({
               : [],
           },
           community: {
-            connect: community?.id ?? communities[0].id,
+            connect: community?.id,
           },
           pools: {
             sync: applicantFilter?.pools

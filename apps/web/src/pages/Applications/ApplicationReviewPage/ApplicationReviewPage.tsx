@@ -24,6 +24,7 @@ import {
   SkillCategory,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { appInsights } from "@gc-digital-talent/app-insights";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -124,6 +125,20 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
     })
       .then(async (res) => {
         if (!res.error) {
+          // Log the submission of the application with app insights
+          if (appInsights) {
+            const aiUserId = appInsights?.context?.user?.id || "unknown";
+            appInsights.trackEvent?.(
+              { name: "Job application submitted" },
+              {
+                aiUserId,
+                pageUrl: window.location.href,
+                timestamp: new Date().toISOString(),
+                referrer: document.referrer || "none",
+                source: "ApplicationReviewPage",
+              },
+            );
+          }
           toast.success(
             intl.formatMessage({
               defaultMessage: "We've successfully received your application",
@@ -136,6 +151,19 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         }
       })
       .catch(() => {
+        if (appInsights) {
+          const aiUserId = appInsights?.context?.user?.id || "unknown";
+          appInsights.trackEvent?.(
+            { name: "Job application submission error" },
+            {
+              aiUserId,
+              pageUrl: window.location.href,
+              timestamp: new Date().toISOString(),
+              referrer: document.referrer || "none",
+              source: "ApplicationReviewPage",
+            },
+          );
+        }
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: submitting application failed",

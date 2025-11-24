@@ -12,6 +12,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { graphql, Scalars } from "@gc-digital-talent/graphql";
+import { appInsights } from "@gc-digital-talent/app-insights";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -74,6 +75,23 @@ const CreateApplication = () => {
     id: "tlAiJm",
     description: "Application creation failed",
   });
+
+  function trackError(msg: string) {
+    if (appInsights) {
+      const aiUserId = appInsights?.context?.user?.id || "unknown";
+      appInsights.trackEvent?.(
+        { name: "Job application creation error" },
+        {
+          aiUserId,
+          pageUrl: window.location.href,
+          timestamp: new Date().toISOString(),
+          referrer: document.referrer || "none",
+          source: "CreateApplicationPage",
+          errorMessage: msg,
+        },
+      );
+    }
+  }
 
   // We use this ref to make sure we only try to apply once
   const mutationCounter = useRef<number>(0);
@@ -159,6 +177,21 @@ const CreateApplication = () => {
           // Redirect user to the application if it exists
           // Toast success or error
           if (!result.error) {
+            // Log the creation of the application with app insights
+            if (appInsights) {
+              const aiUserId = appInsights?.context?.user?.id || "unknown";
+              appInsights.trackEvent?.(
+                { name: "Job application started" },
+                {
+                  aiUserId,
+                  pageUrl: window.location.href,
+                  timestamp: new Date().toISOString(),
+                  referrer: document.referrer || "none",
+                  source: "CreateApplicationPage",
+                },
+              );
+            }
+
             await navigateWithToast(newPath, () =>
               toast.success(
                 intl.formatMessage({
@@ -175,6 +208,7 @@ const CreateApplication = () => {
             const message = intl.formatMessage(
               messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
             );
+            trackError(result.error.message);
             await navigateWithToast(newPath, () => toast.error(message));
           }
         } else if (result.error?.message) {
@@ -184,10 +218,12 @@ const CreateApplication = () => {
           const errorMessage = intl.formatMessage(
             messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
           );
+          trackError(result.error.message);
           await navigateWithToast(redirectPath, () =>
             toast.error(errorMessage),
           );
         } else {
+          trackError(genericErrorMessage);
           // Fallback to generic message
           await navigateWithToast(redirectPath, () =>
             toast.error(genericErrorMessage),
