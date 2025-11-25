@@ -661,8 +661,8 @@ type PoolCandidate {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  isBookmarked: Boolean
-    @rename(attribute: "is_bookmarked")
+  isFlagged: Boolean
+    @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
   removedAt: DateTime
     @rename(attribute: "removed_at")
@@ -740,7 +740,7 @@ type PoolCandidateAdminView {
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
   notes: String
-  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
+  isFlagged: Boolean @rename(attribute: "is_flagged")
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
@@ -1469,7 +1469,7 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
-  useBookmark: Boolean
+  useFlag: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -2229,7 +2229,7 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
-  isBookmarked: Boolean
+  isFlagged: Boolean
 }
 
 input UpdateClassificationInput {
@@ -3198,10 +3198,10 @@ type Mutation {
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
-  togglePoolCandidateBookmark(id: ID!): Boolean
+  togglePoolCandidateFlag(id: ID!): Boolean
     @guard
     @canFind(
-      ability: "updateBookmark"
+      ability: "updateFlag"
       find: "id"
       model: "PoolCandidate"
       injectArgs: true
