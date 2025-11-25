@@ -1,4 +1,5 @@
 import { defineConfig } from "vitest/config";
+import { playwright } from "@vitest/browser-playwright";
 import { uiConfig } from "@gc-digital-talent/vitest-helpers/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,7 +55,7 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: "playwright",
+            provider: playwright(),
             instances: [
               {
                 browser: "chromium",
