@@ -120,7 +120,7 @@ const MoreActions = ({
 
   const currentStepName =
     // NOTE: Localized can be empty string so || is more suitable
-
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     poolCandidate.assessmentStep?.title?.localized ||
     poolCandidate.assessmentStep?.type?.label?.localized;
 
@@ -178,7 +178,7 @@ const MoreActions = ({
         )}
 
         {isRevertableStatus(status) &&
-          !(poolCandidate.finalDecision.value !== FinalDecision.Removed) && (
+          !(poolCandidate.finalDecision?.value !== FinalDecision.Removed) && (
             <StatusLabel>
               <RevertFinalDecisionDialog
                 revertFinalDecisionQuery={poolCandidate}
