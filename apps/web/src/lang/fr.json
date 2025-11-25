@@ -391,6 +391,10 @@
     "defaultMessage": "S’engager à apprendre tout au long du programme, tant au travail qu’en suivant un programme de formation en ligne",
     "description": "IAP Requirement list item five"
   },
+  "/b2fVO": {
+    "defaultMessage": "<strong>{name}</strong> a ajouté",
+    "description": "Label for activity log item added action"
+  },
   "/dy2CX": {
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
@@ -482,6 +486,10 @@
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
+  },
+  "01ETLy": {
+    "defaultMessage": "<strong>{name}</strong> a supprimé",
+    "description": "Label for activity log item deleted action"
   },
   "030Tsr": {
     "defaultMessage": "Fonds de formation et de perfectionnement de la collectivité de la TI",
@@ -2606,6 +2614,10 @@
   "9ALMEp": {
     "defaultMessage": "Informations complémentaires",
     "description": "Title for the about section of a pool advertisement"
+  },
+  "9AdLMt": {
+    "defaultMessage": "<strong>{name}</strong> a mis à jour",
+    "description": "Label for activity log item updated action"
   },
   "9CAhAX": {
     "defaultMessage": "Accessibilité des plateformes de médias sociaux",
@@ -6947,6 +6959,10 @@
     "defaultMessage": "Toute durée",
     "description": "Option label for allowing any employment duration"
   },
+  "SxjOxL": {
+    "defaultMessage": "Registre des activités",
+    "description": "Heading for the activity log for some resource"
+  },
   "T+fhB+": {
     "defaultMessage": "Décision finale annulée",
     "description": "Message displayed when a pool candidate final decision has been updated by an admin"
@@ -10981,6 +10997,10 @@
     "defaultMessage": "Note spéciale",
     "description": "Label for a process special note"
   },
+  "kDTREC": {
+    "defaultMessage": "Le registre des activités est vide",
+    "description": "Title for when an activity log has no items"
+  },
   "kHypfJ": {
     "defaultMessage": "Du concept au code",
     "description": "Title for how the platform was created"
@@ -12733,6 +12753,10 @@
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
   },
+  "sEmaen": {
+    "defaultMessage": "Les renseignements sur les activités s'afficheront ici dès qu'ils seront disponibles.",
+    "description": "Description for when an activity log has no items"
+  },
   "sF6S0Z": {
     "defaultMessage": "Enregistrer les détails de la publicité",
     "description": "Text on a button to save advertisement details"
@@ -14244,6 +14268,10 @@
   "yzvT6g": {
     "defaultMessage": "Ajoutez un rôle dans la collectivité",
     "description": "Button label for the form to add a community membership to a user"
+  },
+  "z+Pc2D": {
+    "defaultMessage": "<strong>{name}</strong> a créé",
+    "description": "Label for activity log item created action"
   },
   "z+emiI": {
     "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, que vous êtes membre d’une des collectivités fonctionnelles auxquelles cette plateforme offre du soutien et que vous vous reconnaissez dans l’une des descriptions suivantes, nous serons peut-être en mesure de vous aider.",
