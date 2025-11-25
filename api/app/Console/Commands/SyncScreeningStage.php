@@ -29,7 +29,7 @@ class SyncScreeningStage extends Command
      */
     public function handle()
     {
-        PoolCandidate::chunk(100, function (Collection $candidates) {
+        PoolCandidate::with('user')->chunk(100, function (Collection $candidates) {
             foreach ($candidates as $candidate) {
                 $stage = match ($candidate->pool_candidate_status) {
                     PoolCandidateStatus::NEW_APPLICATION->name => ScreeningStage::NEW_APPLICATION->name,
