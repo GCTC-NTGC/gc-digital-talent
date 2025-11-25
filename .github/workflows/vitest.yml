@@ -43,7 +43,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
-        run: npx playwright install chromium webkit --with-deps
+        run: npx playwright install chromium --with-deps
 
       - name: Clean up pnpm store
         run: pnpm store prune
