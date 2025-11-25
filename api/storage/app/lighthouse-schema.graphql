@@ -568,6 +568,7 @@ type Mutation {
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
+  updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
   qualifyCandidate(id: UUID!, poolCandidate: QualifyCandidateInput!): PoolCandidate
@@ -2189,6 +2190,17 @@ input UpdatePoolCandidateClaimVerificationInput {
   priorityVerificationExpiry: Date
 }
 
+input UpdatePoolCandidateScreeningStageInput {
+  id: UUID!
+  screeningStage: ScreeningStage!
+  assessmentStep: AssessmentStepBelongsTo
+}
+
+input AssessmentStepBelongsTo {
+  connect: UUID
+  disconnect: Boolean
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
 }
@@ -3671,6 +3683,11 @@ enum ErrorCode {
   CANDIDATE_UNEXPECTED_STATUS
   REMOVE_CANDIDATE_ALREADY_PLACED
   REMOVE_CANDIDATE_ALREADY_REMOVED
+  SCREENING_STAGE_REQUIRED
+  SCREENING_STAGE_EXISTS
+  SCREENING_STAGE_NOT_UNDER_ASSESSMENT
+  ASSESSMENT_STEP_PROHIBITED
+  ASSESSMENT_STEP_CANDIDATE_SAME_POOL
   POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
   POOL_SKILL_NOT_VALID
   TEAM_ID_REQUIRED

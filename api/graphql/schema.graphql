@@ -2267,6 +2267,17 @@ input UpdatePoolCandidateClaimVerificationInput @validator {
     @rename(attribute: "priority_verification_expiry")
 }
 
+input UpdatePoolCandidateScreeningStageInput @validator {
+  id: UUID!
+  screeningStage: ScreeningStage! @rename(attribute: "screening_stage")
+  assessmentStep: AssessmentStepBelongsTo
+}
+
+input AssessmentStepBelongsTo {
+  connect: UUID
+  disconnect: Boolean
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
 }
@@ -3218,6 +3229,11 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateNotes", find: "id")
+  updatePoolCandidateScreeningStage(
+    poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   removeCandidate(
     id: UUID!
     removalReason: CandidateRemovalReason!
