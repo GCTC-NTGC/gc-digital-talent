@@ -9,11 +9,13 @@ use App\Models\PoolSkill;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class AssessmentStepPoolConsistent implements ValidationRule
+class AssessmentResultPoolConsistent implements ValidationRule
 {
     private $parentAssessmentStep;
 
     private $parentPoolCandidate;
+
+    private $parentPoolSkill;
 
     /**
      * Create a new rule instance.
