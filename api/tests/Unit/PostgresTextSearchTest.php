@@ -97,23 +97,23 @@ class PostgresTextSearchTest extends TestCase
             ],
             'prefix, removes terms with invalid patterns' => [
                 'matchingType' => 'PREFIX',
-                'searchString' => 'term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! ! ( ) < >',
+                'searchString' => "term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! ! ( ) < > term10'",
                 'expectedOutput' => '',
             ],
             'exact, removes terms with invalid patterns' => [
                 'matchingType' => 'EXACT',
-                'searchString' => 'term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! ! ( ) < >',
+                'searchString' => "term1& &term2 term3| |term4 :term5 te:rm6 term7: term!8 term9! ! ( ) < > term10'",
                 'expectedOutput' => '',
             ],
             'prefix, allows terms with valid patterns' => [
                 'matchingType' => 'PREFIX',
-                'searchString' => 'te&rm1 te|rm2 !term3',
-                'expectedOutput' => 'te&rm1:* & te|rm2:* & !term3:*',
+                'searchString' => "te&rm1 te|rm2 !term3 'term4 te'rm5",
+                'expectedOutput' => "te&rm1:* & te|rm2:* & !term3:* & 'term4:* & te'rm5:*",
             ],
             'exact, allows terms with valid patterns' => [
                 'matchingType' => 'EXACT',
-                'searchString' => 'te&rm1 te|rm2 !term3',
-                'expectedOutput' => 'te&rm1 & te|rm2 & !term3',
+                'searchString' => "te&rm1 te|rm2 !term3 'term4 te'rm5",
+                'expectedOutput' => "te&rm1 & te|rm2 & !term3 & 'term4 & te'rm5",
             ],
         ];
     }
