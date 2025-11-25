@@ -45,6 +45,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium webkit --with-deps
 
+      - name: Clean up pnpm store
+        run: pnpm store prune
+
       - name: "Setup: all workspaces"
         working-directory: ./
         run: |
