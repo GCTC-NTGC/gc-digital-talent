@@ -42,14 +42,10 @@ final class UpdatePoolCandidateScreeningStageInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'screeningStage' => [
-                'required' => ErrorCode::SCREENING_STAGE_REQUIRED->name,
-                'in' => ErrorCode::SCREENING_STAGE_EXISTS->name,
-            ],
-            'assessmentStep.connect' => [
-                'prohibited' => ErrorCode::SCREENING_STAGE_NOT_UNDER_ASSESSMENT->name,
-                'exists' => ErrorCode::ASSESSMENT_STEP_CANDIDATE_SAME_POOL->name,
-            ],
+            'screeningStage.required' => ErrorCode::SCREENING_STAGE_REQUIRED->name,
+            'screeningStage.in' => ErrorCode::SCREENING_STAGE_EXISTS->name,
+            'assessmentStep.connect.prohibited' => ErrorCode::SCREENING_STAGE_NOT_UNDER_ASSESSMENT->name,
+            'assessmentStep.connect.exists' => ErrorCode::ASSESSMENT_STEP_CANDIDATE_SAME_POOL->name,
         ];
     }
 }
