@@ -22,7 +22,11 @@ class PostgresTextSearch
         '\|$'.'|'.      // | at the end
         ':'.'|'.        // : anywhere
         '^.+?\!'.'|'.   // ! not at the beginning
-        '^\!$'.         // ! at the end
+        '^\!$'.'|'.     // ! at the end
+        '\('.'|'.       // ( anywhere
+        '\)'.'|'.       // ) anywhere
+        '<'.'|'.        // < anywhere
+        '>'.            // > anywhere
         '/';
 
     // convert a search string to query text with prefix matching
