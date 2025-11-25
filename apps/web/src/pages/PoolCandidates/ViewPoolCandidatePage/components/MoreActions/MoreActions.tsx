@@ -4,7 +4,12 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 import { useQuery } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FinalDecision,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -69,7 +74,9 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-
+    finalDecision {
+      value
+    }
     removalReason {
       label {
         localized
@@ -113,7 +120,7 @@ const MoreActions = ({
 
   const currentStepName =
     // NOTE: Localized can be empty string so || is more suitable
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+
     poolCandidate.assessmentStep?.title?.localized ||
     poolCandidate.assessmentStep?.type?.label?.localized;
 
@@ -170,13 +177,14 @@ const MoreActions = ({
           </div>
         )}
 
-        {isRevertableStatus(status) && (
-          <StatusLabel>
-            <RevertFinalDecisionDialog
-              revertFinalDecisionQuery={poolCandidate}
-            />
-          </StatusLabel>
-        )}
+        {isRevertableStatus(status) &&
+          !(poolCandidate.finalDecision.value !== FinalDecision.Removed) && (
+            <StatusLabel>
+              <RevertFinalDecisionDialog
+                revertFinalDecisionQuery={poolCandidate}
+              />
+            </StatusLabel>
+          )}
 
         {isQualifiedStatus(status) && (
           <>
