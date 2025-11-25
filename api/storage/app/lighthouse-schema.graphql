@@ -303,6 +303,11 @@ type LocalizedPublishingGroup implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedScreeningStage implements LocalizedEnumOption {
+  value: ScreeningStage!
+  label: LocalizedString!
+}
+
 type LocalizedSecurityStatus implements LocalizedEnumOption {
   value: SecurityStatus!
   label: LocalizedString!
@@ -1165,6 +1170,7 @@ type PoolCandidate {
   category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
   statusWeight: Int
+  screeningStage: LocalizedScreeningStage
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime
@@ -1208,6 +1214,7 @@ type PoolCandidateAdminView {
   submittedAt: DateTime
   suspendedAt: DateTime
   status: LocalizedPoolCandidateStatus
+  screeningStage: LocalizedScreeningStage
   notes: String
   isBookmarked: Boolean
   category: PoolCandidateCategory
@@ -4018,6 +4025,13 @@ enum PublishingGroup {
   IT_JOBS
   EXECUTIVE_JOBS
   OTHER
+}
+
+enum ScreeningStage {
+  NEW_APPLICATION
+  APPLICATION_REVIEW
+  SCREENED_IN
+  UNDER_ASSESSMENT
 }
 
 enum SecurityStatus {

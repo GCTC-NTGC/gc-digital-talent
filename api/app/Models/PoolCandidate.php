@@ -69,6 +69,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array $flexible_work_locations
  * @property array<string> $education_requirement_experience_ids
  * @property string $assessment_step_id
+ * @property string $screening_stage
  */
 class PoolCandidate extends Model
 {
@@ -121,6 +122,7 @@ class PoolCandidate extends Model
         'priority_verification',
         'priority_verification_expiry',
         'is_bookmarked',
+        'screening_stage',
         'assessment_step_id',
     ];
 
