@@ -602,7 +602,7 @@ class PoolCandidateBuilder extends Builder
                 ->select('users.citizenship', 'pool_candidates.*');
 
             if (isset($args['useBookmark']) && $args['useBookmark']) {
-                $this->orderBy('is_bookmarked', 'DESC');
+                $this->orderBy('is_flagged', 'DESC');
             }
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
