@@ -29,7 +29,7 @@ class UpdateUserTextSearchIndexes extends Command
         $successCount = 0;
         $failureCount = 0;
 
-        $users = User::all()->toQuery();
+        $users = User::query();
         $userCount = $users->count();
 
         if ($this->confirm('Do you wish to update '.$userCount.' user text search indexes?')) {
