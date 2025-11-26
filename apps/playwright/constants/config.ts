@@ -5,13 +5,5 @@ const testConfig = {
     platformAdminSignIn: process.env.PLATFORM_ADMIN ?? `platform@test.com`,
     applicantSignIn: process.env.APPLICANT ?? `applicant@test.com`,
   },
-
-  departments: {
-    url: "/en/admin/settings/departments",
-  },
-
-  users: {
-    url: "/en/admin/users",
-  },
 };
 export default testConfig;

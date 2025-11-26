@@ -42,7 +42,7 @@ type DepartmentType = keyof DepartmentTypeInput;
  */
 class Department extends AppPage {
   readonly locators: Record<Field, Locator>;
-  readonly baseUrl: string = dConfig.departments.url;
+  readonly baseUrl: string = "/en/admin/settings/departments";
   readonly sizeMap = new Map<DepartmentSize, string>([
     [DepartmentSize.Micro, "Micro (up to 250 employees)"],
     [DepartmentSize.Small, "Small (up to 1000 employees)"],
