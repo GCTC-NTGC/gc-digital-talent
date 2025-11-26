@@ -38,6 +38,9 @@ final class ReinstateCandidate
         $candidate->removal_reason = null;
         $candidate->removal_reason_other = null;
 
+        [$currentStepId] = $candidate->computeAssessmentStatus();
+        $candidate->assessment_step_id = $currentStepId;
+
         $candidate->save();
 
         return $candidate;

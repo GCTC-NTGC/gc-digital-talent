@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -12,9 +12,12 @@ import {
   workEmailDomainRegex,
 } from "@gc-digital-talent/helpers";
 
-import { useEmailVerification } from "./EmailVerification";
+import {
+  getTooManyRequestsExtension,
+  getValidationExtension,
+} from "~/utils/graphqlExtensions";
 
-export const CODE_REQUEST_THROTTLE_DELAY_S = 60;
+import { useEmailVerification } from "./EmailVerification";
 
 export const labels: Record<EmailType, MessageDescriptor> = {
   WORK: commonMessages.workEmail,
@@ -61,8 +64,6 @@ const RequestVerificationCodeForm = ({
 
   const [, executeMutation] = useMutation(SendUserEmailsVerification_Mutation);
 
-  const [canRequestCode, setCanRequestCode] = useState<boolean>(true); // can the user request a code (or do they have to wait)
-
   const formMethods = useForm<FormValues>({
     defaultValues: {
       emailType: dialogEmailType,
@@ -72,41 +73,14 @@ const RequestVerificationCodeForm = ({
 
   const watchEmailAddressInput = formMethods.watch("emailAddress");
 
-  const timerIdRef = useRef<ReturnType<typeof setTimeout>>(null); // timer for throttling requests
-
-  const isThereAnEmailInUseError = (
-    result: Awaited<ReturnType<typeof executeMutation>>,
-  ): boolean =>
-    result.error?.graphQLErrors.some((graphQLError) => {
-      const validationErrors = graphQLError.extensions.validation;
-
-      if (
-        !!validationErrors &&
-        typeof validationErrors === "object" &&
-        "sendUserEmailsVerificationInput.emailAddress" in validationErrors &&
-        Array.isArray(
-          validationErrors["sendUserEmailsVerificationInput.emailAddress"],
-        )
-      ) {
-        return validationErrors[
-          "sendUserEmailsVerificationInput.emailAddress"
-        ].some(
-          (validationError) => validationError === ErrorCode.EmailAddressInUse,
-        );
-      }
-      return false;
-    }) ?? false;
-
   const submitHandler: SubmitHandler<FormValues> = ({
     emailAddress,
     emailType,
   }): Promise<void> => {
     setRequestCodeMessage(null);
     setSubmitCodeMessage(null);
-    if (!canRequestCode) {
-      setRequestCodeMessage("throttled");
-      return Promise.resolve();
-    }
+    setEmailAddressContacted(emailAddress);
+
     let emailTypes: EmailType[];
     switch (emailType) {
       case EmailType.Contact.toString():
@@ -130,7 +104,19 @@ const RequestVerificationCodeForm = ({
         emailTypes,
       },
     }).then((result) => {
-      if (isThereAnEmailInUseError(result)) {
+      // check for the email being already in use
+      const validationErrors =
+        result.error?.graphQLErrors
+          .map((e) => getValidationExtension(e.extensions))
+          .filter(notEmpty) ?? [];
+
+      if (
+        validationErrors.some((extension) =>
+          extension["sendUserEmailsVerificationInput.emailAddress"].includes(
+            ErrorCode.EmailAddressInUse,
+          ),
+        )
+      ) {
         formMethods.setError(
           "emailAddress",
           {
@@ -144,15 +130,27 @@ const RequestVerificationCodeForm = ({
           { shouldFocus: true },
         );
       }
+
+      // check if we're being throttled
+      const tooManyRequestsErrors =
+        result.error?.graphQLErrors
+          .map((e) => getTooManyRequestsExtension(e.extensions))
+          .filter(notEmpty) ?? [];
+
+      if (tooManyRequestsErrors.length) {
+        setRequestCodeMessage({
+          code: "throttled",
+          remainingSeconds: tooManyRequestsErrors[0].remaining_seconds,
+        });
+      }
+
       if (!result.data?.sendUserEmailsVerification?.id) {
         throw new Error("Send email error");
       }
     });
 
     return mutationResult.then(() => {
-      setRequestCodeMessage("request-sent");
-      setCanRequestCode(false);
-      setEmailAddressContacted(emailAddress);
+      setRequestCodeMessage({ code: "request-sent" });
     });
   };
 
@@ -166,46 +164,22 @@ const RequestVerificationCodeForm = ({
       sentAddress != formAddress
     ) {
       // show message
-      setRequestCodeMessage("address-changed");
-      setCanRequestCode(true);
+      setRequestCodeMessage({ code: "address-changed" });
     } else if (
       notEmpty(sentAddress) &&
       notEmpty(formAddress) &&
       sentAddress == formAddress &&
-      requestCodeMessage == "address-changed"
+      requestCodeMessage?.code == "address-changed"
     ) {
       // clear message if they undo the change
       setRequestCodeMessage(null);
     }
   }, [
     emailAddressContacted,
-    requestCodeMessage,
+    requestCodeMessage?.code,
     setRequestCodeMessage,
     watchEmailAddressInput,
   ]);
-
-  useEffect(() => {
-    // When the user can't request a code (for example, they justed request one) then wait before allowing it again.
-    if (!canRequestCode) {
-      timerIdRef.current = setTimeout(() => {
-        setCanRequestCode(true);
-        setRequestCodeMessage(null);
-      }, CODE_REQUEST_THROTTLE_DELAY_S * 1000);
-    }
-
-    // When the user can request a code (for example, the timer expired) then remove the timer
-    if (canRequestCode) {
-      if (timerIdRef.current) {
-        clearTimeout(timerIdRef.current);
-      }
-    }
-
-    return () => {
-      if (timerIdRef.current) {
-        clearTimeout(timerIdRef.current);
-      }
-    };
-  }, [canRequestCode, setRequestCodeMessage]);
 
   return (
     <FormProvider {...formMethods}>

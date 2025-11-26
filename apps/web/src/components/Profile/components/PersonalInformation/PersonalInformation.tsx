@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 import { ReactNode } from "react";
 
 import {
-  Alert,
+  Notice,
   Link,
   Loading,
   ToggleSection,
@@ -74,7 +74,8 @@ interface PersonalInformationProps extends SectionProps<Pick<Pool, "id">> {
   query: FragmentType<typeof ProfilePersonalInformation_Fragment>;
 }
 
-const AlertDismissedKey = "dismissed_alert_account_settings_collection_changed";
+const NoticeDismissedKey =
+  "dismissed_alert_account_settings_collection_changed";
 
 const PersonalInformation = ({
   query,
@@ -85,8 +86,8 @@ const PersonalInformation = ({
   const intl = useIntl();
   const paths = useRoutes();
   const user = getFragment(ProfilePersonalInformation_Fragment, query);
-  const [alertIsDismissed, setAlertIsDismissed] = useLocalStorage<boolean>(
-    AlertDismissedKey,
+  const [alertIsDismissed, setNoticeIsDismissed] = useLocalStorage<boolean>(
+    NoticeDismissedKey,
     false,
   );
   const isNull = hasAllEmptyFields(user);
@@ -160,34 +161,33 @@ const PersonalInformation = ({
         })}
       </p>
       {!alertIsDismissed ? (
-        <Alert.Root
-          type="info"
-          dismissible
-          onDismiss={() => setAlertIsDismissed(true)}
-          live={false}
-        >
-          <Alert.Title>
+        <Notice.Root onDismiss={() => setNoticeIsDismissed(true)} mode="card">
+          <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage:
                 "We’ve changed how we collect employee information",
               id: "ozb92E",
               description: "title for alert about changed collection",
             })}
-          </Alert.Title>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your <a>career experience</a>. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
-              id: "vj9jcO",
-              description: "body for alert about changed collection",
-            },
-            {
-              a: (chunks: ReactNode) => (
-                <Link href={paths.careerTimeline()}>{chunks}</Link>
-              ),
-            },
-          )}
-        </Alert.Root>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your <a>career experience</a>. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
+                  id: "vj9jcO",
+                  description: "body for alert about changed collection",
+                },
+                {
+                  a: (chunks: ReactNode) => (
+                    <Link href={paths.careerTimeline()}>{chunks}</Link>
+                  ),
+                },
+              )}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       ) : null}
       {pool && emptyRequired && (
         <Well color="error">

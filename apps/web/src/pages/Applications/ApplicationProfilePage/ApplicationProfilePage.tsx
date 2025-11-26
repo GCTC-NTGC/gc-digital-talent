@@ -16,6 +16,7 @@ import LanguageProfile from "~/components/Profile/components/LanguageProfile/Lan
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
 import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
+import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
 
 import StepNavigation from "./components/StepNavigation";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -117,7 +118,10 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         <div>
           <DiversityEquityInclusion {...sectionProps} />
         </div>
-        <GovernmentInformation {...sectionProps} />
+        <PriorityEntitlements {...sectionProps} />
+        <GovernmentInformation
+          query={application.user as UserProfileFragment}
+        />
         <LanguageProfile
           {...sectionProps}
           application={{
