@@ -8,6 +8,7 @@ import { getLabels as getWorkLabels } from "~/utils/workPreferenceUtils";
 
 import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
 import { getLabels as getGovLabels } from "./components/GovernmentInformation/utils";
+import { getLabels as getPriorityLabels } from "./components/PriorityEntitlements/utils";
 import { SectionKey } from "./types";
 
 const sectionTitles = new Map<SectionKey, MessageDescriptor>([
@@ -28,6 +29,14 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
     }),
   ],
   ["dei", defineMessage(navigationMessages.diversityEquityInclusion)],
+  [
+    "priority",
+    defineMessage({
+      defaultMessage: "Priority entitlements",
+      id: "/HdHpe",
+      description: "Title for the priority entitlements section",
+    }),
+  ],
   [
     "government",
     defineMessage({
@@ -58,6 +67,7 @@ type LabelAccessorFunc = (intl: IntlShape) => FieldLabels;
 const labelAccessorMap = new Map<SectionKey, LabelAccessorFunc>([
   ["personal", getPersonalLabels],
   ["work", getWorkLabels],
+  ["priority", getPriorityLabels],
   ["government", getGovLabels],
   ["language", getLangLabels],
 ]);

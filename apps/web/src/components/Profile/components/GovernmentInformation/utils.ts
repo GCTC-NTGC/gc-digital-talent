@@ -1,141 +1,10 @@
 import { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
-import { boolToYesNo } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  Classification,
-  GovEmployeeType,
-  ProfileGovernmentInformationFragment,
-  UpdateUserAsUserInput,
-  User,
-} from "@gc-digital-talent/graphql";
+import { Classification } from "@gc-digital-talent/graphql";
 
 import { splitAndJoin } from "~/utils/nameUtils";
-
-import { FormValues } from "./types";
-
-/**
- * Take classification group + level from data, return the matching classification from API
- * need to fit to the expected type when this function is called in formToData
- *
- * @param group
- * @param level
- * @param classifications
- * @returns
- */
-const classificationFormToId = (
-  group: string | undefined,
-  level: string | undefined,
-  classifications: Pick<Classification, "group" | "level" | "id">[],
-): string | undefined => {
-  return classifications.find(
-    (classification) =>
-      classification.group === group && classification.level === Number(level),
-  )?.id;
-};
-
-export const formValuesToSubmitData = (
-  values: FormValues,
-  userId: User["id"],
-  classifications: Pick<Classification, "group" | "level" | "id">[],
-): UpdateUserAsUserInput => {
-  const classificationId = classificationFormToId(
-    values.currentClassificationGroup,
-    values.currentClassificationLevel,
-    classifications,
-  );
-
-  // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
-  // IE, picks term position and IT-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
-  if (values.govEmployeeYesNo === "no") {
-    return {
-      id: userId,
-      isGovEmployee: false,
-      govEmployeeType: null,
-      department: { disconnect: true },
-      currentClassification: {
-        disconnect: true,
-      },
-      hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-      priorityNumber:
-        values.priorityEntitlementYesNo === "yes" &&
-        values.priorityEntitlementNumber
-          ? values.priorityEntitlementNumber
-          : null,
-    };
-  }
-  if (values.govEmployeeType === GovEmployeeType.Student) {
-    return {
-      id: userId,
-      isGovEmployee: values.govEmployeeYesNo === "yes",
-      govEmployeeType: values.govEmployeeType,
-      department: values.department ? { connect: values.department } : null,
-      currentClassification: {
-        disconnect: true,
-      },
-      hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-      priorityNumber:
-        values.priorityEntitlementYesNo === "yes" &&
-        values.priorityEntitlementNumber
-          ? values.priorityEntitlementNumber
-          : null,
-    };
-  }
-  if (values.govEmployeeType === GovEmployeeType.Casual) {
-    return {
-      id: userId,
-      isGovEmployee: values.govEmployeeYesNo === "yes",
-      govEmployeeType: values.govEmployeeType,
-      department: values.department ? { connect: values.department } : null,
-      currentClassification: classificationId
-        ? {
-            connect: classificationId,
-          }
-        : null,
-      hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-      priorityNumber:
-        values.priorityEntitlementYesNo === "yes" &&
-        values.priorityEntitlementNumber
-          ? values.priorityEntitlementNumber
-          : null,
-    };
-  }
-  return {
-    id: userId,
-    isGovEmployee: values.govEmployeeYesNo === "yes",
-    govEmployeeType: values.govEmployeeType,
-    department: values.department ? { connect: values.department } : null,
-    currentClassification: classificationId
-      ? {
-          connect: classificationId,
-        }
-      : null,
-    hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-    priorityNumber:
-      values.priorityEntitlementYesNo === "yes" &&
-      values.priorityEntitlementNumber
-        ? values.priorityEntitlementNumber
-        : null,
-  };
-};
-
-export const dataToFormValues = (
-  data: ProfileGovernmentInformationFragment,
-): FormValues => {
-  return {
-    govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
-    priorityEntitlementYesNo: boolToYesNo(data?.hasPriorityEntitlement),
-    priorityEntitlementNumber: data?.priorityNumber ?? undefined,
-    govEmployeeType: data?.govEmployeeType?.value,
-    lateralDeployBool: undefined,
-    department: data?.department?.id,
-    currentClassificationGroup: data?.currentClassification?.group,
-    currentClassificationLevel: data?.currentClassification?.level
-      ? String(data.currentClassification.level)
-      : undefined,
-  };
-};
 
 export const getLabels = (intl: IntlShape) => ({
   govEmployeeYesNo: intl.formatMessage({
@@ -162,17 +31,6 @@ export const getLabels = (intl: IntlShape) => ({
     defaultMessage: "Current Classification Level",
     id: "gnGAe8",
     description: "Label displayed on classification level input",
-  }),
-  priorityEntitlementYesNo: intl.formatMessage({
-    defaultMessage: "Do you have a priority entitlement?",
-    id: "/h9mNu",
-    description: "Priority Entitlement Status in Government Info Form",
-  }),
-  priorityEntitlementNumber: intl.formatMessage({
-    defaultMessage:
-      "Priority number provided by the Public Service Commission of Canada",
-    id: "5G+j56",
-    description: "Label for priority number input",
   }),
 });
 
