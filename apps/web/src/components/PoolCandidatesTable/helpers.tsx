@@ -1,6 +1,6 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
-import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
+import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 
 import {
   Locales,
@@ -49,9 +49,9 @@ import processMessages from "~/messages/processMessages";
 
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
-import CandidateBookmark, {
-  PoolCandidate_BookmarkFragment,
-} from "../CandidateBookmark/CandidateBookmark";
+import CandidateFlag, {
+  PoolCandidate_FlagFragment,
+} from "../CandidateFlag/CandidateFlag";
 
 export const priorityCell = (
   weight: number,
@@ -228,14 +228,14 @@ export const candidateFacingStatusCell = (
   return label;
 };
 
-export const bookmarkCell = (
-  candidate: FragmentType<typeof PoolCandidate_BookmarkFragment>,
+export const flagCell = (
+  candidate: FragmentType<typeof PoolCandidate_FlagFragment>,
 ) => {
-  return <CandidateBookmark candidateQuery={candidate} size="lg" />;
+  return <CandidateFlag candidateQuery={candidate} size="lg" />;
 };
 
-export const bookmarkHeader = (intl: IntlShape) => (
-  <BookmarkIcon
+export const flagHeader = (intl: IntlShape) => (
+  <FlagIcon
     className="size-6"
     aria-label={intl.formatMessage(tableMessages.bookmark)}
   />
@@ -357,7 +357,7 @@ function transformSortStateToOrderByClause(
 export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-  doNotUseBookmark?: boolean,
+  doNotUseFlag?: boolean,
 ):
   | QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[]
   | undefined {
@@ -371,9 +371,7 @@ export function getSortOrder(
   }
 
   return [
-    ...(doNotUseBookmark
-      ? []
-      : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
+    ...(doNotUseFlag ? [] : [{ column: "is_flagged", order: SortOrder.Desc }]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [
@@ -386,7 +384,7 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  doNotUseBookmark?: boolean,
+  doNotUseFlag?: boolean,
 ): Maybe<ClaimVerificationSort> {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
@@ -394,7 +392,7 @@ export function getClaimVerificationSort(
     if (sortOrder) {
       return {
         order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
-        useBookmark: !doNotUseBookmark,
+        useFlag: !doNotUseFlag,
       };
     }
   }

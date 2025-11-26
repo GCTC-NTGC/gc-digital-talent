@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
-import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
-import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
+import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
+import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -56,10 +56,10 @@ const CandidateFlag = ({
     });
   return (
     <IconButton
-      color={isFlagged ? "secondary" : "black"}
+      color={isFlagged ? "warning" : "black"}
       onClick={toggleFlag}
       disabled={isUpdatingFlag}
-      icon={isFlagged ? BookmarkIconSolid : BookmarkIconOutline}
+      icon={isFlagged ? FlagIconSolid : FlagIconOutline}
       size={size}
       label={
         isFlagged

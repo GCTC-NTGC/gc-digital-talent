@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/16/solid/UserCircleIcon";
-import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
-import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
+import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
+import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 import { useQuery } from "urql";
 
 import {
@@ -25,7 +25,7 @@ import {
   isRevertableStatus,
   isRODStatus,
 } from "~/utils/poolCandidate";
-import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
@@ -62,7 +62,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    isBookmarked
+    isFlagged
     assessmentStep {
       sortOrder
       title {
@@ -105,9 +105,9 @@ const MoreActions = ({
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
-  const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
+  const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
     id: poolCandidate.id,
-    defaultValue: poolCandidate.isBookmarked ?? false,
+    defaultValue: poolCandidate.isFlagged ?? false,
   });
 
   const candidateName = getFullNameLabel(
@@ -120,8 +120,7 @@ const MoreActions = ({
 
   const currentStepName =
     // NOTE: Localized can be empty string so || is more suitable
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-    poolCandidate.assessmentStep?.title?.localized ||
+    // e  poolCandidate.assessmentStep?.title?.localized ||
     poolCandidate.assessmentStep?.type?.label?.localized;
 
   const status = poolCandidate.status?.value;
@@ -236,10 +235,10 @@ const MoreActions = ({
           mode="inline"
           color="black"
           className="text-left"
-          icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-          onClick={toggleBookmark}
+          icon={isFlagged ? FlagIconSolid : FlagIconOutline}
+          onClick={toggleFlag}
         >
-          {isBookmarked
+          {isFlagged
             ? intl.formatMessage({
                 defaultMessage: "Remove bookmark",
                 id: "27mGKw",
