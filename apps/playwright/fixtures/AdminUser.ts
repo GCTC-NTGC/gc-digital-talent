@@ -15,7 +15,7 @@ export type Name = ObjectValues<typeof NAME>;
  * Page containing utilities to interact with users in the admin interface
  */
 class AdminUser extends AppPage {
-  readonly baseUrl: string = "/en/admin/user";
+  readonly baseUrl: string = "/en/admin/users";
   readonly locators: Record<Name, Locator>;
 
   constructor(page: Page) {

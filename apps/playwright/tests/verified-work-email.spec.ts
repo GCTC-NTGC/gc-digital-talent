@@ -26,10 +26,10 @@ test.describe("Verified work email", () => {
     const verifiedUser = await createUserWithRoles(adminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
-        email: `verified.contact@test.com`,
+        email: `verified.contact.${testId}@test.com`,
         sub: verifiedSub,
         workEmail: verifiedSub,
-        workEmailVerifiedAt: FAR_PAST_DATE,
+        workEmailVerifiedAt: `${FAR_PAST_DATE} 00:00:00`,
       },
     });
 
@@ -41,7 +41,7 @@ test.describe("Verified work email", () => {
     const unverifiedUser = await createUserWithRoles(adminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
-        email: `unverified.contact@test.com`,
+        email: `unverified.contact.${testId}@test.com`,
         sub: unverifiedSub,
         workEmail: unverifiedSub,
         workEmailVerifiedAt: null,
@@ -66,7 +66,7 @@ test.describe("Verified work email", () => {
     ).toBeVisible();
   });
 
-  test("Verified user shows icon in admin", async ({ appPage }) => {
+  test("Verified user shows badge in admin", async ({ appPage }) => {
     const adminUser = new AdminUser(appPage.page);
     await loginBySub(adminUser.page, "admin@test.com");
     await adminUser.goToUser(verified.id);
@@ -74,7 +74,7 @@ test.describe("Verified work email", () => {
     await adminUser.locators.govInfoTrigger.click();
 
     await expect(
-      adminUser.page.getByText(new RegExp(`verified ${verified.sub}`, "i")),
+      adminUser.page.getByText(new RegExp(`${verified.sub} verified`, "i")),
     ).toBeVisible();
   });
 
@@ -98,7 +98,7 @@ test.describe("Verified work email", () => {
     ).toBeVisible();
   });
 
-  test("Unverified user does not show icon in admin", async ({ appPage }) => {
+  test("Unverified user does not show badge in admin", async ({ appPage }) => {
     const adminUser = new AdminUser(appPage.page);
     await loginBySub(adminUser.page, "admin@test.com");
     await adminUser.goToUser(unverified.id);
@@ -106,7 +106,7 @@ test.describe("Verified work email", () => {
     await adminUser.locators.govInfoTrigger.click();
 
     await expect(
-      adminUser.page.getByText(new RegExp(`verified ${verified.sub}`, "i")),
+      adminUser.page.getByText(new RegExp(`${verified.sub} verified`, "i")),
     ).toBeHidden();
 
     // Admins cannot verify other users work email
