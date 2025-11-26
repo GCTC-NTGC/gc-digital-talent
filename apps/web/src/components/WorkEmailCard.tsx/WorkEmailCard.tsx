@@ -97,6 +97,7 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
               {workEmailFragment.isWorkEmailVerified && (
                 <CheckCircleIcon
                   className="size-6 text-success"
+                  aria-hidden="false"
                   aria-label={intl.formatMessage({
                     defaultMessage: "Verified",
                     id: "GMglI5",

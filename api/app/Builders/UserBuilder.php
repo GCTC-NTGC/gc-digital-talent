@@ -8,6 +8,8 @@ use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
 use App\Models\User;
+use App\Utilities\PostgresTextSearch;
+use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -823,6 +825,47 @@ class UserBuilder extends Builder
                 }
             });
 
+        }
+
+        return $this;
+    }
+
+    public function whereGeneralSearchBeta(?string $searchTerm): self
+    {
+        $queryTextPrefixMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX);
+        $queryTextExactMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT);
+
+        if ($queryTextPrefixMatch && $queryTextExactMatch) {
+            $this
+                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
+                // attach the queries to every row to use for filtering
+                ->crossJoinSub(function ($query) use ($queryTextPrefixMatch, $queryTextExactMatch) {
+                    $query->selectRaw(
+                        'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS prefix_match_query',
+                        ['english', $queryTextPrefixMatch]
+                    );
+                    $query->selectRaw(
+                        'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS exact_match_query',
+                        ['english', $queryTextExactMatch]
+                    );
+                }, 'calculations')
+                // filter rows against the queries (OR)
+                ->where(function ($query) {
+                    $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.prefix_match_query');
+                    $query->orWhereColumn('user_search_indices.searchable', '@@', 'calculations.exact_match_query');
+                })
+                // add the calculated rank column to allow for ordering by text search rank
+                // weighting the exact matches a little heavier
+                ->addSelect(DB::raw(<<<'SQL'
+                        (
+                            (ts_rank(user_search_indices.searchable, calculations.prefix_match_query) * 0.9) +
+                            (ts_rank(user_search_indices.searchable, calculations.exact_match_query) * 1.1)
+                        ) / 2 AS search_rank
+                        SQL))
+                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
+                ->addSelect(['users.*'])
+                ->from('users')
+                ->orderByDesc('search_rank');
         }
 
         return $this;
