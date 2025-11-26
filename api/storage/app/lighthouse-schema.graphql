@@ -557,6 +557,7 @@ type Mutation {
   verifyUserEmail(emailType: EmailType, code: String!): User
   sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
   verifyUserEmails(code: String!): User
+  removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
@@ -1024,6 +1025,24 @@ type ScreeningQuestion {
   sortOrder: Int
 }
 
+type ActivityProperties {
+  attributes: JSON
+  old: JSON
+}
+
+type Activity {
+  id: ID!
+  causer: UserPublicProfile
+  subjectType: String
+  subjectId: UUID
+  properties: ActivityProperties
+  logName: String
+  event: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -1075,6 +1094,7 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
+  activities: [Activity!]
 }
 
 type GeneralQuestionResponse {
@@ -1638,6 +1658,7 @@ input UserFilterInput {
   workEmail: String
   name: String
   generalSearch: String
+  generalSearchBeta: String
   roles: [ID]
   trashed: Trashed
 }

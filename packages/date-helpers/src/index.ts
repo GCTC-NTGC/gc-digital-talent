@@ -13,6 +13,7 @@ import { Scalars } from "@gc-digital-talent/graphql";
 
 import { FormatDateOptions } from "./types";
 import {
+  DATETIME_FORMAT_LOCALIZED,
   DATETIME_FORMAT_STRING,
   DATE_FORMAT_STRING,
   DATE_FORMAT_LOCALIZED,
@@ -23,6 +24,7 @@ import {
 } from "./const";
 
 export {
+  DATETIME_FORMAT_LOCALIZED,
   DATETIME_FORMAT_STRING,
   DATE_FORMAT_STRING,
   DATE_FORMAT_LOCALIZED,
