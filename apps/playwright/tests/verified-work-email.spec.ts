@@ -90,6 +90,12 @@ test.describe("Verified work email", () => {
         new RegExp(`verified ${verified.sub}`, "i"),
       ),
     ).toBeHidden();
+
+    await expect(
+      accountSettings.page.getByRole("button", {
+        name: /re-verify work email/i,
+      }),
+    ).toBeVisible();
   });
 
   test("Unverified user does not show icon in admin", async ({ appPage }) => {
