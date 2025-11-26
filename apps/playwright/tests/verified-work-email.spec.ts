@@ -59,7 +59,9 @@ test.describe("Verified work email", () => {
     await loginBySub(accountSettings.page, verified.sub);
     await accountSettings.goToSettings();
 
-    await expect(accountSettings.page.getByRole("img", { name: /verified/i }).last()).toBeVisible();
+    await expect(
+      accountSettings.page.getByRole("img", { name: /verified/i }).last(),
+    ).toBeVisible();
     await expect(
       accountSettings.page.getByText(new RegExp(verified.sub, "i")),
     ).toBeVisible();
@@ -73,7 +75,9 @@ test.describe("Verified work email", () => {
     await adminUser.locators.govInfoTrigger.click();
 
     await expect(
-      adminUser.page.getByText(new RegExp(`${verified.sub}[\\s\\S]*verified`, "i")),
+      adminUser.page.getByText(
+        new RegExp(`${verified.sub}[\\s\\S]*verified`, "i"),
+      ),
     ).toBeVisible();
   });
 
@@ -84,7 +88,9 @@ test.describe("Verified work email", () => {
     await loginBySub(accountSettings.page, unverified.sub);
     await accountSettings.goToSettings();
 
-    await expect(accountSettings.page.getByRole("img", { name: /verified/i })).toBeHidden();
+    await expect(
+      accountSettings.page.getByRole("img", { name: /verified/i }),
+    ).toBeHidden();
 
     await expect(
       accountSettings.page.getByRole("button", {
@@ -101,7 +107,9 @@ test.describe("Verified work email", () => {
     await adminUser.locators.govInfoTrigger.click();
 
     await expect(
-      adminUser.page.getByText(new RegExp(`${verified.sub}[\\s\\S]*unverified`, "i")),
+      adminUser.page.getByText(
+        new RegExp(`${verified.sub}[\\s\\S]*unverified`, "i"),
+      ),
     ).toBeVisible();
 
     // Admins cannot verify other users work email
