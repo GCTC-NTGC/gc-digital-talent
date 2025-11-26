@@ -1658,6 +1658,7 @@ input UserFilterInput {
   workEmail: String
   name: String
   generalSearch: String
+  generalSearchBeta: String
   roles: [ID]
   trashed: Trashed
 }
@@ -1871,9 +1872,6 @@ input CreateUserInput {
   isGovEmployee: Boolean
   workEmail: Email
   workEmailVerifiedAt: DateTime
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
@@ -1921,9 +1919,6 @@ input UpdateUserAsAdminInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   workEmail: Email
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
@@ -1978,11 +1973,6 @@ input UpdateUserAsUserInput {
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
-  isGovEmployee: Boolean
-  workEmail: Email
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean

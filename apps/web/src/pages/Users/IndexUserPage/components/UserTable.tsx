@@ -50,7 +50,7 @@ const columnHelper = createColumnHelper<User>();
 
 const defaultState = {
   ...INITIAL_STATE,
-  sortState: [{ id: "createdDate", desc: false }],
+  sortState: [],
   // Note: lodash/isEqual is comparing undefined
   // so we need to actually set it here
   filters: {
@@ -152,9 +152,10 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
 
 interface UserTableProps {
   title: ReactNode;
+  newSearch?: boolean;
 }
 
-const UserTable = ({ title }: UserTableProps) => {
+const UserTable = ({ title, newSearch = false }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
@@ -218,6 +219,7 @@ const UserTable = ({ title }: UserTableProps) => {
         filterState,
         searchState?.term,
         searchState?.type,
+        newSearch,
       ),
     });
   };
@@ -393,6 +395,7 @@ const UserTable = ({ title }: UserTableProps) => {
         filterState,
         searchState?.term,
         searchState?.type,
+        newSearch,
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
