@@ -165,7 +165,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -198,7 +198,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -315,7 +315,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -361,7 +361,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => null,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -461,7 +461,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => null,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
@@ -579,7 +579,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -656,7 +656,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => null,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
@@ -685,7 +685,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => null,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
@@ -708,7 +708,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => null,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
@@ -758,7 +758,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => null,
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
@@ -873,7 +873,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
@@ -928,7 +928,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 2],
+                        'assessmentStep' => ['sortOrder' => 1],
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
@@ -1119,9 +1119,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
                 'finalDecisionAt' => null,
-                'assessmentStep' => [
-                    'sortOrder' => 1,
-                ],
+                'assessmentStep' => null,
             ]);
 
         // disqualify - current step null
@@ -1150,9 +1148,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
                 'finalDecisionAt' => null,
-                'assessmentStep' => [
-                    'sortOrder' => 1,
-                ],
+                'assessmentStep' => null,
             ]);
 
         // qualify and place - current step set
@@ -1197,9 +1193,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
                 'finalDecisionAt' => null,
-                'assessmentStep' => [
-                    'sortOrder' => 1,
-                ],
+                'assessmentStep' => null,
             ]);
 
         // remove - current step null
@@ -1228,9 +1222,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
                 'removedAt' => null,
-                'assessmentStep' => [
-                    'sortOrder' => 1,
-                ],
+                'assessmentStep' => null,
             ]);
     }
 }
