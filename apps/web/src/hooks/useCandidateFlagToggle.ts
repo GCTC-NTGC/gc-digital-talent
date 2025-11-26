@@ -5,59 +5,58 @@ import { graphql, Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useControllableState } from "@gc-digital-talent/ui";
 
-const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
-  mutation ToggleBookmark_Mutation($id: ID!) {
-    togglePoolCandidateBookmark(id: $id)
+const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
+  mutation ToggleFlag_Mutation($id: ID!) {
+    togglePoolCandidateFlag(id: $id)
   }
 `);
 
-interface UseCandidateBookmarkToggleArgs {
+interface UseCandidateFlagToggleArgs {
   id: Scalars["UUID"]["output"];
   defaultValue?: boolean;
   value?: boolean;
-  onChange?: (newIsBookmarked: boolean) => void;
+  onChange?: (newIsFlagged: boolean) => void;
   showToast?: boolean;
 }
 
-interface CandidateBookMarkResult {
-  isBookmarked: boolean;
+interface CandidateFlagResult {
+  isFlagged: boolean;
   isUpdating: boolean;
 }
 
-type UseCandidateBookmarkToggleReturn = [
-  result: CandidateBookMarkResult,
+type UseCandidateFlagToggleReturn = [
+  result: CandidateFlagResult,
   toggle: () => void,
 ];
 
-const useCandidateBookmarkToggle = ({
+const useCandidateFlagToggle = ({
   id,
   defaultValue,
   onChange,
   value,
   showToast = true,
-}: UseCandidateBookmarkToggleArgs): UseCandidateBookmarkToggleReturn => {
+}: UseCandidateFlagToggleArgs): UseCandidateFlagToggleReturn => {
   const intl = useIntl();
-  const [isBookmarked, setIsBookmarked] = useControllableState({
+  const [isFlagged, setIsFlagged] = useControllableState({
     defaultValue: defaultValue ?? false,
     controlledProp: value,
     onChange,
   });
 
-  const [{ fetching: isUpdating }, executeToggleBookmarkMutation] = useMutation(
-    PoolCandidate_ToggleBookmarkMutation,
+  const [{ fetching: isUpdating }, executeToggleFlagMutation] = useMutation(
+    PoolCandidate_ToggleFlagMutation,
   );
 
-  const toggleBookmark = async () => {
+  const toggleFlag = async () => {
     if (id) {
-      await executeToggleBookmarkMutation({
+      await executeToggleFlagMutation({
         id,
       })
         .then((res) => {
           if (!res.error) {
-            const newIsBookmarked =
-              res.data?.togglePoolCandidateBookmark === true;
+            const newIsFlagged = res.data?.togglePoolCandidateFlag === true;
             if (showToast) {
-              if (newIsBookmarked) {
+              if (newIsFlagged) {
                 toast.success(
                   intl.formatMessage({
                     defaultMessage: "Candidate successfully bookmarked.",
@@ -79,7 +78,7 @@ const useCandidateBookmarkToggle = ({
               }
             }
 
-            setIsBookmarked(newIsBookmarked);
+            setIsFlagged(newIsFlagged);
           }
         })
         .catch(() => {
@@ -95,7 +94,7 @@ const useCandidateBookmarkToggle = ({
     }
   };
 
-  return [{ isBookmarked: isBookmarked ?? false, isUpdating }, toggleBookmark];
+  return [{ isFlagged: isFlagged ?? false, isUpdating }, toggleFlag];
 };
 
-export default useCandidateBookmarkToggle;
+export default useCandidateFlagToggle;

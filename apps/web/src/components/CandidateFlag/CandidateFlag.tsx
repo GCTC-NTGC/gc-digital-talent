@@ -6,12 +6,12 @@ import { IconButton } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 
-export const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
-  fragment PoolCandidate_Bookmark on PoolCandidate {
+export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidate_Flag on PoolCandidate {
     id
-    isBookmarked
+    isFlagged
     user {
       id
       firstName
@@ -20,51 +20,49 @@ export const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const PoolCandidateCandidateTable_BookmarkFragment = graphql(
-  /* GraphQL */ `
-    fragment PoolCandidateTable_Bookmark on PoolCandidateAdminView {
+export const PoolCandidateCandidateTable_FlagFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidateTable_Flag on PoolCandidateAdminView {
+    id
+    isFlagged
+    user {
       id
-      isBookmarked
-      user {
-        id
-        firstName
-        lastName
-      }
+      firstName
+      lastName
     }
-  `,
-);
+  }
+`);
 
-interface CandidateBookmarkProps {
-  candidateQuery: FragmentType<typeof PoolCandidate_BookmarkFragment>;
-  onBookmarkChange?: (newIsBookmarked: boolean) => void;
-  bookmarked?: boolean;
+interface CandidateFlagProps {
+  candidateQuery: FragmentType<typeof PoolCandidate_FlagFragment>;
+  onFlagChange?: (newIsFlagged: boolean) => void;
+  flagged?: boolean;
   size?: "sm" | "md" | "lg";
 }
 
-const CandidateBookmark = ({
+const CandidateFlag = ({
   candidateQuery,
-  bookmarked,
-  onBookmarkChange,
+  flagged,
+  onFlagChange,
   size = "md",
-}: CandidateBookmarkProps) => {
+}: CandidateFlagProps) => {
   const intl = useIntl();
-  const candidate = getFragment(PoolCandidate_BookmarkFragment, candidateQuery);
-  const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
-    useCandidateBookmarkToggle({
+  const candidate = getFragment(PoolCandidate_FlagFragment, candidateQuery);
+  const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
+    useCandidateFlagToggle({
       id: candidate.id,
-      onChange: onBookmarkChange,
-      value: bookmarked,
-      defaultValue: candidate?.isBookmarked ?? false,
+      onChange: onFlagChange,
+      value: flagged,
+      defaultValue: candidate?.isFlagged ?? false,
     });
   return (
     <IconButton
-      color={isBookmarked ? "secondary" : "black"}
-      onClick={toggleBookmark}
-      disabled={isUpdatingBookmark}
-      icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
+      color={isFlagged ? "secondary" : "black"}
+      onClick={toggleFlag}
+      disabled={isUpdatingFlag}
+      icon={isFlagged ? BookmarkIconSolid : BookmarkIconOutline}
       size={size}
       label={
-        isBookmarked
+        isFlagged
           ? intl.formatMessage(
               {
                 defaultMessage:
@@ -101,4 +99,4 @@ const CandidateBookmark = ({
   );
 };
 
-export default CandidateBookmark;
+export default CandidateFlag;
