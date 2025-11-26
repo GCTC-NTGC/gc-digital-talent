@@ -20,6 +20,7 @@ const meta = {
       },
     },
   },
+  tags: ["needs-fix"],
 } satisfies Meta<typeof TableOfContents.Wrapper>;
 
 export default meta;

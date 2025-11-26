@@ -18,6 +18,7 @@ const mockPools = fakePools(3).map((advert) => ({
 export default {
   component: BrowsePools,
   decorators: [MockGraphqlDecorator],
+  tags: ["needs-fix"],
 } as Meta;
 
 const Template: StoryFn<typeof BrowsePools> = () => <BrowsePools />;

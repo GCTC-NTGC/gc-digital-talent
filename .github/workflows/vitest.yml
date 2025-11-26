@@ -40,7 +40,13 @@ jobs:
 
       - name: "Install dependencies: workspace"
         working-directory: ./
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Clean up pnpm store
+        run: pnpm store prune
 
       - name: "Setup: all workspaces"
         working-directory: ./
