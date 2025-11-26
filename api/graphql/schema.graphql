@@ -1294,6 +1294,7 @@ input UserFilterInput {
   workEmail: String @scope(name: "whereWorkEmail")
   name: String @scope(name: "whereName")
   generalSearch: String @scope(name: "whereGeneralSearch")
+  generalSearchBeta: String @scope(name: "whereGeneralSearchBeta")
   roles: [ID] @scope(name: "whereRoleIn")
   trashed: Trashed @trashed
 }

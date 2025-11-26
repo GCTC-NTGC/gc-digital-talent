@@ -1658,6 +1658,7 @@ input UserFilterInput {
   workEmail: String
   name: String
   generalSearch: String
+  generalSearchBeta: String
   roles: [ID]
   trashed: Trashed
 }
