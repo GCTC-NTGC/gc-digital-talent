@@ -57,8 +57,8 @@ final class RemoveCandidate
                 throw ValidationException::withMessages(['id' => ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name]);
         }
 
-        [$currentStepId] = $candidate->computeAssessmentStatus();
-        $candidate->assessment_step_id = $currentStepId;
+        $candidate->screening_stage = null;
+        $candidate->assessment_step_id = null;
 
         $candidate->save();
 

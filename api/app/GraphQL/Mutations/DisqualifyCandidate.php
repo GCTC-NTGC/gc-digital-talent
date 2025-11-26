@@ -18,9 +18,8 @@ final class DisqualifyCandidate
 
         $candidate->pool_candidate_status = $reason;
         $candidate->final_decision_at = $now;
-
-        [$currentStepId] = $candidate->computeAssessmentStatus();
-        $candidate->assessment_step_id = $currentStepId;
+        $candidate->screening_stage = null;
+        $candidate->assessment_step_id = null;
 
         $candidate->save();
 

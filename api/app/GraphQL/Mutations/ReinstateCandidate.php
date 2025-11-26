@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\Models\PoolCandidate;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -37,9 +38,7 @@ final class ReinstateCandidate
         $candidate->removed_at = null;
         $candidate->removal_reason = null;
         $candidate->removal_reason_other = null;
-
-        [$currentStepId] = $candidate->computeAssessmentStatus();
-        $candidate->assessment_step_id = $currentStepId;
+        $candidate->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
 
         $candidate->save();
 

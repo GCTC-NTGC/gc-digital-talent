@@ -6,6 +6,7 @@ use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
 use App\Notifications\ApplicationReceived;
@@ -52,10 +53,11 @@ final class SubmitApplication
 
         $application->setApplicationSnapshot(false);
 
-        [$stepId, $assessmentStatus] = $application->computeAssessmentStatus();
+        [$_, $assessmentStatus] = $application->computeAssessmentStatus();
 
         $application->computed_assessment_status = $assessmentStatus;
-        $application->assessment_step_id = $stepId;
+        $application->assessment_step_id = null;
+        $application->screening_stage = ScreeningStage::NEW_APPLICATION->name;
 
         $application->save();
 
