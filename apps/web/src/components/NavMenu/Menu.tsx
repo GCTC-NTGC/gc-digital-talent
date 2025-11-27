@@ -146,76 +146,78 @@ const Menu = ({
                 <Container
                   center
                   size={{ sm: "lg" }}
-                  className="items-center px-0 sm:flex sm:justify-between sm:px-6"
+                  className="items-center px-0 sm:flex sm:justify-between sm:px-6 [&>div]:w-full"
                 >
-                  <div className="flex items-center justify-center gap-x-6 sm:m-0 sm:hidden">
-                    <NavMenu.IconLink
-                      ref={homeLinkRef}
-                      href={homeLink?.href ?? paths.home()}
-                      icon={HomeIcon}
-                      label={
-                        homeLink?.label ??
-                        intl.formatMessage(navigationMessages.home)
-                      }
-                    />
+                  <NavMenu.List type="main" className="justify-between">
+                    <div className="flex items-center justify-center gap-x-6 sm:m-0 sm:hidden">
+                      <NavMenu.IconLink
+                        ref={homeLinkRef}
+                        href={homeLink?.href ?? paths.home()}
+                        icon={HomeIcon}
+                        label={
+                          homeLink?.label ??
+                          intl.formatMessage(navigationMessages.home)
+                        }
+                      />
 
-                    <div className="flex justify-center sm:flex-auto sm:justify-normal">
-                      <ThemeSwitcher />
+                      <div className="flex justify-center sm:flex-auto sm:justify-normal">
+                        <ThemeSwitcher />
+                      </div>
+
+                      <a
+                        className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-primary-200"
+                        href={languageTogglePath}
+                        lang={changeToLang === "en" ? "en" : "fr"}
+                      >
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "<hidden>Changer la langue en </hidden>Français",
+                          id: "Z3h103",
+                          description: "Title for the language toggle link.",
+                        })}
+                      </a>
                     </div>
 
-                    <a
-                      className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-primary-200"
-                      href={languageTogglePath}
-                      lang={changeToLang === "en" ? "en" : "fr"}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "<hidden>Changer la langue en </hidden>Français",
-                        id: "Z3h103",
-                        description: "Title for the language toggle link.",
-                      })}
-                    </a>
-                  </div>
+                    <MenuSeparator orientation="horizontal" />
 
-                  <MenuSeparator orientation="horizontal" />
+                    <div className="flex flex-col sm:flex-row sm:items-center">
+                      {children}
+                    </div>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center">
-                    {children}
-                  </div>
+                    <MenuSeparator orientation="horizontal" />
 
-                  <MenuSeparator orientation="horizontal" />
-
-                  <NavMenu.List type="main">
-                    {accountLinks}
-                    {loggedIn && (
-                      <>
-                        <NavMenu.Item
-                          className={borderItem({
-                            borderLeft: true,
-                            class: "hidden before:mr-3 sm:inline-flex",
-                          })}
-                        >
-                          <NotificationDialog
-                            open={isNotificationDialogOpen}
-                            onOpenChange={setNotificationDialogOpen}
+                    <div className="flex flex-col sm:flex-row sm:items-center">
+                      {accountLinks}
+                      {loggedIn && (
+                        <>
+                          <NavMenu.Item
+                            className={borderItem({
+                              borderLeft: true,
+                              class: "hidden before:mr-3 sm:inline-flex",
+                            })}
+                          >
+                            <NotificationDialog
+                              open={isNotificationDialogOpen}
+                              onOpenChange={setNotificationDialogOpen}
+                            />
+                          </NavMenu.Item>
+                        </>
+                      )}
+                      {!loggedIn ? (
+                        <>
+                          <NavItem
+                            key="signIn"
+                            href={`${paths.login()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.signIn)}
                           />
-                        </NavMenu.Item>
-                      </>
-                    )}
-                    {!loggedIn ? (
-                      <>
-                        <NavItem
-                          key="signIn"
-                          href={`${paths.login()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signIn)}
-                        />
-                        <NavItem
-                          key="signUp"
-                          href={`${paths.register()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signUp)}
-                        />
-                      </>
-                    ) : null}
+                          <NavItem
+                            key="signUp"
+                            href={`${paths.register()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.signUp)}
+                          />
+                        </>
+                      ) : null}
+                    </div>
                   </NavMenu.List>
                 </Container>
               </NavMenu.Root>
