@@ -41,6 +41,9 @@ export const checkFeatureFlag = (name: string): boolean => {
  */
 export const getFeatureFlags = () => ({
   workforceAdjustment: checkFeatureFlag("FEATURE_WFA"),
+  applicationRequiresVerifiedEmail: checkFeatureFlag(
+    "FEATURE_APPLICATION_REQUIRES_VERIFIED_EMAIL",
+  ),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
