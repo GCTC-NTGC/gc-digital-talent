@@ -64,6 +64,7 @@ export default [
             "heavySecondary",
             "heavyWarning",
             "italic",
+            "underline",
           ],
         },
       ],

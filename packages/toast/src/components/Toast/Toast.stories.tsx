@@ -67,3 +67,53 @@ const Template = () => {
 export const Default: Story = {
   render: () => <Template />,
 };
+
+const WithContentTemplate = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      toast.info(
+        { title: "Info title", content: "Info toast with content" },
+        { autoClose: false },
+      );
+      toast.info(
+        {
+          title: "With link",
+          content: "This toast has a link",
+          actions: (
+            <Link href="https://talent.canada.ca" newTab size="sm">
+              link
+            </Link>
+          ),
+        },
+        {
+          autoClose: false,
+        },
+      );
+      toast.info(
+        {
+          title: "Longer content",
+          content:
+            "Toast info with three sentences. Text sentence two. Toast text sentence three.",
+        },
+        { autoClose: false },
+      );
+      toast.success(
+        { title: "Success title", content: "Success toast with content" },
+        { autoClose: false },
+      );
+      toast.warning(
+        { title: "Warning title", content: "Warning toast with content" },
+        { autoClose: false },
+      );
+      toast.error(
+        { title: "Error title", content: "Error toast with content" },
+        { autoClose: false },
+      );
+    }, 100);
+  }, []);
+  return <Toast />;
+};
+
+export const WithContent: Story = {
+  render: () => <WithContentTemplate />,
+};

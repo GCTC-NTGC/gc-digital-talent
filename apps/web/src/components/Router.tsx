@@ -882,6 +882,13 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                               "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
                             ).then(convert),
                         },
+                        {
+                          path: "activity",
+                          lazy: () =>
+                            import(
+                              "../pages/Pools/PoolActivityPage/PoolActivityPage"
+                            ).then(convert),
+                        },
                       ],
                     },
                   ],

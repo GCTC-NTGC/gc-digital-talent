@@ -393,7 +393,6 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
-  countApplicants(where: ApplicantFilterInput): Int! @deprecated(reason: "Use countApplicantsForSearch instead")
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -558,6 +557,7 @@ type Mutation {
   verifyUserEmail(emailType: EmailType, code: String!): User
   sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
   verifyUserEmails(code: String!): User
+  removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
@@ -1025,6 +1025,24 @@ type ScreeningQuestion {
   sortOrder: Int
 }
 
+type ActivityProperties {
+  attributes: JSON
+  old: JSON
+}
+
+type Activity {
+  id: ID!
+  causer: UserPublicProfile
+  subjectType: String
+  subjectId: UUID
+  properties: ActivityProperties
+  logName: String
+  event: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -1076,6 +1094,7 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
+  activities: [Activity!]
 }
 
 type GeneralQuestionResponse {
@@ -1639,6 +1658,7 @@ input UserFilterInput {
   workEmail: String
   name: String
   generalSearch: String
+  generalSearchBeta: String
   roles: [ID]
   trashed: Trashed
 }
@@ -1852,9 +1872,6 @@ input CreateUserInput {
   isGovEmployee: Boolean
   workEmail: Email
   workEmailVerifiedAt: DateTime
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
@@ -1902,9 +1919,6 @@ input UpdateUserAsAdminInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   workEmail: Email
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
@@ -1959,11 +1973,6 @@ input UpdateUserAsUserInput {
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
-  isGovEmployee: Boolean
-  workEmail: Email
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean

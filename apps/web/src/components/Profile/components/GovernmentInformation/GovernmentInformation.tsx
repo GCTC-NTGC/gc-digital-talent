@@ -1,186 +1,83 @@
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
-import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
-import { useQuery } from "urql";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import { ReactNode } from "react";
 
-import { ToggleSection, Well } from "@gc-digital-talent/ui";
-import { BasicForm } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   getFragment,
   graphql,
+  Maybe,
   Pool,
 } from "@gc-digital-talent/graphql";
 
-import profileMessages from "~/messages/profileMessages";
-import {
-  hasEmptyRequiredFields,
-  hasAllEmptyFields,
-} from "~/validators/profile/governmentInformation";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useRoutes from "~/hooks/useRoutes";
 
-import { SectionProps } from "../../types";
-import FormActions from "../FormActions";
-import useSectionInfo from "../../hooks/useSectionInfo";
-import { dataToFormValues, formValuesToSubmitData } from "./utils";
-import { FormValues } from "./types";
-import FormFields, {
-  GovernmentInfoClassification_Fragment,
-} from "./FormFields";
-import NullDisplay from "./NullDisplay";
 import Display from "./Display";
-
-const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
-  query GetProfileFormOptions {
-    ...GovernmentInfoEmployeeTypes
-    departments {
-      ...GovernmentInfoDepartment
-    }
-    classifications {
-      ...GovernmentInfoClassification
-    }
-  }
-`);
+import { getSectionTitle } from "../../utils";
 
 const ProfileGovernmentInformation_Fragment = graphql(/** GraphQL */ `
   fragment ProfileGovernmentInformation on User {
     id
-    isGovEmployee
-    hasPriorityEntitlement
-    priorityNumber
-    govEmployeeType {
-      value
-    }
-    department {
-      id
-    }
-    currentClassification {
-      group
-      level
-    }
-    workEmail
     ...GovernmentInformationDisplay
   }
 `);
 
-interface GovernmentInformationProps extends SectionProps<Pick<Pool, "id">> {
+interface GovernmentInformationProps {
   query: FragmentType<typeof ProfileGovernmentInformation_Fragment>;
+  pool?: Maybe<Pool>;
 }
 
-const GovernmentInformation = ({
-  query,
-  onUpdate,
-  isUpdating,
-  pool,
-}: GovernmentInformationProps) => {
+const GovernmentInformation = ({ query, pool }: GovernmentInformationProps) => {
   const user = getFragment(ProfileGovernmentInformation_Fragment, query);
-  const isNull = hasAllEmptyFields(user);
-  const emptyRequired = hasEmptyRequiredFields(user);
   const intl = useIntl();
-  const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
-    section: "government",
-    isNull,
-    emptyRequired,
-    fallbackIcon: BuildingLibraryIcon,
-  });
-
-  const [{ data }] = useQuery({ query: GovernmentInformationFormData_Query });
-  const classifications = getFragment(
-    GovernmentInfoClassification_Fragment,
-    unpackMaybes(data?.classifications),
-  );
-
-  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    return onUpdate(
-      user.id,
-      formValuesToSubmitData(formValues, user.id, [...classifications]),
-    )
-      .then((response) => {
-        if (response) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Government information updated successfully!",
-              id: "dVc2uY",
-              description:
-                "Message displayed when a user successfully updates their government employee information.",
-            }),
-          );
-          setIsEditing(false);
-        }
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      });
-  };
+  const paths = useRoutes();
 
   return (
-    <ToggleSection.Root
-      id="gov-section"
-      open={isEditing}
-      onOpenChange={setIsEditing}
-    >
-      <ToggleSection.Header
-        icon={icon.icon}
-        color={icon.color}
-        level={pool ? "h3" : "h2"}
-        size={pool ? "h4" : "h3"}
-        toggle={
-          !isNull ? (
-            <ToggleForm.Trigger
-              aria-label={intl.formatMessage({
-                defaultMessage: "Edit government information",
-                id: "Ysf8wI",
-                description:
-                  "Button text to start editing government information",
-              })}
-            >
-              {intl.formatMessage(commonMessages.editThisSection)}
-            </ToggleForm.Trigger>
-          ) : undefined
-        }
-      >
-        {intl.formatMessage(title)}
-      </ToggleSection.Header>
-      {pool && emptyRequired && (
-        <Well color="error">
-          <p>
+    <>
+      <div className="flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
+        <Heading
+          icon={ExclamationCircleIcon}
+          color="warning"
+          level={pool ? "h3" : "h2"}
+          size={pool ? "h4" : "h3"}
+          className="mt-0 mb-6"
+        >
+          {intl.formatMessage(getSectionTitle("government"))}
+        </Heading>
+      </div>
+      <div className="rounded-md bg-white p-6 text-black shadow-lg dark:bg-gray-600 dark:text-white">
+        <Well color="warning">
+          <p className="mb-3 font-bold">
             {intl.formatMessage({
-              defaultMessage:
-                "You are missing required government information.",
-              id: "Rq14QK",
+              defaultMessage: "This information is going away",
+              id: "Ui7CNt",
               description:
-                "Error message displayed when a users government information is incomplete",
+                "Title warning message for government information getting removed",
             })}
           </p>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "You can now add Government of Canada employment details directly on your <link>career experience</link>. We will keep the details here on your file until you add new ones on your current work experience.",
+                id: "gQYdKH",
+                description:
+                  "Description for warning message when the government information section is getting removed.",
+              },
+              {
+                link: (chunks: ReactNode) => (
+                  <Link href={paths.careerTimeline()}>{chunks}</Link>
+                ),
+              },
+            )}
+          </p>
         </Well>
-      )}
-      <ToggleSection.Content>
-        <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display query={user} />}
-        </ToggleSection.InitialContent>
-        <ToggleSection.OpenContent>
-          <BasicForm
-            labels={labels}
-            onSubmit={handleSubmit}
-            options={{
-              mode: "onBlur",
-              defaultValues: dataToFormValues(user),
-            }}
-          >
-            <FormFields
-              labels={labels}
-              departmentsQuery={unpackMaybes(data?.departments)}
-              classificationsQuery={unpackMaybes(data?.classifications)}
-              employeeTypesQuery={data}
-            />
-            <FormActions isUpdating={isUpdating} />
-          </BasicForm>
-        </ToggleSection.OpenContent>
-      </ToggleSection.Content>
-    </ToggleSection.Root>
+        <div className="mt-6 flex flex-col gap-y-6">
+          <Display query={user} />
+        </div>
+      </div>
+    </>
   );
 };
 

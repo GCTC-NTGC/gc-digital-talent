@@ -5,6 +5,7 @@ export const DATE_FORMAT_LOCALIZED = "PPP";
 
 // DateTime scalar formatting string
 export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
+export const DATETIME_FORMAT_LOCALIZED = "PPP p";
 
 export const FAR_FUTURE_DATE = "2999-12-31";
 export const FAR_PAST_DATE = "2000-01-01";
