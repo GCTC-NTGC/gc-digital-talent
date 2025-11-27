@@ -48,7 +48,6 @@ jobs:
       # Clean up any possible files taking up unnecessary space
       - name: Clean up
         run: |
-          sudo apt-get clean
           sudo apt-get autoremove -y
           rm -rf /tmp/*
           rm -rf ~/.cache
