@@ -24,6 +24,12 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: Show preinstalled large dependencies
+        run: |
+          sudo du -sh /usr/local/lib/android || true
+          sudo du -sh /usr/share/dotnet || true
+          sudo du -sh /opt/hostedtoolcache/CodeQL || true
+
       - name: "Copy .env"
         working-directory: "./apps/web"
         run: |
