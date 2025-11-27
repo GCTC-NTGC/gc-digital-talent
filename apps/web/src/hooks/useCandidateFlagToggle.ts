@@ -1,9 +1,20 @@
 import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 
-import { graphql, Scalars } from "@gc-digital-talent/graphql";
+import {
+  Classification,
+  graphql,
+  LocalizedPublishingGroup,
+  LocalizedString,
+  Maybe,
+  Scalars,
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useControllableState } from "@gc-digital-talent/ui";
+
+import { getFullNameLabel } from "~/utils/nameUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
 const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
   mutation ToggleFlag_Mutation($id: ID!) {
@@ -11,12 +22,22 @@ const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
   }
 `);
 
+interface CandidateInfo {
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
+  workStream: Maybe<WorkStream> | undefined;
+  name: Maybe<LocalizedString> | undefined;
+  publishingGroup: Maybe<LocalizedPublishingGroup> | undefined;
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
+}
+
 interface UseCandidateFlagToggleArgs {
   id: Scalars["UUID"]["output"];
   defaultValue?: boolean;
   value?: boolean;
   onChange?: (newIsFlagged: boolean) => void;
   showToast?: boolean;
+  candidateInfo: CandidateInfo;
 }
 
 interface CandidateFlagResult {
@@ -35,6 +56,7 @@ const useCandidateFlagToggle = ({
   onChange,
   value,
   showToast = true,
+  candidateInfo,
 }: UseCandidateFlagToggleArgs): UseCandidateFlagToggleReturn => {
   const intl = useIntl();
   const [isFlagged, setIsFlagged] = useControllableState({
@@ -47,6 +69,18 @@ const useCandidateFlagToggle = ({
     PoolCandidate_ToggleFlagMutation,
   );
 
+  const candidateName = getFullNameLabel(
+    candidateInfo.firstName,
+    candidateInfo.lastName,
+    intl,
+  );
+  const processTitle = getShortPoolTitleLabel(intl, {
+    workStream: candidateInfo.workStream,
+    name: candidateInfo.name,
+    publishingGroup: candidateInfo.publishingGroup,
+    classification: candidateInfo.classification,
+  });
+
   const toggleFlag = async () => {
     if (id) {
       await executeToggleFlagMutation({
@@ -58,12 +92,19 @@ const useCandidateFlagToggle = ({
             if (showToast) {
               if (newIsFlagged) {
                 toast.success(
-                  intl.formatMessage({
-                    defaultMessage: "Candidate successfully bookmarked.",
-                    id: "neIH5o",
-                    description:
-                      "Alert displayed to the user when they mark a candidate as bookmarked.",
-                  }),
+                  intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "You've flagged {candidateName} in {processTitle}. Other authorized users can also view or remove this flag.",
+                      id: "NRX2CA",
+                      description:
+                        "Alert displayed to the user when they mark a candidate as flagged.",
+                    },
+                    {
+                      candidateName,
+                      processTitle,
+                    },
+                  ),
                 );
               } else {
                 toast.success(

@@ -17,6 +17,30 @@ export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
       firstName
       lastName
     }
+    pool {
+      workStream {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        group
+        level
+      }
+    }
   }
 `);
 
@@ -47,13 +71,23 @@ const CandidateFlag = ({
 }: CandidateFlagProps) => {
   const intl = useIntl();
   const candidate = getFragment(PoolCandidate_FlagFragment, candidateQuery);
+
   const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
     useCandidateFlagToggle({
       id: candidate.id,
       onChange: onFlagChange,
       value: flagged,
       defaultValue: candidate?.isFlagged ?? false,
+      candidateInfo: {
+        firstName: candidate.user.firstName,
+        lastName: candidate.user.lastName,
+        workStream: candidate.pool.workStream,
+        name: candidate.pool.name,
+        publishingGroup: candidate.pool.publishingGroup,
+        classification: candidate.pool.classification,
+      },
     });
+
   return (
     <IconButton
       color={isFlagged ? "warning" : "black"}

@@ -83,6 +83,30 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     expiryDate
+    pool {
+      workStream {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        group
+        level
+      }
+    }
   }
 `);
 
@@ -108,6 +132,14 @@ const MoreActions = ({
   const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
     id: poolCandidate.id,
     defaultValue: poolCandidate.isFlagged ?? false,
+    candidateInfo: {
+      firstName: poolCandidate.user.firstName,
+      lastName: poolCandidate.user.lastName,
+      workStream: poolCandidate.pool.workStream,
+      name: poolCandidate.pool.name,
+      publishingGroup: poolCandidate.pool.publishingGroup,
+      classification: poolCandidate.pool.classification,
+    },
   });
 
   const candidateName = getFullNameLabel(
