@@ -42,6 +42,7 @@ const meta = {
       },
     },
   },
+  tags: ["needs-fix"],
 } satisfies Meta<typeof PoolTable>;
 export default meta;
 

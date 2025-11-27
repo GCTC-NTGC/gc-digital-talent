@@ -22,7 +22,12 @@ jobs:
         uses: SimenB/github-actions-cpu-cores@v2
         id: cpu-cores
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
+      - name: Remove unused deps
+        run: |
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet
 
       - name: "Copy .env"
         working-directory: "./apps/web"
@@ -40,12 +45,29 @@ jobs:
 
       - name: "Install dependencies: workspace"
         working-directory: ./
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: "Setup: all workspaces"
-        working-directory: ./
+      - name: Setup
         run: |
-          pnpm run build:fresh
+          pnpm codegen
+          pnpm intl-compile
+
+      # Clean up any possible files taking up unnecessary space
+      - name: Clean up
+        run: |
+          rm -rf ~/.cache
+          pnpm store prune
+          rm -rf coverage/*
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Remove Playwright system deps after install
+        run: |
+          sudo rm -rf /usr/lib/x86_64-linux-gnu/libvulkan* || true
+          sudo rm -rf /usr/lib/x86_64-linux-gnu/libgstreamer* || true
+          sudo rm -rf /usr/lib/x86_64-linux-gnu/gstreamer* || true
+          df -h
 
       - name: "Run Unit Tests: all workspaces with coverage"
         working-directory: ./

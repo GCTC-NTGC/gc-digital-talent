@@ -18,7 +18,7 @@ jobs:
     name: Lighthouse PHP
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: "Build docker image: api"
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
