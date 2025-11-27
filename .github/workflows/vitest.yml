@@ -45,6 +45,11 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium --with-deps
 
+      - name: Setup
+        run: |
+          pnpm codegen
+          pnpm intl-compile
+
       # Clean up any possible files taking up unnecessary space
       - name: Clean up
         run: |
