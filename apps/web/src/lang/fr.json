@@ -1011,10 +1011,6 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
-  "27mGKw": {
-    "defaultMessage": "Retirer des favoris",
-    "description": "Label for removing a bookmark"
-  },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
@@ -2691,10 +2687,6 @@
     "defaultMessage": "{date} - Aujourd’hui",
     "description": "A date range that goes to the present day"
   },
-  "9QJRRw": {
-    "defaultMessage": "Erreur : le signet du candidat n’a pas été mis à jour.",
-    "description": "Alert displayed to the user when failing to (un-)bookmark a candidate."
-  },
   "9QZYMX": {
     "defaultMessage": "Un diplôme d’études secondaires.",
     "description": "Description for the education requirement option secondary school diploma."
@@ -4331,10 +4323,6 @@
     "defaultMessage": "Niveau d'études minimal",
     "description": "Title for a education details of a pool advertisement"
   },
-  "Gc5hcz": {
-    "defaultMessage": "Mettre {candidateName} en signet au haut de la colonne.",
-    "description": "Bookmark button label for applicant assessment tracking."
-  },
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
@@ -4702,10 +4690,6 @@
   "IReTZe": {
     "defaultMessage": "Modifier les rôles dans le processus",
     "description": "Label for the form to edit a users process membership"
-  },
-  "ISSs88": {
-    "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
-    "description": "Un-bookmark button label for applicant assessment tracking."
   },
   "IUoUqs": {
     "defaultMessage": "Modification de l’état",
@@ -5242,10 +5226,6 @@
   "L0ugLs": {
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
-  },
-  "L2xLV8": {
-    "defaultMessage": "Ajouter aux favoris",
-    "description": "Label for adding a bookmark"
   },
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
@@ -10202,10 +10182,6 @@
     "defaultMessage": "0 des 0",
     "description": "Title displayed on the candidate skill count column when no skills are selected."
   },
-  "glBoRl": {
-    "defaultMessage": "Signet du candidat supprimé.",
-    "description": "Alert displayed to the user when they un-mark a candidate as bookmarked."
-  },
   "gnEK8V": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
@@ -11780,10 +11756,6 @@
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
     "description": "Message displayed when candidate is on hold at a specific assessment step"
-  },
-  "neIH5o": {
-    "defaultMessage": "Candidat mis en signet.",
-    "description": "Alert displayed to the user when they mark a candidate as bookmarked."
   },
   "ngHHmI": {
     "defaultMessage": "Sauvegardez la décision finale",
