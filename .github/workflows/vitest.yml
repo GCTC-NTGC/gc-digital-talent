@@ -86,6 +86,3 @@ jobs:
           flags: unittests
           fail_ci_if_error: false
           directory: coverage
-
-      - name: Clean up Playwright Browsers
-        run: npx playwright uninstall chromium
