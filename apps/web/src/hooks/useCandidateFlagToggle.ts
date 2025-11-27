@@ -108,13 +108,19 @@ const useCandidateFlagToggle = ({
                 );
               } else {
                 toast.success(
-                  intl.formatMessage({
-                    defaultMessage:
-                      "Candidate's bookmark removed successfully.",
-                    id: "glBoRl",
-                    description:
-                      "Alert displayed to the user when they un-mark a candidate as bookmarked.",
-                  }),
+                  intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "You've removed the flag for {candidateName} in {processTitle}.",
+                      id: "idwHJf",
+                      description:
+                        "Alert displayed to the user when they un-flag a candidate.",
+                    },
+                    {
+                      candidateName,
+                      processTitle,
+                    },
+                  ),
                 );
               }
             }
@@ -125,10 +131,10 @@ const useCandidateFlagToggle = ({
         .catch(() => {
           toast.error(
             intl.formatMessage({
-              defaultMessage: "Error: failed to update a candidate's bookmark.",
-              id: "9QJRRw",
+              defaultMessage: "Error: failed to update a candidate's flag.",
+              id: "07pYaF",
               description:
-                "Alert displayed to the user when failing to (un-)bookmark a candidate.",
+                "Alert displayed to the user when failing to (un-)flag a candidate.",
             }),
           );
         });

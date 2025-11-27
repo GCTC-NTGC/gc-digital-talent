@@ -237,7 +237,7 @@ export const flagCell = (
 export const flagHeader = (intl: IntlShape) => (
   <FlagIcon
     className="size-6"
-    aria-label={intl.formatMessage(tableMessages.bookmark)}
+    aria-label={intl.formatMessage(tableMessages.flag)}
   />
 );
 

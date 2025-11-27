@@ -273,14 +273,14 @@ const MoreActions = ({
         >
           {isFlagged
             ? intl.formatMessage({
-                defaultMessage: "Remove bookmark",
-                id: "27mGKw",
-                description: "Label for removing a bookmark",
+                defaultMessage: "Remove flag",
+                id: "+Nn0rE",
+                description: "Label for removing a flag",
               })
             : intl.formatMessage({
-                defaultMessage: "Add bookmark",
-                id: "L2xLV8",
-                description: "Label for adding a bookmark",
+                defaultMessage: "Add flag",
+                id: "FtP8OZ",
+                description: "Label for adding a flag",
               })}
         </Button>
 

@@ -100,10 +100,10 @@ const CandidateFlag = ({
           ? intl.formatMessage(
               {
                 defaultMessage:
-                  "Remove {candidateName} bookmark from top of column.",
-                id: "ISSs88",
+                  "Remove {candidateName} flag from top of column.",
+                id: "AYmvKm",
                 description:
-                  "Un-bookmark button label for applicant assessment tracking.",
+                  "Un-flag button label for applicant assessment tracking.",
               },
               {
                 candidateName: getFullNameLabel(
@@ -115,10 +115,10 @@ const CandidateFlag = ({
             )
           : intl.formatMessage(
               {
-                defaultMessage: "Bookmark {candidateName} to top of column.",
-                id: "Gc5hcz",
+                defaultMessage: "Add {candidateName} flag to top of column.",
+                id: "3WHxaI",
                 description:
-                  "Bookmark button label for applicant assessment tracking.",
+                  "Flag button label for applicant assessment tracking.",
               },
               {
                 candidateName: getFullNameLabel(
