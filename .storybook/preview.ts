@@ -34,28 +34,40 @@ export const initialGlobals = {
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+
   backgrounds: {
     disable: true,
   },
+
   controls: {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
     },
   },
+
   options: {
     storySort: {
       method: "alphabetical",
     },
   },
+
   reactIntl: {
     defaultLocale: "en",
     locales: ["en", "fr"],
     messages,
     defaultRichTextElements,
   },
+
   viewport: {
     options: VIEWPORTS,
+  },
+
+  a11y: {
+    // 'todo' - show a11y violations in the test UI only
+    // 'error' - fail CI on a11y violations
+    // 'off' - skip a11y checks entirely
+    test: "error",
   },
 };
 

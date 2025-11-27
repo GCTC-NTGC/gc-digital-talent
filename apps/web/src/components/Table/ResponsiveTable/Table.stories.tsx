@@ -92,6 +92,7 @@ export default {
     sort: defaultSortProps,
     pagination: defaultPaginationProps,
   },
+  tags: ["needs-fix"],
 } as Meta<typeof Table<User>>;
 
 const Template: StoryFn<typeof Table<User>> = (args) => <Table {...args} />;

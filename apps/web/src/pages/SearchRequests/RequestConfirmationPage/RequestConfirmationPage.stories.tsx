@@ -14,6 +14,7 @@ export default {
       initialEntries: [`/search/request/${mockId}`],
     },
   },
+  tags: ["needs-fix"],
 } as Meta<typeof RequestConfirmationPage>;
 
 const Template: StoryFn<typeof RequestConfirmationPage> = () => {

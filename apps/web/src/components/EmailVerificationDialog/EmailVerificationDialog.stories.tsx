@@ -27,6 +27,7 @@ export default {
       },
     },
   },
+  tags: ["needs-fix"],
 };
 
 const Template: StoryFn<typeof EmailVerificationDialog> = (args) => {
