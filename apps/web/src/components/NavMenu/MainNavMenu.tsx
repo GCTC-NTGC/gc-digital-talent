@@ -75,34 +75,36 @@ const MainNavMenu = () => {
         label={intl.formatMessage(navigationMessages.home)}
       />
       {showRoleSwitcher ? (
-        <NavMenu.Item
+        <div
           className={borderItem({
             borderRight: true,
           })}
         >
-          <NavMenu.Trigger
-            color={isSmallScreen ? "black" : "white"}
-            fixedColor={!isSmallScreen}
-            block={false}
-          >
-            {roleNames[navRole]}
-          </NavMenu.Trigger>
-          <NavMenu.Content>
-            <NavMenu.List>
-              {roleLinks.map((roleLink) => (
-                <NavMenu.Item key={roleLink.name}>
-                  <NavMenu.Link
-                    title={roleLink.name}
-                    href={roleLink.href}
-                    type="subMenuLink"
-                  >
-                    {roleLink.name}
-                  </NavMenu.Link>
-                </NavMenu.Item>
-              ))}
-            </NavMenu.List>
-          </NavMenu.Content>
-        </NavMenu.Item>
+          <NavMenu.Item>
+            <NavMenu.Trigger
+              color={isSmallScreen ? "black" : "white"}
+              fixedColor={!isSmallScreen}
+              block={false}
+            >
+              {roleNames[navRole]}
+            </NavMenu.Trigger>
+            <NavMenu.Content>
+              <NavMenu.List>
+                {roleLinks.map((roleLink) => (
+                  <NavMenu.Item key={roleLink.name}>
+                    <NavMenu.Link
+                      title={roleLink.name}
+                      href={roleLink.href}
+                      type="subMenuLink"
+                    >
+                      {roleLink.name}
+                    </NavMenu.Link>
+                  </NavMenu.Item>
+                ))}
+              </NavMenu.List>
+            </NavMenu.Content>
+          </NavMenu.Item>
+        </div>
       ) : null}
 
       {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
