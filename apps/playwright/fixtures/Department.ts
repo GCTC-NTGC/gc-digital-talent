@@ -73,7 +73,7 @@ class Department extends AppPage {
   }
 
   async loginDepartments() {
-    await loginBySub(this.page, dConfig.allSignInEmails.adminSignIn);
+    await loginBySub(this.page, dConfig.signInSubs.adminSignIn);
   }
 
   async view(id: string) {
