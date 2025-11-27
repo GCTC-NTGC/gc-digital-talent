@@ -42,9 +42,6 @@ jobs:
         working-directory: ./
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright Browsers
-        run: npx playwright install chromium --with-deps
-
       - name: Setup
         run: |
           pnpm codegen
@@ -56,6 +53,9 @@ jobs:
           rm -rf ~/.cache
           pnpm store prune
           rm -rf coverage/*
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
 
       - name: "Run Unit Tests: all workspaces with coverage"
         working-directory: ./
