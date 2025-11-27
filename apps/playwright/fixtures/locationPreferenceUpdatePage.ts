@@ -9,9 +9,8 @@ import AppPage from "./AppPage";
 
 const FIELD = {
   FLEXIBLE_WORK_LOCATION_TITLE: "flexibleWorkLocationTitle",
-  FLEXIBLE_WORK_LOCATION_HEADING: "flexibleWorkLocationHeading",
   FLEXIBLE_WORK_LOCATION_OPTIONS: "flexibleWorkLocationOptions",
-  SELECTED_FLEXIBLE_WORK_LOCATION_OPTION: "selectedFlexibleWorkLocationOption",
+  SELECTED_WORK_LOCATION_OPTIONS: "selectedWorkLocationOptions",
   EDIT_WORK_PREFERENCE: "editWorkPreference",
   WORK_LOCATION_PREFERENCE: "workLocationPreference",
   LOCATION_EXCLUSIONS: "locationExclusions",
@@ -42,26 +41,25 @@ class LocationPreferenceUpdatePage extends AppPage {
   constructor(page: Page) {
     super(page);
     this.locators = {
-      [FIELD.FLEXIBLE_WORK_LOCATION_TITLE]: page.getByText(
-        /Flexible work location options/i,
-      ),
+      [FIELD.FLEXIBLE_WORK_LOCATION_TITLE]: page.getByRole("group", {
+        name: /Flexible work location options/i,
+      }),
       [FIELD.FLEXIBLE_WORK_LOCATION_OPTIONS]: page
         .getByRole("listitem")
         .filter({
           hasText: /Remote work|Hybrid work|On-site work/i,
         }),
-      [FIELD.FLEXIBLE_WORK_LOCATION_HEADING]: page.getByText(
-        /Select the flexible work location options you're interested in. Keep in mind that most Government of Canada jobs are hybrid./i,
-      ),
-      [FIELD.SELECTED_FLEXIBLE_WORK_LOCATION_OPTION]: page.locator(
-        "xpath=//span[normalize-space(.)='Interested']//following-sibling::span",
-      ),
+      [FIELD.SELECTED_WORK_LOCATION_OPTIONS]: page
+        .getByRole("listitem")
+        .filter({
+          hasText: /Interested/i,
+        }),
       [FIELD.EDIT_WORK_PREFERENCE]: page.getByRole("button", {
         name: /Edit work preferences/i,
       }),
-      [FIELD.WORK_LOCATION_PREFERENCE]: page.getByText(
-        /Work location preferences/i,
-      ),
+      [FIELD.WORK_LOCATION_PREFERENCE]: page.getByRole("group", {
+        name: /Work location preferences/i,
+      }),
       [FIELD.LOCATION_EXCLUSIONS]: page.getByRole("textbox", {
         name: /location exclusions/i,
       }),
@@ -81,9 +79,6 @@ class LocationPreferenceUpdatePage extends AppPage {
   }
 
   async validateSelectedFlexWorkLocOptions() {
-    await expect(
-      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_TITLE],
-    ).toBeVisible();
     await expect(this.locators[FIELD.TELEWORK_OPTION_LIST_ITEM]).toHaveCount(0);
     const flexWorkLocOptions =
       await this.locators[
@@ -91,7 +86,7 @@ class LocationPreferenceUpdatePage extends AppPage {
       ].allTextContents();
     const selectedOptions =
       await this.locators[
-        FIELD.SELECTED_FLEXIBLE_WORK_LOCATION_OPTION
+        FIELD.SELECTED_WORK_LOCATION_OPTIONS
       ].allTextContents();
     for (const option of selectedOptions) {
       expect(
@@ -104,14 +99,14 @@ class LocationPreferenceUpdatePage extends AppPage {
 
   async navigateToEditWorkPreference() {
     await this.locators[FIELD.EDIT_WORK_PREFERENCE].click();
-    await this.waitForGraphqlResponse("GetProfileFormOptions");
+    await this.waitForGraphqlResponse("WorkPreferencesForm_Query");
   }
 
   async updateFlexWorkLocationOption(locOptions: FlexibleWorkLocation[]) {
-    await expect(
-      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_HEADING],
-    ).toBeVisible();
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
+    await expect(
+      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_TITLE],
+    ).toBeVisible();
     await this.deSelectOptions(this.optionsMap);
     await this.selectOptions(this.optionsMap, locOptions);
   }
