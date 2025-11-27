@@ -57,6 +57,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium --with-deps
 
+      - name: Remove Playwright system deps after install
+        run: |
+          sudo rm -rf /usr/lib/x86_64-linux-gnu/libvulkan* || true
+          sudo rm -rf /usr/lib/x86_64-linux-gnu/libgstreamer* || true
+          sudo rm -rf /usr/lib/x86_64-linux-gnu/gstreamer* || true
+          df -h
+
       - name: "Run Unit Tests: all workspaces with coverage"
         working-directory: ./
         run: |
