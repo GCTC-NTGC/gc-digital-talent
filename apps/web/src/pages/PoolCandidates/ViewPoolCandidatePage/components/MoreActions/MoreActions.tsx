@@ -152,7 +152,8 @@ const MoreActions = ({
 
   const currentStepName =
     // NOTE: Localized can be empty string so || is more suitable
-    // e  poolCandidate.assessmentStep?.title?.localized ||
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    poolCandidate.assessmentStep?.title?.localized ||
     poolCandidate.assessmentStep?.type?.label?.localized;
 
   const status = poolCandidate.status?.value;
