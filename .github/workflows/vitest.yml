@@ -45,13 +45,15 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Clean up pnpm store
-        run: pnpm store prune
-
-      - name: "Setup: all workspaces"
-        working-directory: ./
+      # Clean up any possible files taking up unnecessary space
+      - name: Clean up
         run: |
-          pnpm run build:fresh
+          sudo apt-get clean
+          sudo apt-get autoremove -y
+          rm -rf /tmp/*
+          rm -rf ~/.cache
+          pnpm store prune
+          rm -rf coverage/*
 
       - name: "Run Unit Tests: all workspaces with coverage"
         working-directory: ./
@@ -70,3 +72,6 @@ jobs:
           flags: unittests
           fail_ci_if_error: false
           directory: coverage
+
+      - name: Clean up Playwright Browsers
+        run: npx playwright uninstall chromium
