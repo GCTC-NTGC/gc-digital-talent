@@ -27,22 +27,22 @@ export default {
 const Template: StoryFn<typeof Chip> = (args) => {
   return (
     <Chips>
-      <Chip color="primary" {...args}>
+      <Chip key="primary" color="primary" {...args}>
         Primary
       </Chip>
-      <Chip color="secondary" {...args}>
+      <Chip key="secondary" color="secondary" {...args}>
         Secondary
       </Chip>
-      <Chip color="success" {...args}>
+      <Chip key="success" color="success" {...args}>
         Success
       </Chip>
-      <Chip color="warning" {...args}>
+      <Chip key="warning" color="warning" {...args}>
         Warning
       </Chip>
-      <Chip color="error" {...args}>
+      <Chip key="error" color="error" {...args}>
         Error
       </Chip>
-      <Chip color="black" {...args}>
+      <Chip key="black" color="black" {...args}>
         Black
       </Chip>
     </Chips>
