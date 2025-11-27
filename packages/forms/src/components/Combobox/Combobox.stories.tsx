@@ -37,6 +37,7 @@ interface ComboboxType extends ComboboxProps {
 
 export default {
   component: Combobox,
+  tags: ["needs-fix"],
 };
 
 const Template: StoryFn<ComboboxType> = (args) => {

@@ -227,6 +227,7 @@ class RolePermissionTest extends TestCase
             'update-team-applicationDecision',
             'view-team-applicationPlacement',
             'view-team-poolTeamMembers',
+            'view-team-poolActivityLog',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
@@ -285,6 +286,7 @@ class RolePermissionTest extends TestCase
             'view-team-communityInterest',
             'view-team-communityTalent',
             'view-team-employeeWFA',
+            'view-team-poolActivityLog',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);

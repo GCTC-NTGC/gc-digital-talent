@@ -34,6 +34,8 @@ return [
     'government_employee' => 'Employé(e) du gouvernement',
     'department' => 'Ministère',
     'employee_type' => 'Type d\'emploi',
+    'position_type' => 'Type de poste',
+    'expected_end_date' => 'Date de fin prévue',
     'work_email' => 'Adresse courriel professionnelle',
     'classification' => 'Classification actuelle (poste d\'attache)',
     'priority_entitlement' => 'Droit de priorité',

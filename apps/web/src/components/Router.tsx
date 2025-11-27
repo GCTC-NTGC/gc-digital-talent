@@ -11,11 +11,14 @@ import { FeatureFlags, useFeatureFlags } from "@gc-digital-talent/env";
 import { urlMatchesAppHostName } from "~/utils/utils";
 import { convert } from "~/utils/routeUtils";
 
+import RootErrorBoundary from "./Layout/RouteErrorBoundary/RootErrorBoundary";
+
 const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
   createBrowserRouter([
     {
       path: `/`,
       lazy: () => import("./Layout/MainLayout").then(convert),
+      ErrorBoundary: RootErrorBoundary,
       HydrateFallback: Loading,
       children: [
         {
@@ -877,6 +880,13 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                           lazy: () =>
                             import(
                               "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+                            ).then(convert),
+                        },
+                        {
+                          path: "activity",
+                          lazy: () =>
+                            import(
+                              "../pages/Pools/PoolActivityPage/PoolActivityPage"
                             ).then(convert),
                         },
                       ],

@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
-import { Dialog, Button, Alert, Well } from "@gc-digital-talent/ui";
+import { Dialog, Button, Notice, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Select } from "@gc-digital-talent/forms";
 import {
@@ -195,8 +195,8 @@ const AddToProcessDialog = ({ query }: AddToProcessDialogProps) => {
           )}
         </Dialog.Header>
         <Dialog.Body>
-          <Alert.Root type="error">
-            <p>
+          <Notice.Root color="error" mode="card">
+            <Notice.Title defaultIcon>
               {intl.formatMessage({
                 defaultMessage:
                   "Only perform this action after having confirmed the user’s identity and verified that adding them to this process is in compliance with HR policy rules.",
@@ -204,8 +204,8 @@ const AddToProcessDialog = ({ query }: AddToProcessDialogProps) => {
                 description:
                   "Warning about adding a user to a process manually",
               })}
-            </p>
-          </Alert.Root>
+            </Notice.Title>
+          </Notice.Root>
           <Well className="my-6 flex flex-col gap-6">
             <FieldDisplay label={intl.formatMessage(commonMessages.name)}>
               {fullName}
