@@ -45,7 +45,7 @@ export default defineConfig({
           storybookTest({
             configDir: path.join(dirname, ".storybook"),
             tags: {
-              skip: ["needs-fix"],
+              skip: ["needs-fix", "skip-a11y"],
             },
           }),
         ],

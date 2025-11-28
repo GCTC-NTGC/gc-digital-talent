@@ -74,7 +74,9 @@ ButtonsAndTabs.args = {
     { url: "/five", label: "Tab Five" },
   ],
 };
-ButtonsAndTabs.tags = ["needs-fix"];
+
+// NOTE: Cannot fix, automated tests are inconclusive when text appears over an image
+ButtonsAndTabs.tags = ["skip-a11y"];
 
 export const Buttons = Template.bind({});
 Buttons.args = {
