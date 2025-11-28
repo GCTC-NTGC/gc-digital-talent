@@ -146,3 +146,11 @@ ContentBelow.args = {
   ],
 };
 ContentBelow.tags = ["needs-fix"];
+ContentBelow.parameters = {
+  a11y: {
+    context: {
+      // NOTE: We use underline and icon, not only colour to indicate it is a link
+      exclude: ["a"],
+    },
+  },
+};
