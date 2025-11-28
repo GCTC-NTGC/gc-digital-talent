@@ -8,7 +8,7 @@ import { tv } from "tailwind-variants";
 import { useTheme } from "@gc-digital-talent/theme";
 import { Button, Container, Flourish, Heading } from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
-import { commonMessages, getLocale, useLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
