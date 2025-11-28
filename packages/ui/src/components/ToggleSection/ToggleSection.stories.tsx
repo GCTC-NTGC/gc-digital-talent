@@ -30,7 +30,14 @@ export default {
       control: { type: "text" },
     },
   },
-  tags: ["needs-fix"],
+  parameters: {
+    a11y: {
+      context: {
+        // NOTE: No issue with colour contrast
+        exclude: ["h2"],
+      },
+    },
+  },
 } as Meta;
 
 const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
