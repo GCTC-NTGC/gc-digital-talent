@@ -52,7 +52,6 @@ Default.parameters = {
     SearchRequestOptions,
   },
 };
-Default.tags = ["needs-fix"];
 
 export const WithResults = Template.bind({});
 WithResults.parameters = {
@@ -75,4 +74,3 @@ WithResults.parameters = {
     SearchRequestOptions,
   },
 };
-WithResults.tags = ["needs-fix"];
