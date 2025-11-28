@@ -151,7 +151,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 interface UserTableProps {
-  title: ReactNode;
+  title: string;
   newSearch?: boolean;
 }
 

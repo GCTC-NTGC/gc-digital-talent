@@ -131,7 +131,7 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 interface TrainingOpportunitiesTableProps {
-  title: ReactNode;
+  title: string;
 }
 
 const TrainingOpportunitiesTable = ({

@@ -22,7 +22,7 @@ export interface RolePermissionRow {
 
 interface RolesAndPermissionsTableProps {
   data: RolePermissionRow[];
-  title: ReactNode;
+  title: string;
 }
 
 const columnHelper = createColumnHelper<RolePermissionRow>();
