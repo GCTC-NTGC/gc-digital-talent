@@ -47,7 +47,6 @@ export default defineConfig({
             configDir: path.join(dirname, ".storybook"),
             tags: {
               skip: ["needs-fix"],
-              exclude: GLOBAL_A11Y_EXCLUDES,
             },
           }),
         ],
