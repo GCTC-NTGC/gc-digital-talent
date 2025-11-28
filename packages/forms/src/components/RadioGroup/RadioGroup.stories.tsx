@@ -145,7 +145,6 @@ ContentBelow.args = {
     },
   ],
 };
-ContentBelow.tags = ["needs-fix"];
 ContentBelow.parameters = {
   a11y: {
     context: {
