@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker/locale/en";
 import { Meta, StoryFn } from "@storybook/react-vite";
 
+import { GLOBAL_A11Y_EXCLUDES } from "@gc-digital-talent/storybook-helpers";
+
 import RequestConfirmationPage from "./RequestConfirmationPage";
 
 faker.seed(0);
@@ -16,7 +18,7 @@ export default {
     a11y: {
       context: {
         // NOTE: We don't only use colour, have an underline
-        exclude: [".Hero", "a"],
+        exclude: [...GLOBAL_A11Y_EXCLUDES, "a"],
       },
     },
   },

@@ -3,6 +3,7 @@ import { uiConfig } from "@gc-digital-talent/vitest-helpers/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import { GLOBAL_A11Y_EXCLUDES } from "@gc-digital-talent/storybook-helpers";
 
 const dirname =
   typeof __dirname !== "undefined"
@@ -45,15 +46,8 @@ export default defineConfig({
           storybookTest({
             configDir: path.join(dirname, ".storybook"),
             tags: {
-              skip: ["needs-fix", "skip-a11y"],
-              exclude: [
-                // NOTE: Hero has many colour contrast that are not true errors
-                ".Hero",
-                // NOTE: Known issue: https://github.com/radix-ui/primitives/issues/3560
-                '[aria-haspopup="dialog"][aria-controls]',
-                // NOTE: Known issue: https://github.com/radix-ui/primitives/issues/3593
-                "[data-radix-focus-guard]",
-              ],
+              skip: ["needs-fix"],
+              exclude: GLOBAL_A11Y_EXCLUDES,
             },
           }),
         ],
