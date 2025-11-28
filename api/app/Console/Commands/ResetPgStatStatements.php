@@ -26,7 +26,7 @@ class ResetPgStatStatements extends Command
      */
     public function handle()
     {
-        DB::query('select pg_stat_statements_reset();');
+        DB::statement('select pg_stat_statements_reset();');
 
         return Command::SUCCESS;
     }
