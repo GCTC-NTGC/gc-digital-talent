@@ -15,8 +15,9 @@ const Toggle = () => {
   );
 };
 
-interface ToggleSectionRootAndHeader
-  extends React.ComponentPropsWithoutRef<typeof ToggleSection.Root> {}
+type ToggleSectionRootAndHeader = React.ComponentPropsWithoutRef<
+  typeof ToggleSection.Root
+>;
 
 export default {
   component: ToggleSection.Root,
