@@ -316,7 +316,7 @@ const useMainNavLinks = () => {
     mainLinks: [FindTalent, BrowseJobs],
     accountLinks: loggedIn ? [SignOut] : null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
-    resourceLinks: [ContactSupport],
+    resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
     systemSettings: null,
   };
 
@@ -334,7 +334,7 @@ const useMainNavLinks = () => {
               SignOut,
             ]
           : null,
-        resourceLinks: [ContactSupport, SkillLibrary],
+        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
       };
     case "community":
       return {
