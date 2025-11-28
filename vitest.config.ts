@@ -46,6 +46,8 @@ export default defineConfig({
             configDir: path.join(dirname, ".storybook"),
             tags: {
               skip: ["needs-fix", "skip-a11y"],
+              // NOTE: Known issue: https://github.com/radix-ui/primitives/issues/3560
+              exclude: ['[aria-haspopup="dialog"][aria-controls]'],
             },
           }),
         ],

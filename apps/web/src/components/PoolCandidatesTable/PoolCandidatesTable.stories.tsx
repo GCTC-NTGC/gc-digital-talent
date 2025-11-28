@@ -48,7 +48,6 @@ export default {
   },
   // NOTE: Inconclusive errors don't seem to be true errors
   //   - aria-required child on role=rowgroup does have role=row as child
-  //   - invalid aria on dialog triggers known issue: https://github.com/radix-ui/primitives/issues/3560
   //   - Colour contrast issues with headers where it clearly meets the minimum
   //   - th has data cell, it does
   tags: ["skip-a11y"],
