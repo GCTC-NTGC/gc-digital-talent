@@ -45,9 +45,15 @@ cd /home/site/wwwroot/api
 
 # Laravel local cache
 if
-    mkdir --parents /tmp/bootstrap/cache /tmp/api/storage/framework/cache/data && \
+    mkdir --parents \
+        storage/app/public \
+        storage/app/user_generated \
+        storage/framework/cache/data \
+        storage/framework/cache/sessions \
+        storage/framework/cache/testing \
+        storage/framework/cache/views \
+        storage/framework/cache/logs && \
     php artisan optimize && \
-    chown www-data:www-data /tmp/bootstrap/cache && \
     chown -R www-data:www-data /tmp/api/storage;
 then
     add_section_block ":white_check_mark: Laravel cache setup *successful*."
