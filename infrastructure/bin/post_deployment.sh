@@ -53,8 +53,9 @@ if
         storage/framework/cache/testing \
         storage/framework/cache/views \
         storage/framework/cache/logs && \
+    php artisan lighthouse:print-schema --write && \
     php artisan optimize && \
-    chown -R www-data:www-data /tmp/api/storage;
+    chown -R www-data:www-data storage;
 then
     add_section_block ":white_check_mark: Laravel cache setup *successful*."
 else

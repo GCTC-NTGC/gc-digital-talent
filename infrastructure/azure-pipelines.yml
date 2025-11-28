@@ -56,7 +56,6 @@ jobs:
           ln -s /var/storage ./storage
           sudo chown -R www-data ./storage ./vendor
           sudo chmod -R 775 ./ ./storage
-          php artisan lighthouse:print-schema --write
         displayName: Build Backend
 
       - script: |
