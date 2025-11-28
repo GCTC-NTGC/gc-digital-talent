@@ -56,15 +56,13 @@ class GcNotifyApiRequest implements ShouldQueue
      */
     public function handle(): void
     {
-
-        /** @var \Illuminate\Http\Client\Response */
         $response = Notify::sendEmail(
             $this->message->emailAddress,
             $this->message->templateId,
             $this->message->messageVariables
         );
 
-        if ($response?->tooManyRequests()) {
+        if ($response->tooManyRequests()) {
             $this->release($delaySeconds = 60);
         }
 
