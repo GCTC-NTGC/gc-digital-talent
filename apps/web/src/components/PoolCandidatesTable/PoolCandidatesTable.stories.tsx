@@ -4,6 +4,7 @@ import { StoryFn, Meta } from "@storybook/react-vite";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
 import PoolCandidatesTable from "./PoolCandidatesTable";
+import { GLOBAL_A11Y_EXCLUDES } from "@gc-digital-talent/storybook-helpers";
 
 const poolCandidateData = fakePoolCandidates();
 
@@ -45,12 +46,18 @@ export default {
         },
       },
     },
+    a11y: {
+      context: {
+        exclude: [
+          ...GLOBAL_A11Y_EXCLUDES,
+          // No colour contrast errors here
+          "td > span > span > span",
+          // Issue: https://github.com/GCTC-NTGC/gc-digital-talent/issues/15231
+          "p[aria-label]",
+        ],
+      },
+    },
   },
-  // NOTE: Inconclusive errors don't seem to be true errors
-  //   - aria-required child on role=rowgroup does have role=row as child
-  //   - Colour contrast issues with headers where it clearly meets the minimum
-  //   - th has data cell, it does
-  tags: ["skip-a11y"],
 } as Meta<typeof PoolCandidatesTable>;
 
 const Template: StoryFn<typeof PoolCandidatesTable> = (args) => {
