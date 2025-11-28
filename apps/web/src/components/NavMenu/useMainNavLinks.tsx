@@ -178,7 +178,7 @@ const useMainNavLinks = () => {
     <NavItem
       key="jobTemplate"
       href={paths.jobPosterTemplates()}
-      title={intl.formatMessage(navigationMessages.jobTemplates)}
+      title={intl.formatMessage(navigationMessages.jobTemplatesLibrary)}
       subMenu
     />
   );
