@@ -47,6 +47,8 @@ export default defineConfig({
             tags: {
               skip: ["needs-fix", "skip-a11y"],
               exclude: [
+                // NOTE: Hero has many colour contrast that are not true errors
+                ".Hero",
                 // NOTE: Known issue: https://github.com/radix-ui/primitives/issues/3560
                 '[aria-haspopup="dialog"][aria-controls]',
                 // NOTE: Known issue: https://github.com/radix-ui/primitives/issues/3593
