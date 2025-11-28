@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-import { ReactNode, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ColumnDef,
   createColumnHelper,
