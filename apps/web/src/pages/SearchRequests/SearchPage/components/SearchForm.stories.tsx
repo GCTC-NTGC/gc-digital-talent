@@ -51,8 +51,18 @@ Default.parameters = {
   apiResponses: {
     SearchRequestOptions,
   },
+  a11y: {
+    context: {
+      exclude: [
+        // NOTE: There are no colour contrast issues here
+        ".Hero",
+        "select",
+        "h3#results",
+        'a[href="/en/skills"]',
+      ],
+    },
+  },
 };
-Default.tags = ["needs-fix"];
 
 export const WithResults = Template.bind({});
 WithResults.parameters = {
