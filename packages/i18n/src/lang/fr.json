@@ -827,10 +827,6 @@
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
     "description": "declare self to be a CAF member without bolding"
   },
-  "TuZKOY": {
-    "defaultMessage": "Bibliothèque de compétences",
-    "description": "Name of skill library page"
-  },
   "TUfJUD": {
     "defaultMessage": "Parcours professionnel",
     "description": "Name of Career timeline page"
@@ -854,6 +850,10 @@
   "TsltMU": {
     "defaultMessage": "Télécharger",
     "description": "Button text to download a resource"
+  },
+  "TuZKOY": {
+    "defaultMessage": "Bibliothèque de compétences",
+    "description": "Name of skill library page"
   },
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",
