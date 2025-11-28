@@ -30,9 +30,9 @@ class GcNotifyApiRequest implements ShouldQueue
     {
         return [
             (new GcNotifyRateLimited),
-            (new ThrottlesExceptions(3, 10))
+            (new ThrottlesExceptions($maxAttempts = 10, $decaySeconds = 600))
                 ->byJob()
-                ->backoff(4),
+                ->backoff($minutes = 10),
         ];
     }
 
@@ -41,7 +41,7 @@ class GcNotifyApiRequest implements ShouldQueue
      */
     public function retryUntil(): DateTime
     {
-        return now()->addMinutes(30);
+        return now()->addHours(12);
     }
 
     /**
