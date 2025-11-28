@@ -13,8 +13,13 @@ export default {
       path: "/search/request/:requestId",
       initialEntries: [`/search/request/${mockId}`],
     },
+    a11y: {
+      context: {
+        // NOTE: We don't only use colour, have an underline
+        exclude: [".Hero", "a"],
+      },
+    },
   },
-  tags: ["needs-fix"],
 } as Meta<typeof RequestConfirmationPage>;
 
 const Template: StoryFn<typeof RequestConfirmationPage> = () => {
