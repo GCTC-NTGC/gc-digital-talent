@@ -8,7 +8,10 @@ import {
   fakeLocalizedEnum,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
-import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  GLOBAL_A11Y_EXCLUDES,
+  MockGraphqlDecorator,
+} from "@gc-digital-talent/storybook-helpers";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
@@ -55,7 +58,7 @@ Default.parameters = {
     context: {
       exclude: [
         // NOTE: There are no colour contrast issues here
-        ".Hero",
+        ...GLOBAL_A11Y_EXCLUDES,
         "select",
         "h3#results",
         'a[href="/en/skills"]',
