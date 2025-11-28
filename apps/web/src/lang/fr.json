@@ -7742,6 +7742,10 @@
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
   },
+  "WaDUHF": {
+    "defaultMessage": "Effacer la recherche",
+    "description": "Button text to clear employee search"
+  },
   "WcGmlt": {
     "defaultMessage": "Ressources pour le personnel membre de la Collectivité numérique",
     "description": "Heading for the resources section of the homepage"

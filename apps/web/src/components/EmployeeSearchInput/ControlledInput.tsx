@@ -207,6 +207,11 @@ const ControlledInput = ({
               type="button"
               className="absolute inset-1.5 left-auto flex shrink-0 cursor-pointer items-center rounded-md border-2 border-transparent bg-transparent px-2 outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700"
               onClick={handleReset}
+              aria-label={intl.formatMessage({
+                defaultMessage: "Clear search",
+                id: "WaDUHF",
+                description: "Button text to clear employee search",
+              })}
             >
               <XMarkIcon className="size-4 text-gray" />
             </button>
