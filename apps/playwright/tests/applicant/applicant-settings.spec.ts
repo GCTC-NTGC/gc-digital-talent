@@ -12,14 +12,14 @@ import { createUserWithRoles, deleteUser } from "~/utils/user";
 test.describe("Applicant settings page", () => {
   let uniqueTestId: string;
   let sub: string;
-  const user: User = { id: "" };
+  let user: User = { id: "" };
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
-    await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
         sub,
@@ -29,6 +29,7 @@ test.describe("Applicant settings page", () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
+    user = createdUser ?? { id: "" };
   });
 
   test.afterAll(async () => {
@@ -81,5 +82,16 @@ test.describe("Applicant settings page", () => {
       })
       .click();
     await registration.verifyThrottlingMessageForVerificationCode();
+    await registration.softDeleteUser();
+  });
+
+  test("Existing User with Verified Emails", async ({ appPage }) => {
+    const settingsPage = new AccountSettings(appPage.page);
+    await loginBySub(appPage.page, sub);
+    await settingsPage.goToSettings();
+    await appPage.waitForGraphqlResponse("AccountSettings");
+    await expect(
+      settingsPage.page.getByRole("img", { name: /verified/i }).last(),
+    ).toBeVisible();
   });
 });

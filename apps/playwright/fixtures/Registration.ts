@@ -4,10 +4,15 @@ import { expect, Locator, Page } from "@playwright/test";
 
 import { loginBySub } from "~/utils/auth";
 import { me } from "~/utils/user";
-import { generateUniqueTestId, uuidRegEx } from "~/utils/id";
+import {
+  fetchIdentificationNumber,
+  generateUniqueTestId,
+  uuidRegEx,
+} from "~/utils/id";
 import graphql from "~/utils/graphql";
 
 import AppPage from "./AppPage";
+import AdminUser from "./AdminUser";
 
 const FIELD = {
   GETTING_STARTED_HEADING: "gettingStartedHeading",
@@ -38,6 +43,8 @@ class Registration extends AppPage {
   uniqueTestId = generateUniqueTestId();
   context = graphql.newContext(this.uniqueTestId);
   uniqueEmailAddress = `${this.uniqueTestId}@gc.ca`;
+  readonly firstName = "Playwright";
+  readonly lastName = "Test";
 
   constructor(page: Page) {
     super(page);
@@ -113,8 +120,8 @@ class Registration extends AppPage {
     await this.verifyThrottlingMessageForVerificationCode();
     const verificationCode = this.getVerificationCode();
     await this.locators[FIELD.VERIFICATION_CODE].fill(await verificationCode);
-    await this.locators[FIELD.FIRST_NAME].fill("Playwright");
-    await this.locators[FIELD.LAST_NAME].fill("Test");
+    await this.locators[FIELD.FIRST_NAME].fill(this.firstName);
+    await this.locators[FIELD.LAST_NAME].fill(this.lastName);
     await this.locators[FIELD.PREFERRED_CONTACT_LANGUAGE]
       .getByRole("radio", { name: /english/i })
       .click();
@@ -152,6 +159,7 @@ class Registration extends AppPage {
     await endDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
     await endDate.getByRole("combobox", { name: /month/i }).selectOption("01");
     await this.locators[FIELD.SAVE_AND_CONTINUE_BUTTON].click();
+    // Need tp figure out the way to delete this UI created user
   }
 
   async getVerificationCode() {
@@ -178,6 +186,14 @@ class Registration extends AppPage {
 
   async skipAddRecentWorkExperience() {
     await this.locators[FIELD.SKIP_ADD_WORK_EXPERIENCE].click();
+  }
+
+  async softDeleteUser() {
+    const userID = fetchIdentificationNumber(this.page.url(), "users");
+    const adminUser = new AdminUser(this.page);
+    await adminUser.goToIndex();
+    await adminUser.goToUser(userID);
+    await adminUser.softDelete(userID, `${this.firstName} ${this.lastName}`);
   }
 }
 export default Registration;
