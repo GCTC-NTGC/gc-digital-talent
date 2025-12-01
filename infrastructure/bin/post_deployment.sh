@@ -43,16 +43,24 @@ fi
 
 cd /home/site/wwwroot/api
 
-# Laravel local cache
+# Laravel storage
 if
-    mkdir --parents /tmp/bootstrap/cache /tmp/api/storage/framework/cache/data && \
-    php artisan optimize && \
-    chown www-data:www-data /tmp/bootstrap/cache && \
-    chown -R www-data:www-data /tmp/api/storage;
+     mkdir --parents \
+        /var/storage/app/public \
+        /var/storage/app/user_generated \
+        /var/storage/framework/cache/data \
+        /var/storage/framework/sessions \
+        /var/storage/framework/testing \
+        /var/storage/framework/views \
+        /var/storage/logs && \
+    chown -R www-data:www-data /var/storage && \
+    chmod -R 775 /var/storage && \
+    php artisan lighthouse:print-schema --write && \
+    php artisan optimize ;
 then
-    add_section_block ":white_check_mark: Laravel cache setup *successful*."
+    add_section_block ":white_check_mark: Laravel storage setup *successful*."
 else
-    add_section_block ":X: Laravel cache setup *failed*. $MENTION"
+    add_section_block ":X: Laravel storage setup *failed*. $MENTION"
 fi
 
 # Laravel database migrations
