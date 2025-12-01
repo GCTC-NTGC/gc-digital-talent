@@ -52,10 +52,9 @@ jobs:
             echo "Building default..."
             composer install --optimize-autoloader --no-dev
           fi
-          rm -rf ./storage
-          ln -s /var/storage ./storage
-          sudo chown -R www-data  ./vendor
+          sudo chown -R www-data:www-data ./vendor
           sudo chmod -R 775 ./
+          php artisan lighthouse:print-schema --write
         displayName: Build Backend
 
       - script: |
@@ -72,6 +71,12 @@ jobs:
           # Vite requires build-time variable to have the VITE_ prefix
           VITE_API_URI: /graphql
           VITE_API_PROTECTED_URI: /admin/graphql
+
+      - script: |
+          cd $(System.DefaultWorkingDirectory)/api
+          rm -rf ./storage
+          ln -s /var/storage ./storage
+        displayName: Create symlink for API storage
 
       - task: CopyFiles@2
         displayName: "Copy files to staging directory"
