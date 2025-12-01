@@ -254,7 +254,7 @@ const PoolNameSection = ({
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const [{ data }] = useQuery({
     query: PoolNameOptions_Query,
-    variables: { communityIds: unpackMaybes([pool.community.id]) },
+    variables: { communityIds: unpackMaybes([pool?.community?.id]) },
   });
   const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
