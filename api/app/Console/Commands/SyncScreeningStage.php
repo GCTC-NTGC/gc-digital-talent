@@ -2,11 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\PoolCandidateStatus;
-use App\Enums\ScreeningStage;
-use App\Models\PoolCandidate;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class SyncScreeningStage extends Command
 {
@@ -29,25 +26,19 @@ class SyncScreeningStage extends Command
      */
     public function handle()
     {
-        PoolCandidate::with('user')->chunk(100, function (Collection $candidates) {
-            foreach ($candidates as $candidate) {
-                $stage = match ($candidate->pool_candidate_status) {
-                    PoolCandidateStatus::NEW_APPLICATION->name => ScreeningStage::NEW_APPLICATION->name,
-                    PoolCandidateStatus::APPLICATION_REVIEW->name => ScreeningStage::APPLICATION_REVIEW->name,
-                    PoolCandidateStatus::SCREENED_IN->name => ScreeningStage::SCREENED_IN->name,
-                    default => null,
-                };
-
-                // If the status does not match, no final decision has been made and they are not removed,
-                // assume they are being assessed
-                if (! $stage && ! $candidate->computed_final_decision && ! $candidate->final_decision_at && ! $candidate->removed_at) {
-                    $stage = ScreeningStage::UNDER_ASSESSMENT->name;
-                }
-
-                $candidate->screening_stage = $stage;
-
-                $candidate->save();
-            }
-        });
+        DB::table('pool_candidates')->update([
+            'screening_stage' => DB::raw("
+                CASE
+                    WHEN pool_candidate_status = 'NEW_APPLICATION' THEN 'NEW_APPLICATION'
+                    WHEN pool_candidate_status = 'APPLICATION_REVIEW' THEN 'APPLICATION_REVIEW'
+                    WHEN pool_candidate_status = 'SCREENED_IN' THEN 'SCREENED_IN'
+                    WHEN pool_candidate_status NOT IN ('NEW_APPLICATION', 'APPLICATION_REVIEW', 'SCREENED_IN', 'DRAFT')
+                        AND computed_final_decision IS NULL
+                        AND final_decision_at IS NULL
+                        AND removed_at IS NULL THEN 'UNDER_ASSESSMENT'
+                    ELSE NULL
+                END
+            "),
+        ]);
     }
 }
