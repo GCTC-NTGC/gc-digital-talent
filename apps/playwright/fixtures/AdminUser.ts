@@ -53,7 +53,7 @@ class AdminUser extends AppPage {
 
   async restore(id: string) {
     await this.goToAdvancedTools(id);
-    await this.page.getByRole("button", { name: /archive user/i }).click();
+    await this.page.getByRole("button", { name: /restore user/i }).click();
     const restoreDialog = this.page.getByRole("dialog", {
       name: /restore user/i,
     });
