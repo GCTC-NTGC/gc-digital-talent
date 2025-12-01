@@ -73,8 +73,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array<string, mixed> $profile_snapshot
  * @property array $flexible_work_locations
  * @property array<string> $education_requirement_experience_ids
- * @property string $assessment_step_id
- * @property string $screening_stage
+ * @property ?string $assessment_step_id
+ * @property ?string $screening_stage
  */
 class PoolCandidate extends Model
 {
