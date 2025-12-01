@@ -72,21 +72,20 @@ jobs:
           VITE_API_URI: /graphql
           VITE_API_PROTECTED_URI: /admin/graphql
 
-      - script: |
-          cd $(System.DefaultWorkingDirectory)/api
-          rm -rf ./storage
-          ln -s /var/storage ./storage
-        displayName: Create symlink for API storage
-
       - task: CopyFiles@2
         displayName: "Copy files to staging directory"
         inputs:
           SourceFolder: "$(System.DefaultWorkingDirectory)"
           Contents: |
             api/**
+            !api/storage
             apps/web/dist/**
             infrastructure/**
           TargetFolder: "$(Build.ArtifactStagingDirectory)/Stage"
+
+      - script: |
+          ln -s /var/storage $(Build.ArtifactStagingDirectory)/Stage/api/storage
+        displayName: Create symlink for API storage
 
       - task: ArchiveFiles@2
         displayName: "Archive Files"
