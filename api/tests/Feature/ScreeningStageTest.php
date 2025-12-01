@@ -32,7 +32,7 @@ class ScreeningStageTest extends TestCase
     protected $step;
 
     protected $mutation = <<<'GRAPHQL'
-        mutation TestUpdateSreeningStage($candidate: UpdatePoolCandidateScreeningStageInput!) {
+        mutation TestUpdateScreeningStage($candidate: UpdatePoolCandidateScreeningStageInput!) {
             updatePoolCandidateScreeningStage(poolCandidate: $candidate) {
                 screeningStage {
                     value

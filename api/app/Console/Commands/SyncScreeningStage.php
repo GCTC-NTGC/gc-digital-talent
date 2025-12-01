@@ -22,7 +22,7 @@ class SyncScreeningStage extends Command
      *
      * @var string
      */
-    protected $description = 'Syncs candidates screning stage';
+    protected $description = 'Syncs candidates screening stage';
 
     /**
      * Execute the console command.
