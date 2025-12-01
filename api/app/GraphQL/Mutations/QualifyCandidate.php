@@ -16,9 +16,6 @@ final class QualifyCandidate
 
         $candidate->qualify($expiryDate);
 
-        $candidate->screening_stage = null;
-        $candidate->assessment_step_id = null;
-
         $candidate->save();
 
         return $candidate;

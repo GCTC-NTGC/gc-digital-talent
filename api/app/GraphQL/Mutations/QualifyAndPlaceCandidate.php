@@ -19,9 +19,6 @@ final class QualifyAndPlaceCandidate
         $candidate->qualify($expiryDate);
         $candidate->place($placementType, $departmentId);
 
-        $candidate->screening_stage = null;
-        $candidate->assessment_step_id = null;
-
         $candidate->save();
 
         return $candidate;

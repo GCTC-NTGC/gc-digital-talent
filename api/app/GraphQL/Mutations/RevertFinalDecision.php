@@ -2,8 +2,6 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Enums\PoolCandidateStatus;
-use App\Enums\ScreeningStage;
 use App\Models\PoolCandidate;
 
 final class RevertFinalDecision
@@ -14,11 +12,6 @@ final class RevertFinalDecision
     public function __invoke($_, array $args)
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
-
-        $candidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
-        $candidate->expiry_date = null;
-        $candidate->final_decision_at = null;
-        $candidate->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
 
         $candidate->save();
 
