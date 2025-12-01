@@ -39,9 +39,9 @@ test.describe("User soft delete", () => {
     await loginBySub(adminUser.page, "admin@test.com");
     await adminUser.softDelete(user.id, `${user.firstName} ${user.lastName}`);
 
-    await expect(
-      adminUser.page.getByRole("alert").last(),
-    ).toContainText(/user archived successfully/i);
+    await expect(adminUser.page.getByRole("alert").last()).toContainText(
+      /user archived successfully/i,
+    );
 
     await expect(
       adminUser.page.getByRole("heading", { name: /restore user/i, level: 3 }),
@@ -49,10 +49,9 @@ test.describe("User soft delete", () => {
 
     await adminUser.restore(user.id);
 
-    await expect(
-      adminUser.page.getByRole("alert").last(),
-    ).toContainText(/user restored successfully/i);
-
+    await expect(adminUser.page.getByRole("alert").last()).toContainText(
+      /user restored successfully/i,
+    );
 
     await expect(
       adminUser.page.getByRole("heading", { name: /archive user/i, level: 3 }),
