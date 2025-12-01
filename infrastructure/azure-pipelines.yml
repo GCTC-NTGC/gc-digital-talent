@@ -78,11 +78,13 @@ jobs:
           SourceFolder: "$(System.DefaultWorkingDirectory)"
           Contents: |
             api/**
-            !api/storage
+            !api/storage/**
             apps/web/dist/**
             infrastructure/**
           TargetFolder: "$(Build.ArtifactStagingDirectory)/Stage"
 
+      # has to happen after "Build Frontend" because it needs api/storage/app/lighthouse-schema.graphql
+      # has to happen after "Copy files to staging directory" because it tries to follow the symlink
       - script: |
           ln -s /var/storage $(Build.ArtifactStagingDirectory)/Stage/api/storage
         displayName: Create symlink for API storage
