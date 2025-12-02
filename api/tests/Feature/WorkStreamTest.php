@@ -202,7 +202,7 @@ class WorkStreamTest extends TestCase
     public function testWhereCommunityInScope()
     {
         // Unrelated
-        WorkStream::factory()->create();
+        $unexpected = WorkStream::factory()->create();
 
         $community = Community::factory()->create();
 
@@ -230,5 +230,22 @@ class WorkStreamTest extends TestCase
                     ],
                 ],
             ]);
+
+        // Ensure both appear without scope
+        $this->actingAs($user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                query TestWorkkStreamsCommunityScope($ids: [UUID!]) {
+                    workStreams(whereCommunityIn: $ids) {
+                        id
+                    }
+                }
+            GRAPHQL,
+                [
+                    'ids' => null,
+                ])->assertJsonFragments([
+                    ['id' => $expected->id],
+                    ['id' => $unexpected->id],
+                ]);
+
     }
 }
