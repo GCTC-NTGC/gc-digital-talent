@@ -16,7 +16,10 @@ final class RemoveCandidate
         $candidate = PoolCandidate::findOrFail($args['id']);
 
         try {
-            $candidate->remove($args['reason'], $args['removalReason']);
+            $reason = $args['removalReason'] ?? null;
+            $other = $args['removalReasonOther'] ?? null;
+
+            $candidate->remove($reason, $other);
         } catch (Exception $e) {
             throw ValidationException::withMessages(['id' => $e->getMessage()]);
         }
