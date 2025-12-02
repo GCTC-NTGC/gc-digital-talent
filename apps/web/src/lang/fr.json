@@ -2699,10 +2699,6 @@
     "defaultMessage": "Un diplôme d’études secondaires.",
     "description": "Description for the education requirement option secondary school diploma."
   },
-  "Ftq+3Y": {
-    "defaultMessage": "Utilisateur",
-    "description": "Label for a specific user"
-  },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
@@ -3507,10 +3503,6 @@
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for government of canada email input in the request form"
   },
-  "CzK1qY": {
-    "defaultMessage": "Supprimé",
-    "description": "Label for the trashed field"
-  },
   "CzZm8F": {
     "defaultMessage": "Restaurer l'utilisateur",
     "description": "Label for restoring a user"
@@ -4142,6 +4134,10 @@
   "FtlwFY": {
     "defaultMessage": "Voir les bassins ouverts",
     "description": "Link text to view all open pools"
+  },
+  "Ftq+3Y": {
+    "defaultMessage": "Utilisateur",
+    "description": "Label for a specific user"
   },
   "FtxA9/": {
     "defaultMessage": "Sélectionnez les rôles à confier au membre :",
