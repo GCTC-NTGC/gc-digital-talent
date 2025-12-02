@@ -5,6 +5,7 @@ namespace App\Generators;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
+use App\Enums\EmailType;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
@@ -17,6 +18,7 @@ use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
+use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
@@ -39,10 +41,16 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     ];
 
     protected array $headerLocaleKeys = [
+        'user_id',
         'first_name',
         'last_name',
+        'email',
+        'phone',
         'armed_forces_status',
         'citizenship',
+        'current_city',
+        'current_province',
+        'preferred_communication_language',
         'interested_in_languages',
         'first_official_language',
         'estimated_language_ability',
@@ -68,7 +76,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'visible_minority',
         'disability',
         'skills',
-        // new columns
+
         'career_planning_lateral_move_interest',
         'career_planning_lateral_move_time_frame',
         'career_planning_lateral_move_organization_type',
@@ -180,10 +188,16 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 });
 
                 $values = [
-                    $user->first_name, // First name
-                    $user->last_name, // Last name
-                    $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
-                    $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
+                    $user->id,
+                    $user->first_name,
+                    $user->last_name,
+                    $this->getContactEmail($user),
+                    $user->telephone,
+                    $user->armed_forces_status ? $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class) : '',
+                    $user->citizenship ? $this->localizeEnum($user->citizenship, CitizenshipStatus::class) : '',
+                    $user->current_city,
+                    $user->current_province ? $this->localizeEnum($user->current_province, ProvinceOrTerritory::class) : '',
+                    $user->preferred_lang ? $this->localizeEnum($user->preferred_lang, Language::class) : '',
                     $this->lookingForLanguages($user),
                     $this->localizeEnum($user->first_official_language, Language::class),
                     $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
@@ -285,6 +299,31 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         }
 
         return implode(', ', $languages);
+    }
+
+    /**
+     * Get users contact email
+     */
+    private function getContactEmail(User $user): string
+    {
+        $contactEmailType = $user->contact_email ?? null;
+
+        // Return blank if no preference is specified
+        if (empty($contactEmailType)) {
+            return '';
+        }
+
+        // Use the EmailType enum values
+        if ($contactEmailType === EmailType::WORK->value) {
+            return $user->work_email ?? '';
+        }
+
+        if ($contactEmailType === EmailType::CONTACT->value) {
+            return $user->email ?? '';
+        }
+
+        // Invalid value in database - return blank
+        return '';
     }
 
     private function buildQuery()
