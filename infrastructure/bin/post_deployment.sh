@@ -56,7 +56,6 @@ if
         /var/gc-digital-talent/bootstrap/cache && \
     chown -R www-data:www-data /var/gc-digital-talent && \
     chmod -R 775 /var/gc-digital-talent && \
-    php artisan lighthouse:print-schema --write && \
     php artisan optimize ;
 then
     add_section_block ":white_check_mark: Laravel storage setup *successful*."
