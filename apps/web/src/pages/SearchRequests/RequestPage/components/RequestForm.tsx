@@ -6,9 +6,9 @@ import { ReactNode } from "react";
 
 import {
   Checkbox,
+  Combobox,
   Input,
   RadioGroup,
-  Select,
   Submit,
   TextArea,
   localizedEnumToOptions,
@@ -478,7 +478,7 @@ export const RequestForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <Select
+            <Combobox
               id="department"
               name="department"
               label={intl.formatMessage({
@@ -486,12 +486,6 @@ export const RequestForm = ({
                 id: "OgbLp1",
                 description:
                   "Label for department select input in the request form",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a department",
-                id: "y827h2",
-                description:
-                  "Null selection for department select input in the request form.",
               })}
               options={objectsToSortedOptions([...departments], intl)}
               rules={{

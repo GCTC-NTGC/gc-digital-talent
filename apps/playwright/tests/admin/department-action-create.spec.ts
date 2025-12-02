@@ -1,5 +1,7 @@
+import { DepartmentSize } from "@gc-digital-talent/graphql";
+
 import { test, expect } from "~/fixtures";
-import { loginBySub } from "~/utils/auth";
+import Department from "~/fixtures/Department";
 import { deleteDepartment } from "~/utils/departments";
 import graphql from "~/utils/graphql";
 import {
@@ -13,37 +15,23 @@ test("Create department", async ({ appPage }) => {
   const uniqueDepartmentNumber = generateUniqueNumber();
   const DEPARTMENT_TITLE = `Test department ${uniqueTestId}`;
   const adminCtx = await graphql.newContext();
-  await loginBySub(appPage.page, "platform@test.com");
-  await appPage.page.goto("/en/admin/settings/departments");
-  await appPage.waitForGraphqlResponse("Departments");
 
-  await appPage.page.getByRole("link", { name: /create department/i }).click();
-  await appPage.waitForGraphqlResponse("CreateDepartmentOptions");
+  const createDept = new Department(appPage.page);
 
-  await appPage.page
-    .getByRole("textbox", { name: /name \(english\)/i })
-    .fill(`${DEPARTMENT_TITLE} (EN)`);
+  await createDept.createDepartment({
+    name: {
+      en: `${DEPARTMENT_TITLE}EN`,
+      fr: `${DEPARTMENT_TITLE}FR`,
+    },
+    departmentNumber: parseInt(uniqueDepartmentNumber),
+    orgIdentifier: parseInt(generateUniqueNumber()),
+    size: DepartmentSize.Large,
+    isCentralAgency: false,
+    isCorePublicAdministration: false,
+    isRegulatory: false,
+    isScience: true,
+  });
 
-  await appPage.page
-    .getByRole("textbox", { name: /name \(french\)/i })
-    .fill(`${DEPARTMENT_TITLE} (FR)`);
-
-  await appPage.page
-    .getByRole("spinbutton", { name: /department number/i })
-    .fill(uniqueDepartmentNumber);
-
-  await appPage.page
-    .getByRole("spinbutton", { name: /organization id/i })
-    .fill(`1`);
-
-  await appPage.page
-    .getByRole("combobox", { name: /department size/i })
-    .selectOption({ label: "Small (up to 1000 employees)" });
-
-  await appPage.page
-    .getByRole("button", { name: /create department/i })
-    .click();
-  await appPage.waitForGraphqlResponse("CreateDepartment");
   await expect(appPage.page.getByRole("alert").last()).toContainText(
     /department created successfully/i,
   );

@@ -178,7 +178,7 @@ const useMainNavLinks = () => {
     <NavItem
       key="jobTemplate"
       href={paths.jobPosterTemplates()}
-      title={intl.formatMessage(navigationMessages.jobTemplates)}
+      title={intl.formatMessage(navigationMessages.jobTemplatesLibrary)}
       subMenu
     />
   );
@@ -316,7 +316,7 @@ const useMainNavLinks = () => {
     mainLinks: [FindTalent, BrowseJobs],
     accountLinks: loggedIn ? [SignOut] : null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
-    resourceLinks: [ContactSupport],
+    resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
     systemSettings: null,
   };
 
@@ -334,7 +334,7 @@ const useMainNavLinks = () => {
               SignOut,
             ]
           : null,
-        resourceLinks: [ContactSupport, SkillLibrary],
+        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
       };
     case "community":
       return {
