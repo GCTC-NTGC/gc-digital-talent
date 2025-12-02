@@ -9,6 +9,7 @@ import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import activityMessages from "~/messages/activityMessages";
+import adminMessages from "~/messages/adminMessages";
 
 export const icon = tv({
   base: "mt-0.5 flex size-5.5 shrink-0 items-center rounded-full bg-primary-500 p-1 text-white",
@@ -101,19 +102,42 @@ export function parseAttributes(attr: unknown): JSONRecord {
   return {};
 }
 
+const commonKeyMap = new Map<string, MessageDescriptor>([
+  ["id", adminMessages.id],
+  ["created_at", commonMessages.created],
+  ["archived_at", commonMessages.archived],
+  ["updated_at", commonMessages.updated],
+  ["deleted_at", commonMessages.deleted],
+]);
+
 export function normalizePropKeys(
   intl: IntlShape,
   propsObj?: Maybe<ActivityProperties>,
+  keyMap?: Map<string, MessageDescriptor>,
 ): string[] {
   if (!propsObj?.attributes) {
     return [];
   }
   // Should be safe to parse and cast after validating
   const attributes = parseAttributes(propsObj.attributes);
+  const localizedKeyMap = commonKeyMap;
+  if (keyMap) {
+    for (const [key, value] of keyMap) {
+      if (!localizedKeyMap.has(key)) {
+        localizedKeyMap.set(key, value);
+      }
+    }
+  }
 
   let modified: string[] = [];
   Object.keys(attributes).forEach((k) => {
-    if (k.endsWith("_id")) {
+    let localizedKey: string = k;
+    const localizedKeyMessage = localizedKeyMap.get(k);
+    if (localizedKeyMessage) {
+      localizedKey = intl.formatMessage(localizedKeyMessage);
+    }
+
+    if (k.endsWith("_id") && !localizedKeyMessage) {
       modified = [...modified, stripSuffix(k)];
       return;
     }
@@ -124,14 +148,14 @@ export function normalizePropKeys(
       if ("fr" in val) {
         modified = [
           ...modified,
-          `${k} ${intl.formatMessage(commonMessages.frenchLabel)}`,
+          `${localizedKey} ${intl.formatMessage(commonMessages.frenchLabel)}`,
         ];
       }
 
       if ("en" in val) {
         modified = [
           ...modified,
-          `${k} ${intl.formatMessage(commonMessages.englishLabel)}`,
+          `${localizedKey} ${intl.formatMessage(commonMessages.englishLabel)}`,
         ];
       }
 
@@ -140,7 +164,7 @@ export function normalizePropKeys(
 
     // Updated at always appears so seems useless to show it
     if (k !== "updated_at") {
-      modified = [...modified, k];
+      modified = [...modified, localizedKey];
     }
   });
 

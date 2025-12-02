@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -44,6 +44,7 @@ export interface ActivityItemProps {
   query: FragmentType<typeof ActivityItem_Fragment>;
   className?: string;
   border?: boolean;
+  keyMap?: Map<string, MessageDescriptor>;
   info: ActivityEventInfo;
 }
 
@@ -52,10 +53,11 @@ const ActivityItem = ({
   className,
   border,
   info,
+  keyMap,
 }: ActivityItemProps) => {
   const intl = useIntl();
   const item = getFragment(ActivityItem_Fragment, query);
-  const properties = normalizePropKeys(intl, item.properties);
+  const properties = normalizePropKeys(intl, item.properties, keyMap);
 
   if (!info) {
     return null;
