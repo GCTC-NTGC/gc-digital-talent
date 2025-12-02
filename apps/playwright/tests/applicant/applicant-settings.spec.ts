@@ -75,11 +75,6 @@ test.describe("Applicant settings page", () => {
     ).toBeVisible();
     // Update the contact email address and verify throttling message
     await settingsPage.updateContactEmailAddress();
-    // await appPage.page
-    //   .getByRole("button", {
-    //     name: /send verification email/i,
-    //   })
-    //   .click();
     await registration.verifyThrottlingMessageForVerificationCode();
     await appPage.page.getByRole("button", { name: /Cancel/i }).click();
     await registration.deleteNewUser();
