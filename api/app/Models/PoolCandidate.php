@@ -803,11 +803,4 @@ class PoolCandidate extends Model
         $this->final_decision_at = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
     }
-
-    /**
-     * Update screening stage for candidate
-     *
-     * @param  ScreeningStage|null  $stage
-     */
-    public function reset(?string $stage, ?string $step) {}
 }
