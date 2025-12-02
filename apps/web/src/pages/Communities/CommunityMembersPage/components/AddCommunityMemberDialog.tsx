@@ -23,13 +23,13 @@ import {
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
+import adminMessages from "~/messages/adminMessages";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
-import adminMessages from "~/messages/adminMessages";
 
 interface AddCommunityMemberDialogProps {
   community: CommunityMembersPageCommunityFragmentType;

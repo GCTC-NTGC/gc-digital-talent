@@ -16,8 +16,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ErrorCode, Pool, Scalars } from "@gc-digital-talent/graphql";
 
-import { ProcessDialogProps } from "./types";
 import processMessages from "~/messages/processMessages";
+
+import { ProcessDialogProps } from "./types";
 
 interface FormValues {
   type?: "extend" | "close";

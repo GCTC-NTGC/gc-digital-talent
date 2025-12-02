@@ -17,9 +17,9 @@ import {
 import { TextArea } from "@gc-digital-talent/forms";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import { PublishedEditableSectionProps } from "../../types";
-import processMessages from "~/messages/processMessages";
 
 const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment UpdatePublishedProcessDialog on Pool {
