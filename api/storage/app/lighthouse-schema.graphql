@@ -413,7 +413,7 @@ type Query {
   communities: [Community]!
   roles: [Role]!
   workStream(id: UUID!): WorkStream
-  workStreams(talentSearchable: Boolean): [WorkStream]!
+  workStreams(talentSearchable: Boolean, whereCommunityIn: [UUID!]): [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(where: TalentNominationEventsFilterInput): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent
