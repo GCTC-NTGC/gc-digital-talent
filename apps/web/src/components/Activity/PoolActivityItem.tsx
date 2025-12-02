@@ -63,7 +63,14 @@ const keyMap = new Map<string, MessageDescriptor>([
   ],
   ["process_number", processMessages.processNumber],
   ["publishing_group", processMessages.publishingGroup],
-  ["published_at", commonMessages.published],
+  [
+    "published_at",
+    defineMessage({
+      defaultMessage: "Published the advertisement",
+      id: "VltUUH",
+      description: "Message for publishing a process in the activity log",
+    }),
+  ],
   ["what_to_expect", processMessages.whatToExpectApplication],
   ["special_note", processMessages.specialNote],
   ["opportunity_length", processMessages.employmentDuration],
