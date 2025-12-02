@@ -36,6 +36,10 @@ class AdminUser extends AppPage {
     await this.page.goto(`${this.baseUrl}/${id}`);
   }
 
+  async goToSkills(id: string) {
+    await this.page.goto(`${this.baseUrl}/${id}/skills`);
+  }
+
   async goToAdvancedTools(id: string) {
     await this.page.goto(`${this.baseUrl}/${id}/tools`);
   }
