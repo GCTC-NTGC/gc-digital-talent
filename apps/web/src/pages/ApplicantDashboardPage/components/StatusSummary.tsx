@@ -1,9 +1,9 @@
-import { Well, WellProps } from "@gc-digital-talent/ui";
+import { Notice, NoticeProps } from "@gc-digital-talent/ui";
 
 interface StatusSummaryProps {
   label: React.ReactNode;
   description: React.ReactNode;
-  color: WellProps["color"];
+  color: NoticeProps["color"];
   className: string;
 }
 
@@ -14,10 +14,12 @@ const StatusSummary = ({
   ...rest
 }: StatusSummaryProps) => {
   return (
-    <Well color={color} {...rest}>
-      <p className="mb-3 font-bold">{label}</p>
-      <p>{description}</p>
-    </Well>
+    <Notice.Root color={color} {...rest}>
+      <Notice.Content>
+        <p className="mb-3 font-bold">{label}</p>
+        <p>{description}</p>
+      </Notice.Content>
+    </Notice.Root>
   );
 };
 

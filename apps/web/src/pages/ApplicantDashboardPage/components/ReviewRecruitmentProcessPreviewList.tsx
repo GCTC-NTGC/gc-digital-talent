@@ -9,7 +9,7 @@ import {
   PreviewList,
   PreviewMetaData,
   Separator,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -168,25 +168,27 @@ const ReviewRecruitmentProcessPreviewList = ({
           })}
         </PreviewList.Root>
       ) : (
-        <Well className="text-center">
-          <p className="mb-3 font-bold">
-            {intl.formatMessage({
-              defaultMessage:
-                "You don't have any active recruitment processes at the moment.",
-              id: "vVAqzB",
-              description:
-                "Title for notice when there are no recruitment processes",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: `Recruitment processes will appear in this section automatically if your application is successful.`,
-              id: "MGYlS0",
-              description:
-                "Body for notice when there are no Recruitment processes",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="text-center">
+          <Notice.Content>
+            <p className="mb-3 font-bold">
+              {intl.formatMessage({
+                defaultMessage:
+                  "You don't have any active recruitment processes at the moment.",
+                id: "vVAqzB",
+                description:
+                  "Title for notice when there are no recruitment processes",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: `Recruitment processes will appear in this section automatically if your application is successful.`,
+                id: "MGYlS0",
+                description:
+                  "Body for notice when there are no Recruitment processes",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <Separator space="sm" />
       <Pending fetching={fetching} error={error} inline>

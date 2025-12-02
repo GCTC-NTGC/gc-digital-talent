@@ -9,7 +9,7 @@ import {
   Link,
   Loading,
   ToggleSection,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
@@ -190,16 +190,19 @@ const PersonalInformation = ({
         </Notice.Root>
       ) : null}
       {pool && emptyRequired && (
-        <Well color="error">
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "You are missing required personal information.",
-              id: "QceO8G",
-              description:
-                "Error message displayed when a users personal information is incomplete",
-            })}
-          </p>
-        </Well>
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You are missing required personal information.",
+                id: "QceO8G",
+                description:
+                  "Error message displayed when a users personal information is incomplete",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>

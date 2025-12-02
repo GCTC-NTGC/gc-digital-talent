@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { ReactNode, JSX } from "react";
 
-import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, ScrollToLink, Notice } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
@@ -137,24 +137,28 @@ const EducationRequirementsSection = ({
         )}
       </p>
       {isNull ? (
-        <Well className="my-6 text-center">
-          <Heading className="mt-0" size="h6">
-            {intl.formatMessage({
-              defaultMessage:
-                "Select a classification to view education requirements.",
-              id: "PymrxL",
-              description: "Null message for education requirement section",
-            })}
-          </Heading>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This information is automatically populated for you based on the classification selected for the opportunity.",
-              id: "VitOoU",
-              description: "Null message for education requirement section",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="my-6 text-center">
+          <Notice.Title>
+            <Heading className="mt-0" size="h6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Select a classification to view education requirements.",
+                id: "PymrxL",
+                description: "Null message for education requirement section",
+              })}
+            </Heading>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This information is automatically populated for you based on the classification selected for the opportunity.",
+                id: "VitOoU",
+                description: "Null message for education requirement section",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       ) : (
         <EducationRequirements
           isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}

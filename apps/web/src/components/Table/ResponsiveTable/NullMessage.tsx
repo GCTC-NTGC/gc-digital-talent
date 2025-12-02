@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Notice } from "@gc-digital-talent/ui";
 
 import tableMessages from "../tableMessages";
 
@@ -24,12 +24,18 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
   const intl = useIntl();
 
   return (
-    <Well className="my-6 text-center">
-      <Heading className="m-0 text-base lg:text-base">
-        {title ?? intl.formatMessage(tableMessages.noItemsTitle)}
-      </Heading>
-      {description && <p className="mt-6">{description}</p>}
-    </Well>
+    <Notice.Root className="my-6 text-center">
+      <Notice.Title>
+        <Heading className="m-0 text-base lg:text-base">
+          {title ?? intl.formatMessage(tableMessages.noItemsTitle)}
+        </Heading>
+      </Notice.Title>
+      {description && (
+        <Notice.Content>
+          <p className="mt-6">{description}</p>
+        </Notice.Content>
+      )}
+    </Notice.Root>
   );
 };
 

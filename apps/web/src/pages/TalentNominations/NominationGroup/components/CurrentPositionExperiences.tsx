@@ -10,7 +10,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
-import { CardSeparator, Heading, Ul, Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
@@ -106,54 +106,56 @@ const CurrentPositionExperiences = ({
         <div>
           <div className="flex flex-col gap-y-3">
             {sorted.length === 0 && (
-              <Well className="mb-10.5" color="error">
-                <p className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage: "No current government experience found",
-                    id: "k/V+39",
-                    description:
-                      "Message displayed when there is no government experience for the current position",
-                  })}
-                </p>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The nominee’s profile doesn’t show a current Government of Canada position.",
-                    id: "eg8/kP",
-                    description:
-                      "Description for the message displayed when there is no government experience for the current position",
-                  })}
-                  <p className="my-3">
+              <Notice.Root className="mb-10.5" color="error">
+                <Notice.Content>
+                  <p className="font-bold">
                     {intl.formatMessage({
-                      defaultMessage:
-                        "Contact the nominator or submitter so they can follow up with the nominee:",
-                      id: "4Ect9u",
+                      defaultMessage: "No current government experience found",
+                      id: "k/V+39",
                       description:
-                        "Instruction to contact nominator or submitter for follow up",
+                        "Message displayed when there is no government experience for the current position",
                     })}
                   </p>
-                  <Ul>
-                    <li>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The nominee’s profile doesn’t show a current Government of Canada position.",
+                      id: "eg8/kP",
+                      description:
+                        "Description for the message displayed when there is no government experience for the current position",
+                    })}
+                    <p className="my-3">
                       {intl.formatMessage({
                         defaultMessage:
-                          "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
-                        id: "e0M7vj",
+                          "Contact the nominator or submitter so they can follow up with the nominee:",
+                        id: "4Ect9u",
                         description:
-                          "Instruction if nominee is still a Government of Canada employee",
+                          "Instruction to contact nominator or submitter for follow up",
                       })}
-                    </li>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
-                        id: "0P591/",
-                        description:
-                          "Instruction if nominee is no longer a Government of Canada employee",
-                      })}
-                    </li>
-                  </Ul>
-                </p>
-              </Well>
+                    </p>
+                    <Ul>
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
+                          id: "e0M7vj",
+                          description:
+                            "Instruction if nominee is still a Government of Canada employee",
+                        })}
+                      </li>
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
+                          id: "0P591/",
+                          description:
+                            "Instruction if nominee is no longer a Government of Canada employee",
+                        })}
+                      </li>
+                    </Ul>
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
             )}
             {sorted.map((exp) => (
               <ExperienceCard
@@ -166,24 +168,26 @@ const CurrentPositionExperiences = ({
         </div>
       )}
       {!shareProfile && (
-        <Well className="mb-9" color="error">
-          <p className="mb-6 font-bold">
-            {intl.formatMessage({
-              defaultMessage:
-                "This nominee has not agreed to share their information with your community",
-              id: "4ujr5X",
-              description: "Null message for nominee profile",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-              id: "8plD42",
-              description: "Null secondary message for nominee profile",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="mb-9" color="error">
+          <Notice.Content>
+            <p className="mb-6 font-bold">
+              {intl.formatMessage({
+                defaultMessage:
+                  "This nominee has not agreed to share their information with your community",
+                id: "4ujr5X",
+                description: "Null message for nominee profile",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
+                id: "8plD42",
+                description: "Null secondary message for nominee profile",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       {shareProfile && <CardSeparator space="sm" />}
       {shareProfile && (

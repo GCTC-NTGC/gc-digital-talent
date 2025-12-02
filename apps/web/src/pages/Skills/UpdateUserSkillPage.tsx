@@ -10,7 +10,7 @@ import {
   ThrowNotFound,
   TableOfContents,
   Pending,
-  Well,
+  Notice,
   Button,
   Dialog,
   Ul,
@@ -72,42 +72,44 @@ const NullExperienceMessage = ({
 }: NullExperienceMessageProps) => {
   const intl = useIntl();
   return (
-    <Well className="text-center">
-      <p className="mb-3 font-bold">
-        {hasExperiences
-          ? intl.formatMessage({
-              defaultMessage:
-                "You haven't featured this skill on any of your experiences yet.",
-              id: "rF/VIw",
-              description:
-                "Message displayed when user has experiences but hasn't featured any",
-            })
-          : intl.formatMessage({
-              defaultMessage:
-                "You haven't created any career experiences on your career timeline.",
-              id: "a0VxCM",
-              description:
-                "Message displayed when user has no experiences to feature on a skill.",
-            })}
-      </p>
-      <p>
-        {hasExperiences
-          ? intl.formatMessage({
-              defaultMessage:
-                'You can use the "Link an experience" button provided to feature this skill.',
-              id: "TK0b6n",
-              description:
-                "Instructions displayed when user has experiences but hasn't featured any.",
-            })
-          : intl.formatMessage({
-              defaultMessage:
-                "After you've added a few, you'll be able to feature this skill on one or more of your experiences.",
-              id: "QZeoHp",
-              description:
-                "Instructions displayed when user has no experiences to feature on a skill.",
-            })}
-      </p>
-    </Well>
+    <Notice.Root className="text-center">
+      <Notice.Content>
+        <p className="mb-3 font-bold">
+          {hasExperiences
+            ? intl.formatMessage({
+                defaultMessage:
+                  "You haven't featured this skill on any of your experiences yet.",
+                id: "rF/VIw",
+                description:
+                  "Message displayed when user has experiences but hasn't featured any",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "You haven't created any career experiences on your career timeline.",
+                id: "a0VxCM",
+                description:
+                  "Message displayed when user has no experiences to feature on a skill.",
+              })}
+        </p>
+        <p>
+          {hasExperiences
+            ? intl.formatMessage({
+                defaultMessage:
+                  'You can use the "Link an experience" button provided to feature this skill.',
+                id: "TK0b6n",
+                description:
+                  "Instructions displayed when user has experiences but hasn't featured any.",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "After you've added a few, you'll be able to feature this skill on one or more of your experiences.",
+                id: "QZeoHp",
+                description:
+                  "Instructions displayed when user has no experiences to feature on a skill.",
+              })}
+        </p>
+      </Notice.Content>
+    </Notice.Root>
   );
 };
 
@@ -395,20 +397,22 @@ export const UpdateUserSkillForm = ({
                 })}
               </p>
               {skillDescription && (
-                <Well className="my-6">
-                  <p className="mb-3 font-bold">
-                    {intl.formatMessage(
-                      {
-                        defaultMessage: "Remember, {skillName} is defined as",
-                        id: "5dhDA+",
-                        description: "Lead-in text to a skill description",
-                      },
-                      { skillName },
-                    )}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                  </p>
-                  <p>{skillDescription}</p>
-                </Well>
+                <Notice.Root className="my-6">
+                  <Notice.Content>
+                    <p className="mb-3 font-bold">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage: "Remember, {skillName} is defined as",
+                          id: "5dhDA+",
+                          description: "Lead-in text to a skill description",
+                        },
+                        { skillName },
+                      )}
+                      {intl.formatMessage(commonMessages.dividingColon)}
+                    </p>
+                    <p>{skillDescription}</p>
+                  </Notice.Content>
+                </Notice.Root>
               )}
               <BasicForm
                 onSubmit={handleSubmit}

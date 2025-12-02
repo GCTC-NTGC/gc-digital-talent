@@ -4,7 +4,12 @@ import sortBy from "lodash/sortBy";
 import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Accordion, CardRepeater, Heading, Well } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  CardRepeater,
+  Heading,
+  Notice,
+} from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
@@ -370,58 +375,62 @@ const OrganizeSection = ({
       </div>
       <div className="flex flex-col gap-6">
         {steps.length >= ASSESSMENT_STEPS_MANY_STEPS ? (
-          <Well color="warning">
-            <p className="font-bold">
-              {steps.length === ASSESSMENT_STEPS_MAX_STEPS
-                ? intl.formatMessage({
-                    defaultMessage: "You are at the limit!",
-                    id: "j7+E9C",
+          <Notice.Root color="warning">
+            <Notice.Content>
+              <p className="font-bold">
+                {steps.length === ASSESSMENT_STEPS_MAX_STEPS
+                  ? intl.formatMessage({
+                      defaultMessage: "You are at the limit!",
+                      id: "j7+E9C",
+                      description:
+                        "Title for warning message when the user has added the maximum assessments to the assessment plan",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "You are approaching the limit!",
+                      id: "1moJ8r",
+                      description:
+                        "Title for warning message when the user has added many assessments to the assessment plan",
+                    })}
+              </p>
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "You can add up to {maxSteps} assessment methods, but you don't need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
+                    id: "J/JdxQ",
                     description:
-                      "Title for warning message when the user has added the maximum assessments to the assessment plan",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "You are approaching the limit!",
-                    id: "1moJ8r",
-                    description:
-                      "Title for warning message when the user has added many assessments to the assessment plan",
-                  })}
-            </p>
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "You can add up to {maxSteps} assessment methods, but you don't need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
-                  id: "J/JdxQ",
-                  description:
-                    "Description for warning message when the user has added many assessments to the assessment plan",
-                },
-                {
-                  maxSteps: ASSESSMENT_STEPS_MAX_STEPS,
-                },
-              )}
-            </p>
-          </Well>
+                      "Description for warning message when the user has added many assessments to the assessment plan",
+                  },
+                  {
+                    maxSteps: ASSESSMENT_STEPS_MAX_STEPS,
+                  },
+                )}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
         ) : null}
         {steps.length <= ASSESSMENT_STEPS_FEW_STEPS ? (
-          <Well color="warning">
-            <p className="font-bold">
-              {intl.formatMessage({
-                defaultMessage: "You have too few assessments",
-                id: "ypxaI2",
-                description:
-                  "Title for warning message when the user has few assessments to the assessment plan",
-              })}
-            </p>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Consider adding at least one assessment method to strengthen the quality of your candidate pool.",
-                id: "xCoGIm",
-                description:
-                  "Description for warning message when the user has few assessments to the assessment plan",
-              })}
-            </p>
-          </Well>
+          <Notice.Root color="warning">
+            <Notice.Content>
+              <p className="font-bold">
+                {intl.formatMessage({
+                  defaultMessage: "You have too few assessments",
+                  id: "ypxaI2",
+                  description:
+                    "Title for warning message when the user has few assessments to the assessment plan",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Consider adding at least one assessment method to strengthen the quality of your candidate pool.",
+                  id: "xCoGIm",
+                  description:
+                    "Description for warning message when the user has few assessments to the assessment plan",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
         ) : null}
       </div>
     </>

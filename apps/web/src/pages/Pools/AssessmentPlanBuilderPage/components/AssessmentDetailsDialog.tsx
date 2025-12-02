@@ -3,7 +3,7 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 import { ReactNode, useState, useEffect } from "react";
 
-import { Button, Chip, Chips, Dialog, Well } from "@gc-digital-talent/ui";
+import { Button, Chip, Chips, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   errorMessages,
@@ -708,26 +708,28 @@ const AssessmentDetailsDialog = ({
                           </Repeater.Fieldset>
                         ))}
                         {!canAddScreeningQuestions && (
-                          <Well>
-                            <p className="mb-3 font-bold">
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "You have reached the maximum amount (3) of screening questions per poster.",
-                                id: "qs09PP",
-                                description:
-                                  "Message displayed when a user adds the maximum number of questions",
-                              })}
-                            </p>
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "Remember, applicants will submit information on how they meet each skill requirement through the regular application process.",
-                                id: "fNYEBT",
-                                description:
-                                  "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions",
-                              })}
-                            </p>
-                          </Well>
+                          <Notice.Root>
+                            <Notice.Content>
+                              <p className="mb-3 font-bold">
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "You have reached the maximum amount (3) of screening questions per poster.",
+                                  id: "qs09PP",
+                                  description:
+                                    "Message displayed when a user adds the maximum number of questions",
+                                })}
+                              </p>
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "Remember, applicants will submit information on how they meet each skill requirement through the regular application process.",
+                                  id: "fNYEBT",
+                                  description:
+                                    "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions",
+                                })}
+                              </p>
+                            </Notice.Content>
+                          </Notice.Root>
                         )}
                       </>
                     </Repeater.Root>
@@ -753,25 +755,27 @@ const AssessmentDetailsDialog = ({
                     })}
                   </div>
                   {missingEssentialSkills.length ? (
-                    <Well color="warning" fontSize="caption">
-                      <p className="mb-1.5">
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "The following skills are missing at least 1 assessment",
-                          id: "EY7YQM",
-                          description:
-                            "Warning message for skills with missing assessment on the 'assessment details' dialog",
-                        })}
-                        {intl.formatMessage(commonMessages.dividingColon)}
-                      </p>
-                      <Chips>
-                        {missingEssentialSkills.map(({ skill }) => (
-                          <Chip key={skill?.id} color="warning">
-                            {getLocalizedName(skill?.name, intl)}
-                          </Chip>
-                        ))}
-                      </Chips>
-                    </Well>
+                    <Notice.Root color="warning" className="p-3 text-sm">
+                      <Notice.Content>
+                        <p className="mb-1.5">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "The following skills are missing at least 1 assessment",
+                            id: "EY7YQM",
+                            description:
+                              "Warning message for skills with missing assessment on the 'assessment details' dialog",
+                          })}
+                          {intl.formatMessage(commonMessages.dividingColon)}
+                        </p>
+                        <Chips>
+                          {missingEssentialSkills.map(({ skill }) => (
+                            <Chip key={skill?.id} color="warning">
+                              {getLocalizedName(skill?.name, intl)}
+                            </Chip>
+                          ))}
+                        </Chips>
+                      </Notice.Content>
+                    </Notice.Root>
                   ) : null}
                 </div>
                 {assessedSkillsItems.essentialSkillItems.length > 0 && (

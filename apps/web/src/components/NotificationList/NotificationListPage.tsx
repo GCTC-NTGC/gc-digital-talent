@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 import { Scalars, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Link, Well } from "@gc-digital-talent/ui";
+import { Link, Notice } from "@gc-digital-talent/ui";
 
 import NotificationItem from "./NotificationItem";
 import NotificationPortal, {
@@ -111,28 +111,30 @@ const NotificationListPage = ({
           containerId={NULL_MESSAGE_ROOT_ID}
           inDialog={inDialog}
         >
-          <Well
+          <Notice.Root
             {...(inDialog && {
               className: "mx-6",
             })}
           >
-            <p className="mb-6 font-bold">
-              {intl.formatMessage({
-                defaultMessage: "You don't have any new notifications.",
-                id: "6cr+Qy",
-                description: "Title for the no notifications message",
-              })}
-            </p>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Check back here for alerts about a variety of activities on the platform, including job opportunities, new features, and more.",
-                id: "d4aLWc",
-                description:
-                  "Explanation of how the list of notifications work",
-              })}
-            </p>
-          </Well>
+            <Notice.Content>
+              <p className="mb-6 font-bold">
+                {intl.formatMessage({
+                  defaultMessage: "You don't have any new notifications.",
+                  id: "6cr+Qy",
+                  description: "Title for the no notifications message",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Check back here for alerts about a variety of activities on the platform, including job opportunities, new features, and more.",
+                  id: "d4aLWc",
+                  description:
+                    "Explanation of how the list of notifications work",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
         </NotificationPortal.Portal>
       )}
       {isLastPage && data?.notifications.paginatorInfo.hasMorePages && (

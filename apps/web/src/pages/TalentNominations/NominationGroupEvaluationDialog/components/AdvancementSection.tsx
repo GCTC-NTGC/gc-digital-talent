@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 
 import { Checkbox, RadioGroup, RichTextInput } from "@gc-digital-talent/forms";
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Notice } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
@@ -158,9 +158,11 @@ const AdvancementSection = ({
         />
       ) : null}
       {selectedAdvancementDecision == null ? (
-        <Well className="text-center">
-          {intl.formatMessage(formMessages.decisionNullState)}
-        </Well>
+        <Notice.Root className="text-center">
+          <Notice.Content>
+            {intl.formatMessage(formMessages.decisionNullState)}
+          </Notice.Content>
+        </Notice.Root>
       ) : null}
     </div>
   );

@@ -17,7 +17,7 @@ import {
   TableOfContents,
   Heading,
   Link,
-  Well,
+  Notice,
   Card,
   Button,
   Separator,
@@ -623,21 +623,25 @@ export const PoolPoster = ({
                 </div>
               </div>
               {showSpecialNote && (
-                <Well className="my-6">
-                  <Heading level="h3" size="h6" className="mt-0 text-base">
-                    {intl.formatMessage({
-                      defaultMessage: "Special note for this process",
-                      id: "cbwWa0",
-                      description:
-                        "Heading for a special note in pool advertisement.",
-                    })}
-                  </Heading>
-                  <RichTextRenderer
-                    node={htmlToRichTextJSON(
-                      getLocalizedName(pool.specialNote, intl),
-                    )}
-                  />
-                </Well>
+                <Notice.Root className="my-6">
+                  <Notice.Title>
+                    <Heading level="h3" size="h6" className="mt-0 text-base">
+                      {intl.formatMessage({
+                        defaultMessage: "Special note for this process",
+                        id: "cbwWa0",
+                        description:
+                          "Heading for a special note in pool advertisement.",
+                      })}
+                    </Heading>
+                  </Notice.Title>
+                  <Notice.Content>
+                    <RichTextRenderer
+                      node={htmlToRichTextJSON(
+                        getLocalizedName(pool.specialNote, intl),
+                      )}
+                    />
+                  </Notice.Content>
+                </Notice.Root>
               )}
               <AreaOfSelectionWell poolQuery={pool} />
 

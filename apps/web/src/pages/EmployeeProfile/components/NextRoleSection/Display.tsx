@@ -2,7 +2,7 @@ import { IntlShape, useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmployeeProfileNextRoleFragment } from "@gc-digital-talent/graphql";
-import { CardSeparator, Ul, Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Ul, Notice } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -72,14 +72,16 @@ const Display = ({
         nextRoleAdditionalInformation,
       }) && (
         <>
-          <Well>
-            {intl.formatMessage({
-              defaultMessage:
-                'There are currently unanswered questions in this section. Use the "Edit" button to review and answer any required fields.',
-              id: "9Y3w6l",
-              description: "Message for unanswered questions in this section",
-            })}
-          </Well>
+          <Notice.Root>
+            <Notice.Content>
+              {intl.formatMessage({
+                defaultMessage:
+                  'There are currently unanswered questions in this section. Use the "Edit" button to review and answer any required fields.',
+                id: "9Y3w6l",
+                description: "Message for unanswered questions in this section",
+              })}
+            </Notice.Content>
+          </Notice.Root>
           <CardSeparator space="none" />
         </>
       )}

@@ -8,7 +8,7 @@ import {
   SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
-import { Accordion, Button, Well } from "@gc-digital-talent/ui";
+import { Accordion, Button, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SkillProficiencyAccordionItem from "./SkillProficiencyAccordionItem";
@@ -137,13 +137,15 @@ const SkillProficiencyList = ({
           </Accordion.Root>
         ) : (
           /* no items - show the well */
-          <Well className="text-center">
-            {intl.formatMessage({
-              defaultMessage: "No skills have been added yet.",
-              id: "Ak7f1p",
-              description: "Null state message when there are no skills",
-            })}
-          </Well>
+          <Notice.Root className="text-center">
+            <Notice.Content>
+              {intl.formatMessage({
+                defaultMessage: "No skills have been added yet.",
+                id: "Ak7f1p",
+                description: "Null state message when there are no skills",
+              })}
+            </Notice.Content>
+          </Notice.Root>
         )}
       </>
 

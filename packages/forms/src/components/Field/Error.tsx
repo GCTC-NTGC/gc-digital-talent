@@ -1,11 +1,11 @@
-import { Well, WellProps } from "@gc-digital-talent/ui";
+import { Notice, NoticeProps } from "@gc-digital-talent/ui";
 
-const Error = (props: Omit<WellProps, "color" | "fontSize">) => {
+const Error = (props: Omit<NoticeProps, "color">) => {
   return (
-    <Well
+    <Notice
       role="alert"
       aria-live="polite"
-      fontSize="caption"
+      className="p-3 text-sm"
       color="error"
       {...props}
     />

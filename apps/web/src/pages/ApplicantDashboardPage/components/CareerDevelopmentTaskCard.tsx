@@ -9,7 +9,7 @@ import {
   PreviewList,
   TaskCard,
   Ul,
-  Well,
+  Notice,
   wrapParens,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -434,26 +434,28 @@ const CareerDevelopmentTaskCard = ({
                         )}
                       </PreviewList.Root>
                     ) : (
-                      <Well className="text-center">
-                        <p className="font-bold">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "You haven't opted into any functional communities.",
-                            id: "rrqAZ6",
-                            description:
-                              "Title for notice when there are no functional communities a user is a part of",
-                          })}
-                        </p>
-                        <p>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" link.',
-                            id: "ldgukM",
-                            description:
-                              "Body for notice when there are no functional communities a user is a part of",
-                          })}
-                        </p>
-                      </Well>
+                      <Notice.Root className="text-center">
+                        <Notice.Content>
+                          <p className="font-bold">
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "You haven't opted into any functional communities.",
+                              id: "rrqAZ6",
+                              description:
+                                "Title for notice when there are no functional communities a user is a part of",
+                            })}
+                          </p>
+                          <p>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" link.',
+                              id: "ldgukM",
+                              description:
+                                "Body for notice when there are no functional communities a user is a part of",
+                            })}
+                          </p>
+                        </Notice.Content>
+                      </Notice.Root>
                     )}
                   </div>
                 </Accordion.Content>

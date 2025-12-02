@@ -9,7 +9,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Loading, Well } from "@gc-digital-talent/ui";
+import { Loading, Notice } from "@gc-digital-talent/ui";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -231,17 +231,19 @@ const ScreeningDecisionDialogForm = ({
         </div>
       )}
       {watchAssessmentDecision === AssessmentDecision.Hold && (
-        <Well fontSize="caption">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Not sufficiently demonstrated in this assessment method - move to further testing. (Applicable only in instances where assessment scores are cumulative across assessment methods. Not applicable in cases where applicants must pass each essential criteria at each stage).",
-              id: "DOmsNQ",
-              description:
-                "Note for when an assessment was unsuccessful but put on hold",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="p-3 text-sm">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Not sufficiently demonstrated in this assessment method - move to further testing. (Applicable only in instances where assessment scores are cumulative across assessment methods. Not applicable in cases where applicants must pass each essential criteria at each stage).",
+                id: "DOmsNQ",
+                description:
+                  "Note for when an assessment was unsuccessful but put on hold",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       {isAssessmentOnHold || isAssessmentDecisionUnSuccessful ? (
         <div className="my-6">

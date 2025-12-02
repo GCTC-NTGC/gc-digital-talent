@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Well, Heading } from "@gc-digital-talent/ui";
+import { Notice, Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Maybe, Skill } from "@gc-digital-talent/graphql";
 
@@ -17,21 +17,25 @@ const SkillDescription = ({ skill }: SkillDescriptionProps) => {
   }
 
   return (
-    <Well>
-      <Heading level="h3" size="h6" className="mt-0 text-base font-bold">
-        {intl.formatMessage(
-          {
-            defaultMessage: "{skill} is defined as:",
-            id: "Ok+Ojl",
-            description: "Heading for a specific skills definition",
-          },
-          {
-            skill: getLocalizedName(skill.name, intl),
-          },
-        )}
-      </Heading>
-      <p>{description}</p>
-    </Well>
+    <Notice.Root>
+      <Notice.Title>
+        <Heading level="h3" size="h6" className="mt-0 text-base font-bold">
+          {intl.formatMessage(
+            {
+              defaultMessage: "{skill} is defined as:",
+              id: "Ok+Ojl",
+              description: "Heading for a specific skills definition",
+            },
+            {
+              skill: getLocalizedName(skill.name, intl),
+            },
+          )}
+        </Heading>
+      </Notice.Title>
+      <Notice.Content>
+        <p>{description}</p>
+      </Notice.Content>
+    </Notice.Root>
   );
 };
 

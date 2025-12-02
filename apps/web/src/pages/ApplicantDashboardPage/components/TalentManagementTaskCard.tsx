@@ -9,7 +9,7 @@ import {
   Link,
   PreviewList,
   TaskCard,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -193,26 +193,28 @@ const TalentManagementTaskCard = ({
                             ))}
                           </PreviewList.Root>
                         ) : (
-                          <Well className="text-center">
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "<strong>You have no active nominations.</strong>",
-                                id: "a4Wc5h",
-                                description:
-                                  "Notice's title when there are no nominations",
-                              })}
-                            </p>
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  'You can start a nomination by browsing the currently active talent management events using the "New nomination" link.',
-                                id: "73rG7Y",
-                                description:
-                                  "Notice's text when there are no nominations",
-                              })}
-                            </p>
-                          </Well>
+                          <Notice.Root className="text-center">
+                            <Notice.Content>
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "<strong>You have no active nominations.</strong>",
+                                  id: "a4Wc5h",
+                                  description:
+                                    "Notice's title when there are no nominations",
+                                })}
+                              </p>
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    'You can start a nomination by browsing the currently active talent management events using the "New nomination" link.',
+                                  id: "73rG7Y",
+                                  description:
+                                    "Notice's text when there are no nominations",
+                                })}
+                              </p>
+                            </Notice.Content>
+                          </Notice.Root>
                         )}
                       </div>
                     </Accordion.Content>
@@ -266,26 +268,28 @@ const TalentManagementTaskCard = ({
                             ))}
                           </PreviewList.Root>
                         ) : (
-                          <Well className="text-center">
-                            <p className="font-bold">
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "You don't have any active requests at the moment.",
-                                id: "3PwQT7",
-                                description:
-                                  "Title for notice when there are no pool candidate search requests",
-                              })}
-                            </p>
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  'You can start a new talent request using the "New request" button or navigating to the "Find talent" page from the main navigation.',
-                                id: "6jBrNA",
-                                description:
-                                  "Body for notice when there are no pool candidate search requests",
-                              })}
-                            </p>
-                          </Well>
+                          <Notice.Root className="text-center">
+                            <Notice.Content>
+                              <p className="font-bold">
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "You don't have any active requests at the moment.",
+                                  id: "3PwQT7",
+                                  description:
+                                    "Title for notice when there are no pool candidate search requests",
+                                })}
+                              </p>
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    'You can start a new talent request using the "New request" button or navigating to the "Find talent" page from the main navigation.',
+                                  id: "6jBrNA",
+                                  description:
+                                    "Body for notice when there are no pool candidate search requests",
+                                })}
+                              </p>
+                            </Notice.Content>
+                          </Notice.Root>
                         )}
                       </div>
                     </Accordion.Content>
