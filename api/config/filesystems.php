@@ -35,7 +35,7 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'userGenerated' => [
+        'user_generated' => [
             'driver' => 'local',
             'root' => storage_path('app/user_generated'),
         ],
