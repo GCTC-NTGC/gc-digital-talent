@@ -214,7 +214,7 @@ class WorkStreamTest extends TestCase
 
         $this->actingAs($user, 'api')
             ->graphQL(<<<'GRAPHQL'
-                query TestWorkkStreamsCommunityScope($ids: [UUID!]) {
+                query TestWorkStreamsCommunityScope($ids: [UUID!]) {
                     workStreams(whereCommunityIn: $ids) {
                         id
                     }
@@ -234,7 +234,7 @@ class WorkStreamTest extends TestCase
         // Ensure both appear without scope
         $this->actingAs($user, 'api')
             ->graphQL(<<<'GRAPHQL'
-                query TestWorkkStreamsCommunityScope($ids: [UUID!]) {
+                query TestWorkStreamsCommunityScope($ids: [UUID!]) {
                     workStreams(whereCommunityIn: $ids) {
                         id
                     }
