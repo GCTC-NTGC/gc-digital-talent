@@ -56,7 +56,6 @@ test.describe("Applicant settings page", () => {
 
   test("Account Settings update for New User", async ({ appPage }) => {
     // Register with new user and verify the email address
-    await loginBySub(appPage.page, sub);
     const page = appPage.page;
     const registration = new Registration(page);
     await registration.gettingStarted();
@@ -76,12 +75,13 @@ test.describe("Applicant settings page", () => {
     ).toBeVisible();
     // Update the contact email address and verify throttling message
     await settingsPage.updateContactEmailAddress();
-    await appPage.page
-      .getByRole("button", {
-        name: /send verification email/i,
-      })
-      .click();
+    // await appPage.page
+    //   .getByRole("button", {
+    //     name: /send verification email/i,
+    //   })
+    //   .click();
     await registration.verifyThrottlingMessageForVerificationCode();
+    await appPage.page.getByRole("button", { name: /Cancel/i }).click();
     await registration.deleteNewUser();
   });
 

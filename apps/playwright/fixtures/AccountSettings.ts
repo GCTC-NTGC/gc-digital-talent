@@ -90,11 +90,6 @@ class AccountSettings extends AppPage {
     await this.locators[FIELD.CONTACT_EMAIL_INPUT].fill(
       this.uniqueEmailAddress,
     );
-    await this.page
-      .getByRole("button", {
-        name: /send verification email/i,
-      })
-      .click();
   }
 
   async removeWorkEmail() {
