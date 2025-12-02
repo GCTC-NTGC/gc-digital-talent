@@ -13,6 +13,8 @@ final class RevertFinalDecision
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
 
+        $candidate->revertFinalDecision();
+
         $candidate->save();
 
         return $candidate;
