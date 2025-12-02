@@ -46,15 +46,16 @@ cd /home/site/wwwroot/api
 # Laravel storage
 if
      mkdir --parents \
-        /var/storage/app/public \
-        /var/storage/app/user_generated \
-        /var/storage/framework/cache/data \
-        /var/storage/framework/sessions \
-        /var/storage/framework/testing \
-        /var/storage/framework/views \
-        /var/storage/logs && \
-    chown -R www-data:www-data /var/storage && \
-    chmod -R 775 /var/storage && \
+        /var/gc-digital-talent/storage/app/public \
+        /var/gc-digital-talent/storage/app/user_generated \
+        /var/gc-digital-talent/storage/framework/cache/data \
+        /var/gc-digital-talent/storage/framework/sessions \
+        /var/gc-digital-talent/storage/framework/testing \
+        /var/gc-digital-talent/storage/framework/views \
+        /var/gc-digital-talent/storage/logs \
+        /var/gc-digital-talent/bootstrap/cache && \
+    chown -R www-data:www-data /var/gc-digital-talent && \
+    chmod -R 775 /var/gc-digital-talent && \
     php artisan lighthouse:print-schema --write && \
     php artisan optimize ;
 then
