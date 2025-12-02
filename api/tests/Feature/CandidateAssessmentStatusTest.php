@@ -656,7 +656,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'assessmentStep' => ['sortOrder' => 1],
+                        'assessmentStep' => null,
                         'assessmentStatus' => [
                             'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
