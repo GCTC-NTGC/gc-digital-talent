@@ -42,7 +42,10 @@ test("Create department", async ({ appPage }) => {
     }),
   ).toBeVisible();
 
-  const departmentID = fetchIdentificationNumber(appPage.page.url());
+  const departmentID = fetchIdentificationNumber(
+    appPage.page.url(),
+    "departments",
+  );
   await deleteDepartment(adminCtx, {
     id: departmentID,
   });
