@@ -26,6 +26,7 @@ import { ManageAccessFormValues, PoolTeamMember } from "./types";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserProcessRoles_Mutation } from "./operations";
+import adminMessages from "~/messages/adminMessages";
 
 interface AddPoolMembershipDialogProps {
   pool: ManageAccessPagePoolFragmentType;
@@ -164,12 +165,7 @@ const AddPoolMembershipDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage({
-                    defaultMessage: "User",
-                    id: "9QZhR4",
-                    description:
-                      "Label for the user select field on community membership form",
-                  })}
+                  label={intl.formatMessage(adminMessages.user)}
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="poolId" value={pool.id} />

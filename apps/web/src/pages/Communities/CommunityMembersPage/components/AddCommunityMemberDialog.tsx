@@ -29,6 +29,7 @@ import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
+import adminMessages from "~/messages/adminMessages";
 
 interface AddCommunityMemberDialogProps {
   community: CommunityMembersPageCommunityFragmentType;
@@ -168,12 +169,7 @@ AddCommunityMemberDialogProps) => {
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage({
-                    defaultMessage: "User",
-                    id: "9QZhR4",
-                    description:
-                      "Label for the user select field on community membership form",
-                  })}
+                  label={intl.formatMessage(adminMessages.user)}
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="communityId" value={community.id} />

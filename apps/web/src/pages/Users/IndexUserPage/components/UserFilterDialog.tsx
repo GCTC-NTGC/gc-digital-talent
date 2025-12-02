@@ -287,11 +287,7 @@ const UserFilterDialog = ({
             },
             {
               value: OTHER_FILTER.TRASHED,
-              label: intl.formatMessage({
-                defaultMessage: "Deleted",
-                id: "CzK1qY",
-                description: "Label for the trashed field",
-              }),
+              label: intl.formatMessage(commonMessages.deleted),
             },
           ]}
         />

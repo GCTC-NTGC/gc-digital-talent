@@ -2699,9 +2699,9 @@
     "defaultMessage": "Un diplôme d’études secondaires.",
     "description": "Description for the education requirement option secondary school diploma."
   },
-  "9QZhR4": {
+  "Ftq+3Y": {
     "defaultMessage": "Utilisateur",
-    "description": "Label for the user select field on community membership form"
+    "description": "Label for a specific user"
   },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
