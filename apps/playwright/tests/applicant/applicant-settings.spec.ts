@@ -82,7 +82,7 @@ test.describe("Applicant settings page", () => {
       })
       .click();
     await registration.verifyThrottlingMessageForVerificationCode();
-    await registration.softDeleteUser();
+    await registration.deleteNewUser();
   });
 
   test("Existing User with Verified Emails", async ({ appPage }) => {
