@@ -3,16 +3,17 @@ import { execSync } from "child_process";
 import { expect, Locator, Page } from "@playwright/test";
 
 import { loginBySub } from "~/utils/auth";
-import { me } from "~/utils/user";
+import { deleteUser, me } from "~/utils/user";
 import {
   fetchIdentificationNumber,
   generateUniqueTestId,
   uuidRegEx,
 } from "~/utils/id";
 import graphql from "~/utils/graphql";
+import testConfig from "~/constants/config";
 
 import AppPage from "./AppPage";
-import AdminUser from "./AdminUser";
+import UserPage from "./UserPage";
 
 const FIELD = {
   GETTING_STARTED_HEADING: "gettingStartedHeading",
@@ -188,12 +189,19 @@ class Registration extends AppPage {
     await this.locators[FIELD.SKIP_ADD_WORK_EXPERIENCE].click();
   }
 
-  async softDeleteUser() {
+  async deleteNewUser() {
+    const userName = `${this.firstName} ${this.lastName}`;
+    await loginBySub(this.page, testConfig.signInSubs.adminSignIn, false);
+    const userPage = new UserPage(this.page);
+    await userPage.searchUserByName(
+      this.uniqueEmailAddress,
+      "Contact email address",
+    );
+    await this.page.locator(`a:has-text("${userName}")`).click();
+    await this.waitForGraphqlResponse("AdminApplicantProfilePage");
     const userID = fetchIdentificationNumber(this.page.url(), "users");
-    const adminUser = new AdminUser(this.page);
-    await adminUser.goToIndex();
-    await adminUser.goToUser(userID);
-    await adminUser.softDelete(userID, `${this.firstName} ${this.lastName}`);
+    const adminCtx = await graphql.newContext();
+    await deleteUser(adminCtx, { id: userID });
   }
 }
 export default Registration;

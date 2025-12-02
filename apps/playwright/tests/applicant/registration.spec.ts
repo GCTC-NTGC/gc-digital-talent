@@ -10,7 +10,7 @@ test.describe("Registration", () => {
     await expect(
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
-    await register.softDeleteUser();
+    await register.deleteNewUser();
   });
 
   test("New user skips to add recent work experience", async ({ appPage }) => {
@@ -24,6 +24,6 @@ test.describe("Registration", () => {
     await expect(
       appPage.page.getByRole("link", { name: /Applicant dashboard/i }),
     ).toBeVisible();
-    await register.softDeleteUser();
+    await register.deleteNewUser();
   });
 });

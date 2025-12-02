@@ -27,10 +27,10 @@ export function generateUniqueNumber() {
   return `${workerIndex}${repeatEach}${random}`;
 }
 
-export function fetchIdentificationNumber(url: string): string {
-  //  This function is primarily used to fetch the ID (UUID) from recently created department, this function can further be upgraded to accomodate future request
+export function fetchIdentificationNumber(url: string, entity: string): string {
+  //  This function is primarily used to fetch the ID (UUID) from recently entity such as users, departments, etc.
   const currentURLParts = new URL(url).pathname.split("/");
-  const fetchID = currentURLParts[currentURLParts.indexOf("departments") + 1];
+  const fetchID = currentURLParts[currentURLParts.indexOf(entity) + 1];
   return fetchID;
 }
 
