@@ -66,7 +66,7 @@ export const Component = () => {
     ],
   });
 
-  const toggleSkillsAccorions = () => {
+  const toggleSkillsAccordions = () => {
     if (openSkillsAccordions.length > 0) {
       setOpenSkillsAccordions([]);
     } else {
@@ -224,7 +224,7 @@ export const Component = () => {
               description: "Heading for more info on skills",
             })}
           </Heading>
-          <Button mode="inline" onClick={toggleSkillsAccorions}>
+          <Button mode="inline" onClick={toggleSkillsAccordions}>
             {openSkillsAccordions.length > 0
               ? intl.formatMessage(uiMessages.collapseAll)
               : intl.formatMessage(uiMessages.expandAll)}
