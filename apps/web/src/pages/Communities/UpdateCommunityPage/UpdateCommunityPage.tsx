@@ -303,8 +303,8 @@ export const UpdateCommunity = () => {
     ...(baseCrumbs ?? []),
     {
       label: intl.formatMessage({
-        defaultMessage: "Edit<hidden> skill</hidden>",
-        id: "M2LfhH",
+        defaultMessage: "Edit<hidden> community</hidden>",
+        id: "/zsCRf",
         description: "Breadcrumb title for the edit skill page link.",
       }),
       url: paths.communityUpdate(communityId),
