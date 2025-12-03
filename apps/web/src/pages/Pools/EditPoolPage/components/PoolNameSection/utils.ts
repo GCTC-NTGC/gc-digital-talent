@@ -29,7 +29,9 @@ export interface FormValues {
   opportunityLength?: Maybe<PoolOpportunityLength>;
 }
 
-export const dataToFormValues = (initialData: Pool): FormValues => ({
+export const dataToFormValues = (
+  initialData: Omit<Pool, "community">,
+): FormValues => ({
   areaOfSelection: initialData.areaOfSelection?.value ?? undefined,
   selectionLimitations: initialData.selectionLimitations?.map((l) => l.value),
   classification: initialData.classification?.id ?? "",

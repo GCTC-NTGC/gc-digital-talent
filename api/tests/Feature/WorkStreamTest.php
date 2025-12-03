@@ -198,4 +198,54 @@ class WorkStreamTest extends TestCase
                 ])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
+
+    public function testWhereCommunityInScope()
+    {
+        // Unrelated
+        $unexpected = WorkStream::factory()->create();
+
+        $community = Community::factory()->create();
+
+        $expected = WorkStream::factory()->create(['community_id' => $community->id]);
+
+        $user = User::factory()
+            ->asCommunityRecruiter($community->id)
+            ->create();
+
+        $this->actingAs($user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                query TestWorkStreamsCommunityScope($ids: [UUID!]) {
+                    workStreams(whereCommunityIn: $ids) {
+                        id
+                    }
+                }
+            GRAPHQL,
+                [
+                    'ids' => [$community->id],
+                ])
+            ->assertJson([
+                'data' => [
+                    'workStreams' => [
+                        ['id' => $expected->id],
+                    ],
+                ],
+            ]);
+
+        // Ensure both appear without scope
+        $this->actingAs($user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                query TestWorkStreamsCommunityScope($ids: [UUID!]) {
+                    workStreams(whereCommunityIn: $ids) {
+                        id
+                    }
+                }
+            GRAPHQL,
+                [
+                    'ids' => null,
+                ])->assertJsonFragments([
+                    ['id' => $expected->id],
+                    ['id' => $unexpected->id],
+                ]);
+
+    }
 }

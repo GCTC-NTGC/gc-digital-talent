@@ -77,4 +77,16 @@ class WorkStream extends Model
 
         return $query->where('talent_searchable', true);
     }
+
+    public function scopeWhereCommunityIn(Builder $query, ?array $communities): Builder
+    {
+
+        if (empty($communities)) {
+            return $query;
+        }
+
+        return $query->whereHas('community', function ($query) use ($communities) {
+            $query->whereIn('id', $communities);
+        });
+    }
 }
