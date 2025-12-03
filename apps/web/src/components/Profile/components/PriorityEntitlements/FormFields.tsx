@@ -86,7 +86,7 @@ const FormFields = ({ labels }: FormFieldsProps) => {
           },
         ]}
       />
-      <Notice.Root id="priority-description" className="p-3 text-sm">
+      <Notice.Root id="priority-description" small>
         <Notice.Content>
           <p>
             {intl.formatMessage(
