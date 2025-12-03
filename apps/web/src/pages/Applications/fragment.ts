@@ -252,8 +252,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       areaOfSelection {
         value
         label {
-          en
-          fr
+          localized
         }
       }
     }
