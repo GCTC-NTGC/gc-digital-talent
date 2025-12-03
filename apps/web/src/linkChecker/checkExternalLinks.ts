@@ -10,7 +10,6 @@ interface LinkStatus {
   status: number | string;
 }
 
-
 async function fetchLink(
   url: string,
   timeoutMs = 10000,
@@ -35,12 +34,22 @@ async function fetchLink(
 async function getAllFiles(): Promise<string[]> {
   const files = await glob("apps/web/src/**/*.{ts,tsx,js,jsx,html}", {
     absolute: true,
-    ignore: ["**/node_modules/**", "**/dist/**", "**/.git/**"],
+    ignore: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/.git/**",
+      "**/svg/**",
+      "**/icon/**",
+      "**/icons/**",
+      "**/*.stories.*",
+    ],
   });
-  return files;
+
+  // Filter out SharePoint sites
+  return files.filter((file) => !file.toLowerCase().includes("sharepoint"));
 }
 
-//  Extract external links 
+//  Extract external links
 async function extractExternalLinks(filePath: string): Promise<string[]> {
   let content: string;
   try {
