@@ -1,7 +1,10 @@
 name: LinkChecker
 
 on:
-  workflow_dispatch: # allows manual testing
+  push: # only for testing on the feature branch..remove this when merging
+    branches:
+      - "**" # Trigger on any branch commit
+  workflow_dispatch: # allows manual trigger
   schedule:
     # Every Wednesday at 2:00 AM UTC
     - cron: "0 2 * * 3"
@@ -9,7 +12,12 @@ on:
 jobs:
   check-links:
     runs-on: ubuntu-latest
-
+    env:
+      # Use native docker command within docker compose
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      # Use buildkit to speed up docker command
+      DOCKER_BUILDKIT: 1
+      PNPM_VERSION: "10.17.0"
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -17,7 +25,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -32,6 +40,7 @@ jobs:
         run: pnpm run check-links
 
       - name: Upload Report Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: external-link-check-results
