@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Heading, Notice } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import tableMessages from "../tableMessages";
 

@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Heading, Notice } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 const EmployeeSearchWell = () => {
   const intl = useIntl();

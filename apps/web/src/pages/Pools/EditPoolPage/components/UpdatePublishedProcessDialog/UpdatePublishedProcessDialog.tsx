@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Button, Dialog, Heading, Notice } from "@gc-digital-talent/ui";
+import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   UpdatePublishedPoolInput,

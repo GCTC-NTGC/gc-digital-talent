@@ -8,7 +8,7 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { Heading, Link, Notice } from "@gc-digital-talent/ui";
+import { Link, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocale, getLocalizedName, Locales } from "@gc-digital-talent/i18n";
 

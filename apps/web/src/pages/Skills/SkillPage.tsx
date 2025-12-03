@@ -1,13 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import {
-  Notice,
-  Container,
-  Heading,
-  Link,
-  Notice,
-} from "@gc-digital-talent/ui";
+import { Container, Link, Notice } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";

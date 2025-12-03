@@ -4,7 +4,7 @@ import BeakerIcon from "@heroicons/react/16/solid/BeakerIcon";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Checkbox } from "@gc-digital-talent/forms";
-import { Heading, Notice } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";

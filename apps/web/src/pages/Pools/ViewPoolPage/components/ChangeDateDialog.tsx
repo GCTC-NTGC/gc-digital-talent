@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Dialog, Button, Notice, Heading } from "@gc-digital-talent/ui";
+import { Dialog, Button, Notice } from "@gc-digital-talent/ui";
 import {
   convertDateTimeZone,
   strToFormDate,

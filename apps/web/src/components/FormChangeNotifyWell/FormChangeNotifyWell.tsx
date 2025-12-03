@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { Heading, HeadingLevel, Notice } from "@gc-digital-talent/ui";
+import { HeadingLevel, Notice } from "@gc-digital-talent/ui";
 
 interface FormChangeNotifyNoticeProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
