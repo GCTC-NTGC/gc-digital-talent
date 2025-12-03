@@ -4963,6 +4963,10 @@
     "defaultMessage": "Profil linguistique",
     "description": "Title of the Language Information link section"
   },
+  "Ji6+E5": {
+    "defaultMessage": "Télécharger Excel sans évaluations",
+    "description": "Button label for download candidate excel without ROD data."
+  },
   "JjTGYe": {
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
     "description": "First section of text on the change candidate expiry date dialog"
@@ -7957,6 +7961,10 @@
   "XUmyGM": {
     "defaultMessage": "Aux fins de la vérification de vos antécédents, vous devrez fournir des renseignements personnels dans certaines sections du <link>Formulaire de consentement et de demande de filtrage de sécurité.</link>",
     "description": "First paragraph for the obtaining security clearance section"
+  },
+  "XWyKqc": {
+    "defaultMessage": "Télécharger Excel demandes d'emploi",
+    "description": "Button label to download selected candidates Excel"
   },
   "XXZ2i3": {
     "defaultMessage": "Avec qui puis-je communiquer si j'ai des questions au sujet de CléGC?",
@@ -12140,6 +12148,10 @@
   "pHIcBU": {
     "defaultMessage": "Soutien à la collectivité du numérique",
     "description": "Button text to open section describing digital community support"
+  },
+  "pHwRH1": {
+    "defaultMessage": "Télécharger Excel avec évaluations",
+    "description": "Button label for download candidate excel with ROD data."
   },
   "pIiisf": {
     "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
