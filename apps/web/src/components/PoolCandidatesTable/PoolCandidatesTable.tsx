@@ -54,8 +54,8 @@ import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
 import {
-  bookmarkCell,
-  bookmarkHeader,
+  flagCell,
+  flagHeader,
   candidacyStatusAccessor,
   candidateNameCell,
   currentLocationAccessor,
@@ -83,7 +83,7 @@ import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
 } from "../PoolCandidateDialogs/JobPlacementDialog";
-import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
+import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
@@ -190,7 +190,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         poolCandidate {
           ...JobPlacementDialogCandidateTable
           id
-          ...PoolCandidateTable_Bookmark
+          ...PoolCandidateTable_Flag
           notes
           status {
             value
@@ -419,14 +419,14 @@ const PoolCandidatesTable = ({
   currentPool,
   title,
   hidePoolFilter,
-  doNotUseBookmark = false,
+  doNotUseFlag = false,
   availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
-  doNotUseBookmark?: boolean;
+  doNotUseFlag?: boolean;
   availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
 }) => {
   const intl = useIntl();
@@ -561,11 +561,11 @@ const PoolCandidatesTable = ({
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      sortingInput: getSortOrder(sortState, filterState, doNotUseFlag),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
-        doNotUseBookmark,
+        doNotUseFlag,
       ),
     },
   });
@@ -712,21 +712,21 @@ const PoolCandidatesTable = ({
   };
 
   const columns = [
-    ...(doNotUseBookmark
+    ...(doNotUseFlag
       ? []
       : [
           columnHelper.display({
-            id: "isBookmarked",
-            header: () => bookmarkHeader(intl),
+            id: "isFlagged",
+            header: () => flagHeader(intl),
             enableHiding: false,
             cell: ({
               row: {
                 original: { poolCandidate },
               },
             }) =>
-              bookmarkCell(
+              flagCell(
                 poolCandidate as FragmentType<
-                  typeof PoolCandidate_BookmarkFragment
+                  typeof PoolCandidate_FlagFragment
                 >,
               ),
             meta: {

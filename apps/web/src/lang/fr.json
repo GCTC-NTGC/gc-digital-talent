@@ -103,6 +103,10 @@
     "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
     "description": "PSC second language evaluations list for language requirements dialog"
   },
+  "+Nn0rE": {
+    "defaultMessage": "Retirer le drapeau",
+    "description": "Label for removing a flag"
+  },
   "+O6J4u": {
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
@@ -518,6 +522,10 @@
   "07p+1J": {
     "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link>communiquer avec notre équipe</link> pour obtenir de plus amples renseignements.",
     "description": "Third paragraph for pool closing date dialog"
+  },
+  "07pYaF": {
+    "defaultMessage": "La mise à jour du drapeau d'un candidat a échoué.",
+    "description": "Alert displayed to the user when failing to (un-)flag a candidate."
   },
   "07sCDh": {
     "defaultMessage": "Utilisez le bouton « Créez un processus » pour commencer.",
@@ -1010,10 +1018,6 @@
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
-  },
-  "27mGKw": {
-    "defaultMessage": "Retirer des favoris",
-    "description": "Label for removing a bookmark"
   },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
@@ -2691,10 +2695,6 @@
     "defaultMessage": "{date} - Aujourd’hui",
     "description": "A date range that goes to the present day"
   },
-  "9QJRRw": {
-    "defaultMessage": "Erreur : le signet du candidat n’a pas été mis à jour.",
-    "description": "Alert displayed to the user when failing to (un-)bookmark a candidate."
-  },
   "9QZYMX": {
     "defaultMessage": "Un diplôme d’études secondaires.",
     "description": "Description for the education requirement option secondary school diploma."
@@ -3919,6 +3919,10 @@
     "defaultMessage": "La possibilité pour la personne candidate de se décrire, d'expliquer comment elle aborde sa carrière et comment elle travaille le mieux.",
     "description": "Subtitle for goals and work style section"
   },
+  "EhRf8u": {
+    "defaultMessage": "Retirer le drapeau de {candidatename} pour les utilisateurs autorisés.",
+    "description": "Un-flag button label for applicant assessment tracking."
+  },
   "ElnCxi": {
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Description for a form input for selecting a functional community"
@@ -4139,6 +4143,10 @@
     "defaultMessage": "Commencez par ajouter un article en vous servant du bouton « Ajouter une nouvelle compétence » fourni à cet effet.",
     "description": "Message displayed when a user has no skills in their library"
   },
+  "FtP8OZ": {
+    "defaultMessage": "Ajouter un drapeau",
+    "description": "Label for adding a flag"
+  },
   "FtlwFY": {
     "defaultMessage": "Voir les bassins ouverts",
     "description": "Link text to view all open pools"
@@ -4150,6 +4158,10 @@
   "FuuXpa": {
     "defaultMessage": "Suivant",
     "description": "Link text to navigate to the next item"
+  },
+  "Fwapx7": {
+    "defaultMessage": "Drapeau ajouté",
+    "description": "Title displayed on the Pool Candidates table flag column"
   },
   "FxB6Km": {
     "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
@@ -4330,10 +4342,6 @@
   "Gc11BQ": {
     "defaultMessage": "Niveau d'études minimal",
     "description": "Title for a education details of a pool advertisement"
-  },
-  "Gc5hcz": {
-    "defaultMessage": "Mettre {candidateName} en signet au haut de la colonne.",
-    "description": "Bookmark button label for applicant assessment tracking."
   },
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
@@ -4702,10 +4710,6 @@
   "IReTZe": {
     "defaultMessage": "Modifier les rôles dans le processus",
     "description": "Label for the form to edit a users process membership"
-  },
-  "ISSs88": {
-    "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
-    "description": "Un-bookmark button label for applicant assessment tracking."
   },
   "IUoUqs": {
     "defaultMessage": "Modification de l’état",
@@ -5242,10 +5246,6 @@
   "L0ugLs": {
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
-  },
-  "L2xLV8": {
-    "defaultMessage": "Ajouter aux favoris",
-    "description": "Label for adding a bookmark"
   },
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
@@ -5790,6 +5790,10 @@
   "NROIaL": {
     "defaultMessage": "Il manque certaines compétences à cette évaluation",
     "description": "Warning message that an assessment step is missing skills"
+  },
+  "NRX2CA": {
+    "defaultMessage": "Vous avez ajouté un drapeau à {candidateName} pour {processTitle}. Les autres utilisateurs autorisés peuvent également voir ou retirer ce drapeau.",
+    "description": "Alert displayed to the user when they mark a candidate as flagged."
   },
   "NSHPIJ": {
     "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
@@ -10202,10 +10206,6 @@
     "defaultMessage": "0 des 0",
     "description": "Title displayed on the candidate skill count column when no skills are selected."
   },
-  "glBoRl": {
-    "defaultMessage": "Signet du candidat supprimé.",
-    "description": "Alert displayed to the user when they un-mark a candidate as bookmarked."
-  },
   "gnEK8V": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
@@ -10640,6 +10640,10 @@
   "idv7rY": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get deleted."
+  },
+  "idwHJf": {
+    "defaultMessage": "Vous avez retiré le drapeau de {candidateName} pour {processTitle}.",
+    "description": "Alert displayed to the user when they un-flag a candidate."
   },
   "ifVyI/": {
     "defaultMessage": "Modifiez les informations sur le groupe de compétences",
@@ -11780,10 +11784,6 @@
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
     "description": "Message displayed when candidate is on hold at a specific assessment step"
-  },
-  "neIH5o": {
-    "defaultMessage": "Candidat mis en signet.",
-    "description": "Alert displayed to the user when they mark a candidate as bookmarked."
   },
   "ngHHmI": {
     "defaultMessage": "Sauvegardez la décision finale",
@@ -14424,6 +14424,10 @@
   "zYKPdV": {
     "defaultMessage": "Nom de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's name"
+  },
+  "zYSicn": {
+    "defaultMessage": "Ajouter un drapeau à {candidatename} pour les utilisateurs autorisés.",
+    "description": "Flag button label for applicant assessment tracking."
   },
   "zahHKE": {
     "defaultMessage": "Non recommandée",
