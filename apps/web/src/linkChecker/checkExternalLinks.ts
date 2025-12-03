@@ -38,14 +38,14 @@ async function getAllFiles(): Promise<string[]> {
       "**/dist/**",
       "**/.git/**",
       "**/svg/**",
+      "**/Svg/**",
       "**/icon/**",
       "**/icons/**",
       "**/*.stories.*",
     ],
   });
 
-  // Filter out SharePoint sites
-  return files.filter((file) => !file.toLowerCase().includes("sharepoint"));
+  return files;
 }
 
 //  Extract external links
@@ -65,14 +65,20 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
     const regex = /href=['"]([^'"]+)['"]/g;
     let match;
     while ((match = regex.exec(content))) {
-      if (match[1].startsWith("http")) links.push(match[1]);
+      const url = match[1];
+      if (url.startsWith("http") && !url.toLowerCase().includes("sharepoint")) {
+        links.push(url);
+      }
     }
   } else {
     // JS/TS/TSX/JSX links (in strings)
     const regex = /['"](https?:\/\/[^'"]+)['"]/g;
     let match;
     while ((match = regex.exec(content))) {
-      links.push(match[1]);
+      const url = match[1];
+      if (!url.toLowerCase().includes("sharepoint")) {
+        links.push(url);
+      }
     }
   }
 
