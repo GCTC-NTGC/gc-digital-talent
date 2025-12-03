@@ -231,7 +231,7 @@ const ScreeningDecisionDialogForm = ({
         </div>
       )}
       {watchAssessmentDecision === AssessmentDecision.Hold && (
-        <Notice.Root className="p-3 text-sm">
+        <Notice.Root small>
           <Notice.Content>
             <p>
               {intl.formatMessage({
