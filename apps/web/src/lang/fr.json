@@ -483,13 +483,13 @@
     "defaultMessage": "Tâches courantes dans ce poste",
     "description": "Label for a process work tasks"
   },
-  "/zsCRf": {
-    "defaultMessage": "Modifier<hidden> la collectivité</hidden>",
-    "description": "Breadcrumb title for the edit skill page link."
-  },
   "/zVZCP": {
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
+  },
+  "/zsCRf": {
+    "defaultMessage": "Modifier<hidden> la collectivité</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
   },
   "0/jj1v": {
     "defaultMessage": "Réinitialisez tous les filtres",
