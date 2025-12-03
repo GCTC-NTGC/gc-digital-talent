@@ -43,7 +43,7 @@ fi
 
 cd /home/site/wwwroot/api
 
-# Laravel storage
+# Laravel local cache
 if
      mkdir --parents \
         /var/gc-digital-talent/storage/app/public \
@@ -58,9 +58,9 @@ if
     chmod -R 775 /var/gc-digital-talent && \
     php artisan optimize ;
 then
-    add_section_block ":white_check_mark: Laravel storage setup *successful*."
+    add_section_block ":white_check_mark: Laravel cache setup *successful*."
 else
-    add_section_block ":X: Laravel storage setup *failed*. $MENTION"
+    add_section_block ":X: Laravel cache setup *failed*. $MENTION"
 fi
 
 # Laravel database migrations
