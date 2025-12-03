@@ -1,4 +1,4 @@
-name: External Link Checker
+name: LinkChecker
 
 on:
   workflow_dispatch: # allows manual testing
