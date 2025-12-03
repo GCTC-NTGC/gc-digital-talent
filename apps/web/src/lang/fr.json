@@ -1119,10 +1119,6 @@
     "defaultMessage": "Utilisateur introuvable.",
     "description": "Message displayed for user not found."
   },
-  "2cZySB": {
-    "defaultMessage": "Télécharger CSV sans évaluations",
-    "description": "Button label for download candidate csv without ROD data."
-  },
   "2dkgQe": {
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
@@ -1282,10 +1278,6 @@
   "3D8drd": {
     "defaultMessage": "Informations sur le volet de travail",
     "description": "Heading for the 'update a work stream' form"
-  },
-  "3DIalV": {
-    "defaultMessage": "Télécharger CSV demandes d'emploi",
-    "description": "Button label to download selected candidates CSV"
   },
   "3EI6TE": {
     "defaultMessage": "L'ajout de l'utilisateur au processus a échoué.",
@@ -3294,10 +3286,6 @@
   "C0M2h9": {
     "defaultMessage": "En savoir plus<hidden> sur l'équipe du Développement de la collectivité de la gestion financière</hidden>",
     "description": "External link button, learn more about the named team"
-  },
-  "C1jirU": {
-    "defaultMessage": "Télécharger CSV avec évaluations",
-    "description": "Button label for download candidate csv with ROD data."
   },
   "C2urGD": {
     "defaultMessage": "Votre identifiant de candidature est le suivant : <strong>{id}</strong>",
