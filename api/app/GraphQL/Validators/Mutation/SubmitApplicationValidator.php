@@ -4,10 +4,10 @@ namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
 use App\Models\PoolCandidate;
+use App\Rules\EmployeeWorkEmailVerified;
 use App\Rules\HasEducationRequirement;
 use App\Rules\HasEssentialSkills;
 use App\Rules\HasLanguageRequirements;
-use App\Rules\EmployeeWorkEmailVerified;
 use App\Rules\PoolNotClosed;
 use App\Rules\QuestionsAnswered;
 use App\Rules\UserProfileComplete;
