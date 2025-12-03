@@ -113,6 +113,7 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
         group
         level
       }
+      referenceId
     }
   }
 `);
@@ -193,6 +194,7 @@ const JobPosterTemplatesPage = () => {
     const allTemplates = jobPosterTemplates.filter((jobPosterTemplate) => {
       let show = true;
 
+      // keyword search
       if (formData.keyword.length) {
         const keywords = formData.keyword.split(",");
         show =
@@ -203,14 +205,19 @@ const JobPosterTemplatesPage = () => {
               jobPosterTemplate.name?.[locale]
                 ?.toLowerCase()
                 .trim()
-                .includes(sanitizedTerm) ??
+                .includes(sanitizedTerm) ||
               jobPosterTemplate.keywords?.[locale]?.some((keyword) => {
                 return keyword.toLowerCase().trim().includes(sanitizedTerm);
-              })
+              }) ||
+              jobPosterTemplate.referenceId
+                ?.toLowerCase()
+                .trim()
+                .includes(sanitizedTerm)
             );
           });
       }
 
+      // checklists
       show =
         show &&
         assertIncludes(
