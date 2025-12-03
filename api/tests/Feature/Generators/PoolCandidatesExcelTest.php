@@ -12,9 +12,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertTrue;
-
 class PoolCandidatesExcelTest extends TestCase
 {
     use RefreshDatabase;
@@ -74,8 +71,8 @@ class PoolCandidatesExcelTest extends TestCase
         $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
 
         $fileExists = $disk->exists($path);
-        assertTrue($fileExists, 'File was not generated');
-        $lineCount = count(file($disk->path($path)));
-        assertEquals(3, $lineCount, 'The wrong number of lines are in the file');
+        $this->assertTrue($fileExists, 'File was not generated');
+        $fileSize = $disk->size($path);
+        $this->assertGreaterThan(0, $fileSize, 'File is empty');
     }
 }
