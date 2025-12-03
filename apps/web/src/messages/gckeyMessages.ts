@@ -105,7 +105,7 @@ const messages = defineMessages({
   },
   answerAuthApp: {
     defaultMessage:
-      "As the Government of Canada, we cannot recommend any specific third-party vendors or apps. Notice-known digital vendors, such as Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
+      "As the Government of Canada, we cannot recommend any specific third-party vendors or apps. Well-known digital vendors, such as Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
     id: "/N8Owk",
     description: "GCKey answer for which authenticator app to use",
   },
