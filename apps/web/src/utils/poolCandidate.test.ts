@@ -102,8 +102,8 @@ describe("PoolCandidate utils", () => {
         intl,
       );
       expect(chip.label).toBe("Removed: Qualified");
-      expect(chip.color).toBe("black");
-      expect(chip.color).toBe("black");
+      expect(chip.color).toBe("gray");
+      expect(chip.color).toBe("gray");
 
       chip = getCandidateStatusChip(
         {
