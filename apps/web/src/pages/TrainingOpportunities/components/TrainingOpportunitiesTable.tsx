@@ -172,7 +172,7 @@ const TrainingOpportunitiesTable = ({
 
   const statusChipStyles: Record<DeadlineStatus, ChipProps["color"]> = {
     PUBLISHED: "primary",
-    EXPIRED: "black",
+    EXPIRED: "gray",
   } as const;
 
   const columns = [
