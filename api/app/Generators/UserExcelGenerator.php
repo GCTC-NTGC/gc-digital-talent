@@ -40,7 +40,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     ];
 
     protected array $headerLocaleKeys = [
-        'user_id',
+        'id',
         'first_name',
         'last_name',
         'email',
@@ -187,7 +187,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 });
 
                 $values = [
-                    $user->user_id,
+                    $user->id,
                     $user->first_name,
                     $user->last_name,
                     $user->email ?? '',
