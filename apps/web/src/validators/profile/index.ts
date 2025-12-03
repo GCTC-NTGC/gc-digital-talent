@@ -1,5 +1,5 @@
 import {
-  hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
+  hasAnyEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
   type PartialUser as PartialUserAbout,
 } from "./about";
 import {

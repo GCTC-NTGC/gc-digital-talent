@@ -13,6 +13,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       firstName
       lastName
       email
+      isEmailVerified
       telephone
       preferredLang {
         value

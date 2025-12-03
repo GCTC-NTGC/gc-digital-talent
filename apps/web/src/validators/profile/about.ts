@@ -10,7 +10,10 @@ import {
 type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
 
 export interface PartialUser
-  extends Pick<User, "firstName" | "lastName" | "email" | "telephone"> {
+  extends Pick<
+    User,
+    "firstName" | "lastName" | "email" | "isEmailVerified" | "telephone"
+  > {
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
   preferredLanguageForExam?: PartialLanguage;
@@ -38,11 +41,34 @@ export function hasAllEmptyFields({
   );
 }
 
-export function hasEmptyRequiredFields({
+export function hasEmptyRequiredNonEmailFields({
+  firstName,
+  lastName,
+  telephone,
+  preferredLang,
+  preferredLanguageForInterview,
+  preferredLanguageForExam,
+  citizenship,
+  armedForcesStatus,
+}: PartialUser): boolean {
+  return (
+    !firstName ||
+    !lastName ||
+    !telephone ||
+    !preferredLang ||
+    !preferredLanguageForInterview ||
+    !preferredLanguageForExam ||
+    !citizenship ||
+    empty(armedForcesStatus)
+  );
+}
+
+export function hasAnyEmptyRequiredFields({
   firstName,
   lastName,
   telephone,
   email,
+  isEmailVerified,
   preferredLang,
   preferredLanguageForInterview,
   preferredLanguageForExam,
@@ -53,6 +79,7 @@ export function hasEmptyRequiredFields({
     !firstName ||
     !lastName ||
     !email ||
+    !isEmailVerified ||
     !telephone ||
     !preferredLang ||
     !preferredLanguageForInterview ||
