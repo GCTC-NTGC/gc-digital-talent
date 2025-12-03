@@ -71,7 +71,7 @@ class PoolCandidatesExcelTest extends TestCase
 
         // assert
         $disk = Storage::disk('userGenerated');
-        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.csv';
+        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
 
         $fileExists = $disk->exists($path);
         assertTrue($fileExists, 'File was not generated');

@@ -14,8 +14,8 @@ use Illuminate\Validation\UnauthorizedException;
 final class DownloadNominationsExcel
 {
     /**
-     * Dispatches the generation of a
-     * csv containing community interests
+     * Dispatches the generation of an
+     * excel containing community interests
      *
      * @disregard P1003 We are not going to be using this var
      */
@@ -46,7 +46,7 @@ final class DownloadNominationsExcel
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting'.$talentNominationEventName.' nominations csv generation '.$e->getMessage());
+            Log::error('Error starting'.$talentNominationEventName.' nominations excel generation '.$e->getMessage());
 
             return false;
         }

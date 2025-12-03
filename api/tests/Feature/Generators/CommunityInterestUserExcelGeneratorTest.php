@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Generators;
 
-use App\Generators\CommunityInterestUserCsvGenerator;
+use App\Generators\CommunityInterestUserExcelGenerator;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\User;
@@ -16,7 +16,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertTrue;
 
-class CommunityInterestUserCsvGeneratorTest extends TestCase
+class CommunityInterestUserExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -57,7 +57,7 @@ class CommunityInterestUserCsvGeneratorTest extends TestCase
 
         // act
         $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
-        $generator = new CommunityInterestUserCsvGenerator(
+        $generator = new CommunityInterestUserExcelGenerator(
             fileName: $fileName,
             dir: 'test',
             lang: 'en'
@@ -72,7 +72,7 @@ class CommunityInterestUserCsvGeneratorTest extends TestCase
 
         // assert
         $disk = Storage::disk('userGenerated');
-        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.csv';
+        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
 
         $fileExists = $disk->exists($path);
         assertTrue($fileExists, 'File was not generated');
