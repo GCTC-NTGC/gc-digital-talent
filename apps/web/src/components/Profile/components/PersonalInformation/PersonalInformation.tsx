@@ -4,13 +4,7 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
 
-import {
-  Notice,
-  Link,
-  Loading,
-  ToggleSection,
-  Notice,
-} from "@gc-digital-talent/ui";
+import { Link, Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
