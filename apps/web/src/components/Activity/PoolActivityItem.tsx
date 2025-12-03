@@ -66,8 +66,8 @@ const keyMap = new Map<string, MessageDescriptor>([
   [
     "published_at",
     defineMessage({
-      defaultMessage: "Published the advertisement",
-      id: "VltUUH",
+      defaultMessage: "publication of the advertisement",
+      id: "Lp13b8",
       description: "Message for publishing a process in the activity log",
     }),
   ],

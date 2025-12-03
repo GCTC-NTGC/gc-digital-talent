@@ -5423,6 +5423,10 @@
     "defaultMessage": "Note spéciale",
     "description": "Label for Special note"
   },
+  "Lp13b8": {
+    "defaultMessage": "publication de l'annonce",
+    "description": "Message for publishing a process in the activity log"
+  },
   "LpCMiC": {
     "defaultMessage": "Confirmer votre adresse courriel de correspondance",
     "description": "Verify your contact email text"
