@@ -100,8 +100,8 @@ const CandidateFlag = ({
           ? intl.formatMessage(
               {
                 defaultMessage:
-                  "Remove {candidateName} flag from top of column.",
-                id: "AYmvKm",
+                  "Remove {candidateName}'s flag for authorized users.",
+                id: "EhRf8u",
                 description:
                   "Un-flag button label for applicant assessment tracking.",
               },
@@ -115,8 +115,8 @@ const CandidateFlag = ({
             )
           : intl.formatMessage(
               {
-                defaultMessage: "Add {candidateName} flag to top of column.",
-                id: "3WHxaI",
+                defaultMessage: "Flag {candidateName} to authorized users.",
+                id: "zYSicn",
                 description:
                   "Flag button label for applicant assessment tracking.",
               },
