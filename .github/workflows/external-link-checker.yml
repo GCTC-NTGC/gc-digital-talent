@@ -1,7 +1,7 @@
 name: External Link Checker
 
 on:
-  workflow_dispatch:   # allows manual testing
+  workflow_dispatch: # allows manual testing
   schedule:
     # Every Wednesday at 2:00 AM UTC
     - cron: "0 2 * * 3"
@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -38,3 +38,4 @@ jobs:
           path: |
             external-links.json
             external-broken-links.json
+            external-link-errors.log

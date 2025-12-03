@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import fetch from "node-fetch";
 import { glob } from "glob";
 
 interface LinkStatus {
@@ -81,45 +80,56 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
 }
 
 async function main() {
-  console.log("Starting external link check...");
+  try {
+    const files = await getAllFiles();
 
-  const files = await getAllFiles();
-  console.log(`Found ${files.length} files to scan.`);
+    const allLinks: { file: string; url: string }[] = [];
 
-  const allLinks: { file: string; url: string }[] = [];
+    for (const file of files) {
+      const links = await extractExternalLinks(file);
+      links.forEach((url) => allLinks.push({ file, url }));
+    }
 
-  for (const file of files) {
-    const links = await extractExternalLinks(file);
-    links.forEach((url) => allLinks.push({ file, url }));
+    // Save all links so that we can cross verify later
+    const allLinksPath = path.resolve("external-links.json");
+    await fs.writeFile(
+      allLinksPath,
+      JSON.stringify(allLinks, null, 2),
+      "utf-8",
+    );
+
+    // This can be enhanced with concurrency if the links are too many and slow
+    const results: LinkStatus[] = [];
+    for (const link of allLinks) {
+      const status = await fetchLink(link.url);
+      results.push({ file: link.file, url: link.url, status });
+    }
+
+    // Save broken links
+    const brokenLinks = results.filter((r) => r.status !== 200);
+    const brokenLinksPath = path.resolve("external-broken-links.json");
+    await fs.writeFile(
+      brokenLinksPath,
+      JSON.stringify(brokenLinks, null, 2),
+      "utf-8",
+    );
+
+    if (brokenLinks.length > 0) process.exit(1);
+  } catch (err) {
+    let msg: string;
+    const errorLogPath = path.resolve("external-link-errors.log");
+
+    if (err instanceof Error) {
+      msg = err.stack ?? err.message;
+    } else {
+      // stringify any non-Error object
+      msg = JSON.stringify(err, Object.getOwnPropertyNames(err), 2);
+    }
+
+    // Write the error to file
+    await fs.writeFile(errorLogPath, msg, "utf-8");
+    process.exit(1);
   }
-
-  // Save all links so that we can cross verify later
-  const allLinksPath = path.resolve("external-links.json");
-  await fs.writeFile(allLinksPath, JSON.stringify(allLinks, null, 2), "utf-8");
-  console.log(`Saved all external links to ${allLinksPath}`);
-
-  // This can be enhanced with concurrency if the links are too many and slow
-  const results: LinkStatus[] = [];
-  for (const link of allLinks) {
-    const status = await fetchLink(link.url);
-    console.log(`${link.url} -> ${status}`);
-    results.push({ file: link.file, url: link.url, status });
-  }
-
-  // Save broken links
-  const brokenLinks = results.filter((r) => r.status !== 200);
-  const brokenLinksPath = path.resolve("external-broken-links.json");
-  await fs.writeFile(
-    brokenLinksPath,
-    JSON.stringify(brokenLinks, null, 2),
-    "utf-8",
-  );
-  console.log(`Saved broken links to ${brokenLinksPath}`);
-
-  if (brokenLinks.length > 0) process.exit(1);
 }
 
-void main().catch((err) => {
-  console.error("Error checking external links:", err);
-  process.exit(1);
-});
+void main();
