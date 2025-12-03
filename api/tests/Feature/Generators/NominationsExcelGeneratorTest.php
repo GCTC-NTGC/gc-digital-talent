@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Generators;
 
-use App\Generators\NominationsCsvGenerator;
+use App\Generators\NominationsExcelGenerator;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\TalentNominationEvent;
@@ -18,7 +18,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertTrue;
 
-class NominationsCsvGeneratorTest extends TestCase
+class NominationsExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -71,7 +71,7 @@ class NominationsCsvGeneratorTest extends TestCase
 
         // act
         $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
-        $generator = new NominationsCsvGenerator(
+        $generator = new NominationsExcelGenerator(
             fileName: $fileName,
             talentNominationEventId: $talentNominationEvent->id,
             dir: 'test',

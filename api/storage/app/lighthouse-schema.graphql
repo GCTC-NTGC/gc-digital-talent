@@ -657,7 +657,7 @@ type Mutation {
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersCsv(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadUsersThruPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
-  downloadNominationsCsv(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
+  downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUserDoc(id: UUID!, anonymous: Boolean!): String

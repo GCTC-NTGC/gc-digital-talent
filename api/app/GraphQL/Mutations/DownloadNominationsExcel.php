@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\NominationsCsvGenerator;
+use App\Generators\NominationsExcelGenerator;
 use App\Jobs\GenerateUserFile;
 use App\Models\TalentNominationEvent;
 use Illuminate\Support\Facades\App;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadNominationsCsv
+final class DownloadNominationsExcel
 {
     /**
      * Dispatches the generation of a
@@ -31,7 +31,7 @@ final class DownloadNominationsCsv
         $talentNominationEventName = App::getLocale() === 'en' ? $talentNominationEvent->name['en'] : $talentNominationEvent->name['fr'];
 
         try {
-            $generator = new NominationsCsvGenerator(
+            $generator = new NominationsExcelGenerator(
                 fileName: sprintf('%s_%s_%s', str_replace(' ', '', $talentNominationEventName), strtolower(Lang::get('common.nominations')), date('Y-m-d_His')),
                 talentNominationEventId: $talentNominationEventId,
                 dir: $user->id,
