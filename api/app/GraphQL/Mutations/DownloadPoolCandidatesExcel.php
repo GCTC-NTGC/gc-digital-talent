@@ -2,14 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\PoolCandidateCsvGenerator;
+use App\Generators\PoolCandidateExcelGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadPoolCandidatesCsv
+final class DownloadPoolCandidatesExcel
 {
     /**
      * Dispatches the generation of a
@@ -28,7 +28,7 @@ final class DownloadPoolCandidatesCsv
         $withROD = $args['withROD'] ?? false;
 
         try {
-            $generator = new PoolCandidateCsvGenerator(
+            $generator = new PoolCandidateExcelGenerator(
                 fileName: sprintf('%s_%s', __($withROD ? 'filename.candidates_rod' : 'filename.applications'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
@@ -44,7 +44,7 @@ final class DownloadPoolCandidatesCsv
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting candidate csv generation '.$e);
+            Log::error('Error starting candidate excel generation '.$e);
 
             return false;
         }

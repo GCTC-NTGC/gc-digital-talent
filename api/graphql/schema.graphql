@@ -3626,8 +3626,8 @@ type Mutation {
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
-  # CSV file downloads
-  downloadPoolCandidatesCsv(
+  # Excel file downloads
+  downloadPoolCandidatesExcel(
     ids: [UUID!]
     where: PoolCandidateSearchInput
     withROD: Boolean

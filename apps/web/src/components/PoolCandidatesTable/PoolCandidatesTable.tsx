@@ -85,8 +85,8 @@ import {
 } from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
-import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
-import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
+import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
+import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
@@ -337,13 +337,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesCsv(
+const DownloadPoolCandidatesExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesExcel(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
     $withROD: Boolean
   ) {
-    downloadPoolCandidatesCsv(ids: $ids, where: $where, withROD: $withROD)
+    downloadPoolCandidatesExcel(ids: $ids, where: $where, withROD: $withROD)
   }
 `);
 
@@ -451,8 +451,8 @@ const PoolCandidatesTable = ({
     [filtersEncoded, initialFilterInput],
   );
 
-  const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
-    DownloadPoolCandidatesCsv_Mutation,
+  const [{ fetching: downloadingExcel }, downloadExcel] = useMutation(
+    DownloadPoolCandidatesExcel_Mutation,
   );
 
   const [{ fetching: downloadingUsersExcel }, downloadUsers] = useMutation(
@@ -477,7 +477,7 @@ const PoolCandidatesTable = ({
     useAsyncFileDownload();
 
   const downloadingAnyFile =
-    downloadingCsv ||
+    downloadingExcel ||
     downloadingUserDoc ||
     downloadingUsersZip ||
     downloadingApplicationDoc ||
@@ -613,8 +613,8 @@ const PoolCandidatesTable = ({
     return uniqueItems(userIds.filter(notEmpty));
   };
 
-  const handleCsvDownloadAll = () => {
-    downloadCsv({
+  const handleExcelDownloadAll = () => {
+    downloadExcel({
       where: addSearchToPoolCandidateFilterInput(
         filterState,
         searchState?.term,
@@ -626,8 +626,8 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownload = (withROD?: boolean) => {
-    downloadCsv({ ids: selectedRows, withROD })
+  const handleExcelDownload = (withROD?: boolean) => {
+    downloadExcel({ ids: selectedRows, withROD })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -1140,18 +1140,18 @@ const PoolCandidatesTable = ({
       download={{
         all: {
           enable: true,
-          onClick: handleCsvDownloadAll,
-          downloading: downloadingCsv,
+          onClick: handleExcelDownloadAll,
+          downloading: downloadingExcel,
         },
         csv: currentPool
           ? {
               enable: true,
               component: (
-                <DownloadCandidateCsvButton
+                <DownloadCandidateExcelButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersExcel}
-                  onClick={handleCsvDownload}
+                  isDownloading={downloadingExcel || downloadingUsersExcel}
+                  onClick={handleExcelDownload}
                   onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),
@@ -1159,11 +1159,11 @@ const PoolCandidatesTable = ({
           : {
               enable: true,
               component: (
-                <DownloadAllCandidateTableCsvButton
+                <DownloadAllCandidateTableExcelButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersExcel}
-                  onClickDownloadCandidates={handleCsvDownload}
+                  isDownloading={downloadingExcel || downloadingUsersExcel}
+                  onClickDownloadCandidates={handleExcelDownload}
                   onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),
