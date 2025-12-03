@@ -73,24 +73,24 @@ const NullExperienceMessage = ({
   const intl = useIntl();
   return (
     <Notice.Root className="text-center">
+      <Notice.Title>
+        {hasExperiences
+          ? intl.formatMessage({
+              defaultMessage:
+                "You haven't featured this skill on any of your experiences yet.",
+              id: "rF/VIw",
+              description:
+                "Message displayed when user has experiences but hasn't featured any",
+            })
+          : intl.formatMessage({
+              defaultMessage:
+                "You haven't created any career experiences on your career timeline.",
+              id: "a0VxCM",
+              description:
+                "Message displayed when user has no experiences to feature on a skill.",
+            })}
+      </Notice.Title>
       <Notice.Content>
-        <p className="mb-3 font-bold">
-          {hasExperiences
-            ? intl.formatMessage({
-                defaultMessage:
-                  "You haven't featured this skill on any of your experiences yet.",
-                id: "rF/VIw",
-                description:
-                  "Message displayed when user has experiences but hasn't featured any",
-              })
-            : intl.formatMessage({
-                defaultMessage:
-                  "You haven't created any career experiences on your career timeline.",
-                id: "a0VxCM",
-                description:
-                  "Message displayed when user has no experiences to feature on a skill.",
-              })}
-        </p>
         <p>
           {hasExperiences
             ? intl.formatMessage({
@@ -398,18 +398,18 @@ export const UpdateUserSkillForm = ({
               </p>
               {skillDescription && (
                 <Notice.Root className="my-6">
+                  <Notice.Title>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage: "Remember, {skillName} is defined as",
+                        id: "5dhDA+",
+                        description: "Lead-in text to a skill description",
+                      },
+                      { skillName },
+                    )}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                  </Notice.Title>
                   <Notice.Content>
-                    <p className="mb-3 font-bold">
-                      {intl.formatMessage(
-                        {
-                          defaultMessage: "Remember, {skillName} is defined as",
-                          id: "5dhDA+",
-                          description: "Lead-in text to a skill description",
-                        },
-                        { skillName },
-                      )}
-                      {intl.formatMessage(commonMessages.dividingColon)}
-                    </p>
                     <p>{skillDescription}</p>
                   </Notice.Content>
                 </Notice.Root>

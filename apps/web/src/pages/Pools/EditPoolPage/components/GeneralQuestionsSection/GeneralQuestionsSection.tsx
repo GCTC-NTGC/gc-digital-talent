@@ -115,15 +115,15 @@ const GeneralQuestionsSection = ({
       </div>
       {questions.length === 0 ? (
         <Notice.Root className="my-6 text-center">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage: "You haven't added any questions yet.",
+              id: "jXUnrt",
+              description:
+                "Message that appears when there are no general messages for a pool",
+            })}
+          </Notice.Title>
           <Notice.Content>
-            <p className="mb-3 font-bold">
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any questions yet.",
-                id: "jXUnrt",
-                description:
-                  "Message that appears when there are no general messages for a pool",
-              })}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:

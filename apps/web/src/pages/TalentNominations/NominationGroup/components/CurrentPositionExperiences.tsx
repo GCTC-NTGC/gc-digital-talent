@@ -107,15 +107,15 @@ const CurrentPositionExperiences = ({
           <div className="flex flex-col gap-y-3">
             {sorted.length === 0 && (
               <Notice.Root className="mb-10.5" color="error">
+                <Notice.Title>
+                  {intl.formatMessage({
+                    defaultMessage: "No current government experience found",
+                    id: "k/V+39",
+                    description:
+                      "Message displayed when there is no government experience for the current position",
+                  })}
+                </Notice.Title>
                 <Notice.Content>
-                  <p className="font-bold">
-                    {intl.formatMessage({
-                      defaultMessage: "No current government experience found",
-                      id: "k/V+39",
-                      description:
-                        "Message displayed when there is no government experience for the current position",
-                    })}
-                  </p>
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
@@ -169,15 +169,15 @@ const CurrentPositionExperiences = ({
       )}
       {!shareProfile && (
         <Notice.Root className="mb-9" color="error">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "This nominee has not agreed to share their information with your community",
+              id: "4ujr5X",
+              description: "Null message for nominee profile",
+            })}
+          </Notice.Title>
           <Notice.Content>
-            <p className="mb-6 font-bold">
-              {intl.formatMessage({
-                defaultMessage:
-                  "This nominee has not agreed to share their information with your community",
-                id: "4ujr5X",
-                description: "Null message for nominee profile",
-              })}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:

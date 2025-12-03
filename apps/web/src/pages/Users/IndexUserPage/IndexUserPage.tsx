@@ -51,18 +51,17 @@ export const IndexUserPage = () => {
       />
       <AdminContentWrapper table>
         <UserTable title={formattedPageTitle} newSearch={!isOldSearchChecked} />
-
-        <Notice.Root className="mt-18">
-          <Notice.Content>
-            <FormProvider {...methods}>
-              <form>
-                <Heading icon={BeakerIcon} size="h6" className="mt-0">
-                  {intl.formatMessage({
-                    defaultMessage: "Testing a new table search",
-                    id: "wqzCx3",
-                    description: "Title for a note around testing new search",
-                  })}
-                </Heading>
+        <FormProvider {...methods}>
+          <form>
+            <Notice.Root className="mt-18">
+              <Notice.Title icon={BeakerIcon} as="h2">
+                {intl.formatMessage({
+                  defaultMessage: "Testing a new table search",
+                  id: "wqzCx3",
+                  description: "Title for a note around testing new search",
+                })}
+              </Notice.Title>
+              <Notice.Content>
                 <p className="mb-4.5">
                   {intl.formatMessage({
                     defaultMessage:
@@ -80,10 +79,10 @@ export const IndexUserPage = () => {
                   })}
                   name={"oldSearch"}
                 />
-              </form>
-            </FormProvider>
-          </Notice.Content>
-        </Notice.Root>
+              </Notice.Content>
+            </Notice.Root>
+          </form>
+        </FormProvider>
       </AdminContentWrapper>
     </>
   );

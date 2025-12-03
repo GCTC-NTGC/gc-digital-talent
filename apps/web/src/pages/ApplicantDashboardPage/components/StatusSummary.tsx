@@ -15,8 +15,8 @@ const StatusSummary = ({
 }: StatusSummaryProps) => {
   return (
     <Notice.Root color={color} {...rest}>
+      <Notice.Title>{label}</Notice.Title>
       <Notice.Content>
-        <p className="mb-3 font-bold">{label}</p>
         <p>{description}</p>
       </Notice.Content>
     </Notice.Root>

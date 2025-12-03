@@ -8586,8 +8586,8 @@
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
     "description": "Message displayed to user after experience fails to be linked to a skill."
   },
-  "a4Wc5h": {
-    "defaultMessage": "<strong>Vous n'avez aucune mise en candidature active.</strong>",
+  "mEmT94": {
+    "defaultMessage": "Vous n'avez aucune mise en candidature active.",
     "description": "Notice's title when there are no nominations"
   },
   "a5YBuH": {

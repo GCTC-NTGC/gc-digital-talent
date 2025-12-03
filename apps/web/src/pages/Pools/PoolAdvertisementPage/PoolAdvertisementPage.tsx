@@ -624,15 +624,13 @@ export const PoolPoster = ({
               </div>
               {showSpecialNote && (
                 <Notice.Root className="my-6">
-                  <Notice.Title>
-                    <Heading level="h3" size="h6" className="mt-0 text-base">
-                      {intl.formatMessage({
-                        defaultMessage: "Special note for this process",
-                        id: "cbwWa0",
-                        description:
-                          "Heading for a special note in pool advertisement.",
-                      })}
-                    </Heading>
+                  <Notice.Title as="h3">
+                    {intl.formatMessage({
+                      defaultMessage: "Special note for this process",
+                      id: "cbwWa0",
+                      description:
+                        "Heading for a special note in pool advertisement.",
+                    })}
                   </Notice.Title>
                   <Notice.Content>
                     <RichTextRenderer

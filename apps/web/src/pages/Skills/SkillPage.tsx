@@ -74,15 +74,8 @@ export const Component = () => {
           isPublic
         />
         <Notice.Root id="cant-find-a-skill" className="mt-18">
-          <Notice.Title>
-            <Heading
-              level="h2"
-              size="h6"
-              id="cant-find-a-skill"
-              className="mt-0 mb-6 font-bold"
-            >
-              {intl.formatMessage(skillBrowserMessages.showSkillInfo)}
-            </Heading>
+          <Notice.Title as="h2">
+            {intl.formatMessage(skillBrowserMessages.showSkillInfo)}
           </Notice.Title>
           <Notice.Content>
             <p className="mb-3">

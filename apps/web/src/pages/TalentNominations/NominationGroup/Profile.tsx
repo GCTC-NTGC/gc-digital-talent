@@ -123,15 +123,15 @@ const TalentNominationGroupProfile = ({
         </p>
         {!shareProfile && (
           <Notice.Root color="error">
+            <Notice.Title>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This nominee has not agreed to share their information with your community",
+                id: "4ujr5X",
+                description: "Null message for nominee profile",
+              })}
+            </Notice.Title>
             <Notice.Content>
-              <p className="mb-6 font-bold">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This nominee has not agreed to share their information with your community",
-                  id: "4ujr5X",
-                  description: "Null message for nominee profile",
-                })}
-              </p>
               <p>
                 {intl.formatMessage({
                   defaultMessage:

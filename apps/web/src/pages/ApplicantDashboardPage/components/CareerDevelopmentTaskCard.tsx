@@ -435,16 +435,16 @@ const CareerDevelopmentTaskCard = ({
                       </PreviewList.Root>
                     ) : (
                       <Notice.Root className="text-center">
+                        <Notice.Title>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "You haven't opted into any functional communities.",
+                            id: "rrqAZ6",
+                            description:
+                              "Title for notice when there are no functional communities a user is a part of",
+                          })}
+                        </Notice.Title>
                         <Notice.Content>
-                          <p className="font-bold">
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "You haven't opted into any functional communities.",
-                              id: "rrqAZ6",
-                              description:
-                                "Title for notice when there are no functional communities a user is a part of",
-                            })}
-                          </p>
                           <p>
                             {intl.formatMessage({
                               defaultMessage:

@@ -203,15 +203,15 @@ const ReviewApplicationPreviewList = ({
         </PreviewList.Root>
       ) : (
         <Notice.Root className="text-center">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "You don't have any active applications at the moment.",
+              id: "Y93ht7",
+              description: "Title for notice when there are no applications",
+            })}
+          </Notice.Title>
           <Notice.Content>
-            <p className="font-bold">
-              {intl.formatMessage({
-                defaultMessage:
-                  "You don't have any active applications at the moment.",
-                id: "Y93ht7",
-                description: "Title for notice when there are no applications",
-              })}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,

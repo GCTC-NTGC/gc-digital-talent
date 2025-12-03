@@ -88,7 +88,9 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
             ))
           ) : (
             <Notice.Root className="text-center">
-              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+              <Notice.Content>
+                <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+              </Notice.Content>
             </Notice.Root>
           )}
         </div>

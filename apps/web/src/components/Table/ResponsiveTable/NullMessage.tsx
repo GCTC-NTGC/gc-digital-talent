@@ -25,10 +25,8 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
 
   return (
     <Notice.Root className="my-6 text-center">
-      <Notice.Title>
-        <Heading className="m-0 text-base lg:text-base">
-          {title ?? intl.formatMessage(tableMessages.noItemsTitle)}
-        </Heading>
+      <Notice.Title as="h2">
+        {title ?? intl.formatMessage(tableMessages.noItemsTitle)}
       </Notice.Title>
       {description && (
         <Notice.Content>

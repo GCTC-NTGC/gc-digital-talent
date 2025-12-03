@@ -121,16 +121,16 @@ export const Component = () => {
                 </div>
               ) : (
                 <Notice.Root className="text-center">
+                  <Notice.Title>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There aren't any active events at the moment.",
+                      id: "5iTUew",
+                      description:
+                        "Message title displayed when no active events",
+                    })}
+                  </Notice.Title>
                   <Notice.Content>
-                    <p className="mb-3 font-bold">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "There aren't any active events at the moment.",
-                        id: "5iTUew",
-                        description:
-                          "Message title displayed when no active events",
-                      })}
-                    </p>
                     <p>
                       {intl.formatMessage({
                         defaultMessage:

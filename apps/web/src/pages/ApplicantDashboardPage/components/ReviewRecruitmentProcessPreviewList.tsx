@@ -169,16 +169,16 @@ const ReviewRecruitmentProcessPreviewList = ({
         </PreviewList.Root>
       ) : (
         <Notice.Root className="text-center">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "You don't have any active recruitment processes at the moment.",
+              id: "vVAqzB",
+              description:
+                "Title for notice when there are no recruitment processes",
+            })}
+          </Notice.Title>
           <Notice.Content>
-            <p className="mb-3 font-bold">
-              {intl.formatMessage({
-                defaultMessage:
-                  "You don't have any active recruitment processes at the moment.",
-                id: "vVAqzB",
-                description:
-                  "Title for notice when there are no recruitment processes",
-              })}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage: `Recruitment processes will appear in this section automatically if your application is successful.`,

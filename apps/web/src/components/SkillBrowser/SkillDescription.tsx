@@ -18,19 +18,17 @@ const SkillDescription = ({ skill }: SkillDescriptionProps) => {
 
   return (
     <Notice.Root>
-      <Notice.Title>
-        <Heading level="h3" size="h6" className="mt-0 text-base font-bold">
-          {intl.formatMessage(
-            {
-              defaultMessage: "{skill} is defined as:",
-              id: "Ok+Ojl",
-              description: "Heading for a specific skills definition",
-            },
-            {
-              skill: getLocalizedName(skill.name, intl),
-            },
-          )}
-        </Heading>
+      <Notice.Title as="h3">
+        {intl.formatMessage(
+          {
+            defaultMessage: "{skill} is defined as:",
+            id: "Ok+Ojl",
+            description: "Heading for a specific skills definition",
+          },
+          {
+            skill: getLocalizedName(skill.name, intl),
+          },
+        )}
       </Notice.Title>
       <Notice.Content>
         <p>{description}</p>

@@ -339,11 +339,7 @@ const AreaOfSelectionWell = ({ poolQuery }: AreaOfSelectionNoticeProps) => {
 
   return (
     <Notice.Root className="my-6" color="warning">
-      <Notice.Title>
-        <Heading level="h3" size="h6" className="mt-0">
-          {areaOfSelectionMessages.title}
-        </Heading>
-      </Notice.Title>
+      <Notice.Title as="h3">{areaOfSelectionMessages.title}</Notice.Title>
       <Notice.Content>
         {areaOfSelectionMessages.body}
         {areaOfSelectionMessages.finePrint ? (

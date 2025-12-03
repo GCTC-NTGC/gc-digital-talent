@@ -376,22 +376,22 @@ const OrganizeSection = ({
       <div className="flex flex-col gap-6">
         {steps.length >= ASSESSMENT_STEPS_MANY_STEPS ? (
           <Notice.Root color="warning">
+            <Notice.Title>
+              {steps.length === ASSESSMENT_STEPS_MAX_STEPS
+                ? intl.formatMessage({
+                    defaultMessage: "You are at the limit!",
+                    id: "j7+E9C",
+                    description:
+                      "Title for warning message when the user has added the maximum assessments to the assessment plan",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "You are approaching the limit!",
+                    id: "1moJ8r",
+                    description:
+                      "Title for warning message when the user has added many assessments to the assessment plan",
+                  })}
+            </Notice.Title>
             <Notice.Content>
-              <p className="font-bold">
-                {steps.length === ASSESSMENT_STEPS_MAX_STEPS
-                  ? intl.formatMessage({
-                      defaultMessage: "You are at the limit!",
-                      id: "j7+E9C",
-                      description:
-                        "Title for warning message when the user has added the maximum assessments to the assessment plan",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "You are approaching the limit!",
-                      id: "1moJ8r",
-                      description:
-                        "Title for warning message when the user has added many assessments to the assessment plan",
-                    })}
-              </p>
               <p>
                 {intl.formatMessage(
                   {
@@ -411,15 +411,15 @@ const OrganizeSection = ({
         ) : null}
         {steps.length <= ASSESSMENT_STEPS_FEW_STEPS ? (
           <Notice.Root color="warning">
+            <Notice.Title>
+              {intl.formatMessage({
+                defaultMessage: "You have too few assessments",
+                id: "ypxaI2",
+                description:
+                  "Title for warning message when the user has few assessments to the assessment plan",
+              })}
+            </Notice.Title>
             <Notice.Content>
-              <p className="font-bold">
-                {intl.formatMessage({
-                  defaultMessage: "You have too few assessments",
-                  id: "ypxaI2",
-                  description:
-                    "Title for warning message when the user has few assessments to the assessment plan",
-                })}
-              </p>
               <p>
                 {intl.formatMessage({
                   defaultMessage:

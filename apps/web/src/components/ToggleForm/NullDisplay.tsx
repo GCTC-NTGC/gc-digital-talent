@@ -19,29 +19,28 @@ const NullDisplay = ({
   const intl = useIntl();
   return (
     <Notice.Root className="text-center">
-      <Notice.Content>
-        {displayMode.includes("title") ? (
-          title ? (
-            <p className="mb-3 font-bold">{title}</p>
-          ) : (
-            <p className="mb-3 font-bold">
-              {optional
-                ? intl.formatMessage({
-                    defaultMessage: "This information is optional.",
-                    id: "xm2o/k",
-                    description: "Null message on sections for edit pool page.",
-                  })
-                : intl.formatMessage({
-                    defaultMessage:
-                      "You haven't filled out this information yet.",
-                    id: "D3so/C",
-                    description: "Null message on sections for edit pool page.",
-                  })}
-            </p>
-          )
-        ) : null}
-
-        {displayMode.includes("content") ? (
+      {displayMode.includes("title") ? (
+        title ? (
+          <Notice.Title>{title}</Notice.Title>
+        ) : (
+          <Notice.Title>
+            {optional
+              ? intl.formatMessage({
+                  defaultMessage: "This information is optional.",
+                  id: "xm2o/k",
+                  description: "Null message on sections for edit pool page.",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "You haven't filled out this information yet.",
+                  id: "D3so/C",
+                  description: "Null message on sections for edit pool page.",
+                })}
+          </Notice.Title>
+        )
+      ) : null}
+      {displayMode.includes("content") ? (
+        <Notice.Content>
           <p className="font-normal">
             {content ??
               intl.formatMessage({
@@ -50,8 +49,8 @@ const NullDisplay = ({
                 description: "Null message on sections for edit pool page.",
               })}
           </p>
-        ) : null}
-      </Notice.Content>
+        </Notice.Content>
+      ) : null}
     </Notice.Root>
   );
 };

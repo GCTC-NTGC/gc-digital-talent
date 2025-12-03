@@ -185,16 +185,16 @@ const ExperienceSkills = ({
             />
           ) : (
             <Notice.Root className="mt-6 text-center">
+              <Notice.Title>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "You haven't featured any skills on this experience yet.",
+                  id: "YJIOOh",
+                  description:
+                    "Primary message to user when no skills have been attached to experience.",
+                })}
+              </Notice.Title>
               <Notice.Content>
-                <p className="mb-3 font-bold">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "You haven't featured any skills on this experience yet.",
-                    id: "YJIOOh",
-                    description:
-                      "Primary message to user when no skills have been attached to experience.",
-                  })}
-                </p>
                 <p>
                   {intl.formatMessage({
                     defaultMessage: `You can use the "Add a skill" button provided to feature skills here.`,

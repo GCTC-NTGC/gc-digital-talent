@@ -138,15 +138,13 @@ const EducationRequirementsSection = ({
       </p>
       {isNull ? (
         <Notice.Root className="my-6 text-center">
-          <Notice.Title>
-            <Heading className="mt-0" size="h6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Select a classification to view education requirements.",
-                id: "PymrxL",
-                description: "Null message for education requirement section",
-              })}
-            </Heading>
+          <Notice.Title as="h2">
+            {intl.formatMessage({
+              defaultMessage:
+                "Select a classification to view education requirements.",
+              id: "PymrxL",
+              description: "Null message for education requirement section",
+            })}
           </Notice.Title>
           <Notice.Content>
             <p>

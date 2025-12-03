@@ -345,15 +345,13 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                     </>
                   )}
                   <Notice.Root className="mt-12">
-                    <Notice.Title>
-                      <Heading level="h5" size="h6" className="mt-0">
-                        {intl.formatMessage({
-                          defaultMessage: "Privacy and confidentiality",
-                          id: "2Csd16",
-                          description:
-                            "Title for the privacy and confidentiality section of wfa form",
-                        })}
-                      </Heading>
+                    <Notice.Title as="h5">
+                      {intl.formatMessage({
+                        defaultMessage: "Privacy and confidentiality",
+                        id: "2Csd16",
+                        description:
+                          "Title for the privacy and confidentiality section of wfa form",
+                      })}
                     </Notice.Title>
                     <Notice.Content>
                       <p className="my-6">

@@ -23,15 +23,15 @@ const RequestVerificationCodeContextMessage = () => {
     case "request-sent":
       return (
         <Notice.Root color="success" id="unsaved-emailAddress">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage: "Verification email sent!",
+              id: "oepQr+",
+              description:
+                "Title for a message confirming that the verification email was sent.",
+            })}
+          </Notice.Title>
           <Notice.Content>
-            <p className="font-bold">
-              {intl.formatMessage({
-                defaultMessage: "Verification email sent!",
-                id: "oepQr+",
-                description:
-                  "Title for a message confirming that the verification email was sent.",
-              })}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:

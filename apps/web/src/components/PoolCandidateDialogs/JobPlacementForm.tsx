@@ -155,10 +155,8 @@ const JobPlacementForm = ({ optionsQuery }: JobPlacementFormProps) => {
         watchPlacementType === PlacementType.PlacedTerm ||
         watchPlacementType === PlacementType.PlacedIndeterminate) && (
         <Notice.Root>
+          <Notice.Title>{enumLabelMap.get(watchPlacementType)}</Notice.Title>
           <Notice.Content>
-            <p className="mb-1.5 font-bold">
-              {enumLabelMap.get(watchPlacementType)}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:

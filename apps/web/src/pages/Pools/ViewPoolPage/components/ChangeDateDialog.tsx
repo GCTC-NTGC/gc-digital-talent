@@ -175,10 +175,8 @@ const ChangeDateDialog = ({
                     }}
                   />
                   <Notice.Root color="warning" className="mt-6 p-3 text-sm">
-                    <Notice.Title>
-                      <Heading level="h3" size="h6" className="mt-0">
-                        {intl.formatMessage(commonMessages.important)}
-                      </Heading>
+                    <Notice.Title as="h3">
+                      {intl.formatMessage(commonMessages.important)}
                     </Notice.Title>
                     <Notice.Content>
                       <p>
@@ -221,10 +219,10 @@ const ChangeDateDialog = ({
                     />
                   </div>
                   <Notice.Root color="warning">
+                    <Notice.Title>
+                      {intl.formatMessage(commonMessages.warning)}
+                    </Notice.Title>
                     <Notice.Content>
-                      <p className="mb-3 font-bold">
-                        {intl.formatMessage(commonMessages.warning)}
-                      </p>
                       <p>
                         {intl.formatMessage({
                           defaultMessage:

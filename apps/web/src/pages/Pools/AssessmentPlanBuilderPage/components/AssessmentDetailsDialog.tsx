@@ -709,16 +709,16 @@ const AssessmentDetailsDialog = ({
                         ))}
                         {!canAddScreeningQuestions && (
                           <Notice.Root>
+                            <Notice.Title>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "You have reached the maximum amount (3) of screening questions per poster.",
+                                id: "qs09PP",
+                                description:
+                                  "Message displayed when a user adds the maximum number of questions",
+                              })}
+                            </Notice.Title>
                             <Notice.Content>
-                              <p className="mb-3 font-bold">
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    "You have reached the maximum amount (3) of screening questions per poster.",
-                                  id: "qs09PP",
-                                  description:
-                                    "Message displayed when a user adds the maximum number of questions",
-                                })}
-                              </p>
                               <p>
                                 {intl.formatMessage({
                                   defaultMessage:

@@ -7,14 +7,12 @@ const EmployeeSearchWell = () => {
 
   return (
     <Notice.Root>
-      <Notice.Title>
-        <Heading level="h3" size="h6" className="mt-0">
-          {intl.formatMessage({
-            defaultMessage: "See incorrect or outdated information?",
-            id: "68Yf3f",
-            description: "Heading for review of nominee's information",
-          })}
-        </Heading>
+      <Notice.Title as="h3">
+        {intl.formatMessage({
+          defaultMessage: "See incorrect or outdated information?",
+          id: "68Yf3f",
+          description: "Heading for review of nominee's information",
+        })}
       </Notice.Title>
       <Notice.Content>
         <p>

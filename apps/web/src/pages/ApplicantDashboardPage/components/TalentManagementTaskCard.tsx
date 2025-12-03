@@ -194,16 +194,16 @@ const TalentManagementTaskCard = ({
                           </PreviewList.Root>
                         ) : (
                           <Notice.Root className="text-center">
+                            <Notice.Title>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "You have no active nominations.",
+                                id: "mEmT94",
+                                description:
+                                  "Notice's title when there are no nominations",
+                              })}
+                            </Notice.Title>
                             <Notice.Content>
-                              <p>
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    "<strong>You have no active nominations.</strong>",
-                                  id: "a4Wc5h",
-                                  description:
-                                    "Notice's title when there are no nominations",
-                                })}
-                              </p>
                               <p>
                                 {intl.formatMessage({
                                   defaultMessage:
@@ -269,16 +269,16 @@ const TalentManagementTaskCard = ({
                           </PreviewList.Root>
                         ) : (
                           <Notice.Root className="text-center">
+                            <Notice.Title>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "You don't have any active requests at the moment.",
+                                id: "3PwQT7",
+                                description:
+                                  "Title for notice when there are no pool candidate search requests",
+                              })}
+                            </Notice.Title>
                             <Notice.Content>
-                              <p className="font-bold">
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    "You don't have any active requests at the moment.",
-                                  id: "3PwQT7",
-                                  description:
-                                    "Title for notice when there are no pool candidate search requests",
-                                })}
-                              </p>
                               <p>
                                 {intl.formatMessage({
                                   defaultMessage:

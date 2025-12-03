@@ -37,14 +37,14 @@ const NotificationDialogList = ({
     </ul>
   ) : (
     <Notice.Root className="mx-6">
+      <Notice.Title>
+        {intl.formatMessage({
+          defaultMessage: "You don't have any new notifications.",
+          id: "6cr+Qy",
+          description: "Title for the no notifications message",
+        })}
+      </Notice.Title>
       <Notice.Content>
-        <p className="mb-6 font-bold">
-          {intl.formatMessage({
-            defaultMessage: "You don't have any new notifications.",
-            id: "6cr+Qy",
-            description: "Title for the no notifications message",
-          })}
-        </p>
         <p>
           {intl.formatMessage({
             defaultMessage:

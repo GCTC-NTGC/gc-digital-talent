@@ -48,15 +48,15 @@ const GovernmentInformation = ({ query, pool }: GovernmentInformationProps) => {
       </div>
       <div className="rounded-md bg-white p-6 text-black shadow-lg dark:bg-gray-600 dark:text-white">
         <Notice.Root color="warning">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage: "This information is going away",
+              id: "Ui7CNt",
+              description:
+                "Title warning message for government information getting removed",
+            })}
+          </Notice.Title>
           <Notice.Content>
-            <p className="mb-3 font-bold">
-              {intl.formatMessage({
-                defaultMessage: "This information is going away",
-                id: "Ui7CNt",
-                description:
-                  "Title warning message for government information getting removed",
-              })}
-            </p>
             <p>
               {intl.formatMessage(
                 {

@@ -103,10 +103,8 @@ const UpdatePublishedProcessDialog = ({
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
           <Notice.Root color="warning" className="mb-6">
-            <Notice.Title>
-              <Heading level="h3" size="h6" className="mt-0">
-                {intl.formatMessage(commonMessages.warning)}
-              </Heading>
+            <Notice.Title as="h3">
+              {intl.formatMessage(commonMessages.warning)}
             </Notice.Title>
             <Notice.Content>
               <p>
