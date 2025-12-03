@@ -1719,6 +1719,10 @@
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
   },
+  "4vScqR": {
+    "defaultMessage": "À distance",
+    "description": "Label for when a position is remote"
+  },
   "4yXZLY": {
     "defaultMessage": "Options de nomination",
     "description": "Label for the nomination type(s)"
@@ -3470,6 +3474,10 @@
   "CnPVJe": {
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
     "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
+  },
+  "CprAHM": {
+    "defaultMessage": "Limites de sélection",
+    "description": "Label for candidate selection limitations"
   },
   "CsPyAD": {
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
