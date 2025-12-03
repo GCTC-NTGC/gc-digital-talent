@@ -1143,7 +1143,7 @@ const PoolCandidatesTable = ({
           onClick: handleExcelDownloadAll,
           downloading: downloadingExcel,
         },
-        csv: currentPool
+        spreadsheet: currentPool
           ? {
               enable: true,
               component: (

@@ -264,7 +264,7 @@ const TalentEventNominationsTable = ({
           onClick: handleExcelDownloadAll,
           downloading: downloadingAllExcel,
         },
-        csv: {
+        spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
           downloading: downloadingAllExcel,

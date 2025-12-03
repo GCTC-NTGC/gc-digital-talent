@@ -104,7 +104,7 @@ interface DownloadButton {
 }
 
 export interface DownloadDef {
-  csv?: DownloadButton;
+  spreadsheet?: DownloadButton;
   doc?: DownloadButton;
   all?:
     | DownloadButton

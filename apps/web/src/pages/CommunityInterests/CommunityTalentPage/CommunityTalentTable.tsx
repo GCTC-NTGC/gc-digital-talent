@@ -677,7 +677,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
           onClick: handleExcelDownloadAll,
           downloading: downloadingExcel || downloadingAllExcel,
         },
-        csv: {
+        spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
           downloading: downloadingExcel || downloadingAllExcel,

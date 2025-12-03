@@ -447,7 +447,7 @@ const UserTable = ({ title, newSearch = false }: UserTableProps) => {
           onClick: handleExcelDownloadAll,
           downloading: downloadingExcel,
         },
-        csv: {
+        spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
           downloading: downloadingExcel,
