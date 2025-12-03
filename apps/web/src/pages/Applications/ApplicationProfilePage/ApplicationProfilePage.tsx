@@ -69,7 +69,7 @@ export const getPageInfo: GetPageNavInfo = ({
 export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicationRequiresVerifiedEmail } = useFeatureFlags();
+  const { emailVerificationRequired } = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -116,7 +116,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           <div>
             <PersonalInformation {...sectionProps} query={application.user} />
           </div>
-          {applicationRequiresVerifiedEmail && missingVerifiedContactEmail && (
+          {emailVerificationRequired && missingVerifiedContactEmail && (
             <div>
               <Well color="error">
                 <p>

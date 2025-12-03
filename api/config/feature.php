@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'applicationRequiresVerifiedEmail' => (bool) env('FEATURE_APPLICATION_REQUIRES_VERIFIED_EMAIL', false),
+    'emailVerificationRequired' => (bool) env('FEATURE_EMAIL_VERIFICATION_REQUIRED', false),
 ];
