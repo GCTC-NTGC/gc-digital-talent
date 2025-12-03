@@ -5,7 +5,7 @@ const Error = (props: Omit<NoticeProps, "color">) => {
     <Notice
       role="alert"
       aria-live="polite"
-      className="p-3 text-sm"
+      small
       color="error"
       {...props}
     />
