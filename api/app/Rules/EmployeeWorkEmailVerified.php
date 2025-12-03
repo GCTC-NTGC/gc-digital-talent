@@ -32,7 +32,7 @@ class EmployeeWorkEmailVerified implements ValidationRule
         $pool = Pool::find($value);
 
         $passes = $pool->area_of_selection === PoolAreaOfSelection::EMPLOYEES->name
-            && $this->user->getIsWorkEmailVerifiedAttribute();
+            && $this->user->work_email_verified_at;
 
         if (! $passes) {
             $fail(ErrorCode::APPLICATION_WORK_EMAIL_NOT_VERIFIED->name);
