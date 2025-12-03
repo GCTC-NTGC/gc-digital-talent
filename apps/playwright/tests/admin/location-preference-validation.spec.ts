@@ -46,7 +46,7 @@ test.describe("Location Preference Validation", () => {
     const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
     userPage = new UserPage(appPage.page);
-    await userPage.searchUserByName(userName);
+    await userPage.searchUserByName(userName, "Candidate name");
     await appPage.page.locator(`a:has-text("${userName} User")`).click();
     await appPage.waitForGraphqlResponse("AdminApplicantProfilePage");
     await expect(
