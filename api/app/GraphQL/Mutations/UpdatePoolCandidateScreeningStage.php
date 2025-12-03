@@ -30,6 +30,10 @@ final readonly class UpdatePoolCandidateScreeningStage
             $values['pool_candidate_status'] = $status;
         }
 
+        if (! empty($args['assessmentStep']['connect'])) {
+            $values['assessment_step_id'] = $args['assessmentStep']['connect'];
+        }
+
         // If they want to disconnect, or it is not under assessment, we want the step to be null
         if (! empty($args['assessmentStep']['disconnect']) || $args['screening_stage'] !== ScreeningStage::UNDER_ASSESSMENT->name) {
             $values['assessment_step_id'] = null;
