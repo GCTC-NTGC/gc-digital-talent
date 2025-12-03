@@ -615,6 +615,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             is_null($this->attributes['first_name']) or
             is_null($this->attributes['last_name']) or
             is_null($this->attributes['email']) or
+            (config('feature.emailVerificationRequired') && is_null($this->attributes['email_verified_at'])) or
             is_null($this->attributes['telephone']) or
             is_null($this->attributes['preferred_lang']) or
             is_null($this->attributes['preferred_language_for_interview']) or
