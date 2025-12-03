@@ -5,7 +5,6 @@ namespace App\Generators;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
-use App\Enums\EmailType;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
@@ -188,10 +187,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 });
 
                 $values = [
-                    $user->id,
+                    $user->user_id,
                     $user->first_name,
                     $user->last_name,
-                    $this->getContactEmail($user),
+                    $user->email ?? '',
                     $user->telephone,
                     $user->armed_forces_status ? $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class) : '',
                     $user->citizenship ? $this->localizeEnum($user->citizenship, CitizenshipStatus::class) : '',
@@ -299,31 +298,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         }
 
         return implode(', ', $languages);
-    }
-
-    /**
-     * Get users contact email
-     */
-    private function getContactEmail(User $user): string
-    {
-        $contactEmailType = $user->contact_email ?? null;
-
-        // Return blank if no preference is specified
-        if (empty($contactEmailType)) {
-            return '';
-        }
-
-        // Use the EmailType enum values
-        if ($contactEmailType === EmailType::WORK->value) {
-            return $user->work_email ?? '';
-        }
-
-        if ($contactEmailType === EmailType::CONTACT->value) {
-            return $user->email ?? '';
-        }
-
-        // Invalid value in database - return blank
-        return '';
     }
 
     private function buildQuery()
