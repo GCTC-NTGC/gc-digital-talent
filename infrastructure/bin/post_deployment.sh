@@ -46,16 +46,16 @@ cd /home/site/wwwroot/api
 # Laravel local cache
 if
      mkdir --parents \
-        /var/gc-digital-talent/storage/app/public \
-        /var/gc-digital-talent/storage/app/user_generated \
-        /var/gc-digital-talent/storage/framework/cache/data \
-        /var/gc-digital-talent/storage/framework/sessions \
-        /var/gc-digital-talent/storage/framework/testing \
-        /var/gc-digital-talent/storage/framework/views \
-        /var/gc-digital-talent/storage/logs \
-        /var/gc-digital-talent/bootstrap/cache && \
-    chown -R www-data:www-data /var/gc-digital-talent && \
-    chmod -R 775 /var/gc-digital-talent && \
+        /var/site/storage/app/public \
+        /var/site/storage/app/user_generated \
+        /var/site/storage/framework/cache/data \
+        /var/site/storage/framework/sessions \
+        /var/site/storage/framework/testing \
+        /var/site/storage/framework/views \
+        /var/site/storage/logs \
+        /var/site/bootstrap/cache && \
+    chown -R www-data:www-data /var/site && \
+    chmod -R 775 /var/site && \
     php artisan optimize ;
 then
     add_section_block ":white_check_mark: Laravel cache setup *successful*."
