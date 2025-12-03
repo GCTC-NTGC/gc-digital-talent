@@ -1,8 +1,13 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql, UserProfileFragment } from "@gc-digital-talent/graphql";
+import { Heading, Separator, ThrowNotFound, Well } from "@gc-digital-talent/ui";
+import {
+  graphql,
+  PoolAreaOfSelection,
+  UserProfileFragment,
+} from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -68,6 +73,7 @@ export const getPageInfo: GetPageNavInfo = ({
 export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { applicationEmailVerification } = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -93,6 +99,15 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
     pool: application.pool,
   };
 
+  // Refactor after feature flag is turned on #15052
+  let isWorkEmailVerifiedForInternalJobs = null;
+
+  if (applicationEmailVerification) {
+    isWorkEmailVerifiedForInternalJobs =
+      application.pool.areaOfSelection?.value ===
+        PoolAreaOfSelection.Employees && application.user.isWorkEmailVerified;
+  }
+
   return (
     <ProfileFormProvider>
       <Heading size="h3" className="mt-0 mb-6 font-normal">
@@ -111,6 +126,23 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           <div className="col-span-2">
             <PersonalInformation {...sectionProps} query={application.user} />
           </div>
+          {/* Refactor after feature flag is turned on #15052 */}
+          {applicationEmailVerification && (
+            <>
+              {!isWorkEmailVerifiedForInternalJobs && (
+                <Well color="error" className="col-span-2">
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "A verified contact email is required",
+                      id: "VgvpH0",
+                      description:
+                        "Body for a message informing the user that a contact email is required.",
+                    })}
+                  </p>
+                </Well>
+              )}
+            </>
+          )}
           <ContactEmailCard query={application.user} />
           <WorkEmailCard query={application.user} />
         </div>
