@@ -7,6 +7,7 @@ use App\Models\PoolCandidate;
 use App\Rules\HasEducationRequirement;
 use App\Rules\HasEssentialSkills;
 use App\Rules\HasLanguageRequirements;
+use App\Rules\EmployeeWorkEmailVerified;
 use App\Rules\PoolNotClosed;
 use App\Rules\QuestionsAnswered;
 use App\Rules\UserProfileComplete;
@@ -43,6 +44,7 @@ final class SubmitApplicationValidator extends Validator
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [
+                env('FEATURE_APPLICATION_EMAIL_VERIFICATION', false) ? new EmployeeWorkEmailVerified($this->application->user) : [],
                 new PoolNotClosed,
                 new QuestionsAnswered($this->application),
             ],
