@@ -65,18 +65,19 @@ jobs:
         with:
           payload: |
             {
+              "text": "External Link Checker - Broken Links Detected :warning:",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":warning: External Link Checker found broken links in GC Talent Application."
+                    "text": "Broken Links:*\n*${{ steps.count.outputs.brokenLinksCount  }}*"
                   },
                   "accessory": {
                     "type": "button",
                     "text": {
                       "type": "plain_text",
-                      "text": "View Broken Links",
+                      "text": "View Artifacts",
                       "emoji": true
                     },
                     "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
