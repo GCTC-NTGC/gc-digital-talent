@@ -3,7 +3,7 @@ import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useFormContext } from "react-hook-form";
 import { ComponentProps, useId } from "react";
 
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Notice } from "@gc-digital-talent/ui";
 import { Checklist, RadioGroup, Select } from "@gc-digital-talent/forms";
 import {
   commonMessages,
@@ -301,15 +301,17 @@ const FindANewCommunity = ({
           </>
         ) : (
           // no community selected
-          <Well className="text-center">
-            {intl.formatMessage({
-              defaultMessage:
-                "Please select a functional community to continue.",
-              id: "sZhjI3",
-              description:
-                "Message displayed when no functional community is selected",
-            })}
-          </Well>
+          <Notice.Root className="text-center">
+            <Notice.Content>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Please select a functional community to continue.",
+                id: "sZhjI3",
+                description:
+                  "Message displayed when no functional community is selected",
+              })}
+            </Notice.Content>
+          </Notice.Root>
         )}
       </div>
     </div>

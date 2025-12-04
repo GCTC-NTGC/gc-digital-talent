@@ -664,8 +664,8 @@ type PoolCandidate {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  isBookmarked: Boolean
-    @rename(attribute: "is_bookmarked")
+  isFlagged: Boolean
+    @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
   removedAt: DateTime
     @rename(attribute: "removed_at")
@@ -744,7 +744,7 @@ type PoolCandidateAdminView {
     @rename(attribute: "pool_candidate_status")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
-  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
+  isFlagged: Boolean @rename(attribute: "is_flagged")
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
@@ -1298,6 +1298,7 @@ input UserFilterInput {
   workEmail: String @scope(name: "whereWorkEmail")
   name: String @scope(name: "whereName")
   generalSearch: String @scope(name: "whereGeneralSearch")
+  generalSearchBeta: String @scope(name: "whereGeneralSearchBeta")
   roles: [ID] @scope(name: "whereRoleIn")
   trashed: Trashed @trashed
 }
@@ -1473,7 +1474,7 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
-  useBookmark: Boolean
+  useFlag: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -1701,9 +1702,10 @@ type Query {
   communities: [Community]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
   workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
-  workStreams(talentSearchable: Boolean @scope): [WorkStream]!
-    @all
-    @canModel(ability: "viewAny")
+  workStreams(
+    talentSearchable: Boolean @scope
+    whereCommunityIn: [UUID!] @scope
+  ): [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
     where: NotificationFilterInput
@@ -1846,10 +1848,6 @@ input CreateUserInput {
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
   workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
-  govEmployeeType: GovEmployeeType
-    @rename(attribute: "computed_gov_employee_type")
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 
@@ -1921,10 +1919,6 @@ input UpdateUserAsAdminInput @validator {
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType
-    @rename(attribute: "computed_gov_employee_type")
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 
@@ -2001,12 +1995,6 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType
-    @rename(attribute: "computed_gov_employee_type")
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 
@@ -2233,7 +2221,7 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
-  isBookmarked: Boolean
+  isFlagged: Boolean
 }
 
 input UpdateClassificationInput {
@@ -3213,10 +3201,10 @@ type Mutation {
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
-  togglePoolCandidateBookmark(id: ID!): Boolean
+  togglePoolCandidateFlag(id: ID!): Boolean
     @guard
     @canFind(
-      ability: "updateBookmark"
+      ability: "updateFlag"
       find: "id"
       model: "PoolCandidate"
       injectArgs: true
@@ -3658,14 +3646,14 @@ type Mutation {
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
-  # CSV file downloads
-  downloadPoolCandidatesCsv(
+  # Excel file downloads
+  downloadPoolCandidatesExcel(
     ids: [UUID!]
     where: PoolCandidateSearchInput
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
-  downloadCommunityInterestUsersCsv(
+  downloadCommunityInterestUsersExcel(
     ids: [UUID!]
     where: CommunityInterestFilterInput
   ): Boolean! @guard
@@ -3673,7 +3661,7 @@ type Mutation {
     ids: [UUID!]
     where: PoolCandidateSearchInput
   ): Boolean! @guard
-  downloadNominationsCsv(
+  downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!
   ): Boolean! @guard

@@ -418,7 +418,7 @@ type Query {
   communities: [Community]!
   roles: [Role]!
   workStream(id: UUID!): WorkStream
-  workStreams(talentSearchable: Boolean): [WorkStream]!
+  workStreams(talentSearchable: Boolean, whereCommunityIn: [UUID!]): [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(where: TalentNominationEventsFilterInput): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent
@@ -565,7 +565,7 @@ type Mutation {
   removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
-  togglePoolCandidateBookmark(id: ID!): Boolean
+  togglePoolCandidateFlag(id: ID!): Boolean
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
@@ -659,11 +659,11 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
-  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
+  downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
-  downloadCommunityInterestUsersCsv(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
+  downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadUsersThruPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
-  downloadNominationsCsv(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
+  downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUserDoc(id: UUID!, anonymous: Boolean!): String
@@ -1177,7 +1177,7 @@ type PoolCandidate {
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
-  isBookmarked: Boolean
+  isFlagged: Boolean
   removedAt: DateTime
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
@@ -1217,7 +1217,7 @@ type PoolCandidateAdminView {
   status: LocalizedPoolCandidateStatus
   screeningStage: LocalizedScreeningStage
   notes: String
-  isBookmarked: Boolean
+  isFlagged: Boolean
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
@@ -1666,6 +1666,7 @@ input UserFilterInput {
   workEmail: String
   name: String
   generalSearch: String
+  generalSearchBeta: String
   roles: [ID]
   trashed: Trashed
 }
@@ -1822,7 +1823,7 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
-  useBookmark: Boolean
+  useFlag: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -1879,9 +1880,6 @@ input CreateUserInput {
   isGovEmployee: Boolean
   workEmail: Email
   workEmailVerifiedAt: DateTime
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
@@ -1929,9 +1927,6 @@ input UpdateUserAsAdminInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   workEmail: Email
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
@@ -1986,11 +1981,6 @@ input UpdateUserAsUserInput {
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
-  isGovEmployee: Boolean
-  workEmail: Email
-  govEmployeeType: GovEmployeeType
-  currentClassification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean
   priorityNumber: String
   isWoman: Boolean
@@ -2166,7 +2156,7 @@ input CreatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
-  isBookmarked: Boolean
+  isFlagged: Boolean
 }
 
 input UpdateClassificationInput {

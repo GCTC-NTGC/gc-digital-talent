@@ -14,6 +14,7 @@ return [
     'date_format' => 'j F Y, G \h i',
     'expiry_date' => 'Date d\'expiration',
     'archival_date' => 'Date d\'archivage',
+    'id' => 'ID utilisateur',
     'first_name' => 'Prénom',
     'last_name' => 'Nom de famille',
     'email' => 'Adresse courriel de correspondance',

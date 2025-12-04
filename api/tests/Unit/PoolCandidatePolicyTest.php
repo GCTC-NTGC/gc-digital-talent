@@ -387,28 +387,28 @@ class PoolCandidatePolicyTest extends TestCase
     }
 
     /**
-     * Assert that the following can bookmark
+     * Assert that the following can flag
      *
      * process operator, community recruiter, community admin
      *
      * @return void
      */
-    public function testUpdateBookmark()
+    public function testUpdateFlag()
     {
-        $this->assertTrue($this->processOperatorUser->can('updateBookmark', $this->poolCandidate));
-        $this->assertTrue($this->communityRecruiterUser->can('updateBookmark', $this->poolCandidate));
-        $this->assertTrue($this->communityAdminUser->can('updateBookmark', $this->poolCandidate));
+        $this->assertTrue($this->processOperatorUser->can('updateFlag', $this->poolCandidate));
+        $this->assertTrue($this->communityRecruiterUser->can('updateFlag', $this->poolCandidate));
+        $this->assertTrue($this->communityAdminUser->can('updateFlag', $this->poolCandidate));
 
-        $this->assertFalse($this->candidateUser->can('updateBookmark', $this->poolCandidate));
-        $this->assertFalse($this->guestUser->can('updateBookmark', $this->poolCandidate));
-        $this->assertFalse($this->applicantUser->can('updateBookmark', $this->poolCandidate));
-        $this->assertFalse($this->adminUser->can('updateBookmark', $this->poolCandidate));
-        $this->assertFalse($this->communityTalentCoordinatorUser->can('updateBookmark', $this->poolCandidate));
+        $this->assertFalse($this->candidateUser->can('updateFlag', $this->poolCandidate));
+        $this->assertFalse($this->guestUser->can('updateFlag', $this->poolCandidate));
+        $this->assertFalse($this->applicantUser->can('updateFlag', $this->poolCandidate));
+        $this->assertFalse($this->adminUser->can('updateFlag', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('updateFlag', $this->poolCandidate));
 
-        // Cannot bookmark applications not in their team's pool
-        $this->assertFalse($this->processOperatorUser->can('updateBookmark', $this->unOwnedPoolCandidate));
-        $this->assertFalse($this->communityRecruiterUser->can('updateBookmark', $this->unOwnedPoolCandidate));
-        $this->assertFalse($this->communityAdminUser->can('updateBookmark', $this->unOwnedPoolCandidate));
+        // Cannot flag applications not in their team's pool
+        $this->assertFalse($this->processOperatorUser->can('updateFlag', $this->unOwnedPoolCandidate));
+        $this->assertFalse($this->communityRecruiterUser->can('updateFlag', $this->unOwnedPoolCandidate));
+        $this->assertFalse($this->communityAdminUser->can('updateFlag', $this->unOwnedPoolCandidate));
     }
 
     /**

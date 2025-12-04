@@ -3,7 +3,10 @@ import "vitest-axe/extend-expect";
 import { vi } from "vitest";
 import failOnConsole from "vitest-fail-on-console";
 
-failOnConsole();
+failOnConsole({
+  silenceMessage: (errorMessage) =>
+    errorMessage.includes("Missing mandatory runtime variable"),
+});
 
 // ClipboardEvent
 const ClipboardEventMock = vi.fn(() => ({

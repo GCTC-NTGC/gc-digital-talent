@@ -1,7 +1,12 @@
 import { useIntl } from "react-intl";
 
 import { Skill, makeFragmentData } from "@gc-digital-talent/graphql";
-import { Heading, ScrollToLink, Separator, Well } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  ScrollToLink,
+  Separator,
+  Notice,
+} from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
@@ -79,17 +84,19 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
           ))}
         </div>
       ) : (
-        <Well color="warning">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "There are no experiences attached to this skill.",
-              id: "XrfkBm",
-              description:
-                "Message displayed when no experiences have been attached to a skill",
-            })}
-          </p>
-        </Well>
+        <Notice.Root color="warning">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "There are no experiences attached to this skill.",
+                id: "XrfkBm",
+                description:
+                  "Message displayed when no experiences have been attached to a skill",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
     </>
   );

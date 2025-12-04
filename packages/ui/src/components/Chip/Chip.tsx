@@ -41,52 +41,51 @@ const chip = tv({
         "border-warning-700 bg-warning-100 text-warning-700 dark:border-warning-100 dark:bg-warning-700 dark:text-warning-100",
       error:
         "border-error-700 bg-error-100 text-error-700 dark:border-error-100 dark:bg-error-700 dark:text-error-100",
-      black:
-        "border-black bg-gray-100 text-black dark:border-gray-100 dark:bg-gray-700 dark:text-white",
+      gray: "border-black bg-gray-100 text-black dark:border-gray-100 dark:bg-gray-700 dark:text-white",
     },
-    dismissable: {
+    dismissible: {
       true: "cursor-pointer outline-offset-2 outline-black focus-visible:border-black focus-visible:bg-focus focus-visible:text-black focus-visible:outline dark:outline-white dark:focus-visible:border-white",
     },
   },
   compoundVariants: [
     {
-      dismissable: true,
+      dismissible: true,
       color: "primary",
       class: {
         base: "hover:bg-primary-200 dark:hover:bg-primary-600",
       },
     },
     {
-      dismissable: true,
+      dismissible: true,
       color: "secondary",
       class: {
         base: "hover:bg-secondary-200 dark:hover:bg-secondary-600",
       },
     },
     {
-      dismissable: true,
+      dismissible: true,
       color: "success",
       class: {
         base: "hover:bg-success-200 dark:hover:bg-success-600",
       },
     },
     {
-      dismissable: true,
+      dismissible: true,
       color: "warning",
       class: {
         base: "hover:bg-warning-200 dark:hover:bg-warning-600",
       },
     },
     {
-      dismissable: true,
+      dismissible: true,
       color: "error",
       class: {
         base: "hover:bg-error-200 dark:hover:bg-error-600",
       },
     },
     {
-      dismissable: true,
-      color: "black",
+      dismissible: true,
+      color: "gray",
       class: {
         base: "hover:bg-gray-200 dark:hover:bg-gray-600",
       },
@@ -116,7 +115,7 @@ const Chip = ({
 }: ChipProps) => {
   const intl = useIntl();
   const Icon = icon;
-  const dismissable = !!onDismiss;
+  const dismissible = !!onDismiss;
   const chipRef = useRef<HTMLSpanElement | null>(null);
 
   const handleClick: MouseEventHandler<HTMLSpanElement> = (event) => {
@@ -156,7 +155,7 @@ const Chip = ({
       })}
       className={base({
         color,
-        dismissable,
+        dismissible,
         class: className,
       })}
       {...rest}

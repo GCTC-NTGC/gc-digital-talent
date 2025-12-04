@@ -76,7 +76,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $candidate = $this->candidate;
 
         // pull data from application snapshot
-        // mirrors logic found in PoolCandidateCsvGenerator
+        // mirrors logic found in PoolCandidateExcelGenerator
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
         $snapshotExperiences = $snapshot['experiences'] ?? [];

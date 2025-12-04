@@ -8,7 +8,7 @@ import {
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
 import { useQuery } from "urql";
-import { ReactNode, useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -50,7 +50,7 @@ const columnHelper = createColumnHelper<User>();
 
 const defaultState = {
   ...INITIAL_STATE,
-  sortState: [{ id: "createdDate", desc: false }],
+  sortState: [],
   // Note: lodash/isEqual is comparing undefined
   // so we need to actually set it here
   filters: {
@@ -151,10 +151,11 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 interface UserTableProps {
-  title: ReactNode;
+  title: string;
+  newSearch?: boolean;
 }
 
-const UserTable = ({ title }: UserTableProps) => {
+const UserTable = ({ title, newSearch = false }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
@@ -218,6 +219,7 @@ const UserTable = ({ title }: UserTableProps) => {
         filterState,
         searchState?.term,
         searchState?.type,
+        newSearch,
       ),
     });
   };
@@ -393,6 +395,7 @@ const UserTable = ({ title }: UserTableProps) => {
         filterState,
         searchState?.term,
         searchState?.type,
+        newSearch,
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
@@ -444,7 +447,7 @@ const UserTable = ({ title }: UserTableProps) => {
           onClick: handleExcelDownloadAll,
           downloading: downloadingExcel,
         },
-        csv: {
+        spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
           downloading: downloadingExcel,

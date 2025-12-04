@@ -56,7 +56,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property ?string $education_requirement_option
- * @property ?bool $is_bookmarked
+ * @property ?bool $is_flagged
  * @property ?\Illuminate\Support\Carbon $placed_at
  * @property ?string $placed_department_id
  * @property ?\Illuminate\Support\Carbon $final_decision_at
@@ -95,7 +95,7 @@ class PoolCandidate extends Model
         'suspended_at' => 'datetime',
         'profile_snapshot' => ProfileSnapshot::class,
         'submitted_steps' => 'array',
-        'is_bookmarked' => 'boolean',
+        'is_flagged' => 'boolean',
         'placed_at' => 'datetime',
         'final_decision_at' => 'datetime',
         'removed_at' => 'datetime',
@@ -126,7 +126,7 @@ class PoolCandidate extends Model
         'veteran_verification_expiry',
         'priority_verification',
         'priority_verification_expiry',
-        'is_bookmarked',
+        'is_flagged',
         'screening_stage',
         'assessment_step_id',
     ];
@@ -137,7 +137,7 @@ class PoolCandidate extends Model
      * The model's default values for attributes.
      */
     protected $attributes = [
-        'is_bookmarked' => false,
+        'is_flagged' => false,
     ];
 
     /**

@@ -70,7 +70,7 @@ class PoolCandidateFactory extends Factory
                 0,
                 $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
             ),
-            'is_bookmarked' => $this->faker->boolean(10),
+            'is_flagged' => $this->faker->boolean(10),
             'final_decision_at' => function (array $attributes) use ($relevantStatusesForFinalDecision) {
                 return in_array($attributes['pool_candidate_status'], $relevantStatusesForFinalDecision) ?
                 $this->faker->dateTimeBetween('-4 weeks', '-2 weeks') : null;

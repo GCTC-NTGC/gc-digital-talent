@@ -16,7 +16,7 @@ import {
   PreviewList,
   Separator,
   Sidebar,
-  Well,
+  Notice,
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import {
@@ -532,16 +532,19 @@ const JobPosterTemplatesPage = () => {
                     )}
                   </>
                 ) : (
-                  <Well className="text-center">
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "No job advertisement templates found.",
-                        id: "L47tv9",
-                        description:
-                          "Message displayed when there are no job poster templates meeting a specific criteria",
-                      })}
-                    </p>
-                  </Well>
+                  <Notice.Root className="text-center">
+                    <Notice.Content>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "No job advertisement templates found.",
+                          id: "L47tv9",
+                          description:
+                            "Message displayed when there are no job poster templates meeting a specific criteria",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
                 )}
               </>
             )}

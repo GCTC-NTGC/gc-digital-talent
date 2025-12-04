@@ -3,13 +3,13 @@ import { Pool } from "@gc-digital-talent/graphql";
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyRequiredFields,
+  priorityEntitlementsHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
   workPreferencesSectionHasEmptyRequiredFields,
   PartialUserAbout,
   PartialUserDei,
-  PartialUserGovernment,
+  PartialUserPriority,
   PartialUserLanguage,
   PartialUserPreferences,
 } from "~/validators/profile";
@@ -17,7 +17,7 @@ import {
 interface PartialUser
   extends PartialUserAbout,
     PartialUserDei,
-    PartialUserGovernment,
+    PartialUserPriority,
     PartialUserLanguage,
     PartialUserPreferences {}
 
@@ -25,7 +25,7 @@ const stepHasError = (user: PartialUser, pool: Pool) => {
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(user) ||
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
-    governmentInformationSectionHasEmptyRequiredFields(user) ||
+    priorityEntitlementsHasEmptyRequiredFields(user) ||
     languageInformationSectionHasEmptyRequiredFields(user) ||
     workPreferencesSectionHasEmptyRequiredFields(user) ||
     languageInformationSectionHasUnsatisfiedRequirements(user, pool);

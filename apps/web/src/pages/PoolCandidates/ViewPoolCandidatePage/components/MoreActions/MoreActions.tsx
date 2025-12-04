@@ -1,10 +1,15 @@
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/16/solid/UserCircleIcon";
-import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
-import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
+import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
+import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 import { useQuery } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FinalDecision,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -20,7 +25,7 @@ import {
   isRevertableStatus,
   isRODStatus,
 } from "~/utils/poolCandidate";
-import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
@@ -57,7 +62,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    isBookmarked
+    isFlagged
     assessmentStep {
       sortOrder
       title {
@@ -69,13 +74,39 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-
+    finalDecision {
+      value
+    }
     removalReason {
       label {
         localized
       }
     }
     expiryDate
+    pool {
+      workStream {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        group
+        level
+      }
+    }
   }
 `);
 
@@ -98,9 +129,17 @@ const MoreActions = ({
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
-  const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
+  const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
     id: poolCandidate.id,
-    defaultValue: poolCandidate.isBookmarked ?? false,
+    defaultValue: poolCandidate.isFlagged ?? false,
+    candidateInfo: {
+      firstName: poolCandidate.user.firstName,
+      lastName: poolCandidate.user.lastName,
+      workStream: poolCandidate.pool.workStream,
+      name: poolCandidate.pool.name,
+      publishingGroup: poolCandidate.pool.publishingGroup,
+      classification: poolCandidate.pool.classification,
+    },
   });
 
   const candidateName = getFullNameLabel(
@@ -170,13 +209,14 @@ const MoreActions = ({
           </div>
         )}
 
-        {isRevertableStatus(status) && (
-          <StatusLabel>
-            <RevertFinalDecisionDialog
-              revertFinalDecisionQuery={poolCandidate}
-            />
-          </StatusLabel>
-        )}
+        {isRevertableStatus(status) &&
+          !(poolCandidate.finalDecision?.value !== FinalDecision.Removed) && (
+            <StatusLabel>
+              <RevertFinalDecisionDialog
+                revertFinalDecisionQuery={poolCandidate}
+              />
+            </StatusLabel>
+          )}
 
         {isQualifiedStatus(status) && (
           <>
@@ -228,19 +268,19 @@ const MoreActions = ({
           mode="inline"
           color="black"
           className="text-left"
-          icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-          onClick={toggleBookmark}
+          icon={isFlagged ? FlagIconSolid : FlagIconOutline}
+          onClick={toggleFlag}
         >
-          {isBookmarked
+          {isFlagged
             ? intl.formatMessage({
-                defaultMessage: "Remove bookmark",
-                id: "27mGKw",
-                description: "Label for removing a bookmark",
+                defaultMessage: "Remove flag",
+                id: "+Nn0rE",
+                description: "Label for removing a flag",
               })
             : intl.formatMessage({
-                defaultMessage: "Add bookmark",
-                id: "L2xLV8",
-                description: "Label for adding a bookmark",
+                defaultMessage: "Add flag",
+                id: "FtP8OZ",
+                description: "Label for adding a flag",
               })}
         </Button>
 

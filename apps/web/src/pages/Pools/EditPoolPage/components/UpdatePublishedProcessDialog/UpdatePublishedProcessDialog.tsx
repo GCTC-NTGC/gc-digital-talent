@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   UpdatePublishedPoolInput,
@@ -102,22 +102,24 @@ const UpdatePublishedProcessDialog = ({
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
-          <Well color="warning" className="mb-6">
-            <Heading level="h3" size="h6" className="mt-0">
+          <Notice.Root color="warning" className="mb-6">
+            <Notice.Title as="h3">
               {intl.formatMessage(commonMessages.warning)}
-            </Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "You are about to change information currently published on the following advertisement",
-                id: "4lRUZt",
-                description:
-                  "Warning message when attempting to update a published process advertisement",
-              })}
-              {intl.formatMessage(commonMessages.dividingColon)}
-              <span className="font-bold">{title}</span>
-            </p>
-          </Well>
+            </Notice.Title>
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "You are about to change information currently published on the following advertisement",
+                  id: "4lRUZt",
+                  description:
+                    "Warning message when attempting to update a published process advertisement",
+                })}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <span className="font-bold">{title}</span>
+              </p>
+            </Notice.Content>
+          </Notice.Root>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleUpdate)}>
               <TextArea

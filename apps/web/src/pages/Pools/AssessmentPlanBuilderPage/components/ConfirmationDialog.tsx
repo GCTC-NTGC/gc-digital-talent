@@ -2,7 +2,7 @@ import { useState } from "react";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import { useIntl } from "react-intl";
 
-import { AlertDialog, Button, IconButton, Well } from "@gc-digital-talent/ui";
+import { AlertDialog, Button, IconButton, Notice } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Maybe } from "@gc-digital-talent/graphql";
 
@@ -45,9 +45,11 @@ const ConfirmationDialog = ({
               description: "Text to confirm the assessment to be deleted",
             })}
           </p>
-          <Well className="mb-6">
-            <p>{assessmentTitle}</p>
-          </Well>
+          <Notice.Root className="mb-6">
+            <Notice.Content>
+              <p>{assessmentTitle}</p>
+            </Notice.Content>
+          </Notice.Root>
           <p className="font-bold">
             {intl.formatMessage({
               id: "Yb8Ylg",

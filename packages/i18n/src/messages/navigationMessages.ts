@@ -117,8 +117,8 @@ const navigationMessages = defineMessages({
     description: "Name of contact us page",
   },
   skillLibrary: {
-    defaultMessage: "Browse the skills library",
-    id: "3SDRDg",
+    defaultMessage: "Skills library",
+    id: "TuZKOY",
     description: "Name of skill library page",
   },
   jobTemplates: {

@@ -24,6 +24,7 @@ import LanguageProfile from "~/components/Profile/components/LanguageProfile/Lan
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
 
 import pageMessages from "./messages";
 
@@ -43,6 +44,7 @@ export const UserProfile_Fragment = graphql(/** GraphQL */ `
   fragment UserProfile on User {
     ...ProfileWorkPreferences
     ...ProfileDiversityEquityInclusion
+    ...ProfilePriorityEntitlements
     ...ProfileGovernmentInformation
     ...ProfileLanguageProfile
   }
@@ -116,6 +118,13 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
+                >
+                  {intl.formatMessage(getSectionTitle("priority"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
                   {intl.formatMessage(getSectionTitle("government"))}
                 </TableOfContents.AnchorLink>
@@ -135,8 +144,13 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
               <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
                 <DiversityEquityInclusion {...sectionProps} />
               </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
+              >
+                <PriorityEntitlements {...sectionProps} />
+              </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
-                <GovernmentInformation {...sectionProps} />
+                <GovernmentInformation query={user} />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
                 <LanguageProfile {...sectionProps} />
@@ -158,7 +172,7 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
 `);
 
 const context: Partial<OperationContext> = {
-  requestPolicy: "cache-first",
+  requestPolicy: "cache-and-network",
 };
 
 const ProfilePage = () => {

@@ -225,9 +225,11 @@ test.describe("Talent search", () => {
     await appPage.page
       .getByRole("textbox", { name: /additional comments/i })
       .fill("Test comments");
-    await appPage.page
-      .getByRole("combobox", { name: /department/i })
-      .selectOption({ index: 1 });
+    const departmentInput = appPage.page.getByRole("combobox", {
+      name: /department/i,
+    });
+    await departmentInput.press("ArrowDown");
+    await departmentInput.press("Enter");
 
     await expect(
       appPage.page.getByText(
