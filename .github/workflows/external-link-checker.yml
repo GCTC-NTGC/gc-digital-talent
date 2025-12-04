@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: "./.nvmrc"
           cache: "pnpm"
 
       - name: Install Dependencies
@@ -70,13 +70,13 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":warning: External Link Checker found *${{ steps.count.outputs.brokenLinksCount  }}* broken links in GC Talent Application."
+                    "text": ":warning: External Link Checker found broken links in GC Talent Application."
                   },
                   "accessory": {
                     "type": "button",
                     "text": {
                       "type": "plain_text",
-                      "text": "View Artifacts",
+                      "text": "View Broken Links",
                       "emoji": true
                     },
                     "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
