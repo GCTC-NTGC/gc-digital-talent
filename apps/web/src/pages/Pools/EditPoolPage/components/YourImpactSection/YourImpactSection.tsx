@@ -58,7 +58,8 @@ interface FormValues {
 export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
 interface YourImpactSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       YourImpactSubmitData,
       FragmentType<typeof EditPoolYourImpact_Fragment>
     >,
@@ -182,8 +183,8 @@ const YourImpactSection = ({
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
-                      defaultMessage: "Save introduction",
-                      id: "UduzGA",
+                      defaultMessage: "Save your impact",
+                      id: "9Btysk",
                       description:
                         "Text on a button to save the pool introduction",
                     })}

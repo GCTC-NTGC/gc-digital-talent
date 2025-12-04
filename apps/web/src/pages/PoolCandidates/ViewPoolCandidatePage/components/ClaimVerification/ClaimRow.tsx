@@ -76,8 +76,9 @@ const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
   return <p>{message}</p>;
 };
 
-interface VerificationIconProps
-  extends PropsWithoutRef<SVGProps<SVGSVGElement>> {
+interface VerificationIconProps extends PropsWithoutRef<
+  SVGProps<SVGSVGElement>
+> {
   result: ClaimVerificationResult;
 }
 

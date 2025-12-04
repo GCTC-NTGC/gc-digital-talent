@@ -32,8 +32,9 @@ import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 
-interface EditCommunityMemberDialogProps
-  extends ComponentPropsWithoutRef<typeof DropdownMenu.Item> {
+interface EditCommunityMemberDialogProps extends ComponentPropsWithoutRef<
+  typeof DropdownMenu.Item
+> {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;

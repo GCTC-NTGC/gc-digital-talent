@@ -59,7 +59,8 @@ interface FormValues {
 export type AboutUsSubmitData = Pick<UpdatePoolInput, "aboutUs">;
 
 interface AboutUsSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       AboutUsSubmitData,
       FragmentType<typeof EditPoolAboutUs_Fragment>
     >,

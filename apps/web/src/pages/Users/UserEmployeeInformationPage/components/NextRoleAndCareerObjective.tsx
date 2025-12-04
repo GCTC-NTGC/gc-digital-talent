@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
 import { hasAllEmptyFields as hasAllEmptyFieldsCareerObjective } from "~/validators/employeeProfile/careerObjective";
@@ -50,17 +50,19 @@ const NextRoleAndCareerObjective = ({
 
   if (!hasNextRole && !hasCareerObjective) {
     return (
-      <Well>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "The employee hasn't added any information about their next role or career objective to their profile",
-            id: "ctOBXo",
-            description:
-              "Message displayed if employee hasn't filled out next role or career objective",
-          })}
-        </p>
-      </Well>
+      <Notice.Root>
+        <Notice.Content>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "The employee hasn't added any information about their next role or career objective to their profile",
+              id: "ctOBXo",
+              description:
+                "Message displayed if employee hasn't filled out next role or career objective",
+            })}
+          </p>
+        </Notice.Content>
+      </Notice.Root>
     );
   }
   return (
@@ -71,17 +73,19 @@ const NextRoleAndCareerObjective = ({
           dialogSubtitle={nextRoleDialogSubtitle}
         />
       ) : (
-        <Well>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "The employee has not provided information about the next role they'd like to achieve.",
-              id: "U5plJQ",
-              description:
-                "Message displayed if employee hasn't filled out next role",
-            })}
-          </p>
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "The employee has not provided information about the next role they'd like to achieve.",
+                id: "U5plJQ",
+                description:
+                  "Message displayed if employee hasn't filled out next role",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
 
       {/* Career Objective Section */}
@@ -92,17 +96,19 @@ const NextRoleAndCareerObjective = ({
           dialogSubtitle={dialogSubtitle}
         />
       ) : (
-        <Well>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "The employee has not provided information about their ultimate career objective.",
-              id: "ZhccbH",
-              description:
-                "Message displayed if employee hasn't filled out career objective",
-            })}
-          </p>
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "The employee has not provided information about their ultimate career objective.",
+                id: "ZhccbH",
+                description:
+                  "Message displayed if employee hasn't filled out career objective",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
     </div>
   );

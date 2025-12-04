@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
+class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
     use Filterable;
     use GeneratesFile;

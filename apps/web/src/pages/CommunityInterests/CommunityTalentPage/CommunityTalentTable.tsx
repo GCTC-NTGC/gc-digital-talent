@@ -189,12 +189,12 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadCommunityInterestUsersCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadCommunityInterestUsersCsv(
+const DownloadCommunityInterestUsersExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadCommunityInterestUsersExcel(
     $ids: [UUID!]
     $where: CommunityInterestFilterInput
   ) {
-    downloadCommunityInterestUsersCsv(ids: $ids, where: $where)
+    downloadCommunityInterestUsersExcel(ids: $ids, where: $where)
   }
 `);
 
@@ -257,8 +257,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     initialFilters ?? {},
   );
 
-  const [{ fetching: downloadingAllCsv }, downloadAllCsv] = useMutation(
-    DownloadCommunityInterestUsersCsv_Mutation,
+  const [{ fetching: downloadingAllExcel }, downloadAllExcel] = useMutation(
+    DownloadCommunityInterestUsersExcel_Mutation,
   );
 
   const {
@@ -285,7 +285,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     }
   };
 
-  const handleCsvDownload = () => {
+  const handleExcelDownload = () => {
     downloadExcel({
       ids: removeDuplicateIds(selectedRows),
     });
@@ -303,8 +303,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     }
   };
 
-  const handleCsvDownloadAll = () => {
-    downloadAllCsv({
+  const handleExcelDownloadAll = () => {
+    downloadAllExcel({
       where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
@@ -674,13 +674,13 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       download={{
         all: {
           enable: true,
-          onClick: handleCsvDownloadAll,
-          downloading: downloadingExcel || downloadingAllCsv,
+          onClick: handleExcelDownloadAll,
+          downloading: downloadingExcel || downloadingAllExcel,
         },
-        csv: {
+        spreadsheet: {
           enable: true,
-          onClick: handleCsvDownload,
-          downloading: downloadingExcel || downloadingAllCsv,
+          onClick: handleExcelDownload,
+          downloading: downloadingExcel || downloadingAllExcel,
         },
         doc: {
           enable: true,
@@ -691,10 +691,10 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
                 !hasSelectedRows ||
                 downloadingZip ||
                 downloadingDoc ||
-                downloadingAllCsv
+                downloadingAllExcel
               }
               isDownloading={
-                downloadingZip || downloadingDoc || downloadingAllCsv
+                downloadingZip || downloadingDoc || downloadingAllExcel
               }
               onClickProfile={() => handleDocDownload(false)}
               onClickAnonymousProfile={() => handleDocDownload(true)}

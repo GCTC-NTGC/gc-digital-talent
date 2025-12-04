@@ -8,8 +8,7 @@ import { btn, BaseButtonLinkProps } from "../../utils/btnStyles";
 import BaseLink, { BaseLinkProps } from "./BaseLink";
 
 export interface LinkProps
-  extends BaseButtonLinkProps,
-    Omit<BaseLinkProps, "color"> {
+  extends BaseButtonLinkProps, Omit<BaseLinkProps, "color"> {
   disabled?: boolean;
   end?: boolean;
 }

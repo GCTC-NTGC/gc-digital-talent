@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Dialog, Button, Well, Heading } from "@gc-digital-talent/ui";
+import { Dialog, Button, Notice } from "@gc-digital-talent/ui";
 import {
   convertDateTimeZone,
   strToFormDate,
@@ -176,20 +176,22 @@ const ChangeDateDialog = ({
                       },
                     }}
                   />
-                  <Well color="warning" fontSize="caption" className="mt-6">
-                    <Heading level="h3" size="h6" className="mt-0">
+                  <Notice.Root color="warning" className="mt-6 p-3 text-sm">
+                    <Notice.Title as="h3">
                       {intl.formatMessage(commonMessages.important)}
-                    </Heading>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If you extend the closing date, all users with a draft application for this process will be notified. We won't send a notification if you close the process immediately.",
-                        id: "fYGCsZ",
-                        description:
-                          "Warning message for when admin extends closing date.",
-                      })}
-                    </p>
-                  </Well>
+                    </Notice.Title>
+                    <Notice.Content>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "If you extend the closing date, all users with a draft application for this process will be notified. We won't send a notification if you close the process immediately.",
+                          id: "fYGCsZ",
+                          description:
+                            "Warning message for when admin extends closing date.",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
                 </>
               ) : (
                 <>
@@ -213,20 +215,22 @@ const ChangeDateDialog = ({
                       }}
                     />
                   </div>
-                  <Well color="warning">
-                    <p className="mb-3 font-bold">
+                  <Notice.Root color="warning">
+                    <Notice.Title>
                       {intl.formatMessage(commonMessages.warning)}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Remember to inform any candidate who has already applied to this process.",
-                        id: "8EPVUp",
-                        description:
-                          "Warning message for closing the process early",
-                      })}
-                    </p>
-                  </Well>
+                    </Notice.Title>
+                    <Notice.Content>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "Remember to inform any candidate who has already applied to this process.",
+                          id: "8EPVUp",
+                          description:
+                            "Warning message for closing the process early",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
                 </>
               )}
               <Dialog.Footer>

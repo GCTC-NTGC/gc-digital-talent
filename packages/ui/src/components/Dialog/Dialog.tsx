@@ -41,7 +41,8 @@ const content = tv({
 type ContentVariants = VariantProps<typeof content>;
 
 interface StyledContentProps
-  extends ContentVariants,
+  extends
+    ContentVariants,
     ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {}
 
 const StyledContent = forwardRef<

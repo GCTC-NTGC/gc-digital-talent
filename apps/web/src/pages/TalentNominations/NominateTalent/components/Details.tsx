@@ -28,7 +28,7 @@ import {
   getTalentNominationLateralMovementOption,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
@@ -220,17 +220,19 @@ const DetailsFields = ({
         ]}
       />
       {noOptionsSelected ? (
-        <Well className="text-center">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Please select one or more nomination options to continue.",
-              id: "PwB71+",
-              description:
-                "Null message displayed when no nomination options are selected on details step",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="text-center">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Please select one or more nomination options to continue.",
+                id: "PwB71+",
+                description:
+                  "Null message displayed when no nomination options are selected on details step",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       ) : (
         <div className="flex flex-col gap-6">
           {advancement && (

@@ -183,8 +183,9 @@ const trigger = tv({
   ],
 });
 
-interface AccordionHeaderProps
-  extends ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
+interface AccordionHeaderProps extends ComponentPropsWithoutRef<
+  typeof AccordionPrimitive.Trigger
+> {
   as?: HeadingRank | "p";
   icon?: IconType;
   subtitle?: ReactNode;

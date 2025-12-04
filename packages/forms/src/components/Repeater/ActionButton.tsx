@@ -46,7 +46,8 @@ const actionBtn = tv({
 type ActionButtonVariants = VariantProps<typeof actionBtn>;
 
 interface ActionButtonProps
-  extends ActionButtonVariants,
+  extends
+    ActionButtonVariants,
     DetailedHTMLProps<
       ButtonHTMLAttributes<HTMLButtonElement>,
       HTMLButtonElement

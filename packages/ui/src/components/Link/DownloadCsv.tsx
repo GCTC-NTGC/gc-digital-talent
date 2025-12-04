@@ -9,11 +9,10 @@ interface CsvHeader {
   displayName: string;
 }
 
-export interface DownloadCsvProps
-  extends Pick<
-    LinkProps,
-    "color" | "mode" | "block" | "type" | "icon" | "size" | "fixedColor"
-  > {
+export interface DownloadCsvProps extends Pick<
+  LinkProps,
+  "color" | "mode" | "block" | "type" | "icon" | "size" | "fixedColor"
+> {
   headers: CsvHeader[];
   data: ICsvProps["datas"];
   fileName: string;
