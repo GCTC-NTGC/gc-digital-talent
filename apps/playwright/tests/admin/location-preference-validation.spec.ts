@@ -160,6 +160,9 @@ test.describe("Location Preference Validation", () => {
     await appPage.waitForGraphqlResponse(
       "CandidatesTableCandidatesPaginated_Query",
     );
+    // Try searching the candidate
+    await userPage.searchUserByName(userName, "Candidate name");
+    // Verify the flexible work locations column is displayed
     await expect(
       page.getByRole("columnheader", {
         name: /Flexible work location options/i,
