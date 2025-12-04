@@ -75,9 +75,6 @@ ButtonsAndTabs.args = {
   ],
 };
 
-// NOTE: Cannot fix, automated tests are inconclusive when text appears over an image
-ButtonsAndTabs.tags = ["skip-a11y"];
-
 export const Buttons = Template.bind({});
 Buttons.args = {
   buttonLinks: [

@@ -104,7 +104,7 @@ Default.args = {
 Default.parameters = {
   a11y: {
     context: {
-      // NOTE: No issue with colour contrast here
+      // NOTE: No issue with colour contrast
       exclude: ["select"],
     },
   },
@@ -126,7 +126,7 @@ WithGroups.args = {
 WithGroups.parameters = {
   a11y: {
     context: {
-      // NOTE: No issue with colour contrast here
+      // NOTE: No issue with colour contrast
       exclude: ["select"],
     },
   },
