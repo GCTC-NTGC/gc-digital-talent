@@ -175,10 +175,6 @@
     "defaultMessage": "Les possibilités d'échange m'intéressent",
     "description": "Interest label for interchange opportunities."
   },
-  "3SDRDg": {
-    "defaultMessage": "Parcourir la bibliothèque de compétences",
-    "description": "Name of skill library page"
-  },
   "3e4sM7": {
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
@@ -855,6 +851,10 @@
     "defaultMessage": "Télécharger",
     "description": "Button text to download a resource"
   },
+  "TuZKOY": {
+    "defaultMessage": "Bibliothèque de compétences",
+    "description": "Name of skill library page"
+  },
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
@@ -872,7 +872,7 @@
     "description": "Link to the 'Career experience' page"
   },
   "Ux22rt": {
-    "defaultMessage": "Bibliothèque de modèles d’emploi",
+    "defaultMessage": "Bibliothèque de modèles d'emploi",
     "description": "Name of job templates library (previously job advertisement templates) page"
   },
   "V3+fXY": {

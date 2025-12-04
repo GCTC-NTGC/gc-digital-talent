@@ -69,12 +69,12 @@ const TalentEventNominationsTable_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadNominationsCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadNominationsCsv(
+const DownloadNominationsExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadNominationsExcel(
     $ids: [UUID!]
     $talentNominationEventId: UUID!
   ) {
-    downloadNominationsCsv(
+    downloadNominationsExcel(
       ids: $ids
       talentNominationEventId: $talentNominationEventId
     )
@@ -107,8 +107,8 @@ const TalentEventNominationsTable = ({
 
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
-  const [{ fetching: downloadingAllCsv }, downloadAllCsv] = useMutation(
-    DownloadNominationsCsv_Mutation,
+  const [{ fetching: downloadingAllExcel }, downloadAllExcel] = useMutation(
+    DownloadNominationsExcel_Mutation,
   );
 
   const handleDownloadError = () => {
@@ -123,8 +123,8 @@ const TalentEventNominationsTable = ({
     }
   };
 
-  const handleCsvDownload = () => {
-    downloadAllCsv({
+  const handleExcelDownload = () => {
+    downloadAllExcel({
       ids: removeDuplicateIds(selectedRows),
       talentNominationEventId,
     })
@@ -132,8 +132,8 @@ const TalentEventNominationsTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownloadAll = () => {
-    downloadAllCsv({
+  const handleExcelDownloadAll = () => {
+    downloadAllExcel({
       talentNominationEventId,
     })
       .then((res) => handleDownloadRes(!!res.data))
@@ -261,13 +261,13 @@ const TalentEventNominationsTable = ({
       download={{
         all: {
           enable: true,
-          onClick: handleCsvDownloadAll,
-          downloading: downloadingAllCsv,
+          onClick: handleExcelDownloadAll,
+          downloading: downloadingAllExcel,
         },
-        csv: {
+        spreadsheet: {
           enable: true,
-          onClick: handleCsvDownload,
-          downloading: downloadingAllCsv,
+          onClick: handleExcelDownload,
+          downloading: downloadingAllExcel,
         },
       }}
       nullMessage={{

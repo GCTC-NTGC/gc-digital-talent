@@ -14,6 +14,7 @@ return [
     'date_format' => 'F jS, Y, g:i A',
     'expiry_date' => 'Expiry date',
     'archival_date' => 'Archival date',
+    'id' => 'User ID',
     'first_name' => 'First name',
     'last_name' => 'Last name',
     'email' => 'Contact email address',

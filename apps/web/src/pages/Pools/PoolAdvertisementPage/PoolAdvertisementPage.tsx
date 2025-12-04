@@ -52,7 +52,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import {
   contactEmailTag,
   formatClassificationString,
-  getFullPoolTitleHtml,
+  getFullPoolTitleLabel,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
@@ -345,7 +345,7 @@ export const PoolPoster = ({
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
-  const fullPoolTitle = getFullPoolTitleHtml(intl, {
+  const fullPoolTitle = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,

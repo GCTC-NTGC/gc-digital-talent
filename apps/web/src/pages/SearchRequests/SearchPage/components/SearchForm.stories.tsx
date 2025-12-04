@@ -88,4 +88,3 @@ WithResults.parameters = {
     SearchRequestOptions,
   },
 };
-WithResults.tags = ["needs-fix"];

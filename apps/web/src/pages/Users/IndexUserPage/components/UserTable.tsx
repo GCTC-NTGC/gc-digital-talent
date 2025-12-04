@@ -8,7 +8,7 @@ import {
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
 import { useQuery } from "urql";
-import { ReactNode, useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -151,7 +151,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 interface UserTableProps {
-  title: ReactNode;
+  title: string;
   newSearch?: boolean;
 }
 
@@ -447,7 +447,7 @@ const UserTable = ({ title, newSearch = false }: UserTableProps) => {
           onClick: handleExcelDownloadAll,
           downloading: downloadingExcel,
         },
-        csv: {
+        spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
           downloading: downloadingExcel,
