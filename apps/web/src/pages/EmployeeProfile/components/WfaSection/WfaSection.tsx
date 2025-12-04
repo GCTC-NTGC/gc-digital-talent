@@ -21,7 +21,7 @@ import {
   Link,
   ToggleSection,
   Ul,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -344,43 +344,45 @@ const WfaSection = ({ employeeWfaQuery, optionsQuery }: WfaSectionProps) => {
                       )}
                     </>
                   )}
-                  <Well className="mt-12">
-                    <Heading level="h5" size="h6" className="mt-0">
+                  <Notice.Root className="mt-12">
+                    <Notice.Title as="h5">
                       {intl.formatMessage({
                         defaultMessage: "Privacy and confidentiality",
                         id: "2Csd16",
                         description:
                           "Title for the privacy and confidentiality section of wfa form",
                       })}
-                    </Heading>
-                    <p className="my-6">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "We know that workforce adjustment is a vulnerable time and we’re committed to treating your information with the utmost care and confidentiality.",
-                        id: "VjMgWb",
-                        description:
-                          "Paragraph one for privacy and confidentiality section of wfa form",
-                      })}
-                    </p>
-                    <p className="my-6">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "The information you share here will only be visible to a small group of authorized administrators, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you've added to your profile. This information will not be made public anywhere on the platform or shared with your manager without your explicit consent. If you’re an employee seeking a match because you’ve received a workforce adjustment letter, your status will be validated with your department’s HR team prior to proceeding to next steps.",
-                        id: "fRZ1c1",
-                        description:
-                          "Paragraph two for privacy and confidentiality section of wfa form",
-                      })}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person you’ve been matched with.",
-                        id: "srGJ8c",
-                        description:
-                          "Paragraph three for privacy and confidentiality section of wfa form",
-                      })}
-                    </p>
-                  </Well>
+                    </Notice.Title>
+                    <Notice.Content>
+                      <p className="my-6">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "We know that workforce adjustment is a vulnerable time and we’re committed to treating your information with the utmost care and confidentiality.",
+                          id: "VjMgWb",
+                          description:
+                            "Paragraph one for privacy and confidentiality section of wfa form",
+                        })}
+                      </p>
+                      <p className="my-6">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "The information you share here will only be visible to a small group of authorized administrators, including members of the GC Digital Talent client services team and the recruitment team of the functional communities you've added to your profile. This information will not be made public anywhere on the platform or shared with your manager without your explicit consent. If you’re an employee seeking a match because you’ve received a workforce adjustment letter, your status will be validated with your department’s HR team prior to proceeding to next steps.",
+                          id: "fRZ1c1",
+                          description:
+                            "Paragraph two for privacy and confidentiality section of wfa form",
+                        })}
+                      </p>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "If a match with a new opportunity or a potential alternation is found, our team will reach out to confirm that you’re willing to share your information with the person you’ve been matched with.",
+                          id: "srGJ8c",
+                          description:
+                            "Paragraph three for privacy and confidentiality section of wfa form",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
                 </>
               )}
 

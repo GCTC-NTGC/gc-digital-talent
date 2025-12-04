@@ -7,7 +7,7 @@ import {
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
-import { Ul, Well } from "@gc-digital-talent/ui";
+import { Ul, Notice } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   formatDate,
@@ -98,15 +98,17 @@ const Display = ({
         execInterest,
         execCoachingStatus,
       }) && (
-        <Well color="error">
-          {intl.formatMessage({
-            defaultMessage:
-              'There are currently unanswered questions in this section. Use the "Edit" button to review and answer any relevant fields.',
-            id: "mMiZ3q",
-            description:
-              "Message for unanswered required questions in this section",
-          })}
-        </Well>
+        <Notice.Root color="error">
+          <Notice.Content>
+            {intl.formatMessage({
+              defaultMessage:
+                'There are currently unanswered questions in this section. Use the "Edit" button to review and answer any relevant fields.',
+              id: "mMiZ3q",
+              description:
+                "Message for unanswered required questions in this section",
+            })}
+          </Notice.Content>
+        </Notice.Root>
       )}
       <ToggleForm.FieldDisplay
         label={careerDevelopmentMessages.lateralMoveInterest}

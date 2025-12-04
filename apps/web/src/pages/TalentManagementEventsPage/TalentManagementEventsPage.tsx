@@ -8,7 +8,7 @@ import {
   Flourish,
   Loading,
   TableOfContents,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -120,8 +120,8 @@ export const Component = () => {
                   ))}
                 </div>
               ) : (
-                <Well className="text-center">
-                  <p className="mb-3 font-bold">
+                <Notice.Root className="text-center">
+                  <Notice.Title>
                     {intl.formatMessage({
                       defaultMessage:
                         "There aren't any active events at the moment.",
@@ -129,17 +129,19 @@ export const Component = () => {
                       description:
                         "Message title displayed when no active events",
                     })}
-                  </p>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Check back regularly for nomination opportunities. Each functional community runs events on unique schedules and the moment an event is prepared, it will appear here ahead of launching.",
-                      id: "kl3wX/",
-                      description:
-                        "Message description displayed when no active events",
-                    })}
-                  </p>
-                </Well>
+                  </Notice.Title>
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Check back regularly for nomination opportunities. Each functional community runs events on unique schedules and the moment an event is prepared, it will appear here ahead of launching.",
+                        id: "kl3wX/",
+                        description:
+                          "Message description displayed when no active events",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
               )}
             </TableOfContents.Section>
           </TableOfContents.Content>

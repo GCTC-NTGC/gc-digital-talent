@@ -12,7 +12,7 @@ import {
   Image,
   Link,
   Ul,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { buildMailToUri } from "@gc-digital-talent/helpers";
 
@@ -647,17 +647,19 @@ export const Component = () => {
                     },
                   )}
                 </p>
-                <Well>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
-                      id: "HyNRz8",
-                      description:
-                        "Paragraph 2 of the 'A commitment to diverse digital talent' section",
-                    })}
-                  </p>
-                </Well>
+                <Notice.Root>
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
+                        id: "HyNRz8",
+                        description:
+                          "Paragraph 2 of the 'A commitment to diverse digital talent' section",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
                 <Heading
                   size="h3"
                   className="mt-12 mb-3 text-center font-bold text-primary-600 xs:text-left dark:text-primary-200"

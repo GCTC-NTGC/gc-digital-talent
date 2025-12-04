@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 
-import { Dialog, Button, Heading, Well, Ul } from "@gc-digital-talent/ui";
+import { Dialog, Button, Heading, Notice, Ul } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import {
   errorMessages,
@@ -280,16 +280,18 @@ const ExperienceSkillForm = ({
           </li>
         </Ul>
         {!selectedExperienceId ? (
-          <Well>
-            <p className="text-center">
-              {intl.formatMessage({
-                defaultMessage: "Please select an experience to continue.",
-                id: "CYkH6C",
-                description:
-                  "Message displayed when a use has not selected an experience",
-              })}
-            </p>
-          </Well>
+          <Notice.Root>
+            <Notice.Content>
+              <p className="text-center">
+                {intl.formatMessage({
+                  defaultMessage: "Please select an experience to continue.",
+                  id: "CYkH6C",
+                  description:
+                    "Message displayed when a use has not selected an experience",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
         ) : (
           <TextArea
             id="details"

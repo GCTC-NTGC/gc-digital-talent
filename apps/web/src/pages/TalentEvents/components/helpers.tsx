@@ -18,9 +18,9 @@ const getTalentNominationEventStatusColor = (
     case TalentNominationEventStatus.Upcoming:
       return "secondary";
     case TalentNominationEventStatus.Past:
-      return "black";
+      return "gray";
     default:
-      return "black";
+      return "gray";
   }
 };
 

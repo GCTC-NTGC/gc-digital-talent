@@ -5,7 +5,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Button, Heading, TableOfContents, Well } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  TableOfContents,
+  Notice,
+} from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
@@ -104,17 +109,19 @@ const SupportTools = ({ query }: SupportToolsProps) => {
       >
         {intl.formatMessage(supportToolsTitle)}
       </TableOfContents.Heading>
-      <Well color="warning">
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "Warning! These are sensitive actions that will affect the entire platform, please use extreme caution when changing these settings.",
-            id: "GkX/KN",
-            description:
-              "Warning that you are making changes of possibly very high impact",
-          })}
-        </p>
-      </Well>
+      <Notice.Root color="warning">
+        <Notice.Content>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Warning! These are sensitive actions that will affect the entire platform, please use extreme caution when changing these settings.",
+              id: "GkX/KN",
+              description:
+                "Warning that you are making changes of possibly very high impact",
+            })}
+          </p>
+        </Notice.Content>
+      </Notice.Root>
       <Heading level="h3" size="h6">
         {intl.formatMessage({
           defaultMessage: "Update subject",

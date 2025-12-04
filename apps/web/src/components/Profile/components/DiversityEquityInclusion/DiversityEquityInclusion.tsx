@@ -2,7 +2,7 @@ import { useState } from "react";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { useIntl } from "react-intl";
 
-import { Accordion, Heading, Ul, Well } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   getFragment,
@@ -73,9 +73,13 @@ const DiversityEquityInclusion = ({
         {intl.formatMessage(title)}
       </Heading>
       {!isComplete && (
-        <Well color="error">
-          <p>{intl.formatMessage(applicationMessages.reservedForIndigenous)}</p>
-        </Well>
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage(applicationMessages.reservedForIndigenous)}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       {intl.formatMessage({
         defaultMessage:
