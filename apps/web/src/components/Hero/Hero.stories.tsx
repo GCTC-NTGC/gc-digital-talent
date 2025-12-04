@@ -84,13 +84,13 @@ Buttons.args = {
     {
       icon: UserPlusIcon,
       text: "Hello",
-      url: "#one",
+      url: "#home",
       color: "primary",
     },
     {
       icon: AcademicCapIcon,
       text: "Hello hello",
-      url: "#two",
+      url: "#one",
       color: "warning",
     },
     {
