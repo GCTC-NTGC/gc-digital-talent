@@ -560,7 +560,7 @@ type Mutation {
   removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
-  togglePoolCandidateBookmark(id: ID!): Boolean
+  togglePoolCandidateFlag(id: ID!): Boolean
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
@@ -653,11 +653,11 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
-  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
+  downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
-  downloadCommunityInterestUsersCsv(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
+  downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadUsersThruPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
-  downloadNominationsCsv(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
+  downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUserDoc(id: UUID!, anonymous: Boolean!): String
@@ -1170,7 +1170,7 @@ type PoolCandidate {
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
-  isBookmarked: Boolean
+  isFlagged: Boolean
   removedAt: DateTime
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
@@ -1209,7 +1209,7 @@ type PoolCandidateAdminView {
   suspendedAt: DateTime
   status: LocalizedPoolCandidateStatus
   notes: String
-  isBookmarked: Boolean
+  isFlagged: Boolean
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
@@ -1815,7 +1815,7 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
-  useBookmark: Boolean
+  useFlag: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -2148,7 +2148,7 @@ input CreatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
-  isBookmarked: Boolean
+  isFlagged: Boolean
 }
 
 input UpdateClassificationInput {
