@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 import { action } from "storybook/actions";
@@ -20,7 +21,6 @@ const meta = {
       },
     },
   },
-  tags: ["needs-fix"],
 } satisfies Meta<typeof TableOfContents.Wrapper>;
 
 export default meta;
@@ -89,7 +89,7 @@ export const Default: StoryObj<typeof TableOfContents.Wrapper> = {
       </TableOfContents.Navigation>
       <TableOfContents.Content>
         {items.map((item) => (
-          <>
+          <Fragment key={item.id}>
             <TableOfContents.Section
               key={item.id}
               id={item.id}
@@ -112,7 +112,7 @@ export const Default: StoryObj<typeof TableOfContents.Wrapper> = {
                 ))}
               </>
             ) : null}
-          </>
+          </Fragment>
         ))}
       </TableOfContents.Content>
     </TableOfContents.Wrapper>

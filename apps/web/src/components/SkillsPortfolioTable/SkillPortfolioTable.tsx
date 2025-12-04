@@ -250,7 +250,7 @@ const SkillPortfolioTable = ({
 
   return (
     <Table<SkillPortfolioTableUserSkillFragmentType>
-      caption={caption}
+      caption={caption ?? ""}
       data={userSkills}
       columns={columns}
       urlSync={false}
