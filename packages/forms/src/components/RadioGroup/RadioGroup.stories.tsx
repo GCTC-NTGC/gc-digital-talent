@@ -126,23 +126,24 @@ ContentBelow.args = {
       value: "three",
       label: "Box three",
       contentBelow: (
-        <p>
-          Wrapped in a p with link and a ul.
-          <br />
-          {faker.lorem.lines(6)}{" "}
-          <Link href="#" color="black" newTab external>
-            An external link with a lot of words
-          </Link>
-          . {faker.lorem.lines(2)}
+        <>
+          <p>
+            Wrapped in a p with link and a sibling ul.
+            <br />
+            {faker.lorem.lines(6)}{" "}
+            <Link href="#" color="black" newTab external>
+              An external link with a lot of words
+            </Link>
+            . {faker.lorem.lines(2)}
+          </p>
           <ul className="list-disc pl-8">
             <li>List item 1</li>
             <li>List item 2</li>
             <li>List item 3</li>
             <li>List item 4</li>
           </ul>
-        </p>
+        </>
       ),
     },
   ],
 };
-ContentBelow.tags = ["needs-fix"];

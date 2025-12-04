@@ -11,7 +11,7 @@ import {
   Heading,
   Pending,
   ThrowNotFound,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -122,24 +122,26 @@ const TalentNominationGroupProfile = ({
           })}
         </p>
         {!shareProfile && (
-          <Well color="error">
-            <p className="mb-6 font-bold">
+          <Notice.Root color="error">
+            <Notice.Title>
               {intl.formatMessage({
                 defaultMessage:
                   "This nominee has not agreed to share their information with your community",
                 id: "4ujr5X",
                 description: "Null message for nominee profile",
               })}
-            </p>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-                id: "8plD42",
-                description: "Null secondary message for nominee profile",
-              })}
-            </p>
-          </Well>
+            </Notice.Title>
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
+                  id: "8plD42",
+                  description: "Null secondary message for nominee profile",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
         )}
       </Card>
       {data?.user?.employeeProfile ? (

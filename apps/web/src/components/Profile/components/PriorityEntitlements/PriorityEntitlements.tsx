@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
 
-import { ToggleSection, Well } from "@gc-digital-talent/ui";
+import { ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -108,17 +108,19 @@ const PriorityEntitlements = ({
         {intl.formatMessage(title)}
       </ToggleSection.Header>
       {pool && emptyRequired && (
-        <Well color="error">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "You are missing required priority entitlement information.",
-              id: "3MhIFU",
-              description:
-                "Error message displayed when a users priority entitlements is incomplete",
-            })}
-          </p>
-        </Well>
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You are missing required priority entitlement information.",
+                id: "3MhIFU",
+                description:
+                  "Error message displayed when a users priority entitlements is incomplete",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>

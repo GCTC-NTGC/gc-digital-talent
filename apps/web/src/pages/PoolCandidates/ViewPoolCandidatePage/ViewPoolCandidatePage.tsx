@@ -208,7 +208,7 @@ export const ViewPoolCandidate = ({
             </Chip>
             {poolCandidate.user.hasPriorityEntitlement ||
             poolCandidate.user.priorityWeight === 10 ? (
-              <Chip key="priority" color="black">
+              <Chip key="priority" color="gray">
                 {intl.formatMessage({
                   defaultMessage: "Priority",
                   id: "xGMcBO",
@@ -219,7 +219,7 @@ export const ViewPoolCandidate = ({
             {poolCandidate.user.armedForcesStatus?.value ===
               ArmedForcesStatus.Veteran ||
             poolCandidate.user.priorityWeight === 20 ? (
-              <Chip key="veteran" color="black">
+              <Chip key="veteran" color="gray">
                 {intl.formatMessage({
                   defaultMessage: "Veteran",
                   id: "16iCWc",
