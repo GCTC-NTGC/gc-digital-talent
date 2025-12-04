@@ -56,6 +56,7 @@ if
         /var/site/bootstrap/cache && \
     chown -R www-data:www-data /var/site && \
     chmod -R 775 /var/site && \
+    php artisan lighthouse:print-schema --write && \
     php artisan optimize ;
 then
     add_section_block ":white_check_mark: Laravel cache setup *successful*."
