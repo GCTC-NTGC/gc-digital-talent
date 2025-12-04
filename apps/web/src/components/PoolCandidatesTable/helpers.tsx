@@ -376,9 +376,9 @@ export function getSortOrder(
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [
-        transformSortStateToOrderByClause(sortingRules, filterState),
-        { column: "id", order: SortOrder.Desc }, // final sort by id to handle non-unique columns
-      ]
+          transformSortStateToOrderByClause(sortingRules, filterState),
+          { column: "id", order: SortOrder.Desc }, // final sort by id to handle non-unique columns
+        ]
       : []),
   ];
 }
@@ -445,17 +445,17 @@ export function transformPoolCandidateSearchInputToFormValues(
     ),
     equity: input?.applicantFilter?.equity
       ? [
-        ...(input.applicantFilter.equity.hasDisability
-          ? ["hasDisability"]
-          : []),
-        ...(input.applicantFilter.equity.isIndigenous
-          ? ["isIndigenous"]
-          : []),
-        ...(input.applicantFilter.equity.isVisibleMinority
-          ? ["isVisibleMinority"]
-          : []),
-        ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
-      ]
+          ...(input.applicantFilter.equity.hasDisability
+            ? ["hasDisability"]
+            : []),
+          ...(input.applicantFilter.equity.isIndigenous
+            ? ["isIndigenous"]
+            : []),
+          ...(input.applicantFilter.equity.isVisibleMinority
+            ? ["isVisibleMinority"]
+            : []),
+          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
+        ]
       : [],
     pools: unpackMaybes(
       input?.applicantFilter?.pools?.flatMap((pool) => pool?.id),

@@ -26,10 +26,10 @@ export default {
         exclude: [
           ...GLOBAL_A11Y_EXCLUDES,
           // Issue: https://github.com/radix-ui/primitives/issues/3085
-          "[data-aria-hidden]"
-        ]
-      }
-    }
+          "[data-aria-hidden]",
+        ],
+      },
+    },
   },
 } as Meta;
 
