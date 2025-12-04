@@ -65,24 +65,26 @@ jobs:
         with:
           payload: |
             {
-              "text": ":x: *LinkChecker FAILED*",
-              "attachments": [
+              "blocks": [
                 {
-                  "color": "#FF0000",
-                  "mrkdwn_in": ["text", "fields"],
-                  "fields": [
-                    {
-                      "title": "Broken Links",
-                      "value": "${{ env.BROKEN_LINKS_COUNT }}"
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":warning: External Link Checker found *${{ env.BROKEN_LINKS_COUNT }}* broken links in GC Talent Application."
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View Artifacts",
+                      "emoji": true
                     },
-                    {
-                      "title": "Run",
-                      "value": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Results & Artifacts>"
-                    }
-                  ]
+                    "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
                 }
               ]
             }
+
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           BROKEN_LINKS_COUNT: ${{ steps.count.outputs.brokenLinksCount }}
