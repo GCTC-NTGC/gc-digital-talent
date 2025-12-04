@@ -40,8 +40,7 @@ const scrollToSection = (
 };
 
 export interface ScrollToLinkProps
-  extends BaseButtonLinkProps,
-    Omit<LinkProps, "to" | "color"> {
+  extends BaseButtonLinkProps, Omit<LinkProps, "to" | "color"> {
   to: string;
   onScrollTo?: ScrollLinkClickFunc;
   disabled?: boolean;

@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Notice, Container, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Container, Link, Notice } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
@@ -67,40 +67,37 @@ export const Component = () => {
           csvDownload
           isPublic
         />
-        <Well id="cant-find-a-skill" className="mt-18">
-          <Heading
-            level="h2"
-            size="h6"
-            id="cant-find-a-skill"
-            className="mt-0 mb-6 font-bold"
-          >
+        <Notice.Root id="cant-find-a-skill" className="mt-18">
+          <Notice.Title as="h2">
             {intl.formatMessage(skillBrowserMessages.showSkillInfo)}
-          </Heading>
-          <p className="mb-3">
-            {intl.formatMessage({
-              defaultMessage:
-                "If you can't find a skill, try broadening your filters or searching for the skill's name using other industry terms.",
-              id: "Q0AKK4",
-              description:
-                "Help text to tell users to change their filters to find a skill",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage(
-              {
+          </Notice.Title>
+          <Notice.Content>
+            <p className="mb-3">
+              {intl.formatMessage({
                 defaultMessage:
-                  "If you still can't find a skill, it's possible that it hasn't been added to our library yet! We're always growing our skills list and would love to hear from you. <a>Get in touch with your suggestion</a>.",
-                id: "c0SFYY",
+                  "If you can't find a skill, try broadening your filters or searching for the skill's name using other industry terms.",
+                id: "Q0AKK4",
                 description:
                   "Help text to tell users to change their filters to find a skill",
-              },
-              {
-                a: (chunks: ReactNode) =>
-                  suggestionLink(chunks, routes.support()),
-              },
-            )}
-          </p>
-        </Well>
+              })}
+            </p>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "If you still can't find a skill, it's possible that it hasn't been added to our library yet! We're always growing our skills list and would love to hear from you. <a>Get in touch with your suggestion</a>.",
+                  id: "c0SFYY",
+                  description:
+                    "Help text to tell users to change their filters to find a skill",
+                },
+                {
+                  a: (chunks: ReactNode) =>
+                    suggestionLink(chunks, routes.support()),
+                },
+              )}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       </Container>
     </>
   );

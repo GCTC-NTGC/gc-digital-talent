@@ -4,7 +4,7 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import Well from "../Well/Well";
+import Notice from "../Notice/Notice";
 import TaskCard, { RootProps } from "./TaskCard";
 
 const colorOptions: RootProps["headingColor"][] = [
@@ -37,10 +37,14 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
     {colorOptions.map((color) => (
       <TaskCard.Root headingColor={color} {...args} key={color}>
         <TaskCard.Item>
-          <Well>{faker.lorem.words()}</Well>
+          <Notice.Root>
+            <Notice.Content>{faker.lorem.words()}</Notice.Content>
+          </Notice.Root>
         </TaskCard.Item>
         <TaskCard.Item>
-          <Well>{faker.lorem.paragraph()}</Well>
+          <Notice.Root>
+            <Notice.Content>{faker.lorem.paragraph()}</Notice.Content>
+          </Notice.Root>
         </TaskCard.Item>
       </TaskCard.Root>
     ))}
@@ -52,10 +56,14 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
       locked
     >
       <TaskCard.Item>
-        <Well>{faker.lorem.words()}</Well>
+        <Notice.Root>
+          <Notice.Content>{faker.lorem.words()}</Notice.Content>
+        </Notice.Root>
       </TaskCard.Item>
       <TaskCard.Item>
-        <Well>{faker.lorem.paragraph()}</Well>
+        <Notice.Root>
+          <Notice.Content>{faker.lorem.paragraph()}</Notice.Content>
+        </Notice.Root>
       </TaskCard.Item>
     </TaskCard.Root>
     <TaskCard.Root
@@ -65,10 +73,14 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
       locked
     >
       <TaskCard.Item>
-        <Well>{faker.lorem.words()}</Well>
+        <Notice.Root>
+          <Notice.Content>{faker.lorem.words()}</Notice.Content>
+        </Notice.Root>
       </TaskCard.Item>
       <TaskCard.Item>
-        <Well>{faker.lorem.paragraph()}</Well>
+        <Notice.Root>
+          <Notice.Content>{faker.lorem.paragraph()}</Notice.Content>
+        </Notice.Root>
       </TaskCard.Item>
     </TaskCard.Root>
   </div>

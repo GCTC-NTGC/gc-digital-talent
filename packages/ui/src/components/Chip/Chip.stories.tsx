@@ -41,7 +41,7 @@ const Template: StoryFn<typeof Chip> = (args) => {
       <Chip key="error" color="error" {...args}>
         Error
       </Chip>
-      <Chip key="black" color="black" {...args}>
+      <Chip key="gray" color="gray" {...args}>
         Black
       </Chip>
     </Chips>

@@ -491,6 +491,10 @@
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
   },
+  "/zsCRf": {
+    "defaultMessage": "Modifier<hidden> la collectivité</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
+  },
   "0/jj1v": {
     "defaultMessage": "Réinitialisez tous les filtres",
     "description": "Button text to reset a filter form"
@@ -1832,7 +1836,7 @@
     "description": "The key tasks of a job poster template"
   },
   "5SKmte": {
-    "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
+    "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
   "5WEzE3": {
@@ -2626,6 +2630,10 @@
   "9AdLMt": {
     "defaultMessage": "<strong>{name}</strong> a mis à jour",
     "description": "Label for activity log item updated action"
+  },
+  "9Btysk": {
+    "defaultMessage": "Enregistrer votre contribution",
+    "description": "Text on a button to save the pool introduction"
   },
   "9CAhAX": {
     "defaultMessage": "Accessibilité des plateformes de médias sociaux",
@@ -3818,10 +3826,6 @@
   "EG5WpQ": {
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
-  },
-  "EHh5pb": {
-    "defaultMessage": "Groupe et classification actuels",
-    "description": "Current group and classification label"
   },
   "EI0GEZ": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
@@ -5519,10 +5523,6 @@
     "defaultMessage": "Afficher tous<hidden> les renseignements liés à l’expérience</hidden>",
     "description": "Button label to expand all experiences"
   },
-  "M2LfhH": {
-    "defaultMessage": "Modifier<hidden> une compétence</hidden>",
-    "description": "Breadcrumb title for the edit skill page link."
-  },
   "M2MQu7": {
     "defaultMessage": "Aidez le Bureau du contrôleur général à recueillir des renseignements importants sur l'effectif des cadres de la gestion financière afin d'élaborer des programmes stratégiques, d'appuyer la planification de la relève et de renforcer notre collectivité.",
     "description": "Page subtitle for the comptrollership executives talent management page"
@@ -6164,7 +6164,7 @@
     "description": "Lead-in text for the directive guidance document"
   },
   "PQXvrU": {
-    "defaultMessage": "Créer<hidden> un regroupement de compétences</hidden>",
+    "defaultMessage": "Créer<hidden> un groupe de compétences</hidden>",
     "description": "Breadcrumb title for the create skill family page link."
   },
   "PQyXaQ": {
@@ -7294,10 +7294,6 @@
   "UanJxB": {
     "defaultMessage": "Supprimer cette question",
     "description": "Button text to delete a general question"
-  },
-  "UduzGA": {
-    "defaultMessage": "Enregistrer l’introduction",
-    "description": "Text on a button to save the pool introduction"
   },
   "UfwS5s": {
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
@@ -8589,10 +8585,6 @@
   "a3epXH": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
     "description": "Message displayed to user after experience fails to be linked to a skill."
-  },
-  "a4Wc5h": {
-    "defaultMessage": "<strong>Vous n'avez aucune mise en candidature active.</strong>",
-    "description": "Notice's title when there are no nominations"
   },
   "a5YBuH": {
     "defaultMessage": "Je ne connais pas l'année à laquelle je suis admissible à la retraite.",
@@ -11404,6 +11396,10 @@
   "mEh+iY": {
     "defaultMessage": "Membres de la collectivité",
     "description": "Page title for the view community members page"
+  },
+  "mEmT94": {
+    "defaultMessage": "Vous n'avez aucune mise en candidature active.",
+    "description": "Notice's title when there are no nominations"
   },
   "mF1IpF": {
     "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",

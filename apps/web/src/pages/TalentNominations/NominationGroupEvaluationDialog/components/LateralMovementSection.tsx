@@ -7,7 +7,7 @@ import {
   RadioGroup,
   RichTextInput,
 } from "@gc-digital-talent/forms";
-import { Heading, Ul, Well } from "@gc-digital-talent/ui";
+import { Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
@@ -242,9 +242,11 @@ const LateralMovementSection = ({
         />
       ) : null}
       {selectedLateralMovementDecision == null ? (
-        <Well className="text-center">
-          {intl.formatMessage(formMessages.decisionNullState)}
-        </Well>
+        <Notice.Root className="text-center">
+          <Notice.Content>
+            {intl.formatMessage(formMessages.decisionNullState)}
+          </Notice.Content>
+        </Notice.Root>
       ) : null}
     </div>
   );

@@ -39,8 +39,7 @@ export interface EducationRequirementSnapshotV1 {
   experiences?: Maybe<Maybe<SnapshotExperience>[]>;
 }
 
-export interface EducationRequirementV1Props
-  extends SnapshotProps<EducationRequirementSnapshotV1> {
+export interface EducationRequirementV1Props extends SnapshotProps<EducationRequirementSnapshotV1> {
   educationRequirementQuery?: FragmentType<
     typeof EducationRequirement_PoolCandidateFragment
   >;

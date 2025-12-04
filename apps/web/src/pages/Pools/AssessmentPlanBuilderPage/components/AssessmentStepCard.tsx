@@ -14,7 +14,7 @@ import {
   CardRepeater,
   Heading,
   UNICODE_CHAR,
-  Well,
+  Notice,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
 import {
@@ -151,16 +151,18 @@ const AssessmentStepCard = ({
           ))}
         </ul>
       ) : (
-        <Well color="error">
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "This assessment is missing skills",
-              id: "NROIaL",
-              description:
-                "Warning message that an assessment step is missing skills",
-            })}
-          </p>
-        </Well>
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "This assessment is missing skills",
+                id: "NROIaL",
+                description:
+                  "Warning message that an assessment step is missing skills",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
 
       {assessmentStep.type?.value ===
