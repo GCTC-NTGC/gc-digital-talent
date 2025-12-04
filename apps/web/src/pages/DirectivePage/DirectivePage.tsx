@@ -76,8 +76,8 @@ export const Component = () => {
 
   const directiveUrl =
     locale === "en"
-      ? "https://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=32749"
-      : "https://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=32749";
+      ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+      : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749";
 
   const readDirectiveMessage = intl.formatMessage({
     defaultMessage: "Read the Directive",
