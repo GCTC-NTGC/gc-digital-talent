@@ -312,5 +312,6 @@ export const poolBookmarkHeader = (intl: IntlShape) => (
   <BookmarkIcon
     className="size-6"
     aria-label={intl.formatMessage(tableMessages.bookmark)}
+    aria-hidden="false"
   />
 );
