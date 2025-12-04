@@ -66,9 +66,9 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-              "text": "External Link Checker - Broken Links Detected :warning:",
+              "text": "External Link Checker - Broken Links Detected :warning:"
               "blocks":
-                - type: "section",
-                  text:
-                    type: "mrkdwn",
-                    text: ":warning: *External Link Checker* detected broken links in the repository. \n\n* View Artifacts: *\n• Workflow: ${{ github.workflow }}\n• Run ID: ${{ github.run_id }}"
+                 - type: "section",
+                   text:
+                     type: "mrkdwn",
+                     text: ":warning: *External Link Checker* detected broken links in the repository. \n\n* View Artifacts: *\n• Workflow: ${{ github.workflow }}\n• Run ID: ${{ github.run_id }}"
