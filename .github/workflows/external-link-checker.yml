@@ -73,7 +73,7 @@ jobs:
                   "fields": [
                     {
                       "title": "Broken Links",
-                      "value": "${{ steps.count.outputs.brokenLinksCount }}"
+                      "value": "${{ env.BROKEN_LINKS_COUNT }}"
                     },
                     {
                       "title": "Run",
@@ -85,3 +85,4 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          BROKEN_LINKS_COUNT: ${{ steps.count.outputs.brokenLinksCount }}
