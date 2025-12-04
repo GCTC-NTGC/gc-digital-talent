@@ -21,7 +21,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class NominationsCsvGenerator extends CsvGenerator implements FileGeneratorInterface
+class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
     use Filterable;
     use GeneratesFile;

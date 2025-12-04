@@ -601,8 +601,8 @@ class PoolCandidateBuilder extends Builder
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*');
 
-            if (isset($args['useBookmark']) && $args['useBookmark']) {
-                $this->orderBy('is_bookmarked', 'DESC');
+            if (isset($args['useFlag']) && $args['useFlag']) {
+                $this->orderBy('is_flagged', 'DESC');
             }
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
