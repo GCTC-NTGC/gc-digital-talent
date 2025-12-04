@@ -62,7 +62,7 @@ ButtonsAndTabs.args = {
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
-      url: "#two",
+      url: "#three",
       color: "error",
     },
   ],
@@ -84,19 +84,19 @@ Buttons.args = {
     {
       icon: UserPlusIcon,
       text: "Hello",
-      url: "#home",
+      url: "#one",
       color: "primary",
     },
     {
       icon: AcademicCapIcon,
       text: "Hello hello",
-      url: "#one",
+      url: "#two",
       color: "warning",
     },
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
-      url: "#two",
+      url: "#three",
       color: "error",
     },
   ],
@@ -130,7 +130,7 @@ ButtonsAndTabsWithCentering.args = {
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
-      url: "#two",
+      url: "#three",
       color: "error",
     },
   ],

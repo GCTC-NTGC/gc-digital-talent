@@ -15,7 +15,7 @@ const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
       max: 10,
     });
     return {
-      id: poolCandidate.id,
+      id: faker.string.uuid(),
       poolCandidate,
       skillCount: skillCount || null,
     };
