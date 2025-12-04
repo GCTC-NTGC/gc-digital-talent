@@ -19,9 +19,7 @@ import { ExperienceForDate } from "~/types/experience";
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 
 interface SortAndFilterExperience
-  extends SimpleAnyExperience,
-    ExperienceName,
-    ExperienceForDate {
+  extends SimpleAnyExperience, ExperienceName, ExperienceForDate {
   id: string;
 }
 

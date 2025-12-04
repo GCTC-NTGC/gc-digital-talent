@@ -39,8 +39,9 @@ const ProfileDiversityEquityInclusion_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface DiversityEquityInclusionProps
-  extends SectionProps<Pick<Pool, "publishingGroup">> {
+interface DiversityEquityInclusionProps extends SectionProps<
+  Pick<Pool, "publishingGroup">
+> {
   query: FragmentType<typeof ProfileDiversityEquityInclusion_Fragment>;
 }
 

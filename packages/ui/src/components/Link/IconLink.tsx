@@ -4,7 +4,8 @@ import { BaseIconButtonLinkProps, iconBtn } from "../../utils/btnStyles";
 import BaseLink, { BaseLinkProps } from "./BaseLink";
 
 export interface IconLinkProps
-  extends BaseIconButtonLinkProps,
+  extends
+    BaseIconButtonLinkProps,
     Omit<BaseLinkProps, "color" | "aria-label"> {}
 
 const IconLink = forwardRef<HTMLAnchorElement, IconLinkProps>(

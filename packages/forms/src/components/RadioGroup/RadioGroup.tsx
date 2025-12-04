@@ -45,7 +45,8 @@ export interface Radio {
 type ColumnRange = 1 | 2 | 3 | 4;
 
 export interface RadioGroupProps
-  extends Omit<CommonInputProps, "id" | "label">,
+  extends
+    Omit<CommonInputProps, "id" | "label">,
     Omit<HTMLFieldsetProps, "name"> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;

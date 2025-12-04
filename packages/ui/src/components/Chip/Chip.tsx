@@ -96,7 +96,8 @@ const chip = tv({
 export type ChipVariants = VariantProps<typeof chip>;
 
 export interface ChipProps
-  extends ChipVariants,
+  extends
+    ChipVariants,
     Omit<
       DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
       "color"

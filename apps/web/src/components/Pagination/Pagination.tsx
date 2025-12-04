@@ -52,8 +52,10 @@ const pageBtn = tv({
 
 type ActiveColor = ButtonProps["color"];
 
-export interface PaginationProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface PaginationProps extends DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   /** The current active page. */
   currentPage: number;
   /** Total count of items from array. */

@@ -58,7 +58,8 @@ interface FormValues {
 export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
 interface YourImpactSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       YourImpactSubmitData,
       FragmentType<typeof EditPoolYourImpact_Fragment>
     >,

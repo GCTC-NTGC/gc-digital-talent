@@ -3,7 +3,8 @@ import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 import { BaseCTAProps, cta } from "./utils";
 
 export interface CTAButtonProps
-  extends BaseCTAProps,
+  extends
+    BaseCTAProps,
     Omit<
       DetailedHTMLProps<
         ButtonHTMLAttributes<HTMLButtonElement>,

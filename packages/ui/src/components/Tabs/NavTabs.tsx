@@ -51,8 +51,9 @@ const Item = forwardRef<
   />
 ));
 
-interface LinkProps
-  extends ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link> {
+interface LinkProps extends ComponentPropsWithoutRef<
+  typeof NavigationMenuPrimitive.Link
+> {
   href: string;
 }
 

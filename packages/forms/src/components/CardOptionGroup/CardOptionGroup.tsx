@@ -52,7 +52,8 @@ export interface CardOption {
 }
 
 export interface CardOptionGroupProps
-  extends Omit<CommonInputProps, "id" | "label">,
+  extends
+    Omit<CommonInputProps, "id" | "label">,
     Omit<HTMLFieldsetProps, "name"> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;

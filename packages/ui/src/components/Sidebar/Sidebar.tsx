@@ -15,8 +15,7 @@ const scrollbarWrapper = tv({
 type ScrollbarVariants = VariantProps<typeof scrollbarWrapper>;
 
 export interface SidebarProps
-  extends ScrollbarVariants,
-    HTMLProps<HTMLElement> {
+  extends ScrollbarVariants, HTMLProps<HTMLElement> {
   children: ReactNode;
 }
 

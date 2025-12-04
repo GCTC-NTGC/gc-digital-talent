@@ -16,15 +16,14 @@ type PartialEvaluatedLanguage = Maybe<
   Pick<LocalizedEvaluatedLanguageAbility, "value">
 >;
 
-export interface PartialUser
-  extends Pick<
-    User,
-    | "lookingForEnglish"
-    | "lookingForFrench"
-    | "lookingForBilingual"
-    | "secondLanguageExamCompleted"
-    | "secondLanguageExamValidity"
-  > {
+export interface PartialUser extends Pick<
+  User,
+  | "lookingForEnglish"
+  | "lookingForFrench"
+  | "lookingForBilingual"
+  | "secondLanguageExamCompleted"
+  | "secondLanguageExamValidity"
+> {
   firstOfficialLanguage?: PartialLanguage;
   estimatedLanguageAbility?: Maybe<
     Pick<LocalizedEstimatedLanguageAbility, "value">

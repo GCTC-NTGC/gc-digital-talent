@@ -169,8 +169,10 @@ interface FormValues {
   assessedSkillsScreeningQuestions?: Maybe<Scalars["ID"]["output"][]>;
 }
 
-interface InitialValues
-  extends Omit<FormValues, "poolId" | "screeningQuestionFieldArray"> {
+interface InitialValues extends Omit<
+  FormValues,
+  "poolId" | "screeningQuestionFieldArray"
+> {
   poolId: NonNullable<FormValues["poolId"]>;
   screeningQuestions?: ScreeningQuestion[];
 }

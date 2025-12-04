@@ -15,8 +15,7 @@ const sidebarWrapper = tv({
 type SidebarWrapperVariants = VariantProps<typeof sidebarWrapper>;
 
 interface SidebarWrapperProps
-  extends SidebarWrapperVariants,
-    HTMLProps<HTMLDivElement> {
+  extends SidebarWrapperVariants, HTMLProps<HTMLDivElement> {
   children: ReactNode;
 }
 

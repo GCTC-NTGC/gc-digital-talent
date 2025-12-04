@@ -55,7 +55,8 @@ interface FormValues {
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
 interface SpecialNoteSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       SpecialNoteSubmitData,
       FragmentType<typeof EditPoolSpecialNote_Fragment>
     >,

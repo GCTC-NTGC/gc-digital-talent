@@ -51,8 +51,7 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
 
 export type FormValues = UpdatePublishedPoolInput;
 
-interface UpdatePublishedProcessDialogProps
-  extends PublishedEditableSectionProps {
+interface UpdatePublishedProcessDialogProps extends PublishedEditableSectionProps {
   poolQuery: FragmentType<typeof UpdatePublishedProcessDialog_Fragment>;
 }
 
