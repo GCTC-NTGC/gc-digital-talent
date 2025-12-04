@@ -172,5 +172,16 @@ export function normalizePropKeys(
     }
   });
 
+  if (modified.length <= 0) {
+    modified = [
+      intl.formatMessage({
+        defaultMessage: "Saved without changes",
+        id: "z/qlLb",
+        description:
+          "Message for when an activity log event had no changes tracked",
+      }),
+    ];
+  }
+
   return modified;
 }

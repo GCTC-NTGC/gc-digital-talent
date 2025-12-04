@@ -14297,6 +14297,10 @@
     "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, que vous êtes membre d’une des collectivités fonctionnelles auxquelles cette plateforme offre du soutien et que vous vous reconnaissez dans l’une des descriptions suivantes, nous serons peut-être en mesure de vous aider.",
     "description": "Lead in text for who workforce adjustment tools can help"
   },
+  "z/qlLb": {
+    "defaultMessage": "Enregistré sans modifications",
+    "description": "Message for when an activity log event had no changes tracked"
+  },
   "z20NMR": {
     "defaultMessage": "Autres rôles",
     "description": "Label for other roles of a finance chief"
