@@ -7,6 +7,7 @@ import { tv, VariantProps } from "tailwind-variants";
 import { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Logger } from "@gc-digital-talent/logger";
 
 import activityMessages from "~/messages/activityMessages";
 import adminMessages from "~/messages/adminMessages";
@@ -114,6 +115,7 @@ export function normalizePropKeys(
   intl: IntlShape,
   propsObj?: Maybe<ActivityProperties>,
   keyMap?: Map<string, MessageDescriptor>,
+  logger?: Logger,
 ): string[] {
   if (!propsObj?.attributes) {
     return [];
@@ -135,6 +137,8 @@ export function normalizePropKeys(
     const localizedKeyMessage = localizedKeyMap.get(k);
     if (localizedKeyMessage) {
       localizedKey = intl.formatMessage(localizedKeyMessage);
+    } else {
+      logger?.warning(`Activity log attribute ${k} has no matching label.`);
     }
 
     if (k.endsWith("_id") && !localizedKeyMessage) {
