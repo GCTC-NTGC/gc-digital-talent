@@ -70,7 +70,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":warning: External Link Checker found *${{ env.BROKEN_LINKS_COUNT }}* broken links in GC Talent Application."
+                    "text": ":warning: External Link Checker found *${{ steps.count.outputs.brokenLinksCount  }}* broken links in GC Talent Application."
                   },
                   "accessory": {
                     "type": "button",
@@ -87,4 +87,3 @@ jobs:
 
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          BROKEN_LINKS_COUNT: ${{ steps.count.outputs.brokenLinksCount }}
