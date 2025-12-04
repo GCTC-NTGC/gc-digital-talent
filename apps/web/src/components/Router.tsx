@@ -171,6 +171,18 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               ],
             },
             {
+              path: "hr/resources",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/HumanResources/PlatformResourcesForProfessionalsPage"
+                    ).then(convert),
+                },
+              ],
+            },
+            {
               path: "search",
               children: [
                 {
