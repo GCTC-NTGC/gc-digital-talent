@@ -234,11 +234,10 @@ const allSelectionLimitations: Record<
   },
 } as const;
 
-interface PoolNameSectionProps
-  extends SectionProps<
-    PoolNameSubmitData,
-    FragmentType<typeof EditPoolName_Fragment>
-  > {
+interface PoolNameSectionProps extends SectionProps<
+  PoolNameSubmitData,
+  FragmentType<typeof EditPoolName_Fragment>
+> {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
   departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
 }

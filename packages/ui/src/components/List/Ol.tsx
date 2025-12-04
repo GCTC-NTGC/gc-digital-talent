@@ -3,7 +3,8 @@ import { DetailedHTMLProps, forwardRef, OlHTMLAttributes } from "react";
 import { list, ListVariants } from "./styles";
 
 interface OLProps
-  extends ListVariants,
+  extends
+    ListVariants,
     DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement> {}
 
 const Ol = forwardRef<HTMLOListElement, OLProps>(

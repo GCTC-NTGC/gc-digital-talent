@@ -111,11 +111,10 @@ const dataToFormValues = ({
   execCoachingInterest: execCoachingInterest?.map((x) => x.value) ?? [],
 });
 
-export interface FormValues
-  extends Pick<
-    UpdateEmployeeProfileInput,
-    "mentorshipInterest" | "execCoachingInterest"
-  > {
+export interface FormValues extends Pick<
+  UpdateEmployeeProfileInput,
+  "mentorshipInterest" | "execCoachingInterest"
+> {
   lateralMoveInterest?: "yes" | "no";
   lateralMoveTimeFrame?: TimeFrame | null;
   lateralMoveOrganizationType?: OrganizationTypeInterest[] | null;

@@ -221,6 +221,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
           })}
           aria-describedby={keywordDescriptionParagraphId}
           appendLanguageToLabel="en"
+          maxLength={1000}
         />
       </div>
       <div>
@@ -237,6 +238,7 @@ const JobDetailsForm = ({ optionsQuery }: JobDetailsFormProps) => {
           })}
           aria-describedby={keywordDescriptionParagraphId}
           appendLanguageToLabel="fr"
+          maxLength={1000}
         />
       </div>
       <div>
