@@ -89,8 +89,8 @@ test.describe("Location Preference Validation", () => {
       userId: createdUser?.id ?? "",
       skillIds: skill ? [skill?.id] : undefined,
       name: {
-        en: `App download ${testId} (EN)`,
-        fr: `App download ${testId} (FR)`,
+        en: `App location preference ${testId} (EN)`,
+        fr: `App location preference ${testId} (FR)`,
       },
     });
 
@@ -123,6 +123,7 @@ test.describe("Location Preference Validation", () => {
     const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
     userPage = new UserPage(appPage.page);
+    await userPage.goToIndex();
     await userPage.searchUserByName(userName, "Candidate name");
     await appPage.page.locator(`a:has-text("${userName} User")`).click();
     await appPage.waitForGraphqlResponse("AdminApplicantProfilePage");
@@ -160,9 +161,7 @@ test.describe("Location Preference Validation", () => {
     await appPage.waitForGraphqlResponse(
       "CandidatesTableCandidatesPaginated_Query",
     );
-    // Try searching the candidate
     await userPage.searchUserByName(userName, "Candidate name");
-    // Verify the flexible work locations column is displayed
     await expect(
       page.getByRole("columnheader", {
         name: /Flexible work location options/i,
