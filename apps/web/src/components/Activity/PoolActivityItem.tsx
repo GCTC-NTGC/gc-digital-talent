@@ -94,8 +94,10 @@ const keyMap = new Map<string, MessageDescriptor>([
   ["contact_email", commonMessages.email],
 ]);
 
-interface PoolActivityItemProps
-  extends Omit<ActivityItemProps, "info" | "properties"> {
+interface PoolActivityItemProps extends Omit<
+  ActivityItemProps,
+  "info" | "properties"
+> {
   publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
 }
 
