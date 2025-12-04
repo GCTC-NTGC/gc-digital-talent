@@ -150,8 +150,8 @@ const Display = ({
           )}
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Current group and classification",
-              id: "EHh5pb",
+              defaultMessage: "Classification",
+              id: "Nv+wR8",
               description: "Current group and classification label",
             })}
           >

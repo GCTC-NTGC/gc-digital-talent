@@ -3819,10 +3819,6 @@
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
   },
-  "EHh5pb": {
-    "defaultMessage": "Groupe et classification actuels",
-    "description": "Current group and classification label"
-  },
   "EI0GEZ": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
     "description": "Instructions on how to add an experience to your career timeline"
@@ -5858,6 +5854,10 @@
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
+  },
+  "Nv+wR8": {
+    "defaultMessage": "Classification",
+    "description": "Current group and classification label"
   },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
