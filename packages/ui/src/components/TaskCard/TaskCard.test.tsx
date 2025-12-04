@@ -7,7 +7,7 @@ import {
 } from "@gc-digital-talent/vitest-helpers";
 
 import TaskCard from "./TaskCard";
-import Well from "../Well/Well";
+import Notice from "../Notice/Notice";
 
 function renderComponent() {
   return renderWithProviders(
@@ -21,7 +21,9 @@ function renderComponent() {
       }}
     >
       <TaskCard.Item>
-        <Well>{faker.lorem.paragraph()}</Well>
+        <Notice.Root>
+          <Notice.Content>{faker.lorem.paragraph()}</Notice.Content>
+        </Notice.Root>
       </TaskCard.Item>
     </TaskCard.Root>,
   );

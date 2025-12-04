@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import { Accordion, Heading, Ul, Well } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import { Skill } from "@gc-digital-talent/graphql";
 
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
@@ -184,8 +184,8 @@ const ExperienceSkills = ({
               onDelete={handleRemoveSkill}
             />
           ) : (
-            <Well className="mt-6 text-center">
-              <p className="mb-3 font-bold">
+            <Notice.Root className="mt-6 text-center">
+              <Notice.Title>
                 {intl.formatMessage({
                   defaultMessage:
                     "You haven't featured any skills on this experience yet.",
@@ -193,16 +193,18 @@ const ExperienceSkills = ({
                   description:
                     "Primary message to user when no skills have been attached to experience.",
                 })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: `You can use the "Add a skill" button provided to feature skills here.`,
-                  id: "kUkyuI",
-                  description:
-                    "Secondary message to user when no skills have been attached to experience.",
-                })}
-              </p>
-            </Well>
+              </Notice.Title>
+              <Notice.Content>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: `You can use the "Add a skill" button provided to feature skills here.`,
+                    id: "kUkyuI",
+                    description:
+                      "Secondary message to user when no skills have been attached to experience.",
+                  })}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           )}
         </div>
       ) : (

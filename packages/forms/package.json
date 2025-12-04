@@ -33,7 +33,7 @@
     "date-fns": "^3.6.0",
     "downshift": "^9.0.12",
     "lodash": "^4.17.21",
-    "motion": "^12.23.24",
+    "motion": "^12.23.25",
     "tailwind-merge": "^3.4.0",
     "tailwind-variants": "^3.2.2"
   },

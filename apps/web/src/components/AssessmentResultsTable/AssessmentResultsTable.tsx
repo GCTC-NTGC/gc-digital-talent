@@ -13,7 +13,7 @@ import {
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
@@ -221,9 +221,11 @@ const AssessmentResultsTable = ({
 
   if (!assessmentSteps.length) {
     return (
-      <Well>
-        <p>{intl.formatMessage(processMessages.noAssessmentPlan)}</p>
-      </Well>
+      <Notice.Root>
+        <Notice.Content>
+          <p>{intl.formatMessage(processMessages.noAssessmentPlan)}</p>
+        </Notice.Content>
+      </Notice.Root>
     );
   }
 
