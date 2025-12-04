@@ -184,8 +184,8 @@ importers:
         specifier: ^7.1.11
         version: 7.1.11(react@19.2.0)(typescript@5.9.3)
       react-router:
-        specifier: ^7.9.6
-        version: 7.9.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.10.0
+        version: 7.10.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-to-print:
         specifier: ^3.2.0
         version: 3.2.0(react@19.2.0)
@@ -535,7 +535,7 @@ importers:
         version: 7.13.5(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-turbo:
         specifier: ^2.6.1
-        version: 2.6.1(eslint@9.36.0(jiti@2.6.1))(turbo@2.6.1)
+        version: 2.6.1(eslint@9.36.0(jiti@2.6.1))(turbo@2.6.2)
       globals:
         specifier: ^16.5.0
         version: 16.5.0
@@ -799,8 +799,8 @@ importers:
         specifier: ^7.1.11
         version: 7.1.11(react@19.2.0)(typescript@5.9.3)
       react-router:
-        specifier: ^7.9.6
-        version: 7.9.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.10.0
+        version: 7.10.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -908,8 +908,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@19.2.0)
       react-router:
-        specifier: ^7.9.6
-        version: 7.9.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.10.0
+        version: 7.10.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       urql:
         specifier: ^5.0.1
         version: 5.0.1(@urql/core@5.2.0(graphql@16.12.0))(react@19.2.0)
@@ -1102,8 +1102,8 @@ importers:
         specifier: ^2.13.6
         version: 2.13.6(@types/react@19.2.7)(react@19.2.0)
       react-router:
-        specifier: ^7.9.6
-        version: 7.9.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.10.0
+        version: 7.10.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -1175,8 +1175,8 @@ importers:
         specifier: ^7.1.11
         version: 7.1.11(react@19.2.0)(typescript@5.9.3)
       react-router:
-        specifier: ^7.9.6
-        version: 7.9.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.10.0
+        version: 7.10.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.10.1)(@vitest/browser@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
@@ -4704,8 +4704,8 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
-  cookie@1.0.2:
-    resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
+  cookie@1.1.1:
+    resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
     engines: {node: '>=18'}
 
   core-util-is@1.0.3:
@@ -6979,8 +6979,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-router@7.9.6:
-    resolution: {integrity: sha512-Y1tUp8clYRXpfPITyuifmSoE2vncSME18uVLgaqyxh9H35JWpIfzHo+9y3Fzh5odk/jxPW29IgLgzcdwxGqyNA==}
+  react-router@7.10.0:
+    resolution: {integrity: sha512-FVyCOH4IZ0eDDRycODfUqoN8ZSR2LbTvtx6RPsBgzvJ8xAXlMZNCrOFpu+jb8QbtZnpAd/cEki2pwE848pNGxw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -7616,8 +7616,18 @@ packages:
     cpu: [x64]
     os: [darwin]
 
+  turbo-darwin-64@2.6.2:
+    resolution: {integrity: sha512-nF9d/YAyrNkyXn9lp3ZtgXPb7fZsik3cUNe/sBvUO0G5YezUS/kDYYw77IdjizDzairz8pL2ITCTUreG2d5iZQ==}
+    cpu: [x64]
+    os: [darwin]
+
   turbo-darwin-arm64@2.6.1:
     resolution: {integrity: sha512-U0PIPTPyxdLsrC3jN7jaJUwgzX5sVUBsKLO7+6AL+OASaa1NbT1pPdiZoTkblBAALLP76FM0LlnsVQOnmjYhyw==}
+    cpu: [arm64]
+    os: [darwin]
+
+  turbo-darwin-arm64@2.6.2:
+    resolution: {integrity: sha512-mmm0jFaVramST26XE1Lk2qjkjvLJHOe9f3TFjqY+aByjMK/ZmKE5WFPuCWo4L3xhwx+16T37rdPP//76loB3oA==}
     cpu: [arm64]
     os: [darwin]
 
@@ -7626,8 +7636,18 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  turbo-linux-64@2.6.2:
+    resolution: {integrity: sha512-IUMHjkVRJDUABGpi+iS1Le59aOl5DX88U5UT/mKaE7nNEjG465+a8UtYno56cZnLP+C6BkX4I93LFgYf9syjGQ==}
+    cpu: [x64]
+    os: [linux]
+
   turbo-linux-arm64@2.6.1:
     resolution: {integrity: sha512-MFFh7AxAQAycXKuZDrbeutfWM5Ep0CEZ9u7zs4Hn2FvOViTCzIfEhmuJou3/a5+q5VX1zTxQrKGy+4Lf5cdpsA==}
+    cpu: [arm64]
+    os: [linux]
+
+  turbo-linux-arm64@2.6.2:
+    resolution: {integrity: sha512-0qQdZiimMUZj2Gfq87thYu0E02NaNcsB3lcEK/TD70Zzi7AxQoxye664Gis0Uao2j2L9/+05wC2btZ7SoFX3Gw==}
     cpu: [arm64]
     os: [linux]
 
@@ -7636,13 +7656,27 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  turbo-windows-64@2.6.2:
+    resolution: {integrity: sha512-BmMfFmt0VaoZL4NbtDq/dzGfjHsPoGU2+vFiZtkiYsttHY3fd/Dmgnu9PuRyJN1pv2M22q88rXO+dqYRHztLMw==}
+    cpu: [x64]
+    os: [win32]
+
   turbo-windows-arm64@2.6.1:
     resolution: {integrity: sha512-7w+AD5vJp3R+FB0YOj1YJcNcOOvBior7bcHTodqp90S3x3bLgpr7tE6xOea1e8JkP7GK6ciKVUpQvV7psiwU5Q==}
     cpu: [arm64]
     os: [win32]
 
+  turbo-windows-arm64@2.6.2:
+    resolution: {integrity: sha512-0r4s4M/FgLxfjrdLPdqQUur8vZAtaWEi4jhkQ6wCIN2xzA9aee9IKwM53w7CQcjaLvWhT0AU7LTQHjFaHwxiKw==}
+    cpu: [arm64]
+    os: [win32]
+
   turbo@2.6.1:
     resolution: {integrity: sha512-qBwXXuDT3rA53kbNafGbT5r++BrhRgx3sAo0cHoDAeG9g1ItTmUMgltz3Hy7Hazy1ODqNpR+C7QwqL6DYB52yA==}
+    hasBin: true
+
+  turbo@2.6.2:
+    resolution: {integrity: sha512-LiQAFS6iWvnY8ViGtoPgduWBeuGH9B32XR4p8H8jxU5PudwyHiiyf1jQW0fCC8gCCTz9itkIbqZLIyUu5AG33w==}
     hasBin: true
 
   type-check@0.4.0:
@@ -12082,7 +12116,7 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  cookie@1.0.2: {}
+  cookie@1.1.1: {}
 
   core-util-is@1.0.3: {}
 
@@ -12747,11 +12781,11 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-turbo@2.6.1(eslint@9.36.0(jiti@2.6.1))(turbo@2.6.1):
+  eslint-plugin-turbo@2.6.1(eslint@9.36.0(jiti@2.6.1))(turbo@2.6.2):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.36.0(jiti@2.6.1)
-      turbo: 2.6.1
+      turbo: 2.6.2
 
   eslint-scope@8.4.0:
     dependencies:
@@ -14806,9 +14840,9 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.7
 
-  react-router@7.9.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-router@7.10.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      cookie: 1.0.2
+      cookie: 1.1.1
       react: 19.2.0
       set-cookie-parser: 2.7.2
     optionalDependencies:
@@ -15547,19 +15581,37 @@ snapshots:
   turbo-darwin-64@2.6.1:
     optional: true
 
+  turbo-darwin-64@2.6.2:
+    optional: true
+
   turbo-darwin-arm64@2.6.1:
+    optional: true
+
+  turbo-darwin-arm64@2.6.2:
     optional: true
 
   turbo-linux-64@2.6.1:
     optional: true
 
+  turbo-linux-64@2.6.2:
+    optional: true
+
   turbo-linux-arm64@2.6.1:
+    optional: true
+
+  turbo-linux-arm64@2.6.2:
     optional: true
 
   turbo-windows-64@2.6.1:
     optional: true
 
+  turbo-windows-64@2.6.2:
+    optional: true
+
   turbo-windows-arm64@2.6.1:
+    optional: true
+
+  turbo-windows-arm64@2.6.2:
     optional: true
 
   turbo@2.6.1:
@@ -15570,6 +15622,15 @@ snapshots:
       turbo-linux-arm64: 2.6.1
       turbo-windows-64: 2.6.1
       turbo-windows-arm64: 2.6.1
+
+  turbo@2.6.2:
+    optionalDependencies:
+      turbo-darwin-64: 2.6.2
+      turbo-darwin-arm64: 2.6.2
+      turbo-linux-64: 2.6.2
+      turbo-linux-arm64: 2.6.2
+      turbo-windows-64: 2.6.2
+      turbo-windows-arm64: 2.6.2
 
   type-check@0.4.0:
     dependencies:
