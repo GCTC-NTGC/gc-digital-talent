@@ -20,10 +20,13 @@ const compareNormalized = (strA: string, strB: string): number => {
   return a > b ? 1 : -1;
 };
 
-// Note: any required for react-table
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const normalizedText: SortingFn<any> = (rowA, rowB, columnId) => {
-  return compareNormalized(rowA.getValue(columnId), rowB.getValue(columnId));
+export const normalizedText: SortingFn<unknown> = (rowA, rowB, columnId) => {
+  const unknownValueA = rowA.getValue<unknown>(columnId);
+  const strValueA = typeof unknownValueA === "string" ? unknownValueA : "";
+  const unknownValueB = rowB.getValue<unknown>(columnId);
+  const strValueB = typeof unknownValueB === "string" ? unknownValueB : "";
+
+  return compareNormalized(strValueA, strValueB);
 };
 
 /**
@@ -41,8 +44,10 @@ const compareNumeric = (a: number, b: number): number => {
   return a > b ? 1 : -1;
 };
 
-// Note: any required for react-table
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const numeric: SortingFn<any> = (rowA, rowB, columnId) => {
-  return compareNumeric(rowA.getValue(columnId), rowB.getValue(columnId));
+export const numeric: SortingFn<unknown> = (rowA, rowB, columnId) => {
+  const unknownValueA = rowA.getValue<unknown>(columnId);
+  const numericValueA = Number(unknownValueA);
+  const unknownValueB = rowB.getValue<unknown>(columnId);
+  const numericValueB = Number(unknownValueB);
+  return compareNumeric(numericValueA, numericValueB);
 };
