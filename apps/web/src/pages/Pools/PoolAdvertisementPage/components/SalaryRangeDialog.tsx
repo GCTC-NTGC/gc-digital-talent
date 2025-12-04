@@ -23,6 +23,11 @@ const rateOfPayUrl = {
   fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/services/remuneration/taux-remuneration/taux-remuneration-employes-fonction-publique.html",
 } as const;
 
+const collectiveAgreementsUrl = {
+  en: "https://www.canada.ca/en/treasury-board-secretariat/topics/pay/collective-agreements.html",
+  fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/remuneration/conventions-collectives.html",
+} as const;
+
 const rateOfPayNonUnionUrl = {
   en: "https://www.canada.ca/en/treasury-board-secretariat/services/pay/rates-pay/rates-pay-unrepresented-senior-excluded-employees.html",
   fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/services/remuneration/taux-remuneration/taux-remuneration-employes-non-representes-exclus-niveaux-superieurs.html",
@@ -129,7 +134,7 @@ const DeadlineDialog = () => {
                 },
                 {
                   link1: (chunks: ReactNode) =>
-                    generateLink(rateOfPayUrl[locale], chunks),
+                    generateLink(collectiveAgreementsUrl[locale], chunks),
                   link2: (chunks: ReactNode) =>
                     generateLink(rateOfPayNonUnionUrl[locale], chunks),
                 },
