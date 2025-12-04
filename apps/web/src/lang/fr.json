@@ -3827,10 +3827,6 @@
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
   },
-  "EHh5pb": {
-    "defaultMessage": "Groupe et classification actuels",
-    "description": "Current group and classification label"
-  },
   "EI0GEZ": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
     "description": "Instructions on how to add an experience to your career timeline"
