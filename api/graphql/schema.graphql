@@ -3626,14 +3626,14 @@ type Mutation {
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
-  # CSV file downloads
-  downloadPoolCandidatesCsv(
+  # Excel file downloads
+  downloadPoolCandidatesExcel(
     ids: [UUID!]
     where: PoolCandidateSearchInput
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
-  downloadCommunityInterestUsersCsv(
+  downloadCommunityInterestUsersExcel(
     ids: [UUID!]
     where: CommunityInterestFilterInput
   ): Boolean! @guard
@@ -3641,7 +3641,7 @@ type Mutation {
     ids: [UUID!]
     where: PoolCandidateSearchInput
   ): Boolean! @guard
-  downloadNominationsCsv(
+  downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!
   ): Boolean! @guard
