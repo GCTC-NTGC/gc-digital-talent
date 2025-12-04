@@ -66,8 +66,8 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-              "text": "External Link Checker - Broken Links Detected :warning:"
-              "blocks":
+              text: "External Link Checker - Broken Links Detected :warning:"
+              blocks:
                  - type: "section",
                    text:
                      type: "mrkdwn",
