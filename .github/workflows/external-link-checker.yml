@@ -39,6 +39,16 @@ jobs:
       - name: Run External Link Checker
         run: pnpm run check-links
 
+      - name: Count Broken Links
+        id: count
+        run: |
+          if [ -f external-broken-links.json ]; then
+            num=$(jq length external-broken-links.json)
+          else
+            num=0
+          fi
+          echo "brokenLinksCount=$num" >> $GITHUB_OUTPUT
+
       - name: Upload Report Artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -48,3 +58,30 @@ jobs:
             external-links.json
             external-broken-links.json
             external-link-errors.log
+
+      - name: Notify Slack on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": ":x: *LinkChecker FAILED*",
+              "attachments": [
+                {
+                  "color": "#FF0000",
+                  "mrkdwn_in": ["text", "fields"],
+                  "fields": [
+                    {
+                      "title": "Broken Links",
+                      "value": "${{ steps.count.outputs.brokenLinksCount }}"
+                    },
+                    {
+                      "title": "Run",
+                      "value": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Results & Artifacts>"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
