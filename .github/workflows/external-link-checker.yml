@@ -61,30 +61,14 @@ jobs:
 
       - name: Notify Slack on failure
         if: failure()
-        uses: slackapi/slack-github-action@v1.26.0
+        uses: slackapi/slack-github-action@v2.1.1
         with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
-            {
               "text": "External Link Checker - Broken Links Detected :warning:",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Broken Links:*\n*${{ steps.count.outputs.brokenLinksCount  }}*"
-                  },
-                  "accessory": {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "View Artifacts",
-                      "emoji": true
-                    },
-                    "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                  }
-                }
-              ]
-            }
-
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+              "blocks":
+                - type: "section",
+                  text:
+                    type: "mrkdwn",
+                    text: ":warning: *External Link Checker* detected broken links in the repository. \n\n* View Artifacts: *\n• Workflow: ${{ github.workflow }}\n• Run ID: ${{ github.run_id }}"
