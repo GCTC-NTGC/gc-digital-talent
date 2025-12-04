@@ -11,8 +11,10 @@ import { Add, Edit, Remove } from "./Button";
 import Card, { CARD_CLASS_NAME, CardProps } from "./Card";
 import List from "./List";
 
-interface RootProps<T extends BaseItem>
-  extends Omit<CardRepeaterProviderProps<T>, "children" | "id"> {
+interface RootProps<T extends BaseItem> extends Omit<
+  CardRepeaterProviderProps<T>,
+  "children" | "id"
+> {
   children?: ReactElement<CardProps> | ReactElement<CardProps>[];
   add?: ReactNode;
 }

@@ -4,8 +4,10 @@ import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { HeadingLevel, Notice } from "@gc-digital-talent/ui";
 
-interface FormChangeNotifyNoticeProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface FormChangeNotifyNoticeProps extends DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   headingAs?: HeadingLevel;
 }
 

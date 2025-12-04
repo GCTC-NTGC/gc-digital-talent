@@ -58,7 +58,8 @@ interface FormValues {
 export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 
 interface WorkTasksSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       WorkTasksSubmitData,
       FragmentType<typeof EditPoolKeyTasks_Fragment>
     >,

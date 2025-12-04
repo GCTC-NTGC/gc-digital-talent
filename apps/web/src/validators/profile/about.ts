@@ -9,8 +9,10 @@ import {
 
 type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
 
-export interface PartialUser
-  extends Pick<User, "firstName" | "lastName" | "email" | "telephone"> {
+export interface PartialUser extends Pick<
+  User,
+  "firstName" | "lastName" | "email" | "telephone"
+> {
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
   preferredLanguageForExam?: PartialLanguage;

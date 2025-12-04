@@ -79,11 +79,10 @@ const Item = ({
 
 type ListItemElement = ReactElement<ItemProps>;
 
-interface RootProps
-  extends DetailedHTMLProps<
-    HTMLAttributes<HTMLDListElement>,
-    HTMLDListElement
-  > {
+interface RootProps extends DetailedHTMLProps<
+  HTMLAttributes<HTMLDListElement>,
+  HTMLDListElement
+> {
   children: ListItemElement | ListItemElement[];
 }
 
