@@ -26,8 +26,7 @@ const NewTabWrapper = ({ newTab = false, children }: NewTabWrapperProps) => {
 };
 
 export interface CTALinkProps
-  extends BaseCTAProps,
-    Omit<BaseLinkProps, "color"> {}
+  extends BaseCTAProps, Omit<BaseLinkProps, "color"> {}
 
 const CTALink = ({
   icon,

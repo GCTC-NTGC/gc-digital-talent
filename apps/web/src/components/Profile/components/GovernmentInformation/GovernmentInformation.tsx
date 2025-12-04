@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import { ReactNode } from "react";
 
-import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, Notice } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   getFragment,
@@ -47,32 +47,34 @@ const GovernmentInformation = ({ query, pool }: GovernmentInformationProps) => {
         </Heading>
       </div>
       <div className="rounded-md bg-white p-6 text-black shadow-lg dark:bg-gray-600 dark:text-white">
-        <Well color="warning">
-          <p className="mb-3 font-bold">
+        <Notice.Root color="warning">
+          <Notice.Title>
             {intl.formatMessage({
               defaultMessage: "This information is going away",
               id: "Ui7CNt",
               description:
                 "Title warning message for government information getting removed",
             })}
-          </p>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "You can now add Government of Canada employment details directly on your <link>career experience</link>. We will keep the details here on your file until you add new ones on your current work experience.",
-                id: "gQYdKH",
-                description:
-                  "Description for warning message when the government information section is getting removed.",
-              },
-              {
-                link: (chunks: ReactNode) => (
-                  <Link href={paths.careerTimeline()}>{chunks}</Link>
-                ),
-              },
-            )}
-          </p>
-        </Well>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "You can now add Government of Canada employment details directly on your <link>career experience</link>. We will keep the details here on your file until you add new ones on your current work experience.",
+                  id: "gQYdKH",
+                  description:
+                    "Description for warning message when the government information section is getting removed.",
+                },
+                {
+                  link: (chunks: ReactNode) => (
+                    <Link href={paths.careerTimeline()}>{chunks}</Link>
+                  ),
+                },
+              )}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
         <div className="mt-6 flex flex-col gap-y-6">
           <Display query={user} />
         </div>

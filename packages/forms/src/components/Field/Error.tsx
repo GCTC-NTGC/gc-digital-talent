@@ -1,15 +1,10 @@
-import { Well, WellProps } from "@gc-digital-talent/ui";
+import { Notice, NoticeProps } from "@gc-digital-talent/ui";
 
-const Error = (props: Omit<WellProps, "color" | "fontSize">) => {
+const Error = ({ children, ...rest }: Omit<NoticeProps, "color">) => {
   return (
-    <Well
-      role="alert"
-      aria-live="polite"
-      fontSize="caption"
-      color="error"
-      {...props}
-    />
+    <Notice.Root small role="alert" aria-live="polite" color="error" {...rest}>
+      <Notice.Content>{children}</Notice.Content>
+    </Notice.Root>
   );
 };
-
 export default Error;

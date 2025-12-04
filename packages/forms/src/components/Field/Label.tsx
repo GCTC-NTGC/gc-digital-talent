@@ -6,11 +6,10 @@ import { appendLanguageName, Locales } from "@gc-digital-talent/i18n";
 import Required from "./Required";
 import { labelStyles } from "./styles";
 
-export interface LabelProps
-  extends DetailedHTMLProps<
-    LabelHTMLAttributes<HTMLLabelElement>,
-    HTMLLabelElement
-  > {
+export interface LabelProps extends DetailedHTMLProps<
+  LabelHTMLAttributes<HTMLLabelElement>,
+  HTMLLabelElement
+> {
   required?: boolean;
   appendLanguageToLabel?: Locales;
 }

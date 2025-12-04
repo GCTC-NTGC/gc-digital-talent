@@ -407,7 +407,7 @@ const poolCompletenessMap = new Map<PoolCompleteness, StatusBadge>([
   [
     "submitted",
     {
-      color: "black",
+      color: "gray",
       label: poolMessages.submitted,
     },
   ],
@@ -424,7 +424,7 @@ export const getProcessStatusBadge = (
   intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {
-    color: "black",
+    color: "gray",
     label: getLocalizedName(status?.label, intl),
     icon: LockClosedIcon,
   };

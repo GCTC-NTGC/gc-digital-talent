@@ -38,8 +38,10 @@ function updatedAfterPublish(
   return isAfter(parseDateTimeUtc(createdAt), parseDateTimeUtc(publishedAt));
 }
 
-interface PoolActivityItemProps
-  extends Omit<ActivityItemProps, "info" | "properties"> {
+interface PoolActivityItemProps extends Omit<
+  ActivityItemProps,
+  "info" | "properties"
+> {
   publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
 }
 

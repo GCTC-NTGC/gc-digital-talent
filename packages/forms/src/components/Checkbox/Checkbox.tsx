@@ -29,7 +29,8 @@ const checkbox = tv({
 type CheckboxVariants = VariantProps<typeof checkbox>;
 
 export interface CheckboxProps
-  extends CheckboxVariants,
+  extends
+    CheckboxVariants,
     Omit<HTMLInputProps, "id" | "name">,
     CommonInputProps {
   /** Wrap input in bounding box. */

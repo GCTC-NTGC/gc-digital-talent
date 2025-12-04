@@ -9,7 +9,7 @@ import {
   Link,
   ThrowNotFound,
   Ul,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -293,17 +293,19 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               />
             ))
           ) : (
-            <Well className="text-center">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "It looks like you haven't added any experiences to your career timeline yet.",
-                  id: "yfzR+U",
-                  description:
-                    "Null state message for career timeline section of the application review page.",
-                })}
-              </p>
-            </Well>
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "It looks like you haven't added any experiences to your career timeline yet.",
+                    id: "yfzR+U",
+                    description:
+                      "Null state message for career timeline section of the application review page.",
+                  })}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           )}
         </div>
       </ReviewSection>
@@ -353,29 +355,33 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             <div>
               {application.educationRequirementOption === null ||
               application.educationRequirementOption === undefined ? (
-                <Well className="text-center">
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "It looks like you haven't selected an education requirement yet.",
-                      id: "mf8++l",
-                      description:
-                        "Null state message for education requirement section of the application review page.",
-                    })}
-                  </p>
-                </Well>
+                <Notice.Root className="text-center">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "It looks like you haven't selected an education requirement yet.",
+                        id: "mf8++l",
+                        description:
+                          "Null state message for education requirement section of the application review page.",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
               ) : (
-                <Well className="text-center">
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "It looks like you haven't added any experiences to your career timeline yet.",
-                      id: "4liNMy",
-                      description:
-                        "Null state message for experiences section of the application review page.",
-                    })}
-                  </p>
-                </Well>
+                <Notice.Root className="text-center">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "It looks like you haven't added any experiences to your career timeline yet.",
+                        id: "4liNMy",
+                        description:
+                          "Null state message for experiences section of the application review page.",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
               )}
             </div>
           )}
@@ -451,17 +457,19 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               </Ul>
             </div>
           ) : (
-            <Well className="text-center">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "It looks like you haven't answered any screening questions yet.",
-                  id: "V9lxDE",
-                  description:
-                    "Null state message in screening questions section of the application review page.",
-                })}
-              </p>
-            </Well>
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "It looks like you haven't answered any screening questions yet.",
+                    id: "V9lxDE",
+                    description:
+                      "Null state message in screening questions section of the application review page.",
+                  })}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           )}
         </ReviewSection>
       )}
@@ -501,17 +509,19 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               </Ul>
             </div>
           ) : (
-            <Well className="text-center">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "It looks like you haven't answered any general questions yet.",
-                  id: "OPbfwn",
-                  description:
-                    "Null state message in general questions section of the application review page.",
-                })}
-              </p>
-            </Well>
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "It looks like you haven't answered any general questions yet.",
+                    id: "OPbfwn",
+                    description:
+                      "Null state message in general questions section of the application review page.",
+                  })}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           )}
         </ReviewSection>
       )}

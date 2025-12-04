@@ -16,7 +16,7 @@ import {
   PreviewList,
   Separator,
   Sidebar,
-  Well,
+  Notice,
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import {
@@ -113,6 +113,7 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
         group
         level
       }
+      referenceId
     }
   }
 `);
@@ -193,6 +194,7 @@ const JobPosterTemplatesPage = () => {
     const allTemplates = jobPosterTemplates.filter((jobPosterTemplate) => {
       let show = true;
 
+      // keyword search
       if (formData.keyword.length) {
         const keywords = formData.keyword.split(",");
         show =
@@ -203,14 +205,19 @@ const JobPosterTemplatesPage = () => {
               jobPosterTemplate.name?.[locale]
                 ?.toLowerCase()
                 .trim()
-                .includes(sanitizedTerm) ??
+                .includes(sanitizedTerm) ||
               jobPosterTemplate.keywords?.[locale]?.some((keyword) => {
                 return keyword.toLowerCase().trim().includes(sanitizedTerm);
-              })
+              }) ||
+              jobPosterTemplate.referenceId
+                ?.toLowerCase()
+                .trim()
+                .includes(sanitizedTerm)
             );
           });
       }
 
+      // checklists
       show =
         show &&
         assertIncludes(
@@ -532,16 +539,19 @@ const JobPosterTemplatesPage = () => {
                     )}
                   </>
                 ) : (
-                  <Well className="text-center">
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "No job advertisement templates found.",
-                        id: "L47tv9",
-                        description:
-                          "Message displayed when there are no job poster templates meeting a specific criteria",
-                      })}
-                    </p>
-                  </Well>
+                  <Notice.Root className="text-center">
+                    <Notice.Content>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "No job advertisement templates found.",
+                          id: "L47tv9",
+                          description:
+                            "Message displayed when there are no job poster templates meeting a specific criteria",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
                 )}
               </>
             )}

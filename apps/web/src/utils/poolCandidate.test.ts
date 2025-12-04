@@ -88,7 +88,7 @@ describe("PoolCandidate utils", () => {
         intl,
       );
       expect(chip.label).toBe("Removed: To assess");
-      expect(chip.color).toBe("black");
+      expect(chip.color).toBe("gray");
 
       chip = getCandidateStatusChip(
         {
@@ -102,8 +102,8 @@ describe("PoolCandidate utils", () => {
         intl,
       );
       expect(chip.label).toBe("Removed: Qualified");
-      expect(chip.color).toBe("black");
-      expect(chip.color).toBe("black");
+      expect(chip.color).toBe("gray");
+      expect(chip.color).toBe("gray");
 
       chip = getCandidateStatusChip(
         {
@@ -117,7 +117,7 @@ describe("PoolCandidate utils", () => {
         intl,
       );
       expect(chip.label).toBe("Removed"); // This status was only for legacy candidates, and its hard to interpret exact reason
-      expect(chip.color).toBe("black");
+      expect(chip.color).toBe("gray");
 
       chip = getCandidateStatusChip(
         {
@@ -131,7 +131,7 @@ describe("PoolCandidate utils", () => {
         intl,
       );
       expect(chip.label).toBe("Expired: Qualified"); // Okay technically this one doesn't say Removed
-      expect(chip.color).toBe("black");
+      expect(chip.color).toBe("gray");
     });
     describe("Candidates in assessment", () => {
       it('should return "Qualified: Pending decision" and success color for candidates with an assessment status who have passed all AssessmentSteps', () => {

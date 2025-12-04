@@ -3,8 +3,10 @@ import { ReactNode } from "react";
 
 import { ScrollToLink, type ScrollToLinkProps } from "../../Link";
 
-export interface CardFlatScrollToLinkProps
-  extends Omit<ScrollToLinkProps, "label"> {
+export interface CardFlatScrollToLinkProps extends Omit<
+  ScrollToLinkProps,
+  "label"
+> {
   label: ReactNode;
 }
 

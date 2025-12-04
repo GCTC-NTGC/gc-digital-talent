@@ -7,8 +7,7 @@ import EducationRequirementV1, {
 import { getSupportedVersionComponent } from "../utils";
 import { SnapshotProps } from "../types";
 
-interface EducationRequirementSnapshotProps
-  extends SnapshotProps<EducationRequirementSnapshotV1> {
+interface EducationRequirementSnapshotProps extends SnapshotProps<EducationRequirementSnapshotV1> {
   educationRequirementQuery?: EducationRequirementV1Props["educationRequirementQuery"];
 }
 

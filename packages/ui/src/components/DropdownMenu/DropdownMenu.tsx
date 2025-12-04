@@ -103,7 +103,8 @@ const item = tv({
 type ItemVariants = VariantProps<typeof item>;
 
 interface ItemProps
-  extends ItemVariants,
+  extends
+    ItemVariants,
     Omit<
       ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>,
       "color"
@@ -122,7 +123,8 @@ const Item = forwardRef<
 ));
 
 interface CheckboxItemProps
-  extends ItemVariants,
+  extends
+    ItemVariants,
     Omit<
       ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>,
       "color"
@@ -140,7 +142,8 @@ const CheckboxItem = forwardRef<
 ));
 
 interface RadioItemProps
-  extends ItemVariants,
+  extends
+    ItemVariants,
     Omit<
       ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>,
       "color"
