@@ -18,8 +18,8 @@ import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
 const hero = tv({
   slots: {
     wrapper:
-      "relative overflow-hidden bg-black pt-15 iap:bg-linear-90 iap:from-primary iap:to-primary-600",
-    content: "relative z-[3] text-center text-white",
+      "Hero relative overflow-hidden bg-black pt-15 iap:bg-linear-90 iap:from-primary iap:to-primary-600",
+    content: "relative z-3 text-center text-white",
     breadcrumbs: "flex flex-wrap justify-center gap-3 p-0 [&_li]:inline-block",
     tabs: "mt-12 flex",
   },

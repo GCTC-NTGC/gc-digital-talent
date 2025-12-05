@@ -18,7 +18,6 @@ export default {
     skills: mockSkills,
     defaultOpen: true,
   },
-  tags: ["needs-fix"],
 };
 
 const Template: StoryFn<typeof SkillBrowserDialog> = (args) => {

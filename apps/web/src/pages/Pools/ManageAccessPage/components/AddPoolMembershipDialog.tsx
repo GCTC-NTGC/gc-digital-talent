@@ -21,6 +21,7 @@ import {
 
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
+import adminMessages from "~/messages/adminMessages";
 
 import { ManageAccessFormValues, PoolTeamMember } from "./types";
 import useAvailableUsers from "./useAvailableUsers";
@@ -164,12 +165,7 @@ const AddPoolMembershipDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage({
-                    defaultMessage: "User",
-                    id: "9QZhR4",
-                    description:
-                      "Label for the user select field on community membership form",
-                  })}
+                  label={intl.formatMessage(adminMessages.user)}
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="poolId" value={pool.id} />

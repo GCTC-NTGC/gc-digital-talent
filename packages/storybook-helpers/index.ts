@@ -8,6 +8,7 @@ import RouterDecorator from "./decorators/RouterDecorator";
 import ThemeDecorator, { THEMES } from "./decorators/ThemeDecorator";
 import allModes from "./modes";
 import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
+import { GLOBAL_A11Y_EXCLUDES } from "./a11y";
 
 export {
   ContainerDecorator,
@@ -22,5 +23,6 @@ export {
   VIEWPORT,
   VIEWPORTS,
   CHROMATIC_VIEWPORTS,
+  GLOBAL_A11Y_EXCLUDES,
   allModes,
 };

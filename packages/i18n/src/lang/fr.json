@@ -415,6 +415,10 @@
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
   },
+  "CzK1qY": {
+    "defaultMessage": "Supprimé",
+    "description": "Label for the trashed field"
+  },
   "D3+nw/": {
     "defaultMessage": "Je consens à travailler dans la région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut).",
     "description": "The work region of Canada described as North."
