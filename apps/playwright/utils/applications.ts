@@ -187,7 +187,7 @@ export const removeCandidate: GraphQLRequestFunc<
   RemoveCandidateArgs
 > = async (ctx, { id, removalReason, removalReasonOther }) => {
   return ctx
-    .post(Test_UpdateApplicationStatusMutationDocument, {
+    .post(Test_RemoveCandidateMutationDocument, {
       isPrivileged: true,
       variables: {
         id,
