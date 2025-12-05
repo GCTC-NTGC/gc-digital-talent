@@ -3,7 +3,7 @@ import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriver
 import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationChartBarIcon";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { ReactNode, useState } from "react";
 
 import {
