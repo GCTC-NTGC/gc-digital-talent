@@ -553,8 +553,6 @@ type Mutation {
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
-  sendUserEmailVerification(emailType: EmailType): User
-  verifyUserEmail(emailType: EmailType, code: String!): User
   sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
@@ -1952,7 +1950,6 @@ input UpdateUserRolesInput {
 
 input UpdateUserAsUserInput {
   id: ID
-  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
