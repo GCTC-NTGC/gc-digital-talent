@@ -20,12 +20,21 @@ const boolCheck = tv({
 
 type DivProps = React.ComponentPropsWithoutRef<"div">;
 
-interface BoolCheckIconProps extends DivProps {
+interface BothLabelsRequiredProps extends DivProps {
   value?: Maybe<boolean>;
-  trueLabel?: string;
-  falseLabel?: string;
+  trueLabel: string;
+  falseLabel: string;
   children: ReactNode;
 }
+
+interface NoLabelsAllowedProps extends DivProps {
+  value?: Maybe<boolean>;
+  trueLabel?: undefined;
+  falseLabel?: undefined;
+  children: ReactNode;
+}
+
+type BoolCheckIconProps = BothLabelsRequiredProps | NoLabelsAllowedProps;
 
 const BoolCheckIcon = ({
   value,
@@ -38,17 +47,22 @@ const BoolCheckIcon = ({
   const id = useId();
   const Icon = value ? CheckCircleIcon : XCircleIcon;
   const { base, icon } = boolCheck({ checked: value ?? false });
+  const hasLabels = trueLabel && falseLabel;
 
   return (
     <div className={base({ class: className })} {...rest}>
-      <span hidden id={id}>
-        {value ? trueLabel : falseLabel}
-      </span>
+      {hasLabels && (
+        <span hidden id={id}>
+          {value ? trueLabel : falseLabel}
+        </span>
+      )}
       <Icon
         className={icon()}
         role="img"
-        aria-hidden="false"
-        aria-labelledby={id}
+        {...(hasLabels && {
+          "aria-hidden": "false",
+          "aria-labelledby": id,
+        })}
       />
       <span>{children}</span>
     </div>

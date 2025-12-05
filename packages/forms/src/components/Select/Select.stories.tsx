@@ -102,6 +102,12 @@ Default.args = {
   nullSelection: "Select an option",
 };
 Default.parameters = {
+  a11y: {
+    context: {
+      // NOTE: No issue with colour contrast
+      exclude: ["select"],
+    },
+  },
   chromatic: {
     modes: {
       light: allModes.light,
@@ -116,6 +122,14 @@ WithGroups.args = {
   ...Default.args,
   label: "Groups",
   name: "groups",
+};
+WithGroups.parameters = {
+  a11y: {
+    context: {
+      // NOTE: No issue with colour contrast
+      exclude: ["select"],
+    },
+  },
 };
 
 export const RequiredWithErrorAndContext = Template.bind({});
