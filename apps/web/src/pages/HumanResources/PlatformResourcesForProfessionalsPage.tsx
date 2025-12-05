@@ -362,8 +362,8 @@ export const Component = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "To connect with talent in our database, hiring managers can submit a request through the <link>find talent page</link>.",
-                    id: "h6ZpSy",
+                      "To connect with talent in our database, hiring managers can submit a request through <link>the find talent page</link>.",
+                    id: "xDfpkE",
                     description:
                       "Paragraph two, answer about prequalified talent",
                   },
