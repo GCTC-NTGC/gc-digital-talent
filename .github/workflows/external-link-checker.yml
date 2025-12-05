@@ -40,6 +40,7 @@ jobs:
         run: pnpm run check-links
 
       - name: Count Broken Links
+        if: always()
         id: count
         run: |
           if [ -f external-broken-links.json ]; then
@@ -60,7 +61,7 @@ jobs:
             external-link-errors.log
 
       - name: Notify Slack on broken links
-        if: steps.count.outputs.brokenLinksCount != '0'
+        if: failure()
         uses: slackapi/slack-github-action@v2.1.1
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
