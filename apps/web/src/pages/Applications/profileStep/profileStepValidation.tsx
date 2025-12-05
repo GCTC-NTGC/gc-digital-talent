@@ -15,7 +15,8 @@ import {
 } from "~/validators/profile";
 
 interface PartialUser
-  extends PartialUserAbout,
+  extends
+    PartialUserAbout,
     PartialUserDei,
     PartialUserPriority,
     PartialUserLanguage,

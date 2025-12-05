@@ -12,11 +12,10 @@ import { checkFeatureFlag } from "@gc-digital-talent/env";
 
 type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
 
-export interface PartialUser
-  extends Pick<
-    User,
-    "firstName" | "lastName" | "email" | "telephone" | "isWorkEmailVerified"
-  > {
+export interface PartialUser extends Pick<
+  User,
+  "firstName" | "lastName" | "email" | "telephone" | "isWorkEmailVerified"
+> {
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
   preferredLanguageForExam?: PartialLanguage;
