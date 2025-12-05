@@ -4763,10 +4763,6 @@
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the 'edit a community' form"
   },
-  "IrV/w5": {
-    "defaultMessage": "Confirmer l’adresse courriel",
-    "description": "breadcrumb for email verification page"
-  },
   "Is1RHA": {
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
