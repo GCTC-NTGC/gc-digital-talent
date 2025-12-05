@@ -96,19 +96,19 @@ test.describe("Application card", () => {
   });
 
   test("Removed candidate shows assessed date", async ({ appPage }) => {
-    const { removedAt } = await removeCandidate(adminCtx, {
+    const candidate = await removeCandidate(adminCtx, {
       id: application.id,
-      removalReason: CandidateRemovalReason.Other,
+      removalReason: CandidateRemovalReason.Ineligible,
     });
 
-    expect(removedAt).toBeTruthy();
+    expect(candidate.removedAt).toBeTruthy();
 
     const dashboard = new ApplicantDashboardPage(appPage.page);
     await loginBySub(dashboard.page, sub);
     await dashboard.toggleJobApplications();
 
     const expectedDate = rawFormat(
-      parseDateTimeUtc(removedAt ?? ""),
+      parseDateTimeUtc(candidate.removedAt ?? ""),
       DATE_FORMAT_LOCALIZED,
     );
 
