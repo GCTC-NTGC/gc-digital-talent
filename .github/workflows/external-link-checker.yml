@@ -69,7 +69,7 @@ jobs:
                  {
                   "type": "header",
                   "text": {
-                    "type": "mrkdwn",
+                    "type": "plain_text",
                     "text": ":warning: External Link Checker - Failed"
                   }
                 },
