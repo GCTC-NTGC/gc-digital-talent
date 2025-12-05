@@ -86,6 +86,16 @@ enum PoolCandidateStatus
         ];
     }
 
+    public static function screeningStageGroup(): array
+    {
+        return [
+            PoolCandidateStatus::NEW_APPLICATION->name,
+            PoolCandidateStatus::APPLICATION_REVIEW->name,
+            PoolCandidateStatus::SCREENED_IN->name,
+            PoolCandidateStatus::UNDER_ASSESSMENT->name,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'pool_candidate_status';

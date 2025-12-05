@@ -30,9 +30,8 @@ class ComputeCandidateAssessmentStatus
         /** @var \App\Models\PoolCandidate */
         $candidate = $result->poolCandidate;
 
-        [$stepId, $assessmentStatus] = $candidate->computeAssessmentStatus();
+        [$_, $assessmentStatus] = $candidate->computeAssessmentStatus();
 
-        $candidate->assessment_step_id = $stepId;
         $candidate->computed_assessment_status = $assessmentStatus;
 
         if ($candidate->pool_candidate_status === PoolCandidateStatus::NEW_APPLICATION->name) {
