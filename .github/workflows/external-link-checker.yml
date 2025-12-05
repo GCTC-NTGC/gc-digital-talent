@@ -59,8 +59,8 @@ jobs:
             external-broken-links.json
             external-link-errors.log
 
-      - name: Notify Slack on failure
-        if: failure()
+      - name: Notify Slack on broken links
+        if: steps.count.outputs.brokenLinksCount != '0'
         uses: slackapi/slack-github-action@v2.1.1
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -68,25 +68,20 @@ jobs:
           payload: |
             text: "External Link Checker - Broken Links Detected :warning:"
             blocks:
-               - type: "section"
-                 text:
-                   type: "mrkdwn"
-                   text: ":warning: *External Link Checker* detected broken links in the repository. \n\n* View Artifacts: *\n• Workflow: ${{ github.workflow }}\n• Run ID: ${{ github.run_id }}"
-               - type: "section"
-                  text:
-                    type: "mrkdwn"
-                    text: "*Number of Broken Links:* ${{ steps.count.outputs.brokenLinksCount }}"
-                - type: "divider"
-                - type: "section"
-                  text:
-                    type: "mrkdwn"
-                    text: "Please review the broken links and take necessary actions. :mag_right:"
-                  accessory:
-                    type: "button"
-                    text:
-                      type: "plain_text"
-                      text: "View Workflow Run"
-                      emoji: true
-                      url: "https://github.com//${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                      action_id: "run"
-                      value: "actions"
+            - type: "section"
+              text:
+                type: "mrkdwn"
+                text: "*Number of Broken Links:* ${{ steps.count.outputs.brokenLinksCount }}"
+            - type: "section"
+              text:
+                type: "mrkdwn"
+                text: "Please review the broken links and take necessary actions. :mag_right:"
+              accessory:
+                type: "button"
+                text:
+                  type: "plain_text"
+                  text: "View Workflow Run"
+                emoji: true
+                url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                action_id: "run"
+                value: "actions"
