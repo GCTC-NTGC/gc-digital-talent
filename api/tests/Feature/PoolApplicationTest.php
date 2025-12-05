@@ -1133,31 +1133,49 @@ class PoolApplicationTest extends TestCase
         assertSame($newPoolCandidate->priority_verification, ClaimVerificationResult::UNVERIFIED->name);
     }
 
-    // public function testApplicationSubmissionWorkEmailVerifiedForInternalJobs(): void
-    // {
-    //     $pool = Pool::factory()
-    //         ->withPoolSkills(1,0)
-    //         ->create([
-    //             'closing_date' => Carbon::now()->addDays(1),
-    //             'area_of_selection' => PoolAreaOfSelection::EMPLOYEES->name,
-    //         ]);
+    public function testApplicationSubmissionWorkEmailVerifiedForInternalJobs(): void
+    {
+        $pool = Pool::factory()
+            ->withPoolSkills(1, 0)
+            ->create([
+                'closing_date' => Carbon::now()->addDays(1),
+                'area_of_selection' => PoolAreaOfSelection::EMPLOYEES->name,
+            ]);
 
-    //     $poolCandidate = PoolCandidate::factory()->create([
-    //         'user_id' => $this->govEmployee->id,
-    //         'pool_id' => $pool->id,
-    //         'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-    //         'submitted_at' => null,
-    //     ]);
+        $pool->essentialSkills()->sync([]);
 
-    //     $this->actingAs($this->govEmployee, 'api')
-    //         ->graphQL(
-    //             $this->submitMutationDocument,
-    //             [
-    //                 'id' => $poolCandidate,
-    //                 'sig' => 'sign',
-    //             ]
-    //         )->assertJsonFragment([
-    //             'signature' => 'sign',
-    //         ]);
-    // }
+        $candidateWithVerifiedWorkEmail = PoolCandidate::factory()->create([
+            'user_id' => $this->govEmployee->id,
+            'pool_id' => $pool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        $candidateWithNoVerifiedWorkEmail = PoolCandidate::factory()->create([
+            'user_id' => $this->nonGovEmployee->id,
+            'pool_id' => $pool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        $this->actingAs($this->govEmployee, 'api')
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $candidateWithVerifiedWorkEmail->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                'signature' => 'sign',
+            ]);
+
+        $this->actingAs($this->nonGovEmployee, 'api')
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $candidateWithNoVerifiedWorkEmail->id,
+                    'sig' => 'sign',
+                ]
+            )->assertGraphQLErrorMessage(ErrorCode::APPLICATION_WORK_EMAIL_NOT_VERIFIED->name);
+    }
 }
