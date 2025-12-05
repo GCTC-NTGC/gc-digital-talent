@@ -500,6 +500,13 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message for when a user is missing a substantive experience for workforce adjustment",
   },
+  [ErrorCode.ApplicationWorkEmailNotVerified]: {
+    defaultMessage:
+      "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
+    id: "OJVUdM",
+    description:
+      "Error message for when user submits an application to an internal pool with an unverified work email",
+  },
 });
 
 export const tryFindMessageDescriptor = (
