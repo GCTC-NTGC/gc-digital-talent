@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
@@ -25,7 +25,7 @@ const NotificationDownload = forwardRef<
   NotificationLinkProps
 >(({ id, href, isUnread, fileName, onRead, children }, forwardedRef) => {
   const intl = useIntl();
-  const logger = useLogger();
+  const logger = getLogger();
   const [{ fetching }, markAsRead] = useMarkAsRead(id);
   const [{ fetching: downloadingFile }, executeFileDownload] =
     useAsyncFileDownload();

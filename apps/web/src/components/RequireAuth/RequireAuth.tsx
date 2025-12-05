@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { ReactNode, useEffect } from "react";
 
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
 import { notEmpty, UnauthorizedError } from "@gc-digital-talent/helpers";
 import {
@@ -26,7 +26,7 @@ const RequireAuth = ({
   loginPath,
 }: RequireAuthProps) => {
   const location = useLocation();
-  const logger = useLogger();
+  const logger = getLogger();
   const { loggedIn } = useAuthentication();
   const { roleAssignments, isLoaded } = useAuthorization();
   const [searchParams] = useSearchParams();
