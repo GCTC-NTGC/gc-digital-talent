@@ -115,7 +115,9 @@ const ReviewApplicationPreviewList = ({
                 statusOrder.indexOf(b.status.value),
             )
             .map(({ application, status }) => {
-              const { id, pool, submittedAt, finalDecisionAt } = application;
+              const { id, pool, submittedAt, finalDecisionAt, removedAt } =
+                application;
+              const assessedDate = removedAt ?? finalDecisionAt;
 
               const applicationMetadata: PreviewMetaData[] = [
                 {
@@ -141,7 +143,7 @@ const ReviewApplicationPreviewList = ({
                     <ApplicationDate
                       closingDate={pool?.closingDate}
                       submittedAt={submittedAt}
-                      finalDecisionAt={finalDecisionAt}
+                      assessedDate={assessedDate}
                       status={status.value}
                     />
                   ),

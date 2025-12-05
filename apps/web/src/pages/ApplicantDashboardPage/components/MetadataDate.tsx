@@ -17,14 +17,14 @@ import {
 interface ApplicationDateProps {
   closingDate?: string | null;
   submittedAt?: string | null;
-  finalDecisionAt?: string | null;
+  assessedDate?: string | null;
   status: StatusChipWithDescription["value"];
 }
 
 export const ApplicationDate = ({
   closingDate,
   submittedAt,
-  finalDecisionAt,
+  assessedDate,
   status,
 }: ApplicationDateProps) => {
   const intl = useIntl();
@@ -97,9 +97,9 @@ export const ApplicationDate = ({
           description: "Label for assessed metadata",
         })}
         {intl.formatMessage(commonMessages.dividingColon)}
-        {finalDecisionAt
+        {assessedDate
           ? formatDate({
-              date: parseDateTimeUtc(finalDecisionAt),
+              date: parseDateTimeUtc(assessedDate),
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })
