@@ -41,7 +41,7 @@ const FAQ_ID = {
   PSC_GCDT: "psc-gcdt-aware",
   SKILLS_BASED: "skills-based-recruitment",
   TEMPLATES: "job-advertisement-templates",
-  PREQUAILIFIED_TALENT: "prequalified-talent",
+  PREQUALIFIED_TALENT: "prequalified-talent",
   RECRUITMENT_PROCESS: "recruitment-process",
   COMMUNITIES: "functional-communities",
 } as const;
@@ -63,8 +63,8 @@ export const Component = () => {
   const desc = intl.formatMessage({
     defaultMessage:
       "Discover the tools available to support HR and recruitment experts across the Government of Canada.",
-    id: "bcyIgm",
-    description: "Description of profressional HR resources page",
+    id: "kr35e/",
+    description: "Description of professional HR resources page",
   });
 
   const crumbs = useBreadcrumbs({
@@ -133,9 +133,9 @@ export const Component = () => {
         >
           {intl.formatMessage({
             defaultMessage: "Tools",
-            id: "iU9o0i",
+            id: "sM+ImG",
             description:
-              "Title for information about tools for HR profressionals",
+              "Title for information about tools for HR professionals",
           })}
         </Heading>
         <div className="grid gap-12 xs:gap-18 sm:grid-cols-2">
@@ -187,9 +187,9 @@ export const Component = () => {
         >
           {intl.formatMessage({
             defaultMessage: "Analytics and planning support",
-            id: "O2oDum",
+            id: "xhJI+V",
             description:
-              "Title for information about analytics and planning for HR profressionals",
+              "Title for information about analytics and planning for HR professionals",
           })}
         </Heading>
         <p>
@@ -340,7 +340,7 @@ export const Component = () => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item value={FAQ_ID.PREQUAILIFIED_TALENT}>
+          <Accordion.Item value={FAQ_ID.PREQUALIFIED_TALENT}>
             <Accordion.Trigger>
               {intl.formatMessage({
                 defaultMessage: "How do I find prequalified talent?",
@@ -435,8 +435,8 @@ export const Component = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "Which functional communities are using the platform?",
-                id: "BdmhDu",
-                description: "Question about functiona communities",
+                id: "hR7Cxv",
+                description: "Question about functional communities",
               })}
             </Accordion.Trigger>
             <Accordion.Content>
