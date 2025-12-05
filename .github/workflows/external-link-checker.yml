@@ -13,10 +13,6 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     env:
-      # Use native docker command within docker compose
-      COMPOSE_DOCKER_CLI_BUILD: 1
-      # Use buildkit to speed up docker command
-      DOCKER_BUILDKIT: 1
       PNPM_VERSION: "10.17.0"
     steps:
       - name: Checkout Repository
@@ -67,22 +63,33 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-            text: "External Link Checker - Broken Links Detected :warning:"
-            blocks:
-            - type: "section"
-              text:
-                type: "mrkdwn"
-                text: "*Number of Broken Links:* ${{ steps.count.outputs.brokenLinksCount }}"
-            - type: "section"
-              text:
-                type: "mrkdwn"
-                text: "Please review the broken links and take necessary actions. :mag_right:"
-              accessory:
-                type: "button"
-                text:
-                  type: "plain_text"
-                  text: "View Workflow Run"
-                emoji: true
-                url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                action_id: "run"
-                value: "actions"
+            {
+              "text": "External Link Checker - Broken Links Detected :warning:",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Number of Broken Links:* ${{ steps.count.outputs.brokenLinksCount }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Please review the broken links and take necessary actions. :mag_right:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View Workflow Run",
+                      "emoji": true
+                    },
+                    "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                    "action_id": "run",
+                    "value": "actions"
+                  }
+                }
+              ]
+            }
