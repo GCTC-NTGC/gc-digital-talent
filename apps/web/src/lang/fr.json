@@ -1719,6 +1719,10 @@
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
   },
+  "4vScqR": {
+    "defaultMessage": "À distance",
+    "description": "Label for when a position is remote"
+  },
   "4yXZLY": {
     "defaultMessage": "Options de nomination",
     "description": "Label for the nomination type(s)"
@@ -2699,10 +2703,6 @@
     "defaultMessage": "Un diplôme d’études secondaires.",
     "description": "Description for the education requirement option secondary school diploma."
   },
-  "9QZhR4": {
-    "defaultMessage": "Utilisateur",
-    "description": "Label for the user select field on community membership form"
-  },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
@@ -3471,6 +3471,10 @@
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
     "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
   },
+  "CprAHM": {
+    "defaultMessage": "Limites de sélection",
+    "description": "Label for candidate selection limitations"
+  },
   "CsPyAD": {
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
     "description": "Description of how many items are being displayed out of the total value"
@@ -3502,10 +3506,6 @@
   "CxZGd2": {
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for government of canada email input in the request form"
-  },
-  "CzK1qY": {
-    "defaultMessage": "Supprimé",
-    "description": "Label for the trashed field"
   },
   "CzZm8F": {
     "defaultMessage": "Restaurer l'utilisateur",
@@ -4142,6 +4142,10 @@
   "FtlwFY": {
     "defaultMessage": "Voir les bassins ouverts",
     "description": "Link text to view all open pools"
+  },
+  "Ftq+3Y": {
+    "defaultMessage": "Utilisateur",
+    "description": "Label for a specific user"
   },
   "FtxA9/": {
     "defaultMessage": "Sélectionnez les rôles à confier au membre :",
@@ -5414,6 +5418,10 @@
   "LlE+CS": {
     "defaultMessage": "Note spéciale",
     "description": "Label for Special note"
+  },
+  "Lp13b8": {
+    "defaultMessage": "publication de l'annonce",
+    "description": "Message for publishing a process in the activity log"
   },
   "LpCMiC": {
     "defaultMessage": "Confirmer votre adresse courriel de correspondance",
@@ -14284,6 +14292,10 @@
   "z+emiI": {
     "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, que vous êtes membre d’une des collectivités fonctionnelles auxquelles cette plateforme offre du soutien et que vous vous reconnaissez dans l’une des descriptions suivantes, nous serons peut-être en mesure de vous aider.",
     "description": "Lead in text for who workforce adjustment tools can help"
+  },
+  "z/qlLb": {
+    "defaultMessage": "Enregistré sans modifications",
+    "description": "Message for when an activity log event had no changes tracked"
   },
   "z20NMR": {
     "defaultMessage": "Autres rôles",

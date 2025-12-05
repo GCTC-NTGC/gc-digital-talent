@@ -16,6 +16,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ErrorCode, Pool, Scalars } from "@gc-digital-talent/graphql";
 
+import processMessages from "~/messages/processMessages";
+
 import { ProcessDialogProps } from "./types";
 
 interface FormValues {
@@ -205,12 +207,7 @@ const ChangeDateDialog = ({
                   <div className="mb-6">
                     <TextArea
                       id="reason"
-                      label={intl.formatMessage({
-                        defaultMessage: "Reason for closing",
-                        id: "SQRzSl",
-                        description:
-                          "Label for the reason for closing the pool",
-                      })}
+                      label={intl.formatMessage(processMessages.closingReason)}
                       name="reason"
                       wordLimit={200}
                       rules={{

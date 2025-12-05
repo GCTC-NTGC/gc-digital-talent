@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -8,6 +8,7 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -44,6 +45,7 @@ export interface ActivityItemProps {
   query: FragmentType<typeof ActivityItem_Fragment>;
   className?: string;
   border?: boolean;
+  keyMap?: Map<string, MessageDescriptor>;
   info: ActivityEventInfo;
 }
 
@@ -52,10 +54,12 @@ const ActivityItem = ({
   className,
   border,
   info,
+  keyMap,
 }: ActivityItemProps) => {
   const intl = useIntl();
+  const logger = useLogger();
   const item = getFragment(ActivityItem_Fragment, query);
-  const properties = normalizePropKeys(intl, item.properties);
+  const properties = normalizePropKeys(intl, item.properties, keyMap, logger);
 
   if (!info) {
     return null;
