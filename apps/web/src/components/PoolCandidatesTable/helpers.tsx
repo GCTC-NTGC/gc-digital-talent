@@ -237,6 +237,7 @@ export const flagCell = (
 export const flagHeader = (intl: IntlShape) => (
   <FlagIcon
     className="size-6"
+    aria-hidden="false"
     aria-label={intl.formatMessage(tableMessages.flag)}
   />
 );
