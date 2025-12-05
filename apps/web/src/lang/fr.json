@@ -499,6 +499,10 @@
     "defaultMessage": "Réinitialisez tous les filtres",
     "description": "Button text to reset a filter form"
   },
+  "00j3Hy": {
+    "defaultMessage": "La description d’une compétence en explique clairement la portée. Nous tâchons de rédiger des descriptions plutôt générales pour qu’elles soient applicables dans tous les ministères.",
+    "description": "Paragraph one, information on skill descriptions"
+  },
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
@@ -646,6 +650,10 @@
   "0VMNWQ": {
     "defaultMessage": "Analyste des données",
     "description": "Heading for the data analyst role"
+  },
+  "0Vto/s": {
+    "defaultMessage": "Pour vous aider à trouver plus facilement les compétences pertinentes, nous les avons regroupées dans ce que nous appelons des <strong>groupes de compétences</strong>, auxquelles nous donnons habituellement des noms correspondant aux domaines de travail décrits par les collectivités fonctionnelles.",
+    "description": "Description of skill families"
   },
   "0Wx0kW": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de Talents numériques du GC. À partir d’ici, il est possible de recruter et gérer des talents, trouver des ressources et ajuster les paramètres de la plateforme.",
@@ -1018,6 +1026,10 @@
   "24NbNI": {
     "defaultMessage": "Masquer les renseignements sur la meilleure façon de décrire votre expérience de la compétence",
     "description": "Button text to close accordion describing skill experience"
+  },
+  "26f07o": {
+    "defaultMessage": "Le recrutement axé sur les compétences",
+    "description": "Heading for section describing skills-based recruitment"
   },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
@@ -2554,6 +2566,10 @@
   "8plD42": {
     "defaultMessage": "Les personnes candidates peuvent accepter de donner accès à leur profil en utilisant l'outil « Collectivités fonctionnelles » de leur tableau de bord.",
     "description": "Null secondary message for nominee profile"
+  },
+  "8sqysp": {
+    "defaultMessage": "Nous ajoutons au besoin, pour répondre à des exigences opérationnelles précises, des compétences spécialisées dont les descriptions sont plus détaillées.",
+    "description": "Paragraph two, information on skill descriptions"
   },
   "8umYON": {
     "defaultMessage": "Prochaines étapes",
@@ -4807,6 +4823,10 @@
     "defaultMessage": "Actions pour {userName} dans {communityName}",
     "description": "Aria label for the menu trigger for community actions"
   },
+  "J/G3S2": {
+    "defaultMessage": "Elle peut également vous aider à planifier la formation, à créer de nouvelles compétences et à vous préparer pour de futures possibilités.",
+    "description": "Paragraph two, describing purpose of the skills library"
+  },
   "J/JdxQ": {
     "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
     "description": "Description for warning message when the user has added many assessments to the assessment plan"
@@ -5018,6 +5038,10 @@
   "Jtc63M": {
     "defaultMessage": "Sélectionnez un volet de travail",
     "description": "Placeholder for work stream filter in search form."
+  },
+  "Ju88zP": {
+    "defaultMessage": "Passer à la bibliothèque de compétences",
+    "description": "Link to scroll down to skills library"
   },
   "Jv/Blc": {
     "defaultMessage": "Afficher toutes les informations disponibles pour cet utilisateur ou cette utilisatrice.",
@@ -5598,6 +5622,10 @@
   "MZSPTS": {
     "defaultMessage": "Agrandir toutes les compétences",
     "description": "Accessible link text to expand all accordions for skills"
+  },
+  "MchJcM": {
+    "defaultMessage": "Parcourez la liste complète des compétences figurant sur notre plateforme et examinez les différentes compétences que vous pourriez mettre dans votre <link>portfolio de compétences</link>.",
+    "description": "Paragraph one, describing the skills on the platform"
   },
   "MdVah3": {
     "defaultMessage": "Modifier votre parcours professionnel",
@@ -6319,10 +6347,6 @@
     "defaultMessage": "Trouver et associer une compétence à votre expérience de parcours professionnel",
     "description": "Title for the find a skill dialog within an experience"
   },
-  "Q0AKK4": {
-    "defaultMessage": "Si vous ne trouvez pas une compétence, essayez d’élargir vos filtres ou de chercher le nom d’une compétence à l’aide d’autres termes de l’industrie.",
-    "description": "Help text to tell users to change their filters to find a skill"
-  },
   "Q3adCp": {
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
@@ -6666,6 +6690,10 @@
   "RGl+Dr": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes",
     "description": "Title of a note describing that a pool is only open to employees"
+  },
+  "RH4/pQ": {
+    "defaultMessage": "La bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
+    "description": "Paragraph one, describing purpose of the skills library"
   },
   "RHwGy2": {
     "defaultMessage": "Erreur : la publication du processus a échoué",
@@ -8030,6 +8058,10 @@
     "defaultMessage": "Vous êtes sur le point d'archiver le profil de l'utilisateur suivant de la plateforme",
     "description": "Lead in text for the soft-delete user form."
   },
+  "XiRlAp": {
+    "defaultMessage": "Si vous ne trouvez pas une compétence donnée, c’est peut-être parce qu’elle n’a pas encore été ajoutée dans notre bibliothèque. Nous y inscrivons régulièrement de nouvelles compétences et vos suggestions à cet égard sont les bienvenues. <link>Écrivez-nous pour nous faire part de vos suggestions</link>.",
+    "description": "Paragraph two, describing the skills on the platform"
+  },
   "XkA6s1": {
     "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
     "description": "A _what to expect_ point on the sign up page"
@@ -8081,10 +8113,6 @@
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
-  },
-  "Y1zzqe": {
-    "defaultMessage": "Cette liste de compétences est en cours d’élaboration. De nouvelles compétences sont ajoutées de façon continue.",
-    "description": "Message for skills page"
   },
   "Y2C4Nc": {
     "defaultMessage": "Protection des renseignements personnels",
@@ -8161,6 +8189,10 @@
   "YImugL": {
     "defaultMessage": "Processus actifs de recrutement de talents",
     "description": "Title for the current jobs recruiting candidates"
+  },
+  "YIszvd": {
+    "defaultMessage": "Définir et organiser les compétences",
+    "description": "Heading for more info on skills"
   },
   "YIt7Su": {
     "defaultMessage": "Effectuez le suivi de cette demande en réglant l’état approprié.",
@@ -8806,6 +8838,10 @@
     "defaultMessage": "Classification de la personne de référence",
     "description": "Label for the advancement referece classification"
   },
+  "bCjOSf": {
+    "defaultMessage": "Comme les compétences sont utilisées pour associer les personnes qualifiées aux demandes des gestionnaires d’embauche, nous évitons d’ajouter dans la bibliothèque de nombreuses compétences dont les descriptions sont très semblables, car si un trop grand nombre de compétences se chevauchent, les possibilités de jumelage sont réduites.",
+    "description": "Paragraph three, describing the skills on the platform"
+  },
   "bDmp5T": {
     "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on career timeline, paragraph two"
@@ -9002,10 +9038,6 @@
     "defaultMessage": "Processus de désarchivage",
     "description": "Title to un-archive a process"
   },
-  "c0SFYY": {
-    "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
-    "description": "Help text to tell users to change their filters to find a skill"
-  },
   "c11b35": {
     "defaultMessage": "Groupe, organisation ou collectivité",
     "description": "Label displayed on Community Experience form for organization input"
@@ -9149,6 +9181,10 @@
   "ceofev": {
     "defaultMessage": "Langue de communication",
     "description": "Legend text for communication language preference"
+  },
+  "cgLdec": {
+    "defaultMessage": "<strong>Les compétences techniques</strong> sont des connaissances précises que l’on peut enseigner et qui sont pertinentes pour certains emplois ou postes au sein d’une organisation. On les acquiert habituellement au cours d’études, de formations ou d’une expérience de travail pratique.",
+    "description": "Definition of technical skills"
   },
   "chnoRd": {
     "defaultMessage": "Type d’expérience",
@@ -9966,6 +10002,10 @@
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
   },
+  "fugmiC": {
+    "defaultMessage": "Descriptions",
+    "description": "Heading for skill descriptions"
+  },
   "fvsYkj": {
     "defaultMessage": "Qu’est-ce que j’apprendrai dans le cadre de ce programme d’apprentissage?",
     "description": "What applicants will learn sections heading"
@@ -10165,6 +10205,10 @@
   "gZaILA": {
     "defaultMessage": "Apprenez-en davantage sur la <directiveLink>Directive sur les talents numériques</directiveLink>.",
     "description": "Link to more information on the directive."
+  },
+  "gauaKV": {
+    "defaultMessage": "Les compétences sur Talents numériques du GC",
+    "description": "Heading for section describing the skills of the platform"
   },
   "gbquTr": {
     "defaultMessage": "Soumis",
@@ -10880,6 +10924,14 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
+  },
+  "jjI+kS": {
+    "defaultMessage": "Les compétences sont divisées en deux catégories : les compétences techniques et les compétences comportementales.",
+    "description": "Lead-in text for skill category definitions"
+  },
+  "jjyMUr": {
+    "defaultMessage": "Catégories",
+    "description": "Heading of section describing skill categories"
   },
   "jkY75T": {
     "defaultMessage": "Créez le volet de travail",
@@ -11945,6 +11997,10 @@
     "defaultMessage": "J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
     "description": "Label displayed on Personal Experience form for disclaimer checkbox"
   },
+  "oX+gRz": {
+    "defaultMessage": "Sur Talents numériques du GC, avoir une compétence signifie posséder la capacité ou les compétences démontrées correspondant aux compétences de la description de poste, acquises au moyen d’un programme d’études ou d’une expérience de travail.",
+    "description": "Important information defining the term 'skills'"
+  },
   "oX23Z+": {
     "defaultMessage": "Excellent travail! Au tour de votre parcours professionnel.",
     "description": "Page title for the application career timeline introduction page"
@@ -12340,6 +12396,10 @@
   "q+bkac": {
     "defaultMessage": "Davantage de renseignements sur l’équité en matière d’emploi",
     "description": "Heading for opening the accordion with information on employment equity"
+  },
+  "q/yawx": {
+    "defaultMessage": "En mettant l’accent sur les compétences mesurables, la plateforme réduit les préjugés, élimine les obstacles et favorise la diversité et l’équité, car elle valorise les habiletés acquises grâce à un parcours d’apprentissage non traditionnel, à l’expérience vécue et à une expérience de travail dans l’industrie.",
+    "description": "Paragraph two, describing skills-based recruitment"
   },
   "q0kxlX": {
     "defaultMessage": "{lateralMovementNominationCount, plural, =0 {Mutation latérale} other {Mutation latérale (#)}}",
@@ -12977,6 +13037,10 @@
     "defaultMessage": "Sélectionnez une classification",
     "description": "Placeholder displayed on the pool form classification field."
   },
+  "tFTgMt": {
+    "defaultMessage": "Les compétences sont au cœur des processus de recrutement déployés sur Talents numériques du GC. Le recrutement axé sur les compétences vise à trouver des talents détenant des compétences précises.",
+    "description": "Paragraph one, describing skills-based recruitment"
+  },
   "tGTM5i": {
     "defaultMessage": "J'ai suivi ce programme avec succès.",
     "description": "Option for the 'completed' choice of program participation"
@@ -13505,6 +13569,10 @@
     "defaultMessage": "Politiques connexes",
     "description": "Heading for the related policies card"
   },
+  "vc9lfk": {
+    "defaultMessage": "Raison d’être de la bibliothèque de compétences",
+    "description": "Heading for section describing the purpose of the skills library"
+  },
   "vfXTEA": {
     "defaultMessage": "3. Bons pour examens de certification",
     "description": "Title for cert exam card"
@@ -13704,6 +13772,10 @@
   "wW4ymk": {
     "defaultMessage": "Homme autochtone travaillant au sein de l'équipe chargée des politiques à l'aide d'un portable.",
     "description": "Description of a decorative image of a man and a laptop"
+  },
+  "wWG23z": {
+    "defaultMessage": "<strong>Les compétences comportementales</strong> englobent les aptitudes personnelles permettant d’interagir avec les autres, l’intelligence émotionnelle et les capacités cognitives qui sont essentielles dans tous les postes et grâce auxquelles vous pouvez contribuer à la culture de votre organisation et aider votre équipe à accomplir son travail.",
+    "description": "Definition of behavioural skills"
   },
   "wWLIot": {
     "defaultMessage": "Les fonctionnaires du gouvernement fédéral travaillant ou non au sein de l’administration publique centrale (APC) peuvent avoir recours aux bassins d’emplois et aux nouvelles offres d’emploi sur la plateforme, et peuvent s’y inscrire en tant que personnes touchées par un réaménagement des effectifs et à la recherche d’un nouveau poste (à condition d’avoir reçu une lettre sur le réaménagement des effectifs de leur ministère ou organisme). Cela dit, seules les personnes titulaires de postes permanents au sein de l’APC peuvent échanger leur poste entre elles.",
