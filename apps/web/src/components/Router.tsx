@@ -175,9 +175,9 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                 {
                   index: true,
                   lazy: () =>
-                    import(
-                      "../pages/HumanResources/PlatformResourcesForProfessionalsPage"
-                    ).then(convert),
+                    import("../pages/HumanResources/PlatformResourcesForProfessionalsPage").then(
+                      convert,
+                    ),
                 },
               ],
             },
