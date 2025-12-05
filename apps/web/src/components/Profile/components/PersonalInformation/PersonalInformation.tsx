@@ -4,13 +4,7 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
 
-import {
-  Notice,
-  Link,
-  Loading,
-  ToggleSection,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Link, Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -192,16 +186,19 @@ const PersonalInformation = ({
         </Notice.Root>
       ) : null}
       {pool && emptyRequiredNonEmail && (
-        <Well color="error">
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "You are missing required personal information.",
-              id: "QceO8G",
-              description:
-                "Error message displayed when a users personal information is incomplete",
-            })}
-          </p>
-        </Well>
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You are missing required personal information.",
+                id: "QceO8G",
+                description:
+                  "Error message displayed when a users personal information is incomplete",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>

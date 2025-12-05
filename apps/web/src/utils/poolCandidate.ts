@@ -175,13 +175,13 @@ const getFinalDecisionChipColor = (
     case FinalDecision.QualifiedRemoved:
     case FinalDecision.QualifiedExpired:
     case FinalDecision.ToAssessRemoved:
-      return "black";
+      return "gray";
     case FinalDecision.Qualified:
     case FinalDecision.QualifiedPlaced:
     case FinalDecision.QualifiedPending:
       return "success";
     default:
-      return "black";
+      return "gray";
   }
 };
 
@@ -423,7 +423,7 @@ export const getApplicationStatusChip = (
   if (!submittedAt) {
     if (closingDate && isPast(parseDateTimeUtc(closingDate))) {
       return {
-        color: "black",
+        color: "gray",
         label: intl.formatMessage(applicationStatusLabels.EXPIRED),
         description: intl.formatMessage(applicationStatusDescriptions.EXPIRED),
         value: applicationStatus.EXPIRED,
@@ -445,7 +445,7 @@ export const getApplicationStatusChip = (
   ) {
     if (areaOfSelection === PoolAreaOfSelection.Employees) {
       return {
-        color: "black",
+        color: "gray",
         label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
@@ -462,7 +462,7 @@ export const getApplicationStatusChip = (
       };
     } else {
       return {
-        color: "black",
+        color: "gray",
         label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC,

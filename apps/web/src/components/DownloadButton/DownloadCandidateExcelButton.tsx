@@ -7,21 +7,21 @@ import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelect
 
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
-interface DownloadAllCandidateTableCsvButtonProps {
+interface DownloadCandidateExcelButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
-  onClickDownloadCandidates: () => void;
+  onClick: (withROD?: boolean) => void;
   onClickDownloadUsers: () => void;
 }
 
-const DownloadAllCandidateTableCsvButton = ({
+const DownloadCandidateExcelButton = ({
   inTable,
   isDownloading,
-  onClickDownloadCandidates,
+  onClick,
   onClickDownloadUsers,
   disabled,
-}: DownloadAllCandidateTableCsvButtonProps) => {
+}: DownloadCandidateExcelButtonProps) => {
   const intl = useIntl();
 
   return (
@@ -50,14 +50,20 @@ const DownloadAllCandidateTableCsvButton = ({
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
-        <DropdownMenu.Item
-          disabled={disabled}
-          onSelect={() => onClickDownloadCandidates()}
-        >
+        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(false)}>
           {intl.formatMessage({
-            defaultMessage: "Download applications CSV",
-            id: "3DIalV",
-            description: "Button label to download selected candidates CSV",
+            defaultMessage: "Download Excel without assessments",
+            id: "Ji6+E5",
+            description:
+              "Button label for download candidate excel without ROD data.",
+          })}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(true)}>
+          {intl.formatMessage({
+            defaultMessage: "Download Excel with assessments",
+            id: "pHwRH1",
+            description:
+              "Button label for download candidate excel with ROD data.",
           })}
         </DropdownMenu.Item>
         <DropdownMenu.Item
@@ -76,4 +82,4 @@ const DownloadAllCandidateTableCsvButton = ({
   );
 };
 
-export default DownloadAllCandidateTableCsvButton;
+export default DownloadCandidateExcelButton;

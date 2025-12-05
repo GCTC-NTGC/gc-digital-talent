@@ -85,7 +85,6 @@ import TableOfContents, {
 import Tabs from "./components/Tabs/Tabs";
 import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
-import Well, { WellProps } from "./components/Well/Well";
 import TreeView from "./components/TreeView/TreeView";
 import {
   incrementHeadingRank,
@@ -138,7 +137,6 @@ export type {
   TocListItemProps,
   TocListProps,
   TocSidebarProps,
-  WellProps,
 };
 
 export {
@@ -200,7 +198,6 @@ export {
   ToggleGroup,
   ToggleSection,
   TreeView,
-  Well,
 };
 
 export {

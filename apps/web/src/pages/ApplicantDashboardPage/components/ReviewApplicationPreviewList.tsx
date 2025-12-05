@@ -3,7 +3,7 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PreviewList, PreviewMetaData, Well } from "@gc-digital-talent/ui";
+import { PreviewList, PreviewMetaData, Notice } from "@gc-digital-talent/ui";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import {
@@ -202,23 +202,25 @@ const ReviewApplicationPreviewList = ({
             })}
         </PreviewList.Root>
       ) : (
-        <Well className="text-center">
-          <p className="font-bold">
+        <Notice.Root className="text-center">
+          <Notice.Title>
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active applications at the moment.",
               id: "Y93ht7",
               description: "Title for notice when there are no applications",
             })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
-              id: "0K7Upw",
-              description: "Body for notice when there are no applications",
-            })}
-          </p>
-        </Well>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
+                id: "0K7Upw",
+                description: "Body for notice when there are no applications",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
     </>
   );

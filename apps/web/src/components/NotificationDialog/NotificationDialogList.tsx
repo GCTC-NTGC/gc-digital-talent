@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import NotificationItem from "../NotificationList/NotificationItem";
 
@@ -36,23 +36,25 @@ const NotificationDialogList = ({
       ))}
     </ul>
   ) : (
-    <Well className="mx-6">
-      <p className="mb-6 font-bold">
+    <Notice.Root className="mx-6">
+      <Notice.Title>
         {intl.formatMessage({
           defaultMessage: "You don't have any new notifications.",
           id: "6cr+Qy",
           description: "Title for the no notifications message",
         })}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Check back here for alerts about a variety of activities on the platform, including job opportunities, new features, and more.",
-          id: "d4aLWc",
-          description: "Explanation of how the list of notifications work",
-        })}
-      </p>
-    </Well>
+      </Notice.Title>
+      <Notice.Content>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Check back here for alerts about a variety of activities on the platform, including job opportunities, new features, and more.",
+            id: "d4aLWc",
+            description: "Explanation of how the list of notifications work",
+          })}
+        </p>
+      </Notice.Content>
+    </Notice.Root>
   );
 };
 

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { ReactNode, useEffect } from "react";
 
-import { Link, Well } from "@gc-digital-talent/ui";
+import { Link, Notice } from "@gc-digital-talent/ui";
 import { FieldLabels, Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 
@@ -86,22 +86,24 @@ const FormFields = ({ labels }: FormFieldsProps) => {
           },
         ]}
       />
-      <Well id="priority-description" fontSize="caption">
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Priority entitlement is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the Information on Priority Entitlement website</priorityEntitlementLink>.",
-              id: "WpVd0l",
-              description: "Sentence describing what priority entitlement is",
-            },
-            {
-              priorityEntitlementLink: (chunks: ReactNode) =>
-                priorityEntitlementLink(locale, chunks),
-            },
-          )}
-        </p>
-      </Well>
+      <Notice.Root id="priority-description" small>
+        <Notice.Content>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Priority entitlement is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the Information on Priority Entitlement website</priorityEntitlementLink>.",
+                id: "WpVd0l",
+                description: "Sentence describing what priority entitlement is",
+              },
+              {
+                priorityEntitlementLink: (chunks: ReactNode) =>
+                  priorityEntitlementLink(locale, chunks),
+              },
+            )}
+          </p>
+        </Notice.Content>
+      </Notice.Root>
       {hasPriorityEntitlement && (
         <Input
           id="priorityEntitlementNumber"

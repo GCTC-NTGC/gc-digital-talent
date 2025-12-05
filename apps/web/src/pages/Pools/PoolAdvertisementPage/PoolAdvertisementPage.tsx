@@ -17,7 +17,7 @@ import {
   TableOfContents,
   Heading,
   Link,
-  Well,
+  Notice,
   Card,
   Button,
   Separator,
@@ -52,7 +52,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import {
   contactEmailTag,
   formatClassificationString,
-  getFullPoolTitleHtml,
+  getFullPoolTitleLabel,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
@@ -345,7 +345,7 @@ export const PoolPoster = ({
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
-  const fullPoolTitle = getFullPoolTitleHtml(intl, {
+  const fullPoolTitle = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
@@ -623,21 +623,23 @@ export const PoolPoster = ({
                 </div>
               </div>
               {showSpecialNote && (
-                <Well className="my-6">
-                  <Heading level="h3" size="h6" className="mt-0 text-base">
+                <Notice.Root className="my-6">
+                  <Notice.Title as="h3">
                     {intl.formatMessage({
                       defaultMessage: "Special note for this process",
                       id: "cbwWa0",
                       description:
                         "Heading for a special note in pool advertisement.",
                     })}
-                  </Heading>
-                  <RichTextRenderer
-                    node={htmlToRichTextJSON(
-                      getLocalizedName(pool.specialNote, intl),
-                    )}
-                  />
-                </Well>
+                  </Notice.Title>
+                  <Notice.Content>
+                    <RichTextRenderer
+                      node={htmlToRichTextJSON(
+                        getLocalizedName(pool.specialNote, intl),
+                      )}
+                    />
+                  </Notice.Content>
+                </Notice.Root>
               )}
               <AreaOfSelectionWell poolQuery={pool} />
 

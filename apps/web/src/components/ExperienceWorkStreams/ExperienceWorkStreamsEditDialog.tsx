@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { Button, Dialog, Well } from "@gc-digital-talent/ui";
+import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -150,16 +150,18 @@ const ExperienceWorkStreamsEditDialog = ({
                   />
                 )}
                 {!communityValue ? (
-                  <Well className="text-center">
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Select a functional community to continue.",
-                        id: "yKpbHC",
-                        description: "Message when no community selected",
-                      })}
-                    </p>
-                  </Well>
+                  <Notice.Root className="text-center">
+                    <Notice.Content>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "Select a functional community to continue.",
+                          id: "yKpbHC",
+                          description: "Message when no community selected",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
                 ) : (
                   <>
                     <p>

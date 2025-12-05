@@ -268,21 +268,21 @@ const Actions = ({
                   })}
                 </Button>
               </span>
-              {(download?.csv?.enable || download?.doc?.enable) && (
+              {(download?.spreadsheet?.enable || download?.doc?.enable) && (
                 <span className="flex items-center gap-x-1.5 sm:gap-x-3">
-                  {download?.csv?.enable && (
+                  {download?.spreadsheet?.enable && (
                     <>
                       <Bullet />
-                      {download.csv.component ?? (
+                      {download.spreadsheet.component ?? (
                         <Button
                           {...actionButtonStyles}
                           onClick={
                             count > 0
-                              ? download.csv.onClick
+                              ? download.spreadsheet.onClick
                               : handleNoRowsSelected
                           }
-                          disabled={download.csv.downloading}
-                          {...(download.csv.downloading && {
+                          disabled={download.spreadsheet.downloading}
+                          {...(download.spreadsheet.downloading && {
                             icon: SpinnerIcon,
                           })}
                         >

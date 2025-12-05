@@ -16,7 +16,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
-class CandidateCsvGenerationTest extends TestCase
+class CandidateExcelGenerationTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
@@ -58,28 +58,28 @@ class CandidateCsvGenerationTest extends TestCase
 
     }
 
-    public function testCandidateCsvGenerated()
+    public function testCandidateExcelGenerated()
     {
         Queue::fake();
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(/** GraphQL */ '
-                mutation DownloadPoolCandidatesCsv($ids: [UUID!]!) {
-                    downloadPoolCandidatesCsv(ids: $ids)
+                mutation DownloadPoolCandidatesExcel($ids: [UUID!]!) {
+                    downloadPoolCandidatesExcel(ids: $ids)
                 }
             ', ['ids' => [$this->candidate->id]]);
 
         Queue::assertPushed(GenerateUserFile::class);
     }
 
-    public function testCandidateCsvGeneratedWithROD()
+    public function testCandidateExcelGeneratedWithROD()
     {
         Queue::fake();
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(/** GraphQL */ '
-                mutation DownloadPoolCandidatesCsv($ids: [UUID!]!, $withROD: Boolean) {
-                    downloadPoolCandidatesCsv(ids: $ids, withROD: $withROD)
+                mutation DownloadPoolCandidatesExcel($ids: [UUID!]!, $withROD: Boolean) {
+                    downloadPoolCandidatesExcel(ids: $ids, withROD: $withROD)
                 }
             ', ['ids' => [$this->candidate->id], 'withROD' => true]);
 

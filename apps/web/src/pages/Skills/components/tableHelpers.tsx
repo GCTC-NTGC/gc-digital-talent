@@ -8,7 +8,6 @@ import {
   Skill,
   SkillFamily,
 } from "@gc-digital-talent/graphql";
-import { UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 export function categoryAccessor(
   category: Maybe<LocalizedSkillCategory>,
@@ -21,7 +20,6 @@ export function skillFamiliesCell(
   skillFamilies: Maybe<Maybe<SkillFamily>[]> | undefined,
   intl: IntlShape,
 ) {
-  const maxCharacterCount = 50;
   const familyNames = skillFamilies
     ?.filter(notEmpty)
     .sort()
@@ -30,16 +28,7 @@ export function skillFamiliesCell(
   familyNames?.sort((a, b) => a.localeCompare(b));
 
   const familyItems = familyNames?.map((familyName) => (
-    <li key={familyName}>
-      {familyName.length < maxCharacterCount ? (
-        familyName
-      ) : (
-        <>
-          {familyName.slice(0, maxCharacterCount)}
-          <span>{UNICODE_CHAR.ELLIPSE}</span>
-        </>
-      )}
-    </li>
+    <li key={familyName}>{familyName}</li>
   ));
 
   return familyItems ? <ul>{familyItems}</ul> : null;

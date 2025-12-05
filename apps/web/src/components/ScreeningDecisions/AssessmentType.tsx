@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Accordion, Well } from "@gc-digital-talent/ui";
+import { Accordion, Notice } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getSkillLevelDefinition,
@@ -87,7 +87,9 @@ const AssessmentType = ({
           })}
         </p>
         {educationRequirementOption ? (
-          <Well className="mb-6 text-left">{educationRequirementOption}</Well>
+          <Notice.Root className="mb-6 text-left">
+            <Notice.Content>{educationRequirementOption}</Notice.Content>
+          </Notice.Root>
         ) : (
           <p className="mb-3 ml-1.5">
             {intl.formatMessage(commonMessages.notFound)}
@@ -112,53 +114,55 @@ const AssessmentType = ({
   });
 
   return (
-    <Well className="mb-6 text-center">
-      <Accordion.Root type="single" collapsible>
-        <Accordion.Item value="skill">
-          <Accordion.Trigger>
-            {skillLevel
-              ? intl.formatMessage(
-                  {
-                    defaultMessage: `See definitions for "{skillName}" and "{skillLevel}"`,
-                    id: "o5zW6Y",
-                    description:
-                      "Accordion title for skill and skill level header on screening decision dialog.",
-                  },
-                  { skillName, skillLevel },
-                )
-              : intl.formatMessage(
-                  {
-                    defaultMessage: `See definitions for "{skillName}"`,
-                    id: "ZZpC8s",
-                    description:
-                      "Accordion title for skill header on screening decision dialog.",
-                  },
-                  { skillName },
-                )}
-          </Accordion.Trigger>
-          <Accordion.Content className="text-left">
-            <p className="mb-6 font-bold">{skillName}</p>
-            <p>
-              {poolSkill?.skill?.description?.localized ??
-                intl.formatMessage(commonMessages.notAvailable)}
-            </p>
-            {poolSkill?.requiredLevel && poolSkill.skill?.category.value ? (
-              <>
-                <p className="my-6 font-bold">{skillLevel}</p>
-                <p>
-                  {intl.formatMessage(
-                    getSkillLevelDefinition(
-                      poolSkill.requiredLevel,
-                      poolSkill.skill.category.value,
-                    ),
+    <Notice.Root className="mb-6 text-center">
+      <Notice.Content>
+        <Accordion.Root type="single" collapsible>
+          <Accordion.Item value="skill">
+            <Accordion.Trigger>
+              {skillLevel
+                ? intl.formatMessage(
+                    {
+                      defaultMessage: `See definitions for "{skillName}" and "{skillLevel}"`,
+                      id: "o5zW6Y",
+                      description:
+                        "Accordion title for skill and skill level header on screening decision dialog.",
+                    },
+                    { skillName, skillLevel },
+                  )
+                : intl.formatMessage(
+                    {
+                      defaultMessage: `See definitions for "{skillName}"`,
+                      id: "ZZpC8s",
+                      description:
+                        "Accordion title for skill header on screening decision dialog.",
+                    },
+                    { skillName },
                   )}
-                </p>
-              </>
-            ) : null}
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion.Root>
-    </Well>
+            </Accordion.Trigger>
+            <Accordion.Content className="text-left">
+              <p className="mb-6 font-bold">{skillName}</p>
+              <p>
+                {poolSkill?.skill?.description?.localized ??
+                  intl.formatMessage(commonMessages.notAvailable)}
+              </p>
+              {poolSkill?.requiredLevel && poolSkill.skill?.category.value ? (
+                <>
+                  <p className="my-6 font-bold">{skillLevel}</p>
+                  <p>
+                    {intl.formatMessage(
+                      getSkillLevelDefinition(
+                        poolSkill.requiredLevel,
+                        poolSkill.skill.category.value,
+                      ),
+                    )}
+                  </p>
+                </>
+              ) : null}
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>
+      </Notice.Content>
+    </Notice.Root>
   );
 };
 

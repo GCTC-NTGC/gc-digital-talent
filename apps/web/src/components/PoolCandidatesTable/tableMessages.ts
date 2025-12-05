@@ -79,6 +79,11 @@ const messages = defineMessages({
     id: "7g4Mvc",
     description: "Title displayed on the Pool Candidates table bookmark column",
   },
+  flag: {
+    defaultMessage: "Flagged",
+    id: "Fwapx7",
+    description: "Title displayed on the Pool Candidates table flag column",
+  },
 });
 
 export default messages;

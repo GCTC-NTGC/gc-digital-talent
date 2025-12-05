@@ -13,7 +13,7 @@ import {
   getLocalizedName,
   sortPlacementType,
 } from "@gc-digital-talent/i18n";
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   getFragment,
@@ -154,20 +154,20 @@ const JobPlacementForm = ({ optionsQuery }: JobPlacementFormProps) => {
       {(watchPlacementType === PlacementType.UnderConsideration ||
         watchPlacementType === PlacementType.PlacedTerm ||
         watchPlacementType === PlacementType.PlacedIndeterminate) && (
-        <Well>
-          <p className="mb-1.5 font-bold">
-            {enumLabelMap.get(watchPlacementType)}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This candidate will not appear in talent request results based on this process.",
-              id: "dDrs39",
-              description:
-                "Notice that candidates under consideration do not appear in talent search requests",
-            })}
-          </p>
-        </Well>
+        <Notice.Root>
+          <Notice.Title>{enumLabelMap.get(watchPlacementType)}</Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This candidate will not appear in talent request results based on this process.",
+                id: "dDrs39",
+                description:
+                  "Notice that candidates under consideration do not appear in talent search requests",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
     </div>
   );

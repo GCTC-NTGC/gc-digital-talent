@@ -10,7 +10,7 @@ import {
   Button,
   incrementHeadingRank,
   Separator,
-  Well,
+  Notice,
   useControllableState,
   Ul,
   UNICODE_CHAR,
@@ -617,17 +617,19 @@ const ExperienceCard = ({
                       ))}
                     </Ul>
                   ) : (
-                    <Well>
-                      <p className="text-center">
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "No skills have been linked to this experience.",
-                          id: "exxM/M",
-                          description:
-                            "Text displayed when no skills have been linked to an experience",
-                        })}
-                      </p>
-                    </Well>
+                    <Notice.Root>
+                      <Notice.Content>
+                        <p className="text-center">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "No skills have been linked to this experience.",
+                            id: "exxM/M",
+                            description:
+                              "Text displayed when no skills have been linked to an experience",
+                          })}
+                        </p>
+                      </Notice.Content>
+                    </Notice.Root>
                   )}
                 </div>
               </>

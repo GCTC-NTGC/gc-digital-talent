@@ -94,7 +94,8 @@ const list = tv({
 type ListVariants = VariantProps<typeof list>;
 
 interface ListProps
-  extends ListVariants,
+  extends
+    ListVariants,
     ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List> {}
 
 const List = forwardRef<
@@ -182,7 +183,8 @@ const navMenuLink = tv({
 type NavMenuLinkTypeVariant = Pick<VariantProps<typeof navMenuLink>, "type">;
 
 interface IconLinkProps
-  extends NavMenuLinkTypeVariant,
+  extends
+    NavMenuLinkTypeVariant,
     Omit<
       ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
       "type" | "color" | "href"
@@ -227,7 +229,8 @@ const IconLink = forwardRef<
 });
 
 interface LinkProps
-  extends NavMenuLinkTypeVariant,
+  extends
+    NavMenuLinkTypeVariant,
     Pick<BaseLinkProps, "color" | "icon" | "mode" | "href" | "end">,
     Omit<
       ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,

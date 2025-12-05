@@ -1,0 +1,136 @@
+import { useIntl } from "react-intl";
+import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
+import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
+
+import { IconButton } from "@gc-digital-talent/ui";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+
+import { getFullNameLabel } from "~/utils/nameUtils";
+import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
+
+export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidate_Flag on PoolCandidate {
+    id
+    isFlagged
+    user {
+      id
+      firstName
+      lastName
+    }
+    pool {
+      workStream {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        group
+        level
+      }
+    }
+  }
+`);
+
+export const PoolCandidateCandidateTable_FlagFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidateTable_Flag on PoolCandidateAdminView {
+    id
+    isFlagged
+    user {
+      id
+      firstName
+      lastName
+    }
+  }
+`);
+
+interface CandidateFlagProps {
+  candidateQuery: FragmentType<typeof PoolCandidate_FlagFragment>;
+  onFlagChange?: (newIsFlagged: boolean) => void;
+  flagged?: boolean;
+  size?: "sm" | "md" | "lg";
+}
+
+const CandidateFlag = ({
+  candidateQuery,
+  flagged,
+  onFlagChange,
+  size = "md",
+}: CandidateFlagProps) => {
+  const intl = useIntl();
+  const candidate = getFragment(PoolCandidate_FlagFragment, candidateQuery);
+
+  const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
+    useCandidateFlagToggle({
+      id: candidate.id,
+      onChange: onFlagChange,
+      value: flagged,
+      defaultValue: candidate?.isFlagged ?? false,
+      candidateInfo: {
+        firstName: candidate.user.firstName,
+        lastName: candidate.user.lastName,
+        workStream: candidate.pool.workStream,
+        name: candidate.pool.name,
+        publishingGroup: candidate.pool.publishingGroup,
+        classification: candidate.pool.classification,
+      },
+    });
+
+  return (
+    <IconButton
+      color={isFlagged ? "warning" : "black"}
+      onClick={toggleFlag}
+      disabled={isUpdatingFlag}
+      icon={isFlagged ? FlagIconSolid : FlagIconOutline}
+      size={size}
+      label={
+        isFlagged
+          ? intl.formatMessage(
+              {
+                defaultMessage:
+                  "Remove {candidateName}'s flag for authorized users.",
+                id: "EhRf8u",
+                description:
+                  "Un-flag button label for applicant assessment tracking.",
+              },
+              {
+                candidateName: getFullNameLabel(
+                  candidate.user.firstName,
+                  candidate.user.lastName,
+                  intl,
+                ),
+              },
+            )
+          : intl.formatMessage(
+              {
+                defaultMessage: "Flag {candidateName} to authorized users.",
+                id: "zYSicn",
+                description:
+                  "Flag button label for applicant assessment tracking.",
+              },
+              {
+                candidateName: getFullNameLabel(
+                  candidate.user.firstName,
+                  candidate.user.lastName,
+                  intl,
+                ),
+              },
+            )
+      }
+    />
+  );
+};
+
+export default CandidateFlag;

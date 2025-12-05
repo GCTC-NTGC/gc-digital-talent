@@ -198,7 +198,7 @@ export default (
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
           essentialSkillCount,
-          0,
+          1,
         );
       default:
         return generatePool(
