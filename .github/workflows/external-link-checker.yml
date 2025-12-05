@@ -64,8 +64,15 @@ jobs:
           webhook-type: incoming-webhook
           payload: |
             {
-              "text": "External Link Checker - Broken Links Detected :warning:",
+              "text": ":warning: External Link Checker - Broken Links Detected",
               "blocks": [
+                 {
+                  "type": "header",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":warning: External Link Checker - Failed"
+                  }
+                },
                 {
                   "type": "section",
                   "text": {
@@ -77,13 +84,13 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Please review the broken links and take necessary actions. :mag_right:"
+                    "text": "Please review the artifacts and take necessary actions. :mag_right:"
                   },
                   "accessory": {
                     "type": "button",
                     "text": {
                       "type": "plain_text",
-                      "text": "View Workflow Run",
+                      "text": "View Artifacts",
                       "emoji": true
                     },
                     "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
