@@ -1,7 +1,12 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Heading, Separator, ThrowNotFound, Well } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Notice,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import {
   graphql,
   PoolAreaOfSelection,
@@ -130,16 +135,19 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           {applicationEmailVerification && (
             <>
               {!isWorkEmailVerifiedForInternalJobs && (
-                <Well color="error" className="col-span-2">
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "A verified contact email is required",
-                      id: "VgvpH0",
-                      description:
-                        "Body for a message informing the user that a contact email is required.",
-                    })}
-                  </p>
-                </Well>
+                <Notice.Root color="error" className="col-span-2">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
+                        id: "KWgx7f",
+                        description:
+                          "Body for a message informing the user that a contact email is required.",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
               )}
             </>
           )}
