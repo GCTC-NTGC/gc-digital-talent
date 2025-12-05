@@ -1,7 +1,9 @@
 import {
+  CandidateRemovalReason,
   EducationRequirementOption,
   PoolCandidate,
   PoolCandidateStatus,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
@@ -154,5 +156,47 @@ export const updateCandidateStatus: GraphQLRequestFunc<
     .then(
       (res: GraphQLResponse<"updatePoolCandidateStatus", PoolCandidate>) =>
         res.updatePoolCandidateStatus,
+    );
+};
+
+const Test_RemoveCandidateMutationDocument = /* GraphQL */ `
+  mutation Test_RemoveCandidate(
+    $id: UUID!
+    $removalReason: CandidateRemovalReason!
+    $removalReasonOther: String
+  ) {
+    removeCandidate(
+      id: $id
+      removalReason: $removalReason
+      removalReasonOther: $removalReasonOther
+    ) {
+      id
+      removedAt
+    }
+  }
+`;
+
+interface RemoveCandidateArgs {
+  id: Scalars["UUID"]["input"];
+  removalReason: CandidateRemovalReason;
+  removalReasonOther?: string;
+}
+
+export const removeCandidate: GraphQLRequestFunc<
+  PoolCandidate,
+  RemoveCandidateArgs
+> = async (ctx, { id, removalReason, removalReasonOther }) => {
+  return ctx
+    .post(Test_UpdateApplicationStatusMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        id,
+        removalReason,
+        removalReasonOther,
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"removeCandidate", PoolCandidate>) =>
+        res.removeCandidate,
     );
 };
