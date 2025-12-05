@@ -3,6 +3,7 @@ import { uiConfig } from "@gc-digital-talent/vitest-helpers/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import { GLOBAL_A11Y_EXCLUDES } from "@gc-digital-talent/storybook-helpers";
 
 const dirname =
   typeof __dirname !== "undefined"

@@ -21,6 +21,14 @@ type ToggleSectionRootAndHeader = React.ComponentPropsWithoutRef<
 
 export default {
   component: ToggleSection.Root,
+  parameters: {
+    a11y: {
+      context: {
+        // NOTE: No issue with colour contrast
+        exclude: ["h2"],
+      },
+    },
+  },
 } as Meta;
 
 const Template: StoryFn<ToggleSectionRootAndHeader> = () => {

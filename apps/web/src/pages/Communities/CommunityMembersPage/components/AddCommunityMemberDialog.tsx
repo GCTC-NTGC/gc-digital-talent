@@ -23,6 +23,7 @@ import {
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
+import adminMessages from "~/messages/adminMessages";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -168,12 +169,7 @@ AddCommunityMemberDialogProps) => {
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage({
-                    defaultMessage: "User",
-                    id: "9QZhR4",
-                    description:
-                      "Label for the user select field on community membership form",
-                  })}
+                  label={intl.formatMessage(adminMessages.user)}
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="communityId" value={community.id} />
