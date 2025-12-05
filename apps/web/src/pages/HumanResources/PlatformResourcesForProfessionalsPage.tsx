@@ -3,7 +3,7 @@ import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriver
 import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationChartBarIcon";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { ReactNode, useState } from "react";
 
 import {
@@ -54,11 +54,7 @@ export const Component = () => {
   const paths = useRoutes();
   const [openFaq, setOpenFaq] = useState<string[]>([]);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Platform resources for HR professionals",
-    id: "yIoVwH",
-    description: "Title for professional HR resources page",
-  });
+  const pageTitle = intl.formatMessage(pageTitles.hrResources);
 
   const desc = intl.formatMessage({
     defaultMessage:

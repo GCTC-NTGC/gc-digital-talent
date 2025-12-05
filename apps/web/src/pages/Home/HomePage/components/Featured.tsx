@@ -45,11 +45,7 @@ const Featured = () => {
     },
     {
       key: "platform-resources",
-      title: intl.formatMessage({
-        defaultMessage: "Platform resources for HR professionals",
-        id: "T+oEYC",
-        description: "Title for HR resources was created",
-      }),
+      title: intl.formatMessage(pageTitles.hrResources),
       summary: (
         <p className="mb-6">
           {intl.formatMessage({

@@ -7031,10 +7031,6 @@
     "defaultMessage": "Décision finale annulée",
     "description": "Message displayed when a pool candidate final decision has been updated by an admin"
   },
-  "T+oEYC": {
-    "defaultMessage": "Ressources de la plateforme pour les spécialistes en RH",
-    "description": "Title for HR resources was created"
-  },
   "T+ypau": {
     "defaultMessage": "Code de vérification",
     "description": "label for verification code input"
@@ -14222,7 +14218,7 @@
     "description": "Aria label for previous page button in pagination nav"
   },
   "yIoVwH": {
-    "defaultMessage": "Ressources de la plateforme pour les spécialistes des HR",
+    "defaultMessage": "Ressources de la plateforme pour les spécialistes en RH",
     "description": "Title for professional HR resources page"
   },
   "yJb1d/": {
