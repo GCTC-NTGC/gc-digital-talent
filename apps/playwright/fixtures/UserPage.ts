@@ -56,12 +56,11 @@ class UserPage extends AppPage {
   }
 
   async searchUserByName(name: string, searchType: string) {
-    await this.goToIndex();
     await this.page.getByRole("button", { name: /filter by/i }).click();
     await this.page
       .getByRole("menuitemradio", { name: new RegExp(searchType, "i") })
       .click();
-    await this.page.getByRole("textbox", { name: /search users/i }).fill(name);
+    await this.page.getByRole("textbox", { name: /search/i }).fill(name);
   }
 }
 

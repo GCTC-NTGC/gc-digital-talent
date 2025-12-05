@@ -656,6 +656,9 @@ type PoolCandidate {
   statusWeight: Int
     @rename(attribute: "status_weight")
     @canRoot(ability: "viewStatus")
+  screeningStage: LocalizedScreeningStage
+    @rename(attribute: "screening_stage")
+    @canRoot(ability: "viewStatus")
   notes: String @canRoot(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
@@ -739,6 +742,7 @@ type PoolCandidateAdminView {
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
+  screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
   category: PoolCandidateCategory @with(relation: "user")
@@ -2251,6 +2255,17 @@ input UpdatePoolCandidateClaimVerificationInput @validator {
     @rename(attribute: "priority_verification_expiry")
 }
 
+input UpdatePoolCandidateScreeningStageInput @validator {
+  id: UUID!
+  screeningStage: ScreeningStage! @rename(attribute: "screening_stage")
+  assessmentStep: AssessmentStepBelongsTo
+}
+
+input AssessmentStepBelongsTo {
+  connect: UUID
+  disconnect: Boolean
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
 }
@@ -3202,6 +3217,11 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateNotes", find: "id")
+  updatePoolCandidateScreeningStage(
+    poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   removeCandidate(
     id: UUID!
     removalReason: CandidateRemovalReason!

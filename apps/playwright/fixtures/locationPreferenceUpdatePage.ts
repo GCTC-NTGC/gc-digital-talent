@@ -16,6 +16,11 @@ const FIELD = {
   LOCATION_EXCLUSIONS: "locationExclusions",
   TELEWORK_OPTION_LIST_ITEM: "teleworkOptionListItem",
   TELEWORK_OPTION: "teleworkOption",
+  SHOW_HIDE_COLUMNS: "showHideColumns",
+  FLEXIBLE_WORK_LOCATION_COLUMN: "flexibleWorkLocationColumn",
+  CLOSE_WINDOW: "closeWindow",
+  FILTERS: "filters",
+  SHOW_RESULTS: "showResults",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -69,6 +74,15 @@ class LocationPreferenceUpdatePage extends AppPage {
       [FIELD.TELEWORK_OPTION]: page.getByRole("checkbox", {
         name: /Telework/i,
       }),
+      [FIELD.SHOW_HIDE_COLUMNS]: page.getByRole("button", {
+        name: /show or hide columns/i,
+      }),
+      [FIELD.FLEXIBLE_WORK_LOCATION_COLUMN]: page.getByRole("checkbox", {
+        name: /Flexible work location options/i,
+      }),
+      [FIELD.CLOSE_WINDOW]: page.getByRole("button", { name: /Close dialog/i }),
+      [FIELD.FILTERS]: page.getByRole("button", { name: /Filters/i }),
+      [FIELD.SHOW_RESULTS]: page.getByRole("button", { name: /Show results/i }),
     };
   }
 
@@ -84,11 +98,8 @@ class LocationPreferenceUpdatePage extends AppPage {
       await this.locators[
         FIELD.FLEXIBLE_WORK_LOCATION_OPTIONS
       ].allTextContents();
-    const selectedOptions =
-      await this.locators[
-        FIELD.SELECTED_WORK_LOCATION_OPTIONS
-      ].allTextContents();
-    for (const option of selectedOptions) {
+    const workLocOptionsSelected = await this.getSelectedWorkLocOptions();
+    for (const option of workLocOptionsSelected) {
       expect(
         flexWorkLocOptions.some((o) =>
           o.toLowerCase().includes(option.toLowerCase()),
@@ -144,6 +155,53 @@ class LocationPreferenceUpdatePage extends AppPage {
       if (!(await checkbox.isChecked())) {
         await checkbox.check();
       }
+    }
+  }
+
+  async getSelectedWorkLocOptions() {
+    const selectedOptions = this.locators[FIELD.SELECTED_WORK_LOCATION_OPTIONS];
+    return await selectedOptions.allTextContents();
+  }
+
+  async showOrHideColumns() {
+    await this.locators[FIELD.SHOW_HIDE_COLUMNS].click();
+    await expect(
+      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN],
+    ).toBeVisible();
+    await this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN].check();
+    await this.locators[FIELD.CLOSE_WINDOW].click();
+  }
+
+  async filterFlexWorkLocation(
+    locOptions: FlexibleWorkLocation[],
+    regionOptions: WorkRegion[],
+  ) {
+    await this.locators[FIELD.FILTERS].click();
+    await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
+    await expect(
+      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_TITLE],
+    ).toBeVisible();
+    await this.deSelectOptions(this.optionsMap);
+    await this.selectOptions(this.optionsMap, locOptions);
+    await expect(this.locators[FIELD.WORK_LOCATION_PREFERENCE]).toBeVisible();
+    await this.deSelectOptions(this.regionsMap);
+    await this.selectOptions(this.regionsMap, regionOptions);
+    await this.locators[FIELD.SHOW_RESULTS].click();
+  }
+
+  async verifyFlexibleWorkLocationData(userName: string) {
+    await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
+    const selectedFlexOptions = await this.getSelectedWorkLocOptions();
+    const table = this.page.getByRole("table");
+
+    const row = table.getByRole("row", {
+      name: new RegExp(userName, "i"),
+    });
+
+    const rowText = (await row.innerText()).toLowerCase();
+
+    for (const option of selectedFlexOptions) {
+      expect(rowText).toContain(option.toLowerCase());
     }
   }
 }

@@ -52,6 +52,13 @@ class PoolCandidateFactory extends Factory
             'pool_candidate_status' => $this->faker->boolean() ?
                 $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
                 $this->faker->randomElement(PoolCandidateStatus::cases())->name,
+            'screening_stage' => function (array $attributes) {
+                if (in_array($attributes['pool_candidate_status'], PoolCandidateStatus::screeningStageGroup())) {
+                    return $attributes['pool_candidate_status'];
+                }
+
+                return null;
+            },
             'user_id' => User::factory(),
             'pool_id' => Pool::factory()->published(),
             'notes' => $this->faker->paragraphs(3, true),
