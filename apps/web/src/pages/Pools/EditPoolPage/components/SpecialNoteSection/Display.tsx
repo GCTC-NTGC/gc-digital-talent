@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import { EditPoolSpecialNoteFragment } from "@gc-digital-talent/graphql";
 
@@ -49,15 +49,17 @@ const Display = ({
           </ToggleForm.FieldDisplay>
         </div>
       ) : (
-        <Well>
-          {intl.formatMessage({
-            defaultMessage:
-              "This advertisement does not require a special note.",
-            id: "3Bcg0F",
-            description:
-              "Message displayed when there is no special note for a process advertisement.",
-          })}
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            {intl.formatMessage({
+              defaultMessage:
+                "This advertisement does not require a special note.",
+              id: "3Bcg0F",
+              description:
+                "Message displayed when there is no special note for a process advertisement.",
+            })}
+          </Notice.Content>
+        </Notice.Root>
       )}
     </>
   );

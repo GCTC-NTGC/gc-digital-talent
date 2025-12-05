@@ -10,7 +10,7 @@ import {
   ThrowNotFound,
   TableOfContents,
   Pending,
-  Well,
+  Notice,
   Button,
   Dialog,
   Ul,
@@ -72,8 +72,8 @@ const NullExperienceMessage = ({
 }: NullExperienceMessageProps) => {
   const intl = useIntl();
   return (
-    <Well className="text-center">
-      <p className="mb-3 font-bold">
+    <Notice.Root className="text-center">
+      <Notice.Title>
         {hasExperiences
           ? intl.formatMessage({
               defaultMessage:
@@ -89,25 +89,27 @@ const NullExperienceMessage = ({
               description:
                 "Message displayed when user has no experiences to feature on a skill.",
             })}
-      </p>
-      <p>
-        {hasExperiences
-          ? intl.formatMessage({
-              defaultMessage:
-                'You can use the "Link an experience" button provided to feature this skill.',
-              id: "TK0b6n",
-              description:
-                "Instructions displayed when user has experiences but hasn't featured any.",
-            })
-          : intl.formatMessage({
-              defaultMessage:
-                "After you've added a few, you'll be able to feature this skill on one or more of your experiences.",
-              id: "QZeoHp",
-              description:
-                "Instructions displayed when user has no experiences to feature on a skill.",
-            })}
-      </p>
-    </Well>
+      </Notice.Title>
+      <Notice.Content>
+        <p>
+          {hasExperiences
+            ? intl.formatMessage({
+                defaultMessage:
+                  'You can use the "Link an experience" button provided to feature this skill.',
+                id: "TK0b6n",
+                description:
+                  "Instructions displayed when user has experiences but hasn't featured any.",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "After you've added a few, you'll be able to feature this skill on one or more of your experiences.",
+                id: "QZeoHp",
+                description:
+                  "Instructions displayed when user has no experiences to feature on a skill.",
+              })}
+        </p>
+      </Notice.Content>
+    </Notice.Root>
   );
 };
 
@@ -395,8 +397,8 @@ export const UpdateUserSkillForm = ({
                 })}
               </p>
               {skillDescription && (
-                <Well className="my-6">
-                  <p className="mb-3 font-bold">
+                <Notice.Root className="my-6">
+                  <Notice.Title>
                     {intl.formatMessage(
                       {
                         defaultMessage: "Remember, {skillName} is defined as",
@@ -406,9 +408,11 @@ export const UpdateUserSkillForm = ({
                       { skillName },
                     )}
                     {intl.formatMessage(commonMessages.dividingColon)}
-                  </p>
-                  <p>{skillDescription}</p>
-                </Well>
+                  </Notice.Title>
+                  <Notice.Content>
+                    <p>{skillDescription}</p>
+                  </Notice.Content>
+                </Notice.Root>
               )}
               <BasicForm
                 onSubmit={handleSubmit}

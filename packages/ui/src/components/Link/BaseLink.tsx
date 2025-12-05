@@ -8,7 +8,8 @@ import {
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
 export interface BaseLinkProps
-  extends Omit<RouterLinkProps, "to">,
+  extends
+    Omit<RouterLinkProps, "to">,
     Omit<
       DetailedHTMLProps<
         AnchorHTMLAttributes<HTMLAnchorElement>,

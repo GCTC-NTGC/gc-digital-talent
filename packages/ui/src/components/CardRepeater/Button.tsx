@@ -27,8 +27,7 @@ const action = tv({
 type ActionVariants = VariantProps<typeof action>;
 
 interface ActionButtonProps
-  extends ActionVariants,
-    ComponentPropsWithoutRef<typeof IconButton> {}
+  extends ActionVariants, ComponentPropsWithoutRef<typeof IconButton> {}
 
 export const Action = forwardRef<HTMLButtonElement, ActionButtonProps>(
   ({ animation = "none", disabled, ...rest }, ref) => {

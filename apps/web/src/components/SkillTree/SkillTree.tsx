@@ -6,7 +6,7 @@ import {
   Card,
   Heading,
   TreeView,
-  Well,
+  Notice,
   HeadingLevel,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
@@ -82,19 +82,21 @@ const SkillTree = ({
 
   const disclaimer = showDisclaimer ? (
     <TreeView.Item>
-      <Well color="warning">
-        {disclaimerMessage ?? (
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This required skill must have at least 1 career timeline experience associated with it.",
-              id: "+lSoN3",
-              description:
-                "Message that appears when a required skill has no experiences linked to it",
-            })}
-          </p>
-        )}
-      </Well>
+      <Notice.Root color="warning">
+        <Notice.Content>
+          {disclaimerMessage ?? (
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This required skill must have at least 1 career timeline experience associated with it.",
+                id: "+lSoN3",
+                description:
+                  "Message that appears when a required skill has no experiences linked to it",
+              })}
+            </p>
+          )}
+        </Notice.Content>
+      </Notice.Root>
     </TreeView.Item>
   ) : null;
 

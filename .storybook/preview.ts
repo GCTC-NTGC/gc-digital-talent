@@ -1,6 +1,7 @@
 import {
   ContainerDecorator,
   FeatureFlagDecorator,
+  GLOBAL_A11Y_EXCLUDES,
   HelmetDecorator,
   MockGraphqlDecorator,
   ReducedMotionDecorator,
@@ -41,7 +42,6 @@ export const parameters = {
 
   controls: {
     matchers: {
-      color: /(background|color)$/i,
       date: /Date$/,
     },
   },
@@ -68,6 +68,11 @@ export const parameters = {
     // 'error' - fail CI on a11y violations
     // 'off' - skip a11y checks entirely
     test: "error",
+
+    context: {
+      // Exclude some elements from testing
+      exclude: GLOBAL_A11Y_EXCLUDES,
+    },
   },
 };
 

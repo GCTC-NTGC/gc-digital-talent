@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { HeadingRank, Link, Well } from "@gc-digital-talent/ui";
+import { HeadingRank, Link, Notice } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -95,23 +95,27 @@ const CareerTimelineSection = ({
               />
             ))
           ) : (
-            <Well className="text-center">
-              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
-            </Well>
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+              </Notice.Content>
+            </Notice.Root>
           )}
         </div>
       ) : (
-        <Well className="text-center">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "You haven’t added any career timeline items yet.",
-              id: "31HF1c",
-              description:
-                "Message to user when no career timeline items have been attached to profile.",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="text-center">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You haven’t added any career timeline items yet.",
+                id: "31HF1c",
+                description:
+                  "Message to user when no career timeline items have been attached to profile.",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
     </>
   );

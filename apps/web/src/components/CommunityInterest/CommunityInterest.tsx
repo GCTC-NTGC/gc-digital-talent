@@ -122,7 +122,12 @@ const CommunityInterest = ({
             "Label for users interest in job opportunities for a community",
         })}
       </p>
-      <BoolCheckIcon value={communityInterest.jobInterest} className="mb-6">
+      <BoolCheckIcon
+        value={communityInterest.jobInterest}
+        trueLabel={intl.formatMessage(commonMessages.interested)}
+        falseLabel={intl.formatMessage(commonMessages.notInterested)}
+        className="mb-6"
+      >
         {communityInterest.jobInterest ? (
           <span>
             {intl.formatMessage({
@@ -152,6 +157,8 @@ const CommunityInterest = ({
       </p>
       <BoolCheckIcon
         value={communityInterest.trainingInterest}
+        trueLabel={intl.formatMessage(commonMessages.interested)}
+        falseLabel={intl.formatMessage(commonMessages.notInterested)}
         className="mb-6"
       >
         {communityInterest.trainingInterest ? (

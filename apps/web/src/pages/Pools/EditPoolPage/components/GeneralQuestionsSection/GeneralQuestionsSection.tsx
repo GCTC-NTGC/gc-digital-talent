@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import sortBy from "lodash/sortBy";
 
-import { TableOfContents, CardRepeater, Well } from "@gc-digital-talent/ui";
+import { TableOfContents, CardRepeater, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
@@ -114,25 +114,27 @@ const GeneralQuestionsSection = ({
         </CardRepeater.Root>
       </div>
       {questions.length === 0 ? (
-        <Well className="my-6 text-center">
-          <p className="mb-3 font-bold">
+        <Notice.Root className="my-6 text-center">
+          <Notice.Title>
             {intl.formatMessage({
               defaultMessage: "You haven't added any questions yet.",
               id: "jXUnrt",
               description:
                 "Message that appears when there are no general messages for a pool",
             })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                'You can add items using the "Add a new question" button provided.',
-              id: "z4wfGZ",
-              description:
-                "Instructions on how to add a question when there are none",
-            })}
-          </p>
-        </Well>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  'You can add items using the "Add a new question" button provided.',
+                id: "z4wfGZ",
+                description:
+                  "Instructions on how to add a question when there are none",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       ) : null}
     </>
   );

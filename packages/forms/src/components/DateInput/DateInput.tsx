@@ -34,7 +34,8 @@ const legendStyles = tv({
 });
 
 export interface DateInputProps
-  extends Omit<CommonInputProps, "rules" | "label">,
+  extends
+    Omit<CommonInputProps, "rules" | "label">,
     Omit<HTMLFieldsetProps, "name" | "id"> {
   /** Holds text for the legend associated with the RadioGroup fieldset. */
   legend: ReactNode;

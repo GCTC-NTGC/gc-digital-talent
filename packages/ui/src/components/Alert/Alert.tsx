@@ -84,7 +84,8 @@ type AlertVariants = VariantProps<typeof alert>;
  * @member {function} onDismiss execute code when the alert is dismissed
  */
 export interface AlertProps
-  extends Omit<AlertVariants, "type">,
+  extends
+    Omit<AlertVariants, "type">,
     Required<Pick<AlertVariants, "type">>,
     ComponentPropsWithoutRef<"div"> {
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
@@ -162,8 +163,9 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
  * @interface AlertTitleProps
  * @member {AlertHeadingLevel} as is the semantic heading level to render the title in
  */
-interface AlertTitleProps
-  extends HTMLProps<HTMLHeadingElement | HTMLParagraphElement> {
+interface AlertTitleProps extends HTMLProps<
+  HTMLHeadingElement | HTMLParagraphElement
+> {
   children: ReactNode;
   as?: AlertHeadingLevel;
 }

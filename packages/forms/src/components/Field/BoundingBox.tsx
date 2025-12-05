@@ -14,11 +14,10 @@ const boundingBox = tv({
   },
 });
 
-interface BoundingBoxProps
-  extends DetailedHTMLProps<
-    InputHTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
+interface BoundingBoxProps extends DetailedHTMLProps<
+  InputHTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   flat?: boolean;
 }
 
