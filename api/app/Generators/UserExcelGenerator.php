@@ -182,6 +182,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $this->spreadsheet = new Spreadsheet;
 
         $sheet = $this->spreadsheet->getActiveSheet();
+        $sheet->setTitle('Users');
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->headerLocaleKeys);
