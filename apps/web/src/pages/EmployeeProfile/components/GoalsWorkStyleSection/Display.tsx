@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmployeeProfileGoalsWorkStyleFragment } from "@gc-digital-talent/graphql";
-import { CardSeparator, Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Notice } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -27,15 +27,17 @@ const Display = ({
         learningGoals,
         workStyle,
       }) && (
-        <Well>
-          {intl.formatMessage({
-            defaultMessage:
-              'There are currently unanswered optional questions in this section. Use the "Edit" button to review and answer any relevant fields.',
-            id: "PEH7og",
-            description:
-              "Message for unanswered optional questions in this section",
-          })}
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            {intl.formatMessage({
+              defaultMessage:
+                'There are currently unanswered optional questions in this section. Use the "Edit" button to review and answer any relevant fields.',
+              id: "PEH7og",
+              description:
+                "Message for unanswered optional questions in this section",
+            })}
+          </Notice.Content>
+        </Notice.Root>
       )}
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}

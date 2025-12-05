@@ -54,7 +54,8 @@ interface FormValues {
 export type WhatToExpectSubmitData = Pick<UpdatePoolInput, "whatToExpect">;
 
 interface WhatToExpectSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       WhatToExpectSubmitData,
       FragmentType<typeof EditPoolWhatToExpect_Fragment>
     >,

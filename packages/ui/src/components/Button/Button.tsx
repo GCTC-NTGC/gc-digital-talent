@@ -4,7 +4,8 @@ import { btn, BaseButtonLinkProps } from "../../utils/btnStyles";
 import Counter from "./Counter";
 
 export interface ButtonProps
-  extends BaseButtonLinkProps,
+  extends
+    BaseButtonLinkProps,
     Omit<
       DetailedHTMLProps<
         ButtonHTMLAttributes<HTMLButtonElement>,

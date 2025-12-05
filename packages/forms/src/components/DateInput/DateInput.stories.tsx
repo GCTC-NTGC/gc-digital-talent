@@ -43,7 +43,6 @@ export default {
       options: [DATE_SEGMENT.Year, DATE_SEGMENT.Month, DATE_SEGMENT.Day],
     },
   },
-  tags: ["needs-fix"],
 };
 
 type DateInputArgs = typeof DateInput;

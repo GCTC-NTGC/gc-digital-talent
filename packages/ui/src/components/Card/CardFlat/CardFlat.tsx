@@ -72,7 +72,8 @@ const cardFlat = tv({
 type CardFlatVariants = VariantProps<typeof cardFlat>;
 
 export interface CardFlatProps
-  extends Omit<CardFlatVariants, "color">,
+  extends
+    Omit<CardFlatVariants, "color">,
     Required<Pick<CardFlatVariants, "color">> {
   title: ReactNode;
   children?: ReactNode;
