@@ -20,7 +20,7 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import UserPage from "~/fixtures/UserPage";
 import { loginBySub } from "~/utils/auth";
 import { expect, test } from "~/fixtures";
@@ -38,11 +38,13 @@ import { getDepartments } from "~/utils/departments";
 import { getClassifications } from "~/utils/classification";
 
 test.describe("Location Preference Validation", () => {
-  let uniqueTestId: string;
   let adminCtx: GraphQLContext;
   let user: User;
   let userPage: UserPage;
   let locationPrefPage: LocationPreferenceUpdatePage;
+  let candidatePage: PoolCandidatePage;
+  let application: PoolCandidate;
+  let id: string;
   let candidatePage: PoolCandidatePage;
   let application: PoolCandidate;
   let id: string;
@@ -51,7 +53,7 @@ test.describe("Location Preference Validation", () => {
   let cInterest: CommunityInterest | undefined;
 
   test.beforeAll(async () => {
-    uniqueTestId = generateUniqueTestId();
+    const testId = generateUniqueTestId();
     adminCtx = await graphql.newContext();
     const sub = `playwright.loc.pref.${testId}`;
     const nonCPADept = (await getDepartments(adminCtx, {})).find(
@@ -72,6 +74,7 @@ test.describe("Location Preference Validation", () => {
     });
 
     const createdUser = await createUserWithRoles(adminCtx, {
+      roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@gc.ca`,
         firstName: sub,
@@ -141,6 +144,7 @@ test.describe("Location Preference Validation", () => {
       trainingInterest: true,
     });
 
+    application = candidate;
     user = createdUser ?? { id: "" };
     id = createdPool.id;
 
@@ -151,7 +155,7 @@ test.describe("Location Preference Validation", () => {
 
   test.afterAll(async () => {
     if (user) {
-      // await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(adminCtx, { id: user.id });
       await deletePool(adminCtx, { id: id });
     }
   });
@@ -161,6 +165,7 @@ test.describe("Location Preference Validation", () => {
     const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
     userPage = new UserPage(appPage.page);
+    await userPage.goToIndex();
     await userPage.searchUserByName(userName, "Candidate name");
     await appPage.page.locator(`a:has-text("${userName} User")`).click();
     await appPage.waitForGraphqlResponse("AdminApplicantProfilePage");
