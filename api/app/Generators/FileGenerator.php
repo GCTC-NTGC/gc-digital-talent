@@ -41,7 +41,7 @@ class FileGenerator
      *
      * @param  ?string  $diskName  Name of the disk we want to save file to
      */
-    public function getPath(?string $diskName = 'userGenerated'): string
+    public function getPath(?string $diskName = 'user_generated'): string
     {
         $disk = $this->getDisk($diskName);
 
@@ -53,7 +53,7 @@ class FileGenerator
      *
      * @param  ?string  $diskName  Name of the disk we want to save file to
      */
-    public function getDisk(?string $diskName = 'userGenerated'): FilesystemAdapter
+    public function getDisk(?string $diskName = 'user_generated'): FilesystemAdapter
     {
         /**
          * We don't actually put the file with

@@ -67,7 +67,7 @@ class PoolCandidatesExcelTest extends TestCase
         $generator->generate()->write();
 
         // assert
-        $disk = Storage::disk('userGenerated');
+        $disk = Storage::disk('user_generated');
         $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
 
         $fileExists = $disk->exists($path);

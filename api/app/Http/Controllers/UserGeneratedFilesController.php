@@ -16,7 +16,7 @@ class UserGeneratedFilesController extends Controller
         throw_unless(is_string($userId), UnauthorizedHttpException::class);
 
         $filePath = $userId.'/'.$fileName;
-        throw_unless(Storage::disk('userGenerated')->exists($filePath), NotFoundHttpException::class);
+        throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
         switch (strtolower(pathinfo($filePath)['extension'])) {
@@ -42,7 +42,7 @@ class UserGeneratedFilesController extends Controller
 
         /* buffered response */
         return response()->streamDownload(function () use ($filePath) {
-            $handle = Storage::disk('userGenerated')->readStream($filePath);
+            $handle = Storage::disk('user_generated')->readStream($filePath);
             while (! feof($handle)) {
                 $buffer = fread($handle, 4096);
                 if (! is_bool($buffer)) {

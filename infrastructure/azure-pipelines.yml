@@ -52,8 +52,6 @@ jobs:
             echo "Building default..."
             composer install --optimize-autoloader --no-dev
           fi
-          sudo chown -R www-data ./storage ./vendor
-          sudo chmod -R 775 ./ ./storage
           php artisan lighthouse:print-schema --write
         displayName: Build Backend
 
@@ -78,6 +76,8 @@ jobs:
           SourceFolder: "$(System.DefaultWorkingDirectory)"
           Contents: |
             api/**
+            !api/storage/**
+            !api/bootstrap/cache/**
             apps/web/dist/**
             infrastructure/**
           TargetFolder: "$(Build.ArtifactStagingDirectory)/Stage"

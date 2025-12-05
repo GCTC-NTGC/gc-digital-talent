@@ -67,6 +67,13 @@ return [
             'days' => 14,
         ],
 
+        // processes outside of the web server can't log to stdout in the cloud and have to stick to a file
+        'jobs' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/jobs.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

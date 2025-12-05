@@ -67,7 +67,7 @@ class ApplicationZipGeneratorTest extends TestCase
         $fileName = $generator->getFileNameWithExtension();
 
         // assert
-        $disk = Storage::disk('userGenerated');
+        $disk = Storage::disk('user_generated');
         $path = 'test'.DIRECTORY_SEPARATOR.$fileName;
 
         $fileExists = $disk->exists($path);
