@@ -42,7 +42,6 @@ const closedEarlyPool = {
 
 export default {
   component: PoolPoster,
-  tags: ["needs-fix"],
 } as Meta<typeof PoolPoster>;
 
 const Template: StoryFn<typeof PoolPoster> = (args) => {

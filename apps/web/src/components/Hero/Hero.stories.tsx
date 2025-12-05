@@ -62,7 +62,7 @@ ButtonsAndTabs.args = {
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
-      url: "#two",
+      url: "#three",
       color: "error",
     },
   ],
@@ -74,7 +74,6 @@ ButtonsAndTabs.args = {
     { url: "/five", label: "Tab Five" },
   ],
 };
-ButtonsAndTabs.tags = ["needs-fix"];
 
 export const Buttons = Template.bind({});
 Buttons.args = {
@@ -94,12 +93,11 @@ Buttons.args = {
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
-      url: "#two",
+      url: "#three",
       color: "error",
     },
   ],
 };
-Buttons.tags = ["needs-fix"];
 
 export const Tabs = Template.bind({});
 Tabs.args = {
@@ -128,7 +126,7 @@ ButtonsAndTabsWithCentering.args = {
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
-      url: "#two",
+      url: "#three",
       color: "error",
     },
   ],
@@ -141,7 +139,6 @@ ButtonsAndTabsWithCentering.args = {
   ],
   centered: true,
 };
-ButtonsAndTabsWithCentering.tags = ["needs-fix"];
 
 export const ImageProvided = Template.bind({});
 ImageProvided.args = {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Well, Heading, Accordion, Loading } from "@gc-digital-talent/ui";
+import { Notice, Heading, Accordion, Loading } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getEmploymentEquityGroup,
@@ -188,17 +188,19 @@ const EquityOptions = ({
           )}
         </div>
       ) : (
-        <Well>
-          <p className="text-center">
-            {intl.formatMessage({
-              defaultMessage:
-                "You haven't added any equity options to your profile.",
-              id: "a6FJwN",
-              description:
-                "Message when user has not selected as being in any employment equity groups.",
-            })}
-          </p>
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            <p className="text-center">
+              {intl.formatMessage({
+                defaultMessage:
+                  "You haven't added any equity options to your profile.",
+                id: "a6FJwN",
+                description:
+                  "Message when user has not selected as being in any employment equity groups.",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <Accordion.Root
         type="single"
@@ -316,17 +318,19 @@ const EquityOptions = ({
                 )}
               </div>
             ) : (
-              <Well>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "There are no available employment equity options.",
-                    id: "px7yu1",
-                    description:
-                      "Message displayed when there are no employment equity categories available to be added.",
-                  })}
-                </p>
-              </Well>
+              <Notice.Root>
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There are no available employment equity options.",
+                      id: "px7yu1",
+                      description:
+                        "Message displayed when there are no employment equity categories available to be added.",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
             )}
           </Accordion.Content>
         </Accordion.Item>

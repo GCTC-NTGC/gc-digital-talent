@@ -62,8 +62,10 @@ interface ResponsiveSize {
 }
 type SizeProp = SizeOption | ResponsiveSize;
 
-interface ContainerProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface ContainerProps extends DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   size?: SizeProp;
   center?: boolean;
 }

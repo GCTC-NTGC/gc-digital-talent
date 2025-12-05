@@ -53,7 +53,8 @@ const switchStyles = tv({
 type SwitchVariants = VariantProps<typeof switchStyles>;
 
 export interface SwitchProps
-  extends SwitchVariants,
+  extends
+    SwitchVariants,
     Omit<ComponentPropsWithoutRef<typeof SwitchPrimitive.Root>, "color"> {
   // Display an icon in the handle for the switch
   icon?: {

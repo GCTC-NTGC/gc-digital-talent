@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker/locale/en";
 import { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { GLOBAL_A11Y_EXCLUDES } from "@gc-digital-talent/storybook-helpers";
 
 import PoolCandidatesTable from "./PoolCandidatesTable";
 
@@ -14,7 +15,7 @@ const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
       max: 10,
     });
     return {
-      id: poolCandidate.id,
+      id: faker.string.uuid(),
       poolCandidate,
       skillCount: skillCount || null,
     };
@@ -45,8 +46,18 @@ export default {
         },
       },
     },
+    a11y: {
+      context: {
+        exclude: [
+          ...GLOBAL_A11Y_EXCLUDES,
+          // No colour contrast errors here
+          "td > span > span > span",
+          // Issue: https://github.com/GCTC-NTGC/gc-digital-talent/issues/15231
+          "p[aria-label]",
+        ],
+      },
+    },
   },
-  tags: ["needs-fix"],
 } as Meta<typeof PoolCandidatesTable>;
 
 const Template: StoryFn<typeof PoolCandidatesTable> = (args) => {

@@ -60,7 +60,8 @@ export type WhatToExpectAdmissionSubmitData = Pick<
 >;
 
 interface WhatToExpectAdmissionSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       WhatToExpectAdmissionSubmitData,
       FragmentType<typeof EditPoolWhatToExpectAdmission_Fragment>
     >,

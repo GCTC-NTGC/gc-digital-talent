@@ -4,17 +4,17 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\PoolCandidate;
 
-final class TogglePoolCandidateBookmark
+final class TogglePoolCandidateFlag
 {
     /**
-     * Toggles the pool candidates is_bookmarked.
+     * Toggles the pool candidates is_flagged.
      */
     public function __invoke($_, array $args)
     {
         $candidate = PoolCandidate::find($args['id']);
-        $candidate->is_bookmarked = ! $candidate->is_bookmarked;
+        $candidate->is_flagged = ! $candidate->is_flagged;
         $candidate->save();
 
-        return $candidate->is_bookmarked;
+        return $candidate->is_flagged;
     }
 }

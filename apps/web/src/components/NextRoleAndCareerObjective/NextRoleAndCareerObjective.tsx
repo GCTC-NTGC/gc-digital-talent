@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Accordion, PreviewList, Well } from "@gc-digital-talent/ui";
+import { Accordion, PreviewList, Notice } from "@gc-digital-talent/ui";
 
 import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
 import { hasAllEmptyFields as hasAllEmptyFieldsCareerObjective } from "~/validators/employeeProfile/careerObjective";
@@ -72,34 +72,38 @@ const NextRoleAndCareerObjective = ({
           <PreviewList.Root>
             {/* If the employee hasn't filled out this section then display null message */}
             {hasAllEmptyFieldsNextRole({ ...nextRole }) ? (
-              <Well>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The nominee has not provided information about the next role they’d like to achieve.",
-                    id: "wYka/g",
-                    description:
-                      "Message displayed if nominee hasn't filled out next role info",
-                  })}
-                </p>
-              </Well>
+              <Notice.Root>
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The nominee has not provided information about the next role they’d like to achieve.",
+                      id: "wYka/g",
+                      description:
+                        "Message displayed if nominee hasn't filled out next role info",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
             ) : (
               <NextRolePreview
                 nextRolePreviewQuery={nextRoleAndCareerObjective}
               />
             )}
             {hasAllEmptyFieldsCareerObjective({ ...careerObjective }) ? (
-              <Well>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The nominee has not provided information about their ultimate career objective.",
-                    id: "wL95nl",
-                    description:
-                      "Message displayed if nominee hasn't filled out career objective info",
-                  })}
-                </p>
-              </Well>
+              <Notice.Root>
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The nominee has not provided information about their ultimate career objective.",
+                      id: "wL95nl",
+                      description:
+                        "Message displayed if nominee hasn't filled out career objective info",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
             ) : (
               <CareerObjectivePreview
                 careerObjectivePreviewQuery={nextRoleAndCareerObjective}
