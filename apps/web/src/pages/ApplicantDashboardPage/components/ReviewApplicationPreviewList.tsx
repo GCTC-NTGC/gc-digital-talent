@@ -9,7 +9,6 @@ import { getClassificationName } from "~/utils/poolUtils";
 import {
   applicationStatus,
   getApplicationStatusChip,
-  isRemovedStatus,
   qualifiedRecruitmentStatus,
 } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
@@ -132,9 +131,9 @@ const ReviewApplicationPreviewList = ({
                   type: "text",
                   children: pool?.classification
                     ? wrapAbbr(
-                        getClassificationName(pool?.classification, intl),
-                        intl,
-                      )
+                      getClassificationName(pool?.classification, intl),
+                      intl,
+                    )
                     : intl.formatMessage(commonMessages.notFound),
                 },
                 {
@@ -157,17 +156,17 @@ const ReviewApplicationPreviewList = ({
                   title={
                     pool.name?.localized
                       ? intl.formatMessage(
-                          {
-                            defaultMessage:
-                              "<hidden>Application for </hidden>{poolName}",
-                            id: "LC1Rsg",
-                            description:
-                              "Text before application pool name in application preview list.",
-                          },
-                          {
-                            poolName: pool.name.localized,
-                          },
-                        )
+                        {
+                          defaultMessage:
+                            "<hidden>Application for </hidden>{poolName}",
+                          id: "LC1Rsg",
+                          description:
+                            "Text before application pool name in application preview list.",
+                        },
+                        {
+                          poolName: pool.name.localized,
+                        },
+                      )
                       : intl.formatMessage(commonMessages.notFound)
                   }
                   metaData={applicationMetadata}
