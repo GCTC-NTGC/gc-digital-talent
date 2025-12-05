@@ -68,7 +68,7 @@ jobs:
           payload: |
               text: "External Link Checker - Broken Links Detected :warning:"
               blocks:
-                 - type: "section",
+                 - type: "section"
                    text:
-                     type: "mrkdwn",
+                     type: "mrkdwn"
                      text: ":warning: *External Link Checker* detected broken links in the repository. \n\n* View Artifacts: *\n• Workflow: ${{ github.workflow }}\n• Run ID: ${{ github.run_id }}"
