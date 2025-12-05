@@ -19,8 +19,13 @@ const generateLink = (href: LinkProps["href"], chunks: ReactNode) => (
 );
 
 const rateOfPayUrl = {
-  en: "https://www.tbs-sct.canada.ca/pubs_pol/hrpubs/coll_agre/rates-taux-eng.asp",
-  fr: "https://www.tbs-sct.canada.ca/pubs_pol/hrpubs/coll_agre/rates-taux-fra.asp",
+  en: "https://www.canada.ca/en/treasury-board-secretariat/services/pay/rates-pay/rates-pay-public-service-employees.html",
+  fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/services/remuneration/taux-remuneration/taux-remuneration-employes-fonction-publique.html",
+} as const;
+
+const collectiveAgreementsUrl = {
+  en: "https://www.canada.ca/en/treasury-board-secretariat/topics/pay/collective-agreements.html",
+  fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/remuneration/conventions-collectives.html",
 } as const;
 
 const rateOfPayNonUnionUrl = {
@@ -129,7 +134,7 @@ const DeadlineDialog = () => {
                 },
                 {
                   link1: (chunks: ReactNode) =>
-                    generateLink(rateOfPayUrl[locale], chunks),
+                    generateLink(collectiveAgreementsUrl[locale], chunks),
                   link2: (chunks: ReactNode) =>
                     generateLink(rateOfPayNonUnionUrl[locale], chunks),
                 },

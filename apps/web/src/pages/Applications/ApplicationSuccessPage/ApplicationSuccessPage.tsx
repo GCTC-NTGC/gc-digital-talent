@@ -118,8 +118,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                   color="black"
                   href={
                     locale === "en"
-                      ? "https://www.tbs-sct.canada.ca/tbsf-fsct/ssac-cdfs-eng.asp"
-                      : "https://www.tbs-sct.canada.ca/tbsf-fsct/ssac-cdfs-fra.asp"
+                      ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/forms/security-screening-application-consent-form.html"
+                      : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/formulaires/formulaire-consentement-demande-filtrage-securite.html"
                   }
                   className="inline-block text-left align-top"
                 >
