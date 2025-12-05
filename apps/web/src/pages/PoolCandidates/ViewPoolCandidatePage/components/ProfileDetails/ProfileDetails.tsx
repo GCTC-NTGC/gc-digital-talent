@@ -51,8 +51,8 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
   const user = getFragment(ApplicationProfileDetails_Fragment, userQuery);
 
   return (
-    <Notice.Root className="mt-6 flex flex-wrap items-center gap-3 bg-transparent bg-linear-90 from-secondary/10 to-primary/10 p-3 text-sm text-white dark:bg-transparent">
-      <Notice.Content>
+    <Notice.Root small className="mt-6 px-0 py-0">
+      <Notice.Content className="flex flex-wrap items-center gap-3 rounded-lg bg-transparent bg-linear-90 from-secondary/10 to-primary/10 p-3 text-sm text-white dark:bg-transparent">
         <p>
           {user.currentCity ?? intl.formatMessage(commonMessages.notFound)}
           <span className="mr-1">{UNICODE_CHAR.COMMA}</span>
