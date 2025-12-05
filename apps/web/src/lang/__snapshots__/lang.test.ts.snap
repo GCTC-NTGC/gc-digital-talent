@@ -151,6 +151,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "By focusing on measurable skills, the platform reduces bias, removes barriers, and promotes diversity and equity by valuing abilities gained through non-traditional education, lived experience, and previous industry experience.",
+    "fr": [
+      "En mettant l’accent sur des compétences mesurables, la plateforme réduit les préjugés, élimine les obstacles et favorise la diversité et l’équité, car elle valorise les habiletés acquises grâce à un parcours d’apprentissage non traditionnel, à l’expérience vécue et à une expérience de travail dans l’industrie.",
+      "En mettant l’accent sur les compétences mesurables, la plateforme réduit les préjugés, élimine les obstacles et favorise la diversité et l’équité, car elle valorise les habiletés acquises grâce à un parcours d’apprentissage non traditionnel, à l’expérience vécue et à une expérience de travail dans l’industrie."
+    ]
+  },
+  {
     "en": "Archive department",
     "fr": [
       "Archivez le ministère",
