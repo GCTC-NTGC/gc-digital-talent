@@ -6,13 +6,14 @@ import {
   Maybe,
   User,
 } from "@gc-digital-talent/graphql";
+import { checkFeatureFlag } from "@gc-digital-talent/env";
 
 type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
 
 export interface PartialUser
   extends Pick<
     User,
-    "firstName" | "lastName" | "email" | "isEmailVerified" | "telephone"
+    "firstName" | "lastName" | "email" | "telephone" | "isEmailVerified"
   > {
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
@@ -41,50 +42,21 @@ export function hasAllEmptyFields({
   );
 }
 
-export function hasEmptyRequiredNonEmailFields({
-  firstName,
-  lastName,
-  telephone,
-  preferredLang,
-  preferredLanguageForInterview,
-  preferredLanguageForExam,
-  citizenship,
-  armedForcesStatus,
-}: PartialUser): boolean {
-  return (
-    !firstName ||
-    !lastName ||
-    !telephone ||
-    !preferredLang ||
-    !preferredLanguageForInterview ||
-    !preferredLanguageForExam ||
-    !citizenship ||
-    empty(armedForcesStatus)
+export function hasEmptyRequiredFields(applicant: PartialUser): boolean {
+  const applicationEmailVerification = checkFeatureFlag(
+    "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   );
-}
 
-export function hasAnyEmptyRequiredFields({
-  firstName,
-  lastName,
-  telephone,
-  email,
-  isEmailVerified,
-  preferredLang,
-  preferredLanguageForInterview,
-  preferredLanguageForExam,
-  citizenship,
-  armedForcesStatus,
-}: PartialUser): boolean {
   return (
-    !firstName ||
-    !lastName ||
-    !email ||
-    !isEmailVerified ||
-    !telephone ||
-    !preferredLang ||
-    !preferredLanguageForInterview ||
-    !preferredLanguageForExam ||
-    !citizenship ||
-    empty(armedForcesStatus)
+    !applicant.firstName ||
+    !applicant.lastName ||
+    !applicant.email ||
+    !applicant.telephone ||
+    !applicant.preferredLang ||
+    !applicant.preferredLanguageForInterview ||
+    !applicant.preferredLanguageForExam ||
+    !applicant.citizenship ||
+    empty(applicant.armedForcesStatus) ||
+    (applicationEmailVerification && !applicant.isEmailVerified)
   );
 }

@@ -1,7 +1,12 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Heading, Separator, ThrowNotFound, Well } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Notice,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { graphql, UserProfileFragment } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -69,7 +74,7 @@ export const getPageInfo: GetPageNavInfo = ({
 export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { emailVerificationRequired } = useFeatureFlags();
+  const { applicationEmailVerification } = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -77,8 +82,6 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const missingVerifiedContactEmail =
-    !application.user.email || !application.user.isEmailVerified;
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     Application_UpdateProfileMutation,
@@ -112,28 +115,31 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         })}
       </p>
       <div className="mt-18 flex flex-col gap-y-18">
-        <div className="flex flex-col gap-y-6">
-          <div>
+        <div className="grid grid-cols-1 gap-1.5 xs:grid-cols-2">
+          <div className="col-span-2">
             <PersonalInformation {...sectionProps} query={application.user} />
           </div>
-          {emailVerificationRequired && missingVerifiedContactEmail && (
-            <div>
-              <Well color="error">
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "A verified contact email is required",
-                    id: "O7ubAh",
-                    description:
-                      "Error message displayed during application when missing a verified email",
-                  })}
-                </p>
-              </Well>
-            </div>
+          {/* Refactor after feature flag is turned on #15052 */}
+          {applicationEmailVerification && (
+            <>
+              {!application.user.isEmailVerified && (
+                <Notice.Root color="error" className="col-span-2">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "A verified contact email is required",
+                        id: "O7ubAh",
+                        description:
+                          "Error message displayed during application when missing a verified email",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+              )}
+            </>
           )}
-          <div className="grid grid-cols-1 gap-1.5 xs:grid-cols-2">
-            <ContactEmailCard query={application.user} />
-            <WorkEmailCard query={application.user} />
-          </div>
+          <ContactEmailCard query={application.user} />
+          <WorkEmailCard query={application.user} />
         </div>
         <WorkPreferences {...sectionProps} />
         <div>

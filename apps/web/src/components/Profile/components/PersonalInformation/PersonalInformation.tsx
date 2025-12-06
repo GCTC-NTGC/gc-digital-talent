@@ -19,8 +19,7 @@ import { useLocalStorage } from "@gc-digital-talent/storage";
 import profileMessages from "~/messages/profileMessages";
 import {
   hasAllEmptyFields,
-  hasAnyEmptyRequiredFields,
-  hasEmptyRequiredNonEmailFields,
+  hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useRoutes from "~/hooks/useRoutes";
@@ -86,12 +85,11 @@ const PersonalInformation = ({
     false,
   );
   const isNull = hasAllEmptyFields(user);
-  const anyEmptyRequired = hasAnyEmptyRequiredFields(user);
-  const emptyRequiredNonEmail = hasEmptyRequiredNonEmailFields(user);
+  const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
     section: "personal",
     isNull,
-    emptyRequired: anyEmptyRequired,
+    emptyRequired,
     fallbackIcon: UserIcon,
   });
   const [{ data, fetching }] = useQuery({
@@ -185,7 +183,7 @@ const PersonalInformation = ({
           </Notice.Content>
         </Notice.Root>
       ) : null}
-      {pool && emptyRequiredNonEmail && (
+      {pool && emptyRequired && (
         <Notice.Root color="error">
           <Notice.Content>
             <p>
