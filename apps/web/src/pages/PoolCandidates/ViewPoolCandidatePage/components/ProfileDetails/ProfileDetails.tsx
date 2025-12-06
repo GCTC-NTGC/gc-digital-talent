@@ -66,8 +66,8 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
                 external
                 href={`tel:${user.telephone}`}
                 aria-label={user.telephone.replace(/.{1}/g, "$& ")}
-                color="primary"
                 size="sm"
+                className="text-primary-400 hover:text-primary-100 dark:text-primary"
               >
                 {user.telephone}
               </Link>
@@ -75,7 +75,12 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
             <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
           </>
         ) : null}
-        <Link external href={`mailto:${user.email}`} color="primary" size="sm">
+        <Link
+          external
+          href={`mailto:${user.email}`}
+          size="sm"
+          className="text-primary-400 hover:text-primary-100 dark:text-primary"
+        >
           {user.email}
         </Link>
         <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
