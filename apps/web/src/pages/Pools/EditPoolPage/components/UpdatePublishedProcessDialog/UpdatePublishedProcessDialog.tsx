@@ -17,6 +17,7 @@ import {
 import { TextArea } from "@gc-digital-talent/forms";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import { PublishedEditableSectionProps } from "../../types";
 
@@ -85,11 +86,7 @@ const UpdatePublishedProcessDialog = ({
     await methods.handleSubmit(handleUpdate)();
   };
 
-  const label = intl.formatMessage({
-    defaultMessage: "Change justification",
-    id: "XGztC+",
-    description: "Heading for form to justify updating a published process",
-  });
+  const label = intl.formatMessage(processMessages.changeJustification);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>

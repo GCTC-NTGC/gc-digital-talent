@@ -201,7 +201,7 @@ const SkillBrowserDialog = ({
                 </Dialog.Close>
                 <Link
                   newTab
-                  href={`${paths.skills()}#cant-find-a-skill`}
+                  href={`${paths.skills()}#platform-skills`}
                   mode="inline"
                   className="xs:ml-auto"
                 >

@@ -16,6 +16,7 @@ final class PlaceCandidate
         $departmentId = $args['department']['connect']; // validator asserts this value is valid
 
         $candidate->place($placementType, $departmentId);
+
         $candidate->save();
 
         return $candidate;

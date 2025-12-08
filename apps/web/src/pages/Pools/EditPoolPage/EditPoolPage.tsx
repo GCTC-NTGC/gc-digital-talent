@@ -516,21 +516,13 @@ export const EditPoolForm = ({
     whatToExpect: {
       id: "what-to-expect",
       hasError: false,
-      title: intl.formatMessage({
-        defaultMessage: "What to expect post-application",
-        id: "U0MY+6",
-        description: "Title for the what to expect section",
-      }),
+      title: intl.formatMessage(processMessages.whatToExpectApplication),
       inList: false,
     },
     whatToExpectAdmission: {
       id: "what-to-expect-admission",
       hasError: false,
-      title: intl.formatMessage({
-        defaultMessage: "What to expect post-admission",
-        id: "Uwtkv6",
-        description: "Title for the what to expect post admission section",
-      }),
+      title: intl.formatMessage(processMessages.whatToExpectAdmission),
       inList: false,
     },
     generalQuestions: {

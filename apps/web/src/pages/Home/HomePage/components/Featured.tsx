@@ -45,11 +45,7 @@ const Featured = () => {
     },
     {
       key: "platform-resources",
-      title: intl.formatMessage({
-        defaultMessage: "Platform resources for HR professionals",
-        id: "T+oEYC",
-        description: "Title for HR resources was created",
-      }),
+      title: intl.formatMessage(pageTitles.hrResources),
       summary: (
         <p className="mb-6">
           {intl.formatMessage({
@@ -62,7 +58,7 @@ const Featured = () => {
       ),
       img: { path: platformResourcesImg, width: 400, height: 300 },
       link: {
-        path: paths.jobPosterTemplates(),
+        path: paths.professionalHRResources(),
         label: intl.formatMessage({
           defaultMessage:
             "Learn more<hidden> resources for human resource professionals</hidden>",

@@ -193,6 +193,7 @@ class Registration extends AppPage {
     const userName = `${this.firstName} ${this.lastName}`;
     await loginBySub(this.page, testConfig.signInSubs.adminSignIn, false);
     const userPage = new UserPage(this.page);
+    await userPage.goToIndex();
     await userPage.searchUserByName(
       this.uniqueEmailAddress,
       "Contact email address",
