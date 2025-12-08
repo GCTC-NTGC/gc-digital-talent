@@ -4,9 +4,6 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password1234
-    command: >
-      postgres
-      -c shared_preload_libraries='pg_stat_statements'
     volumes:
       - ./infrastructure/db:/docker-entrypoint-initdb.d/
       - pgdata:/var/lib/postgresql/data
