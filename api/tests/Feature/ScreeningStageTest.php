@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\AssessmentStepType;
 use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
@@ -67,6 +68,37 @@ class ScreeningStageTest extends TestCase
         $this->processOperatorUser = User::factory()
             ->asProcessOperator($this->application->pool->id)
             ->create();
+    }
+
+    public function testSettingAssessmentStep()
+    {
+
+        $expectedStep = $this->application->pool->assessmentSteps->sortBy('sortOrder')
+            ->firstWhere(function ($step) {
+                return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name || $step !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+            })->id ?? null;
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->mutation, [
+                'candidate' => [
+                    'id' => $this->application->id,
+                    'screeningStage' => ScreeningStage::UNDER_ASSESSMENT->name,
+                ]])
+            ->assertJsonFragment([
+                'screeningStage' => ['value' => ScreeningStage::UNDER_ASSESSMENT->name],
+                'assessmentStep' => ['id' => $expectedStep],
+            ]);
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->mutation, [
+                'candidate' => [
+                    'id' => $this->application->id,
+                    'screeningStage' => ScreeningStage::SCREENED_IN->name,
+                ]])
+            ->assertJsonFragment([
+                'screeningStage' => ['value' => ScreeningStage::SCREENED_IN->name],
+                'assessmentStep' => null,
+            ]);
     }
 
     /**
