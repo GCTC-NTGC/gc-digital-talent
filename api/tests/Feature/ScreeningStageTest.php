@@ -6,6 +6,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
+use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -50,7 +51,12 @@ class ScreeningStageTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
 
+        $pool = Pool::factory()
+            ->published()
+            ->withAssessments(3);
+
         $this->application = PoolCandidate::factory()->create([
+            'pool_id' => $pool->id,
             'pool_candidate_status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
             'submitted_at' => config('constants.past_date'),
         ]);
