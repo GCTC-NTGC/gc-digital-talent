@@ -166,6 +166,11 @@ const messages = {
       id: "OUcpGx",
       description: "Title for the screening stage of an application",
     },
+    assessmentStage: {
+      defaultMessage: "Assessment stage",
+      id: "p7+/CC",
+      description: "Title for the assessment stage of an application",
+    },
   }),
 };
 

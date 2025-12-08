@@ -9,6 +9,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -27,11 +28,12 @@ import {
 } from "~/utils/poolCandidate";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import applicationMessages from "~/messages/applicationMessages";
 import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
 import FinalDecisionAndPlaceDialog from "~/components/PoolCandidateDialogs/FinalDecisionAndPlaceDialog";
 import UpdateScreeningStageDialog from "~/components/UpdateScreeningStageDialog/UpdateScreeningStageDialog";
-import applicationMessages from "~/messages/applicationMessages";
+import UpdateAssessmentStageDialog from "~/components/UpdateAssessmentStageDialog/UpdateAssessmentStageDialog";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
@@ -52,6 +54,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     ...ReinstateCandidateDialog
     ...NotesForm
     ...UpdateScreeningStageDialog
+    ...UpdateAssessmentStageDialog
     id
     user {
       id
@@ -66,6 +69,9 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     isFlagged
+    screeningStage {
+      value
+    }
     assessmentStep {
       sortOrder
       title {
@@ -207,6 +213,27 @@ const MoreActions = ({
               </p>
               <div className="pl-1">
                 <UpdateScreeningStageDialog query={poolCandidate} />
+              </div>
+            </div>
+
+            <div className="mt-3">
+              <p className="font-bold">
+                {intl.formatMessage(applicationMessages.assessmentStage)}
+              </p>
+              <div className="pl-1">
+                {poolCandidate?.screeningStage?.value ===
+                ScreeningStage.UnderAssessment ? (
+                  <UpdateAssessmentStageDialog query={poolCandidate} />
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-200">
+                    {intl.formatMessage({
+                      defaultMessage: "(Available after screening stage)",
+                      id: "NadegW",
+                      description:
+                        "Message for assessment stage when application is not under assessment",
+                    })}
+                  </p>
+                )}
               </div>
             </div>
           </>
