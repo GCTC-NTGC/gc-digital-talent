@@ -53,7 +53,8 @@ class ScreeningStageTest extends TestCase
 
         $pool = Pool::factory()
             ->published()
-            ->withAssessments(3);
+            ->withAssessments(3)
+            ->create();
 
         $this->application = PoolCandidate::factory()->create([
             'pool_id' => $pool->id,
@@ -81,7 +82,7 @@ class ScreeningStageTest extends TestCase
 
         $expectedStep = $this->application->pool->assessmentSteps->sortBy('sortOrder')
             ->firstWhere(function ($step) {
-                return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name && $step->name !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+                return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name && $step->type !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
             })->id ?? null;
 
         $this->actingAs($this->communityAdminUser, 'api')
