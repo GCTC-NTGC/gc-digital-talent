@@ -53,6 +53,8 @@ import {
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
   getWfaInterestFirstPerson,
+  getCandidateFacingScreeningStage,
+  getCandidateFacingScreeningStageDesc,
 } from "./messages/localizedConstants";
 import {
   type MaybeLocalizedEnums,
@@ -161,6 +163,8 @@ export {
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
   getWfaInterestFirstPerson,
+  getCandidateFacingScreeningStage,
+  getCandidateFacingScreeningStageDesc,
   ENUM_SORT_ORDER,
 };
 
