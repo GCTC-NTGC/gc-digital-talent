@@ -49,7 +49,6 @@ import {
   REVERT_DECISION_STATUSES,
   PLACEMENT_TYPE_STATUSES,
 } from "~/constants/poolCandidate";
-import ScreeningQuestions from "~/components/ScreeningDecisions/ScreeningQuestions";
 
 import { NullableDecision } from "./assessmentResults";
 import { contactEmailTag } from "./poolUtils";
