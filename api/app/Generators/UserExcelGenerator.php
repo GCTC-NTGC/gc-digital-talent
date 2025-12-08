@@ -27,6 +27,7 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
@@ -181,8 +182,26 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     {
         $this->spreadsheet = new Spreadsheet;
 
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $sheet->setTitle('Users');
+        // Users sheet
+        $usersSheet = $this->spreadsheet->getActiveSheet();
+        $usersSheet->setTitle('Users');
+
+        // Create Career Experience sheet
+        $careerSheet = $this->spreadsheet->createSheet();
+        $careerSheet->setTitle('Career experience');
+
+        // Generate data for both sheets
+        $this->generateUsersSheet($usersSheet);
+        $this->generateCareerExperienceSheet($careerSheet);
+
+        return $this;
+    }
+
+    /**
+     * Generate data for Users sheet
+     */
+    private function generateUsersSheet(Worksheet $sheet): void
+    {
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->headerLocaleKeys);
@@ -325,8 +344,42 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 $currentUser++;
             }
         });
+    }
 
-        return $this;
+    /**
+     * Generate data for Career Experience sheet
+     */
+    private function generateCareerExperienceSheet(Worksheet $sheet): void
+    {
+        $localizedHeaders = array_map(function ($key) {
+            return $this->localizeHeading($key);
+        }, $this->careerExperienceLocaleKeys);
+
+        $sheet->fromArray($localizedHeaders, null, 'A1');
+
+        $userIds = $this->getUserIdsFromQuery();
+
+        if (empty($userIds)) {
+            return;
+        }
+
+    }
+
+    /**
+     * Get users ids from query
+     */
+    private function getUserIdsFromQuery(): array
+    {
+        $userIds = [];
+        $query = $this->buildQuery();
+
+        $query->chunk(200, function ($users) use (&$userIds) {
+            foreach ($users as $user) {
+                $userIds[] = $user->id;
+            }
+        });
+
+        return $userIds;
     }
 
     /**
