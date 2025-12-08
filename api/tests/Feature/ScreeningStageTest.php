@@ -75,7 +75,7 @@ class ScreeningStageTest extends TestCase
 
         $expectedStep = $this->application->pool->assessmentSteps->sortBy('sortOrder')
             ->firstWhere(function ($step) {
-                return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name || $step !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+                return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name && $step->name !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
             })->id ?? null;
 
         $this->actingAs($this->communityAdminUser, 'api')

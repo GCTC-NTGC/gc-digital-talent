@@ -8,6 +8,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
 use App\Models\PoolCandidate;
+use Illuminate\Support\Facades\Log;
 
 final readonly class UpdatePoolCandidateScreeningStage
 {
@@ -36,7 +37,7 @@ final readonly class UpdatePoolCandidateScreeningStage
         } elseif ($args['screening_stage'] === ScreeningStage::UNDER_ASSESSMENT->name) {
             $values['assessment_step_id'] = $candidate->pool->assessmentSteps->sortBy('sortOrder')
                 ->firstWhere(function ($step) {
-                    return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name || $step !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+                    return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name && $step->type !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
                 })->id ?? null;
         }
 
@@ -44,6 +45,8 @@ final readonly class UpdatePoolCandidateScreeningStage
         if (! empty($args['assessmentStep']['disconnect']) || $args['screening_stage'] !== ScreeningStage::UNDER_ASSESSMENT->name) {
             $values['assessment_step_id'] = null;
         }
+
+        Log::debug($values);
 
         $candidate->update($values);
         $candidate->refresh();
