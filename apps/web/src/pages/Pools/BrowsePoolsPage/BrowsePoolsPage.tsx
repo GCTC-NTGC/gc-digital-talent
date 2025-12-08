@@ -3,17 +3,8 @@ import { useQuery } from "urql";
 import { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import {
-  Card,
-  CardFlat,
-  Container,
-  Flourish,
-  Heading,
-  Link,
-  Pending,
-} from "@gc-digital-talent/ui";
+import { CardFlat, Container, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
-import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
@@ -36,6 +27,7 @@ import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
+import FooterCard from "./components/FooterCard/FooterCard";
 
 const flourish = tv({
   base: "absolute z-[1] w-[25vw]",
@@ -83,7 +75,6 @@ const subTitle = defineMessage({
 export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
-  const { loggedIn } = useAuthentication();
   const paths = useRoutes();
 
   const [{ data, fetching, error }] = useQuery({
@@ -111,26 +102,6 @@ export const Component = () => {
         p.publishingGroup?.value === PublishingGroup.ExecutiveJobs),
   );
 
-  // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
-  const areOpportunitiesShowing = activeRecruitmentPools.length;
-
-  const profileLink = {
-    href: loggedIn ? paths.profile() : paths.login(),
-    label: loggedIn
-      ? intl.formatMessage({
-          defaultMessage: "Update my profile",
-          id: "jfCwes",
-          description:
-            "Link text to direct users to the profile page when signed in",
-        })
-      : intl.formatMessage({
-          defaultMessage: "Create a profile",
-          id: "wPpvvm",
-          description:
-            "Link text to direct users to the profile page when anonymous",
-        }),
-  };
-
   return (
     <Pending fetching={fetching} error={error}>
       <SEO title={title} description={formattedSubTitle} />
@@ -150,55 +121,9 @@ export const Component = () => {
         <Container className="relative z-[2]">
           <WfaBanner />
           <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
-          <Card className="mt-6">
-            <div className="items-center justify-between gap-18 xs:flex">
-              <div>
-                <Heading level="h2" size="h6" className="m-t0 mb-3">
-                  {areOpportunitiesShowing
-                    ? intl.formatMessage({
-                        defaultMessage: "More opportunities are coming soon!",
-                        id: "g+JcDC",
-                        description:
-                          "Heading for message about upcoming opportunities",
-                      })
-                    : intl.formatMessage({
-                        defaultMessage:
-                          "No opportunities are available right now, but more are coming soon!",
-                        id: "xHjgXz",
-                        description:
-                          "Text displayed when there are no pool advertisements to display",
-                      })}
-                </Heading>
-                <p>
-                  {loggedIn
-                    ? intl.formatMessage({
-                        defaultMessage:
-                          "We're posting new job opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
-                        id: "8hnMtx",
-                        description:
-                          "Text describing upcoming opportunities instructing users to update a profile when signed in",
-                      })
-                    : intl.formatMessage({
-                        defaultMessage:
-                          "We're posting new job opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
-                        id: "PH5Lah",
-                        description:
-                          "Text describing upcoming opportunities instructing users to create a profile when anonymous",
-                      })}
-                </p>
-              </div>
-              <div className="mt-6 shrink-0 xs:mt-0">
-                <Link
-                  color="primary"
-                  mode="solid"
-                  href={profileLink.href}
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  {profileLink.label}
-                </Link>
-              </div>
-            </div>
-          </Card>
+          <FooterCard
+            areOpportunitiesShowing={!!activeRecruitmentPools.length}
+          />
         </Container>
         <img
           alt=""
