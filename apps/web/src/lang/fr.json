@@ -3923,10 +3923,6 @@
     "defaultMessage": "La formation m'intéresse",
     "description": "Phrase marking interest in community training opportunities"
   },
-  "ETrCOq": {
-    "defaultMessage": "Statut du (de la) candidat(e)",
-    "description": "Title for admin editing a pool candidates status"
-  },
   "EUDRhe": {
     "defaultMessage": "Entrevues de vive voix",
     "description": "Label for preferred lang for interviews in profile details box."
@@ -4138,10 +4134,6 @@
   "FVAQCH": {
     "defaultMessage": "Oui, j'ai un droit de priorité.",
     "description": "affirm possession of priority entitlement"
-  },
-  "FXpcgW": {
-    "defaultMessage": "Ces champs ne seront disponibles qu’aux fins de la migration, pendant un certain temps limité.",
-    "description": "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time"
   },
   "FYCNAa": {
     "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'une mutation latérale, d'une occasion de perfectionnement ou d'une promotion.",
