@@ -173,6 +173,7 @@ class PoolApplicationTest extends TestCase
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         $variables = [
@@ -225,6 +226,7 @@ class PoolApplicationTest extends TestCase
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         $variables = [
@@ -253,6 +255,7 @@ class PoolApplicationTest extends TestCase
             'published_at' => null,
             'closing_date' => config('constants.far_past_date'),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         $variables = [
@@ -280,6 +283,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -351,6 +355,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -418,6 +423,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         // technical essential skills are required
@@ -461,6 +467,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         // technical essential skills are required
@@ -509,6 +516,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -541,6 +549,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->subDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -596,6 +605,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->published()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         $assessmentStep = AssessmentStep::factory()->create([
@@ -659,6 +669,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         GeneralQuestion::where('pool_id', $newPool->id)->delete();
@@ -971,6 +982,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name,
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -1036,6 +1048,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name,
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -1095,6 +1108,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name,
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -1144,15 +1158,24 @@ class PoolApplicationTest extends TestCase
 
         $pool->essentialSkills()->sync([]);
 
-        $candidateWithVerifiedWorkEmail = PoolCandidate::factory()->create([
-            'user_id' => $this->govEmployee->id,
+        $candidateWithNoVerifiedWorkEmail = PoolCandidate::factory()->create([
+            'user_id' => $this->nonGovEmployee->id,
             'pool_id' => $pool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
 
-        $candidateWithNoVerifiedWorkEmail = PoolCandidate::factory()->create([
-            'user_id' => $this->nonGovEmployee->id,
+        $this->actingAs($this->nonGovEmployee, 'api')
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $candidateWithNoVerifiedWorkEmail->id,
+                    'sig' => 'sign',
+                ]
+            )->assertGraphQLErrorMessage(ErrorCode::APPLICATION_WORK_EMAIL_NOT_VERIFIED->name);
+
+        $candidateWithVerifiedWorkEmail = PoolCandidate::factory()->create([
+            'user_id' => $this->govEmployee->id,
             'pool_id' => $pool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'submitted_at' => null,
@@ -1168,14 +1191,5 @@ class PoolApplicationTest extends TestCase
             )->assertJsonFragment([
                 'signature' => 'sign',
             ]);
-
-        $this->actingAs($this->nonGovEmployee, 'api')
-            ->graphQL(
-                $this->submitMutationDocument,
-                [
-                    'id' => $candidateWithNoVerifiedWorkEmail->id,
-                    'sig' => 'sign',
-                ]
-            )->assertGraphQLErrorMessage(ErrorCode::APPLICATION_WORK_EMAIL_NOT_VERIFIED->name);
     }
 }
