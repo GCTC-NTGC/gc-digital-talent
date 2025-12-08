@@ -11,7 +11,11 @@ import { ReactNode } from "react";
 import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  ENUM_SORT_ORDER,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { ChipProps } from "@gc-digital-talent/ui";
 import {
   Maybe,
@@ -26,6 +30,7 @@ import {
   LocalizedFinalDecision,
   Pool,
   PoolAreaOfSelection,
+  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -44,6 +49,7 @@ import {
   REVERT_DECISION_STATUSES,
   PLACEMENT_TYPE_STATUSES,
 } from "~/constants/poolCandidate";
+import ScreeningQuestions from "~/components/ScreeningDecisions/ScreeningQuestions";
 
 import { NullableDecision } from "./assessmentResults";
 import { contactEmailTag } from "./poolUtils";
@@ -740,4 +746,16 @@ export const deadlineToApply = (
     (status === applicationStatus.DRAFT && lessThanThreeDaysTillClosingDate) ||
     status === applicationStatus.EXPIRED
   );
+};
+
+export const getScreeningStageIndex = (
+  screeningStage?: Maybe<ScreeningStage>,
+) => {
+  if (!screeningStage) return null;
+
+  const index = ENUM_SORT_ORDER.SCREENING_STAGE.indexOf(screeningStage);
+
+  if (index < 0) return null;
+
+  return index + 1;
 };

@@ -161,6 +161,11 @@ const messages = {
       id: "vtnz6B",
       description: "Label for an applications final decision",
     },
+    screeningStage: {
+      defaultMessage: "Screening stage",
+      id: "OUcpGx",
+      description: "Title for the screening stage of an application",
+    },
   }),
 };
 
