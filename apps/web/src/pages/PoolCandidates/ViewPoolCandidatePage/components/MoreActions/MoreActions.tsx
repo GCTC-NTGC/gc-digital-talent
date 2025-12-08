@@ -30,6 +30,8 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
 import FinalDecisionAndPlaceDialog from "~/components/PoolCandidateDialogs/FinalDecisionAndPlaceDialog";
+import UpdateScreeningStageDialog from "~/components/UpdateScreeningStageDialog/UpdateScreeningStageDialog";
+import applicationMessages from "~/messages/applicationMessages";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
@@ -49,6 +51,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     ...JobPlacementDialog
     ...ReinstateCandidateDialog
     ...NotesForm
+    ...UpdateScreeningStageDialog
     id
     user {
       id
@@ -152,6 +155,7 @@ const MoreActions = ({
 
   const currentStepName =
     // NOTE: Localized can be empty string so || is more suitable
+
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     poolCandidate.assessmentStep?.title?.localized ||
     poolCandidate.assessmentStep?.type?.label?.localized;
@@ -184,17 +188,29 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        {isRODStatus(status) &&
-          (hasCommunityRecruiterRole ? (
-            // community recruiters can record a decision and placement at the same time
-            <FinalDecisionAndPlaceDialog
-              poolCandidate={poolCandidate}
-              optionsQuery={jobPlacementOptions}
-            />
-          ) : (
-            // everyone else can only qualify
-            <FinalDecisionDialog poolCandidate={poolCandidate} />
-          ))}
+        {isRODStatus(status) && (
+          <>
+            {hasCommunityRecruiterRole ? (
+              // community recruiters can record a decision and placement at the same time
+              <FinalDecisionAndPlaceDialog
+                poolCandidate={poolCandidate}
+                optionsQuery={jobPlacementOptions}
+              />
+            ) : (
+              // everyone else can only qualify
+              <FinalDecisionDialog poolCandidate={poolCandidate} />
+            )}
+
+            <div>
+              <p className="font-bold">
+                {intl.formatMessage(applicationMessages.screeningStage)}
+              </p>
+              <div className="pl-1">
+                <UpdateScreeningStageDialog query={poolCandidate} />
+              </div>
+            </div>
+          </>
+        )}
 
         {isRemovedStatus(status) && (
           <div>
