@@ -13,6 +13,7 @@ import {
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -25,6 +26,7 @@ import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 import WfaBanner from "~/components/WfaBanner/WfaBanner";
+import HolidayMessage from "~/components/HolidayMessage/HolidayMessage";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 import FooterCard from "./components/FooterCard/FooterCard";
@@ -76,6 +78,7 @@ export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   const [{ data, fetching, error }] = useQuery({
     query: BrowsePoolsPage_Query,
@@ -102,6 +105,9 @@ export const Component = () => {
         p.publishingGroup?.value === PublishingGroup.ExecutiveJobs),
   );
 
+  // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
+  const areOpportunitiesShowing = !!activeRecruitmentPools.length;
+
   return (
     <Pending fetching={fetching} error={error}>
       <SEO title={title} description={formattedSubTitle} />
@@ -121,9 +127,11 @@ export const Component = () => {
         <Container className="relative z-[2]">
           <WfaBanner />
           <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
-          <FooterCard
-            areOpportunitiesShowing={!!activeRecruitmentPools.length}
-          />
+          {!areOpportunitiesShowing && featureFlags.holidayMessage ? (
+            <HolidayMessage />
+          ) : (
+            <FooterCard areOpportunitiesShowing={areOpportunitiesShowing} />
+          )}
         </Container>
         <img
           alt=""
