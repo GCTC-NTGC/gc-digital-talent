@@ -27,7 +27,6 @@ import {
   isRODStatus,
 } from "~/utils/poolCandidate";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
