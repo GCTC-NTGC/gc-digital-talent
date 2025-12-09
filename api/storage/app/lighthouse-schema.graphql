@@ -1859,6 +1859,7 @@ input CreateUserInput {
   firstName: String!
   lastName: String!
   email: Email
+  emailVerifiedAt: Date
   telephone: PhoneNumber
   preferredLang: Language
   preferredLanguageForInterview: Language
