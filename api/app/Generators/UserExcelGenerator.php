@@ -401,19 +401,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function addWorkExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
-        try {
-            WorkExperience::whereIn('user_id', $userIds)
-                ->with(['user', 'department', 'classification', 'skills', 'workStreams'])
-                ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                    foreach ($experiences as $exp) {
-                        $rowData = $this->buildWorkExperienceRow($exp);
-                        $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                        $currentRow++;
-                    }
-                });
-        } catch (\Exception $e) {
-            error_log('Error in addWorkExperiences: '.$e->getMessage());
-        }
+        WorkExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'department', 'classification', 'skills', 'workStreams'])
+            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+                foreach ($experiences as $exp) {
+                    $rowData = $this->buildWorkExperienceRow($exp);
+                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
+                    $currentRow++;
+                }
+            });
     }
 
     /**
@@ -421,63 +417,62 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildWorkExperienceRow(WorkExperience $exp): array
     {
-        $isCurrent = empty($exp->end_date) ? 'Yes' : 'No';
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
         $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-        $workStreams = '';
-        try {
-            if (method_exists($exp, 'workStreams') && $exp->workStreams) {
-                $workStreams = $exp->workStreams->map(function ($workStream) {
-                    return $workStream->name[$this->lang] ?? $workStream->name;
-                })->filter()->join(', ');
-            }
-        } catch (\Exception $e) {
-            $workStreams = $exp->work_streams ?? '';
-        }
-
-        // TODO: get department info
-        $departmentNumber = '';
-        $departmentSize = '';
-        $departmentType = '';
-
-        if ($exp->department) {
-            $departmentNumber = $exp->department->identifier ?? '';
-            $departmentSize = $this->localizeEnum($exp->department->size, DepartmentSize::class);
-            $departmentType = $exp->department->type ?? '';
-        }
+        $workStreams = $this->getWorkStreams($exp);
+        [$departmentNumber, $departmentSize, $departmentType] = $this->getDepartmentInfo($exp);
 
         return [
             $exp->user->id, // user id
             $exp->user->first_name, // first name
             $exp->user->last_name, // last name
-            'Work Experience',
+            'Work Experience', // experience type
             $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
             $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
             $isCurrent, // currently active
             $numberOfMonths, // number of months calculated number of months based on the start and end date or start date and date of download for current experiences
             $exp->role ?? '', // Role or title: My role (work experience), My role (Community participation), Personal experience short title, Award title
             $exp->organization ?? '', // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
-            $this->localizeEnum($exp->employment_category, EmploymentCategory::class),  // Employment category
+            $exp->employment_category ? $this->localizeEnum($exp->employment_category, EmploymentCategory::class) : '',  // Employment category
             $exp->division ?? '', // team, group, division
             $exp->ext_size_of_organization ?? '', // size external organization
             $exp->ext_role_seniority ?? '', // seniority external organziation
             $exp->gov_employment_type ?? '', // gc employment type
             $exp->gov_position_type ?? '', // gc position type
-            $exp->classification ? $exp->classification->group ?? '' : '', // Classification: group-level
+            $exp->classification ? ($exp->classification->group.($exp->classification->level ? '-'.$exp->classification->level : '')) : '', // Classification: group-level
             $this->yesOrNo($exp->supervisory_position), // gc management or supervisory status: Yes, No, empty
             $exp->supervised_employees_number ?? '', // GC number of supervised employees
             $exp->annual_budget_allocation ?? '', // GC annual budget allocation
-            $exp->senior_management_status, // GC C-suite role
-            $exp->c_suite_role_title, // Other C-suite role title
+            $exp->c_suite_role_title ?? '', // GC C-suite role
+            $exp->other_c_suite_role_title ?? '', // Other C-suite role title
             $exp->caf_employment_type ?? '', // CAF employment type
-            $this->localizeEnum($exp->caf_rank, CafRank::class), // CAF rank category
+            $exp->caf_rank ? $this->localizeEnum($exp->caf_rank, CafRank::class) : '', // CAF rank category
             $workStreams, // Work streams: workstreams linked to the experience separated by commas
-            '', '', '', '', // Education fields
-            '', // Community field
-            '', // Personal field
-            '', '', '', '', '', // Award fields
+            // Education fields - empty for work
+            '', // 25: type_of_education
+            '', // 26: area_of_study
+            '', // 27: education_status
+            '', // 28: thesis_title
+
+            // Community/Personal fields - empty for work
+            '', // 29: community_project_or_product
+            '', // 30: personal_learning_experience_description
+
+            // Award fields - empty for work
+            '', // 31: award_recipient
+            '', // 32: issuing_organization
+            '', // 33: award_scope
+            '', // 34: date_awarded
             $exp->details ?? '',
             $this->getFeaturedSkills($exp),
-            '', '', '', '', '', '', '', // KLC fields
+            // KLC fields - empty
+            '', // klc_achieve_results
+            '', // klc_character_leadership
+            '', // klc_collaborate_with_partners_and_stakeholders
+            '', // klc_create_vision_and_strategy
+            '', // klc_mobilize_people
+            '', // klc_promote_innovation_and_guide_change
+            '', // klc_uphold_integrity_and_respect
             $departmentNumber,
             $departmentSize,
             $departmentType,
@@ -489,19 +484,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function addEducationExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
-        try {
-            EducationExperience::whereIn('user_id', $userIds)
-                ->with(['user', 'skills'])
-                ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                    foreach ($experiences as $exp) {
-                        $rowData = $this->buildEducationExperienceRow($exp);
-                        $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                        $currentRow++;
-                    }
-                });
-        } catch (\Exception $e) {
-            error_log('Error in addEducationExperiences: '.$e->getMessage());
-        }
+        EducationExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'skills'])
+            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+                foreach ($experiences as $exp) {
+                    $rowData = $this->buildEducationExperienceRow($exp);
+                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
+                    $currentRow++;
+                }
+            });
     }
 
     /**
@@ -509,7 +500,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildEducationExperienceRow(EducationExperience $exp): array
     {
-        $isCurrent = empty($exp->end_date) ? 'Yes' : 'No';
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
         $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
 
         return [
@@ -521,18 +512,52 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
             $isCurrent, // currently active
             $numberOfMonths, // number of months
-            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', // Work fields
-            $this->localizeEnum($exp->type, EducationType::class), // education type
+            // Work-specific fields (8-24) - mostly empty for education
+            $exp->area_of_study ?? '', // role_or_title (use area of study)
+            $exp->institution ?? '', // organization_department
+            '', // employment_category
+            '', // team_group_or_division
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // gc_c_suite_role
+            '', // other_c_suite_role_title
+            '', // caf_employment_type
+            '', // caf_rank_category
+            '', // work_streams
+            $exp->type ? $this->localizeEnum($exp->type, EducationType::class) : '',  // education type
             $exp->area_of_study ?? '', // area of study
-            $this->localizeEnum($exp->status, EducationStatus::class), // education status
+            $exp->status ? $this->localizeEnum($exp->status, EducationStatus::class) : '', // education status
             $exp->thesis_title ?? '', // thesis title
-            '', // Community
-            '', // Personal
-            '', '', '', '', '', // Award
+            // Community/Personal fields - empty for education
+            '', // community_project_or_product
+            '', // personal_learning_experience_description
+
+            // Award fields - empty for education
+            '', // award_recipient
+            '', // issuing_organization
+            '', // award_scope
+            '', // date_awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
-            '', '', '', '', '', '', '', // KLC
-            '', '', '', // Department
+            // KLC fields - empty
+            '', // klc_achieve_results
+            '', // klc_character_leadership
+            '', // klc_collaborate_with_partners_and_stakeholders
+            '', // klc_create_vision_and_strategy
+            '', // klc_mobilize_people
+            '', // klc_promote_innovation_and_guide_change
+            '', // klc_uphold_integrity_and_respect
+
+            // Department fields - empty for education
+            '', // department_number
+            '', // department_size
+            '', // department_type
         ];
     }
 
@@ -541,19 +566,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function addAwardExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
-        try {
-            AwardExperience::whereIn('user_id', $userIds)
-                ->with(['user', 'skills'])
-                ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                    foreach ($experiences as $exp) {
-                        $rowData = $this->buildAwardExperienceRow($exp);
-                        $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                        $currentRow++;
-                    }
-                });
-        } catch (\Exception $e) {
-            error_log('Error in addAwardExperiences: '.$e->getMessage());
-        }
+        AwardExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'skills'])
+            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+                foreach ($experiences as $exp) {
+                    $rowData = $this->buildAwardExperienceRow($exp);
+                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
+                    $currentRow++;
+                }
+            });
     }
 
     /**
@@ -561,26 +582,63 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildAwardExperienceRow(AwardExperience $exp): array
     {
+        $numberOfMonths = 0;
+
         return [
             $exp->user->id,
             $exp->user->first_name,
             $exp->user->last_name,
-            'Award Experience',
-            '', '', 'No', 0, // No dates, not current, 0 months
-            $exp->title ?? '',
-            $exp->issued_by ?? '',
-            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', // Work fields
-            '', '', '', '', // Education fields
-            '', // Community
-            '', // Personal
-            $this->localizeEnum($exp->awarded_to, AwardedTo::class),
-            $exp->issued_by ?? '',
-            $exp->awarded_scope ?? '',
-            $exp->awarded_date ? $exp->awarded_date->format('Y-m-d') : '',
-            $exp->details ?? '',
-            $this->getFeaturedSkills($exp),
-            '', '', '', '', '', '', '', // KLC
-            '', '', '', // Department
+            'Award Experience', // experience type
+            '', // start date
+            '', // end date
+            'No', // is current
+            $numberOfMonths, // number of months
+            $exp->title ?? '', // role or title
+            $exp->issued_by ?? '', // organization_department
+            '', // employment_category
+            '', // team_group_or_division
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // gc_c_suite_role
+            '', // other_c_suite_role_title
+            '', // caf_employment_type
+            '', // caf_rank_category
+            '', // work_streams
+
+            // Education fields - empty for awards
+            '', // type_of_education
+            '', // area_of_study
+            '', // education_status
+            '', // thesis_title
+
+            // Community/Personal fields - empty for awards
+            '', // community_project_or_product
+            '', // personal_learning_experience_description
+            $exp->awarded_to ? $this->localizeEnum($exp->awarded_to, AwardedTo::class) : '', // award_recipient
+            $exp->issued_by ?? '', // issued by
+            $exp->awarded_scope ?? '', // award_scope
+            $exp->awarded_date ? $exp->awarded_date->format('Y-m-d') : '', // date awarded
+            $exp->details ?? '', // additional details
+            $this->getFeaturedSkills($exp), // featured skills
+            // KLC fields - empty
+            '', // klc_achieve_results
+            '', // klc_character_leadership
+            '', // klc_collaborate_with_partners_and_stakeholders
+            '', // klc_create_vision_and_strategy
+            '', // klc_mobilize_people
+            '', // klc_promote_innovation_and_guide_change
+            '', // klc_uphold_integrity_and_respect
+
+            // Department fields - empty for awards
+            '', // department_number
+            '', // department_size
+            '', // department_type
         ];
     }
 
@@ -589,19 +647,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function addCommunityExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
-        try {
-            CommunityExperience::whereIn('user_id', $userIds)
-                ->with(['user', 'skills'])
-                ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                    foreach ($experiences as $exp) {
-                        $rowData = $this->buildCommunityExperienceRow($exp);
-                        $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                        $currentRow++;
-                    }
-                });
-        } catch (\Exception $e) {
-            error_log('Error in addCommunityExperiences: '.$e->getMessage());
-        }
+        CommunityExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'skills'])
+            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+                foreach ($experiences as $exp) {
+                    $rowData = $this->buildCommunityExperienceRow($exp);
+                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
+                    $currentRow++;
+                }
+            });
     }
 
     /**
@@ -609,29 +663,62 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildCommunityExperienceRow(CommunityExperience $exp): array
     {
-        $isCurrent = empty($exp->end_date) ? 'Yes' : 'No';
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
         $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
 
         return [
             $exp->user->id,
             $exp->user->first_name,
             $exp->user->last_name,
-            'Community Experience',
-            $exp->start_date ? $exp->start_date->format('Y-m-d') : '',
-            $exp->end_date ? $exp->end_date->format('Y-m-d') : '',
-            $isCurrent,
-            $numberOfMonths,
-            $exp->title ?? '',
+            'Community Experience', // experience type
+            $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
+            $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
+            $isCurrent, // is current
+            $numberOfMonths, // number of months
+            $exp->title ?? '', // role or title
             $exp->organization ?? '',
-            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', // Work fields
-            '', '', '', '', // Education fields
-            $exp->project ?? '',
-            '', // Personal
-            '', '', '', '', '', // Award
-            $exp->details ?? '',
+            '', // employment_category
+            $exp->group ?? '', // team_group_or_division
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // gc_c_suite_role
+            '', // other_c_suite_role_title
+            '', // caf_employment_type
+            '', // caf_rank_category
+            '', // work_streams
+            // Education fields - empty for community
+            '', // type_of_education
+            '', // area_of_study
+            '', // education_status
+            '', // thesis_title
+            $exp->project ?? '', // community_project_or_product
+            '', // personal learning description
+            // Award fields - empty for community
+            '', // award recipient
+            '', // issuing organization
+            '', // award scope
+            '', // date awarded
+            $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp),
-            '', '', '', '', '', '', '', // KLC
-            '', '', '', // Department
+            // KLC fields - empty
+            '', // klc_achieve_results
+            '', // klc_character_leadership
+            '', // klc_collaborate_with_partners_and_stakeholders
+            '', // klc_create_vision_and_strategy
+            '', // klc_mobilize_people
+            '', // klc_promote_innovation_and_guide_change
+            '', // klc_uphold_integrity_and_respect
+
+            // Department fields - empty for community
+            '', // department_number
+            '', // department_size
+            '', // department_type
         ];
     }
 
@@ -640,19 +727,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function addPersonalExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
-        try {
-            PersonalExperience::whereIn('user_id', $userIds)
-                ->with(['user', 'skills'])
-                ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                    foreach ($experiences as $exp) {
-                        $rowData = $this->buildPersonalExperienceRow($exp);
-                        $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                        $currentRow++;
-                    }
-                });
-        } catch (\Exception $e) {
-            error_log('Error in addPersonalExperiences: '.$e->getMessage());
-        }
+        PersonalExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'skills'])
+            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+                foreach ($experiences as $exp) {
+                    $rowData = $this->buildPersonalExperienceRow($exp);
+                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
+                    $currentRow++;
+                }
+            });
     }
 
     /**
@@ -660,30 +743,78 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildPersonalExperienceRow(PersonalExperience $exp): array
     {
-        $isCurrent = empty($exp->end_date) ? 'Yes' : 'No';
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
         $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
 
         return [
             $exp->user->id,
             $exp->user->first_name,
             $exp->user->last_name,
-            'Personal Experience',
-            $exp->start_date ? $exp->start_date->format('Y-m-d') : '',
-            $exp->end_date ? $exp->end_date->format('Y-m-d') : '',
-            $isCurrent,
-            $numberOfMonths,
-            $exp->title ?? '',
-            $exp->description ?? '',
-            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', // Work fields
-            '', '', '', '', // Education fields
-            '', // Community
-            $exp->description ?? '',
-            '', '', '', '', '', // Award
-            $exp->details ?? '',
-            $this->getFeaturedSkills($exp),
-            '', '', '', '', '', '', '', // KLC
-            '', '', '', // Department
+            'Personal Experience', // experience type
+            $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
+            $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
+            $isCurrent, // is current
+            $numberOfMonths, // number of months
+            $exp->title ?? '', // role or title
+            $exp->description ?? '', // organization_department
+            '', // employment_category
+            '', // team_group_or_division
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // gc_c_suite_role
+            '', // other_c_suite_role_title
+            '', // caf_employment_type
+            '', // caf_rank_category
+            '', // work_streams
+
+            // Education fields - empty for personal
+            '', // type_of_education
+            '', // area_of_study
+            '', // education_status
+            '', // thesis_title
+            '', // Community project or product
+            $exp->description ?? '', // personal learning experience description
+            // Award fields - empty for education
+            '', // award recipient
+            '', // issuing organization
+            '', // award scope
+            '', // date awarded
+            $exp->details ?? '', // additional details
+            $this->getFeaturedSkills($exp), // featured skills
+            // KLC fields - empty
+            '', // klc_achieve_results
+            '', // klc_character_leadership
+            '', // klc_collaborate_with_partners_and_stakeholders
+            '', // klc_create_vision_and_strategy
+            '', // klc_mobilize_people
+            '', // klc_promote_innovation_and_guide_change
+            '', // klc_uphold_integrity_and_respect
+
+            // Department fields - empty for education
+            '', // department_number
+            '', // department_size
+            '', // department_type
         ];
+    }
+
+    /**
+     * Get work streams from experience
+     */
+    private function getWorkStreams($experience): string
+    {
+        if (! $experience->workStreams) {
+            return '';
+        }
+
+        return $experience->workStreams->map(function ($workStream) {
+            return $workStream->name[$this->lang] ?? $workStream->name ?? '';
+        })->filter()->join(', ');
     }
 
     /**
@@ -731,6 +862,22 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         });
 
         return $userIds;
+    }
+
+    /**
+     * Get department from work experience
+     */
+    private function getDepartmentInfo(WorkExperience $exp): array
+    {
+        if (! $exp->department) {
+            return ['', '', ''];
+        }
+
+        return [
+            $exp->department->id ?? '',
+            $exp->department->size ? $this->localizeEnum($exp->department->size, DepartmentSize::class) : '',
+            $exp->department->type ?? '',
+        ];
     }
 
     /**
