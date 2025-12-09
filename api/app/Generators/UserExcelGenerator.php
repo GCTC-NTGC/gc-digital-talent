@@ -591,7 +591,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'Award Experience', // experience type
             '', // start date
             '', // end date
-            'No', // is current
+            $this->yesOrNo(false),  // is current
             $numberOfMonths, // number of months
             $exp->title ?? '', // role or title
             $exp->issued_by ?? '', // organization_department
