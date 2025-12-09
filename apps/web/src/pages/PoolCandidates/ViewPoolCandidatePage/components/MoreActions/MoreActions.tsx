@@ -72,17 +72,6 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     screeningStage {
       value
     }
-    assessmentStep {
-      sortOrder
-      title {
-        localized
-      }
-      type {
-        label {
-          localized
-        }
-      }
-    }
     finalDecision {
       value
     }
@@ -159,13 +148,6 @@ const MoreActions = ({
 
   const [{ data }] = useQuery({ query: MoreActions_Query });
 
-  const currentStepName =
-    // NOTE: Localized can be empty string so || is more suitable
-
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-    poolCandidate.assessmentStep?.title?.localized ||
-    poolCandidate.assessmentStep?.type?.label?.localized;
-
   const status = poolCandidate.status?.value;
 
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
@@ -177,20 +159,9 @@ const MoreActions = ({
   return (
     <div className="mb-3 flex flex-col gap-3">
       <Card space="md" className="flex flex-col gap-3">
-        <div>
-          <Heading level="h2" size="h6" className="mt-0">
-            {candidateName}
-          </Heading>
-          {currentStepName && (
-            <p className="text-gray-600 dark:text-gray-200">
-              {intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                stepNumber: poolCandidate.assessmentStep?.sortOrder,
-              }) +
-                intl.formatMessage(commonMessages.dividingColon) +
-                currentStepName}
-            </p>
-          )}
-        </div>
+        <Heading level="h2" size="h6" className="mt-0">
+          {candidateName}
+        </Heading>
 
         <Card.Separator space="xs" />
 
