@@ -35,7 +35,7 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
     <Card className="mt-6">
       <div className="items-center justify-between gap-18 xs:flex">
         <div>
-          <Heading level="h2" size="h6" className="m-t0 mb-3">
+          <Heading level="h2" size="h6" className="mt-0 mb-3">
             {areOpportunitiesShowing
               ? intl.formatMessage({
                   defaultMessage: "More opportunities are coming soon!",
