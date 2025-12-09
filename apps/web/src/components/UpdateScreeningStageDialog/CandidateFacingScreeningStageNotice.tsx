@@ -24,8 +24,8 @@ const CandidateFacingScreeningStageNotice = () => {
       <Heading level="h3" size="h6" className="mt-6 mb-3">
         {intl.formatMessage({
           defaultMessage: "What the candidate sees",
-          id: "rismPG",
-          description: "Heading for candidate facing screenign stage",
+          id: "oRk5nf",
+          description: "Heading for candidate facing screening stage",
         }) + intl.formatMessage(commonMessages.dividingColon)}
       </Heading>
       <Notice.Root small>

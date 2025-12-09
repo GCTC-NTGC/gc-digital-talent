@@ -41,7 +41,7 @@ const UpdateScreeningStageDialog_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-const UpdateScreeningStageDialogOptions_Query = graphql(/** GrpahQL */ `
+const UpdateScreeningStageDialogOptions_Query = graphql(/** GraphQL */ `
   query UpdateScreeningStageDialogOptions {
     screeningStages: localizedEnumOptions(enumName: "ScreeningStage") {
       ... on LocalizedScreeningStage {
