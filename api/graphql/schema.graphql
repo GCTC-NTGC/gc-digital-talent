@@ -1583,6 +1583,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
+    orderByScreeningStage: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1627,6 +1628,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
+    orderByScreeningStage: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
