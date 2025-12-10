@@ -15,7 +15,6 @@ import {
   TalentNominationLateralMovementOption,
   LearningOpportunitiesInterest,
   WfaInterest,
-  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import { hasKey } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
