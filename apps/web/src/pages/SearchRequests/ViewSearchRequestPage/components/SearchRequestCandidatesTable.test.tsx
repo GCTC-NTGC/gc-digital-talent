@@ -14,7 +14,6 @@ import {
 import {
   FinalDecision,
   PlacementType,
-  PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
