@@ -566,6 +566,15 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
+    public function whereScreeningStageIn(?array $screeningStages): self
+    {
+        if (empty($screeningStages)) {
+            return $this;
+        }
+
+        return $this->whereIn('screening_stage', $screeningStages);
+    }
+
     public function orderByClaimVerification(?array $args): self
     {
 

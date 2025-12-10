@@ -1410,6 +1410,7 @@ input PoolCandidateSearchInput {
   finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
   placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
   removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
+  screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")
 }
 
 input PoolCandidateSearchRequestInput {

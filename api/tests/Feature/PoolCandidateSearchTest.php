@@ -10,6 +10,7 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\Facades\Notify;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
@@ -918,6 +919,57 @@ class PoolCandidateSearchTest extends TestCase
             ->graphQL($query, [
                 'where' => [
                     'removalReasons' => [CandidateRemovalReason::INELIGIBLE->name],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
+    }
+
+    public function testScopeScreeningStageIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'screening_stage' => Arr::random(Arr::where(array_column(ScreeningStage::cases(), 'name'), function ($status) {
+                    return $status !== ScreeningStage::UNDER_ASSESSMENT->name;
+                })),
+            ]);
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'screening_stage' => ScreeningStage::UNDER_ASSESSMENT->name,
+            ]);
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'screeningStages' => [ScreeningStage::UNDER_ASSESSMENT->name],
                 ],
             ])->assertJsonFragment([
                 'data' => [
