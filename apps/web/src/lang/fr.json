@@ -5923,6 +5923,10 @@
     "defaultMessage": "Revoir et soumettre",
     "description": "Heading for submit page of an form"
   },
+  "O7ubAh": {
+    "defaultMessage": "Une adresse courriel de correspondance confirmée est requise",
+    "description": "Error message displayed during application when missing a verified email"
+  },
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
     "description": "Toast for successful add user to pool on view-user page"
