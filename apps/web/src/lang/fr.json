@@ -711,6 +711,10 @@
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
   },
+  "0fjeXG": {
+    "defaultMessage": "Il n'y aura aucun affichage d'emplois pendant le temps des Fêtes.",
+    "description": "Message to indicate period of time when no jobs will be posted on the website"
+  },
   "0jV7Rn": {
     "defaultMessage": "Complet",
     "description": "Simplified status label for a complete process advertisement or assessment"
@@ -11469,6 +11473,10 @@
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
   },
+  "ll4RKs": {
+    "defaultMessage": "Il est temps de prendre une pause; vous l'avez méritée!",
+    "description": "Message conveying time to relax"
+  },
   "ll9u08": {
     "defaultMessage": "Annonces",
     "description": "Page title for the announcements page"
@@ -11856,6 +11864,10 @@
   "nCqQlv": {
     "defaultMessage": "Disponible pour",
     "description": "Title for the classification list"
+  },
+  "nE+RKq": {
+    "defaultMessage": "Alors détendez-vous et profitez du temps des Fêtes avec vos êtres chers.",
+    "description": "Message suggesting the user relax and enjoy the holiday season"
   },
   "nF//P1": {
     "defaultMessage": "Recommandations pour des programmes de perfectionnement",
@@ -12324,6 +12336,10 @@
   "pErNfb": {
     "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
     "description": "Button text to remove a candidate and update their status"
+  },
+  "pFOjuY": {
+    "defaultMessage": "Joyeux temps des Fêtes!",
+    "description": "Heading to exclaim holiday greetings"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
