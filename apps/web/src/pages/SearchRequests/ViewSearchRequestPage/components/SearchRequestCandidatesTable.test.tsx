@@ -11,10 +11,7 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-import {
-  FinalDecision,
-  PlacementType,
-} from "@gc-digital-talent/graphql";
+import { FinalDecision, PlacementType } from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 
