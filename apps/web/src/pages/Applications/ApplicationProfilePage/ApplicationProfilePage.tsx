@@ -13,7 +13,6 @@ import {
   UserProfileFragment,
 } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-import { empty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
