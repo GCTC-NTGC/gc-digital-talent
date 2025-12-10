@@ -366,7 +366,9 @@ export function getSortOrder(
 
   // handle sort in orderByClaimVerification and departments
   if (
-    sortingRules?.find((rule) => ["priority", "department"].includes(rule.id))
+    sortingRules?.find((rule) =>
+      ["priority", "department", "screeningStage"].includes(rule.id),
+    )
   ) {
     return undefined;
   }
@@ -419,6 +421,18 @@ export function getDepartmentSort(
   sortingRules?: SortingState,
 ): SortOrder | undefined {
   const sortingRule = sortingRules?.find((rule) => rule.id === "department");
+
+  if (!sortingRule) return undefined;
+
+  return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
+}
+
+export function getScreeningStageSort(
+  sortingRules?: SortingState,
+): SortOrder | undefined {
+  const sortingRule = sortingRules?.find(
+    (rule) => rule.id === "screeningStage",
+  );
 
   if (!sortingRule) return undefined;
 

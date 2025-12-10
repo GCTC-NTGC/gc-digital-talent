@@ -73,6 +73,7 @@ import {
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
   candidateFacingStatusCell,
+  getScreeningStageSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -177,6 +178,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
     $orderByEmployeeDepartment: SortOrder
+    $orderByScreeningStage: SortOrder
   ) {
     poolCandidatesPaginatedAdminView(
       where: $where
@@ -186,6 +188,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
       orderByEmployeeDepartment: $orderByEmployeeDepartment
+      orderByScreeningStage: $orderByScreeningStage
     ) {
       data {
         id
@@ -571,6 +574,7 @@ const PoolCandidatesTable = ({
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState, doNotUseFlag),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
+      orderByScreeningStage: getScreeningStageSort(sortState),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
         doNotUseFlag,
