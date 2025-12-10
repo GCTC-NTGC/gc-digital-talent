@@ -304,7 +304,7 @@ export const getCandidateStatusChip = (
 
 /* Applicant facing statuses */
 
-const applicationStatusLabels = defineMessages({
+export const applicationStatusLabels = defineMessages({
   EXPIRED: {
     defaultMessage: "Expired",
     id: "GIC6EK",
@@ -348,7 +348,7 @@ const applicationStatusLabels = defineMessages({
   },
 });
 
-const applicationStatusDescriptions = defineMessages({
+export const applicationStatusDescriptions = defineMessages({
   EXPIRED: {
     defaultMessage: "The deadline for this opportunity has passed.",
     id: "CeKPRS",
