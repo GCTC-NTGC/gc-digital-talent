@@ -48,7 +48,6 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
 
@@ -842,7 +841,8 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       ({ poolCandidate: { assessmentStep } }) => {
-        if (isLegacyAssessmentStepType(assessmentStep?.type.value)) return null;
+        if (isLegacyAssessmentStepType(assessmentStep?.type?.value))
+          return null;
 
         return (
           // NOTE: We do want to pass on empty strings
