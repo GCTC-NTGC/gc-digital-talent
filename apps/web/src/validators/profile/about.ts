@@ -14,7 +14,12 @@ type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
 
 export interface PartialUser extends Pick<
   User,
-  "firstName" | "lastName" | "email" | "telephone" | "isWorkEmailVerified"
+  | "firstName"
+  | "lastName"
+  | "email"
+  | "telephone"
+  | "workEmail"
+  | "isWorkEmailVerified"
 > {
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
@@ -51,13 +56,15 @@ export function hasEmptyRequiredFields(
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   );
 
-  let isWorkEmailVerifiedForInternalJobs = null;
+  // Refactor after feature flag is turned on #15052
+  let isWorkEmailVerifiedForInternalJobs: boolean | undefined | null = true;
 
   if (applicationEmailVerification) {
-    isWorkEmailVerifiedForInternalJobs =
-      pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees &&
-      applicant.isWorkEmailVerified;
-  }
+    if (pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees) {
+      isWorkEmailVerifiedForInternalJobs =
+        !!applicant.workEmail && applicant.isWorkEmailVerified;
+    }
+  } // Refactor after feature flag is turned on #15052
 
   return (
     !applicant.firstName ||
