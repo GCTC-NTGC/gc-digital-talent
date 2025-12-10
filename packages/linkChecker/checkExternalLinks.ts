@@ -1,12 +1,23 @@
+#!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import { glob } from "glob";
 
 interface LinkStatus {
   file: string;
   url: string;
   status: number | string;
+}
+
+// Write error to external-link-errors.log
+async function writeErrorLog(msg: string, file?: string, append = true) {
+  const errorLogPath = path.resolve("external-link-errors.log");
+  const entry = file ? `${file}: ${msg}\n` : `${msg}\n`;
+  if (append) {
+    await fs.appendFile(errorLogPath, entry, "utf-8");
+  } else {
+    await fs.writeFile(errorLogPath, entry, "utf-8");
+  }
 }
 
 async function fetchLink(
@@ -48,13 +59,11 @@ async function getAllFiles(): Promise<string[]> {
   return files;
 }
 
-//  Extract external links
 async function extractExternalLinks(filePath: string): Promise<string[]> {
   const content = await fs.readFile(filePath, "utf-8");
   const links: string[] = [];
   const ext = path.extname(filePath).slice(1);
 
-  // HTML links
   if (ext === "html") {
     const regex = /href=['"]([^'"]+)['"]/g;
     let match;
@@ -86,8 +95,20 @@ async function main() {
     const allLinks: { file: string; url: string }[] = [];
 
     for (const file of files) {
-      const links = await extractExternalLinks(file);
-      links.forEach((url) => allLinks.push({ file, url }));
+      try {
+        const stat = await fs.lstat(file);
+        if (!stat.isFile()) continue;
+        const links = await extractExternalLinks(file);
+        links.forEach((url) => allLinks.push({ file, url }));
+      } catch (err) {
+        let msg: string;
+        if (err instanceof Error) {
+          msg = err.stack ?? err.message;
+        } else {
+          msg = JSON.stringify(err, Object.getOwnPropertyNames(err), 2);
+        }
+        await writeErrorLog(msg, file);
+      }
     }
 
     // Save all links so that we can cross verify later
@@ -117,17 +138,12 @@ async function main() {
     if (brokenLinks.length > 0) process.exit(1);
   } catch (err) {
     let msg: string;
-    const errorLogPath = path.resolve("external-link-errors.log");
-
     if (err instanceof Error) {
       msg = err.stack ?? err.message;
     } else {
-      // stringify any non-Error object
       msg = JSON.stringify(err, Object.getOwnPropertyNames(err), 2);
     }
-
-    // Write the error to file
-    await fs.writeFile(errorLogPath, msg, "utf-8");
+    await writeErrorLog(msg, undefined, false);
     process.exit(1);
   }
 }
