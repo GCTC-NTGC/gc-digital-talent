@@ -44,6 +44,7 @@ export const getFeatureFlags = () => ({
   applicationEmailVerification: checkFeatureFlag(
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   ),
+  holidayMessage: checkFeatureFlag("FEATURE_HOLIDAY_MESSAGE"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
