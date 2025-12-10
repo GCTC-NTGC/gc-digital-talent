@@ -210,7 +210,7 @@ const MoreActions = ({
         )}
 
         {isRevertableStatus(status) &&
-          !(poolCandidate.finalDecision?.value !== FinalDecision.Removed) && (
+          !(poolCandidate.finalDecision?.value === FinalDecision.Removed) && (
             <StatusLabel>
               <RevertFinalDecisionDialog
                 revertFinalDecisionQuery={poolCandidate}
