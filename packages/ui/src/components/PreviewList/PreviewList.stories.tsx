@@ -97,6 +97,7 @@ Default.args = {
             onClick={() => action("preview button one clicked")()}
           />
         }
+        mode="default"
       />
       <PreviewList.Item
         title="IT-02: Application developer"
@@ -107,6 +108,7 @@ Default.args = {
             onClick={() => action("preview button two clicked")()}
           />
         }
+        mode="default"
       />
       <PreviewList.Item
         title="IT-03: Database architect"
@@ -117,6 +119,7 @@ Default.args = {
             onClick={() => action("preview button three clicked")()}
           />
         }
+        mode="default"
       />
     </>
   ),
@@ -134,8 +137,56 @@ WithChildren.args = {
           onClick={() => action("preview button one clicked")()}
         />
       }
+      mode="default"
     >
       <p>{faker.lorem.paragraph()}</p>
     </PreviewList.Item>
+  ),
+};
+
+export const ExperienceCard = Template.bind({});
+ExperienceCard.args = {
+  children: (
+    <>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience-card"
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience-card"
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience-card"
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+    </>
   ),
 };
