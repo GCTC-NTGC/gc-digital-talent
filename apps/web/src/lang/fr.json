@@ -23,10 +23,6 @@
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
   },
-  "oRk5nf": {
-    "defaultMessage": "Ce que la personne candidate voit",
-    "description": "Heading for candidate facing screening stage"
-  },
   "+365vM": {
     "defaultMessage": "Talents de la collectivité",
     "description": "Label for community talent"
@@ -12124,6 +12120,10 @@
   "oR+6vE": {
     "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
     "description": "Text for first sign in step."
+  },
+  "oRk5nf": {
+    "defaultMessage": "Ce que la personne candidate voit",
+    "description": "Heading for candidate facing screening stage"
   },
   "oURESC": {
     "defaultMessage": "J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
