@@ -11,7 +11,11 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  FinalDecision,
+  PlacementType,
+  PoolCandidateStatus,
+} from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 
@@ -63,20 +67,22 @@ const mockClient = {
         suspendedStatuses: [],
         languages: [],
         provinces: [],
-        statuses: [
+        finalDecisions: [
           {
-            __typename: "LocalizedPoolCandidateStatus",
-            value: PoolCandidateStatus.PlacedCasual,
+            __typename: "LocalizedFinalDecision",
+            value: FinalDecision.Qualified,
+            label: { localized: "Qualified" },
+          },
+        ],
+        placements: [
+          {
+            __typename: "LocalizedPlacementType",
+            value: PlacementType.PlacedCasual,
             label: { localized: "Placed casual" },
           },
           {
-            __typename: "LocalizedPoolCandidateStatus",
-            value: PoolCandidateStatus.QualifiedAvailable,
-            label: { localized: "Qualified available" },
-          },
-          {
-            __typename: "LocalizedPoolCandidateStatus",
-            value: PoolCandidateStatus.PlacedTentative,
+            __typename: "LocalizedPlacementType",
+            value: PlacementType.PlacedTentative,
             label: { localized: "Offer in progress" },
           },
         ],
@@ -106,9 +112,7 @@ describe("Search Request Candidates Table", () => {
     expect(await within(filters).findAllByText(/placed casual/i)).toHaveLength(
       2,
     );
-    expect(
-      await within(filters).findAllByText(/qualified available/i),
-    ).toHaveLength(2);
+    expect(await within(filters).findAllByText(/qualified/i)).toHaveLength(2);
 
     expect(
       await within(filters).findAllByText(/offer in progress/i),

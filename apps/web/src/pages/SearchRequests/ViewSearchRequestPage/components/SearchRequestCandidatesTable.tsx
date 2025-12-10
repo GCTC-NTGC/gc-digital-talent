@@ -5,9 +5,10 @@ import {
   PoolCandidateFilter,
   ApplicantFilter,
   PoolCandidateSearchInput,
-  PoolCandidateStatus,
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
+  FinalDecision,
+  PlacementType,
 } from "@gc-digital-talent/graphql";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
@@ -60,11 +61,8 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
         id,
       }),
     ),
-    poolCandidateStatus: [
-      PoolCandidateStatus.QualifiedAvailable,
-      PoolCandidateStatus.PlacedCasual,
-      PoolCandidateStatus.PlacedTentative,
-    ],
+    finalDecisions: [FinalDecision.QualifiedPlaced, FinalDecision.Qualified],
+    placementTypes: [PlacementType.PlacedTentative, PlacementType.PlacedCasual],
   };
 };
 
