@@ -1,5 +1,6 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { forwardRef, Fragment, ReactElement, ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import BaseButton, {
   IconButtonProps as BaseButtonProps,
@@ -11,6 +12,30 @@ import Heading, { HeadingLevel } from "../Heading";
 import { BaseIconButtonLinkProps } from "../../utils/btnStyles";
 import { UNICODE_CHAR } from "../../utils/unicode";
 
+type ItemMode = "default" | "experience-card";
+
+const listItem = tv({
+  base: "group/item relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center",
+  variants: {
+    mode: {
+      default: "",
+      "experience-card": "",
+    },
+  },
+});
+
+const heading = tv({
+  base: "m-0 mb-0.5 inline-block text-base underline group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black lg:text-base",
+  variants: {
+    mode: {
+      default:
+        "font-bold group-has-[a:hover,button:hover]/item:text-primary-600 dark:group-has-[a:hover,button:hover]/item:text-primary-200",
+      "experience-card":
+        // packages/ui/src/utils/btnStyles.ts text->primary
+        "text-primary-600 group-has-[a:hover,button:hover]/item:text-primary-700 dark:text-primary-200 dark:group-has-[a:hover,button:hover]/item:text-primary-100",
+    },
+  },
+});
 interface MetaDataBase {
   children: ReactNode;
   key: string;
@@ -86,6 +111,7 @@ interface ItemProps {
   headingAs?: HeadingLevel;
   children?: ReactNode;
   action?: ReactElement<ButtonProps> | ReactElement<LinkProps> | null;
+  mode: ItemMode;
 }
 
 const Item = ({
@@ -94,14 +120,12 @@ const Item = ({
   metaData,
   action,
   children,
+  mode,
 }: ItemProps) => {
   return (
-    <li className="group/item relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center">
+    <li className={listItem({ mode })}>
       <div className="flex flex-col">
-        <Heading
-          level={headingAs}
-          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black group-has-[a:hover,button:hover]/item:text-primary-600 lg:text-base dark:group-has-[a:hover,button:hover]/item:text-primary-200"
-        >
+        <Heading level={headingAs} className={heading({ mode })}>
           {title}
         </Heading>
         {children && <div>{children}</div>}
