@@ -50,13 +50,7 @@ async function getAllFiles(): Promise<string[]> {
 
 //  Extract external links
 async function extractExternalLinks(filePath: string): Promise<string[]> {
-  let content: string;
-  try {
-    content = await fs.readFile(filePath, "utf-8");
-  } catch {
-    return [];
-  }
-
+  const content = await fs.readFile(filePath, "utf-8");
   const links: string[] = [];
   const ext = path.extname(filePath).slice(1);
 
