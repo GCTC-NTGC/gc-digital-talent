@@ -214,6 +214,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
+          screeningStage {
+            label {
+              localized
+            }
+          }
           finalDecisionAt
           finalDecision {
             value
@@ -403,7 +408,6 @@ const defaultState = {
       languageAbility: undefined,
       flexibleWorkLocations: [],
     },
-    poolCandidateStatus: [],
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
@@ -411,6 +415,7 @@ const defaultState = {
     finalDecisions: [],
     removalReasons: [],
     placementTypes: [],
+    screeningStages: [],
   },
 };
 
