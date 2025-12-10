@@ -1,7 +1,6 @@
 name: LinkChecker
 
 on:
-  push:
   workflow_dispatch: # allows manual trigger
   schedule:
     # Every Wednesday at 2:00 AM UTC
