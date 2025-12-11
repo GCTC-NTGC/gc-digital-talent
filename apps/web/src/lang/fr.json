@@ -299,6 +299,10 @@
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
   },
+  "/8hZcv": {
+    "defaultMessage": "Recherche dans le Nuage de talents",
+    "description": "Title for information about the talent cloud research"
+  },
   "/9+N+W": {
     "defaultMessage": "Autorisation de sécurité de niveau très secret",
     "description": "Top secret security clearance level of security clearance"
@@ -382,6 +386,10 @@
   "/Wgawu": {
     "defaultMessage": "Courriel professionnel de la personne déposante",
     "description": "Label for the submitter's work email"
+  },
+  "/YFHwu": {
+    "defaultMessage": "La création de Talents numériques du GC fait suite à un projet pilote appelé Nuage de talents. L’équipe qui l’a créée voulait trouver de nouvelles façons d’optimiser le jumelage talent-équipe, d’accroître l’inclusion et la diversité lors du recrutement et de réduire la durée des processus de dotation.",
+    "description": "Paragraph one, describing the talent cloud research"
   },
   "/YLOnK": {
     "defaultMessage": "L'archivage de l'utilisateur a échoué.",
@@ -627,6 +635,10 @@
     "defaultMessage": "Si la personne candidate n'est plus membre du personnel, cette mise en candidature doit être marquée comme « Non retenue ».",
     "description": "Instruction if nominee is no longer a Government of Canada employee"
   },
+  "0PRZVb": {
+    "defaultMessage": "Comment les modèles d’offres d’emploi facilitent-ils le recrutement?",
+    "description": "Question about job advertisement templates"
+  },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
@@ -638,6 +650,10 @@
   "0QM++s": {
     "defaultMessage": "En vertu de cette directive, les ministères sont tenus de fournir des informations au Bureau du dirigeant principal de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
+  },
+  "0R9I+p": {
+    "defaultMessage": "Le gouvernement du Canada modernise sa façon d’attirer et d’embaucher des talents numériques en passant du processus habituel de dotation axé sur l’expérience à une approche axée sur les compétences. Cette nouvelle approche vise à recruter des personnes qui doivent démontrer qu’elles possèdent des compétences précises et non plus seulement faire valoir leur expérience comme auparavant.",
+    "description": "Paragraph one, answer about skills-based recruitment"
   },
   "0T3NB0": {
     "defaultMessage": "Erreur : nom de compétence non trouvé",
@@ -694,6 +710,10 @@
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
+  },
+  "0fjeXG": {
+    "defaultMessage": "Il n'y aura aucun affichage d'emplois pendant le temps des Fêtes.",
+    "description": "Message to indicate period of time when no jobs will be posted on the website"
   },
   "0jV7Rn": {
     "defaultMessage": "Complet",
@@ -758,6 +778,10 @@
   "11/un8": {
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
+  },
+  "13WmnE": {
+    "defaultMessage": "Modifier le stade de l'évaluation",
+    "description": "Heading for form to update a candidates assessment stage"
   },
   "144l3L": {
     "defaultMessage": "Ce rôle nécessitait la gestion d'un budget dédié ou un pouvoir de signature délégué pour un budget.",
@@ -982,6 +1006,10 @@
   "1wRiVj": {
     "defaultMessage": "Candidatures internes",
     "description": "Heading for creating profiles if a GC employee"
+  },
+  "1x9cCE": {
+    "defaultMessage": "Les modèles peuvent être utilisés tels quels ou adaptés pour répondre à des exigences ministérielles particulières. De nouveaux modèles peuvent en outre être ajoutés régulièrement en fonction de l’évolution des emplois et des compétences émergentes dans le domaine du numérique.",
+    "description": "Paragraph two, answer about job advertisement templates"
   },
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
@@ -1614,6 +1642,10 @@
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
     "description": "Link text to the managers community"
+  },
+  "4VO5Ed": {
+    "defaultMessage": "Cet ensemble grandissant de modèles d’annonces pour des emplois courants dans le domaine du numérique comprend des suggestions de titres de poste, de tâches habituelles et de compétences clés (essentielles et atouts). Ces modèles aident les gestionnaires d’embauche à créer des offres d’emploi claires et uniformes. Ils aident également les personnes à la recherche d’un poste à comprendre les possibilités d’emploi à la fonction publique et les exigences à respecter.",
+    "description": "Description of job advertisement templates"
   },
   "4VQGU4": {
     "defaultMessage": "Employé(e)s (de même niveau, préférences ministérielles)",
@@ -2367,6 +2399,10 @@
     "defaultMessage": "Ces compétences doivent être accompagnées d’une note spéciale.",
     "description": "Statement that a special note on a job poster template is required"
   },
+  "8+j5O+": {
+    "defaultMessage": "Communiquer avec la collectivité du numérique",
+    "description": "Link text to email the digital community"
+  },
   "803us1": {
     "defaultMessage": "Profil intégral",
     "description": "Text in table search form column dropdown when no column is selected."
@@ -2895,6 +2931,10 @@
     "defaultMessage": "Candidatures externes",
     "description": "Heading for creating profiles if not a GC employee"
   },
+  "A2D/lZ": {
+    "defaultMessage": "Talents numériques du GC offre aux ministères des outils modernes et simples pour faciliter les processus d’embauche, et ce, dans le respect des objectifs et des politiques en matière de ressources humaines du gouvernement du Canada. Les ministères sont encouragés à utiliser ces outils pour pourvoir des postes dans le domaine du numérique et des TI.",
+    "description": "Paragraph one, information about recruitment on the platform"
+  },
   "A2XC6d": {
     "defaultMessage": "<link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
     "description": "Link to veterans and armed forces members info page, separate sentence"
@@ -2974,6 +3014,10 @@
   "AOrJqm": {
     "defaultMessage": "J'ai compris, allons-y!",
     "description": "Link text to continue the application process"
+  },
+  "APBv6h": {
+    "defaultMessage": "Modifier le stade de la présélection",
+    "description": "Heading for form to update a candidates screening stage"
   },
   "AQiPuW": {
     "defaultMessage": "Intérêt pour",
@@ -3126,6 +3170,10 @@
   "AzCfxE": {
     "defaultMessage": "Trouvez des offres d’emploi de cadres numériques au sein du gouvernement du Canada et posez votre candidature.",
     "description": "Subtitle for the executive homepage"
+  },
+  "B+3gE4": {
+    "defaultMessage": "Grâce aux processus de recrutement annoncés sur la plateforme, nous avons pu établir une vaste base de données sur les talents préqualifiés. Les personnes qui postulent sont évaluées en fonction d’une classification particulière, et celles qui se qualifient sont inscrites dans un bassin de talents dans lequel les ministères peuvent puiser pour pourvoir des postes vacants.",
+    "description": "Paragraph one, answer about prequalified talent"
   },
   "B0OL/n": {
     "defaultMessage": "{customTitle} ({title}) évaluation - {skillName}",
@@ -3707,6 +3755,10 @@
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences qui sont liées à votre profil, et votre démonstration des compétences. Sélectionnez le titre d’une compétences pour gérer de plus amples détails, y compris les détails ayant trait à votre niveau et à vos expériences de carrière connexes.",
     "description": "Description on how to use behavioural skills"
   },
+  "Dl4qi/": {
+    "defaultMessage": "Les modèles facilitent le recrutement de personnes qualifiées, car ils permettent de faire correspondre les descriptions de poste aux besoins actuels, tout en respectant les pratiques exemplaires et les principes de la dotation axée sur les compétences. Ils contribuent également à réduire les différences entre la terminologie utilisée par les RH et celle des entrepreneurs.",
+    "description": "Paragraph one, answer about job advertisement templates"
+  },
   "DnXch4": {
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
     "description": "Message displayed to user after assessment step fails to be saved."
@@ -3882,10 +3934,6 @@
   "ERsZAD": {
     "defaultMessage": "La formation m'intéresse",
     "description": "Phrase marking interest in community training opportunities"
-  },
-  "ETrCOq": {
-    "defaultMessage": "Statut du (de la) candidat(e)",
-    "description": "Title for admin editing a pool candidates status"
   },
   "EUDRhe": {
     "defaultMessage": "Entrevues de vive voix",
@@ -4099,10 +4147,6 @@
     "defaultMessage": "Oui, j'ai un droit de priorité.",
     "description": "affirm possession of priority entitlement"
   },
-  "FXpcgW": {
-    "defaultMessage": "Ces champs ne seront disponibles qu’aux fins de la migration, pendant un certain temps limité.",
-    "description": "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time"
-  },
   "FYCNAa": {
     "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'une mutation latérale, d'une occasion de perfectionnement ou d'une promotion.",
     "description": "Describes the career objective section of employee profile"
@@ -4295,6 +4339,10 @@
     "defaultMessage": "Toutes les collectivités fonctionnelles ne se sont pas encore jointes à cette plateforme; il se peut donc que vous recherchiez une collectivité qui n'est pas encore disponible. Si vous ne trouvez pas de correspondance entre votre expérience professionnelle et une collectivité fonctionnelle sur notre plateforme, sautez cette section.",
     "description": "Description for work streams paragraph 3 on Experience form"
   },
+  "GL8a4q": {
+    "defaultMessage": "Gérer l'étape où se situe la personne candidate au stade de la présélection.",
+    "description": "Subtitle for form to update a candidates screening stage"
+  },
   "GMbOaT": {
     "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
     "description": "Null message description for asset skills table."
@@ -4386,6 +4434,10 @@
   "GrfidX": {
     "defaultMessage": "Candidat {poolCandidateId} non trouvé.",
     "description": "Message displayed for pool candidate not found."
+  },
+  "GtfN41": {
+    "defaultMessage": "En mettant l’accent sur des compétences mesurables, la plateforme réduit les préjugés, élimine les obstacles et favorise la diversité et l’équité, car elle valorise les habiletés acquises grâce à un parcours d’apprentissage non traditionnel, à l’expérience vécue et à une expérience de travail dans l’industrie.",
+    "description": "Paragraph two, answer about skills-based recruitment"
   },
   "GurdF+": {
     "defaultMessage": "Un grade d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économie, en sociologie ou en statistique.",
@@ -4571,6 +4623,10 @@
     "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
     "description": "Paragraph 2 of the 'A commitment to diverse digital talent' section"
   },
+  "HyNnHG": {
+    "defaultMessage": "Collectivité numérique",
+    "description": "Name of the digital community"
+  },
   "I+TGU3": {
     "defaultMessage": "État du coaching des cadres",
     "description": "Label for an employee profile career development preference field"
@@ -4670,6 +4726,10 @@
   "II4+N3": {
     "defaultMessage": "Au moyen de la liste des compétences du processus de recrutement, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
+  },
+  "II4Ehd": {
+    "defaultMessage": "Communiquer avec la collectivité de l’accès à l’information et de la protection des renseignements personnels (AIPRP)",
+    "description": "Link text to email the ATIP community"
   },
   "IIKzsd": {
     "defaultMessage": "Afficher ou masquer les colonnes du tableau",
@@ -4918,6 +4978,10 @@
   "JGC9Pp": {
     "defaultMessage": "Sauvegardez et soumettez",
     "description": "Text for the submit button"
+  },
+  "JGRer4": {
+    "defaultMessage": "La Commission de la fonction publique est-elle au courant de l’existence de la plateforme Talents numériques du GC?",
+    "description": "Heading for FAQ about PSC"
   },
   "JGhMIC": {
     "defaultMessage": "Date d'achèvement du programme",
@@ -5655,6 +5719,10 @@
     "defaultMessage": "Demander des personnes candidates<hidden> de bassin {poolName}</hidden>",
     "description": "Button link message on search page that takes user to the request form."
   },
+  "MkA+x0": {
+    "defaultMessage": "La mise à jour du stade de l'évaluation a échoué",
+    "description": "Error message for updating a candidates assessment stage"
+  },
   "MkUz+j": {
     "defaultMessage": "Ajoutez un membre",
     "description": "Label for the add member to community form (action)"
@@ -5859,6 +5927,10 @@
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
     "description": "Application box heading part two"
   },
+  "NadegW": {
+    "defaultMessage": "(Disponible après le stade de la présélection)",
+    "description": "Message for assessment stage when application is not under assessment"
+  },
   "Nc751o": {
     "defaultMessage": "Les compétences techniques essentielles ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the essential technical skills"
@@ -5882,6 +5954,10 @@
   "NflJW7": {
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
+  },
+  "NiAtY6": {
+    "defaultMessage": "Communiquer avec notre équipe de soutien",
+    "description": "Link text to email the support team"
   },
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
@@ -6007,6 +6083,10 @@
     "defaultMessage": "Collectivité fonctionnelle actuelle",
     "description": "Label for users current functional community"
   },
+  "OUcpGx": {
+    "defaultMessage": "Stade de la présélection",
+    "description": "Title for the screening stage of an application"
+  },
   "OVWo88": {
     "defaultMessage": "Statut d'ancien combattant",
     "description": "Title for Veteran status"
@@ -6022,6 +6102,10 @@
   "OaaW6Y": {
     "defaultMessage": "Montrer les options d'équité offertes ({optionCount})",
     "description": "Heading for opening the accordion with available employment equity options."
+  },
+  "Ob6yEb": {
+    "defaultMessage": "Le stade de l'évaluation de la personne candidate a été mis à jour avec succès",
+    "description": "Success message for updating a candidates assessment stage"
   },
   "OcIvN1": {
     "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
@@ -6290,6 +6374,10 @@
   "PmDeul": {
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
     "description": "Label for field asking if a skill is currently being used"
+  },
+  "Pmqvqa": {
+    "defaultMessage": "<link>Lancée officiellement en janvier 2024</link>par la ministre Anand, présidente du Conseil du Trésor, Talents numériques du GC contribue aux efforts déployés par le gouvernement du Canada pour améliorer la façon dont il recrute, perfectionne et affecte les talents numériques dans l’ensemble de la fonction publique afin d’améliorer la prestation de services numériques modernes et efficaces à la population canadienne.",
+    "description": "Paragraph two, information about recruitment on the platform"
   },
   "PnHH9A": {
     "defaultMessage": "Détails de l'événement",
@@ -7007,10 +7095,6 @@
     "defaultMessage": "Décision finale annulée",
     "description": "Message displayed when a pool candidate final decision has been updated by an admin"
   },
-  "T+oEYC": {
-    "defaultMessage": "Ressources de la plateforme pour les spécialistes en RH",
-    "description": "Title for HR resources was created"
-  },
   "T+ypau": {
     "defaultMessage": "Code de vérification",
     "description": "label for verification code input"
@@ -7638,6 +7722,10 @@
     "defaultMessage": "Ajouter cette expérience",
     "description": "Button to submit the link experience to skill form"
   },
+  "W/8gtM": {
+    "defaultMessage": "Qu’est-ce que le recrutement axé sur les compétences?",
+    "description": "Question about skills-based recruitment"
+  },
   "W0Bh1G": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Title for community information"
@@ -7861,6 +7949,10 @@
   "WrTLaB": {
     "defaultMessage": "Les fonctionnaires qui désirent devenir des cadres de la gestion financière",
     "description": "Employee group list item label"
+  },
+  "Wss2iW": {
+    "defaultMessage": "Collectivité de la gestion financière",
+    "description": "Name of the financial management community"
   },
   "WswBQ+": {
     "defaultMessage": "Confirmez votre statut de membre du personnel pour pouvoir consulter les outils de perfectionnement professionnel à l'interne.",
@@ -9070,6 +9162,10 @@
     "defaultMessage": "Abonnez-vous<hidden> au bulletin d'information de la collectivité de la gestion financière</hidden>",
     "description": "External button link to subscribe to a newsletter"
   },
+  "cBBalt": {
+    "defaultMessage": "Pour en savoir plus sur la recherche et les expériences menées dans le cadre du projet Nuage de talents, ainsi que sur les idées, les concepts et la philosophie qui lui ont donné forme, vous pouvez lire le rapport publié à ce sujet.",
+    "description": "Paragraph two, describing the talent cloud research"
+  },
   "cCSlti": {
     "defaultMessage": "Vérifier les instructions",
     "description": "Title for review instructions action"
@@ -9137,6 +9233,10 @@
   "cTSaxx": {
     "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
+  },
+  "cU+2HB": {
+    "defaultMessage": "La plateforme recueille des données aux fins de planification de l’effectif : ces données font ressortir les compétences en demande, les lacunes dans les équipes et les emplois auxquels les gens postulent. Elles aident en outre les RH et la direction à faire en sorte que l’embauche, la formation et le perfectionnement correspondent aux futures priorités numériques.",
+    "description": "Description of analytics and planning for HR professionals"
   },
   "cUSI4/": {
     "defaultMessage": "Votre profil d'employée ou d'employé du GC",
@@ -10413,6 +10513,10 @@
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
   },
+  "hR7Cxv": {
+    "defaultMessage": "Quelles collectivités fonctionnelles utilisent la plateforme?",
+    "description": "Question about functional communities"
+  },
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
@@ -10809,6 +10913,10 @@
     "defaultMessage": "Options de lieu de travail flexible",
     "description": "Title for flexible work location options section on summary of filters section"
   },
+  "j8c+Ze": {
+    "defaultMessage": "Si le talent recherché ne se trouve pas dans notre base de données, les gestionnaires d’embauche peuvent travailler avec une collectivité fonctionnelle pour lancer un nouveau processus de recrutement. La plateforme diffuse des offres d’emploi de l’interne et de l’externe.",
+    "description": "Answer about recruitment processes"
+  },
   "j9zYRY": {
     "defaultMessage": "Date d’expiration (UTC)",
     "description": "A date at which data will expire, in the UTC time standard"
@@ -10845,6 +10953,10 @@
     "defaultMessage": "Comment j’ai utilisé",
     "description": "Label displayed on experience form/card for how a skill was applied section"
   },
+  "jHqtjc": {
+    "defaultMessage": "Rapport sur le Nuage de talents",
+    "description": "Link text for the talent cloud report"
+  },
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
     "description": "Support form toast message success"
@@ -10876,6 +10988,10 @@
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "jPolbP": {
+    "defaultMessage": "Oui, car la Commission de la fonction publique a effectué des examens réguliers des politiques au cours du processus de conception de la plateforme. Bien que certains éléments de la plateforme puissent sembler différents de ceux du système de recrutement de la Commission, la terminologie et les caractéristiques de la plateforme sont conformes aux politiques et prêtes à l’emploi.",
+    "description": "Answer to FAQ about PSC"
   },
   "jQ+wCE": {
     "defaultMessage": "Retirer une compétence",
@@ -11185,6 +11301,10 @@
     "defaultMessage": "Niveau de compréhension",
     "description": "Label displayed on the language information form reading comprehension field."
   },
+  "kr35e/": {
+    "defaultMessage": "Découvrez les outils qui peuvent aider les spécialistes des RH et du recrutement du gouvernement du Canada à accomplir leur travail.",
+    "description": "Description of professional HR resources page"
+  },
   "ksBmA2": {
     "defaultMessage": "Ministère ou organisme de la personne candidate",
     "description": "Label for the nominee's department"
@@ -11356,6 +11476,10 @@
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
+  },
+  "ll4RKs": {
+    "defaultMessage": "Il est temps de prendre une pause; vous l'avez méritée!",
+    "description": "Message conveying time to relax"
   },
   "ll9u08": {
     "defaultMessage": "Annonces",
@@ -11713,6 +11837,10 @@
     "defaultMessage": "Rôle actuel",
     "description": "Label displayed on an Experience form for current role bounded box"
   },
+  "n57E6J": {
+    "defaultMessage": "Foire aux questions",
+    "description": "Heading for the FAQ"
+  },
   "n8Mc9q": {
     "defaultMessage": "Profil",
     "description": "Link text for the profile of a nominee"
@@ -11740,6 +11868,10 @@
   "nCqQlv": {
     "defaultMessage": "Disponible pour",
     "description": "Title for the classification list"
+  },
+  "nE+RKq": {
+    "defaultMessage": "Alors détendez-vous et profitez du temps des Fêtes avec vos êtres chers.",
+    "description": "Message suggesting the user relax and enjoy the holiday season"
   },
   "nF//P1": {
     "defaultMessage": "Recommandations pour des programmes de perfectionnement",
@@ -11865,6 +11997,10 @@
     "defaultMessage": "Sélectionnez les volets de travail pour cette expérience.",
     "description": "Subtitle for work streams for an experience dialog"
   },
+  "nl2Trd": {
+    "defaultMessage": "Le stade de la présélection de la personne candidate a été mis à jour avec succès",
+    "description": "Success message for updating a candidates screening stage"
+  },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
     "description": "Message displayed to users to sign out of the application"
@@ -11916,6 +12052,10 @@
   "nzw1ry": {
     "defaultMessage": "Domaine d’études",
     "description": "Label displayed on education form for area of study input"
+  },
+  "o+07TS": {
+    "defaultMessage": "Soutien au recrutement dans la fonction publique",
+    "description": "Title for information about recruitment on the platform"
   },
   "o+YSXN": {
     "defaultMessage": "(il y a des notifications non lues)",
@@ -11996,6 +12136,10 @@
   "oR+6vE": {
     "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
     "description": "Text for first sign in step."
+  },
+  "oRk5nf": {
+    "defaultMessage": "Ce que la personne candidate voit",
+    "description": "Heading for candidate facing screening stage"
   },
   "oURESC": {
     "defaultMessage": "J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
@@ -12161,6 +12305,10 @@
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
     "description": "Message on education requirements card on the application review page."
   },
+  "p7+/CC": {
+    "defaultMessage": "Stade de l'évaluation",
+    "description": "Title for the assessment stage of an application"
+  },
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",
     "description": "Title of screening questions"
@@ -12192,6 +12340,10 @@
   "pErNfb": {
     "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
     "description": "Button text to remove a candidate and update their status"
+  },
+  "pFOjuY": {
+    "defaultMessage": "Joyeux temps des Fêtes!",
+    "description": "Heading to exclaim holiday greetings"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
@@ -12869,6 +13021,10 @@
     "defaultMessage": "Créer votre parcours professionnel",
     "description": "Title for career timeline page when there are no experiences yet"
   },
+  "sM+ImG": {
+    "defaultMessage": "Outils",
+    "description": "Title for information about tools for HR professionals"
+  },
   "sMCVdo": {
     "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des <abbreviation>TI</abbreviation> au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe <abbreviation>TI</abbreviation></link>, signée en décembre 2023, par le groupe <abbreviation>TI</abbreviation> de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe <abbreviation>TI</abbreviation>, et ce jusqu’à la date d’expiration de la convention.",
     "description": "First paragraph describing the training fund"
@@ -12880,6 +13036,10 @@
   "sSE4kt": {
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
+  },
+  "sTPYhS": {
+    "defaultMessage": "La Bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
+    "description": "Description of the skills library"
   },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
@@ -13252,6 +13412,10 @@
   "u7IbDO": {
     "defaultMessage": "Comment le programme fonctionne",
     "description": "Title of the 'How the program works' section"
+  },
+  "u8O+is": {
+    "defaultMessage": "Gérer l'étape où se situe la personne candidate dans le plan d'évaluation.",
+    "description": "Subtitle for form to update a candidates assessment stage"
   },
   "u8tKFI": {
     "defaultMessage": "Collectivité des biens immobiliers",
@@ -13729,6 +13893,10 @@
     "defaultMessage": "Intérêt pour le coaching des cadres",
     "description": "Label for an employee profile career development preference field"
   },
+  "wKsza4": {
+    "defaultMessage": "Collectivité de l’accès a l’information et de protection des renseignements personnels (AIPRP)",
+    "description": "Name of the ATIP community"
+  },
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
@@ -13941,6 +14109,10 @@
     "defaultMessage": "Envisagez d’ajouter au moins une méthode d’évaluation pour améliorer la qualité de votre bassin de candidats.",
     "description": "Description for warning message when the user has few assessments to the assessment plan"
   },
+  "xDfpkE": {
+    "defaultMessage": "Pour communiquer avec des personnes qualifiées dont le nom figure dans notre base de données, les gestionnaires d’embauche peuvent présenter une demande dans la <link>page Trouver des talents</link>.",
+    "description": "Paragraph two, answer about prequalified talent"
+  },
   "xGMcBO": {
     "defaultMessage": "Priorité",
     "description": "Label for priority chip on view candidate page"
@@ -14045,6 +14217,10 @@
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",
     "description": "Description du fonctionnement des profils de candidature"
   },
+  "xhJI+V": {
+    "defaultMessage": "Soutien en matière d’analyse et de planification",
+    "description": "Title for information about analytics and planning for HR professionals"
+  },
   "xhdl6Q": {
     "defaultMessage": "Modifier <hidden>la possibilité de formation</hidden>",
     "description": "Breadcrumb title for the edit training opportunity page link."
@@ -14117,6 +14293,10 @@
     "defaultMessage": "Terminé une évaluation par la Commission de la fonction publique dans la deuxième langue officielle.",
     "description": "Message for official exam status field display"
   },
+  "y02UlU": {
+    "defaultMessage": "La mise à jour du stade de la présélection a échoué",
+    "description": "Error message for updating a candidates screening stage"
+  },
   "y1uo+J": {
     "defaultMessage": "Prochain(e) candidat(e)",
     "description": "Link label to view next candidate on view pool candidate page"
@@ -14180,6 +14360,10 @@
   "yGy+to": {
     "defaultMessage": "Aller à la page précédente",
     "description": "Aria label for previous page button in pagination nav"
+  },
+  "yIoVwH": {
+    "defaultMessage": "Ressources de la plateforme pour les spécialistes en RH",
+    "description": "Title for professional HR resources page"
   },
   "yJb1d/": {
     "defaultMessage": "Nous nous efforçons de créer une expérience de recrutement où vous sentez que vos expériences et vos compétences diversifiées sont appréciées. Même tout le monde ne décrochera pas son emploi de rêve immédiatement, nous voulons que vous ayez l’occasion de présenter votre histoire d’une manière qui maximise vos chances de réussite.",
@@ -14365,6 +14549,10 @@
     "defaultMessage": "<strong>{name}</strong> a créé",
     "description": "Label for activity log item created action"
   },
+  "z+VHtR": {
+    "defaultMessage": "Comment trouver des talents préqualifiés?",
+    "description": "Question about prequalified talent"
+  },
   "z+emiI": {
     "defaultMessage": "Si vous travaillez pour le gouvernement du Canada, que vous êtes membre d’une des collectivités fonctionnelles auxquelles cette plateforme offre du soutien et que vous vous reconnaissez dans l’une des descriptions suivantes, nous serons peut-être en mesure de vous aider.",
     "description": "Lead in text for who workforce adjustment tools can help"
@@ -14464,6 +14652,10 @@
   "zKCAjY": {
     "defaultMessage": "Salaire maximal",
     "description": "Label for classification maximum salary display"
+  },
+  "zLTray": {
+    "defaultMessage": "Comment lancer un processus de recrutement sur Talents numériques du GC?",
+    "description": "Question about recruitment processes"
   },
   "zLnqLc": {
     "defaultMessage": "Options de mutation latérale",

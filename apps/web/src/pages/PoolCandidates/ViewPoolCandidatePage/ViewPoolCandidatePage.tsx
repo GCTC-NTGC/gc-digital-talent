@@ -32,7 +32,6 @@ import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeStatusDialog from "~/components/CandidateDialog/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
@@ -238,33 +237,6 @@ export const ViewPoolCandidate = ({
               poolCandidate={poolCandidate}
               jobPlacementOptions={jobPlacementOptions}
             />
-            <div className="mb-6 flex flex-col items-start gap-3 bg-error-100/30 p-6 dark:bg-error-700/30">
-              <Heading level="h3" size="h6" className="mt-0">
-                {intl.formatMessage({
-                  defaultMessage: "Candidate status",
-                  id: "ETrCOq",
-                  description:
-                    "Title for admin editing a pool candidates status",
-                })}
-              </Heading>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "These fields will only be available for migration purposes during a limited time.",
-                  id: "FXpcgW",
-                  description:
-                    "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage(commonMessages.status)}
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ChangeStatusDialog
-                  selectedCandidateQuery={poolCandidate}
-                  user={poolCandidate.user}
-                />
-              </p>
-            </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
             <Heading
