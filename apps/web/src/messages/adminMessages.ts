@@ -199,6 +199,11 @@ const messages = defineMessages({
     id: "HXqsIc",
     description: "Nav tab label to access advanced tools",
   },
+  user: {
+    defaultMessage: "User",
+    id: "Ftq+3Y",
+    description: "Label for a specific user",
+  },
 });
 
 export default messages;
