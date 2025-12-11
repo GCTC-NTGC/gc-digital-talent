@@ -137,4 +137,9 @@ export default defineMessages({
     id: "YtI+mg",
     description: "Title for the DND digital careers page",
   },
+  hrResources: {
+    defaultMessage: "Platform resources for HR professionals",
+    id: "yIoVwH",
+    description: "Title for professional HR resources page",
+  },
 });

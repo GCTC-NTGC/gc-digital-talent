@@ -19,7 +19,14 @@ class SendTalentNominationSubmittedNotifications
      */
     public function __construct()
     {
-        $this->canSendNotifications = ! empty(config('notify.client.apiKey'));
+        $this->canSendNotifications = collect([
+            config('notify.client.apiKey'),
+            config('notify.templates.nomination_received_submitter_en'),
+            config('notify.templates.nomination_received_submitter_fr'),
+            config('notify.templates.nomination_received_nominator_en'),
+            config('notify.templates.nomination_received_nominator_fr'),
+        ])
+            ->every(fn ($val) => ! empty($val));
     }
 
     /**

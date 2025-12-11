@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\PoolCandidate;
-use Carbon\Carbon;
 
 final class DisqualifyCandidate
 {
@@ -14,13 +13,8 @@ final class DisqualifyCandidate
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
         $reason = $args['reason'];
-        $now = Carbon::now();
 
-        $candidate->pool_candidate_status = $reason;
-        $candidate->final_decision_at = $now;
-
-        [$currentStepId] = $candidate->computeAssessmentStatus();
-        $candidate->assessment_step_id = $currentStepId;
+        $candidate->disqualify($reason);
 
         $candidate->save();
 
