@@ -1,7 +1,6 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { forwardRef, Fragment, ReactElement, ReactNode } from "react";
 import { tv } from "tailwind-variants";
-import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 
 import BaseButton, {
   IconButtonProps as BaseButtonProps,
@@ -201,12 +200,21 @@ const TimelineWrapper = ({ placement, children }: TimelineWrapperProps) => {
 
   return (
     <div
-      className="relative ml-1.5 border-l pl-3 not-last:pb-6"
+      className="relative ml-1.5 border-l border-l-primary-600 pl-3 not-last:pb-6"
       style={{
         borderImage: borderGradient,
       }}
     >
-      <ExclamationCircleIcon className="absolute top-1.25 -left-1.5 h-2.5 w-2.5 fill-primary-600" />
+      <svg className="absolute top-1.75 -left-1.25 h-2.5 w-2.5">
+        <circle
+          className="fill-primary-600"
+          style={{
+            cx: "calc(var(--spacing)*1.25)",
+            cy: "calc(var(--spacing)*1.25)",
+            r: "calc(var(--spacing)*1.25)",
+          }}
+        />
+      </svg>
       {children}
     </div>
   );
