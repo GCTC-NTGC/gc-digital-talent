@@ -177,6 +177,10 @@ type User {
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
+  poolCandidateBookmarks: [PoolCandidate]
+    @guard
+    @belongsToMany(scopes: ["whereAuthorizedToView"])
+
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
   # Nominations
@@ -3206,6 +3210,16 @@ type Mutation {
     @canFind(
       ability: "updateFlag"
       find: "id"
+      model: "PoolCandidate"
+      injectArgs: true
+    )
+  togglePoolCandidateUserBookmark(
+    poolCandidateId: UUID! @rename(attribute: "pool_candidate_id")
+  ): PoolCandidate
+    @guard
+    @canFind(
+      ability: "view"
+      find: "pool_candidate_id"
       model: "PoolCandidate"
       injectArgs: true
     )

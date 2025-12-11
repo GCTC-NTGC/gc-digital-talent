@@ -566,6 +566,7 @@ type Mutation {
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateFlag(id: ID!): Boolean
+  togglePoolCandidateUserBookmark(poolCandidateId: UUID!): PoolCandidate
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
@@ -794,6 +795,7 @@ type User {
   oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
+  poolCandidateBookmarks: [PoolCandidate]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
 }
