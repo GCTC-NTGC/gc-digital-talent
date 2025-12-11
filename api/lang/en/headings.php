@@ -123,7 +123,7 @@ return [
     'is_current' => 'Currently active',
     'number_of_months' => 'Number of months',
     'role_or_title' => 'Role or title',
-    'organization_department' => 'Organization, department, military force, or institution:',
+    'organization_department' => 'Organization, department, military force, or institution',
     'employment_category' => 'Employment category',
     'team_group_division' => 'Team, group or division',
     'size_external_organization' => 'Size of external organization',
