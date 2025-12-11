@@ -1478,7 +1478,11 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
+}
+
+input PoolCandidatesBaseSort {
   useFlag: Boolean
+  useBookmark: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -1627,6 +1631,7 @@ type Query {
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
+    orderByBase: PoolCandidatesBaseSort! @scope
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope

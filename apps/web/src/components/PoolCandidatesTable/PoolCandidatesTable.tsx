@@ -71,6 +71,7 @@ import {
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
   candidateFacingStatusCell,
+  getBaseSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -171,6 +172,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
+    $orderByBaseInput: PoolCandidatesBaseSort!
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
@@ -180,6 +182,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       where: $where
       first: $first
       page: $page
+      orderByBase: $orderByBaseInput
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
@@ -560,13 +563,11 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
+      orderByBaseInput: getBaseSort(doNotUseFlag),
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState, doNotUseFlag),
+      sortingInput: getSortOrder(sortState, filterState),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
-      orderByClaimVerification: getClaimVerificationSort(
-        sortState,
-        doNotUseFlag,
-      ),
+      orderByClaimVerification: getClaimVerificationSort(sortState),
     },
   });
 

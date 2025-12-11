@@ -34,6 +34,7 @@ import {
   PoolAreaOfSelection,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
   LocalizedCandidateSuspendedFilter,
+  PoolCandidatesBaseSort,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -355,10 +356,15 @@ function transformSortStateToOrderByClause(
   };
 }
 
+export function getBaseSort(doNotUseFlag: boolean): PoolCandidatesBaseSort {
+  return {
+    useFlag: !doNotUseFlag,
+  };
+}
+
 export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-  doNotUseFlag?: boolean,
 ):
   | QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[]
   | undefined {
@@ -372,7 +378,6 @@ export function getSortOrder(
   }
 
   return [
-    ...(doNotUseFlag ? [] : [{ column: "is_flagged", order: SortOrder.Desc }]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [
@@ -385,7 +390,6 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  doNotUseFlag?: boolean,
 ): Maybe<ClaimVerificationSort> {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
@@ -393,7 +397,6 @@ export function getClaimVerificationSort(
     if (sortOrder) {
       return {
         order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
-        useFlag: !doNotUseFlag,
       };
     }
   }
