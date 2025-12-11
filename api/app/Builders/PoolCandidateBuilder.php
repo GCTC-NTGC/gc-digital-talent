@@ -692,7 +692,7 @@ class PoolCandidateBuilder extends Builder
             }
 
             if ($user?->isAbleTo('view-own-application')) {
-                $query->orWhere('user_id', $user->id);
+                $query->orWhere('pool_candidates.user_id', $user->id);
             }
         });
         $filterCountAfter = count($this->getQuery()->wheres);
