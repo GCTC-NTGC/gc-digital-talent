@@ -81,7 +81,7 @@ export default {
 const Template: StoryFn<typeof PreviewList.Root> = (args) => {
   const { children } = args;
 
-  return <PreviewList.Root>{children}</PreviewList.Root>;
+  return <PreviewList.Root mode={args.mode}>{children}</PreviewList.Root>;
 };
 
 export const Default = Template.bind({});
@@ -146,6 +146,7 @@ WithChildren.args = {
 
 export const ExperienceCard = Template.bind({});
 ExperienceCard.args = {
+  mode: "timeline",
   children: (
     <>
       <PreviewList.TimelineWrapper placement="top">

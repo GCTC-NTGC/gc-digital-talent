@@ -37,6 +37,17 @@ const heading = tv({
     },
   },
 });
+
+const root = tv({
+  base: "flex flex-col pl-0!",
+  variants: {
+    mode: {
+      default: "gap-y-6",
+      timeline: "gap-0",
+    },
+  },
+});
+
 interface MetaDataBase {
   children: ReactNode;
   key: string;
@@ -157,12 +168,13 @@ const Item = ({
 type PreviewItemElement = ReactElement<ItemProps>;
 
 export interface RootProps {
+  mode?: "default" | "timeline";
   children: PreviewItemElement | PreviewItemElement[];
 }
 
-const Root = ({ children, ...rest }: RootProps) => {
+const Root = ({ mode = "default", children, ...rest }: RootProps) => {
   return (
-    <ul className="flex flex-col gap-y-6 pl-0!" {...rest}>
+    <ul className={root({ mode })} {...rest}>
       {children}
     </ul>
   );
@@ -189,7 +201,7 @@ const TimelineWrapper = ({ placement, children }: TimelineWrapperProps) => {
 
   return (
     <div
-      className="relative ml-1.5 border-l border-l-primary-600 pl-3"
+      className="relative ml-1.5 border-l pl-3 not-last:pb-6"
       style={{
         borderImage: borderGradient,
       }}
