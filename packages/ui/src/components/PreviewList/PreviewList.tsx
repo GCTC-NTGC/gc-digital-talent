@@ -47,6 +47,21 @@ const root = tv({
   },
 });
 
+const timelineWrapper = tv({
+  base: "relative ml-1.5 pl-3 not-last:pb-6",
+  variants: {
+    placement: {
+      // transparent from 0 to space-3, primary from space-3 to 100%
+      top: "border-l [border-image:linear-gradient(to_bottom,transparent_0_calc(var(--spacing)*3),var(--color-primary-600)_calc(var(--spacing)*3)_100%)_1_100%] dark:[border-image:linear-gradient(to_bottom,transparent_0_calc(var(--spacing)*3),var(--color-primary-200)_calc(var(--spacing)*3)_100%)_1_100%]",
+      middle: "border-l border-l-primary-600 dark:border-l-primary-200",
+      bottom:
+        // primary from 0 to space-3, transparent from space-3 to 100%
+        "border-l [border-image:linear-gradient(to_bottom,var(--color-primary-600)_0_calc(var(--spacing)*3),transparent_calc(var(--spacing)*3)_100%)_1_100%] dark:[border-image:linear-gradient(to_bottom,var(--color-primary-200)_0_calc(var(--spacing)*3),transparent_calc(var(--spacing)*3)_100%)_1_100%]",
+      single: "",
+    },
+  },
+});
+
 interface MetaDataBase {
   children: ReactNode;
   key: string;
@@ -185,29 +200,11 @@ interface TimelineWrapperProps {
 }
 
 const TimelineWrapper = ({ placement, children }: TimelineWrapperProps) => {
-  let borderGradient: string | undefined = undefined;
-
-  switch (placement) {
-    case "top":
-      borderGradient =
-        "linear-gradient(to bottom, transparent 0 calc(var(--spacing) * 3), var(--color-primary-600) calc(var(--spacing) * 3) 100%) 1 100% ";
-      break;
-    case "bottom":
-      borderGradient =
-        "linear-gradient(to bottom, var(--color-primary-600) 0 calc(var(--spacing) * 3), transparent calc(var(--spacing) * 3) 100%) 1 100% ";
-      break;
-  }
-
   return (
-    <div
-      className="relative ml-1.5 border-l border-l-primary-600 pl-3 not-last:pb-6"
-      style={{
-        borderImage: borderGradient,
-      }}
-    >
+    <div className={timelineWrapper({ placement })}>
       <svg className="absolute top-1.75 -left-1.25 h-2.5 w-2.5">
         <circle
-          className="fill-primary-600"
+          className="fill-primary-600 dark:fill-primary-200"
           style={{
             cx: "calc(var(--spacing)*1.25)",
             cy: "calc(var(--spacing)*1.25)",

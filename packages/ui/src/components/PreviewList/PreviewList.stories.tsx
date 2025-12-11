@@ -144,12 +144,51 @@ WithChildren.args = {
   ),
 };
 
-export const ExperienceCard = Template.bind({});
-ExperienceCard.args = {
+export const SingleTimelineExperience = Template.bind({});
+SingleTimelineExperience.args = {
+  mode: "timeline",
+  children: (
+    <>
+      <PreviewList.TimelineWrapper placement="single">
+        <PreviewList.Item
+          title="IT-01: Junior application developer"
+          metaData={previewDetails}
+          action={
+            <PreviewList.Button
+              label="View preview button one"
+              onClick={() => action("preview button one clicked")()}
+            />
+          }
+          mode="experience-card"
+        >
+          <p>{faker.lorem.paragraph()}</p>
+        </PreviewList.Item>
+      </PreviewList.TimelineWrapper>
+    </>
+  ),
+};
+
+export const MultipleTimelineExperiences = Template.bind({});
+MultipleTimelineExperiences.args = {
   mode: "timeline",
   children: (
     <>
       <PreviewList.TimelineWrapper placement="top">
+        <PreviewList.Item
+          title="IT-01: Junior application developer"
+          metaData={previewDetails}
+          action={
+            <PreviewList.Button
+              label="View preview button one"
+              onClick={() => action("preview button one clicked")()}
+            />
+          }
+          mode="experience-card"
+        >
+          <p>{faker.lorem.paragraph()}</p>
+        </PreviewList.Item>
+      </PreviewList.TimelineWrapper>
+      <PreviewList.TimelineWrapper placement="middle">
         <PreviewList.Item
           title="IT-01: Junior application developer"
           metaData={previewDetails}
