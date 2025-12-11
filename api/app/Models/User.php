@@ -305,6 +305,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
     }
 
+    /** @return BelongsToMany<PoolCandidate, $this> */
+    public function poolCandidateBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(PoolCandidate::class, 'pool_candidate_user_bookmarks', 'user_id', 'pool_candidate_id')
+            ->withTimestamps();
+    }
+
     /** @return HasMany<PoolCandidate, $this> */
     public function poolCandidates(): HasMany
     {
