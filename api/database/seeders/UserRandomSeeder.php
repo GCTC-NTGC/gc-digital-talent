@@ -45,7 +45,7 @@ class UserRandomSeeder extends Seeder
      */
     public function run()
     {
-        $platformAdminId = DB::table('users')
+        $adminId = DB::table('users')
             ->where('sub', 'admin@test.com')
             ->first(['id'])
             ->id;
@@ -61,7 +61,7 @@ class UserRandomSeeder extends Seeder
         User::factory()
             ->count(2)
             ->withGovEmployeeProfile()
-            ->afterCreating(function (User $user) use ($communityAdminId, $digitalTalentPool, $platformAdminId, $publishedPools) {
+            ->afterCreating(function (User $user) use ($digitalTalentPool, $adminId, $communityAdminId, $publishedPools) {
 
                 // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
@@ -74,7 +74,7 @@ class UserRandomSeeder extends Seeder
                     $this->seedSuspendedCandidate($user, $pool);
                 } else {
                     $this->seedExperienceForPoolWithEssentialSkills($user, $pool);
-                    $this->seedPoolCandidate($user, $pool, [$platformAdminId, $communityAdminId]);
+                    $this->seedPoolCandidate($user, $pool, [$adminId, $communityAdminId]);
                 }
             })
             ->createQuietly();
@@ -83,7 +83,7 @@ class UserRandomSeeder extends Seeder
         $applicant = User::where('sub', 'applicant@test.com')
             ->with(['userSkills' => fn ($userSkills) => $userSkills->chaperone()])
             ->sole();
-        $this->seedPoolCandidate($applicant, $publishedPools->random(), [$platformAdminId, $communityAdminId]);
+        $this->seedPoolCandidate($applicant, $publishedPools->random(), [$adminId, $communityAdminId]);
         $this->seedExperienceForPoolWithEssentialSkills($applicant, $digitalTalentPool);
         $applicantUserSkills = $applicant->userSkills;
         foreach ($applicantUserSkills as $applicantUserSkill) {
