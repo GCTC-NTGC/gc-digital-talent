@@ -146,7 +146,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'role_or_title',
         'organization_department',
         'employment_category',
-        'team_group_or_division',
+        'team_group_division',
         'size_external_organization',
         'seniority_external_organization',
         'gc_employment_type',
@@ -155,10 +155,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'gc_management_or_supervisory_status',
         'gc_number_of_supervised_employees',
         'gc_annual_budget_allocation',
-        'gc_c_suite_role',
+        'c_suite_title',
         'other_c_suite_role_title',
         'caf_employment_type',
-        'caf_rank_category',
+        'rank_category',
         'work_streams',
         'type_of_education',
         'area_of_study',
@@ -516,7 +516,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->area_of_study ?? '', // role_or_title (use area of study)
             $exp->institution ?? '', // organization_department
             '', // employment_category
-            '', // team_group_or_division
+            '', // team_group_division
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -525,10 +525,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_management_or_supervisory_status
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
-            '', // gc_c_suite_role
+            '', // c_suite_title
             '', // other_c_suite_role_title
             '', // caf_employment_type
-            '', // caf_rank_category
+            '', // rank_category
             '', // work_streams
             $exp->type ? $this->localizeEnum($exp->type, EducationType::class) : '',  // education type
             $exp->area_of_study ?? '', // area of study
@@ -596,7 +596,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->title ?? '', // role or title
             $exp->issued_by ?? '', // organization_department
             '', // employment_category
-            '', // team_group_or_division
+            '', // team_group_division
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -605,10 +605,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_management_or_supervisory_status
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
-            '', // gc_c_suite_role
+            '', // c_suite_title
             '', // other_c_suite_role_title
             '', // caf_employment_type
-            '', // caf_rank_category
+            '', // rank_category
             '', // work_streams
 
             // Education fields - empty for awards
@@ -678,7 +678,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->title ?? '', // role or title
             $exp->organization ?? '',
             '', // employment_category
-            $exp->group ?? '', // team_group_or_division
+            $exp->group ?? '', // team_group_division
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -687,10 +687,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_management_or_supervisory_status
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
-            '', // gc_c_suite_role
+            '', // c_suite_title
             '', // other_c_suite_role_title
             '', // caf_employment_type
-            '', // caf_rank_category
+            '', // rank_category
             '', // work_streams
             // Education fields - empty for community
             '', // type_of_education
@@ -758,7 +758,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->title ?? '', // role or title
             $exp->description ?? '', // organization_department
             '', // employment_category
-            '', // team_group_or_division
+            '', // team_group_division
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -767,10 +767,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_management_or_supervisory_status
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
-            '', // gc_c_suite_role
+            '', // c_suite_title
             '', // other_c_suite_role_title
             '', // caf_employment_type
-            '', // caf_rank_category
+            '', // rank_category
             '', // work_streams
 
             // Education fields - empty for personal
