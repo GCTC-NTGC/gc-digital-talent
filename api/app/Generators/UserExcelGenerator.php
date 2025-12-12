@@ -355,7 +355,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $user->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
             $user->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
             $userSkills->join(', '),
-            // new columns
             $this->yesOrNo($employeeProfile->career_planning_lateral_move_interest), // Career planning - Lateral move interest
             $this->localizeEnum($employeeProfile->career_planning_lateral_move_time_frame, TimeFrame::class), // Career planning - Lateral move time frame
             $this->localizeEnumArray($employeeProfile->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class), // Career planning - Lateral move organization type
@@ -374,7 +373,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $this->localizeEnum($employeeProfile->next_role_target_role, TargetRole::class), // Next role - Target role
             $this->yesOrNo($employeeProfile->next_role_is_c_suite_role), // Next role - C-suite role
             $this->localizeEnum($employeeProfile->next_role_c_suite_role_title, CSuiteRoleTitle::class),
-            $employeeProfile->next_role_job_title, // Next role - Job title
+            $employeeProfile->next_role_job_title ?? '', // Next role - Job title
             $employeeProfile->nextRoleCommunity->name[$this->lang] ?? '', // Next role - Functional community
             $nextRoleWorkStreams->join(','), // Next role - Work streams
             $nextRoleDepartments->join(', '), // next role - Departments
@@ -384,14 +383,14 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $this->localizeEnum($employeeProfile->career_objective_target_role, TargetRole::class), // Career objective - Target role
             $this->yesOrNo($employeeProfile->career_objective_is_c_suite_role), // Career objective - C-suite role
             $this->localizeEnum($employeeProfile->career_objective_c_suite_role_title, CSuiteRoleTitle::class), // Career objective - C-suite role title
-            $employeeProfile->career_objective_job_title, // Career objective - Job title
+            $employeeProfile->career_objective_job_title ?? '', // Career objective - Job title
             $employeeProfile->careerObjectiveCommunity->name[$this->lang] ?? ' ', // Career objective - Functional community
             $careerObjectiveWorkStreams->join(', '), // career objective - Work streams
             $careerObjectiveDepartments->join(', '), // career objective - Departments
-            $employeeProfile->career_objective_additional_information, // Career objective - Additional information
-            $employeeProfile->career_planning_about_you, // Career planning - About you
-            $employeeProfile->career_planning_learning_goals, // Career planning - Learning goals
-            $employeeProfile->career_planning_work_style, // Career planning - Work style
+            $employeeProfile->career_objective_additional_information ?? '', // Career objective - Additional information
+            $employeeProfile->career_planning_about_you ?? '', // Career planning - About you
+            $employeeProfile->career_planning_learning_goals ?? '',  // Career planning - Learning goals
+            $employeeProfile->career_planning_work_style ?? '', // Career planning - Work style
             $appliedPools->join(', '), // Digital talent processes
             $offPlatformProcesses->join(', '), // Off-platform processes
         ];
@@ -424,6 +423,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $experience instanceof AwardExperience => $this->localizeEnum(ExperienceType::AWARD->name, ExperienceType::class),
             $experience instanceof CommunityExperience => $this->localizeEnum(ExperienceType::COMMUNITY->name, ExperienceType::class),
             $experience instanceof PersonalExperience => $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class),
+            default => '',
         };
     }
 
