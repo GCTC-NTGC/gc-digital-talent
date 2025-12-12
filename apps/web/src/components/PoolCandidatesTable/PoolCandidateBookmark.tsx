@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
@@ -10,9 +9,9 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
 
 export const PoolCandidateBookmark_Fragment = graphql(/* GraphQL */ `
   fragment PoolCandidate_Bookmark on User {
@@ -22,17 +21,9 @@ export const PoolCandidateBookmark_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const TogglePoolCandidateUserBookmark_Mutation = graphql(/* GraphQL */ `
-  mutation TogglePoolCandidateUserBookmark_Mutation($poolCandidateId: UUID!) {
-    togglePoolCandidateUserBookmark(poolCandidateId: $poolCandidateId) {
-      id
-    }
-  }
-`);
-
 interface PoolCandidateBookmarkProps {
+  poolCandidateId: string;
   userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>;
-  poolCandidateId?: string;
   firstName?: Maybe<string>;
   lastName?: Maybe<string>;
   size?: "sm" | "md" | "lg";
@@ -47,64 +38,20 @@ const PoolCandidateBookmark = ({
 }: PoolCandidateBookmarkProps) => {
   const intl = useIntl();
   const user = getFragment(PoolCandidateBookmark_Fragment, userQuery);
-  const [{ fetching: isUpdatingBookmark }, executeToggleBookmarkMutation] =
-    useMutation(TogglePoolCandidateUserBookmark_Mutation);
 
-  const isBookmarked = !!user?.poolCandidateBookmarks?.find(
+  const isBookmarkedDefaultValue = !!user?.poolCandidateBookmarks?.find(
     (candidate) => candidate?.id === poolCandidateId,
   );
-
   const poolCandidateName = getFullNameLabel(firstName, lastName, intl);
 
-  const toggleBookmark = async () => {
-    if (user && poolCandidateId) {
-      await executeToggleBookmarkMutation({
-        poolCandidateId,
-      })
-        .then((res) => {
-          if (!res.error) {
-            if (!isBookmarked) {
-              toast.success(
-                intl.formatMessage(
-                  {
-                    defaultMessage: "You've bookmarked {name} for yourself",
-                    id: "9DJWk4",
-                    description: "Bookmarked a candidate",
-                  },
-                  {
-                    name: poolCandidateName,
-                  },
-                ),
-              );
-            } else {
-              toast.success(
-                intl.formatMessage(
-                  {
-                    defaultMessage: "You've removed the bookmark for {name}.",
-                    id: "UBY4qe",
-                    description: "Un-bookmarked a candidate",
-                  },
-                  {
-                    name: poolCandidateName,
-                  },
-                ),
-              );
-            }
-          }
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage({
-              defaultMessage:
-                "Error: failed to update a candidates's bookmark.",
-              id: "6mwspP",
-              description:
-                "Alert displayed to the user when failing to (un-)bookmark a candidate",
-            }),
-          );
-        });
-    }
-  };
+  const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
+    useCandidateBookmarkToggle({
+      poolCandidateId,
+      defaultValue: isBookmarkedDefaultValue,
+      candidateInfo: {
+        candidateName: poolCandidateName,
+      },
+    });
 
   return (
     <IconButton
