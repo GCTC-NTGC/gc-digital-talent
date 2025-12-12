@@ -29,7 +29,7 @@ const ContactEmailCard = ({ query }: ContactEmailCardProps) => {
   const contactEmail = getFragment(ContactEmailCard_Fragment, query);
 
   return (
-    <Card className="row-start-2 grid gap-3">
+    <Card className="col-span-2 grid gap-3 xs:col-span-1">
       <div className="flex min-h-8.5 flex-col justify-between gap-6">
         <p className="font-bold">{intl.formatMessage(commonMessages.email)}</p>
         <p className="text-sm text-gray-600 dark:text-gray-200">

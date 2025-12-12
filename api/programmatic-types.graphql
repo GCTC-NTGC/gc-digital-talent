@@ -174,6 +174,11 @@ type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFlexibleWorkLocation implements LocalizedEnumOption {
+  value: FlexibleWorkLocation!
+  label: LocalizedString!
+}
+
 type LocalizedGovContractorRoleSeniority implements LocalizedEnumOption {
   value: GovContractorRoleSeniority!
   label: LocalizedString!
@@ -309,6 +314,11 @@ type LocalizedPublishingGroup implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedScreeningStage implements LocalizedEnumOption {
+  value: ScreeningStage!
+  label: LocalizedString!
+}
+
 type LocalizedSecurityStatus implements LocalizedEnumOption {
   value: SecurityStatus!
   label: LocalizedString!
@@ -371,6 +381,11 @@ type LocalizedTargetRole implements LocalizedEnumOption {
 
 type LocalizedTimeFrame implements LocalizedEnumOption {
   value: TimeFrame!
+  label: LocalizedString!
+}
+
+type LocalizedWfaInterest implements LocalizedEnumOption {
+  value: WfaInterest!
   label: LocalizedString!
 }
 
@@ -447,6 +462,15 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+"A paginated list of UserEmployeeWFA items."
+type UserEmployeeWFAPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of UserEmployeeWFA items."
+  data: [UserEmployeeWFA!]!
+}
+
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -508,6 +532,33 @@ type CommunityInterestWithSkillCountPaginator {
 
   "A list of CommunityInterestWithSkillCount items."
   data: [CommunityInterestWithSkillCount!]!
+}
+
+"Allowed column names for Query.employeeWFAPaginatedAdminTable.orderBy."
+enum QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn {
+  GROUP
+  LEVEL
+}
+
+"Aggregate specification for Query.employeeWFAPaginatedAdminTable.orderBy.currentClassification."
+input QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn
+}
+
+"Order by clause for Query.employeeWFAPaginatedAdminTable.orderBy."
+input QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  currentClassification: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -1074,6 +1125,121 @@ enum EmploymentCategory {
   CANADIAN_ARMED_FORCES
 }
 
+enum ErrorCode {
+  KEY_IN_USE
+  EXPIRY_DATE_REQUIRED
+  EXPIRY_DATE_AFTER_TODAY
+  ARRAY_CONTAINS_DUPLICATES
+  APPLICATION_ALREADY_SUBMITTED
+  APPLICATION_NOT_SUBMITTED
+  APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE
+  APPLICATION_EXISTS
+  APPLICATION_MISSING_ESSENTIAL_SKILLS
+  APPLICATION_MISSING_LANGUAGE_REQUIREMENTS
+  APPLICATION_MISSING_QUESTION_RESPONSE
+  APPLICATION_NOT_DRAFT
+  APPLICATION_PROFILE_INCOMPLETE
+  APPLICATION_POOL_CLOSED
+  APPLICATION_POOL_NOT_PUBLISHED
+  APPLICATION_SIGNATURE_REQUIRED
+  APPLICATION_DELETE_FAILED
+  ASSESSMENT_STEP_MISSING_SKILLS
+  POOL_SKILLS_WITHOUT_ASSESSMENTS
+  ASSESSMENT_STEP_CANNOT_SWAP
+  ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS
+  SKILL_JUSTIFICATION_FOR_EDUCATION_ASSESSMENT
+  EDUCATION_JUSTIFICATIONS_FOR_SKILL_ASSESSMENT
+  SKILL_ASSESSMENT_RESULT_MISSING_SKILL
+  CANNOT_SET_ASSESSMENT_DECISION_LEVEL_FOR_THIS_TYPE_OR_DECISION
+  ASSESSMENT_RESULT_ALREADY_EXISTS
+  ASSESSMENT_STEPS_SAME_POOL
+  CLASSIFICATION_NOT_FOUND
+  COMMUNITY_NOT_FOUND
+  COMMUNITY_INTEREST_EXISTS
+  WORK_STREAM_NOT_IN_COMMUNITY
+  WORK_STREAM_NOT_FOUND
+  DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY
+  DEPARTMENT_NUMBER_IN_USE
+  DEPARTMENT_NOT_FOUND
+  DEPARTMENT_MUST_NOT_BE_ARCHIVED
+  DEVELOPMENT_PROGRAM_NOT_FOUND
+  DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
+  DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
+  ENUM_NOT_FOUND
+  ENUM_NOT_LOCALIZED
+  ESSENTIAL_SKILL_REQUIRES_LEVEL
+  NONESSENTIAL_SKILL_PROHIBITS_LEVEL
+  CANNOT_ENABLE_NOTIFICATION_FAMILY
+  CLOSING_DATE_REQUIRED
+  CLOSING_DATE_FUTURE
+  LOCATION_REQUIRED
+  ESSENTIAL_SKILL_REQUIRED
+  ESSENTIAL_SKILLS_CONTAINS_DELETED
+  NONESSENTIAL_SKILLS_CONTAINS_DELETED
+  ENGLISH_KEY_TASKS_REQUIRED
+  FRENCH_KEY_TASKS_REQUIRED
+  ENGLISH_YOUR_IMPACT_REQUIRED
+  FRENCH_YOUR_IMPACT_REQUIRED
+  ENGLISH_SPECIAL_NOTE_REQUIRED
+  FRENCH_SPECIAL_NOTE_REQUIRED
+  POOL_AREA_OF_SELECTION_REQUIRED
+  CONTACT_EMAIL_REQUIRED
+  PROCESS_CLOSING_DATE_EXTEND
+  PROCESS_CLOSING_DATE_FUTURE
+  CHANGE_JUSTIFICATION_REQUIRED
+  UNARCHIVE_POOL_INVALID_STATUS
+  ARCHIVE_POOL_INVALID_STATUS
+  INVALID_STATUS_DISQUALIFICATION
+  INVALID_STATUS_PLACING
+  INVALID_STATUS_QUALIFICATION
+  INVALID_STATUS_REVERT_FINAL_DECISION
+  CANDIDATE_NOT_PLACED
+  CANDIDATE_UNEXPECTED_STATUS
+  REMOVE_CANDIDATE_ALREADY_PLACED
+  REMOVE_CANDIDATE_ALREADY_REMOVED
+  SCREENING_STAGE_REQUIRED
+  SCREENING_STAGE_EXISTS
+  SCREENING_STAGE_NOT_UNDER_ASSESSMENT
+  ASSESSMENT_STEP_PROHIBITED
+  ASSESSMENT_STEP_CANDIDATE_SAME_POOL
+  POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
+  POOL_SKILL_NOT_VALID
+  TEAM_ID_REQUIRED
+  TEAM_DOES_NOT_EXIST
+  ROLE_NOT_TEAM_ROLE
+  ROLE_NOT_FOUND
+  SCREENING_QUESTION_NOT_FOUND
+  SKILL_NOT_FOUND
+  TALENT_EVENT_IS_CLOSED
+  TALENT_NOMINATION_ALREADY_SUBMITTED
+  NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE
+  NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE
+  NO_NOMINATIONS_FOR_DEVELOPMENT_PROGRAMS_TO_DECIDE
+  SKILL_NOT_KLC
+  SKILLS_NOT_ALLOWED_FOR_EVENT
+  TALENT_NOMINATION_EVENT_NOT_FOUND
+  NOMINATOR_NOT_FOUND
+  NOMINATOR_CLASSIFICATION_NOT_FOUND
+  NOMINATOR_DEPARTMENT_NOT_FOUND
+  NOMINEE_NOT_FOUND
+  ADVANCEMENT_REFERENCE_NOT_FOUND
+  ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND
+  ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND
+  BOTH_STATUS_NON_STATUS
+  SKILL_USED_ACTIVE_POSTER
+  FAILED_DUE_SKILL_DELETED
+  CANNOT_REOPEN_DELETED_SKILL
+  MISSING_SUBSTANTIVE_EXPERIENCE
+  TOO_MANY_SUBSTANTIVE_EXPERIENCES
+  NOT_GOVERNMENT_EMAIL
+  NOT_VERIFIED_GOVERNMENT_EMPLOYEE
+  EMAIL_ADDRESS_IN_USE
+  SUB_IN_USE
+  VERIFICATION_FAILED
+  DUPLICATE_USER_SKILL
+  RATE_LIMIT
+}
+
 enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
@@ -1143,6 +1309,12 @@ enum FinanceChiefRole {
   HEAD_OF_HUMAN_RESOURCES
   HEAD_OF_PROCUREMENT
   OTHER
+}
+
+enum FlexibleWorkLocation {
+  REMOTE
+  HYBRID
+  ONSITE
 }
 
 enum GenericJobTitleKey {
@@ -1386,6 +1558,13 @@ enum PublishingGroup {
   OTHER
 }
 
+enum ScreeningStage {
+  NEW_APPLICATION
+  APPLICATION_REVIEW
+  SCREENED_IN
+  UNDER_ASSESSMENT
+}
+
 enum SecurityStatus {
   RELIABILITY
   SECRET
@@ -1482,6 +1661,14 @@ enum TimeFrame {
   THIS_YEAR
   ONE_TO_TWO_YEARS
   THREE_OR_MORE_YEARS
+}
+
+enum WfaInterest {
+  NOT_APPLICABLE
+  TERM_ENDING
+  LETTER_RECEIVED
+  NOT_SURE
+  VOLUNTARY_DEPARTURE
 }
 
 enum WhenSkillUsed {
