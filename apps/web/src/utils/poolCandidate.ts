@@ -33,6 +33,8 @@ import {
   ScreeningStage,
   LocalizedCandidateStatus,
   CandidateStatus,
+  CandidateInterest,
+  LocalizedCandidateInterest,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -570,7 +572,7 @@ const qualifiedRecruitmentStatusLabels = defineMessages({
   },
 });
 
-const qualifiedRecruitmentStatusDescriptions = defineMessages({
+export const qualifiedRecruitmentStatusDescriptions = defineMessages({
   OPEN_TO_JOBS: {
     defaultMessage:
       "You're currently interested in receiving job opportunities related to this recruitment process. You can change this status at the end of this dialog.",
@@ -785,5 +787,25 @@ export const candidateStatusChip = (
   return {
     color: candidateStatusColorMap.get(status.value) ?? "gray",
     label: status.label.localized,
+  };
+};
+
+export const candidateInterestColorMap = new Map<
+  CandidateInterest,
+  ChipProps["color"]
+>([
+  [CandidateInterest.NotInterested, "secondary"],
+  [CandidateInterest.OpenToJobs, "secondary"],
+  [CandidateInterest.Hired, "success"],
+]);
+
+export const candidateInterestChip = (
+  interest?: Maybe<LocalizedCandidateInterest>,
+): StatusChip | null => {
+  if (!interest?.label?.localized || !interest.value) return null;
+
+  return {
+    color: candidateInterestColorMap.get(interest.value) ?? "secondary",
+    label: interest.label.localized,
   };
 };

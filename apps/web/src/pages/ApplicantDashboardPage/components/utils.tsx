@@ -3,6 +3,7 @@ import uniq from "lodash/uniq";
 import { ReactNode } from "react";
 
 import {
+  CandidateInterest,
   CandidateStatus,
   Maybe,
   PoolCandidateSearchStatus,
@@ -11,7 +12,10 @@ import { assertUnreachable, compareStrings } from "@gc-digital-talent/helpers";
 import { ChipProps, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { applicationStatusDescriptions } from "~/utils/poolCandidate";
+import {
+  applicationStatusDescriptions,
+  qualifiedRecruitmentStatusDescriptions,
+} from "~/utils/poolCandidate";
 
 // figure out what the chip should look like for a given status
 export function deriveChipSettings(
@@ -74,7 +78,7 @@ export function deriveSingleString<T>(
   return joinedStrings;
 }
 
-const candidateStatsDescMap = new Map<CandidateStatus, MessageDescriptor>([
+const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
   [CandidateStatus.Draft, applicationStatusDescriptions.DRAFT],
   [CandidateStatus.Expired, applicationStatusDescriptions.EXPIRED],
   [CandidateStatus.Received, applicationStatusDescriptions.RECEIVED],
@@ -129,7 +133,35 @@ export const candidateStatusDesc = ({
       : intl.formatMessage(applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC);
   }
 
-  const msg = candidateStatsDescMap.get(status);
+  const msg = candidateStatusDescMap.get(status);
+
+  return msg ? intl.formatMessage(msg) : null;
+};
+
+const candidateInterestDescMap = new Map<CandidateInterest, MessageDescriptor>([
+  [
+    CandidateInterest.NotInterested,
+    qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
+  ],
+  [
+    CandidateInterest.OpenToJobs,
+    qualifiedRecruitmentStatusDescriptions.OPEN_TO_JOBS,
+  ],
+  [CandidateInterest.Hired, qualifiedRecruitmentStatusDescriptions.HIRED],
+]);
+
+interface CandidateInterestDescArgs {
+  interest?: Maybe<CandidateInterest>;
+  intl: IntlShape;
+}
+
+export const candidateInterestDesc = ({
+  interest,
+  intl,
+}: CandidateInterestDescArgs): ReactNode | null => {
+  if (!interest) return null;
+
+  const msg = candidateInterestDescMap.get(interest);
 
   return msg ? intl.formatMessage(msg) : null;
 };

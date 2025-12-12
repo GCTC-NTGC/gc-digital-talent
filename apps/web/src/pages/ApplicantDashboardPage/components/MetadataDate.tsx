@@ -6,13 +6,13 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { CandidateStatus, Maybe } from "@gc-digital-talent/graphql";
-
 import {
-  deadlineToApply,
-  qualifiedRecruitmentStatus,
-  StatusChipWithDescription,
-} from "~/utils/poolCandidate";
+  CandidateInterest,
+  CandidateStatus,
+  Maybe,
+} from "@gc-digital-talent/graphql";
+
+import { deadlineToApply } from "~/utils/poolCandidate";
 
 const SUBMITTED_STATUSES = [
   CandidateStatus.Received,
@@ -114,35 +114,29 @@ export const ApplicationDate = ({
 
 interface RecruitmentDateProps {
   finalDecisionAt?: string | null;
-  status: StatusChipWithDescription["value"];
+  interest?: Maybe<CandidateInterest>;
 }
 
 export const RecruitmentDate = ({
   finalDecisionAt,
-  status,
+  interest,
 }: RecruitmentDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  if (
-    status === qualifiedRecruitmentStatus.OPEN_TO_JOBS ||
-    status === qualifiedRecruitmentStatus.NOT_INTERESTED ||
-    status === qualifiedRecruitmentStatus.HIRED
-  ) {
-    return (
-      <span>
-        {intl.formatMessage(commonMessages.qualified)}
-        {intl.formatMessage(commonMessages.dividingColon)}
-        {finalDecisionAt
-          ? formatDate({
-              date: parseDateTimeUtc(finalDecisionAt),
-              formatString: DATE_FORMAT_LOCALIZED,
-              intl,
-            })
-          : nullMessage}
-      </span>
-    );
-  }
+  if (!interest) return null;
 
-  return null;
+  return (
+    <span>
+      {intl.formatMessage(commonMessages.qualified)}
+      {intl.formatMessage(commonMessages.dividingColon)}
+      {finalDecisionAt
+        ? formatDate({
+            date: parseDateTimeUtc(finalDecisionAt),
+            formatString: DATE_FORMAT_LOCALIZED,
+            intl,
+          })
+        : nullMessage}
+    </span>
+  );
 };
