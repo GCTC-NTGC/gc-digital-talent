@@ -73,6 +73,11 @@ type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateStatus implements LocalizedEnumOption {
+  value: CandidateStatus!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateSuspendedFilter implements LocalizedEnumOption {
   value: CandidateSuspendedFilter!
   label: LocalizedString!
@@ -1170,6 +1175,7 @@ type PoolCandidate {
   expiryDate: Date
   category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
   notes: String
@@ -3510,6 +3516,17 @@ enum CandidateRemovalReason {
   NOT_RESPONSIVE
   INELIGIBLE
   OTHER
+}
+
+enum CandidateStatus {
+  DRAFT
+  EXPIRED
+  RECEIVED
+  UNDER_REVIEW
+  APPLICATION_REVIEWED
+  UNDER_ASSESSMENT
+  UNSUCCESSFUL
+  QUALIFIED
 }
 
 enum CandidateSuspendedFilter {

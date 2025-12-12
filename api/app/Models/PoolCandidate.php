@@ -9,6 +9,7 @@ use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\CandidateRemovalReason;
+use App\Enums\CandidateStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\ErrorCode;
@@ -36,6 +37,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rules\Can;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -338,6 +340,103 @@ class PoolCandidate extends Model
             ->where('pool_candidate_id', $this->id)
             ->pluck('experience_id')->all()
         );
+    }
+
+    /**
+     * Candidate facing status
+     *
+     * Computation of different application meta data for a
+     * candidate friendly version of their status
+     *
+     *  TO DO: Fix up the references to pool_candidate_status in #14389
+     */
+    public function candidateStatus(): Attribute
+    {
+        return Attribute::get(function () {
+            // ApplicationStatus::DRAFT
+            if (in_array($this->pool_candidate_status, PoolCandidateStatus::draftGroup())) {
+                return $this->is_expired ? CandidateStatus::EXPIRED->name : CandidateStatus::DRAFT->name;
+            }
+
+            // ApplicationStatus::DISQUALIFIED || ApplicationStatus::REMOVED
+            if (
+                in_array($this->pool_candidate_status, PoolCandidateStatus::unsuccessfulGroup()) ||
+                ! empty($this->removal_reason) ||
+                (! empty($this->removed_at) && $this->removed_at->isPast())
+            ) {
+                return CandidateStatus::UNSUCCESSFUL->name;
+            }
+
+            // ApplicationStatus::QUALIFIED
+            if (in_array($this->pool_candidate_status, PoolCandidateStatus::successfulGroup())) {
+                return CandidateStatus::QUALIFIED->name;
+            }
+
+            // ApplicationStatus::TO_ASSESS
+            $status = match ($this->screening_stage) {
+                ScreeningStage::NEW_APPLICATION->name => CandidateStatus::RECEIVED->name,
+                ScreeningStage::APPLICATION_REVIEW->name => CandidateStatus::UNDER_REVIEW->name,
+                ScreeningStage::SCREENED_IN->name => CandidateStatus::APPLICATION_REVIEWED->name,
+                ScreeningStage::UNDER_ASSESSMENT->name => CandidateStatus::UNDER_ASSESSMENT->name,
+                // Could not determine status, all other checks failed
+                default => null,
+            };
+
+            return $status;
+
+        });
+    }
+
+    /*
+    * Determine if the candidate has withdrew
+    *
+    * @return bool
+    */
+    public function isSuspended(): Attribute
+    {
+        return Attribute::get(function () {
+            return ($this->suspended_at && $this->suspended_at->isPast()) ||
+                in_array($this->pool_candidate_status, PoolCandidateStatus::suspendedGroup());
+        });
+    }
+
+    /*
+    * Determine if the candidate is qualified and open to jobs
+    *
+    * @return bool
+    */
+    public function isOpenToJobs(): Attribute
+    {
+        return Attribute::get(function () {
+            return ($this->placed_at && $this->placed_at->isPast()) ||
+                in_array($this->pool_candidate_status, PoolCandidateStatus::openToJobsGroup());
+        });
+    }
+
+    /*
+    * Determine if the candidate is qualified and hired
+    *
+    * @return bool
+    */
+    public function isHired(): Attribute
+    {
+        return Attribute::get(function () {
+            return ($this->placed_at && $this->placed_at->isPast()) ||
+                in_array($this->pool_candidate_status, PoolCandidateStatus::hiredGroup());
+        });
+    }
+
+    /*
+    * Determine if the application has expired
+    *
+    * @return bool
+    */
+    public function isExpired(): Attribute
+    {
+        return Attribute::get(function () {
+            return ($this->expiry_date && $this->expiry_date->isPast()) ||
+                $this->pool_candidate_status === PoolCandidateStatus::DRAFT_EXPIRED->name;
+        });
     }
 
     /**

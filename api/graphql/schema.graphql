@@ -653,6 +653,7 @@ type PoolCandidate {
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
+  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   statusWeight: Int
     @rename(attribute: "status_weight")
     @canRoot(ability: "viewStatus")
