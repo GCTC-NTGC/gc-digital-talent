@@ -3,15 +3,15 @@ import {
   levelIncludes,
   getLoggingLevel,
 } from "./utils/logger";
-import useLogger, { defaultLogger } from "./hooks/useLogger";
+import { defaultLogger, getLogger } from "./utils/getLogger";
 import type { Logger } from "./types";
 
 export {
   tryParseSeverityLevelString,
   levelIncludes,
   getLoggingLevel,
-  useLogger,
   defaultLogger,
+  getLogger,
 };
 
 export type { Logger };

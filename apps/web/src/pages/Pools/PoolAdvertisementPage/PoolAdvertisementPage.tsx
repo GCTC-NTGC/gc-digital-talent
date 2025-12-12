@@ -47,7 +47,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import {
   contactEmailTag,
@@ -320,7 +320,7 @@ export const PoolPoster = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const logger = useLogger();
+  const logger = getLogger();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const [moreInfoValue, setMoreInfoValue] = useState<string[]>([]);
   const [skillsValue, setSkillsValue] = useState<string[]>([]);
