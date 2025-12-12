@@ -29,14 +29,12 @@ import {
   FinalDecision,
   LocalizedFinalDecision,
   Pool,
-  PoolAreaOfSelection,
   ScreeningStage,
   LocalizedCandidateStatus,
   CandidateStatus,
   CandidateInterest,
   LocalizedCandidateInterest,
 } from "@gc-digital-talent/graphql";
-import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
@@ -55,7 +53,6 @@ import {
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
-import { contactEmailTag } from "./poolUtils";
 
 export const isDisqualifiedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -125,16 +122,6 @@ export const isExpired = (
     return true;
   }
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
-};
-
-const isDisqualifiedFinalDecision = (
-  status: Maybe<FinalDecision> | undefined,
-): boolean => {
-  return status
-    ? [FinalDecision.Disqualified, FinalDecision.DisqualifiedRemoved].includes(
-        status,
-      )
-    : false;
 };
 
 // if changing below, also check `FinalDecision.php` enum
@@ -412,148 +399,7 @@ export const applicationStatusDescriptions = defineMessages({
   },
 });
 
-/**
- * Returns a status chip for displaying to applicants. General information about application status.
- */
-export const getApplicationStatusChip = (
-  submittedAt: PoolCandidate["submittedAt"],
-  closingDate: Pool["closingDate"],
-  removedAt: PoolCandidate["removedAt"],
-  finalDecisionAt: PoolCandidate["finalDecisionAt"],
-  finalDecision: Maybe<FinalDecision> | undefined,
-  areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
-  assessmentStep: Maybe<number> | undefined,
-  assessmentStatus: PoolCandidate["assessmentStatus"],
-  screeningQuestionsCount: Pool["screeningQuestionsCount"],
-  contactEmail: Pool["contactEmail"],
-  intl: IntlShape,
-): StatusChipWithDescription => {
-  // Draft applications
-  if (!submittedAt) {
-    if (closingDate && isPast(parseDateTimeUtc(closingDate))) {
-      return {
-        color: "gray",
-        label: intl.formatMessage(applicationStatusLabels.EXPIRED),
-        description: intl.formatMessage(applicationStatusDescriptions.EXPIRED),
-        value: applicationStatus.EXPIRED,
-      };
-    } else {
-      return {
-        color: "primary",
-        label: intl.formatMessage(applicationStatusLabels.DRAFT),
-        description: intl.formatMessage(applicationStatusDescriptions.DRAFT),
-        value: applicationStatus.DRAFT,
-      };
-    }
-  }
-
-  // Disqualified applications
-  if (
-    removedAt ||
-    (finalDecisionAt && isDisqualifiedFinalDecision(finalDecision))
-  ) {
-    if (areaOfSelection === PoolAreaOfSelection.Employees) {
-      return {
-        color: "gray",
-        label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
-        description: intl.formatMessage(
-          applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
-          {
-            contactEmail:
-              contactEmail ?? intl.formatMessage(commonMessages.notFound),
-            link: () =>
-              contactEmailTag(
-                contactEmail ?? intl.formatMessage(commonMessages.notFound),
-              ),
-          },
-        ),
-        value: applicationStatus.UNSUCCESSFUL,
-      };
-    } else {
-      return {
-        color: "gray",
-        label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
-        description: intl.formatMessage(
-          applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC,
-        ),
-        value: applicationStatus.UNSUCCESSFUL,
-      };
-    }
-  }
-
-  // Qualified applications
-  if (finalDecisionAt && isQualifiedFinalDecision(finalDecision)) {
-    return {
-      color: "success",
-      label: intl.formatMessage(applicationStatusLabels.SUCCESSFUL),
-      description: intl.formatMessage(applicationStatusDescriptions.SUCCESSFUL),
-      value: applicationStatus.SUCCESSFUL,
-    };
-  }
-
-  // Fully assessed but final decision not yet made
-  if (
-    assessmentStatus?.overallAssessmentStatus ===
-    OverallAssessmentStatus.Qualified
-  ) {
-    return {
-      color: "secondary",
-      label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
-      description: intl.formatMessage(
-        applicationStatusDescriptions.UNDER_ASSESSMENT,
-      ),
-      value: applicationStatus.UNDER_ASSESSMENT,
-    };
-  }
-
-  // Partially assessed applications
-  const currentStep = assessmentStep ?? 0;
-  const numberOfScreeningSteps =
-    screeningQuestionsCount && screeningQuestionsCount > 0 ? 2 : 1;
-  const numberOfStepStatuses =
-    assessmentStatus?.assessmentStepStatuses?.length ?? 0;
-
-  if (currentStep <= numberOfScreeningSteps && numberOfStepStatuses > 0) {
-    return {
-      color: "secondary",
-      label: intl.formatMessage(applicationStatusLabels.UNDER_REVIEW),
-      description: intl.formatMessage(
-        applicationStatusDescriptions.UNDER_REVIEW,
-      ),
-      value: applicationStatus.UNDER_REVIEW,
-    };
-  }
-  if (currentStep > numberOfScreeningSteps) {
-    if (numberOfStepStatuses <= numberOfScreeningSteps) {
-      return {
-        color: "secondary",
-        label: intl.formatMessage(applicationStatusLabels.APPLICATION_REVIEWED),
-        description: intl.formatMessage(
-          applicationStatusDescriptions.APPLICATION_REVIEWED,
-        ),
-        value: applicationStatus.APPLICATION_REVIEWED,
-      };
-    } else {
-      return {
-        color: "secondary",
-        label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
-        description: intl.formatMessage(
-          applicationStatusDescriptions.UNDER_ASSESSMENT,
-        ),
-        value: applicationStatus.UNDER_ASSESSMENT,
-      };
-    }
-  }
-
-  return {
-    color: "secondary",
-    label: intl.formatMessage(applicationStatusLabels.RECEIVED),
-    description: intl.formatMessage(applicationStatusDescriptions.RECEIVED),
-    value: applicationStatus.RECEIVED,
-  };
-};
-
-const qualifiedRecruitmentStatusLabels = defineMessages({
+export const qualifiedRecruitmentStatusLabels = defineMessages({
   OPEN_TO_JOBS: {
     defaultMessage: "Open to job offers",
     id: "p4kAoz",
@@ -595,81 +441,6 @@ export const qualifiedRecruitmentStatusDescriptions = defineMessages({
       "Status description for a qualified application that has been hired",
   },
 });
-
-/**
- * Returns a status chip for displaying to applicants. Status for current interest/validity
- * in new opportunities for a QUALIFIED application.
- */
-export const getQualifiedRecruitmentStatusChip = (
-  suspendedAt: PoolCandidate["suspendedAt"],
-  placedAt: PoolCandidate["placedAt"],
-  status: PoolCandidateStatus | null,
-  intl: IntlShape,
-): StatusChipWithDescription => {
-  // there are three possible chips
-  const hiredChip = {
-    color: "secondary",
-    label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),
-    description: intl.formatMessage(
-      qualifiedRecruitmentStatusDescriptions.HIRED,
-    ),
-    value: qualifiedRecruitmentStatus.HIRED,
-  } as const;
-
-  const notInterestedChip = {
-    color: "secondary",
-    label: intl.formatMessage(qualifiedRecruitmentStatusLabels.NOT_INTERESTED),
-    description: intl.formatMessage(
-      qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
-    ),
-    value: qualifiedRecruitmentStatus.NOT_INTERESTED,
-  } as const;
-
-  const openToJobsChip = {
-    color: "success",
-    label: intl.formatMessage(qualifiedRecruitmentStatusLabels.OPEN_TO_JOBS),
-    description: intl.formatMessage(
-      qualifiedRecruitmentStatusDescriptions.OPEN_TO_JOBS,
-    ),
-    value: qualifiedRecruitmentStatus.OPEN_TO_JOBS,
-  } as const;
-
-  if (suspendedAt) {
-    return notInterestedChip;
-  }
-
-  if (placedAt) {
-    switch (status) {
-      case null:
-      case PoolCandidateStatus.ApplicationReview:
-      case PoolCandidateStatus.Draft:
-      case PoolCandidateStatus.DraftExpired:
-      case PoolCandidateStatus.Expired:
-      case PoolCandidateStatus.NewApplication:
-      case PoolCandidateStatus.PlacedIndeterminate:
-      case PoolCandidateStatus.PlacedTerm:
-      case PoolCandidateStatus.QualifiedAvailable:
-      case PoolCandidateStatus.QualifiedUnavailable:
-      case PoolCandidateStatus.QualifiedWithdrew:
-      case PoolCandidateStatus.Removed:
-      case PoolCandidateStatus.ScreenedIn:
-      case PoolCandidateStatus.ScreenedOutApplication:
-      case PoolCandidateStatus.ScreenedOutAssessment:
-      case PoolCandidateStatus.ScreenedOutNotInterested:
-      case PoolCandidateStatus.ScreenedOutNotResponsive:
-      case PoolCandidateStatus.UnderAssessment:
-        return hiredChip;
-      case PoolCandidateStatus.PlacedCasual:
-      case PoolCandidateStatus.PlacedTentative:
-      case PoolCandidateStatus.UnderConsideration:
-        return openToJobsChip;
-      default:
-        return assertUnreachable(status);
-    }
-  }
-
-  return openToJobsChip;
-};
 
 export const priorityWeightAfterVerification = (
   priorityWeight: number,
