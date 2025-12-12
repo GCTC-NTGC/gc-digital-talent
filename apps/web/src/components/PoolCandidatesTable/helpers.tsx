@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   Locales,
@@ -53,6 +54,9 @@ import tableMessages from "./tableMessages";
 import CandidateFlag, {
   PoolCandidate_FlagFragment,
 } from "../CandidateFlag/CandidateFlag";
+import PoolCandidateBookmark, {
+  PoolCandidateBookmark_Fragment,
+} from "./PoolCandidateBookmark";
 
 export const priorityCell = (
   weight: number,
@@ -356,8 +360,12 @@ function transformSortStateToOrderByClause(
   };
 }
 
-export function getBaseSort(doNotUseFlag: boolean): PoolCandidatesBaseSort {
+export function getBaseSort(
+  doNotUseBookmark: boolean,
+  doNotUseFlag: boolean,
+): PoolCandidatesBaseSort {
   return {
+    useBookmark: !doNotUseBookmark,
     useFlag: !doNotUseFlag,
   };
 }
@@ -600,4 +608,27 @@ export const candidateSuspendedFilterToCustomOptions = (
       label: enumObject.label.localized,
     };
   });
+};
+
+export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    data-h2-width="base(x1)"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);
+
+export const poolCandidateBookmarkCell = (
+  userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>,
+  poolCandidateId?: string,
+  firstName?: Maybe<string>,
+  lastName?: Maybe<string>,
+) => {
+  return (
+    <PoolCandidateBookmark
+      userQuery={userQuery}
+      poolCandidateId={poolCandidateId}
+      firstName={firstName}
+      lastName={lastName}
+    />
+  );
 };
