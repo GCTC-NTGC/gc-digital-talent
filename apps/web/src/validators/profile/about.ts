@@ -18,6 +18,7 @@ export interface PartialUser extends Pick<
   | "lastName"
   | "email"
   | "telephone"
+  | "isEmailVerified"
   | "workEmail"
   | "isWorkEmailVerified"
 > {
@@ -76,6 +77,7 @@ export function hasEmptyRequiredFields(
     !applicant.preferredLanguageForExam ||
     !applicant.citizenship ||
     empty(applicant.armedForcesStatus) ||
+    (applicationEmailVerification && !applicant.isEmailVerified) ||
     !isWorkEmailVerifiedForInternalJobs
   );
 }

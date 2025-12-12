@@ -9,7 +9,7 @@ import {
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import graphql from "~/utils/graphql";
@@ -46,6 +46,7 @@ test.describe("Pool candidates", () => {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
         sub,
         currentProvince: ProvinceOrTerritory.Alberta,
         currentCity: "Test city",

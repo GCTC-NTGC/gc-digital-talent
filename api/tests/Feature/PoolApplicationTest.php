@@ -144,18 +144,23 @@ class PoolApplicationTest extends TestCase
             ->asApplicant()
             ->create([
                 'email' => 'applicant-user@test.com',
+                'email_verified_at' => config('constants.past_date'),
                 'sub' => 'applicant-user@test.com',
             ]);
 
         $this->govEmployee = User::factory()
             ->asApplicant()
             ->withGovEmployeeProfile()
-            ->create();
+            ->create([
+                'email_verified_at' => config('constants.past_date'),
+            ]);
 
         $this->nonGovEmployee = User::factory()
             ->asApplicant()
             ->withNonGovProfile()
-            ->create();
+            ->create([
+                'email_verified_at' => config('constants.past_date'),
+            ]);
 
         $this->communityRecruiter = User::factory()
             ->asApplicant()
@@ -320,8 +325,21 @@ class PoolApplicationTest extends TestCase
                 ]],
             ]);
 
-        // make user now complete
+        // make contact email unverified instead
         $this->applicantUser->armed_forces_status = ArmedForcesStatus::VETERAN->name;
+        $this->applicantUser->email_verified_at = null;
+        $this->applicantUser->save();
+
+        // assert contact email must also be verified
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($this->submitMutationDocument, $submitArgs)->assertJson([
+                'errors' => [[
+                    'message' => ErrorCode::APPLICATION_PROFILE_INCOMPLETE->name,
+                ]],
+            ]);
+
+        // make user now complete
+        $this->applicantUser->email_verified_at = config('constants.past_date');
         $this->applicantUser->save();
 
         // assert complete user can submit application

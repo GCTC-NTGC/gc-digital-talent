@@ -1806,6 +1806,8 @@ input CreateUserInput {
       ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
+  # emailVerifiedAt only used for e2e testing
+  emailVerifiedAt: Date @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
   preferredLanguageForInterview: Language

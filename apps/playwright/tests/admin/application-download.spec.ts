@@ -1,4 +1,4 @@
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -40,6 +40,7 @@ test.describe("Application download", () => {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
         firstName: sub,
         sub,
         currentProvince: ProvinceOrTerritory.Alberta,

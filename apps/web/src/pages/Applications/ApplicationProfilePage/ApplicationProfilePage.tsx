@@ -86,6 +86,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
+
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     Application_UpdateProfileMutation,
   );
@@ -125,6 +126,20 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           {/* Refactor after feature flag is turned on #15052 */}
           {applicationEmailVerification && (
             <>
+              {!application.user.isEmailVerified && (
+                <Notice.Root color="error" className="col-span-2">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "A verified contact email is required",
+                        id: "O7ubAh",
+                        description:
+                          "Error message displayed during application when missing a verified email",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+              )}
               {application.pool.areaOfSelection?.value ===
                 PoolAreaOfSelection.Employees && (
                 <>
