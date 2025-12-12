@@ -14,6 +14,7 @@ use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
+use App\Enums\ExperienceType;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\HiringPlatform;
@@ -413,6 +414,20 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     }
 
     /**
+     * Get localized experience type for an experience
+     */
+    private function getExperienceType($experience): string
+    {
+        return match (true) {
+            $experience instanceof WorkExperience => $this->localizeEnum(ExperienceType::WORK->name, ExperienceType::class),
+            $experience instanceof EducationExperience => $this->localizeEnum(ExperienceType::EDUCATION->name, ExperienceType::class),
+            $experience instanceof AwardExperience => $this->localizeEnum(ExperienceType::AWARD->name, ExperienceType::class),
+            $experience instanceof CommunityExperience => $this->localizeEnum(ExperienceType::COMMUNITY->name, ExperienceType::class),
+            $experience instanceof PersonalExperience => $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class),
+        };
+    }
+
+    /**
      * Build work experience row
      */
     private function buildWorkExperienceRow(WorkExperience $exp): array
@@ -426,7 +441,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->id, // user id
             $exp->user->first_name, // first name
             $exp->user->last_name, // last name
-            'Work Experience', // experience type
+            $this->getExperienceType($exp),  // experience type
             $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
             $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
             $isCurrent, // currently active
@@ -507,7 +522,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->id,
             $exp->user->first_name,
             $exp->user->last_name,
-            'Education Experience', // experience type
+            $this->getExperienceType($exp),  // experience type
             $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
             $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
             $isCurrent, // currently active
@@ -588,7 +603,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->id,
             $exp->user->first_name,
             $exp->user->last_name,
-            'Award Experience', // experience type
+            $this->getExperienceType($exp),  // experience type
             '', // start date
             '', // end date
             $this->yesOrNo(false),  // is current
@@ -670,7 +685,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->id,
             $exp->user->first_name,
             $exp->user->last_name,
-            'Community Experience', // experience type
+            $this->getExperienceType($exp),  // experience type
             $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
             $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
             $isCurrent, // is current
@@ -750,7 +765,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->id,
             $exp->user->first_name,
             $exp->user->last_name,
-            'Personal Experience', // experience type
+            $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class), // experience type
             $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
             $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
             $isCurrent, // is current
