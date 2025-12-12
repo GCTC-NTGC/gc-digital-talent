@@ -151,12 +151,16 @@ class PoolApplicationTest extends TestCase
         $this->govEmployee = User::factory()
             ->asApplicant()
             ->withGovEmployeeProfile()
-            ->create();
+            ->create([
+                'email_verified_at' => config('constants.past_date'),
+            ]);
 
         $this->nonGovEmployee = User::factory()
             ->asApplicant()
             ->withNonGovProfile()
-            ->create();
+            ->create([
+                'email_verified_at' => config('constants.past_date'),
+            ]);
 
         $this->communityRecruiter = User::factory()
             ->asApplicant()
