@@ -68,15 +68,15 @@ export function hasEmptyRequiredFields(
   } // Refactor after feature flag is turned on #15052
 
   return (
-    !applicant.applicant.firstName ||
-    !applicant.applicant.lastName ||
-    !applicant.applicant.email ||
-    !applicant.applicant.telephone ||
-    !applicant.applicant.preferredLang ||
-    !applicant.applicant.preferredLanguageForInterview ||
-    !applicant.applicant.preferredLanguageForExam ||
-    !applicant.applicant.citizenship ||
-    empty(applicant.applicant.armedForcesStatus) ||
+    !applicant.firstName ||
+    !applicant.lastName ||
+    !applicant.email ||
+    !applicant.telephone ||
+    !applicant.preferredLang ||
+    !applicant.preferredLanguageForInterview ||
+    !applicant.preferredLanguageForExam ||
+    !applicant.citizenship ||
+    empty(applicant.armedForcesStatus) ||
     (applicationEmailVerification && !applicant.isEmailVerified) ||
     !isWorkEmailVerifiedForInternalJobs
   );
