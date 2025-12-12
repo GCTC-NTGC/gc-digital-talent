@@ -55,6 +55,11 @@ const screeningAndAssessmentTitle = defineMessage({
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     ...JobPlacementOptions
+    me {
+      poolCandidateBookmarks {
+        id
+      }
+    }
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
       ...ClaimVerification
@@ -142,12 +147,14 @@ export interface ViewPoolCandidateProps {
   flexibleWorkLocationOptions: FragmentType<
     typeof FlexibleWorkLocationOptions_Fragment
   >;
+  usersPoolCandidateBookmarks: string[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
   jobPlacementOptions,
   flexibleWorkLocationOptions,
+  usersPoolCandidateBookmarks,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -236,6 +243,7 @@ export const ViewPoolCandidate = ({
             <MoreActions
               poolCandidate={poolCandidate}
               jobPlacementOptions={jobPlacementOptions}
+              usersPoolCandidateBookmarks={usersPoolCandidateBookmarks}
             />
           </Sidebar.Sidebar>
           <Sidebar.Content>
@@ -324,6 +332,10 @@ export const ViewPoolCandidatePage = () => {
     variables: { poolCandidateId },
   });
 
+  const browsingUsersCandidateBookmarks = unpackMaybes(
+    data?.me?.poolCandidateBookmarks,
+  ).map((candidate) => candidate.id);
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
@@ -331,6 +343,7 @@ export const ViewPoolCandidatePage = () => {
           poolCandidate={data.poolCandidate}
           jobPlacementOptions={data}
           flexibleWorkLocationOptions={data}
+          usersPoolCandidateBookmarks={browsingUsersCandidateBookmarks}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

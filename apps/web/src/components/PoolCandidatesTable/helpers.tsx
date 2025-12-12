@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   Locales,
@@ -34,6 +35,7 @@ import {
   PoolAreaOfSelection,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
   LocalizedCandidateSuspendedFilter,
+  PoolCandidatesBaseSort,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -52,6 +54,9 @@ import tableMessages from "./tableMessages";
 import CandidateFlag, {
   PoolCandidate_FlagFragment,
 } from "../CandidateFlag/CandidateFlag";
+import PoolCandidateBookmark, {
+  PoolCandidateBookmark_Fragment,
+} from "./PoolCandidateBookmark";
 
 export const priorityCell = (
   weight: number,
@@ -355,10 +360,19 @@ function transformSortStateToOrderByClause(
   };
 }
 
+export function getBaseSort(
+  doNotUseBookmark: boolean,
+  doNotUseFlag: boolean,
+): PoolCandidatesBaseSort {
+  return {
+    useBookmark: !doNotUseBookmark,
+    useFlag: !doNotUseFlag,
+  };
+}
+
 export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-  doNotUseFlag?: boolean,
 ):
   | QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[]
   | undefined {
@@ -372,7 +386,6 @@ export function getSortOrder(
   }
 
   return [
-    ...(doNotUseFlag ? [] : [{ column: "is_flagged", order: SortOrder.Desc }]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [
@@ -385,7 +398,6 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  doNotUseFlag?: boolean,
 ): Maybe<ClaimVerificationSort> {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
@@ -393,7 +405,6 @@ export function getClaimVerificationSort(
     if (sortOrder) {
       return {
         order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
-        useFlag: !doNotUseFlag,
       };
     }
   }
@@ -597,4 +608,28 @@ export const candidateSuspendedFilterToCustomOptions = (
       label: enumObject.label.localized,
     };
   });
+};
+
+export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    className="size-6"
+    aria-hidden="false"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);
+
+export const poolCandidateBookmarkCell = (
+  poolCandidateId: string,
+  userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>,
+  firstName?: Maybe<string>,
+  lastName?: Maybe<string>,
+) => {
+  return (
+    <PoolCandidateBookmark
+      userQuery={userQuery}
+      poolCandidateId={poolCandidateId}
+      firstName={firstName}
+      lastName={lastName}
+    />
+  );
 };

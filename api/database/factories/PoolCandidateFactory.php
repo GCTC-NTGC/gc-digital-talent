@@ -289,4 +289,15 @@ class PoolCandidateFactory extends Factory
             $poolCandidate->setApplicationSnapshot();
         });
     }
+
+    // Add a poolCandidate bookmark attached to user(s)
+    public function withBookmarks(array $userIds)
+    {
+        return $this->afterCreating(function (PoolCandidate $poolCandidate) use ($userIds) {
+
+            $poolCandidate->bookmarkedByUsers()->attach($userIds);
+
+            return $poolCandidate;
+        });
+    }
 }

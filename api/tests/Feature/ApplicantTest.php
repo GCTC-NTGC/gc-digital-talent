@@ -1519,8 +1519,10 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginatedAdminView {
-                poolCandidatesPaginatedAdminView (orderBy: [
+            query poolCandidatesPaginatedAdminView ($orderByBase: PoolCandidatesBaseSort!) {
+                poolCandidatesPaginatedAdminView (
+                    orderByBase: $orderByBase,
+                    orderBy: [
                     { column: "status_weight", order: ASC }
                     { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
@@ -1531,7 +1533,10 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            '
+            ',
+                [
+                    'orderByBase' => [],
+                ]
             )->assertJson([
                 'data' => [
                     'poolCandidatesPaginatedAdminView' => [
@@ -1550,8 +1555,10 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginatedAdminView {
-                poolCandidatesPaginatedAdminView (orderBy: [
+            query poolCandidatesPaginatedAdminView ($orderByBase: PoolCandidatesBaseSort!) {
+                poolCandidatesPaginatedAdminView (
+                    orderByBase: $orderByBase,
+                    orderBy: [
                     { column: "status_weight", order: ASC }
                     { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
@@ -1562,7 +1569,10 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            '
+            ',
+                [
+                    'orderByBase' => [],
+                ]
             )->assertDontSeeText(PoolCandidateStatus::DRAFT->name);
     }
 
@@ -1590,8 +1600,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView(where: $where) {
+            query poolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+                poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
                     paginatorInfo {
                         total
                     }
@@ -1599,6 +1609,7 @@ class ApplicantTest extends TestCase
             }
         ',
                 [
+                    'orderByBase' => [],
                     'where' => [],
                 ]
             )->assertJson([
@@ -1616,8 +1627,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView(where: $where) {
+            query poolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+                poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
                     paginatorInfo {
                         total
                     }
@@ -1625,6 +1636,7 @@ class ApplicantTest extends TestCase
             }
         ',
                 [
+                    'orderByBase' => [],
                     'where' => [
                         'applicantFilter' => [
                             'equity' => null,
@@ -1750,8 +1762,8 @@ class ApplicantTest extends TestCase
         ]);
 
         $query = /** @lang GraphQL */ '
-            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView(where: $where) {
+            query poolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+                poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
                     paginatorInfo {
                         total
                     }
@@ -1773,6 +1785,7 @@ class ApplicantTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query,
                 [
+                    'orderByBase' => [],
                     'where' => [
                         'applicantFilter' => [
                             'equity' => ['hasDisability' => true],
@@ -1785,6 +1798,7 @@ class ApplicantTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query,
                 [
+                    'orderByBase' => [],
                     'where' => [
                         'applicantFilter' => [
                             'equity' => ['isWoman' => true],
@@ -1797,6 +1811,7 @@ class ApplicantTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query,
                 [
+                    'orderByBase' => [],
                     'where' => [
                         'applicantFilter' => [
                             'equity' => ['isVisibleMinority' => true],
@@ -1809,6 +1824,7 @@ class ApplicantTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query,
                 [
+                    'orderByBase' => [],
                     'where' => [
                         'applicantFilter' => [
                             'equity' => ['isIndigenous' => true],
@@ -1821,6 +1837,7 @@ class ApplicantTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query,
                 [
+                    'orderByBase' => [],
                     'where' => [
                         'applicantFilter' => [
                             'equity' => [

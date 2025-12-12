@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -287,6 +288,14 @@ class PoolCandidate extends Model
     public function assessmentStep(): BelongsTo
     {
         return $this->belongsTo(AssessmentStep::class);
+    }
+
+    // Primary use is factory seeding
+    /** @return BelongsToMany<User, $this> */
+    public function bookmarkedByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'pool_candidate_user_bookmarks', 'pool_candidate_id', 'user_id')
+            ->withTimestamps();
     }
 
     /** @return Collection<string|int, Experience> */

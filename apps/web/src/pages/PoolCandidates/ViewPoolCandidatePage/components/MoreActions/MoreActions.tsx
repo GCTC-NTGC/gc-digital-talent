@@ -2,6 +2,8 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/16/solid/UserCircleIcon";
 import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
 import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
+import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
+import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 import { useQuery } from "urql";
 
 import {
@@ -33,6 +35,7 @@ import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecision
 import FinalDecisionAndPlaceDialog from "~/components/PoolCandidateDialogs/FinalDecisionAndPlaceDialog";
 import UpdateScreeningStageDialog from "~/components/UpdateScreeningStageDialog/UpdateScreeningStageDialog";
 import UpdateAssessmentStageDialog from "~/components/UpdateAssessmentStageDialog/UpdateAssessmentStageDialog";
+import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
@@ -116,16 +119,28 @@ const MoreActions_Query = graphql(/* GraphQL */ `
 interface MoreActionsProps {
   poolCandidate: FragmentType<typeof MoreActions_Fragment>;
   jobPlacementOptions: FragmentType<typeof JobPlacementOptions_Query>;
+  usersPoolCandidateBookmarks?: string[];
 }
 
 const MoreActions = ({
   poolCandidate: poolCandidateQuery,
   jobPlacementOptions,
+  usersPoolCandidateBookmarks,
 }: MoreActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
+
   const poolCandidate = getFragment(MoreActions_Fragment, poolCandidateQuery);
+  const candidateName = getFullNameLabel(
+    poolCandidate.user.firstName,
+    poolCandidate.user.lastName,
+    intl,
+  );
+  const isBookmarkedDefaultValue = !!usersPoolCandidateBookmarks?.find(
+    (id) => id === poolCandidate.id,
+  );
+
   const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
     id: poolCandidate.id,
     defaultValue: poolCandidate.isFlagged ?? false,
@@ -138,12 +153,13 @@ const MoreActions = ({
       classification: poolCandidate.pool.classification,
     },
   });
-
-  const candidateName = getFullNameLabel(
-    poolCandidate.user.firstName,
-    poolCandidate.user.lastName,
-    intl,
-  );
+  const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
+    poolCandidateId: poolCandidate.id,
+    defaultValue: isBookmarkedDefaultValue,
+    candidateInfo: {
+      candidateName: candidateName,
+    },
+  });
 
   const [{ data }] = useQuery({ query: MoreActions_Query });
 
@@ -276,6 +292,26 @@ const MoreActions = ({
         </Link>
 
         <DownloadButton id={poolCandidate.id} userId={poolCandidate.user.id} />
+
+        <Button
+          mode="inline"
+          color="black"
+          className="text-left"
+          icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
+          onClick={toggleBookmark}
+        >
+          {isBookmarked
+            ? intl.formatMessage({
+                defaultMessage: "Remove bookmark",
+                id: "27mGKw",
+                description: "Label for removing a bookmark",
+              })
+            : intl.formatMessage({
+                defaultMessage: "Add bookmark",
+                id: "L2xLV8",
+                description: "Label for adding a bookmark",
+              })}
+        </Button>
 
         <Button
           mode="inline"
