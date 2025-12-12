@@ -143,7 +143,7 @@ return [
     'area_of_study' => 'Area of study',
     'education_status' => 'Education status',
     'thesis_title' => 'Thesis title',
-    'community_project_or_product' => 'Community, project or product',
+    'community_project_or_product' => 'Community project or product',
     'personal_learning_experience_description' => 'Personal learning experience description',
     'award_recipient' => 'Award recipient',
     'issuing_organization' => 'Issuing organization',
