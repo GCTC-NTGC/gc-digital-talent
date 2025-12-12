@@ -3220,7 +3220,7 @@ type Mutation {
     )
   togglePoolCandidateUserBookmark(
     poolCandidateId: UUID! @rename(attribute: "pool_candidate_id")
-  ): PoolCandidate
+  ): Boolean
     @guard
     @canFind(
       ability: "view"

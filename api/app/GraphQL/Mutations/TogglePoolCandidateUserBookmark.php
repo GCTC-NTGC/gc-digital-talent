@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 final class TogglePoolCandidateUserBookmark
 {
     /**
-     * Toggles a user's bookmarked pool candidate
+     * Toggles a user's bookmarked pool candidate, return a boolean as to whether the bookmark exists or not at the end
      */
     public function __invoke($_, array $args)
     {
@@ -18,8 +18,10 @@ final class TogglePoolCandidateUserBookmark
         /** @var \App\Models\PoolCandidate */
         $poolCandidate = PoolCandidate::find($args['pool_candidate_id']);
 
-        $user->poolCandidateBookmarks()->toggle($poolCandidate->id);
+        $executeToggle = $user->poolCandidateBookmarks()->toggle($poolCandidate->id);
 
-        return $poolCandidate;
+        $isNowBookmarked = $executeToggle && $executeToggle['attached'] && count($executeToggle['attached']) > 0;
+
+        return $isNowBookmarked;
     }
 }
