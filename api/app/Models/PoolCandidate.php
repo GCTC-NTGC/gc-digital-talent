@@ -8,6 +8,7 @@ use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
+use App\Enums\CandidateInterest;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateStatus;
 use App\Enums\CitizenshipStatus;
@@ -37,7 +38,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\Rules\Can;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -384,6 +384,33 @@ class PoolCandidate extends Model
 
             return $status;
 
+        });
+    }
+
+    /**
+     * Candidate interest
+     *
+     * Computation of a candidates interest in a process after being qualified
+     *
+     *  TO DO: Fix up the references to final_decision in #14389
+     */
+    public function candidateInterest(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->is_suspended || $this->is_expired) {
+                return CandidateInterest::NOT_INTERESTED->name;
+            }
+
+            if ($this->is_open_to_jobs) {
+                return CandidateInterest::OPEN_TO_JOBS->name;
+            }
+
+            // NOTE: Will be going away eventually
+            if ($this->is_hired) {
+                return CandidateInterest::HIRED->name;
+            }
+
+            return null;
         });
     }
 

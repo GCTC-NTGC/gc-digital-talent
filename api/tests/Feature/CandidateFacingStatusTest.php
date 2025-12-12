@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\CandidateInterest;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateStatus;
 use App\Enums\PoolCandidateStatus;
@@ -15,7 +16,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesUnprotectedGraphqlEndpoint;
 
-class CandidateStatusTest extends TestCase
+class CandidateFacingStatusTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
@@ -30,6 +31,9 @@ class CandidateStatusTest extends TestCase
         query CandidateStatusTestQuery($id: UUID!) {
             poolCandidate(id: $id) {
                 candidateStatus {
+                    value
+                }
+                candidateInterest {
                     value
                 }
             }
@@ -67,6 +71,27 @@ class CandidateStatusTest extends TestCase
             ->graphQL($this->query, ['id' => $this->candidate->id])
             ->assertJsonFragment([
                 'candidateStatus' => [
+                    'value' => $expected,
+                ],
+            ]);
+    }
+
+    /**
+     * @dataProvider candidateInterestProvider
+     */
+    public function testCandidateInterest($expected, $attributes): void
+    {
+
+        foreach ($attributes as $k => $v) {
+            $this->candidate->$k = $v;
+        }
+
+        $this->candidate->save();
+
+        $this->actingAs($this->user, 'api')
+            ->graphQL($this->query, ['id' => $this->candidate->id])
+            ->assertJsonFragment([
+                'candidateInterest' => [
                     'value' => $expected,
                 ],
             ]);
@@ -173,6 +198,56 @@ class CandidateStatusTest extends TestCase
             ]],
             'placed (indeterminate)' => [CandidateStatus::QUALIFIED->name, [
                 'placed_at' => $past,
+                'pool_candidate_status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            ]],
+
+        ];
+    }
+
+    public static function candidateInterestProvider()
+    {
+        $past = '2021-01-01 00:00:00';
+
+        $default = [
+            'submitted_at' => $past,
+            'suspended_at' => null,
+            'placed_at' => null,
+            'removed_at' => null,
+            'expiry_date' => null,
+        ];
+
+        return [
+            // Not interested
+            'suspended' => [CandidateInterest::NOT_INTERESTED->name, [
+                ...$default,
+                'suspended_at' => $past,
+            ]],
+            'expired' => [CandidateInterest::NOT_INTERESTED->name, [
+                ...$default,
+                'expiry_date' => $past,
+            ]],
+
+            // Open to jobs
+            'under consideration' => [CandidateInterest::OPEN_TO_JOBS->name, [
+                ...$default,
+                'pool_candidate_status' => PoolCandidateStatus::UNDER_CONSIDERATION->name,
+            ]],
+            'placed tentative' => [CandidateInterest::OPEN_TO_JOBS->name, [
+                ...$default,
+                'pool_candidate_status' => PoolCandidateStatus::PLACED_TENTATIVE->name,
+            ]],
+
+            // Hired
+            'placed casual' => [CandidateInterest::HIRED->name, [
+                ...$default,
+                'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
+            ]],
+            'placed term' => [CandidateInterest::HIRED->name, [
+                ...$default,
+                'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            ]],
+            'placed indeterminate' => [CandidateInterest::HIRED->name, [
+                ...$default,
                 'pool_candidate_status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
             ]],
 
