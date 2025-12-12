@@ -736,8 +736,8 @@ const PoolCandidatesTable = ({
               },
             }) =>
               poolCandidateBookmarkCell(
-                data?.me,
                 id,
+                data?.me,
                 user.firstName,
                 user.lastName,
               ),

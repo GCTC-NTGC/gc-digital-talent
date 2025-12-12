@@ -618,8 +618,8 @@ export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
 );
 
 export const poolCandidateBookmarkCell = (
+  poolCandidateId: string,
   userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>,
-  poolCandidateId?: string,
   firstName?: Maybe<string>,
   lastName?: Maybe<string>,
 ) => {
