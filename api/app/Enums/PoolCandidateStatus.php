@@ -29,12 +29,45 @@ enum PoolCandidateStatus
     case EXPIRED;
     case REMOVED;
 
+    public static function draftGroup(): array
+    {
+        return [
+            PoolCandidateStatus::DRAFT->name,
+            PoolCandidateStatus::DRAFT_EXPIRED->name,
+        ];
+    }
+
     public static function qualifiedEquivalentGroup(): array
     {
         return [
             PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             PoolCandidateStatus::PLACED_TENTATIVE->name,
             PoolCandidateStatus::PLACED_CASUAL->name,
+        ];
+    }
+
+    public static function unsuccessfulGroup(): array
+    {
+        return [
+            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+            PoolCandidateStatus::REMOVED->name,
+        ];
+    }
+
+    public static function successfulGroup(): array
+    {
+        return [
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_TENTATIVE->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            PoolCandidateStatus::UNDER_CONSIDERATION->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
         ];
     }
 
@@ -93,6 +126,33 @@ enum PoolCandidateStatus
             PoolCandidateStatus::APPLICATION_REVIEW->name,
             PoolCandidateStatus::SCREENED_IN->name,
             PoolCandidateStatus::UNDER_ASSESSMENT->name,
+        ];
+    }
+
+    public static function suspendedGroup(): array
+    {
+        return [
+            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+        ];
+    }
+
+    public static function openToJobsGroup(): array
+    {
+        return [
+            PoolCandidateStatus::UNDER_CONSIDERATION->name,
+            PoolCandidateStatus::PLACED_TENTATIVE->name,
+        ];
+    }
+
+    public static function hiredGroup(): array
+    {
+        return [
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
         ];
     }
 

@@ -4,6 +4,7 @@ import {
   AwardedScope,
   AwardedTo,
   CandidateRemovalReason,
+  CandidateStatus,
   EducationStatus,
   EducationType,
   EvaluatedLanguageAbility,
@@ -153,6 +154,17 @@ export function localizedEnumArrayToInput<T>(
 }
 
 export const ENUM_SORT_ORDER = {
+  CANDIDATE_STATUS: [
+    CandidateStatus.Draft,
+    CandidateStatus.Received,
+    CandidateStatus.UnderReview,
+    CandidateStatus.ApplicationReviewed,
+    CandidateStatus.UnderAssessment,
+    CandidateStatus.Qualified,
+    CandidateStatus.Unsuccessful,
+    CandidateStatus.Expired,
+    null,
+  ],
   FLEXIBLE_WORK_LOCATION: [
     FlexibleWorkLocation.Remote,
     FlexibleWorkLocation.Hybrid,

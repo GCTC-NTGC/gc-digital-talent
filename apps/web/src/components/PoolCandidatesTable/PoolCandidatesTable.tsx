@@ -70,7 +70,7 @@ import {
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
-  candidateFacingStatusCell,
+  candidateStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -197,6 +197,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             label {
               en
               fr
+            }
+          }
+          candidateStatus {
+            value
+            label {
+              localized
             }
           }
           placedDepartment {
@@ -872,40 +878,20 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({
-        poolCandidate: {
-          submittedAt,
-          assessmentStep,
-          assessmentStatus,
-          removedAt,
-          finalDecisionAt,
-          finalDecision,
-          pool: {
-            closingDate,
-            areaOfSelection,
-            screeningQuestionsCount,
-            contactEmail,
-          },
-        },
-      }) =>
-        candidateFacingStatusCell(
-          submittedAt,
-          closingDate,
-          removedAt,
-          finalDecisionAt,
-          finalDecision?.value,
-          areaOfSelection?.value,
-          assessmentStep?.sortOrder,
-          assessmentStatus,
-          screeningQuestionsCount,
-          contactEmail,
-          intl,
-        ),
+      ({ poolCandidate: { candidateStatus } }) =>
+        candidateStatus?.label?.localized,
       {
         id: "candidateFacingStatus",
         header: intl.formatMessage(tableMessages.candidateFacingStatus),
         enableSorting: false,
         enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { candidateStatus },
+            },
+          },
+        }) => candidateStatusCell(candidateStatus),
       },
     ),
     columnHelper.accessor(

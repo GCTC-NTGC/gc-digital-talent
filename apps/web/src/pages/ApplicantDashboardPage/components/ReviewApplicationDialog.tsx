@@ -2,9 +2,11 @@ import { useIntl } from "react-intl";
 import { useState } from "react";
 
 import {
+  CandidateStatus,
   FragmentType,
   getFragment,
   graphql,
+  PoolAreaOfSelection,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
@@ -30,9 +32,8 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
 import {
-  applicationStatus,
+  candidateStatusColorMap,
   deadlineToApply,
-  getApplicationStatusChip,
 } from "~/utils/poolCandidate";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -40,24 +41,17 @@ import { getSalaryRange } from "~/utils/classification";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import StatusSummary from "./StatusSummary";
+import { candidateStatusDesc } from "./utils";
 
 const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewApplicationDialog on PoolCandidate {
     id
-    finalDecisionAt
     submittedAt
-    removedAt
-    finalDecision {
+    candidateStatus {
       value
-    }
-    assessmentStep {
-      sortOrder
-    }
-    assessmentStatus {
-      assessmentStepStatuses {
-        step
+      label {
+        localized
       }
-      overallAssessmentStatus
     }
     pool {
       id
@@ -172,20 +166,6 @@ const ReviewApplicationDialog = ({
     .flatMap(({ skill }) => skill)
     .filter(notEmpty);
 
-  const status = getApplicationStatusChip(
-    application.submittedAt,
-    pool.closingDate,
-    application.removedAt,
-    application.finalDecisionAt,
-    application.finalDecision?.value,
-    pool.areaOfSelection?.value,
-    application.assessmentStep?.sortOrder,
-    application.assessmentStatus,
-    pool.screeningQuestionsCount,
-    pool.contactEmail,
-    intl,
-  );
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
@@ -225,12 +205,25 @@ const ReviewApplicationDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <div className="grid gap-6 xs:grid-cols-2">
-            <StatusSummary
-              label={status.label}
-              description={status.description}
-              color={status.color ?? "primary"}
-              className="xs:col-span-2"
-            />
+            {application.candidateStatus && (
+              <StatusSummary
+                label={application.candidateStatus.label.localized}
+                description={candidateStatusDesc({
+                  status: application.candidateStatus.value,
+                  employeesOnly:
+                    pool.areaOfSelection?.value ===
+                    PoolAreaOfSelection.Employees,
+                  contactEmail: pool.contactEmail,
+                  intl,
+                })}
+                color={
+                  candidateStatusColorMap.get(
+                    application.candidateStatus.value,
+                  ) ?? "gray"
+                }
+                className="xs:col-span-2"
+              />
+            )}
 
             <Separator decorative className="m-0 xs:col-span-2" />
 
@@ -273,11 +266,14 @@ const ReviewApplicationDialog = ({
             >
               {pool.department?.name?.localized ?? nullMessage}
             </FieldDisplay>
-            {status.value === applicationStatus.EXPIRED ? (
+            {application?.candidateStatus?.value === CandidateStatus.Expired ? (
               <FieldDisplay
                 label={intl.formatMessage(commonMessages.deadlineToApply)}
                 className="xs:col-span-2"
-                hasError={deadlineToApply(pool.closingDate, status.value)}
+                hasError={deadlineToApply(
+                  pool.closingDate,
+                  application.candidateStatus.value,
+                )}
               >
                 {pool?.closingDate
                   ? formatDate({
@@ -387,7 +383,8 @@ const ReviewApplicationDialog = ({
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
-            {status.value === applicationStatus.SUCCESSFUL && (
+            {application.candidateStatus?.value ===
+              CandidateStatus.Qualified && (
               <>
                 <Separator decorative className="m-0 xs:col-span-2" />
                 <p className="xs:col-span-2">

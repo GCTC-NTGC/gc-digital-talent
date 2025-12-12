@@ -15,7 +15,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import {
-  getQualifiedRecruitmentStatusChip,
+  candidateInterestChip,
   isQualifiedFinalDecision,
 } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -37,10 +37,11 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
       ...ReviewRecruitmentProcessDialog
       id
       finalDecisionAt
-      suspendedAt
-      placedAt
-      status {
+      candidateInterest {
         value
+        label {
+          localized
+        }
       }
       finalDecision {
         value
@@ -99,22 +100,24 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, finalDecisionAt } = recruitmentProcess;
+            const { id, pool, finalDecisionAt, candidateInterest } =
+              recruitmentProcess;
+            const interestChip = candidateInterestChip(candidateInterest);
 
-            const status = getQualifiedRecruitmentStatusChip(
-              recruitmentProcess.suspendedAt,
-              recruitmentProcess.placedAt,
-              recruitmentProcess.status?.value ?? null,
-              intl,
-            );
+            let applicationMetadata: PreviewMetaData[] = [];
+            if (interestChip) {
+              applicationMetadata = [
+                {
+                  key: "status",
+                  type: "chip",
+                  color: interestChip.color,
+                  children: interestChip.label,
+                },
+              ];
+            }
 
-            const applicationMetadata: PreviewMetaData[] = [
-              {
-                key: "status",
-                type: "chip",
-                color: status.color,
-                children: status.label,
-              },
+            applicationMetadata = [
+              ...applicationMetadata,
               {
                 key: "classification",
                 type: "text",
@@ -131,7 +134,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 children: (
                   <RecruitmentDate
                     finalDecisionAt={finalDecisionAt}
-                    status={status.value}
+                    interest={candidateInterest?.value}
                   />
                 ),
               },
