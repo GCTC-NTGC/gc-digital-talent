@@ -7,9 +7,9 @@ import {
   LanguageAbility,
   OperationalRequirement,
   PlacementType,
-  PoolCandidateStatus,
   PriorityWeight,
   PublishingGroup,
+  ScreeningStage,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
@@ -26,11 +26,11 @@ export interface FormValues {
   languageAbility?: LanguageAbility;
   operationalRequirement: OperationalRequirement[];
   placementTypes: PlacementType[];
-  poolCandidateStatus: PoolCandidateStatus[];
   pools: string[];
   priorityWeight: PriorityWeight[];
   publishingGroups: PublishingGroup[];
   removalReasons: CandidateRemovalReason[];
+  screeningStages: ScreeningStage[];
   skills: string[];
   stream: string[];
   suspendedStatus?: CandidateSuspendedFilter;

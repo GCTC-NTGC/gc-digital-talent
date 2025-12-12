@@ -366,7 +366,9 @@ export function getSortOrder(
 
   // handle sort in orderByClaimVerification and departments
   if (
-    sortingRules?.find((rule) => ["priority", "department"].includes(rule.id))
+    sortingRules?.find((rule) =>
+      ["priority", "department", "screeningStage"].includes(rule.id),
+    )
   ) {
     return undefined;
   }
@@ -425,6 +427,18 @@ export function getDepartmentSort(
   return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
 }
 
+export function getScreeningStageSort(
+  sortingRules?: SortingState,
+): SortOrder | undefined {
+  const sortingRule = sortingRules?.find(
+    (rule) => rule.id === "screeningStage",
+  );
+
+  if (!sortingRule) return undefined;
+
+  return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
+}
+
 export function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
@@ -464,7 +478,6 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
     ),
     priorityWeight: unpackMaybes(input?.priorityWeight),
-    poolCandidateStatus: unpackMaybes(input?.poolCandidateStatus),
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
@@ -476,6 +489,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     finalDecisions: unpackMaybes(input?.finalDecisions),
     removalReasons: unpackMaybes(input?.removalReasons),
     placementTypes: unpackMaybes(input?.placementTypes),
+    screeningStages: unpackMaybes(input?.screeningStages),
   };
 }
 
@@ -500,7 +514,6 @@ export function transformFormValuesToFilterState(
       skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
     },
-    poolCandidateStatus: data.poolCandidateStatus,
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
@@ -518,6 +531,7 @@ export function transformFormValuesToFilterState(
     finalDecisions: data.finalDecisions,
     removalReasons: data.removalReasons,
     placementTypes: data.placementTypes,
+    screeningStages: data.screeningStages,
   };
 }
 

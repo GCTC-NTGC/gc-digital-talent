@@ -1,4 +1,7 @@
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStepType,
+  PoolCandidateStatus,
+} from "@gc-digital-talent/graphql";
 
 export const QUALIFIED_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,
@@ -81,4 +84,10 @@ export const PLACEMENT_TYPE_STATUSES = [
   PoolCandidateStatus.PlacedIndeterminate,
   PoolCandidateStatus.PlacedTentative,
   PoolCandidateStatus.PlacedTerm,
+];
+
+// NOTE: We intend to remove these at some point
+export const LEGACY_ASSESSMENT_STEP_TYPES = [
+  AssessmentStepType.ApplicationScreening,
+  AssessmentStepType.ScreeningQuestionsAtApplication,
 ];

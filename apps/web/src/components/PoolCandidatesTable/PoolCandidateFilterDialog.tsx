@@ -15,6 +15,7 @@ import {
   WorkRegion,
   AssessmentStep,
   FinalDecision,
+  AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -145,8 +146,8 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         }
       }
     }
-    statuses: localizedEnumOptions(enumName: "PoolCandidateStatus") {
-      ... on LocalizedPoolCandidateStatus {
+    screeningStages: localizedEnumOptions(enumName: "ScreeningStage") {
+      ... on LocalizedScreeningStage {
         value
         label {
           localized
@@ -203,7 +204,16 @@ const PoolCandidateFilterDialog = ({
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const assessmentSteps = unpackMaybes(availableSteps)
-    .filter((step) => !!step.sortOrder && step.sortOrder > 0)
+    .filter(
+      (step) =>
+        !!step.sortOrder &&
+        step.sortOrder > 0 &&
+        ![
+          AssessmentStepType.ApplicationScreening,
+          AssessmentStepType.ScreeningQuestionsAtApplication,
+          null,
+        ].includes(step.type?.value ?? null),
+    )
     .sort((a, b) => (a?.sortOrder ?? 0) - (b?.sortOrder ?? 0));
 
   const equityOption = (value: string, message: MessageDescriptor) => ({
@@ -319,12 +329,28 @@ const PoolCandidateFilterDialog = ({
               label: finalDecision.label?.localized ?? notAvailable,
             }))}
         />
+        <Combobox
+          id="screeningStages"
+          name="screeningStages"
+          isMulti
+          label={intl.formatMessage(applicationMessages.screeningStage)}
+          options={sortLocalizedEnumOptions(
+            ENUM_SORT_ORDER.SCREENING_STAGE,
+            narrowEnumType(
+              unpackMaybes(data?.screeningStages),
+              "ScreeningStage",
+            ),
+          ).map((screeningStage) => ({
+            value: screeningStage.value,
+            label: screeningStage.label?.localized ?? notAvailable,
+          }))}
+        />
         {assessmentSteps.length > 0 && (
           <Combobox
             id="assessmentSteps"
             name="assessmentSteps"
             isMulti
-            label={intl.formatMessage(commonMessages.currentStep)}
+            label={intl.formatMessage(applicationMessages.assessmentStage)}
             options={assessmentSteps.map((step) => ({
               value: String(step.sortOrder ?? 0),
               label:
@@ -398,27 +424,6 @@ const PoolCandidateFilterDialog = ({
           )}
         />
       </div>
-      <Combobox
-        id="poolCandidateStatus"
-        name="poolCandidateStatus"
-        isMulti
-        label={intl.formatMessage(commonMessages.status)}
-        options={narrowEnumType(
-          unpackMaybes(data?.statuses),
-          "PoolCandidateStatus",
-        ).map((status) => ({
-          value: status.value,
-          label: status.label?.localized ?? notAvailable,
-        }))}
-        contextColor="warning"
-        context={intl.formatMessage({
-          defaultMessage:
-            "This is a temporary way to filter candidates based on the old statuses. This filter is based on old information and it's possible that it shows inaccurate results. For better results, use the other available filters.",
-          description:
-            "Warning about the status filter being a temporary solution",
-          id: "4PiCoE",
-        })}
-      />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({

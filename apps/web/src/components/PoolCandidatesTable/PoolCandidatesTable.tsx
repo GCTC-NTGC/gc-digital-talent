@@ -48,7 +48,8 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import applicationMessages from "~/messages/applicationMessages";
+import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -71,6 +72,7 @@ import {
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
   candidateFacingStatusCell,
+  getScreeningStageSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -175,6 +177,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
     $orderByEmployeeDepartment: SortOrder
+    $orderByScreeningStage: SortOrder
   ) {
     poolCandidatesPaginatedAdminView(
       where: $where
@@ -184,6 +187,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
       orderByEmployeeDepartment: $orderByEmployeeDepartment
+      orderByScreeningStage: $orderByScreeningStage
     ) {
       data {
         id
@@ -214,6 +218,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               fr
             }
           }
+          screeningStage {
+            label {
+              localized
+            }
+          }
           finalDecisionAt
           finalDecision {
             value
@@ -224,6 +233,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               localized
             }
             type {
+              value
               label {
                 localized
               }
@@ -403,7 +413,6 @@ const defaultState = {
       languageAbility: undefined,
       flexibleWorkLocations: [],
     },
-    poolCandidateStatus: [],
     priorityWeight: [],
     publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
@@ -411,6 +420,7 @@ const defaultState = {
     finalDecisions: [],
     removalReasons: [],
     placementTypes: [],
+    screeningStages: [],
   },
 };
 
@@ -563,6 +573,7 @@ const PoolCandidatesTable = ({
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState, doNotUseFlag),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
+      orderByScreeningStage: getScreeningStageSort(sortState),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
         doNotUseFlag,
@@ -821,6 +832,32 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
+      ({ poolCandidate: { screeningStage } }) =>
+        screeningStage?.label.localized,
+      {
+        id: "screeningStage",
+        header: intl.formatMessage(applicationMessages.screeningStage),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { assessmentStep } }) => {
+        if (isLegacyAssessmentStepType(assessmentStep?.type?.value))
+          return null;
+
+        return (
+          // NOTE: We do want to pass on empty strings
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          (assessmentStep?.title?.localized ||
+            assessmentStep?.type?.label?.localized) ??
+          ""
+        );
+      },
+      {
+        id: "assessmentStep",
+        header: intl.formatMessage(applicationMessages.assessmentStage),
+      },
+    ),
+    columnHelper.accessor(
       ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "finalDecision",
@@ -842,33 +879,6 @@ const PoolCandidatesTable = ({
             assessmentStatus,
             intl,
           ),
-      },
-    ),
-    columnHelper.accessor(
-      ({ poolCandidate: { assessmentStep } }) => assessmentStep,
-      {
-        id: "assessmentStep",
-        header: intl.formatMessage(commonMessages.currentStep),
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { assessmentStep },
-            },
-          },
-        }) => {
-          const stepName =
-            // NOTE: We do want to pass on empty strings
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            assessmentStep?.title?.localized ||
-            assessmentStep?.type?.label?.localized;
-          return stepName
-            ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                stepNumber: assessmentStep.sortOrder,
-              }) +
-                intl.formatMessage(commonMessages.dividingColon) +
-                stepName
-            : "";
-        },
       },
     ),
     columnHelper.accessor(

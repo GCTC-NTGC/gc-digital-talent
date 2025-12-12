@@ -1611,10 +1611,6 @@
     "defaultMessage": "La mise à jour des rôles de l'utilisateur a échoué.",
     "description": "Error message for updating user roles"
   },
-  "4PiCoE": {
-    "defaultMessage": "Il s'agit d'un moyen temporaire par lequel filtrer les candidatures selon les anciens statuts. Ce filtre s'appuie sur des données qui datent, ce qui risque de fausser les résultats affichés. Pour obtenir de meilleurs résultats, veuillez appliquer les autres filtres offerts.",
-    "description": "Warning about the status filter being a temporary solution"
-  },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."

@@ -31,6 +31,7 @@ import {
   Pool,
   PoolAreaOfSelection,
   ScreeningStage,
+  AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -48,6 +49,7 @@ import {
   RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
   PLACEMENT_TYPE_STATUSES,
+  LEGACY_ASSESSMENT_STEP_TYPES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
@@ -105,6 +107,12 @@ export const isSuspendedStatus = (
   return !!(
     isSuspended && (status ? SUSPENDABLE_STATUSES.includes(status) : false)
   );
+};
+
+export const isLegacyAssessmentStepType = (
+  type?: Maybe<AssessmentStepType>,
+): boolean => {
+  return !!(type ? LEGACY_ASSESSMENT_STEP_TYPES.includes(type) : false);
 };
 
 export const isDraft = (
