@@ -1,0 +1,99 @@
+name: LinkChecker
+
+on:
+  workflow_dispatch: # allows manual trigger
+  schedule:
+    # Every Wednesday at 2:00 AM UTC
+    - cron: "0 2 * * 3"
+
+jobs:
+  check-links:
+    runs-on: ubuntu-24.04
+    env:
+      PNPM_VERSION: "10.17.0"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "./.nvmrc"
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run External Link Checker
+        run: pnpm run check-links
+
+      - name: Count Broken Links
+        if: always()
+        id: count
+        run: |
+          if [ -f external-broken-links.json ]; then
+            num=$(jq length external-broken-links.json)
+          else
+            num=0
+          fi
+          echo "brokenLinksCount=$num" >> $GITHUB_OUTPUT
+
+      - name: Upload Report Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-link-check-results
+          path: |
+            external-links.json
+            external-broken-links.json
+            external-link-errors.log
+
+      - name: Notify Slack on broken links
+        if: failure()
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": ":warning: External Link Checker - Broken Links Detected",
+              "blocks": [
+                 {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": ":warning: External Link Checker - Failed"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Number of Broken Links:* ${{ steps.count.outputs.brokenLinksCount }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Please review the artifacts and take necessary actions. :mag_right:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View Artifacts",
+                      "emoji": true
+                    },
+                    "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                    "action_id": "run",
+                    "value": "actions"
+                  }
+                }
+              ]
+            }
