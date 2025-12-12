@@ -667,6 +667,10 @@
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
   },
+  "OJVUdM": {
+    "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels. Une adresse courriel professionnelle confirmée du gouvernement du Canada est requise.",
+    "description": "Body for a message informing the user that a contact email is required."
+  },
   "OKhXQk": {
     "defaultMessage": "Vous ne pouvez pas enregistrer cette situation de réaménagement des effectifs si votre poste actuel est absent, n'est pas marqué comme poste d'attache ou n'est pas marqué comme une expérience au sein du gouvernement du Canada. Veuillez mettre à jour votre expérience professionnelle pour continuer.",
     "description": "Error message for when a user is missing a substantive experience for workforce adjustment"

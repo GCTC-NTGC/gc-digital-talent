@@ -249,6 +249,12 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      areaOfSelection {
+        value
+        label {
+          localized
+        }
+      }
     }
     educationRequirementOption {
       value

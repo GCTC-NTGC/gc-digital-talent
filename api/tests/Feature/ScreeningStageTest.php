@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Enums\AssessmentStepType;
 use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
+use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -49,7 +51,13 @@ class ScreeningStageTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
 
+        $pool = Pool::factory()
+            ->published()
+            ->withAssessments(3)
+            ->create();
+
         $this->application = PoolCandidate::factory()->create([
+            'pool_id' => $pool->id,
             'pool_candidate_status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
             'submitted_at' => config('constants.past_date'),
         ]);
@@ -67,6 +75,37 @@ class ScreeningStageTest extends TestCase
         $this->processOperatorUser = User::factory()
             ->asProcessOperator($this->application->pool->id)
             ->create();
+    }
+
+    public function testSettingAssessmentStep()
+    {
+
+        $expectedStep = $this->application->pool->assessmentSteps->sortBy('sortOrder')
+            ->firstWhere(function ($step) {
+                return $step->type !== AssessmentStepType::APPLICATION_SCREENING->name && $step->type !== AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+            })->id ?? null;
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->mutation, [
+                'candidate' => [
+                    'id' => $this->application->id,
+                    'screeningStage' => ScreeningStage::UNDER_ASSESSMENT->name,
+                ]])
+            ->assertJsonFragment([
+                'screeningStage' => ['value' => ScreeningStage::UNDER_ASSESSMENT->name],
+                'assessmentStep' => ['id' => $expectedStep],
+            ]);
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->mutation, [
+                'candidate' => [
+                    'id' => $this->application->id,
+                    'screeningStage' => ScreeningStage::SCREENED_IN->name,
+                ]])
+            ->assertJsonFragment([
+                'screeningStage' => ['value' => ScreeningStage::SCREENED_IN->name],
+                'assessmentStep' => null,
+            ]);
     }
 
     /**

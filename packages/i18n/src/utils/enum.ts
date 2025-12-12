@@ -17,6 +17,7 @@ import {
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
+  ScreeningStage,
   SecurityStatus,
   WfaInterest,
   WorkRegion,
@@ -162,6 +163,12 @@ export const ENUM_SORT_ORDER = {
     PriorityWeight.Veteran,
     PriorityWeight.CitizenOrPermanentResident,
     PriorityWeight.Other,
+  ],
+  SCREENING_STAGE: [
+    ScreeningStage.NewApplication,
+    ScreeningStage.ApplicationReview,
+    ScreeningStage.ScreenedIn,
+    ScreeningStage.UnderAssessment,
   ],
   WORK_REGION: [
     WorkRegion.Telework,

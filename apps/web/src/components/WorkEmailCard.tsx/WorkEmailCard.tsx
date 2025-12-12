@@ -73,7 +73,7 @@ const WorkEmailCard = ({ query }: WorkEmailCardProps) => {
   const workEmailFragment = getFragment(WorkEmailCard_Fragment, query);
 
   return (
-    <Card className="row-start-3 grid gap-3 xs:row-start-2">
+    <Card className="col-span-2 grid gap-3 xs:col-span-1">
       <div className="flex min-h-8.5 flex-col justify-between gap-6">
         <p className="font-bold">
           {intl.formatMessage({
