@@ -59,8 +59,8 @@ class PoolCandidateAdminViewTest extends TestCase
     public string $paginatedAdminViewQuery =
         /** GraphQL */
         '
-        query PoolCandidates {
-            poolCandidatesPaginatedAdminView(first: 100) {
+        query PoolCandidates ($orderByBase: PoolCandidatesBaseSort!) {
+            poolCandidatesPaginatedAdminView(first: 100, orderByBase: $orderByBase) {
                 paginatorInfo {
                     total
                 }
@@ -124,7 +124,7 @@ class PoolCandidateAdminViewTest extends TestCase
     protected function assertPaginatedResponse(User $user, int $count, array $ids): void
     {
         $res = $this->actingAs($user, 'api')
-            ->graphQL($this->paginatedAdminViewQuery);
+            ->graphQL($this->paginatedAdminViewQuery, ['orderByBase' => []]);
 
         $res->assertJsonFragment([
             'paginatorInfo' => [
