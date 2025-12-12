@@ -119,7 +119,7 @@ const MoreActions_Query = graphql(/* GraphQL */ `
 interface MoreActionsProps {
   poolCandidate: FragmentType<typeof MoreActions_Fragment>;
   jobPlacementOptions: FragmentType<typeof JobPlacementOptions_Query>;
-  usersPoolCandidateBookmarks: string[];
+  usersPoolCandidateBookmarks?: string[];
 }
 
 const MoreActions = ({
@@ -137,7 +137,7 @@ const MoreActions = ({
     poolCandidate.user.lastName,
     intl,
   );
-  const isBookmarkedDefaultValue = !!usersPoolCandidateBookmarks.find(
+  const isBookmarkedDefaultValue = !!usersPoolCandidateBookmarks?.find(
     (id) => id === poolCandidate.id,
   );
 

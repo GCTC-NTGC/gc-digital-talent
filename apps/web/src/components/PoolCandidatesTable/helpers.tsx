@@ -612,7 +612,8 @@ export const candidateSuspendedFilterToCustomOptions = (
 
 export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
   <BookmarkIcon
-    data-h2-width="base(x1)"
+    className="size-6"
+    aria-hidden="false"
     aria-label={intl.formatMessage(tableMessages.bookmark)}
   />
 );
