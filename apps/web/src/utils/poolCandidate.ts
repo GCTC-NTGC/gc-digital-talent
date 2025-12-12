@@ -31,6 +31,9 @@ import {
   Pool,
   PoolAreaOfSelection,
   ScreeningStage,
+  LocalizedCandidateStatus,
+  CandidateStatus,
+  CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -299,6 +302,30 @@ export const getCandidateStatusChip = (
   return {
     label: getLocalizedName(finalDecision?.label, intl),
     color: getFinalDecisionChipColor(finalDecision?.value),
+  };
+};
+
+const candidateStatusColorMap = new Map<CandidateStatus, ChipProps["color"]>([
+  [CandidateStatus.Draft, "gray"],
+  [CandidateStatus.Expired, "gray"],
+  [CandidateStatus.Unsuccessful, "gray"],
+
+  [CandidateStatus.Received, "secondary"],
+  [CandidateStatus.UnderReview, "secondary"],
+  [CandidateStatus.ApplicationReviewed, "secondary"],
+  [CandidateStatus.UnderAssessment, "secondary"],
+
+  [CandidateStatus.Qualified, "success"],
+]);
+
+export const candidateStatusChip = (
+  status?: Maybe<LocalizedCandidateStatus>,
+): StatusChip | null => {
+  if (!status || !status.label.localized) return null;
+
+  return {
+    color: candidateStatusColorMap.get(status.value) ?? "gray",
+    label: status.label.localized,
   };
 };
 

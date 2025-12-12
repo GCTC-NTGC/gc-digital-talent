@@ -743,6 +743,7 @@ type PoolCandidateAdminView {
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
+  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")

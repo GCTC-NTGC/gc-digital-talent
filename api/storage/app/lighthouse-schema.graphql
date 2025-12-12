@@ -1221,6 +1221,7 @@ type PoolCandidateAdminView {
   submittedAt: DateTime
   suspendedAt: DateTime
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
   screeningStage: LocalizedScreeningStage
   notes: String
   isFlagged: Boolean
