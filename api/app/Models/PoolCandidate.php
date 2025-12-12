@@ -306,11 +306,7 @@ class PoolCandidate extends Model
     {
         $category = PriorityWeight::OTHER;
 
-        $this->loadMissing(['user' => [
-            'citizenship',
-            'priority_weight',
-            'armed_forces_status',
-        ]]);
+        $this->loadMissing(['user']);
 
         if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
             $category = PriorityWeight::PRIORITY_ENTITLEMENT;

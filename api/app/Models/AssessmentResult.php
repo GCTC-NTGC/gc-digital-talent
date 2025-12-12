@@ -45,8 +45,6 @@ class AssessmentResult extends Model
 
     /**
      * The event map for the model.
-     *
-     * @var array
      */
     protected $dispatchesEvents = [
         'saved' => AssessmentResultSaved::class,
