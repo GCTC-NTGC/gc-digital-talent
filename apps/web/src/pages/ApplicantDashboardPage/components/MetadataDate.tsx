@@ -6,19 +6,31 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { CandidateStatus, Maybe } from "@gc-digital-talent/graphql";
 
 import {
-  applicationStatus,
   deadlineToApply,
   qualifiedRecruitmentStatus,
   StatusChipWithDescription,
 } from "~/utils/poolCandidate";
 
+const SUBMITTED_STATUSES = [
+  CandidateStatus.Received,
+  CandidateStatus.UnderReview,
+  CandidateStatus.UnderAssessment,
+  CandidateStatus.ApplicationReviewed,
+];
+
+const ASSESSED_STATUSES = [
+  CandidateStatus.Qualified,
+  CandidateStatus.Unsuccessful,
+];
+
 interface ApplicationDateProps {
   closingDate?: string | null;
   submittedAt?: string | null;
   assessedDate?: string | null;
-  status: StatusChipWithDescription["value"];
+  status?: Maybe<CandidateStatus>;
 }
 
 export const ApplicationDate = ({
@@ -30,10 +42,7 @@ export const ApplicationDate = ({
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  if (
-    status === applicationStatus.DRAFT ||
-    status === applicationStatus.EXPIRED
-  ) {
+  if (status === CandidateStatus.Draft || status === CandidateStatus.Expired) {
     const deadlineClose = deadlineToApply(closingDate, status);
 
     return (
@@ -60,12 +69,7 @@ export const ApplicationDate = ({
     );
   }
 
-  if (
-    status === applicationStatus.RECEIVED ||
-    status === applicationStatus.UNDER_REVIEW ||
-    status === applicationStatus.UNDER_ASSESSMENT ||
-    status === applicationStatus.APPLICATION_REVIEWED
-  ) {
+  if (status && SUBMITTED_STATUSES.includes(status)) {
     return (
       <span>
         {intl.formatMessage({
@@ -85,10 +89,7 @@ export const ApplicationDate = ({
     );
   }
 
-  if (
-    status === applicationStatus.SUCCESSFUL ||
-    status === applicationStatus.UNSUCCESSFUL
-  ) {
+  if (status && ASSESSED_STATUSES.includes(status)) {
     return (
       <span>
         {intl.formatMessage({

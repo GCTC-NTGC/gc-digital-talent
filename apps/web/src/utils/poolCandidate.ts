@@ -33,7 +33,6 @@ import {
   ScreeningStage,
   LocalizedCandidateStatus,
   CandidateStatus,
-  CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -302,30 +301,6 @@ export const getCandidateStatusChip = (
   return {
     label: getLocalizedName(finalDecision?.label, intl),
     color: getFinalDecisionChipColor(finalDecision?.value),
-  };
-};
-
-const candidateStatusColorMap = new Map<CandidateStatus, ChipProps["color"]>([
-  [CandidateStatus.Draft, "gray"],
-  [CandidateStatus.Expired, "gray"],
-  [CandidateStatus.Unsuccessful, "gray"],
-
-  [CandidateStatus.Received, "secondary"],
-  [CandidateStatus.UnderReview, "secondary"],
-  [CandidateStatus.ApplicationReviewed, "secondary"],
-  [CandidateStatus.UnderAssessment, "secondary"],
-
-  [CandidateStatus.Qualified, "success"],
-]);
-
-export const candidateStatusChip = (
-  status?: Maybe<LocalizedCandidateStatus>,
-): StatusChip | null => {
-  if (!status || !status.label.localized) return null;
-
-  return {
-    color: candidateStatusColorMap.get(status.value) ?? "gray",
-    label: status.label.localized,
   };
 };
 
@@ -762,15 +737,15 @@ export const priorityWeightAfterVerification = (
  */
 export const deadlineToApply = (
   closingDate: Pool["closingDate"],
-  status: StatusChipWithDescription["value"],
+  status?: Maybe<CandidateStatus>,
 ): boolean => {
   const lessThanThreeDaysTillClosingDate = closingDate
     ? differenceInDays(parseDateTimeUtc(closingDate), Date.now()) < 3
     : null;
 
   return (
-    (status === applicationStatus.DRAFT && lessThanThreeDaysTillClosingDate) ||
-    status === applicationStatus.EXPIRED
+    (status === CandidateStatus.Draft && lessThanThreeDaysTillClosingDate) ||
+    status === CandidateStatus.Expired
   );
 };
 
@@ -784,4 +759,31 @@ export const getScreeningStageIndex = (
   if (index < 0) return null;
 
   return index + 1;
+};
+
+export const candidateStatusColorMap = new Map<
+  CandidateStatus,
+  ChipProps["color"]
+>([
+  [CandidateStatus.Draft, "gray"],
+  [CandidateStatus.Expired, "gray"],
+  [CandidateStatus.Unsuccessful, "gray"],
+
+  [CandidateStatus.Received, "secondary"],
+  [CandidateStatus.UnderReview, "secondary"],
+  [CandidateStatus.ApplicationReviewed, "secondary"],
+  [CandidateStatus.UnderAssessment, "secondary"],
+
+  [CandidateStatus.Qualified, "success"],
+]);
+
+export const candidateStatusChip = (
+  status?: Maybe<LocalizedCandidateStatus>,
+): StatusChip | null => {
+  if (!status || !status.label.localized) return null;
+
+  return {
+    color: candidateStatusColorMap.get(status.value) ?? "gray",
+    label: status.label.localized,
+  };
 };
