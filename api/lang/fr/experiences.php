@@ -26,7 +26,6 @@ return [
     'contractor' => 'Entrepreneur ou entrepreneuse',
     'position_type' => 'Type de poste',
     'contractor_type' => 'Type d\'entrepreneur ou d\'entrepreneuse',
-    'classification' => 'Classification',
     'contract_firm_agency' => 'Entreprise ou organisme',
     'supervisory_position' => 'Statut de direction ou de supervision',
     'supervised_employees' => 'Supervision des employées et employés',
