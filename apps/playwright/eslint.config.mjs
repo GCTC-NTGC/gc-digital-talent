@@ -14,7 +14,11 @@ export default [
       "playwright/expect-expect": [
         "error",
         {
-          assertFunctionNames: ["assertError", "assertSuccess"],
+          assertFunctionNames: [
+            "assertError",
+            "assertSuccess",
+            "verifyThrottlingMessageForVerificationCode",
+          ],
         },
       ],
       "testing-library/prefer-screen-queries": "off",

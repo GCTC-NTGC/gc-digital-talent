@@ -568,6 +568,11 @@ const commonMessages = defineMessages({
     id: "TgQyrU",
     description: "Label for a created at date",
   },
+  deleted: {
+    defaultMessage: "Deleted",
+    id: "CzK1qY",
+    description: "Label for the trashed field",
+  },
   advancedFilters: {
     defaultMessage: "Advanced filters",
     id: "eozWFc",

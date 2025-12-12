@@ -9,11 +9,10 @@ import {
   User,
 } from "@gc-digital-talent/graphql";
 
-export interface PartialUser
-  extends Pick<
-    User,
-    "positionDuration" | "locationExemptions" | "currentCity"
-  > {
+export interface PartialUser extends Pick<
+  User,
+  "positionDuration" | "locationExemptions" | "currentCity"
+> {
   locationPreferences?: Maybe<Maybe<Pick<LocalizedWorkRegion, "value">>[]>;
   flexibleWorkLocations?: Maybe<
     Maybe<Pick<LocalizedFlexibleWorkLocation, "value">>[]

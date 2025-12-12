@@ -30,7 +30,8 @@ const wrapper = tv({
 type WrapperVariants = VariantProps<typeof wrapper>;
 
 interface WrapperProps
-  extends WrapperVariants,
+  extends
+    WrapperVariants,
     DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
 const Wrapper = ({ className, isOpen, ...rest }: WrapperProps) => {
@@ -152,7 +153,8 @@ const list = tv({
 type ListVariants = VariantProps<typeof list>;
 
 interface ListProps
-  extends ListVariants,
+  extends
+    ListVariants,
     DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement> {}
 
 const List = forwardRef<HTMLUListElement, ListProps>(

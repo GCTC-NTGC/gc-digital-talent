@@ -27,8 +27,7 @@ import {
 } from "./formUtils";
 
 export interface FormValues
-  extends FinalDecisionFormValues,
-    JobPlacementFormValues {}
+  extends FinalDecisionFormValues, JobPlacementFormValues {}
 
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_QualifyCandidateMutation(

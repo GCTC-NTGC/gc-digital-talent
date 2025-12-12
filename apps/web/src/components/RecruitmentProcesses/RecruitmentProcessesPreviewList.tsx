@@ -6,7 +6,7 @@ import {
   Heading,
   PreviewList,
   PreviewMetaData,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
@@ -154,16 +154,18 @@ const RecruitmentProcessPreviewList = ({
           })}
         </PreviewList.Root>
       ) : (
-        <Well className="text-center">
-          <p className="font-bold">
-            {intl.formatMessage({
-              defaultMessage:
-                "This user doesn't have any active recruitment processes at the moment.",
-              id: "PKntBk",
-              description: "Notice when there are no recruitment processes",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="text-center">
+          <Notice.Content>
+            <p className="font-bold">
+              {intl.formatMessage({
+                defaultMessage:
+                  "This user doesn't have any active recruitment processes at the moment.",
+                id: "PKntBk",
+                description: "Notice when there are no recruitment processes",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <div className="mt-6 border-t border-t-gray-300 pt-6">
         <Heading level="h3" className="mt-0 text-base font-bold lg:text-base">

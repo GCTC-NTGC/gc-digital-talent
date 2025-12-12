@@ -71,7 +71,7 @@ test.describe("Process activity log", () => {
     await expect(
       poolPage.page.getByText(
         new RegExp(
-          `${user.firstName} ${user.lastName} updated: process_number, change_justification`,
+          `${user.firstName} ${user.lastName} updated:.*Process number`,
           "i",
         ),
       ),
@@ -80,7 +80,16 @@ test.describe("Process activity log", () => {
     await expect(
       poolPage.page.getByText(
         new RegExp(
-          `${user.firstName} ${user.lastName} updated: published_at`,
+          `${user.firstName} ${user.lastName} updated:.*Change justification`,
+          "i",
+        ),
+      ),
+    ).toBeVisible();
+
+    await expect(
+      poolPage.page.getByText(
+        new RegExp(
+          `${user.firstName} ${user.lastName} updated: publication of the advertisement`,
           "i",
         ),
       ),

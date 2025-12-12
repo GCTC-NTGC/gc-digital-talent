@@ -15,7 +15,8 @@ import {
 } from "~/validators/profile";
 
 interface PartialUser
-  extends PartialUserAbout,
+  extends
+    PartialUserAbout,
     PartialUserDei,
     PartialUserPriority,
     PartialUserLanguage,
@@ -23,7 +24,7 @@ interface PartialUser
 
 const stepHasError = (user: PartialUser, pool: Pool) => {
   const hasEmptyRequiredFields =
-    aboutSectionHasEmptyRequiredFields(user) ||
+    aboutSectionHasEmptyRequiredFields(user, pool) ||
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
     priorityEntitlementsHasEmptyRequiredFields(user) ||
     languageInformationSectionHasEmptyRequiredFields(user) ||

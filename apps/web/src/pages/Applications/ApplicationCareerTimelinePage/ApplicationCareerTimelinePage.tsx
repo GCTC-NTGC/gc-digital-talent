@@ -10,7 +10,7 @@ import {
   Separator,
   ThrowNotFound,
   Ul,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
@@ -369,22 +369,26 @@ export const ApplicationCareerTimeline = ({
               );
             })
           ) : (
-            <Well className="text-center">
-              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
-            </Well>
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+              </Notice.Content>
+            </Notice.Root>
           )}
         </div>
       ) : (
-        <Well>
-          <p className="text-center">
-            {intl.formatMessage({
-              defaultMessage:
-                "You don’t have any career timeline experiences yet.",
-              id: "YqQuy8",
-              description: "Null state messages for career timeline list",
-            })}
-          </p>
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            <p className="text-center">
+              {intl.formatMessage({
+                defaultMessage:
+                  "You don’t have any career timeline experiences yet.",
+                id: "YqQuy8",
+                description: "Null state messages for career timeline list",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>

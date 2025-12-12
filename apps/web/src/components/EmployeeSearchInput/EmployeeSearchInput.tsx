@@ -14,7 +14,8 @@ import { SearchMessageCases } from "./Result";
 export type { ErrorMessages } from "./types";
 
 export interface EmployeeSearchInputProps
-  extends Omit<ComponentPropsWithoutRef<"input">, "id" | "name">,
+  extends
+    Omit<ComponentPropsWithoutRef<"input">, "id" | "name">,
     Omit<CommonInputProps, "context"> {
   buttonLabel?: string;
   wrapperProps?: ComponentPropsWithoutRef<"div">;

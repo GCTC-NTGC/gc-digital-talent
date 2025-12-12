@@ -8,7 +8,7 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Link, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocale, getLocalizedName, Locales } from "@gc-digital-talent/i18n";
 
@@ -296,11 +296,11 @@ const deriveAreaOfSelectionMessages = (
   return null;
 };
 
-interface AreaOfSelectionWellProps {
+interface AreaOfSelectionNoticeProps {
   poolQuery: FragmentType<typeof PoolAreaOfSelectionNote_Fragment>;
 }
 
-const AreaOfSelectionWell = ({ poolQuery }: AreaOfSelectionWellProps) => {
+const AreaOfSelectionWell = ({ poolQuery }: AreaOfSelectionNoticeProps) => {
   const intl = useIntl();
   const pool = getFragment(PoolAreaOfSelectionNote_Fragment, poolQuery);
 
@@ -338,15 +338,15 @@ const AreaOfSelectionWell = ({ poolQuery }: AreaOfSelectionWellProps) => {
   }
 
   return (
-    <Well className="my-6" color="warning">
-      <Heading level="h3" size="h6" className="mt-0">
-        {areaOfSelectionMessages.title}
-      </Heading>
-      {areaOfSelectionMessages.body}
-      {areaOfSelectionMessages.finePrint ? (
-        <div className="mt-3">{areaOfSelectionMessages.finePrint}</div>
-      ) : null}
-    </Well>
+    <Notice.Root className="my-6" color="warning">
+      <Notice.Title as="h3">{areaOfSelectionMessages.title}</Notice.Title>
+      <Notice.Content>
+        {areaOfSelectionMessages.body}
+        {areaOfSelectionMessages.finePrint ? (
+          <div className="mt-3">{areaOfSelectionMessages.finePrint}</div>
+        ) : null}
+      </Notice.Content>
+    </Notice.Root>
   );
 };
 

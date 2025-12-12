@@ -50,6 +50,7 @@ const getRoutes = (lang: Locales) => {
     executive: () => [baseUrl, "executive"].join("/"),
     skills: () => [baseUrl, "skills"].join("/"),
     inclusivityEquity: () => [baseUrl, "inclusivity-equity"].join("/"),
+    professionalHRResources: () => `${baseUrl}/hr/resources`,
 
     // Applicant
     applicantDashboard: () => applicantUrl,

@@ -11,7 +11,7 @@ import {
   Pending,
   TableOfContents,
   ThrowNotFound,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -202,15 +202,17 @@ export const UserEmployeeInformation = ({
                 )}
               </Accordion.Root>
             ) : (
-              <Well className="my-6">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This employee hasn’t added any functional communities to their profile.",
-                  id: "14DTOr",
-                  description:
-                    "Description for Community interest section null state",
-                })}
-              </Well>
+              <Notice.Root className="my-6">
+                <Notice.Content>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "This employee hasn’t added any functional communities to their profile.",
+                    id: "14DTOr",
+                    description:
+                      "Description for Community interest section null state",
+                  })}
+                </Notice.Content>
+              </Notice.Root>
             )}
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>

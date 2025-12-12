@@ -4,7 +4,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import { useMutation } from "urql";
 import { ComponentProps, useEffect, useId } from "react";
 
-import { Button, ToggleSection, Well } from "@gc-digital-talent/ui";
+import { Button, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   errorMessages,
@@ -672,15 +672,17 @@ const CareerObjectiveSection = ({
                   </>
                 ) : (
                   // no community selected
-                  <Well className="text-center">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Please select a functional community to continue.",
-                      id: "sZhjI3",
-                      description:
-                        "Message displayed when no functional community is selected",
-                    })}
-                  </Well>
+                  <Notice.Root className="text-center">
+                    <Notice.Content>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Please select a functional community to continue.",
+                        id: "sZhjI3",
+                        description:
+                          "Message displayed when no functional community is selected",
+                      })}
+                    </Notice.Content>
+                  </Notice.Root>
                 )}
                 <Combobox
                   id="departmentIds"

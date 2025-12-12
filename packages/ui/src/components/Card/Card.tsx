@@ -20,8 +20,7 @@ const card = tv({
 type CardVariants = VariantProps<typeof card>;
 
 export interface CardProps
-  extends CardVariants,
-    ComponentPropsWithoutRef<"div"> {
+  extends CardVariants, ComponentPropsWithoutRef<"div"> {
   as?: "article" | "div";
 }
 

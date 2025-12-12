@@ -14,7 +14,8 @@ const navLink = tv({
 });
 
 export interface MenuLinkProps
-  extends Omit<LinkProps, "href" | "to">,
+  extends
+    Omit<LinkProps, "href" | "to">,
     Pick<NavLinkProps, "end" | "caseSensitive" | "to"> {}
 
 const MenuLink = ({ children, ...rest }: MenuLinkProps) => {

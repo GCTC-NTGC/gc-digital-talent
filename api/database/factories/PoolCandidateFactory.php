@@ -52,6 +52,13 @@ class PoolCandidateFactory extends Factory
             'pool_candidate_status' => $this->faker->boolean() ?
                 $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
                 $this->faker->randomElement(PoolCandidateStatus::cases())->name,
+            'screening_stage' => function (array $attributes) {
+                if (in_array($attributes['pool_candidate_status'], PoolCandidateStatus::screeningStageGroup())) {
+                    return $attributes['pool_candidate_status'];
+                }
+
+                return null;
+            },
             'user_id' => User::factory(),
             'pool_id' => Pool::factory()->published(),
             'notes' => $this->faker->paragraphs(3, true),
@@ -63,7 +70,7 @@ class PoolCandidateFactory extends Factory
                 0,
                 $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
             ),
-            'is_bookmarked' => $this->faker->boolean(10),
+            'is_flagged' => $this->faker->boolean(10),
             'final_decision_at' => function (array $attributes) use ($relevantStatusesForFinalDecision) {
                 return in_array($attributes['pool_candidate_status'], $relevantStatusesForFinalDecision) ?
                 $this->faker->dateTimeBetween('-4 weeks', '-2 weeks') : null;

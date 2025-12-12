@@ -54,9 +54,7 @@ describe("EditPoolPage", () => {
     );
 
     await user.click(screen.getByRole("button", { name: /edit your impact/i }));
-    await user.click(
-      screen.getByRole("button", { name: /save introduction/i }),
-    );
+    await user.click(screen.getByRole("button", { name: /save your impact/i }));
 
     await user.click(screen.getByRole("button", { name: /edit work tasks/i }));
     await user.click(screen.getByRole("button", { name: /save work tasks/i }));

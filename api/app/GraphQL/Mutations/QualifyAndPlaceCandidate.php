@@ -19,9 +19,6 @@ final class QualifyAndPlaceCandidate
         $candidate->qualify($expiryDate);
         $candidate->place($placementType, $departmentId);
 
-        [$currentStepId] = $candidate->computeAssessmentStatus();
-        $candidate->assessment_step_id = $currentStepId;
-
         $candidate->save();
 
         return $candidate;

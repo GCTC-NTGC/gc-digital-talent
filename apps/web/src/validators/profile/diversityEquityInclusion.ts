@@ -6,8 +6,10 @@ import {
   LocalizedIndigenousCommunity,
 } from "@gc-digital-talent/graphql";
 
-export interface PartialUser
-  extends Pick<User, "isWoman" | "hasDisability" | "isVisibleMinority"> {
+export interface PartialUser extends Pick<
+  User,
+  "isWoman" | "hasDisability" | "isVisibleMinority"
+> {
   indigenousCommunities?: Maybe<
     Maybe<Pick<LocalizedIndigenousCommunity, "value">>[]
   >;

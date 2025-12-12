@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 interface NullDisplayProps {
   title?: ReactNode;
@@ -18,12 +18,12 @@ const NullDisplay = ({
 }: NullDisplayProps) => {
   const intl = useIntl();
   return (
-    <Well className="text-center">
+    <Notice.Root className="text-center">
       {displayMode.includes("title") ? (
         title ? (
-          <p className="mb-3 font-bold">{title}</p>
+          <Notice.Title>{title}</Notice.Title>
         ) : (
-          <p className="mb-3 font-bold">
+          <Notice.Title>
             {optional
               ? intl.formatMessage({
                   defaultMessage: "This information is optional.",
@@ -36,21 +36,22 @@ const NullDisplay = ({
                   id: "D3so/C",
                   description: "Null message on sections for edit pool page.",
                 })}
-          </p>
+          </Notice.Title>
         )
       ) : null}
-
       {displayMode.includes("content") ? (
-        <p className="font-normal">
-          {content ??
-            intl.formatMessage({
-              defaultMessage: `Use the "Edit" button to get started.`,
-              id: "2m5USi",
-              description: "Null message on sections for edit pool page.",
-            })}
-        </p>
+        <Notice.Content>
+          <p className="font-normal">
+            {content ??
+              intl.formatMessage({
+                defaultMessage: `Use the "Edit" button to get started.`,
+                id: "2m5USi",
+                description: "Null message on sections for edit pool page.",
+              })}
+          </p>
+        </Notice.Content>
       ) : null}
-    </Well>
+    </Notice.Root>
   );
 };
 

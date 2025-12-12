@@ -656,13 +656,16 @@ type PoolCandidate {
   statusWeight: Int
     @rename(attribute: "status_weight")
     @canRoot(ability: "viewStatus")
+  screeningStage: LocalizedScreeningStage
+    @rename(attribute: "screening_stage")
+    @canRoot(ability: "viewStatus")
   notes: String @canRoot(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  isBookmarked: Boolean
-    @rename(attribute: "is_bookmarked")
+  isFlagged: Boolean
+    @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
   removedAt: DateTime
     @rename(attribute: "removed_at")
@@ -739,8 +742,9 @@ type PoolCandidateAdminView {
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
+  screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
-  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
+  isFlagged: Boolean @rename(attribute: "is_flagged")
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
@@ -1470,7 +1474,7 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
-  useBookmark: Boolean
+  useFlag: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -1698,9 +1702,10 @@ type Query {
   communities: [Community]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
   workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
-  workStreams(talentSearchable: Boolean @scope): [WorkStream]!
-    @all
-    @canModel(ability: "viewAny")
+  workStreams(
+    talentSearchable: Boolean @scope
+    whereCommunityIn: [UUID!] @scope
+  ): [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
     where: NotificationFilterInput
@@ -2216,7 +2221,7 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
-  isBookmarked: Boolean
+  isFlagged: Boolean
 }
 
 input UpdateClassificationInput {
@@ -2248,6 +2253,17 @@ input UpdatePoolCandidateClaimVerificationInput @validator {
     @rename(attribute: "priority_verification")
   priorityVerificationExpiry: Date
     @rename(attribute: "priority_verification_expiry")
+}
+
+input UpdatePoolCandidateScreeningStageInput @validator {
+  id: UUID!
+  screeningStage: ScreeningStage! @rename(attribute: "screening_stage")
+  assessmentStep: AssessmentStepBelongsTo
+}
+
+input AssessmentStepBelongsTo {
+  connect: UUID
+  disconnect: Boolean
 }
 
 input QualifyCandidateInput {
@@ -3185,10 +3201,10 @@ type Mutation {
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
-  togglePoolCandidateBookmark(id: ID!): Boolean
+  togglePoolCandidateFlag(id: ID!): Boolean
     @guard
     @canFind(
-      ability: "updateBookmark"
+      ability: "updateFlag"
       find: "id"
       model: "PoolCandidate"
       injectArgs: true
@@ -3201,6 +3217,11 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateNotes", find: "id")
+  updatePoolCandidateScreeningStage(
+    poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   removeCandidate(
     id: UUID!
     removalReason: CandidateRemovalReason!
@@ -3625,14 +3646,14 @@ type Mutation {
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
-  # CSV file downloads
-  downloadPoolCandidatesCsv(
+  # Excel file downloads
+  downloadPoolCandidatesExcel(
     ids: [UUID!]
     where: PoolCandidateSearchInput
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
-  downloadCommunityInterestUsersCsv(
+  downloadCommunityInterestUsersExcel(
     ids: [UUID!]
     where: CommunityInterestFilterInput
   ): Boolean! @guard
@@ -3640,7 +3661,7 @@ type Mutation {
     ids: [UUID!]
     where: PoolCandidateSearchInput
   ): Boolean! @guard
-  downloadNominationsCsv(
+  downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!
   ): Boolean! @guard
