@@ -5215,6 +5215,10 @@
     "defaultMessage": "Membre retiré avec succès",
     "description": "Alert displayed to user when a community member is removed"
   },
+  "KWgx7f": {
+    "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels. Une adresse courriel professionnelle confirmée du gouvernement du Canada est requise.",
+    "description": "Body for a message informing the user that a contact email is required."
+  },
   "KXEuON": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
     "description": "List item one, things developers consider for accessibility"

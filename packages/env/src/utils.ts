@@ -41,10 +41,10 @@ export const checkFeatureFlag = (name: string): boolean => {
  */
 export const getFeatureFlags = () => ({
   workforceAdjustment: checkFeatureFlag("FEATURE_WFA"),
-  holidayMessage: checkFeatureFlag("FEATURE_HOLIDAY_MESSAGE"),
   applicationEmailVerification: checkFeatureFlag(
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   ),
+  holidayMessage: checkFeatureFlag("FEATURE_HOLIDAY_MESSAGE"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
