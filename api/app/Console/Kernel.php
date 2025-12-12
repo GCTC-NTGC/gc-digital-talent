@@ -26,20 +26,20 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Toronto')
             ->dailyAt('1:00')
             ->withoutOverlapping()
-            ->appendOutputTo('/tmp/laravel-prune-user-generated-files.log');
+            ->appendOutputTo(storage_path('logs/prune-user-generated-files.log'));
 
         // queue up Application Deadline Approaching emails every day, close to the time the pool would close
         $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
             ->timezone('America/Toronto')
             // 10 PM Eastern is the same day across the country, close to the end of the day in NL
             ->dailyAt('22:00')
-            ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
+            ->appendOutputTo(storage_path('logs/send-notifications-application-deadline-approaching.log'));
 
         // send out 'new pool' emails overnight
         $schedule->command(SendNotificationsPoolPublished::class)
             ->timezone('America/Toronto')
             ->dailyAt('3:00')
-            ->appendOutputTo('/tmp/send-notifications-pool-published.log');
+            ->appendOutputTo(storage_path('logs/send-notifications-pool-published.log'));
     }
 
     /**
