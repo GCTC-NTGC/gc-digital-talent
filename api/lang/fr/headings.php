@@ -127,7 +127,6 @@ return [
     'role_or_title' => 'Rôle ou titre',
     'employment_category' => 'Catégorie d\'emploi',
     'team_group_division' => 'Équipe, groupe ou division',
-    'classification' => 'Classification',
     'other_c_suite_role_title' => 'Autre titre de cadre supérieur',
     'work_streams' => 'Volets de travail',
     'type_of_education' => 'Type d’études',
