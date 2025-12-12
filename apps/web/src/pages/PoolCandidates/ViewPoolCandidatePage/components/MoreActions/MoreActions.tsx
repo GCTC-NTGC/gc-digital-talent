@@ -9,6 +9,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -26,10 +27,12 @@ import {
   isRODStatus,
 } from "~/utils/poolCandidate";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import applicationMessages from "~/messages/applicationMessages";
 import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import FinalDecisionDialog from "~/components/PoolCandidateDialogs/FinalDecisionDialog";
 import FinalDecisionAndPlaceDialog from "~/components/PoolCandidateDialogs/FinalDecisionAndPlaceDialog";
+import UpdateScreeningStageDialog from "~/components/UpdateScreeningStageDialog/UpdateScreeningStageDialog";
+import UpdateAssessmentStageDialog from "~/components/UpdateAssessmentStageDialog/UpdateAssessmentStageDialog";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
@@ -49,6 +52,8 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     ...JobPlacementDialog
     ...ReinstateCandidateDialog
     ...NotesForm
+    ...UpdateScreeningStageDialog
+    ...UpdateAssessmentStageDialog
     id
     user {
       id
@@ -63,16 +68,8 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       }
     }
     isFlagged
-    assessmentStep {
-      sortOrder
-      title {
-        localized
-      }
-      type {
-        label {
-          localized
-        }
-      }
+    screeningStage {
+      value
     }
     finalDecision {
       value
@@ -150,12 +147,6 @@ const MoreActions = ({
 
   const [{ data }] = useQuery({ query: MoreActions_Query });
 
-  const currentStepName =
-    // NOTE: Localized can be empty string so || is more suitable
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-    poolCandidate.assessmentStep?.title?.localized ||
-    poolCandidate.assessmentStep?.type?.label?.localized;
-
   const status = poolCandidate.status?.value;
 
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
@@ -167,34 +158,56 @@ const MoreActions = ({
   return (
     <div className="mb-3 flex flex-col gap-3">
       <Card space="md" className="flex flex-col gap-3">
-        <div>
-          <Heading level="h2" size="h6" className="mt-0">
-            {candidateName}
-          </Heading>
-          {currentStepName && (
-            <p className="text-gray-600 dark:text-gray-200">
-              {intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                stepNumber: poolCandidate.assessmentStep?.sortOrder,
-              }) +
-                intl.formatMessage(commonMessages.dividingColon) +
-                currentStepName}
-            </p>
-          )}
-        </div>
+        <Heading level="h2" size="h6" className="mt-0">
+          {candidateName}
+        </Heading>
 
         <Card.Separator space="xs" />
 
-        {isRODStatus(status) &&
-          (hasCommunityRecruiterRole ? (
-            // community recruiters can record a decision and placement at the same time
-            <FinalDecisionAndPlaceDialog
-              poolCandidate={poolCandidate}
-              optionsQuery={jobPlacementOptions}
-            />
-          ) : (
-            // everyone else can only qualify
-            <FinalDecisionDialog poolCandidate={poolCandidate} />
-          ))}
+        {isRODStatus(status) && (
+          <>
+            {hasCommunityRecruiterRole ? (
+              // community recruiters can record a decision and placement at the same time
+              <FinalDecisionAndPlaceDialog
+                poolCandidate={poolCandidate}
+                optionsQuery={jobPlacementOptions}
+              />
+            ) : (
+              // everyone else can only qualify
+              <FinalDecisionDialog poolCandidate={poolCandidate} />
+            )}
+
+            <div>
+              <p className="font-bold">
+                {intl.formatMessage(applicationMessages.screeningStage)}
+              </p>
+              <div className="pl-1">
+                <UpdateScreeningStageDialog query={poolCandidate} />
+              </div>
+            </div>
+
+            <div className="mt-3">
+              <p className="font-bold">
+                {intl.formatMessage(applicationMessages.assessmentStage)}
+              </p>
+              <div className="pl-1">
+                {poolCandidate?.screeningStage?.value ===
+                ScreeningStage.UnderAssessment ? (
+                  <UpdateAssessmentStageDialog query={poolCandidate} />
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-200">
+                    {intl.formatMessage({
+                      defaultMessage: "(Available after screening stage)",
+                      id: "NadegW",
+                      description:
+                        "Message for assessment stage when application is not under assessment",
+                    })}
+                  </p>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
         {isRemovedStatus(status) && (
           <div>
@@ -210,7 +223,7 @@ const MoreActions = ({
         )}
 
         {isRevertableStatus(status) &&
-          !(poolCandidate.finalDecision?.value !== FinalDecision.Removed) && (
+          !(poolCandidate.finalDecision?.value === FinalDecision.Removed) && (
             <StatusLabel>
               <RevertFinalDecisionDialog
                 revertFinalDecisionQuery={poolCandidate}
