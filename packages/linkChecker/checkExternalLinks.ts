@@ -39,7 +39,7 @@ async function fetchLink(
     });
     return res.status;
   } catch (err) {
-    let reason = "error";
+    let reason;
     let fullError = "";
     let isLegacyRenegotiation = false;
     if (err instanceof Error) {
