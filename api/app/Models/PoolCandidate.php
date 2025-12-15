@@ -14,6 +14,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\ErrorCode;
 use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
+use App\Enums\PoolCandidateEvent;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
@@ -34,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\LogOptions;
@@ -663,6 +665,8 @@ class PoolCandidate extends Model
 
     public function submit(?string $signature)
     {
+        $this->disableLogging();
+
         $this->signature = $signature;
         $this->submitted_at = Carbon::now();
         $this->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
@@ -686,32 +690,54 @@ class PoolCandidate extends Model
         $this->computed_assessment_status = $assessmentStatus;
         $this->screening_stage = ScreeningStage::NEW_APPLICATION->name;
         $this->assessment_step_id = null;
+
+        $this->save();
+
+        $this->logActivity(PoolCandidateEvent::SUBMITTED, [
+            'signature' => $signature,
+        ]);
     }
 
     // mark the pool candidate as qualified
     public function qualify(Carbon $expiryDate)
     {
+        $this->disableLogging();
+
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->expiry_date = $expiryDate;
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+
+        $this->save();
+
+        $this->logActivity(PoolCandidateEvent::QUALIFIED, [
+            'expiry_date' => $expiryDate,
+        ]);
     }
 
     // mark the pool candidate as disqualified
     public function disqualify(string $reason)
     {
+        $this->disableLogging();
+
         $this->pool_candidate_status = $reason;
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+
+        $this->save();
+
+        $this->logActivity(PoolCandidateEvent::DISQUALIFIED);
     }
 
     // mark the pool candidate as placed
     public function place(string $placementType, string $departmentId)
     {
+        $this->disableLogging();
+
         $this->pool_candidate_status = $placementType;
         $this->placed_at = Carbon::now();
         $this->placed_department_id = $departmentId;
@@ -722,10 +748,17 @@ class PoolCandidate extends Model
         $finalDecision = $this->computeFinalDecision();
         $this->computed_final_decision = $finalDecision['decision'];
         $this->computed_final_decision_weight = $finalDecision['weight'];
+
+        $this->logActivity(PoolCandidateEvent::PLACED, [
+            'placement_type' => $placementType,
+            'placed_department_id' => $departmentId,
+        ]);
     }
 
     public function remove(?string $reason, ?string $otherReason)
     {
+        $this->disableLogging();
+
         $this->removed_at = Carbon::now();
         $this->removal_reason = $reason;
         if ($reason === CandidateRemovalReason::OTHER->name) {
@@ -767,10 +800,19 @@ class PoolCandidate extends Model
             default:
                 throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
         }
+
+        $this->save();
+
+        $this->logActivity(PoolCandidateEvent::REMOVED, [
+            'removal_reason' => $reason,
+            'removal_reason_other' => $otherReason,
+        ]);
     }
 
     public function reinstate()
     {
+        $this->disableLogging();
+
         // Update the candidates status based on the current status
         // or throw an error if the candidate has an invalid status
         switch ($this->pool_candidate_status) {
@@ -794,6 +836,7 @@ class PoolCandidate extends Model
         $this->removal_reason_other = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
 
+        $this->logActivity(PoolCandidateEvent::REINSTANTED);
     }
 
     public function revertFinalDecision()
@@ -802,5 +845,21 @@ class PoolCandidate extends Model
         $this->expiry_date = null;
         $this->final_decision_at = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
+    }
+
+    public function logActivity(PoolCandidateEvent $event, ?array $attributes = [])
+    {
+        $activity = activity()
+            ->causedBy(Auth::user())
+            ->performedOn($this)
+            ->event($event->value);
+
+        if (! empty($attributes)) {
+            $activity->withProperties([
+                'attributes' => $attributes,
+            ]);
+        }
+
+        $activity->log($event->value);
     }
 }

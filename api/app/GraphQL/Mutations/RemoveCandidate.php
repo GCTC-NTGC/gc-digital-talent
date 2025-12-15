@@ -24,8 +24,6 @@ final class RemoveCandidate
             throw ValidationException::withMessages(['id' => $e->getMessage()]);
         }
 
-        $candidate->save();
-
         return $candidate;
     }
 }
