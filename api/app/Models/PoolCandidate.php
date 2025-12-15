@@ -38,8 +38,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class PoolCandidate
@@ -82,7 +80,6 @@ class PoolCandidate extends Model
 {
     use EnrichedNotifiable;
     use HasFactory;
-    use LogsActivity;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -172,14 +169,6 @@ class PoolCandidate extends Model
     public function newEloquentBuilder($query): Builder
     {
         return new PoolCandidateBuilder($query);
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnly(['*'])
-            ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
     }
 
     /** @return BelongsTo<User, $this> */
@@ -665,8 +654,6 @@ class PoolCandidate extends Model
 
     public function submit(?string $signature)
     {
-        $this->disableLogging();
-
         $this->signature = $signature;
         $this->submitted_at = Carbon::now();
         $this->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
@@ -701,8 +688,6 @@ class PoolCandidate extends Model
     // mark the pool candidate as qualified
     public function qualify(Carbon $expiryDate)
     {
-        $this->disableLogging();
-
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->expiry_date = $expiryDate;
         $this->final_decision_at = Carbon::now();
@@ -720,8 +705,6 @@ class PoolCandidate extends Model
     // mark the pool candidate as disqualified
     public function disqualify(string $reason)
     {
-        $this->disableLogging();
-
         $this->pool_candidate_status = $reason;
         $this->final_decision_at = Carbon::now();
 
@@ -736,8 +719,6 @@ class PoolCandidate extends Model
     // mark the pool candidate as placed
     public function place(string $placementType, string $departmentId)
     {
-        $this->disableLogging();
-
         $this->pool_candidate_status = $placementType;
         $this->placed_at = Carbon::now();
         $this->placed_department_id = $departmentId;
@@ -759,8 +740,6 @@ class PoolCandidate extends Model
 
     public function remove(?string $reason, ?string $otherReason)
     {
-        $this->disableLogging();
-
         $this->removed_at = Carbon::now();
         $this->removal_reason = $reason;
         if ($reason === CandidateRemovalReason::OTHER->name) {
@@ -813,8 +792,6 @@ class PoolCandidate extends Model
 
     public function reinstate()
     {
-        $this->disableLogging();
-
         // Update the candidates status based on the current status
         // or throw an error if the candidate has an invalid status
         switch ($this->pool_candidate_status) {
