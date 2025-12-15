@@ -127,7 +127,7 @@ return [
     'size_external_organization' => 'Size of external organization',
     'seniority_external_organization' => 'Seniority external organization',
     'gc_employment_type' => 'GC employment type',
-    'gc_position_type' => 'GC position type',
+    'gov_position_type' => 'GC position type',
     'gc_management_or_supervisory_status' => 'GC management or supervisory status',
     'gc_number_of_supervised_employees' => 'GC number of supervised employees',
     'gc_annual_budget_allocation' => 'GC annual budget allocation',

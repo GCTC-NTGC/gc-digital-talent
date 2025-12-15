@@ -151,7 +151,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'size_external_organization',
         'seniority_external_organization',
         'gc_employment_type',
-        'gc_position_type',
+        'gov_position_type',
         'gc_classification',
         'gc_management_or_supervisory_status',
         'gc_number_of_supervised_employees',

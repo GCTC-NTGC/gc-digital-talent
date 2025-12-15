@@ -141,7 +141,7 @@ return [
     'size_external_organization' => 'Taille de l’organisation externe',
     'seniority_external_organization' => 'L’ancienneté dans l’organisation externe',
     'gc_employment_type' => 'Type d’emploi du GC',
-    'gc_position_type' => 'Type de poste du GC',
+    'gov_position_type' => 'Type de poste du GC',
     'gc_classification' => 'Classification',
     'gc_management_or_supervisory_status' => 'Statut de direction ou de supervision du GC',
     'gc_number_of_supervised_employees' => 'Nombre d\'employées et employés supervisés du GC',
