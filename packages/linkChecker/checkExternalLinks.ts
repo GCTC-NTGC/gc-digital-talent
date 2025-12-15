@@ -33,8 +33,9 @@ async function fetchLink(
       redirect: "follow",
       signal: controller.signal,
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-      }
+        // Use a generic User-Agent string to avoid frequent updates
+        "User-Agent": "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
+      },
     });
     return res.status;
   } catch (err) {
@@ -45,13 +46,21 @@ async function fetchLink(
       reason = err.message;
       fullError = err.stack || err.message;
       // Log all enumerable properties
-      const props = Object.getOwnPropertyNames(err).reduce((acc: Record<string, unknown>, key) => {
-        acc[key] = (err as any)[key];
-        return acc;
-      }, {});
+      const props = Object.getOwnPropertyNames(err).reduce(
+        (acc: Record<string, unknown>, key) => {
+          acc[key] = (err as any)[key];
+          return acc;
+        },
+        {},
+      );
       fullError += "\n" + JSON.stringify(props, null, 2);
       // Check for legacy renegotiation error
-      if (props.cause && typeof props.cause === "object" && (props.cause as any).code === "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED") {
+      if (
+        props.cause &&
+        typeof props.cause === "object" &&
+        (props.cause as any).code ===
+          "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
+      ) {
         isLegacyRenegotiation = true;
       }
     } else if (typeof err === "string") {
@@ -63,18 +72,18 @@ async function fetchLink(
     }
     if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
       // Retry with NODE_OPTIONS=--tls-legacy-renegotiation, only for this link
-      const { spawnSync } = await import('node:child_process');
+      const { spawnSync } = await import("node:child_process");
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
-          NODE_OPTIONS: '--tls-legacy-renegotiation',
-          _RETRIED_LEGACY_TLS: '1',
+          NODE_OPTIONS: "--tls-legacy-renegotiation",
+          _RETRIED_LEGACY_TLS: "1",
           _RETRY_LINK_URL: url,
-          _RETRY_LINK_FILE: (globalThis as any)._currentLinkFile || ''
+          _RETRY_LINK_FILE: (globalThis as any)._currentLinkFile || "",
         },
-        stdio: 'inherit',
+        stdio: "inherit",
       });
-      return 'retried-with-legacy-tls';
+      return "retried-with-legacy-tls";
     }
     await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
     return reason;
@@ -134,7 +143,9 @@ async function main() {
   try {
     // If running as a retry for a batch of legacy TLS links
     if (process.env._RETRIED_LEGACY_TLS && process.env._RETRY_LEGACY_LINKS) {
-      const retryLinks: { file: string; url: string }[] = JSON.parse(process.env._RETRY_LEGACY_LINKS);
+      const retryLinks: { file: string; url: string }[] = JSON.parse(
+        process.env._RETRY_LEGACY_LINKS,
+      );
       const results: LinkStatus[] = [];
       for (const link of retryLinks) {
         (globalThis as any)._currentLinkFile = link.file;
@@ -191,7 +202,10 @@ async function main() {
       (globalThis as any)._currentLinkFile = link.file;
       const status = await fetchLink(link.url);
       // some old gov links may need legacy TLS renegotiation
-      if (status === 'retried-with-legacy-tls' || status === 'ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED') {
+      if (
+        status === "retried-with-legacy-tls" ||
+        status === "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
+      ) {
         legacyLinks.push({ file: link.file, url: link.url });
       } else {
         results.push({ file: link.file, url: link.url, status });
@@ -199,15 +213,15 @@ async function main() {
     }
     // re-try all legacy links in a single batch with NODE_OPTIONS=--tls-legacy-renegotiation
     if (legacyLinks.length > 0 && !process.env._RETRIED_LEGACY_TLS) {
-      const { spawnSync } = await import('node:child_process');
+      const { spawnSync } = await import("node:child_process");
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
-          NODE_OPTIONS: '--tls-legacy-renegotiation',
-          _RETRIED_LEGACY_TLS: '1',
-          _RETRY_LEGACY_LINKS: JSON.stringify(legacyLinks)
+          NODE_OPTIONS: "--tls-legacy-renegotiation",
+          _RETRIED_LEGACY_TLS: "1",
+          _RETRY_LEGACY_LINKS: JSON.stringify(legacyLinks),
         },
-        stdio: 'inherit',
+        stdio: "inherit",
       });
     }
     // Save broken links (from first pass only; second pass will overwrite if needed)
