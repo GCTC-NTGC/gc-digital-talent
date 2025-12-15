@@ -1,0 +1,20 @@
+{
+  "name": "@gc-digital-talent/link-checker",
+  "version": "1.0.0",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "main": "checkExternalLinks.ts",
+  "bin": {
+    "check-external-links": "./checkExternalLinks.ts"
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "glob": "^10.3.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
