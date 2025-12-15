@@ -261,7 +261,7 @@ test.describe("Location Preference Validation", () => {
         page.getByRole("columnheader", {
           name: /Flexible work location options/i,
         }),
-      ).toHaveAccessibleName(/Flexible work location options/i);
+      ).toBeVisible();
       await locationPrefPage.verifyFlexibleWorkLocationData(sub);
       await expect(appPage.page.locator(`a:has-text("${sub}")`)).toBeVisible();
       await deleteUser(adminCtx, { id: govUser.id });

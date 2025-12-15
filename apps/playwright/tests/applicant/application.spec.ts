@@ -106,7 +106,8 @@ test.describe("Application", () => {
         : undefined,
     });
     const [skillOne, skillTwo] = technicalSkills;
-    const application = new ApplicationPage(appPage.page, pool.id);
+    const poolId = pool.id;
+    const application = new ApplicationPage(appPage.page, poolId);
     await loginBySub(application.page, sub, false);
 
     await application.create();
