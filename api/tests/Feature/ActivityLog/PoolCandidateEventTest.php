@@ -8,7 +8,6 @@ use App\Enums\PoolCandidateStatus;
 use App\Models\Activity;
 use App\Models\Department;
 use App\Models\PoolCandidate;
-use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
@@ -19,8 +18,6 @@ class PoolCandidateEventTest extends TestCase
     use RefreshDatabase;
 
     protected PoolCandidate $application;
-
-    protected User $user;
 
     protected function setUp(): void
     {
