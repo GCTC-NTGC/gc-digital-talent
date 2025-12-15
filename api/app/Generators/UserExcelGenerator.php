@@ -152,7 +152,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'seniority_external_organization',
         'gc_employment_type',
         'gov_position_type',
-        'gc_classification',
+        'classification',
         'gc_management_or_supervisory_status',
         'gc_number_of_supervised_employees',
         'gc_annual_budget_allocation',
@@ -164,14 +164,14 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'type_of_education',
         'area_study',
         'education_status',
-        'thesis',
+        'thesis_title',
         'community_project_or_product',
         'personal_learning_experience_description',
         'award_recipient',
         'issuing_org',
         'awarded_scope',
         'date_awarded',
-        'additional_detail',
+        'additional_details',
         'featured_skills',
         'klc_achieve_results',
         'klc_character_leadership',
@@ -467,7 +467,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // 25: type_of_education
             '', // 26: area_study
             '', // 27: education_status
-            '', // 28: thesis
+            '', // 28: thesis_title
 
             // Community/Personal fields - empty for work
             '', // 29: community_project_or_product
@@ -547,7 +547,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->type ? $this->localizeEnum($exp->type, EducationType::class) : '',  // education type
             $exp->area_study ?? '', // area of study
             $exp->status ? $this->localizeEnum($exp->status, EducationStatus::class) : '', // education status
-            $exp->thesis ?? '', // thesis title
+            $exp->thesis_title ?? '', // thesis title
             // Community/Personal fields - empty for education
             '', // community_project_or_product
             '', // personal_learning_experience_description
@@ -627,7 +627,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // type_of_education
             '', // area_study
             '', // education_status
-            '', // thesis
+            '', // thesis_title
 
             // Community/Personal fields - empty for awards
             '', // community_project_or_product
@@ -706,7 +706,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // type_of_education
             '', // area_study
             '', // education_status
-            '', // thesis
+            '', // thesis_title
             $exp->project ?? '', // community_project_or_product
             '', // personal learning description
             // Award fields - empty for community
@@ -785,7 +785,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // type_of_education
             '', // area_study
             '', // education_status
-            '', // thesis
+            '', // thesis_title
             '', // Community project or product
             $exp->description ?? '', // personal learning experience description
             // Award fields - empty for education
