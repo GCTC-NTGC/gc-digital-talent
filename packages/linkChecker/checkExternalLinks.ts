@@ -29,13 +29,55 @@ async function fetchLink(
 
   try {
     const res = await fetch(url, {
-      method: "HEAD",
+      method: "GET",
       redirect: "follow",
       signal: controller.signal,
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+      }
     });
     return res.status;
-  } catch {
-    return "error";
+  } catch (err) {
+    let reason = "error";
+    let fullError = "";
+    let isLegacyRenegotiation = false;
+    if (err instanceof Error) {
+      reason = err.message;
+      fullError = err.stack || err.message;
+      // Log all enumerable properties
+      const props = Object.getOwnPropertyNames(err).reduce((acc: Record<string, unknown>, key) => {
+        acc[key] = (err as any)[key];
+        return acc;
+      }, {});
+      fullError += "\n" + JSON.stringify(props, null, 2);
+      // Check for legacy renegotiation error
+      if (props.cause && typeof props.cause === "object" && (props.cause as any).code === "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED") {
+        isLegacyRenegotiation = true;
+      }
+    } else if (typeof err === "string") {
+      reason = err;
+      fullError = err;
+    } else {
+      reason = JSON.stringify(err);
+      fullError = reason;
+    }
+    if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
+      // Retry with NODE_OPTIONS=--tls-legacy-renegotiation, only for this link
+      const { spawnSync } = await import('node:child_process');
+      const result = spawnSync(process.execPath, process.argv.slice(1), {
+        env: {
+          ...process.env,
+          NODE_OPTIONS: '--tls-legacy-renegotiation',
+          _RETRIED_LEGACY_TLS: '1',
+          _RETRY_LINK_URL: url,
+          _RETRY_LINK_FILE: (globalThis as any)._currentLinkFile || ''
+        },
+        stdio: 'inherit',
+      });
+      return 'retried-with-legacy-tls';
+    }
+    await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
+    return reason;
   } finally {
     clearTimeout(timeout);
   }
@@ -90,16 +132,41 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
 
 async function main() {
   try {
+    // If running as a retry for a batch of legacy TLS links
+    if (process.env._RETRIED_LEGACY_TLS && process.env._RETRY_LEGACY_LINKS) {
+      const retryLinks: { file: string; url: string }[] = JSON.parse(process.env._RETRY_LEGACY_LINKS);
+      const results: LinkStatus[] = [];
+      for (const link of retryLinks) {
+        (globalThis as any)._currentLinkFile = link.file;
+        const status = await fetchLink(link.url);
+        results.push({ file: link.file, url: link.url, status });
+      }
+      // Save broken links
+      const brokenLinks = results.filter((r) => r.status !== 200);
+      const brokenLinksPath = path.resolve("external-broken-links.json");
+      await fs.writeFile(
+        brokenLinksPath,
+        JSON.stringify(brokenLinks, null, 2),
+        "utf-8",
+      );
+      if (brokenLinks.length > 0) process.exit(1);
+      return;
+    }
+
     const files = await getAllFiles();
-
     const allLinks: { file: string; url: string }[] = [];
-
+    const seenUrls = new Set<string>();
     for (const file of files) {
       try {
         const stat = await fs.lstat(file);
         if (!stat.isFile()) continue;
         const links = await extractExternalLinks(file);
-        links.forEach((url) => allLinks.push({ file, url }));
+        for (const url of links) {
+          if (!seenUrls.has(url)) {
+            allLinks.push({ file, url });
+            seenUrls.add(url);
+          }
+        }
       } catch (err) {
         let msg: string;
         if (err instanceof Error) {
@@ -110,23 +177,40 @@ async function main() {
         await writeErrorLog(msg, file);
       }
     }
-
-    // Save all links so that we can cross verify later
+    // Save all unique links so that we can cross verify later
     const allLinksPath = path.resolve("external-links.json");
     await fs.writeFile(
       allLinksPath,
       JSON.stringify(allLinks, null, 2),
       "utf-8",
     );
-
     // This can be enhanced with concurrency if the links are too many and slow
     const results: LinkStatus[] = [];
+    const legacyLinks: { file: string; url: string }[] = [];
     for (const link of allLinks) {
+      (globalThis as any)._currentLinkFile = link.file;
       const status = await fetchLink(link.url);
-      results.push({ file: link.file, url: link.url, status });
+      // some old gov links may need legacy TLS renegotiation
+      if (status === 'retried-with-legacy-tls' || status === 'ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED') {
+        legacyLinks.push({ file: link.file, url: link.url });
+      } else {
+        results.push({ file: link.file, url: link.url, status });
+      }
     }
-
-    // Save broken links
+    // re-try all legacy links in a single batch with NODE_OPTIONS=--tls-legacy-renegotiation
+    if (legacyLinks.length > 0 && !process.env._RETRIED_LEGACY_TLS) {
+      const { spawnSync } = await import('node:child_process');
+      spawnSync(process.execPath, process.argv.slice(1), {
+        env: {
+          ...process.env,
+          NODE_OPTIONS: '--tls-legacy-renegotiation',
+          _RETRIED_LEGACY_TLS: '1',
+          _RETRY_LEGACY_LINKS: JSON.stringify(legacyLinks)
+        },
+        stdio: 'inherit',
+      });
+    }
+    // Save broken links (from first pass only; second pass will overwrite if needed)
     const brokenLinks = results.filter((r) => r.status !== 200);
     const brokenLinksPath = path.resolve("external-broken-links.json");
     await fs.writeFile(
@@ -134,8 +218,7 @@ async function main() {
       JSON.stringify(brokenLinks, null, 2),
       "utf-8",
     );
-
-    if (brokenLinks.length > 0) process.exit(1);
+    if (brokenLinks.length > 0 || legacyLinks.length > 0) process.exit(1);
   } catch (err) {
     let msg: string;
     if (err instanceof Error) {
