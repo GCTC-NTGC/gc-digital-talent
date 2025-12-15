@@ -711,6 +711,10 @@
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
   },
+  "0fjeXG": {
+    "defaultMessage": "Il n'y aura aucun affichage d'emplois pendant le temps des Fêtes.",
+    "description": "Message to indicate period of time when no jobs will be posted on the website"
+  },
   "0jV7Rn": {
     "defaultMessage": "Complet",
     "description": "Simplified status label for a complete process advertisement or assessment"
@@ -774,6 +778,10 @@
   "11/un8": {
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
+  },
+  "13WmnE": {
+    "defaultMessage": "Modifier le stade de l'évaluation",
+    "description": "Heading for form to update a candidates assessment stage"
   },
   "144l3L": {
     "defaultMessage": "Ce rôle nécessitait la gestion d'un budget dédié ou un pouvoir de signature délégué pour un budget.",
@@ -3007,6 +3015,10 @@
     "defaultMessage": "J'ai compris, allons-y!",
     "description": "Link text to continue the application process"
   },
+  "APBv6h": {
+    "defaultMessage": "Modifier le stade de la présélection",
+    "description": "Heading for form to update a candidates screening stage"
+  },
   "AQiPuW": {
     "defaultMessage": "Intérêt pour",
     "description": "Label for user expressing interest in a specific work stream"
@@ -3923,10 +3935,6 @@
     "defaultMessage": "La formation m'intéresse",
     "description": "Phrase marking interest in community training opportunities"
   },
-  "ETrCOq": {
-    "defaultMessage": "Statut du (de la) candidat(e)",
-    "description": "Title for admin editing a pool candidates status"
-  },
   "EUDRhe": {
     "defaultMessage": "Entrevues de vive voix",
     "description": "Label for preferred lang for interviews in profile details box."
@@ -4139,10 +4147,6 @@
     "defaultMessage": "Oui, j'ai un droit de priorité.",
     "description": "affirm possession of priority entitlement"
   },
-  "FXpcgW": {
-    "defaultMessage": "Ces champs ne seront disponibles qu’aux fins de la migration, pendant un certain temps limité.",
-    "description": "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time"
-  },
   "FYCNAa": {
     "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'une mutation latérale, d'une occasion de perfectionnement ou d'une promotion.",
     "description": "Describes the career objective section of employee profile"
@@ -4334,6 +4338,10 @@
   "GK8s3M": {
     "defaultMessage": "Toutes les collectivités fonctionnelles ne se sont pas encore jointes à cette plateforme; il se peut donc que vous recherchiez une collectivité qui n'est pas encore disponible. Si vous ne trouvez pas de correspondance entre votre expérience professionnelle et une collectivité fonctionnelle sur notre plateforme, sautez cette section.",
     "description": "Description for work streams paragraph 3 on Experience form"
+  },
+  "GL8a4q": {
+    "defaultMessage": "Gérer l'étape où se situe la personne candidate au stade de la présélection.",
+    "description": "Subtitle for form to update a candidates screening stage"
   },
   "GMbOaT": {
     "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
@@ -5207,6 +5215,10 @@
     "defaultMessage": "Membre retiré avec succès",
     "description": "Alert displayed to user when a community member is removed"
   },
+  "KWgx7f": {
+    "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels. Une adresse courriel professionnelle confirmée du gouvernement du Canada est requise.",
+    "description": "Body for a message informing the user that a contact email is required."
+  },
   "KXEuON": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
     "description": "List item one, things developers consider for accessibility"
@@ -5711,6 +5723,10 @@
     "defaultMessage": "Demander des personnes candidates<hidden> de bassin {poolName}</hidden>",
     "description": "Button link message on search page that takes user to the request form."
   },
+  "MkA+x0": {
+    "defaultMessage": "La mise à jour du stade de l'évaluation a échoué",
+    "description": "Error message for updating a candidates assessment stage"
+  },
   "MkUz+j": {
     "defaultMessage": "Ajoutez un membre",
     "description": "Label for the add member to community form (action)"
@@ -5915,6 +5931,10 @@
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
     "description": "Application box heading part two"
   },
+  "NadegW": {
+    "defaultMessage": "(Disponible après le stade de la présélection)",
+    "description": "Message for assessment stage when application is not under assessment"
+  },
   "Nc751o": {
     "defaultMessage": "Les compétences techniques essentielles ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the essential technical skills"
@@ -6063,6 +6083,10 @@
     "defaultMessage": "Collectivité fonctionnelle actuelle",
     "description": "Label for users current functional community"
   },
+  "OUcpGx": {
+    "defaultMessage": "Stade de la présélection",
+    "description": "Title for the screening stage of an application"
+  },
   "OVWo88": {
     "defaultMessage": "Statut d'ancien combattant",
     "description": "Title for Veteran status"
@@ -6078,6 +6102,10 @@
   "OaaW6Y": {
     "defaultMessage": "Montrer les options d'équité offertes ({optionCount})",
     "description": "Heading for opening the accordion with available employment equity options."
+  },
+  "Ob6yEb": {
+    "defaultMessage": "Le stade de l'évaluation de la personne candidate a été mis à jour avec succès",
+    "description": "Success message for updating a candidates assessment stage"
   },
   "OcIvN1": {
     "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
@@ -11449,6 +11477,10 @@
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
   },
+  "ll4RKs": {
+    "defaultMessage": "Il est temps de prendre une pause; vous l'avez méritée!",
+    "description": "Message conveying time to relax"
+  },
   "ll9u08": {
     "defaultMessage": "Annonces",
     "description": "Page title for the announcements page"
@@ -11837,6 +11869,10 @@
     "defaultMessage": "Disponible pour",
     "description": "Title for the classification list"
   },
+  "nE+RKq": {
+    "defaultMessage": "Alors détendez-vous et profitez du temps des Fêtes avec vos êtres chers.",
+    "description": "Message suggesting the user relax and enjoy the holiday season"
+  },
   "nF//P1": {
     "defaultMessage": "Recommandations pour des programmes de perfectionnement",
     "description": "Trigger title for development programs"
@@ -11960,6 +11996,10 @@
   "njfu1M": {
     "defaultMessage": "Sélectionnez les volets de travail pour cette expérience.",
     "description": "Subtitle for work streams for an experience dialog"
+  },
+  "nl2Trd": {
+    "defaultMessage": "Le stade de la présélection de la personne candidate a été mis à jour avec succès",
+    "description": "Success message for updating a candidates screening stage"
   },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
@@ -12096,6 +12136,10 @@
   "oR+6vE": {
     "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
     "description": "Text for first sign in step."
+  },
+  "oRk5nf": {
+    "defaultMessage": "Ce que la personne candidate voit",
+    "description": "Heading for candidate facing screening stage"
   },
   "oURESC": {
     "defaultMessage": "J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
@@ -12261,6 +12305,10 @@
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
     "description": "Message on education requirements card on the application review page."
   },
+  "p7+/CC": {
+    "defaultMessage": "Stade de l'évaluation",
+    "description": "Title for the assessment stage of an application"
+  },
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",
     "description": "Title of screening questions"
@@ -12292,6 +12340,10 @@
   "pErNfb": {
     "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
     "description": "Button text to remove a candidate and update their status"
+  },
+  "pFOjuY": {
+    "defaultMessage": "Joyeux temps des Fêtes!",
+    "description": "Heading to exclaim holiday greetings"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
@@ -13361,6 +13413,10 @@
     "defaultMessage": "Comment le programme fonctionne",
     "description": "Title of the 'How the program works' section"
   },
+  "u8O+is": {
+    "defaultMessage": "Gérer l'étape où se situe la personne candidate dans le plan d'évaluation.",
+    "description": "Subtitle for form to update a candidates assessment stage"
+  },
   "u8tKFI": {
     "defaultMessage": "Collectivité des biens immobiliers",
     "description": "Title for real property community WFA section"
@@ -14236,6 +14292,10 @@
   "y/F2My": {
     "defaultMessage": "Terminé une évaluation par la Commission de la fonction publique dans la deuxième langue officielle.",
     "description": "Message for official exam status field display"
+  },
+  "y02UlU": {
+    "defaultMessage": "La mise à jour du stade de la présélection a échoué",
+    "description": "Error message for updating a candidates screening stage"
   },
   "y1uo+J": {
     "defaultMessage": "Prochain(e) candidat(e)",

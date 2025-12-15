@@ -729,8 +729,8 @@ export const PoolPoster = ({
                       icon={InformationCircleIcon}
                       href={
                         locale === "fr"
-                          ? "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-fra.html#a8"
-                          : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
+                          ? "https://www.canada.ca/fr/services-publics-approvisionnement/services/paye-pension/communaute-remuneration/procedures-soutien-employeur/emploi-fonction-publique-federale.html#a4"
+                          : "https://www.canada.ca/en/public-services-procurement/services/pay-pension/compensation-community/employer-support-procedures/employment-federal-public-service.html#a4"
                       }
                       label={intl.formatMessage({
                         defaultMessage:

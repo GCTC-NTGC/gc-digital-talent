@@ -34,6 +34,8 @@ export {
   MAX_DATE,
 };
 
+export { format as rawFormat };
+
 /**
  * Returns the current date in the format YYYY-MM-DD.
  * @returns string
