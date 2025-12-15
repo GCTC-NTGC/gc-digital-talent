@@ -194,12 +194,41 @@ const Root = ({ mode = "default", children, ...rest }: RootProps) => {
   );
 };
 
+const deriveTimelinePlacement = (
+  index?: number,
+  groupLength?: number,
+): "top" | "middle" | "bottom" | "single" | null => {
+  if (typeof index !== "number" || typeof groupLength !== "number") {
+    return null;
+  }
+
+  if (groupLength == 1) {
+    return "single";
+  }
+  if (groupLength > 1 && index == 0) {
+    return "top";
+  }
+  if (groupLength > 1 && index == groupLength - 1) {
+    return "bottom";
+  }
+  if (groupLength > 1 && index > 0 && index < groupLength - 1) {
+    return "middle";
+  }
+  return null;
+};
+
 interface TimelineWrapperProps {
-  placement: "top" | "middle" | "bottom" | "single";
+  index?: number;
+  groupLength?: number;
   children: React.ReactNode;
 }
 
-const TimelineWrapper = ({ placement, children }: TimelineWrapperProps) => {
+const TimelineWrapper = ({
+  index,
+  groupLength,
+  children,
+}: TimelineWrapperProps) => {
+  const placement = deriveTimelinePlacement(index, groupLength) ?? "single";
   return (
     <div className={timelineWrapper({ placement })}>
       <svg className="absolute top-1.75 -left-1.25 h-2.5 w-2.5">

@@ -149,7 +149,7 @@ SingleTimelineExperience.args = {
   mode: "timeline",
   children: (
     <>
-      <PreviewList.TimelineWrapper placement="single">
+      <PreviewList.TimelineWrapper index={0} groupLength={1}>
         <PreviewList.Item
           title="IT-01: Junior application developer"
           metaData={previewDetails}
@@ -173,7 +173,7 @@ MultipleTimelineExperiences.args = {
   mode: "timeline",
   children: (
     <>
-      <PreviewList.TimelineWrapper placement="top">
+      <PreviewList.TimelineWrapper index={0} groupLength={4}>
         <PreviewList.Item
           title="IT-01: Junior application developer"
           metaData={previewDetails}
@@ -188,7 +188,7 @@ MultipleTimelineExperiences.args = {
           <p>{faker.lorem.paragraph()}</p>
         </PreviewList.Item>
       </PreviewList.TimelineWrapper>
-      <PreviewList.TimelineWrapper placement="middle">
+      <PreviewList.TimelineWrapper index={1} groupLength={4}>
         <PreviewList.Item
           title="IT-01: Junior application developer"
           metaData={previewDetails}
@@ -203,7 +203,7 @@ MultipleTimelineExperiences.args = {
           <p>{faker.lorem.paragraph()}</p>
         </PreviewList.Item>
       </PreviewList.TimelineWrapper>
-      <PreviewList.TimelineWrapper placement="middle">
+      <PreviewList.TimelineWrapper index={2} groupLength={4}>
         <PreviewList.Item
           title="IT-01: Junior application developer"
           metaData={previewDetails}
@@ -218,7 +218,7 @@ MultipleTimelineExperiences.args = {
           <p>{faker.lorem.paragraph()}</p>
         </PreviewList.Item>
       </PreviewList.TimelineWrapper>
-      <PreviewList.TimelineWrapper placement="bottom">
+      <PreviewList.TimelineWrapper index={3} groupLength={4}>
         <PreviewList.Item
           title="IT-01: Junior application developer"
           metaData={previewDetails}
