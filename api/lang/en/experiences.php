@@ -33,7 +33,6 @@ return [
     'supervised_employees_number' => 'Number of employees',
     'budget_management' => 'Budget management or delegated signing authority',
     'annual_budget_allocation' => 'Annual budget allocation (CAD$)',
-    'senior_management_status' => 'Senior management status',
     'c_suite_role_title' => 'C-suite role title',
     'other_c_suite_role_title' => 'Other C-suite title',
     // Values
