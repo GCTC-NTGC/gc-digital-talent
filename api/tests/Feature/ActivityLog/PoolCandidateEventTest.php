@@ -136,7 +136,7 @@ class PoolCandidateEventTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
-            'description' => PoolCandidateEvent::REINSTANTED->value,
+            'description' => PoolCandidateEvent::REINSTATED->value,
             'subject_id' => $this->application->getKey(),
         ]);
     }

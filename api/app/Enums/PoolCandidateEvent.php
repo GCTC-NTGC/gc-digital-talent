@@ -9,5 +9,5 @@ enum PoolCandidateEvent: string
     case DISQUALIFIED = 'disqualified';
     case PLACED = 'placed';
     case REMOVED = 'removed';
-    case REINSTANTED = 'reinstated';
+    case REINSTATED = 'reinstated';
 }

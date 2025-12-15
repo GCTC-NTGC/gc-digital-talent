@@ -840,7 +840,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::REINSTANTED);
+        $this->logActivity(PoolCandidateEvent::REINSTATED);
     }
 
     public function revertFinalDecision()
