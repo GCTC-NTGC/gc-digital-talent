@@ -254,22 +254,26 @@ class ActivityLogTest extends TestCase
                 query PoolActivity($id: UUID!) {
                     pool(id: $id) {
                         activities {
-                            subjectType
-                            subjectId
+                            items {
+                                subjectType
+                                subjectId
+                            }
                         }
                     }
                 }
                 GRAPHQL,
                 ['id' => $expected->id]);
 
-        $rows = $res->json('data.pool.activities');
+        $groups = $res->json('data.pool.activities');
 
-        foreach ($rows as $row) {
-            // Only want pools the user is assigned to
-            $this->assertEquals($row, [
-                'subjectType' => 'App\Models\Pool',
-                'subjectId' => $expected->id,
-            ]);
+        foreach ($groups as $group) {
+            foreach ($group['items'] as $row) {
+                // Only want pools the user is assigned to
+                $this->assertEquals($row, [
+                    'subjectType' => 'App\Models\Pool',
+                    'subjectId' => $expected->id,
+                ]);
+            }
         }
 
     }
@@ -289,22 +293,26 @@ class ActivityLogTest extends TestCase
                 query PoolActivity($id: UUID!) {
                     pool(id: $id) {
                         activities {
-                            subjectType
-                            subjectId
+                            items {
+                                subjectType
+                                subjectId
+                            }
                         }
                     }
                 }
                 GRAPHQL,
                 ['id' => $expected->id]);
 
-        $rows = $res->json('data.pool.activities');
+        $groups = $res->json('data.pool.activities');
 
-        foreach ($rows as $row) {
-            // Only want pools the user is assigned to
-            $this->assertEquals($row, [
-                'subjectType' => 'App\Models\Pool',
-                'subjectId' => $expected->id,
-            ]);
+        foreach ($groups as $group) {
+            foreach ($group['items'] as $row) {
+                // Only want pools the user is assigned to
+                $this->assertEquals($row, [
+                    'subjectType' => 'App\Models\Pool',
+                    'subjectId' => $expected->id,
+                ]);
+            }
         }
 
     }
