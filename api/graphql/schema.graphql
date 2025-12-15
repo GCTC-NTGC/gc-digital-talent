@@ -495,6 +495,11 @@ type Activity @model(class: "\\App\\Models\\Activity") {
   updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
+type ActivitiesByDay {
+  day: Date!
+  items: [Activity!]!
+}
+
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -568,11 +573,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  activities: [Activity!]
-    @morphMany(
-      relation: "activities"
-      scopes: ["whereIsPoolActivity", "authorizedToViewPoolActivity"]
-    )
+  activities: [ActivitiesByDay!] @field(resolver: "Activities")
 }
 
 type GeneralQuestionResponse {
