@@ -46,7 +46,7 @@ const root = tv({
 });
 
 const timelineWrapper = tv({
-  base: "relative ml-2.75 pl-3 not-last:pb-6",
+  base: "relative ml-2.75 pl-4.25 not-last:pb-6",
   variants: {
     placement: {
       // transparent from 0 to space-3, primary from space-3 to 100%
