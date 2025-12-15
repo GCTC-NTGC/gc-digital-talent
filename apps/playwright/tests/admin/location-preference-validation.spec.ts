@@ -2,8 +2,6 @@
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  Community,
-  CommunityInterest,
   EmploymentCategory,
   FlexibleWorkLocation,
   GovPositionType,
@@ -14,9 +12,8 @@ import {
   User,
   WorkExperienceGovEmployeeType,
   WorkRegion,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE, nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
@@ -30,53 +27,33 @@ import { getSkills } from "~/utils/skills";
 import { createAndPublishPool, deletePool } from "~/utils/pools";
 import { createAndSubmitApplication } from "~/utils/applications";
 import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
-import { createCommunity, createCommunityInterest } from "~/utils/communities";
-import { createWorkStream } from "~/utils/workStreams";
-import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
-import { defaultWorkExperience } from "~/utils/experiences";
-import { getDepartments } from "~/utils/departments";
 import { getClassifications } from "~/utils/classification";
+import { getDepartments } from "~/utils/departments";
+import { defaultWorkExperience } from "~/utils/experiences";
+import { createCommunityInterest } from "~/utils/communities";
 
 test.describe("Location Preference Validation", () => {
   let adminCtx: GraphQLContext;
+  let applicantCtx: GraphQLContext;
   let user: User;
   let userPage: UserPage;
   let locationPrefPage: LocationPreferenceUpdatePage;
   let candidatePage: PoolCandidatePage;
   let application: PoolCandidate;
   let id: string;
-  let candidatePage: PoolCandidatePage;
-  let application: PoolCandidate;
-  let id: string;
-  let community: Community | undefined;
-  let workStream: WorkStream | undefined;
-  let cInterest: CommunityInterest | undefined;
+  let testId: string;
 
   test.beforeAll(async () => {
-    const testId = generateUniqueTestId();
+    testId = generateUniqueTestId();
     adminCtx = await graphql.newContext();
     const sub = `playwright.loc.pref.${testId}`;
-    const nonCPADept = (await getDepartments(adminCtx, {})).find(
-      (dep) => !dep.isCorePublicAdministration,
-    );
-    const classifications = await getClassifications(adminCtx, {});
-
-    community = await createCommunity(adminCtx, {});
-    await createTalentNominationEvent(adminCtx, {
-      community: { connect: community?.id },
-    });
-    workStream = await createWorkStream(adminCtx, {
-      community: { connect: community?.id },
-    });
-
     const skill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
 
     const createdUser = await createUserWithRoles(adminCtx, {
-      roles: ["guest", "base_user", "applicant"],
       user: {
-        email: `${sub}@gc.ca`,
+        email: `${sub}@example.org`,
         firstName: sub,
         sub,
         currentProvince: ProvinceOrTerritory.Alberta,
@@ -85,7 +62,6 @@ test.describe("Location Preference Validation", () => {
         armedForcesStatus: ArmedForcesStatus.Veteran,
         citizenship: CitizenshipStatus.Citizen,
         lookingForEnglish: true,
-        isGovEmployee: true,
         hasPriorityEntitlement: true,
         priorityNumber: "123",
         locationPreferences: [WorkRegion.Atlantic],
@@ -93,20 +69,28 @@ test.describe("Location Preference Validation", () => {
           FlexibleWorkLocation.Hybrid,
           FlexibleWorkLocation.Onsite,
         ],
-        workEmailVerifiedAt: nowUTCDateTime(),
-        workExperiences: {
+        isGovEmployee: false,
+        positionDuration: [PositionDuration.Permanent],
+        personalExperiences: {
           create: [
             {
-              startDate: "2020-01-01",
-              employmentCategory: EmploymentCategory.GovernmentOfCanada,
-              govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
-              govPositionType: GovPositionType.Substantive,
-              department: { connect: nonCPADept?.id },
-              classificationId: classifications[0].id,
+              description: "Test Experience Description",
+              details: "A Playwright test personal experience",
+              skills: {
+                sync: [
+                  {
+                    details: `Test Skill ${skill?.name.en}`,
+                    id: skill?.id ?? "",
+                  },
+                ],
+              },
+              startDate: FAR_PAST_DATE,
+              title: "Test Experience",
             },
           ],
         },
       },
+      roles: ["guest", "base_user", "applicant"],
     });
 
     const createdPool = await createAndPublishPool(adminCtx, {
@@ -117,49 +101,30 @@ test.describe("Location Preference Validation", () => {
         fr: `App location preference ${testId} (FR)`,
       },
     });
+    id = createdPool.id;
+    console.log(`Created pool with ID: ${id}`);
 
-    const applicantCtx = await graphql.newContext(
+    applicantCtx = await graphql.newContext(
       createdUser?.authInfo?.sub ?? "applicant@test.com",
     );
     const applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,
-      poolId: createdPool.id,
+      poolId: id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,
     });
 
-    cInterest = await createCommunityInterest(adminCtx, {
-      userId: createdUser?.id ?? "",
-      community: { connect: community?.id },
-      jobInterest: true,
-      trainingInterest: true,
-    });
-
-    cInterest = await createCommunityInterest(adminCtx, {
-      userId: createdUser?.id ?? "",
-      community: { connect: community?.id },
-      jobInterest: true,
-      trainingInterest: true,
-    });
-
     application = candidate;
     user = createdUser ?? { id: "" };
-    id = createdPool.id;
-
-    console.log("community Interest is - ", cInterest);
-    console.log("user is = ", user);
-    console.log("Application id is = ", application);
   });
 
   test.afterAll(async () => {
-    if (user) {
-      await deleteUser(adminCtx, { id: user.id });
-      await deletePool(adminCtx, { id: id });
-    }
+    adminCtx = await graphql.newContext();
+    await deleteUser(adminCtx, { id: user.id });
+    await deletePool(adminCtx, { id });
   });
-
   test("Work Location preference update in Admin view", async ({ appPage }) => {
     locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
     const userName = user?.firstName ?? "";
@@ -183,7 +148,6 @@ test.describe("Location Preference Validation", () => {
   }) => {
     const page = appPage.page;
     const userName = user?.firstName ?? "";
-    // const userEmail = user?.email ?? "";
     locationPrefPage = new LocationPreferenceUpdatePage(page);
     candidatePage = new PoolCandidatePage(page);
     userPage = new UserPage(page);
@@ -226,5 +190,84 @@ test.describe("Location Preference Validation", () => {
         level: 2,
       }),
     ).toBeVisible();
+  });
+
+  test.describe("Location Preference update for Community Talent", () => {
+    test("Validate Location Preference update in the Community Talent table", async ({
+      appPage,
+    }) => {
+      adminCtx = await graphql.newContext();
+      const classifications = await getClassifications(adminCtx, {});
+      const departments = await getDepartments(adminCtx, {});
+      const nonCPADept = departments.find(
+        (dep) => !dep.isCorePublicAdministration,
+      );
+      const sub = `playwright.commInterest.${testId}`;
+
+      const userWithGovExp = await createUserWithRoles(adminCtx, {
+        user: {
+          email: `${sub}-locPref@example.org`,
+          sub: sub,
+          isGovEmployee: true,
+          workEmail: `${sub}-locPref@gc.ca`,
+          workEmailVerifiedAt: nowUTCDateTime(),
+          workExperiences: {
+            create: [
+              {
+                ...defaultWorkExperience,
+                startDate: "2020-01-01",
+                employmentCategory: EmploymentCategory.GovernmentOfCanada,
+                govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
+                govPositionType: GovPositionType.Substantive,
+                department: { connect: nonCPADept?.id },
+                classificationId: classifications[0].id,
+              },
+            ],
+          },
+        },
+        roles: ["guest", "base_user", "applicant"],
+      });
+      const govUser = userWithGovExp ?? { id: "" };
+      // Once the user is created, add the community interest
+      applicantCtx = await graphql.newContext(
+        userWithGovExp?.authInfo?.sub ?? "applicant@test.com",
+      );
+      await createCommunityInterest(applicantCtx, {
+        userId: userWithGovExp?.id ?? "",
+        community: { connect: "f2156218-953a-49dc-b12c-84fecae2309a" },
+        consentToShareProfile: true,
+        jobInterest: true,
+        trainingInterest: true,
+        workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
+      });
+      const page = appPage.page;
+      locationPrefPage = new LocationPreferenceUpdatePage(page);
+      userPage = new UserPage(page);
+      await loginBySub(page, testConfig.signInSubs.recruiterSignIn, false);
+      await page.goto("/en/admin/community-talent");
+      await expect(
+        page.getByRole("heading", {
+          name: /Community Talent/i,
+          level: 1,
+        }),
+      ).toBeVisible();
+      await appPage.waitForGraphqlResponse("CommunityTalentTable");
+      await locationPrefPage.showOrHideColumns();
+      // Filter the work locations which user has chosen and verify user is present
+      await locationPrefPage.filterFlexWorkLocation(
+        [FlexibleWorkLocation.Hybrid],
+        [WorkRegion.Atlantic],
+      );
+      await appPage.waitForGraphqlResponse("CommunityTalentTable");
+      await userPage.searchUserByName(sub, "Work email address");
+      await expect(
+        page.getByRole("columnheader", {
+          name: /Flexible work location options/i,
+        }),
+      ).toHaveAccessibleName(/Flexible work location options/i);
+      await locationPrefPage.verifyFlexibleWorkLocationData(sub);
+      await expect(appPage.page.locator(`a:has-text("${sub}")`)).toBeVisible();
+      await deleteUser(adminCtx, { id: govUser.id });
+    });
   });
 });

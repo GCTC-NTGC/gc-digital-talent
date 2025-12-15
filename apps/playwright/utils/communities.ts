@@ -80,36 +80,27 @@ export const createCommunity: GraphQLRequestFunc<
 };
 
 const Test_CreateCommunityInterestMutation = /* GraphQL */ `
-  mutation Test_CreateCommunityInterestMutation(
+  mutation Test_CreateCommunityInterest(
     $communityInterest: CreateCommunityInterestInput!
   ) {
     createCommunityInterest(communityInterest: $communityInterest) {
       id
-      jobInterest
-      trainingInterest
-      community {
-        id
-        key
-      }
-      user {
-        id
-      }
+      __typename
     }
   }
 `;
 
 export const createCommunityInterest: GraphQLRequestFunc<
-  CommunityInterest | undefined,
-  Partial<CreateCommunityInterestInput>
+  CommunityInterest,
+  CreateCommunityInterestInput
 > = async (ctx, communityInterest) => {
-  const res:
-    | GraphQLResponse<"createCommunityInterest", CommunityInterest>
-    | undefined = await ctx.post(Test_CreateCommunityInterestMutation, {
-    isPrivileged: false,
-    variables: {
-      communityInterest,
-    },
-  });
-
-  return res?.createCommunityInterest;
+  return await ctx
+    .post(Test_CreateCommunityInterestMutation, {
+      isPrivileged: false,
+      variables: { communityInterest },
+    })
+    .then(
+      (res: GraphQLResponse<"createCommunityInterest", CommunityInterest>) =>
+        res.createCommunityInterest,
+    );
 };

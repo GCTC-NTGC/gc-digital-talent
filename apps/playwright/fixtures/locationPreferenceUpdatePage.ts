@@ -189,13 +189,13 @@ class LocationPreferenceUpdatePage extends AppPage {
     await this.locators[FIELD.SHOW_RESULTS].click();
   }
 
-  async verifyFlexibleWorkLocationData(userName: string) {
+  async verifyFlexibleWorkLocationData(user: string) {
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
     const selectedFlexOptions = await this.getSelectedWorkLocOptions();
     const table = this.page.getByRole("table");
 
     const row = table.getByRole("row", {
-      name: new RegExp(userName, "i"),
+      name: new RegExp(user, "i"),
     });
 
     const rowText = (await row.innerText()).toLowerCase();
