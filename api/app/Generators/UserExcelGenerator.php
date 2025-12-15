@@ -169,7 +169,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'personal_learning_experience_description',
         'award_recipient',
         'issuing_org',
-        'award',
+        'awarded_scope',
         'date_awarded',
         'additional_detail',
         'featured_skills',
@@ -459,15 +459,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->supervised_employees_number ?? '', // GC number of supervised employees
             $exp->annual_budget_allocation ?? '', // GC annual budget allocation
             $exp->c_suite_role_title ?? '', // GC C-suite role
-            $exp->other_c_suite_role_title ?? '', // Other C-suite role title
+            $exp->other_c_suite_title ?? '', // Other C-suite role title
             $exp->caf_employment_type ?? '', // CAF employment type
             $exp->caf_rank ? $this->localizeEnum($exp->caf_rank, CafRank::class) : '', // CAF rank category
             $workStreams, // Work streams: workstreams linked to the experience separated by commas
             // Education fields - empty for work
             '', // 25: type_of_education
-            '', // 26: area_of_study
+            '', // 26: area_study
             '', // 27: education_status
-            '', // 28: thesis_title
+            '', // 28: thesis
 
             // Community/Personal fields - empty for work
             '', // 29: community_project_or_product
@@ -475,8 +475,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
             // Award fields - empty for work
             '', // 31: award_recipient
-            '', // 32: issuing_organization
-            '', // 33: award_scope
+            '', // 32: issuing_org
+            '', // 33: awarded_scope
             '', // 34: date_awarded
             $exp->details ?? '',
             $this->getFeaturedSkills($exp),
@@ -527,10 +527,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $isCurrent, // currently active
             $numberOfMonths, // number of months
             // Work-specific fields (8-24) - mostly empty for education
-            $exp->area_of_study ?? '', // role_or_title (use area of study)
+            $exp->area_study ?? '', // role_or_title (use area of study)
             $exp->institution ?? '', // organization_department
             '', // employment_category
-            '', // team_group_division
+            '', // team_group
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -540,22 +540,22 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
             '', // c_suite_title
-            '', // other_c_suite_role_title
+            '', // other_c_suite_title
             '', // caf_employment_type
             '', // rank_category
             '', // work_streams
             $exp->type ? $this->localizeEnum($exp->type, EducationType::class) : '',  // education type
-            $exp->area_of_study ?? '', // area of study
+            $exp->area_study ?? '', // area of study
             $exp->status ? $this->localizeEnum($exp->status, EducationStatus::class) : '', // education status
-            $exp->thesis_title ?? '', // thesis title
+            $exp->thesis ?? '', // thesis title
             // Community/Personal fields - empty for education
             '', // community_project_or_product
             '', // personal_learning_experience_description
 
             // Award fields - empty for education
             '', // award_recipient
-            '', // issuing_organization
-            '', // award_scope
+            '', // issuing_org
+            '', // awarded_scope
             '', // date_awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
@@ -608,7 +608,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->title ?? '', // role or title
             $exp->issued_by ?? '', // organization_department
             '', // employment_category
-            '', // team_group_division
+            '', // team_group
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -618,23 +618,23 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
             '', // c_suite_title
-            '', // other_c_suite_role_title
+            '', // other_c_suite_title
             '', // caf_employment_type
             '', // rank_category
             '', // work_streams
 
             // Education fields - empty for awards
             '', // type_of_education
-            '', // area_of_study
+            '', // area_study
             '', // education_status
-            '', // thesis_title
+            '', // thesis
 
             // Community/Personal fields - empty for awards
             '', // community_project_or_product
             '', // personal_learning_experience_description
             $exp->awarded_to ? $this->localizeEnum($exp->awarded_to, AwardedTo::class) : '', // award_recipient
             $exp->issued_by ?? '', // issued by
-            $exp->awarded_scope ?? '', // award_scope
+            $exp->awarded_scope ?? '', // award
             $exp->awarded_date ? $exp->awarded_date->format('Y-m-d') : '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
@@ -688,7 +688,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->title ?? '', // role or title
             $exp->organization ?? '',
             '', // employment_category
-            $exp->group ?? '', // team_group_division
+            $exp->group ?? '', // team_group
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -698,21 +698,21 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
             '', // c_suite_title
-            '', // other_c_suite_role_title
+            '', // other_c_suite_title
             '', // caf_employment_type
             '', // rank_category
             '', // work_streams
             // Education fields - empty for community
             '', // type_of_education
-            '', // area_of_study
+            '', // area_study
             '', // education_status
-            '', // thesis_title
+            '', // thesis
             $exp->project ?? '', // community_project_or_product
             '', // personal learning description
             // Award fields - empty for community
             '', // award recipient
             '', // issuing organization
-            '', // award scope
+            '', // awarded_scope
             '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp),
@@ -766,7 +766,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->title ?? '', // role or title
             $exp->description ?? '', // organization_department
             '', // employment_category
-            '', // team_group_division
+            '', // team_group
             '', // size_external_organization
             '', // seniority_external_organization
             '', // gc_employment_type
@@ -776,22 +776,22 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_number_of_supervised_employees
             '', // gc_annual_budget_allocation
             '', // c_suite_title
-            '', // other_c_suite_role_title
+            '', // other_c_suite_title
             '', // caf_employment_type
             '', // rank_category
             '', // work_streams
 
             // Education fields - empty for personal
             '', // type_of_education
-            '', // area_of_study
+            '', // area_study
             '', // education_status
-            '', // thesis_title
+            '', // thesis
             '', // Community project or product
             $exp->description ?? '', // personal learning experience description
             // Award fields - empty for education
             '', // award recipient
             '', // issuing organization
-            '', // award scope
+            '', // awarded_scope
             '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills

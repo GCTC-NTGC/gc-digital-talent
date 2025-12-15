@@ -141,7 +141,7 @@ return [
     'thesis' => 'Thesis title',
     'team_group' => 'Team, group or division',
     'issuing_org' => 'Issuing organization',
-    'award' => 'Award scope',
+    'awarded_scope' => 'Award scope',
     'other_c_suite_title' => 'Other C-suite role title',
     'additional_detail' => 'Additional details',
     'education_status' => 'Education status',

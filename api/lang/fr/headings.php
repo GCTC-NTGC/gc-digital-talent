@@ -132,7 +132,7 @@ return [
     'team_group' => 'Équipe, groupe ou division',
     'other_c_suite_title' => 'Autre titre de cadre supérieur',
     'issuing_org' => 'Organisation émettrice',
-    'award' => 'Portée du prix',
+    'awarded_scope' => 'Portée du prix',
     'date_awarded' => 'Date d’attribution',
     'department_number' => 'Numéro de ministère',
     'department_size' => 'Taille du ministère',
