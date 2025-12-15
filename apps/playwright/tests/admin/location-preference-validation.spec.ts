@@ -102,8 +102,6 @@ test.describe("Location Preference Validation", () => {
       },
     });
     id = createdPool.id;
-    console.log(`Created pool with ID: ${id}`);
-
     applicantCtx = await graphql.newContext(
       createdUser?.authInfo?.sub ?? "applicant@test.com",
     );
@@ -121,7 +119,6 @@ test.describe("Location Preference Validation", () => {
   });
 
   test.afterAll(async () => {
-    adminCtx = await graphql.newContext();
     await deleteUser(adminCtx, { id: user.id });
     await deletePool(adminCtx, { id });
   });
