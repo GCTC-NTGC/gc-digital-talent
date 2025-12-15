@@ -8,6 +8,11 @@ import { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Logger } from "@gc-digital-talent/logger";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import activityMessages from "~/messages/activityMessages";
 import adminMessages from "~/messages/adminMessages";
@@ -184,4 +189,12 @@ export function normalizePropKeys(
   }
 
   return modified;
+}
+
+export function formatActivityDayGroup(day: string, intl: IntlShape): string {
+  return formatDate({
+    date: parseDateTimeUtc(day),
+    formatString: DATE_FORMAT_LOCALIZED,
+    intl,
+  });
 }

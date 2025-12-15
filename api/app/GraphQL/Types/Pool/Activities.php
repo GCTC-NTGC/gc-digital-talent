@@ -19,7 +19,10 @@ class Activities
             }
         }
 
-        $activities = $query->get()->groupBy(fn ($activity) => $activity->created_at->format('Y-m-d'));
+        $activities = $query
+            ->orderBy('created_at', 'DESC')
+            ->get()
+            ->groupBy(fn ($activity) => $activity->created_at->format('Y-m-d'));
 
         return $activities->map(fn ($items, $day) => [
             'day' => $day,

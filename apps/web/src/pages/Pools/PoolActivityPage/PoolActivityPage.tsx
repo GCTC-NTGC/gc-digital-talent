@@ -8,29 +8,26 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import {
-  Card,
-  Container,
-  Heading,
-  NotFound,
-  Pending,
-} from "@gc-digital-talent/ui";
+import { Container, Heading, NotFound, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
-import ActivityList from "~/components/Activity/ActivityList";
+import ActivityLog from "~/components/Activity/ActivityLog";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { formatActivityDayGroup } from "~/components/Activity/utils";
 
 const PoolActivity_Fragment = graphql(/** GraphQL */ `
   fragment PoolActivity on Pool {
     publishedAt
     activities {
-      id
-      createdAt
-      ...ActivityItem
+      day
+      items {
+        id
+        createdAt
+        ...ActivityItem
+      }
     }
   }
 `);
@@ -42,11 +39,9 @@ interface PoolActivityProps {
 const PoolActivity = ({ query }: PoolActivityProps) => {
   const intl = useIntl();
   const pool = getFragment(PoolActivity_Fragment, query);
-  const activities = unpackMaybes(pool.activities).sort((a, b) => {
-    const aCreatedAt = a?.createdAt ? new Date(a.createdAt) : MAX_DATE;
-    const bCreatedAt = b?.createdAt ? new Date(b.createdAt) : MAX_DATE;
-    return bCreatedAt.getTime() - aCreatedAt.getTime();
-  });
+  const activities = unpackMaybes(pool.activities).filter(
+    (activity) => activity.items.length > 0,
+  );
 
   return (
     <>
@@ -62,22 +57,28 @@ const PoolActivity = ({ query }: PoolActivityProps) => {
           description: "Heading for the activity log for some resource",
         })}
       </Heading>
-      <Card>
-        {activities.length > 0 ? (
-          <ActivityList.Root>
-            {activities.map((item, index) => (
-              <ActivityList.PoolItem
-                key={item.id}
-                query={item}
-                border={index > 0}
-                publishedAt={pool.publishedAt}
-              />
-            ))}
-          </ActivityList.Root>
-        ) : (
-          <ActivityList.Empty />
-        )}
-      </Card>
+
+      {activities.length > 0 ? (
+        <ActivityLog.Root>
+          {activities.map((group) => (
+            <ActivityLog.List
+              key={group.day}
+              heading={formatActivityDayGroup(group.day, intl)}
+            >
+              {group.items.map((item, index) => (
+                <ActivityLog.PoolItem
+                  key={item.id}
+                  query={item}
+                  border={index > 0}
+                  publishedAt={pool.publishedAt}
+                />
+              ))}
+            </ActivityLog.List>
+          ))}
+        </ActivityLog.Root>
+      ) : (
+        <ActivityLog.Empty />
+      )}
     </>
   );
 };
