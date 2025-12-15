@@ -1063,6 +1063,10 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
+  "27mGKw": {
+    "defaultMessage": "Supprimer le signet",
+    "description": "Label for removing a bookmark"
+  },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
@@ -2698,6 +2702,10 @@
   "9DCx2n": {
     "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
     "description": "Education level message when candidate does not have a diploma found on the request page."
+  },
+  "9DJWk4": {
+    "defaultMessage": "Vous avez ajouté {name} à vos signets.",
+    "description": "Bookmarked a candidate"
   },
   "9Eh1nm": {
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
@@ -5339,6 +5347,10 @@
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
   },
+  "L2xLV8": {
+    "defaultMessage": "Ajouter un signet",
+    "description": "Label for adding a bookmark"
+  },
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
     "description": "Message displayed when there are no job poster templates meeting a specific criteria"
@@ -5974,6 +5986,10 @@
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
+  },
+  "NngAJq": {
+    "defaultMessage": "Erreur : impossible de mettre à jour le signet du candidat.",
+    "description": "Alert displayed to the user when failing to (un-)bookmark a candidate"
   },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
@@ -7358,6 +7374,10 @@
   "UBOv+U": {
     "defaultMessage": "Cette nomination pour les programmes de perfectionnement est approuvée.",
     "description": "Label for development programs nomination is approved"
+  },
+  "UBY4qe": {
+    "defaultMessage": "Vous avez supprimé le signet pour {name}.",
+    "description": "Un-bookmarked a candidate"
   },
   "UCt8ym": {
     "defaultMessage": "Votre prochain type de poste",

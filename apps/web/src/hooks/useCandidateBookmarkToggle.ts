@@ -93,9 +93,8 @@ const useCandidateBookmarkToggle = ({
         .catch(() => {
           toast.error(
             intl.formatMessage({
-              defaultMessage:
-                "Error: failed to update a candidates's bookmark.",
-              id: "6mwspP",
+              defaultMessage: "Error: failed to update a candidate's bookmark.",
+              id: "NngAJq",
               description:
                 "Alert displayed to the user when failing to (un-)bookmark a candidate",
             }),
