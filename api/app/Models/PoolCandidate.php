@@ -713,7 +713,7 @@ class PoolCandidate extends Model
         $this->save();
 
         $this->logActivity(PoolCandidateEvent::QUALIFIED, [
-            'expiry_date' => $expiryDate,
+            'expiry_date' => $expiryDate->format('Y-m-d H:i:s'),
         ]);
     }
 
