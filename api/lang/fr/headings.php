@@ -155,7 +155,7 @@ return [
     'personal_learning_experience_description' => 'Description de l’expérience d’apprentissage personnel',
     'award_recipient' => 'Lauréat ou lauréate du prix',
 
-    'klc_achieve_results' => ' CCL - Obtenir des résultats',
+    'klc_achieve_results' => 'CCL - Obtenir des résultats',
     'klc_character_leadership' => 'CCL - Leadership de caractère',
     'klc_collaborate_with_partners_and_stakeholders' => 'CCL - Collaborer avec les partenaires et les intervenants',
     'klc_create_vision_and_strategy' => 'CCL - Créer une vision et une stratégie',

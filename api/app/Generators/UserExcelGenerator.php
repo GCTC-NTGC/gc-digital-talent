@@ -402,7 +402,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function addWorkExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
         WorkExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'department', 'classification', 'skills', 'workStreams'])
+            ->with(['user', 'department', 'classification', 'userSkills.skill', 'workStreams'])
             ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
                 foreach ($experiences as $exp) {
                     $rowData = $this->buildWorkExperienceRow($exp);
@@ -480,14 +480,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // 34: date_awarded
             $exp->details ?? '',
             $this->getFeaturedSkills($exp),
-            // KLC fields - empty
-            '', // klc_achieve_results
-            '', // klc_character_leadership
-            '', // klc_collaborate_with_partners_and_stakeholders
-            '', // klc_create_vision_and_strategy
-            '', // klc_mobilize_people
-            '', // klc_promote_innovation_and_guide_change
-            '', // klc_uphold_integrity_and_respect
+            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
+            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
             $departmentNumber,
             $departmentSize,
             $departmentType,
@@ -500,7 +499,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function addEducationExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
         EducationExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'skills'])
+            ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
                 foreach ($experiences as $exp) {
                     $rowData = $this->buildEducationExperienceRow($exp);
@@ -560,15 +559,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // date_awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
-            // KLC fields - empty
-            '', // klc_achieve_results
-            '', // klc_character_leadership
-            '', // klc_collaborate_with_partners_and_stakeholders
-            '', // klc_create_vision_and_strategy
-            '', // klc_mobilize_people
-            '', // klc_promote_innovation_and_guide_change
-            '', // klc_uphold_integrity_and_respect
-
+            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
+            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
             // Department fields - empty for education
             '', // department_number
             '', // department_size
@@ -582,7 +579,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function addAwardExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
         AwardExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'skills'])
+            ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
                 foreach ($experiences as $exp) {
                     $rowData = $this->buildAwardExperienceRow($exp);
@@ -641,15 +638,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->awarded_date ? $exp->awarded_date->format('Y-m-d') : '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
-            // KLC fields - empty
-            '', // klc_achieve_results
-            '', // klc_character_leadership
-            '', // klc_collaborate_with_partners_and_stakeholders
-            '', // klc_create_vision_and_strategy
-            '', // klc_mobilize_people
-            '', // klc_promote_innovation_and_guide_change
-            '', // klc_uphold_integrity_and_respect
-
+            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
+            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
             // Department fields - empty for awards
             '', // department_number
             '', // department_size
@@ -663,7 +658,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function addCommunityExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
         CommunityExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'skills'])
+            ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
                 foreach ($experiences as $exp) {
                     $rowData = $this->buildCommunityExperienceRow($exp);
@@ -721,15 +716,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp),
-            // KLC fields - empty
-            '', // klc_achieve_results
-            '', // klc_character_leadership
-            '', // klc_collaborate_with_partners_and_stakeholders
-            '', // klc_create_vision_and_strategy
-            '', // klc_mobilize_people
-            '', // klc_promote_innovation_and_guide_change
-            '', // klc_uphold_integrity_and_respect
-
+            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
+            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
             // Department fields - empty for community
             '', // department_number
             '', // department_size
@@ -743,7 +736,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function addPersonalExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
     {
         PersonalExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'skills'])
+            ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
                 foreach ($experiences as $exp) {
                     $rowData = $this->buildPersonalExperienceRow($exp);
@@ -802,15 +795,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
-            // KLC fields - empty
-            '', // klc_achieve_results
-            '', // klc_character_leadership
-            '', // klc_collaborate_with_partners_and_stakeholders
-            '', // klc_create_vision_and_strategy
-            '', // klc_mobilize_people
-            '', // klc_promote_innovation_and_guide_change
-            '', // klc_uphold_integrity_and_respect
-
+            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
+            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
             // Department fields - empty for education
             '', // department_number
             '', // department_size
@@ -827,9 +818,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             return '';
         }
 
-        return $experience->workStreams->map(function ($workStream) {
-            return $workStream->name[$this->lang] ?? $workStream->name ?? '';
-        })->filter()->join(', ');
+        return $experience->workStreams
+            ->map(fn ($workStream) => $workStream->name[$this->lang] ?? '')
+            ->filter()
+            ->join(', ');
     }
 
     /**
@@ -837,13 +829,116 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function getFeaturedSkills($experience): string
     {
-        if (! $experience->skills) {
+        if (! $experience->userSkills || $experience->userSkills->isEmpty()) {
             return '';
         }
 
-        return $experience->skills->map(function ($skill) {
-            return $skill->name[$this->lang] ?? $skill->name ?? '';
-        })->filter()->join(', ');
+        return $experience->userSkills
+            ->filter(fn ($userSkill) => $userSkill->skill)
+            ->map(fn ($userSkill) => $userSkill->skill->name[$this->lang] ?? '')
+            ->filter()
+            ->implode(', ');
+    }
+
+    /**
+     * Get feature skill justification
+     */
+    private function getFeaturedSkillJustification($experience, string $targetSkill): string
+    {
+        if (empty($experience->userSkills)) {
+            return '';
+        }
+
+        // Get name to match against
+        $targetNames = $this->getSkillNames($targetSkill) ?: [];
+        if (empty($targetNames)) {
+            return '';
+        }
+        // check each featured skill on experience
+        foreach ($experience->userSkills as $userSkill) {
+            // skip if no skill
+            if (! $skill = $userSkill->skill) {
+                continue;
+            }
+            // Get skill name
+            $skillName = $skill->name[$this->lang] ?? '';
+            if (empty($skillName)) {
+                continue;
+            }
+            // check if skill name matches any of the target names
+            foreach ($targetNames as $targetName) {
+                if (stripos($skillName, $targetName) !== false) {
+                    return $this->getJustificationFromExperienceSkill($experience, $userSkill);
+                }
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * Get featured skill justification from model
+     */
+    private function getJustificationFromExperienceSkill($experience, $userSkill): string
+    {
+        // Check if relationship is loaded
+        if (isset($userSkill->experience_skill) && $userSkill->experience_skill) {
+            return $userSkill->experience_skill->details ?? '';
+        }
+        // Validate ids
+        if (empty($experience->id) || empty($userSkill->id)) {
+            return '';
+        }
+
+        // Query the database for experience skill
+        $experienceSkill = \App\Models\ExperienceSkill::where('experience_id', $experience->id)
+            ->where('experience_type', get_class($experience))
+            ->where('user_skill_id', $userSkill->id)
+            ->first();
+
+        return $experienceSkill->details ?? '';
+    }
+
+    /**
+     * Get all possible skill names for a skill key
+     */
+    private function getSkillNames(string $featuredSkillKey): array
+    {
+        $klcSkillNames = [
+            'achieve_results' => [
+                'en' => 'Achieve Results',
+                'fr' => 'Obtenir des résultats',
+            ],
+            'character_leadership' => [
+                'en' => 'Character & Leadership',
+                'fr' => 'Leadership de caractère',
+            ],
+            'collaborate_with_partners_and_stakeholders' => [
+                'en' => 'Collaborate with Partners and Stakeholders',
+                'fr' => 'Collaborer avec les partenaires et les intervenants',
+            ],
+            'create_vision_and_strategy' => [
+                'en' => 'Create Vision and Strategy',
+                'fr' => 'Créer une vision et une stratégie',
+            ],
+            'mobilize_people' => [
+                'en' => 'Mobilize People',
+                'fr' => 'Mobiliser les personnes',
+            ],
+            'promote_innovation_and_guide_change' => [
+                'en' => 'Promote Innovation and Guide Change',
+                'fr' => 'Promouvoir l\'innovation et orienter le changement',
+            ],
+            'uphold_integrity_and_respect' => [
+                'en' => 'Uphold Integrity and Respect',
+                'fr' => 'Préserver l\'intégrité et le respect',
+            ],
+        ];
+
+        $skillNames = $klcSkillNames[$featuredSkillKey] ?? [];
+        $currentLangName = trim($skillNames[$this->lang] ?? '');
+
+        return ! empty($currentLangName) ? [$currentLangName] : [];
     }
 
     /**
@@ -922,7 +1017,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $query = User::with([
             'department',
             'currentClassification',
-            'userSkills' => ['skill'],
+            'userSkills' => function ($query) {
+                $query->with([
+                    'skill' => function ($query) {
+                        $query->select('id', 'key', 'name');
+                    },
+                ]);
+            },
             'employeeProfile',
             'employeeProfile.nextRoleClassification',
             'employeeProfile.careerObjectiveClassification',
@@ -940,6 +1041,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'offPlatformRecruitmentProcesses',
             'offPlatformRecruitmentProcesses.classification',
             'offPlatformRecruitmentProcesses.department',
+            'workExperiences.userSkills.skill',
+            'educationExperiences.userSkills.skill',
+            'awardExperiences.userSkills.skill',
+            'communityExperiences.userSkills.skill',
+            'personalExperiences.userSkills.skill',
         ]);
 
         $this->applyFilters($query, [
