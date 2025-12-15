@@ -64,7 +64,7 @@ async function fetchLink(
     if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
       // Retry with NODE_OPTIONS=--tls-legacy-renegotiation, only for this link
       const { spawnSync } = await import('node:child_process');
-      const result = spawnSync(process.execPath, process.argv.slice(1), {
+      spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
           NODE_OPTIONS: '--tls-legacy-renegotiation',
