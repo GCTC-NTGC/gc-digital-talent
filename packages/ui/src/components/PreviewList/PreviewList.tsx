@@ -1,6 +1,6 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { forwardRef, Fragment, ReactElement, ReactNode } from "react";
-import { tv } from "tailwind-variants";
+import { tv, VariantProps } from "tailwind-variants";
 
 import BaseButton, {
   IconButtonProps as BaseButtonProps,
@@ -12,9 +12,7 @@ import Heading, { HeadingLevel } from "../Heading";
 import { BaseIconButtonLinkProps } from "../../utils/btnStyles";
 import { UNICODE_CHAR } from "../../utils/unicode";
 
-type ItemMode = "default" | "experience-card";
-
-const listItem = tv({
+const item = tv({
   base: "group/item relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center",
   variants: {
     mode: {
@@ -137,7 +135,7 @@ interface ItemProps {
   headingAs?: HeadingLevel;
   children?: ReactNode;
   action?: ReactElement<ButtonProps> | ReactElement<LinkProps> | null;
-  mode: ItemMode;
+  mode: VariantProps<typeof item>["mode"]; // or  VariantProps<typeof heading>["mode"]
 }
 
 const Item = ({
@@ -149,7 +147,7 @@ const Item = ({
   mode,
 }: ItemProps) => {
   return (
-    <li className={listItem({ mode })}>
+    <li className={item({ mode })}>
       <div className="flex flex-col">
         <Heading level={headingAs} className={heading({ mode })}>
           {title}
@@ -182,7 +180,7 @@ const Item = ({
 type PreviewItemElement = ReactElement<ItemProps>;
 
 export interface RootProps {
-  mode?: "default" | "timeline";
+  mode?: VariantProps<typeof root>["mode"];
   children: PreviewItemElement | PreviewItemElement[];
 }
 
@@ -197,7 +195,7 @@ const Root = ({ mode = "default", children, ...rest }: RootProps) => {
 const deriveTimelinePlacement = (
   index?: number,
   groupLength?: number,
-): "top" | "middle" | "bottom" | "single" | null => {
+): VariantProps<typeof timelineWrapper>["placement"] | null => {
   if (typeof index !== "number" || typeof groupLength !== "number") {
     return null;
   }
