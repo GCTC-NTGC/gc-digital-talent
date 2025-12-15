@@ -9,7 +9,7 @@ import {
   User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
@@ -45,6 +45,7 @@ test.describe("Location Preference Validation", () => {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
         firstName: sub,
         sub,
         currentProvince: ProvinceOrTerritory.Alberta,
