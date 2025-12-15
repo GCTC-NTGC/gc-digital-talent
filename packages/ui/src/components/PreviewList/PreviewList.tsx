@@ -46,6 +46,7 @@ const root = tv({
 });
 
 const timelineWrapper = tv({
+  // dot radius is 1.25 so ml-2.75 = 1.5 + 1.25 and pl-4.25 = 3 + 1.25
   base: "relative ml-2.75 pl-4.25 not-last:pb-6",
   variants: {
     placement: {
@@ -135,7 +136,7 @@ interface ItemProps {
   headingAs?: HeadingLevel;
   children?: ReactNode;
   action?: ReactElement<ButtonProps> | ReactElement<LinkProps> | null;
-  mode: VariantProps<typeof item>["mode"]; // or  VariantProps<typeof heading>["mode"]
+  mode?: VariantProps<typeof item>["mode"]; // or  VariantProps<typeof heading>["mode"]
 }
 
 const Item = ({
@@ -144,7 +145,7 @@ const Item = ({
   metaData,
   action,
   children,
-  mode,
+  mode = "default",
 }: ItemProps) => {
   return (
     <li className={item({ mode })}>

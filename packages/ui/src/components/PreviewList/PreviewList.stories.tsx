@@ -97,7 +97,6 @@ Default.args = {
             onClick={() => action("preview button one clicked")()}
           />
         }
-        mode="default"
       />
       <PreviewList.Item
         title="IT-02: Application developer"
@@ -108,7 +107,6 @@ Default.args = {
             onClick={() => action("preview button two clicked")()}
           />
         }
-        mode="default"
       />
       <PreviewList.Item
         title="IT-03: Database architect"
@@ -119,7 +117,6 @@ Default.args = {
             onClick={() => action("preview button three clicked")()}
           />
         }
-        mode="default"
       />
     </>
   ),
@@ -137,7 +134,6 @@ WithChildren.args = {
           onClick={() => action("preview button one clicked")()}
         />
       }
-      mode="default"
     >
       <p>{faker.lorem.paragraph()}</p>
     </PreviewList.Item>
