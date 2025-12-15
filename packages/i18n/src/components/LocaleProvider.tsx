@@ -48,11 +48,13 @@ const LocaleProvider = ({ children }: LocaleProviderProps) => {
   const desiredLocale = pathLocale ?? guessLocale(); // figure it out from the path, storage, or browser
   const [locale, setLocale] = useState<Locales>(desiredLocale);
   const [localeReady, setLocaleReady] = useState<boolean>(false);
+  const needsRedirect = !pathLocale || pathLocale !== desiredLocale;
 
   useEffect(() => {
     // Do a locale redirect if the locale doesn't exist in path yet
-    if (!pathLocale || locale !== desiredLocale) {
+    if (needsRedirect) {
       localeRedirect(locale);
+      return;
     }
 
     // If storage is not up to date, set it now
@@ -62,7 +64,7 @@ const LocaleProvider = ({ children }: LocaleProviderProps) => {
     }
 
     setLocaleReady(true);
-  }, [locale, desiredLocale, pathLocale]);
+  }, [locale, needsRedirect]);
 
   const state = useMemo(() => {
     return {
@@ -71,7 +73,7 @@ const LocaleProvider = ({ children }: LocaleProviderProps) => {
     };
   }, [locale, setLocale]);
 
-  if (!localeReady) return null;
+  if (needsRedirect && !localeReady) return null;
 
   return (
     <LocaleContext.Provider value={state}>{children}</LocaleContext.Provider>
