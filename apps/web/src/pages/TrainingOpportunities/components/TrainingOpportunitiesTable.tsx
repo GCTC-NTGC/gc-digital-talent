@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-import { ReactNode, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ColumnDef,
   createColumnHelper,
@@ -131,7 +131,7 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 interface TrainingOpportunitiesTableProps {
-  title: ReactNode;
+  title: string;
 }
 
 const TrainingOpportunitiesTable = ({
@@ -172,7 +172,7 @@ const TrainingOpportunitiesTable = ({
 
   const statusChipStyles: Record<DeadlineStatus, ChipProps["color"]> = {
     PUBLISHED: "primary",
-    EXPIRED: "black",
+    EXPIRED: "gray",
   } as const;
 
   const columns = [

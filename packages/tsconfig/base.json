@@ -1,9 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "ES2020",
-    "lib": ["ES2020", "dom"],
+    "lib": [
+      "ES2020",
+      "dom"
+    ],
     "jsx": "react-jsx",
     "sourceMap": true,
     "inlineSourceMap": false,
@@ -25,5 +28,8 @@
       "../../packages/vitest-helpers/src/setup.d.ts"
     ]
   },
-  "exclude": ["**/node_modules", "**/.*/"]
+  "exclude": [
+    "**/node_modules",
+    "**/.*/"
+  ]
 }

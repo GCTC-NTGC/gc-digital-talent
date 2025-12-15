@@ -11,9 +11,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import isEmpty from "lodash/isEmpty";
-import { ReactNode, useEffect, useId, useMemo, useRef } from "react";
+import { useEffect, useId, useMemo, useRef } from "react";
 
-import { empty, nodeToString, notEmpty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
@@ -43,7 +43,7 @@ import { getColumnHeader } from "./utils";
 
 interface TableProps<TData, TFilters> {
   /** Accessible name for the table */
-  caption: ReactNode;
+  caption: string;
   /** Data to be displayed within the table */
   data: TData[];
   /** Column definitions for `react-table` */
@@ -417,7 +417,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
             <TablePagination
               table={table}
               pagination={paginationAdjusted}
-              label={nodeToString(caption) ?? ""}
+              label={caption ?? ""}
             />
           )}
         </>

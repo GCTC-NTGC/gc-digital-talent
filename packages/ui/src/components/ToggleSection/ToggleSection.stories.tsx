@@ -15,35 +15,28 @@ const Toggle = () => {
   );
 };
 
-interface ToggleSectionRootAndHeader
-  extends React.ComponentPropsWithoutRef<typeof ToggleSection.Root> {
-  headerText?: string;
-}
+type ToggleSectionRootAndHeader = React.ComponentPropsWithoutRef<
+  typeof ToggleSection.Root
+>;
 
 export default {
   component: ToggleSection.Root,
-  args: {
-    headerText: "Toggle section header",
-  },
-  argTypes: {
-    headerText: {
-      control: { type: "text" },
+  parameters: {
+    a11y: {
+      context: {
+        // NOTE: No issue with colour contrast
+        exclude: ["h2"],
+      },
     },
   },
-  tags: ["needs-fix"],
 } as Meta;
 
-const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
-  const { headerText } = args;
+const Template: StoryFn<ToggleSectionRootAndHeader> = () => {
   return (
-    <ToggleSection.Root
-      {...args}
-      onOpenChange={(open) => action("onOpenToggle")(open)}
-    >
+    <ToggleSection.Root onOpenChange={(open) => action("onOpenToggle")(open)}>
       <ToggleSection.Header icon={AcademicCapIcon} toggle={<Toggle />}>
-        {headerText}
+        Toggle section header
       </ToggleSection.Header>
-
       <ToggleSection.Content className="text-center">
         <ToggleSection.InitialContent>
           <p>The initial content.</p>
@@ -51,7 +44,6 @@ const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
             <Button mode="inline">Open</Button>
           </ToggleSection.Open>
         </ToggleSection.InitialContent>
-
         <ToggleSection.OpenContent>
           <p>The open content.</p>
           <ToggleSection.Close>
@@ -65,41 +57,32 @@ const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
 
 export const Default = Template.bind({});
 
-const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = (args) => {
-  const { headerText } = args;
+const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = () => {
   return (
-    <ToggleSection.Root
-      {...args}
-      onOpenChange={(open) => action("onOpenToggle")(open)}
-    >
+    <ToggleSection.Root onOpenChange={(open) => action("onOpenToggle")(open)}>
       <ToggleSection.Header icon={AcademicCapIcon} toggle={<Toggle />}>
-        {headerText}
+        Toggle section header
       </ToggleSection.Header>
-
       <ToggleSection.Content className="text-center">
         <ToggleSection.InitialContent>
           <p>The initial content.</p>
           <ToggleSection.Open>
             <Button mode="inline">Open main content</Button>
           </ToggleSection.Open>
-
           <ToggleSection.Root>
             <ToggleSection.Trigger>
               <Button mode="inline">Toggle nested content</Button>
             </ToggleSection.Trigger>
-
             <ToggleSection.Content className="text-center">
               <ToggleSection.InitialContent>
                 <p>The nested initial content.</p>
               </ToggleSection.InitialContent>
-
               <ToggleSection.OpenContent>
                 <p>The nested open content.</p>
               </ToggleSection.OpenContent>
             </ToggleSection.Content>
           </ToggleSection.Root>
         </ToggleSection.InitialContent>
-
         <ToggleSection.OpenContent>
           <p>The open content.</p>
           <ToggleSection.Close>

@@ -84,8 +84,8 @@ const complaintsLink = (locale: Locales, chunks: ReactNode) => (
     external
     href={
       locale === "en"
-        ? "https://www.accessibilitychrc.ca/en/complaints"
-        : "https://www.accessibilitychrc.ca/fr/plaintes-0"
+        ? "https://www.chrc-ccdp.gc.ca/find-help/file-complaint-accessibility-commissioner"
+        : "https://www.ccdp-chrc.gc.ca/trouver-aide/deposer-une-plainte-aupres-du-commissaire-a-accessibilite"
     }
   >
     {chunks}

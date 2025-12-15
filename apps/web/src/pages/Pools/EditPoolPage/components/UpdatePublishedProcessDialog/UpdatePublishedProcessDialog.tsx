@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   UpdatePublishedPoolInput,
@@ -17,6 +17,7 @@ import {
 import { TextArea } from "@gc-digital-talent/forms";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import { PublishedEditableSectionProps } from "../../types";
 
@@ -51,8 +52,7 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
 
 export type FormValues = UpdatePublishedPoolInput;
 
-interface UpdatePublishedProcessDialogProps
-  extends PublishedEditableSectionProps {
+interface UpdatePublishedProcessDialogProps extends PublishedEditableSectionProps {
   poolQuery: FragmentType<typeof UpdatePublishedProcessDialog_Fragment>;
 }
 
@@ -86,11 +86,7 @@ const UpdatePublishedProcessDialog = ({
     await methods.handleSubmit(handleUpdate)();
   };
 
-  const label = intl.formatMessage({
-    defaultMessage: "Change justification",
-    id: "XGztC+",
-    description: "Heading for form to justify updating a published process",
-  });
+  const label = intl.formatMessage(processMessages.changeJustification);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -102,22 +98,24 @@ const UpdatePublishedProcessDialog = ({
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
-          <Well color="warning" className="mb-6">
-            <Heading level="h3" size="h6" className="mt-0">
+          <Notice.Root color="warning" className="mb-6">
+            <Notice.Title as="h3">
               {intl.formatMessage(commonMessages.warning)}
-            </Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "You are about to change information currently published on the following advertisement",
-                id: "4lRUZt",
-                description:
-                  "Warning message when attempting to update a published process advertisement",
-              })}
-              {intl.formatMessage(commonMessages.dividingColon)}
-              <span className="font-bold">{title}</span>
-            </p>
-          </Well>
+            </Notice.Title>
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "You are about to change information currently published on the following advertisement",
+                  id: "4lRUZt",
+                  description:
+                    "Warning message when attempting to update a published process advertisement",
+                })}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <span className="font-bold">{title}</span>
+              </p>
+            </Notice.Content>
+          </Notice.Root>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleUpdate)}>
               <TextArea

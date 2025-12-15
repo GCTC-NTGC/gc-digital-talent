@@ -11,7 +11,11 @@ import { ReactNode } from "react";
 import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  ENUM_SORT_ORDER,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { ChipProps } from "@gc-digital-talent/ui";
 import {
   Maybe,
@@ -26,6 +30,7 @@ import {
   LocalizedFinalDecision,
   Pool,
   PoolAreaOfSelection,
+  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -175,13 +180,13 @@ const getFinalDecisionChipColor = (
     case FinalDecision.QualifiedRemoved:
     case FinalDecision.QualifiedExpired:
     case FinalDecision.ToAssessRemoved:
-      return "black";
+      return "gray";
     case FinalDecision.Qualified:
     case FinalDecision.QualifiedPlaced:
     case FinalDecision.QualifiedPending:
       return "success";
     default:
-      return "black";
+      return "gray";
   }
 };
 
@@ -299,7 +304,7 @@ export const getCandidateStatusChip = (
 
 /* Applicant facing statuses */
 
-const applicationStatusLabels = defineMessages({
+export const applicationStatusLabels = defineMessages({
   EXPIRED: {
     defaultMessage: "Expired",
     id: "GIC6EK",
@@ -343,7 +348,7 @@ const applicationStatusLabels = defineMessages({
   },
 });
 
-const applicationStatusDescriptions = defineMessages({
+export const applicationStatusDescriptions = defineMessages({
   EXPIRED: {
     defaultMessage: "The deadline for this opportunity has passed.",
     id: "CeKPRS",
@@ -423,7 +428,7 @@ export const getApplicationStatusChip = (
   if (!submittedAt) {
     if (closingDate && isPast(parseDateTimeUtc(closingDate))) {
       return {
-        color: "black",
+        color: "gray",
         label: intl.formatMessage(applicationStatusLabels.EXPIRED),
         description: intl.formatMessage(applicationStatusDescriptions.EXPIRED),
         value: applicationStatus.EXPIRED,
@@ -445,7 +450,7 @@ export const getApplicationStatusChip = (
   ) {
     if (areaOfSelection === PoolAreaOfSelection.Employees) {
       return {
-        color: "black",
+        color: "gray",
         label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
@@ -462,7 +467,7 @@ export const getApplicationStatusChip = (
       };
     } else {
       return {
-        color: "black",
+        color: "gray",
         label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC,
@@ -740,4 +745,16 @@ export const deadlineToApply = (
     (status === applicationStatus.DRAFT && lessThanThreeDaysTillClosingDate) ||
     status === applicationStatus.EXPIRED
   );
+};
+
+export const getScreeningStageIndex = (
+  screeningStage?: Maybe<ScreeningStage>,
+) => {
+  if (!screeningStage) return null;
+
+  const index = ENUM_SORT_ORDER.SCREENING_STAGE.indexOf(screeningStage);
+
+  if (index < 0) return null;
+
+  return index + 1;
 };

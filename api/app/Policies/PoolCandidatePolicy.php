@@ -200,8 +200,8 @@ class PoolCandidatePolicy
         return $teamPermission || $communityPermission;
     }
 
-    // bookmarking and notes share permissions
-    public function updateBookmark(User $user, PoolCandidate $poolCandidate)
+    // flagging and notes share permissions
+    public function updateFlag(User $user, PoolCandidate $poolCandidate)
     {
         if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;

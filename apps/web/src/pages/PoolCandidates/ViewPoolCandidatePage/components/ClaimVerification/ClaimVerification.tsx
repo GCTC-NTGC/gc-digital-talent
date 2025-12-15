@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
-import { Heading, Separator, Well } from "@gc-digital-talent/ui";
+import { Heading, Separator, Notice } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
@@ -102,15 +102,17 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
           </ClaimRow>
         </>
       ) : (
-        <Well>
-          {intl.formatMessage({
-            defaultMessage:
-              "The candidate has no other information that needs verification.",
-            id: "06xcoU",
-            description:
-              "Message for when a candidate has no claims to be verified",
-          })}
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            {intl.formatMessage({
+              defaultMessage:
+                "The candidate has no other information that needs verification.",
+              id: "06xcoU",
+              description:
+                "Message for when a candidate has no claims to be verified",
+            })}
+          </Notice.Content>
+        </Notice.Root>
       )}
     </>
   );

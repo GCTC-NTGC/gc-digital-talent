@@ -1,43 +1,120 @@
 /* eslint-disable playwright/no-conditional-in-test */
-import { User } from "@gc-digital-talent/graphql";
+import {
+  ArmedForcesStatus,
+  CitizenshipStatus,
+  FlexibleWorkLocation,
+  PoolCandidate,
+  PositionDuration,
+  ProvinceOrTerritory,
+  SkillCategory,
+  User,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import UserPage from "~/fixtures/UserPage";
 import { loginBySub } from "~/utils/auth";
 import { expect, test } from "~/fixtures";
 import testConfig from "~/constants/config";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
+import { getSkills } from "~/utils/skills";
+import { createAndPublishPool, deletePool } from "~/utils/pools";
+import { createAndSubmitApplication } from "~/utils/applications";
+import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 
 test.describe("Location Preference Validation", () => {
-  let uniqueTestId: string;
   let adminCtx: GraphQLContext;
   let user: User;
   let userPage: UserPage;
   let locationPrefPage: LocationPreferenceUpdatePage;
+  let candidatePage: PoolCandidatePage;
+  let application: PoolCandidate;
+  let id: string;
 
   test.beforeAll(async () => {
-    uniqueTestId = generateUniqueTestId();
+    const testId = generateUniqueTestId();
     adminCtx = await graphql.newContext();
-    const userName = `Playwright ${uniqueTestId}`;
-    const sub = `playwright.sub.${uniqueTestId}`;
+    const sub = `playwright.loc.pref.${testId}`;
 
-    const createdUser = await createUserWithRoles(adminCtx, {
-      user: {
-        firstName: userName,
-        email: `${sub}@test.org`,
-        sub,
-      },
-      roles: ["guest", "base_user", "applicant"],
+    const skill = await getSkills(adminCtx, {}).then((skills) => {
+      return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
 
+    const createdUser = await createUserWithRoles(adminCtx, {
+      roles: ["guest", "base_user", "applicant"],
+      user: {
+        email: `${sub}@example.org`,
+        firstName: sub,
+        sub,
+        currentProvince: ProvinceOrTerritory.Alberta,
+        currentCity: "Test city",
+        telephone: "+10123456789",
+        armedForcesStatus: ArmedForcesStatus.Veteran,
+        citizenship: CitizenshipStatus.Citizen,
+        lookingForEnglish: true,
+        isGovEmployee: false,
+        hasPriorityEntitlement: true,
+        priorityNumber: "123",
+        locationPreferences: [WorkRegion.Atlantic],
+        flexibleWorkLocations: [
+          FlexibleWorkLocation.Hybrid,
+          FlexibleWorkLocation.Onsite,
+        ],
+        positionDuration: [PositionDuration.Permanent],
+        personalExperiences: {
+          create: [
+            {
+              description: "Test Experience Description",
+              details: "A Playwright test personal experience",
+              skills: {
+                sync: [
+                  {
+                    details: `Test Skill ${skill?.name.en}`,
+                    id: skill?.id ?? "",
+                  },
+                ],
+              },
+              startDate: FAR_PAST_DATE,
+              title: "Test Experience",
+            },
+          ],
+        },
+      },
+    });
+
+    const createdPool = await createAndPublishPool(adminCtx, {
+      userId: createdUser?.id ?? "",
+      skillIds: skill ? [skill?.id] : undefined,
+      name: {
+        en: `App location preference ${testId} (EN)`,
+        fr: `App location preference ${testId} (FR)`,
+      },
+    });
+
+    const applicantCtx = await graphql.newContext(
+      createdUser?.authInfo?.sub ?? "applicant@test.com",
+    );
+    const applicant = await me(applicantCtx, {});
+
+    const candidate = await createAndSubmitApplication(applicantCtx, {
+      userId: applicant.id,
+      poolId: createdPool.id,
+      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
+      signature: `${applicant.firstName} signature`,
+    });
+
+    application = candidate;
     user = createdUser ?? { id: "" };
+    id = createdPool.id;
   });
 
   test.afterAll(async () => {
     if (user) {
       await deleteUser(adminCtx, { id: user.id });
+      await deletePool(adminCtx, { id: id });
     }
   });
 
@@ -46,7 +123,8 @@ test.describe("Location Preference Validation", () => {
     const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
     userPage = new UserPage(appPage.page);
-    await userPage.searchUserByName(userName);
+    await userPage.goToIndex();
+    await userPage.searchUserByName(userName, "Candidate name");
     await appPage.page.locator(`a:has-text("${userName} User")`).click();
     await appPage.waitForGraphqlResponse("AdminApplicantProfilePage");
     await expect(
@@ -56,5 +134,55 @@ test.describe("Location Preference Validation", () => {
       .getByRole("button", { name: "Work preferences", exact: true })
       .click();
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
+  });
+
+  test("Validate Location preference update in Candidate Table view", async ({
+    appPage,
+  }) => {
+    const page = appPage.page;
+    const userName = user?.firstName ?? "";
+    // const userEmail = user?.email ?? "";
+    locationPrefPage = new LocationPreferenceUpdatePage(page);
+    candidatePage = new PoolCandidatePage(page);
+    userPage = new UserPage(page);
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+    await candidatePage.toGoCandidate(application.id);
+    await appPage.page
+      .getByRole("button", { name: "Work preferences", exact: true })
+      .click();
+    await locationPrefPage.validateSelectedFlexWorkLocOptions();
+    await candidatePage.goToIndex();
+    await locationPrefPage.showOrHideColumns();
+    // Filter the work locations which user has chosen and verify user is present
+    await locationPrefPage.filterFlexWorkLocation(
+      [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
+      [WorkRegion.Atlantic],
+    );
+    await appPage.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
+    );
+    await userPage.searchUserByName(userName, "Candidate name");
+    await expect(
+      page.getByRole("columnheader", {
+        name: /Flexible work location options/i,
+      }),
+    ).toHaveAccessibleName(/Flexible work location options/i);
+    await locationPrefPage.verifyFlexibleWorkLocationData(userName);
+    await expect(
+      appPage.page.locator(`a:has-text("${userName} User")`),
+    ).toBeVisible();
+
+    // Filter the work location to which user hasn't selected and verify user should not be present
+    await userPage.searchUserByName(userName, "Candidate name");
+    await locationPrefPage.filterFlexWorkLocation(
+      [FlexibleWorkLocation.Remote],
+      [WorkRegion.Ontario],
+    );
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: /There aren't any items here./i,
+        level: 2,
+      }),
+    ).toBeVisible();
   });
 });

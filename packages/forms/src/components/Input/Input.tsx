@@ -23,8 +23,7 @@ const input = tv({
 });
 
 export interface InputProps
-  extends Omit<HTMLInputProps, "name" | "id">,
-    CommonInputProps {
+  extends Omit<HTMLInputProps, "name" | "id">, CommonInputProps {
   /** Set the type of the input. */
   type: "text" | "number" | "email" | "tel" | "password" | "search" | "url";
   // Whether to trim leading/ending whitespace upon blurring of an input, default on

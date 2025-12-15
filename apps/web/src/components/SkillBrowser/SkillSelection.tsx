@@ -2,7 +2,7 @@ import { useMemo, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { normalizeString } from "@gc-digital-talent/helpers";
@@ -115,11 +115,13 @@ const SkillSelection = ({
         </div>
       </div>
       {!selectedSkill && (
-        <Well>
-          <p className="text-center">
-            {intl.formatMessage(skillBrowserMessages.nullSkill)}
-          </p>
-        </Well>
+        <Notice.Root>
+          <Notice.Content>
+            <p className="text-center">
+              {intl.formatMessage(skillBrowserMessages.nullSkill)}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       {selectedSkill && <SkillDescription skill={selectedSkill} />}
     </>

@@ -40,10 +40,6 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 
-const testId = (chunks: ReactNode) => (
-  <span data-testid="candidateCount">{chunks}</span>
-);
-
 const styledCount = (chunks: ReactNode) => (
   <span className="font-bold text-primary-500 dark:text-primary-300">
     {chunks}
@@ -238,19 +234,18 @@ export const SearchForm = ({
                 {intl.formatMessage(
                   {
                     defaultMessage: `Results: {totalCandidateCount, plural,
-                      =0 {<testId><b>#</b></testId> matching candidates}
-                      one {<testId><b>#</b></testId> matching candidate}
-                      other {<testId><b>#</b></testId> matching candidates} } across {numPools, plural,
-                      =0 {<b>#</b> pools}
-                      one {<b>#</b> pool}
-                      other {<b>#</b> pools} }`,
-                    id: "e5N39X",
+                      =0 {<strong>#</strong> matching candidates}
+                      one {<strong>#</strong> matching candidate}
+                      other {<strong>#</strong> matching candidates} } across {numPools, plural,
+                      =0 {<strong>#</strong> pools}
+                      one {<strong>#</strong> pool}
+                      other {<strong>#</strong> pools} }`,
+                    id: "zvnzds",
                     description:
                       "Heading for total matching candidates across a certain number of pools in results section of search page.",
                   },
                   {
-                    testId,
-                    b: styledCount,
+                    strong: styledCount,
                     totalCandidateCount: candidateCount,
                     numPools: results?.length ?? 0,
                   },

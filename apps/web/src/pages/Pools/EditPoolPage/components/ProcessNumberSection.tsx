@@ -55,7 +55,8 @@ const EditPoolProcessNumber_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface ProcessNumberSectionProps
-  extends SectionProps<
+  extends
+    SectionProps<
       ProcessNumberSubmitData,
       FragmentType<typeof EditPoolProcessNumber_Fragment>
     >,

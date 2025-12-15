@@ -19,7 +19,8 @@ import {
 } from "./util";
 
 export interface FormValues
-  extends FindANewCommunitySubformValues,
+  extends
+    FindANewCommunitySubformValues,
     TrainingAndDevelopmentOpportunitiesSubformValues,
     AdditionalInformationSubformValues,
     ReviewAndSubmitSubformValues {

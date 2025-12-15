@@ -22,7 +22,7 @@ import {
   Metadata,
   MetadataItemProps,
   UNICODE_CHAR,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import {
   CourseLanguage,
@@ -517,17 +517,19 @@ export const Component = () => {
                 })}
               </>
             ) : (
-              <Well className="text-center">
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "There are currently no upcoming training events. Check back later.",
-                    id: "l4d7/6",
-                    description:
-                      "Null message for instructor led training list",
-                  })}
-                </p>
-              </Well>
+              <Notice.Root className="text-center">
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There are currently no upcoming training events. Check back later.",
+                      id: "l4d7/6",
+                      description:
+                        "Null message for instructor led training list",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
             )}
           </>
         )}

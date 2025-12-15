@@ -69,7 +69,7 @@ const generatePoolCandidate = (
     ),
     submittedAt: FAR_PAST_DATE,
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
-    isBookmarked: faker.datatype.boolean(0.2),
+    isFlagged: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
     assessmentStep: pool.assessmentSteps?.[0] ?? null,

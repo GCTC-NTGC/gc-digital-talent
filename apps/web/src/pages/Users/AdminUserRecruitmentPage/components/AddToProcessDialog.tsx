@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
-import { Dialog, Button, Notice, Well } from "@gc-digital-talent/ui";
+import { Dialog, Button, Notice } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Select } from "@gc-digital-talent/forms";
 import {
@@ -206,14 +206,16 @@ const AddToProcessDialog = ({ query }: AddToProcessDialogProps) => {
               })}
             </Notice.Title>
           </Notice.Root>
-          <Well className="my-6 flex flex-col gap-6">
-            <FieldDisplay label={intl.formatMessage(commonMessages.name)}>
-              {fullName}
-            </FieldDisplay>
-            <FieldDisplay label={intl.formatMessage(commonMessages.email)}>
-              {user?.email ?? intl.formatMessage(commonMessages.notProvided)}
-            </FieldDisplay>
-          </Well>
+          <Notice.Root className="my-6 flex flex-col gap-6">
+            <Notice.Content>
+              <FieldDisplay label={intl.formatMessage(commonMessages.name)}>
+                {fullName}
+              </FieldDisplay>
+              <FieldDisplay label={intl.formatMessage(commonMessages.email)}>
+                {user?.email ?? intl.formatMessage(commonMessages.notProvided)}
+              </FieldDisplay>
+            </Notice.Content>
+          </Notice.Root>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <Select
