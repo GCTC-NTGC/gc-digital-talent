@@ -10,4 +10,5 @@ enum PoolCandidateEvent: string
     case PLACED = 'placed';
     case REMOVED = 'removed';
     case REINSTATED = 'reinstated';
+    case REVERTED = 'reverted';
 }

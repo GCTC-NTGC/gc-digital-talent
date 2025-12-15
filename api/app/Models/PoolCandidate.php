@@ -820,27 +820,58 @@ class PoolCandidate extends Model
         $this->logActivity(PoolCandidateEvent::REINSTATED);
     }
 
+    public function revertPlacement()
+    {
+        $atts = ['pool_candidate_status', 'placed_at', 'placed_department_id'];
+        $old = $this->only($atts);
+
+        $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->placed_at = null;
+        $this->placed_department_id = null;
+
+        $this->save();
+
+        $this->logActivity(PoolCandidateEvent::REVERTED,
+            $this->only($atts),
+            $old
+        );
+
+    }
+
     public function revertFinalDecision()
     {
+        $atts = ['pool_candidate_status', 'expiry_date', 'final_decision_at', 'screening_stage'];
+        $old = $this->only($atts);
+
         $this->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $this->expiry_date = null;
         $this->final_decision_at = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
+
+        $this->save();
+
+        $this->logActivity(PoolCandidateEvent::REVERTED,
+            $this->only($atts),
+            $old
+        );
     }
 
-    public function logActivity(PoolCandidateEvent $event, ?array $attributes = [])
+    public function logActivity(PoolCandidateEvent $event, ?array $atts = [], ?array $old = [])
     {
-        $activity = activity()
-            ->causedBy(Auth::user())
-            ->performedOn($this)
-            ->event($event->value);
-
-        if (! empty($attributes)) {
-            $activity->withProperties([
-                'attributes' => $attributes,
-            ]);
+        $properties = [];
+        if (! empty($atts)) {
+            $properties['attributes'] = $atts;
         }
 
-        $activity->log($event->value);
+        if (! empty($old)) {
+            $properties['old'] = $old;
+        }
+
+        activity()
+            ->causedBy(Auth::user())
+            ->performedOn($this)
+            ->event($event->value)
+            ->withProperties($properties)
+            ->log($event->value);
     }
 }
