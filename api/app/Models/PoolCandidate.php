@@ -749,6 +749,8 @@ class PoolCandidate extends Model
         $this->computed_final_decision = $finalDecision['decision'];
         $this->computed_final_decision_weight = $finalDecision['weight'];
 
+        $this->save();
+
         $this->logActivity(PoolCandidateEvent::PLACED, [
             'placement_type' => $placementType,
             'placed_department_id' => $departmentId,
@@ -835,6 +837,8 @@ class PoolCandidate extends Model
         $this->removal_reason = null;
         $this->removal_reason_other = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
+
+        $this->save();
 
         $this->logActivity(PoolCandidateEvent::REINSTANTED);
     }
