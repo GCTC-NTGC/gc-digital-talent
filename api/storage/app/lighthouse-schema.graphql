@@ -3922,6 +3922,15 @@ enum PoolAreaOfSelection {
   EMPLOYEES
 }
 
+enum PoolCandidateEvent {
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  REMOVED
+  REINSTANTED
+}
+
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
