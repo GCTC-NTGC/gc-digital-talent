@@ -163,13 +163,19 @@ class LocationPreferenceUpdatePage extends AppPage {
     return await selectedOptions.allTextContents();
   }
 
-  async showOrHideColumns() {
+  async setFlexibleWorkLocationColumn() {
+    const flexWorkLocHeader = this.page.getByRole("columnheader", {
+      name: /Flexible work location options/i,
+    });
+    await expect(flexWorkLocHeader).toHaveCount(0);
     await this.locators[FIELD.SHOW_HIDE_COLUMNS].click();
-    await expect(
-      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN],
-    ).toBeVisible();
-    await this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN].check();
+    const checkbox = this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN];
+    await expect(checkbox).toBeVisible();
+    if (!(await checkbox.isChecked())) {
+      await checkbox.check();
+    }
     await this.locators[FIELD.CLOSE_WINDOW].click();
+    await expect(flexWorkLocHeader).toBeVisible();
   }
 
   async filterFlexWorkLocation(
@@ -187,17 +193,16 @@ class LocationPreferenceUpdatePage extends AppPage {
     await this.deSelectOptions(this.regionsMap);
     await this.selectOptions(this.regionsMap, regionOptions);
     await this.locators[FIELD.SHOW_RESULTS].click();
+    await this.waitForGraphqlResponse("CommunityTalentTable");
   }
 
   async verifyFlexibleWorkLocationData(user: string) {
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
     const selectedFlexOptions = await this.getSelectedWorkLocOptions();
-    const table = this.page.getByRole("table");
-
-    const row = table.getByRole("row", {
-      name: new RegExp(user, "i"),
-    });
-
+    const row = this.page
+      .getByRole("table")
+      .first()
+      .getByRole("row", { name: new RegExp(user, "i") });
     const rowText = (await row.innerText()).toLowerCase();
 
     for (const option of selectedFlexOptions) {
