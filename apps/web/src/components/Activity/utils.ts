@@ -215,11 +215,11 @@ export function groupByDay<T, K extends keyof T>(
   items: T[],
   key?: K,
 ): GroupedByDay<T>[] {
-  const groups: Record<string, T[]> = {};
+  const groups = new Map<string, T[]>();
   const dateKey = (key ?? "createdAt") as keyof T;
 
   for (const item of items) {
-    const rawDate = item[dateKey ?? "createdAt"];
+    const rawDate = item[dateKey];
     if (typeof rawDate !== "string") continue;
 
     const date = parseDateTimeUtc(rawDate);
@@ -227,15 +227,14 @@ export function groupByDay<T, K extends keyof T>(
 
     const day = format(date, "yyyy-MM-dd");
 
-    // Grouping: simple & safe
-    if (groups[day]) {
-      groups[day].push(item);
-    } else {
-      groups[day] = [item];
+    if (!groups.has(day)) {
+      groups.set(day, []);
     }
+
+    groups.get(day)?.push(item);
   }
 
-  return Object.entries(groups)
+  return Array.from(groups.entries())
     .sort(([a], [b]) => b.localeCompare(a))
     .map(([day, activities]) => ({ day, activities }));
 }
