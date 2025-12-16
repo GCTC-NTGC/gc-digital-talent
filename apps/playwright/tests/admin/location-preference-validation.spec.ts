@@ -1,3 +1,4 @@
+/* eslint-disable playwright/no-conditional-in-test */
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
