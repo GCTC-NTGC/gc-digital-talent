@@ -12,6 +12,7 @@ import { Container, Heading, NotFound, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import ActivityLog from "~/components/Activity/ActivityLog";
 import useRequiredParams from "~/hooks/useRequiredParams";
