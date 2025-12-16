@@ -222,7 +222,9 @@ class CandidateFacingStatusTest extends TestCase
                 ...$default,
                 'suspended_at' => $past,
             ]],
-            'expired' => [CandidateInterest::NOT_INTERESTED->name, [
+
+            // Expired
+            'expired' => [CandidateInterest::EXPIRED->name, [
                 ...$default,
                 'expiry_date' => $past,
             ]],
