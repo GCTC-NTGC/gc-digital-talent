@@ -439,7 +439,7 @@ class PoolCandidate extends Model
     public function isOpenToJobs(): Attribute
     {
         return Attribute::get(function () {
-            return ($this->placed_at && $this->placed_at->isPast()) ||
+            return (empty($this->placed_at) || $this->placed_at->isPast()) &&
                 in_array($this->pool_candidate_status, PoolCandidateStatus::openToJobsGroup());
         });
     }
