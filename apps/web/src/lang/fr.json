@@ -2332,7 +2332,7 @@
     "description": "Paragraph for privacy policy page"
   },
   "7g4Mvc": {
-    "defaultMessage": "Ajouté aux favoris",
+    "defaultMessage": "Ajouté aux signets",
     "description": "Title displayed on the Pool Candidates table bookmark column"
   },
   "7gTBjD": {
@@ -10163,7 +10163,7 @@
     "description": "Description for Add your work experience section"
   },
   "g4F/WB": {
-    "defaultMessage": "Favoris du processus retirés.",
+    "defaultMessage": "Le signet du processus est retiré avec succès.",
     "description": "Alert displayed to the user when they un-mark a pool as bookmarked."
   },
   "g5JeNf": {
