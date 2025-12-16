@@ -16,18 +16,18 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import ActivityLog from "~/components/Activity/ActivityLog";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { formatActivityDayGroup } from "~/components/Activity/utils";
+import {
+  formatActivityDayGroup,
+  groupByDay,
+} from "~/components/Activity/utils";
 
 const PoolActivity_Fragment = graphql(/** GraphQL */ `
   fragment PoolActivity on Pool {
     publishedAt
     activities {
-      day
-      items {
-        id
-        createdAt
-        ...ActivityItem
-      }
+      id
+      createdAt
+      ...ActivityItem
     }
   }
 `);
@@ -39,8 +39,12 @@ interface PoolActivityProps {
 const PoolActivity = ({ query }: PoolActivityProps) => {
   const intl = useIntl();
   const pool = getFragment(PoolActivity_Fragment, query);
-  const activities = unpackMaybes(pool.activities).filter(
-    (activity) => activity.items.length > 0,
+  const groups = groupByDay(
+    unpackMaybes(pool.activities).sort((a, b) => {
+      const aCreatedAt = a?.createdAt ? new Date(a.createdAt) : MAX_DATE;
+      const bCreatedAt = b?.createdAt ? new Date(b.createdAt) : MAX_DATE;
+      return bCreatedAt.getTime() - aCreatedAt.getTime();
+    }),
   );
 
   return (
@@ -58,14 +62,14 @@ const PoolActivity = ({ query }: PoolActivityProps) => {
         })}
       </Heading>
 
-      {activities.length > 0 ? (
+      {groups.length > 0 ? (
         <ActivityLog.Root>
-          {activities.map((group) => (
+          {groups.map((group) => (
             <ActivityLog.List
               key={group.day}
               heading={formatActivityDayGroup(group.day, intl)}
             >
-              {group.items.map((item, index) => (
+              {group.activities.map((item, index) => (
                 <ActivityLog.PoolItem
                   key={item.id}
                   query={item}

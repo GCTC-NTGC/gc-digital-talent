@@ -3,6 +3,8 @@ import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import { tv, VariantProps } from "tailwind-variants";
+import { isValid } from "date-fns/isValid";
+import { format } from "date-fns/format";
 
 import { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
@@ -197,4 +199,43 @@ export function formatActivityDayGroup(day: string, intl: IntlShape): string {
     formatString: DATE_FORMAT_LOCALIZED,
     intl,
   });
+}
+
+interface GroupedByDay<T> {
+  day: string;
+  activities: T[];
+}
+
+interface GroupedByDay<T> {
+  day: string;
+  activities: T[];
+}
+
+export function groupByDay<T, K extends keyof T>(
+  items: T[],
+  key?: K,
+): GroupedByDay<T>[] {
+  const groups: Record<string, T[]> = {};
+  const dateKey = (key ?? "createdAt") as keyof T;
+
+  for (const item of items) {
+    const rawDate = item[dateKey ?? "createdAt"];
+    if (typeof rawDate !== "string") continue;
+
+    const date = parseDateTimeUtc(rawDate);
+    if (!isValid(date)) continue;
+
+    const day = format(date, "yyyy-MM-dd");
+
+    // Grouping: simple & safe
+    if (groups[day]) {
+      groups[day].push(item);
+    } else {
+      groups[day] = [item];
+    }
+  }
+
+  return Object.entries(groups)
+    .sort(([a], [b]) => b.localeCompare(a))
+    .map(([day, activities]) => ({ day, activities }));
 }

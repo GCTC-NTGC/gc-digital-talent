@@ -1049,11 +1049,6 @@ type Activity {
   updatedAt: DateTime
 }
 
-type ActivitiesByDay {
-  day: Date!
-  items: [Activity!]!
-}
-
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -1105,7 +1100,7 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
-  activities: [ActivitiesByDay!]
+  activities: [Activity!]
 }
 
 type GeneralQuestionResponse {
