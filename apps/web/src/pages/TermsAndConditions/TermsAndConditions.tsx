@@ -111,8 +111,8 @@ const trademarkLink = (locale: Locales, chunks: ReactNode) => (
     external
     href={
       locale === "en"
-        ? "https://www.canada.ca/en/treasury-board-secretariat/topics/government-communications/federal-identity-requirements/legal-protection-official-symbols-government-canada.html"
-        : "https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/communications-gouvernementales/exigences-image-marque/protection-juridique-symboles-officiels-gouvernement-canada.html"
+        ? "https://www.canada.ca/en/government/system/government-communications/federal-identity-requirements/legal-protection-official-symbols-government-canada.html"
+        : "https://www.canada.ca/fr/gouvernement/systeme/communications-gouvernementales/exigences-image-marque/protection-juridique-symboles-officiels-gouvernement-canada.html"
     }
   >
     {chunks}
