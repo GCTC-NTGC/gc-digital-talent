@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   Classification,
   EstimatedLanguageAbility,
@@ -54,6 +54,7 @@ test.describe("Talent search", () => {
     await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
         sub,
         isWoman: true,
         lookingForFrench: true,
