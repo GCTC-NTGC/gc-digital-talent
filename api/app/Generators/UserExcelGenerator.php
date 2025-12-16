@@ -258,11 +258,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     {
         $currentRow = 2;
 
-        $this->addWorkExperiences($sheet, $userIds, $currentRow);
-        $this->addEducationExperiences($sheet, $userIds, $currentRow);
-        $this->addAwardExperiences($sheet, $userIds, $currentRow);
-        $this->addCommunityExperiences($sheet, $userIds, $currentRow);
-        $this->addPersonalExperiences($sheet, $userIds, $currentRow);
+        $this->generateExperiences($sheet, $userIds, WorkExperience::class, $currentRow);
+        $this->generateExperiences($sheet, $userIds, EducationExperience::class, $currentRow);
+        $this->generateExperiences($sheet, $userIds, AwardExperience::class, $currentRow);
+        $this->generateExperiences($sheet, $userIds, CommunityExperience::class, $currentRow);
+        $this->generateExperiences($sheet, $userIds, PersonalExperience::class, $currentRow);
     }
 
     /**
@@ -397,15 +397,23 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     }
 
     /**
-     * Add work experiences to career experience sheet
+     * Add experiences to Career Experience sheet
      */
-    private function addWorkExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
+    private function generateExperiences(Worksheet $sheet, array $userIds, string $experienceClass, int &$currentRow): void
     {
-        WorkExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'department', 'classification', 'userSkills.skill', 'workStreams'])
+        // get experiences for selected user
+        $experienceClass::whereIn('user_id', $userIds)
+        // load data relationships
+            ->with(['user', 'userSkills.skill'])
+            // load data for work experiences
+            ->when($experienceClass === WorkExperience::class, function ($query) {
+                // work experiences need additional data
+                $query->with(['department', 'classification', 'workStreams']);
+            })
             ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
                 foreach ($experiences as $exp) {
-                    $rowData = $this->buildWorkExperienceRow($exp);
+                    // convert each experience to a excel row
+                    $rowData = $this->buildExperienceRow($exp);
                     $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
                     $currentRow++;
                 }
@@ -428,385 +436,280 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     }
 
     /**
-     * Build work experience row
+     * Build experiences row
      */
-    private function buildWorkExperienceRow(WorkExperience $exp): array
+    private function buildExperienceRow($exp): array
     {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-        $workStreams = $this->getWorkStreams($exp);
-        [$departmentNumber, $departmentSize, $departmentType] = $this->getDepartmentInfo($exp);
+        $className = get_class($exp);
 
-        return [
-            $exp->user->id, // user id
-            $exp->user->first_name, // first name
-            $exp->user->last_name, // last name
-            $this->getExperienceType($exp),  // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
-            $isCurrent, // currently active
-            $numberOfMonths, // number of months calculated number of months based on the start and end date or start date and date of download for current experiences
-            $exp->role ?? '', // Role or title: My role (work experience), My role (Community participation), Personal experience short title, Award title
-            $exp->organization ?? '', // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
-            $exp->employment_category ? $this->localizeEnum($exp->employment_category, EmploymentCategory::class) : '',  // Employment category
-            $exp->division ?? '', // team, group, division
-            $exp->ext_size_of_organization ?? '', // size external organization
-            $exp->ext_role_seniority ?? '', // seniority external organziation
-            $exp->gov_employment_type ?? '', // gc employment type
-            $exp->gov_position_type ?? '', // gc position type
-            $exp->classification ? ($exp->classification->group.($exp->classification->level ? '-'.$exp->classification->level : '')) : '', // Classification: group-level
-            $this->yesOrNo($exp->supervisory_position), // gc management or supervisory status: Yes, No, empty
-            $exp->supervised_employees_number ?? '', // GC number of supervised employees
-            $exp->annual_budget_allocation ?? '', // GC annual budget allocation
-            $exp->c_suite_role_title ?? '', // GC C-suite role
-            $exp->other_c_suite_title ?? '', // Other C-suite role title
-            $exp->caf_employment_type ?? '', // CAF employment type
-            $exp->caf_rank ? $this->localizeEnum($exp->caf_rank, CafRank::class) : '', // CAF rank category
-            $workStreams, // Work streams: workstreams linked to the experience separated by commas
-            // Education fields - empty for work
-            '', // 25: type_of_education
-            '', // 26: area_study
-            '', // 27: education_status
-            '', // 28: thesis_title
+        if ($className === WorkExperience::class) {
+            $experienceType = $this->localizeEnum(ExperienceType::WORK->name, ExperienceType::class);
+            $featuredSkills = $this->getFeaturedSkills($exp);
+            $isCurrent = $this->yesOrNo(empty($exp->end_date));
+            $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+            $workStreams = $this->getWorkStreams($exp);
+            [$departmentNumber, $departmentSize, $departmentType] = $this->getDepartmentInfo($exp);
 
-            // Community/Personal fields - empty for work
-            '', // 29: community_project_or_product
-            '', // 30: personal_learning_experience_description
+            return [
+                $exp->user->id, // user id
+                $exp->user->first_name, // first name
+                $exp->user->last_name, // last name
+                $experienceType, // experience type
+                $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
+                $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
+                $isCurrent, // currently active
+                $numberOfMonths, // number of months calculated number of months based on the start and end date or start date and date of download for current experiences
+                $exp->role ?? '', // Role or title: My role (work experience), My role (Community participation), Personal experience short title, Award title
+                $exp->organization ?? '', // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
+                $exp->employment_category ? $this->localizeEnum($exp->employment_category, EmploymentCategory::class) : '',  // Employment category
+                $exp->division ?? '', // team, group, division
+                $exp->ext_size_of_organization ?? '', // size external organization
+                $exp->ext_role_seniority ?? '', // seniority external organziation
+                $exp->gov_employment_type ?? '', // gc employment type
+                $exp->gov_position_type ?? '', // gc position type
+                $exp->classification ? ($exp->classification->group.($exp->classification->level ? '-'.$exp->classification->level : '')) : '', // Classification: group-level
+                $this->yesOrNo($exp->supervisory_position), // gc management or supervisory status: Yes, No, empty
+                $exp->supervised_employees_number ?? '', // GC number of supervised employees
+                $exp->annual_budget_allocation ?? '', // GC annual budget allocation
+                $exp->c_suite_role_title ?? '', // GC C-suite role
+                $exp->other_c_suite_title ?? '', // Other C-suite role title
+                $exp->caf_employment_type ?? '', // CAF employment type
+                $exp->caf_rank ? $this->localizeEnum($exp->caf_rank, CafRank::class) : '', // CAF rank category
+                $workStreams, // Work streams: workstreams linked to the experience separated by commas
+                '', // type_of_education
+                '', // area_study
+                '', // education_status
+                '', // thesis_title
+                '', // community_project_or_product
+                '', // personal_learning_experience_description
+                '', // award_recipient
+                '', // issuing_org
+                '', // awarded_scope
+                '', // date_awarded
+                $exp->details ?? '',
+                $featuredSkills,
+                $this->getFeaturedSkillJustification($exp, 'achieve_results'),
+                $this->getFeaturedSkillJustification($exp, 'character_leadership'),
+                $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'),
+                $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'),
+                $this->getFeaturedSkillJustification($exp, 'mobilize_people'),
+                $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'),
+                $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'),
+                $departmentNumber,
+                $departmentSize,
+                $departmentType,
+            ];
+        } elseif ($className === EducationExperience::class) {
+            $experienceType = $this->localizeEnum(ExperienceType::EDUCATION->name, ExperienceType::class);
+            $featuredSkills = $this->getFeaturedSkills($exp);
+            $isCurrent = $this->yesOrNo(empty($exp->end_date));
+            $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
 
-            // Award fields - empty for work
-            '', // 31: award_recipient
-            '', // 32: issuing_org
-            '', // 33: awarded_scope
-            '', // 34: date_awarded
-            $exp->details ?? '',
-            $this->getFeaturedSkills($exp),
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            $departmentNumber,
-            $departmentSize,
-            $departmentType,
-        ];
-    }
+            return [
+                $exp->user->id,
+                $exp->user->first_name,
+                $exp->user->last_name,
+                $experienceType,
+                $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
+                $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
+                $isCurrent, // currently active
+                $numberOfMonths, // number of months
+                $exp->area_study ?? '', // role_or_title (use area of study)
+                $exp->institution ?? '', // organization_department
+                '', // employment_category
+                '', // team_group
+                '', // size_external_organization
+                '', // seniority_external_organization
+                '', // gc_employment_type
+                '', // gc_position_type
+                '', // classification
+                '', // gc_management_or_supervisory_status
+                '', // gc_number_of_supervised_employees
+                '', // gc_annual_budget_allocation
+                '', // c_suite_title
+                '', // other_c_suite_title
+                '', // caf_employment_type
+                '', // rank_category
+                '', // work_streams
+                $exp->type ? $this->localizeEnum($exp->type, EducationType::class) : '', // education type
+                $exp->area_study ?? '', // area of study
+                $exp->status ? $this->localizeEnum($exp->status, EducationStatus::class) : '', // education status
+                $exp->thesis_title ?? '', // thesis title
+                '', // community_project_or_product
+                '', // personal_learning_experience_description
+                '', // award_recipient
+                '', // issuing_org
+                '', // awarded_scope
+                '', // date_awarded
+                $exp->details ?? '',
+                $featuredSkills,
+                $this->getFeaturedSkillJustification($exp, 'achieve_results'),
+                $this->getFeaturedSkillJustification($exp, 'character_leadership'),
+                $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'),
+                $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'),
+                $this->getFeaturedSkillJustification($exp, 'mobilize_people'),
+                $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'),
+                $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'),
+                '', '', '',
+            ];
+        } elseif ($className === AwardExperience::class) {
+            $experienceType = $this->localizeEnum(ExperienceType::AWARD->name, ExperienceType::class);
+            $featuredSkills = $this->getFeaturedSkills($exp);
 
-    /**
-     * Add education experiences to career experience sheet
-     */
-    private function addEducationExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        EducationExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildEducationExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
+            return [
+                $exp->user->id,
+                $exp->user->first_name,
+                $exp->user->last_name,
+                $experienceType, // experience type
+                '', // start date
+                '', // end date
+                $this->yesOrNo(false), // is current
+                0, // number of months
+                $exp->title ?? '', // role or title
+                $exp->issued_by ?? '', // organization_department
+                '', // employment_category
+                '', // team_group
+                '', // size_external_organization
+                '', // seniority_external_organization
+                '', // gc_employment_type
+                '', // gc_position_type
+                '', // classification
+                '', // gc_management_or_supervisory_status
+                '', // gc_number_of_supervised_employees
+                '', // gc_annual_budget_allocation
+                '', // c_suite_title
+                '', // other_c_suite_title
+                '', // caf_employment_type
+                '', // rank_category
+                '', // work_streams
+                '', // type_of_education
+                '', // area_study
+                '', // education_status
+                '', // thesis_title
+                '', // community_project_or_product
+                '', // personal_learning_experience_description
+                $exp->awarded_to ? $this->localizeEnum($exp->awarded_to, AwardedTo::class) : '', // award_recipient
+                $exp->issued_by ?? '', // issued by
+                $exp->awarded_scope ?? '', // award
+                $exp->awarded_date ? $exp->awarded_date->format('Y-m-d') : '', // date awarded
+                $exp->details ?? '', // additional details
+                $featuredSkills, // featured skills
+                $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+                $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+                $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+                $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+                $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+                $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_chang
+                $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
+                '', '', '',
+            ];
+        } elseif ($className === CommunityExperience::class) {
+            $experienceType = $this->localizeEnum(ExperienceType::COMMUNITY->name, ExperienceType::class);
+            $featuredSkills = $this->getFeaturedSkills($exp);
+            $isCurrent = $this->yesOrNo(empty($exp->end_date));
+            $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
 
-    /**
-     * Build education experience row
-     */
-    private function buildEducationExperienceRow(EducationExperience $exp): array
-    {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+            return [
+                $exp->user->id,
+                $exp->user->first_name,
+                $exp->user->last_name,
+                $experienceType, // experience type
+                $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
+                $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
+                $isCurrent, // is current
+                $numberOfMonths, // number of months
+                $exp->title ?? '', // role or title
+                $exp->organization ?? '',
+                '', // employment_category
+                $exp->group ?? '', // team_group
+                '', // size_external_organization
+                '', // seniority_external_organization
+                '', // gc_employment_type
+                '', // gc_position_type
+                '', // classification
+                '', // gc_management_or_supervisory_status
+                '', // gc_number_of_supervised_employees
+                '', // gc_annual_budget_allocation
+                '', // c_suite_title
+                '', // other_c_suite_title
+                '', // caf_employment_type
+                '', // rank_category
+                '', // work_streams
+                '', // type_of_education
+                '', // area_study
+                '', // education_status
+                '', // thesis_title
+                $exp->project ?? '', // community_project_or_product
+                '', // personal learning description
+                '', // award recipient
+                '', // issuing organization
+                '', // awarded_scope
+                '', // date awarded
+                $exp->details ?? '', // additional details
+                $featuredSkills,
+                $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+                $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+                $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+                $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+                $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+                $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
+                $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
+                '', '', '',
+            ];
+        } else { // PersonalExperience
+            $experienceType = $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class);
+            $featuredSkills = $this->getFeaturedSkills($exp);
+            $isCurrent = $this->yesOrNo(empty($exp->end_date));
+            $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
 
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->getExperienceType($exp),  // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
-            $isCurrent, // currently active
-            $numberOfMonths, // number of months
-            // Work-specific fields (8-24) - mostly empty for education
-            $exp->area_study ?? '', // role_or_title (use area of study)
-            $exp->institution ?? '', // organization_department
-            '', // employment_category
-            '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-            $exp->type ? $this->localizeEnum($exp->type, EducationType::class) : '',  // education type
-            $exp->area_study ?? '', // area of study
-            $exp->status ? $this->localizeEnum($exp->status, EducationStatus::class) : '', // education status
-            $exp->thesis_title ?? '', // thesis title
-            // Community/Personal fields - empty for education
-            '', // community_project_or_product
-            '', // personal_learning_experience_description
-
-            // Award fields - empty for education
-            '', // award_recipient
-            '', // issuing_org
-            '', // awarded_scope
-            '', // date_awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp), // featured skills
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for education
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
-    }
-
-    /**
-     * Add award experiences to career experience sheet
-     */
-    private function addAwardExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        AwardExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildAwardExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
-
-    /**
-     * Build award experience row
-     */
-    private function buildAwardExperienceRow(AwardExperience $exp): array
-    {
-        $numberOfMonths = 0;
-
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->getExperienceType($exp),  // experience type
-            '', // start date
-            '', // end date
-            $this->yesOrNo(false),  // is current
-            $numberOfMonths, // number of months
-            $exp->title ?? '', // role or title
-            $exp->issued_by ?? '', // organization_department
-            '', // employment_category
-            '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-
-            // Education fields - empty for awards
-            '', // type_of_education
-            '', // area_study
-            '', // education_status
-            '', // thesis_title
-
-            // Community/Personal fields - empty for awards
-            '', // community_project_or_product
-            '', // personal_learning_experience_description
-            $exp->awarded_to ? $this->localizeEnum($exp->awarded_to, AwardedTo::class) : '', // award_recipient
-            $exp->issued_by ?? '', // issued by
-            $exp->awarded_scope ?? '', // award
-            $exp->awarded_date ? $exp->awarded_date->format('Y-m-d') : '', // date awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp), // featured skills
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for awards
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
-    }
-
-    /**
-     * Add community experiences to career experience sheet
-     */
-    private function addCommunityExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        CommunityExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildCommunityExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
-
-    /**
-     * Build community experience row
-     */
-    private function buildCommunityExperienceRow(CommunityExperience $exp): array
-    {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->getExperienceType($exp),  // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
-            $isCurrent, // is current
-            $numberOfMonths, // number of months
-            $exp->title ?? '', // role or title
-            $exp->organization ?? '',
-            '', // employment_category
-            $exp->group ?? '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-            // Education fields - empty for community
-            '', // type_of_education
-            '', // area_study
-            '', // education_status
-            '', // thesis_title
-            $exp->project ?? '', // community_project_or_product
-            '', // personal learning description
-            // Award fields - empty for community
-            '', // award recipient
-            '', // issuing organization
-            '', // awarded_scope
-            '', // date awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp),
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for community
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
-    }
-
-    /**
-     * Add personal experiences to sheet
-     */
-    private function addPersonalExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        PersonalExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildPersonalExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
-
-    /**
-     * Build personal experience row
-     */
-    private function buildPersonalExperienceRow(PersonalExperience $exp): array
-    {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class), // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
-            $isCurrent, // is current
-            $numberOfMonths, // number of months
-            $exp->title ?? '', // role or title
-            $exp->description ?? '', // organization_department
-            '', // employment_category
-            '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-
-            // Education fields - empty for personal
-            '', // type_of_education
-            '', // area_study
-            '', // education_status
-            '', // thesis_title
-            '', // Community project or product
-            $exp->description ?? '', // personal learning experience description
-            // Award fields - empty for education
-            '', // award recipient
-            '', // issuing organization
-            '', // awarded_scope
-            '', // date awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp), // featured skills
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for education
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
+            return [
+                $exp->user->id,
+                $exp->user->first_name,
+                $exp->user->last_name,
+                $experienceType, // experience type
+                $exp->start_date ? $exp->start_date->format('Y-m-d') : '', // start date
+                $exp->end_date ? $exp->end_date->format('Y-m-d') : '', // end date
+                $isCurrent, // is current
+                $numberOfMonths, // number of months
+                $exp->title ?? '', // role or title
+                $exp->description ?? '', // organization_department
+                '', // employment_category
+                '', // team_group
+                '', // size_external_organization
+                '', // seniority_external_organization
+                '', // gc_employment_type
+                '', // gov_position_type
+                '', // classification
+                '', // gc_management_or_supervisory_status
+                '', // gc_number_of_supervised_employees
+                '', // gc_annual_budget_allocation
+                '', // c_suite_title
+                '', // other_c_suite_title
+                '', // caf_employment_type
+                '', // rank_category
+                '', // work_streams
+                '', // type_of_education
+                '', // area_study
+                '', // education_status
+                '', // thesis_title
+                '', // Community project or product
+                $exp->description ?? '', // personal learning experience description
+                '', // award recipient
+                '', // issuing organization
+                '', // awarded_scope
+                '', // date awarded
+                $exp->details ?? '', // additional details
+                $featuredSkills,
+                $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
+                $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
+                $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
+                $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
+                $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
+                $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
+                $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
+                '', '', '',
+            ];
+        }
     }
 
     /**
@@ -881,16 +784,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function getJustificationFromExperienceSkill($experience, $userSkill): string
     {
-        // Check if relationship is loaded
-        if (isset($userSkill->experience_skill) && $userSkill->experience_skill) {
-            return $userSkill->experience_skill->details ?? '';
-        }
-        // Validate ids
         if (empty($experience->id) || empty($userSkill->id)) {
             return '';
         }
 
-        // Query the database for experience skill
         $experienceSkill = \App\Models\ExperienceSkill::where('experience_id', $experience->id)
             ->where('experience_type', get_class($experience))
             ->where('user_skill_id', $userSkill->id)
@@ -910,7 +807,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 'fr' => 'Obtenir des résultats',
             ],
             'character_leadership' => [
-                'en' => 'Character & Leadership',
+                'en' => 'Character Leadership',
                 'fr' => 'Leadership de caractère',
             ],
             'collaborate_with_partners_and_stakeholders' => [
