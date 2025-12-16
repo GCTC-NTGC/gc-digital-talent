@@ -50,7 +50,6 @@ import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import applicationMessages from "~/messages/applicationMessages";
 import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -886,33 +885,6 @@ const PoolCandidatesTable = ({
             assessmentStatus,
             intl,
           ),
-      },
-    ),
-    columnHelper.accessor(
-      ({ poolCandidate: { assessmentStep } }) => assessmentStep,
-      {
-        id: "assessmentStep",
-        header: intl.formatMessage(commonMessages.currentStep),
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { assessmentStep },
-            },
-          },
-        }) => {
-          const stepName =
-            // NOTE: We do want to pass on empty strings
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            assessmentStep?.title?.localized ||
-            assessmentStep?.type?.label?.localized;
-          return stepName
-            ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                stepNumber: assessmentStep.sortOrder,
-              }) +
-                intl.formatMessage(commonMessages.dividingColon) +
-                stepName
-            : "";
-        },
       },
     ),
     columnHelper.accessor(
