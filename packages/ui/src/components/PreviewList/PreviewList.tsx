@@ -132,7 +132,7 @@ const Content = ({
   metaData,
   action,
   children,
-  mode,
+  mode = "default",
 }: ContentProps) => {
   return (
     <div className="relative flex items-start justify-between gap-3 xs:items-center">
@@ -175,8 +175,8 @@ const DefaultWrapper = ({ children }: DefaultWrapperProps) => {
 };
 
 interface TimelineWrapperProps {
-  index?: number;
-  groupLength?: number;
+  index: number;
+  groupLength: number;
   children: React.ReactNode;
 }
 
@@ -204,12 +204,14 @@ const TimelineWrapper = ({
   );
 };
 
+// When mode is default, other props are not allowed
 interface DefaultItemProps extends ContentProps {
   mode?: "default";
   index?: never;
   groupLength?: never;
 }
 
+// when mode is experience, index and groupLength are mandatory
 interface ExperienceItemProps extends ContentProps {
   mode: "experience";
   index: number;
@@ -219,7 +221,7 @@ interface ExperienceItemProps extends ContentProps {
 type ItemProps = DefaultItemProps | ExperienceItemProps;
 
 // Each individual list item composed of a list item wrapper containing a content item
-const Item = ({ mode = "default", index, groupLength, ...rest }: ItemProps) => {
+const Item = ({ mode, index, groupLength, ...rest }: ItemProps) => {
   if (mode == "experience") {
     // for experience, wrap them with the timeline list item wrapper
     return (
@@ -243,8 +245,12 @@ export interface RootProps {
   children: PreviewItemElement | PreviewItemElement[];
 }
 
-const Root = ({ children }: RootProps) => {
-  return <ul className="flex flex-col pl-0!">{children}</ul>;
+const Root = ({ children, ...rest }: RootProps) => {
+  return (
+    <ul className="flex flex-col pl-0!" {...rest}>
+      {children}
+    </ul>
+  );
 };
 
 export default {

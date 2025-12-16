@@ -1,11 +1,8 @@
+// Given groupLength, figure out if a given index is at the top, middle, or bottom of a list.
 export function deriveTimelinePlacement(
-  index?: number,
-  groupLength?: number,
+  index: number,
+  groupLength: number,
 ): "single" | "top" | "bottom" | "middle" | null {
-  if (typeof index !== "number" || typeof groupLength !== "number") {
-    return null;
-  }
-
   if (groupLength == 1) {
     return "single";
   }
