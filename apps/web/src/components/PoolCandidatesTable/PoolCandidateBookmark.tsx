@@ -64,10 +64,9 @@ const PoolCandidateBookmark = ({
         isBookmarked
           ? intl.formatMessage(
               {
-                defaultMessage: "Remove {name} bookmark from top of column.",
-                id: "BB0opI",
-                description:
-                  "Un-bookmark button label for pool table tracking.",
+                defaultMessage: "Remove your bookmark for {name}.",
+                id: "4E/HVG",
+                description: "Un-bookmarking button label for an object",
               },
               {
                 name: poolCandidateName,
@@ -75,9 +74,9 @@ const PoolCandidateBookmark = ({
             )
           : intl.formatMessage(
               {
-                defaultMessage: "Bookmark {name} to top of column.",
-                id: "HxZIwt",
-                description: "Bookmark button label for pool table tracking.",
+                defaultMessage: "Bookmark {name} for yourself.",
+                id: "+SbEuu",
+                description: "Bookmarking button label for an object",
               },
               {
                 name: poolCandidateName,
