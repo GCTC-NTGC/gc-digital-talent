@@ -22,6 +22,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -1077,9 +1078,7 @@ class PoolTest extends TestCase
             ]);
     }
 
-    /**
-     * @group paginated
-     */
+    #[Group('paginated')]
     public function testPoolNameScope(): void
     {
         $toBeFound = Pool::factory()->published()
@@ -1112,9 +1111,7 @@ class PoolTest extends TestCase
         assertSame(1, count($res->json('data.poolsPaginated.data')));
     }
 
-    /**
-     * @group paginated
-     */
+    #[Group('paginated')]
     public function testWorkStreamsScope(): void
     {
         $stream1 = WorkStream::factory()->create();
@@ -1173,9 +1170,7 @@ class PoolTest extends TestCase
         assertSame(2, count($res->json('data.poolsPaginated.data')));
     }
 
-    /**
-     * @group paginated
-     */
+    #[Group('paginated')]
     public function testPublishingGroupsScope(): void
     {
         $IT = Pool::factory()->published()->create([
@@ -1230,9 +1225,7 @@ class PoolTest extends TestCase
         assertSame(2, count($res->json('data.poolsPaginated.data')));
     }
 
-    /**
-     * @group paginated
-     */
+    #[Group('paginated')]
     public function testPoolStatusScope(): void
     {
         $closed = Pool::factory()->closed()->create();
@@ -1353,9 +1346,7 @@ class PoolTest extends TestCase
         assertSame(0, count($noResultsRes->json('data.poolsPaginated.data')));
     }
 
-    /**
-     * @group paginated
-     */
+    #[Group('paginated')]
     public function testClassificationScope(): void
     {
         $AA1 = Pool::factory()->published()->create([
@@ -1433,9 +1424,7 @@ class PoolTest extends TestCase
         assertSame(2, count($AARes->json('data.poolsPaginated.data')));
     }
 
-    /**
-     * @group paginated
-     */
+    #[Group('paginated')]
     public function testCanAdminScope(): void
     {
         // two published pools
@@ -1519,9 +1508,8 @@ class PoolTest extends TestCase
 
     /**
      * Test updating a published pool
-     *
-     * @group editing
      */
+    #[Group('editing')]
     public function testPublishedPoolEditing(): void
     {
 
@@ -1586,9 +1574,7 @@ class PoolTest extends TestCase
             ]);
     }
 
-    /**
-     * @group paginated
-     */
+    #[Group('paginated')]
     public function testPoolBookmarksScope(): void
     {
         $pool1 = Pool::factory(['created_at' => config('constants.past_date')])->create();

@@ -68,8 +68,18 @@ type LocalizedCandidateExpiryFilter implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateInterest implements LocalizedEnumOption {
+  value: CandidateInterest!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
+  label: LocalizedString!
+}
+
+type LocalizedCandidateStatus implements LocalizedEnumOption {
+  value: CandidateStatus!
   label: LocalizedString!
 }
 
@@ -1173,6 +1183,8 @@ type PoolCandidate {
   expiryDate: Date
   category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
   notes: String
@@ -1218,6 +1230,8 @@ type PoolCandidateAdminView {
   submittedAt: DateTime
   suspendedAt: DateTime
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage
   notes: String
   isFlagged: Boolean
@@ -3508,11 +3522,29 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateInterest {
+  OPEN_TO_JOBS
+  NOT_INTERESTED
+  HIRED
+  EXPIRED
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
   INELIGIBLE
   OTHER
+}
+
+enum CandidateStatus {
+  DRAFT
+  EXPIRED
+  RECEIVED
+  UNDER_REVIEW
+  APPLICATION_REVIEWED
+  UNDER_ASSESSMENT
+  UNSUCCESSFUL
+  QUALIFIED
 }
 
 enum CandidateSuspendedFilter {

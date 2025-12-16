@@ -46,4 +46,5 @@ return [
     'off_platform_processes_text' => 'Recruitment processes that the nominee has qualified in on other Government of Canada platforms. Note that this information is provided by the nominee without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.',
     'nominations' => 'Nominations',
     'skill_requirements' => 'Skill requirements',
+    'expired' => 'Expired',
 ];
