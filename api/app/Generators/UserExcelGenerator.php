@@ -355,34 +355,34 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $user->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
             $user->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
             $userSkills->join(', '),
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_lateral_move_interest) : '', // Career planning - Lateral move interest
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_planning_lateral_move_time_frame, TimeFrame::class) : '', // Career planning - Lateral move time frame
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class) : [],  // Career planning - Lateral move organization type
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_promotion_move_interest) : '', // Career planning - Promotion move interest
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_planning_promotion_move_time_frame, TimeFrame::class) : '',  // Career planning - Promotion move time frame
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class) : [], // Career planning - Promotion move organization type
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class) : [], // Career planning - Learning opportunities interest
+            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_lateral_move_interest ?? null) : '', // Career planning - Lateral move interest
+            $employeeProfile ? $this->localizeEnum($employeeProfile->career_planning_lateral_move_time_frame ?? null, TimeFrame::class) : '', // Career planning - Lateral move time frame
+            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_lateral_move_organization_type ?? [], OrganizationTypeInterest::class) : [],  // Career planning - Lateral move organization type
+            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_promotion_move_interest ?? null) : '', // Career planning - Promotion move interest
+            $employeeProfile ? $this->localizeEnum($employeeProfile->career_planning_promotion_move_time_frame ?? null, TimeFrame::class) : '',  // Career planning - Promotion move time frame
+            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_promotion_move_organization_type ?? [], OrganizationTypeInterest::class) : [], // Career planning - Promotion move organization type
+            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_learning_opportunities_interest ?? [], LearningOpportunitiesInterest::class) : [], // Career planning - Learning opportunities interest
             $employeeProfile && $employeeProfile->eligible_retirement_year ? $employeeProfile->eligible_retirement_year->format('Y') : '', // Eligible retirement year
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_mentorship_status, Mentorship::class) : [], // Career planning - Mentorship status
+            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_mentorship_status ?? [], Mentorship::class) : [], // Career planning - Mentorship status
             $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_mentorship_interest, Mentorship::class) : [], // Career planning - Mentorship interest
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_exec_interest) : '', // Career planning - Executive interest
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status, ExecCoaching::class) : [], // Career planning - Executive coaching status
+            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_exec_interest ?? null) : '', // Career planning - Executive interest
+            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status ?? [], ExecCoaching::class) : [], // Career planning - Executive coaching status
             $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_interest, ExecCoaching::class) : [], // Career planning - Executive interest
             $employeeProfile && $employeeProfile->nextRoleClassification ? $employeeProfile->nextRoleClassification->group : '', // Next role - target classification group
             $employeeProfile && $employeeProfile->nextRoleClassification ? $employeeProfile->nextRoleClassification->level : '', // Next role - Target classification level
-            $employeeProfile ? $this->localizeEnum($employeeProfile->next_role_target_role, TargetRole::class) : '', // Next role - Target role
-            $employeeProfile ? $this->yesOrNo($employeeProfile->next_role_is_c_suite_role) : '', // Next role - C-suite role
-            $employeeProfile ? $this->localizeEnum($employeeProfile->next_role_c_suite_role_title, CSuiteRoleTitle::class) : '',
+            $employeeProfile ? $this->localizeEnum($employeeProfile->next_role_target_role ?? null, TargetRole::class) : '', // Next role - Target role
+            $employeeProfile ? $this->yesOrNo($employeeProfile->next_role_is_c_suite_role ?? null) : '', // Next role - C-suite role
+            $employeeProfile ? $this->localizeEnum($employeeProfile->next_role_c_suite_role_title ?? null, CSuiteRoleTitle::class) : '',
             $employeeProfile ? $employeeProfile->next_role_job_title ?? '' : '', // Next role - Job title
             $employeeProfile && $employeeProfile->nextRoleCommunity ? $employeeProfile->nextRoleCommunity->name[$this->lang] ?? '' : '', // Next role - Functional community
             $nextRoleWorkStreams->join(','), // Next role - Work streams
             $nextRoleDepartments->join(', '), // next role - Departments
-            $employeeProfile ? $employeeProfile->next_role_additional_information : '', // Next role - Additional information
+            $employeeProfile ? $employeeProfile->next_role_additional_information ?? '' : '', // Next role - Additional information
             $employeeProfile && $employeeProfile->careerObjectiveClassification ? $employeeProfile->careerObjectiveClassification->group : '', // Career objective - Target classification group
             $employeeProfile && $employeeProfile->careerObjectiveClassification ? $employeeProfile->careerObjectiveClassification->level : '', // Career objective - Target classification level
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_objective_target_role, TargetRole::class) : '', // Career objective - Target role
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_objective_is_c_suite_role) : '', // Career objective - C-suite role
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_objective_c_suite_role_title, CSuiteRoleTitle::class) : '', // Career objective - C-suite role title
+            $employeeProfile ? $this->localizeEnum($employeeProfile->career_objective_target_role ?? null, TargetRole::class) : '', // Career objective - Target role
+            $employeeProfile ? $this->yesOrNo($employeeProfile->career_objective_is_c_suite_role ?? null) : '', // Career objective - C-suite role
+            $employeeProfile ? $this->localizeEnum($employeeProfile->career_objective_c_suite_role_title ?? null, CSuiteRoleTitle::class) : '', // Career objective - C-suite role title
             $employeeProfile ? $employeeProfile->career_objective_job_title ?? '' : '', // Career objective - Job title
             $employeeProfile && $employeeProfile->careerObjectiveCommunity ? $employeeProfile->careerObjectiveCommunity->name[$this->lang] ?? ' ' : '', // Career objective - Functional community
             $careerObjectiveWorkStreams->join(', '), // career objective - Work streams
