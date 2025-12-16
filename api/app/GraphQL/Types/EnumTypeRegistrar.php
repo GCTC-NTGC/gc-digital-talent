@@ -25,15 +25,7 @@ final class EnumTypeRegistrar implements TypeRegistrarInterface
             $callback = static function () use ($name, $enum): EnumType {
                 /** @var array<int, \UnitEnum> $cases */
                 $cases = $enum::cases();
-                $values = [];
-
-                foreach ($cases as $case) {
-                    if ($case instanceof \BackedEnum) {
-                        $values[$case->name] = ['value' => $case->value];
-                    } else {
-                        $values[$case->name] = ['value' => $case->name];
-                    }
-                }
+                $values = array_column($cases, 'name');
 
                 return new EnumType([
                     'name' => $name,
