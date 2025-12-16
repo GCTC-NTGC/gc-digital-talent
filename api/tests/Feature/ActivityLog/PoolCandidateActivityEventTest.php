@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\ActivityLog;
 
+use App\Enums\ActivityEvent;
 use App\Enums\CandidateRemovalReason;
-use App\Enums\PoolCandidateEvent;
 use App\Enums\PoolCandidateStatus;
 use App\Models\Activity;
 use App\Models\Department;
@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
-class PoolCandidateEventTest extends TestCase
+class PoolCandidateActivityEventTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -35,11 +35,11 @@ class PoolCandidateEventTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
-            'description' => PoolCandidateEvent::SUBMITTED->value,
+            'description' => ActivityEvent::SUBMITTED->value,
             'subject_id' => $this->application->getKey(),
         ]);
 
-        $activity = Activity::where('event', PoolCandidateEvent::SUBMITTED->value)->latest()->first();
+        $activity = Activity::where('event', ActivityEvent::SUBMITTED->value)->latest()->first();
 
         $properties = $activity->properties;
 
@@ -53,11 +53,11 @@ class PoolCandidateEventTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
-            'description' => PoolCandidateEvent::QUALIFIED->value,
+            'description' => ActivityEvent::QUALIFIED->value,
             'subject_id' => $this->application->getKey(),
         ]);
 
-        $activity = Activity::where('event', PoolCandidateEvent::QUALIFIED->value)->latest()->first();
+        $activity = Activity::where('event', ActivityEvent::QUALIFIED->value)->latest()->first();
 
         $properties = $activity->properties;
 
@@ -70,7 +70,7 @@ class PoolCandidateEventTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
-            'description' => PoolCandidateEvent::DISQUALIFIED->value,
+            'description' => ActivityEvent::DISQUALIFIED->value,
             'subject_id' => $this->application->getKey(),
         ]);
     }
@@ -84,11 +84,11 @@ class PoolCandidateEventTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
-            'description' => PoolCandidateEvent::PLACED->value,
+            'description' => ActivityEvent::PLACED->value,
             'subject_id' => $this->application->getKey(),
         ]);
 
-        $activity = Activity::where('event', PoolCandidateEvent::PLACED->value)->latest()->first();
+        $activity = Activity::where('event', ActivityEvent::PLACED->value)->latest()->first();
 
         $properties = $activity->properties;
 
@@ -110,11 +110,11 @@ class PoolCandidateEventTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
-            'description' => PoolCandidateEvent::REMOVED->value,
+            'description' => ActivityEvent::REMOVED->value,
             'subject_id' => $this->application->getKey(),
         ]);
 
-        $activity = Activity::where('event', PoolCandidateEvent::REMOVED->value)->latest()->first();
+        $activity = Activity::where('event', ActivityEvent::REMOVED->value)->latest()->first();
 
         $properties = $activity->properties;
 
@@ -133,7 +133,7 @@ class PoolCandidateEventTest extends TestCase
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
-            'description' => PoolCandidateEvent::REINSTATED->value,
+            'description' => ActivityEvent::REINSTATED->value,
             'subject_id' => $this->application->getKey(),
         ]);
     }

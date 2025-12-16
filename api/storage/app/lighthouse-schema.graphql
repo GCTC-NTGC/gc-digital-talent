@@ -1043,7 +1043,7 @@ type Activity {
   subjectId: UUID
   properties: ActivityProperties
   logName: String
-  event: String
+  event: ActivityEvent!
   description: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -3387,6 +3387,19 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum ActivityEvent {
+  CREATED
+  UPDATED
+  DELETED
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  REMOVED
+  REINSTATED
+  REVERTED
+}
+
 enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
@@ -3920,16 +3933,6 @@ enum PlacementType {
 enum PoolAreaOfSelection {
   PUBLIC
   EMPLOYEES
-}
-
-enum PoolCandidateEvent {
-  SUBMITTED
-  QUALIFIED
-  DISQUALIFIED
-  PLACED
-  REMOVED
-  REINSTATED
-  REVERTED
 }
 
 enum PoolCandidateSearchPositionType {

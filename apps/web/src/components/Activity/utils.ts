@@ -4,7 +4,11 @@ import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import { tv, VariantProps } from "tailwind-variants";
 
-import { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
+import {
+  ActivityEvent,
+  ActivityProperties,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Logger } from "@gc-digital-talent/logger";
@@ -28,21 +32,15 @@ export const icon = tv({
 
 export type IconVariants = VariantProps<typeof icon>;
 
-type ActivityEventType = "created" | "updated" | "deleted";
-
 export interface ActivityEventInfo {
   message: MessageDescriptor;
   icon: IconType;
   color: IconVariants["color"];
 }
 
-function isEventType(value?: Maybe<string>): value is ActivityEventType {
-  return value === "created" || value === "updated";
-}
-
-const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
+const eventInfoMap = new Map<ActivityEvent, ActivityEventInfo>([
   [
-    "created",
+    ActivityEvent.Created,
     {
       message: activityMessages.created,
       icon: PlusIcon,
@@ -50,7 +48,7 @@ const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
     },
   ],
   [
-    "updated",
+    ActivityEvent.Updated,
     {
       message: activityMessages.updated,
       icon: ArrowPathIcon,
@@ -58,7 +56,7 @@ const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
     },
   ],
   [
-    "deleted",
+    ActivityEvent.Deleted,
     {
       message: activityMessages.deleted,
       icon: TrashIcon,
@@ -68,10 +66,10 @@ const eventInfoMap = new Map<ActivityEventType, ActivityEventInfo>([
 ]);
 
 export function getEventInfo(
-  event?: Maybe<string>,
+  event?: Maybe<ActivityEvent>,
 ): ActivityEventInfo | undefined {
-  let eventType: ActivityEventType = "updated";
-  if (isEventType(event)) {
+  let eventType = ActivityEvent.Updated;
+  if (event) {
     eventType = event;
   }
 

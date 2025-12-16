@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\PoolCandidateBuilder;
+use App\Enums\ActivityEvent;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
@@ -14,7 +15,6 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\ErrorCode;
 use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
-use App\Enums\PoolCandidateEvent;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
@@ -680,7 +680,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::SUBMITTED, [
+        $this->logActivity(ActivityEvent::SUBMITTED, [
             'signature' => $signature,
         ]);
     }
@@ -697,7 +697,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::QUALIFIED, [
+        $this->logActivity(ActivityEvent::QUALIFIED, [
             'expiry_date' => $expiryDate->format('Y-m-d H:i:s'),
         ]);
     }
@@ -713,7 +713,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::DISQUALIFIED);
+        $this->logActivity(ActivityEvent::DISQUALIFIED);
     }
 
     // mark the pool candidate as placed
@@ -732,7 +732,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::PLACED, [
+        $this->logActivity(ActivityEvent::PLACED, [
             'placement_type' => $placementType,
             'placed_department_id' => $departmentId,
         ]);
@@ -784,7 +784,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::REMOVED, [
+        $this->logActivity(ActivityEvent::REMOVED, [
             'removal_reason' => $reason,
             'removal_reason_other' => $otherReason,
         ]);
@@ -817,7 +817,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::REINSTATED);
+        $this->logActivity(ActivityEvent::REINSTATED);
     }
 
     public function revertPlacement()
@@ -831,7 +831,7 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::REVERTED,
+        $this->logActivity(ActivityEvent::REVERTED,
             $this->only($atts),
             $old
         );
@@ -850,13 +850,13 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(PoolCandidateEvent::REVERTED,
+        $this->logActivity(ActivityEvent::REVERTED,
             $this->only($atts),
             $old
         );
     }
 
-    public function logActivity(PoolCandidateEvent $event, ?array $atts = [], ?array $old = [])
+    public function logActivity(ActivityEvent $event, ?array $atts = [], ?array $old = [])
     {
         $properties = [];
         if (! empty($atts)) {

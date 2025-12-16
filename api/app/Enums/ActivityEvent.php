@@ -2,8 +2,14 @@
 
 namespace App\Enums;
 
-enum PoolCandidateEvent: string
+enum ActivityEvent: string
 {
+    // Core events
+    case CREATED = 'created';
+    case UPDATED = 'updated';
+    case DELETED = 'deleted';
+
+    // Pool candidate events
     case SUBMITTED = 'submitted';
     case QUALIFIED = 'qualified';
     case DISQUALIFIED = 'disqualified';
