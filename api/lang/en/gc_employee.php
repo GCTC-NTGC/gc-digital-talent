@@ -46,4 +46,8 @@ return [
     'about' => 'About you',
     'learning_goals' => 'Learning goals',
     'work_style' => 'How you work best',
+
+    // Values
+    'senior_management_true' => 'This was a chief or deputy chief (C-suite) role.',
+    'senior_management_false' => 'This was not a chief or deputy chief (C-suite) role.',
 ];

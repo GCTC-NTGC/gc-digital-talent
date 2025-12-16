@@ -46,4 +46,9 @@ return [
     'about' => 'À propos de vous',
     'learning_goals' => 'Vos objectifs d\'apprentissage',
     'work_style' => 'Comment vous travaillez le mieux',
+
+    // Values
+    'senior_management_true' => 'Il s\'agissait d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
+    'senior_management_false' => 'Il ne s\'agissait pas d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
+
 ];
