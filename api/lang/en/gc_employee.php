@@ -31,8 +31,6 @@ return [
     'target_class_level' => 'Target classification level',
     'target_role' => 'Target role',
     'senior_management_status' => 'Senior management status',
-    'senior_management_true' => 'This is a C-suite role.',
-    'senior_management_false' => 'This is not a C-suite role.',
     'c_suite_title' => 'C-suite role title',
     'job_title' => 'Job title',
     'desired_community' => 'Desired functional community',
