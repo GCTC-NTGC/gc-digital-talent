@@ -117,7 +117,9 @@ test.describe("Location Preference Validation", () => {
     ).toHaveAccessibleName(/Flexible work location options/i);
     await locationPrefPage.verifyFlexibleWorkLocationData(userName);
     await expect(
-      appPage.page.locator(`a:has-text("${userName} User")`),
+      appPage.page.getByRole("link", {
+        name: new RegExp(`${userName} User`, "i"),
+      }),
     ).toBeVisible();
 
     // Filter the work location to which user hasn't selected and verify user should not be present
@@ -178,6 +180,11 @@ test.describe("Location Preference Validation", () => {
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await candidatePage.goToIndex();
     await locationPrefPage.showOrHideColumns();
+    await expect(
+      page.getByRole("columnheader", {
+        name: /Flexible work location options/i,
+      }),
+    ).toHaveAccessibleName(/Flexible work location options/i);
     // Filter the work locations which user has chosen and verify user is present
     await locationPrefPage.filterFlexWorkLocation(
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
@@ -194,7 +201,9 @@ test.describe("Location Preference Validation", () => {
     ).toHaveAccessibleName(/Flexible work location options/i);
     await locationPrefPage.verifyFlexibleWorkLocationData(userName);
     await expect(
-      appPage.page.locator(`a:has-text("${userName} User")`),
+      appPage.page.getByRole("link", {
+        name: new RegExp(`${userName} User`, "i"),
+      }),
     ).toBeVisible();
 
     // Filter the work location to which user hasn't selected and verify user should not be present
