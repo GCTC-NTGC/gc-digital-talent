@@ -255,6 +255,11 @@ test.describe("Location Preference Validation", () => {
       ).toBeVisible();
       await appPage.waitForGraphqlResponse("CommunityTalentTable");
       await locationPrefPage.showOrHideColumns();
+      await expect(
+        page.getByRole("columnheader", {
+          name: /Flexible work location options/i,
+        }),
+      ).toBeVisible();
       // Filter the work locations which user has chosen and verify user is present
       await locationPrefPage.filterFlexWorkLocation(
         [FlexibleWorkLocation.Hybrid],
@@ -266,7 +271,7 @@ test.describe("Location Preference Validation", () => {
         page.getByRole("columnheader", {
           name: /Flexible work location options/i,
         }),
-      ).toBeVisible({ timeout: 30000 });
+      ).toBeVisible();
       await locationPrefPage.verifyFlexibleWorkLocationData(sub);
       await expect(appPage.page.locator(`a:has-text("${sub}")`)).toBeVisible();
       await deleteUser(adminCtx, { id: govUser.id });
