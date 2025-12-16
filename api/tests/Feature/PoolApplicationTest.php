@@ -285,6 +285,8 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmit(): void
     {
+        Config::set('feature.application_email_verification', true); // this line should be removed once the feature flag FEATURE_APPLICATION_EMAIL_VERIFICATION is removed.
+
         // pool with no essential skills
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
