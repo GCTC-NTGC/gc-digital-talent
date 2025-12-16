@@ -13,6 +13,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -108,9 +109,7 @@ class ScreeningStageTest extends TestCase
             ]);
     }
 
-    /**
-     * @dataProvider screeningStageSuccessProvider
-     */
+    #[DataProvider('screeningStageSuccessProvider')]
     public function testCanUpdateScreeningStage(string $actingAs, string $screeningStage, ?bool $includeStep)
     {
         $input = [
@@ -162,9 +161,7 @@ class ScreeningStageTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider screeningStageValidationProvider
-     */
+    #[DataProvider('screeningStageValidationProvider')]
     public function testFailedUpdateScreeningStage(string $type, ?string $screeningStage, array $error, ?bool $includeStep)
     {
         $input = [

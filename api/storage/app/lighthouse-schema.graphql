@@ -68,8 +68,18 @@ type LocalizedCandidateExpiryFilter implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateInterest implements LocalizedEnumOption {
+  value: CandidateInterest!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
+  label: LocalizedString!
+}
+
+type LocalizedCandidateStatus implements LocalizedEnumOption {
+  value: CandidateStatus!
   label: LocalizedString!
 }
 
@@ -560,8 +570,6 @@ type Mutation {
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
-  sendUserEmailVerification(emailType: EmailType): User
-  verifyUserEmail(emailType: EmailType, code: String!): User
   sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
@@ -1172,6 +1180,8 @@ type PoolCandidate {
   expiryDate: Date
   category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
   notes: String
@@ -1217,6 +1227,8 @@ type PoolCandidateAdminView {
   submittedAt: DateTime
   suspendedAt: DateTime
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage
   notes: String
   isFlagged: Boolean
@@ -1862,6 +1874,7 @@ input CreateUserInput {
   firstName: String!
   lastName: String!
   email: Email
+  emailVerifiedAt: Date
   telephone: PhoneNumber
   preferredLang: Language
   preferredLanguageForInterview: Language
@@ -1963,7 +1976,6 @@ input UpdateUserRolesInput {
 
 input UpdateUserAsUserInput {
   id: ID
-  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
@@ -3508,11 +3520,29 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateInterest {
+  OPEN_TO_JOBS
+  NOT_INTERESTED
+  HIRED
+  EXPIRED
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
   INELIGIBLE
   OTHER
+}
+
+enum CandidateStatus {
+  DRAFT
+  EXPIRED
+  RECEIVED
+  UNDER_REVIEW
+  APPLICATION_REVIEWED
+  UNDER_ASSESSMENT
+  UNSUCCESSFUL
+  QUALIFIED
 }
 
 enum CandidateSuspendedFilter {
@@ -3622,6 +3652,7 @@ enum ErrorCode {
   APPLICATION_POOL_NOT_PUBLISHED
   APPLICATION_SIGNATURE_REQUIRED
   APPLICATION_DELETE_FAILED
+  APPLICATION_WORK_EMAIL_NOT_VERIFIED
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP

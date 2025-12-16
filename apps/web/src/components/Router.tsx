@@ -425,20 +425,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                   ],
                 },
                 {
-                  path: "verify-contact-email",
-                  lazy: () =>
-                    import("../pages/EmailVerificationPages/ProfileContactEmailVerificationPage").then(
-                      convert,
-                    ),
-                },
-                {
-                  path: "verify-work-email",
-                  lazy: () =>
-                    import("../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage").then(
-                      convert,
-                    ),
-                },
-                {
                   path: "community-interests",
                   children: [
                     {

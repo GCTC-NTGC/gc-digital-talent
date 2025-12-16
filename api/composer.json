@@ -11,10 +11,10 @@
   "require": {
     "php": "^8.4",
     "beyondcode/laravel-server-timing": "^1.6",
-    "devnoiseconsulting/laravel-scout-postgres-tsvector": "^9.2",
+    "gctc-ntgc/laravel-scout-postgres-tsvector": "^2.0.0",
     "doctrine/dbal": "^3.1",
     "guzzlehttp/guzzle": "^7.4",
-    "laravel/framework": "^11.0",
+    "laravel/framework": "^12.0",
     "laravel/scout": "^10.5",
     "laravel/tinker": "^2.6",
     "lcobucci/clock": "^3.0.0",
@@ -38,7 +38,8 @@
     "larastan/larastan": "^3.0.2",
     "laravel/pint": "^1.11",
     "mockery/mockery": "^1.4.4",
-    "phpunit/phpunit": "^10.0",
+    "pestphp/pest": "^3.0",
+    "phpunit/phpunit": "^11.0",
     "spatie/phpunit-snapshot-assertions": "^5.2"
   },
   "autoload": {
@@ -67,7 +68,8 @@
       "php": "8.4.10"
     },
     "allow-plugins": {
-      "composer/package-versions-deprecated": true
+      "composer/package-versions-deprecated": true,
+      "pestphp/pest-plugin": true
     }
   },
   "minimum-stability": "stable",

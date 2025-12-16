@@ -71,8 +71,8 @@ import {
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
-  candidateFacingStatusCell,
   getScreeningStageSort,
+  candidateStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -201,6 +201,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             label {
               en
               fr
+            }
+          }
+          candidateStatus {
+            value
+            label {
+              localized
             }
           }
           placedDepartment {
@@ -882,40 +888,47 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({
-        poolCandidate: {
-          submittedAt,
-          assessmentStep,
-          assessmentStatus,
-          removedAt,
-          finalDecisionAt,
-          finalDecision,
-          pool: {
-            closingDate,
-            areaOfSelection,
-            screeningQuestionsCount,
-            contactEmail,
+      ({ poolCandidate: { assessmentStep } }) => assessmentStep,
+      {
+        id: "assessmentStep",
+        header: intl.formatMessage(commonMessages.currentStep),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { assessmentStep },
+            },
           },
+        }) => {
+          const stepName =
+            // NOTE: We do want to pass on empty strings
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            assessmentStep?.title?.localized ||
+            assessmentStep?.type?.label?.localized;
+          return stepName
+            ? intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
+                stepNumber: assessmentStep.sortOrder,
+              }) +
+                intl.formatMessage(commonMessages.dividingColon) +
+                stepName
+            : "";
         },
-      }) =>
-        candidateFacingStatusCell(
-          submittedAt,
-          closingDate,
-          removedAt,
-          finalDecisionAt,
-          finalDecision?.value,
-          areaOfSelection?.value,
-          assessmentStep?.sortOrder,
-          assessmentStatus,
-          screeningQuestionsCount,
-          contactEmail,
-          intl,
-        ),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { candidateStatus } }) =>
+        candidateStatus?.label?.localized,
       {
         id: "candidateFacingStatus",
         header: intl.formatMessage(tableMessages.candidateFacingStatus),
         enableSorting: false,
         enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { candidateStatus },
+            },
+          },
+        }) => candidateStatusCell(candidateStatus),
       },
     ),
     columnHelper.accessor(

@@ -24,7 +24,7 @@ interface PartialUser
 
 const stepHasError = (user: PartialUser, pool: Pool) => {
   const hasEmptyRequiredFields =
-    aboutSectionHasEmptyRequiredFields(user) ||
+    aboutSectionHasEmptyRequiredFields(user, pool) ||
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
     priorityEntitlementsHasEmptyRequiredFields(user) ||
     languageInformationSectionHasEmptyRequiredFields(user) ||
