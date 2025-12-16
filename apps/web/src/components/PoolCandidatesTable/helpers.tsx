@@ -30,12 +30,10 @@ import {
   ClaimVerificationSort,
   QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
-  PoolCandidate,
-  FinalDecision,
-  PoolAreaOfSelection,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
   LocalizedCandidateSuspendedFilter,
   PoolCandidatesBaseSort,
+  LocalizedCandidateStatus,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -43,7 +41,7 @@ import { Radio } from "@gc-digital-talent/forms";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  getApplicationStatusChip,
+  candidateStatusChip,
   getCandidateStatusChip,
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
@@ -204,33 +202,12 @@ export const finalDecisionCell = (
   return <Chip color={color}>{label}</Chip>;
 };
 
-export const candidateFacingStatusCell = (
-  submittedAt: PoolCandidate["submittedAt"],
-  closingDate: Pool["closingDate"],
-  removedAt: PoolCandidate["removedAt"],
-  finalDecisionAt: PoolCandidate["finalDecisionAt"],
-  finalDecision: Maybe<FinalDecision> | undefined,
-  areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
-  assessmentStep: Maybe<number> | undefined,
-  assessmentStatus: PoolCandidate["assessmentStatus"],
-  screeningQuestions: Pool["screeningQuestionsCount"],
-  contactEmail: Pool["contactEmail"],
-  intl: IntlShape,
+export const candidateStatusCell = (
+  status?: Maybe<LocalizedCandidateStatus>,
 ) => {
-  const { label } = getApplicationStatusChip(
-    submittedAt,
-    closingDate,
-    removedAt,
-    finalDecisionAt,
-    finalDecision,
-    areaOfSelection,
-    assessmentStep,
-    assessmentStatus,
-    screeningQuestions,
-    contactEmail,
-    intl,
-  );
-  return label;
+  const chip = candidateStatusChip(status);
+
+  return chip ? <Chip color={chip.color}>{chip.label}</Chip> : null;
 };
 
 export const flagCell = (

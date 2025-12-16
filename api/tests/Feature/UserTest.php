@@ -32,6 +32,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -1761,9 +1762,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    /**
-     * @dataProvider adminTableFilterProvider
-     */
+    #[DataProvider('adminTableFilterProvider')]
     public function testAdminTableFilter($where, $expectedResultCount): void
     {
         // Create 5 users

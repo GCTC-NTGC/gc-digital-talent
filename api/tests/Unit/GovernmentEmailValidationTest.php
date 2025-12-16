@@ -4,13 +4,12 @@ namespace Tests\Unit;
 
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Validator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class GovernmentEmailValidationTest extends TestCase
 {
-    /**
-     * @dataProvider validationProvider
-     */
+    #[DataProvider('validationProvider')]
     public function testGovernmentEmailValidation($email, $passes): void
     {
         $data = ['test' => $email];
