@@ -81,7 +81,12 @@ export default {
 const Template: StoryFn<typeof PreviewList.Root> = (args) => {
   const { children } = args;
 
-  return <PreviewList.Root mode={args.mode}>{children}</PreviewList.Root>;
+  return (
+    // something like TaskCard
+    <div className="bg-white p-6 dark:bg-gray-600">
+      <PreviewList.Root>{children}</PreviewList.Root>
+    </div>
+  );
 };
 
 export const Default = Template.bind({});
@@ -142,93 +147,91 @@ WithChildren.args = {
 
 export const SingleTimelineExperience = Template.bind({});
 SingleTimelineExperience.args = {
-  mode: "timeline",
   children: (
     <>
-      <PreviewList.TimelineWrapper index={0} groupLength={1}>
-        <PreviewList.Item
-          title="IT-01: Junior application developer"
-          metaData={previewDetails}
-          action={
-            <PreviewList.Button
-              label="View preview button one"
-              onClick={() => action("preview button one clicked")()}
-            />
-          }
-          mode="experience-card"
-        >
-          <p>{faker.lorem.paragraph()}</p>
-        </PreviewList.Item>
-      </PreviewList.TimelineWrapper>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={0}
+        groupLength={1}
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
     </>
   ),
 };
 
 export const MultipleTimelineExperiences = Template.bind({});
 MultipleTimelineExperiences.args = {
-  mode: "timeline",
   children: (
     <>
-      <PreviewList.TimelineWrapper index={0} groupLength={4}>
-        <PreviewList.Item
-          title="IT-01: Junior application developer"
-          metaData={previewDetails}
-          action={
-            <PreviewList.Button
-              label="View preview button one"
-              onClick={() => action("preview button one clicked")()}
-            />
-          }
-          mode="experience-card"
-        >
-          <p>{faker.lorem.paragraph()}</p>
-        </PreviewList.Item>
-      </PreviewList.TimelineWrapper>
-      <PreviewList.TimelineWrapper index={1} groupLength={4}>
-        <PreviewList.Item
-          title="IT-01: Junior application developer"
-          metaData={previewDetails}
-          action={
-            <PreviewList.Button
-              label="View preview button one"
-              onClick={() => action("preview button one clicked")()}
-            />
-          }
-          mode="experience-card"
-        >
-          <p>{faker.lorem.paragraph()}</p>
-        </PreviewList.Item>
-      </PreviewList.TimelineWrapper>
-      <PreviewList.TimelineWrapper index={2} groupLength={4}>
-        <PreviewList.Item
-          title="IT-01: Junior application developer"
-          metaData={previewDetails}
-          action={
-            <PreviewList.Button
-              label="View preview button one"
-              onClick={() => action("preview button one clicked")()}
-            />
-          }
-          mode="experience-card"
-        >
-          <p>{faker.lorem.paragraph()}</p>
-        </PreviewList.Item>
-      </PreviewList.TimelineWrapper>
-      <PreviewList.TimelineWrapper index={3} groupLength={4}>
-        <PreviewList.Item
-          title="IT-01: Junior application developer"
-          metaData={previewDetails}
-          action={
-            <PreviewList.Button
-              label="View preview button one"
-              onClick={() => action("preview button one clicked")()}
-            />
-          }
-          mode="experience-card"
-        >
-          <p>{faker.lorem.paragraph()}</p>
-        </PreviewList.Item>
-      </PreviewList.TimelineWrapper>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={0}
+        groupLength={4}
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={1}
+        groupLength={4}
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={2}
+        groupLength={4}
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={previewDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={3}
+        groupLength={4}
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
     </>
   ),
 };
