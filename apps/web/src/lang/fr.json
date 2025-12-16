@@ -1064,7 +1064,7 @@
     "description": "IAP Requirement list item four"
   },
   "27mGKw": {
-    "defaultMessage": "Supprimer le signet",
+    "defaultMessage": "Retirer le signet",
     "description": "Label for removing a bookmark"
   },
   "29o8/W": {
@@ -7348,7 +7348,7 @@
     "description": "Label for development programs nomination is approved"
   },
   "UBY4qe": {
-    "defaultMessage": "Vous avez supprimé le signet pour {name}.",
+    "defaultMessage": "Vous avez retiré le signet pour {name}.",
     "description": "Un-bookmarked a candidate"
   },
   "UCt8ym": {
