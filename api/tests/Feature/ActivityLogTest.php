@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
-use App\Enums\PoolCandidateStatus;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -101,15 +100,13 @@ class ActivityLogTest extends TestCase
         $testPool = Pool::factory()->published()->create();
         Activity::truncate();
 
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                    mutation updateUserSub($updateUserSubInput:UpdateUserSubInput!) {
-                        updateUserSub(updateUserSubInput:$updateUserSubInput) {
-                            sub
-                        }
-                        }
-                    ',
+        $this->actingAs($this->adminUser, 'api')->graphQL(<<<'GRAPHQL'
+            mutation updateUserSub($updateUserSubInput:UpdateUserSubInput!) {
+                updateUserSub(updateUserSubInput:$updateUserSubInput) {
+                    sub
+               }
+            }
+            GRAPHQL,
             [
                 'updateUserSubInput' => [
                     'userId' => $this->adminUser->id,
@@ -117,40 +114,42 @@ class ActivityLogTest extends TestCase
                 ],
             ]
         )->assertSuccessful();
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                mutation createApplication($userId: ID!, $poolId: ID!){
-                    createApplication(userId: $userId, poolId: $poolId) {
-                        id
-                    }
-                    }
-                ',
+
+        $testClassiciation = Classification::factory()->create();
+        $testDepartment = Department::factory()->create();
+
+        $this->actingAs($this->adminUser, 'api')->graphQL(<<<'GRAPHQL'
+            mutation createPool($userId: ID!, $communityId: ID!, $pool: CreatePoolInput!){
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                }
+            }
+            GRAPHQL,
             [
                 'userId' => $this->adminUser->id,
-                'poolId' => $testPool->id,
+                'communityId' => $this->community->id,
+                'pool' => [
+                    'department' => ['connect' => $testDepartment->id],
+                    'classification' => ['connect' => $testClassiciation->id],
+                ],
             ]
         )->assertSuccessful();
 
         // three activity instances, two for pool candidate as application creation logs a create and update event
-        $activityAll = Activity::all();
         $activityUser = Activity::where('subject_type', 'App\Models\User')->get();
-        $activityPoolCandidate = Activity::where('subject_type', 'App\Models\PoolCandidate')->get();
-        assertEquals(3, count($activityAll));
+        $activityPool = Activity::where('subject_type', 'App\Models\Pool')->get();
+        assertEquals(3, Activity::count());
         assertEquals(1, count($activityUser));
-        assertEquals(2, count($activityPoolCandidate));
+        assertEquals(1, count($activityPool));
 
-        $activityCreatePoolCandidate = Activity::where('subject_type', 'App\Models\PoolCandidate')->where('description', 'created')->sole();
-        $activityUpdatePoolCandidate = Activity::where('subject_type', 'App\Models\PoolCandidate')->where('description', 'updated')->sole();
+        $activityCreatePool = Activity::where('subject_type', 'App\Models\Pool')->where('description', 'created')->sole();
 
         // assert values on pool candidate creation event
-        assertEquals($this->adminUser->id, $activityCreatePoolCandidate->causer_id);
-        assertEquals($testPool->id, $activityCreatePoolCandidate->properties['attributes']['pool_id']);
-        assertEquals($this->adminUser->id, $activityCreatePoolCandidate->properties['attributes']['user_id']);
-
-        // assert values on pool candidate update event
-        assertEquals($this->adminUser->id, $activityUpdatePoolCandidate->causer_id);
-        assertEquals(PoolCandidateStatus::DRAFT->name, $activityUpdatePoolCandidate->properties['attributes']['pool_candidate_status']);
+        assertEquals($this->adminUser->id, $activityCreatePool->causer_id);
+        assertEquals($testDepartment->id, $activityCreatePool->properties['attributes']['department_id']);
+        assertEquals($testClassiciation->id, $activityCreatePool->properties['attributes']['classification_id']);
+        assertEquals($this->community->id, $activityCreatePool->properties['attributes']['community_id']);
+        assertEquals($this->adminUser->id, $activityCreatePool->properties['attributes']['user_id']);
     }
 
     // test activity log actions undertaken by a specific user
