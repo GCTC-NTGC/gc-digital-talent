@@ -13,6 +13,7 @@ use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class TalentNominationGroupStatusTest extends TestCase
@@ -62,9 +63,7 @@ class TalentNominationGroupStatusTest extends TestCase
         $this->talentNominationGroup = TalentNominationGroup::sole();
     }
 
-    /**
-     * @dataProvider statusProvider
-     */
+    #[DataProvider('statusProvider')]
     public function testStatusIsComputedCorrectly($nominationState, $nominationGroupState, $expectedStatus)
     {
         $this->nomination->update($nominationState);

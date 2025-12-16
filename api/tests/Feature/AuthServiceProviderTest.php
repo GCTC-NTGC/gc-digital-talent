@@ -50,7 +50,6 @@ class AuthServiceProviderTest extends TestCase
     }
 
     /**
-     * @test
      * The test checks if an AuthenticationException is thrown if a ConstraintViolation occurs during token validation
      */
     public function testAuthenticationExceptionWithInvalidToken()
@@ -72,7 +71,6 @@ class AuthServiceProviderTest extends TestCase
     }
 
     /**
-     * @test
      * The test checks if an HttpException with status 401 is thrown if an error occurs during token validation
      */
     public function testAuthenticationExceptionOnTokenValidation()
@@ -92,7 +90,6 @@ class AuthServiceProviderTest extends TestCase
     }
 
     /**
-     * @test
      * The test checks that a user is not automatically created if it already exists(by sub)
      */
     public function testUserIsNotAutoCreatedWhenAlreadyExisting()
