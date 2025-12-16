@@ -65,6 +65,7 @@ class AssessmentStep extends Model
     public function poolSkills(): BelongsToMany
     {
         return $this->belongsToMany(PoolSkill::class, 'assessment_step_pool_skill')
+            ->using(AssessmentStepPoolSkill::class)
             ->withTimestamps();
     }
 
