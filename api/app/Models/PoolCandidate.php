@@ -401,20 +401,13 @@ class PoolCandidate extends Model
     public function candidateInterest(): Attribute
     {
         return Attribute::get(function () {
-            if ($this->is_suspended || $this->is_expired) {
-                return CandidateInterest::NOT_INTERESTED->name;
-            }
-
-            if ($this->is_open_to_jobs) {
-                return CandidateInterest::OPEN_TO_JOBS->name;
-            }
-
-            // NOTE: Will be going away eventually
-            if ($this->is_hired) {
-                return CandidateInterest::HIRED->name;
-            }
-
-            return null;
+            return match (true) {
+                $this->is_expired => CandidateInterest::EXPIRED->name,
+                $this->is_suspended => CandidateInterest::NOT_INTERESTED->name,
+                $this->is_open_to_jobs => CandidateInterest::OPEN_TO_JOBS->name,
+                $this->is_hired => CandidateInterest::HIRED->name, // TODO: Will be removed eventually
+                default => null,
+            };
         });
     }
 

@@ -142,6 +142,7 @@ enum PoolCandidateStatus
     public static function openToJobsGroup(): array
     {
         return [
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             PoolCandidateStatus::UNDER_CONSIDERATION->name,
             PoolCandidateStatus::PLACED_TENTATIVE->name,
         ];

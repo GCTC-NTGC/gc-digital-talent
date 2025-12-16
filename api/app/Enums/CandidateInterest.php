@@ -11,6 +11,7 @@ enum CandidateInterest
     case OPEN_TO_JOBS;
     case NOT_INTERESTED;
     case HIRED;
+    case EXPIRED;
 
     public static function getLangFilename(): string
     {

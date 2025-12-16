@@ -568,6 +568,7 @@ export const candidateInterestColorMap = new Map<
   [CandidateInterest.NotInterested, "secondary"],
   [CandidateInterest.OpenToJobs, "secondary"],
   [CandidateInterest.Hired, "success"],
+  [CandidateInterest.Expired, "gray"],
 ]);
 
 export const candidateInterestChip = (
