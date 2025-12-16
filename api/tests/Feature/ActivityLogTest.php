@@ -5,12 +5,14 @@ namespace Tests\Feature;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateStatus;
+use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Spatie\Activitylog\Models\Activity;
@@ -30,6 +32,8 @@ class ActivityLogTest extends TestCase
 
     protected $baseUser;
 
+    protected Community $community;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -40,10 +44,10 @@ class ActivityLogTest extends TestCase
                 'email' => 'base-user@test.com',
                 'sub' => 'base-user@test.com',
             ]);
-        $community = Community::factory()->create(['name' => 'test-community']);
+        $this->community = Community::factory()->create(['name' => 'test-community']);
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asCommunityRecruiter($community->id)
+            ->asCommunityRecruiter($this->community->id)
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -152,20 +156,18 @@ class ActivityLogTest extends TestCase
     // test activity log actions undertaken by a specific user
     public function testActivityLogByUser(): void
     {
-        $testPool = Pool::factory()->published()->create();
+        $testClassiciation = Classification::factory()->create();
         $testDepartment = Department::factory()->create();
         $testCommunity = Community::factory()->create();
         Activity::truncate();
 
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                    mutation updateUserSub($updateUserSubInput:UpdateUserSubInput!) {
-                        updateUserSub(updateUserSubInput:$updateUserSubInput) {
-                            sub
-                        }
-                        }
-                    ',
+        $this->actingAs($this->adminUser, 'api')->graphQL(<<<'GRAPHQL'
+            mutation updateUserSub($updateUserSubInput:UpdateUserSubInput!) {
+                updateUserSub(updateUserSubInput:$updateUserSubInput) {
+                    sub
+                }
+            }
+            GRAPHQL,
             [
                 'updateUserSubInput' => [
                     'userId' => $this->adminUser->id,
@@ -173,30 +175,31 @@ class ActivityLogTest extends TestCase
                 ],
             ]
         )->assertSuccessful();
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                mutation createApplication($userId: ID!, $poolId: ID!){
-                    createApplication(userId: $userId, poolId: $poolId) {
-                        id
-                    }
-                    }
-                ',
+
+        $this->actingAs($this->adminUser, 'api')->graphQL(<<<'GRAPHQL'
+            mutation createPool($userId: ID!, $communityId: ID!, $pool: CreatePoolInput!){
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                }
+            }
+            GRAPHQL,
             [
                 'userId' => $this->adminUser->id,
-                'poolId' => $testPool->id,
+                'communityId' => $this->community->id,
+                'pool' => [
+                    'department' => ['connect' => $testDepartment->id],
+                    'classification' => ['connect' => $testClassiciation->id],
+                ],
             ]
         )->assertSuccessful();
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                mutation createPoolCandidateSearchRequest(
-                    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!){
-                    createPoolCandidateSearchRequest(poolCandidateSearchRequest: $poolCandidateSearchRequest) {
-                        id
-                    }
-                    }
-                ',
+
+        $this->actingAs($this->adminUser, 'api')->graphQL(<<<'GRAPHQL'
+            mutation createPoolCandidateSearchRequest($poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!){
+                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $poolCandidateSearchRequest) {
+                    id
+                }
+            }
+            GRAPHQL,
             [
                 'poolCandidateSearchRequest' => [
                     'fullName' => 'Full Name',
@@ -223,8 +226,10 @@ class ActivityLogTest extends TestCase
             ]
         )->assertSuccessful();
 
+        Log::debug(Activity::all());
+
         // four events, one to update user, two for pool candidate, one to submit request
-        assertEquals(4, count(Activity::all()));
+        assertEquals(4, Activity::count());
 
         // quick assertion the above search request was created successfully and stored value from applicant filter
         $requestEvent = Activity::where('subject_type', 'App\Models\PoolCandidateSearchRequest')->sole();
@@ -234,9 +239,9 @@ class ActivityLogTest extends TestCase
         $actingUser = User::where('email', 'admin-user@test.com')->sole();
         $actions = $actingUser->actions;
         assertEquals(4, count($actions)); // total
-        assertEquals(2, count($actions->where('description', 'updated'))); // two update actions
-        assertEquals(2, count($actions->where('subject_type', 'App\Models\PoolCandidate'))); // two events on PoolCandidate
-        assertEquals(1, count($actions->where('description', 'updated')->where('subject_type', 'App\Models\PoolCandidate'))); // narrow to updating
+        assertEquals(1, count($actions->where('description', 'updated'))); // two update actions
+        assertEquals(1, count($actions->where('subject_type', 'App\Models\Pool'))); // two events on Pool
+        assertEquals(1, count($actions->where('description', 'created')->where('subject_type', 'App\Models\Pool'))); // narrow to updating
     }
 
     public function testProcessOperatorCanViewPoolActivity()
