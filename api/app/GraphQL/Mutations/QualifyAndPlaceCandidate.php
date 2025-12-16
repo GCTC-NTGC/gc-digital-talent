@@ -16,6 +16,7 @@ final class QualifyAndPlaceCandidate
         $placementType = $args['placementType'];
         $departmentId = $args['department']['connect']; // validator asserts this value is valid
 
+        $candidate->disableLogging();
         $candidate->qualify($expiryDate);
         $candidate->place($placementType, $departmentId);
 
