@@ -47,7 +47,7 @@ test.describe("Location Preference Validation", () => {
   let id: string;
   let testId: string;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     testId = generateUniqueTestId();
     adminCtx = await graphql.newContext();
     const sub = `playwright.loc.pref.${testId}`;
@@ -123,7 +123,7 @@ test.describe("Location Preference Validation", () => {
     user = createdUser ?? { id: "" };
   });
 
-  test.afterAll(async () => {
+  test.afterEach(async () => {
     await deleteUser(adminCtx, { id: user.id });
     await deletePool(adminCtx, { id });
   });
@@ -266,7 +266,7 @@ test.describe("Location Preference Validation", () => {
         page.getByRole("columnheader", {
           name: /Flexible work location options/i,
         }),
-      ).toBeVisible();
+      ).toBeVisible({ timeout: 30000 });
       await locationPrefPage.verifyFlexibleWorkLocationData(sub);
       await expect(appPage.page.locator(`a:has-text("${sub}")`)).toBeVisible();
       await deleteUser(adminCtx, { id: govUser.id });

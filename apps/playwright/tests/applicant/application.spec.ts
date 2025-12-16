@@ -15,7 +15,7 @@ import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
@@ -29,6 +29,7 @@ test.describe("Application", () => {
   let technicalSkills: Skill[];
   let user: User | undefined;
   let classificationId: string | undefined;
+  let userId: string | undefined;
 
   async function expectOnStep(page: Page, step: number) {
     await expect(
@@ -40,7 +41,7 @@ test.describe("Application", () => {
     ).toBeHidden();
   }
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
@@ -68,6 +69,8 @@ test.describe("Application", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
+    userId = user?.id ?? "";
+
     technicalSkills = await getSkills(adminCtx, {}).then((skills) => {
       return skills.filter(
         (skill) => skill.category.value === SkillCategory.Technical,
@@ -78,6 +81,13 @@ test.describe("Application", () => {
     classificationId = classifications.find(
       (c) => c.group == "IT" && c.level == 1,
     )?.id;
+  });
+
+  test.afterEach(async () => {
+    if (userId) {
+      const adminCtx = await graphql.newContext();
+      await deleteUser(adminCtx, { id: userId });
+    }
   });
 
   test("Can link same experience to different skills in application", async ({
