@@ -50,6 +50,7 @@ import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import applicationMessages from "~/messages/applicationMessages";
 import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
