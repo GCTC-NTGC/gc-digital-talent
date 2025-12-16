@@ -290,7 +290,7 @@ test.describe("Location Preference update for Community Talent", () => {
       [WorkRegion.NationalCapital],
     );
     await userPage.searchUserByName(sub, "Name");
-    await locationPrefPage.verifyFlexibleWorkLocationData(`${userName} User`);
+    await locationPrefPage.verifyFlexibleWorkLocationData(sub);
     await expect(
       appPage.page.getByRole("link", {
         name: new RegExp(`${userName} User`, "i"),
