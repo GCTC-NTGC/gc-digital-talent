@@ -5,7 +5,7 @@ import { Locales } from "@gc-digital-talent/i18n";
 import { AuthenticationState } from "../types";
 import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from "../const";
 import logoutAndRefreshPage, { getLogoutVars } from "./logout";
-import { TokenSet } from "./getTokensFromLocation";
+import { TokenSet } from "./setTokensFromLocation";
 import getTokenRefreshPath from "./getTokenRefreshPath";
 import { getLogoutChannel } from "./logoutChannel";
 
