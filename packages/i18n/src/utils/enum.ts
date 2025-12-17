@@ -4,6 +4,7 @@ import {
   AwardedScope,
   AwardedTo,
   CandidateRemovalReason,
+  CandidateStatus,
   EducationStatus,
   EducationType,
   EvaluatedLanguageAbility,
@@ -137,7 +138,7 @@ export function localizedEnumToInput<T>(
 }
 
 /**
- * Converts an array of localized enums to grpahql input values
+ * Converts an array of localized enums to graphql input values
  *
  * @param localizedEnumArray - Array of localized enums
  * @returns Input values
@@ -153,6 +154,17 @@ export function localizedEnumArrayToInput<T>(
 }
 
 export const ENUM_SORT_ORDER = {
+  CANDIDATE_STATUS: [
+    CandidateStatus.Draft,
+    CandidateStatus.Received,
+    CandidateStatus.UnderReview,
+    CandidateStatus.ApplicationReviewed,
+    CandidateStatus.UnderAssessment,
+    CandidateStatus.Qualified,
+    CandidateStatus.Unsuccessful,
+    CandidateStatus.Expired,
+    null,
+  ],
   FLEXIBLE_WORK_LOCATION: [
     FlexibleWorkLocation.Remote,
     FlexibleWorkLocation.Hybrid,
@@ -328,7 +340,6 @@ export function sortPoolCandidateSearchRequestReason(
       PoolCandidateSearchRequestReason.ImmediateHire,
       PoolCandidateSearchRequestReason.UpcomingNeed,
       PoolCandidateSearchRequestReason.GeneralInterest,
-      PoolCandidateSearchRequestReason.UpcomingNeed,
     ],
     poolCandidateSearchRequestReasons,
   );

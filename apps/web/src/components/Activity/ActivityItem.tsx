@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  DATETIME_FORMAT_LOCALIZED,
+  TIME_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -89,7 +89,7 @@ const ActivityItem = ({
         {item.createdAt
           ? formatDate({
               date: parseDateTimeUtc(item.createdAt),
-              formatString: DATETIME_FORMAT_LOCALIZED,
+              formatString: TIME_FORMAT_LOCALIZED,
               intl,
             })
           : intl.formatMessage(commonMessages.notAvailable)}

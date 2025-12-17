@@ -28,12 +28,13 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
-import { getQualifiedRecruitmentStatusChip } from "~/utils/poolCandidate";
+import { candidateInterestColorMap } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { getSalaryRange } from "~/utils/classification";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import StatusSummary from "./StatusSummary";
+import { candidateInterestDesc } from "./utils";
 
 interface FormValues {
   isSuspended: "true" | "false";
@@ -54,9 +55,11 @@ const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
     expiryDate
     finalDecisionAt
     suspendedAt
-    placedAt
-    status {
+    candidateInterest {
       value
+      label {
+        localized
+      }
     }
     pool {
       id
@@ -193,13 +196,6 @@ const ReviewRecruitmentProcessDialog = ({
       .catch(handleError);
   };
 
-  const status = getQualifiedRecruitmentStatusChip(
-    recruitmentProcess.suspendedAt,
-    recruitmentProcess.placedAt,
-    recruitmentProcess.status?.value ?? null,
-    intl,
-  );
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
@@ -239,12 +235,21 @@ const ReviewRecruitmentProcessDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <div className="grid gap-6 xs:grid-cols-2">
-            <StatusSummary
-              label={status.label}
-              description={status.description}
-              color={status.color ?? "primary"}
-              className="xs:col-span-2"
-            />
+            {recruitmentProcess.candidateInterest && (
+              <StatusSummary
+                label={recruitmentProcess.candidateInterest.label.localized}
+                description={candidateInterestDesc({
+                  interest: recruitmentProcess.candidateInterest.value,
+                  intl,
+                })}
+                color={
+                  candidateInterestColorMap.get(
+                    recruitmentProcess.candidateInterest.value,
+                  ) ?? "secondary"
+                }
+                className="xs:col-span-2"
+              />
+            )}
 
             <Separator decorative className="m-0 xs:col-span-2" />
 
