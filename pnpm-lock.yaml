@@ -826,8 +826,20 @@ importers:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      eslint:
+        specifier: ^9.20.1
+        version: 9.36.0(jiti@2.6.1)
+      react:
+        specifier: ^19.2.1
+        version: 19.2.1
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.9.3
         version: 5.9.3
 
   packages/logger:
