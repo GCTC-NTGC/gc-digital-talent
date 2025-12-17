@@ -196,11 +196,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
         // Users sheet
         $usersSheet = $this->spreadsheet->getActiveSheet();
-        $usersSheet->setTitle('Users');
+        $usersSheet->setTitle(Lang::get('headings.user', [], $this->lang));
 
         // Create Career Experience sheet
         $careerSheet = $this->spreadsheet->createSheet();
-        $careerSheet->setTitle('Career experience');
+        $careerSheet->setTitle(Lang::get('headings.career_experience', [], $this->lang));
 
         // Generate data for both sheets
         $this->generateUsersSheet($usersSheet);

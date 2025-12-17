@@ -100,6 +100,8 @@ return [
     'candidate_profile' => 'Candidate profile',
     'user_profile' => 'User profile',
     'user_profiles' => 'User profiles',
+    'user' => 'User',
+    'career_experience' => 'Career experience',
     'personal_info' => 'Personal information',
     'contact_info' => 'Contact information',
     'general_info' => 'General information',

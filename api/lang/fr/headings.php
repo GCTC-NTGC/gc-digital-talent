@@ -102,6 +102,8 @@ return [
     'candidate_profile' => 'Profil des candidat',
     'user_profile' => 'Profil de l\'utilisateur',
     'user_profiles' => 'Profils d\'utilisateurs',
+    'user' => 'Utilisateur',
+    'career_experience' => 'Expérience professionnelle',
     'personal_info' => 'Renseignements personnels',
     'contact_info' => 'Coordonnées',
     'general_info' => 'Renseignements généraux',
