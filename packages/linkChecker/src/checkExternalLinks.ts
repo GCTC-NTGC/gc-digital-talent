@@ -11,8 +11,9 @@ interface LinkStatus {
   status: number | string;
 }
 
-interface GlobalWithCurrentLinkFile {
-  _currentLinkFile?: string;
+// Use a global variable for _currentLinkFile instead of an interface
+declare global {
+  var currentLinkFile: string | undefined;
 }
 
 // Write error to external-link-errors.log
@@ -40,7 +41,8 @@ async function fetchLink(
       signal: controller.signal,
       headers: {
         // Use a generic User-Agent string to avoid frequent updates
-        "User-Agent": "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
+        "User-Agent":
+          "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
       },
     });
     return res.status;
@@ -77,8 +79,7 @@ async function fetchLink(
       fullError = reason;
     }
     if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
-      const currentLinkFile =
-        (globalThis as GlobalWithCurrentLinkFile)._currentLinkFile ?? "";
+      const currentLinkFile = global.currentLinkFile ?? "";
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
@@ -154,7 +155,6 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
 
 async function main() {
   try {
-    const global = globalThis as GlobalWithCurrentLinkFile;
     // If running as a retry for a batch of legacy TLS links
     if (process.env._RETRIED_LEGACY_TLS && process.env._RETRY_LEGACY_LINKS) {
       const parsed = JSON.parse(
@@ -171,7 +171,7 @@ async function main() {
         : [];
       const results: LinkStatus[] = [];
       for (const link of retryLinks) {
-        global._currentLinkFile = link.file;
+        global.currentLinkFile = link.file;
         const status = await fetchLink(link.url);
         results.push({ file: link.file, url: link.url, status });
       }
@@ -222,9 +222,9 @@ async function main() {
     const results: LinkStatus[] = [];
     const legacyLinks: { file: string; url: string }[] = [];
     for (const link of allLinks) {
-      global._currentLinkFile = link.file;
+      global.currentLinkFile = link.file;
       const status = await fetchLink(link.url);
-      // some old gov links may need legacy TLS renegotiation
+      // some old gov links  need legacy TLS renegotiation
       if (
         status === "retried-with-legacy-tls" ||
         status === "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
