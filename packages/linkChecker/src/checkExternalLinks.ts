@@ -11,6 +11,10 @@ interface LinkStatus {
   status: number | string;
 }
 
+interface GlobalWithCurrentLinkFile {
+  _currentLinkFile?: string;
+}
+
 // Write error to external-link-errors.log
 async function writeErrorLog(msg: string, file?: string, append = true) {
   const errorLogPath = path.resolve("external-link-errors.log");
@@ -50,7 +54,7 @@ async function fetchLink(
       // Log all enumerable properties
       const props = Object.getOwnPropertyNames(err).reduce(
         (acc: Record<string, unknown>, key) => {
-          acc[key] = ((err as unknown) as Record<string, unknown>)[key];
+          acc[key] = (err as unknown as Record<string, unknown>)[key];
           return acc;
         },
         {},
@@ -73,13 +77,15 @@ async function fetchLink(
       fullError = reason;
     }
     if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
+      const currentLinkFile =
+        (globalThis as GlobalWithCurrentLinkFile)._currentLinkFile ?? "";
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
           NODE_OPTIONS: "--tls-legacy-renegotiation",
           _RETRIED_LEGACY_TLS: "1",
           _RETRY_LINK_URL: url,
-          _RETRY_LINK_FILE: (globalThis as any)._currentLinkFile || "",
+          _RETRY_LINK_FILE: currentLinkFile,
         },
         stdio: "inherit",
       });
@@ -134,7 +140,10 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
     let match;
     while ((match = regex.exec(content))) {
       const url = match[1];
-      if (typeof url === "string" && !url.toLowerCase().includes("sharepoint")) {
+      if (
+        typeof url === "string" &&
+        !url.toLowerCase().includes("sharepoint")
+      ) {
         links.push(url);
       }
     }
@@ -145,14 +154,24 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
 
 async function main() {
   try {
+    const global = globalThis as GlobalWithCurrentLinkFile;
     // If running as a retry for a batch of legacy TLS links
     if (process.env._RETRIED_LEGACY_TLS && process.env._RETRY_LEGACY_LINKS) {
-      const retryLinks: { file: string; url: string }[] = JSON.parse(
-        process.env._RETRY_LEGACY_LINKS,
-      );
+      const parsed = JSON.parse(
+        process.env._RETRY_LEGACY_LINKS ?? "[]",
+      ) as unknown;
+      const retryLinks: { file: string; url: string }[] = Array.isArray(parsed)
+        ? (parsed as unknown[]).filter(
+            (item): item is { file: string; url: string } =>
+              typeof item === "object" &&
+              item !== null &&
+              typeof (item as { file?: unknown }).file === "string" &&
+              typeof (item as { url?: unknown }).url === "string",
+          )
+        : [];
       const results: LinkStatus[] = [];
       for (const link of retryLinks) {
-        (globalThis as any)._currentLinkFile = link.file;
+        global._currentLinkFile = link.file;
         const status = await fetchLink(link.url);
         results.push({ file: link.file, url: link.url, status });
       }
@@ -203,7 +222,7 @@ async function main() {
     const results: LinkStatus[] = [];
     const legacyLinks: { file: string; url: string }[] = [];
     for (const link of allLinks) {
-      (globalThis as any)._currentLinkFile = link.file;
+      global._currentLinkFile = link.file;
       const status = await fetchLink(link.url);
       // some old gov links may need legacy TLS renegotiation
       if (
