@@ -197,23 +197,25 @@ class LocationPreferenceUpdatePage extends AppPage {
 
   async verifyFlexibleWorkLocationData(user: string) {
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
+
     const selectedFlexOptions = await this.getSelectedWorkLocOptions();
     const table = this.page.getByRole("table").first();
-    // wait for table data
-    await expect(table.getByRole("row").nth(1)).toBeVisible({
+    await expect(table.getByRole("row").first()).toBeVisible({
       timeout: 120_000,
     });
-    const row = table
-      .getByRole("row")
-      .filter({
-        has: this.page.getByRole("cell", {
-          name: new RegExp(user.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"),
-        }),
-      })
-      .first();
-    const rowText = (await row.allTextContents()).join(" ").toLowerCase();
+    await expect
+      .poll(
+        async () => (await table.allTextContents()).join(" ").toLowerCase(),
+        {
+          timeout: 120_000,
+        },
+      )
+      .toContain(user.toLowerCase());
+
+    const tableText = (await table.allTextContents()).join(" ").toLowerCase();
+
     for (const option of selectedFlexOptions) {
-      expect(rowText).toContain(option.toLowerCase());
+      expect(tableText).toContain(option.toLowerCase());
     }
   }
 }

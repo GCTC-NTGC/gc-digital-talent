@@ -214,7 +214,6 @@ test.describe("Location Preference update for Community Talent", () => {
   let testId: string;
   let adminCtx: GraphQLContext;
   let sub: string;
-  let userName: string;
   let govUser: User;
 
   test.beforeEach(async () => {
@@ -265,7 +264,6 @@ test.describe("Location Preference update for Community Talent", () => {
       roles: ["guest", "base_user", "applicant"],
     });
     govUser = userWithGovExp ?? { id: "" };
-    userName = userWithGovExp?.firstName ?? "";
     // Once the user is created, add the community interest
     const applicantCtx = await graphql.newContext(
       userWithGovExp?.authInfo?.sub ?? "applicant@test.com",
@@ -308,7 +306,7 @@ test.describe("Location Preference update for Community Talent", () => {
     await locationPrefPage.verifyFlexibleWorkLocationData(sub);
     await expect(
       appPage.page.getByRole("link", {
-        name: new RegExp(`${userName} User`, "i"),
+        name: new RegExp(`${sub} User`, "i"),
       }),
     ).toBeVisible({ timeout: 10_000 });
   });
