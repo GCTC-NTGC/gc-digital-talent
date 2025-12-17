@@ -340,7 +340,6 @@ export function sortPoolCandidateSearchRequestReason(
       PoolCandidateSearchRequestReason.ImmediateHire,
       PoolCandidateSearchRequestReason.UpcomingNeed,
       PoolCandidateSearchRequestReason.GeneralInterest,
-      PoolCandidateSearchRequestReason.UpcomingNeed,
     ],
     poolCandidateSearchRequestReasons,
   );
