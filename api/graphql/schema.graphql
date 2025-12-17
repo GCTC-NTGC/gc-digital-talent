@@ -573,6 +573,8 @@ type Pool implements HasRoleAssignments {
       relation: "activities"
       scopes: ["whereIsPoolActivity", "authorizedToViewPoolActivity"]
     )
+  applicantsCount: Int!
+    @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
 }
 
 type GeneralQuestionResponse {
