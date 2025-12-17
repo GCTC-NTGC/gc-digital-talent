@@ -64,7 +64,7 @@ class JobPosterTemplateGeneratorTest extends TestCase
 
         // assert
         $path = $this->generator->getRelativePath();
-        $disk = Storage::disk('userGenerated');
+        $disk = Storage::disk('user_generated');
 
         $fileExists = $disk->exists($path);
         assertTrue($fileExists, 'File was not generated');
@@ -80,7 +80,7 @@ class JobPosterTemplateGeneratorTest extends TestCase
             ->generate()
             ->write();
 
-        $disk = Storage::disk('userGenerated');
+        $disk = Storage::disk('user_generated');
         $contents = $disk->get($this->generator->getRelativePath());
 
         $this->assertMatchesHtmlSnapshot($contents);
