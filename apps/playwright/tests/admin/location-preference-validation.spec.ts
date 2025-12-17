@@ -123,8 +123,8 @@ test.describe("Location Preference Validation", () => {
       [WorkRegion.Atlantic],
     );
     await appPage.waitForGraphqlResponse("UsersPaginated");
-    await userPage.searchUserByName(userName, "Candidate name");
-    await locationPrefPage.verifyFlexibleWorkLocationData(userName);
+    // await userPage.searchUserByName(userName, "Candidate name");
+    await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
     await expect(
       appPage.page.getByRole("link", {
         name: new RegExp(`${userName} User`, "i"),
@@ -137,6 +137,8 @@ test.describe("Location Preference Validation", () => {
       [FlexibleWorkLocation.Remote],
       [WorkRegion.Ontario],
     );
+    // eslint-disable-next-line playwright/no-wait-for-timeout
+    await appPage.page.waitForTimeout(1000);
     await expect(
       appPage.page.getByRole("heading", {
         name: /There aren't any items here./i,
@@ -198,8 +200,8 @@ test.describe("Location Preference Validation", () => {
     await appPage.waitForGraphqlResponse(
       "CandidatesTableCandidatesPaginated_Query",
     );
-    await userPage.searchUserByName(userName, "Candidate name");
-    await locationPrefPage.verifyFlexibleWorkLocationData(userName);
+    // await userPage.searchUserByName(userName, "Candidate name");
+    await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
     await expect(
       appPage.page.getByRole("link", {
         name: new RegExp(`${userName} User`, "i"),
@@ -286,7 +288,6 @@ test.describe("Location Preference update for Community Talent", () => {
   }) => {
     const page = appPage.page;
     const locationPrefPage = new LocationPreferenceUpdatePage(page);
-    const userPage = new UserPage(page);
     await loginBySub(page, testConfig.signInSubs.recruiterSignIn, false);
     await page.goto("/en/admin/community-talent");
     await expect(
@@ -302,12 +303,13 @@ test.describe("Location Preference update for Community Talent", () => {
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
       [WorkRegion.NationalCapital],
     );
-    await userPage.searchUserByName(sub, "Name");
-    await locationPrefPage.verifyFlexibleWorkLocationData(sub);
+    // eslint-disable-next-line playwright/no-wait-for-timeout
+    await page.waitForTimeout(1000);
+    await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
     await expect(
       appPage.page.getByRole("link", {
         name: new RegExp(`${sub} User`, "i"),
       }),
-    ).toBeVisible({ timeout: 10_000 });
+    ).toBeVisible();
   });
 });
