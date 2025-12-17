@@ -84,7 +84,6 @@ async function fetchLink(
         stdio: "inherit",
       });
       return "retried-with-legacy-tls";
-      return "retried-with-legacy-tls";
     }
     await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
     return reason;
