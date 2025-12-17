@@ -285,7 +285,7 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->setIntrospectionResponse(true);
 
-        HTTP::assertSentCount(0);
+        Http::assertSentCount(0);
         $this->service_provider->validateAndGetClaims($token);
         Http::assertSentCount(3); // calls config, jwks, and introspection
 
