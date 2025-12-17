@@ -3,11 +3,18 @@ import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import { tv, VariantProps } from "tailwind-variants";
+import { isValid } from "date-fns/isValid";
+import { format } from "date-fns/format";
 
 import { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Logger } from "@gc-digital-talent/logger";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import activityMessages from "~/messages/activityMessages";
 import adminMessages from "~/messages/adminMessages";
@@ -184,4 +191,45 @@ export function normalizePropKeys(
   }
 
   return modified;
+}
+
+export function formatActivityDayGroup(day: string, intl: IntlShape): string {
+  return formatDate({
+    date: parseDateTimeUtc(day),
+    formatString: DATE_FORMAT_LOCALIZED,
+    intl,
+  });
+}
+
+interface GroupedByDay<T> {
+  day: string;
+  activities: T[];
+}
+
+export function groupByDay<T, K extends keyof T>(
+  items: T[],
+  key?: K,
+): GroupedByDay<T>[] {
+  const groups = new Map<string, T[]>();
+  const dateKey = (key ?? "createdAt") as keyof T;
+
+  for (const item of items) {
+    const rawDate = item[dateKey];
+    if (typeof rawDate !== "string") continue;
+
+    const date = parseDateTimeUtc(rawDate);
+    if (!isValid(date)) continue;
+
+    const day = format(date, "yyyy-MM-dd");
+
+    if (!groups.has(day)) {
+      groups.set(day, []);
+    }
+
+    groups.get(day)?.push(item);
+  }
+
+  return Array.from(groups.entries())
+    .sort(([a], [b]) => b.localeCompare(a))
+    .map(([day, activities]) => ({ day, activities }));
 }
