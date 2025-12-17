@@ -288,6 +288,7 @@ test.describe("Location Preference update for Community Talent", () => {
   }) => {
     const page = appPage.page;
     const locationPrefPage = new LocationPreferenceUpdatePage(page);
+    const userPage = new UserPage(appPage.page);
     await loginBySub(page, testConfig.signInSubs.recruiterSignIn, false);
     await page.goto("/en/admin/community-talent");
     await expect(
@@ -305,6 +306,7 @@ test.describe("Location Preference update for Community Talent", () => {
     );
     // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(20000);
+    await userPage.searchUserByName(govUser.firstName ?? "", "Entire table");
     await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
   });
 });
