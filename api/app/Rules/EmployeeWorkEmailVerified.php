@@ -31,8 +31,7 @@ class EmployeeWorkEmailVerified implements ValidationRule
         /** @var Pool $pool */
         $pool = Pool::find($value);
 
-        if (config('feature.application_email_verification', false) &&
-            $pool->area_of_selection === PoolAreaOfSelection::EMPLOYEES->name
+        if ($pool->area_of_selection === PoolAreaOfSelection::EMPLOYEES->name
              && (empty($this->user->work_email) || empty($this->user->work_email_verified_at))) {
             $fail(ErrorCode::APPLICATION_WORK_EMAIL_NOT_VERIFIED->name);
         }
