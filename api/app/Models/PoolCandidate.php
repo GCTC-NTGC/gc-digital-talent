@@ -845,6 +845,8 @@ class PoolCandidate extends Model
 
     public function revertPlacement()
     {
+        $this->disableLogging();
+
         $atts = ['pool_candidate_status', 'placed_at', 'placed_department_id'];
         $old = $this->only($atts);
 
@@ -863,6 +865,8 @@ class PoolCandidate extends Model
 
     public function revertFinalDecision()
     {
+        $this->disableLogging();
+
         $atts = ['pool_candidate_status', 'expiry_date', 'final_decision_at', 'screening_stage'];
         $old = $this->only($atts);
 
