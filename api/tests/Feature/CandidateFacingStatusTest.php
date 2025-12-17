@@ -13,6 +13,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesUnprotectedGraphqlEndpoint;
 
@@ -56,9 +57,7 @@ class CandidateFacingStatusTest extends TestCase
             ]);
     }
 
-    /**
-     * @dataProvider candidateStatusProvider
-     */
+    #[DataProvider('candidateStatusProvider')]
     public function testCandidateStatus($expected, $attributes): void
     {
         foreach ($attributes as $k => $v) {
@@ -76,9 +75,7 @@ class CandidateFacingStatusTest extends TestCase
             ]);
     }
 
-    /**
-     * @dataProvider candidateInterestProvider
-     */
+    #[DataProvider('candidateInterestProvider')]
     public function testCandidateInterest($expected, $attributes): void
     {
 
