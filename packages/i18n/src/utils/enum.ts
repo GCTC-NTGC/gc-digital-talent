@@ -138,7 +138,7 @@ export function localizedEnumToInput<T>(
 }
 
 /**
- * Converts an array of localized enums to grpahql input values
+ * Converts an array of localized enums to graphql input values
  *
  * @param localizedEnumArray - Array of localized enums
  * @returns Input values
@@ -340,7 +340,6 @@ export function sortPoolCandidateSearchRequestReason(
       PoolCandidateSearchRequestReason.ImmediateHire,
       PoolCandidateSearchRequestReason.UpcomingNeed,
       PoolCandidateSearchRequestReason.GeneralInterest,
-      PoolCandidateSearchRequestReason.UpcomingNeed,
     ],
     poolCandidateSearchRequestReasons,
   );
