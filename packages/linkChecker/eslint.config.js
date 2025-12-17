@@ -16,7 +16,6 @@ export default [
             1,
             {
               unusedExports: true,
-              ignoreExports: ["src/index.{ts,tsx}"],
             },
           ];
         }
