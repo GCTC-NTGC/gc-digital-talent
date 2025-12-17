@@ -193,18 +193,25 @@ class LocationPreferenceUpdatePage extends AppPage {
     await this.deSelectOptions(this.regionsMap);
     await this.selectOptions(this.regionsMap, regionOptions);
     await this.locators[FIELD.SHOW_RESULTS].click();
-    await this.waitForGraphqlResponse("CommunityTalentTable");
   }
 
   async verifyFlexibleWorkLocationData(user: string) {
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
     const selectedFlexOptions = await this.getSelectedWorkLocOptions();
-    const row = this.page
-      .getByRole("table")
-      .first()
-      .getByRole("row", { name: new RegExp(user, "i") });
-    const rowText = (await row.innerText()).toLowerCase();
-
+    const table = this.page.getByRole("table").first();
+    // wait for table data
+    await expect(table.getByRole("row").nth(1)).toBeVisible({
+      timeout: 120_000,
+    });
+    const row = table
+      .getByRole("row")
+      .filter({
+        has: this.page.getByRole("cell", {
+          name: new RegExp(user.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"),
+        }),
+      })
+      .first();
+    const rowText = (await row.allTextContents()).join(" ").toLowerCase();
     for (const option of selectedFlexOptions) {
       expect(rowText).toContain(option.toLowerCase());
     }

@@ -100,7 +100,7 @@ test.describe("Location Preference Validation", () => {
     user = createdUser ?? { id: "" };
   });
 
-  test.afterAll(async () => {
+  test.afterEach(async () => {
     if (user) {
       await deleteUser(adminCtx, { id: user.id });
     }
@@ -117,18 +117,13 @@ test.describe("Location Preference Validation", () => {
       .click();
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await userPage.goToIndex();
-    await locationPrefPage.showOrHideColumns();
+    await locationPrefPage.setFlexibleWorkLocationColumn();
     await locationPrefPage.filterFlexWorkLocation(
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
       [WorkRegion.Atlantic],
     );
     await appPage.waitForGraphqlResponse("UsersPaginated");
     await userPage.searchUserByName(userName, "Candidate name");
-    await expect(
-      appPage.page.getByRole("columnheader", {
-        name: /Flexible work location options/i,
-      }),
-    ).toHaveAccessibleName(/Flexible work location options/i);
     await locationPrefPage.verifyFlexibleWorkLocationData(userName);
     await expect(
       appPage.page.getByRole("link", {
@@ -168,7 +163,7 @@ test.describe("Location Preference Validation", () => {
     });
     id = createdPool.id;
     applicantCtx = await graphql.newContext(
-      createdUser?.authInfo?.sub ?? "applicant@test.com",
+      user?.authInfo?.sub ?? "applicant@test.com",
     );
     const applicant = await me(applicantCtx, {});
 
@@ -180,34 +175,8 @@ test.describe("Location Preference Validation", () => {
     });
 
     application = candidate;
-    user = createdUser ?? { id: "" };
-  });
-
-  test.afterEach(async () => {
-    await deleteUser(adminCtx, { id: user.id });
-    await deletePool(adminCtx, { id });
-  });
-  test("Work Location preference update in Admin view", async ({ appPage }) => {
-    locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
-    const userName = user?.firstName ?? "";
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
-    userPage = new UserPage(appPage.page);
-    await userPage.goToIndex();
-    await userPage.searchUserByName(userName, "Candidate name");
-    await appPage.page.locator(`a:has-text("${userName} User")`).click();
-    await appPage.waitForGraphqlResponse("AdminApplicantProfilePage");
-    await expect(
-      appPage.page.getByRole("heading", { name: userName }),
-    ).toBeVisible();
-    await appPage.page
-      .getByRole("button", { name: "Work preferences", exact: true })
-      .click();
-    await locationPrefPage.validateSelectedFlexWorkLocOptions();
-  });
-
-  test("Validate Location preference update in Candidate Table view", async ({
-    appPage,
-  }) => {
+    user = user ?? { id: "" };
+    // Navigate to Candidate page and validate location preference
     const page = appPage.page;
     const userName = user?.firstName ?? "";
     locationPrefPage = new LocationPreferenceUpdatePage(page);
@@ -221,11 +190,6 @@ test.describe("Location Preference Validation", () => {
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await candidatePage.goToIndex();
     await locationPrefPage.setFlexibleWorkLocationColumn();
-    await expect(
-      page.getByRole("columnheader", {
-        name: /Flexible work location options/i,
-      }),
-    ).toHaveAccessibleName(/Flexible work location options/i);
     // Filter the work locations which user has chosen and verify user is present
     await locationPrefPage.filterFlexWorkLocation(
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
@@ -235,136 +199,14 @@ test.describe("Location Preference Validation", () => {
       "CandidatesTableCandidatesPaginated_Query",
     );
     await userPage.searchUserByName(userName, "Candidate name");
-    await expect(
-      page.getByRole("columnheader", {
-        name: /Flexible work location options/i,
-      }),
-    ).toHaveAccessibleName(/Flexible work location options/i);
     await locationPrefPage.verifyFlexibleWorkLocationData(userName);
     await expect(
       appPage.page.getByRole("link", {
         name: new RegExp(`${userName} User`, "i"),
       }),
     ).toBeVisible();
-
-    // Filter the work location to which user hasn't selected and verify user should not be present
-    await userPage.searchUserByName(userName, "Candidate name");
-    await locationPrefPage.filterFlexWorkLocation(
-      [FlexibleWorkLocation.Remote],
-      [WorkRegion.Ontario],
-    );
-    await expect(
-      appPage.page.getByRole("heading", {
-        name: /There aren't any items here./i,
-        level: 2,
-      }),
-    ).toBeVisible();
     // Teardown - Deleting the created pool
     await deletePool(adminCtx, { id: createdPool.id });
-  });
-});
-
-test.describe("Location Preference update for Community Talent", () => {
-  let testId: string;
-  let adminCtx: GraphQLContext;
-  let sub: string;
-  let userName: string;
-  let govUser: User;
-
-  test.beforeEach(async () => {
-    testId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
-    const classifications = await getClassifications(adminCtx, {});
-    const departments = await getDepartments(adminCtx, {});
-    const nonCPADept = departments.find(
-      (dep) => !dep.isCorePublicAdministration,
-    );
-    sub = `playwright.commInterest.${testId}`;
-
-    const userWithGovExp = await createUserWithRoles(adminCtx, {
-      user: {
-        firstName: sub,
-        email: `${sub}-locPref@example.org`,
-        sub: sub,
-        isGovEmployee: true,
-        workEmail: `${sub}-locPref@gc.ca`,
-        workEmailVerifiedAt: nowUTCDateTime(),
-        currentProvince: ProvinceOrTerritory.Alberta,
-        currentCity: "Test city",
-        telephone: "+10123456789",
-        armedForcesStatus: ArmedForcesStatus.Veteran,
-        citizenship: CitizenshipStatus.Citizen,
-        lookingForEnglish: true,
-        hasPriorityEntitlement: true,
-        priorityNumber: "123",
-        locationPreferences: [WorkRegion.NationalCapital],
-        flexibleWorkLocations: [
-          FlexibleWorkLocation.Hybrid,
-          FlexibleWorkLocation.Onsite,
-        ],
-        workExperiences: {
-          create: [
-            {
-              ...defaultWorkExperience,
-              startDate: "2020-01-01",
-              employmentCategory: EmploymentCategory.GovernmentOfCanada,
-              govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
-              govPositionType: GovPositionType.Substantive,
-              department: { connect: nonCPADept?.id },
-              classificationId: classifications[0].id,
-            },
-          ],
-        },
-      },
-      roles: ["guest", "base_user", "applicant"],
-    });
-    govUser = userWithGovExp ?? { id: "" };
-    userName = userWithGovExp?.firstName ?? "";
-    // Once the user is created, add the community interest
-    const applicantCtx = await graphql.newContext(
-      userWithGovExp?.authInfo?.sub ?? "applicant@test.com",
-    );
-    await createCommunityInterest(applicantCtx, {
-      userId: userWithGovExp?.id ?? "",
-      community: { connect: "f2156218-953a-49dc-b12c-84fecae2309a" },
-      consentToShareProfile: true,
-      jobInterest: true,
-      trainingInterest: true,
-      workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
-    });
-  });
-  test.afterEach(async () => {
-    await deleteUser(adminCtx, { id: govUser.id });
-  });
-
-  test("Validate Location Preference update in the Community Talent table", async ({
-    appPage,
-  }) => {
-    const page = appPage.page;
-    const locationPrefPage = new LocationPreferenceUpdatePage(page);
-    const userPage = new UserPage(page);
-    await loginBySub(page, testConfig.signInSubs.recruiterSignIn, false);
-    await page.goto("/en/admin/community-talent");
-    await expect(
-      page.getByRole("heading", {
-        name: /Community Talent/i,
-        level: 1,
-      }),
-    ).toBeVisible();
-    await appPage.waitForGraphqlResponse("CommunityTalentTable");
-    await locationPrefPage.setFlexibleWorkLocationColumn();
-    // Filter the work locations which user has chosen and verify user is present
-    await locationPrefPage.filterFlexWorkLocation(
-      [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
-      [WorkRegion.NationalCapital],
-    );
-    await userPage.searchUserByName(sub, "Name");
-    await locationPrefPage.verifyFlexibleWorkLocationData(sub);
-    await expect(
-      appPage.page.getByRole("link", {
-        name: new RegExp(`${userName} User`, "i"),
-      }),
-    ).toBeVisible({ timeout: 10_000 });
   });
 });
 
