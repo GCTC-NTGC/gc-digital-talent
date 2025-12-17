@@ -101,7 +101,7 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * An empty string is proved and should be rejected.
+     * An empty string is provided and should be rejected.
      */
     public function testRejectsEmptyToken()
     {
