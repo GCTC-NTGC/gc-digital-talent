@@ -5,7 +5,6 @@ import { tv } from "tailwind-variants";
 
 import { CardFlat, Container, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
@@ -42,30 +41,29 @@ const flourish = tv({
 });
 
 const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
-  query BrowsePoolsPage($closingAfter: DateTime) {
-    publishedPools(closingAfter: $closingAfter) {
-      id
-      publishingGroup {
-        value
-        label {
-          en
-          fr
+  query BrowsePoolsPage {
+    poolsPaginated(where: { statuses: [PUBLISHED] }, first: 500) {
+      data {
+        id
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
         }
-      }
-      status {
-        value
-        label {
-          en
-          fr
+        status {
+          value
+          label {
+            en
+            fr
+          }
         }
+        ...ActiveRecruitmentSectionPool
       }
-
-      ...ActiveRecruitmentSectionPool
     }
   }
 `);
-
-const now = nowUTCDateTime();
 
 const subTitle = defineMessage({
   defaultMessage:
@@ -82,10 +80,9 @@ export const Component = () => {
 
   const [{ data, fetching, error }] = useQuery({
     query: BrowsePoolsPage_Query,
-    variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
-  const pools = unpackMaybes(data?.publishedPools);
+  const pools = unpackMaybes(data?.poolsPaginated?.data);
   const title = intl.formatMessage(navigationMessages.browseJobs);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
