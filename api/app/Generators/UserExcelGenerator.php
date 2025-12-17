@@ -209,6 +209,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         return $this;
     }
 
+    // store user ids while generating users sheet
+    private array $userIds = [];
+
     /**
      * Generate data for Users sheet
      */
@@ -224,6 +227,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $query = $this->buildQuery();
         $query->chunk(200, function ($users) use ($sheet, &$currentUser) {
             foreach ($users as $user) {
+                $this->userIds[] = $user->id;
                 $rowData = $this->buildUserRowData($user);
                 $sheet->fromArray($rowData, null, sprintf('A%d', $currentUser + 1));
                 $currentUser++;
@@ -242,7 +246,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
         $sheet->fromArray($localizedHeaders, null, 'A1');
 
-        $userIds = $this->getUserIdsFromQuery();
+        $userIds = $this->userIds;
 
         if (empty($userIds)) {
             return;
@@ -426,12 +430,12 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function getExperienceType($experience): string
     {
-        return match (true) {
-            $experience instanceof WorkExperience => $this->localizeEnum(ExperienceType::WORK->name, ExperienceType::class),
-            $experience instanceof EducationExperience => $this->localizeEnum(ExperienceType::EDUCATION->name, ExperienceType::class),
-            $experience instanceof AwardExperience => $this->localizeEnum(ExperienceType::AWARD->name, ExperienceType::class),
-            $experience instanceof CommunityExperience => $this->localizeEnum(ExperienceType::COMMUNITY->name, ExperienceType::class),
-            $experience instanceof PersonalExperience => $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class),
+        return match (get_class($experience)) {
+            WorkExperience::class => $this->localizeEnum(ExperienceType::WORK->name, ExperienceType::class),
+            EducationExperience::class => $this->localizeEnum(ExperienceType::EDUCATION->name, ExperienceType::class),
+            AwardExperience::class => $this->localizeEnum(ExperienceType::AWARD->name, ExperienceType::class),
+            CommunityExperience::class => $this->localizeEnum(ExperienceType::COMMUNITY->name, ExperienceType::class),
+            PersonalExperience::class => $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class),
             default => '',
         };
     }
@@ -853,23 +857,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         }
 
         return $startDate->diffInMonths($endDate);
-    }
-
-    /**
-     * Get users ids from query
-     */
-    private function getUserIdsFromQuery(): array
-    {
-        $userIds = [];
-        $query = $this->buildQuery();
-
-        $query->chunk(200, function ($users) use (&$userIds) {
-            foreach ($users as $user) {
-                $userIds[] = $user->id;
-            }
-        });
-
-        return $userIds;
     }
 
     /**
