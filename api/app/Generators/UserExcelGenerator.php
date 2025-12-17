@@ -303,7 +303,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                     .($candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang));
         });
 
-        $offPlatformProcesses = $user->offPlatformRecruitmentProcesses->map(function ($process) {
+        $processes = $user->offPlatformRecruitmentProcesses;
+        $offPlatformProcesses = $processes->map(function ($process) {
             return $process->classification->formattedGroupAndLevel
                     .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? ''))
                     .' ('
