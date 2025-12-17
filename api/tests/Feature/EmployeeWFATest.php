@@ -24,6 +24,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -488,9 +489,7 @@ class EmployeeWFATest extends TestCase
             ->assertJsonFragment(['total' => 1]);
     }
 
-    /**
-     * @dataProvider queryFiltersProvider
-     */
+    #[DataProvider('queryFiltersProvider')]
     public function testQueryFilters($filter, $admin, $employee)
     {
         foreach ($admin as $k => $v) {

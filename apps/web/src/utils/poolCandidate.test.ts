@@ -5,13 +5,10 @@ import {
   CitizenshipStatus,
   ClaimVerificationResult,
   FinalDecision,
-  PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
-import { PAST_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import {
   getCandidateStatusChip,
-  getQualifiedRecruitmentStatusChip,
   priorityWeightAfterVerification,
 } from "./poolCandidate";
 import {
@@ -308,64 +305,6 @@ describe("PoolCandidate utils", () => {
           null,
         );
         expect(priorityClaimButAllNull).toEqual(40);
-      });
-    });
-
-    describe("Test getQualifiedRecruitmentStatusChip()", () => {
-      const allCandidateStatuses = Object.values(PoolCandidateStatus);
-      const exceptionStatuses = [
-        PoolCandidateStatus.UnderConsideration,
-        PoolCandidateStatus.PlacedTentative,
-        PoolCandidateStatus.PlacedCasual,
-      ];
-      const statusesSubtractExceptions = allCandidateStatuses.filter(
-        (stat) => !exceptionStatuses.includes(stat),
-      );
-
-      it("should return 'not interested' for all statuses with a suspendedAt", () => {
-        allCandidateStatuses.forEach((value) => {
-          const chip = getQualifiedRecruitmentStatusChip(
-            PAST_DATE,
-            PAST_DATE,
-            value,
-            intl,
-          );
-          expect(chip.label).toBe("Not interested");
-        });
-      });
-
-      it("should return 'hired' for statusesSubtractExceptions with a placedAt, other message for exception statuses", () => {
-        statusesSubtractExceptions.forEach((value) => {
-          const chip = getQualifiedRecruitmentStatusChip(
-            null,
-            PAST_DATE,
-            value,
-            intl,
-          );
-          expect(chip.label).toBe("Hired");
-        });
-
-        exceptionStatuses.forEach((value) => {
-          const chip = getQualifiedRecruitmentStatusChip(
-            null,
-            PAST_DATE,
-            value,
-            intl,
-          );
-          expect(chip.label).toBe("Open to job offers");
-        });
-      });
-
-      it("should return 'open to offers' for all statuses without a placedAt", () => {
-        allCandidateStatuses.forEach((value) => {
-          const chip = getQualifiedRecruitmentStatusChip(
-            null,
-            null,
-            value,
-            intl,
-          );
-          expect(chip.label).toBe("Open to job offers");
-        });
       });
     });
   });

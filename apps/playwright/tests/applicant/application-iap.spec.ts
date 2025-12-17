@@ -10,6 +10,7 @@ import {
   PublishingGroup,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
+import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
@@ -43,6 +44,7 @@ test.describe("IAP Application", () => {
     const createdUser = await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
         sub,
         currentProvince: ProvinceOrTerritory.Ontario,
         currentCity: "Test City",

@@ -1,6 +1,7 @@
 import {
   DATE_FORMAT_LOCALIZED,
   parseDateTimeUtc,
+  PAST_DATE,
   rawFormat,
 } from "@gc-digital-talent/date-helpers";
 import {
@@ -45,6 +46,7 @@ test.describe("Application card", () => {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
         firstName: sub,
         sub,
         personalExperiences: {
