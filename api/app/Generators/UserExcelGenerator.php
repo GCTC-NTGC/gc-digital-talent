@@ -31,6 +31,7 @@ use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
+use App\Models\ExperienceSkill;
 use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\WorkExperience;
@@ -793,7 +794,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             return '';
         }
 
-        $experienceSkill = \App\Models\ExperienceSkill::where('experience_id', $experience->id)
+        $experienceSkill = ExperienceSkill::where('experience_id', $experience->id)
             ->where('experience_type', get_class($experience))
             ->where('user_skill_id', $userSkill->id)
             ->first();
