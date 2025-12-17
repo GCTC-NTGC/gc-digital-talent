@@ -11,6 +11,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class CandidateFinalDecisionTest extends TestCase
@@ -39,9 +40,7 @@ class CandidateFinalDecisionTest extends TestCase
 
     }
 
-    /**
-     * @dataProvider statusProvider
-     */
+    #[DataProvider('statusProvider')]
     public function testFinalDecisionComputation($status, $expected): void
     {
         $step = $this->candidate->pool->assessmentSteps->firstWhere('sort_order', 1);
@@ -53,9 +52,7 @@ class CandidateFinalDecisionTest extends TestCase
         $this->assertEquals($expected, $decision);
     }
 
-    /**
-     * @dataProvider pendingStepProvider
-     */
+    #[DataProvider('pendingStepProvider')]
     public function testPendingFinalDecisionComputation($stepOrder, $overallStatus, $expected)
     {
         $this->candidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;

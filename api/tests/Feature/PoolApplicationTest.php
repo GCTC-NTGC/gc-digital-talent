@@ -7,6 +7,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\ErrorCode;
+use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
 use App\Enums\SkillCategory;
@@ -120,6 +121,10 @@ class PoolApplicationTest extends TestCase
         }
     ';
 
+    protected $govEmployee;
+
+    protected $nonGovEmployee;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -139,7 +144,22 @@ class PoolApplicationTest extends TestCase
             ->asApplicant()
             ->create([
                 'email' => 'applicant-user@test.com',
+                'email_verified_at' => config('constants.past_date'),
                 'sub' => 'applicant-user@test.com',
+            ]);
+
+        $this->govEmployee = User::factory()
+            ->asApplicant()
+            ->withGovEmployeeProfile()
+            ->create([
+                'email_verified_at' => config('constants.past_date'),
+            ]);
+
+        $this->nonGovEmployee = User::factory()
+            ->asApplicant()
+            ->withNonGovProfile()
+            ->create([
+                'email_verified_at' => config('constants.past_date'),
             ]);
 
         $this->communityRecruiter = User::factory()
@@ -158,6 +178,7 @@ class PoolApplicationTest extends TestCase
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         $variables = [
@@ -210,6 +231,7 @@ class PoolApplicationTest extends TestCase
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         $variables = [
@@ -238,6 +260,7 @@ class PoolApplicationTest extends TestCase
             'published_at' => null,
             'closing_date' => config('constants.far_past_date'),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         $variables = [
@@ -265,6 +288,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -301,8 +325,21 @@ class PoolApplicationTest extends TestCase
                 ]],
             ]);
 
-        // make user now complete
+        // make contact email unverified instead
         $this->applicantUser->armed_forces_status = ArmedForcesStatus::VETERAN->name;
+        $this->applicantUser->email_verified_at = null;
+        $this->applicantUser->save();
+
+        // assert contact email must also be verified
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($this->submitMutationDocument, $submitArgs)->assertJson([
+                'errors' => [[
+                    'message' => ErrorCode::APPLICATION_PROFILE_INCOMPLETE->name,
+                ]],
+            ]);
+
+        // make user now complete
+        $this->applicantUser->email_verified_at = config('constants.past_date');
         $this->applicantUser->save();
 
         // assert complete user can submit application
@@ -336,6 +373,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -403,6 +441,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         // technical essential skills are required
@@ -446,6 +485,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
 
         // technical essential skills are required
@@ -494,6 +534,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -526,6 +567,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->subDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -581,6 +623,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->published()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         $assessmentStep = AssessmentStep::factory()->create([
@@ -644,6 +687,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         GeneralQuestion::where('pool_id', $newPool->id)->delete();
@@ -956,6 +1000,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name,
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -1021,6 +1066,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name,
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -1080,6 +1126,7 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name,
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -1116,5 +1163,51 @@ class PoolApplicationTest extends TestCase
         // assert verification defaults filled in upon submitting application
         assertSame($newPoolCandidate->veteran_verification, null);
         assertSame($newPoolCandidate->priority_verification, ClaimVerificationResult::UNVERIFIED->name);
+    }
+
+    public function testApplicationSubmissionWorkEmailVerifiedForInternalJobs(): void
+    {
+        $pool = Pool::factory()
+            ->withPoolSkills(1, 0)
+            ->create([
+                'closing_date' => Carbon::now()->addDays(1),
+                'area_of_selection' => PoolAreaOfSelection::EMPLOYEES->name,
+            ]);
+
+        $pool->essentialSkills()->sync([]);
+
+        $candidateWithNoVerifiedWorkEmail = PoolCandidate::factory()->create([
+            'user_id' => $this->nonGovEmployee->id,
+            'pool_id' => $pool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        $this->actingAs($this->nonGovEmployee, 'api')
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $candidateWithNoVerifiedWorkEmail->id,
+                    'sig' => 'sign',
+                ]
+            )->assertGraphQLErrorMessage(ErrorCode::APPLICATION_WORK_EMAIL_NOT_VERIFIED->name);
+
+        $candidateWithVerifiedWorkEmail = PoolCandidate::factory()->create([
+            'user_id' => $this->govEmployee->id,
+            'pool_id' => $pool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        $this->actingAs($this->govEmployee, 'api')
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $candidateWithVerifiedWorkEmail->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                'signature' => 'sign',
+            ]);
     }
 }

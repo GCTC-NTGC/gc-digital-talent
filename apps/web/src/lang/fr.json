@@ -1255,10 +1255,6 @@
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
   },
-  "2xBxZ9": {
-    "defaultMessage": "Le code saisi est incorrect.",
-    "description": "Title for error message when the code is not valid."
-  },
   "2xDnV4": {
     "defaultMessage": "Dans ce poste, vous participez à la création d’ontologies et de graphes de connaissances, ce qui favorise la transmission et la récupération efficaces de l’information dans toute l’organisation. Vous excellez en communication et vous contribuez à la diffusion des pratiques exemplaires.",
     "description": "Description of the information governance specialist role"
@@ -2506,10 +2502,6 @@
   "8Otaw9": {
     "defaultMessage": "Ministère {departmentId} introuvable.",
     "description": "Message displayed for department not found."
-  },
-  "8P9Rjx": {
-    "defaultMessage": "Envoyer un nouveau code.",
-    "description": "Button text to send a new code"
   },
   "8PhWBd": {
     "defaultMessage": "Lancement",
@@ -4843,10 +4835,6 @@
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the 'edit a community' form"
   },
-  "IrV/w5": {
-    "defaultMessage": "Confirmer l’adresse courriel",
-    "description": "breadcrumb for email verification page"
-  },
   "Is1RHA": {
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
@@ -5215,6 +5203,10 @@
     "defaultMessage": "Membre retiré avec succès",
     "description": "Alert displayed to user when a community member is removed"
   },
+  "KWgx7f": {
+    "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels. Une adresse courriel professionnelle confirmée du gouvernement du Canada est requise.",
+    "description": "Body for a message informing the user that a contact email is required."
+  },
   "KXEuON": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
     "description": "List item one, things developers consider for accessibility"
@@ -5511,10 +5503,6 @@
     "defaultMessage": "publication de l'annonce",
     "description": "Message for publishing a process in the activity log"
   },
-  "LpCMiC": {
-    "defaultMessage": "Confirmer votre adresse courriel de correspondance",
-    "description": "Verify your contact email text"
-  },
   "LphzpW": {
     "defaultMessage": "Que faire si j’ai besoin de choisir plus que {maxSteps} méthodes d’évaluation?",
     "description": "second question in the organize section in the assessment plan builder"
@@ -5671,10 +5659,6 @@
     "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l'authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l'authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
     "description": "Text explaining the importance of reporting technical issues"
   },
-  "MZ0uNW": {
-    "defaultMessage": "Veuillez confirmer votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
-    "description": "instructions for email verification form"
-  },
   "MZChNU": {
     "defaultMessage": "Diplômés et talents avancés",
     "description": "Title of the 'Graduates and advanced talent' section"
@@ -5783,10 +5767,6 @@
     "defaultMessage": "Durée de l'emploi",
     "description": "Title for Employment duration section"
   },
-  "MvD/iS": {
-    "defaultMessage": "Vous n'avez pas reçu de code ?",
-    "description": "intro to request a new code"
-  },
   "Mwq0NB": {
     "defaultMessage": "Postes bilingues",
     "description": "Label for language for bilingual field"
@@ -5846,10 +5826,6 @@
   "N832OY": {
     "defaultMessage": "Un ou plusieurs des niveaux de langue ne sont plus valides.",
     "description": "Message for exam validity field display"
-  },
-  "NAobki": {
-    "defaultMessage": "Si vous rencontrez toujours des difficultés, essayez d'envoyer un nouveau code en utilisant le lien fourni.",
-    "description": "Instructions to send another code"
   },
   "NCMG9w": {
     "defaultMessage": "Renseignements supplémentaires",
@@ -5998,6 +5974,10 @@
   "O5yqIM": {
     "defaultMessage": "Revoir et soumettre",
     "description": "Heading for submit page of an form"
+  },
+  "O7ubAh": {
+    "defaultMessage": "Une adresse courriel de correspondance confirmée est requise",
+    "description": "Error message displayed during application when missing a verified email"
   },
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
@@ -7118,10 +7098,6 @@
   "T74kMc": {
     "defaultMessage": "Ressources",
     "description": "Nav menu trigger for resource links sub menu"
-  },
-  "T7irec": {
-    "defaultMessage": "Confirmer votre adresse courriel professionnelle",
-    "description": "Verify your work email text"
   },
   "T8J2Lp": {
     "defaultMessage": "Vos coordonnées",
@@ -9818,10 +9794,6 @@
     "defaultMessage": "Paramètres mis à jour avec succès",
     "description": "Message displayed when applicant updated their notification settings."
   },
-  "eoIad5": {
-    "defaultMessage": "Sauter cette étape pour l'instant",
-    "description": "label for skip button"
-  },
   "epqtpM": {
     "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",
     "description": "Notice that deleting a skill removes it from a users skill showcase"
@@ -10604,10 +10576,6 @@
   "htUIis": {
     "defaultMessage": "n’est pas en mesure de consulter ou de gérer des demandes de talents.",
     "description": "Description of the limitation of managing talent requests"
-  },
-  "hx8mTr": {
-    "defaultMessage": "Envoyer un autre code.",
-    "description": "button to request a new code"
   },
   "hyBNpJ": {
     "defaultMessage": "Les comptes de médias sociaux peuvent comporter des liens ou des annonces liés à des sites Web échappant au contrôle du gouvernement du Canada. Ces liens sont fournis aux utilisateurs uniquement par souci de commodité. Le gouvernement du Canada n’assume aucune responsabilité à l’égard de l’information obtenue au moyen de ces liens ou de ces annonces, pas plus qu’il ne cautionne ces sites et leur contenu.",
@@ -13764,10 +13732,6 @@
   "vkAhEM": {
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
-  },
-  "vm9mFv": {
-    "defaultMessage": "Veuillez passer en revue le code et essayer de le saisir à nouveau.",
-    "description": "Error message when the code is not valid."
   },
   "vmVdJt": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",

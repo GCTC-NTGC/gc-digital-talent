@@ -3,13 +3,12 @@
 namespace Tests\Unit\Notifications;
 
 use App\Notifications\Utils\NominationUtils;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class NominationUtilsTest extends TestCase
 {
-    /**
-     * @dataProvider statusProvider
-     */
+    #[DataProvider('statusProvider')]
     public function testCombineNominationOptionDescriptions($parameters, $expectedResult)
     {
         $actualResult = NominationUtils::combineNominationOptionDescriptions(...$parameters);

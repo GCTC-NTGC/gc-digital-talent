@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Models\PoolCandidate;
 use App\Traits\Generator\Filterable;
 use Illuminate\Support\Arr;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class FilterableTraitTest extends TestCase
@@ -26,9 +27,7 @@ class FilterableTraitTest extends TestCase
         parent::setUp();
     }
 
-    /**
-     * @dataProvider flattenProvider
-     */
+    #[DataProvider('flattenProvider')]
     public function testFlattensFilters(array $filters, array $expected): void
     {
         $results = $this->trait->testFlatten($filters);
@@ -36,9 +35,7 @@ class FilterableTraitTest extends TestCase
         $this->assertEquals($expected, $results);
     }
 
-    /**
-     * @dataProvider applyProvider
-     */
+    #[DataProvider('applyProvider')]
     public function testApplyFilters(array $filters, array $scopeMap, $expected): void
     {
 
