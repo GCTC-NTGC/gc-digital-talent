@@ -206,11 +206,6 @@ interface GroupedByDay<T> {
   activities: T[];
 }
 
-interface GroupedByDay<T> {
-  day: string;
-  activities: T[];
-}
-
 export function groupByDay<T, K extends keyof T>(
   items: T[],
   key?: K,
