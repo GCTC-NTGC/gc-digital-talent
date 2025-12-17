@@ -229,7 +229,7 @@ export const Component = () => {
     crumbs: [
       {
         label: pageTitle,
-        url: paths.termsConditions(),
+        url: paths.termsAndConditions(),
       },
     ],
   });
