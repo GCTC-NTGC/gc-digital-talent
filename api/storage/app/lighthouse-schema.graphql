@@ -1109,7 +1109,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
   activities: [Activity!]
-  applicantsCount: Int!
+  applicantsCount: Int
 }
 
 type GeneralQuestionResponse {
