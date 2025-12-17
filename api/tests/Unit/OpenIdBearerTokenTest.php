@@ -111,7 +111,7 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * An nonsense string is provided and should be rejected.
+     * A nonsense string is provided and should be rejected.
      */
     public function testRejectsNonsenseToken()
     {
