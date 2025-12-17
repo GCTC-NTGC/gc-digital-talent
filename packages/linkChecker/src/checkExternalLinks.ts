@@ -46,11 +46,11 @@ async function fetchLink(
     let isLegacyRenegotiation = false;
     if (err instanceof Error) {
       reason = err.message;
-      fullError = err.stack || err.message;
+      fullError = err.stack ?? err.message;
       // Log all enumerable properties
       const props = Object.getOwnPropertyNames(err).reduce(
         (acc: Record<string, unknown>, key) => {
-          acc[key] = (err as any)[key];
+          acc[key] = ((err as unknown) as Record<string, unknown>)[key];
           return acc;
         },
         {},
@@ -60,7 +60,7 @@ async function fetchLink(
       if (
         props.cause &&
         typeof props.cause === "object" &&
-        (props.cause as any).code ===
+        (props.cause as Record<string, unknown>).code ===
           "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
       ) {
         isLegacyRenegotiation = true;
