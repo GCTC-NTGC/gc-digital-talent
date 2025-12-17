@@ -823,6 +823,9 @@ importers:
         specifier: ^10.3.10
         version: 10.5.0
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       typescript:
         specifier: ^5.3.3
         version: 5.9.3

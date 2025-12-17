@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
+
 import { glob } from "glob";
 
 interface LinkStatus {
@@ -71,8 +73,6 @@ async function fetchLink(
       fullError = reason;
     }
     if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
-      // Retry with NODE_OPTIONS=--tls-legacy-renegotiation, only for this link
-      const { spawnSync } = await import("node:child_process");
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
@@ -83,6 +83,7 @@ async function fetchLink(
         },
         stdio: "inherit",
       });
+      return "retried-with-legacy-tls";
       return "retried-with-legacy-tls";
     }
     await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
@@ -120,7 +121,11 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
     let match;
     while ((match = regex.exec(content))) {
       const url = match[1];
-      if (url.startsWith("http") && !url.toLowerCase().includes("sharepoint")) {
+      if (
+        typeof url === "string" &&
+        url.startsWith("http") &&
+        !url.toLowerCase().includes("sharepoint")
+      ) {
         links.push(url);
       }
     }
@@ -130,7 +135,7 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
     let match;
     while ((match = regex.exec(content))) {
       const url = match[1];
-      if (!url.toLowerCase().includes("sharepoint")) {
+      if (typeof url === "string" && !url.toLowerCase().includes("sharepoint")) {
         links.push(url);
       }
     }
@@ -213,7 +218,6 @@ async function main() {
     }
     // re-try all legacy links in a single batch with NODE_OPTIONS=--tls-legacy-renegotiation
     if (legacyLinks.length > 0 && !process.env._RETRIED_LEGACY_TLS) {
-      const { spawnSync } = await import("node:child_process");
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
