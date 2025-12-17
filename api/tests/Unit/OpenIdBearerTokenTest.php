@@ -315,14 +315,14 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->setIntrospectionResponse(true);
 
-        HTTP::assertSentCount(0);
+        Http::assertSentCount(0);
         $this->service_provider->validateAndGetClaims($token);
-        HTTP::assertSentCount(3); // calls config, jwks, and introspection
+        Http::assertSentCount(3); // calls config, jwks, and introspection
 
         // advance the clock by 30 seconds
         $this->travel(30)->seconds();
         $this->service_provider->validateAndGetClaims($token);
-        HTTP::assertSentCount(4); // made an extra call since it's not cached anymore
+        Http::assertSentCount(4); // made an extra call since it's not cached anymore
     }
 
     /**
