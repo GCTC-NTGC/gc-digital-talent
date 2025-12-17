@@ -12,6 +12,10 @@ class UserPage extends AppPage {
     await this.page.goto("/en/admin/users");
   }
 
+  async goToUserProfile(userId: string) {
+    await this.page.goto(`/en/admin/users/${userId}`);
+  }
+
   async searchForUser(name: string) {
     await this.goToIndex();
     await this.page
