@@ -286,6 +286,7 @@ test.describe("Location Preference update for Community Talent", () => {
   test("Validate Location Preference update in the Community Talent table", async ({
     appPage,
   }) => {
+    const userName = govUser?.firstName ?? "";
     const page = appPage.page;
     const locationPrefPage = new LocationPreferenceUpdatePage(page);
     await loginBySub(page, testConfig.signInSubs.recruiterSignIn, false);
@@ -304,11 +305,11 @@ test.describe("Location Preference update for Community Talent", () => {
       [WorkRegion.NationalCapital],
     );
     // eslint-disable-next-line playwright/no-wait-for-timeout
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(20000);
     await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
     await expect(
       appPage.page.getByRole("link", {
-        name: new RegExp(`${sub} User`, "i"),
+        name: new RegExp(`${userName} User`, "i"),
       }),
     ).toBeVisible();
   });
