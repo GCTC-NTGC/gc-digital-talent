@@ -47,6 +47,7 @@ async function fetchLink(
     });
     return res.status;
   } catch (err) {
+    // decode the error and find out if it's a legacy renegotiation error
     let reason;
     let fullError = "";
     let isLegacyRenegotiation = false;
@@ -71,14 +72,12 @@ async function fetchLink(
       ) {
         isLegacyRenegotiation = true;
       }
-    } else if (typeof err === "string") {
-      reason = err;
-      fullError = err;
     } else {
       reason = JSON.stringify(err);
       fullError = reason;
     }
     if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
+      // retry with legacy TLS renegotiation enabled
       const currentLinkFile = global.currentLinkFile ?? "";
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
