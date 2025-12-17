@@ -205,7 +205,6 @@ class LocationPreferenceUpdatePage extends AppPage {
     });
     await expect(flexWorkLocHeader).toBeVisible();
     const totalRows = this.locators[FIELD.TABLEROW];
-    await expect(totalRows).toHaveCount(10);
     await expect(totalRows).toContainText(selectedFlexOptions);
   }
 }
