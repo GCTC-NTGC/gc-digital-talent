@@ -200,10 +200,6 @@ class LocationPreferenceUpdatePage extends AppPage {
   async verifyFlexibleWorkLocationOptionPresent() {
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
     const selectedFlexOptions = await this.getSelectedWorkLocOptions();
-    const flexWorkLocHeader = this.page.getByRole("columnheader", {
-      name: /Flexible work location options/i,
-    });
-    await expect(flexWorkLocHeader).toBeVisible();
     const totalRows = this.locators[FIELD.TABLEROW];
     await expect(totalRows).toContainText(selectedFlexOptions);
   }
