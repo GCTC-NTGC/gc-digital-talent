@@ -15,10 +15,14 @@ export interface TokenSet {
   idToken: string | null;
 }
 
+function clearQueryParams() {
+  window.history.pushState({}, "", `${window.location.pathname}`);
+}
+
 /**
  * Extract tokens from location search params
  */
-export function getTokensFromLocation(): TokenSet | null {
+export function setTokensFromLocation(): TokenSet | null {
   const logger = getLogger();
   const params = new URLSearchParams(window.location.search);
   const accessToken: string | null = params.get("access_token") ?? null;
@@ -61,6 +65,9 @@ export function getTokensFromLocation(): TokenSet | null {
       // also clear the last logout reason
       localStorage.removeItem(LOGOUT_REASON_KEY);
     }
+
+    // We have saved it in local storage , then clear query parameters.
+    clearQueryParams();
   }
 
   return newTokens;
