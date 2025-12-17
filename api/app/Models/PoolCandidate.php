@@ -8,7 +8,9 @@ use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
+use App\Enums\CandidateInterest;
 use App\Enums\CandidateRemovalReason;
+use App\Enums\CandidateStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\ErrorCode;
@@ -75,6 +77,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array<string> $education_requirement_experience_ids
  * @property ?string $assessment_step_id
  * @property ?string $screening_stage
+ * @property bool $is_expired
+ * @property bool $is_suspended
+ * @property bool $is_open_to_jobs
+ * @property bool $is_hired
  */
 class PoolCandidate extends Model
 {
@@ -306,11 +312,7 @@ class PoolCandidate extends Model
     {
         $category = PriorityWeight::OTHER;
 
-        $this->loadMissing(['user' => [
-            'citizenship',
-            'priority_weight',
-            'armed_forces_status',
-        ]]);
+        $this->loadMissing(['user']);
 
         if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
             $category = PriorityWeight::PRIORITY_ENTITLEMENT;
@@ -338,6 +340,123 @@ class PoolCandidate extends Model
             ->where('pool_candidate_id', $this->id)
             ->pluck('experience_id')->all()
         );
+    }
+
+    /**
+     * Candidate facing status
+     *
+     * Computation of different application meta data for a
+     * candidate friendly version of their status
+     *
+     *  TO DO: Fix up the references to pool_candidate_status in #14389
+     */
+    public function candidateStatus(): Attribute
+    {
+        return Attribute::get(function () {
+            // ApplicationStatus::DRAFT
+            if (in_array($this->pool_candidate_status, PoolCandidateStatus::draftGroup())) {
+                return $this->is_expired ? CandidateStatus::EXPIRED->name : CandidateStatus::DRAFT->name;
+            }
+
+            // ApplicationStatus::DISQUALIFIED || ApplicationStatus::REMOVED
+            if (
+                in_array($this->pool_candidate_status, PoolCandidateStatus::unsuccessfulGroup()) ||
+                ! empty($this->removal_reason) ||
+                (! empty($this->removed_at) && $this->removed_at->isPast())
+            ) {
+                return CandidateStatus::UNSUCCESSFUL->name;
+            }
+
+            // ApplicationStatus::QUALIFIED
+            if (in_array($this->pool_candidate_status, PoolCandidateStatus::successfulGroup())) {
+                return CandidateStatus::QUALIFIED->name;
+            }
+
+            // ApplicationStatus::TO_ASSESS
+            $status = match ($this->screening_stage) {
+                ScreeningStage::NEW_APPLICATION->name => CandidateStatus::RECEIVED->name,
+                ScreeningStage::APPLICATION_REVIEW->name => CandidateStatus::UNDER_REVIEW->name,
+                ScreeningStage::SCREENED_IN->name => CandidateStatus::APPLICATION_REVIEWED->name,
+                ScreeningStage::UNDER_ASSESSMENT->name => CandidateStatus::UNDER_ASSESSMENT->name,
+                // Could not determine status, all other checks failed
+                default => null,
+            };
+
+            return $status;
+
+        });
+    }
+
+    /**
+     * Candidate interest
+     *
+     * Computation of a candidates interest in a process after being qualified
+     *
+     *  TO DO: Fix up the references to final_decision in #14389
+     */
+    public function candidateInterest(): Attribute
+    {
+        return Attribute::get(function () {
+            return match (true) {
+                $this->is_expired => CandidateInterest::EXPIRED->name,
+                $this->is_suspended => CandidateInterest::NOT_INTERESTED->name,
+                $this->is_open_to_jobs => CandidateInterest::OPEN_TO_JOBS->name,
+                $this->is_hired => CandidateInterest::HIRED->name, // TODO: Will be removed eventually
+                default => null,
+            };
+        });
+    }
+
+    /*
+    * Determine if the candidate has withdrew
+    *
+    * @return bool
+    */
+    public function isSuspended(): Attribute
+    {
+        return Attribute::get(function () {
+            return ($this->suspended_at && $this->suspended_at->isPast()) ||
+                in_array($this->pool_candidate_status, PoolCandidateStatus::suspendedGroup());
+        });
+    }
+
+    /*
+    * Determine if the candidate is qualified and open to jobs
+    *
+    * @return bool
+    */
+    public function isOpenToJobs(): Attribute
+    {
+        return Attribute::get(function () {
+            return (empty($this->placed_at) || $this->placed_at->isPast()) &&
+                in_array($this->pool_candidate_status, PoolCandidateStatus::openToJobsGroup());
+        });
+    }
+
+    /*
+    * Determine if the candidate is qualified and hired
+    *
+    * @return bool
+    */
+    public function isHired(): Attribute
+    {
+        return Attribute::get(function () {
+            return ($this->placed_at && $this->placed_at->isPast()) ||
+                in_array($this->pool_candidate_status, PoolCandidateStatus::hiredGroup());
+        });
+    }
+
+    /*
+    * Determine if the application has expired
+    *
+    * @return bool
+    */
+    public function isExpired(): Attribute
+    {
+        return Attribute::get(function () {
+            return ($this->expiry_date && $this->expiry_date->isPast()) ||
+                $this->pool_candidate_status === PoolCandidateStatus::DRAFT_EXPIRED->name;
+        });
     }
 
     /**
