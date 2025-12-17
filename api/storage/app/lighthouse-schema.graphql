@@ -1043,7 +1043,7 @@ type Activity {
   subjectId: UUID
   properties: ActivityProperties
   logName: String
-  event: ActivityEvent!
+  event: ActivityEvent
   description: String
   createdAt: DateTime
   updatedAt: DateTime
