@@ -66,7 +66,7 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
           const isDeleteUserError = containsUserDeletedError(error);
           if (isDeleteUserError) {
             logger.info(
-              "detected a 'user deleted' error in the graphql client",
+              "detected 'user deleted' error in graphql client",
             );
             const logoutReason: LogoutReason = "user-deleted";
             localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
@@ -78,7 +78,7 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
           const isAuthError = containsAuthenticationError(error);
           if (isAuthError) {
             logger.info(
-              "detected a authentication error in the graphql client",
+              "detected authentication error in graphql client",
             );
             const logoutReason: LogoutReason = "session-expired";
             localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);

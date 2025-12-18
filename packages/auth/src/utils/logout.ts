@@ -32,15 +32,15 @@ import {
 interface LogoutAndRefreshPageParameters {
   // the "end session" URI of the auth provider
   logoutUri: string;
-  // the logout landing page of our app (whitelisted)
+  // the logout landing page of this app (whitelisted)
   postLogoutRedirectUri: string;
-  // if we want to go to another path else after logout
+  // option to force navigation to another path after logout
   postLogoutOverridePath?: string;
   // a function to broadcast the logout event to other tabs
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
   logoutReason?: LogoutReason;
-  // Should we prevent the redirect when completing?
+  // whether or not to prevent the redirect when completing
   preventRedirect?: boolean;
   // URL user came from and should be returned to after a full logout
   from?: string;
@@ -69,10 +69,10 @@ function logoutAndRefreshPage({
   if (postLogoutOverridePath) {
     if (!postLogoutOverridePath.startsWith("/")) {
       defaultLogger.warning(
-        `Tried to set an unsafe uri as postLogoutOverridePath: ${postLogoutOverridePath}`,
+        `Attempted to set an unsafe URI as postLogoutOverridePath: ${postLogoutOverridePath}`,
       );
     } else {
-      // this gets pulled out out in the router before loading the logout landing page
+      // this gets pulled out in the router before loading the logout landing page
       sessionStorage.setItem(
         POST_LOGOUT_OVERRIDE_PATH_KEY,
         postLogoutOverridePath,
@@ -120,7 +120,7 @@ function logoutAndRefreshPage({
   }
 
   if (idToken && authSessionIsCurrentlyActive) {
-    // SiC logout will error out unless there is actually an active session
+    // Sign In Canada logout will error out unless there is actually an active session
     window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(nextLocation)}&id_token_hint=${idToken}`;
   } else if (!preventRedirect) {
     // at least a hard refresh to URI to restart react app

@@ -66,7 +66,7 @@ export function setTokensFromLocation(): TokenSet | null {
       localStorage.removeItem(LOGOUT_REASON_KEY);
     }
 
-    // We have saved it in local storage , then clear query parameters.
+    // saved in local storage, then clear query parameters.
     clearQueryParams();
   }
 

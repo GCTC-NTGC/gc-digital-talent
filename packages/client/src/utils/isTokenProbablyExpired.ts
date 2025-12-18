@@ -12,7 +12,7 @@ export function isTokenProbablyExpired(accessToken: string | null): boolean {
     if (decoded.exp) {
       const tokenExpiryDateSeconds = decoded.exp;
       const safeTokenExpiryDateSeconds =
-        tokenExpiryDateSeconds - allowableClockSkewSeconds; // allow for the client's machine to be a bit off
+        tokenExpiryDateSeconds - allowableClockSkewSeconds; // tolerance for the client's machine to be slightly different
       tokenProbablyExpired = Date.now() > safeTokenExpiryDateSeconds * 1000; // JWT expiry date in seconds to milliseconds
     }
   }

@@ -14,8 +14,8 @@ export function getPathLocale(pathname: string): Locales | null {
 }
 
 /**
- * Make a guess at the currently set locale,
- * falling back to "en" if we can't determine it
+ * Presume currently set locale,
+ * then fall back to English if unable to determine
  */
 function guessLocale(): Locales {
   const locale: string | undefined =
@@ -24,7 +24,7 @@ function guessLocale(): Locales {
     // If nothing is stored, check for the browser's locale.
     navigator?.language?.split("-")[0];
 
-  // If stored locale or browser locale is unavailable or invalid, default to english
+  // If stored locale or browser locale is unavailable or invalid, default to English
   if (isLocale(locale)) {
     return locale;
   }
@@ -33,8 +33,8 @@ function guessLocale(): Locales {
 }
 
 /**
- * Get the users desired locale
- * First from path, then our best guess
+ * Get user's desired locale
+ * First from path, then presumption
  */
 export function getDesiredLocale() {
   const pathLocale = getPathLocale(window.location.pathname);

@@ -83,7 +83,7 @@ function getAuthenticationState({
           logoutReason: "session-expired",
           /**
            * Failure prevents redirect when possible or,
-           * returns user to the page they were on to continue
+           * returns user to the page they were on to continue.
            *
            * Allows router to handle errors and either load page
            * or restart auth flow if necessary.
