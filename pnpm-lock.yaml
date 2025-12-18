@@ -837,7 +837,7 @@ importers:
         version: 9.36.0(jiti@2.6.1)
       react:
         specifier: ^19.2.1
-        version: 19.2.1
+        version: 19.2.3
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -12828,7 +12828,6 @@ snapshots:
       minipass: 7.1.2
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
-    optional: true
 
   glob@11.1.0:
     dependencies:
