@@ -51,6 +51,8 @@ use Illuminate\Support\Facades\Log;
  * @property ?bool $senior_management_status
  * @property ?string $c_suite_role_title
  * @property ?string $other_c_suite_role_title
+ * @property \App\Models\Classification|null $classification
+ * @property \App\Models\Department|null $department
  */
 class WorkExperience extends Experience
 {
@@ -222,7 +224,7 @@ class WorkExperience extends Experience
     /**
      * Return the classification model related to the experience
      */
-    public function classification()
+    public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class);
     }
