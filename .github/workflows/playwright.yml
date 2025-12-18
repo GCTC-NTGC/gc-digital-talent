@@ -117,7 +117,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           path: all-blob-reports
           pattern: blob-report-*
