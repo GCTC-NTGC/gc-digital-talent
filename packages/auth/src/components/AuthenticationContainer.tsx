@@ -1,4 +1,3 @@
-// Note: We need snake case for tokens
 import { ReactNode, createContext, useEffect, useMemo } from "react";
 
 import { Locales } from "@gc-digital-talent/i18n";
