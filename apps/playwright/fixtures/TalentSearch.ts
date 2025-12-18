@@ -1,14 +1,35 @@
 import { expect, Page } from "playwright/test";
 
-import { Classification, Skill, WorkStream } from "@gc-digital-talent/graphql";
+import {
+  Classification,
+  FlexibleWorkLocation,
+  Skill,
+  WorkRegion,
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
+import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 
 class TalentSearch extends AppPage {
   readonly baseUrl: string = "/en/search";
   readonly classification: Classification;
   readonly workStream: WorkStream;
   readonly skill: Skill;
+  readonly optionsMap = new Map<FlexibleWorkLocation, string>([
+    [FlexibleWorkLocation.Hybrid, "Hybrid work"],
+    [FlexibleWorkLocation.Remote, "Remote work"],
+  ]);
+  readonly regionsMap = new Map<WorkRegion, string>([
+    [WorkRegion.Atlantic, "Atlantic (NB, NS, PE and NL)"],
+    [WorkRegion.Quebec, "Quebec (excluding Gatineau area)"],
+    [WorkRegion.Ontario, "Ontario (excluding Ottawa area)"],
+    [WorkRegion.Prairie, "Prairies (AB, SK, MB)"],
+    [WorkRegion.BritishColumbia, "British Columbia"],
+    [WorkRegion.NationalCapital, "National Capital Region (Ottawa/Gatineau)"],
+    [WorkRegion.North, "Northern (NU, NT, YT)"],
+  ]);
+  readonly locationPrefUpdate = new LocationPreferenceUpdatePage(this.page);
 
   constructor(page: Page) {
     super(page);
@@ -45,6 +66,7 @@ class TalentSearch extends AppPage {
     skill: Skill,
   ) {
     const poolCard = await this.poolCardVisibility(poolName);
+    const selectedClassification = `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
     });
@@ -52,7 +74,7 @@ class TalentSearch extends AppPage {
     this.expectNoCandidates(poolName);
 
     await classificationFilter.selectOption({
-      value: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+      value: selectedClassification,
     });
 
     const streamFilter = this.page.getByRole("combobox", {
@@ -68,24 +90,15 @@ class TalentSearch extends AppPage {
 
     await expect(poolCard).toBeVisible();
 
-    await expect(
-      this.page.getByRole("checkbox", {
-        name: /Telework/i,
-      }),
-    ).toHaveCount(0);
+    await this.locationPrefUpdate.locPrefUpdateForTalentPage(this.optionsMap, [
+      FlexibleWorkLocation.Hybrid,
+    ]);
+    await expect(poolCard).toBeVisible();
 
-    await expect(
-      this.page.getByRole("group", {
-        name: /Flexible work location options/i,
-      }),
-    ).toBeVisible();
-
-    // Update in #13844
-    await this.page.getByRole("checkbox", { name: /ontario/i }).click();
-
-    this.expectNoCandidates(poolName);
-
-    await this.page.getByRole("checkbox", { name: /atlantic/i }).click();
+    await this.locationPrefUpdate.locPrefUpdateForTalentPage(this.regionsMap, [
+      WorkRegion.Atlantic,
+      WorkRegion.Ontario,
+    ]);
 
     await expect(poolCard).toBeVisible();
 
@@ -168,6 +181,7 @@ class TalentSearch extends AppPage {
       this.page.getByText(new RegExp(skill?.name.en ?? "")),
     ).toBeVisible();
 
+    await this.locationPrefUpdate.validateSelectedFlexWorkLocOptions();
     await expect(this.page.getByText(/required diploma/i)).toBeVisible();
     await expect(this.page.getByText(/french only/i)).toBeVisible();
     await expect(this.page.getByText(/indeterminate duration/i)).toBeVisible();

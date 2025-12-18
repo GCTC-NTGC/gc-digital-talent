@@ -204,5 +204,15 @@ class LocationPreferenceUpdatePage extends AppPage {
       expect(rowText).toContain(option.toLowerCase());
     }
   }
+
+  async locPrefUpdateForTalentPage(
+    MapType: Map<Key, string>,
+    locOptions: readonly Key[],
+  ) {
+    // This method is specially for validating location preference update in Search Talent form and summary page
+    await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
+    await this.deSelectOptions(MapType);
+    await this.selectOptions(MapType, locOptions);
+  }
 }
 export default LocationPreferenceUpdatePage;

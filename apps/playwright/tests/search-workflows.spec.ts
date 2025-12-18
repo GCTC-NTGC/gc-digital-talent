@@ -3,6 +3,7 @@ import {
   Classification,
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
+  Language,
   OperationalRequirement,
   PoolCandidateStatus,
   Skill,
@@ -51,18 +52,15 @@ test.describe("Talent search", () => {
         email: `${sub}@example.org`,
         emailVerifiedAt: PAST_DATE,
         sub,
+        preferredLang: Language.Fr,
         isWoman: true,
         lookingForFrench: true,
-        lookingForBilingual: true,
         estimatedLanguageAbility: EstimatedLanguageAbility.Intermediate,
         acceptedOperationalRequirements: [
           OperationalRequirement.OvertimeOccasional,
         ],
         locationPreferences: [WorkRegion.Ontario],
-        flexibleWorkLocations: [
-          FlexibleWorkLocation.Onsite,
-          FlexibleWorkLocation.Remote,
-        ],
+        flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
         personalExperiences: {
           create: [
             {
@@ -90,8 +88,6 @@ test.describe("Talent search", () => {
 
     const workStreams = await getWorkStreams(adminCtx, {});
     workStream = workStreams[0];
-    console.log("workStream", workStream);
-
     const adminUser = await me(adminCtx, {});
     // Accepted pool
     const createdPool = await createAndPublishPool(adminCtx, {
