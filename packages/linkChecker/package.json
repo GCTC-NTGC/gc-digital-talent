@@ -12,6 +12,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "glob": "^10.3.10"
   },
   "devDependencies": {

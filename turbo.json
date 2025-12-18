@@ -1,5 +1,4 @@
 {
-  "globalEnv": ["_RETRIED_LEGACY_TLS", "_RETRY_LEGACY_LINKS"],
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "tasks": {

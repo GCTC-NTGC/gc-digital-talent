@@ -1,9 +1,16 @@
 #!/usr/bin/env node
+
+/* suppress the turbo warning about undeclared env vars as we decide to use it from .env file */
+/* eslint-disable turbo/no-undeclared-env-vars */
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
 import { glob } from "glob";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "./.env", quiet: true });
 
 interface LinkStatus {
   file: string;
@@ -11,7 +18,7 @@ interface LinkStatus {
   status: number | string;
 }
 
-// Use a global variable for _currentLinkFile instead of an interface
+// Use a global variable for currentLinkFile instead of an interface
 declare global {
   var currentLinkFile: string | undefined;
 }
@@ -77,7 +84,7 @@ async function fetchLink(
       fullError = reason;
     }
     if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
-      // retry with legacy TLS renegotiation enabled
+      // retry with legacy TLS renegotiation enabled, using .env for all vars
       const currentLinkFile = global.currentLinkFile ?? "";
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
