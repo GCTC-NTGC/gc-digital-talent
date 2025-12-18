@@ -68,6 +68,18 @@ class TalentSearch extends AppPage {
 
     await expect(poolCard).toBeVisible();
 
+    await expect(
+      this.page.getByRole("checkbox", {
+        name: /Telework/i,
+      }),
+    ).toHaveCount(0);
+
+    await expect(
+      this.page.getByRole("group", {
+        name: /Flexible work location options/i,
+      }),
+    ).toBeVisible();
+
     // Update in #13844
     await this.page.getByRole("checkbox", { name: /ontario/i }).click();
 

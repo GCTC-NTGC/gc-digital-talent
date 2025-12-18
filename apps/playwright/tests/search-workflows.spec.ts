@@ -33,8 +33,9 @@ test.describe("Talent search", () => {
   let workStream: WorkStream;
   let skill: Skill | undefined;
   let talentSearch: TalentSearch;
+  let user: string;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     poolName = `Search pool ${uniqueTestId}`;
@@ -45,7 +46,7 @@ test.describe("Talent search", () => {
     });
     skill = technicalSkill;
 
-    await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
         emailVerifiedAt: PAST_DATE,
@@ -89,6 +90,7 @@ test.describe("Talent search", () => {
 
     const workStreams = await getWorkStreams(adminCtx, {});
     workStream = workStreams[0];
+    console.log("workStream", workStream);
 
     const adminUser = await me(adminCtx, {});
     // Accepted pool
@@ -117,9 +119,28 @@ test.describe("Talent search", () => {
       id: application.id,
       status: PoolCandidateStatus.QualifiedAvailable,
     });
+    user = createdUser?.id ?? "";
   });
 
   test("Search and submit request", async ({ appPage }) => {
+    talentSearch = new TalentSearch(appPage.page);
+    await talentSearch.goToIndex();
+    await talentSearch.fillSearchFormAndRequestCandidates(
+      poolName,
+      classification,
+      workStream,
+      skill!,
+    );
+    await appPage.waitForGraphqlResponse("RequestForm_SearchRequestData");
+    await talentSearch.submitSearchForm(classification, workStream, skill!);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
+      /request created successfully/i,
+    );
+  });
+
+  test("Validate location preference update in Talent table", async ({
+    appPage,
+  }) => {
     talentSearch = new TalentSearch(appPage.page);
     await talentSearch.goToIndex();
     await talentSearch.fillSearchFormAndRequestCandidates(
