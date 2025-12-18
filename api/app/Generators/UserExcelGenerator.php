@@ -315,8 +315,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             );
         });
 
-        $processes = $user->offPlatformRecruitmentProcesses;
-        $offPlatformProcesses = $processes->map(function ($process) {
+        $offPlatformProcesses = collect($user->offPlatformRecruitmentProcesses)->map(function ($process) {
             return $process->classification->formattedGroupAndLevel
                     .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? ''))
                     .' ('
