@@ -71,6 +71,9 @@ import {
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
   candidateStatusCell,
+  getBaseSort,
+  poolCandidateBookmarkHeader,
+  poolCandidateBookmarkCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -171,15 +174,20 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
+    $orderByBaseInput: PoolCandidatesBaseSort!
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
     $orderByEmployeeDepartment: SortOrder
   ) {
+    me {
+      ...PoolCandidate_Bookmark
+    }
     poolCandidatesPaginatedAdminView(
       where: $where
       first: $first
       page: $page
+      orderByBase: $orderByBaseInput
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
@@ -425,6 +433,7 @@ const PoolCandidatesTable = ({
   currentPool,
   title,
   hidePoolFilter,
+  doNotUseBookmark = false,
   doNotUseFlag = false,
   availableSteps,
 }: {
@@ -432,6 +441,7 @@ const PoolCandidatesTable = ({
   currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
+  doNotUseBookmark?: boolean;
   doNotUseFlag?: boolean;
   availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
 }) => {
@@ -566,13 +576,11 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
+      orderByBaseInput: getBaseSort(doNotUseBookmark, doNotUseFlag),
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState, doNotUseFlag),
+      sortingInput: getSortOrder(sortState, filterState),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
-      orderByClaimVerification: getClaimVerificationSort(
-        sortState,
-        doNotUseFlag,
-      ),
+      orderByClaimVerification: getClaimVerificationSort(sortState),
     },
   });
 
@@ -718,6 +726,33 @@ const PoolCandidatesTable = ({
   };
 
   const columns = [
+    ...(doNotUseBookmark
+      ? []
+      : [
+          columnHelper.display({
+            id: "poolCandidateBookmark",
+            header: () => poolCandidateBookmarkHeader(intl),
+            enableHiding: false,
+            cell: ({
+              row: {
+                original: {
+                  id,
+                  poolCandidate: { user },
+                },
+              },
+            }) =>
+              poolCandidateBookmarkCell(
+                id,
+                data?.me,
+                user.firstName,
+                user.lastName,
+              ),
+            meta: {
+              shrink: true,
+              hideMobileHeader: true,
+            },
+          }),
+        ]),
     ...(doNotUseFlag
       ? []
       : [
