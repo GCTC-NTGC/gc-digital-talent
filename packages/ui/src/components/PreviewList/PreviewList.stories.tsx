@@ -75,6 +75,10 @@ export default {
         dark: allModes.dark,
       },
     },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/tam2tiCQQeZoGiQ9jMM58c/Career-experience--Applicants-?node-id=5-3199&m=dev",
+    },
   },
 } as Meta<typeof PreviewList.Root>;
 
