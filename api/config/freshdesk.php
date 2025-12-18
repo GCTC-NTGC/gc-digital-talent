@@ -16,13 +16,13 @@ return [
     'api' => [
         /*
         |--------------------------------------------------------------------------
-        | Freshdesk tickets endpoint
+        | Freshdesk endpoint
         |--------------------------------------------------------------------------
         |
-        | Example: "https://domain.freshdesk.com/api/v2/tickets"
+        | Example: "https://domain.freshdesk.com/api/v2"
         |
         */
-        'tickets_endpoint' => env('FRESHDESK_API_TICKETS_ENDPOINT', ''),
+        'endpoint' => env('FRESHDESK_API_ENDPOINT', ''),
         /*
         |--------------------------------------------------------------------------
         | Freshdesk

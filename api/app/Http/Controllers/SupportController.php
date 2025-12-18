@@ -16,7 +16,7 @@ class SupportController extends Controller
 
     public function createTicket(Request $request)
     {
-        if (! config('freshdesk.api.tickets_endpoint') || ! config('freshdesk.api.key')) {
+        if (! config('freshdesk.api.endpoint') || ! config('freshdesk.api.key')) {
             Log::error('Attempted to create a ticket with missing config values.');
 
             return response([
@@ -72,7 +72,7 @@ class SupportController extends Controller
         }
         $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
             ->post(
-                config('freshdesk.api.tickets_endpoint'),
+                config('freshdesk.api.endpoint').'/tickets',
                 $parameters
             );
         if ($response->status() == 201) { // status code 201 = created.
