@@ -137,7 +137,7 @@ return [
     'caf_rank_category' => 'CAF Rank category',
     'work_streams' => 'Work streams',
     'type_of_education' => 'Type of education',
-    'area_study' => 'Area of study',
+    'area_of_study' => 'Area of study',
     'team_group' => 'Team, group or division',
     'issuing_org' => 'Issuing organization',
     'awarded_scope' => 'Award scope',
