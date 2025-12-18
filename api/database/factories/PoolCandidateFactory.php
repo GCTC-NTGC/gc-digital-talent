@@ -129,7 +129,7 @@ class PoolCandidateFactory extends Factory
                 $poolCandidate->update([
                     'submitted_at' => $submittedDate,
                     'signature' => $fakeSignature,
-                    'screening_stage' => $this->faker->randomElement(ScreeningStage::cases())->name,
+                    'screening_stage' => in_array($poolCandidate->pool_candidate_status, PoolCandidateStatus::screeningStageGroup()) ? $this->faker->randomElement(ScreeningStage::cases())->name : null,
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                     'assessment_step_id' => $step?->id ?? null,
                 ]);
