@@ -2,7 +2,7 @@ import { ComponentRef, forwardRef, MouseEventHandler, ReactNode } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { Scalars } from "@gc-digital-talent/graphql";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
@@ -21,7 +21,7 @@ const NotificationLink = forwardRef<
 >(({ id, href, isUnread, onRead, children }, forwardedRef) => {
   const [{ fetching }, markAsRead] = useMarkAsRead(id);
   const navigate = useNavigate();
-  const logger = useLogger();
+  const logger = getLogger();
 
   const handleClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.stopPropagation();

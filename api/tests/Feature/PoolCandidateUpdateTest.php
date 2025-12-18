@@ -21,11 +21,11 @@ use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
-use Error;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -1003,9 +1003,7 @@ class PoolCandidateUpdateTest extends TestCase
             ]);
     }
 
-    /**
-     * @dataProvider manualStatusProvider
-     */
+    #[DataProvider('manualStatusProvider')]
     public function testManualStatusUpdatesTimestamps($status, $timestamp, $additionalChanged = [])
     {
         // Ensure timestamps are set to compare against
@@ -1257,9 +1255,7 @@ class PoolCandidateUpdateTest extends TestCase
             ]);
     }
 
-    /**
-     * @dataProvider nullTimeProvider
-     */
+    #[DataProvider('nullTimeProvider')]
     public function testNullTimestampsOnStatusChanged($status, $expected)
     {
         $past = config('constants.past_datetime');

@@ -77,7 +77,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * A valid token is provided and validated.  The test checks that the right sub value is returned.
      */
     public function testAcceptsGoodTokenAndReturnsCorrectSub()
@@ -102,8 +101,7 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
-     * An empty string is proved and should be rejected.
+     * An empty string is provided and should be rejected.
      */
     public function testRejectsEmptyToken()
     {
@@ -113,8 +111,7 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
-     * An nonsense string is provided and should be rejected.
+     * A nonsense string is provided and should be rejected.
      */
     public function testRejectsNonsenseToken()
     {
@@ -124,7 +121,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * A token is provided but has the wrong issuer and should be rejected.
      */
     public function testRejectsIncorrectIssuer()
@@ -148,7 +144,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * A token is provided but has expired and should be rejected.
      */
     public function testRejectsExpiredToken()
@@ -172,7 +167,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * A token is provided but the issuing datetime is in the future and should be rejected.
      */
     public function testRejectsFutureToken()
@@ -196,7 +190,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * This is a good and valid token but was not signed by the expected key so it should be rejected
      */
     public function testRejectsTokenSignedWithDifferentKey()
@@ -221,7 +214,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * A token is provided but has expired within allowable clock skew and should be accepted.
      */
     public function testAcceptsExpiredTokenWithinAllowableSkew()
@@ -249,7 +241,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * A valid token is provided and validated.  The test checks that the right sub value is returned.
      */
     public function testThatIntrospectionCanRejectAValidToken()
@@ -274,7 +265,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * If a second introspection call is made in quick succession, the second response should be a cached one.
      */
     public function testThatASecondQuickIntrospectionRequestIsCached()
@@ -295,7 +285,7 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->setIntrospectionResponse(true);
 
-        HTTP::assertSentCount(0);
+        Http::assertSentCount(0);
         $this->service_provider->validateAndGetClaims($token);
         Http::assertSentCount(3); // calls config, jwks, and introspection
 
@@ -305,7 +295,6 @@ class OpenIdBearerTokenTest extends TestCase
     }
 
     /**
-     * @test
      * If a second introspection call is made much later, the second response should not be a cached one.
      */
     public function testThatASecondLongIntrospectionRequestIsNotCached()
@@ -326,18 +315,17 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->setIntrospectionResponse(true);
 
-        HTTP::assertSentCount(0);
+        Http::assertSentCount(0);
         $this->service_provider->validateAndGetClaims($token);
-        HTTP::assertSentCount(3); // calls config, jwks, and introspection
+        Http::assertSentCount(3); // calls config, jwks, and introspection
 
         // advance the clock by 30 seconds
         $this->travel(30)->seconds();
         $this->service_provider->validateAndGetClaims($token);
-        HTTP::assertSentCount(4); // made an extra call since it's not cached anymore
+        Http::assertSentCount(4); // made an extra call since it's not cached anymore
     }
 
     /**
-     * @test
      * If a second introspection call is made in quick succession, but the token is expired, the second response should not be a cached one.
      */
     public function testThatASecondQuickIntrospectionRequestIsNotCachedWhenExpired()

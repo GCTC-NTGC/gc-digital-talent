@@ -68,8 +68,18 @@ type LocalizedCandidateExpiryFilter implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateInterest implements LocalizedEnumOption {
+  value: CandidateInterest!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
+  label: LocalizedString!
+}
+
+type LocalizedCandidateStatus implements LocalizedEnumOption {
+  value: CandidateStatus!
   label: LocalizedString!
 }
 
@@ -488,6 +498,7 @@ type Query {
   ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
+    orderByBase: PoolCandidatesBaseSort!
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
@@ -564,6 +575,7 @@ type Mutation {
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateFlag(id: ID!): Boolean
+  togglePoolCandidateUserBookmark(poolCandidateId: UUID!): Boolean
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
@@ -792,6 +804,7 @@ type User {
   oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
+  poolCandidateBookmarks: [PoolCandidate]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
 }
@@ -1168,6 +1181,8 @@ type PoolCandidate {
   expiryDate: Date
   category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
   notes: String
@@ -1213,6 +1228,8 @@ type PoolCandidateAdminView {
   submittedAt: DateTime
   suspendedAt: DateTime
   status: LocalizedPoolCandidateStatus
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage
   notes: String
   isFlagged: Boolean
@@ -1821,7 +1838,11 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
+}
+
+input PoolCandidatesBaseSort {
   useFlag: Boolean
+  useBookmark: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -3503,11 +3524,29 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateInterest {
+  OPEN_TO_JOBS
+  NOT_INTERESTED
+  HIRED
+  EXPIRED
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
   INELIGIBLE
   OTHER
+}
+
+enum CandidateStatus {
+  DRAFT
+  EXPIRED
+  RECEIVED
+  UNDER_REVIEW
+  APPLICATION_REVIEWED
+  UNDER_ASSESSMENT
+  UNSUCCESSFUL
+  QUALIFIED
 }
 
 enum CandidateSuspendedFilter {

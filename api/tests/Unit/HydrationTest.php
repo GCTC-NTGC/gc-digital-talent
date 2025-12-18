@@ -14,6 +14,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -29,9 +30,7 @@ class HydrationTest extends TestCase
         Notify::spy(); // don't send any notifications
     }
 
-    /**
-     * @dataProvider provideIsFieldLocalizedEnumData
-     */
+    #[DataProvider('provideIsFieldLocalizedEnumData')]
     public function testIsFieldLocalizedEnum($expectedResult, $input): void
     {
         assertEquals($expectedResult, HydratesSnapshot::isFieldLocalizedEnum($input[0], $input[1]));
