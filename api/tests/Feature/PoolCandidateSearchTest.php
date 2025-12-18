@@ -967,7 +967,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+            poolCandidatesPaginatedAdminView(where: $where, orderByBase: {}) {
                 data {
                     id
                 }
@@ -997,8 +997,10 @@ class PoolCandidateSearchTest extends TestCase
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
-                'screening_stage' => ScreeningStage::UNDER_ASSESSMENT->name,
             ]);
+
+        $expectedCandidate->screening_stage = ScreeningStage::UNDER_ASSESSMENT->name;
+        $expectedCandidate->save();
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
