@@ -10,6 +10,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EmploymentCategory;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\Department;
@@ -128,6 +129,7 @@ class PoolCandidateFactory extends Factory
                 $poolCandidate->update([
                     'submitted_at' => $submittedDate,
                     'signature' => $fakeSignature,
+                    'screening_stage' => $this->faker->randomElement(ScreeningStage::cases())->name,
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                     'assessment_step_id' => $step?->id ?? null,
                 ]);
