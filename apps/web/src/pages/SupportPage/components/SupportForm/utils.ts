@@ -40,7 +40,7 @@ export async function submitTicket(
   values: FormValues,
   logger: Logger,
 ): Promise<boolean> {
-  const response = await fetch(API_SUPPORT_ENDPOINT, {
+  const response = await fetch(API_SUPPORT_ENDPOINT + "/tickets", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
