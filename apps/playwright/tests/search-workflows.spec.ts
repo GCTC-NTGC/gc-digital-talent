@@ -8,6 +8,7 @@ import {
   PoolCandidateStatus,
   Skill,
   SkillCategory,
+  User,
   WorkRegion,
   WorkStream,
 } from "@gc-digital-talent/graphql";
@@ -18,14 +19,17 @@ import {
   createAndSubmitApplication,
   updateCandidateStatus,
 } from "~/utils/applications";
-import { createUserWithRoles, me } from "~/utils/user";
-import graphql from "~/utils/graphql";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import graphql, { GraphQLContext } from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
-import { generateUniqueTestId } from "~/utils/id";
+import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
 import TalentSearch from "~/fixtures/TalentSearch";
-
+import { loginBySub } from "~/utils/auth";
+import testConfig from "~/constants/config";
+import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
+import UserPage from "~/fixtures/UserPage";
 test.describe("Talent search", () => {
   let uniqueTestId: string;
   let sub: string;
@@ -34,13 +38,14 @@ test.describe("Talent search", () => {
   let workStream: WorkStream;
   let skill: Skill | undefined;
   let talentSearch: TalentSearch;
-  let user: string;
+  let user: User | undefined;
+  let adminCtx: GraphQLContext;
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     poolName = `Search pool ${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext();
 
     const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
@@ -88,11 +93,13 @@ test.describe("Talent search", () => {
 
     const workStreams = await getWorkStreams(adminCtx, {});
     workStream = workStreams[0];
+
     const adminUser = await me(adminCtx, {});
     // Accepted pool
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
+      communityId: "10b105a7-04e6-4023-937c-36d07ee5ba59",
       classificationId: classification.id,
       workStreamId: workStream.id,
       name: {
@@ -115,7 +122,13 @@ test.describe("Talent search", () => {
       id: application.id,
       status: PoolCandidateStatus.QualifiedAvailable,
     });
-    user = createdUser?.id ?? "";
+    user = createdUser;
+  });
+
+  test.afterEach(async () => {
+    if (user) {
+      await deleteUser(adminCtx, { id: user.id });
+    }
   });
 
   test("Search and submit request", async ({ appPage }) => {
@@ -137,7 +150,11 @@ test.describe("Talent search", () => {
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {
+    // eslint-disable-next-line playwright/no-conditional-in-test
+    const userName = user?.firstName ?? "";
     talentSearch = new TalentSearch(appPage.page);
+    const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
+    const userPage = new UserPage(appPage.page);
     await talentSearch.goToIndex();
     await talentSearch.fillSearchFormAndRequestCandidates(
       poolName,
@@ -149,6 +166,20 @@ test.describe("Talent search", () => {
     await talentSearch.submitSearchForm(classification, workStream, skill!);
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /request created successfully/i,
+    );
+    const requestId = fetchIdentificationNumber(appPage.page.url(), "request");
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+    await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
+    await locationPrefUpdate.validateSelectedFlexWorkLocOptions();
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: /Candidate results/i,
+        level: 2,
+      }),
+    ).toBeVisible();
+    await locationPrefUpdate.setFlexibleWorkLocationColumn();
+    await appPage.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
     );
   });
 });

@@ -104,7 +104,7 @@ test.describe("Location Preference Validation", () => {
       .click();
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await userPage.goToIndex();
-    await locationPrefPage.showOrHideColumns();
+    await locationPrefPage.setFlexibleWorkLocationColumn();
     await locationPrefPage.filterFlexWorkLocation(
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
       [WorkRegion.Atlantic],
@@ -180,7 +180,7 @@ test.describe("Location Preference Validation", () => {
       .click();
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await candidatePage.goToIndex();
-    await locationPrefPage.showOrHideColumns();
+    await locationPrefPage.setFlexibleWorkLocationColumn();
     await expect(
       page.getByRole("columnheader", {
         name: /Flexible work location options/i,
