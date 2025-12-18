@@ -6,5 +6,5 @@ return [
     'community' => 'Community participation',
     'education' => 'Education and certificates',
     'personal' => 'Personal learning',
-    'work' => 'Work experiences',
+    'work' => 'Work experience',
 ];
