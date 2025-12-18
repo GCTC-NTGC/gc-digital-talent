@@ -57,6 +57,16 @@ const contentMetaDataContainer = tv({
   },
 });
 
+const actionBaseButton = tv({
+  base: "justify-self-end after:absolute after:inset-0 after:content-['']",
+  variants: {
+    mode: {
+      default: "mr-6 xs:mr-9",
+      experience: "mr-6 xs:mr-12",
+    },
+  },
+});
+
 interface MetaDataBase {
   children: ReactNode;
   key: string;
@@ -97,17 +107,22 @@ const MetaData = (props: MetaDataProps) => {
 const actionProps = {
   color: "black",
   icon: MagnifyingGlassPlusIcon,
-  className:
-    "after:content-[''] after:absolute after:inset-0 justify-self-end mr-6 xs:mr-9",
 } satisfies IconButtonProps;
 
 interface ButtonProps extends Omit<BaseButtonProps, "icon"> {
   onClick?: BaseButtonProps["onClick"];
+  mode?: VariantProps<typeof actionBaseButton>["mode"];
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ onClick, label, ...rest }: ButtonProps, ref) => (
-    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest}>
+  ({ onClick, label, mode = "default", ...rest }: ButtonProps, ref) => (
+    <BaseButton
+      ref={ref}
+      className={actionBaseButton({ mode: mode })}
+      {...actionProps}
+      onClick={onClick}
+      {...rest}
+    >
       {label}
     </BaseButton>
   ),

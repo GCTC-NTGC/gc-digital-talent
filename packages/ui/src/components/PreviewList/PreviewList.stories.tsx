@@ -105,7 +105,7 @@ const Template: StoryFn<typeof PreviewList.Root> = (args) => {
 
   return (
     // something like TaskCard
-    <div className="bg-white p-6 dark:bg-gray-600">
+    <div className="bg-white dark:bg-gray-600">
       <PreviewList.Root>{children}</PreviewList.Root>
     </div>
   );
