@@ -7,7 +7,7 @@ import { tv } from "tailwind-variants";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Button, Container, Flourish, Heading } from "@gc-digital-talent/ui";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 import { commonMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import useErrorMessages from "~/hooks/useErrorMessages";
@@ -47,7 +47,7 @@ export const RouteErrorBoundary = () => {
   const { mode } = useTheme();
   const location = useLocation();
   const error = useErrorMessages();
-  const logger = useLogger();
+  const logger = getLogger();
 
   logger.error(
     JSON.stringify({

@@ -23,8 +23,8 @@
   "dependencies": {
     "@gc-digital-talent/rich-text-elements": "workspace:*",
     "react-helmet-async": "^2.0.5",
-    "react-intl": "^7.1.11",
-    "react-router": "^7.10.1",
+    "react-intl": "^8.0.4",
+    "react-router": "^7.11.0",
     "vitest": "^3.2.4",
     "vitest-axe": "1.0.0-pre.5",
     "vitest-fail-on-console": "^0.10.1"
@@ -32,12 +32,12 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.7",
     "eslint": "^9.20.1",
     "jsdom": "^26.0.0",
-    "react": "^19.2.1",
+    "react": "^19.2.3",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3"
   }

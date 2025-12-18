@@ -576,6 +576,35 @@ class PoolCandidateBuilder extends Builder
         return $this->whereIn('screening_stage', $screeningStages);
     }
 
+    /**
+     * Group some default ordering to handle or acknowledge
+     * Govern in one group, with a non-nullable input so this block can always be hit
+     * The one place for flags and bookmarks, and anything else special with elevated importance
+     */
+    public function orderByBase(array $args): self
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user &&
+            isset($args['useBookmark'])
+            && $args['useBookmark']
+        ) {
+            $this->orderBy(
+                $user->selectRaw('1')
+                    ->join('pool_candidate_user_bookmarks', 'pool_candidate_user_bookmarks.user_id', '=', 'users.id')
+                    ->where('pool_candidate_user_bookmarks.user_id', $user->id)
+                    ->whereColumn('pool_candidate_user_bookmarks.pool_candidate_id', 'pool_candidates.id')
+            );
+        }
+
+        if (isset($args['useFlag']) && $args['useFlag']) {
+            $this->orderBy('is_flagged', 'DESC');
+        }
+
+        return $this;
+    }
+
     public function orderByClaimVerification(?array $args): self
     {
 
@@ -610,10 +639,6 @@ class PoolCandidateBuilder extends Builder
             $this
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*');
-
-            if (isset($args['useFlag']) && $args['useFlag']) {
-                $this->orderBy('is_flagged', 'DESC');
-            }
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
 
@@ -718,7 +743,7 @@ class PoolCandidateBuilder extends Builder
             }
 
             if ($user?->isAbleTo('view-own-application')) {
-                $query->orWhere('user_id', $user->id);
+                $query->orWhere('pool_candidates.user_id', $user->id);
             }
         });
         $filterCountAfter = count($this->getQuery()->wheres);
