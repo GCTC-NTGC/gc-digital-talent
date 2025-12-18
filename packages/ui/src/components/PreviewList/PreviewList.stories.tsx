@@ -65,6 +65,24 @@ const previewDetailsThree: MetaDataProps[] = [
   },
 ];
 
+const experienceDetails: MetaDataProps[] = [
+  {
+    key: "type",
+    type: "text",
+    children: "Work experience",
+  },
+  {
+    key: "duration",
+    type: "text",
+    children: "September 2022 - Present (1 year, 8 months)",
+  },
+  {
+    key: "skill-count",
+    type: "text",
+    children: "13 skills",
+  },
+];
+
 export default {
   component: PreviewList.Root,
   parameters: {
@@ -155,7 +173,7 @@ SingleTimelineExperience.args = {
     <>
       <PreviewList.Item
         title="IT-01: Junior application developer"
-        metaData={previewDetails}
+        metaData={experienceDetails}
         action={
           <PreviewList.Button
             label="View preview button one"
@@ -166,7 +184,7 @@ SingleTimelineExperience.args = {
         index={0}
         groupLength={1}
       >
-        <p>{faker.lorem.paragraph()}</p>
+        <p>{faker.lorem.sentence()}</p>
       </PreviewList.Item>
     </>
   ),
@@ -178,7 +196,7 @@ MultipleTimelineExperiences.args = {
     <>
       <PreviewList.Item
         title="IT-01: Junior application developer"
-        metaData={previewDetails}
+        metaData={experienceDetails}
         action={
           <PreviewList.Button
             label="View preview button one"
@@ -189,11 +207,11 @@ MultipleTimelineExperiences.args = {
         index={0}
         groupLength={4}
       >
-        <p>{faker.lorem.paragraph()}</p>
+        <p>{faker.lorem.sentence()}</p>
       </PreviewList.Item>
       <PreviewList.Item
         title="IT-01: Junior application developer"
-        metaData={previewDetails}
+        metaData={experienceDetails}
         action={
           <PreviewList.Button
             label="View preview button one"
@@ -204,11 +222,11 @@ MultipleTimelineExperiences.args = {
         index={1}
         groupLength={4}
       >
-        <p>{faker.lorem.paragraph()}</p>
+        <p>{faker.lorem.sentences(2)}</p>
       </PreviewList.Item>
       <PreviewList.Item
         title="IT-01: Junior application developer"
-        metaData={previewDetails}
+        metaData={experienceDetails}
         action={
           <PreviewList.Button
             label="View preview button one"
@@ -223,7 +241,7 @@ MultipleTimelineExperiences.args = {
       </PreviewList.Item>
       <PreviewList.Item
         title="IT-01: Junior application developer"
-        metaData={previewDetails}
+        metaData={experienceDetails}
         action={
           <PreviewList.Button
             label="View preview button one"

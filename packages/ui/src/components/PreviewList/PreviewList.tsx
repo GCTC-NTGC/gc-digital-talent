@@ -47,6 +47,16 @@ const heading = tv({
   },
 });
 
+const contentMetaDataContainer = tv({
+  base: "flex flex-col flex-nowrap items-start gap-y-3 text-sm xs:flex-row xs:flex-wrap xs:items-center",
+  variants: {
+    mode: {
+      default: "mt-4.5",
+      experience: "",
+    },
+  },
+});
+
 interface MetaDataBase {
   children: ReactNode;
   key: string;
@@ -141,7 +151,7 @@ const Content = ({
           {title}
         </Heading>
         {children && <div>{children}</div>}
-        <div className="mt-4.5 flex flex-col flex-nowrap items-start gap-y-3 text-sm xs:flex-row xs:flex-wrap xs:items-center">
+        <div className={contentMetaDataContainer({ mode: mode })}>
           {metaData.map((data, index) => {
             const { key, ...rest } = data;
             return (
