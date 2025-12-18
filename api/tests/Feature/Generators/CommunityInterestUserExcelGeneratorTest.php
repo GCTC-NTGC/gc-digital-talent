@@ -1,0 +1,79 @@
+<?php
+
+namespace Tests\Feature\Generators;
+
+use App\Generators\CommunityInterestUserExcelGenerator;
+use App\Models\Community;
+use App\Models\CommunityInterest;
+use App\Models\User;
+use Database\Seeders\RolePermissionSeeder;
+use Database\Seeders\SkillFamilySeeder;
+use Database\Seeders\SkillSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
+
+class CommunityInterestUserExcelGeneratorTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed([
+            RolePermissionSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+        ]);
+    }
+
+    // test that a file can be generated
+    public function testCanGenerateFile(): void
+    {
+        // arrange
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $communityRecruiter = User::factory()
+            ->withGovEmployeeProfile()
+            ->asCommunityRecruiter($community->id)
+            ->create();
+
+        $employee1 = User::factory()->withGovEmployeeProfile()->create();
+        $interest1 = CommunityInterest::factory()->create([
+            'user_id' => $employee1->id,
+            'community_id' => $community->id,
+            'consent_to_share_profile' => true,
+        ]);
+
+        $employee2 = User::factory()->withGovEmployeeProfile()->create();
+        $interest2 = CommunityInterest::factory()->create([
+            'user_id' => $employee2->id,
+            'community_id' => $community->id,
+            'consent_to_share_profile' => true,
+        ]);
+
+        // act
+        $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
+        $generator = new CommunityInterestUserExcelGenerator(
+            fileName: $fileName,
+            dir: 'test',
+            lang: 'en'
+        );
+
+        $generator
+            ->setAuthenticatedUserId($communityRecruiter->id)
+            ->setIds([$interest1->id, $interest2->id])
+            ->setFilters([]);
+
+        $generator->generate()->write();
+
+        // assert
+        $disk = Storage::disk('user_generated');
+        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
+
+        $fileExists = $disk->exists($path);
+        $this->assertTrue($fileExists, 'File was not generated');
+        $fileSize = $disk->size($path);
+        $this->assertGreaterThan(0, $fileSize, 'File is empty');
+    }
+}

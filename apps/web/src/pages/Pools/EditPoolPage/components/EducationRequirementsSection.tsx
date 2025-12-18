@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { ReactNode, JSX } from "react";
 
-import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, ScrollToLink, Notice } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
@@ -10,7 +10,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { isInNullState } from "~/validators/process/classification";
@@ -66,14 +66,13 @@ const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface EducationRequirementsSectionProps
-  extends Omit<
-    SectionProps<
-      null,
-      FragmentType<typeof EditPoolEducationRequirements_Fragment>
-    >,
-    "onSave"
-  > {
+interface EducationRequirementsSectionProps extends Omit<
+  SectionProps<
+    null,
+    FragmentType<typeof EditPoolEducationRequirements_Fragment>
+  >,
+  "onSave"
+> {
   changeTargetId: string;
 }
 
@@ -91,7 +90,7 @@ const EducationRequirementsSection = ({
     emptyRequired: isNull, // Not a required field
     fallbackIcon: TagIcon,
   });
-  const logger = useLogger();
+  const logger = getLogger();
 
   let classificationGroup: ClassificationGroup;
 
@@ -137,24 +136,26 @@ const EducationRequirementsSection = ({
         )}
       </p>
       {isNull ? (
-        <Well className="my-6 text-center">
-          <Heading className="mt-0" size="h6">
+        <Notice.Root className="my-6 text-center">
+          <Notice.Title as="h2">
             {intl.formatMessage({
               defaultMessage:
                 "Select a classification to view education requirements.",
               id: "PymrxL",
               description: "Null message for education requirement section",
             })}
-          </Heading>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This information is automatically populated for you based on the classification selected for the opportunity.",
-              id: "VitOoU",
-              description: "Null message for education requirement section",
-            })}
-          </p>
-        </Well>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This information is automatically populated for you based on the classification selected for the opportunity.",
+                id: "VitOoU",
+                description: "Null message for education requirement section",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       ) : (
         <EducationRequirements
           isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}

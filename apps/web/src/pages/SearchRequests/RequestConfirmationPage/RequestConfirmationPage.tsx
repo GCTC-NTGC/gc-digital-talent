@@ -93,7 +93,7 @@ export const Component = () => {
       />
       <Container className="my-18">
         <Notice.Root color="success" mode="card" className="mb-18">
-          <Notice.Title defaultIcon>
+          <Notice.Title defaultIcon as="h2">
             {intl.formatMessage({
               defaultMessage: "We have received your request",
               id: "7DYnwq",

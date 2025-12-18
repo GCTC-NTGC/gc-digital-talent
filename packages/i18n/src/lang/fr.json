@@ -175,10 +175,6 @@
     "defaultMessage": "Les possibilités d'échange m'intéressent",
     "description": "Interest label for interchange opportunities."
   },
-  "3SDRDg": {
-    "defaultMessage": "Parcourir la bibliothèque de compétences",
-    "description": "Name of skill library page"
-  },
   "3e4sM7": {
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
@@ -418,6 +414,10 @@
   "CrzH4k": {
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
+  },
+  "CzK1qY": {
+    "defaultMessage": "Supprimé",
+    "description": "Label for the trashed field"
   },
   "D3+nw/": {
     "defaultMessage": "Je consens à travailler dans la région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut).",
@@ -667,6 +667,10 @@
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
   },
+  "OJVUdM": {
+    "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels. Une adresse courriel professionnelle confirmée du gouvernement du Canada est requise.",
+    "description": "Body for a message informing the user that a contact email is required."
+  },
   "OKhXQk": {
     "defaultMessage": "Vous ne pouvez pas enregistrer cette situation de réaménagement des effectifs si votre poste actuel est absent, n'est pas marqué comme poste d'attache ou n'est pas marqué comme une expérience au sein du gouvernement du Canada. Veuillez mettre à jour votre expérience professionnelle pour continuer.",
     "description": "Error message for when a user is missing a substantive experience for workforce adjustment"
@@ -855,6 +859,10 @@
     "defaultMessage": "Télécharger",
     "description": "Button text to download a resource"
   },
+  "TuZKOY": {
+    "defaultMessage": "Bibliothèque de compétences",
+    "description": "Name of skill library page"
+  },
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
@@ -872,7 +880,7 @@
     "description": "Link to the 'Career experience' page"
   },
   "Ux22rt": {
-    "defaultMessage": "Bibliothèque de modèles d’emploi",
+    "defaultMessage": "Bibliothèque de modèles d'emploi",
     "description": "Name of job templates library (previously job advertisement templates) page"
   },
   "V3+fXY": {

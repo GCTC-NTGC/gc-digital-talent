@@ -92,6 +92,8 @@ const SingleSearchRequestTableApi = ({
             }
       }
       title={intl.formatMessage(adminMessages.poolCandidates)}
+      doNotUseBookmark
+      doNotUseFlag
     />
   );
 };

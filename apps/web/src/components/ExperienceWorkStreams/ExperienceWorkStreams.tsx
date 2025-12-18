@@ -11,7 +11,7 @@ import {
   IconButton,
   Loading,
   UNICODE_CHAR,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -232,26 +232,28 @@ const ExperienceWorkStreams = () => {
           </div>
         </>
       ) : (
-        <Well className="mb-6 text-center">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "You haven't added any work streams to this experience yet.",
-              id: "07xB/W",
-              description:
-                "Title when no work streams have been attached to experience",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                'You can add them using the "Add work streams" button.',
-              id: "fdSRLv",
-              description:
-                "Subtitle when no work streams have been attached to experience",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="mb-6 text-center">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You haven't added any work streams to this experience yet.",
+                id: "07xB/W",
+                description:
+                  "Title when no work streams have been attached to experience",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  'You can add them using the "Add work streams" button.',
+                id: "fdSRLv",
+                description:
+                  "Subtitle when no work streams have been attached to experience",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       {workStreamsByCommunity.size < communitiesWithWorkStreams.length && (
         <ExperienceWorkStreamsEditDialog

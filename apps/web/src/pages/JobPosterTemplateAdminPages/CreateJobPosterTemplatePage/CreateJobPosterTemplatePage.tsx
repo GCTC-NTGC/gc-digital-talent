@@ -72,7 +72,8 @@ const CreateJobPosterTemplate_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues
-  extends JobDetailsFormValues,
+  extends
+    JobDetailsFormValues,
     KeyTasksFormValues,
     EssentialTechnicalSkillsFormValues,
     NonessentialTechnicalSkillsFormValues,

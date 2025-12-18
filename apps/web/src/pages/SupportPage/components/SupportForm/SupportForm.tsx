@@ -14,7 +14,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -265,7 +265,7 @@ const emailErrorMessage = defineMessage({
 
 const SupportFormApi = () => {
   const intl = useIntl();
-  const logger = useLogger();
+  const logger = getLogger();
   const handleCreateTicket = async (formValues: FormValues) => {
     return await submitTicket(formValues, logger)
       .then(() => {

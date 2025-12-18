@@ -9,13 +9,13 @@ import {
   PreviewList,
   PreviewMetaData,
   Separator,
-  Well,
+  Notice,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import {
-  getQualifiedRecruitmentStatusChip,
+  candidateInterestChip,
   isQualifiedFinalDecision,
 } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -37,10 +37,11 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
       ...ReviewRecruitmentProcessDialog
       id
       finalDecisionAt
-      suspendedAt
-      placedAt
-      status {
+      candidateInterest {
         value
+        label {
+          localized
+        }
       }
       finalDecision {
         value
@@ -99,22 +100,24 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, finalDecisionAt } = recruitmentProcess;
+            const { id, pool, finalDecisionAt, candidateInterest } =
+              recruitmentProcess;
+            const interestChip = candidateInterestChip(candidateInterest);
 
-            const status = getQualifiedRecruitmentStatusChip(
-              recruitmentProcess.suspendedAt,
-              recruitmentProcess.placedAt,
-              recruitmentProcess.status?.value ?? null,
-              intl,
-            );
+            let applicationMetadata: PreviewMetaData[] = [];
+            if (interestChip) {
+              applicationMetadata = [
+                {
+                  key: "status",
+                  type: "chip",
+                  color: interestChip.color,
+                  children: interestChip.label,
+                },
+              ];
+            }
 
-            const applicationMetadata: PreviewMetaData[] = [
-              {
-                key: "status",
-                type: "chip",
-                color: status.color,
-                children: status.label,
-              },
+            applicationMetadata = [
+              ...applicationMetadata,
               {
                 key: "classification",
                 type: "text",
@@ -131,7 +134,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 children: (
                   <RecruitmentDate
                     finalDecisionAt={finalDecisionAt}
-                    status={status.value}
+                    interest={candidateInterest?.value}
                   />
                 ),
               },
@@ -168,8 +171,8 @@ const ReviewRecruitmentProcessPreviewList = ({
           })}
         </PreviewList.Root>
       ) : (
-        <Well className="text-center">
-          <p className="mb-3 font-bold">
+        <Notice.Root className="text-center">
+          <Notice.Title>
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active recruitment processes at the moment.",
@@ -177,16 +180,18 @@ const ReviewRecruitmentProcessPreviewList = ({
               description:
                 "Title for notice when there are no recruitment processes",
             })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: `Recruitment processes will appear in this section automatically if your application is successful.`,
-              id: "MGYlS0",
-              description:
-                "Body for notice when there are no Recruitment processes",
-            })}
-          </p>
-        </Well>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: `Recruitment processes will appear in this section automatically if your application is successful.`,
+                id: "MGYlS0",
+                description:
+                  "Body for notice when there are no Recruitment processes",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       <Separator space="sm" />
       <Pending fetching={fetching} error={error} inline>

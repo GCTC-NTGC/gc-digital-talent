@@ -44,7 +44,8 @@ const StepLink = ({
 };
 
 interface StepProps
-  extends Omit<StepLinkProps, "children" | "state">,
+  extends
+    Omit<StepLinkProps, "children" | "state">,
     Required<Pick<StepVariants, "state">> {
   last?: boolean;
   label: ReactNode;

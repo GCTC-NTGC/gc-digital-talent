@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -98,9 +99,7 @@ class ComputeGovInfoTest extends TestCase
         $this->assertEqualsCanonicalizing($expected, $actual);
     }
 
-    /**
-     * @dataProvider workExperienceProvider
-     */
+    #[DataProvider('workExperienceProvider')]
     public function testWorkExperienceComputesProperData(array $experienceState, array $expected)
     {
         WorkExperience::factory()->create([

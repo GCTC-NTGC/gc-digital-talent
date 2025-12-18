@@ -32,7 +32,6 @@ import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeStatusDialog from "~/components/CandidateDialog/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
@@ -56,6 +55,11 @@ const screeningAndAssessmentTitle = defineMessage({
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     ...JobPlacementOptions
+    me {
+      poolCandidateBookmarks {
+        id
+      }
+    }
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
       ...ClaimVerification
@@ -143,12 +147,14 @@ export interface ViewPoolCandidateProps {
   flexibleWorkLocationOptions: FragmentType<
     typeof FlexibleWorkLocationOptions_Fragment
   >;
+  usersPoolCandidateBookmarks: string[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
   jobPlacementOptions,
   flexibleWorkLocationOptions,
+  usersPoolCandidateBookmarks,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -208,7 +214,7 @@ export const ViewPoolCandidate = ({
             </Chip>
             {poolCandidate.user.hasPriorityEntitlement ||
             poolCandidate.user.priorityWeight === 10 ? (
-              <Chip key="priority" color="black">
+              <Chip key="priority" color="gray">
                 {intl.formatMessage({
                   defaultMessage: "Priority",
                   id: "xGMcBO",
@@ -219,7 +225,7 @@ export const ViewPoolCandidate = ({
             {poolCandidate.user.armedForcesStatus?.value ===
               ArmedForcesStatus.Veteran ||
             poolCandidate.user.priorityWeight === 20 ? (
-              <Chip key="veteran" color="black">
+              <Chip key="veteran" color="gray">
                 {intl.formatMessage({
                   defaultMessage: "Veteran",
                   id: "16iCWc",
@@ -237,34 +243,8 @@ export const ViewPoolCandidate = ({
             <MoreActions
               poolCandidate={poolCandidate}
               jobPlacementOptions={jobPlacementOptions}
+              usersPoolCandidateBookmarks={usersPoolCandidateBookmarks}
             />
-            <div className="mb-6 flex flex-col items-start gap-3 bg-error-100/30 p-6 dark:bg-error-700/30">
-              <Heading level="h3" size="h6" className="mt-0">
-                {intl.formatMessage({
-                  defaultMessage: "Candidate status",
-                  id: "ETrCOq",
-                  description:
-                    "Title for admin editing a pool candidates status",
-                })}
-              </Heading>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "These fields will only be available for migration purposes during a limited time.",
-                  id: "FXpcgW",
-                  description:
-                    "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage(commonMessages.status)}
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ChangeStatusDialog
-                  selectedCandidateQuery={poolCandidate}
-                  user={poolCandidate.user}
-                />
-              </p>
-            </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
             <Heading
@@ -352,6 +332,10 @@ export const ViewPoolCandidatePage = () => {
     variables: { poolCandidateId },
   });
 
+  const browsingUsersCandidateBookmarks = unpackMaybes(
+    data?.me?.poolCandidateBookmarks,
+  ).map((candidate) => candidate.id);
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
@@ -359,6 +343,7 @@ export const ViewPoolCandidatePage = () => {
           poolCandidate={data.poolCandidate}
           jobPlacementOptions={data}
           flexibleWorkLocationOptions={data}
+          usersPoolCandidateBookmarks={browsingUsersCandidateBookmarks}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

@@ -46,6 +46,7 @@ export const AllPoolCandidatesPage = () => {
             expiryStatus: CandidateExpiryFilter.Active,
           }}
           doNotUseBookmark
+          doNotUseFlag
         />
       </Container>
     </>

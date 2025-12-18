@@ -3,6 +3,7 @@ import type { StoryFn, Meta } from "@storybook/react-vite";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
 import {
+  GLOBAL_A11Y_EXCLUDES,
   OverlayOrDialogDecorator,
   allModes,
 } from "@gc-digital-talent/storybook-helpers";
@@ -20,8 +21,16 @@ export default {
         dark: allModes.dark,
       },
     },
+    a11y: {
+      context: {
+        exclude: [
+          ...GLOBAL_A11Y_EXCLUDES,
+          // Issue: https://github.com/radix-ui/primitives/issues/3085
+          "[data-aria-hidden]",
+        ],
+      },
+    },
   },
-  tags: ["needs-fix"],
 } as Meta;
 
 const Check = () => (

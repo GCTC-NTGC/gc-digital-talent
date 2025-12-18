@@ -3,11 +3,10 @@ import { DetailedHTMLProps, HTMLAttributes } from "react";
 import Required from "./Required";
 import { labelStyles } from "./styles";
 
-export interface LegendProps
-  extends DetailedHTMLProps<
-    HTMLAttributes<HTMLLegendElement>,
-    HTMLLegendElement
-  > {
+export interface LegendProps extends DetailedHTMLProps<
+  HTMLAttributes<HTMLLegendElement>,
+  HTMLLegendElement
+> {
   required?: boolean;
 }
 

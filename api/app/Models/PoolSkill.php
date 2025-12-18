@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class PoolSkill
@@ -18,6 +20,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class PoolSkill extends Model
 {
+    use LogsActivity;
+
     /**
      * The table associated with the model.
      *
@@ -40,6 +44,14 @@ class PoolSkill extends Model
         static::deleted(function (PoolSkill $poolSkill) {
             $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 
     /** @return BelongsTo<Skill, $this> */

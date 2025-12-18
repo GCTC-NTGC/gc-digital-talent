@@ -1,4 +1,4 @@
-import { Download, expect } from "@playwright/test";
+import { Download } from "@playwright/test";
 
 import AppPage from "./AppPage";
 
@@ -10,6 +10,10 @@ import AppPage from "./AppPage";
 class UserPage extends AppPage {
   async goToIndex() {
     await this.page.goto("/en/admin/users");
+  }
+
+  async goToUserProfile(userId: string) {
+    await this.page.goto(`/en/admin/users/${userId}`);
   }
 
   async searchForUser(name: string) {
@@ -55,19 +59,12 @@ class UserPage extends AppPage {
     return await this.resolveDownloadPromise(downloadPromise);
   }
 
-  async searchUserByName(name: string) {
-    await this.goToIndex();
+  async searchUserByName(name: string, searchType: string) {
     await this.page.getByRole("button", { name: /filter by/i }).click();
     await this.page
-      .getByRole("menuitemradio", { name: /candidate name/i })
+      .getByRole("menuitemradio", { name: new RegExp(searchType, "i") })
       .click();
-    await this.page.getByRole("textbox", { name: /search users/i }).fill(name);
-    await expect(
-      this.page.getByRole("cell", {
-        name: name,
-      }),
-      // Two, one for select, second for link
-    ).toHaveCount(2);
+    await this.page.getByRole("textbox", { name: /search/i }).fill(name);
   }
 }
 

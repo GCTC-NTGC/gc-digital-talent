@@ -22,7 +22,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
     public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
     {
-        $candidate->loadMissing(['user' => ['first_name', 'last_name'], 'pool' => ['classification']]);
+        $candidate->loadMissing(['user', 'pool' => ['classification']]);
         $fileName = sprintf(
             '%s %s - Application - Candidature',
             $this->sanitizeFileNameString($candidate->user?->first_name),
@@ -76,7 +76,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $candidate = $this->candidate;
 
         // pull data from application snapshot
-        // mirrors logic found in PoolCandidateCsvGenerator
+        // mirrors logic found in PoolCandidateExcelGenerator
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
         $snapshotExperiences = $snapshot['experiences'] ?? [];

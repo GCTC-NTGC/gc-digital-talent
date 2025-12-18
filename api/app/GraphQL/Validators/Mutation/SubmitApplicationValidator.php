@@ -4,6 +4,7 @@ namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
 use App\Models\PoolCandidate;
+use App\Rules\EmployeeWorkEmailVerified;
 use App\Rules\HasEducationRequirement;
 use App\Rules\HasEssentialSkills;
 use App\Rules\HasLanguageRequirements;
@@ -43,6 +44,7 @@ final class SubmitApplicationValidator extends Validator
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [
+                new EmployeeWorkEmailVerified($this->application->user),
                 new PoolNotClosed,
                 new QuestionsAnswered($this->application),
             ],

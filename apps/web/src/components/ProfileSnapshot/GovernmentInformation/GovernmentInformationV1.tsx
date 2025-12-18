@@ -123,9 +123,9 @@ const GovernmentInformationV1 = ({
           )}
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Current group and classification",
-              id: "EHh5pb",
-              description: "Current group and classification label",
+              defaultMessage: "Classification",
+              id: "YmWKlv",
+              description: "Label for a process' classification",
             })}
           >
             {!!currentClassification?.group && !!currentClassification?.level

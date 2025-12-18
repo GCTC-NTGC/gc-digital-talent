@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Button, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Heading, Notice } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -87,22 +87,26 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
               />
             ))
           ) : (
-            <Well className="text-center">
-              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
-            </Well>
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+              </Notice.Content>
+            </Notice.Root>
           )}
         </div>
       ) : (
-        <Well className="text-center">
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "No experiences found",
-              id: "gHMj31",
-              description:
-                "Null state messages for career timeline list when no experiences are found.",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="text-center">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "No experiences found",
+                id: "gHMj31",
+                description:
+                  "Null state messages for career timeline list when no experiences are found.",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
     </>
   );

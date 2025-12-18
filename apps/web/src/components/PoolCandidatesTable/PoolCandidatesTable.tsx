@@ -54,8 +54,8 @@ import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
 import {
-  bookmarkCell,
-  bookmarkHeader,
+  flagCell,
+  flagHeader,
   candidacyStatusAccessor,
   candidateNameCell,
   currentLocationAccessor,
@@ -70,7 +70,10 @@ import {
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
   getDepartmentSort,
-  candidateFacingStatusCell,
+  candidateStatusCell,
+  getBaseSort,
+  poolCandidateBookmarkHeader,
+  poolCandidateBookmarkCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -83,10 +86,10 @@ import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
 } from "../PoolCandidateDialogs/JobPlacementDialog";
-import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
+import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
-import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
-import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
+import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
+import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
@@ -171,15 +174,20 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
+    $orderByBaseInput: PoolCandidatesBaseSort!
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
     $orderByClaimVerification: ClaimVerificationSort
     $orderByEmployeeDepartment: SortOrder
   ) {
+    me {
+      ...PoolCandidate_Bookmark
+    }
     poolCandidatesPaginatedAdminView(
       where: $where
       first: $first
       page: $page
+      orderByBase: $orderByBaseInput
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
       orderByClaimVerification: $orderByClaimVerification
@@ -190,13 +198,19 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         poolCandidate {
           ...JobPlacementDialogCandidateTable
           id
-          ...PoolCandidateTable_Bookmark
+          ...PoolCandidateTable_Flag
           notes
           status {
             value
             label {
               en
               fr
+            }
+          }
+          candidateStatus {
+            value
+            label {
+              localized
             }
           }
           placedDepartment {
@@ -337,13 +351,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesCsv(
+const DownloadPoolCandidatesExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesExcel(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
     $withROD: Boolean
   ) {
-    downloadPoolCandidatesCsv(ids: $ids, where: $where, withROD: $withROD)
+    downloadPoolCandidatesExcel(ids: $ids, where: $where, withROD: $withROD)
   }
 `);
 
@@ -420,6 +434,7 @@ const PoolCandidatesTable = ({
   title,
   hidePoolFilter,
   doNotUseBookmark = false,
+  doNotUseFlag = false,
   availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
@@ -427,6 +442,7 @@ const PoolCandidatesTable = ({
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
+  doNotUseFlag?: boolean;
   availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
 }) => {
   const intl = useIntl();
@@ -451,8 +467,8 @@ const PoolCandidatesTable = ({
     [filtersEncoded, initialFilterInput],
   );
 
-  const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
-    DownloadPoolCandidatesCsv_Mutation,
+  const [{ fetching: downloadingExcel }, downloadExcel] = useMutation(
+    DownloadPoolCandidatesExcel_Mutation,
   );
 
   const [{ fetching: downloadingUsersExcel }, downloadUsers] = useMutation(
@@ -477,7 +493,7 @@ const PoolCandidatesTable = ({
     useAsyncFileDownload();
 
   const downloadingAnyFile =
-    downloadingCsv ||
+    downloadingExcel ||
     downloadingUserDoc ||
     downloadingUsersZip ||
     downloadingApplicationDoc ||
@@ -560,13 +576,11 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
+      orderByBaseInput: getBaseSort(doNotUseBookmark, doNotUseFlag),
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      sortingInput: getSortOrder(sortState, filterState),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
-      orderByClaimVerification: getClaimVerificationSort(
-        sortState,
-        doNotUseBookmark,
-      ),
+      orderByClaimVerification: getClaimVerificationSort(sortState),
     },
   });
 
@@ -613,8 +627,8 @@ const PoolCandidatesTable = ({
     return uniqueItems(userIds.filter(notEmpty));
   };
 
-  const handleCsvDownloadAll = () => {
-    downloadCsv({
+  const handleExcelDownloadAll = () => {
+    downloadExcel({
       where: addSearchToPoolCandidateFilterInput(
         filterState,
         searchState?.term,
@@ -626,8 +640,8 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownload = (withROD?: boolean) => {
-    downloadCsv({ ids: selectedRows, withROD })
+  const handleExcelDownload = (withROD?: boolean) => {
+    downloadExcel({ ids: selectedRows, withROD })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -716,17 +730,44 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.display({
-            id: "isBookmarked",
-            header: () => bookmarkHeader(intl),
+            id: "poolCandidateBookmark",
+            header: () => poolCandidateBookmarkHeader(intl),
+            enableHiding: false,
+            cell: ({
+              row: {
+                original: {
+                  id,
+                  poolCandidate: { user },
+                },
+              },
+            }) =>
+              poolCandidateBookmarkCell(
+                id,
+                data?.me,
+                user.firstName,
+                user.lastName,
+              ),
+            meta: {
+              shrink: true,
+              hideMobileHeader: true,
+            },
+          }),
+        ]),
+    ...(doNotUseFlag
+      ? []
+      : [
+          columnHelper.display({
+            id: "isFlagged",
+            header: () => flagHeader(intl),
             enableHiding: false,
             cell: ({
               row: {
                 original: { poolCandidate },
               },
             }) =>
-              bookmarkCell(
+              flagCell(
                 poolCandidate as FragmentType<
-                  typeof PoolCandidate_BookmarkFragment
+                  typeof PoolCandidate_FlagFragment
                 >,
               ),
             meta: {
@@ -872,40 +913,20 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({
-        poolCandidate: {
-          submittedAt,
-          assessmentStep,
-          assessmentStatus,
-          removedAt,
-          finalDecisionAt,
-          finalDecision,
-          pool: {
-            closingDate,
-            areaOfSelection,
-            screeningQuestionsCount,
-            contactEmail,
-          },
-        },
-      }) =>
-        candidateFacingStatusCell(
-          submittedAt,
-          closingDate,
-          removedAt,
-          finalDecisionAt,
-          finalDecision?.value,
-          areaOfSelection?.value,
-          assessmentStep?.sortOrder,
-          assessmentStatus,
-          screeningQuestionsCount,
-          contactEmail,
-          intl,
-        ),
+      ({ poolCandidate: { candidateStatus } }) =>
+        candidateStatus?.label?.localized,
       {
         id: "candidateFacingStatus",
         header: intl.formatMessage(tableMessages.candidateFacingStatus),
         enableSorting: false,
         enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { candidateStatus },
+            },
+          },
+        }) => candidateStatusCell(candidateStatus),
       },
     ),
     columnHelper.accessor(
@@ -1140,18 +1161,18 @@ const PoolCandidatesTable = ({
       download={{
         all: {
           enable: true,
-          onClick: handleCsvDownloadAll,
-          downloading: downloadingCsv,
+          onClick: handleExcelDownloadAll,
+          downloading: downloadingExcel,
         },
-        csv: currentPool
+        spreadsheet: currentPool
           ? {
               enable: true,
               component: (
-                <DownloadCandidateCsvButton
+                <DownloadCandidateExcelButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersExcel}
-                  onClick={handleCsvDownload}
+                  isDownloading={downloadingExcel || downloadingUsersExcel}
+                  onClick={handleExcelDownload}
                   onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),
@@ -1159,11 +1180,11 @@ const PoolCandidatesTable = ({
           : {
               enable: true,
               component: (
-                <DownloadAllCandidateTableCsvButton
+                <DownloadAllCandidateTableExcelButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv || downloadingUsersExcel}
-                  onClickDownloadCandidates={handleCsvDownload}
+                  isDownloading={downloadingExcel || downloadingUsersExcel}
+                  onClickDownloadCandidates={handleExcelDownload}
                   onClickDownloadUsers={handleUsersExcelDownload}
                 />
               ),

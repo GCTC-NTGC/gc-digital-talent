@@ -27,8 +27,8 @@ class PoolCandidateClaimSortingTest extends TestCase
     const QUERY =
         /** @lang GraphQL */
         '
-    query PoolCandidatesPaginatedAdminView($orderByClaimVerification: ClaimVerificationSort) {
-        poolCandidatesPaginatedAdminView(orderByClaimVerification: $orderByClaimVerification) {
+    query PoolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $orderByClaimVerification: ClaimVerificationSort) {
+        poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, orderByClaimVerification: $orderByClaimVerification) {
             data {
                 id
             }
@@ -40,9 +40,9 @@ class PoolCandidateClaimSortingTest extends TestCase
     protected $adminUser;
 
     // all the test candidates that we'll be sorting
-    protected $bookmarkedAcceptedPriority;
+    protected $flaggedAcceptedPriority;
 
-    protected $bookmarkedNoClaims;
+    protected $flaggedNoClaims;
 
     protected $unverifiedPriorityAndAcceptedVeteran;
 
@@ -65,7 +65,7 @@ class PoolCandidateClaimSortingTest extends TestCase
 
         $pool = Pool::factory()->published()->create();
         $candidateSubmitDate = Carbon::parse(config('constants.past_datetime'));
-        $this->bookmarkedAcceptedPriority = PoolCandidate::factory()
+        $this->flaggedAcceptedPriority = PoolCandidate::factory()
             ->for($pool)
             ->for(User::factory()->create([
                 'has_priority_entitlement' => true,
@@ -73,13 +73,13 @@ class PoolCandidateClaimSortingTest extends TestCase
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]))
             ->make([
-                'is_bookmarked' => true,
+                'is_flagged' => true,
                 'priority_verification' => ClaimVerificationResult::ACCEPTED->name,
                 'veteran_verification' => null,
                 'submitted_at' => $candidateSubmitDate,
             ]);
 
-        $this->bookmarkedNoClaims = PoolCandidate::factory()
+        $this->flaggedNoClaims = PoolCandidate::factory()
             ->for($pool)
             ->for(User::factory()->create([
                 'has_priority_entitlement' => null,
@@ -87,7 +87,7 @@ class PoolCandidateClaimSortingTest extends TestCase
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]))
             ->make([
-                'is_bookmarked' => true,
+                'is_flagged' => true,
                 'priority_verification' => null,
                 'veteran_verification' => null,
                 'submitted_at' => $candidateSubmitDate,
@@ -101,7 +101,7 @@ class PoolCandidateClaimSortingTest extends TestCase
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]))
             ->make([
-                'is_bookmarked' => false,
+                'is_flagged' => false,
                 'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
                 'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
                 'submitted_at' => $candidateSubmitDate,
@@ -115,7 +115,7 @@ class PoolCandidateClaimSortingTest extends TestCase
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]))
             ->make([
-                'is_bookmarked' => false,
+                'is_flagged' => false,
                 'priority_verification' => null,
                 'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
                 'submitted_at' => $candidateSubmitDate,
@@ -129,7 +129,7 @@ class PoolCandidateClaimSortingTest extends TestCase
                 'citizenship' => CitizenshipStatus::OTHER->name,
             ]))
             ->make([
-                'is_bookmarked' => false,
+                'is_flagged' => false,
                 'priority_verification' => null,
                 'veteran_verification' => ClaimVerificationResult::REJECTED->name,
                 'submitted_at' => $candidateSubmitDate,
@@ -143,31 +143,33 @@ class PoolCandidateClaimSortingTest extends TestCase
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]))
             ->make([
-                'is_bookmarked' => false,
+                'is_flagged' => false,
                 'priority_verification' => null,
                 'veteran_verification' => null,
                 'submitted_at' => $candidateSubmitDate,
             ]);
     }
 
-    // assert sorting by bookmarked then DESCENDING category
+    // assert sorting by flagged then DESCENDING category
     public function testOrderDescByClaimVerification(): void
     {
         // save the candidates that we'll be sorting
-        $this->bookmarkedAcceptedPriority->save();
-        $this->bookmarkedNoClaims->save();
+        $this->flaggedAcceptedPriority->save();
+        $this->flaggedNoClaims->save();
         $this->unverifiedPriorityAndAcceptedVeteran->save();
         $this->acceptedVeteran->save();
         $this->citizenOnly->save();
         $this->rejectedVeteranCitizenOther->save();
 
         // assert that veteran + priority treated as priority
-        // priority > bookmarked > veteran > citizen/permanent resident > rest
+        // priority > flagged > veteran > citizen/permanent resident > rest
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
+                'orderByBase' => [
+                    'useFlag' => true,
+                ],
                 'orderByClaimVerification' => [
                     'order' => 'DESC',
-                    'useBookmark' => true,
                 ],
             ])
             ->assertExactJson([
@@ -175,10 +177,10 @@ class PoolCandidateClaimSortingTest extends TestCase
                     'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
-                                'id' => $this->bookmarkedAcceptedPriority->id,
+                                'id' => $this->flaggedAcceptedPriority->id,
                             ],
                             [
-                                'id' => $this->bookmarkedNoClaims->id,
+                                'id' => $this->flaggedNoClaims->id,
                             ],
                             [
                                 'id' => $this->unverifiedPriorityAndAcceptedVeteran->id,
@@ -198,23 +200,25 @@ class PoolCandidateClaimSortingTest extends TestCase
             ]);
     }
 
-    // assert sorting by bookmarked then ASCENDING category
+    // assert sorting by flagged then ASCENDING category
     public function testOrderAscByClaimVerification(): void
     {
         // save the candidates that we'll be sorting
-        $this->bookmarkedAcceptedPriority->save();
-        $this->bookmarkedNoClaims->save();
+        $this->flaggedAcceptedPriority->save();
+        $this->flaggedNoClaims->save();
         $this->unverifiedPriorityAndAcceptedVeteran->save();
         $this->acceptedVeteran->save();
         $this->citizenOnly->save();
         $this->rejectedVeteranCitizenOther->save();
 
-        // assert sorting by bookmarked first but then ASCENDING category
+        // assert sorting by flagged first but then ASCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
+                'orderByBase' => [
+                    'useFlag' => true,
+                ],
                 'orderByClaimVerification' => [
                     'order' => 'ASC',
-                    'useBookmark' => true,
                 ],
             ])
             ->assertExactJson([
@@ -222,10 +226,10 @@ class PoolCandidateClaimSortingTest extends TestCase
                     'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
-                                'id' => $this->bookmarkedNoClaims->id,
+                                'id' => $this->flaggedNoClaims->id,
                             ],
                             [
-                                'id' => $this->bookmarkedAcceptedPriority->id,
+                                'id' => $this->flaggedAcceptedPriority->id,
                             ],
                             [
                                 'id' => $this->rejectedVeteranCitizenOther->id,
@@ -245,12 +249,12 @@ class PoolCandidateClaimSortingTest extends TestCase
             ]);
     }
 
-    // assert sorting by DESCENDING category (NOT by bookmarked)
-    public function testOrderDescBookmarkByClaimVerification(): void
+    // assert sorting by DESCENDING category (NOT by flagged)
+    public function testOrderDescFlagByClaimVerification(): void
     {
-        // excluding bookmarked candidates since they have ambiguous ordering without that query option
-        // $this->bookmarkedAcceptedPriority->save();
-        // $this->bookmarkedNoClaims->save();
+        // excluding flagged candidates since they have ambiguous ordering without that query option
+        // $this->flaggedAcceptedPriority->save();
+        // $this->flaggedNoClaims->save();
 
         // save the candidates that we'll be sorting
         $this->unverifiedPriorityAndAcceptedVeteran->save();
@@ -258,12 +262,12 @@ class PoolCandidateClaimSortingTest extends TestCase
         $this->citizenOnly->save();
         $this->rejectedVeteranCitizenOther->save();
 
-        // assert sorting by DESCENDING category (without bookmarked)
+        // assert sorting by DESCENDING category (without flagged)
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
+                'orderByBase' => [],
                 'orderByClaimVerification' => [
                     'order' => 'DESC',
-                    // not setting the useBookmark option
                 ],
             ])
             ->assertExactJson([
@@ -272,7 +276,7 @@ class PoolCandidateClaimSortingTest extends TestCase
                         'data' => [
                             // has same ordering value as unverifiedPriorityAndAcceptedVeteran
                             // [
-                            //     'id' => $this->bookmarkedAcceptedPriority->id,
+                            //     'id' => $this->flaggedAcceptedPriority->id,
                             // ],
                             [
                                 'id' => $this->unverifiedPriorityAndAcceptedVeteran->id,
@@ -285,7 +289,7 @@ class PoolCandidateClaimSortingTest extends TestCase
                             ],
                             // has same ordering value as citizenOnly
                             // [
-                            //     'id' => $this->bookmarkedNoClaims->id,
+                            //     'id' => $this->flaggedNoClaims->id,
                             // ],
                             [
                                 'id' => $this->rejectedVeteranCitizenOther->id,

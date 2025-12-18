@@ -56,6 +56,9 @@ import CitizensNote from "./CitizensNote";
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {
     id
+    community {
+      id
+    }
     status {
       value
       label {
@@ -141,7 +144,7 @@ export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
 `);
 
 const PoolNameOptions_Query = graphql(/* GraphQL */ `
-  query PoolNameOptions {
+  query PoolNameOptions($communityIds: [UUID!]) {
     publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
       value
       label {
@@ -149,7 +152,7 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    workStreams {
+    workStreams(whereCommunityIn: $communityIds) {
       id
       name {
         en
@@ -231,11 +234,10 @@ const allSelectionLimitations: Record<
   },
 } as const;
 
-interface PoolNameSectionProps
-  extends SectionProps<
-    PoolNameSubmitData,
-    FragmentType<typeof EditPoolName_Fragment>
-  > {
+interface PoolNameSectionProps extends SectionProps<
+  PoolNameSubmitData,
+  FragmentType<typeof EditPoolName_Fragment>
+> {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
   departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
 }
@@ -248,8 +250,11 @@ const PoolNameSection = ({
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
-  const [{ data }] = useQuery({ query: PoolNameOptions_Query });
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
+  const [{ data }] = useQuery({
+    query: PoolNameOptions_Query,
+    variables: { communityIds: unpackMaybes([pool?.community?.id]) },
+  });
   const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();

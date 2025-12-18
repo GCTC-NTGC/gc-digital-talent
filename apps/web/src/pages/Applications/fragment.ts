@@ -13,6 +13,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       firstName
       lastName
       email
+      isEmailVerified
       telephone
       preferredLang {
         value
@@ -247,6 +248,12 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         question {
           en
           fr
+        }
+      }
+      areaOfSelection {
+        value
+        label {
+          localized
         }
       }
     }

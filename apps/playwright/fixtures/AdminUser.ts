@@ -35,6 +35,35 @@ class AdminUser extends AppPage {
   async goToUser(id: string) {
     await this.page.goto(`${this.baseUrl}/${id}`);
   }
+
+  async goToSkills(id: string) {
+    await this.page.goto(`${this.baseUrl}/${id}/skills`);
+  }
+
+  async goToAdvancedTools(id: string) {
+    await this.page.goto(`${this.baseUrl}/${id}/tools`);
+  }
+
+  async softDelete(id: string, name: string) {
+    await this.goToAdvancedTools(id);
+    await this.page.getByRole("button", { name: /archive user/i }).click();
+    const archiveDialog = this.page.getByRole("dialog", {
+      name: /archive user/i,
+    });
+
+    await archiveDialog.getByRole("textbox", { name: /user name/i }).fill(name);
+    await archiveDialog.getByRole("button", { name: /archive user/i }).click();
+  }
+
+  async restore(id: string) {
+    await this.goToAdvancedTools(id);
+    await this.page.getByRole("button", { name: /restore user/i }).click();
+    const restoreDialog = this.page.getByRole("dialog", {
+      name: /restore user/i,
+    });
+
+    await restoreDialog.getByRole("button", { name: /restore user/i }).click();
+  }
 }
 
 export default AdminUser;

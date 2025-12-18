@@ -1,5 +1,6 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
@@ -29,11 +30,10 @@ import {
   ClaimVerificationSort,
   QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
-  PoolCandidate,
-  FinalDecision,
-  PoolAreaOfSelection,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
   LocalizedCandidateSuspendedFilter,
+  PoolCandidatesBaseSort,
+  LocalizedCandidateStatus,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -41,7 +41,7 @@ import { Radio } from "@gc-digital-talent/forms";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  getApplicationStatusChip,
+  candidateStatusChip,
   getCandidateStatusChip,
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
@@ -49,9 +49,12 @@ import processMessages from "~/messages/processMessages";
 
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
-import CandidateBookmark, {
-  PoolCandidate_BookmarkFragment,
-} from "../CandidateBookmark/CandidateBookmark";
+import CandidateFlag, {
+  PoolCandidate_FlagFragment,
+} from "../CandidateFlag/CandidateFlag";
+import PoolCandidateBookmark, {
+  PoolCandidateBookmark_Fragment,
+} from "./PoolCandidateBookmark";
 
 export const priorityCell = (
   weight: number,
@@ -199,45 +202,25 @@ export const finalDecisionCell = (
   return <Chip color={color}>{label}</Chip>;
 };
 
-export const candidateFacingStatusCell = (
-  submittedAt: PoolCandidate["submittedAt"],
-  closingDate: Pool["closingDate"],
-  removedAt: PoolCandidate["removedAt"],
-  finalDecisionAt: PoolCandidate["finalDecisionAt"],
-  finalDecision: Maybe<FinalDecision> | undefined,
-  areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
-  assessmentStep: Maybe<number> | undefined,
-  assessmentStatus: PoolCandidate["assessmentStatus"],
-  screeningQuestions: Pool["screeningQuestionsCount"],
-  contactEmail: Pool["contactEmail"],
-  intl: IntlShape,
+export const candidateStatusCell = (
+  status?: Maybe<LocalizedCandidateStatus>,
 ) => {
-  const { label } = getApplicationStatusChip(
-    submittedAt,
-    closingDate,
-    removedAt,
-    finalDecisionAt,
-    finalDecision,
-    areaOfSelection,
-    assessmentStep,
-    assessmentStatus,
-    screeningQuestions,
-    contactEmail,
-    intl,
-  );
-  return label;
+  const chip = candidateStatusChip(status);
+
+  return chip ? <Chip color={chip.color}>{chip.label}</Chip> : null;
 };
 
-export const bookmarkCell = (
-  candidate: FragmentType<typeof PoolCandidate_BookmarkFragment>,
+export const flagCell = (
+  candidate: FragmentType<typeof PoolCandidate_FlagFragment>,
 ) => {
-  return <CandidateBookmark candidateQuery={candidate} size="lg" />;
+  return <CandidateFlag candidateQuery={candidate} size="lg" />;
 };
 
-export const bookmarkHeader = (intl: IntlShape) => (
-  <BookmarkIcon
+export const flagHeader = (intl: IntlShape) => (
+  <FlagIcon
     className="size-6"
-    aria-label={intl.formatMessage(tableMessages.bookmark)}
+    aria-hidden="false"
+    aria-label={intl.formatMessage(tableMessages.flag)}
   />
 );
 
@@ -354,10 +337,19 @@ function transformSortStateToOrderByClause(
   };
 }
 
+export function getBaseSort(
+  doNotUseBookmark: boolean,
+  doNotUseFlag: boolean,
+): PoolCandidatesBaseSort {
+  return {
+    useBookmark: !doNotUseBookmark,
+    useFlag: !doNotUseFlag,
+  };
+}
+
 export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-  doNotUseBookmark?: boolean,
 ):
   | QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[]
   | undefined {
@@ -371,9 +363,6 @@ export function getSortOrder(
   }
 
   return [
-    ...(doNotUseBookmark
-      ? []
-      : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [
@@ -386,7 +375,6 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  doNotUseBookmark?: boolean,
 ): Maybe<ClaimVerificationSort> {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
@@ -394,7 +382,6 @@ export function getClaimVerificationSort(
     if (sortOrder) {
       return {
         order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
-        useBookmark: !doNotUseBookmark,
       };
     }
   }
@@ -598,4 +585,28 @@ export const candidateSuspendedFilterToCustomOptions = (
       label: enumObject.label.localized,
     };
   });
+};
+
+export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    className="size-6"
+    aria-hidden="false"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);
+
+export const poolCandidateBookmarkCell = (
+  poolCandidateId: string,
+  userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>,
+  firstName?: Maybe<string>,
+  lastName?: Maybe<string>,
+) => {
+  return (
+    <PoolCandidateBookmark
+      userQuery={userQuery}
+      poolCandidateId={poolCandidateId}
+      firstName={firstName}
+      lastName={lastName}
+    />
+  );
 };

@@ -11,12 +11,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
 class GenerateUserFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 3;
 
     /**
      * Create a new job instance.
@@ -35,16 +41,7 @@ class GenerateUserFile implements ShouldQueue
         } catch (\Throwable $e) {
             // Notify the user something went wrong
             $this->user->notify(new UserFileGenerationError($this->generator->getFileNameWithExtension()));
-            Log::error($e);
-
-            // workaround until we get better logging in prod #11289
-            $onDemandLog = Log::build([
-                'driver' => 'single',
-                'path' => App::isProduction() // workaround for storage_path misconfigured in prod #11471
-                    ? '/tmp/api/storage/logs/jobs.log'
-                    : storage_path('logs/jobs.log'),
-            ]);
-            $onDemandLog->error($e);
+            Log::channel('jobs')->error($e);
         }
 
     }

@@ -3,12 +3,21 @@ import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import { tv, VariantProps } from "tailwind-variants";
+import { isValid } from "date-fns/isValid";
+import { format } from "date-fns/format";
 
 import { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Logger } from "@gc-digital-talent/logger";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import activityMessages from "~/messages/activityMessages";
+import adminMessages from "~/messages/adminMessages";
 
 export const icon = tv({
   base: "mt-0.5 flex size-5.5 shrink-0 items-center rounded-full bg-primary-500 p-1 text-white",
@@ -101,19 +110,45 @@ export function parseAttributes(attr: unknown): JSONRecord {
   return {};
 }
 
+const commonKeyMap = new Map<string, MessageDescriptor>([
+  ["id", adminMessages.id],
+  ["created_at", commonMessages.created],
+  ["archived_at", commonMessages.archived],
+  ["updated_at", commonMessages.updated],
+  ["deleted_at", commonMessages.deleted],
+]);
+
 export function normalizePropKeys(
   intl: IntlShape,
   propsObj?: Maybe<ActivityProperties>,
+  keyMap?: Map<string, MessageDescriptor>,
+  logger?: Logger,
 ): string[] {
   if (!propsObj?.attributes) {
     return [];
   }
   // Should be safe to parse and cast after validating
   const attributes = parseAttributes(propsObj.attributes);
+  const localizedKeyMap = commonKeyMap;
+  if (keyMap) {
+    for (const [key, value] of keyMap) {
+      if (!localizedKeyMap.has(key)) {
+        localizedKeyMap.set(key, value);
+      }
+    }
+  }
 
   let modified: string[] = [];
   Object.keys(attributes).forEach((k) => {
-    if (k.endsWith("_id")) {
+    let localizedKey: string = k;
+    const localizedKeyMessage = localizedKeyMap.get(k);
+    if (localizedKeyMessage) {
+      localizedKey = intl.formatMessage(localizedKeyMessage);
+    } else {
+      logger?.warning(`Activity log attribute ${k} has no matching label.`);
+    }
+
+    if (k.endsWith("_id") && !localizedKeyMessage) {
       modified = [...modified, stripSuffix(k)];
       return;
     }
@@ -124,14 +159,14 @@ export function normalizePropKeys(
       if ("fr" in val) {
         modified = [
           ...modified,
-          `${k} ${intl.formatMessage(commonMessages.frenchLabel)}`,
+          `${localizedKey} ${intl.formatMessage(commonMessages.frenchLabel)}`,
         ];
       }
 
       if ("en" in val) {
         modified = [
           ...modified,
-          `${k} ${intl.formatMessage(commonMessages.englishLabel)}`,
+          `${localizedKey} ${intl.formatMessage(commonMessages.englishLabel)}`,
         ];
       }
 
@@ -140,9 +175,61 @@ export function normalizePropKeys(
 
     // Updated at always appears so seems useless to show it
     if (k !== "updated_at") {
-      modified = [...modified, k];
+      modified = [...modified, localizedKey];
     }
   });
 
+  if (modified.length <= 0) {
+    modified = [
+      intl.formatMessage({
+        defaultMessage: "Saved without changes",
+        id: "z/qlLb",
+        description:
+          "Message for when an activity log event had no changes tracked",
+      }),
+    ];
+  }
+
   return modified;
+}
+
+export function formatActivityDayGroup(day: string, intl: IntlShape): string {
+  return formatDate({
+    date: parseDateTimeUtc(day),
+    formatString: DATE_FORMAT_LOCALIZED,
+    intl,
+  });
+}
+
+interface GroupedByDay<T> {
+  day: string;
+  activities: T[];
+}
+
+export function groupByDay<T, K extends keyof T>(
+  items: T[],
+  key?: K,
+): GroupedByDay<T>[] {
+  const groups = new Map<string, T[]>();
+  const dateKey = (key ?? "createdAt") as keyof T;
+
+  for (const item of items) {
+    const rawDate = item[dateKey];
+    if (typeof rawDate !== "string") continue;
+
+    const date = parseDateTimeUtc(rawDate);
+    if (!isValid(date)) continue;
+
+    const day = format(date, "yyyy-MM-dd");
+
+    if (!groups.has(day)) {
+      groups.set(day, []);
+    }
+
+    groups.get(day)?.push(item);
+  }
+
+  return Array.from(groups.entries())
+    .sort(([a], [b]) => b.localeCompare(a))
+    .map(([day, activities]) => ({ day, activities }));
 }

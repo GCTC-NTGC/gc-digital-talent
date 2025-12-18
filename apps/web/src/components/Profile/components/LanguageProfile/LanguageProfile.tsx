@@ -3,7 +3,7 @@ import { SubmitHandler } from "react-hook-form";
 import LanguageIcon from "@heroicons/react/24/outline/LanguageIcon";
 import { useQuery } from "urql";
 
-import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
+import { Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -140,16 +140,19 @@ const LanguageProfile = ({
         {intl.formatMessage(title)}
       </ToggleSection.Header>
       {pool && emptyRequired && (
-        <Well color="error">
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "You are missing required language information.",
-              id: "F4RHJu",
-              description:
-                "Error message displayed when a users language information is incomplete",
-            })}
-          </p>
-        </Well>
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You are missing required language information.",
+                id: "F4RHJu",
+                description:
+                  "Error message displayed when a users language information is incomplete",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
       {missingLanguageRequirements.length > 0 && (
         <MissingLanguageRequirements

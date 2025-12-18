@@ -12,8 +12,8 @@ use Illuminate\Validation\UnauthorizedException;
 final class DownloadUsersThruPoolCandidatesExcel
 {
     /**
-     * Dispatches the generation of a
-     * csv containing users thru pool candidate model
+     * Dispatches the generation of an
+     * excel containing users thru pool candidate model
      *
      * @disregard P1003 We are not going to be using this var
      */
@@ -42,7 +42,7 @@ final class DownloadUsersThruPoolCandidatesExcel
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting user csv generation '.$e->getMessage());
+            Log::error('Error starting user excel generation '.$e->getMessage());
 
             return false;
         }

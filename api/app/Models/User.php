@@ -12,7 +12,6 @@ use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\WorkExperienceGovEmployeeType;
-use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
@@ -303,6 +302,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function poolBookmarks(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
+    }
+
+    /** @return BelongsToMany<PoolCandidate, $this> */
+    public function poolCandidateBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(PoolCandidate::class, 'pool_candidate_user_bookmarks', 'user_id', 'pool_candidate_id')
+            ->withTimestamps();
     }
 
     /** @return HasMany<PoolCandidate, $this> */
@@ -615,6 +621,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             is_null($this->attributes['first_name']) or
             is_null($this->attributes['last_name']) or
             is_null($this->attributes['email']) or
+            (config('feature.application_email_verification') && is_null($this->attributes['email_verified_at'])) or
             is_null($this->attributes['telephone']) or
             is_null($this->attributes['preferred_lang']) or
             is_null($this->attributes['preferred_language_for_interview']) or
@@ -827,44 +834,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             return ! is_null($this->work_email_verified_at);
         }
 
-    }
-
-    /**
-     * Mark the given user's email as verified.
-     * Part of the MustVerifyEmail contract.
-     *
-     * @return void
-     */
-    public function markEmailAsVerified(EmailType $emailType)
-    {
-        if ($emailType == EmailType::CONTACT) {
-            $this->email_verified_at = Carbon::now();
-        } else {
-            $this->work_email_verified_at = Carbon::now();
-        }
-    }
-
-    /**
-     * Send the email verification notification.
-     * Part of the MustVerifyEmail contract.
-     *
-     * @return void
-     */
-    public function sendEmailVerificationNotification(EmailType $emailType)
-    {
-        $message = new VerifyEmail($emailType);
-        $this->notify($message);
-    }
-
-    /**
-     * Get the email address that should be used for verification.
-     * Part of the MustVerifyEmail contract.
-     *
-     * @return string
-     */
-    public function getEmailForVerification(EmailType $emailType)
-    {
-        return $this->{$emailType->value};
     }
 
     /**

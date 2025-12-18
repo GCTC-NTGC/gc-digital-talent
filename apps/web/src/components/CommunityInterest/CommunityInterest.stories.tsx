@@ -12,7 +12,6 @@ import CommunityInterest, {
 const meta = {
   component: CommunityInterest,
   decorators: [OverlayOrDialogDecorator],
-  tags: ["needs-fix"],
 } satisfies Meta<typeof CommunityInterest>;
 
 export default meta;

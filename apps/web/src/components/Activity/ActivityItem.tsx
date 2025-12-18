@@ -1,13 +1,14 @@
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  DATETIME_FORMAT_LOCALIZED,
+  TIME_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -44,6 +45,7 @@ export interface ActivityItemProps {
   query: FragmentType<typeof ActivityItem_Fragment>;
   className?: string;
   border?: boolean;
+  keyMap?: Map<string, MessageDescriptor>;
   info: ActivityEventInfo;
 }
 
@@ -52,10 +54,12 @@ const ActivityItem = ({
   className,
   border,
   info,
+  keyMap,
 }: ActivityItemProps) => {
   const intl = useIntl();
+  const logger = getLogger();
   const item = getFragment(ActivityItem_Fragment, query);
-  const properties = normalizePropKeys(intl, item.properties);
+  const properties = normalizePropKeys(intl, item.properties, keyMap, logger);
 
   if (!info) {
     return null;
@@ -85,7 +89,7 @@ const ActivityItem = ({
         {item.createdAt
           ? formatDate({
               date: parseDateTimeUtc(item.createdAt),
-              formatString: DATETIME_FORMAT_LOCALIZED,
+              formatString: TIME_FORMAT_LOCALIZED,
               intl,
             })
           : intl.formatMessage(commonMessages.notAvailable)}

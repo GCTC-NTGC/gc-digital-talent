@@ -5,80 +5,88 @@ import { graphql, Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useControllableState } from "@gc-digital-talent/ui";
 
-const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
-  mutation ToggleBookmark_Mutation($id: ID!) {
-    togglePoolCandidateBookmark(id: $id)
+const TogglePoolCandidateUserBookmark_Mutation = graphql(/* GraphQL */ `
+  mutation TogglePoolCandidateUserBookmark_Mutation($poolCandidateId: UUID!) {
+    togglePoolCandidateUserBookmark(poolCandidateId: $poolCandidateId)
   }
 `);
 
+interface CandidateInfo {
+  candidateName: string;
+}
+
 interface UseCandidateBookmarkToggleArgs {
-  id: Scalars["UUID"]["output"];
+  poolCandidateId: Scalars["UUID"]["output"];
+  candidateInfo: CandidateInfo;
   defaultValue?: boolean;
-  value?: boolean;
-  onChange?: (newIsBookmarked: boolean) => void;
   showToast?: boolean;
 }
 
-interface CandidateBookMarkResult {
+interface CandidateBookmarkResult {
   isBookmarked: boolean;
   isUpdating: boolean;
 }
 
 type UseCandidateBookmarkToggleReturn = [
-  result: CandidateBookMarkResult,
+  result: CandidateBookmarkResult,
   toggle: () => void,
 ];
 
 const useCandidateBookmarkToggle = ({
-  id,
+  poolCandidateId,
+  candidateInfo,
   defaultValue,
-  onChange,
-  value,
   showToast = true,
 }: UseCandidateBookmarkToggleArgs): UseCandidateBookmarkToggleReturn => {
   const intl = useIntl();
+
+  const candidateName = candidateInfo.candidateName;
+
   const [isBookmarked, setIsBookmarked] = useControllableState({
     defaultValue: defaultValue ?? false,
-    controlledProp: value,
-    onChange,
   });
-
   const [{ fetching: isUpdating }, executeToggleBookmarkMutation] = useMutation(
-    PoolCandidate_ToggleBookmarkMutation,
+    TogglePoolCandidateUserBookmark_Mutation,
   );
 
   const toggleBookmark = async () => {
-    if (id) {
+    if (poolCandidateId) {
       await executeToggleBookmarkMutation({
-        id,
+        poolCandidateId,
       })
         .then((res) => {
           if (!res.error) {
             const newIsBookmarked =
-              res.data?.togglePoolCandidateBookmark === true;
+              res.data?.togglePoolCandidateUserBookmark === true;
             if (showToast) {
               if (newIsBookmarked) {
                 toast.success(
-                  intl.formatMessage({
-                    defaultMessage: "Candidate successfully bookmarked.",
-                    id: "neIH5o",
-                    description:
-                      "Alert displayed to the user when they mark a candidate as bookmarked.",
-                  }),
+                  intl.formatMessage(
+                    {
+                      defaultMessage: "You've bookmarked {name} for yourself",
+                      id: "9DJWk4",
+                      description: "Bookmarked a candidate",
+                    },
+                    {
+                      name: candidateName,
+                    },
+                  ),
                 );
               } else {
                 toast.success(
-                  intl.formatMessage({
-                    defaultMessage:
-                      "Candidate's bookmark removed successfully.",
-                    id: "glBoRl",
-                    description:
-                      "Alert displayed to the user when they un-mark a candidate as bookmarked.",
-                  }),
+                  intl.formatMessage(
+                    {
+                      defaultMessage: "You've removed the bookmark for {name}.",
+                      id: "UBY4qe",
+                      description: "Un-bookmarked a candidate",
+                    },
+                    {
+                      name: candidateName,
+                    },
+                  ),
                 );
               }
             }
-
             setIsBookmarked(newIsBookmarked);
           }
         })
@@ -86,9 +94,9 @@ const useCandidateBookmarkToggle = ({
           toast.error(
             intl.formatMessage({
               defaultMessage: "Error: failed to update a candidate's bookmark.",
-              id: "9QJRRw",
+              id: "NngAJq",
               description:
-                "Alert displayed to the user when failing to (un-)bookmark a candidate.",
+                "Alert displayed to the user when failing to (un-)bookmark a candidate",
             }),
           );
         });

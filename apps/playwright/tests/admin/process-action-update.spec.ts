@@ -26,6 +26,7 @@ test.describe("Update pool", () => {
     await appPage.page
       .getByRole("button", { name: /edit advertisement details/i })
       .click();
+    await appPage.waitForGraphqlResponse("PoolNameOptions");
     await appPage.page
       .getByRole("textbox", { name: /job title \(english\)/i })
       .fill("Update pool test (EN)");
@@ -34,7 +35,7 @@ test.describe("Update pool", () => {
       .fill("Update pool test (FR)");
     await appPage.page
       .getByRole("combobox", { name: /work stream/i })
-      .selectOption({ label: "Business Line Advisory Services" });
+      .selectOption({ index: 1 });
     await appPage.page
       .getByRole("button", { name: /save advertisement details/i })
       .click();

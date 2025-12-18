@@ -1,16 +1,18 @@
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { PreviewList, PreviewMetaData, Well } from "@gc-digital-talent/ui";
+import {
+  CandidateStatus,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
+import { PreviewList, PreviewMetaData, Notice } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
-import {
-  applicationStatus,
-  getApplicationStatusChip,
-  qualifiedRecruitmentStatus,
-} from "~/utils/poolCandidate";
+import { candidateStatusChip } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -24,17 +26,11 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     finalDecisionAt
     submittedAt
     removedAt
-    finalDecision {
+    candidateStatus {
       value
-    }
-    assessmentStep {
-      sortOrder
-    }
-    assessmentStatus {
-      assessmentStepStatuses {
-        step
+      label {
+        localized
       }
-      overallAssessmentStatus
     }
     pool {
       id
@@ -48,11 +44,6 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         maxSalary
       }
       closingDate
-      areaOfSelection {
-        value
-      }
-      screeningQuestionsCount
-      contactEmail
     }
   }
 `);
@@ -74,151 +65,140 @@ const ReviewApplicationPreviewList = ({
     applicationsQuery,
   );
 
-  const statusOrder = [
-    applicationStatus.DRAFT,
-    applicationStatus.RECEIVED,
-    applicationStatus.UNDER_REVIEW,
-    applicationStatus.APPLICATION_REVIEWED,
-    applicationStatus.UNDER_ASSESSMENT,
-    applicationStatus.SUCCESSFUL,
-    applicationStatus.UNSUCCESSFUL,
-    applicationStatus.EXPIRED,
-    qualifiedRecruitmentStatus.HIRED,
-    qualifiedRecruitmentStatus.NOT_INTERESTED,
-    qualifiedRecruitmentStatus.OPEN_TO_JOBS,
-  ];
+  const sortedApplications = unpackMaybes(applications).sort(
+    (a, b) =>
+      ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
+        a?.candidateStatus?.value ?? null,
+      ) -
+      ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
+        b?.candidateStatus?.value ?? null,
+      ),
+  );
 
   return (
     <>
       {applications.length ? (
         <PreviewList.Root>
-          {applications
-            .map((application) => {
-              const status = getApplicationStatusChip(
-                application.submittedAt,
-                application.pool.closingDate,
-                application.removedAt,
-                application.finalDecisionAt,
-                application.finalDecision?.value,
-                application.pool.areaOfSelection?.value,
-                application.assessmentStep?.sortOrder,
-                application.assessmentStatus,
-                application.pool.screeningQuestionsCount,
-                application.pool.contactEmail,
-                intl,
-              );
-              return { application, status };
-            })
-            .sort(
-              (a, b) =>
-                statusOrder.indexOf(a.status.value) -
-                statusOrder.indexOf(b.status.value),
-            )
-            .map(({ application, status }) => {
-              const { id, pool, submittedAt, finalDecisionAt } = application;
+          {sortedApplications.map((application) => {
+            const {
+              id,
+              pool,
+              submittedAt,
+              finalDecisionAt,
+              removedAt,
+              candidateStatus,
+            } = application;
+            const assessedDate = removedAt ?? finalDecisionAt;
+            const statusChip = candidateStatusChip(candidateStatus);
 
-              const applicationMetadata: PreviewMetaData[] = [
+            let applicationMetadata: PreviewMetaData[] = [];
+            if (statusChip) {
+              applicationMetadata = [
                 {
                   key: "status",
                   type: "chip",
-                  color: status.color,
-                  children: status.label,
-                },
-                {
-                  key: "classification",
-                  type: "text",
-                  children: pool?.classification
-                    ? wrapAbbr(
-                        getClassificationName(pool?.classification, intl),
-                        intl,
-                      )
-                    : intl.formatMessage(commonMessages.notFound),
-                },
-                {
-                  key: "date",
-                  type: "text",
-                  children: (
-                    <ApplicationDate
-                      closingDate={pool?.closingDate}
-                      submittedAt={submittedAt}
-                      finalDecisionAt={finalDecisionAt}
-                      status={status.value}
-                    />
-                  ),
+                  color: statusChip.color,
+                  children: statusChip.label,
                 },
               ];
+            }
 
-              return (
-                <PreviewList.Item
-                  key={id}
-                  title={
-                    pool.name?.localized
-                      ? intl.formatMessage(
+            applicationMetadata = [
+              ...applicationMetadata,
+              {
+                key: "classification",
+                type: "text",
+                children: pool?.classification
+                  ? wrapAbbr(
+                      getClassificationName(pool?.classification, intl),
+                      intl,
+                    )
+                  : intl.formatMessage(commonMessages.notFound),
+              },
+              {
+                key: "date",
+                type: "text",
+                children: (
+                  <ApplicationDate
+                    closingDate={pool?.closingDate}
+                    submittedAt={submittedAt}
+                    assessedDate={assessedDate}
+                    status={candidateStatus?.value}
+                  />
+                ),
+              },
+            ];
+
+            return (
+              <PreviewList.Item
+                key={id}
+                title={
+                  pool.name?.localized
+                    ? intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "<hidden>Application for </hidden>{poolName}",
+                          id: "LC1Rsg",
+                          description:
+                            "Text before application pool name in application preview list.",
+                        },
+                        {
+                          poolName: pool.name.localized,
+                        },
+                      )
+                    : intl.formatMessage(commonMessages.notFound)
+                }
+                metaData={applicationMetadata}
+                action={
+                  <>
+                    {candidateStatus?.value === CandidateStatus.Draft ? (
+                      <PreviewList.Link
+                        href={paths.application(application.id)}
+                        label={intl.formatMessage(
                           {
                             defaultMessage:
-                              "<hidden>Application for </hidden>{poolName}",
-                            id: "LC1Rsg",
-                            description:
-                              "Text before application pool name in application preview list.",
+                              "Continue application<hidden> for {poolName}</hidden>",
+                            id: "GjL/7z",
+                            description: "Label for continue application link",
                           },
                           {
-                            poolName: pool.name.localized,
+                            poolName:
+                              pool.name?.localized ??
+                              intl.formatMessage(commonMessages.notFound),
                           },
-                        )
-                      : intl.formatMessage(commonMessages.notFound)
-                  }
-                  metaData={applicationMetadata}
-                  action={
-                    <>
-                      {status.value === applicationStatus.DRAFT ? (
-                        <PreviewList.Link
-                          href={paths.application(application.id)}
-                          label={intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "Continue application<hidden> for {poolName}</hidden>",
-                              id: "GjL/7z",
-                              description:
-                                "Label for continue application link",
-                            },
-                            {
-                              poolName:
-                                pool.name?.localized ??
-                                intl.formatMessage(commonMessages.notFound),
-                            },
-                          )}
-                          icon={PencilSquareIcon}
-                        />
-                      ) : (
-                        <ReviewApplicationDialog
-                          applicationQuery={application}
-                        />
-                      )}
-                    </>
-                  }
-                  headingAs="h4"
-                />
-              );
-            })}
+                        )}
+                        icon={PencilSquareIcon}
+                      />
+                    ) : (
+                      <ReviewApplicationDialog applicationQuery={application} />
+                    )}
+                  </>
+                }
+                headingAs="h4"
+              />
+            );
+          })}
         </PreviewList.Root>
       ) : (
-        <Well className="text-center">
-          <p className="font-bold">
+        <Notice.Root className="text-center">
+          <Notice.Title>
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active applications at the moment.",
               id: "Y93ht7",
               description: "Title for notice when there are no applications",
             })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
-              id: "0K7Upw",
-              description: "Body for notice when there are no applications",
-            })}
-          </p>
-        </Well>
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
+                id: "0K7Upw",
+                description: "Body for notice when there are no applications",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       )}
     </>
   );

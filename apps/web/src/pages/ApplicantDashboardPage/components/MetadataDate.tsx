@@ -6,34 +6,43 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-
 import {
-  applicationStatus,
-  deadlineToApply,
-  qualifiedRecruitmentStatus,
-  StatusChipWithDescription,
-} from "~/utils/poolCandidate";
+  CandidateInterest,
+  CandidateStatus,
+  Maybe,
+} from "@gc-digital-talent/graphql";
+
+import { deadlineToApply } from "~/utils/poolCandidate";
+
+const SUBMITTED_STATUSES = [
+  CandidateStatus.Received,
+  CandidateStatus.UnderReview,
+  CandidateStatus.UnderAssessment,
+  CandidateStatus.ApplicationReviewed,
+];
+
+const ASSESSED_STATUSES = [
+  CandidateStatus.Qualified,
+  CandidateStatus.Unsuccessful,
+];
 
 interface ApplicationDateProps {
   closingDate?: string | null;
   submittedAt?: string | null;
-  finalDecisionAt?: string | null;
-  status: StatusChipWithDescription["value"];
+  assessedDate?: string | null;
+  status?: Maybe<CandidateStatus>;
 }
 
 export const ApplicationDate = ({
   closingDate,
   submittedAt,
-  finalDecisionAt,
+  assessedDate,
   status,
 }: ApplicationDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  if (
-    status === applicationStatus.DRAFT ||
-    status === applicationStatus.EXPIRED
-  ) {
+  if (status === CandidateStatus.Draft || status === CandidateStatus.Expired) {
     const deadlineClose = deadlineToApply(closingDate, status);
 
     return (
@@ -60,12 +69,7 @@ export const ApplicationDate = ({
     );
   }
 
-  if (
-    status === applicationStatus.RECEIVED ||
-    status === applicationStatus.UNDER_REVIEW ||
-    status === applicationStatus.UNDER_ASSESSMENT ||
-    status === applicationStatus.APPLICATION_REVIEWED
-  ) {
+  if (status && SUBMITTED_STATUSES.includes(status)) {
     return (
       <span>
         {intl.formatMessage({
@@ -85,10 +89,7 @@ export const ApplicationDate = ({
     );
   }
 
-  if (
-    status === applicationStatus.SUCCESSFUL ||
-    status === applicationStatus.UNSUCCESSFUL
-  ) {
+  if (status && ASSESSED_STATUSES.includes(status)) {
     return (
       <span>
         {intl.formatMessage({
@@ -97,9 +98,9 @@ export const ApplicationDate = ({
           description: "Label for assessed metadata",
         })}
         {intl.formatMessage(commonMessages.dividingColon)}
-        {finalDecisionAt
+        {assessedDate
           ? formatDate({
-              date: parseDateTimeUtc(finalDecisionAt),
+              date: parseDateTimeUtc(assessedDate),
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
             })
@@ -113,35 +114,29 @@ export const ApplicationDate = ({
 
 interface RecruitmentDateProps {
   finalDecisionAt?: string | null;
-  status: StatusChipWithDescription["value"];
+  interest?: Maybe<CandidateInterest>;
 }
 
 export const RecruitmentDate = ({
   finalDecisionAt,
-  status,
+  interest,
 }: RecruitmentDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  if (
-    status === qualifiedRecruitmentStatus.OPEN_TO_JOBS ||
-    status === qualifiedRecruitmentStatus.NOT_INTERESTED ||
-    status === qualifiedRecruitmentStatus.HIRED
-  ) {
-    return (
-      <span>
-        {intl.formatMessage(commonMessages.qualified)}
-        {intl.formatMessage(commonMessages.dividingColon)}
-        {finalDecisionAt
-          ? formatDate({
-              date: parseDateTimeUtc(finalDecisionAt),
-              formatString: DATE_FORMAT_LOCALIZED,
-              intl,
-            })
-          : nullMessage}
-      </span>
-    );
-  }
+  if (!interest) return null;
 
-  return null;
+  return (
+    <span>
+      {intl.formatMessage(commonMessages.qualified)}
+      {intl.formatMessage(commonMessages.dividingColon)}
+      {finalDecisionAt
+        ? formatDate({
+            date: parseDateTimeUtc(finalDecisionAt),
+            formatString: DATE_FORMAT_LOCALIZED,
+            intl,
+          })
+        : nullMessage}
+    </span>
+  );
 };

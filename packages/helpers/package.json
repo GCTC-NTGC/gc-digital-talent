@@ -19,7 +19,7 @@
     "@gc-digital-talent/graphql": "workspace:*",
     "graphql": "^16.12.0",
     "lodash": "^4.17.21",
-    "react": "^19.2.0",
+    "react": "^19.2.3",
     "urql": "^5.0.1"
   },
   "devDependencies": {

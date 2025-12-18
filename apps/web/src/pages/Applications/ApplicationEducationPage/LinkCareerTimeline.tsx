@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Heading, Link, Ul, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, Ul, Notice } from "@gc-digital-talent/ui";
 import {
   Classification,
   EducationRequirementOption,
@@ -119,31 +119,34 @@ const CheckListSection = ({
             </>
           )}
           {experiences.allExperiences.length === 0 ? (
-            <Well className="text-center">
-              <p className="mb-3">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<strong>It looks like you haven't added any experiences to your career timeline yet.</strong>",
-                  id: "Q83U92",
-                  description:
-                    "Alert message informing user to add experience in application education page.",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage(
-                  {
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p className="mb-3">
+                  {intl.formatMessage({
                     defaultMessage:
-                      "You can add experiences when <link>creating a new career timeline experience in the previous step.</link>",
-                    id: "G1OWMo",
+                      "<strong>It looks like you haven't added any experiences to your career timeline yet.</strong>",
+                    id: "Q83U92",
                     description:
-                      "Secondary alert message informing user to add experience in application education page.",
-                  },
-                  {
-                    link: (chunks: ReactNode) => previousStepLink(chunks, path),
-                  },
-                )}
-              </p>
-            </Well>
+                      "Alert message informing user to add experience in application education page.",
+                  })}
+                </p>
+                <p>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "You can add experiences when <link>creating a new career timeline experience in the previous step.</link>",
+                      id: "G1OWMo",
+                      description:
+                        "Secondary alert message informing user to add experience in application education page.",
+                    },
+                    {
+                      link: (chunks: ReactNode) =>
+                        previousStepLink(chunks, path),
+                    },
+                  )}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           ) : (
             <ExperienceChecklist items={experiences.allExperiences} />
           )}
@@ -154,30 +157,33 @@ const CheckListSection = ({
       return (
         <div className="mt-6">
           {experiences.educationExperiences.length === 0 ? (
-            <Well className="text-center">
-              <p className="mb-3">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<strong>It looks like you haven't added any education experiences to your career timeline yet.</strong>",
-                  id: "QagkWo",
-                  description:
-                    "Alert message informing user to add education experience in application education page.",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new career timeline experience in the previous step.</link>`,
-                    id: "81Bib7",
+            <Notice.Root className="text-center">
+              <Notice.Content>
+                <p className="mb-3">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "<strong>It looks like you haven't added any education experiences to your career timeline yet.</strong>",
+                    id: "QagkWo",
                     description:
-                      "Secondary alert message informing user to add education experience in application education page.",
-                  },
-                  {
-                    link: (chunks: ReactNode) => previousStepLink(chunks, path),
-                  },
-                )}
-              </p>
-            </Well>
+                      "Alert message informing user to add education experience in application education page.",
+                  })}
+                </p>
+                <p>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new career timeline experience in the previous step.</link>`,
+                      id: "81Bib7",
+                      description:
+                        "Secondary alert message informing user to add education experience in application education page.",
+                    },
+                    {
+                      link: (chunks: ReactNode) =>
+                        previousStepLink(chunks, path),
+                    },
+                  )}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           ) : (
             <ExperienceChecklist items={experiences.educationExperiences} />
           )}
@@ -186,16 +192,18 @@ const CheckListSection = ({
     // Otherwise, show null state
     default:
       return (
-        <Well className="mt-6 text-center">
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Please select an option to continue.",
-              id: "cT6KeA",
-              description:
-                "Alert message informing user to select an option first in application education page.",
-            })}
-          </p>
-        </Well>
+        <Notice.Root className="mt-6 text-center">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Please select an option to continue.",
+                id: "cT6KeA",
+                description:
+                  "Alert message informing user to select an option first in application education page.",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
       );
   }
 };

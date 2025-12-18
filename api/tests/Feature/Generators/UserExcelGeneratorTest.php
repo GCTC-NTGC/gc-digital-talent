@@ -11,9 +11,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\assertGreaterThan;
-use function PHPUnit\Framework\assertTrue;
-
 class UserExcelGeneratorTest extends TestCase
 {
     use RefreshDatabase;
@@ -63,12 +60,12 @@ class UserExcelGeneratorTest extends TestCase
         $generator->generate()->write();
 
         // assert
-        $disk = Storage::disk('userGenerated');
+        $disk = Storage::disk('user_generated');
         $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
 
         $fileExists = $disk->exists($path);
-        assertTrue($fileExists, 'File was not generated');
+        $this->assertTrue($fileExists, 'File was not generated');
         $fileSize = $disk->size($path);
-        assertGreaterThan(0, $fileSize, 'File is empty');
+        $this->assertGreaterThan(0, $fileSize, 'File is empty');
     }
 }

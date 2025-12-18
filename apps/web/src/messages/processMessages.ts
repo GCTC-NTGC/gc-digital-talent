@@ -76,6 +76,26 @@ const messages = defineMessages({
     id: "tR+R11",
     description: "Label for a process what to expect after applying",
   },
+  whatToExpectApplication: {
+    defaultMessage: "What to expect post-application",
+    id: "U0MY+6",
+    description: "Title for the what to expect section",
+  },
+  whatToExpectAdmission: {
+    defaultMessage: "What to expect post-admission",
+    id: "Uwtkv6",
+    description: "Title for the what to expect post admission section",
+  },
+  closingReason: {
+    defaultMessage: "Reason for closing",
+    id: "SQRzSl",
+    description: "Label for the reason for closing the pool",
+  },
+  changeJustification: {
+    defaultMessage: "Change justification",
+    id: "XGztC+",
+    description: "Heading for form to justify updating a published process",
+  },
   specialNote: {
     defaultMessage: "Special note",
     id: "kCsQFc",

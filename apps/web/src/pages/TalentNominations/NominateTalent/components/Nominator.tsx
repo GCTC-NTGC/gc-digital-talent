@@ -23,7 +23,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
-import { Well } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -155,16 +155,18 @@ const NominatorFields = ({
 
   if (!role) {
     return (
-      <Well className="text-center">
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Please indicate your role to continue.",
-            id: "S4vj9m",
-            description:
-              "Message displayed when submitter has not selected their role in a nomination",
-          })}
-        </p>
-      </Well>
+      <Notice.Root className="text-center">
+        <Notice.Content>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Please indicate your role to continue.",
+              id: "S4vj9m",
+              description:
+                "Message displayed when submitter has not selected their role in a nomination",
+            })}
+          </p>
+        </Notice.Content>
+      </Notice.Root>
     );
   }
 

@@ -29,7 +29,6 @@ export default {
     id: "rich-text",
     label: "Rich Text",
   },
-  tags: ["needs-fix"],
 };
 
 type RichTextInputArgs = typeof RichTextInput;

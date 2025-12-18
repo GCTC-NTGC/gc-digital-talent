@@ -42,14 +42,13 @@ const getRoutes = (lang: Locales) => {
     registrationAccount: () => [baseUrl, "registration", "account"].join("/"),
     registrationExperience: () =>
       [baseUrl, "registration", "experience"].join("/"),
-    emailVerification: () => [baseUrl, "email-verification"].join("/"),
-    workEmailVerification: () => [baseUrl, "work-email-verification"].join("/"),
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
     accessibility: () => [baseUrl, "accessibility-statement"].join("/"),
     executive: () => [baseUrl, "executive"].join("/"),
     skills: () => [baseUrl, "skills"].join("/"),
     inclusivityEquity: () => [baseUrl, "inclusivity-equity"].join("/"),
+    professionalHRResources: () => `${baseUrl}/hr/resources`,
 
     // Applicant
     applicantDashboard: () => applicantUrl,

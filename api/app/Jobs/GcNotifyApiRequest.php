@@ -14,7 +14,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
 class GcNotifyApiRequest implements ShouldQueue
@@ -30,9 +29,9 @@ class GcNotifyApiRequest implements ShouldQueue
     {
         return [
             (new GcNotifyRateLimited),
-            (new ThrottlesExceptions(3, 10))
+            (new ThrottlesExceptions($maxAttempts = 10, $decaySeconds = 600))
                 ->byJob()
-                ->backoff(4),
+                ->backoff($minutes = 10),
         ];
     }
 
@@ -41,7 +40,7 @@ class GcNotifyApiRequest implements ShouldQueue
      */
     public function retryUntil(): DateTime
     {
-        return now()->addMinutes(30);
+        return now()->addHours(12);
     }
 
     /**
@@ -62,21 +61,15 @@ class GcNotifyApiRequest implements ShouldQueue
             $this->message->messageVariables
         );
 
+        if ($response->tooManyRequests()) {
+            $this->release($delaySeconds = 60);
+        }
+
         if (! is_null($response) && ! $response->successful()) {
             $firstApiErrorMessage = Arr::get($response->json(), 'errors.0.message');
             $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. ['.$firstApiErrorMessage.'] Template ID: '.$this->message->templateId;
-            Log::error($errorMessage);
-            Log::debug($response->body());
-
-            // workaround until we get better logging in prod #11289
-            $onDemandLog = Log::build([
-                'driver' => 'single',
-                'path' => App::isProduction() // workaround for storage_path misconfigured in prod #11471
-                    ? '/tmp/api/storage/logs/jobs.log'
-                    : storage_path('logs/jobs.log'),
-            ]);
-            $onDemandLog->error($errorMessage);
-            $onDemandLog->debug($response->body());
+            Log::channel('jobs')->error($errorMessage);
+            Log::channel('jobs')->debug($response->body());
 
             throw new Exception($errorMessage);
         }

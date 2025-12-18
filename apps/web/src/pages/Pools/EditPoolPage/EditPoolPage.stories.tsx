@@ -40,7 +40,6 @@ export default {
     onExtend: action("onExtend"),
     onArchive: action("onArchive"),
   },
-  tags: ["needs-fix"],
 } as Meta;
 
 const TemplateEditPoolForm: StoryFn<EditPoolFormProps> = (

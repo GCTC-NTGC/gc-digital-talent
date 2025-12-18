@@ -5,13 +5,12 @@ namespace Tests\Unit;
 use App\Http\Middleware\AcceptLanguageMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class AcceptLanguageMiddlewareTest extends TestCase
 {
-    /**
-     * @dataProvider provider
-     */
+    #[DataProvider('provider')]
     public function testLocaleSet($header, $expected): void
     {
         $request = Request::create(route('graphql'));

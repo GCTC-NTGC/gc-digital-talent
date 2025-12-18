@@ -17,7 +17,7 @@ import {
   TableOfContents,
   Heading,
   Link,
-  Well,
+  Notice,
   Card,
   Button,
   Separator,
@@ -47,12 +47,12 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import {
   contactEmailTag,
   formatClassificationString,
-  getFullPoolTitleHtml,
+  getFullPoolTitleLabel,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
@@ -320,7 +320,7 @@ export const PoolPoster = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const logger = useLogger();
+  const logger = getLogger();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const [moreInfoValue, setMoreInfoValue] = useState<string[]>([]);
   const [skillsValue, setSkillsValue] = useState<string[]>([]);
@@ -345,7 +345,7 @@ export const PoolPoster = ({
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
-  const fullPoolTitle = getFullPoolTitleHtml(intl, {
+  const fullPoolTitle = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
@@ -623,21 +623,23 @@ export const PoolPoster = ({
                 </div>
               </div>
               {showSpecialNote && (
-                <Well className="my-6">
-                  <Heading level="h3" size="h6" className="mt-0 text-base">
+                <Notice.Root className="my-6">
+                  <Notice.Title as="h3">
                     {intl.formatMessage({
                       defaultMessage: "Special note for this process",
                       id: "cbwWa0",
                       description:
                         "Heading for a special note in pool advertisement.",
                     })}
-                  </Heading>
-                  <RichTextRenderer
-                    node={htmlToRichTextJSON(
-                      getLocalizedName(pool.specialNote, intl),
-                    )}
-                  />
-                </Well>
+                  </Notice.Title>
+                  <Notice.Content>
+                    <RichTextRenderer
+                      node={htmlToRichTextJSON(
+                        getLocalizedName(pool.specialNote, intl),
+                      )}
+                    />
+                  </Notice.Content>
+                </Notice.Root>
               )}
               <AreaOfSelectionWell poolQuery={pool} />
 
@@ -727,8 +729,8 @@ export const PoolPoster = ({
                       icon={InformationCircleIcon}
                       href={
                         locale === "fr"
-                          ? "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-fra.html#a8"
-                          : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
+                          ? "https://www.canada.ca/fr/services-publics-approvisionnement/services/paye-pension/communaute-remuneration/procedures-soutien-employeur/emploi-fonction-publique-federale.html#a4"
+                          : "https://www.canada.ca/en/public-services-procurement/services/pay-pension/compensation-community/employer-support-procedures/employment-federal-public-service.html#a4"
                       }
                       label={intl.formatMessage({
                         defaultMessage:
