@@ -5,7 +5,7 @@ import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriver
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Container, CTALink, Flourish, Heading } from "@gc-digital-talent/ui";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";
@@ -18,7 +18,7 @@ export const RouteErrorBoundary = () => {
   const { mode } = useTheme();
   const location = useLocation();
   const error = useErrorMessages();
-  const logger = useLogger();
+  const logger = getLogger();
 
   logger.notice(
     JSON.stringify({
