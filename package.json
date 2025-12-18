@@ -41,7 +41,8 @@
     "e2e:playwright:firefox": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:firefox",
     "e2e:playwright:webkit": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:webkit",
     "e2e:playwright:report": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:report",
-    "tsc": "turbo run tsc"
+    "tsc": "turbo run tsc",
+    "check-links": "tsx packages/linkChecker/src/checkExternalLinks.ts"
   },
   "devDependencies": {
     "@gc-digital-talent/i18n": "workspace:*",
