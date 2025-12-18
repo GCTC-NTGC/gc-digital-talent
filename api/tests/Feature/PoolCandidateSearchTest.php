@@ -950,14 +950,19 @@ class PoolCandidateSearchTest extends TestCase
         GRAPHQL;
 
         // Create 10 unexpected candidates
-        PoolCandidate::factory(10)
+        $unexpected = PoolCandidate::factory(10)
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
-                'screening_stage' => Arr::random(Arr::where(array_column(ScreeningStage::cases(), 'name'), function ($status) {
-                    return $status !== ScreeningStage::UNDER_ASSESSMENT->name;
-                })),
             ]);
+
+        foreach ($unexpected as $candidate) {
+            $candidate->screening_stage = Arr::random(Arr::where(
+                array_column(ScreeningStage::cases(), 'name'),
+                fn ($status) => $status !== ScreeningStage::UNDER_ASSESSMENT->name,
+            ));
+            $candidate->save();
+        }
 
         $expectedCandidate = PoolCandidate::factory()
             ->availableInSearch()
