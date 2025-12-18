@@ -194,10 +194,10 @@ importers:
         version: 3.4.0
       tailwind-variants:
         specifier: ^3.2.2
-        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.17)
+        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
       tailwindcss:
-        specifier: ^4.1.17
-        version: 4.1.17
+        specifier: ^4.1.18
+        version: 4.1.18
       urql:
         specifier: ^5.0.1
         version: 5.0.1(@urql/core@5.2.0(graphql@16.12.0))(react@19.2.1)
@@ -635,7 +635,7 @@ importers:
         version: 3.4.0
       tailwind-variants:
         specifier: ^3.2.2
-        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.17)
+        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
     devDependencies:
       '@faker-js/faker':
         specifier: ^10.1.0
@@ -1001,7 +1001,7 @@ importers:
         version: 3.4.0
       tailwind-variants:
         specifier: ^3.2.2
-        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.17)
+        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
     devDependencies:
       '@faker-js/faker':
         specifier: ^10.1.0
@@ -1109,7 +1109,7 @@ importers:
         version: 3.4.0
       tailwind-variants:
         specifier: ^3.2.2
-        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.17)
+        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
       urql:
         specifier: ^5.0.1
         version: 5.0.1(@urql/core@5.2.0(graphql@16.12.0))(react@19.2.1)
@@ -7294,6 +7294,9 @@ packages:
 
   tailwindcss@4.1.17:
     resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
+
+  tailwindcss@4.1.18:
+    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
 
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
@@ -15110,13 +15113,15 @@ snapshots:
 
   tailwind-merge@3.4.0: {}
 
-  tailwind-variants@3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.17):
+  tailwind-variants@3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18):
     dependencies:
-      tailwindcss: 4.1.17
+      tailwindcss: 4.1.18
     optionalDependencies:
       tailwind-merge: 3.4.0
 
   tailwindcss@4.1.17: {}
+
+  tailwindcss@4.1.18: {}
 
   tapable@2.3.0: {}
 
