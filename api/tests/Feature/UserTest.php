@@ -2287,4 +2287,86 @@ class UserTest extends TestCase
         $this->assertEmpty($user->current_substantive_experiences);
 
     }
+
+    // test bookmarking a candidate and fetching it as a field on User
+    public function testPoolCandidateUserBookmark()
+    {
+        // setup
+        PoolCandidate::truncate();
+
+        $query = <<<'GRAPHQL'
+        query me {
+            me {
+                poolCandidateBookmarks {
+                    id
+                }
+            }
+        }
+        GRAPHQL;
+
+        $mutation = <<<'GRAPHQL'
+        mutation TogglePoolCandidateUserBookmark($poolCandidateId: UUID!) {
+            togglePoolCandidateUserBookmark(poolCandidateId: $poolCandidateId)
+        }
+        GRAPHQL;
+
+        $poolCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create();
+
+        // assert user starts with no bookmarks
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query)
+            ->assertExactJson([
+                'data' => [
+                    'me' => [
+                        'poolCandidateBookmarks' => [],
+                    ],
+                ],
+            ]);
+
+        // assert mutation successful and it returns TRUE as it created a bookmark
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($mutation, ['poolCandidateId' => $poolCandidate->id])
+            ->assertExactJson([
+                'data' => [
+                    'togglePoolCandidateUserBookmark' => true,
+                ],
+            ]);
+
+        // assert user has the one bookmark
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query)
+            ->assertExactJson([
+                'data' => [
+                    'me' => [
+                        'poolCandidateBookmarks' => [
+                            [
+                                'id' => $poolCandidate->id,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // assert mutation successful and it returns FALSE as it destroyed a bookmark
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($mutation, ['poolCandidateId' => $poolCandidate->id])
+            ->assertExactJson([
+                'data' => [
+                    'togglePoolCandidateUserBookmark' => false,
+                ],
+            ]);
+
+        // assert user no longer has bookmarks
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query)
+            ->assertExactJson([
+                'data' => [
+                    'me' => [
+                        'poolCandidateBookmarks' => [],
+                    ],
+                ],
+            ]);
+    }
 }
