@@ -27,8 +27,8 @@ class PoolCandidateClaimSortingTest extends TestCase
     const QUERY =
         /** @lang GraphQL */
         '
-    query PoolCandidatesPaginatedAdminView($orderByClaimVerification: ClaimVerificationSort) {
-        poolCandidatesPaginatedAdminView(orderByClaimVerification: $orderByClaimVerification) {
+    query PoolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $orderByClaimVerification: ClaimVerificationSort) {
+        poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, orderByClaimVerification: $orderByClaimVerification) {
             data {
                 id
             }
@@ -165,9 +165,11 @@ class PoolCandidateClaimSortingTest extends TestCase
         // priority > flagged > veteran > citizen/permanent resident > rest
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
+                'orderByBase' => [
+                    'useFlag' => true,
+                ],
                 'orderByClaimVerification' => [
                     'order' => 'DESC',
-                    'useFlag' => true,
                 ],
             ])
             ->assertExactJson([
@@ -212,9 +214,11 @@ class PoolCandidateClaimSortingTest extends TestCase
         // assert sorting by flagged first but then ASCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
+                'orderByBase' => [
+                    'useFlag' => true,
+                ],
                 'orderByClaimVerification' => [
                     'order' => 'ASC',
-                    'useFlag' => true,
                 ],
             ])
             ->assertExactJson([
@@ -261,9 +265,9 @@ class PoolCandidateClaimSortingTest extends TestCase
         // assert sorting by DESCENDING category (without flagged)
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
+                'orderByBase' => [],
                 'orderByClaimVerification' => [
                     'order' => 'DESC',
-                    // not setting the useFlag option
                 ],
             ])
             ->assertExactJson([
