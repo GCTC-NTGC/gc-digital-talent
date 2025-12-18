@@ -10,7 +10,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { isInNullState } from "~/validators/process/classification";
@@ -90,7 +90,7 @@ const EducationRequirementsSection = ({
     emptyRequired: isNull, // Not a required field
     fallbackIcon: TagIcon,
   });
-  const logger = useLogger();
+  const logger = getLogger();
 
   let classificationGroup: ClassificationGroup;
 

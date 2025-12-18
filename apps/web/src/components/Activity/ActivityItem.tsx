@@ -8,7 +8,7 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -57,7 +57,7 @@ const ActivityItem = ({
   keyMap,
 }: ActivityItemProps) => {
   const intl = useIntl();
-  const logger = useLogger();
+  const logger = getLogger();
   const item = getFragment(ActivityItem_Fragment, query);
   const properties = normalizePropKeys(intl, item.properties, keyMap, logger);
 
