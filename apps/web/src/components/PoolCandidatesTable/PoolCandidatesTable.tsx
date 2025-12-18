@@ -591,10 +591,7 @@ const PoolCandidatesTable = ({
       sortingInput: getSortOrder(sortState, filterState),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
       orderByScreeningStage: getScreeningStageSort(sortState),
-      orderByClaimVerification: getClaimVerificationSort(
-        sortState,
-        doNotUseFlag,
-      ),
+      orderByClaimVerification: getClaimVerificationSort(sortState),
     },
   });
 
