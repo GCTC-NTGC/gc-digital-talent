@@ -23,7 +23,7 @@ export default defineConfig({
   reporter: process.env.CI
     ? "blob"
     : [["line"], ["html", { open: "on-failure" }]],
-  timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000), // 1 minute
+  timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) }, // 15 seconds
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -35,6 +35,7 @@ export default defineConfig({
 
     /* ignore HTTPS errors when sending network requests */
     ignoreHTTPSErrors: true,
+    screenshot: "only-on-failure",
   },
 
   /* Configure projects for major browsers */
