@@ -48,7 +48,9 @@ describe("BrowsePoolsPage", () => {
       executeQuery: () =>
         fromValue({
           data: {
-            publishedPools: pools,
+            poolsPaginated: {
+              data: pools,
+            },
           },
         }),
     };

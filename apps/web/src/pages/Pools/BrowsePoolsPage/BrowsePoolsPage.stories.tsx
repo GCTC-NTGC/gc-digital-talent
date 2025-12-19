@@ -34,7 +34,9 @@ Default.parameters = {
   apiResponses: {
     BrowsePoolsPage: {
       data: {
-        publishedPools: mockPools,
+        poolsPaginated: {
+          data: mockPools,
+        },
       },
     },
   },
