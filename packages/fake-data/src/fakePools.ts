@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 import pick from "lodash/pick";
+import fakePaginatorInfo, { fakePaginateData } from "fakePaginatorInfo";
 
 import {
   FAR_FUTURE_DATE,
@@ -161,6 +162,10 @@ const generatePool = (
             ),
           )
         : [],
+    activities: {
+      paginatorInfo: fakePaginatorInfo(0),
+      data: fakePaginateData([], fakePaginatorInfo(0)),
+    },
   };
 };
 
