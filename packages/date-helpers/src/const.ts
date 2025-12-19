@@ -7,6 +7,9 @@ export const DATE_FORMAT_LOCALIZED = "PPP";
 export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
 export const DATETIME_FORMAT_LOCALIZED = "PPP p";
 
+// Time scalar formatting string
+export const TIME_FORMAT_LOCALIZED = "p";
+
 export const FAR_FUTURE_DATE = "2999-12-31";
 export const FAR_PAST_DATE = "2000-01-01";
 export const PAST_DATE = "2020-01-01";

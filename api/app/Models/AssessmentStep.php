@@ -61,10 +61,11 @@ class AssessmentStep extends Model
         return $this->belongsTo(Pool::class);
     }
 
-    /** @return BelongsToMany<PoolSkill, $this> */
+    /** @return BelongsToMany<PoolSkill, $this, AssessmentStepPoolSkill> */
     public function poolSkills(): BelongsToMany
     {
         return $this->belongsToMany(PoolSkill::class, 'assessment_step_pool_skill')
+            ->using(AssessmentStepPoolSkill::class)
             ->withTimestamps();
     }
 

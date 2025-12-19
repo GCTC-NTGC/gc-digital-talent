@@ -45,6 +45,7 @@ export const AllPoolCandidatesPage = () => {
             suspendedStatus: CandidateSuspendedFilter.Active,
             expiryStatus: CandidateExpiryFilter.Active,
           }}
+          doNotUseBookmark
           doNotUseFlag
         />
       </Container>
