@@ -37,6 +37,10 @@ function safeGetPageState(
   return Number(param);
 }
 
+function getTotalPages(total: number, pageSize: number) {
+  return Math.ceil(total / pageSize);
+}
+
 interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
 }
@@ -73,20 +77,6 @@ const PoolActivityPage = () => {
   );
   const currentPage = safeGetPageState(SEARCH_PARAM_KEY.PAGE, searchParams, 1);
 
-  const handlePageChange = (page: number) => {
-    setSearchParams((current) => ({
-      ...current,
-      [SEARCH_PARAM_KEY.PAGE]: page,
-    }));
-  };
-
-  const handlePageSizeChange = (size: number) => {
-    setSearchParams((current) => ({
-      ...current,
-      [SEARCH_PARAM_KEY.PAGE_SIZE]: size,
-    }));
-  };
-
   const [{ data, fetching }] = useQuery({
     query: PoolActivityPage_Query,
     variables: { id: poolId, first: pageSize, page: currentPage },
@@ -97,6 +87,9 @@ const PoolActivityPage = () => {
   if (!data?.pool) {
     return <ThrowNotFound />;
   }
+  const totalItems = data.pool.activities.paginatorInfo.total;
+
+  const totalPages = getTotalPages(totalItems, pageSize);
 
   const groups = groupByDay(
     unpackMaybes(data?.pool?.activities.data).sort((a, b) => {
@@ -106,9 +99,21 @@ const PoolActivityPage = () => {
     }),
   );
 
-  const totalPages = Math.ceil(
-    data.pool.activities.paginatorInfo.total / pageSize,
-  );
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(SEARCH_PARAM_KEY.PAGE, String(page));
+    setSearchParams(params);
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(SEARCH_PARAM_KEY.PAGE_SIZE, String(size));
+    const newTotalPages = getTotalPages(totalItems, size);
+    if (currentPage > newTotalPages) {
+      params.set(SEARCH_PARAM_KEY.PAGE, String(newTotalPages));
+    }
+    setSearchParams(params);
+  };
 
   return (
     <Container className="my-18">
@@ -144,22 +149,21 @@ const PoolActivityPage = () => {
               </ActivityLog.List>
             ))}
           </ActivityLog.Root>
-          {totalPages > 1 && (
-            <Pagination
-              color="black"
-              ariaLabel={intl.formatMessage({
-                defaultMessage: "Process activity navigation",
-                id: "VqWJ+o",
-                description: "Label for activity pagination",
-              })}
-              currentPage={currentPage}
-              pageSize={pageSize}
-              totalPages={totalPages}
-              onCurrentPageChange={handlePageChange}
-              onPageSizeChange={handlePageSizeChange}
-              pageSizes={[50, 100, 500]}
-            />
-          )}
+          <Pagination
+            color="black"
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "Process activity navigation",
+              id: "VqWJ+o",
+              description: "Label for activity pagination",
+            })}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            totalPages={totalPages}
+            totalCount={totalItems}
+            onCurrentPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            pageSizes={[50, 100, 500]}
+          />
         </>
       ) : (
         <ActivityLog.Empty />
