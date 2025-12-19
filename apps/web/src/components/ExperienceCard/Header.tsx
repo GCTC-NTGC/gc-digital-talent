@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
