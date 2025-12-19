@@ -75,7 +75,7 @@ const Header = ({ experienceType }: HeaderProps) => {
           id="corner-shape"
           className="absolute top-0 right-0 h-full w-full bg-white [clip-path:polygon(25%_12.5%,25%_12.5%,24.836%_10.472%,24.363%_8.549%,23.605%_6.756%,22.588%_5.118%,21.339%_3.661%,19.882%_2.412%,18.244%_1.395%,16.451%_0.637%,14.528%_0.164%,12.5%_0%,0%_0%,0%_100%,50%_100%,100%_100%,100%_87.5%,100%_87.5%,99.836%_85.472%,99.363%_83.549%,98.605%_81.756%,97.588%_80.118%,96.339%_78.661%,94.882%_77.412%,93.244%_76.395%,91.451%_75.637%,89.528%_75.164%,87.5%_75%,66.667%_75%,66.667%_75%,59.908%_74.455%,53.497%_72.876%,47.518%_70.349%,42.059%_66.961%,37.204%_62.796%,33.039%_57.941%,29.651%_52.482%,27.124%_46.503%,25.545%_40.092%,25%_33.333%,25%_12.5%)] dark:bg-gray-600"
         ></div>
-        <div className="absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-gray-600">
+        <div className="absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md dark:bg-gray-600">
           <Icon
             aria-hidden="true"
             focusable="false"
