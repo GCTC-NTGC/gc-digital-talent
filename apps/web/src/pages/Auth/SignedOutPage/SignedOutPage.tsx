@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
+import { ClientLoaderFunction } from "react-router";
 
 import {
   AlertDialog,
@@ -16,6 +17,7 @@ import {
   useAuthentication,
 } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -29,6 +31,29 @@ const supportLink = (chunks: ReactNode, path: string) => (
     {chunks}
   </Link>
 );
+
+export const loader: ClientLoaderFunction = ({ request }) => {
+  const logger = getLogger();
+  const url = new URL(request.url);
+  const from = url.searchParams.get("from");
+  if (from && (from.startsWith("/") || from.includes("talent.canada.ca"))) {
+    return new Response(null, {
+      status: 302,
+      headers: { Location: from },
+    });
+  }
+  const POST_LOGOUT_OVERRIDE_PATH_KEY = "POST_LOGOUT_OVERRIDE_PATH_KEY";
+  const overridePath = sessionStorage.getItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
+  if (overridePath) {
+    sessionStorage.removeItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
+    if (overridePath.startsWith("/")) {
+      window.location.href = overridePath;
+      return null;
+    }
+    logger.warning(`Unsafe redirect URI: ${overridePath}`);
+  }
+  return null;
+};
 
 export const Component = () => {
   const intl = useIntl();

@@ -19,6 +19,8 @@ import {
   LinkProps,
 } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
+import { getFeatureFlags } from "@gc-digital-talent/env";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -56,6 +58,15 @@ const commonFeatureImgProps = {
 const inlineLink = (chunks: ReactNode, props: LinkProps) => (
   <Link {...props}>{chunks}</Link>
 );
+
+export const loader = () => {
+  // You can move this loader to the module if preferred
+  const featureFlags = getFeatureFlags();
+  if (!featureFlags.workforceAdjustment) {
+    throw new NotFoundError();
+  }
+  return null;
+};
 
 export const Component = () => {
   const intl = useIntl();
