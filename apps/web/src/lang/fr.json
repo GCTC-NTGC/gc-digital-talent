@@ -4872,7 +4872,7 @@
     "description": "Link text for editing a users technical skills to improve"
   },
   "IxngA3": {
-    "defaultMessage": "Dissimuler les détails de cette expérience",
+    "defaultMessage": "Masquer les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
   },
   "J+MAUg": {
@@ -12366,7 +12366,7 @@
     "description": "Message displayed when a user fails to updates employee profile information"
   },
   "pLef1V": {
-    "defaultMessage": "Dissimuler les détails de {experienceName}",
+    "defaultMessage": "Masquer les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
   },
   "pOazxP": {
