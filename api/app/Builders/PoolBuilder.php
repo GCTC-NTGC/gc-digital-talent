@@ -84,6 +84,7 @@ class PoolBuilder extends Builder
                     });
                 }
 
+                // open pools
                 if (in_array(PoolStatus::PUBLISHED->name, $statuses)) {
                     $query->orWhere(function ($query) {
                         $query->wherePublished()

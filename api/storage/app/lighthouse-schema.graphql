@@ -148,6 +148,11 @@ type LocalizedExecCoaching implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedExperienceType implements LocalizedEnumOption {
+  value: ExperienceType!
+  label: LocalizedString!
+}
+
 type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
   value: ExternalRoleSeniority!
   label: LocalizedString!
@@ -1054,7 +1059,7 @@ type Activity {
   subjectId: UUID
   properties: ActivityProperties
   logName: String
-  event: String
+  event: ActivityEvent
   description: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -1112,6 +1117,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
   activities: [Activity!]
+  applicantsCount: Int
 }
 
 type GeneralQuestionResponse {
@@ -3406,6 +3412,19 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum ActivityEvent {
+  CREATED
+  UPDATED
+  DELETED
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  REMOVED
+  REINSTATED
+  REVERTED
+}
+
 enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
@@ -3773,6 +3792,14 @@ enum EvaluatedLanguageAbility {
 enum ExecCoaching {
   COACHING
   LEARNING
+}
+
+enum ExperienceType {
+  WORK
+  EDUCATION
+  AWARD
+  COMMUNITY
+  PERSONAL
 }
 
 enum ExternalRoleSeniority {
