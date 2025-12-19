@@ -935,7 +935,7 @@ trait GeneratesUserDoc
             [ExecCoaching::COACHING->name] => 'coaching_others',
             [ExecCoaching::LEARNING->name] => 'has_coach',
             [] => 'not_participating',
-            default => 'not_provided'
+            default => ''
         };
 
         $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_status'),
