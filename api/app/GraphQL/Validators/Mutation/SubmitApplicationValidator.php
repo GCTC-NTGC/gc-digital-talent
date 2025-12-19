@@ -44,7 +44,7 @@ final class SubmitApplicationValidator extends Validator
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [
-                config('feature.application_email_verification', false) ? new EmployeeWorkEmailVerified($this->application->user) : [],
+                new EmployeeWorkEmailVerified($this->application->user),
                 new PoolNotClosed,
                 new QuestionsAnswered($this->application),
             ],
