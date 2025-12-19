@@ -566,6 +566,7 @@ export const addSearchToPoolCandidateFilterInput = (
     finalDecisions: fancyFilterState?.finalDecisions,
     removalReasons: fancyFilterState?.removalReasons,
     placementTypes: fancyFilterState?.placementTypes,
+    screeningStages: fancyFilterState?.screeningStages,
   };
 };
 
