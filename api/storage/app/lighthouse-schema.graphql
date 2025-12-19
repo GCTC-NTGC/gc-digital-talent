@@ -1059,7 +1059,7 @@ type Activity {
   subjectId: UUID
   properties: ActivityProperties
   logName: String
-  event: String
+  event: ActivityEvent
   description: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -3410,6 +3410,19 @@ as they may not be parsed correctly on the server side. Use `String` literals if
 dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
+
+enum ActivityEvent {
+  CREATED
+  UPDATED
+  DELETED
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  REMOVED
+  REINSTATED
+  REVERTED
+}
 
 enum ApplicationStep {
   WELCOME
