@@ -42,7 +42,11 @@ const flourish = tv({
 
 const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
   query BrowsePoolsPage {
-    poolsPaginated(where: { statuses: [PUBLISHED] }, first: 500) {
+    poolsPaginated(
+      where: { statuses: [PUBLISHED] }
+      first: 500
+      orderBy: { column: "closing_date", order: ASC }
+    ) {
       data {
         id
         publishingGroup {
