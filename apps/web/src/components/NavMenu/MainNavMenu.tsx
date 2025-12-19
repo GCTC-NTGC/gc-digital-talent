@@ -51,7 +51,7 @@ const MainNavMenu = () => {
     <Menu
       accountLinks={
         accountLinks && (
-          <NavMenu.Item>
+          <NavMenu.Item className="ml-auto">
             <NavMenu.Trigger
               color={isSmallScreen ? "black" : "white"}
               fixedColor={!isSmallScreen}
@@ -75,36 +75,34 @@ const MainNavMenu = () => {
         label={intl.formatMessage(navigationMessages.home)}
       />
       {showRoleSwitcher ? (
-        <div
+        <NavMenu.Item
           className={borderItem({
             borderRight: true,
           })}
         >
-          <NavMenu.Item>
-            <NavMenu.Trigger
-              color={isSmallScreen ? "black" : "white"}
-              fixedColor={!isSmallScreen}
-              block={false}
-            >
-              {roleNames[navRole]}
-            </NavMenu.Trigger>
-            <NavMenu.Content>
-              <NavMenu.List>
-                {roleLinks.map((roleLink) => (
-                  <NavMenu.Item key={roleLink.name}>
-                    <NavMenu.Link
-                      title={roleLink.name}
-                      href={roleLink.href}
-                      type="subMenuLink"
-                    >
-                      {roleLink.name}
-                    </NavMenu.Link>
-                  </NavMenu.Item>
-                ))}
-              </NavMenu.List>
-            </NavMenu.Content>
-          </NavMenu.Item>
-        </div>
+          <NavMenu.Trigger
+            color={isSmallScreen ? "black" : "white"}
+            fixedColor={!isSmallScreen}
+            block={false}
+          >
+            {roleNames[navRole]}
+          </NavMenu.Trigger>
+          <NavMenu.Content>
+            <NavMenu.List>
+              {roleLinks.map((roleLink) => (
+                <NavMenu.Item key={roleLink.name}>
+                  <NavMenu.Link
+                    title={roleLink.name}
+                    href={roleLink.href}
+                    type="subMenuLink"
+                  >
+                    {roleLink.name}
+                  </NavMenu.Link>
+                </NavMenu.Item>
+              ))}
+            </NavMenu.List>
+          </NavMenu.Content>
+        </NavMenu.Item>
       ) : null}
 
       {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
@@ -130,7 +128,7 @@ const MainNavMenu = () => {
         </NavMenu.Item>
       )}
 
-      <NavMenu.Item>
+      <NavMenu.Item className="mt-0 border-b-[1px] border-black/20 pb-3 sm:border-b-[0px] sm:pb-0 dark:border-white/20">
         <NavMenu.Trigger
           color={isSmallScreen ? "black" : "white"}
           fixedColor={!isSmallScreen}
