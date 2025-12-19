@@ -4,6 +4,7 @@ const testConfig = {
     adminSignIn: process.env.ADMIN ?? `admin@test.com`,
     platformAdminSignIn: process.env.PLATFORM_ADMIN ?? `platform@test.com`,
     applicantSignIn: process.env.APPLICANT ?? `applicant@test.com`,
+    recruiterSignIn: process.env.RECRUITER ?? `recruiter@test.com`,
   },
 };
 export default testConfig;
