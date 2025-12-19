@@ -1,21 +1,27 @@
 import { PassThrough } from "node:stream";
 
-import type { EntryContext } from "react-router";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { ServerRouter } from "react-router";
 import { renderToPipeableStream } from "react-dom/server";
+import type { AppLoadContext, EntryContext } from "react-router";
 
 export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   routerContext: EntryContext,
+  _loadContext: AppLoadContext,
 ) {
+  // This MUST match the placeholder in your Nginx sub_filter and root.tsx
+  const nonce = "**CSP_NONCE**";
+
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
-      <ServerRouter context={routerContext} url={request.url} />,
+      <ServerRouter context={routerContext} url={request.url} nonce={nonce} />,
       {
+        // This is the magic line that fixes the missing nonces at the bottom of your HTML
+        nonce,
         onShellReady() {
           shellRendered = true;
           const body = new PassThrough();
@@ -25,15 +31,15 @@ export default function handleRequest(
 
           resolve(
             new Response(stream, {
-              status: responseStatusCode,
               headers: responseHeaders,
+              status: responseStatusCode,
             }),
           );
 
           pipe(body);
         },
         onShellError(error: unknown) {
-          reject(error instanceof Error ? error : new Error(String(error)));
+          reject(error);
         },
         onError(error: unknown) {
           responseStatusCode = 500;
@@ -44,7 +50,6 @@ export default function handleRequest(
       },
     );
 
-    // Timeout the render if it takes too long
     setTimeout(abort, 5000);
   });
 }

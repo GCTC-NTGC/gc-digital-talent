@@ -153,6 +153,9 @@ importers:
       '@microsoft/applicationinsights-web':
         specifier: ^3.3.10
         version: 3.3.10(tslib@2.8.1)
+      '@react-router/node':
+        specifier: ^7.11.0
+        version: 7.11.0(react-router@7.11.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.21.0)(yaml@2.8.1))
@@ -162,6 +165,9 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
+      isbot:
+        specifier: ^5
+        version: 5.1.32
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -223,9 +229,6 @@ importers:
       '@react-router/dev':
         specifier: ^7.11.0
         version: 7.11.0(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.11.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(terser@5.44.0)(tsx@4.21.0)(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.21.0)(yaml@2.8.1))(yaml@2.8.1)
-      '@react-router/node':
-        specifier: ^7.11.0
-        version: 7.11.0(react-router@7.11.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)
       '@testing-library/jest-dom':
         specifier: ^6.9.1
         version: 6.9.1
