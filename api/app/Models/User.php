@@ -110,6 +110,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
  * @property array $flexible_work_locations
  * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
+ * @property ?\App\Models\EmployeeProfile $employeeProfile
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -302,6 +303,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function poolBookmarks(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
+    }
+
+    /** @return BelongsToMany<PoolCandidate, $this> */
+    public function poolCandidateBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(PoolCandidate::class, 'pool_candidate_user_bookmarks', 'user_id', 'pool_candidate_id')
+            ->withTimestamps();
     }
 
     /** @return HasMany<PoolCandidate, $this> */

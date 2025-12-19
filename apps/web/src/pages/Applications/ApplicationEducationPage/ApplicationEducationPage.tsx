@@ -17,7 +17,7 @@ import {
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
-import { useLogger } from "@gc-digital-talent/logger";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
 import {
@@ -113,7 +113,7 @@ const ApplicationEducation = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const logger = useLogger();
+  const logger = getLogger();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();

@@ -123,6 +123,10 @@
     "defaultMessage": "Gérez vos renseignements professionnels au sein du gouvernement, y compris vos préférences en matière de développement de carrière et vos modes de travail.",
     "description": "Description of the employee profile page"
   },
+  "+SbEuu": {
+    "defaultMessage": "Ajouter {name} à vos signets.",
+    "description": "Bookmarking button label for an object"
+  },
   "+SoiCw": {
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
@@ -1063,6 +1067,10 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
+  "27mGKw": {
+    "defaultMessage": "Retirer le signet",
+    "description": "Label for removing a bookmark"
+  },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
@@ -1562,6 +1570,10 @@
   "4DfNUW": {
     "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
     "description": "Text explaining the average time spent on applications"
+  },
+  "4E/HVG": {
+    "defaultMessage": "Retirer le signet pour {name}.",
+    "description": "Un-bookmarking button label for an object"
   },
   "4Ect9u": {
     "defaultMessage": "Contactez l’autrice ou l’auteur de mise en candidature ou la personne déposante afin qu'elle fasse un suivi auprès de la personne candidate :",
@@ -2320,7 +2332,7 @@
     "description": "Paragraph for privacy policy page"
   },
   "7g4Mvc": {
-    "defaultMessage": "Ajouté aux favoris",
+    "defaultMessage": "Ajouté aux signets",
     "description": "Title displayed on the Pool Candidates table bookmark column"
   },
   "7gTBjD": {
@@ -2690,6 +2702,10 @@
   "9DCx2n": {
     "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
     "description": "Education level message when candidate does not have a diploma found on the request page."
+  },
+  "9DJWk4": {
+    "defaultMessage": "Vous avez ajouté {name} à vos signets.",
+    "description": "Bookmarked a candidate"
   },
   "9Eh1nm": {
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
@@ -3206,10 +3222,6 @@
   "BA5yoE": {
     "defaultMessage": "À moins d’avis contraire, il est interdit de reproduire le contenu de ce site, en totalité ou en partie, à des fins de diffusion commerciale sans avoir obtenu au préalable la permission écrite de l’administrateur du droit d’auteur. Si vous souhaitez obtenir les droits de reproduction du contenu du gouvernement du Canada du présent site à des fins commerciales, écrivez aux :",
     "description": "Commercial reproduction list description in ownership and usage section"
-  },
-  "BB0opI": {
-    "defaultMessage": "Supprimer le signet de {name} du haut de la colonne.",
-    "description": "Un-bookmark button label for pool table tracking."
   },
   "BDQ9ZB": {
     "defaultMessage": "Recommandée",
@@ -4603,10 +4615,6 @@
     "defaultMessage": "Consultez les renseignements détaillés d'un processus de recrutement auquel vous participez et indiquez si vous aimeriez continuer à recevoir des offres d'emploi.",
     "description": "Subtitle for the review recruitment process dialog"
   },
-  "HxZIwt": {
-    "defaultMessage": "Mettre {name} en signet au haut de la colonne.",
-    "description": "Bookmark button label for pool table tracking."
-  },
   "Hy2UdW": {
     "defaultMessage": "Vous êtes sur le point de retirer un rôle de cet utilisateur ou cette utilisatrice :<strong>{userName}</strong>",
     "description": "Lead in text for the remove role from user dialog"
@@ -5327,6 +5335,10 @@
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
   },
+  "L2xLV8": {
+    "defaultMessage": "Ajouter un signet",
+    "description": "Label for adding a bookmark"
+  },
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
     "description": "Message displayed when there are no job poster templates meeting a specific criteria"
@@ -5947,6 +5959,10 @@
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
   },
+  "NngAJq": {
+    "defaultMessage": "Erreur : impossible de mettre à jour le signet du candidat.",
+    "description": "Alert displayed to the user when failing to (un-)bookmark a candidate"
+  },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
@@ -6228,7 +6244,7 @@
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
   },
   "PH68o/": {
-    "defaultMessage": "Présentez votre demande",
+    "defaultMessage": "Présenter une demande",
     "description": "Label for apply now button in instructor led training"
   },
   "PIJLkW": {
@@ -7330,6 +7346,10 @@
   "UBOv+U": {
     "defaultMessage": "Cette nomination pour les programmes de perfectionnement est approuvée.",
     "description": "Label for development programs nomination is approved"
+  },
+  "UBY4qe": {
+    "defaultMessage": "Vous avez retiré le signet pour {name}.",
+    "description": "Un-bookmarked a candidate"
   },
   "UCt8ym": {
     "defaultMessage": "Votre prochain type de poste",
@@ -10143,7 +10163,7 @@
     "description": "Description for Add your work experience section"
   },
   "g4F/WB": {
-    "defaultMessage": "Favoris du processus retirés.",
+    "defaultMessage": "Le signet du processus est retiré avec succès.",
     "description": "Alert displayed to the user when they un-mark a pool as bookmarked."
   },
   "g5JeNf": {

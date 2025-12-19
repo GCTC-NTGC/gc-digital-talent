@@ -148,6 +148,11 @@ type LocalizedExecCoaching implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedExperienceType implements LocalizedEnumOption {
+  value: ExperienceType!
+  label: LocalizedString!
+}
+
 type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
   value: ExternalRoleSeniority!
   label: LocalizedString!
@@ -498,6 +503,7 @@ type Query {
   ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
+    orderByBase: PoolCandidatesBaseSort!
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
@@ -574,6 +580,7 @@ type Mutation {
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateFlag(id: ID!): Boolean
+  togglePoolCandidateUserBookmark(poolCandidateId: UUID!): Boolean
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
@@ -802,6 +809,7 @@ type User {
   oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
+  poolCandidateBookmarks: [PoolCandidate]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
 }
@@ -1836,7 +1844,11 @@ input SitewideAnnouncementInput {
 
 input ClaimVerificationSort {
   order: SortOrder!
+}
+
+input PoolCandidatesBaseSort {
   useFlag: Boolean
+  useBookmark: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -3767,6 +3779,14 @@ enum EvaluatedLanguageAbility {
 enum ExecCoaching {
   COACHING
   LEARNING
+}
+
+enum ExperienceType {
+  WORK
+  EDUCATION
+  AWARD
+  COMMUNITY
+  PERSONAL
 }
 
 enum ExternalRoleSeniority {
