@@ -493,7 +493,7 @@ type Activity @model(class: "\\App\\Models\\Activity") {
   subjectId: UUID @rename(attribute: "subject_id")
   properties: ActivityProperties
   logName: String @rename(attribute: "log_name")
-  event: String
+  event: ActivityEvent
   description: String
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
@@ -577,6 +577,8 @@ type Pool implements HasRoleAssignments {
       relation: "activities"
       scopes: ["whereIsPoolActivity", "authorizedToViewPoolActivity"]
     )
+  applicantsCount: Int
+    @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
 }
 
 type GeneralQuestionResponse {

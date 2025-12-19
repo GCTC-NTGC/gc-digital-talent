@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
+use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
@@ -10,6 +11,7 @@ use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
+use App\Models\PoolCandidate;
 use App\Models\PoolSkill;
 use App\Models\Skill;
 use App\Models\User;
@@ -1804,5 +1806,53 @@ class PoolTest extends TestCase
         $response->assertJsonFragment([
             'contactEmail' => $testEmail,
         ]);
+    }
+
+    // test field applicantsCount
+    public function testApplicantsCount()
+    {
+        // setup
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->create();
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create(
+                [
+                    'pool_id' => $publishedPool->id,
+                ]
+            );
+        PoolCandidate::factory()
+            ->create(
+                [
+                    'pool_id' => $publishedPool->id,
+                    'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                ]
+            );
+
+        // assert published pool has two pool candidate records
+        $candidateCount = count(PoolCandidate::where('pool_id', $publishedPool->id)->get());
+        assertSame($candidateCount, 2);
+
+        // assert guest can query for and sees an applicant count of 1 for the pool
+        $this->actingAs($this->guestUser, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                query Pool($id: UUID!) {
+                    pool(id: $id) {
+                        applicantsCount
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $publishedPool->id,
+                ])
+            ->assertExactJson([
+                'data' => [
+                    'pool' => [
+                        'applicantsCount' => 1,
+                    ],
+                ],
+            ]);
     }
 }

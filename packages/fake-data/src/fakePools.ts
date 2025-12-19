@@ -161,6 +161,7 @@ const generatePool = (
             ),
           )
         : [],
+    applicantsCount: faker.number.int(),
   };
 };
 
