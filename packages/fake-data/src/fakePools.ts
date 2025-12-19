@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 import pick from "lodash/pick";
-import fakePaginatorInfo, { fakePaginateData } from "fakePaginatorInfo";
+
 
 import {
   FAR_FUTURE_DATE,
@@ -30,6 +30,7 @@ import {
   WorkStream,
 } from "@gc-digital-talent/graphql";
 
+import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
 import fakeGeneralQuestions from "./fakeGeneralQuestions";
 import fakeUsers from "./fakeUsers";
