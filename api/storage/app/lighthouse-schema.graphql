@@ -1116,7 +1116,13 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
-  activities: [Activity!]
+  activities(
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 50
+
+    "The offset from which items are returned."
+    page: Int
+  ): ActivityPaginator!
 }
 
 type GeneralQuestionResponse {
@@ -2942,6 +2948,15 @@ type PaginatorInfo {
 
   "Number of total available items."
   total: Int!
+}
+
+"A paginated list of Activity items."
+type ActivityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Activity items."
+  data: [Activity!]!
 }
 
 "A paginated list of User items."

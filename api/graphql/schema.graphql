@@ -575,7 +575,10 @@ type Pool implements HasRoleAssignments {
   activities: [Activity!]
     @morphMany(
       relation: "activities"
+      type: PAGINATOR
       scopes: ["whereIsPoolActivity", "authorizedToViewPoolActivity"]
+      defaultCount: 50
+      maxCount: 1000
     )
 }
 
