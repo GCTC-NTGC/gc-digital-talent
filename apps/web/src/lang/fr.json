@@ -8922,10 +8922,6 @@
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
     "description": "List item four, things developers consider for accessibility"
   },
-  "bCZOr9": {
-    "defaultMessage": "Classification de la personne de référence",
-    "description": "Label for the advancement referece classification"
-  },
   "bDmp5T": {
     "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on career timeline, paragraph two"
@@ -9436,7 +9432,7 @@
   },
   "dOw5u/": {
     "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
-    "description": "Default error messsage when an employee could not be found"
+    "description": "Default error message when an employee could not be found"
   },
   "dPAsNx": {
     "defaultMessage": "Il s’agissait d'un rôle dans la force régulière ou de réserve de l’Armée canadienne, de l'Aviation royale canadienne ou de la Marine royale canadienne.",
@@ -12672,6 +12668,10 @@
   "qaZ6OZ": {
     "defaultMessage": "Date d'ouverture",
     "description": "Header for Opening date"
+  },
+  "qbv2v0": {
+    "defaultMessage": "Classification de la personne de référence",
+    "description": "Label for the advancement reference classification"
   },
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
