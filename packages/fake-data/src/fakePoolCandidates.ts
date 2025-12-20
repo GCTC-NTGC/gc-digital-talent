@@ -12,6 +12,7 @@ import {
   EducationRequirementOption,
   OverallAssessmentStatus,
   FinalDecision,
+  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 
 import fakeExperiences from "./fakeExperiences";
@@ -72,6 +73,9 @@ const generatePoolCandidate = (
     isFlagged: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
+    screeningStage: toLocalizedEnum(
+      faker.helpers.arrayElement<ScreeningStage>(Object.values(ScreeningStage)),
+    ),
     assessmentStep: pool.assessmentSteps?.[0] ?? null,
     assessmentStatus: {
       assessmentStepStatuses: [],
