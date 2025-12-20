@@ -7,6 +7,8 @@ import tailwindcss from "@tailwindcss/vite";
 import { compression } from "vite-plugin-compression2";
 import { defineConfig } from "vite";
 
+import { getRuntimeConfig } from "./src/utils/runtime";
+
 dotenv.config({ path: "./.env", quiet: true });
 
 const getEnvVar = (
@@ -15,6 +17,8 @@ const getEnvVar = (
 ): string | undefined => {
   return process.env[key] ? JSON.stringify(process.env[key]) : fallback;
 };
+
+const runtimeConfig = getRuntimeConfig();
 
 const gitCommand = (command: string) => {
   let result;
@@ -100,20 +104,7 @@ export default defineConfig(({ command }) => ({
     APP_DESCRIPTION: getEnvVar("APP_DESCRIPTION"),
 
     // run-time variables
-    OAUTH_POST_LOGOUT_REDIRECT_EN: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_EN"),
-    OAUTH_POST_LOGOUT_REDIRECT_FR: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_FR"),
-    OAUTH_LOGOUT_URI: getEnvVar("OAUTH_LOGOUT_URI"),
-    APPLICATIONINSIGHTS_CONNECTION_STRING: getEnvVar(
-      "APPLICATIONINSIGHTS_CONNECTION_STRING",
-    ),
-    LOG_CONSOLE_LEVEL: getEnvVar("LOG_CONSOLE_LEVEL"),
-    LOG_APPLICATIONINSIGHTS_LEVEL: getEnvVar("LOG_APPLICATIONINSIGHTS_LEVEL"),
-    FEATURE_WFA: getEnvVar("FEATURE_WFA"),
-    FEATURE_APPLICATION_EMAIL_VERIFICATION: getEnvVar(
-      "FEATURE_APPLICATION_EMAIL_VERIFICATION",
-    ),
-    FEATURE_HOLIDAY_MESSAGE: getEnvVar("FEATURE_HOLIDAY_MESSAGE"),
-    NOTIFICATION_POLLING_INTERVAL: getEnvVar("NOTIFICATION_POLLING_INTERVAL"),
+    __RUNTIME_VARS__: JSON.stringify(runtimeConfig),
   },
   plugins: [
     reactRouter(),

@@ -16,8 +16,8 @@ import ContextContainer from "~/components/Context/ContextProvider";
 import messages from "~/lang/frCompiled.json";
 import "~/assets/css/tailwind.css";
 
-import { serverConfig } from "./utils/serverConfig";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
+import { serverConfig } from "./utils/runtime";
 
 declare global {
   interface Window {
