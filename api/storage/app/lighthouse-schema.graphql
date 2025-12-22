@@ -493,6 +493,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
+    orderByScreeningStage: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -507,6 +508,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
+    orderByScreeningStage: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1059,7 +1061,7 @@ type Activity {
   subjectId: UUID
   properties: ActivityProperties
   logName: String
-  event: String
+  event: ActivityEvent
   description: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -1116,6 +1118,7 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
+  applicantsCount: Int
   activities(
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 50
@@ -1785,6 +1788,7 @@ input PoolCandidateSearchInput {
   finalDecisions: [FinalDecision!]
   placementTypes: [PlacementType!]
   removalReasons: [CandidateRemovalReason!]
+  screeningStages: [ScreeningStage!]
 }
 
 input PoolCandidateSearchRequestInput {
@@ -3425,6 +3429,19 @@ as they may not be parsed correctly on the server side. Use `String` literals if
 dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
+
+enum ActivityEvent {
+  CREATED
+  UPDATED
+  DELETED
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  REMOVED
+  REINSTATED
+  REVERTED
+}
 
 enum ApplicationStep {
   WELCOME

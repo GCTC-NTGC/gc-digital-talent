@@ -4,6 +4,7 @@ import { isAfter } from "date-fns/isAfter";
 import { defineMessage, MessageDescriptor } from "react-intl";
 
 import {
+  ActivityEvent,
   ActivityProperties,
   getFragment,
   Maybe,
@@ -122,7 +123,7 @@ const PoolActivityItem = ({
     };
   }
 
-  if (item.event === "updated" && isAfterPublish) {
+  if (item.event === ActivityEvent.Updated && isAfterPublish) {
     info = {
       ...info,
       message: activityMessages.updated,

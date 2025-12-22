@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\PoolCandidateBuilder;
+use App\Enums\ActivityEvent;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
@@ -37,6 +38,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\LogOptions;
@@ -781,6 +783,8 @@ class PoolCandidate extends Model
 
     public function submit(?string $signature)
     {
+        $this->disableLogging();
+
         $this->signature = $signature;
         $this->submitted_at = Carbon::now();
         $this->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
@@ -804,32 +808,54 @@ class PoolCandidate extends Model
         $this->computed_assessment_status = $assessmentStatus;
         $this->screening_stage = ScreeningStage::NEW_APPLICATION->name;
         $this->assessment_step_id = null;
+
+        $this->save();
+
+        $this->logActivity(ActivityEvent::SUBMITTED, [
+            'signature' => $signature,
+        ]);
     }
 
     // mark the pool candidate as qualified
     public function qualify(Carbon $expiryDate)
     {
+        $this->disableLogging();
+
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->expiry_date = $expiryDate;
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+
+        $this->save();
+
+        $this->logActivity(ActivityEvent::QUALIFIED, [
+            'expiry_date' => $expiryDate->format('Y-m-d H:i:s'),
+        ]);
     }
 
     // mark the pool candidate as disqualified
     public function disqualify(string $reason)
     {
+        $this->disableLogging();
+
         $this->pool_candidate_status = $reason;
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+
+        $this->save();
+
+        $this->logActivity(ActivityEvent::DISQUALIFIED);
     }
 
     // mark the pool candidate as placed
     public function place(string $placementType, string $departmentId)
     {
+        $this->disableLogging();
+
         $this->pool_candidate_status = $placementType;
         $this->placed_at = Carbon::now();
         $this->placed_department_id = $departmentId;
@@ -840,10 +866,19 @@ class PoolCandidate extends Model
         $finalDecision = $this->computeFinalDecision();
         $this->computed_final_decision = $finalDecision['decision'];
         $this->computed_final_decision_weight = $finalDecision['weight'];
+
+        $this->save();
+
+        $this->logActivity(ActivityEvent::PLACED, [
+            'placement_type' => $placementType,
+            'placed_department_id' => $departmentId,
+        ]);
     }
 
     public function remove(?string $reason, ?string $otherReason)
     {
+        $this->disableLogging();
+
         $this->removed_at = Carbon::now();
         $this->removal_reason = $reason;
         if ($reason === CandidateRemovalReason::OTHER->name) {
@@ -885,10 +920,19 @@ class PoolCandidate extends Model
             default:
                 throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
         }
+
+        $this->save();
+
+        $this->logActivity(ActivityEvent::REMOVED, [
+            'removal_reason' => $reason,
+            'removal_reason_other' => $otherReason,
+        ]);
     }
 
     public function reinstate()
     {
+        $this->disableLogging();
+
         // Update the candidates status based on the current status
         // or throw an error if the candidate has an invalid status
         switch ($this->pool_candidate_status) {
@@ -912,13 +956,67 @@ class PoolCandidate extends Model
         $this->removal_reason_other = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
 
+        $this->save();
+
+        $this->logActivity(ActivityEvent::REINSTATED);
+    }
+
+    public function revertPlacement()
+    {
+        $this->disableLogging();
+
+        $atts = ['pool_candidate_status', 'placed_at', 'placed_department_id'];
+        $old = $this->only($atts);
+
+        $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->placed_at = null;
+        $this->placed_department_id = null;
+
+        $this->save();
+
+        $this->logActivity(ActivityEvent::REVERTED,
+            $this->only($atts),
+            $old
+        );
+
     }
 
     public function revertFinalDecision()
     {
+        $this->disableLogging();
+
+        $atts = ['pool_candidate_status', 'expiry_date', 'final_decision_at', 'screening_stage'];
+        $old = $this->only($atts);
+
         $this->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $this->expiry_date = null;
         $this->final_decision_at = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
+
+        $this->save();
+
+        $this->logActivity(ActivityEvent::REVERTED,
+            $this->only($atts),
+            $old
+        );
+    }
+
+    public function logActivity(ActivityEvent $event, ?array $atts = [], ?array $old = [])
+    {
+        $properties = [];
+        if (! empty($atts)) {
+            $properties['attributes'] = $atts;
+        }
+
+        if (! empty($old)) {
+            $properties['old'] = $old;
+        }
+
+        activity()
+            ->causedBy(Auth::user())
+            ->performedOn($this)
+            ->event($event->value)
+            ->withProperties($properties)
+            ->log($event->value);
     }
 }

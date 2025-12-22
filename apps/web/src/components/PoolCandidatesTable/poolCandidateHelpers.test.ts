@@ -19,7 +19,6 @@ const defaultFormValues: FormValues = {
   pools: [],
   skills: [],
   priorityWeight: [],
-  poolCandidateStatus: [],
   expiryStatus: CandidateExpiryFilter.Active,
   suspendedStatus: CandidateSuspendedFilter.Active,
   govEmployee: "",
@@ -28,6 +27,7 @@ const defaultFormValues: FormValues = {
   finalDecisions: [],
   placementTypes: [],
   removalReasons: [],
+  screeningStages: [],
 };
 
 describe("Transform form values to filter state", () => {

@@ -21,6 +21,7 @@ const FIELD = {
   CLOSE_WINDOW: "closeWindow",
   FILTERS: "filters",
   SHOW_RESULTS: "showResults",
+  TABLEROW: "tableRow",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -83,6 +84,7 @@ class LocationPreferenceUpdatePage extends AppPage {
       [FIELD.CLOSE_WINDOW]: page.getByRole("button", { name: /Close dialog/i }),
       [FIELD.FILTERS]: page.getByRole("button", { name: /Filters/i }),
       [FIELD.SHOW_RESULTS]: page.getByRole("button", { name: /Show results/i }),
+      [FIELD.TABLEROW]: page.locator("table tbody tr"),
     };
   }
 
@@ -163,13 +165,19 @@ class LocationPreferenceUpdatePage extends AppPage {
     return await selectedOptions.allTextContents();
   }
 
-  async showOrHideColumns() {
+  async setFlexibleWorkLocationColumn() {
+    const flexWorkLocHeader = this.page.getByRole("columnheader", {
+      name: /Flexible work location options/i,
+    });
+    await expect(flexWorkLocHeader).toHaveCount(0);
     await this.locators[FIELD.SHOW_HIDE_COLUMNS].click();
-    await expect(
-      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN],
-    ).toBeVisible();
-    await this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN].check();
+    const checkbox = this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN];
+    await expect(checkbox).toBeVisible();
+    if (!(await checkbox.isChecked())) {
+      await checkbox.check();
+    }
     await this.locators[FIELD.CLOSE_WINDOW].click();
+    await expect(flexWorkLocHeader).toBeVisible();
   }
 
   async filterFlexWorkLocation(
@@ -189,20 +197,11 @@ class LocationPreferenceUpdatePage extends AppPage {
     await this.locators[FIELD.SHOW_RESULTS].click();
   }
 
-  async verifyFlexibleWorkLocationData(userName: string) {
+  async verifyFlexibleWorkLocationOptionPresent() {
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
     const selectedFlexOptions = await this.getSelectedWorkLocOptions();
-    const table = this.page.getByRole("table");
-
-    const row = table.getByRole("row", {
-      name: new RegExp(userName, "i"),
-    });
-
-    const rowText = (await row.innerText()).toLowerCase();
-
-    for (const option of selectedFlexOptions) {
-      expect(rowText).toContain(option.toLowerCase());
-    }
+    const totalRows = this.locators[FIELD.TABLEROW];
+    await expect(totalRows).toContainText(selectedFlexOptions);
   }
 }
 export default LocationPreferenceUpdatePage;

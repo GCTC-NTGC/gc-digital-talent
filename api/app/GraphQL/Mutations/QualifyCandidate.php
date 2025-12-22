@@ -16,8 +16,6 @@ final class QualifyCandidate
 
         $candidate->qualify($expiryDate);
 
-        $candidate->save();
-
         return $candidate;
     }
 }
