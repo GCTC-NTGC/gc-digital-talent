@@ -52,6 +52,7 @@ import SearchRequestFilters from "~/components/SearchRequestFilters/SearchReques
 import useRoutes from "~/hooks/useRoutes";
 import {
   BrowserHistoryState,
+  PartialApplicantFilter,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -390,7 +391,7 @@ export const RequestForm = ({
   };
 
   // The applicantFilter from the location state needs to be changed from ApplicantFilterInput to the type ApplicantFilter for the SearchRequestFilters visual component.
-  const applicantFilterInputToType: ApplicantFilter = {
+  const applicantFilterInputToType: PartialApplicantFilter = {
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,

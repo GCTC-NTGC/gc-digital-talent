@@ -10,7 +10,7 @@ import {
 
 const stepHasError = (
   _user: ApplicationPoolCandidateFragmentType["user"],
-  pool: Pool,
+  pool: Omit<Pool, "activities">,
   application: ApplicationPoolCandidateFragmentType,
 ) => {
   return (
