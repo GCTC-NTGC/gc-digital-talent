@@ -58,6 +58,89 @@ export default [
         route("login-info", "./pages/Auth/SignInPage/SignInPage.tsx"),
         route("logged-out", "./pages/Auth/SignedOutPage/SignedOutPage.tsx"),
 
+        // Registration
+        ...prefix("registration", [
+          route(
+            "account",
+            "./pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedPage.tsx",
+          ),
+          route(
+            "experience",
+            "./pages/Auth/RegistrationPages/EmployeeInformationPage/EmployeeInformationPage.tsx",
+          ),
+        ]),
+
+        // Applicant
+        ...prefix("applicant", [
+          layout("./pages/Auth/RegistrationPages/RegistrationRedirect.tsx", [
+            index("./pages/ApplicantDashboardPage/ApplicantDashboardPage.tsx"),
+            route(
+              "settings",
+              "./pages/Profile/AccountSettings/AccountSettingsPage.tsx",
+            ),
+            route(
+              "notifications",
+              "./pages/Notifications/NotificationsPage/NotificationsPage.tsx",
+            ),
+            route(
+              "employee-profile",
+              "./pages/EmployeeProfile/EmployeeProfilePage.tsx",
+            ),
+            route(
+              "personal-information",
+              "./pages/Profile/ProfilePage/ProfilePage.tsx",
+            ),
+
+            ...prefix("career-timeline", [
+              index(
+                "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
+              ),
+              route(
+                ":experienceId/edit",
+                "./pages/Profile/ExperienceFormPage/EditExperienceFormPage.tsx",
+              ),
+              route(
+                "create",
+                "./pages/Profile/ExperienceFormPage/CreateExperienceFormPage.tsx",
+              ),
+            ]),
+            ...prefix("community-interests", [
+              route(
+                ":communityInterestId",
+                "./pages/CommunityInterests/UpdateCommunityInterestPage/UpdateCommunityInterestPage.tsx",
+              ),
+              route(
+                "create",
+                "./pages/CommunityInterests/CreateCommunityInterestPage/CreateCommunityInterestPage.tsx",
+              ),
+            ]),
+
+            ...prefix("skills", [
+              index("./pages/Skills/SkillPortfolioPage.tsx"),
+              route(":skillId", "./pages/Skills/UpdateUserSkillPage.tsx"),
+              ...prefix("showcase", [
+                index("./pages/Skills/SkillShowcasePage.tsx"),
+                route(
+                  "top-5-behavioural-skills",
+                  "./pages/Skills/TopBehaviouralSkillsPage.tsx",
+                ),
+                route(
+                  "top-10-technical-skills",
+                  "./pages/Skills/TopTechnicalSkillsPage.tsx",
+                ),
+                route(
+                  "3-behavioural-skills-to-improve",
+                  "./pages/Skills/ImproveBehaviouralSkillsPage.tsx",
+                ),
+                route(
+                  "5-technical-skills-to-train",
+                  "./pages/Skills/ImproveTechnicalSkillsPage.tsx",
+                ),
+              ]),
+            ]),
+          ]),
+        ]),
+
         // Dashboards
         route(
           "community",
