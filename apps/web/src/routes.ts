@@ -70,6 +70,76 @@ export default [
           ),
         ]),
 
+        // Talent events
+        ...prefix("communities", [
+          route(
+            "talent-events",
+            "./pages/TalentManagementEventsPage/TalentManagementEventsPage.tsx",
+          ),
+          route(
+            "talent-events/:nominationEventId/create-talent-nomination",
+            "./pages/CreateTalentNominationPage/CreateTalentNominationPage.tsx",
+          ),
+          route(
+            "talent-nominations/:id",
+            "./pages/TalentNominations/NominateTalent/NominateTalentPage.tsx",
+          ),
+        ]),
+
+        // Search
+        ...prefix("search", [
+          index("./pages/SearchRequests/SearchPage/SearchPage.tsx"),
+          route(
+            "request",
+            "./pages/SearchRequests/RequestPage/RequestPage.tsx",
+          ),
+          route(
+            "request/:requestId",
+            "./pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage.tsx",
+          ),
+        ]),
+
+        // Browse jobs
+        ...prefix("browse", [
+          route("pools", "./pages/Pools/BrowsePoolsPage/BrowsePoolsPage.tsx"),
+          route(
+            "pools/:poolId",
+            "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
+          ),
+          route(
+            "pools/:poolId/create-application",
+            "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
+          ),
+        ]),
+
+        // Job templates
+        ...prefix("job-templates", [
+          index(
+            "./pages/JobPosterTemplates/JobPosterTemplatesPage/JobPosterTemplatesPage.tsx",
+          ),
+          route(
+            ":templateId",
+            "./pages/JobPosterTemplates/JobPosterTemplatePage/JobPosterTemplatePage.tsx",
+          ),
+        ]),
+
+        // IT Training fund
+        ...prefix("it-training-fund", [
+          index("./pages/ItTrainingFundPage/ItTrainingFundPage.tsx"),
+          route(
+            "instructor-led-training",
+            "./pages/InstructorLedTrainingPage/InstructorLedTrainingPage.tsx",
+          ),
+          route(
+            "instructor-led-training/:id",
+            "./pages/TrainingOpportunities/TrainingOpportunityPage.tsx",
+          ),
+          route(
+            "certification-exam-vouchers",
+            "./pages/CertificationExamVouchersPage/CertificationExamVouchersPage.tsx",
+          ),
+        ]),
+
         // Applicant
         ...prefix("applicant", [
           layout("./pages/Auth/RegistrationPages/RegistrationRedirect.tsx", [
@@ -139,48 +209,6 @@ export default [
               ]),
             ]),
           ]),
-        ]),
-
-        // Talent events
-        ...prefix("communities", [
-          route(
-            "talent-events",
-            "./pages/TalentManagementEventsPage/TalentManagementEventsPage.tsx",
-          ),
-          route(
-            "talent-events/:nominationEventId/create-talent-nomination",
-            "./pages/CreateTalentNominationPage/CreateTalentNominationPage.tsx",
-          ),
-          route(
-            "talent-nominations/:id",
-            "./pages/TalentNominations/NominateTalent/NominateTalentPage.tsx",
-          ),
-        ]),
-
-        // Search
-        ...prefix("search", [
-          index("./pages/SearchRequests/SearchPage/SearchPage.tsx"),
-          route(
-            "request",
-            "./pages/SearchRequests/RequestPage/RequestPage.tsx",
-          ),
-          route(
-            "request/:requestId",
-            "./pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage.tsx",
-          ),
-        ]),
-
-        // Browse jobs
-        ...prefix("browse", [
-          route("pools", "./pages/Pools/BrowsePoolsPage/BrowsePoolsPage.tsx"),
-          route(
-            "pools/:poolId",
-            "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
-          ),
-          route(
-            "pools/:poolId/create-application",
-            "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
-          ),
         ]),
 
         // Applications
