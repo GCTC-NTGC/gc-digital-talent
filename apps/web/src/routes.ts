@@ -154,6 +154,19 @@ export default [
           ),
         ]),
 
+        // Browse jobs
+        ...prefix("browse", [
+          route("pools", "./pages/Pools/BrowsePoolsPage/BrowsePoolsPage.tsx"),
+          route(
+            "pools/:poolId",
+            "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
+          ),
+          route(
+            "pools/:poolId/create-application",
+            "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
+          ),
+        ]),
+
         // Dashboards
         route(
           "community",
