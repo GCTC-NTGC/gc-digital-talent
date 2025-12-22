@@ -4663,6 +4663,10 @@
     "defaultMessage": "Détails de l’emploi",
     "description": "The job details of a job poster template"
   },
+  "I7qIfR": {
+    "defaultMessage": "Navigation des pages des activités du processus",
+    "description": "Label for activity pagination"
+  },
   "I7vSfX": {
     "defaultMessage": "Nous avons reçu votre mise en candidature.",
     "description": "Heading for success step of a talent nomination"

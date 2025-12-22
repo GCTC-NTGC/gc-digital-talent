@@ -152,8 +152,8 @@ const PoolActivityPage = () => {
           <Pagination
             color="black"
             ariaLabel={intl.formatMessage({
-              defaultMessage: "Process activity navigation",
-              id: "VqWJ+o",
+              defaultMessage: "Process activity page navigation",
+              id: "I7qIfR",
               description: "Label for activity pagination",
             })}
             currentPage={currentPage}
