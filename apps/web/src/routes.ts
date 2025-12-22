@@ -387,6 +387,17 @@ export default [
             ]),
           ]),
 
+          // Admin - Talent requests
+          ...prefix("talent-requests", [
+            index(
+              "./pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage.tsx",
+            ),
+            route(
+              ":searchRequestId",
+              "./pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage.tsx",
+            ),
+          ]),
+
           // Admin - Users
           ...prefix("users", [
             index("./pages/Users/IndexUserPage/IndexUserPage.tsx"),

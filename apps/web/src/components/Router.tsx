@@ -33,25 +33,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               path: "admin",
               children: [
                 {
-                  path: "talent-requests",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage").then(
-                          convert,
-                        ),
-                    },
-                    {
-                      path: ":searchRequestId",
-                      lazy: () =>
-                        import("../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage").then(
-                          convert,
-                        ),
-                    },
-                  ],
-                },
-                {
                   path: "training-opportunities",
                   children: [
                     {
