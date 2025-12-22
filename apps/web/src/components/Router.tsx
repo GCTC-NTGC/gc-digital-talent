@@ -33,44 +33,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               path: "admin",
               children: [
                 {
-                  path: "training-opportunities",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/TrainingOpportunities/IndexTrainingOpportunitiesPage").then(
-                          convert,
-                        ),
-                    },
-                    {
-                      path: "create",
-                      lazy: () =>
-                        import("../pages/TrainingOpportunities/CreateTrainingOpportunityPage").then(
-                          convert,
-                        ),
-                    },
-                    {
-                      path: ":trainingOpportunityId",
-                      children: [
-                        {
-                          index: true,
-                          lazy: () =>
-                            import("../pages/TrainingOpportunities/ViewTrainingOpportunityPage").then(
-                              convert,
-                            ),
-                        },
-                        {
-                          path: "edit",
-                          lazy: () =>
-                            import("../pages/TrainingOpportunities/UpdateTrainingOpportunityPage").then(
-                              convert,
-                            ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
                   path: "settings",
                   children: [
                     {

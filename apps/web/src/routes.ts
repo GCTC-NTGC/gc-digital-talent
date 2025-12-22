@@ -398,6 +398,25 @@ export default [
             ),
           ]),
 
+          // Admin - Training opportunities
+          ...prefix("training-opportunities", [
+            index(
+              "./pages/TrainingOpportunities/IndexTrainingOpportunitiesPage.tsx",
+            ),
+            route(
+              "create",
+              "./pages/TrainingOpportunities/CreateTrainingOpportunityPage.tsx",
+            ),
+            route(
+              ":trainingOpportunityId",
+              "./pages/TrainingOpportunities/ViewTrainingOpportunityPage.tsx",
+            ),
+            route(
+              ":trainingOpportunityId/edit",
+              "./pages/TrainingOpportunities/UpdateTrainingOpportunityPage.tsx",
+            ),
+          ]),
+
           // Admin - Users
           ...prefix("users", [
             index("./pages/Users/IndexUserPage/IndexUserPage.tsx"),
