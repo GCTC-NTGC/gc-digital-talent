@@ -29,7 +29,7 @@ import TalentSearch from "~/fixtures/TalentSearch";
 import { loginBySub } from "~/utils/auth";
 import testConfig from "~/constants/config";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
-import UserPage from "~/fixtures/UserPage";
+import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 test.describe("Talent search", () => {
   let uniqueTestId: string;
   let sub: string;
@@ -125,11 +125,11 @@ test.describe("Talent search", () => {
     user = createdUser;
   });
 
-  test.afterEach(async () => {
-    if (user) {
-      await deleteUser(adminCtx, { id: user.id });
-    }
-  });
+  // test.afterEach(async () => {
+  //   if (user) {
+  //     await deleteUser(adminCtx, { id: user.id });
+  //   }
+  // });
 
   test("Search and submit request", async ({ appPage }) => {
     talentSearch = new TalentSearch(appPage.page);
@@ -150,11 +150,9 @@ test.describe("Talent search", () => {
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {
-    // eslint-disable-next-line playwright/no-conditional-in-test
-    const userName = user?.firstName ?? "";
     talentSearch = new TalentSearch(appPage.page);
     const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
-    const userPage = new UserPage(appPage.page);
+    const tableValidation = new GenericTableValidationFixture(appPage.page);
     await talentSearch.goToIndex();
     await talentSearch.fillSearchFormAndRequestCandidates(
       poolName,
@@ -176,10 +174,8 @@ test.describe("Talent search", () => {
         name: /Candidate results/i,
         level: 2,
       }),
-    ).toBeVisible();
-    await locationPrefUpdate.setFlexibleWorkLocationColumn();
-    await appPage.waitForGraphqlResponse(
-      "CandidatesTableCandidatesPaginated_Query",
-    );
+    ).toBeVisible({ timeout: 10000 });
+    await tableValidation.setFlexibleWorkLocationColumn();
+    await tableValidation.verifyFlexibleWorkLocationOnTalentTable();
   });
 });

@@ -15,7 +15,7 @@ import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
@@ -29,6 +29,7 @@ test.describe("Application", () => {
   let technicalSkills: Skill[];
   let user: User | undefined;
   let classificationId: string | undefined;
+  let userId: string | undefined;
 
   async function expectOnStep(page: Page, step: number) {
     await expect(
@@ -40,7 +41,7 @@ test.describe("Application", () => {
     ).toBeHidden();
   }
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
@@ -68,6 +69,8 @@ test.describe("Application", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
+    userId = user?.id ?? "";
+
     technicalSkills = await getSkills(adminCtx, {}).then((skills) => {
       return skills.filter(
         (skill) => skill.category.value === SkillCategory.Technical,
@@ -78,6 +81,13 @@ test.describe("Application", () => {
     classificationId = classifications.find(
       (c) => c.group == "IT" && c.level == 1,
     )?.id;
+  });
+
+  test.afterEach(async () => {
+    if (userId) {
+      const adminCtx = await graphql.newContext();
+      await deleteUser(adminCtx, { id: userId });
+    }
   });
 
   test("Can link same experience to different skills in application", async ({
@@ -108,7 +118,8 @@ test.describe("Application", () => {
         : undefined,
     });
     const [skillOne, skillTwo] = technicalSkills;
-    const application = new ApplicationPage(appPage.page, pool.id);
+    const poolId = pool.id;
+    const application = new ApplicationPage(appPage.page, poolId);
     await loginBySub(application.page, sub, false);
 
     await application.create();
@@ -311,7 +322,7 @@ test.describe("Application", () => {
 
     // Quit trying to skip and continue step three honestly
     await expect(
-      application.page.locator("text=Your career timeline currently includes:"),
+      application.page.getByText(/Your career timeline currently includes:/i),
     ).toBeHidden();
     await expect(
       application.page.getByText(

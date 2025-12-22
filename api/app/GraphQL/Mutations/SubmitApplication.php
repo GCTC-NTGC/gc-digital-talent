@@ -31,8 +31,6 @@ final class SubmitApplication
         // add signature and submission, as well as update the set expiry date and status, update([]) not used due to not working correctly
         $application->submit($args['signature']);
 
-        $application->save();
-
         $application->refresh();
 
         // Send email notification

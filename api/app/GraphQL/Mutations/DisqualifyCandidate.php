@@ -16,8 +16,6 @@ final class DisqualifyCandidate
 
         $candidate->disqualify($reason);
 
-        $candidate->save();
-
         return $candidate;
     }
 }

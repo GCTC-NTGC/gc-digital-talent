@@ -1,4 +1,9 @@
-import { Community, CreateCommunityInput } from "@gc-digital-talent/graphql";
+import {
+  Community,
+  CommunityInterest,
+  CreateCommunityInput,
+  CreateCommunityInterestInput,
+} from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { generateUniqueTestId } from "./id";
@@ -71,5 +76,31 @@ export const createCommunity: GraphQLRequestFunc<
     .then(
       (res: GraphQLResponse<"createCommunity", Community>) =>
         res.createCommunity,
+    );
+};
+
+const Test_CreateCommunityInterestMutation = /* GraphQL */ `
+  mutation Test_CreateCommunityInterest(
+    $communityInterest: CreateCommunityInterestInput!
+  ) {
+    createCommunityInterest(communityInterest: $communityInterest) {
+      id
+      __typename
+    }
+  }
+`;
+
+export const createCommunityInterest: GraphQLRequestFunc<
+  CommunityInterest,
+  CreateCommunityInterestInput
+> = async (ctx, communityInterest) => {
+  return await ctx
+    .post(Test_CreateCommunityInterestMutation, {
+      isPrivileged: false,
+      variables: { communityInterest },
+    })
+    .then(
+      (res: GraphQLResponse<"createCommunityInterest", CommunityInterest>) =>
+        res.createCommunityInterest,
     );
 };
