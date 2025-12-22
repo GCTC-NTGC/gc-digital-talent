@@ -12,7 +12,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import invariant from "~/utils/invariant";
 
 const uuidRegEx =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-7][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  /^[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}$/;
 
 const isUUID = (str: string): boolean => {
   return !!uuidRegEx.exec(str);
