@@ -125,11 +125,11 @@ test.describe("Talent search", () => {
     user = createdUser;
   });
 
-  // test.afterEach(async () => {
-  //   if (user) {
-  //     await deleteUser(adminCtx, { id: user.id });
-  //   }
-  // });
+  test.afterEach(async () => {
+    if (user) {
+      await deleteUser(adminCtx, { id: user.id });
+    }
+  });
 
   test("Search and submit request", async ({ appPage }) => {
     talentSearch = new TalentSearch(appPage.page);
