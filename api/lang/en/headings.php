@@ -255,4 +255,12 @@ return [
     'nominators' => 'Nominators',
     'options' => 'Options',
     'process' => 'Process',
+    'community_interest' => 'Community interest',
+    'job_interest' => 'Job interest',
+    'training_interest' => 'Training interest',
+    'additional_info' => 'Additional information',
+    'cfo_status' => 'CFO status',
+    'additional_duties' => 'Additional duties',
+    'other_roles' => 'Other roles',
+    'other_sdo_position' => 'Other SDO position',
 ];

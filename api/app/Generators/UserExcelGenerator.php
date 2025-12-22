@@ -35,6 +35,7 @@ use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
+use App\Models\CommunityInterest;
 use App\Models\EducationExperience;
 use App\Models\ExperienceSkill;
 use App\Models\PersonalExperience;
@@ -191,6 +192,22 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'department_type',
     ];
 
+    protected array $communityInterestLocaleKeys = [
+        'id',
+        'first_name',
+        'last_name',
+        'community_interest',
+        'job_interest',
+        'training_interest',
+        'work_streams',
+        'additional_info',
+        // TODO: Add leadership and professional development options as their own columns
+        'cfo_status',
+        'additional_duties',
+        'other_roles',
+        'other_sdo_position',
+    ];
+
     public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);
@@ -208,9 +225,14 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $careerSheet = $this->spreadsheet->createSheet();
         $careerSheet->setTitle(Lang::get('headings.career_experience', [], $this->lang));
 
-        // Generate data for both sheets
+        // Create Community Interest sheet
+        $interestSheet = $this->spreadsheet->createSheet();
+        $interestSheet->setTitle(Lang::get('headings.community_interest', [], $this->lang));
+
+        // Generate data for all sheets
         $this->generateUsersSheet($usersSheet);
         $this->generateCareerExperienceSheet($careerSheet);
+        $this->generateCommunityInterestSheet($interestSheet);
 
         return $this;
     }
@@ -976,6 +998,51 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->department->id ?? '',
             $exp->department->size ? $this->localizeEnum($exp->department->size, DepartmentSize::class) : '',
             $exp->department->type ?? '',
+        ];
+    }
+
+    /**
+     * Generate data for Community Interest sheet
+     */
+    private function generateCommunityInterestSheet(Worksheet $sheet): void
+    {
+        $localizedHeaders = array_map(function ($key) {
+            return $this->localizeHeading($key);
+        }, $this->communityInterestLocaleKeys);
+
+        $sheet->fromArray($localizedHeaders, null, 'A1');
+
+        $userIds = $this->userIds;
+
+        if (empty($userIds)) {
+            return;
+        }
+
+        $currentRow = 2;
+
+        CommunityInterest::whereIn('user_id', $userIds)
+            ->authorizedToView(['userId' => $this->authenticatedUserId])
+            ->isVerifiedGovEmployee()
+            ->with(['user', 'community'])
+            ->chunk(200, function ($interests) use ($sheet, &$currentRow) {
+                foreach ($interests as $interest) {
+                    $rowData = $this->buildCommunityInterestRow($interest);
+                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
+                    $currentRow++;
+                }
+            });
+    }
+
+    /**
+     * Build community interest row
+     */
+    private function buildCommunityInterestRow(CommunityInterest $interest): array
+    {
+        return [
+            $interest->user->id, // user id
+            $interest->user->first_name, // first name
+            $interest->user->last_name, // last name
+            $interest->community->name[$this->lang] ?? '', // community name
         ];
     }
 
