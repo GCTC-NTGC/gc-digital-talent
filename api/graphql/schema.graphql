@@ -1420,6 +1420,7 @@ input PoolCandidateSearchInput {
   finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
   placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
   removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
+  screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")
 }
 
 input PoolCandidateSearchRequestInput {
@@ -1596,6 +1597,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
+    orderByScreeningStage: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1641,6 +1643,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
+    orderByScreeningStage: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
