@@ -127,4 +127,4 @@ export const Component = () => (
 
 Component.displayName = "AdminAnnouncementsPage";
 
-export default AnnouncementsPage;
+export default Component;

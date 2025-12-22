@@ -1,14 +1,9 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
+export function clientLoader() {
+  throw new NotFoundError();
+}
+
 export default function CatchAll() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    throw new NotFoundError();
-  }, [navigate]);
-
   return null;
 }

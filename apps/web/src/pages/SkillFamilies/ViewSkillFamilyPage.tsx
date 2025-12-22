@@ -236,4 +236,4 @@ export const Component = () => (
 
 Component.displayName = "ViewSkillFamilyPage";
 
-export default ViewSkillFamilyPage;
+export default Component;

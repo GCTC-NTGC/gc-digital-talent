@@ -315,6 +315,12 @@ export default [
             ]),
           ]),
 
+          // Admin - Community talent
+          route(
+            "community-talent",
+            "./pages/CommunityInterests/CommunityTalentPage/CommunityTalentPage.tsx",
+          ),
+
           // Admin - Pools
           ...prefix("pools", [
             index("./pages/Pools/IndexPoolPage/IndexPoolPage.tsx"),
@@ -448,6 +454,106 @@ export default [
               ]),
             ]),
           ]),
+
+          // Admin - Settings
+          ...prefix("settings", [
+            // Announcements
+            route(
+              "announcements",
+              "./pages/AnnouncementsPage/AnnouncementsPage.tsx",
+            ),
+
+            // Admin - Classifications
+            ...prefix("classifications", [
+              index("./pages/Classifications/IndexClassificationPage.tsx"),
+              route(
+                "create",
+                "./pages/Classifications/CreateClassificationPage.tsx",
+              ),
+              route(
+                ":classificationId",
+                "./pages/Classifications/ViewClassificationPage.tsx",
+              ),
+              route(
+                ":classificationId/edit",
+                "./pages/Classifications/UpdateClassificationPage.tsx",
+              ),
+            ]),
+
+            // Admin - Departments
+            ...prefix("departments", [
+              index("./pages/Departments/IndexDepartmentPage.tsx"),
+              route("create", "./pages/Departments/CreateDepartmentPage.tsx"),
+              ...prefix(":departmentId", [
+                index("./pages/Departments/ViewDepartmentPage.tsx"),
+                route("edit", "./pages/Departments/UpdateDepartmentPage.tsx"),
+                route(
+                  "advanced-tools",
+                  "./pages/Departments/AdvancedToolsDepartmentPage.tsx",
+                ),
+              ]),
+            ]),
+
+            // Admin - Job templates
+            ...prefix("job-templates", [
+              index(
+                "./pages/JobPosterTemplateAdminPages/IndexJobPosterTemplatePage/IndexJobPosterTemplatePage.tsx",
+              ),
+              route(
+                "create",
+                "./pages/JobPosterTemplateAdminPages/CreateJobPosterTemplatePage/CreateJobPosterTemplatePage.tsx",
+              ),
+              route(
+                ":jobPosterTemplateId",
+                "./pages/JobPosterTemplateAdminPages/UpdateJobPosterTemplatePage/UpdateJobPosterTemplatePage.tsx",
+              ),
+            ]),
+
+            // Admin - Skills
+            ...prefix("skills", [
+              index("./pages/Skills/IndexSkillPage.tsx"),
+              route("create", "./pages/Skills/CreateSkillPage.tsx"),
+              route(":skillId", "./pages/Skills/ViewSkillPage.tsx"),
+              route(":skillId/edit", "./pages/Skills/UpdateSkillPage.tsx"),
+            ]),
+
+            // Admin - Skill families
+            ...prefix("skill-families", [
+              index("./pages/SkillFamilies/IndexSkillFamilyPage.tsx"),
+              route(
+                "create",
+                "./pages/SkillFamilies/CreateSkillFamilyPage.tsx",
+              ),
+              route(
+                ":skillFamilyId",
+                "./pages/SkillFamilies/ViewSkillFamilyPage.tsx",
+              ),
+              route(
+                ":skillFamilyId/edit",
+                "./pages/SkillFamilies/UpdateSkillFamilyPage.tsx",
+              ),
+            ]),
+
+            // Admin - Work streams
+            ...prefix("work-streams", [
+              index("./pages/WorkStreams/IndexWorkStreamPage.tsx"),
+              route("create", "./pages/WorkStreams/CreateWorkStreamPage.tsx"),
+              route(
+                ":workStreamId",
+                "./pages/WorkStreams/ViewWorkStreamsPage.tsx",
+              ),
+              route(
+                ":workStreamId/edit",
+                "./pages/WorkStreams/UpdateWorkStreamPage.tsx",
+              ),
+            ]),
+          ]),
+
+          // Admin - WFA
+          route(
+            "wfa-employees",
+            "./pages/WorkforceAdjustment/IndexWorkforceAdjustmentPage/IndexWorkforceAdjustmentPage.tsx",
+          ),
         ]),
 
         // Catch all
