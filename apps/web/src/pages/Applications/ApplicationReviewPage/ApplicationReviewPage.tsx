@@ -627,3 +627,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ApplicationReviewPage";
+
+export default Component;

@@ -423,3 +423,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ApplicationSelfDeclarationPage";
+
+export default Component;
