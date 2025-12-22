@@ -15,6 +15,7 @@ const FIELD = {
   TELEWORK_OPTION: "teleworkOption",
   WORK_LOCATION_PREFERENCE: "workLocationPreference",
   TALENT_TABLE_ROW: "talentTableRow",
+  FLEXIBLE_WORK_LOCATION_TITLE: "flexibleWorkLocationTitle",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -43,6 +44,9 @@ class GenericTableValidationFixture extends AppPage {
         name: /Work location preferences/i,
       }),
       [FIELD.TALENT_TABLE_ROW]: page.locator("table tbody tr td"),
+      [FIELD.FLEXIBLE_WORK_LOCATION_TITLE]: page.getByRole("group", {
+        name: /Flexible work location options/i,
+      }),
     };
     this.locPrefUpdateFixture = new LocationPreferenceUpdatePage(this.page);
   }
@@ -51,7 +55,7 @@ class GenericTableValidationFixture extends AppPage {
     const flexWorkLocHeader = this.page.getByRole("columnheader", {
       name: /Flexible work location options/i,
     });
-    await expect(flexWorkLocHeader).toHaveCount(0);
+    await expect(flexWorkLocHeader).toHaveCount(0, { timeout: 5000 });
     await this.locators[FIELD.SHOW_HIDE_COLUMNS].click();
     const checkbox = this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN];
     await expect(checkbox).toBeVisible();
@@ -69,7 +73,7 @@ class GenericTableValidationFixture extends AppPage {
     await this.locators[FIELD.FILTERS].click();
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
     await expect(
-      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_COLUMN],
+      this.locators[FIELD.FLEXIBLE_WORK_LOCATION_TITLE],
     ).toBeVisible();
     await this.locPrefUpdateFixture.deSelectOptions(
       this.locPrefUpdateFixture.optionsMap,

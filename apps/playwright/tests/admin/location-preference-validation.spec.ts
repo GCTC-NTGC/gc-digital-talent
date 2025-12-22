@@ -152,6 +152,7 @@ test.describe("Location Preference Validation", () => {
     appPage,
   }) => {
     adminCtx = await graphql.newContext();
+    tableValidation = new GenericTableValidationFixture(appPage.page);
     // Creating a new Pool and submitting application for the user created in beforeAll
     const skill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
@@ -192,6 +193,9 @@ test.describe("Location Preference Validation", () => {
       .click();
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await candidatePage.goToIndex();
+    await appPage.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
+    );
     await tableValidation.setFlexibleWorkLocationColumn();
     await expect(
       page.getByRole("columnheader", {
