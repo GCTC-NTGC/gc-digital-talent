@@ -18,7 +18,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   LocalizedEnumString,
-  PoolCandidateSearchRequest,
   UpdatePoolCandidateSearchRequestInput,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -26,11 +25,12 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useReturnPath from "~/hooks/useReturnPath";
+import { PartialSearchRequest } from "~/types/searchRequest";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 
 interface UpdateSearchRequestFormProps {
-  initialSearchRequest: PoolCandidateSearchRequest;
+  initialSearchRequest: PartialSearchRequest;
   statuses: LocalizedEnumString[];
   handleUpdateSearchRequest: (
     id: string,
@@ -278,7 +278,7 @@ const UpdateSearchRequestOptions_Query = graphql(/* GraphQL */ `
 const UpdateSearchRequest = ({
   initialSearchRequest,
 }: {
-  initialSearchRequest: PoolCandidateSearchRequest;
+  initialSearchRequest: PartialSearchRequest;
 }) => {
   const [, executeMutation] = useMutation(UpdateSearchRequest_Mutation);
   const [{ data, fetching }] = useQuery({

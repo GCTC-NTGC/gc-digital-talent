@@ -1,6 +1,8 @@
 import { Pool } from "@gc-digital-talent/graphql";
 
-export function hasAllEmptyFields({ yourImpact }: Pool): boolean {
+export function hasAllEmptyFields({
+  yourImpact,
+}: Pick<Pool, "yourImpact">): boolean {
   return !!(!yourImpact?.en && !yourImpact?.fr);
 }
 

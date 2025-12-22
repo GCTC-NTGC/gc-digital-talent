@@ -4,6 +4,11 @@ import {
   LanguageAbility,
   UserPoolFilterInput,
   Classification,
+  ApplicantFilter,
+  Pool,
+  Maybe,
+  PoolCandidateFilter,
+  PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 
 export const NullSelection = "NULL_SELECTION";
@@ -35,3 +40,19 @@ export interface BrowserHistoryState {
   selectedClassifications?: Pick<Classification, "group" | "level">[];
   allPools?: boolean;
 }
+
+export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
+  pools?: Maybe<Maybe<Omit<Pool, "activities">>[]>;
+};
+
+export type PartialPoolCandidateFilter = Omit<PoolCandidateFilter, "pools"> & {
+  pools?: Maybe<Maybe<Omit<Pool, "activities">>[]>;
+};
+
+export type PartialSearchRequest = Omit<
+  PoolCandidateSearchRequest,
+  "applicantFilter" | "poolCandidateFilter"
+> & {
+  applicantFilter?: Maybe<PartialApplicantFilter>;
+  poolCandidateFilter?: Maybe<PartialPoolCandidateFilter>;
+};

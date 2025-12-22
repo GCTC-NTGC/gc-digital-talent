@@ -71,7 +71,9 @@ const ContactEmailSection = ({
     fallbackIcon: InboxIcon,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
+  const dataToFormValues = (
+    initialData: Pick<Pool, "contactEmail">,
+  ): FormValues => ({
     contactEmail: initialData.contactEmail ?? "",
   });
 

@@ -35,7 +35,7 @@ export interface ApplicationStepInfo {
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
     user: ApplicationPoolCandidateFragmentType["user"],
-    pool: Pool,
+    pool: Omit<Pool, "activities">,
     application: ApplicationPoolCandidateFragmentType,
   ) => boolean;
 }
