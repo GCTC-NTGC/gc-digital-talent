@@ -95,6 +95,12 @@ class TalentSearch extends AppPage {
     ]);
     await expect(poolCard).toBeVisible();
 
+    await expect(
+      this.page.getByRole("listitem", {
+        name: /Telework/i,
+      }),
+    ).toBeHidden();
+
     await this.locationPrefUpdate.locPrefUpdateForTalentPage(this.regionsMap, [
       WorkRegion.Atlantic,
       WorkRegion.Ontario,
