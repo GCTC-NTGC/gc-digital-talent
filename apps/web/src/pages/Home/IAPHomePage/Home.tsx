@@ -5,13 +5,7 @@ import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
 
-import {
-  Container,
-  Link,
-  Pending,
-  Image,
-  Loading,
-} from "@gc-digital-talent/ui";
+import { Container, Link, Pending, Image } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import {
   graphql,
@@ -37,7 +31,6 @@ import indigenousWoman from "~/assets/img/indigenous-woman.webp";
 import { ApplyDialog, RequirementDialog } from "~/components/IAPDialog";
 import Heading from "~/components/IAPHeading/Heading";
 import AccommodationsDialog from "~/components/IAPDialog/AccommodationsDialog";
-import { RouteErrorBoundary } from "~/components/Layout/RouteErrorBoundary/RouteErrorBoundary";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
