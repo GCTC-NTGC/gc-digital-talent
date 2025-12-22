@@ -572,7 +572,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  activities: [Activity!]
+  activities(orderBy: _ @orderBy): [Activity!]
     @morphMany(
       relation: "activities"
       type: PAGINATOR

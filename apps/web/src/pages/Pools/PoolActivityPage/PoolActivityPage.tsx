@@ -49,7 +49,11 @@ const PoolActivityPage_Query = graphql(/* GraphQL */ `
   query PoolActivityPage($id: UUID!, $page: Int, $first: Int!) {
     pool(id: $id) {
       publishedAt
-      activities(first: $first, page: $page) {
+      activities(
+        first: $first
+        page: $page
+        orderBy: [{ column: "created_at", order: DESC }]
+      ) {
         data {
           id
           createdAt
@@ -91,13 +95,7 @@ const PoolActivityPage = () => {
 
   const totalPages = getTotalPages(totalItems, pageSize);
 
-  const groups = groupByDay(
-    unpackMaybes(data?.pool?.activities.data).sort((a, b) => {
-      const aCreatedAt = a?.createdAt ? new Date(a.createdAt) : MAX_DATE;
-      const bCreatedAt = b?.createdAt ? new Date(b.createdAt) : MAX_DATE;
-      return bCreatedAt.getTime() - aCreatedAt.getTime();
-    }),
-  );
+  const groups = groupByDay(unpackMaybes(data?.pool?.activities.data));
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams);

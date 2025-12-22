@@ -1120,6 +1120,8 @@ type Pool implements HasRoleAssignments {
   contactEmail: String
   applicantsCount: Int
   activities(
+    orderBy: [OrderByClause!]
+
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 50
 
