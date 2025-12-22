@@ -141,6 +141,22 @@ export default [
           ]),
         ]),
 
+        // Talent events
+        ...prefix("communities", [
+          route(
+            "talent-events",
+            "./pages/TalentManagementEventsPage/TalentManagementEventsPage.tsx",
+          ),
+          route(
+            "talent-events/:nominationEventId/create-talent-nomination",
+            "./pages/CreateTalentNominationPage/CreateTalentNominationPage.tsx",
+          ),
+          route(
+            "talent-nominations/:id",
+            "./pages/TalentNominations/NominateTalent/NominateTalentPage.tsx",
+          ),
+        ]),
+
         // Search
         ...prefix("search", [
           index("./pages/SearchRequests/SearchPage/SearchPage.tsx"),
@@ -166,6 +182,8 @@ export default [
             "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
           ),
         ]),
+
+        // Applications
 
         // Dashboards
         route(
