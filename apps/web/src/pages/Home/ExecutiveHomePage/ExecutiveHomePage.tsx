@@ -468,3 +468,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ExecutiveHomePage";
+
+export default Component;

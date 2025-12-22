@@ -59,7 +59,7 @@ const inlineLink = (chunks: ReactNode, props: LinkProps) => (
   <Link {...props}>{chunks}</Link>
 );
 
-export const loader = () => {
+export const clientLoader = () => {
   // You can move this loader to the module if preferred
   const featureFlags = getFeatureFlags();
   if (!featureFlags.workforceAdjustment) {

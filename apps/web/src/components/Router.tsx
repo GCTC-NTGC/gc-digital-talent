@@ -30,42 +30,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
           },
           children: [
             {
-              index: true,
-              lazy: () =>
-                import("../pages/Home/HomePage/HomePage").then(convert),
-            },
-            {
-              path: "executive",
-              lazy: () =>
-                import("../pages/Home/ExecutiveHomePage/ExecutiveHomePage").then(
-                  convert,
-                ),
-            },
-            {
-              path: "manager",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/Home/ManagerHomePage/ManagerHomePage").then(
-                      convert,
-                    ),
-                },
-              ],
-            },
-            {
-              path: "community",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/CommunityDashboardPage/CommunityDashboardPage").then(
-                      convert,
-                    ),
-                },
-              ],
-            },
-            {
               path: "communities",
               children: [
                 {
@@ -108,80 +72,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               ],
             },
             {
-              path: "support",
-              lazy: () =>
-                import("../pages/SupportPage/SupportPage").then(convert),
-            },
-            {
-              path: "terms-and-conditions",
-              lazy: () =>
-                import("../pages/TermsAndConditions/TermsAndConditions").then(
-                  convert,
-                ),
-            },
-            {
-              path: "privacy-policy",
-              lazy: () =>
-                import("../pages/PrivacyPolicy/PrivacyPolicy").then(convert),
-            },
-            {
-              path: "accessibility-statement",
-              lazy: () =>
-                import("../pages/AccessibilityStatementPage/AccessibilityStatementPage").then(
-                  convert,
-                ),
-            },
-            {
-              path: "inclusivity-equity",
-              lazy: () =>
-                import("../pages/InclusivityEquityPage/InclusivityEquityPage").then(
-                  convert,
-                ),
-            },
-            {
-              path: "dnd",
-              lazy: () =>
-                import("../pages/DNDDigitalCareersPage/DNDDigitalCareersPage").then(
-                  convert,
-                ),
-            },
-            {
-              path: "workforce-adjustment",
-              loader: () => {
-                if (!featureFlags.workforceAdjustment) {
-                  throw new NotFoundError();
-                }
-              },
-              lazy: () =>
-                import("../pages/WorkforceAdjustment/WorkforceAdjustmentPage").then(
-                  convert,
-                ),
-            },
-            {
-              path: "directive-on-digital-talent",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/DirectivePage/DirectivePage").then(
-                      convert,
-                    ),
-                },
-              ],
-            },
-            {
-              path: "hr/resources",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/HumanResources/PlatformResourcesForProfessionalsPage").then(
-                      convert,
-                    ),
-                },
-              ],
-            },
-            {
               path: "search",
               children: [
                 {
@@ -211,54 +101,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                   ],
                 },
               ],
-            },
-            {
-              path: "skills",
-              lazy: () => import("../pages/Skills/SkillPage").then(convert),
-            },
-            {
-              path: "register-info",
-              lazy: () =>
-                import("../pages/Auth/SignUpPage/SignUpPage").then(convert),
-            },
-            {
-              path: "logged-out",
-              loader: ({ request }) => {
-                const url = new URL(request.url);
-                const from = url.searchParams.get("from");
-                if (
-                  from &&
-                  (urlMatchesAppHostName(from) || from.startsWith("/"))
-                ) {
-                  // eslint-disable-next-line @typescript-eslint/only-throw-error
-                  throw redirect(from);
-                }
-
-                const overridePath = sessionStorage.getItem(
-                  POST_LOGOUT_OVERRIDE_PATH_KEY,
-                );
-                if (overridePath) {
-                  sessionStorage.removeItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
-                  if (overridePath.startsWith("/")) {
-                    window.location.href = overridePath; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
-                    return null;
-                  }
-                  defaultLogger.warning(
-                    `Retrieved an unsafe uri from POST_LOGOUT_URI: ${overridePath}`,
-                  );
-                }
-
-                return null;
-              },
-              lazy: () =>
-                import("../pages/Auth/SignedOutPage/SignedOutPage").then(
-                  convert,
-                ),
-            },
-            {
-              path: "login-info",
-              lazy: () =>
-                import("../pages/Auth/SignInPage/SignInPage").then(convert),
             },
             {
               path: "registration",
@@ -682,13 +524,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                     ),
                 },
               ],
-            },
-            {
-              path: "comptrollership-executives",
-              lazy: () =>
-                import("../pages/ComptrollershipExecutivesPage/ComptrollershipExecutivesPage").then(
-                  convert,
-                ),
             },
             {
               path: "admin",

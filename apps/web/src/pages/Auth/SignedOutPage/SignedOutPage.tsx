@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
-import { ClientLoaderFunction } from "react-router";
+import { ClientLoaderFunction, redirect } from "react-router";
 
 import {
   AlertDialog,
@@ -14,6 +14,7 @@ import {
 import {
   LOGOUT_REASON_KEY,
   LogoutReason,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
   useAuthentication,
 } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -25,6 +26,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
 import useReturnPath from "~/hooks/useReturnPath";
+import { urlMatchesAppHostName } from "~/utils/utils";
 
 const supportLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }} color="black">
@@ -32,26 +34,27 @@ const supportLink = (chunks: ReactNode, path: string) => (
   </Link>
 );
 
-export const loader: ClientLoaderFunction = ({ request }) => {
+export const clientLoader: ClientLoaderFunction = ({ request }) => {
   const logger = getLogger();
   const url = new URL(request.url);
   const from = url.searchParams.get("from");
-  if (from && (from.startsWith("/") || from.includes("talent.canada.ca"))) {
-    return new Response(null, {
-      status: 302,
-      headers: { Location: from },
-    });
+  if (from && (urlMatchesAppHostName(from) || from.startsWith("/"))) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
+    throw redirect(from);
   }
-  const POST_LOGOUT_OVERRIDE_PATH_KEY = "POST_LOGOUT_OVERRIDE_PATH_KEY";
+
   const overridePath = sessionStorage.getItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
   if (overridePath) {
     sessionStorage.removeItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
     if (overridePath.startsWith("/")) {
-      window.location.href = overridePath;
+      window.location.href = overridePath; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
       return null;
     }
-    logger.warning(`Unsafe redirect URI: ${overridePath}`);
+    logger.warning(
+      `Retrieved an unsafe uri from POST_LOGOUT_URI: ${overridePath}`,
+    );
   }
+
   return null;
 };
 
