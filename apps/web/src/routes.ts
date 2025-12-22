@@ -348,6 +348,16 @@ export default [
             ]),
           ]),
 
+          // Admin - Pool candidates
+          route(
+            "pool-candidates",
+            "./pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage.tsx",
+          ),
+          route(
+            "candidates/:poolCandidateId/application",
+            "./pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage.tsx",
+          ),
+
           // Admin - Users
           ...prefix("users", [
             index("./pages/Users/IndexUserPage/IndexUserPage.tsx"),

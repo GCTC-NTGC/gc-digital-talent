@@ -33,20 +33,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
               path: "admin",
               children: [
                 {
-                  path: "pool-candidates",
-                  lazy: () =>
-                    import("../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage").then(
-                      convert,
-                    ),
-                },
-                {
-                  path: "candidates/:poolCandidateId/application",
-                  lazy: () =>
-                    import("../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage").then(
-                      convert,
-                    ),
-                },
-                {
                   path: "talent-events",
                   children: [
                     {
