@@ -315,6 +315,39 @@ export default [
             ]),
           ]),
 
+          // Admin - Pools
+          ...prefix("pools", [
+            index("./pages/Pools/IndexPoolPage/IndexPoolPage.tsx"),
+            route("create", "./pages/Pools/CreatePoolPage/CreatePoolPage.tsx"),
+            ...prefix(":poolId", [
+              route(
+                "preview",
+                "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
+                { id: "admin-job-advert-preview" },
+              ),
+              layout("./pages/Pools/PoolLayout.tsx", [
+                index("./pages/Pools/ViewPoolPage/ViewPoolPage.tsx"),
+                route("edit", "./pages/Pools/EditPoolPage/EditPoolPage.tsx"),
+                route(
+                  "pool-candidates",
+                  "./pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage.tsx",
+                ),
+                route(
+                  "manage-access",
+                  "./pages/Pools/ManageAccessPage/ManageAccessPage.tsx",
+                ),
+                route(
+                  "plan",
+                  "./pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage.tsx",
+                ),
+                route(
+                  "activity",
+                  "./pages/Pools/PoolActivityPage/PoolActivityPage.tsx",
+                ),
+              ]),
+            ]),
+          ]),
+
           // Admin - Users
           ...prefix("users", [
             index("./pages/Users/IndexUserPage/IndexUserPage.tsx"),
