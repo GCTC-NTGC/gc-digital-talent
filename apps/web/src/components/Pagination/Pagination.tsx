@@ -105,8 +105,6 @@ const Pagination = ({
     siblings,
   });
 
-  console.log({ currentPage, totalPages, siblings, paginationRange });
-
   // If there are less than 2 times in pagination range we shall not render the component
   const lessThanTwoItems = currentPage === 0 || paginationRange.length < 2;
 
