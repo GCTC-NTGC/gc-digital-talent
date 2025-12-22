@@ -7,6 +7,8 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
+  // Need the top level route
+  // it should just redirect to locale if user ever gets here
   route("/", "./pages/Root/RootLocaleRedirect.tsx"),
 
   ...prefix(":locale", [
@@ -22,6 +24,7 @@ export default [
 
     ...prefix("indigenous-it-apprentice", [
       layout("./components/Layout/IAPLayout.tsx", [
+        // NOTE: Required for the nice error boundary
         route(
           "",
           "./pages/Root/ErrorBoundaryWrapper.tsx",
