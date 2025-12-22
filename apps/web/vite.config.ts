@@ -64,7 +64,16 @@ export default defineConfig(({ command }) => ({
     chunkSizeWarningLimit: 1000,
     sourcemap: true,
     rollupOptions: {
+      // NOTE: We don't want node_module source maps so ignore warnings about them
+      onLog(level, log, handler) {
+        if (log.code === "SOURCEMAP_ERROR") return;
+        handler(level, log);
+      },
       output: {
+        sourcemapExcludeSources: true,
+        sourcemapIgnoreList: (relativeSourcePath) => {
+          return relativeSourcePath.includes("node_modules");
+        },
         manualChunks: {
           graphql: ["@gc-digital-talent/graphql"],
         },
