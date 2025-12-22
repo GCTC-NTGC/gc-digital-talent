@@ -141,6 +141,19 @@ export default [
           ]),
         ]),
 
+        // Search
+        ...prefix("search", [
+          index("./pages/SearchRequests/SearchPage/SearchPage.tsx"),
+          route(
+            "request",
+            "./pages/SearchRequests/RequestPage/RequestPage.tsx",
+          ),
+          route(
+            "request/:requestId",
+            "./pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage.tsx",
+          ),
+        ]),
+
         // Dashboards
         route(
           "community",
