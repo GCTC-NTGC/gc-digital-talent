@@ -358,6 +358,35 @@ export default [
             "./pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage.tsx",
           ),
 
+          // Admin - Talent events
+          ...prefix("talent-events", [
+            index("./pages/TalentEvents/IndexTalentEventPage.tsx"),
+            ...prefix(":eventId", [
+              layout("./pages/TalentEvents/TalentEvent/Layout.tsx", [
+                index("./pages/TalentEvents/TalentEvent/DetailsPage.tsx"),
+                route(
+                  "nominations",
+                  "./pages/TalentEvents/TalentEvent/NominationsPage.tsx",
+                ),
+              ]),
+              ...prefix("nominations/:talentNominationGroupId", [
+                layout("./pages/TalentNominations/NominationGroup/Layout.tsx", [
+                  index(
+                    "./pages/TalentNominations/NominationGroup/Details.tsx",
+                  ),
+                  route(
+                    "profile",
+                    "./pages/TalentNominations/NominationGroup/Profile.tsx",
+                  ),
+                  route(
+                    "career-experience",
+                    "./pages/TalentNominations/NominationGroup/CareerExperience.tsx",
+                  ),
+                ]),
+              ]),
+            ]),
+          ]),
+
           // Admin - Users
           ...prefix("users", [
             index("./pages/Users/IndexUserPage/IndexUserPage.tsx"),
