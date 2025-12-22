@@ -289,6 +289,32 @@ export default [
             "./pages/Auth/RolesAndPermissionsPage/RolesAndPermissionsPage.tsx",
           ),
 
+          // Admin - Communities
+          ...prefix("communities", [
+            index(
+              "./pages/Communities/IndexCommunityPage/IndexCommunityPage.tsx",
+            ),
+            route(
+              "create",
+              "./pages/Communities/CreateCommunityPage/CreateCommunityPage.tsx",
+            ),
+            ...prefix(":communityId", [
+              layout("./pages/Communities/CommunityLayout.tsx", [
+                index(
+                  "./pages/Communities/ViewCommunityPage/ViewCommunityPage.tsx",
+                ),
+                route(
+                  "edit",
+                  "./pages/Communities/UpdateCommunityPage/UpdateCommunityPage.tsx",
+                ),
+                route(
+                  "manage-access",
+                  "./pages/Communities/CommunityMembersPage/CommunityMembersPage.tsx",
+                ),
+              ]),
+            ]),
+          ]),
+
           // Admin - Users
           ...prefix("users", [
             index("./pages/Users/IndexUserPage/IndexUserPage.tsx"),

@@ -30,63 +30,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
           },
           children: [
             {
-              path: "job-templates",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/JobPosterTemplates/JobPosterTemplatesPage/JobPosterTemplatesPage").then(
-                      convert,
-                    ),
-                },
-                {
-                  path: ":templateId",
-                  lazy: () =>
-                    import("../pages/JobPosterTemplates/JobPosterTemplatePage/JobPosterTemplatePage").then(
-                      convert,
-                    ),
-                },
-              ],
-            },
-            {
-              path: "it-training-fund",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/ItTrainingFundPage/ItTrainingFundPage").then(
-                      convert,
-                    ),
-                },
-                {
-                  path: "instructor-led-training",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/InstructorLedTrainingPage/InstructorLedTrainingPage").then(
-                          convert,
-                        ),
-                    },
-                    {
-                      path: ":id",
-                      lazy: () =>
-                        import("../pages/TrainingOpportunities/TrainingOpportunityPage").then(
-                          convert,
-                        ),
-                    },
-                  ],
-                },
-                {
-                  path: "certification-exam-vouchers",
-                  lazy: () =>
-                    import("../pages/CertificationExamVouchersPage/CertificationExamVouchersPage").then(
-                      convert,
-                    ),
-                },
-              ],
-            },
-            {
               path: "admin",
               children: [
                 {
@@ -95,74 +38,6 @@ const createRoute = (locale: Locales, featureFlags: FeatureFlags) =>
                     import("../pages/AdminDashboardPage/AdminDashboardPage").then(
                       convert,
                     ),
-                },
-                {
-                  path: "roles-and-permissions",
-                  lazy: () =>
-                    import("../pages/Auth/RolesAndPermissionsPage/RolesAndPermissionsPage").then(
-                      convert,
-                    ),
-                },
-                {
-                  path: "users",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/Users/IndexUserPage/IndexUserPage").then(
-                          convert,
-                        ),
-                    },
-                    {
-                      path: ":userId",
-                      lazy: () =>
-                        import("../pages/Users/UserLayout").then(convert),
-                      children: [
-                        {
-                          index: true,
-                          lazy: () =>
-                            import("../pages/Users/AdminApplicantProfilePage/AdminApplicantProfilePage").then(
-                              convert,
-                            ),
-                        },
-                        {
-                          path: "employee-profile",
-                          lazy: () =>
-                            import("../pages/Users/UserEmployeeInformationPage/UserEmployeeInformationPage").then(
-                              convert,
-                            ),
-                        },
-                        {
-                          path: "experience",
-                          lazy: () =>
-                            import("../pages/Users/AdminCareerExperiencePage/AdminCareerExperiencePage").then(
-                              convert,
-                            ),
-                        },
-                        {
-                          path: "skills",
-                          lazy: () =>
-                            import("../pages/Users/AdminUserSkillsPage/AdminUserSkillsPage").then(
-                              convert,
-                            ),
-                        },
-                        {
-                          path: "recruitment",
-                          lazy: () =>
-                            import("../pages/Users/AdminUserRecruitmentPage/AdminUserRecruitmentPage").then(
-                              convert,
-                            ),
-                        },
-                        {
-                          path: "tools",
-                          lazy: () =>
-                            import("../pages/Users/AdminUserAdvancedToolsPage/AdminUserAdvancedToolsPage").then(
-                              convert,
-                            ),
-                        },
-                      ],
-                    },
-                  ],
                 },
                 {
                   path: "communities",
