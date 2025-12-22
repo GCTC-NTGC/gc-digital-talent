@@ -281,6 +281,47 @@ export default [
           "./pages/CommunityDashboardPage/CommunityDashboardPage.tsx",
         ),
 
+        // Admin
+        ...prefix("admin", [
+          index("./pages/AdminDashboardPage/AdminDashboardPage.tsx"),
+          route(
+            "roles-and-permissions",
+            "./pages/Auth/RolesAndPermissionsPage/RolesAndPermissionsPage.tsx",
+          ),
+
+          // Admin - Users
+          ...prefix("users", [
+            index("./pages/Users/IndexUserPage/IndexUserPage.tsx"),
+            ...prefix(":userId", [
+              layout("./pages/Users/UserLayout.tsx", [
+                index(
+                  "./pages/Users/AdminApplicantProfilePage/AdminApplicantProfilePage.tsx",
+                ),
+                route(
+                  "employee-profile",
+                  "./pages/Users/UserEmployeeInformationPage/UserEmployeeInformationPage.tsx",
+                ),
+                route(
+                  "experience",
+                  "./pages/Users/AdminCareerExperiencePage/AdminCareerExperiencePage.tsx",
+                ),
+                route(
+                  "skills",
+                  "./pages/Users/AdminUserSkillsPage/AdminUserSkillsPage.tsx",
+                ),
+                route(
+                  "recruitment",
+                  "./pages/Users/AdminUserRecruitmentPage/AdminUserRecruitmentPage.tsx",
+                ),
+                route(
+                  "tools",
+                  "./pages/Users/AdminUserAdvancedToolsPage/AdminUserAdvancedToolsPage.tsx",
+                ),
+              ]),
+            ]),
+          ]),
+        ]),
+
         // Catch all
         route("*", "./pages/NotFoundPage/NotFoundPage.tsx", {
           id: "main-not-found",

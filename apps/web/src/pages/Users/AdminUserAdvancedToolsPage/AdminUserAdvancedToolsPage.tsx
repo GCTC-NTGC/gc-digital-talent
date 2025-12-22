@@ -156,3 +156,5 @@ export const Component = () => (
 );
 
 Component.displayName = "AdminUserAdvancedToolsPage";
+
+export default Component;
