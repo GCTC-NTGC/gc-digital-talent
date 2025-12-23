@@ -36,7 +36,7 @@ const listItem = tv({
 });
 
 const heading = tv({
-  base: "m-0 mb-0.5 inline-block text-base underline group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black lg:text-base",
+  base: "m-0 inline-block text-base underline group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black lg:text-base",
   variants: {
     mode: {
       default:
@@ -162,7 +162,7 @@ const Content = ({
 }: ContentProps) => {
   return (
     <div className="relative flex items-start justify-between gap-3 xs:items-center">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-1.5">
         <Heading level={headingAs} className={heading({ mode })}>
           {title}
         </Heading>
