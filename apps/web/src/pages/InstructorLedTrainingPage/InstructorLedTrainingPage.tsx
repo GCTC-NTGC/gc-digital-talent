@@ -5,7 +5,7 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
 import { useSearchParams } from "react-router";
-import { BellAlertIcon } from "@heroicons/react/24/outline";
+import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 
 import {
   commonMessages,
