@@ -30,6 +30,7 @@ import { loginBySub } from "~/utils/auth";
 import testConfig from "~/constants/config";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
+import { getCommunities } from "~/utils/communities";
 test.describe("Talent search", () => {
   let uniqueTestId: string;
   let sub: string;
@@ -88,6 +89,10 @@ test.describe("Talent search", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
+    const communityId = await getCommunities(adminCtx, {}).then(
+      (communities) => communities[0]?.id,
+    );
+
     const classifications = await getClassifications(adminCtx, {});
     classification = classifications[0];
 
@@ -99,7 +104,7 @@ test.describe("Talent search", () => {
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
-      communityId: "10b105a7-04e6-4023-937c-36d07ee5ba59",
+      communityId: communityId,
       classificationId: classification.id,
       workStreamId: workStream.id,
       name: {

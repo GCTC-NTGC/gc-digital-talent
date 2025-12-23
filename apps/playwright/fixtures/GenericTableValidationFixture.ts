@@ -104,9 +104,6 @@ class GenericTableValidationFixture extends AppPage {
   async verifyFlexibleWorkLocationOnTalentTable(userName?: string) {
     await expect(this.locators[FIELD.TELEWORK_OPTION]).toHaveCount(0);
     const talentTableCells = this.locators[FIELD.GENERIC_TABLE_ROW];
-    // await expect(talentTableCells).toContainText(
-    //   this.locPrefUpdateFixture.optionsMap.get(FlexibleWorkLocation.Hybrid)!,
-    // );
     const rowText =
       (await talentTableCells.first().textContent())?.toLowerCase() ?? "";
 
