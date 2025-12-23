@@ -254,15 +254,17 @@ class ActivityLogTest extends TestCase
                 query PoolActivity($id: UUID!) {
                     pool(id: $id) {
                         activities {
-                            subjectType
-                            subjectId
+                            data {
+                                subjectType
+                                subjectId
+                            }
                         }
                     }
                 }
                 GRAPHQL,
                 ['id' => $expected->id]);
 
-        $rows = $res->json('data.pool.activities');
+        $rows = $res->json('data.pool.activities.data');
 
         foreach ($rows as $row) {
             // Only want pools the user is assigned to
@@ -289,15 +291,17 @@ class ActivityLogTest extends TestCase
                 query PoolActivity($id: UUID!) {
                     pool(id: $id) {
                         activities {
-                            subjectType
-                            subjectId
+                            data {
+                                subjectType
+                                subjectId
+                            }
                         }
                     }
                 }
                 GRAPHQL,
                 ['id' => $expected->id]);
 
-        $rows = $res->json('data.pool.activities');
+        $rows = $res->json('data.pool.activities.data');
 
         foreach ($rows as $row) {
             // Only want pools the user is assigned to

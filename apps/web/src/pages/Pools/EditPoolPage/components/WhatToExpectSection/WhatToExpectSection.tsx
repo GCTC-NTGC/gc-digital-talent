@@ -82,7 +82,9 @@ const WhatToExpectSection = ({
     optional: true,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
+  const dataToFormValues = (
+    initialData: Pick<Pool, "whatToExpect">,
+  ): FormValues => ({
     whatToExpectEn: initialData.whatToExpect?.en ?? "",
     whatToExpectFr: initialData.whatToExpect?.fr ?? "",
   });

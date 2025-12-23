@@ -3,7 +3,9 @@ import { isPast } from "date-fns/isPast";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Pool, PoolStatus } from "@gc-digital-talent/graphql";
 
-export function hasEmptyRequiredFields({ closingDate }: Pool): boolean {
+export function hasEmptyRequiredFields({
+  closingDate,
+}: Pick<Pool, "closingDate">): boolean {
   return !closingDate;
 }
 

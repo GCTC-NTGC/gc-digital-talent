@@ -30,7 +30,17 @@ export interface FormValues {
 }
 
 export const dataToFormValues = (
-  initialData: Omit<Pool, "community">,
+  initialData: Pick<
+    Pool,
+    | "areaOfSelection"
+    | "selectionLimitations"
+    | "classification"
+    | "department"
+    | "workStream"
+    | "name"
+    | "publishingGroup"
+    | "opportunityLength"
+  >,
 ): FormValues => ({
   areaOfSelection: initialData.areaOfSelection?.value ?? undefined,
   selectionLimitations: initialData.selectionLimitations?.map((l) => l.value),
