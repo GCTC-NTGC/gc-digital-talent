@@ -48,16 +48,6 @@ const heading = tv({
   },
 });
 
-const contentMetaDataContainer = tv({
-  base: "flex flex-col flex-nowrap items-start gap-1.5 text-sm xs:flex-row xs:flex-wrap xs:items-center",
-  variants: {
-    mode: {
-      default: "",
-      experience: "",
-    },
-  },
-});
-
 const actionBaseButton = tv({
   base: "justify-self-end after:absolute after:inset-0 after:content-['']",
   variants: {
@@ -167,7 +157,7 @@ const Content = ({
           {title}
         </Heading>
         {children && <div>{children}</div>}
-        <div className={contentMetaDataContainer({ mode: mode })}>
+        <div className="flex flex-col flex-nowrap items-start gap-1.5 text-sm xs:flex-row xs:flex-wrap xs:items-center">
           {metaData.map((data, index) => {
             const { key, ...rest } = data;
             return (
