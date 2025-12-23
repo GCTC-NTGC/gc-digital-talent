@@ -313,6 +313,9 @@ export const Component = () => {
     data?.trainingOpportunitiesPaginated.data,
   );
 
+  const shouldShowTemporaryCourseNotice =
+    Date.now() < new Date("2026-04-01").valueOf();
+
   return (
     <>
       <SEO
@@ -405,26 +408,28 @@ export const Component = () => {
         </p>
         {/* This notice can be removed after April 1st, 2026.
         https://github.com/GCTC-NTGC/gc-digital-talent/issues/15438 */}
-        <Notice.Root color="warning" className="mt-18">
-          <Notice.Title icon={BellAlertIcon}>
-            {intl.formatMessage({
-              defaultMessage:
-                "Important notice: Closing of the “Choose your own course” option for the fiscal year 2025/2026",
-              id: "JXlKez",
-              description:
-                "Title for a notice about no more choose your own course options for the year.",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            {intl.formatMessage({
-              defaultMessage:
-                "As we approach the end of the fiscal year, we are carefully managing the remaining funds available for training opportunities. Due to the volume of training requests, we are closing the “Choose your own course” offer to new applications. Remaining requests will be evaluated in the order they were received, based on available funds. The budget will reset with the new fiscal year on April 1, 2026, and we encourage you to apply at that time.",
-              id: "CLw1nT",
-              description:
-                "Body for a notice about no more choose your own course options for the year.",
-            })}
-          </Notice.Content>
-        </Notice.Root>
+        {shouldShowTemporaryCourseNotice && (
+          <Notice.Root color="warning" className="mt-18">
+            <Notice.Title icon={BellAlertIcon}>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Important notice: Closing of the “Choose your own course” option for the fiscal year 2025/2026",
+                id: "JXlKez",
+                description:
+                  "Title for a notice about no more choose your own course options for the year.",
+              })}
+            </Notice.Title>
+            <Notice.Content>
+              {intl.formatMessage({
+                defaultMessage:
+                  "As we approach the end of the fiscal year, we are carefully managing the remaining funds available for training opportunities. Due to the volume of training requests, we are closing the “Choose your own course” offer to new applications. Remaining requests will be evaluated in the order they were received, based on available funds. The budget will reset with the new fiscal year on April 1, 2026, and we encourage you to apply at that time.",
+                id: "CLw1nT",
+                description:
+                  "Body for a notice about no more choose your own course options for the year.",
+              })}
+            </Notice.Content>
+          </Notice.Root>
+        )}
         <div
           role="group"
           aria-labelledby="langFilter"
