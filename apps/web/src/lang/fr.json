@@ -1619,10 +1619,6 @@
     "defaultMessage": "La mise à jour des rôles de l'utilisateur a échoué.",
     "description": "Error message for updating user roles"
   },
-  "4PiCoE": {
-    "defaultMessage": "Il s'agit d'un moyen temporaire par lequel filtrer les candidatures selon les anciens statuts. Ce filtre s'appuie sur des données qui datent, ce qui risque de fausser les résultats affichés. Pour obtenir de meilleurs résultats, veuillez appliquer les autres filtres offerts.",
-    "description": "Warning about the status filter being a temporary solution"
-  },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
@@ -4667,6 +4663,10 @@
     "defaultMessage": "Détails de l’emploi",
     "description": "The job details of a job poster template"
   },
+  "I7qIfR": {
+    "defaultMessage": "Navigation des pages des activités du processus",
+    "description": "Label for activity pagination"
+  },
   "I7vSfX": {
     "defaultMessage": "Nous avons reçu votre mise en candidature.",
     "description": "Heading for success step of a talent nomination"
@@ -4872,7 +4872,7 @@
     "description": "Link text for editing a users technical skills to improve"
   },
   "IxngA3": {
-    "defaultMessage": "Dissimuler les détails de cette expérience",
+    "defaultMessage": "Masquer les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
   },
   "J+MAUg": {
@@ -12366,7 +12366,7 @@
     "description": "Message displayed when a user fails to updates employee profile information"
   },
   "pLef1V": {
-    "defaultMessage": "Dissimuler les détails de {experienceName}",
+    "defaultMessage": "Masquer les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
   },
   "pOazxP": {

@@ -10,7 +10,7 @@ import { makeFragmentData, Pool } from "@gc-digital-talent/graphql";
 import PoolCard, { PoolCardProps, PoolCard_Fragment } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];
-const nullPool: Pool = {
+const nullPool: Omit<Pool, "activities"> = {
   __typename: "Pool",
   id: "uuid",
 };

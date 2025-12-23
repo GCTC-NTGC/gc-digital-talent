@@ -5,7 +5,7 @@ type PartialPoolCandidate = Pick<PoolCandidate, "screeningQuestionResponses">;
 
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
-  pool: Pool | null,
+  pool: Omit<Pool, "activities"> | null,
 ): boolean {
   const poolQuestionIds =
     pool?.screeningQuestions

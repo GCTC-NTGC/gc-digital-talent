@@ -16,12 +16,7 @@ import {
   Card,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import {
-  FragmentType,
-  PoolCandidateSearchRequest,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
@@ -34,6 +29,7 @@ import pageTitles from "~/messages/pageTitles";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import Hero from "~/components/Hero";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import { PartialSearchRequest } from "~/types/searchRequest";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -41,7 +37,7 @@ import UpdateSearchRequest from "./UpdateSearchRequest";
 const ManagerInfo = ({
   searchRequest,
 }: {
-  searchRequest: PoolCandidateSearchRequest;
+  searchRequest: PartialSearchRequest;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);

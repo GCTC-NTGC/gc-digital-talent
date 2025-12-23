@@ -88,7 +88,9 @@ const WhatToExpectAdmissionSection = ({
     optional: true,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
+  const dataToFormValues = (
+    initialData: Pick<Pool, "whatToExpectAdmission">,
+  ): FormValues => ({
     whatToExpectAdmissionEn: initialData.whatToExpectAdmission?.en ?? "",
     whatToExpectAdmissionFr: initialData.whatToExpectAdmission?.fr ?? "",
   });

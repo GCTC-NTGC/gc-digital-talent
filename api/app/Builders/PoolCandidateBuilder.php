@@ -11,6 +11,7 @@ use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
+use App\Enums\ScreeningStage;
 use App\Models\Skill;
 use App\Models\User;
 use Database\Helpers\TeamHelpers as HelpersTeamHelpers;
@@ -566,6 +567,15 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
+    public function whereScreeningStageIn(?array $screeningStages): self
+    {
+        if (empty($screeningStages)) {
+            return $this;
+        }
+
+        return $this->whereIn('screening_stage', $screeningStages);
+    }
+
     /**
      * Group some default ordering to handle or acknowledge
      * Govern in one group, with a non-nullable input so this block can always be hit
@@ -673,6 +683,22 @@ class PoolCandidateBuilder extends Builder
             ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
             ->orderByRaw("departments.name->>'$locale' $order")
             ->orderBy('submitted_at', 'ASC');
+    }
+
+    public function orderByScreeningStage(?string $order): self
+    {
+        if (! $order || ! in_array($order, ['ASC', 'DESC'])) {
+            return $this;
+        }
+
+        $enumOrder = [
+            ScreeningStage::NEW_APPLICATION->name,
+            ScreeningStage::APPLICATION_REVIEW->name,
+            ScreeningStage::SCREENED_IN->name,
+            ScreeningStage::UNDER_ASSESSMENT->name,
+        ];
+
+        return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$order, $enumOrder);
     }
 
     /**
