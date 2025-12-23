@@ -288,6 +288,11 @@ class Pool extends Model
         return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
     }
 
+    public function aggregateActivities($root, array $args = [])
+    {
+        return Activity::whereIsAggregatePoolActivity($args, $root);
+    }
+
     /**
      * Attach the users to the related team creating one if there isn't already
      *

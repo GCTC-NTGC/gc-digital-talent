@@ -17,4 +17,13 @@ enum ActivityEvent: string
     case REMOVED = 'removed';
     case REINSTATED = 'reinstated';
     case REVERTED = 'reverted';
+
+    public static function coreEvents(): array
+    {
+        return [
+            ActivityEvent::CREATED->value,
+            ActivityEvent::UPDATED->value,
+            ActivityEvent::DELETED->value,
+        ];
+    }
 }

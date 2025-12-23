@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ActivityEvent;
 use Database\Helpers\TeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -34,6 +35,42 @@ class Activity extends SpatieActivity
     public function scopeWhereIsPoolActivity(Builder $query)
     {
         return $query->where('subject_type', Pool::class);
+    }
+
+    public function scopeWhereIsAggregatePoolActivity(Builder $query, array $args, Pool $pool)
+    {
+        $relationMap = [
+            AssessmentStep::class => 'assessment_steps',
+            PoolCandidate::class => 'pool_candidates',
+            PoolSkill::class => 'pool_skill',
+        ];
+
+        $poolId = $pool?->id;
+        if (! $poolId) {
+            return $query->whereRaw('0 = 1');
+        }
+
+        return $query->where(function (Builder $subQuery) use ($poolId, $relationMap) {
+            $subQuery->where(function ($poolQuery) use ($poolId) {
+                $poolQuery->where('subject_type', Pool::class)
+                    ->where('subject_id', $poolId);
+            });
+
+            foreach ($relationMap as $subjectType => $table) {
+                $subQuery->orWhere(function ($relationQuery) use ($poolId, $subjectType, $table) {
+                    $relationQuery->where('subject_type', $subjectType)
+                        ->whereIn('subject_id', function ($q) use ($poolId, $table) {
+                            $q->select('id')->from($table)->where('pool_id', $poolId);
+                        });
+
+                    // We only want custom events for pool candidates
+                    if ($subjectType === PoolCandidate::class) {
+                        $relationQuery->whereNotIn('event', ActivityEvent::coreEvents());
+                    }
+                });
+            }
+        });
+
     }
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
