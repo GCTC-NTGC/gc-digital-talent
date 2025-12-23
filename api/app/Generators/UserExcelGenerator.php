@@ -19,6 +19,8 @@ use App\Enums\ExecCoaching;
 use App\Enums\ExperienceType;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FinanceChiefDuty;
+use App\Enums\FinanceChiefRole;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
@@ -844,15 +846,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     }
 
     /**
-     * Get work streams from experience
+     * Get work streams from a model
      */
-    private function getWorkStreams($experience): string
+    private function getWorkStreams($model): string
     {
-        if (! $experience->workStreams) {
+        if (! $model->workStreams) {
             return '';
         }
 
-        return $experience->workStreams
+        return $model->workStreams
             ->map(fn ($workStream) => $workStream->name[$this->lang] ?? '')
             ->filter()
             ->join(', ');
@@ -1023,7 +1025,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         CommunityInterest::whereIn('user_id', $userIds)
             ->authorizedToView(['userId' => $this->authenticatedUserId])
             ->isVerifiedGovEmployee()
-            ->with(['user', 'community'])
+            ->with(['user', 'community', 'workStreams'])
             ->chunk(200, function ($interests) use ($sheet, &$currentRow) {
                 foreach ($interests as $interest) {
                     $rowData = $this->buildCommunityInterestRow($interest);
@@ -1038,11 +1040,22 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildCommunityInterestRow(CommunityInterest $interest): array
     {
+        $workStreams = $this->getWorkStreams($interest);
+
         return [
             $interest->user->id, // user id
             $interest->user->first_name, // first name
             $interest->user->last_name, // last name
             $interest->community->name[$this->lang] ?? '', // community name
+            $interest->job_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // job interest
+            $interest->training_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // training interest
+            $workStreams, // Work streams: workstreams linked to the community interest separated by commas
+            $interest->additional_information, // additional information
+            // Generated leadership and development columns
+            $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '', // CFO status
+            $this->localizeEnumArray($interest->finance_additional_duties ?? [], FinanceChiefDuty::class), // additional duties
+            $this->localizeEnumArray($interest->finance_other_roles ?? [], FinanceChiefRole::class), // other roles
+            $interest->finance_other_roles_other, // other SDO position
         ];
     }
 

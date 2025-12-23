@@ -25,6 +25,7 @@ return [
     'not_found' => 'Not found',
     'step' => 'Step',
     'open_to_job_offers' => 'Open to job offers',
+    'interested' => 'Interested',
     'not_interested' => 'Not interested',
     'essential_skills' => 'Essential skills',
     'nonessential_skills' => 'Asset skills',
