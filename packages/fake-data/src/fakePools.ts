@@ -29,6 +29,7 @@ import {
   WorkStream,
 } from "@gc-digital-talent/graphql";
 
+import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
 import fakeGeneralQuestions from "./fakeGeneralQuestions";
 import fakeUsers from "./fakeUsers";
@@ -161,6 +162,11 @@ const generatePool = (
             ),
           )
         : [],
+    activities: {
+      paginatorInfo: fakePaginatorInfo(0),
+      data: fakePaginateData([], fakePaginatorInfo(0)),
+    },
+    applicantsCount: faker.number.int(),
   };
 };
 

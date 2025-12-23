@@ -109,7 +109,7 @@ export function emailLinkAccessor(
   );
 }
 
-export function ownerNameAccessor(pool: Pool) {
+export function ownerNameAccessor(pool: Pick<Pool, "owner">) {
   const firstName = pool.owner?.firstName
     ? pool.owner.firstName.toLowerCase()
     : "";
@@ -119,7 +119,7 @@ export function ownerNameAccessor(pool: Pool) {
   return `${firstName} ${lastName}`;
 }
 
-export function ownerEmailAccessor(pool: Pool) {
+export function ownerEmailAccessor(pool: Pick<Pool, "owner">) {
   return pool.owner?.email ? pool.owner.email.toLowerCase() : "";
 }
 

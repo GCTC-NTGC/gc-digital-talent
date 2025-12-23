@@ -1619,10 +1619,6 @@
     "defaultMessage": "La mise à jour des rôles de l'utilisateur a échoué.",
     "description": "Error message for updating user roles"
   },
-  "4PiCoE": {
-    "defaultMessage": "Il s'agit d'un moyen temporaire par lequel filtrer les candidatures selon les anciens statuts. Ce filtre s'appuie sur des données qui datent, ce qui risque de fausser les résultats affichés. Pour obtenir de meilleurs résultats, veuillez appliquer les autres filtres offerts.",
-    "description": "Warning about the status filter being a temporary solution"
-  },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
@@ -4407,6 +4403,10 @@
     "defaultMessage": "Niveau d'études minimal",
     "description": "Title for a education details of a pool advertisement"
   },
+  "Gcxuw9": {
+    "defaultMessage": "Si vous ne trouvez pas une compétence donnée, c’est peut-être parce qu’elle n’a pas encore été ajoutée dans notre bibliothèque. Nous y inscrivons régulièrement de nouvelles compétences et vos suggestions à cet égard sont les bienvenues. <link>Écrivez-nous</link> pour nous faire part de vos suggestions.",
+    "description": "Paragraph two, describing the skills on the platform"
+  },
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
@@ -4663,6 +4663,10 @@
     "defaultMessage": "Détails de l’emploi",
     "description": "The job details of a job poster template"
   },
+  "I7qIfR": {
+    "defaultMessage": "Navigation des pages des activités du processus",
+    "description": "Label for activity pagination"
+  },
   "I7vSfX": {
     "defaultMessage": "Nous avons reçu votre mise en candidature.",
     "description": "Heading for success step of a talent nomination"
@@ -4868,7 +4872,7 @@
     "description": "Link text for editing a users technical skills to improve"
   },
   "IxngA3": {
-    "defaultMessage": "Dissimuler les détails de cette expérience",
+    "defaultMessage": "Masquer les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
   },
   "J+MAUg": {
@@ -8146,10 +8150,6 @@
     "defaultMessage": "Vous êtes sur le point d'archiver le profil de l'utilisateur suivant de la plateforme",
     "description": "Lead in text for the soft-delete user form."
   },
-  "XiRlAp": {
-    "defaultMessage": "Si vous ne trouvez pas une compétence donnée, c’est peut-être parce qu’elle n’a pas encore été ajoutée dans notre bibliothèque. Nous y inscrivons régulièrement de nouvelles compétences et vos suggestions à cet égard sont les bienvenues. <link>Écrivez-nous pour nous faire part de vos suggestions</link>.",
-    "description": "Paragraph two, describing the skills on the platform"
-  },
   "XkA6s1": {
     "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
     "description": "A _what to expect_ point on the sign up page"
@@ -8922,14 +8922,6 @@
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
     "description": "List item four, things developers consider for accessibility"
   },
-  "bCZOr9": {
-    "defaultMessage": "Classification de la personne de référence",
-    "description": "Label for the advancement referece classification"
-  },
-  "bCjOSf": {
-    "defaultMessage": "Comme les compétences sont utilisées pour associer les personnes qualifiées aux demandes des gestionnaires d’embauche, nous évitons d’ajouter dans la bibliothèque de nombreuses compétences dont les descriptions sont très semblables, car si un trop grand nombre de compétences se chevauchent, les possibilités de jumelage sont réduites.",
-    "description": "Paragraph three, describing the skills on the platform"
-  },
   "bDmp5T": {
     "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on career timeline, paragraph two"
@@ -9440,7 +9432,7 @@
   },
   "dOw5u/": {
     "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
-    "description": "Default error messsage when an employee could not be found"
+    "description": "Default error message when an employee could not be found"
   },
   "dPAsNx": {
     "defaultMessage": "Il s’agissait d'un rôle dans la force régulière ou de réserve de l’Armée canadienne, de l'Aviation royale canadienne ou de la Marine royale canadienne.",
@@ -10704,6 +10696,10 @@
   "iIT3zx": {
     "defaultMessage": "Il semble que l'adresse de courriel saisie ne soit pas une adresse de courriel valide du gouvernement du Canada. Veuillez vérifier que le courriel est correctement saisi, essayez une autre adresse de courriel professionnelle ou demandez de l'aide si vous pensez qu'il s'agit d'une erreur.",
     "description": "Description of default message when an email is not a government of Canada email"
+  },
+  "iJHGQw": {
+    "defaultMessage": "Comme les compétences sont utilisées pour associer les personnes qualifiées aux demandes des gestionnaires d’embauche, nous évitons d’ajouter dans la bibliothèque de nombreuses compétences dont les descriptions sont très semblables, car si un trop grand nombre de compétences se chevauchent, les possibilités de jumelage sont réduites.",
+    "description": "Paragraph three, describing the skills on the platform"
   },
   "iJoahz": {
     "defaultMessage": "Objectif de carrière",
@@ -12370,7 +12366,7 @@
     "description": "Message displayed when a user fails to updates employee profile information"
   },
   "pLef1V": {
-    "defaultMessage": "Dissimuler les détails de {experienceName}",
+    "defaultMessage": "Masquer les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
   },
   "pOazxP": {
@@ -12672,6 +12668,10 @@
   "qaZ6OZ": {
     "defaultMessage": "Date d'ouverture",
     "description": "Header for Opening date"
+  },
+  "qbv2v0": {
+    "defaultMessage": "Classification de la personne de référence",
+    "description": "Label for the advancement reference classification"
   },
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",

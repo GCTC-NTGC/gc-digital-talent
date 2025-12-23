@@ -86,7 +86,9 @@ const WorkTasksSection = ({
     fallbackIcon: QueueListIcon,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
+  const dataToFormValues = (
+    initialData: Pick<Pool, "keyTasks">,
+  ): FormValues => ({
     YourWorkEn: initialData.keyTasks?.en ?? "",
     YourWorkFr: initialData.keyTasks?.fr ?? "",
   });

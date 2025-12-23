@@ -198,9 +198,9 @@ const NominationDetailsReview = ({
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Reference's classification",
-                id: "bCZOr9",
+                id: "qbv2v0",
                 description:
-                  "Label for the advancement referece classification",
+                  "Label for the advancement reference classification",
               })}
             >
               {referenceClassification

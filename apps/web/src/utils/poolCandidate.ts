@@ -30,6 +30,7 @@ import {
   LocalizedFinalDecision,
   Pool,
   ScreeningStage,
+  AssessmentStepType,
   LocalizedCandidateStatus,
   CandidateStatus,
   CandidateInterest,
@@ -50,6 +51,7 @@ import {
   RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
   PLACEMENT_TYPE_STATUSES,
+  LEGACY_ASSESSMENT_STEP_TYPES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
@@ -106,6 +108,12 @@ export const isSuspendedStatus = (
   return !!(
     isSuspended && (status ? SUSPENDABLE_STATUSES.includes(status) : false)
   );
+};
+
+export const isLegacyAssessmentStepType = (
+  type?: Maybe<AssessmentStepType>,
+): boolean => {
+  return !!(type ? LEGACY_ASSESSMENT_STEP_TYPES.includes(type) : false);
 };
 
 export const isDraft = (
@@ -553,7 +561,7 @@ export const candidateStatusColorMap = new Map<
 export const candidateStatusChip = (
   status?: Maybe<LocalizedCandidateStatus>,
 ): StatusChip | null => {
-  if (!status || !status.label.localized) return null;
+  if (!status?.label.localized) return null;
 
   return {
     color: candidateStatusColorMap.get(status.value) ?? "gray",

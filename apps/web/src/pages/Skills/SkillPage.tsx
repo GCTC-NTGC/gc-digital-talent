@@ -196,8 +196,8 @@ export const Component = () => {
           {intl.formatMessage(
             {
               defaultMessage:
-                "If you can't find a skill, it's possible that it hasn't been added to our library yet. We're regularly adding new skills and welcome your input. <link>Get in touch with your suggestion</link>.",
-              id: "XiRlAp",
+                "If you can't find a skill, it may not have been added to our library yet. We're regularly adding new skills and welcome your input. <link>Get in touch with us</link> to share your suggestion.",
+              id: "Gcxuw9",
               description:
                 "Paragraph two, describing the skills on the platform",
             },
@@ -209,8 +209,8 @@ export const Component = () => {
         <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
-              "The skill library avoids adding multiple skills with very similar descriptions. This is because skills are used as a way of matching qualified candidates to requests for talent from hiring managers. If there are too many overlapping skills, it reduces the possibility of a match.",
-            id: "bCjOSf",
+              "We avoid adding multiple skills with very similar descriptions. This is because skills are used as a way of matching qualified candidates to requests for talent from hiring managers. If there are too many overlapping skills, it reduces the possibility of a match.",
+            id: "iJHGQw",
             description:
               "Paragraph three, describing the skills on the platform",
           })}
