@@ -8,7 +8,7 @@ return [
     'interview_individual' => 'Entretien individuel',
     'psc_exam' => 'examen de la CFP',
     'reference_check' => 'Vérification des références',
-    'screening_questions_at_application' => 'Questions de sélection (au moment de la candidature)',
+    'screening_questions_at_application' => 'Questions de présélection (au moment de la candidature)',
     'technical_exam_at_home' => 'Examen technique – À emporter',
     'technical_exam_at_site' => 'Examen technique – Sur place',
 ];
