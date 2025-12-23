@@ -49,7 +49,7 @@ class PoolSkill extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['*'])
+            ->logOnly(['pool_id', 'skill_id', 'skill.name', 'skill.category', 'type', 'required_skill_level'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
