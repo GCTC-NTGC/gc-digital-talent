@@ -82,18 +82,12 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     port: 3000,
-    fs: {
-      allow: ["../.."],
-    },
   },
   html: {
     cspNonce: "**CSP_NONCE**",
   },
   ssr: {
     noExternal: ["react-helmet-async"],
-  },
-  optimizeDeps: {
-    include: ["react-helmet-async"],
   },
   resolve: {
     extensions: [".ts", ".tsx", ".json", ".js"],
