@@ -18,10 +18,10 @@ import adminMessages from "~/messages/adminMessages";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 import processMessages from "~/messages/processMessages";
 
-import ActivityItem, {
-  ActivityItem_Fragment,
-  ActivityItemProps,
-} from "./ActivityItem";
+import BaseActivityItem, {
+  BaseActivityItem_Fragment,
+  BaseActivityItemProps,
+} from "./BaseActivityItem";
 import { getEventInfo, parseAttributes } from "./utils";
 
 function isPublishEvent(propsObj?: Maybe<ActivityProperties>): boolean {
@@ -95,8 +95,8 @@ const keyMap = new Map<string, MessageDescriptor>([
   ["contact_email", commonMessages.email],
 ]);
 
-interface PoolActivityItemProps extends Omit<
-  ActivityItemProps,
+export interface PoolActivityItemProps extends Omit<
+  BaseActivityItemProps,
   "info" | "properties"
 > {
   publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
@@ -107,7 +107,7 @@ const PoolActivityItem = ({
   query,
   ...rest
 }: PoolActivityItemProps) => {
-  const item = getFragment(ActivityItem_Fragment, query);
+  const item = getFragment(BaseActivityItem_Fragment, query);
   const isAfterPublish = updatedAfterPublish(item.createdAt, publishedAt);
   let info = getEventInfo(item.event);
 
@@ -132,7 +132,7 @@ const PoolActivityItem = ({
     };
   }
 
-  return <ActivityItem info={info} query={query} keyMap={keyMap} {...rest} />;
+  return <BaseActivityItem info={info} query={query} keyMap={keyMap} {...rest} />;
 };
 
 export default PoolActivityItem;

@@ -135,11 +135,10 @@ const PoolActivityPage = () => {
                 key={group.day}
                 heading={formatActivityDayGroup(group.day, intl)}
               >
-                {group.activities.map((item, index) => (
-                  <ActivityLog.PoolItem
+                {group.activities.map((item) => (
+                  <ActivityLog.Item
                     key={item.id}
                     query={item}
-                    border={index > 0}
                     publishedAt={data?.pool?.publishedAt}
                   />
                 ))}

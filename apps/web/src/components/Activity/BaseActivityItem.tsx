@@ -15,17 +15,11 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { ActivityEventInfo, icon, normalizePropKeys } from "./utils";
 
 const activityItem = tv({
-  base: "flex flex-col justify-between gap-6 py-6 sm:flex-row",
-  variants: {
-    border: {
-      true: "border-t-2 border-gray-200 dark:border-gray-500",
-      false: "",
-    },
-  },
+  base: "flex flex-col justify-between gap-6 py-6 sm:flex-row not-first:border-t-2 border-gray-200 dark:border-gray-500",
 });
 
-export const ActivityItem_Fragment = graphql(/** GraphQL */ `
-  fragment ActivityItem on Activity {
+export const BaseActivityItem_Fragment = graphql(/** GraphQL */ `
+  fragment BaseActivityItem on Activity {
     id
     causer {
       id
@@ -41,24 +35,22 @@ export const ActivityItem_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-export interface ActivityItemProps {
-  query: FragmentType<typeof ActivityItem_Fragment>;
+export interface BaseActivityItemProps {
+  query: FragmentType<typeof BaseActivityItem_Fragment>;
   className?: string;
-  border?: boolean;
   keyMap?: Map<string, MessageDescriptor>;
   info: ActivityEventInfo;
 }
 
-const ActivityItem = ({
+const BaseActivityItem = ({
   query,
   className,
-  border,
   info,
   keyMap,
-}: ActivityItemProps) => {
+}: BaseActivityItemProps) => {
   const intl = useIntl();
   const logger = getLogger();
-  const item = getFragment(ActivityItem_Fragment, query);
+  const item = getFragment(BaseActivityItem_Fragment, query);
   const properties = normalizePropKeys(intl, item.properties, keyMap, logger);
 
   if (!info) {
@@ -68,7 +60,7 @@ const ActivityItem = ({
   const Icon = info.icon;
 
   return (
-    <li className={activityItem({ class: className, border })}>
+    <li className={activityItem({ class: className })}>
       <div className="flex items-start gap-3">
         <div className={icon({ color: info.color })}>
           <Icon className="size-full" />
@@ -88,14 +80,14 @@ const ActivityItem = ({
       <div className="shrink-0 pl-8.5 text-gray-600 sm:pl-0 dark:text-gray-200">
         {item.createdAt
           ? formatDate({
-              date: parseDateTimeUtc(item.createdAt),
-              formatString: TIME_FORMAT_LOCALIZED,
-              intl,
-            })
+            date: parseDateTimeUtc(item.createdAt),
+            formatString: TIME_FORMAT_LOCALIZED,
+            intl,
+          })
           : intl.formatMessage(commonMessages.notAvailable)}
       </div>
     </li>
   );
 };
 
-export default ActivityItem;
+export default BaseActivityItem;
