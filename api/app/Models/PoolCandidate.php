@@ -1012,6 +1012,8 @@ class PoolCandidate extends Model
             $properties['old'] = $old;
         }
 
+        $properties['attributes']['user_name'] = $this->user->fullName;
+
         activity()
             ->causedBy(Auth::user())
             ->performedOn($this)
