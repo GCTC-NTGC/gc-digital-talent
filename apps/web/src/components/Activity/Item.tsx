@@ -2,14 +2,17 @@ import { JSX } from "react";
 
 import { Activity, FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import PoolActivityItem, { PoolActivityItemProps } from "./PoolActivityItem";
-import PoolSkillItem, { PoolSkillItemProps } from "./PoolSkillItem";
+import PoolActivityItem, { PoolActivityItemProps } from "./Items/PoolActivityItem";
+import PoolCandidateActivityItem from "./Items/PoolCandidateActivityItem";
+import PoolSkillActivityItem from "./Items/PoolSkillActivityItem";
+import { CommonItemProps } from "./Items/BaseActivityItem";
 
-type SubComponentProps = PoolActivityItemProps | PoolSkillItemProps;
+type SubComponentProps = Omit<PoolActivityItemProps, "query"> & CommonItemProps;
 
 const itemMap = new Map<Activity["subjectType"], (props: SubComponentProps) => JSX.Element | null>([
   ["App\\Models\\Pool", PoolActivityItem],
-  ["App\\Models\\PoolSkill", PoolSkillItem],
+  ["App\\Models\\PoolCandidate", PoolCandidateActivityItem],
+  ["App\\Models\\PoolSkill", PoolSkillActivityItem],
 ]);
 
 const ActivityItem_Fragment = graphql(/** GraphQL */`
@@ -19,15 +22,16 @@ const ActivityItem_Fragment = graphql(/** GraphQL */`
   }
 `);
 
-interface ItemProps extends Omit<SubComponentProps, "query"> {
+interface ItemProps {
   query: FragmentType<typeof ActivityItem_Fragment>;
+  itemProps?: SubComponentProps;
 }
 
-const Item = ({ query, ...rest }: ItemProps) => {
+const Item = ({ query, itemProps }: ItemProps) => {
   const item = getFragment(ActivityItem_Fragment, query);
   const El = itemMap.get(item.subjectType);
 
-  return El ? <El query={item} {...rest} /> : null;
+  return El ? <El query={item} {...itemProps} /> : null;
 
 }
 

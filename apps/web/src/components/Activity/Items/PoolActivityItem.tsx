@@ -18,9 +18,9 @@ import adminMessages from "~/messages/adminMessages";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 import processMessages from "~/messages/processMessages";
 
-import BaseActivityItem, {
-  BaseActivityItem_Fragment,
-  BaseActivityItemProps,
+import BaseItem, {
+  BaseItem_Fragment,
+  CommonItemProps,
 } from "./BaseActivityItem";
 import { getEventInfo, parseAttributes } from "./utils";
 
@@ -95,10 +95,7 @@ const keyMap = new Map<string, MessageDescriptor>([
   ["contact_email", commonMessages.email],
 ]);
 
-export interface PoolActivityItemProps extends Omit<
-  BaseActivityItemProps,
-  "info" | "properties"
-> {
+export interface PoolActivityItemProps extends CommonItemProps {
   publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
 }
 
@@ -107,15 +104,15 @@ const PoolActivityItem = ({
   query,
   ...rest
 }: PoolActivityItemProps) => {
-  const item = getFragment(BaseActivityItem_Fragment, query);
-  const isAfterPublish = updatedAfterPublish(item.createdAt, publishedAt);
-  let info = getEventInfo(item.event);
+  const item = getFragment(BaseItem_Fragment, query);
+  const isAfterPublish = updatedAfterPublish(item?.createdAt, publishedAt);
+  let info = getEventInfo(item?.event);
 
   if (!info) {
     return null;
   }
 
-  if (isPublishEvent(item.properties)) {
+  if (isPublishEvent(item?.properties)) {
     info = {
       ...info,
       icon: DocumentArrowUpIcon,
@@ -123,7 +120,7 @@ const PoolActivityItem = ({
     };
   }
 
-  if (item.event === ActivityEvent.Updated && isAfterPublish) {
+  if (item?.event === ActivityEvent.Updated && isAfterPublish) {
     info = {
       ...info,
       message: activityMessages.updated,
@@ -132,7 +129,7 @@ const PoolActivityItem = ({
     };
   }
 
-  return <BaseActivityItem info={info} query={query} keyMap={keyMap} {...rest} />;
+  return <BaseItem info={info} query={query} keyMap={keyMap} {...rest} />;
 };
 
 export default PoolActivityItem;

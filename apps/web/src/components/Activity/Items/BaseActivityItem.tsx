@@ -1,5 +1,6 @@
 import { MessageDescriptor, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
+import { ReactNode } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -18,7 +19,7 @@ const activityItem = tv({
   base: "flex flex-col justify-between gap-6 py-6 sm:flex-row not-first:border-t-2 border-gray-200 dark:border-gray-500",
 });
 
-export const BaseActivityItem_Fragment = graphql(/** GraphQL */ `
+export const BaseItem_Fragment = graphql(/** GraphQL */ `
   fragment BaseActivityItem on Activity {
     id
     causer {
@@ -35,29 +36,41 @@ export const BaseActivityItem_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-export interface BaseActivityItemProps {
-  query: FragmentType<typeof BaseActivityItem_Fragment>;
+export interface CommonItemProps {
+  query?: FragmentType<typeof BaseItem_Fragment>;
   className?: string;
   keyMap?: Map<string, MessageDescriptor>;
-  info: ActivityEventInfo;
 }
 
-const BaseActivityItem = ({
+interface BaseItemProps extends CommonItemProps {
+  info: ActivityEventInfo;
+  // Pass in custom description
+  // If nothing passed, it will use the properties
+  description?: ReactNode;
+}
+
+
+const BaseItem = ({
   query,
   className,
   info,
   keyMap,
-}: BaseActivityItemProps) => {
+  description,
+}: BaseItemProps) => {
   const intl = useIntl();
   const logger = getLogger();
-  const item = getFragment(BaseActivityItem_Fragment, query);
-  const properties = normalizePropKeys(intl, item.properties, keyMap, logger);
+  const item = getFragment(BaseItem_Fragment, query);
+  const properties = normalizePropKeys(intl, item?.properties, keyMap, logger);
 
   if (!info) {
     return null;
   }
 
   const Icon = info.icon;
+  let desc = description;
+  if (!desc) {
+    desc = properties.length > 0 ? properties.join(", ") : intl.formatMessage(commonMessages.notAvailable);
+  }
 
   return (
     <li className={activityItem({ class: className })}>
@@ -68,17 +81,17 @@ const BaseActivityItem = ({
         <span>
           {intl.formatMessage(info.message, {
             name: getFullNameLabel(
-              item.causer?.firstName,
-              item.causer?.lastName,
+              item?.causer?.firstName,
+              item?.causer?.lastName,
               intl,
             ),
           })}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {properties.join(", ")}
+          {desc}
         </span>
       </div>
       <div className="shrink-0 pl-8.5 text-gray-600 sm:pl-0 dark:text-gray-200">
-        {item.createdAt
+        {item?.createdAt
           ? formatDate({
             date: parseDateTimeUtc(item.createdAt),
             formatString: TIME_FORMAT_LOCALIZED,
@@ -90,4 +103,4 @@ const BaseActivityItem = ({
   );
 };
 
-export default BaseActivityItem;
+export default BaseItem;

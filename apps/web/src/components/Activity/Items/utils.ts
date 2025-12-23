@@ -2,6 +2,10 @@ import { IntlShape, MessageDescriptor } from "react-intl";
 import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/16/solid/ClipboardDocumentCheckIcon";
+import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
+import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
+import BriefcaseIcon from "@heroicons/react/16/solid/BriefcaseIcon";
 import { tv, VariantProps } from "tailwind-variants";
 import { isValid } from "date-fns/isValid";
 import { format } from "date-fns/format";
@@ -28,6 +32,7 @@ export const icon = tv({
   variants: {
     color: {
       primary: "bg-primary-500",
+      secondary: "bg-secondary-500",
       success: "bg-success-500",
       warning: "bg-warning-500",
     },
@@ -68,6 +73,62 @@ const eventInfoMap = new Map<ActivityEvent, ActivityEventInfo>([
       message: activityMessages.deleted,
       icon: TrashIcon,
       color: "primary",
+    },
+  ],
+  [
+    ActivityEvent.Submitted,
+    {
+      message: activityMessages.submitted,
+      icon: ClipboardDocumentCheckIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Qualified,
+    {
+      message: activityMessages.qualified,
+      icon: UserPlusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Disqualified,
+    {
+      message: activityMessages.disqualified,
+      icon: UserMinusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Placed,
+    {
+      message: activityMessages.placed,
+      icon: BriefcaseIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Removed,
+    {
+      message: activityMessages.removed,
+      icon: UserMinusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Reinstated,
+    {
+      message: activityMessages.reinstated,
+      icon: UserPlusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Reverted,
+    {
+      message: activityMessages.reverted,
+      icon: ArrowPathIcon,
+      color: "secondary",
     },
   ],
 ]);

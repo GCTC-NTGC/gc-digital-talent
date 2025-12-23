@@ -1,13 +1,10 @@
 import { useIntl } from "react-intl";
-import { ComponentType, ReactElement, ReactNode, useId } from "react";
+import { ReactNode, useId } from "react";
 import { tv } from "tailwind-variants";
 
 import { Card, Heading, HeadingRank, Notice } from "@gc-digital-talent/ui";
-import { Activity, FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import ActivityItem, { BaseActivityItemProps } from "./BaseItem";
-import PoolActivityItem from "./PoolActivityItem";
-import BaseActivityItem from "./BaseItem";
+
 import Item from "./Item";
 
 const Empty = () => {
