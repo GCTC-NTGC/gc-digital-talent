@@ -49,10 +49,10 @@ const heading = tv({
 });
 
 const contentMetaDataContainer = tv({
-  base: "flex flex-col flex-nowrap items-start gap-y-3 text-sm xs:flex-row xs:flex-wrap xs:items-center",
+  base: "flex flex-col flex-nowrap items-start gap-1.5 text-sm xs:flex-row xs:flex-wrap xs:items-center",
   variants: {
     mode: {
-      default: "mt-4.5",
+      default: "",
       experience: "",
     },
   },
@@ -174,7 +174,7 @@ const Content = ({
               <Fragment key={data.key}>
                 {index > 0 && (
                   <span
-                    className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
+                    className="hidden text-gray-300 xs:inline-block dark:text-gray-200"
                     aria-hidden
                   >
                     {UNICODE_CHAR.BULLET}
