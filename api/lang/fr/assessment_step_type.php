@@ -2,7 +2,7 @@
 
 return [
     'additional_assessment' => 'Évaluation supplémentaire',
-    'application_screening' => 'Sélection des candidatures',
+    'application_screening' => 'Présélection des candidatures',
     'interview_followup' => 'Entretien de suivi',
     'interview_group' => 'Entretien de groupe',
     'interview_individual' => 'Entretien individuel',
