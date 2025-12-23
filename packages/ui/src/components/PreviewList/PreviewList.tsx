@@ -19,8 +19,9 @@ const listItem = tv({
     mode: {
       default:
         "pt-6 not-last:border-b not-last:border-b-gray-100 first:border-t first:border-t-gray-100",
-      // dot radius is 1.25 so ml-2.75 = 1.5 + 1.25 and pl-4.25 = 3 + 1.25
-      experience: "relative ml-2.75 pl-4.25",
+      // dot radius is 1.2 so ml-2.7 = 1.5 + 1.2 and pl-4.2 = 3 + 1.2
+      experience:
+        "relative ml-[calc(var(--spacing)*2.7)] pl-[calc(var(--spacing)*4.2)]",
     },
     placement: {
       // transparent from 0 to space-3, primary from space-3 to 100%
@@ -214,13 +215,14 @@ const TimelineWrapper = ({
   const placement = deriveTimelinePlacement(index, groupLength) ?? "single";
   return (
     <li className={listItem({ mode: "experience", placement: placement })}>
-      <svg className="absolute top-1.75 -left-1.25 h-2.5 w-2.5">
+      {/* top 1.7 = 0.5 + 1.2 */}
+      <svg className="absolute top-[calc(var(--spacing)*1.7)] -left-[calc(var(--spacing)*1.2)]">
         <circle
           className="fill-primary-600 dark:fill-primary-200"
           style={{
-            cx: "calc(var(--spacing)*1.25)",
-            cy: "calc(var(--spacing)*1.25)",
-            r: "calc(var(--spacing)*1.25)",
+            cx: "calc(var(--spacing)*1.2)",
+            cy: "calc(var(--spacing)*1.2)",
+            r: "calc(var(--spacing)*1.2)",
           }}
         />
       </svg>
