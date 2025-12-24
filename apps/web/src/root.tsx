@@ -25,9 +25,9 @@ declare global {
   }
 }
 
-const DEFAULT_TITLE =
+const DEFAULT_TITLE: string =
   APP_TITLE ?? "GC Digital Talent | Talents numériques du GC";
-const DEFAULT_DESCRIPTION =
+const DEFAULT_DESCRIPTION: string =
   APP_DESCRIPTION ??
   "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.";
 const APP_URL = "https://talent.canada.ca";
