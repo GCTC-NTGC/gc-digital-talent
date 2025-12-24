@@ -24,20 +24,15 @@ export const getRuntimeConfig = () => {
   return runtimeConfig;
 };
 
-function filterUnusable(value: string | undefined): string | undefined {
-  return value && !value.startsWith("$") && value.length > 0
-    ? value
-    : undefined;
-}
 
-export const serverConfig = new Map<RuntimeVarKey, string>(
-  RUNTIME_VARS.map((key) => {
-    const runtimeValue = `$${key}`;
-    const rawValue =
-      typeof __RUNTIME_VARS__ !== "undefined" ? __RUNTIME_VARS__[key] : "";
+export const makeServerConfigJS = () => {
+  return `[
+    ${RUNTIME_VARS.map((key) => {
+    const rawValue = typeof __RUNTIME_VARS__ !== "undefined" ? __RUNTIME_VARS__[key] : "";
     const safeValue = typeof rawValue === "string" ? rawValue : "";
 
-    const value = filterUnusable(runtimeValue) ?? safeValue ?? "";
-    return [key, value] as const;
-  }),
-);
+    return `["${key}", filterUnusable("$${key}") ?? "${safeValue}"]`;
+
+  }).join(",\n    ")}
+  ]`
+};

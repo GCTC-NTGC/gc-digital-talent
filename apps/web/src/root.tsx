@@ -17,7 +17,7 @@ import messages from "~/lang/frCompiled.json";
 import "~/assets/css/tailwind.css";
 
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
-import { serverConfig } from "./utils/runtime";
+import { makeServerConfigJS } from "./utils/runtime";
 
 declare global {
   interface Window {
@@ -157,15 +157,15 @@ export function Layout({ children }: LayoutProps) {
           nonce="**CSP_NONCE**"
           dangerouslySetInnerHTML={{
             __html: `
+              const filterUnusable = (value) => !value.startsWith("$") && value.length > 0 ? value : undefined;
               if (!window.__SERVER_CONFIG__) {
                 window.__SERVER_CONFIG__ = new Map(
-                  ${JSON.stringify(Array.from(serverConfig.entries()))}
+                  ${makeServerConfigJS()}
                 );
               }
             `,
           }}
         />
-
         <noscript>
           It looks like JavaScript is disabled in your browser settings or
           unsupported by the browser itself. JavaScript is required to view this
