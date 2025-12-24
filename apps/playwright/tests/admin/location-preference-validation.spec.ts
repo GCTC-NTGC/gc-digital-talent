@@ -35,6 +35,7 @@ import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
 import { defaultWorkExperience } from "~/utils/experiences";
 import { createCommunityInterest } from "~/utils/communities";
+import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 
 test.describe("Location Preference Validation", () => {
   let adminCtx: GraphQLContext;
@@ -46,6 +47,7 @@ test.describe("Location Preference Validation", () => {
   let application: PoolCandidate;
   let id: string;
   let testId: string;
+  let tableValidation: GenericTableValidationFixture;
 
   test.beforeEach(async () => {
     testId = generateUniqueTestId();
@@ -108,6 +110,7 @@ test.describe("Location Preference Validation", () => {
 
   test("Location preference update in Users table", async ({ appPage }) => {
     locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
+    tableValidation = new GenericTableValidationFixture(appPage.page);
     const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
     userPage = new UserPage(appPage.page);
@@ -117,14 +120,14 @@ test.describe("Location Preference Validation", () => {
       .click();
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await userPage.goToIndex();
-    await locationPrefPage.setFlexibleWorkLocationColumn();
-    await locationPrefPage.filterFlexWorkLocation(
+    await tableValidation.setFlexibleWorkLocationColumn();
+    await tableValidation.filterFlexWorkLocation(
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
       [WorkRegion.Atlantic],
     );
     await appPage.waitForGraphqlResponse("UsersPaginated");
     // await userPage.searchUserByName(userName, "Candidate name");
-    await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
+    await tableValidation.verifyFlexibleWorkLocationOptionPresent();
     await expect(
       appPage.page.getByRole("link", {
         name: new RegExp(`${userName} User`, "i"),
@@ -133,7 +136,7 @@ test.describe("Location Preference Validation", () => {
 
     // Filter the work location to which user hasn't selected and verify user should not be present
     await userPage.searchUserByName(userName, "Candidate name");
-    await locationPrefPage.filterFlexWorkLocation(
+    await tableValidation.filterFlexWorkLocation(
       [FlexibleWorkLocation.Remote],
       [WorkRegion.Ontario],
     );
@@ -149,6 +152,7 @@ test.describe("Location Preference Validation", () => {
     appPage,
   }) => {
     adminCtx = await graphql.newContext();
+    tableValidation = new GenericTableValidationFixture(appPage.page);
     // Creating a new Pool and submitting application for the user created in beforeAll
     const skill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
@@ -189,9 +193,17 @@ test.describe("Location Preference Validation", () => {
       .click();
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
     await candidatePage.goToIndex();
-    await locationPrefPage.setFlexibleWorkLocationColumn();
+    await appPage.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
+    );
+    await tableValidation.setFlexibleWorkLocationColumn();
+    await expect(
+      page.getByRole("columnheader", {
+        name: /Flexible work location options/i,
+      }),
+    ).toHaveAccessibleName(/Flexible work location options/i);
     // Filter the work locations which user has chosen and verify user is present
-    await locationPrefPage.filterFlexWorkLocation(
+    await tableValidation.filterFlexWorkLocation(
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
       [WorkRegion.Atlantic],
     );
@@ -199,7 +211,7 @@ test.describe("Location Preference Validation", () => {
       "CandidatesTableCandidatesPaginated_Query",
     );
     // await userPage.searchUserByName(userName, "Candidate name");
-    await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
+    await tableValidation.verifyFlexibleWorkLocationOptionPresent();
     await expect(
       appPage.page.getByRole("link", {
         name: new RegExp(`${userName} User`, "i"),
@@ -285,7 +297,7 @@ test.describe("Location Preference update for Community Talent", () => {
     appPage,
   }) => {
     const page = appPage.page;
-    const locationPrefPage = new LocationPreferenceUpdatePage(page);
+    const tableValidation = new GenericTableValidationFixture(page);
     const userPage = new UserPage(appPage.page);
     await loginBySub(page, testConfig.signInSubs.recruiterSignIn, false);
     await page.goto("/en/admin/community-talent");
@@ -296,13 +308,13 @@ test.describe("Location Preference update for Community Talent", () => {
       }),
     ).toBeVisible();
     await appPage.waitForGraphqlResponse("CommunityTalentTable");
-    await locationPrefPage.setFlexibleWorkLocationColumn();
+    await tableValidation.setFlexibleWorkLocationColumn();
     // Filter the work locations which user has chosen and verify user is present
-    await locationPrefPage.filterFlexWorkLocation(
+    await tableValidation.filterFlexWorkLocation(
       [FlexibleWorkLocation.Hybrid, FlexibleWorkLocation.Onsite],
       [WorkRegion.NationalCapital],
     );
     await userPage.searchUserByName(govUser.firstName ?? "", "Entire table");
-    await locationPrefPage.verifyFlexibleWorkLocationOptionPresent();
+    await tableValidation.verifyFlexibleWorkLocationOptionPresent();
   });
 });
