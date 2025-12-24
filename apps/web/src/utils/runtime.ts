@@ -24,15 +24,14 @@ export const getRuntimeConfig = () => {
   return runtimeConfig;
 };
 
-
 export const makeServerConfigJS = () => {
   return `[
     ${RUNTIME_VARS.map((key) => {
-    const rawValue = typeof __RUNTIME_VARS__ !== "undefined" ? __RUNTIME_VARS__[key] : "";
-    const safeValue = typeof rawValue === "string" ? rawValue : "";
+      const rawValue =
+        typeof __RUNTIME_VARS__ !== "undefined" ? __RUNTIME_VARS__[key] : "";
+      const safeValue = typeof rawValue === "string" ? rawValue : "";
 
-    return `["${key}", filterUnusable("$${key}") ?? "${safeValue}"]`;
-
-  }).join(",\n    ")}
-  ]`
+      return `["${key}", filterUnusable("$${key}") ?? "${safeValue}"]`;
+    }).join(",\n    ")}
+  ]`;
 };
