@@ -51,86 +51,64 @@ const MainNavMenu = () => {
     <Menu
       accountLinks={
         accountLinks && (
-          <>
-            <NavMenu.Item>
-              <NavMenu.Trigger
-                color={isSmallScreen ? "black" : "white"}
-                fixedColor={!isSmallScreen}
-                block={false}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Your account",
-                  id: "CBedVL",
-                  description: "Nav menu trigger for account links sub menu",
-                })}
-              </NavMenu.Trigger>
-              <NavMenu.Content>
-                <NavMenu.List>{accountLinks}</NavMenu.List>
-              </NavMenu.Content>
-            </NavMenu.Item>
-          </>
-        )
-      }
-    >
-      <NavMenu.List type="main">
-        <HomeLink
-          href={paths.home()}
-          label={intl.formatMessage(navigationMessages.home)}
-        />
-        {showRoleSwitcher ? (
-          <>
-            <NavMenu.Item className={borderItem({ borderRight: true })}>
-              <NavMenu.Trigger
-                color={isSmallScreen ? "black" : "white"}
-                fixedColor={!isSmallScreen}
-                block={false}
-              >
-                {roleNames[navRole]}
-              </NavMenu.Trigger>
-              <NavMenu.Content>
-                <NavMenu.List>
-                  {roleLinks.map((roleLink) => (
-                    <NavMenu.Item key={roleLink.name}>
-                      <NavMenu.Link
-                        title={roleLink.name}
-                        href={roleLink.href}
-                        type="subMenuLink"
-                      >
-                        {roleLink.name}
-                      </NavMenu.Link>
-                    </NavMenu.Item>
-                  ))}
-                </NavMenu.List>
-              </NavMenu.Content>
-            </NavMenu.Item>
-          </>
-        ) : null}
-      </NavMenu.List>
-
-      {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
-
-      <NavMenu.List type="main">
-        {mainLinks}
-        {systemSettings && (
-          <NavMenu.Item>
+          <NavMenu.Item className="ml-auto">
             <NavMenu.Trigger
               color={isSmallScreen ? "black" : "white"}
               fixedColor={!isSmallScreen}
               block={false}
             >
               {intl.formatMessage({
-                defaultMessage: "System settings",
-                id: "COIe6t",
-                description:
-                  "Nav menu trigger for system settings links sub menu",
+                defaultMessage: "Your account",
+                id: "CBedVL",
+                description: "Nav menu trigger for account links sub menu",
               })}
             </NavMenu.Trigger>
             <NavMenu.Content>
-              <NavMenu.List>{systemSettings}</NavMenu.List>
+              <NavMenu.List>{accountLinks}</NavMenu.List>
             </NavMenu.Content>
           </NavMenu.Item>
-        )}
+        )
+      }
+    >
+      <HomeLink
+        href={paths.home()}
+        label={intl.formatMessage(navigationMessages.home)}
+      />
+      {showRoleSwitcher ? (
+        <NavMenu.Item
+          className={borderItem({
+            borderRight: true,
+          })}
+        >
+          <NavMenu.Trigger
+            color={isSmallScreen ? "black" : "white"}
+            fixedColor={!isSmallScreen}
+            block={false}
+          >
+            {roleNames[navRole]}
+          </NavMenu.Trigger>
+          <NavMenu.Content>
+            <NavMenu.List>
+              {roleLinks.map((roleLink) => (
+                <NavMenu.Item key={roleLink.name}>
+                  <NavMenu.Link
+                    title={roleLink.name}
+                    href={roleLink.href}
+                    type="subMenuLink"
+                  >
+                    {roleLink.name}
+                  </NavMenu.Link>
+                </NavMenu.Item>
+              ))}
+            </NavMenu.List>
+          </NavMenu.Content>
+        </NavMenu.Item>
+      ) : null}
 
+      {showRoleSwitcher && <MenuSeparator orientation="horizontal" />}
+
+      {mainLinks}
+      {systemSettings && (
         <NavMenu.Item>
           <NavMenu.Trigger
             color={isSmallScreen ? "black" : "white"}
@@ -138,16 +116,34 @@ const MainNavMenu = () => {
             block={false}
           >
             {intl.formatMessage({
-              defaultMessage: "Resources",
-              id: "T74kMc",
-              description: "Nav menu trigger for resource links sub menu",
+              defaultMessage: "System settings",
+              id: "COIe6t",
+              description:
+                "Nav menu trigger for system settings links sub menu",
             })}
           </NavMenu.Trigger>
           <NavMenu.Content>
-            <NavMenu.List>{resourceLinks}</NavMenu.List>
+            <NavMenu.List>{systemSettings}</NavMenu.List>
           </NavMenu.Content>
         </NavMenu.Item>
-      </NavMenu.List>
+      )}
+
+      <NavMenu.Item className="mt-0 border-b-[1px] border-black/20 pb-3 sm:border-b-[0px] sm:pb-0 dark:border-white/20">
+        <NavMenu.Trigger
+          color={isSmallScreen ? "black" : "white"}
+          fixedColor={!isSmallScreen}
+          block={false}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Resources",
+            id: "T74kMc",
+            description: "Nav menu trigger for resource links sub menu",
+          })}
+        </NavMenu.Trigger>
+        <NavMenu.Content>
+          <NavMenu.List>{resourceLinks}</NavMenu.List>
+        </NavMenu.Content>
+      </NavMenu.Item>
     </Menu>
   );
 };

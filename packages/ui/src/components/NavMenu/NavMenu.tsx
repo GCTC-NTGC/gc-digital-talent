@@ -117,8 +117,8 @@ const Item = forwardRef<
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    className="w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline!"
     {...props}
+    className={`w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline! ${props.className}`}
   />
 ));
 

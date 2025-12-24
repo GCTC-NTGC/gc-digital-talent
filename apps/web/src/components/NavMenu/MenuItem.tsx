@@ -6,6 +6,7 @@ interface MenuItemProps {
   subMenu?: boolean;
   state?: LinkProps["state"];
   end?: boolean;
+  className?: string;
 }
 
 const MenuItem = ({
@@ -14,10 +15,11 @@ const MenuItem = ({
   subMenu,
   state,
   end,
+  className,
   ...rest
 }: MenuItemProps) => {
   return (
-    <NavMenu.Item {...rest}>
+    <NavMenu.Item {...rest} className={className}>
       <NavMenu.Link
         type={subMenu ? "subMenuLink" : "link"}
         // NOTE: Comes from react-router
