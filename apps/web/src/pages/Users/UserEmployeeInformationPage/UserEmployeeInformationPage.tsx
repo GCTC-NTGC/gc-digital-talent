@@ -436,4 +436,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUserEmployeeInformationPage";
 
-export default UserEmployeeInformationPage;
+export default Component;

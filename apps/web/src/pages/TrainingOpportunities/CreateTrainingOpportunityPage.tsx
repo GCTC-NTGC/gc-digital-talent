@@ -217,4 +217,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCreateTrainingOpportunityPage";
 
-export default CreateTrainingOpportunityPage;
+export default Component;

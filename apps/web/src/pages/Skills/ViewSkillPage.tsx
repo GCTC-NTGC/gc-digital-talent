@@ -289,4 +289,4 @@ export const Component = () => (
 
 Component.displayName = "AdminViewSkillPage";
 
-export default ViewSkillPage;
+export default Component;

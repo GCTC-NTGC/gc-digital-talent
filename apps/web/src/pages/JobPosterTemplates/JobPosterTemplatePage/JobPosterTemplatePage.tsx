@@ -209,8 +209,4 @@ const JobPosterTemplatePage = () => {
   );
 };
 
-export const Component = () => <JobPosterTemplatePage />;
-
-Component.displayName = "JobPosterTemplatePage";
-
 export default JobPosterTemplatePage;

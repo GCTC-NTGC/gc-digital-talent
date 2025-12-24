@@ -319,4 +319,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUpdateDepartmentPage";
 
-export default UpdateDepartmentPage;
+export default Component;

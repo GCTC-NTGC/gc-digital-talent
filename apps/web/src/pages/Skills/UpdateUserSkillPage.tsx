@@ -695,4 +695,4 @@ export const Component = () => (
 
 Component.displayName = "UpdateUserSkillPage";
 
-export default UpdateUserSkillPage;
+export default Component;

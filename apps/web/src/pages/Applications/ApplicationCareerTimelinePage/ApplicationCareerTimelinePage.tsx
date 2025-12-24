@@ -454,3 +454,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ApplicationCareerTimelinePage";
+
+export default Component;

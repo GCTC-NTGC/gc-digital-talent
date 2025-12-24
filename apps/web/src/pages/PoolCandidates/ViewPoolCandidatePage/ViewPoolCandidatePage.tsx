@@ -378,4 +378,4 @@ export const Component = () => (
 
 Component.displayName = "AdminViewPoolCandidatePage";
 
-export default ViewPoolCandidatePage;
+export default Component;

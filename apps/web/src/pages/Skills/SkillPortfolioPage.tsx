@@ -191,4 +191,4 @@ export const Component = () => (
 
 Component.displayName = "SkillPortfolioPage";
 
-export default SkillPortfolioPage;
+export default Component;

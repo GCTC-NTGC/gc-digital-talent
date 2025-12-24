@@ -45,4 +45,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexDepartmentPage";
 
-export default DepartmentPage;
+export default Component;

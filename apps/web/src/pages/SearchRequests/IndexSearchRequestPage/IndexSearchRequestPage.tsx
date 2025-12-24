@@ -51,4 +51,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexSearchRequestPage";
 
-export default IndexSearchRequestPage;
+export default Component;

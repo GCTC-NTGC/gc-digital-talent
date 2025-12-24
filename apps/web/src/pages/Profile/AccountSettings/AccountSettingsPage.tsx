@@ -312,4 +312,4 @@ export const Component = () => (
 
 Component.displayName = "AccountSettingsPage";
 
-export default AccountSettingsPage;
+export default Component;

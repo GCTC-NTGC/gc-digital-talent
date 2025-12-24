@@ -888,4 +888,4 @@ export const Component = () => (
 
 Component.displayName = "AdminEditPoolPage";
 
-export default EditPoolPage;
+export default Component;

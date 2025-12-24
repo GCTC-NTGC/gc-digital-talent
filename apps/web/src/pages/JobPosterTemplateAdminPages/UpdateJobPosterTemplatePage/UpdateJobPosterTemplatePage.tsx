@@ -240,3 +240,5 @@ export const Component = () => (
 );
 
 Component.displayName = "UpdateJobPosterTemplatePage";
+
+export default Component;

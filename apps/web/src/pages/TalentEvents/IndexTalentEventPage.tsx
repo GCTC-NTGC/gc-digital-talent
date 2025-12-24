@@ -83,4 +83,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexTalentEventPage";
 
-export default IndexTalentEventPage;
+export default Component;
