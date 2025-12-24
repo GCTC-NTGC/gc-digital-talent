@@ -1,5 +1,6 @@
 import { IntlShape, MessageDescriptor } from "react-intl";
 import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
+import MinusIcon from "@heroicons/react/16/solid/MinusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import ClipboardDocumentCheckIcon from "@heroicons/react/16/solid/ClipboardDocumentCheckIcon";
@@ -111,7 +112,15 @@ const eventInfoMap = new Map<ActivityEvent, ActivityEventInfo>([
     ActivityEvent.Removed,
     {
       message: activityMessages.removed,
-      icon: UserMinusIcon,
+      icon: MinusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Added,
+    {
+      message: activityMessages.added,
+      icon: PlusIcon,
       color: "secondary",
     },
   ],
@@ -167,6 +176,18 @@ export function parseAttributes(attr: unknown): JSONRecord {
     }
   }
   return {};
+}
+
+export function getDeepAttribute(obj: unknown, ...path: string[]): string | null {
+  let curr: unknown = obj;
+  for (const p of path) {
+    if (isRecord(curr) && p in curr) {
+      curr = curr[p];
+    } else {
+      return null;
+    }
+  }
+  return typeof curr === "string" ? curr : null;
 }
 
 const commonKeyMap = new Map<string, MessageDescriptor>([

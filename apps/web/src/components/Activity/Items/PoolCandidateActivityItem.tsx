@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
+import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
+import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
 
-import { ActivityProperties, getFragment, Maybe } from "@gc-digital-talent/graphql";
+import { ActivityEvent, ActivityProperties, getFragment, Maybe } from "@gc-digital-talent/graphql";
 
 import BaseItem, {
   BaseItem_Fragment,
@@ -30,6 +32,12 @@ const PoolCandidateActivityItem = ({
 
   if (!info) {
     return null;
+  }
+
+  if (item?.event === ActivityEvent.Added) {
+    info.icon = UserPlusIcon;
+  } else if (item?.event === ActivityEvent.Removed) {
+    info.icon = UserMinusIcon;
   }
 
   return <BaseItem info={info} query={query} description={getDescription(item?.properties)} {...rest} />;

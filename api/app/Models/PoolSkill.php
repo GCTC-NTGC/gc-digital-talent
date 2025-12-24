@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ActivityEvent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -52,6 +53,18 @@ class PoolSkill extends Model
             ->logOnly(['pool_id', 'skill_id', 'skill.name', 'skill.category', 'type', 'required_skill_level'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+        $newEvent = match ($eventName) {
+            'created' => ActivityEvent::ADDED->value,
+            'deleted' => ActivityEvent::REMOVED->value,
+            // NOTE: Oddly $eventName is uppercase
+            default => is_string($eventName) ? strtolower($eventName) : $eventName,
+        };
+
+        $activity->event = $newEvent;
     }
 
     /** @return BelongsTo<Skill, $this> */

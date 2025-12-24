@@ -63,6 +63,11 @@ class Activity extends SpatieActivity
                             $q->select('id')->from($table)->where('pool_id', $poolId);
                         });
 
+                    // Get deleted pool skills as well
+                    if ($subjectType === PoolSkill::class) {
+                        $relationQuery->orWhereJsonContains('properties->old->pool_id', $poolId);
+                    }
+
                     // We only want custom events for pool candidates
                     if ($subjectType === PoolCandidate::class) {
                         $relationQuery->whereNotIn('event', ActivityEvent::coreEvents());
@@ -70,7 +75,6 @@ class Activity extends SpatieActivity
                 });
             }
         });
-
     }
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
