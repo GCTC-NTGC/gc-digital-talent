@@ -3440,9 +3440,16 @@ enum ActivityEvent {
   QUALIFIED
   DISQUALIFIED
   PLACED
+  ADDED
   REMOVED
   REINSTATED
   REVERTED
+  PUBLISHED
+}
+
+enum ActivityLog {
+  DEFAULT
+  PROCESS
 }
 
 enum ApplicationStep {

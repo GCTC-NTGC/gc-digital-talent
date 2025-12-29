@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\ActivityEvent;
+use App\Enums\ActivityLog;
+use App\Traits\LogsCustomActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -21,6 +24,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class PoolSkill extends Model
 {
     use LogsActivity;
+    use LogsCustomActivity;
 
     /**
      * The table associated with the model.
@@ -33,22 +37,37 @@ class PoolSkill extends Model
 
     protected $fillable = ['pool_id', 'skill_id', 'type', 'required_skill_level'];
 
+    protected $customLogName = ActivityLog::PROCESS->value;
+
     protected static function boot()
     {
         parent::boot();
 
-        static::created(function (PoolSkill $poolSkill) {
+        $atts = ['pool_id', 'type', 'required_skill_level'];
+
+        static::created(function (PoolSkill $poolSkill) use ($atts) {
             $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
+            $poolSkill->logActivity(ActivityEvent::ADDED, [
+                ...$poolSkill->only($atts),
+                'skill' => $poolSkill->skill->name,
+                'category' => $poolSkill->skill->category,
+            ]);
         });
 
-        static::deleted(function (PoolSkill $poolSkill) {
+        static::deleted(function (PoolSkill $poolSkill) use ($atts) {
             $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
+            $poolSkill->logActivity(ActivityEvent::REMOVED, [
+                ...$poolSkill->only($atts),
+                'skill' => $poolSkill->skill->name,
+                'category' => $poolSkill->skill->category,
+            ]);
         });
     }
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
+            ->useLogName(ActivityLog::PROCESS->value)
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

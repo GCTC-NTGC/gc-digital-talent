@@ -4,8 +4,7 @@ import { tv } from "tailwind-variants";
 
 import { Card, Heading, HeadingRank, Notice } from "@gc-digital-talent/ui";
 
-import ActivityItem from "./ActivityItem";
-import PoolActivityItem from "./PoolActivityItem";
+import Item from "./Item";
 
 const Empty = () => {
   const intl = useIntl();
@@ -79,6 +78,5 @@ export default {
   Root,
   List,
   Empty,
-  Item: ActivityItem,
-  PoolItem: PoolActivityItem,
+  Item,
 };

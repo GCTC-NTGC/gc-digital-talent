@@ -573,13 +573,13 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
   activities(orderBy: _ @orderBy): [Activity!]
-    @morphMany(
-      relation: "activities"
-      type: PAGINATOR
-      scopes: ["whereIsPoolActivity", "authorizedToViewPoolActivity"]
-      defaultCount: 50
+    @paginate(
+      type: PAGINATOR,
+      builder: "App\\Models\\Pool@aggregateActivities",
+      defaultCount: 50,
       maxCount: 1000
     )
+    @scope(name: ["authorizedToViewPoolActivity"])
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
 }

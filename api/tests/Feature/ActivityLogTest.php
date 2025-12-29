@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ActivityLog;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateStatus;
@@ -257,6 +258,10 @@ class ActivityLogTest extends TestCase
                             data {
                                 subjectType
                                 subjectId
+                                logName
+                                properties {
+                                    attributes
+                                }
                             }
                         }
                     }
@@ -268,10 +273,14 @@ class ActivityLogTest extends TestCase
 
         foreach ($rows as $row) {
             // Only want pools the user is assigned to
-            $this->assertEquals($row, [
-                'subjectType' => 'App\Models\Pool',
-                'subjectId' => $expected->id,
-            ]);
+            $this->assertEquals(ActivityLog::PROCESS->value, $row['logName']);
+            if ($row['subjectType'] === Pool::class) {
+                $this->assertEquals($expected->id, $row['subjectId']);
+            } else {
+                if ($atts = json_decode($row['properties']['attributes'])) {
+                    $this->assertEquals($expected->id, $atts->pool_id);
+                }
+            }
         }
 
     }
@@ -294,6 +303,10 @@ class ActivityLogTest extends TestCase
                             data {
                                 subjectType
                                 subjectId
+                                logName
+                                properties {
+                                    attributes
+                                }
                             }
                         }
                     }
@@ -305,11 +318,14 @@ class ActivityLogTest extends TestCase
 
         foreach ($rows as $row) {
             // Only want pools the user is assigned to
-            $this->assertEquals($row, [
-                'subjectType' => 'App\Models\Pool',
-                'subjectId' => $expected->id,
-            ]);
+            $this->assertEquals(ActivityLog::PROCESS->value, $row['logName']);
+            if ($row['subjectType'] === Pool::class) {
+                $this->assertEquals($expected->id, $row['subjectId']);
+            } else {
+                if ($atts = json_decode($row['properties']['attributes'])) {
+                    $this->assertEquals($expected->id, $atts->pool_id);
+                }
+            }
         }
-
     }
 }

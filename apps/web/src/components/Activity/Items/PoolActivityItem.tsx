@@ -1,11 +1,10 @@
-import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
 import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import { isAfter } from "date-fns/isAfter";
-import { defineMessage, MessageDescriptor } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import {
   ActivityEvent,
-  ActivityProperties,
   getFragment,
   Maybe,
   Scalars,
@@ -18,23 +17,11 @@ import adminMessages from "~/messages/adminMessages";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 import processMessages from "~/messages/processMessages";
 
-import ActivityItem, {
-  ActivityItem_Fragment,
-  ActivityItemProps,
-} from "./ActivityItem";
-import { getEventInfo, parseAttributes } from "./utils";
-
-function isPublishEvent(propsObj?: Maybe<ActivityProperties>): boolean {
-  if (propsObj && "attributes" in propsObj && "old" in propsObj) {
-    const atts = parseAttributes(propsObj.attributes);
-    const old = parseAttributes(propsObj.old);
-    if ("published_at" in atts && "published_at" in old) {
-      return typeof atts.published_at === "string" && !old.published_at;
-    }
-  }
-
-  return false;
-}
+import BaseItem, {
+  BaseItem_Fragment,
+  CommonItemProps,
+} from "./BaseActivityItem";
+import { getEventInfo } from "./utils";
 
 function updatedAfterPublish(
   createdAt?: Maybe<Scalars["DateTime"]["output"]>,
@@ -95,10 +82,7 @@ const keyMap = new Map<string, MessageDescriptor>([
   ["contact_email", commonMessages.email],
 ]);
 
-interface PoolActivityItemProps extends Omit<
-  ActivityItemProps,
-  "info" | "properties"
-> {
+export interface PoolActivityItemProps extends CommonItemProps {
   publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
 }
 
@@ -107,23 +91,21 @@ const PoolActivityItem = ({
   query,
   ...rest
 }: PoolActivityItemProps) => {
-  const item = getFragment(ActivityItem_Fragment, query);
-  const isAfterPublish = updatedAfterPublish(item.createdAt, publishedAt);
-  let info = getEventInfo(item.event);
+  const intl = useIntl();
+  const item = getFragment(BaseItem_Fragment, query);
+  const isAfterPublish = updatedAfterPublish(item?.createdAt, publishedAt);
+  let info = getEventInfo(item?.event);
 
   if (!info) {
     return null;
   }
 
-  if (isPublishEvent(item.properties)) {
-    info = {
-      ...info,
-      icon: DocumentArrowUpIcon,
-      color: "success",
-    };
+  let description: ReactNode | undefined;
+  if (item?.event === ActivityEvent.Published) {
+    description = intl.formatMessage(processMessages.process);
   }
 
-  if (item.event === ActivityEvent.Updated && isAfterPublish) {
+  if (item?.event === ActivityEvent.Updated && isAfterPublish) {
     info = {
       ...info,
       message: activityMessages.updated,
@@ -132,7 +114,15 @@ const PoolActivityItem = ({
     };
   }
 
-  return <ActivityItem info={info} query={query} keyMap={keyMap} {...rest} />;
+  return (
+    <BaseItem
+      info={info}
+      query={query}
+      keyMap={keyMap}
+      description={description}
+      {...rest}
+    />
+  );
 };
 
 export default PoolActivityItem;
