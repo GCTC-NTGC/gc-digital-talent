@@ -74,7 +74,12 @@ const experienceDetails: MetaDataProps[] = [
   {
     key: "duration",
     type: "text",
-    children: "September 2022 - Present (1 year, 8 months)",
+    children: (
+      <>
+        <span>September 2022 - Present </span>
+        <span className="whitespace-nowrap">(1 year, 8 months)</span>
+      </>
+    ),
   },
   {
     key: "skill-count",
