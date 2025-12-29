@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class AssessmentStep
@@ -29,6 +30,7 @@ use Spatie\Activitylog\LogOptions;
 class AssessmentStep extends Model
 {
     use HasFactory;
+    use LogsActivity;
     use LogsCustomActivity;
 
     protected $keyType = 'string';
