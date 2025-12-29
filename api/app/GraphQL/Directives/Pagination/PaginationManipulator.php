@@ -10,7 +10,7 @@ use GraphQL\Language\AST\NonNullTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Application;
 use Nuwave\Lighthouse\CacheControl\CacheControlServiceProvider;
 use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Federation\FederationHelper;
