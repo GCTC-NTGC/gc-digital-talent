@@ -581,15 +581,16 @@ class PoolCandidateBuilder extends Builder
      * Govern in one group, with a non-nullable input so this block can always be hit
      * The one place for flags and bookmarks, and anything else special with elevated importance
      */
-    public function orderByBase(array $args): self
+    public function orderByBase(?array $args): self
     {
+        if (empty($args)) {
+            return $this;
+        }
+
         /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if ($user &&
-            isset($args['useBookmark'])
-            && $args['useBookmark']
-        ) {
+        if ($user && ! empty($args['useBookmark'])) {
             $this->orderBy(
                 $user->selectRaw('1')
                     ->join('pool_candidate_user_bookmarks', 'pool_candidate_user_bookmarks.user_id', '=', 'users.id')
@@ -598,7 +599,7 @@ class PoolCandidateBuilder extends Builder
             );
         }
 
-        if (isset($args['useFlag']) && $args['useFlag']) {
+        if (! empty($args['useFlag'])) {
             $this->orderBy('is_flagged', 'DESC');
         }
 

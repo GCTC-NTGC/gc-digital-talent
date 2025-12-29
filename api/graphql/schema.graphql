@@ -1642,7 +1642,7 @@ type Query {
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
-    orderByBase: PoolCandidatesBaseSort! @scope
+    orderByBase: PoolCandidatesBaseSort @scope
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope

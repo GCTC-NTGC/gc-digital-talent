@@ -504,7 +504,7 @@ type Query {
   ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
-    orderByBase: PoolCandidatesBaseSort!
+    orderByBase: PoolCandidatesBaseSort
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
