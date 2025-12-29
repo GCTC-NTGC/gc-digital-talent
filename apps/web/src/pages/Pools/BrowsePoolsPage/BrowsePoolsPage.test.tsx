@@ -11,38 +11,42 @@ import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
 import BrowsePools from "./BrowsePoolsPage";
 
-const publishedItJobsPool: Pool = {
+const publishedItJobsPool = {
   id: "publishedItJobsPool",
   publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
   status: toLocalizedEnum(PoolStatus.Published),
 };
 
-const expiredItJobsPool: Pool = {
+const expiredItJobsPool = {
   id: "expiredItJobsPool",
   publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
   status: toLocalizedEnum(PoolStatus.Closed),
 };
 
-const archivedItJobsPool: Pool = {
+const archivedItJobsPool = {
   id: "archivedItJobsPool",
   publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
   status: toLocalizedEnum(PoolStatus.Archived),
 };
 
-const publishedExecJobsPool: Pool = {
+const publishedExecJobsPool = {
   id: "publishedExecJobsPool",
   publishingGroup: toLocalizedEnum(PublishingGroup.ExecutiveJobs),
   status: toLocalizedEnum(PoolStatus.Published),
 };
 
-const publishedIAPJobsPool: Pool = {
+const publishedIAPJobsPool = {
   id: "publishedIAPJobsPool",
   publishingGroup: toLocalizedEnum(PublishingGroup.Iap),
   status: toLocalizedEnum(PoolStatus.Published),
 };
 
 describe("BrowsePoolsPage", () => {
-  function renderBrowsePoolsPage({ pools }: { pools: Pool[] }) {
+  function renderBrowsePoolsPage({
+    pools,
+  }: {
+    pools: Omit<Pool, "activities">[];
+  }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {
       executeQuery: () =>

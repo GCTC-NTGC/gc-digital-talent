@@ -78,7 +78,9 @@ const ClosingDateSection = ({
     fallbackIcon: CalendarIcon,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => {
+  const dataToFormValues = (
+    initialData: Pick<Pool, "closingDate">,
+  ): FormValues => {
     const closingDateInPacific = initialData.closingDate
       ? convertDateTimeToDate(
           convertDateTimeZone(initialData.closingDate, "UTC", "Canada/Pacific"),

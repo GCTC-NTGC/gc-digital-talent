@@ -572,10 +572,13 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  activities: [Activity!]
+  activities(orderBy: _ @orderBy): [Activity!]
     @morphMany(
       relation: "activities"
+      type: PAGINATOR
       scopes: ["whereIsPoolActivity", "authorizedToViewPoolActivity"]
+      defaultCount: 50
+      maxCount: 1000
     )
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
@@ -1420,6 +1423,7 @@ input PoolCandidateSearchInput {
   finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
   placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
   removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
+  screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")
 }
 
 input PoolCandidateSearchRequestInput {
@@ -1596,6 +1600,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
+    orderByScreeningStage: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1637,10 +1642,11 @@ type Query {
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
-    orderByBase: PoolCandidatesBaseSort! @scope
+    orderByBase: PoolCandidatesBaseSort @scope
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderByClaimVerification: ClaimVerificationSort @scope
     orderByEmployeeDepartment: SortOrder @scope
+    orderByScreeningStage: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [

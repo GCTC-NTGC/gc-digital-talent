@@ -29,7 +29,12 @@ export interface FormValues {
   specificLocationFr?: LocalizedString["fr"];
 }
 
-export const dataToFormValues = (initialData: Pool): FormValues => ({
+export const dataToFormValues = (
+  initialData: Pick<
+    Pool,
+    "language" | "securityClearance" | "isRemote" | "location"
+  >,
+): FormValues => ({
   languageRequirement: initialData.language?.value,
   securityRequirement: initialData.securityClearance?.value,
   locationOption: getLocationOption(initialData.isRemote),

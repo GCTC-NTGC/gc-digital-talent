@@ -493,6 +493,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
+    orderByScreeningStage: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -503,10 +504,11 @@ type Query {
   ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
-    orderByBase: PoolCandidatesBaseSort!
+    orderByBase: PoolCandidatesBaseSort
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
+    orderByScreeningStage: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1116,8 +1118,16 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
-  activities: [Activity!]
   applicantsCount: Int
+  activities(
+    orderBy: [OrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 50
+
+    "The offset from which items are returned."
+    page: Int
+  ): ActivityPaginator!
 }
 
 type GeneralQuestionResponse {
@@ -1780,6 +1790,7 @@ input PoolCandidateSearchInput {
   finalDecisions: [FinalDecision!]
   placementTypes: [PlacementType!]
   removalReasons: [CandidateRemovalReason!]
+  screeningStages: [ScreeningStage!]
 }
 
 input PoolCandidateSearchRequestInput {
@@ -2943,6 +2954,15 @@ type PaginatorInfo {
 
   "Number of total available items."
   total: Int!
+}
+
+"A paginated list of Activity items."
+type ActivityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Activity items."
+  data: [Activity!]!
 }
 
 "A paginated list of User items."
