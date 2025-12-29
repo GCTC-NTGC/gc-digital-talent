@@ -448,6 +448,11 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
+        $key = array_search(PlacementType::NOT_PLACED->name, $placementTypes);
+        if ($key !== false) {
+            $placementTypes[$key] = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        }
+
         return $this->whereIn('pool_candidate_status', $placementTypes);
     }
 
