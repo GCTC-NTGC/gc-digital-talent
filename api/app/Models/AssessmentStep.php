@@ -104,9 +104,7 @@ class AssessmentStep extends Model
             $typeEn = $type['en'] ?? null;
             $typeFr = $type['fr'] ?? null;
 
-            // If either language has a title
             if (! empty($titleEn) || ! empty($titleFr)) {
-                // If there is a type, format both
                 if ($typeEn || $typeFr) {
                     return [
                         'en' => $this->formatName($titleEn, $typeEn),
@@ -114,14 +112,9 @@ class AssessmentStep extends Model
                     ];
                 }
 
-                // No type, just return titles as-is
-                return [
-                    'en' => $titleEn,
-                    'fr' => $titleFr,
-                ];
+                return $title;
             }
 
-            // No title, return type (may be null in both keys)
             return $type;
         });
     }
