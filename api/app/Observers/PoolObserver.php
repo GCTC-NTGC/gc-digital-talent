@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\ActivityEvent;
 use App\Enums\PoolStatus;
 use App\Models\Pool;
 use App\Notifications\ApplicationDeadlineExtended;
@@ -15,7 +16,7 @@ class PoolObserver
      */
     public function created(Pool $pool): void
     {
-        //
+        $this->logDirty($pool, ActivityEvent::CREATED);
     }
 
     /**
@@ -57,6 +58,8 @@ class PoolObserver
                 });
         }
 
+        $this->logDirty($pool, ActivityEvent::UPDATED);
+
     }
 
     /**
@@ -81,5 +84,17 @@ class PoolObserver
     public function forceDeleted(Pool $pool): void
     {
         //
+    }
+
+    private function logDirty(Pool $pool, ActivityEvent $eventName): void
+    {
+        $dirty = $pool->getDirty();
+        $original = collect($pool->getOriginal())->only(array_keys($dirty))->toArray();
+
+        if (empty($dirty)) {
+            return;
+        }
+
+        $pool->logActivity($eventName, $dirty, $original);
     }
 }

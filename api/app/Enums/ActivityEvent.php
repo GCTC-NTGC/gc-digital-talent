@@ -17,6 +17,7 @@ enum ActivityEvent: string
     case REMOVED = 'removed';
     case REINSTATED = 'reinstated';
     case REVERTED = 'reverted';
+    case PUBLISHED = 'published';
 
     public static function coreEvents(): array
     {

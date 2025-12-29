@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Casts\LocalizedString;
+use App\Enums\ActivityEvent;
+use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
+use App\Traits\LogsCustomActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class AssessmentStep
@@ -26,9 +28,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class AssessmentStep extends Model
 {
     use HasFactory;
-    use LogsActivity;
+    use LogsCustomActivity;
 
     protected $keyType = 'string';
+
+    protected $customLogName = ActivityLog::PROCESS->value;
 
     /**
      * The attributes that should be cast.
@@ -90,6 +94,8 @@ class AssessmentStep extends Model
     {
         parent::boot();
 
+        $atts = ['pool_id', 'sort_order', 'type', 'title'];
+
         static::creating(function (AssessmentStep $step) {
 
             $poolsExistingSteps = AssessmentStep::where('pool_id', $step['pool_id'])->orderBy('sort_order', 'desc')->get();
@@ -114,9 +120,14 @@ class AssessmentStep extends Model
                 $sortOrder = $highestSortOrder + 1;
             }
             $step['sort_order'] = $sortOrder;
+
         });
 
-        static::deleted(function (AssessmentStep $step) {
+        static::created(function (AssessmentStep $step) use ($atts) {
+            $step->logActivity(ActivityEvent::ADDED, $step->only($atts));
+        });
+
+        static::deleted(function (AssessmentStep $step) use ($atts) {
             // If this was the screening question step delete all screening questions as well
             if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
                 $questions = ScreeningQuestion::where('pool_id', '=', $step->pool_id)->get();
@@ -134,6 +145,8 @@ class AssessmentStep extends Model
                     $existingStep->save();
                 }
             }
+
+            $step->logActivity(ActivityEvent::REMOVED, $step->only($atts));
         });
     }
 }

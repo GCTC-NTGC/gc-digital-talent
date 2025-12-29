@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ActivityEvent;
 use App\GraphQL\Validators\Mutation\PublishPoolValidator;
 use App\Models\Pool;
 use Carbon\Carbon;
@@ -33,7 +34,9 @@ final class PublishPool
             throw new ValidationException($validator->errors()->first(), $validator);
         }
         $dateNow = Carbon::now();
-        $pool->update(['published_at' => $dateNow]);
+        $pool->disableCustomLogging()->update(['published_at' => $dateNow]);
+
+        $pool->logActivity(ActivityEvent::PUBLISHED);
 
         return $pool;
     }

@@ -3444,6 +3444,12 @@ enum ActivityEvent {
   REMOVED
   REINSTATED
   REVERTED
+  PUBLISHED
+}
+
+enum ActivityLog {
+  DEFAULT
+  PROCESS
 }
 
 enum ApplicationStep {
