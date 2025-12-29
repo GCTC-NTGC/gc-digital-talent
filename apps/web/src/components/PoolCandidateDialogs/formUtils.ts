@@ -63,7 +63,7 @@ export function formValuesToQualifyAndPlaceCandidateInput(
   if (!formValues.placementType) {
     throw new Error("Missing placement type");
   }
-  if (formValues.placementType === "NOT_PLACED") {
+  if (formValues.placementType === PlacementType.NotPlaced) {
     throw new Error("Invalid placement type");
   }
 

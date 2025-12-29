@@ -120,7 +120,7 @@ const JobPlacementDialog = ({
   const placementType =
     status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
       ? (status.value as unknown as PlacementType)
-      : "NOT_PLACED";
+      : PlacementType.NotPlaced;
 
   const methods = useForm<FormValues>({
     defaultValues: {
