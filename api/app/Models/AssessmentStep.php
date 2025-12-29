@@ -7,6 +7,7 @@ use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
 use App\Traits\LogsCustomActivity;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,6 +60,11 @@ class AssessmentStep extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    protected function customizeActivityProperties(array &$properties, ActivityEvent $event): void
+    {
+        $properties['attributes']['name'] = $this->name;
+    }
+
     /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
@@ -83,6 +89,51 @@ class AssessmentStep extends Model
     public function screeningQuestions(): HasMany
     {
         return $this->hasMany(ScreeningQuestion::class);
+    }
+
+    public function name(): Attribute
+    {
+        return Attribute::get(function () {
+            $title = $this->title ?? [];
+            $type = $this->type ? AssessmentStepType::localizedString($this->type) : ['en' => null, 'fr' => null];
+
+            $titleEn = $title['en'] ?? null;
+            $titleFr = $title['fr'] ?? null;
+            $typeEn = $type['en'] ?? null;
+            $typeFr = $type['fr'] ?? null;
+
+            // If either language has a title
+            if (! empty($titleEn) || ! empty($titleFr)) {
+                // If there is a type, format both
+                if ($typeEn || $typeFr) {
+                    return [
+                        'en' => $this->formatName($titleEn, $typeEn),
+                        'fr' => $this->formatName($titleFr, $typeFr),
+                    ];
+                }
+
+                // No type, just return titles as-is
+                return [
+                    'en' => $titleEn,
+                    'fr' => $titleFr,
+                ];
+            }
+
+            // No title, return type (may be null in both keys)
+            return $type;
+        });
+    }
+
+    /**
+     * Formats the name from title and type.
+     */
+    private function formatName(?string $title, ?string $type): ?string
+    {
+        if ($title && $type) {
+            return sprintf('%s (%s)', $title, $type);
+        }
+
+        return $title ?? $type ?? null;
     }
 
     /**
