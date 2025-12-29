@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Builders\PoolBuilder;
 use App\Casts\LocalizedString;
+use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
@@ -514,6 +515,14 @@ class Pool extends Model
         return $classification
             ? $classification.$dividingColon.$name
             : $name;
+    }
+
+    public function publish()
+    {
+        $dateNow = Carbon::now();
+        $this->disableCustomLogging()->update(['published_at' => $dateNow]);
+
+        $this->logActivity(ActivityEvent::PUBLISHED);
     }
 
     // is the pool considered "complete"
