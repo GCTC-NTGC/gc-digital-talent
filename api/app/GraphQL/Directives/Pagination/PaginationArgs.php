@@ -9,18 +9,15 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Support\Arr;
 use Laravel\Scout\Builder as ScoutBuilder;
-use Nuwave\Lighthouse\Cache\CacheDirective;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
-use Nuwave\Lighthouse\Support\Contracts\Directive;
 
 class PaginationArgs
 {
     public function __construct(
         public int $page,
         public int $first,
-        public PaginationType $type,
+
     ) {}
 
     /**
@@ -28,17 +25,14 @@ class PaginationArgs
      *
      * @param  array<string, mixed>  $args
      */
-    public static function extractArgs(array $args, ResolveInfo $resolveInfo, PaginationType $proposedPaginationType, ?int $paginateMaxCount): self
+    public static function extractArgs(array $args, ResolveInfo $resolveInfo, ?int $paginateMaxCount): self
     {
         $first = $args['first'];
 
-        $page = $proposedPaginationType->isConnection()
-            ? self::calculateCurrentPage(
-                $first,
-                Cursor::decode($args),
-            )
-            // Handles cases "paginate" and "simple", which both take the same args.
-            : Arr::get($args, 'page', 1);
+        $page = self::calculateCurrentPage(
+            $first,
+            Cursor::decode($args),
+        );
 
         if ($first < 0) {
             throw new Error(self::requestedLessThanZeroItems($first));
@@ -52,9 +46,7 @@ class PaginationArgs
             throw new Error(self::requestedTooManyItems($paginateMaxCount, $first));
         }
 
-        $optimalPaginationType = self::optimalPaginationType($proposedPaginationType, $resolveInfo);
-
-        return new static($page, $first, $optimalPaginationType);
+        return new static($page, $first);
     }
 
     public static function requestedLessThanZeroItems(int $amount): string
@@ -75,32 +67,6 @@ class PaginationArgs
             : $defaultPage;
     }
 
-    protected static function optimalPaginationType(PaginationType $proposedType, ResolveInfo $resolveInfo): PaginationType
-    {
-        // Already the most optimal type.
-        if ($proposedType->isSimple()) {
-            return $proposedType;
-        }
-
-        // If the result may be used in a cache, we always want to retrieve and store the full pagination data.
-        // Even though the query that initially creates the cache may not need additional information such as
-        // the total counts, following queries may need them - and use the same cached value.
-        $hasCacheDirective = $resolveInfo->argumentSet
-            ->directives
-            ->contains(static fn (Directive $directive): bool => $directive instanceof CacheDirective);
-        if ($hasCacheDirective) {
-            return $proposedType;
-        }
-
-        // If the page info is not requested, we can save a database query by using the simple paginator.
-        // In contrast to the full pagination, it does not query total counts.
-        if (! isset($resolveInfo->getFieldSelection()[$proposedType->infoFieldName()])) {
-            return new PaginationType(PaginationType::SIMPLE);
-        }
-
-        return $proposedType;
-    }
-
     /**
      * Apply the args to a builder, constructing a paginator.
      *
@@ -112,9 +78,6 @@ class PaginationArgs
     public function applyToBuilder(QueryBuilder|ScoutBuilder|EloquentBuilder|Relation $builder): Paginator
     {
         if ($this->first === 0) {
-            if ($this->type->isSimple()) {
-                return new ZeroPerPagePaginator($this->page); // @phpstan-ignore return.type (generic type does not matter)
-            }
 
             $total = $builder instanceof ScoutBuilder
                 ? 0 // Laravel\Scout\Builder exposes no method to get the total count
@@ -123,9 +86,7 @@ class PaginationArgs
             return new ZeroPerPageLengthAwarePaginator($total, $this->page); // @phpstan-ignore return.type (generic type does not matter)
         }
 
-        $methodName = $this->type->isSimple()
-            ? 'simplePaginate'
-            : 'paginate';
+        $methodName = 'paginate';
 
         if ($builder instanceof ScoutBuilder) {
             return $builder->{$methodName}($this->first, 'page', $this->page);

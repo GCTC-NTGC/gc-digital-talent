@@ -41,9 +41,7 @@ final class CursorPaginationTest extends TestCase
 
             type Query {
                 communities: [Community]!
-                @cursorPaginate(
-                    type: CONNECTION
-                )
+                @cursorPaginate
             }
         ';
 

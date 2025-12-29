@@ -32,11 +32,6 @@ Query multiple entries as a paginated list.
 """
 directive @cursorPaginate(
   """
-  Which pagination style should be used.
-  """
-  type: PaginateType = PAGINATOR
-
-  """
   Specify the class name of the model to use.
   This is only needed when the default model detection does not work.
   Mutually exclusive with `builder` and `resolver`.
@@ -86,26 +81,6 @@ directive @cursorPaginate(
   """
   complexityResolver: String
 ) on FIELD_DEFINITION
-
-"""
-Options for the `type` argument of `@paginate`.
-"""
-enum PaginateType {
-  """
-  Offset-based pagination, similar to the Laravel default.
-  """
-  PAGINATOR
-
-  """
-  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-  """
-  SIMPLE
-
-  """
-  Cursor-based pagination, compatible with the Relay specification.
-  """
-  CONNECTION
-}
 GRAPHQL;
     }
 
@@ -128,7 +103,6 @@ GRAPHQL;
         }
 
         $paginationManipulator->transformToPaginatedField(
-            $this->paginationType(),
             $fieldDefinition,
             $parentType,
             $this->defaultCount(),
@@ -139,7 +113,7 @@ GRAPHQL;
     public function resolveField(FieldValue $fieldValue): callable
     {
         return function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Paginator {
-            $paginationArgs = PaginationArgs::extractArgs($args, $resolveInfo, $this->paginationType(), $this->paginateMaxCount());
+            $paginationArgs = PaginationArgs::extractArgs($args, $resolveInfo, $this->paginateMaxCount());
 
             if ($this->directiveHasArgument('resolver')) {
                 $paginator = $this->getResolverFromArgument('resolver')($root, $args, $context, $resolveInfo);
@@ -180,13 +154,6 @@ GRAPHQL;
 
             return $paginationArgs->applyToBuilder($query);
         };
-    }
-
-    protected function paginationType(): PaginationType
-    {
-        return new PaginationType(
-            $this->directiveArgValue('type', PaginationType::PAGINATOR),
-        );
     }
 
     protected function defaultCount(): ?int

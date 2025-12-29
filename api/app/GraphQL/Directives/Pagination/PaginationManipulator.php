@@ -55,26 +55,21 @@ class PaginationManipulator
      * The types in between are automatically generated and applied to the schema.
      */
     public function transformToPaginatedField(
-        PaginationType $paginationType,
         FieldDefinitionNode &$fieldDefinition,
         ObjectTypeDefinitionNode|InterfaceTypeDefinitionNode &$parentType,
         ?int $defaultCount = null,
         ?int $maxCount = null,
         ?ObjectTypeDefinitionNode $edgeType = null,
     ): void {
-        if ($paginationType->isConnection()) {
-            $this->registerConnection($fieldDefinition, $parentType, $paginationType, $defaultCount, $maxCount, $edgeType);
-        } elseif ($paginationType->isSimple()) {
-            $this->registerSimplePaginator($fieldDefinition, $parentType, $paginationType, $defaultCount, $maxCount);
-        } else {
-            $this->registerPaginator($fieldDefinition, $parentType, $paginationType, $defaultCount, $maxCount);
-        }
+
+        $this->registerConnection($fieldDefinition, $parentType, $defaultCount, $maxCount, $edgeType);
+
     }
 
     protected function registerConnection(
         FieldDefinitionNode &$fieldDefinition,
         ObjectTypeDefinitionNode|InterfaceTypeDefinitionNode &$parentType,
-        PaginationType $paginationType,
+
         ?int $defaultCount = null,
         ?int $maxCount = null,
         ?ObjectTypeDefinitionNode $edgeType = null,
@@ -99,7 +94,7 @@ class PaginationManipulator
             "A paginated list of {$fieldTypeName} edges."
             type {$connectionTypeName} {
                 "Pagination information about the list of edges."
-                {$paginationType->infoFieldName()}: PageInfo! @field(resolver: "{$connectionFieldClass}@pageInfoResolver") {$this->maybeInheritCacheControlDirective()}
+                pageInfo: PageInfo! @field(resolver: "{$connectionFieldClass}@pageInfoResolver") {$this->maybeInheritCacheControlDirective()}
 
                 "A list of {$fieldTypeName} edges."
                 edges: [{$connectionEdgeName}!]! @field(resolver: "{$connectionFieldClass}@edgeResolver") {$this->maybeInheritCacheControlDirective()}
@@ -163,86 +158,6 @@ GRAPHQL
         $this->documentAST->setTypeDefinition($objectType);
     }
 
-    protected function registerPaginator(
-        FieldDefinitionNode &$fieldDefinition,
-        ObjectTypeDefinitionNode|InterfaceTypeDefinitionNode &$parentType,
-        PaginationType $paginationType,
-        ?int $defaultCount = null,
-        ?int $maxCount = null,
-    ): void {
-        $paginatorInfoNode = $this->paginatorInfo();
-        if (! isset($this->documentAST->types[$paginatorInfoNode->getName()->value])) {
-            $this->documentAST->setTypeDefinition($paginatorInfoNode);
-        }
-
-        $fieldTypeName = ASTHelper::getUnderlyingTypeName($fieldDefinition);
-        $paginatorTypeName = "{$fieldTypeName}Paginator";
-        $paginatorFieldClassName = addslashes(PaginatorField::class);
-
-        $paginatorType = Parser::objectTypeDefinition(/** @lang GraphQL */ <<<GRAPHQL
-            "A paginated list of {$fieldTypeName} items."
-            type {$paginatorTypeName} {
-                "Pagination information about the list of items."
-                {$paginationType->infoFieldName()}: PaginatorInfo! @field(resolver: "{$paginatorFieldClassName}@paginatorInfoResolver") {$this->maybeInheritCacheControlDirective()}
-
-                "A list of {$fieldTypeName} items."
-                data: [{$fieldTypeName}!]! @field(resolver: "{$paginatorFieldClassName}@dataResolver") {$this->maybeInheritCacheControlDirective()}
-            }
-        GRAPHQL);
-        $this->addPaginationWrapperType($paginatorType);
-
-        $fieldDefinition->arguments[] = Parser::inputValueDefinition(
-            self::countArgument($defaultCount, $maxCount),
-        );
-        $fieldDefinition->arguments[] = Parser::inputValueDefinition(/** @lang GraphQL */ <<<'GRAPHQL'
-            "The offset from which items are returned."
-            page: Int
-        GRAPHQL);
-
-        $fieldDefinition->type = $this->paginationResultType($paginatorTypeName);
-        $parentType->fields = ASTHelper::mergeUniqueNodeList($parentType->fields, [$fieldDefinition], true);
-    }
-
-    protected function registerSimplePaginator(
-        FieldDefinitionNode &$fieldDefinition,
-        ObjectTypeDefinitionNode|InterfaceTypeDefinitionNode &$parentType,
-        PaginationType $paginationType,
-        ?int $defaultCount = null,
-        ?int $maxCount = null,
-    ): void {
-        $simplePaginatorInfoNode = $this->simplePaginatorInfo();
-        if (! isset($this->documentAST->types[$simplePaginatorInfoNode->getName()->value])) {
-            $this->documentAST->setTypeDefinition($simplePaginatorInfoNode);
-        }
-
-        $fieldTypeName = ASTHelper::getUnderlyingTypeName($fieldDefinition);
-        $paginatorTypeName = "{$fieldTypeName}SimplePaginator";
-        $paginatorFieldClassName = addslashes(SimplePaginatorField::class);
-
-        $paginatorType = Parser::objectTypeDefinition(/** @lang GraphQL */ <<<GRAPHQL
-            "A paginated list of {$fieldTypeName} items."
-            type {$paginatorTypeName} {
-                "Pagination information about the list of items."
-                {$paginationType->infoFieldName()}: SimplePaginatorInfo! @field(resolver: "{$paginatorFieldClassName}@paginatorInfoResolver") {$this->maybeInheritCacheControlDirective()}
-
-                "A list of {$fieldTypeName} items."
-                data: [{$fieldTypeName}!]! @field(resolver: "{$paginatorFieldClassName}@dataResolver") {$this->maybeInheritCacheControlDirective()}
-            }
-        GRAPHQL);
-        $this->addPaginationWrapperType($paginatorType);
-
-        $fieldDefinition->arguments[] = Parser::inputValueDefinition(
-            self::countArgument($defaultCount, $maxCount),
-        );
-        $fieldDefinition->arguments[] = Parser::inputValueDefinition(/** @lang GraphQL */ <<<'GRAPHQL'
-            "The offset from which items are returned."
-            page: Int
-        GRAPHQL);
-
-        $fieldDefinition->type = $this->paginationResultType($paginatorTypeName);
-        $parentType->fields = ASTHelper::mergeUniqueNodeList($parentType->fields, [$fieldDefinition], true);
-    }
-
     /** Build the count argument definition string, considering default and max values. */
     protected static function countArgument(?int $defaultCount = null, ?int $maxCount = null): string
     {
@@ -270,64 +185,6 @@ GRAPHQL
         );
 
         return $typeNode;
-    }
-
-    protected function paginatorInfo(): ObjectTypeDefinitionNode
-    {
-        return Parser::objectTypeDefinition(/** @lang GraphQL */ <<<GRAPHQL
-            "Information about pagination using a fully featured paginator."
-            type PaginatorInfo {$this->maybeAddShareableDirective()} {
-              "Number of items in the current page."
-              count: Int!
-
-              "Index of the current page."
-              currentPage: Int!
-
-              "Index of the first item in the current page."
-              firstItem: Int
-
-              "Are there more pages after this one?"
-              hasMorePages: Boolean!
-
-              "Index of the last item in the current page."
-              lastItem: Int
-
-              "Index of the last available page."
-              lastPage: Int!
-
-              "Number of items per page."
-              perPage: Int!
-
-              "Number of total available items."
-              total: Int!
-            }
-        GRAPHQL);
-    }
-
-    protected function simplePaginatorInfo(): ObjectTypeDefinitionNode
-    {
-        return Parser::objectTypeDefinition(/** @lang GraphQL */ <<<GRAPHQL
-            "Information about pagination using a simple paginator."
-            type SimplePaginatorInfo {$this->maybeAddShareableDirective()} {
-              "Number of items in the current page."
-              count: Int!
-
-              "Index of the current page."
-              currentPage: Int!
-
-              "Index of the first item in the current page."
-              firstItem: Int
-
-              "Index of the last item in the current page."
-              lastItem: Int
-
-              "Number of items per page."
-              perPage: Int!
-
-              "Are there more pages after this one?"
-              hasMorePages: Boolean!
-            }
-            GRAPHQL);
     }
 
     protected function pageInfo(): ObjectTypeDefinitionNode
