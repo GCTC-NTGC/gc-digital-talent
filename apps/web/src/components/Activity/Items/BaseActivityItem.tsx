@@ -16,7 +16,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { ActivityEventInfo, icon, normalizePropKeys } from "./utils";
 
 const activityItem = tv({
-  base: "flex flex-col justify-between gap-6 py-6 sm:flex-row not-first:border-t-2 border-gray-200 dark:border-gray-500",
+  base: "flex flex-col justify-between gap-6 border-gray-200 py-6 not-first:border-t-2 sm:flex-row dark:border-gray-500",
 });
 
 export const BaseItem_Fragment = graphql(/** GraphQL */ `
@@ -49,7 +49,6 @@ interface BaseItemProps extends CommonItemProps {
   description?: ReactNode;
 }
 
-
 const BaseItem = ({
   query,
   className,
@@ -69,7 +68,10 @@ const BaseItem = ({
   const Icon = info.icon;
   let desc = description;
   if (!desc) {
-    desc = properties.length > 0 ? properties.join(", ") : intl.formatMessage(commonMessages.notAvailable);
+    desc =
+      properties.length > 0
+        ? properties.join(", ")
+        : intl.formatMessage(commonMessages.notAvailable);
   }
 
   return (
@@ -93,10 +95,10 @@ const BaseItem = ({
       <div className="shrink-0 pl-8.5 text-gray-600 sm:pl-0 dark:text-gray-200">
         {item?.createdAt
           ? formatDate({
-            date: parseDateTimeUtc(item.createdAt),
-            formatString: TIME_FORMAT_LOCALIZED,
-            intl,
-          })
+              date: parseDateTimeUtc(item.createdAt),
+              formatString: TIME_FORMAT_LOCALIZED,
+              intl,
+            })
           : intl.formatMessage(commonMessages.notAvailable)}
       </div>
     </li>

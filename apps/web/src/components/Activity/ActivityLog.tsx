@@ -4,7 +4,6 @@ import { tv } from "tailwind-variants";
 
 import { Card, Heading, HeadingRank, Notice } from "@gc-digital-talent/ui";
 
-
 import Item from "./Item";
 
 const Empty = () => {
@@ -79,5 +78,5 @@ export default {
   Root,
   List,
   Empty,
-  Item
+  Item,
 };
