@@ -90,8 +90,8 @@ const PoolActivityPage = () => {
   if (!data?.pool) {
     return <ThrowNotFound />;
   }
-  const totalItems = data.pool.activities.paginatorInfo.total;
 
+  const totalItems = data.pool.activities.paginatorInfo.total;
   const totalPages = getTotalPages(totalItems, pageSize);
 
   const groups = groupByDay(unpackMaybes(data?.pool?.activities.data));

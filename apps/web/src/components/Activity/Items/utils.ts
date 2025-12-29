@@ -7,6 +7,7 @@ import ClipboardDocumentCheckIcon from "@heroicons/react/16/solid/ClipboardDocum
 import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
 import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
 import BriefcaseIcon from "@heroicons/react/16/solid/BriefcaseIcon";
+import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
 import { tv, VariantProps } from "tailwind-variants";
 import { isValid } from "date-fns/isValid";
 import { format } from "date-fns/format";
@@ -140,6 +141,14 @@ const eventInfoMap = new Map<ActivityEvent, ActivityEventInfo>([
       color: "secondary",
     },
   ],
+  [
+    ActivityEvent.Published,
+    {
+      message: activityMessages.published,
+      icon: DocumentArrowUpIcon,
+      color: "success",
+    },
+  ],
 ]);
 
 export function getEventInfo(
@@ -178,7 +187,10 @@ export function parseAttributes(attr: unknown): JSONRecord {
   return {};
 }
 
-export function getDeepAttribute(obj: unknown, ...path: string[]): string | null {
+export function getDeepAttribute(
+  obj: unknown,
+  ...path: string[]
+): string | null {
   let curr: unknown = obj;
   for (const p of path) {
     if (isRecord(curr) && p in curr) {

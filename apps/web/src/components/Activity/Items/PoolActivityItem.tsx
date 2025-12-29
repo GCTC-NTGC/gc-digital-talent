@@ -1,11 +1,10 @@
-import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
 import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import { isAfter } from "date-fns/isAfter";
-import { defineMessage, MessageDescriptor } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import {
   ActivityEvent,
-  ActivityProperties,
   getFragment,
   Maybe,
   Scalars,
@@ -22,19 +21,7 @@ import BaseItem, {
   BaseItem_Fragment,
   CommonItemProps,
 } from "./BaseActivityItem";
-import { getEventInfo, parseAttributes } from "./utils";
-
-function isPublishEvent(propsObj?: Maybe<ActivityProperties>): boolean {
-  if (propsObj && "attributes" in propsObj && "old" in propsObj) {
-    const atts = parseAttributes(propsObj.attributes);
-    const old = parseAttributes(propsObj.old);
-    if ("published_at" in atts && "published_at" in old) {
-      return typeof atts.published_at === "string" && !old.published_at;
-    }
-  }
-
-  return false;
-}
+import { getEventInfo } from "./utils";
 
 function updatedAfterPublish(
   createdAt?: Maybe<Scalars["DateTime"]["output"]>,
@@ -104,6 +91,7 @@ const PoolActivityItem = ({
   query,
   ...rest
 }: PoolActivityItemProps) => {
+  const intl = useIntl();
   const item = getFragment(BaseItem_Fragment, query);
   const isAfterPublish = updatedAfterPublish(item?.createdAt, publishedAt);
   let info = getEventInfo(item?.event);
@@ -112,12 +100,9 @@ const PoolActivityItem = ({
     return null;
   }
 
-  if (isPublishEvent(item?.properties)) {
-    info = {
-      ...info,
-      icon: DocumentArrowUpIcon,
-      color: "success",
-    };
+  let description: ReactNode | undefined;
+  if (item?.event === ActivityEvent.Published) {
+    description = intl.formatMessage(processMessages.process);
   }
 
   if (item?.event === ActivityEvent.Updated && isAfterPublish) {
@@ -129,7 +114,15 @@ const PoolActivityItem = ({
     };
   }
 
-  return <BaseItem info={info} query={query} keyMap={keyMap} {...rest} />;
+  return (
+    <BaseItem
+      info={info}
+      query={query}
+      keyMap={keyMap}
+      description={description}
+      {...rest}
+    />
+  );
 };
 
 export default PoolActivityItem;

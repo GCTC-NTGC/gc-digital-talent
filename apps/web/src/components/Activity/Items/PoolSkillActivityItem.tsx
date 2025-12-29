@@ -16,17 +16,20 @@ import { getDeepAttribute, getEventInfo, parseAttributes } from "./utils";
 
 export type PoolSkillActivityItemProps = CommonItemProps;
 
-function getDescription(locale: Locales, propsObj?: Maybe<ActivityProperties>): ReactNode {
+function getDescription(
+  locale: Locales,
+  propsObj?: Maybe<ActivityProperties>,
+): ReactNode {
   let desc: ReactNode;
   if (propsObj) {
     if ("attributes" in propsObj) {
       const atts = parseAttributes(propsObj.attributes);
-      desc = getDeepAttribute(atts, "skill.name", locale);
+      desc = getDeepAttribute(atts, "skill", locale);
     }
 
     if (!desc && "old" in propsObj) {
       const old = parseAttributes(propsObj.old);
-      desc = getDeepAttribute(old, "skill.name", locale);
+      desc = getDeepAttribute(old, "skill", locale);
     }
 
     return desc;
@@ -50,7 +53,14 @@ const PoolSkillActivityItem = ({
 
   info.color = "primary";
 
-  return <BaseItem info={info} query={query} description={getDescription(locale, item?.properties)} {...rest} />;
+  return (
+    <BaseItem
+      info={info}
+      query={query}
+      description={getDescription(locale, item?.properties)}
+      {...rest}
+    />
+  );
 };
 
 export default PoolSkillActivityItem;
