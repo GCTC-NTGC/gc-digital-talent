@@ -37,7 +37,8 @@ export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
     departments {
       id
       name {
-        localized
+        en
+        fr
       }
     }
   }
