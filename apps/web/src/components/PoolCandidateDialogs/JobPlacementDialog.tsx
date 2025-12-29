@@ -140,7 +140,10 @@ const JobPlacementDialog = ({
   ) => {
     let mutationPromise: Promise<void> | null = null;
 
-    if (values.placementType && values.placementType !== "NOT_PLACED") {
+    if (
+      values.placementType &&
+      values.placementType !== PlacementType.NotPlaced
+    ) {
       mutationPromise = executePlaceCandidate({
         id: poolCandidateId,
         ...formValuesToPlaceCandidateInput(values),

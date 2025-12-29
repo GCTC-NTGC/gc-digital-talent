@@ -2,16 +2,17 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
 import {
-  localizedEnumToOptions,
   objectsToSortedOptions,
   RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
+  ENUM_SORT_ORDER,
   errorMessages,
-  getLocalizedName,
-  sortPlacementType,
+  narrowEnumType,
+  sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
 import { Notice } from "@gc-digital-talent/ui";
 import {
@@ -25,18 +26,18 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
   fragment JobPlacementOptions on Query {
-    placementTypes: localizedEnumStrings(enumName: "PlacementType") {
-      value
-      label {
-        en
-        fr
+    placementTypes: localizedEnumOptions(enumName: "PlacementType") {
+      ... on LocalizedPlacementType {
+        value
+        label {
+          localized
+        }
       }
     }
     departments {
       id
       name {
-        en
-        fr
+        localized
       }
     }
   }
@@ -46,7 +47,7 @@ export type JobPlacementOptionsFragmentType = FragmentType<
   typeof JobPlacementOptions_Query
 >;
 export interface FormValues {
-  placementType?: PlacementType | "NOT_PLACED";
+  placementType?: PlacementType;
   placedDepartment?: string;
 }
 
@@ -56,62 +57,67 @@ interface JobPlacementFormProps {
 
 const JobPlacementForm = ({ optionsQuery }: JobPlacementFormProps) => {
   const intl = useIntl();
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const methods = useFormContext<FormValues>();
 
   const { watch } = methods;
 
   const watchPlacementType = watch("placementType");
-  const isPlaced = watchPlacementType !== "NOT_PLACED";
+  const isPlaced = watchPlacementType !== PlacementType.NotPlaced;
 
   const options = getFragment(JobPlacementOptions_Query, optionsQuery);
 
-  const placementTypeOptions = [
-    {
-      value: "NOT_PLACED",
-      label: intl.formatMessage(poolCandidateMessages.notPlaced),
-    },
-    ...localizedEnumToOptions(sortPlacementType(options?.placementTypes), intl),
-  ].map((option) => {
-    if (option.value === PlacementType.UnderConsideration.toString()) {
-      return {
-        ...option,
-        contentBelow: intl.formatMessage(
-          poolCandidateMessages.underConsiderationDesc,
-        ),
-      };
-    }
-    if (option.value === PlacementType.PlacedTentative.toString()) {
-      return {
-        ...option,
-        contentBelow: intl.formatMessage(
-          poolCandidateMessages.PlacedTentativeDesc,
-        ),
-      };
-    }
-
-    return option;
-  });
-
-  const underConsideration = options?.placementTypes?.find(
-    (pt) => pt.value === PlacementType.UnderConsideration.toString(),
+  const placementTypes = sortLocalizedEnumOptions(
+    ENUM_SORT_ORDER.PLACEMENT_TYPE,
+    narrowEnumType(unpackMaybes(options?.placementTypes), "PlacementType"),
   );
-  const placedTerm = options?.placementTypes?.find(
-    (pt) => pt.value === PlacementType.PlacedTerm.toString(),
+
+  const placementTypeOptions = placementTypes
+    .map((placementType) => ({
+      value: placementType.value,
+      label: placementType.label.localized ?? notAvailable,
+    }))
+    .map((option) => {
+      if (option.value === PlacementType.UnderConsideration) {
+        return {
+          ...option,
+          contentBelow: intl.formatMessage(
+            poolCandidateMessages.underConsiderationDesc,
+          ),
+        };
+      }
+      if (option.value === PlacementType.PlacedTentative) {
+        return {
+          ...option,
+          contentBelow: intl.formatMessage(
+            poolCandidateMessages.PlacedTentativeDesc,
+          ),
+        };
+      }
+
+      return option;
+    });
+
+  const underConsideration = placementTypes.find(
+    (pt) => pt.value === PlacementType.UnderConsideration,
   );
-  const placedIndeterminate = options?.placementTypes?.find(
-    (pt) => pt.value === PlacementType.PlacedIndeterminate.toString(),
+  const placedTerm = placementTypes.find(
+    (pt) => pt.value === PlacementType.PlacedTerm,
+  );
+  const placedIndeterminate = placementTypes.find(
+    (pt) => pt.value === PlacementType.PlacedIndeterminate,
   );
 
   const enumLabelMap = new Map<PlacementType, string>([
     [
       PlacementType.UnderConsideration,
-      getLocalizedName(underConsideration?.label, intl),
+      underConsideration?.label.localized ?? notAvailable,
     ],
-    [PlacementType.PlacedTerm, getLocalizedName(placedTerm?.label, intl)],
+    [PlacementType.PlacedTerm, placedTerm?.label.localized ?? notAvailable],
     [
       PlacementType.PlacedIndeterminate,
-      getLocalizedName(placedIndeterminate?.label, intl),
+      placedIndeterminate?.label.localized ?? notAvailable,
     ],
   ]);
 

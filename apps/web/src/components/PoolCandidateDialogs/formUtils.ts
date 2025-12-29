@@ -1,4 +1,7 @@
-import { DisqualificationReason } from "@gc-digital-talent/graphql";
+import {
+  DisqualificationReason,
+  PlacementType,
+} from "@gc-digital-talent/graphql";
 
 import { FormValues as JobPlacementFormValues } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 
@@ -40,7 +43,7 @@ export function formValuesToPlaceCandidateInput(
   if (!formValues.placementType) {
     throw new Error("Missing placement type");
   }
-  if (formValues.placementType === "NOT_PLACED") {
+  if (formValues.placementType === PlacementType.NotPlaced) {
     throw new Error("Invalid placement type");
   }
   return {
