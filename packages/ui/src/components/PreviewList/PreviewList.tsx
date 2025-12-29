@@ -205,8 +205,8 @@ const TimelineWrapper = ({
   const placement = deriveTimelinePlacement(index, groupLength) ?? "single";
   return (
     <li className={listItem({ mode: "experience", placement: placement })}>
-      {/* top 1.7 = 0.5 + 1.2 */}
-      <svg className="absolute top-[calc(var(--spacing)*1.7)] -left-[calc(var(--spacing)*1.2)]">
+      {/* top 1.7 = 0.5 + 1.2, left negative 1.2 from radius + 0.5 px to go to middle of 1px border */}
+      <svg className="absolute top-[calc(var(--spacing)*1.7)] -left-[calc((var(--spacing)*1.2)+0.5px)]">
         <circle
           className="fill-primary-600 dark:fill-primary-200"
           style={{
