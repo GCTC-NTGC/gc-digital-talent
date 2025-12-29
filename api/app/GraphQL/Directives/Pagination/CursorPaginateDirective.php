@@ -17,12 +17,11 @@ use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
-use Nuwave\Lighthouse\Support\Contracts\ComplexityResolverDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class CursorPaginateDirective extends BaseDirective implements ComplexityResolverDirective, FieldManipulator, FieldResolver
+class CursorPaginateDirective extends BaseDirective implements FieldManipulator, FieldResolver
 {
     public static function definition(): string
     {
@@ -40,7 +39,7 @@ directive @cursorPaginate(
 
   """
   Point to a function that provides a Query Builder instance.
-  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+  Consists of two parts: a class name and a method name, separated by an `@` symbol.
   If you pass only a class name, the method name defaults to `__invoke`.
   Mutually exclusive with `model` and `resolver`.
   """
@@ -73,13 +72,6 @@ directive @cursorPaginate(
   Setting this to `null` means the count is unrestricted.
   """
   maxCount: Int
-
-  """
-  Reference a function to customize the complexity score calculation.
-  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
-  If you pass only a class name, the method name defaults to `__invoke`.
-  """
-  complexityResolver: String
 ) on FIELD_DEFINITION
 GRAPHQL;
     }
@@ -164,25 +156,5 @@ GRAPHQL;
     protected function paginateMaxCount(): ?int
     {
         return $this->directiveArgValue('maxCount', config('lighthouse.pagination.max_count'));
-    }
-
-    public function complexityResolver(FieldValue $fieldValue): callable
-    {
-        if ($this->directiveHasArgument('complexityResolver')) {
-            return $this->getResolverFromArgument('complexityResolver');
-        }
-
-        return static function (int $childrenComplexity, array $args): int {
-            /**
-             * @see PaginationManipulator::countArgument()
-             */
-            $expectedNumberOfChildren = $args['first'] ?? 1;
-
-            return
-                // Default complexity for this field itself
-                1
-                // Scale children complexity by the expected number of results
-                + $childrenComplexity * $expectedNumberOfChildren;
-        };
     }
 }
