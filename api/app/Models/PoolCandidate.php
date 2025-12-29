@@ -1007,7 +1007,7 @@ class PoolCandidate extends Model
 
     protected function customizeActivityProperties(array &$properties, ActivityEvent $event): void
     {
-        $properties['attributes']['user_name'] = $this->user?->fullName ?? null;
-        $properties['attributes']['pool_id'] = $this->pool?->id ?? null;
+        $properties['attributes']['user_name'] = $this->user->fullName ?? null;
+        $properties['attributes']['pool_id'] = $this->pool->id ?? null;
     }
 }

@@ -34,7 +34,7 @@ class Activity extends SpatieActivity
 
     public function scopeWhereIsAggregatePoolActivity(Builder $query, array $args, Pool $pool)
     {
-        $poolId = $pool?->id;
+        $poolId = $pool->id;
         if (! $poolId) {
             return $query->whereRaw('0 = 1');
         }
