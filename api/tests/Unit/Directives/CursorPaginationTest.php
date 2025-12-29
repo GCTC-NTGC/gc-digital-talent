@@ -34,20 +34,6 @@ final class CursorPaginationTest extends TestCase
 
     public function testCursorPagination(): void
     {
-        // $this->mockResolver(function ($root, array $args): array {
-        //     return ['a', 'b', 'c', 'd', 'e', 'f'];
-        // });
-
-        // $this->schema = /** @lang GraphQL */ '
-        //     type Query {
-        //         foo: [String]
-        //         @mock
-        //         @cursorPaginate(
-        //             defaultCount: 3
-        //         )
-        //     }
-        // ';
-
         $this->schema = /** @lang GraphQL */ '
             type Community  {
                 key: String!
@@ -56,32 +42,39 @@ final class CursorPaginationTest extends TestCase
             type Query {
                 communities: [Community]!
                 @cursorPaginate(
-                    defaultCount: 3
+                    type: CONNECTION
                 )
             }
         ';
 
-        $this->graphQL(/** @lang GraphQL */ '
+        $response = $this->graphQL(/** @lang GraphQL */ '
         {
-            communities {
-                data {
-                    key
+            communities(first: 3) {
+                edges {
+                    node {
+                        key
+                    }
+                    # cursor
                 }
-                paginatorInfo {
+                pageInfo {
                     currentPage
                     lastPage
                 }
             }
         }
-        ')->assertExactJson([
+        ');
+
+        // $response->ddBody();
+
+        $response->assertExactJson([
             'data' => [
                 'communities' => [
-                    'data' => [
-                        ['key' => '1'],
-                        ['key' => '2'],
-                        ['key' => '3'],
+                    'edges' => [
+                        ['node' => ['key' => '1']],
+                        ['node' => ['key' => '2']],
+                        ['node' => ['key' => '3']],
                     ],
-                    'paginatorInfo' => [
+                    'pageInfo' => [
                         'currentPage' => 1,
                         'lastPage' => 2,
                     ],
