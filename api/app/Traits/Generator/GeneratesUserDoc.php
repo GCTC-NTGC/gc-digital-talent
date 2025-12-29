@@ -847,7 +847,7 @@ trait GeneratesUserDoc
 
         // Lateral Movement
         $this->addLabelText($section, $this->localize('gc_employee.lateral_movement_interest'),
-            $this->formatYesOrEmpty($profile->career_planning_lateral_move_interest));
+            $this->formatYesNoEmpty($profile->career_planning_lateral_move_interest));
 
         if ($profile->career_planning_lateral_move_interest) {
             $this->addLabelText($section, $this->localize('gc_employee.target_time_frame'),
@@ -867,7 +867,7 @@ trait GeneratesUserDoc
 
         // Promotion/Advancement
         $this->addLabelText($section, $this->localize('gc_employee.promotion_interest'),
-            $this->formatYesOrEmpty($profile->career_planning_promotion_move_interest));
+            $this->formatYesNoEmpty($profile->career_planning_promotion_move_interest));
 
         if ($profile->career_planning_promotion_move_interest) {
             $this->addLabelText($section, $this->localize('gc_employee.target_time_frame_promotion'),
@@ -917,7 +917,7 @@ trait GeneratesUserDoc
 
         // Executive Opportunities
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
-            $this->formatYesOrEmpty($profile->career_planning_exec_interest));
+            $this->formatYesNoEmpty($profile->career_planning_exec_interest));
         $coachingStatus = match ($profile->career_planning_exec_coaching_status) {
             [ExecCoaching::COACHING->name, ExecCoaching::LEARNING->name], [ExecCoaching::LEARNING->name, ExecCoaching::COACHING->name] => 'coaching_and_learning',
             [ExecCoaching::COACHING->name] => 'coaching_others',
@@ -1102,15 +1102,16 @@ trait GeneratesUserDoc
     }
 
     /**
-     * Format a boolean yes/empty value
-     * True = yes, False = '' (no), Null = '' (not provided)
+     * Format a boolean yes/no/empty value
      */
-    private function formatYesOrEmpty(?bool $value): string
+    private function formatYesNoEmpty(?bool $value): string
     {
-        if (is_null($value) || $value === false) {
+        // if null (not provided) return empty string
+        if (is_null($value)) {
             return '';
         }
 
-        return $this->yesOrNo($value);
+        // if true return yes, false return empty string
+        return $value === true ? $this->yesOrNo(true) : '';
     }
 }
