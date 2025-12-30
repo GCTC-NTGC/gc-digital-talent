@@ -4,6 +4,7 @@ namespace Tests\Unit\Directives;
 
 use App\Models\Community;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\UsesTestSchema;
 use Tests\TestCase;
@@ -27,8 +28,6 @@ final class CursorPaginationTest extends TestCase
         Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000004', 'key' => '4']);
         Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000005', 'key' => '5']);
 
-        $this->setUpTestSchema();
-
         $this->schema = /** @lang GraphQL */ '
             type Community  {
                 key: String!
@@ -39,6 +38,8 @@ final class CursorPaginationTest extends TestCase
                 @cursorPaginate
             }
         ';
+
+        $this->setUpTestSchema();
     }
 
     public function testSinglePage(): void
@@ -72,5 +73,42 @@ final class CursorPaginationTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    public function testMultiplePages(): void
+    {
+        $query = /** @lang GraphQL */ '
+            query Communities($after: String) {
+                communities(first: 3, after: $after) {
+                    edges {
+                        node {
+                            key
+                        }
+                    }
+                    pageInfo {
+                        startCursor
+                        endCursor
+                    }
+                }
+            }
+        ';
+
+        $response1 = $this->graphQL($query, [
+            'after' => null,
+        ]);
+
+        $response1->assertGraphQLErrorFree();
+        $edges1 = Arr::get($response1, 'data.communities.edges');
+        $keys1 = Arr::pluck($edges1, 'node.key');
+        $this->assertEquals(['1', '2', '3'], $keys1);
+
+        $response2 = $this->graphQL($query, [
+            'after' => Arr::get($response1, 'data.communities.pageInfo.endCursor'),
+        ]);
+
+        $response2->assertGraphQLErrorFree();
+        $edges2 = Arr::get($response2, 'data.communities.edges');
+        $keys2 = Arr::pluck($edges2, 'node.key');
+        $this->assertEquals(['4', '5'], $keys2);
     }
 }
