@@ -7411,6 +7411,10 @@
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
   },
+  "UV3tPc": {
+    "defaultMessage": "Nous joindre",
+    "description": "Label for Contact us action"
+  },
   "UanJxB": {
     "defaultMessage": "Supprimer cette question",
     "description": "Button text to delete a general question"

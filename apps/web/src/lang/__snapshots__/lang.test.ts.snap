@@ -214,6 +214,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Contact us",
+    "fr": [
+      "Pour nous joindre",
+      "Nous joindre"
+    ]
+  },
+  {
     "en": "Create work stream",
     "fr": [
       "Créez un volet de travail",
