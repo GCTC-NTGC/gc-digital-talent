@@ -14417,6 +14417,10 @@
     "defaultMessage": "Cote de sécurité",
     "description": "Heading for security clearance dialog"
   },
+  "ySrsif": {
+    "defaultMessage": "Parcourir les emplois",
+    "description": "Label for Browse jobs item"
+  },
   "yTHS2m": {
     "defaultMessage": "Un échange de postes est un processus auquel peuvent avoir recours les titulaires de postes permanents au sein de l’administration publique centrale qui ont reçu une lettre officielle de leur ministère ou organisme les informant que leur poste actuel sera aboli. Ces fonctionnaires font donc alors partie du « personnel touché ».",
     "description": "Paragraph one, describing alternations"

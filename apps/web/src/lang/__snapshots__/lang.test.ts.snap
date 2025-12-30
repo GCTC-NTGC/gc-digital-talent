@@ -333,6 +333,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Browse jobs",
+    "fr": [
+      "Parcourir les emplois",
+      "Parcourir les possibilités d'emploi"
+    ]
+  },
+  {
     "en": "Applicant profile",
     "fr": [
       "Profil de candidature",
