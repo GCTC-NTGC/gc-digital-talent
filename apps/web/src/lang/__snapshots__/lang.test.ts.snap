@@ -193,6 +193,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Sign up",
+    "fr": [
+      "S'inscrire",
+      "S'enregistrer"
+    ]
+  },
+  {
     "en": "Qualified",
     "fr": [
       "Qualifié",
