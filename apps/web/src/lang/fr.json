@@ -2268,7 +2268,7 @@
     "description": "Subtitle for the workforce adjustment information page"
   },
   "7JQCZ0": {
-    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
+    "defaultMessage": "Télécharger le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
   "7Je/3u": {
@@ -8171,7 +8171,7 @@
     "description": "Heading for EXposition eligibility"
   },
   "XovI8x": {
-    "defaultMessage": "Téléchargez toutes compétences (CSV)",
+    "defaultMessage": "Télécharger toutes compétences (CSV)",
     "description": "Text label for button to download a csv file of all skills."
   },
   "XrRt6V": {
@@ -9219,7 +9219,7 @@
     "description": "Description of review process and next steps for the IAP applicant."
   },
   "cTSaxx": {
-    "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
+    "defaultMessage": "Télécharger le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
   },
   "cU+2HB": {
@@ -10686,7 +10686,7 @@
     "description": "Error message when updating subject failed"
   },
   "iGXXjP": {
-    "defaultMessage": "Téléchargez la trousse du gestionnaire",
+    "defaultMessage": "Télécharger la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
   },
   "iHDhMh": {
@@ -12974,7 +12974,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "sDqpzq": {
-    "defaultMessage": "Téléchargez la trousse du gestionnaire",
+    "defaultMessage": "Télécharger la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
   },
   "sEmaen": {
@@ -14154,7 +14154,7 @@
     "description": "Button text to submit the current step of a process"
   },
   "xV43au": {
-    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",
+    "defaultMessage": "Télécharger le guide de mise en œuvre pour les conseillers en RH",
     "description": "Aria label for download guidance for human resources plain text link."
   },
   "xVcPXK": {
@@ -14402,7 +14402,7 @@
     "description": "Lead-in text for job poster template key tasks section, paragraph 2"
   },
   "yNPkM8": {
-    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
+    "defaultMessage": "Télécharger le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
   },
   "yO+tlM": {
@@ -14802,7 +14802,7 @@
     "description": "Heading for required behavioural skills section"
   },
   "zvXWQB": {
-    "defaultMessage": "Téléchargez la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
+    "defaultMessage": "Télécharger la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
   },
   "zvnzds": {
