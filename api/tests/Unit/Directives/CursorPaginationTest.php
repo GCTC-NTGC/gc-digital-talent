@@ -5,7 +5,6 @@ namespace Tests\Unit\Directives;
 use App\Models\Community;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Nuwave\Lighthouse\Testing\MocksResolvers;
 use Nuwave\Lighthouse\Testing\UsesTestSchema;
 use Tests\TestCase;
 use Tests\UsesUnprotectedGraphqlEndpoint;
@@ -13,8 +12,6 @@ use Tests\UsesUnprotectedGraphqlEndpoint;
 final class CursorPaginationTest extends TestCase
 {
     use MakesGraphQLRequests;
-
-    // use MocksResolvers;
     use RefreshDatabase;
     use UsesTestSchema;
     use UsesUnprotectedGraphqlEndpoint;
@@ -23,17 +20,15 @@ final class CursorPaginationTest extends TestCase
     {
         parent::setUp();
 
-        Community::factory()->create(['key' => '1']);
-        Community::factory()->create(['key' => '2']);
-        Community::factory()->create(['key' => '3']);
-        Community::factory()->create(['key' => '4']);
-        Community::factory()->create(['key' => '5']);
+        // Communities are not important to the tests.  They are just a convenient, simple model to use.
+        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000001', 'key' => '1']);
+        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000002', 'key' => '2']);
+        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000003', 'key' => '3']);
+        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000004', 'key' => '4']);
+        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000005', 'key' => '5']);
 
         $this->setUpTestSchema();
-    }
 
-    public function testCursorPagination(): void
-    {
         $this->schema = /** @lang GraphQL */ '
             type Community  {
                 key: String!
@@ -44,27 +39,25 @@ final class CursorPaginationTest extends TestCase
                 @cursorPaginate
             }
         ';
+    }
 
-        $response = $this->graphQL(/** @lang GraphQL */ '
+    public function testSinglePage(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
         {
             communities(first: 3) {
                 edges {
                     node {
                         key
                     }
-                    # cursor
                 }
                 pageInfo {
-                    currentPage
-                    lastPage
+                    hasPreviousPage
+                    hasNextPage
                 }
             }
         }
-        ');
-
-        // $response->ddBody();
-
-        $response->assertExactJson([
+        ')->assertExactJson([
             'data' => [
                 'communities' => [
                     'edges' => [
@@ -73,8 +66,8 @@ final class CursorPaginationTest extends TestCase
                         ['node' => ['key' => '3']],
                     ],
                     'pageInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 2,
+                        'hasPreviousPage' => false,
+                        'hasNextPage' => true,
                     ],
                 ],
             ],
