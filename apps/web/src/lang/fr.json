@@ -7411,6 +7411,10 @@
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
   },
+  "UV3tPc": {
+    "defaultMessage": "Nous joindre",
+    "description": "Label for Contact us action"
+  },
   "UanJxB": {
     "defaultMessage": "Supprimer cette question",
     "description": "Button text to delete a general question"
@@ -14412,6 +14416,10 @@
   "ySQ1Kf": {
     "defaultMessage": "Cote de sécurité",
     "description": "Heading for security clearance dialog"
+  },
+  "ySrsif": {
+    "defaultMessage": "Parcourir les emplois",
+    "description": "Label for Browse jobs item"
   },
   "yTHS2m": {
     "defaultMessage": "Un échange de postes est un processus auquel peuvent avoir recours les titulaires de postes permanents au sein de l’administration publique centrale qui ont reçu une lettre officielle de leur ministère ou organisme les informant que leur poste actuel sera aboli. Ces fonctionnaires font donc alors partie du « personnel touché ».",

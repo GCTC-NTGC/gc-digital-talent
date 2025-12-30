@@ -22,8 +22,8 @@ const Footer = () => {
       href: paths.support(),
       children: intl.formatMessage({
         defaultMessage: "Contact us",
-        id: "RIi/3q",
-        description: "Title for Contact us action",
+        id: "UV3tPc",
+        description: "Label for Contact us action",
       }),
       state: { referrer: window.location.href },
     },
