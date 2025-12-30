@@ -20,7 +20,7 @@
 ### Account creation
 
 1. Navigate to [Sign in using GCkey](http://localhost:8000/en/login-info)
-2. Click the _Continue to GCKey and sign in_ button
+2. Click the _Sign in with GCKey_ button
 3. Sign in or Sign up for an account
 4. Start your account at the [Welcome to GC Digital Talent](http://localhost:8000/en/create-account) page
 5. Copy the email address entered on the Welcome to GC Digital Talent page form for later
