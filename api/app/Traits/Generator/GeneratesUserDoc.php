@@ -1111,7 +1111,7 @@ trait GeneratesUserDoc
             return '';
         }
 
-        // if true return yes, false return empty string
-        return $value === true ? $this->yesOrNo(true) : '';
+        // else return yes/no
+        return $this->yesOrNo($value);
     }
 }
