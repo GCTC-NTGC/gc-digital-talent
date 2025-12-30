@@ -7,7 +7,7 @@ namespace App\GraphQL\Directives\Pagination;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -103,18 +103,18 @@ GRAPHQL;
 
     public function resolveField(FieldValue $fieldValue): callable
     {
-        return function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Paginator {
+        return function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): CursorPaginator {
             $paginationArgs = PaginationArgs::extractArgs($args, $resolveInfo, $this->paginateMaxCount());
 
             if ($this->directiveHasArgument('resolver')) {
                 $paginator = $this->getResolverFromArgument('resolver')($root, $args, $context, $resolveInfo);
                 assert(
-                    $paginator instanceof Paginator,
-                    "The method referenced by the resolver argument of the @{$this->name()} directive on {$this->nodeName()} must return a Paginator.",
+                    $paginator instanceof CursorPaginator,
+                    "The method referenced by the resolver argument of the @{$this->name()} directive on {$this->nodeName()} must return a CursorPaginator.",
                 );
 
                 if ($paginationArgs->first === 0) {
-                    return new ZeroPerPagePaginator($paginationArgs->page);
+                    return new ZeroPerPagePaginator();
                 }
 
                 return $paginator;

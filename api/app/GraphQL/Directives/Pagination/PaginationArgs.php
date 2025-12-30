@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace App\GraphQL\Directives\Pagination;
 
 use GraphQL\Error\Error;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Pagination\Cursor;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 
 class PaginationArgs
 {
     public function __construct(
-        public int $page,
         public int $first,
+        public ?Cursor $after,
 
     ) {}
 
@@ -29,10 +30,8 @@ class PaginationArgs
     {
         $first = $args['first'];
 
-        $page = self::calculateCurrentPage(
-            $first,
-            Cursor::decode($args),
-        );
+        $encodedAfter = $args['after'] ?? null;
+        $after = Cursor::fromEncoded($encodedAfter);
 
         if ($first < 0) {
             throw new Error(self::requestedLessThanZeroItems($first));
@@ -46,7 +45,7 @@ class PaginationArgs
             throw new Error(self::requestedTooManyItems($paginateMaxCount, $first));
         }
 
-        return new static($page, $first);
+        return new static($first, $after);
     }
 
     public static function requestedLessThanZeroItems(int $amount): string
@@ -59,34 +58,27 @@ class PaginationArgs
         return "Maximum number of {$maxCount} requested items exceeded, got {$actualCount}. Fetch smaller chunks.";
     }
 
-    /** Calculate the current page to inform the user about the pagination state. */
-    protected static function calculateCurrentPage(int $first, int $after, int $defaultPage = 1): int
-    {
-        return $first && $after
-            ? (int) floor(($first + $after) / $first)
-            : $defaultPage;
-    }
-
     /**
      * Apply the args to a builder, constructing a paginator.
      *
      * @template TModel of \Illuminate\Database\Eloquent\Model
      *
      * @param  \Illuminate\Database\Query\Builder|\Laravel\Scout\Builder|\Illuminate\Database\Eloquent\Builder<TModel>|\Illuminate\Database\Eloquent\Relations\Relation<TModel>  $builder
-     * @return \Illuminate\Contracts\Pagination\Paginator<array-key, TModel>
+     * @return \Illuminate\Contracts\Pagination\CursorPaginator<array-key, TModel>
      */
-    public function applyToBuilder(QueryBuilder|ScoutBuilder|EloquentBuilder|Relation $builder): Paginator
+    public function applyToBuilder(QueryBuilder|ScoutBuilder|EloquentBuilder|Relation $builder): CursorPaginator
     {
-        if ($this->first === 0) {
-            return new ZeroPerPagePaginator($this->page); // @phpstan-ignore return.type (generic type does not matter)
-        }
+        // if ($this->first === 0) {
+        //     return new ZeroPerPagePaginator($this->page); // @phpstan-ignore return.type (generic type does not matter)
+        // }
 
-        $methodName = 'paginate';
+        // $methodName = 'paginate';
 
-        if ($builder instanceof ScoutBuilder) {
-            return $builder->{$methodName}($this->first, 'page', $this->page);
-        }
+        // if ($builder instanceof ScoutBuilder) {
+        //     return $builder->{$methodName}($this->first, 'page', $this->page);
+        // }
 
-        return $builder->{$methodName}($this->first, ['*'], 'page', $this->page);
+        // return $builder->{$methodName}($this->first, ['*'], 'page', $this->page);
+        return $builder->cursorPaginate(perPage: $this->first, cursor: $this->after);
     }
 }

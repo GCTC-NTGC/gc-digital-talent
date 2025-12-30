@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Directives\Pagination;
 
-use Illuminate\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Support\Collection;
 
 /** @extends \Illuminate\Pagination\Paginator<array-key, mixed> */
-class ZeroPerPagePaginator extends Paginator
+class ZeroPerPagePaginator extends CursorPaginator
 {
-    public function __construct(int $page)
+    public function __construct()
     {
-        $this->perPage = 0;
-        $this->currentPage = $page;
-        $this->items = new Collection();
+        // $this->perPage = 0;
+        // $this->currentPage = $page;
+        // $this->items = new Collection();
+
     }
 }

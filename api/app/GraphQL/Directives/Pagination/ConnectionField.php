@@ -7,7 +7,7 @@ namespace App\GraphQL\Directives\Pagination;
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\ObjectType;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -15,7 +15,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 class ConnectionField
 {
     /**
-     * @param  \Illuminate\Contracts\Pagination\Paginator<*, *>  $paginator
+     * @param  \Illuminate\Contracts\Pagination\CursorPaginator<*, *>  $paginator
      * @return array{
      *     hasNextPage: bool,
      *     hasPreviousPage: bool,
@@ -23,23 +23,16 @@ class ConnectionField
      *     endCursor: string|null,
      * }
      */
-    public function pageInfoResolver(Paginator $paginator): array
+    public function pageInfoResolver(CursorPaginator $paginator): array
     {
-        /** @var int|null $firstItem Laravel type-hints are inaccurate here */
-        $firstItem = $paginator->firstItem();
-
-        /** @var int|null $lastItem Laravel type-hints are inaccurate here */
-        $lastItem = $paginator->lastItem();
+        $previousCursor = $paginator->previousCursor();
+        $nextCursor = $paginator->nextCursor();
 
         return [
-            'hasNextPage' => $paginator->hasMorePages(),
-            'hasPreviousPage' => $paginator->currentPage() > 1,
-            'startCursor' => $firstItem !== null
-                ? Cursor::encode($firstItem)
-                : null,
-            'endCursor' => $lastItem !== null
-                ? Cursor::encode($lastItem)
-                : null,
+            'hasNextPage' => ! is_null($nextCursor), // or $paginator->hasMorePages()
+            'hasPreviousPage' => ! is_null($previousCursor),
+            'startCursor' => $previousCursor?->encode(),
+            'endCursor' => $nextCursor?->encode(),
         ];
     }
 
@@ -48,7 +41,7 @@ class ConnectionField
      * @param  array<string, mixed>  $args
      * @return Collection<int, array<string, mixed>>
      */
-    public function edgeResolver(Paginator $paginator, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection
+    public function edgeResolver(CursorPaginator $paginator, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection
     {
         // We know those types because we manipulated them during PaginationManipulator
         $nonNullList = $resolveInfo->returnType;
@@ -59,17 +52,14 @@ class ConnectionField
 
         $returnTypeFields = $objectLikeType->getFields();
 
-        /** @var int|null $firstItem Laravel type-hints are inaccurate here */
-        $firstItem = $paginator->firstItem();
-
         $values = new Collection(array_values($paginator->items()));
 
-        return $values->map(static function ($item, int $index) use ($returnTypeFields, $firstItem): array {
+        return $values->map(static function ($item, int $index) use ($returnTypeFields): array {
             $data = [];
             foreach ($returnTypeFields as $field) {
                 switch ($field->name) {
                     case 'cursor':
-                        $data['cursor'] = Cursor::encode((int) $firstItem + $index);
+                        $data['cursor'] = null; // Not available in Illuminate\Contracts\Pagination\CursorPaginator
                         break;
 
                     case 'node':
