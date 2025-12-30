@@ -7,7 +7,6 @@ namespace App\GraphQL\Directives\Pagination;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -115,10 +114,6 @@ GRAPHQL;
                 );
 
                 if ($paginationArgs->first === 0) {
-                    if ($paginator instanceof LengthAwarePaginator) {
-                        return new ZeroPerPageLengthAwarePaginator($paginator->total(), $paginationArgs->page);
-                    }
-
                     return new ZeroPerPagePaginator($paginationArgs->page);
                 }
 

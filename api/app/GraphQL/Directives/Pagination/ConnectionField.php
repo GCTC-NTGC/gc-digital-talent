@@ -7,7 +7,6 @@ namespace App\GraphQL\Directives\Pagination;
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\ObjectType;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
@@ -16,19 +15,15 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 class ConnectionField
 {
     /**
-     * @param  \Illuminate\Contracts\Pagination\LengthAwarePaginator<*, *>  $paginator
+     * @param  \Illuminate\Contracts\Pagination\Paginator<*, *>  $paginator
      * @return array{
      *     hasNextPage: bool,
      *     hasPreviousPage: bool,
      *     startCursor: string|null,
      *     endCursor: string|null,
-     *     total: int,
-     *     count: int,
-     *     currentPage: int,
-     *     lastPage: int,
      * }
      */
-    public function pageInfoResolver(LengthAwarePaginator $paginator): array
+    public function pageInfoResolver(Paginator $paginator): array
     {
         /** @var int|null $firstItem Laravel type-hints are inaccurate here */
         $firstItem = $paginator->firstItem();
@@ -45,10 +40,6 @@ class ConnectionField
             'endCursor' => $lastItem !== null
                 ? Cursor::encode($lastItem)
                 : null,
-            'total' => $paginator->total(),
-            'count' => count($paginator->items()),
-            'currentPage' => $paginator->currentPage(),
-            'lastPage' => $paginator->lastPage(),
         ];
     }
 

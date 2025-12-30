@@ -203,18 +203,6 @@ GRAPHQL
 
               "The cursor to continue paginating forwards."
               endCursor: String
-
-              "Total number of nodes in the paginated connection."
-              total: Int!
-
-              "Number of nodes in the current page."
-              count: Int!
-
-              "Index of the current page."
-              currentPage: Int!
-
-              "Index of the last available page."
-              lastPage: Int!
             }
             GRAPHQL);
     }
