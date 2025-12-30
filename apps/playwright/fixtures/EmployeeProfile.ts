@@ -1,6 +1,7 @@
 import { expect, Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
+import ApplicantDashboardPage from "./ApplicantDashboardPage";
 
 type ObjectValues<T> = T[keyof T];
 
@@ -150,7 +151,8 @@ class EmployeeProfile extends AppPage {
       const btn = dialog.getByRole("button", { name: action.name });
       if (await btn.count()) {
         await Promise.all([this.page.waitForURL(action.url), btn.click()]);
-        await this.page.goBack();
+        const dashboardPage = new ApplicantDashboardPage(this.page);
+        await dashboardPage.goToDashboard();
         await this.page
           .getByRole("link", { name: /employee verification/i })
           .click();

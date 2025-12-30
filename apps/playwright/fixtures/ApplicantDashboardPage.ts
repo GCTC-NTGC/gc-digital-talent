@@ -167,7 +167,7 @@ class ApplicantDashboardPage extends AppPage {
         case trimmed.startsWith("missing optional information"): {
           const subSectionName = rawText.split("-").slice(1).join("-").trim();
           await this.fillInCompleteAndMissingSections([subSectionName]);
-          break;
+          continue;
         }
       }
     }
@@ -179,10 +179,13 @@ class ApplicantDashboardPage extends AppPage {
     const profilePage = new ProfilePage(this.page);
 
     for (const subSectionName of subSectionNames) {
+      const escapeRegExp = (s: string) =>
+        s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
       const subSectionLink = this.page.getByRole("link", {
-        name: new RegExp(`${subSectionName}`, "i"),
+        name: new RegExp(escapeRegExp(subSectionName), "i"),
       });
-      await expect(subSectionLink.first()).toBeVisible();
+      await expect(subSectionLink).toBeVisible();
       await subSectionLink.first().click();
 
       switch (subSectionName.toLowerCase()) {

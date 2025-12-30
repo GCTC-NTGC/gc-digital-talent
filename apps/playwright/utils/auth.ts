@@ -34,7 +34,7 @@ export async function loginBySub(
     page.getByRole("heading", { name: /sign in using gckey/i }),
   ).toBeVisible();
   await page
-    .getByRole("link", { name: /Continue to GCKey and sign in/i })
+    .getByRole("link", { name: /sign in with gckey/i })
     .first()
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
