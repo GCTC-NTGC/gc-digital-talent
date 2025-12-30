@@ -61,12 +61,9 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    let organization = this.page.getByRole("textbox", {
+    const organization = this.page.getByRole("textbox", {
       name: "Organization",
     });
-    if ((await organization.count()) === 0) {
-      organization = this.page.getByRole("combobox", { name: "Organization" });
-    }
     await organization.fill(input.organization ?? "test org");
 
     await this.page
@@ -690,6 +687,21 @@ class ExperiencePage extends AppPage {
         .getByRole("combobox", { name: /month/i })
         .selectOption(dArr[1]);
     }
+  }
+
+  async addANewSkillToProfile(skill: string) {
+    await this.page.getByRole("button", { name: /add a new skill/i }).click();
+    await this.page.getByRole("combobox", { name: /Skill/ }).fill(skill);
+    await this.page.getByRole("option", { name: skill }).click();
+    await this.page.getByRole("radio", { name: "Intermediate" }).check();
+    await this.page
+      .getByRole("radio", {
+        name: /yes,\s*i use this skill in my current role/i,
+      })
+      .check();
+    await this.page
+      .getByRole("button", { name: /Save and add this skill/i })
+      .click();
   }
 }
 

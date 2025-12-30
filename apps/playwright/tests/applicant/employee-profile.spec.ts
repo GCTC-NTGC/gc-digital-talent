@@ -20,6 +20,7 @@ import { createUserWithRoles } from "~/utils/user";
 test.describe("Employee Profile", () => {
   let uniqueTestId: string;
   let sub: string;
+  let employeeProfile: EmployeeProfile;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
@@ -42,6 +43,7 @@ test.describe("Employee Profile", () => {
     await loginBySub(appPage.page, sub);
     await appPage.page.goto("/en/applicant");
     await appPage.waitForGraphqlResponse("ApplicantDashboard");
+    employeeProfile = new EmployeeProfile(appPage.page);
 
     // Confirm the employee profile starts considered incomplete
     await expect(
@@ -64,79 +66,7 @@ test.describe("Employee Profile", () => {
         name: /incomplete - career development preferences/i,
       }),
     ).toBeVisible();
-    await appPage.page
-      .getByRole("button", { name: /edit career development preferences/i })
-      .click();
-    await appPage.page
-      .getByRole("group", { name: /interest in lateral movement/i })
-      .getByRole("radio", {
-        name: /interested in receiving opportunities/i,
-      })
-      .click();
-    await appPage.page
-      .getByRole("group", { name: /target time frame for lateral movement/i })
-      .getByRole("radio", { name: /this year/i })
-      .click();
-    await appPage.page
-      .getByRole("group", {
-        name: /types of organizations you’d consider for lateral movement/i,
-      })
-      .getByRole("checkbox", { name: /current organization/i })
-      .click();
-    await appPage.page
-      .getByRole("group", { name: /interest in promotion and advancement/i })
-      .getByRole("radio", {
-        name: /interested in receiving opportunities/i,
-      })
-      .click();
-    await appPage.page
-      .getByRole("group", {
-        name: /target time frame for promotion or advancement/i,
-      })
-      .getByRole("radio", { name: /this year/i })
-      .click();
-    await appPage.page
-      .getByRole("group", {
-        name: /types of organizations you’d consider for promotion or advancement/i,
-      })
-      .getByRole("checkbox", { name: /current organization/i })
-      .click();
-    await appPage.page
-      .getByRole("group", {
-        name: /retirement eligibility/i,
-      })
-      .getByRole("radio", { name: /I know the year/i })
-      .click();
-    await appPage.page
-      .getByRole("group", {
-        name: /year of retirement eligibility/i,
-      })
-      .getByRole("spinbutton", { name: /year/i })
-      .fill("2060");
-    await appPage.page
-      .getByRole("group", {
-        name: /mentorship status/i,
-      })
-      .getByRole("radio", { name: /I currently have a mentor/i })
-      .click();
-    await appPage.page
-      .getByRole("group", {
-        name: /interest in executive level opportunities/i,
-      })
-      .getByRole("radio", { name: /I'd like to be considered/i })
-      .click();
-    await appPage.page
-      .getByRole("group", {
-        name: /executive coaching status/i,
-      })
-      .getByRole("radio", { name: /I currently have an executive coach/i })
-      .click();
-    await appPage.page
-      .getByRole("button", { name: /save career development preferences/i })
-      .click();
-    await appPage.waitForGraphqlResponse(
-      "UpdateEmployeeProfileCareerDevelopment",
-    );
+    await employeeProfile.fillCareerPlanningSection();
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /career development preferences updated successfully/i,
     );
@@ -304,7 +234,7 @@ test.describe("Employee Profile", () => {
 
   test.describe("Workforce adjustment", () => {
     test("Can set not applicable", async ({ appPage }) => {
-      const employeeProfile = new EmployeeProfile(appPage.page);
+      employeeProfile = new EmployeeProfile(appPage.page);
       await loginBySub(employeeProfile.page, sub);
       await employeeProfile.goToEmployeeProfile();
 
@@ -326,7 +256,7 @@ test.describe("Employee Profile", () => {
     });
 
     test("Error with no experiences", async ({ appPage }) => {
-      const employeeProfile = new EmployeeProfile(appPage.page);
+      employeeProfile = new EmployeeProfile(appPage.page);
       await loginBySub(employeeProfile.page, sub);
       await employeeProfile.goToEmployeeProfile();
 
@@ -376,7 +306,7 @@ test.describe("Employee Profile", () => {
         roles: ["guest", "base_user", "applicant"],
       });
 
-      const employeeProfile = new EmployeeProfile(appPage.page);
+      employeeProfile = new EmployeeProfile(appPage.page);
       await loginBySub(employeeProfile.page, nonCPASub);
       await employeeProfile.goToEmployeeProfile();
 
@@ -426,7 +356,7 @@ test.describe("Employee Profile", () => {
         roles: ["guest", "base_user", "applicant"],
       });
 
-      const employeeProfile = new EmployeeProfile(appPage.page);
+      employeeProfile = new EmployeeProfile(appPage.page);
       await loginBySub(employeeProfile.page, expSub);
       await employeeProfile.goToEmployeeProfile();
 
