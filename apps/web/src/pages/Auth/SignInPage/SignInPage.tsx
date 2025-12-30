@@ -472,8 +472,8 @@ export const Component = () => {
           </Link>
           <Link href={paths.register()} mode="inline">
             {intl.formatMessage({
-              defaultMessage: "Sign up instead",
-              id: "aqkSW2",
+              defaultMessage: "Sign up",
+              id: "MFjl68",
               description: "Link text to register instead of signing in",
             })}
           </Link>

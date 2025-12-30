@@ -5639,6 +5639,10 @@
     "defaultMessage": "Sauvegarder « À propos de nous »",
     "description": "Text on a button to save the pool about us"
   },
+  "MFjl68": {
+    "defaultMessage": "S'inscrire",
+    "description": "Link text to register instead of signing in"
+  },
   "MGYlS0": {
     "defaultMessage": "Les processus de recrutement apparaîtront automatiquement dans cette section si votre candidature est retenue.",
     "description": "Body for notice when there are no Recruitment processes"
@@ -8849,10 +8853,6 @@
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
-  },
-  "aqkSW2": {
-    "defaultMessage": "Inscrivez-vous plutôt",
-    "description": "Link text to register instead of signing in"
   },
   "aqlXBz": {
     "defaultMessage": "Courriel professionnel de la personne de référence",
