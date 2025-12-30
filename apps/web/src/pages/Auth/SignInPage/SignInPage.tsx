@@ -132,8 +132,8 @@ export const Component = () => {
               }}
             >
               {intl.formatMessage({
-                defaultMessage: "Continue to GCKey and sign in",
-                id: "4sLCWZ",
+                defaultMessage: "Sign in with GCKey",
+                id: "oQNunm",
                 description: "GCKey sign in link text on the sign in page",
               })}
             </Link>
@@ -465,8 +465,8 @@ export const Component = () => {
             }}
           >
             {intl.formatMessage({
-              defaultMessage: "Continue to GCKey and sign in",
-              id: "4sLCWZ",
+              defaultMessage: "Sign in with GCKey",
+              id: "oQNunm",
               description: "GCKey sign in link text on the sign in page",
             })}
           </Link>

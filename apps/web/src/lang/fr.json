@@ -1739,10 +1739,6 @@
     "defaultMessage": "« Cette catégorie comprend les personnes dont le genre déclaré est féminin. Elle comprend les femmes cisgenres (cis) et les femmes transgenres (trans). »",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
   },
-  "4sLCWZ": {
-    "defaultMessage": "Continuez vers CléGC et connectez-vous",
-    "description": "GCKey sign in link text on the sign in page"
-  },
   "4t/ETT": {
     "defaultMessage": "D’autres exigences s’appliquent pour l’approvisionnement en services professionnels. Consultez les Procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels menées par le Bureau du contrôleur général du Canada.",
     "description": "Description for the related policies card"
@@ -12120,6 +12116,10 @@
   "oN9syr": {
     "defaultMessage": "Votre demande n'a pas été retenue. Pour les offres d'emploi internes au gouvernement du Canada, vous pouvez demander d'avoir une conversation informelle concernant cette décision. Pour ce faire, veuillez écrire au ministère ou à l'équipe de recrutement responsable de la publication de l'offre d'emploi à l'adresse <link>{contactEmail}</link>.",
     "description": "Status description for a disqualified application to an employee-only pool"
+  },
+  "oQNunm": {
+    "defaultMessage": "Se connecter avec CléGC",
+    "description": "GCKey sign in link text on the sign in page"
   },
   "oR+6vE": {
     "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
