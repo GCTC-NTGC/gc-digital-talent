@@ -12,8 +12,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "glob": "^10.3.10"
+    "dotenv": "^17.2.3",
+    "glob": "^13.0.0"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
