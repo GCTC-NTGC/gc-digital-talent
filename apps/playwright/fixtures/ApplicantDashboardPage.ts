@@ -193,8 +193,8 @@ class ApplicantDashboardPage extends AppPage {
           break;
 
         case "career experience":
-          await experiencePage.addExternalWorkExperience({
-            role: "Test Role Playwright",
+          await experiencePage.addPersonalExperience({
+            title: "Test Role Playwright",
             startDate: "2001-01",
           });
           break;
