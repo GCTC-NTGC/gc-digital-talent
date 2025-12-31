@@ -25,19 +25,16 @@ class ConnectionField
      */
     public function pageInfoResolver(CursorPaginator $paginator): array
     {
-        $previousCursor = $paginator->previousCursor();
-        $nextCursor = $paginator->nextCursor();
-
         return [
-            'hasNextPage' => ! is_null($nextCursor), // or $paginator->hasMorePages()
-            'hasPreviousPage' => ! is_null($previousCursor),
-            'startCursor' => $previousCursor?->encode(),
-            'endCursor' => $nextCursor?->encode(),
+            'hasNextPage' => $paginator->hasMorePages(),
+            'hasPreviousPage' => ! is_null($paginator->previousCursor()), // not directly supported by CursorPaginator so we're deriving it
+            'startCursor' => $paginator->previousCursor()?->encode(),
+            'endCursor' => $paginator->nextCursor()?->encode(),
         ];
     }
 
     /**
-     * @param  \Illuminate\Contracts\Pagination\Paginator<*, *>  $paginator
+     * @param  \Illuminate\Contracts\Pagination\CursorPaginator<*, *>  $paginator
      * @param  array<string, mixed>  $args
      * @return Collection<int, array<string, mixed>>
      */
@@ -59,7 +56,7 @@ class ConnectionField
             foreach ($returnTypeFields as $field) {
                 switch ($field->name) {
                     case 'cursor':
-                        $data['cursor'] = null; // Not available in Illuminate\Contracts\Pagination\CursorPaginator
+                        $data['cursor'] = null; // Not available from CursorPaginator
                         break;
 
                     case 'node':

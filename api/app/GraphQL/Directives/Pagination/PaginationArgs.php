@@ -10,12 +10,11 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\Cursor;
-use Laravel\Scout\Builder as ScoutBuilder;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 
 class PaginationArgs
 {
-    public function __construct(
+    final public function __construct(
         public int $first,
         public ?Cursor $after,
 
@@ -63,22 +62,15 @@ class PaginationArgs
      *
      * @template TModel of \Illuminate\Database\Eloquent\Model
      *
-     * @param  \Illuminate\Database\Query\Builder|\Laravel\Scout\Builder|\Illuminate\Database\Eloquent\Builder<TModel>|\Illuminate\Database\Eloquent\Relations\Relation<TModel>  $builder
+     * @param  \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<TModel>|\Illuminate\Database\Eloquent\Relations\Relation<\Illuminate\Database\Eloquent\Model, TModel, TModel>  $builder
      * @return \Illuminate\Contracts\Pagination\CursorPaginator<array-key, TModel>
      */
-    public function applyToBuilder(QueryBuilder|ScoutBuilder|EloquentBuilder|Relation $builder): CursorPaginator
+    public function applyToBuilder(QueryBuilder|EloquentBuilder|Relation $builder): CursorPaginator
     {
-        // if ($this->first === 0) {
-        //     return new ZeroPerPagePaginator($this->page); // @phpstan-ignore return.type (generic type does not matter)
-        // }
+        if ($this->first === 0) {
+            return new ZeroPerPagePaginator();
+        }
 
-        // $methodName = 'paginate';
-
-        // if ($builder instanceof ScoutBuilder) {
-        //     return $builder->{$methodName}($this->first, 'page', $this->page);
-        // }
-
-        // return $builder->{$methodName}($this->first, ['*'], 'page', $this->page);
-        return $builder->cursorPaginate(perPage: $this->first, cursor: $this->after);
+        return $builder->cursorPaginate(perPage: $this->first, columns: ['*'], cursorName: 'cursor', cursor: $this->after);
     }
 }
