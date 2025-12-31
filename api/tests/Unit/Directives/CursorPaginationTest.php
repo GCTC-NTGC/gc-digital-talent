@@ -111,4 +111,38 @@ final class CursorPaginationTest extends TestCase
         $keys2 = Arr::pluck($edges2, 'node.key');
         $this->assertEquals(['4', '5'], $keys2);
     }
+
+    public function testZeroPerPage(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            communities(first: 0) {
+                edges {
+                    node {
+                        key
+                    }
+                }
+                pageInfo {
+                    startCursor
+                    endCursor
+                    hasPreviousPage
+                    hasNextPage
+                }
+            }
+        }
+        ')->assertExactJson([
+            'data' => [
+                'communities' => [
+                    'edges' => [
+                    ],
+                    'pageInfo' => [
+                        'startCursor' => null,
+                        'endCursor' => null,
+                        'hasPreviousPage' => false,
+                        'hasNextPage' => false,
+                    ],
+                ],
+            ],
+        ]);
+    }
 }

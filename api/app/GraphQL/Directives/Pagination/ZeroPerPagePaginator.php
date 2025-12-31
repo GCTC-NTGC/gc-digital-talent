@@ -6,7 +6,6 @@ namespace App\GraphQL\Directives\Pagination;
 
 use Exception;
 use Illuminate\Contracts\Pagination\CursorPaginator;
-use Illuminate\Support\Collection;
 
 /** @implements \Illuminate\Contracts\Pagination\CursorPaginator<array-key, mixed> */
 class ZeroPerPagePaginator implements CursorPaginator
@@ -43,37 +42,37 @@ class ZeroPerPagePaginator implements CursorPaginator
 
     public function items()
     {
-        throw new Exception('Not implemented');
+        return [];
     }
 
     public function previousCursor()
     {
-        throw new Exception('Not implemented');
+        return null;
     }
 
     public function nextCursor()
     {
-        throw new Exception('Not implemented');
+        return null;
     }
 
     public function perPage()
     {
-        throw new Exception('Not implemented');
+        return 0;
     }
 
     public function cursor()
     {
-        throw new Exception('Not implemented');
+        return null;
     }
 
     public function hasPages()
     {
-        throw new Exception('Not implemented');
+        return false;
     }
 
     public function hasMorePages()
     {
-        throw new Exception('Not implemented');
+        return false;
     }
 
     public function path()
@@ -83,12 +82,12 @@ class ZeroPerPagePaginator implements CursorPaginator
 
     public function isEmpty()
     {
-        throw new Exception('Not implemented');
+        return true;
     }
 
     public function isNotEmpty()
     {
-        throw new Exception('Not implemented');
+        return false;
     }
 
     public function render($view = null, $data = [])
@@ -96,11 +95,5 @@ class ZeroPerPagePaginator implements CursorPaginator
         throw new Exception('Not implemented');
     }
 
-    public function __construct()
-    {
-        // $this->perPage = 0;
-        // $this->currentPage = $page;
-        // $this->items = new Collection();
-
-    }
+    public function __construct() {}
 }
