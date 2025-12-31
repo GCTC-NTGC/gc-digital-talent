@@ -14,7 +14,7 @@ class ProfilePage extends AppPage {
   }
 
   async navigateToPersonalInformation() {
-    await this.page.goto("/en/applicant/profile/personal-information");
+    await this.page.goto("/en/applicant/personal-information");
     await this.waitForGraphqlResponse("ProfileUser");
   }
 
@@ -22,13 +22,12 @@ class ProfilePage extends AppPage {
     await this.page
       .getByRole("button", { name: /edit work preferences/i })
       .click();
-    await this.page
-      .getByRole("radio", { name: /Indeterminate (permanent only)/i })
-      .check();
-    await this.page.getByRole("option", { name: /Ontario/i }).click();
-    await this.page
-      .getByRole("textbox", { name: /currentCity/i })
-      .fill("Toronto");
+    const indeterminate = this.page.getByLabel(
+      /indeterminate\s*\(permanent only\)/i,
+    );
+    await expect(indeterminate).toBeVisible();
+    if (!(await indeterminate.isChecked())) await indeterminate.check();
+    await this.page.getByRole("checkbox", { name: /Ontario/i }).check();
     await this.locationPrefUpdate.updateFlexWorkLocationOption([
       FlexibleWorkLocation.Hybrid,
     ]);

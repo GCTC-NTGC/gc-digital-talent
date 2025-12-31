@@ -179,13 +179,10 @@ class ApplicantDashboardPage extends AppPage {
     const profilePage = new ProfilePage(this.page);
 
     for (const subSectionName of subSectionNames) {
-      const escapeRegExp = (s: string) =>
-        s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
       const subSectionLink = this.page.getByRole("link", {
-        name: new RegExp(escapeRegExp(subSectionName), "i"),
+        name: new RegExp(`${subSectionName}`, "i"),
       });
-      await expect(subSectionLink).toBeVisible();
+      await expect(subSectionLink.first()).toBeVisible();
       await subSectionLink.first().click();
 
       switch (subSectionName.toLowerCase()) {
