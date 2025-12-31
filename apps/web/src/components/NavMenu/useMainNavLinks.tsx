@@ -43,7 +43,11 @@ const useMainNavLinks = () => {
     <NavItem
       key="browseJobs"
       href={paths.browsePools()}
-      title={intl.formatMessage(navigationMessages.browseJobs)}
+      title={intl.formatMessage({
+        defaultMessage: "Browse jobs",
+        id: "ySrsif",
+        description: "Label for Browse jobs item",
+      })}
     />
   );
 

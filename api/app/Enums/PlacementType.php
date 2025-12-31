@@ -8,6 +8,7 @@ enum PlacementType
 {
     use HasLocalization;
 
+    case NOT_PLACED;
     case UNDER_CONSIDERATION;
     case PLACED_TENTATIVE;
     case PLACED_CASUAL;

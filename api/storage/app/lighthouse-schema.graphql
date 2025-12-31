@@ -504,7 +504,7 @@ type Query {
   ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
-    orderByBase: PoolCandidatesBaseSort!
+    orderByBase: PoolCandidatesBaseSort
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
@@ -3994,6 +3994,7 @@ enum OverallAssessmentStatus {
 }
 
 enum PlacementType {
+  NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
   PLACED_CASUAL

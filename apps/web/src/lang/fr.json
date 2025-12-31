@@ -1656,7 +1656,7 @@
     "description": "Combined eligibility string for 'employees only', 'at-level only', and 'departmental preference'"
   },
   "4W8uc/": {
-    "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 10 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
+    "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 10 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de présélection</strong>. Des questions de présélection seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
     "description": "Helper message indicating what general questions are and how they differ from screening questions"
   },
   "4WhB1k": {
@@ -1738,10 +1738,6 @@
   "4rI0Yj": {
     "defaultMessage": "« Cette catégorie comprend les personnes dont le genre déclaré est féminin. Elle comprend les femmes cisgenres (cis) et les femmes transgenres (trans). »",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
-  },
-  "4sLCWZ": {
-    "defaultMessage": "Continuez vers CléGC et connectez-vous",
-    "description": "GCKey sign in link text on the sign in page"
   },
   "4t/ETT": {
     "defaultMessage": "D’autres exigences s’appliquent pour l’approvisionnement en services professionnels. Consultez les Procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels menées par le Bureau du contrôleur général du Canada.",
@@ -2272,7 +2268,7 @@
     "description": "Subtitle for the workforce adjustment information page"
   },
   "7JQCZ0": {
-    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
+    "defaultMessage": "Télécharger le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
   "7Je/3u": {
@@ -5643,6 +5639,10 @@
     "defaultMessage": "Sauvegarder « À propos de nous »",
     "description": "Text on a button to save the pool about us"
   },
+  "MFjl68": {
+    "defaultMessage": "S'inscrire",
+    "description": "Link text to register instead of signing in"
+  },
   "MGYlS0": {
     "defaultMessage": "Les processus de recrutement apparaîtront automatiquement dans cette section si votre candidature est retenue.",
     "description": "Body for notice when there are no Recruitment processes"
@@ -6192,7 +6192,7 @@
     "description": "Description of a decorative image of a hummingbird"
   },
   "P4BgMG": {
-    "defaultMessage": "Creer",
+    "defaultMessage": "Créer",
     "description": "Short title for the create job poster template page"
   },
   "P8DJDV": {
@@ -6736,7 +6736,7 @@
     "description": "statement for the 'Review and submit' consent section, paragraph 1"
   },
   "R8Naqm": {
-    "defaultMessage": "Filtrage et évaluation",
+    "defaultMessage": "Présélection et évaluation",
     "description": "Heading for the information of an application"
   },
   "RA4afJ": {
@@ -7410,6 +7410,10 @@
   "UTFKyy": {
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
+  },
+  "UV3tPc": {
+    "defaultMessage": "Nous joindre",
+    "description": "Label for Contact us action"
   },
   "UanJxB": {
     "defaultMessage": "Supprimer cette question",
@@ -8167,7 +8171,7 @@
     "description": "Heading for EXposition eligibility"
   },
   "XovI8x": {
-    "defaultMessage": "Téléchargez toutes compétences (CSV)",
+    "defaultMessage": "Télécharger toutes compétences (CSV)",
     "description": "Text label for button to download a csv file of all skills."
   },
   "XrRt6V": {
@@ -8854,10 +8858,6 @@
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
   },
-  "aqkSW2": {
-    "defaultMessage": "Inscrivez-vous plutôt",
-    "description": "Link text to register instead of signing in"
-  },
   "aqlXBz": {
     "defaultMessage": "Courriel professionnel de la personne de référence",
     "description": "Reference work email field"
@@ -9162,6 +9162,10 @@
     "defaultMessage": "Une femme autochtone porte un manteau de jeans qui est orné de plusieurs épinglettes.",
     "description": "Indigenous Apprenticeship woman smiling image text alternative"
   },
+  "cF0+Id": {
+    "defaultMessage": "À l'approche de la fin de l'exercice financier, nous gérons avec soin les fonds restants disponibles pour les formations. En raison du volume important de demandes de formation, nous fermons l'offre « Choisissez votre cours » aux nouvelles candidatures. Les demandes restantes seront évaluées dans l'ordre dans lequel elles ont été reçues, en fonction des fonds disponibles. Le budget sera réinitialisé avec le nouvel exercice financier le 1er avril 2026 et nous vous encourageons à postuler à ce moment-là.",
+    "description": "Body for a notice about no more choose your own course options for the year."
+  },
   "cF8idC": {
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
@@ -9215,7 +9219,7 @@
     "description": "Description of review process and next steps for the IAP applicant."
   },
   "cTSaxx": {
-    "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
+    "defaultMessage": "Télécharger le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
   },
   "cU+2HB": {
@@ -10657,6 +10661,10 @@
     "defaultMessage": "Postes bilingues",
     "description": "Sub-heading for language requirements dialog"
   },
+  "i9skPs": {
+    "defaultMessage": "Avis important : fermeture de l'option « Choisissez votre cours » pour l'exercice financier 2025/2026",
+    "description": "Title for a notice about no more choose your own course options for the year."
+  },
   "iA1Q8d": {
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
@@ -10678,7 +10686,7 @@
     "description": "Error message when updating subject failed"
   },
   "iGXXjP": {
-    "defaultMessage": "Téléchargez la trousse du gestionnaire",
+    "defaultMessage": "Télécharger la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
   },
   "iHDhMh": {
@@ -12113,6 +12121,10 @@
     "defaultMessage": "Votre demande n'a pas été retenue. Pour les offres d'emploi internes au gouvernement du Canada, vous pouvez demander d'avoir une conversation informelle concernant cette décision. Pour ce faire, veuillez écrire au ministère ou à l'équipe de recrutement responsable de la publication de l'offre d'emploi à l'adresse <link>{contactEmail}</link>.",
     "description": "Status description for a disqualified application to an employee-only pool"
   },
+  "oQNunm": {
+    "defaultMessage": "Se connecter avec CléGC",
+    "description": "GCKey sign in link text on the sign in page"
+  },
   "oR+6vE": {
     "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
     "description": "Text for first sign in step."
@@ -12290,7 +12302,7 @@
     "description": "Title for the assessment stage of an application"
   },
   "p8+wKq": {
-    "defaultMessage": "Questions de sélection",
+    "defaultMessage": "Questions de présélection",
     "description": "Title of screening questions"
   },
   "p8o9cO": {
@@ -12962,7 +12974,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "sDqpzq": {
-    "defaultMessage": "Téléchargez la trousse du gestionnaire",
+    "defaultMessage": "Télécharger la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
   },
   "sEmaen": {
@@ -14142,7 +14154,7 @@
     "description": "Button text to submit the current step of a process"
   },
   "xV43au": {
-    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",
+    "defaultMessage": "Télécharger le guide de mise en œuvre pour les conseillers en RH",
     "description": "Aria label for download guidance for human resources plain text link."
   },
   "xVcPXK": {
@@ -14390,7 +14402,7 @@
     "description": "Lead-in text for job poster template key tasks section, paragraph 2"
   },
   "yNPkM8": {
-    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
+    "defaultMessage": "Télécharger le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
   },
   "yO+tlM": {
@@ -14404,6 +14416,10 @@
   "ySQ1Kf": {
     "defaultMessage": "Cote de sécurité",
     "description": "Heading for security clearance dialog"
+  },
+  "ySrsif": {
+    "defaultMessage": "Parcourir les emplois",
+    "description": "Label for Browse jobs item"
   },
   "yTHS2m": {
     "defaultMessage": "Un échange de postes est un processus auquel peuvent avoir recours les titulaires de postes permanents au sein de l’administration publique centrale qui ont reçu une lettre officielle de leur ministère ou organisme les informant que leur poste actuel sera aboli. Ces fonctionnaires font donc alors partie du « personnel touché ».",
@@ -14786,7 +14802,7 @@
     "description": "Heading for required behavioural skills section"
   },
   "zvXWQB": {
-    "defaultMessage": "Téléchargez la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
+    "defaultMessage": "Télécharger la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
   },
   "zvnzds": {
