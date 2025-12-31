@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Directives;
 
-use App\Models\Community;
+use App\Models\Classification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -21,21 +21,32 @@ final class CursorPaginationTest extends TestCase
     {
         parent::setUp();
 
-        // Communities are not important to the tests.  They are just a convenient, simple model to use.
-        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000001', 'key' => '1']);
-        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000002', 'key' => '2']);
-        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000003', 'key' => '3']);
-        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000004', 'key' => '4']);
-        Community::factory()->create(['id' => '00000000-0000-0000-0000-000000000005', 'key' => '5']);
+        // Classifications are not important to the tests.  They are just a convenient, simple model to use.
+        Classification::factory()->create(['level' => 1, 'is_available_in_search' => true]);
+        Classification::factory()->create(['level' => 2, 'is_available_in_search' => false]);
+        Classification::factory()->create(['level' => 3, 'is_available_in_search' => true]);
+        Classification::factory()->create(['level' => 4, 'is_available_in_search' => false]);
+        Classification::factory()->create(['level' => 5, 'is_available_in_search' => true]);
 
         $this->schema = /** @lang GraphQL */ '
-            type Community  {
-                key: String!
+            type Classification  {
+                level: Int!
+                createdAt: DateTime! @rename(attribute: "created_at")
+            }
+
+            input ClassificationFilterInput {
+               availableInSearch: Boolean @scope
             }
 
             type Query {
-                communities: [Community]!
-                @cursorPaginate
+                classifications(
+                    where: ClassificationFilterInput
+                    orderBy: [OrderByClause!] @orderBy
+                ): [Classification!]!
+                @cursorPaginate(
+                    defaultCount: 4,
+                    maxCount: 10,
+                )
             }
         ';
 
@@ -46,10 +57,13 @@ final class CursorPaginationTest extends TestCase
     {
         $this->graphQL(/** @lang GraphQL */ '
         {
-            communities(first: 3) {
+            classifications(
+                first: 3,
+                orderBy: { column: "level", order: ASC }
+            ) {
                 edges {
                     node {
-                        key
+                        level
                     }
                 }
                 pageInfo {
@@ -60,11 +74,11 @@ final class CursorPaginationTest extends TestCase
         }
         ')->assertExactJson([
             'data' => [
-                'communities' => [
+                'classifications' => [
                     'edges' => [
-                        ['node' => ['key' => '1']],
-                        ['node' => ['key' => '2']],
-                        ['node' => ['key' => '3']],
+                        ['node' => ['level' => 1]],
+                        ['node' => ['level' => 2]],
+                        ['node' => ['level' => 3]],
                     ],
                     'pageInfo' => [
                         'hasPreviousPage' => false,
@@ -78,11 +92,15 @@ final class CursorPaginationTest extends TestCase
     public function testMultiplePages(): void
     {
         $query = /** @lang GraphQL */ '
-            query Communities($after: String) {
-                communities(first: 3, after: $after) {
+            query Classifications($after: String) {
+                classifications(
+                    first: 3,
+                    orderBy: { column: "level", order: ASC }
+                    after: $after
+                ) {
                     edges {
                         node {
-                            key
+                            level
                         }
                     }
                     pageInfo {
@@ -98,28 +116,28 @@ final class CursorPaginationTest extends TestCase
         ]);
 
         $response1->assertGraphQLErrorFree();
-        $edges1 = Arr::get($response1, 'data.communities.edges');
-        $keys1 = Arr::pluck($edges1, 'node.key');
-        $this->assertEquals(['1', '2', '3'], $keys1);
+        $edges1 = Arr::get($response1, 'data.classifications.edges');
+        $levels1 = Arr::pluck($edges1, 'node.level');
+        $this->assertEquals([1, 2, 3], $levels1);
 
         $response2 = $this->graphQL($query, [
-            'after' => Arr::get($response1, 'data.communities.pageInfo.endCursor'),
+            'after' => Arr::get($response1, 'data.classifications.pageInfo.endCursor'),
         ]);
 
         $response2->assertGraphQLErrorFree();
-        $edges2 = Arr::get($response2, 'data.communities.edges');
-        $keys2 = Arr::pluck($edges2, 'node.key');
-        $this->assertEquals(['4', '5'], $keys2);
+        $edges2 = Arr::get($response2, 'data.classifications.edges');
+        $levels2 = Arr::pluck($edges2, 'node.level');
+        $this->assertEquals(['4', '5'], $levels2);
     }
 
     public function testZeroPerPage(): void
     {
         $this->graphQL(/** @lang GraphQL */ '
         {
-            communities(first: 0) {
+            classifications(first: 0) {
                 edges {
                     node {
-                        key
+                        level
                     }
                 }
                 pageInfo {
@@ -132,9 +150,8 @@ final class CursorPaginationTest extends TestCase
         }
         ')->assertExactJson([
             'data' => [
-                'communities' => [
-                    'edges' => [
-                    ],
+                'classifications' => [
+                    'edges' => [],
                     'pageInfo' => [
                         'startCursor' => null,
                         'endCursor' => null,
@@ -144,5 +161,72 @@ final class CursorPaginationTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    public function testWorksWithOtherClauses(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(
+                first: 3,
+                where: { availableInSearch: true }
+                orderBy: { column: "level", order: ASC }
+            ) {
+                edges {
+                    node {
+                        level
+                    }
+                }
+                pageInfo {
+                    hasPreviousPage
+                    hasNextPage
+                }
+            }
+        }
+        ')->assertExactJson([
+            'data' => [
+                'classifications' => [
+                    'edges' => [
+                        ['node' => ['level' => 1]],
+                        ['node' => ['level' => 3]],
+                        ['node' => ['level' => 5]],
+                    ],
+                    'pageInfo' => [
+                        'hasPreviousPage' => false,
+                        'hasNextPage' => false,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    public function testDefaultCount(): void
+    {
+        $response = $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications {
+                edges {
+                    node {
+                        level
+                    }
+                }
+            }
+        }');
+        $this->assertCount(4, Arr::get($response, 'data.classifications.edges'));
+    }
+
+    public function testMaxCount(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(first: 1000) {
+                edges {
+                    node {
+                        level
+                    }
+                }
+            }
+        }
+        ')->assertGraphQLErrorMessage('Maximum number of 10 requested items exceeded, got 1000. Fetch smaller chunks.');
     }
 }
