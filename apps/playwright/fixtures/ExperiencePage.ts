@@ -62,11 +62,10 @@ class ExperiencePage extends AppPage {
       .click();
 
     let organization = this.page.getByRole("textbox", {
-      name: "Organization",
+      name: /organization/i,
     });
-    await expect(organization).toBeVisible();
     if ((await organization.count()) === 0) {
-      organization = this.page.getByRole("combobox", { name: "Organization" });
+      organization = this.page.getByRole("combobox", { name: /organization/i });
     }
     await organization.fill(input.organization ?? "test org");
 
