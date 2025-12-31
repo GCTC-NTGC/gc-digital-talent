@@ -64,7 +64,11 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       }),
     ),
     finalDecisions: [FinalDecision.QualifiedPlaced, FinalDecision.Qualified],
-    placementTypes: [PlacementType.PlacedTentative, PlacementType.PlacedCasual],
+    placementTypes: [
+      PlacementType.NotPlaced,
+      PlacementType.PlacedTentative,
+      PlacementType.PlacedCasual,
+    ],
   };
 };
 

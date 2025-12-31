@@ -3994,6 +3994,7 @@ enum OverallAssessmentStatus {
 }
 
 enum PlacementType {
+  NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
   PLACED_CASUAL

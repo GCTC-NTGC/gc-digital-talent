@@ -84,7 +84,10 @@ const Template: StoryFn<typeof JobPlacementDialog> = (args) => {
   const optionsQueryData = makeFragmentData(
     {
       departments,
-      placementTypes: fakeLocalizedEnum(PlacementType),
+      placementTypes: fakeLocalizedEnum(PlacementType).map((pt) => ({
+        __typename: "LocalizedPlacementType" as const,
+        ...pt,
+      })),
     },
     JobPlacementOptions_Query,
   );

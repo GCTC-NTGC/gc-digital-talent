@@ -440,7 +440,7 @@ export const OperationalRequirements = [
   OperationalRequirement.Travel,
   OperationalRequirement.TransportEquipment,
   OperationalRequirement.DriversLicense,
-];
+] as const;
 
 export const GenericJobTitlesSorted = [
   GenericJobTitleKey.TechnicianIt01,
