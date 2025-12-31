@@ -159,95 +159,155 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     {
         $this->spreadsheet = new Spreadsheet;
 
-        $sheet = $this->spreadsheet->getActiveSheet();
+        // Nominations overview sheet
+        $overviewSheet = $this->spreadsheet->getActiveSheet();
+        $overviewSheet->setTitle(Lang::get('headings.nominations_overview', [], $this->lang));
+
+        // Nominee Profiles sheet
+        $nomineeProfilesSheet = $this->spreadsheet->createSheet();
+        $nomineeProfilesSheet->setTitle(Lang::get('headings.nominee_profiles', [], $this->lang));
+
+        // Nomination Details sheet
+        $nominationDetailsSheet = $this->spreadsheet->createSheet();
+        $nominationDetailsSheet->setTitle(Lang::get('headings.nominations_details', [], $this->lang));
+
+        // Generate data for sheets
+        $this->generateOverviewTab($overviewSheet);
+        $this->generateNomineeProfilesTab($nomineeProfilesSheet);
+        $this->generateNominationDetailsTab($nominationDetailsSheet);
+
+        return $this;
+    }
+
+    /**
+     * Generate the overview tab
+     */
+    private function generateOverviewTab($sheet): void
+    {
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->overviewLocaleKeys);
 
         $sheet->fromArray($localizedHeaders, null, 'A1');
 
-        $currentTalentNominationGroup = 1;
-        $query = $this->buildQuery();
-        $query->chunk(200, function ($talentNominationGroups) use ($sheet, &$currentTalentNominationGroup) {
-            foreach ($talentNominationGroups as $talentNominationGroup) {
-                $consentToShare = $talentNominationGroup->consentToShareProfile;
-                $user = $talentNominationGroup->nominee;
-                $nominators = $talentNominationGroup->nominations->map(function ($nomination) {
-                    $name = $nomination->nominator_fallback_name;
-                    if ($nomination->nominator) {
-                        $name = "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
-                    }
-
-                    return $name;
-                });
-
-                $options = [];
-                if ($talentNominationGroup->advancement_nomination_count > 0) {
-                    array_push($options, Lang::get('common.advancement', [], $this->lang));
-                }
-                if ($talentNominationGroup->lateral_movement_nomination_count > 0) {
-                    array_push($options, Lang::get('common.lateral_movement', [], $this->lang));
-                }
-                if ($talentNominationGroup->development_programs_nomination_count > 0) {
-                    array_push($options, Lang::get('common.development', [], $this->lang));
-                }
-                $options = implode(', ', $options);
-
-                $department = $user->department()->first();
-                $preferences = $user->getOperationalRequirements();
-                $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
-                    return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
-                });
-                $userSkills = $user->userSkills->map(function ($userSkill) {
-                    return $userSkill->skill->name[$this->lang] ?? '';
-                });
-
-                $values = [
-                    // Nomination data
-                    $user->first_name, // First name
-                    $user->last_name, // Last name
-                    $this->localizeEnum($talentNominationGroup->status, TalentNominationGroupStatus::class), // Nominee status
-                    $talentNominationGroup->created_at ? $talentNominationGroup->created_at->format('Y-m-d') : '', // Date received
-                    $nominators->join(', '), // Nominators
-                    $department->name[$this->lang] ?? '', // Department
-                    $options, // Options
-
-                    // User profile data
-                    $this->canShare($consentToShare, $this->canShare($consentToShare, $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class))),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->citizenship, CitizenshipStatus::class)),
-                    $this->canShare($consentToShare, $this->lookingForLanguages($user)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->first_official_language, Language::class)),
-                    is_null($user->second_language_exam_completed) ? '' : $this->canShare($consentToShare, $this->yesOrNo($user->second_language_exam_completed)), // Bilingual evaluation
-                    $this->canShare($consentToShare, $this->yesOrNo($user->second_language_exam_validity)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class)), // Reading level
-                    $this->canShare($consentToShare, $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class)), // Writing level
-                    $this->canShare($consentToShare, $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class)), // Oral interaction level
-                    $this->canShare($consentToShare, $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->computed_is_gov_employee)), // Government employee
-                    $this->canShare($consentToShare, $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class)),
-                    $this->canShare($consentToShare, $user->work_email), // Work email
-                    $this->canShare($consentToShare, $user->getClassification()), // Current classification
-                    $this->canShare($consentToShare, $this->yesOrNo($user->has_priority_entitlement)), // Priority entitlement,
-                    $this->canShare($consentToShare, $user->priority_number ?? ''), // Priority number
-                    $this->canShare($consentToShare, $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : ''), // Accept temporary
-                    $this->canShare($consentToShare, $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($user->location_preferences, WorkRegion::class)),
-                    $this->canShare($consentToShare, $user->location_exemptions), // Location exemptions
-                    $this->canShare($consentToShare, $this->yesOrNo($user->is_woman)), // Woman
-                    $this->canShare($consentToShare, $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->is_visible_minority)), // Visible minority
-                    $this->canShare($consentToShare, $this->yesOrNo($user->has_disability)), // Disability
-                    $this->canShare($consentToShare, $userSkills->join(', ')),
-                ];
-
-                // 1 is added to the key to account for the header row
-                $sheet->fromArray($values, null, sprintf('A%d', $currentTalentNominationGroup + 1));
-                $currentTalentNominationGroup++;
-            }
-        });
-
-        return $this;
     }
+
+    /**
+     * Generate the nominee profiles tab
+     */
+    private function generateNomineeProfilesTab($sheet): void
+    {
+        $localizedHeaders = array_map(function ($key) {
+            return $this->localizeHeading($key);
+        }, $this->userProfileHeaderKeys);
+
+        $sheet->fromArray($localizedHeaders, null, 'A1');
+    }
+
+    /**
+     * Generate the nomination details tab
+     * */
+    private function generateNominationDetailsTab($sheet): void
+    {
+        $localizedHeaders = array_map(function ($key) {
+            return $this->localizeHeading($key);
+        }, $this->nominationDetailsHeaderKeys);
+
+        $sheet->fromArray($localizedHeaders, null, 'A1');
+    }
+    // public function generate(): self
+    // {
+    //     $this->spreadsheet = new Spreadsheet;
+
+    //     $sheet = $this->spreadsheet->getActiveSheet();
+    //     $localizedHeaders = array_map(function ($key) {
+    //         return $this->localizeHeading($key);
+    //     }, $this->overviewLocaleKeys);
+
+    //     $sheet->fromArray($localizedHeaders, null, 'A1');
+
+    //     $currentTalentNominationGroup = 1;
+    //     $query = $this->buildQuery();
+    //     $query->chunk(200, function ($talentNominationGroups) use ($sheet, &$currentTalentNominationGroup) {
+    //         foreach ($talentNominationGroups as $talentNominationGroup) {
+    //             $consentToShare = $talentNominationGroup->consentToShareProfile;
+    //             $user = $talentNominationGroup->nominee;
+    //             $nominators = $talentNominationGroup->nominations->map(function ($nomination) {
+    //                 $name = $nomination->nominator_fallback_name;
+    //                 if ($nomination->nominator) {
+    //                     $name = "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
+    //                 }
+
+    //                 return $name;
+    //             });
+
+    //             $options = [];
+    //             if ($talentNominationGroup->advancement_nomination_count > 0) {
+    //                 array_push($options, Lang::get('common.advancement', [], $this->lang));
+    //             }
+    //             if ($talentNominationGroup->lateral_movement_nomination_count > 0) {
+    //                 array_push($options, Lang::get('common.lateral_movement', [], $this->lang));
+    //             }
+    //             if ($talentNominationGroup->development_programs_nomination_count > 0) {
+    //                 array_push($options, Lang::get('common.development', [], $this->lang));
+    //             }
+    //             $options = implode(', ', $options);
+
+    //             $department = $user->department()->first();
+    //             $preferences = $user->getOperationalRequirements();
+    //             $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
+    //                 return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
+    //             });
+    //             $userSkills = $user->userSkills->map(function ($userSkill) {
+    //                 return $userSkill->skill->name[$this->lang] ?? '';
+    //             });
+
+    //             $values = [
+    //                 // Nomination data
+    //                 $user->first_name, // First name
+    //                 $user->last_name, // Last name
+    //                 $this->localizeEnum($talentNominationGroup->status, TalentNominationGroupStatus::class), // Nominee status
+    //                 $talentNominationGroup->created_at ? $talentNominationGroup->created_at->format('Y-m-d') : '', // Date received
+    //                 $nominators->join(', '), // Nominators
+    //                 $department->name[$this->lang] ?? '', // Department
+    //                 $options, // Options
+
+    //                 // User profile data
+    //                 $this->canShare($consentToShare, $this->canShare($consentToShare, $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class))),
+    //                 $this->canShare($consentToShare, $this->localizeEnum($user->citizenship, CitizenshipStatus::class)),
+    //                 $this->canShare($consentToShare, $this->lookingForLanguages($user)),
+    //                 $this->canShare($consentToShare, $this->localizeEnum($user->first_official_language, Language::class)),
+    //                 is_null($user->second_language_exam_completed) ? '' : $this->canShare($consentToShare, $this->yesOrNo($user->second_language_exam_completed)), // Bilingual evaluation
+    //                 $this->canShare($consentToShare, $this->yesOrNo($user->second_language_exam_validity)),
+    //                 $this->canShare($consentToShare, $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class)), // Reading level
+    //                 $this->canShare($consentToShare, $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class)), // Writing level
+    //                 $this->canShare($consentToShare, $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class)), // Oral interaction level
+    //                 $this->canShare($consentToShare, $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class)),
+    //                 $this->canShare($consentToShare, $this->yesOrNo($user->computed_is_gov_employee)), // Government employee
+    //                 $this->canShare($consentToShare, $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class)),
+    //                 $this->canShare($consentToShare, $user->work_email), // Work email
+    //                 $this->canShare($consentToShare, $user->getClassification()), // Current classification
+    //                 $this->canShare($consentToShare, $this->yesOrNo($user->has_priority_entitlement)), // Priority entitlement,
+    //                 $this->canShare($consentToShare, $user->priority_number ?? ''), // Priority number
+    //                 $this->canShare($consentToShare, $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : ''), // Accept temporary
+    //                 $this->canShare($consentToShare, $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class)),
+    //                 $this->canShare($consentToShare, $this->localizeEnumArray($user->location_preferences, WorkRegion::class)),
+    //                 $this->canShare($consentToShare, $user->location_exemptions), // Location exemptions
+    //                 $this->canShare($consentToShare, $this->yesOrNo($user->is_woman)), // Woman
+    //                 $this->canShare($consentToShare, $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class)),
+    //                 $this->canShare($consentToShare, $this->yesOrNo($user->is_visible_minority)), // Visible minority
+    //                 $this->canShare($consentToShare, $this->yesOrNo($user->has_disability)), // Disability
+    //                 $this->canShare($consentToShare, $userSkills->join(', ')),
+    //             ];
+
+    //             // 1 is added to the key to account for the header row
+    //             $sheet->fromArray($values, null, sprintf('A%d', $currentTalentNominationGroup + 1));
+    //             $currentTalentNominationGroup++;
+    //         }
+    //     });
+
+    //     return $this;
+    // }
 
     /**
      * Get looking for languages
