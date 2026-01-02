@@ -66,7 +66,6 @@ final class CursorPaginationTest extends TestCase
                     }
                 }
                 pageInfo {
-                    hasPreviousPage
                     hasNextPage
                 }
             }
@@ -80,7 +79,6 @@ final class CursorPaginationTest extends TestCase
                         ['node' => ['level' => 3]],
                     ],
                     'pageInfo' => [
-                        'hasPreviousPage' => false,
                         'hasNextPage' => true,
                     ],
                 ],
@@ -188,7 +186,6 @@ final class CursorPaginationTest extends TestCase
                 pageInfo {
                     startCursor
                     endCursor
-                    hasPreviousPage
                     hasNextPage
                 }
             }
@@ -200,7 +197,6 @@ final class CursorPaginationTest extends TestCase
                     'pageInfo' => [
                         'startCursor' => null,
                         'endCursor' => null,
-                        'hasPreviousPage' => false,
                         'hasNextPage' => false,
                     ],
                 ],
@@ -224,7 +220,6 @@ final class CursorPaginationTest extends TestCase
                     }
                 }
                 pageInfo {
-                    hasPreviousPage
                     hasNextPage
                 }
             }
@@ -238,7 +233,6 @@ final class CursorPaginationTest extends TestCase
                         ['node' => ['level' => 5]],
                     ],
                     'pageInfo' => [
-                        'hasPreviousPage' => false,
                         'hasNextPage' => false,
                     ],
                 ],
