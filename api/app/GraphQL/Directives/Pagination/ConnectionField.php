@@ -27,7 +27,7 @@ class ConnectionField
     {
         return [
             'hasNextPage' => $paginator->hasMorePages(),
-            'hasPreviousPage' => ! is_null($paginator->previousCursor()), // not directly supported by CursorPaginator so we're deriving it
+            'hasPreviousPage' => false, // not supported by CursorPaginator
             'startCursor' => $paginator->previousCursor()?->encode(),
             'endCursor' => $paginator->nextCursor()?->encode(),
         ];

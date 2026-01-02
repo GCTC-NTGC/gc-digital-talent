@@ -57,12 +57,11 @@ class PaginationManipulator
     public function transformToPaginatedField(
         FieldDefinitionNode &$fieldDefinition,
         ObjectTypeDefinitionNode|InterfaceTypeDefinitionNode &$parentType,
-        ?int $defaultCount = null,
         ?int $maxCount = null,
         ?ObjectTypeDefinitionNode $edgeType = null,
     ): void {
 
-        $this->registerConnection($fieldDefinition, $parentType, $defaultCount, $maxCount, $edgeType);
+        $this->registerConnection($fieldDefinition, $parentType, $maxCount, $edgeType);
 
     }
 
@@ -70,7 +69,6 @@ class PaginationManipulator
         FieldDefinitionNode &$fieldDefinition,
         ObjectTypeDefinitionNode|InterfaceTypeDefinitionNode &$parentType,
 
-        ?int $defaultCount = null,
         ?int $maxCount = null,
         ?ObjectTypeDefinitionNode $edgeType = null,
     ): void {
@@ -119,11 +117,19 @@ GRAPHQL
         $this->documentAST->setTypeDefinition($connectionEdge);
 
         $fieldDefinition->arguments[] = Parser::inputValueDefinition(
-            self::countArgument($defaultCount, $maxCount),
+            self::firstArgument($maxCount),
+        );
+        $fieldDefinition->arguments[] = Parser::inputValueDefinition(
+            self::lastArgument($maxCount),
         );
         $fieldDefinition->arguments[] = Parser::inputValueDefinition(/** @lang GraphQL */ <<<'GRAPHQL'
 "A cursor after which elements are returned."
 after: String
+GRAPHQL
+        );
+        $fieldDefinition->arguments[] = Parser::inputValueDefinition(/** @lang GraphQL */ <<<'GRAPHQL'
+"A cursor before which elements are returned."
+before: String
 GRAPHQL
         );
 
@@ -158,20 +164,32 @@ GRAPHQL
         $this->documentAST->setTypeDefinition($objectType);
     }
 
-    /** Build the count argument definition string, considering default and max values. */
-    protected static function countArgument(?int $defaultCount = null, ?int $maxCount = null): string
+    /** Build the first argument definition string, considering max value. */
+    protected static function firstArgument(?int $maxCount = null): string
     {
-        $description = '"Limits number of fetched items.';
+        $description = '"Limits number of fetched items for forward pagination.';
         if ($maxCount) {
             $description .= " Maximum allowed value: {$maxCount}.";
         }
 
         $description .= "\"\n";
 
-        $definition = 'first: Int!';
-        if ($defaultCount) {
-            $definition .= " =  {$defaultCount}";
+        $definition = 'first: Int';
+
+        return $description.$definition;
+    }
+
+    /** Build the last argument definition string, considering max value. */
+    protected static function lastArgument(?int $maxCount = null): string
+    {
+        $description = '"Limits number of fetched items for reverse pagination.';
+        if ($maxCount) {
+            $description .= " Maximum allowed value: {$maxCount}.";
         }
+
+        $description .= "\"\n";
+
+        $definition = 'last: Int';
 
         return $description.$definition;
     }

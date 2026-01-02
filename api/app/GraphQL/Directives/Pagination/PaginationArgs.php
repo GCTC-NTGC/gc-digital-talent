@@ -10,13 +10,15 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\Cursor;
+use Illuminate\Support\Facades\Validator;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 
 class PaginationArgs
 {
     final public function __construct(
-        public int $first,
-        public ?Cursor $after,
+        public int $perPage,
+        public ?Cursor $cursor,
 
     ) {}
 
@@ -27,24 +29,24 @@ class PaginationArgs
      */
     public static function extractArgs(array $args, ResolveInfo $resolveInfo, ?int $paginateMaxCount): self
     {
-        $first = $args['first'];
+        $perPage = $args['first'];
 
         $encodedAfter = $args['after'] ?? null;
-        $after = Cursor::fromEncoded($encodedAfter);
+        $cursor = Cursor::fromEncoded($encodedAfter);
 
-        if ($first < 0) {
-            throw new Error(self::requestedLessThanZeroItems($first));
+        if ($perPage < 0) {
+            throw new Error(self::requestedLessThanZeroItems($perPage));
         }
 
         // Make sure the maximum pagination count is not exceeded
         if (
             $paginateMaxCount !== null
-            && $first > $paginateMaxCount
+            && $perPage > $paginateMaxCount
         ) {
-            throw new Error(self::requestedTooManyItems($paginateMaxCount, $first));
+            throw new Error(self::requestedTooManyItems($paginateMaxCount, $perPage));
         }
 
-        return new static($first, $after);
+        return new static($perPage, $cursor);
     }
 
     public static function requestedLessThanZeroItems(int $amount): string
@@ -67,10 +69,34 @@ class PaginationArgs
      */
     public function applyToBuilder(QueryBuilder|EloquentBuilder|Relation $builder): CursorPaginator
     {
-        if ($this->first === 0) {
+        if ($this->perPage === 0) {
             return new ZeroPerPagePaginator();
         }
 
-        return $builder->cursorPaginate(perPage: $this->first, columns: ['*'], cursorName: 'cursor', cursor: $this->after);
+        return $builder->cursorPaginate(perPage: $this->perPage, columns: ['*'], cursorName: 'cursor', cursor: $this->cursor);
+    }
+
+    /*
+     * Validate that the arguments are consistent with each other.
+     * @param  array<string, mixed>  $args
+     */
+    public static function validateArgs(array $args): void
+    {
+        $validator = Validator::make($args, [
+            'first' => [
+                'required_without:last',
+                'prohibits:last,before',
+                'gte:0',
+            ],
+            'last' => [
+                'required_without:first',
+                'prohibits:first,after',
+                'gte:0',
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            throw new ValidationException('Pagination arguments fail validation.', $validator);
+        }
     }
 }

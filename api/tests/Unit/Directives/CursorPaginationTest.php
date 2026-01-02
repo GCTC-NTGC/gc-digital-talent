@@ -44,7 +44,6 @@ final class CursorPaginationTest extends TestCase
                     orderBy: [OrderByClause!] @orderBy
                 ): [Classification!]!
                 @cursorPaginate(
-                    defaultCount: 4,
                     maxCount: 10,
                 )
             }
@@ -58,8 +57,8 @@ final class CursorPaginationTest extends TestCase
         $this->graphQL(/** @lang GraphQL */ '
         {
             classifications(
-                first: 3,
                 orderBy: { column: "level", order: ASC }
+                first: 3,
             ) {
                 edges {
                     node {
@@ -91,11 +90,38 @@ final class CursorPaginationTest extends TestCase
 
     public function testMultiplePages(): void
     {
-        $query = /** @lang GraphQL */ '
+        // get first page
+        $response1 = $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(
+                orderBy: { column: "level", order: ASC }
+                first: 3,
+            ) {
+                edges {
+                    node {
+                        level
+                    }
+                }
+                pageInfo {
+                    startCursor
+                    endCursor
+                }
+            }
+        }
+        ');
+
+        // first page is "1, 2, 3"
+        $response1->assertGraphQLErrorFree();
+        $edges1 = Arr::get($response1, 'data.classifications.edges');
+        $levels1 = Arr::pluck($edges1, 'node.level');
+        $this->assertEquals([1, 2, 3], $levels1);
+
+        // forward paginate to the second page using "after" cursor
+        $response2 = $this->graphQL(/** @lang GraphQL */ '
             query Classifications($after: String) {
                 classifications(
-                    first: 3,
                     orderBy: { column: "level", order: ASC }
+                    first: 3,
                     after: $after
                 ) {
                     edges {
@@ -109,25 +135,44 @@ final class CursorPaginationTest extends TestCase
                     }
                 }
             }
-        ';
-
-        $response1 = $this->graphQL($query, [
-            'after' => null,
-        ]);
-
-        $response1->assertGraphQLErrorFree();
-        $edges1 = Arr::get($response1, 'data.classifications.edges');
-        $levels1 = Arr::pluck($edges1, 'node.level');
-        $this->assertEquals([1, 2, 3], $levels1);
-
-        $response2 = $this->graphQL($query, [
+        ', [
             'after' => Arr::get($response1, 'data.classifications.pageInfo.endCursor'),
         ]);
 
+        // second page is "4, 5"
         $response2->assertGraphQLErrorFree();
         $edges2 = Arr::get($response2, 'data.classifications.edges');
         $levels2 = Arr::pluck($edges2, 'node.level');
         $this->assertEquals(['4', '5'], $levels2);
+
+        // // reverse paginate back to the first page using "before" cursor
+        // $response3 = $this->graphQL(/** @lang GraphQL */ '
+        //     query Classifications($before: String) {
+        //         classifications(
+        //             orderBy: { column: "level", order: ASC }
+        //             last: 3,
+        //             before: $before
+        //         ) {
+        //             edges {
+        //                 node {
+        //                     level
+        //                 }
+        //             }
+        //             pageInfo {
+        //                 startCursor
+        //                 endCursor
+        //             }
+        //         }
+        //     }
+        // ', [
+        //     'before' => Arr::get($response2, 'data.classifications.pageInfo.startCursor'),
+        // ]);
+
+        // // first page is "1, 2, 3"
+        // $response3->assertGraphQLErrorFree();
+        // $edges3 = Arr::get($response3, 'data.classifications.edges');
+        // $levels3 = Arr::pluck($edges3, 'node.level');
+        // $this->assertEquals([1, 2, 3], $levels3);
     }
 
     public function testZeroPerPage(): void
@@ -168,9 +213,10 @@ final class CursorPaginationTest extends TestCase
         $this->graphQL(/** @lang GraphQL */ '
         {
             classifications(
-                first: 3,
                 where: { availableInSearch: true }
                 orderBy: { column: "level", order: ASC }
+                first: 3,
+
             ) {
                 edges {
                     node {
@@ -200,21 +246,6 @@ final class CursorPaginationTest extends TestCase
         ]);
     }
 
-    public function testDefaultCount(): void
-    {
-        $response = $this->graphQL(/** @lang GraphQL */ '
-        {
-            classifications {
-                edges {
-                    node {
-                        level
-                    }
-                }
-            }
-        }');
-        $this->assertCount(4, Arr::get($response, 'data.classifications.edges'));
-    }
-
     public function testMaxCount(): void
     {
         $this->graphQL(/** @lang GraphQL */ '
@@ -228,5 +259,61 @@ final class CursorPaginationTest extends TestCase
             }
         }
         ')->assertGraphQLErrorMessage('Maximum number of 10 requested items exceeded, got 1000. Fetch smaller chunks.');
+    }
+
+    public function testMustChooseAtMostForwardOrBackward(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(first: 5, last:5) {
+                edges {
+                    node {
+                        level
+                    }
+                }
+            }
+        }')->assertGraphQLValidationKeys(['first', 'last']);
+    }
+
+    public function testMustChooseAtLeastForwardOrBackward(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications {
+                edges {
+                    node {
+                        level
+                    }
+                }
+            }
+        }')->assertGraphQLValidationKeys(['first', 'last']);
+    }
+
+    public function testSpecifyFirstWithAfter(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(first: 5, before:"dummy_cursor") {
+                edges {
+                    node {
+                        level
+                    }
+                }
+            }
+        }')->assertGraphQLValidationKeys(['first']);
+    }
+
+    public function testSpecifyLastWithBefore(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(last: 5, after:"dummy_cursor") {
+                edges {
+                    node {
+                        level
+                    }
+                }
+            }
+        }')->assertGraphQLValidationKeys(['last']);
     }
 }

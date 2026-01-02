@@ -59,13 +59,6 @@ directive @cursorPaginate(
   scopes: [String!]
 
   """
-  Allow clients to query paginated lists without specifying the amount of items.
-  Overrules the `pagination.default_count` setting from `lighthouse.php`.
-  Setting this to `null` means clients have to explicitly ask for the count.
-  """
-  defaultCount: Int
-
-  """
   Limit the maximum amount of items that clients can request from paginated lists.
   Overrules the `pagination.max_count` setting from `lighthouse.php`.
   Setting this to `null` means the count is unrestricted.
@@ -96,7 +89,6 @@ GRAPHQL;
         $paginationManipulator->transformToPaginatedField(
             $fieldDefinition,
             $parentType,
-            $this->defaultCount(),
             $this->paginateMaxCount(),
         );
     }
@@ -104,6 +96,7 @@ GRAPHQL;
     public function resolveField(FieldValue $fieldValue): callable
     {
         return function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): CursorPaginator {
+            PaginationArgs::validateArgs($args);
             $paginationArgs = PaginationArgs::extractArgs($args, $resolveInfo, $this->paginateMaxCount());
 
             if ($this->directiveHasArgument('resolver')) {
@@ -113,7 +106,7 @@ GRAPHQL;
                     "The method referenced by the resolver argument of the @{$this->name()} directive on {$this->nodeName()} must return a CursorPaginator.",
                 );
 
-                if ($paginationArgs->first === 0) {
+                if ($paginationArgs->perPage === 0) {
                     return new ZeroPerPagePaginator();
                 }
 
@@ -141,11 +134,6 @@ GRAPHQL;
 
             return $paginationArgs->applyToBuilder($query);
         };
-    }
-
-    protected function defaultCount(): ?int
-    {
-        return $this->directiveArgValue('defaultCount', config('lighthouse.pagination.default_count'));
     }
 
     protected function paginateMaxCount(): ?int
