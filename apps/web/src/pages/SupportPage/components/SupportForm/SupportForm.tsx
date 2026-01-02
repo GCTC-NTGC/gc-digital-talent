@@ -11,6 +11,7 @@ import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
+  getLocale,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
@@ -117,6 +118,7 @@ const SupportForm = ({
       email: currentUser?.email ?? "",
       previous_url: previousUrl || "",
       user_agent: userAgent || "",
+      language: getLocale(intl),
     },
   });
   const { handleSubmit } = methods;

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('support')->controller(SupportController::class)->group(function () {
     Route::post('/tickets', 'createTicket');
+    Route::post('/contacts', 'updateContact');
 });
 
 Route::prefix('user-generated-files')

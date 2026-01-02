@@ -14,6 +14,53 @@ class SupportController extends Controller
 
     private static $MAX_USER_AGENT_LENGTH = 255;
 
+    public function updateContact(Request $request)
+    {
+        if (! config('freshdesk.api.endpoint') || ! config('freshdesk.api.key')) {
+            Log::error('Attempted to update a contact with missing config values.');
+
+            return response([
+                'apiResponse' => 'Missing parameters',
+            ], 500);
+        }
+        // string values available from type field via /api/v2/contact_fields.
+        $parameters = [
+            'language' => $request->input('language')
+        ];
+        $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
+            ->put(
+                config('freshdesk.api.endpoint').'/contacts/151064224792',
+                $parameters
+            );
+        if ($response->status() == 200) {
+            return response([
+                'serviceResponse' => 'success',
+            ], 200);
+        }
+
+        // we didn't get a 200 so let's see if we recognize an error
+        $responseBody = $response->json();
+        $errors = $responseBody['errors'] ?? [];
+        $invalidLanguageValueErrors = array_filter($errors, function ($error) {
+            return $error['code'] === 'invalid_value';
+        });
+        if (! empty($invalidLanguageValueErrors)) {
+            // some invalid values were sent
+            return response([
+                'serviceResponse' => 'error',
+                'errorDetail' => 'invalid_language_value',
+            ], 400);
+        }
+
+        // we don't recognize an error so send a generic 500
+        Log::error('Error when trying to update a contact: '.$response->getBody());
+
+        return response([
+            'serviceResponse' => 'error',
+        ], 500);
+
+    }
+
     public function createTicket(Request $request)
     {
         if (! config('freshdesk.api.endpoint') || ! config('freshdesk.api.key')) {
