@@ -15,6 +15,7 @@ use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class GcNotifyApiRequest implements ShouldQueue
 {
@@ -61,8 +62,18 @@ class GcNotifyApiRequest implements ShouldQueue
             $this->message->messageVariables
         );
 
+        // hit rate limiter: try again later
         if ($response->tooManyRequests()) {
             $this->release($delaySeconds = 60);
+        }
+        // tried to send to non-allowlisted recipient using team-only API key: treat as a success
+        if (
+            $response->clientError() &&
+            Str::startsWith($response->json('errors.0.message'), 'Can’t send to this recipient using a team-only API key')
+        ) {
+            Log::channel('jobs')->debug($response->body());
+
+            return; // pretend job was successful
         }
 
         if (! is_null($response) && ! $response->successful()) {
