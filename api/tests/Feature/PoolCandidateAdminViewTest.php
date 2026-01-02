@@ -12,11 +12,14 @@ use App\Models\TalentNominationEvent;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
 use function PHPUnit\Framework\assertSame;
 
 class PoolCandidateAdminViewTest extends TestCase
@@ -59,8 +62,8 @@ class PoolCandidateAdminViewTest extends TestCase
     public string $paginatedAdminViewQuery =
         /** GraphQL */
         '
-        query PoolCandidates {
-            poolCandidatesPaginatedAdminView(first: 100) {
+        query PoolCandidates ($orderByBase: PoolCandidatesBaseSort!) {
+            poolCandidatesPaginatedAdminView(first: 100, orderByBase: $orderByBase) {
                 paginatorInfo {
                     total
                 }
@@ -124,7 +127,7 @@ class PoolCandidateAdminViewTest extends TestCase
     protected function assertPaginatedResponse(User $user, int $count, array $ids): void
     {
         $res = $this->actingAs($user, 'api')
-            ->graphQL($this->paginatedAdminViewQuery);
+            ->graphQL($this->paginatedAdminViewQuery, ['orderByBase' => []]);
 
         $res->assertJsonFragment([
             'paginatorInfo' => [
@@ -295,5 +298,82 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->assertPaginatedResponse($this->otherProcessOperator, 0, []);
         $this->assertPaginatedResponse($this->communityRecruiter, 0, []);
         $this->assertPaginatedResponse($this->otherCommunityRecruiter, 0, []);
+    }
+
+    // Test in isolation the scope PoolCandidate::orderByBase() used by the query
+    public function testScopeOrderByBase(): void
+    {
+        PoolCandidate::truncate();
+
+        // create candidates
+        $candidateBookmarked = PoolCandidate::factory()
+            ->withSnapshot()
+            ->create([
+                'user_id' => User::factory()
+                    ->asApplicant()
+                    ->withGovEmployeeProfile(),
+                'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
+                'is_flagged' => false,
+            ]);
+        $candidateFlagged = PoolCandidate::factory()
+            ->withSnapshot()
+            ->create([
+                'user_id' => User::factory()
+                    ->asApplicant()
+                    ->withGovEmployeeProfile(),
+                'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
+                'is_flagged' => true,
+            ]);
+        $candidate = PoolCandidate::factory()
+            ->withSnapshot()
+            ->create([
+                'user_id' => User::factory()
+                    ->asApplicant()
+                    ->withGovEmployeeProfile(),
+                'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
+                'is_flagged' => false,
+            ]);
+
+        // insert bookmark for candidate-user
+        DB::table('pool_candidate_user_bookmarks')->insert([
+            'pool_candidate_id' => $candidateBookmarked->id,
+            'user_id' => $this->platformAdmin->id,
+        ]);
+
+        // set Auth
+        Auth::shouldReceive('user')
+            ->andReturn($this->platformAdmin);
+
+        // can only reliably assert the first returned user, so check bookmarked is first
+        $candidateIdsBookmarked = PoolCandidate::orderByBase([
+            'useBookmark' => true,
+        ])
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        assertSame($candidateIdsBookmarked[0], $candidateBookmarked->id);
+
+        // can only reliably assert the first returned user, so check flagged is first
+        $candidateIdsFlagged = PoolCandidate::orderByBase([
+            'useFlag' => true,
+        ])
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        assertSame($candidateIdsFlagged[0], $candidateFlagged->id);
+
+        // passing in both will set the order for the three the same way, bookmarked then flagged then other
+        $candidateIdsBookmarkedFlagged = PoolCandidate::orderByBase([
+            'useBookmark' => true,
+            'useFlag' => true,
+        ])
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        assertEqualsCanonicalizing([
+            $candidateBookmarked->id,
+            $candidateFlagged->id,
+            $candidate->id,
+        ], $candidateIdsBookmarkedFlagged);
     }
 }

@@ -15,8 +15,6 @@ final class RevertFinalDecision
 
         $candidate->revertFinalDecision();
 
-        $candidate->save();
-
         return $candidate;
     }
 }

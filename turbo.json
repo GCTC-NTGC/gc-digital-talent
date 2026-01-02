@@ -14,6 +14,7 @@
       ],
       "inputs": [
         "src/**",
+        "index.html",
         "package.json"
       ],
       "outputs": [
@@ -44,7 +45,8 @@
       "inputs": [
         "src/**/*.ts",
         "src/**/*.tsx",
-        "package.json"
+        "package.json",
+        "index.html"
       ],
       "outputs": [
         "dist/**"

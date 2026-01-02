@@ -83,7 +83,9 @@ const SpecialNoteSection = ({
     optional: true,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
+  const dataToFormValues = (
+    initialData: Pick<Pool, "specialNote">,
+  ): FormValues => ({
     hasSpecialNote:
       !!initialData.specialNote?.en || !!initialData.specialNote?.fr,
     specialNoteEn: initialData.specialNote?.en ?? "",

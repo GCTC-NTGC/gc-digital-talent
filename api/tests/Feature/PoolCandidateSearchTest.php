@@ -10,6 +10,7 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\Facades\Notify;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
@@ -154,7 +155,8 @@ class PoolCandidateSearchTest extends TestCase
             /** @lang GraphQL */
             '
             query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView (orderBy: [
+                poolCandidatesPaginatedAdminView (
+                    orderBy: [
                   { column: "status_weight", order: ASC }
                   { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                 ], where: $where) {
@@ -168,7 +170,9 @@ class PoolCandidateSearchTest extends TestCase
         // Assert the order is correct
         // candidate one not present due to being DRAFT
         $this->actingAs($this->processOperator, 'api')
-            ->graphQL($query, ['where' => []])
+            ->graphQL($query, [
+                'where' => [],
+            ])
             ->assertJson([
                 'data' => [
                     'poolCandidatesPaginatedAdminView' => [
@@ -548,7 +552,8 @@ class PoolCandidateSearchTest extends TestCase
             '
             query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginatedAdminView (
-                  where: $where) {
+                  where: $where
+                  ) {
                     paginatorInfo {
                         count
                     }
@@ -918,6 +923,63 @@ class PoolCandidateSearchTest extends TestCase
             ->graphQL($query, [
                 'where' => [
                     'removalReasons' => [CandidateRemovalReason::INELIGIBLE->name],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+    }
+
+    public function testScopeScreeningStageIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        $unexpected = PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        foreach ($unexpected as $candidate) {
+            $candidate->screening_stage = Arr::random(Arr::where(
+                array_column(ScreeningStage::cases(), 'name'),
+                fn ($status) => $status !== ScreeningStage::UNDER_ASSESSMENT->name,
+            ));
+            $candidate->save();
+        }
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedCandidate->screening_stage = ScreeningStage::UNDER_ASSESSMENT->name;
+        $expectedCandidate->save();
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'screeningStages' => [ScreeningStage::UNDER_ASSESSMENT->name],
                 ],
             ])->assertJsonFragment([
                 'data' => [

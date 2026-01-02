@@ -23,7 +23,7 @@
   "dependencies": {
     "@gc-digital-talent/rich-text-elements": "workspace:*",
     "react-helmet-async": "^2.0.5",
-    "react-intl": "^8.0.4",
+    "react-intl": "^8.0.9",
     "react-router": "^7.11.0",
     "vitest": "^3.2.4",
     "vitest-axe": "1.0.0-pre.5",
@@ -37,7 +37,7 @@
     "@types/react": "^19.2.7",
     "eslint": "^9.20.1",
     "jsdom": "^26.0.0",
-    "react": "^19.2.1",
+    "react": "^19.2.3",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3"
   }

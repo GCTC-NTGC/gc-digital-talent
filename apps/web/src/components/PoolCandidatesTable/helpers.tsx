@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   Locales,
@@ -31,6 +32,7 @@ import {
   QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
   LocalizedCandidateSuspendedFilter,
+  PoolCandidatesBaseSort,
   LocalizedCandidateStatus,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -50,6 +52,9 @@ import tableMessages from "./tableMessages";
 import CandidateFlag, {
   PoolCandidate_FlagFragment,
 } from "../CandidateFlag/CandidateFlag";
+import PoolCandidateBookmark, {
+  PoolCandidateBookmark_Fragment,
+} from "./PoolCandidateBookmark";
 
 export const priorityCell = (
   weight: number,
@@ -332,10 +337,19 @@ function transformSortStateToOrderByClause(
   };
 }
 
+export function getBaseSort(
+  doNotUseBookmark: boolean,
+  doNotUseFlag: boolean,
+): PoolCandidatesBaseSort {
+  return {
+    useBookmark: !doNotUseBookmark,
+    useFlag: !doNotUseFlag,
+  };
+}
+
 export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-  doNotUseFlag?: boolean,
 ):
   | QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[]
   | undefined {
@@ -343,13 +357,14 @@ export function getSortOrder(
 
   // handle sort in orderByClaimVerification and departments
   if (
-    sortingRules?.find((rule) => ["priority", "department"].includes(rule.id))
+    sortingRules?.find((rule) =>
+      ["priority", "department", "screeningStage"].includes(rule.id),
+    )
   ) {
     return undefined;
   }
 
   return [
-    ...(doNotUseFlag ? [] : [{ column: "is_flagged", order: SortOrder.Desc }]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [
@@ -362,7 +377,6 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  doNotUseFlag?: boolean,
 ): Maybe<ClaimVerificationSort> {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
@@ -370,7 +384,6 @@ export function getClaimVerificationSort(
     if (sortOrder) {
       return {
         order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
-        useFlag: !doNotUseFlag,
       };
     }
   }
@@ -396,6 +409,18 @@ export function getDepartmentSort(
   sortingRules?: SortingState,
 ): SortOrder | undefined {
   const sortingRule = sortingRules?.find((rule) => rule.id === "department");
+
+  if (!sortingRule) return undefined;
+
+  return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
+}
+
+export function getScreeningStageSort(
+  sortingRules?: SortingState,
+): SortOrder | undefined {
+  const sortingRule = sortingRules?.find(
+    (rule) => rule.id === "screeningStage",
+  );
 
   if (!sortingRule) return undefined;
 
@@ -441,7 +466,6 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
     ),
     priorityWeight: unpackMaybes(input?.priorityWeight),
-    poolCandidateStatus: unpackMaybes(input?.poolCandidateStatus),
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
@@ -453,6 +477,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     finalDecisions: unpackMaybes(input?.finalDecisions),
     removalReasons: unpackMaybes(input?.removalReasons),
     placementTypes: unpackMaybes(input?.placementTypes),
+    screeningStages: unpackMaybes(input?.screeningStages),
   };
 }
 
@@ -477,7 +502,6 @@ export function transformFormValuesToFilterState(
       skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
     },
-    poolCandidateStatus: data.poolCandidateStatus,
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
@@ -495,6 +519,7 @@ export function transformFormValuesToFilterState(
     finalDecisions: data.finalDecisions,
     removalReasons: data.removalReasons,
     placementTypes: data.placementTypes,
+    screeningStages: data.screeningStages,
   };
 }
 
@@ -541,6 +566,7 @@ export const addSearchToPoolCandidateFilterInput = (
     finalDecisions: fancyFilterState?.finalDecisions,
     removalReasons: fancyFilterState?.removalReasons,
     placementTypes: fancyFilterState?.placementTypes,
+    screeningStages: fancyFilterState?.screeningStages,
   };
 };
 
@@ -574,4 +600,28 @@ export const candidateSuspendedFilterToCustomOptions = (
       label: enumObject.label.localized,
     };
   });
+};
+
+export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    className="size-6"
+    aria-hidden="false"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);
+
+export const poolCandidateBookmarkCell = (
+  poolCandidateId: string,
+  userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>,
+  firstName?: Maybe<string>,
+  lastName?: Maybe<string>,
+) => {
+  return (
+    <PoolCandidateBookmark
+      userQuery={userQuery}
+      poolCandidateId={poolCandidateId}
+      firstName={firstName}
+      lastName={lastName}
+    />
+  );
 };

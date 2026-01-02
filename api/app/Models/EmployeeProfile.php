@@ -43,6 +43,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property ?string $career_objective_c_suite_role_title
  * @property ?bool $eligible_retirement_year_known
  * @property ?\Illuminate\Support\Carbon $eligible_retirement_year
+ * @property ?\App\Models\Classification $nextRoleClassification
+ * @property ?\App\Models\Community $nextRoleCommunity
+ * @property ?\App\Models\Classification $careerObjectiveClassification
+ * @property ?\App\Models\Community $careerObjectiveCommunity
  */
 class EmployeeProfile extends Model
 {

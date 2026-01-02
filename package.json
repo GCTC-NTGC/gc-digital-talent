@@ -41,7 +41,8 @@
     "e2e:playwright:firefox": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:firefox",
     "e2e:playwright:webkit": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:webkit",
     "e2e:playwright:report": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:report",
-    "tsc": "turbo run tsc"
+    "tsc": "turbo run tsc",
+    "check-links": "tsx packages/linkChecker/src/checkExternalLinks.ts"
   },
   "devDependencies": {
     "@gc-digital-talent/i18n": "workspace:*",
@@ -49,15 +50,15 @@
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
-    "@storybook/addon-a11y": "^10.1.10",
-    "@storybook/addon-vitest": "^10.1.10",
-    "@storybook/react-vite": "^10.1.10",
+    "@storybook/addon-a11y": "^10.1.11",
+    "@storybook/addon-vitest": "^10.1.11",
+    "@storybook/react-vite": "^10.1.11",
     "@vitest/browser": "3.2.4",
     "@vitest/coverage-v8": "^3.2.4",
     "playwright": "^1.57.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "storybook": "^10.1.10",
-    "turbo": "^2.6.3",
+    "storybook": "^10.1.11",
+    "turbo": "^2.7.2",
     "vitest": "^3.2.4"
   }
 }

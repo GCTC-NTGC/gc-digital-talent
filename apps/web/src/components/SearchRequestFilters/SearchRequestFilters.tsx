@@ -14,13 +14,10 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  ApplicantFilter,
   Classification,
   FlexibleWorkLocation,
   LocalizedEnumString,
   Maybe,
-  Pool,
-  PoolCandidateFilter,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -32,6 +29,10 @@ import {
 } from "~/utils/searchRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import messages from "~/messages/profileMessages";
+import {
+  PartialApplicantFilter,
+  PartialPoolCandidateFilter,
+} from "~/types/searchRequest";
 
 import FilterBlock from "./FilterBlock";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
@@ -41,7 +42,7 @@ const ApplicantFilters = ({
   selectedClassifications,
   flexibleWorkLocationOptions,
 }: {
-  applicantFilter?: Maybe<ApplicantFilter>;
+  applicantFilter?: Maybe<PartialApplicantFilter>;
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
@@ -284,7 +285,7 @@ const ApplicantFilters = ({
 };
 
 interface SearchRequestFiltersProps {
-  filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
+  filters?: Maybe<PartialApplicantFilter | PartialPoolCandidateFilter>;
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }
@@ -316,7 +317,7 @@ const SearchRequestFilters = ({
         `${classification?.group.toLocaleUpperCase()}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
     );
 
-  const pools: Pool[] | undefined = poolCandidateFilter
+  const pools = poolCandidateFilter
     ? poolCandidateFilter?.pools?.filter(notEmpty)
     : [];
 

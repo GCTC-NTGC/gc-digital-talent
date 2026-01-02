@@ -189,7 +189,14 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "en": "Apply now",
     "fr": [
       "Postulez dès maintenant",
-      "Présentez votre demande"
+      "Présenter une demande"
+    ]
+  },
+  {
+    "en": "Sign up",
+    "fr": [
+      "S'inscrire",
+      "S'enregistrer"
     ]
   },
   {
@@ -211,6 +218,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Créez une collectivité",
       "Créer une collectivité"
+    ]
+  },
+  {
+    "en": "Contact us",
+    "fr": [
+      "Pour nous joindre",
+      "Nous joindre"
     ]
   },
   {
@@ -323,6 +337,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "La personne candidate",
       "Personne candidate"
+    ]
+  },
+  {
+    "en": "Browse jobs",
+    "fr": [
+      "Parcourir les emplois",
+      "Parcourir les possibilités d'emploi"
     ]
   },
   {

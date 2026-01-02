@@ -1520,7 +1520,8 @@ class ApplicantTest extends TestCase
                 /** @lang GraphQL */
                 '
             query poolCandidatesPaginatedAdminView {
-                poolCandidatesPaginatedAdminView (orderBy: [
+                poolCandidatesPaginatedAdminView (
+                    orderBy: [
                     { column: "status_weight", order: ASC }
                     { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
@@ -1531,7 +1532,7 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            '
+            ',
             )->assertJson([
                 'data' => [
                     'poolCandidatesPaginatedAdminView' => [
@@ -1551,7 +1552,8 @@ class ApplicantTest extends TestCase
                 /** @lang GraphQL */
                 '
             query poolCandidatesPaginatedAdminView {
-                poolCandidatesPaginatedAdminView (orderBy: [
+                poolCandidatesPaginatedAdminView (
+                    orderBy: [
                     { column: "status_weight", order: ASC }
                     { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
@@ -1562,7 +1564,7 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            '
+            ',
             )->assertDontSeeText(PoolCandidateStatus::DRAFT->name);
     }
 
