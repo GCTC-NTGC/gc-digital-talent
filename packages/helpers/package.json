@@ -29,6 +29,6 @@
     "@types/react": "^19.2.7",
     "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.16"
   }
 }
