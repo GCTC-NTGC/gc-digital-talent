@@ -2520,7 +2520,7 @@
     "description": "Text telling users that their search produced no candidates"
   },
   "8R8ip4": {
-    "defaultMessage": "Enregistrez les commentaires",
+    "defaultMessage": "Enregistrer les commentaires",
     "description": "Label for saving comments"
   },
   "8T/Szk": {
@@ -10119,7 +10119,7 @@
     "description": "Opening paragraph for accessibility statement"
   },
   "fzuAHN": {
-    "defaultMessage": "Enregistrez les notes",
+    "defaultMessage": "Enregistrer les notes",
     "description": "Button label displayed on the search request form which saves the users personal notes."
   },
   "g+JcDC": {
