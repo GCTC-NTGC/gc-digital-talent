@@ -29,16 +29,16 @@ class PaginationArgs
      */
     public static function extractArgs(array $args, ResolveInfo $resolveInfo, ?int $paginateMaxCount): self
     {
-        // forward pagination
         if (array_key_exists('first', $args)) {
+            // forward pagination
             $perPageArg = $args['first'];
             $cursorArg = $args['after'] ?? null;
-        }
-
-        // reverse pagination
-        if (array_key_exists('last', $args)) {
+        } elseif (array_key_exists('last', $args)) {
+            // reverse pagination
             $perPageArg = $args['last'];
             $cursorArg = $args['before'] ?? null;
+        } else {
+            throw new Error('Missing pagination arguments.'); // Calling validateArgs first should prevent this from ever hitting.
         }
 
         $perPage = $perPageArg;
