@@ -31,7 +31,7 @@ final class CursorPaginationTest extends TestCase
         $this->schema = /** @lang GraphQL */ '
             type Classification  {
                 level: Int!
-                createdAt: DateTime! @rename(attribute: "created_at")
+                isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
             }
 
             input ClassificationFilterInput {
