@@ -10,6 +10,7 @@ use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
+use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Enums\WorkRegion;
 use App\Models\TalentNominationGroup;
@@ -189,7 +190,65 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         }, $this->overviewLocaleKeys);
 
         $sheet->fromArray($localizedHeaders, null, 'A1');
+        $row = 2;
+        $query = $this->buildQuery();
+        $query->chunk(200, function ($talentNominationGroups) use ($sheet, &$row) {
+            foreach ($talentNominationGroups as $talentNominationGroup) {
+                $consentToShare = $talentNominationGroup->consentToShareProfile;
+                $user = $talentNominationGroup->nominee;
+                $nominators = $talentNominationGroup->nominations->map(function ($nomination) {
+                    $name = $nomination->nominator_fallback_name;
+                    if ($nomination->nominator) {
+                        $name = "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
+                    }
 
+                    return $name;
+                });
+
+                // Build nomination options with counts in parentheses
+                $options = [];
+                if ($talentNominationGroup->advancement_nomination_count > 0) {
+                    $options[] = sprintf(
+                        '%s (%d)',
+                        $this->localize('common.advancement'),
+                        $talentNominationGroup->advancement_nomination_count
+                    );
+                }
+                if ($talentNominationGroup->lateral_movement_nomination_count > 0) {
+                    $options[] = sprintf(
+                        '%s (%d)',
+                        $this->localize('common.lateral_movement'),
+                        $talentNominationGroup->lateral_movement_nomination_count
+                    );
+                }
+                if ($talentNominationGroup->development_programs_nomination_count > 0) {
+                    $options[] = sprintf(
+                        '%s (%d)',
+                        $this->localize('common.development'),
+                        $talentNominationGroup->development_programs_nomination_count
+                    );
+                }
+                $optionsStr = implode(', ', $options);
+
+                $values = [
+                    $user->id,
+                    $this->canShare($consentToShare, $user->first_name),
+                    $this->canShare($consentToShare, $user->last_name),
+                    $this->localizeEnum($talentNominationGroup->status, TalentNominationGroupStatus::class),
+                    $nominators->join(', '),
+                    $optionsStr,
+                    $this->localizeEnum($talentNominationGroup->advancement_decision, TalentNominationGroupDecision::class),
+                    $this->canShare($consentToShare, $talentNominationGroup->advancement_notes ?? ''),
+                    $this->localizeEnum($talentNominationGroup->lateral_movement_decision, TalentNominationGroupDecision::class),
+                    $this->canShare($consentToShare, $talentNominationGroup->lateral_movement_notes ?? ''),
+                    $this->localizeEnum($talentNominationGroup->development_programs_decision, TalentNominationGroupDecision::class),
+                    $this->canShare($consentToShare, $talentNominationGroup->development_programs_notes ?? ''),
+                ];
+
+                $sheet->fromArray($values, null, sprintf('A%d', $row));
+                $row++;
+            }
+        });
     }
 
     /**
@@ -215,6 +274,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
         $sheet->fromArray($localizedHeaders, null, 'A1');
     }
+
     // public function generate(): self
     // {
     //     $this->spreadsheet = new Spreadsheet;
