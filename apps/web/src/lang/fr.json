@@ -4172,7 +4172,7 @@
     "description": "Subtitle for Assessment details dialog"
   },
   "FhWYXz": {
-    "defaultMessage": "Annulez",
+    "defaultMessage": "Annuler",
     "description": "Label for close general question dialog."
   },
   "Fj98cE": {
@@ -6080,7 +6080,7 @@
     "description": "Placeholder text for community selection input"
   },
   "OU/MkT": {
-    "defaultMessage": "Annulez et revenir aux possibilités de formation",
+    "defaultMessage": "Annuler et revenir aux possibilités de formation",
     "description": "Button label to return to the opportunities table"
   },
   "OU3MYy": {
@@ -6512,7 +6512,7 @@
     "description": "Message for a candidates priority status claim"
   },
   "QJi1ZQ": {
-    "defaultMessage": "Annulez la décision et mettez le statut à jour",
+    "defaultMessage": "Annuler la décision et mettez le statut à jour",
     "description": "Button label to revert final decision on view pool candidate page"
   },
   "QKGmDP": {
@@ -8419,7 +8419,7 @@
     "description": "Message when a claim as yet to be verified"
   },
   "YjDiUu": {
-    "defaultMessage": "Annulez et revenir aux groupes de compétences",
+    "defaultMessage": "Annuler et revenir aux groupes de compétences",
     "description": "Link text to return to skill family table"
   },
   "YjKKrR": {
@@ -11234,7 +11234,7 @@
     "description": "Link text to go report a missing page on the 404"
   },
   "kh9KTx": {
-    "defaultMessage": "Annulez et revenir aux volets de travail",
+    "defaultMessage": "Annuler et revenir aux volets de travail",
     "description": "Link text to cancel updating a work stream"
   },
   "khfdlt": {
@@ -12070,7 +12070,7 @@
     "description": "Heading for the 'create a skill' form"
   },
   "oCL/sl": {
-    "defaultMessage": "Annulez et revenir à l'éditeur de compétence",
+    "defaultMessage": "Annuler et revenir à l'éditeur de compétence",
     "description": "Button label to return to the skills table"
   },
   "oDDr9J": {
@@ -12218,7 +12218,7 @@
     "description": "Label for the submitter's department/agency"
   },
   "om9QYn": {
-    "defaultMessage": "Annulez et revenir aux classifications",
+    "defaultMessage": "Annuler et revenir aux classifications",
     "description": "Link text to return to classification table"
   },
   "opkSia": {
@@ -13542,7 +13542,7 @@
     "description": "Contact email subtitle"
   },
   "uqI3Vf": {
-    "defaultMessage": "Annulez et revenir aux ministères",
+    "defaultMessage": "Annuler et revenir aux ministères",
     "description": "Button label to return to the departments table"
   },
   "usRTou": {
