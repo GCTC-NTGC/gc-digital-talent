@@ -1,15 +1,20 @@
 /* eslint-disable react/forbid-elements */
 // NOTE: `a` needed here to avoid styling, etc
-import { useIntl } from "react-intl";
+import { IntlProvider, useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import { useTheme } from "@gc-digital-talent/theme";
+import { ThemeProvider, useTheme } from "@gc-digital-talent/theme";
 import { Button, Container, Flourish, Heading } from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
-import { commonMessages, useLocale } from "@gc-digital-talent/i18n";
+import {
+  combineMessages,
+  commonMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 
+import messages from "~/lang/frCompiled.json";
 import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";
@@ -40,7 +45,7 @@ const reloadLink = (chunks: ReactNode) => (
   </Button>
 );
 
-export const RouteErrorBoundary = () => {
+const RouteErrorBoundary = () => {
   const intl = useIntl();
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
@@ -134,4 +139,16 @@ export const RouteErrorBoundary = () => {
   );
 };
 
-export default RouteErrorBoundary;
+export default function RootErrorBoundary() {
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "";
+  const locale = pathname.startsWith("/fr") ? "fr" : "en";
+
+  return (
+    <IntlProvider locale={locale} messages={combineMessages(locale, messages)}>
+      <ThemeProvider>
+        <RouteErrorBoundary />
+      </ThemeProvider>
+    </IntlProvider>
+  );
+}

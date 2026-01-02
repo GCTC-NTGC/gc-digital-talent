@@ -24,4 +24,4 @@ export const Component = () => (
 
 Component.displayName = "AdminViewSearchRequestPage";
 
-export default SingleSearchRequestPage;
+export default Component;

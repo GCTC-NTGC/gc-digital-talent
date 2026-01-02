@@ -181,3 +181,5 @@ export const Component = () => (
 );
 
 Component.displayName = "TalentNominationGroupLayout";
+
+export default Component;

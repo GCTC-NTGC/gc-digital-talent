@@ -204,3 +204,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ApplicationProfilePage";
+
+export default Component;

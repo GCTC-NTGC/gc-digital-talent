@@ -328,4 +328,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCreateSkillFamilyPage";
 
-export default CreateSkillFamilyPage;
+export default Component;

@@ -529,3 +529,7 @@ export const Component = () => {
     </>
   );
 };
+
+Component.displayName = "DNDDigitalCareersPage";
+
+export default Component;

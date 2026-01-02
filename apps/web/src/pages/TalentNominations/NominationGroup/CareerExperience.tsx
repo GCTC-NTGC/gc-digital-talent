@@ -116,3 +116,5 @@ export const Component = () => (
 );
 
 Component.displayName = "TalentNominationGroupCareerExperiencePage";
+
+export default Component;

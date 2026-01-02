@@ -66,3 +66,5 @@ export const Component = () => (
 );
 
 Component.displayName = "TalentEventNominationsPage";
+
+export default Component;

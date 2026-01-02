@@ -53,4 +53,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexPoolPage";
 
-export default PoolPage;
+export default Component;

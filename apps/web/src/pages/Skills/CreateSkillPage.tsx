@@ -437,4 +437,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCreateSkillPage";
 
-export default CreateSkillPage;
+export default Component;

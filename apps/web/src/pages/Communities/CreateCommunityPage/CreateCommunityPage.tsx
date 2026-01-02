@@ -88,4 +88,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCreateCommunityPage";
 
-export default CreateCommunityPage;
+export default Component;

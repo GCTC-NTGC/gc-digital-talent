@@ -243,3 +243,5 @@ export const Component = () => (
 );
 
 Component.displayName = "CreateCommunityInterestPage";
+
+export default Component;

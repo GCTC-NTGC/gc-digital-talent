@@ -374,4 +374,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUpdateWorkStreamPage";
 
-export default UpdateWorkStreamPage;
+export default Component;

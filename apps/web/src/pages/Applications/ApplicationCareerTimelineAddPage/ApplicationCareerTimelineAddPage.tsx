@@ -189,3 +189,5 @@ export const Component = () => (
 );
 
 Component.displayName = "ApplicationCareerTimelineAddPage";
+
+export default Component;
