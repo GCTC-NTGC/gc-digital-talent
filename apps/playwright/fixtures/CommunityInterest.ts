@@ -1,13 +1,13 @@
 import { type Page } from "@playwright/test";
 
-import ApplicantDashboardPage from "./ApplicantDashboardPage";
+import AppPage from "./AppPage";
 
 /**
  * CommunityInterest
  *
  * Page containing utilities to interact with community interests
  */
-class CommunityInterest extends ApplicantDashboardPage {
+class CommunityInterest extends AppPage {
   constructor(page: Page) {
     super(page);
   }
