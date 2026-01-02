@@ -369,13 +369,26 @@ class PoolCandidate extends Model
                 return $this->is_expired ? CandidateStatus::EXPIRED->name : CandidateStatus::DRAFT->name;
             }
 
-            // ApplicationStatus::DISQUALIFIED || ApplicationStatus::REMOVED
+            // ApplicationStatus::DISQUALIFIED
             if (
-                in_array($this->pool_candidate_status, PoolCandidateStatus::unsuccessfulGroup()) ||
+                in_array($this->pool_candidate_status, PoolCandidateStatus::unsuccessfulGroup())
+            ) {
+                return CandidateStatus::UNSUCCESSFUL->name;
+            }
+
+            // ApplicationStatus::REMOVED
+            if (
+                $this->pool_candidate_status == PoolCandidateStatus::REMOVED->name ||
                 ! empty($this->removal_reason) ||
                 (! empty($this->removed_at) && $this->removed_at->isPast())
             ) {
-                return CandidateStatus::UNSUCCESSFUL->name;
+                return match ($this->removal_reason) {
+                CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name => CandidateStatus::WITHDREW->name,
+                CandidateRemovalReason::NOT_RESPONSIVE->name => CandidateStatus::NOT_RESPONSIVE->name,
+                CandidateRemovalReason::INELIGIBLE->name => CandidateStatus::INELIGIBLE->name,
+                CandidateRemovalReason::OTHER->name => CandidateStatus::REMOVED->name,
+                default => CandidateStatus::REMOVED->name,
+            };
             }
 
             // ApplicationStatus::QUALIFIED

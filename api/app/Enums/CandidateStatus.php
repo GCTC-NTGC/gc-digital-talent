@@ -22,6 +22,11 @@ enum CandidateStatus
     case UNSUCCESSFUL;
     case QUALIFIED;
 
+    case WITHDREW;
+    case NOT_RESPONSIVE;
+    case INELIGIBLE;
+    case REMOVED;
+
     public static function getLangFilename(): string
     {
         return 'candidate_status';
