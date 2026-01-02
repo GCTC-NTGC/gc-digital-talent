@@ -399,6 +399,34 @@ export const applicationStatusDescriptions = defineMessages({
     description:
       "Status description for a disqualified application to an employee-only pool",
   },
+  REMOVED: {
+    defaultMessage:
+      "You’ve been removed from this process. If you have questions, please reach out to the department or recruitment team responsible for advertising the job.",
+    id: "wqcWdN",
+    description:
+      "Status description for an application that was removed from a pool",
+  },
+  WITHDREW: {
+    defaultMessage:
+      "You’ve indicated that you’re not interested in continuing with this process. You will not be considered qualified in this process, and you will receive no further communication. If this is an error, you have one week to reach out to our support team from the time this status is assigned.",
+    id: "BUz+Ml",
+    description:
+      "Status description for an application that was withdrawn from a pool",
+  },
+  NOT_RESPONSIVE: {
+    defaultMessage:
+      "You’ve been removed from this recruitment process because you didn't respond by a set deadline when you were contacted. You’ve now missed the time window to proceed with this process. If you didn’t intend to withdraw from this process, we encourage you to review your contact information to ensure that it’s up to date for future applications to other processes.",
+    id: "BTY2jZ",
+    description:
+      "Status description for an application that was removed from a pool due to unresponsiveness from the applicant",
+  },
+  INELIGIBLE: {
+    defaultMessage:
+      "This process is restricted to applicants that meet certain criteria. For example, this process may be restricted to government employees, certain departments, or people with government jobs in specific classifications or levels. Based on your profile and application, you do not meet the requirements to apply to this process. Your application will not be considered.",
+    id: "wjyoQN",
+    description:
+      "Status description for an application that was removed from a pool due to due the applicant being ineligible",
+  },
   SUCCESSFUL: {
     defaultMessage:
       "You've applied for a role, you've been assessed, and you've been deemed qualified for this role. There may be other candidates who have also applied for this position and are now at the same step in the process as you. If a hiring manager has an opportunity for you, you may be approached with an employment offer.",
@@ -556,6 +584,11 @@ export const candidateStatusColorMap = new Map<
   [CandidateStatus.UnderAssessment, "secondary"],
 
   [CandidateStatus.Qualified, "success"],
+
+  [CandidateStatus.Withdrew, "error"],
+  [CandidateStatus.NotResponsive, "error"],
+  [CandidateStatus.Ineligible, "error"],
+  [CandidateStatus.Removed, "error"],
 ]);
 
 export const candidateStatusChip = (
