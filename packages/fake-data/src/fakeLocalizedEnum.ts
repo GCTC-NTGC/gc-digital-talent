@@ -61,10 +61,14 @@ type EnumType = Record<number, string>;
  * @param enumerable - The enum to be cast
  * @returns Array of the enum as localized enums
  */
-export function fakeLocalizedEnum<T extends EnumType>(enumerable: T) {
-  return Object.keys(enumerable).map((key) =>
-    toLocalizedEnum(key, pascalSplitRegex, "pascal"),
-  );
+export function fakeLocalizedEnum<T extends EnumType>(
+  enumerable: T,
+): GenericLocalizedEnum<T[keyof T]>[] {
+  return Object.keys(enumerable)
+    .filter((k) => isNaN(Number(k)))
+    .map((key) =>
+      toLocalizedEnum(key, pascalSplitRegex, "pascal"),
+    ) as GenericLocalizedEnum<T[keyof T]>[];
 }
 
 export default toLocalizedEnum;

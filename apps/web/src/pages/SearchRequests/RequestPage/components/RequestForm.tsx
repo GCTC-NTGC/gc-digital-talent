@@ -439,7 +439,7 @@ export const RequestForm = ({
       applicantFilter?.skills
         ?.map((skillId) => {
           return skills.find((skill) => {
-            return skill && skillId && skill.id === skillId.id;
+            return skill && skill.id === skillId?.id;
           });
         })
         .filter(notEmpty) ?? [],

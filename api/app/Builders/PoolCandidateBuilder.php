@@ -448,6 +448,14 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
+        // NOTE: Temporary fix until we properly decouple this from status
+        //      Replaces `NOT_PLACED` with the equivalent status of `QUALIFIED_AVAILABLE`
+        //      as opposed to any of the placed statuses
+        $key = array_search(PlacementType::NOT_PLACED->name, $placementTypes);
+        if ($key !== false) {
+            $placementTypes[$key] = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        }
+
         return $this->whereIn('pool_candidate_status', $placementTypes);
     }
 
