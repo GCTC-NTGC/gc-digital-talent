@@ -383,12 +383,12 @@ class PoolCandidate extends Model
                 (! empty($this->removed_at) && $this->removed_at->isPast())
             ) {
                 return match ($this->removal_reason) {
-                CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name => CandidateStatus::WITHDREW->name,
-                CandidateRemovalReason::NOT_RESPONSIVE->name => CandidateStatus::NOT_RESPONSIVE->name,
-                CandidateRemovalReason::INELIGIBLE->name => CandidateStatus::INELIGIBLE->name,
-                CandidateRemovalReason::OTHER->name => CandidateStatus::REMOVED->name,
-                default => CandidateStatus::REMOVED->name,
-            };
+                    CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name => CandidateStatus::WITHDREW->name,
+                    CandidateRemovalReason::NOT_RESPONSIVE->name => CandidateStatus::NOT_RESPONSIVE->name,
+                    CandidateRemovalReason::INELIGIBLE->name => CandidateStatus::INELIGIBLE->name,
+                    CandidateRemovalReason::OTHER->name => CandidateStatus::REMOVED->name,
+                    default => CandidateStatus::REMOVED->name,
+                };
             }
 
             // ApplicationStatus::QUALIFIED
