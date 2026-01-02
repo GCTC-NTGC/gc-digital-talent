@@ -2,27 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\Freshdesk;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 use function Safe\parse_url;
 
 class SupportController extends Controller
 {
-    private static $MAX_URL_LENGTH = 255;
-
-    private static $MAX_USER_AGENT_LENGTH = 255;
-
     public function createTicket(Request $request)
     {
-        if (! config('freshdesk.api.tickets_endpoint') || ! config('freshdesk.api.key')) {
-            Log::error('Attempted to create a ticket with missing config values.');
-
-            return response([
-                'apiResponse' => 'Missing parameters',
-            ], 500);
-        }
         // string values available from type field via /api/v2/ticket_fields.
         $type_map =
         [
@@ -35,9 +24,6 @@ class SupportController extends Controller
             'subject' => $request->input('subject'),
             'email' => $request->input('email'),
             'name' => $request->input('name'),
-            'priority' => 1, // Required by Freshdesk API. Priority of the ticket. The default value is 1.
-            'status' => 2, // Required by Freshdesk API. Status of the ticket. The default value is 2.
-            'tags' => [config('freshdesk.api.ticket_tag')],
             'type' => array_key_exists($request->input('subject'), $type_map) ? $type_map[$request->input('subject')] : null,
         ];
         if ($request->input('previous_url')) {
@@ -46,16 +32,10 @@ class SupportController extends Controller
             if (isset($url['query'])) {
                 $path .= '?'.$url['query'];
             }
-            if (strlen($path) > self::$MAX_URL_LENGTH) {
-                $path = substr($path, 0, self::$MAX_URL_LENGTH);
-            }
             $parameters['custom_fields']['cf_page_url'] = $path;
         }
         if ($request->input('user_agent')) {
             $user_agent = (string) $request->input('user_agent');
-            if (strlen($request->input('user_agent')) > self::$MAX_USER_AGENT_LENGTH) {
-                $user_agent = substr($request->input('user_agent'), 0, self::$MAX_USER_AGENT_LENGTH);
-            }
             $parameters['custom_fields']['cf_user_agent'] = $user_agent;
         }
         if ($request->cookie('ai_user')) {
@@ -67,14 +47,8 @@ class SupportController extends Controller
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
         }
-        if (config('freshdesk.api.product_id')) {
-            $parameters['product_id'] = (int) config('freshdesk.api.product_id');
-        }
-        $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
-            ->post(
-                config('freshdesk.api.tickets_endpoint'),
-                $parameters
-            );
+
+        $response = Freshdesk::createTicket($parameters);
         if ($response->status() == 201) { // status code 201 = created.
             return response([
                 'serviceResponse' => 'success',
