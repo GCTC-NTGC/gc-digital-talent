@@ -143,36 +143,36 @@ final class CursorPaginationTest extends TestCase
         $response2->assertGraphQLErrorFree();
         $edges2 = Arr::get($response2, 'data.classifications.edges');
         $levels2 = Arr::pluck($edges2, 'node.level');
-        $this->assertEquals(['4', '5'], $levels2);
+        $this->assertEquals([4, 5], $levels2);
 
-        // // reverse paginate back to the first page using "before" cursor
-        // $response3 = $this->graphQL(/** @lang GraphQL */ '
-        //     query Classifications($before: String) {
-        //         classifications(
-        //             orderBy: { column: "level", order: ASC }
-        //             last: 3,
-        //             before: $before
-        //         ) {
-        //             edges {
-        //                 node {
-        //                     level
-        //                 }
-        //             }
-        //             pageInfo {
-        //                 startCursor
-        //                 endCursor
-        //             }
-        //         }
-        //     }
-        // ', [
-        //     'before' => Arr::get($response2, 'data.classifications.pageInfo.startCursor'),
-        // ]);
+        // reverse paginate back to the first page using "before" cursor
+        $response3 = $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($before: String) {
+                classifications(
+                    orderBy: { column: "level", order: ASC }
+                    last: 3,
+                    before: $before
+                ) {
+                    edges {
+                        node {
+                            level
+                        }
+                    }
+                    pageInfo {
+                        startCursor
+                        endCursor
+                    }
+                }
+            }
+        ', [
+            'before' => Arr::get($response2, 'data.classifications.pageInfo.startCursor'),
+        ]);
 
-        // // first page is "1, 2, 3"
-        // $response3->assertGraphQLErrorFree();
-        // $edges3 = Arr::get($response3, 'data.classifications.edges');
-        // $levels3 = Arr::pluck($edges3, 'node.level');
-        // $this->assertEquals([1, 2, 3], $levels3);
+        // back to first page -> "1, 2, 3"
+        $response3->assertGraphQLErrorFree();
+        $edges3 = Arr::get($response3, 'data.classifications.edges');
+        $levels3 = Arr::pluck($edges3, 'node.level');
+        $this->assertEquals([1, 2, 3], $levels3);
     }
 
     public function testZeroPerPage(): void

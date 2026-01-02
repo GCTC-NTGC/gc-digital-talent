@@ -29,10 +29,20 @@ class PaginationArgs
      */
     public static function extractArgs(array $args, ResolveInfo $resolveInfo, ?int $paginateMaxCount): self
     {
-        $perPage = $args['first'];
+        // forward pagination
+        if (array_key_exists('first', $args)) {
+            $perPageArg = $args['first'];
+            $cursorArg = $args['after'] ?? null;
+        }
 
-        $encodedAfter = $args['after'] ?? null;
-        $cursor = Cursor::fromEncoded($encodedAfter);
+        // reverse pagination
+        if (array_key_exists('last', $args)) {
+            $perPageArg = $args['last'];
+            $cursorArg = $args['before'] ?? null;
+        }
+
+        $perPage = $perPageArg;
+        $cursor = Cursor::fromEncoded($cursorArg);
 
         if ($perPage < 0) {
             throw new Error(self::requestedLessThanZeroItems($perPage));
