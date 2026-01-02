@@ -11,6 +11,7 @@ import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
+  getLocale,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
@@ -265,9 +266,10 @@ const emailErrorMessage = defineMessage({
 
 const SupportFormApi = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const logger = getLogger();
   const handleCreateTicket = async (formValues: FormValues) => {
-    return await submitTicket(formValues, logger)
+    return await submitTicket(formValues, logger, locale)
       .then(() => {
         toast.success(
           intl.formatMessage({
