@@ -28,7 +28,6 @@ import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on User {
     id
-    oldOffPlatformRecruitmentProcesses
     offPlatformRecruitmentProcesses {
       ...OffPlatformRecruitmentProcessList
     }
