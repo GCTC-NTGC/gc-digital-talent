@@ -183,4 +183,4 @@ export const Component = () => (
 
 Component.displayName = "AdminPoolActivityPage";
 
-export default PoolActivityPage;
+export default Component;

@@ -47,7 +47,10 @@ class Notification extends DatabaseNotification
         $user = Auth::user();
 
         if (! is_null($user?->id)) {
-            $query->where('notifiable_id', $user->id);
+            $query
+                // Added to enforce index in query
+                ->where('notifiable_type', get_class($user))
+                ->where('notifiable_id', $user->id);
 
             return;
         }

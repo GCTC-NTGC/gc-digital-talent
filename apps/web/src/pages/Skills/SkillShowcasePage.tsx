@@ -313,4 +313,4 @@ export const Component = () => (
 
 Component.displayName = "SkillShowcasePage";
 
-export default SkillShowcasePage;
+export default Component;

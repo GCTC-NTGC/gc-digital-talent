@@ -255,4 +255,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUpdateTrainingOpportunityPage";
 
-export default UpdateTrainingOpportunityPage;
+export default Component;

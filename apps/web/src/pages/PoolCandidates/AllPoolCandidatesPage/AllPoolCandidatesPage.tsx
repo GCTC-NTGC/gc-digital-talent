@@ -68,4 +68,4 @@ export const Component = () => (
 
 Component.displayName = "AdminAllPoolCandidatesPage";
 
-export default AllPoolCandidatesPage;
+export default Component;

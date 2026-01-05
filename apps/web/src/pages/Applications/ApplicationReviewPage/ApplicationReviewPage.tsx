@@ -195,6 +195,14 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
       PoolSkillType.Essential,
     ),
   );
+
+  const categorizedOptionalSkills = categorizeSkill(
+    filterPoolSkillsByType(
+      application.pool.poolSkills,
+      PoolSkillType.Nonessential,
+    ),
+  );
+
   const allSkills = poolSkillsToSkills(application.pool.poolSkills);
 
   const screeningQuestions =
@@ -406,20 +414,44 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               "Instructional text under the Skill Requirements section",
           })}
         </p>
-        <div>
-          {categorizedEssentialSkills[SkillCategory.Technical]?.map(
-            (requiredTechnicalSkill) => (
-              <SkillTree
-                key={requiredTechnicalSkill.id}
-                skill={requiredTechnicalSkill}
-                experiencesQuery={experiences}
-                showDisclaimer
-                hideConnectButton
-                hideEdit
-              />
-            ),
-          )}
-        </div>
+        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+          {intl.formatMessage({
+            defaultMessage: "Required technical skills",
+            id: "OCrKtT",
+            description: "Heading for required technical skills section",
+          })}
+        </Heading>
+        {categorizedEssentialSkills[SkillCategory.Technical]?.map(
+          (requiredTechnicalSkill) => (
+            <SkillTree
+              key={requiredTechnicalSkill.id}
+              skill={requiredTechnicalSkill}
+              experiencesQuery={experiences}
+              showDisclaimer
+              hideConnectButton
+              hideEdit
+            />
+          ),
+        )}
+        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+          {intl.formatMessage({
+            defaultMessage: "Optional technical skills",
+            id: "mm1X02",
+            description: "Title for optional technical skills section",
+          })}
+        </Heading>
+        {categorizedOptionalSkills[SkillCategory.Technical]?.map(
+          (optionalTechnicalSkill) => (
+            <SkillTree
+              key={optionalTechnicalSkill.id}
+              skill={optionalTechnicalSkill}
+              experiencesQuery={experiences}
+              showDisclaimer
+              hideConnectButton
+              hideEdit
+            />
+          ),
+        )}
       </ReviewSection>
       {screeningQuestions.length > 0 && (
         <ReviewSection
@@ -627,3 +659,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ApplicationReviewPage";
+
+export default Component;

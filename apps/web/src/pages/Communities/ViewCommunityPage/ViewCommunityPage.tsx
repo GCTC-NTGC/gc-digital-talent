@@ -253,4 +253,4 @@ export const Component = () => (
 
 Component.displayName = "AdminViewCommunityPage";
 
-export default ViewCommunityPage;
+export default Component;
