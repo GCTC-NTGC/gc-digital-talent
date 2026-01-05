@@ -3,7 +3,7 @@ import { Logger } from "@gc-digital-talent/logger";
 import { API_SUPPORT_ENDPOINT } from "~/constants/talentSearchConstants";
 
 export const SUPPORT_TICKET_ERROR = {
-  UNKNOWN: "UknownError",
+  UNKNOWN: "UnknownError",
   INVALID_EMAIL: "InvalidEmailError",
 } as const;
 
