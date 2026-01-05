@@ -35,8 +35,7 @@ class SupportController extends Controller
             $parameters['custom_fields']['cf_page_url'] = $path;
         }
         if ($request->input('user_agent')) {
-            $user_agent = (string) $request->input('user_agent');
-            $parameters['custom_fields']['cf_user_agent'] = $user_agent;
+            $parameters['custom_fields']['cf_user_agent'] = (string) $request->input('user_agent');
         }
         if ($request->cookie('ai_user')) {
             $parameters['custom_fields']['cf_application_insights_user_id'] = (string) $request->cookie('ai_user');
@@ -56,8 +55,7 @@ class SupportController extends Controller
         }
 
         // we didn't get a 201 so let's see if we recognize an error
-        $responseBody = $response->json();
-        $errors = $responseBody['errors'] ?? [];
+        $errors = $response->json('errors', []);
         $invalidEmailErrors = array_filter($errors, function ($error) {
             return $error['code'] === 'invalid_value' && $error['field'] === 'email';
         });

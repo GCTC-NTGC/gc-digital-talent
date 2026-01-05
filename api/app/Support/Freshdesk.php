@@ -75,10 +75,10 @@ class Freshdesk
         Arr::set($parameters, 'priority', 1); // Required by Freshdesk API. Priority of the ticket. The default value is 1.
         Arr::set($parameters, 'status', 2); // Required by Freshdesk API. Status of the ticket. The default value is 2.
 
-        if (config('freshdesk.api.ticket_tag')) {
+        if (! empty(config('freshdesk.api.ticket_tag'))) {
             Arr::set($parameters, 'tags', [config('freshdesk.api.ticket_tag')]);
         }
-        if (config('freshdesk.api.product_id')) {
+        if (! empty(config('freshdesk.api.product_id'))) {
             Arr::set($parameters, 'product_id', (int) config('freshdesk.api.product_id'));
         }
 
