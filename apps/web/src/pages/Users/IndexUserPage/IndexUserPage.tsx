@@ -103,4 +103,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexUserPage";
 
-export default IndexUserPage;
+export default Component;

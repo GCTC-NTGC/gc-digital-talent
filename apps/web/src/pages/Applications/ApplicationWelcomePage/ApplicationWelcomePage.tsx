@@ -176,3 +176,5 @@ export const Component = () => (
 );
 
 Component.displayName = "ApplicationWelcomePage";
+
+export default Component;

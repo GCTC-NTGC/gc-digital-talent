@@ -227,4 +227,4 @@ export const Component = () => (
 
 Component.displayName = "AdminPoolLayout";
 
-export default PoolLayout;
+export default Component;
