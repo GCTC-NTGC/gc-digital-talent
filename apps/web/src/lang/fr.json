@@ -736,7 +736,7 @@
     "description": "Label displayed on an Experience form for expected end date input"
   },
   "0r1Pr3": {
-    "defaultMessage": "Modifiez les détails de la mise en candidature",
+    "defaultMessage": "Modifier les détails de la mise en candidature",
     "description": "Link text to edit a nominations details information"
   },
   "0tNrAw": {
@@ -1212,7 +1212,7 @@
     "description": "Paragraph 3, importance of self-declaration"
   },
   "2m5USi": {
-    "defaultMessage": "Utilisez le bouton « Modifiez » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Modifier » pour commencer.",
     "description": "Null message on sections for edit pool page."
   },
   "2n0e2i": {
@@ -1824,7 +1824,7 @@
     "description": "Legend for location preferences filter on search form."
   },
   "5A0a7w": {
-    "defaultMessage": "Modifiez la liste des questions de sélection",
+    "defaultMessage": "Modifier la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
   },
   "5CFRjU": {
@@ -2076,7 +2076,7 @@
     "description": "Message before skills list in application education page."
   },
   "6QGFk9": {
-    "defaultMessage": "Modifiez la liste des compétences requises",
+    "defaultMessage": "Modifier la liste des compétences requises",
     "description": "Edit link text for skill requirements section of the application review page."
   },
   "6RGluQ": {
@@ -2788,7 +2788,7 @@
     "description": "Description for the goc employment category option in work experience"
   },
   "9Y3w6l": {
-    "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
+    "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifier » pour examiner les champs obligatoires et répondre aux questions.",
     "description": "Message for unanswered questions in this section"
   },
   "9aW0M6": {
@@ -3740,7 +3740,7 @@
     "description": "Page title for the request confirmation page."
   },
   "DePuGA": {
-    "defaultMessage": "Modifiez les infos sur la personne candidate",
+    "defaultMessage": "Modifier les infos sur la personne candidate",
     "description": "Link text to edit a nominations nominee information"
   },
   "DgMIfz": {
@@ -3912,7 +3912,7 @@
     "description": "Label for removing the skill family filter"
   },
   "EInfnR": {
-    "defaultMessage": "Modifiez les informations sur la possibilité de formation",
+    "defaultMessage": "Modifier les informations sur la possibilité de formation",
     "description": "Link to edit the currently viewed training opportunity"
   },
   "EJ09b7": {
@@ -3944,7 +3944,7 @@
     "description": "Label for preferred lang for interviews in profile details box."
   },
   "EVkmeA": {
-    "defaultMessage": "Modifiez les principales compétences comportementales",
+    "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
   "EWq+u3": {
@@ -5832,7 +5832,7 @@
     "description": "Link text for nominator step of a talent nomination"
   },
   "N6DlK/": {
-    "defaultMessage": "Modifiez les compétences techniques de haut niveau",
+    "defaultMessage": "Modifier les compétences techniques de haut niveau",
     "description": "Link text for editing a users top technical skills"
   },
   "N6kGOU": {
@@ -6244,7 +6244,7 @@
     "description": "Label for selector to choose experience filter options"
   },
   "PEH7og": {
-    "defaultMessage": "Cette section contient des questions facultatives qui sont actuellement sans réponse. Cliquez sur le bouton « Modifiez » pour réviser vos réponses dans les champs pertinents.",
+    "defaultMessage": "Cette section contient des questions facultatives qui sont actuellement sans réponse. Cliquez sur le bouton « Modifier » pour réviser vos réponses dans les champs pertinents.",
     "description": "Message for unanswered optional questions in this section"
   },
   "PFoM2I": {
@@ -6544,7 +6544,7 @@
     "description": "Status description for a draft application"
   },
   "QRI/bf": {
-    "defaultMessage": "Modifiez votre expérience",
+    "defaultMessage": "Modifier votre expérience",
     "description": "Page title for the application career timeline edit experience page"
   },
   "QSbP/J": {
@@ -7603,7 +7603,7 @@
     "description": "Label for First Nations community"
   },
   "VUsGFc": {
-    "defaultMessage": "Modifiez les infos sur l'auteur(trice) de la mise en candidature",
+    "defaultMessage": "Modifier les infos sur l'auteur(trice) de la mise en candidature",
     "description": "Link text to edit a nominations nominator information"
   },
   "VWEwki": {
@@ -7707,7 +7707,7 @@
     "description": "Text notifying user which role will be removed from the user"
   },
   "VvOx9a": {
-    "defaultMessage": "Modifiez les informations sur la classification",
+    "defaultMessage": "Modifier les informations sur la classification",
     "description": "Link text to edit a classification"
   },
   "Vw7bLe": {
@@ -9687,7 +9687,7 @@
     "description": "Title for banner about workforce adjustment"
   },
   "eJPU4G": {
-    "defaultMessage": "Modifiez les informations sur la compétence",
+    "defaultMessage": "Modifier les informations sur la compétence",
     "description": "Link to edit the currently viewed skill"
   },
   "eKPE3F": {
@@ -10063,7 +10063,7 @@
     "description": "Page title for the work stream creation page"
   },
   "fqEh4+": {
-    "defaultMessage": "Modifiez les informations sur le volet de travail",
+    "defaultMessage": "Modifier les informations sur le volet de travail",
     "description": "Link to edit the currently viewed work stream"
   },
   "fqa45V": {
@@ -10774,7 +10774,7 @@
     "description": "Alert displayed to the user when they un-flag a candidate."
   },
   "ifVyI/": {
-    "defaultMessage": "Modifiez les informations sur le groupe de compétences",
+    "defaultMessage": "Modifier les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
   },
   "ifqj46": {
@@ -10994,7 +10994,7 @@
     "description": "Title for to go to the search page on Browse IT jobs page"
   },
   "jV/FG1": {
-    "defaultMessage": "Modifiez la formation requise",
+    "defaultMessage": "Modifier la formation requise",
     "description": "Edit link text for education requirements section of the application review page."
   },
   "jXUnrt": {
@@ -11042,7 +11042,7 @@
     "description": "Link text for details about a nomination event"
   },
   "jno96W": {
-    "defaultMessage": "Modifiez la planification de carrière",
+    "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
   },
   "joXPYW": {
@@ -11610,7 +11610,7 @@
     "description": "Trigger to edit the essential technical skills"
   },
   "mMiZ3q": {
-    "defaultMessage": "Cette section contient des questions qui sont actuellement sans réponse. Cliquez sur le bouton « Modifiez » pour réviser vos réponses dans les champs pertinents.",
+    "defaultMessage": "Cette section contient des questions qui sont actuellement sans réponse. Cliquez sur le bouton « Modifier » pour réviser vos réponses dans les champs pertinents.",
     "description": "Message for unanswered required questions in this section"
   },
   "mNNgEF": {
@@ -12046,7 +12046,7 @@
     "description": "Label displayed on education form for institution input"
   },
   "o1qvlP": {
-    "defaultMessage": "Modifiez la justification",
+    "defaultMessage": "Modifier la justification",
     "description": "Link text to edit a nominations rationale"
   },
   "o3wN8Q": {
@@ -12230,7 +12230,7 @@
     "description": "Button text to save a general question"
   },
   "os2TYf": {
-    "defaultMessage": "Modifiez les informations sur le ministère",
+    "defaultMessage": "Modifier les informations sur le ministère",
     "description": "Link to edit the currently viewed department"
   },
   "osGGIt": {
@@ -12466,7 +12466,7 @@
     "description": "Indication a specific permission is allowed for a specific role"
   },
   "phS+TP": {
-    "defaultMessage": "Modifiez les informations sur la collectivité",
+    "defaultMessage": "Modifier les informations sur la collectivité",
     "description": "Link to edit the currently viewed community"
   },
   "piZjS+": {
@@ -13926,7 +13926,7 @@
     "description": "Role at organization"
   },
   "wUqfbl": {
-    "defaultMessage": "Placement professionnel : {placement}. Modifiez.",
+    "defaultMessage": "Placement professionnel : {placement}. Modifier.",
     "description": "Button text to edit the placement of a candidate"
   },
   "wW4ymk": {
@@ -14018,7 +14018,7 @@
     "description": "First part of education experience title for other type"
   },
   "wrQN7E": {
-    "defaultMessage": "Modifiez les commentaires",
+    "defaultMessage": "Modifier les commentaires",
     "description": "Button text to start editing talent nomination group comments"
   },
   "wrg4fw": {
@@ -14570,7 +14570,7 @@
     "description": "Instructions on how to add a question when there are none"
   },
   "z4xCCg": {
-    "defaultMessage": "Date d'expiration : {date}. Modifiez.",
+    "defaultMessage": "Date d'expiration : {date}. Modifier.",
     "description": "Button text to edit an expiry date"
   },
   "z59tbA": {
@@ -14766,7 +14766,7 @@
     "description": "Label displayed for supervisory position false"
   },
   "zpr5ny": {
-    "defaultMessage": "Modifiez cette collectivité",
+    "defaultMessage": "Modifier cette collectivité",
     "description": "Link text for edit interest in a community"
   },
   "zpwZSQ": {
