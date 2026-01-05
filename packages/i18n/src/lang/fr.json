@@ -156,7 +156,7 @@
     "description": "Student selection for government employee type."
   },
   "2wKf2U": {
-    "defaultMessage": "Modifiez",
+    "defaultMessage": "Modifier",
     "description": "Text to trigger edit action"
   },
   "3I0zLF": {
@@ -972,7 +972,7 @@
     "description": "Error message that the assessment steps must belong to the same pool."
   },
   "XZl6Ks": {
-    "defaultMessage": "Modifiez cette section",
+    "defaultMessage": "Modifier cette section",
     "description": "Text to trigger edit of section action"
   },
   "XiECLl": {
