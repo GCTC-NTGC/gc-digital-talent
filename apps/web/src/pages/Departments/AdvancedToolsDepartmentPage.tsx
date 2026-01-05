@@ -189,4 +189,4 @@ export const Component = () => (
 
 Component.displayName = "AdminAdvancedToolsDepartmentPage";
 
-export default AdvancedToolsDepartmentPage;
+export default Component;

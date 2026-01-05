@@ -379,3 +379,5 @@ export const Component = () => (
 );
 
 Component.displayName = "UpdateCommunityInterestPage";
+
+export default Component;

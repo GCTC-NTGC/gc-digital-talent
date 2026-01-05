@@ -1,0 +1,143 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\GraphQL\Directives\Pagination;
+
+use GraphQL\Language\AST\FieldDefinitionNode;
+use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Laravel\Scout\Builder as ScoutBuilder;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
+use Nuwave\Lighthouse\Schema\AST\DocumentAST;
+use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
+use Nuwave\Lighthouse\Schema\Values\FieldValue;
+use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
+use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+
+class CursorPaginateDirective extends BaseDirective implements FieldManipulator, FieldResolver
+{
+    public static function definition(): string
+    {
+        return /** @lang GraphQL */ <<<'GRAPHQL'
+"""
+Query multiple entries as a paginated list.
+"""
+directive @cursorPaginate(
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model detection does not work.
+  Mutually exclusive with `builder` and `resolver`.
+  """
+  model: String
+
+  """
+  Point to a function that provides a Query Builder instance.
+  Consists of two parts: a class name and a method name, separated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+  Mutually exclusive with `model` and `resolver`.
+  """
+  builder: String
+
+  """
+  Reference a function that resolves the field by directly returning data in a Paginator instance.
+  Mutually exclusive with `builder` and `model`.
+  Not compatible with `scopes` and builder arguments such as `@eq`.
+  Consists of two parts: a class name and a method name, separated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+  """
+  resolver: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+
+  """
+  Limit the maximum amount of items that clients can request from paginated lists.
+  Overrules the `pagination.max_count` setting from `lighthouse.php`.
+  Setting this to `null` means the count is unrestricted.
+  """
+  maxCount: Int
+) on FIELD_DEFINITION
+GRAPHQL;
+    }
+
+    public function manipulateFieldDefinition(DocumentAST &$documentAST, FieldDefinitionNode &$fieldDefinition, ObjectTypeDefinitionNode|InterfaceTypeDefinitionNode &$parentType): void
+    {
+        $this->validateMutuallyExclusiveArguments(['model', 'builder', 'resolver']);
+
+        $paginationManipulator = new PaginationManipulator($documentAST);
+
+        if ($this->directiveHasArgument('resolver')) {
+            // This is done only for validation
+            $this->getResolverFromArgument('resolver');
+        } elseif ($this->directiveHasArgument('builder')) {
+            // This is done only for validation
+            $this->getResolverFromArgument('builder');
+        } else {
+            $paginationManipulator->setModelClass(
+                $this->getModelClass(),
+            );
+        }
+
+        $paginationManipulator->transformToPaginatedField(
+            $fieldDefinition,
+            $parentType,
+            $this->paginateMaxCount(),
+        );
+    }
+
+    public function resolveField(FieldValue $fieldValue): callable
+    {
+        return function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): CursorPaginator {
+            PaginationArgs::validateArgs($args);
+            $paginationArgs = PaginationArgs::extractArgs($args, $resolveInfo, $this->paginateMaxCount());
+
+            if ($this->directiveHasArgument('resolver')) {
+                $paginator = $this->getResolverFromArgument('resolver')($root, $args, $context, $resolveInfo);
+                assert(
+                    $paginator instanceof CursorPaginator,
+                    "The method referenced by the resolver argument of the @{$this->name()} directive on {$this->nodeName()} must return a CursorPaginator.",
+                );
+
+                if ($paginationArgs->perPage === 0) {
+                    return new ZeroPerPagePaginator();
+                }
+
+                return $paginator;
+            }
+
+            if ($this->directiveHasArgument('builder')) {
+                $query = $this->getResolverFromArgument('builder')($root, $args, $context, $resolveInfo);
+                assert(
+                    $query instanceof QueryBuilder || $query instanceof EloquentBuilder || $query instanceof ScoutBuilder || $query instanceof Relation,
+                    "The method referenced by the builder argument of the @{$this->name()} directive on {$this->nodeName()} must return a Builder or Relation.",
+                );
+            } else {
+                $query = $this->getModelClass()::query();
+            }
+
+            $query = $resolveInfo->enhanceBuilder(
+                $query,
+                $this->directiveArgValue('scopes', []),
+                $root,
+                $args,
+                $context,
+                $resolveInfo,
+            );
+
+            return $paginationArgs->applyToBuilder($query);
+        };
+    }
+
+    protected function paginateMaxCount(): ?int
+    {
+        return $this->directiveArgValue('maxCount', config('lighthouse.pagination.max_count'));
+    }
+}
