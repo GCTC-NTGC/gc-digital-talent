@@ -5,6 +5,8 @@ namespace App\Support;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Freshdesk
@@ -17,11 +19,13 @@ class Freshdesk
 
     private static $MAX_USER_AGENT_LENGTH = 255;
 
+    public static $DEFAULT_LANGUAGE = 'en';
+
     // error-checked way to get the API endpoint
-    protected static function apiEndpoint(): string
+    protected static function getApiEndpoint(): string
     {
         $apiEndpoint = config('freshdesk.api.endpoint');
-        if (is_null($apiEndpoint)) {
+        if (empty($apiEndpoint)) {
             throw new \Error('Missing Freshdesk API endpoint');
         }
 
@@ -29,10 +33,10 @@ class Freshdesk
     }
 
     // error-checked way to get the API key
-    protected static function apiKey(): string
+    protected static function getApiKey(): string
     {
         $apiKey = config('freshdesk.api.key');
-        if (is_null($apiKey)) {
+        if (empty($apiKey)) {
             throw new \Error('Missing Freshdesk API key');
         }
 
@@ -40,15 +44,10 @@ class Freshdesk
     }
 
     // https://developers.freshdesk.com/api/#authentication
-    protected static function password(): string
+    protected static function getPassword(): string
     {
         // If you use the API key, there is no need for a password. You can use any set of characters as a dummy password.
         return 'X';
-    }
-
-    public static function ticketsEndpoint(): string
-    {
-        return self::apiEndpoint().'/tickets';
     }
 
     // trim a value in an array to a max length
@@ -70,11 +69,8 @@ class Freshdesk
      *
      * @see https://developers.freshdesk.com/api/#create_ticket
      */
-    public static function createTicket(?array $parameters = []): Response
+    public static function createTicket(?array $parameters = []): void
     {
-        Arr::set($parameters, 'priority', 1); // Required by Freshdesk API. Priority of the ticket. The default value is 1.
-        Arr::set($parameters, 'status', 2); // Required by Freshdesk API. Status of the ticket. The default value is 2.
-
         if (! empty(config('freshdesk.api.ticket_tag'))) {
             Arr::set($parameters, 'tags', [config('freshdesk.api.ticket_tag')]);
         }
@@ -85,13 +81,115 @@ class Freshdesk
         self::trimValue($parameters, 'custom_fields.cf_page_url', self::$MAX_URL_LENGTH);
         self::trimValue($parameters, 'custom_fields.cf_user_agent', self::$MAX_USER_AGENT_LENGTH);
 
-        $response = Http::withBasicAuth(self::apiKey(), self::password())
+        $response = Http::withBasicAuth(self::getApiKey(), self::getPassword())
             ->post(
-                self::ticketsEndpoint(),
+                self::getApiEndpoint().'/tickets',
                 $parameters
             );
         assert($response instanceof Response);
 
-        return $response;
+        if ($response->created()) {
+            return;
+        }
+
+        // we didn't get a 201 so let's see if we recognize an error
+        $errors = $response->json('errors', []);
+        $invalidEmailErrors = array_filter($errors, function ($error) {
+            return $error['code'] === 'invalid_value' && $error['field'] === 'email';
+        });
+        if (! empty($invalidEmailErrors)) {
+            // some invalid values were sent
+            throw new \Exception('invalid_email');
+        }
+
+        // we don't recognize an error so don't add a message
+        Log::error('Error when trying to create a ticket: '.$response->getBody());
+        throw new \Exception();
+    }
+
+    /**
+     * Create contact
+     *
+     * Create a single contact in Freshdesk.
+     *
+     * @param  ?array<mixed>  $parameters  (optional) Array of key => value pairs to submit in the ticket
+     *
+     * @see https://developers.freshdesk.com/api/#create_ticket
+     */
+    public static function createContact(?array $parameters = []): void
+    {
+        $response = Http::withBasicAuth(self::getApiKey(), self::getPassword())
+            ->post(
+                self::getApiEndpoint().'/contacts',
+                $parameters
+            );
+        assert($response instanceof Response);
+
+        if ($response->created()) {
+            return;
+        }
+
+        // we don't recognize an error so don't add a message
+        Log::error('Error when trying to create a ticket: '.$response->getBody());
+        throw new \Exception();
+    }
+
+    /**
+     * Find contact by email
+     *
+     * Get the details of a single contact in Freshdesk.
+     *
+     * @param  string  $email  The email address of the contact to find
+     *
+     * @see https://developers.freshdesk.com/api/#list_all_contacts
+     */
+    public static function findContactByEmail(string $email): array
+    {
+        // I wish there was a less awkward way to access email address validation
+        $validator = Validator::make(['email' => $email], [
+            'email' => 'email',
+        ]);
+        if (! $validator->passes()) {
+            throw new \Exception(Arr::join($validator->messages()->toArray(), ' '));
+        }
+
+        $response = Http::withBasicAuth(self::getApiKey(), self::getPassword())
+            ->get(self::getApiEndpoint().'/contacts?email='.$email);
+        assert($response instanceof Response);
+
+        if ($response->ok()) {
+            return Arr::first($response->json(), default: []);
+        }
+
+        // we don't recognize an error so don't add a message
+        Log::error('Error when trying to find a contact by email: '.$response->getBody());
+        throw new \Exception();
+    }
+
+    /**
+     * Update contact
+     *
+     * Update a single contact in Freshdesk.
+     *
+     * @param  ?array<mixed>  $parameters  (optional) Array of key => value pairs to submit in the ticket
+     *
+     * @see https://developers.freshdesk.com/api/#update_contact
+     */
+    public static function updateContact(int $contactId, ?array $parameters = []): void
+    {
+        $response = Http::withBasicAuth(self::getApiKey(), self::getPassword())
+            ->put(
+                self::getApiEndpoint().'/contacts/'.$contactId,
+                $parameters
+            );
+        assert($response instanceof Response);
+
+        if ($response->ok()) {
+            return;
+        }
+
+        // we don't recognize an error so don't add a message
+        Log::error('Error when trying to create a ticket: '.$response->getBody());
+        throw new \Exception();
     }
 }
