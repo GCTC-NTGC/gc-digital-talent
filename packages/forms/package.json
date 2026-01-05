@@ -50,10 +50,10 @@
     "@types/react": "^19.2.7",
     "eslint": "^9.20.1",
     "react": "^19.2.3",
-    "react-hook-form": "^7.68.0",
-    "react-intl": "^8.0.8",
+    "react-hook-form": "^7.69.0",
+    "react-intl": "^8.0.9",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.16"
   }
 }

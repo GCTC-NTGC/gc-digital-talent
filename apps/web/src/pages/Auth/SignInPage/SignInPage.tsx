@@ -132,8 +132,8 @@ export const Component = () => {
               }}
             >
               {intl.formatMessage({
-                defaultMessage: "Continue to GCKey and sign in",
-                id: "4sLCWZ",
+                defaultMessage: "Sign in with GCKey",
+                id: "oQNunm",
                 description: "GCKey sign in link text on the sign in page",
               })}
             </Link>
@@ -465,15 +465,15 @@ export const Component = () => {
             }}
           >
             {intl.formatMessage({
-              defaultMessage: "Continue to GCKey and sign in",
-              id: "4sLCWZ",
+              defaultMessage: "Sign in with GCKey",
+              id: "oQNunm",
               description: "GCKey sign in link text on the sign in page",
             })}
           </Link>
           <Link href={paths.register()} mode="inline">
             {intl.formatMessage({
-              defaultMessage: "Sign up instead",
-              id: "aqkSW2",
+              defaultMessage: "Sign up",
+              id: "MFjl68",
               description: "Link text to register instead of signing in",
             })}
           </Link>

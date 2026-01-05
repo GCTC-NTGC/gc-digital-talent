@@ -92,34 +92,6 @@ const complaintsLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
-const crtcLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    newTab
-    external
-    href={
-      locale === "en"
-        ? "https://applications.crtc.gc.ca/question/eng/public-inquiries-form?t=8&_ga=2.164713722.457525239.1621277191-2073149377.1618941793"
-        : "https://applications.crtc.gc.ca/question/fra/formulaire-renseignements?t=8&_ga=2.164713722.457525239.1621277191-2073149377.1618941793"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
-const crtcActLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    newTab
-    external
-    href={
-      locale === "en"
-        ? "https://laws-lois.justice.gc.ca/eng/acts/C-22/index.html"
-        : "https://laws-lois.justice.gc.ca/fra/lois/c-22/index.html"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
 const chrcLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
@@ -142,20 +114,6 @@ const chraLink = (locale: Locales, chunks: ReactNode) => (
       locale === "en"
         ? "https://laws-lois.justice.gc.ca/eng/acts/h-6/FullText.html"
         : "https://laws-lois.justice.gc.ca/fra/lois/h-6/TexteComplet.html"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
-const ctaLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    newTab
-    external
-    href={
-      locale === "en"
-        ? "https://otc-cta.gc.ca/eng/accessibility-complaints-about-transportation-services"
-        : "https://otc-cta.gc.ca/fra/plaintes-relatives-a-laccessibilite-concernant-services-transport"
     }
   >
     {chunks}
@@ -208,6 +166,11 @@ const tollFreeLink = (chunks: ReactNode) => (
   </Link>
 );
 
+const supportMailLink = (chunks: ReactNode) => (
+  <Link external href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>
+    {chunks}
+  </Link>
+);
 interface Section {
   id: string;
   title: ReactNode;
@@ -346,8 +309,8 @@ export const Component = () => {
               <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Making our products accessible and usable by all",
-                  id: "agcOO1",
+                    "Making our products accessible and usable for everyone",
+                  id: "9n7ET2",
                   description:
                     "Heading for the items we consider for accessibility.",
                 })}
@@ -364,8 +327,8 @@ export const Component = () => {
               <Ul space="md">
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Our designers pay attention to:",
-                    id: "Iodi0/",
+                    defaultMessage: "our designers pay attention to:",
+                    id: "hsD02j",
                     description:
                       "Intro to list of items designers consider for accessibility",
                   })}
@@ -373,16 +336,16 @@ export const Component = () => {
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Designing accessible layouts and interactive elements",
-                        id: "BFvwdM",
+                          "designing accessible layouts and interactive elements",
+                        id: "VsRBt5",
                         description:
                           "List item one, things designers consider for accessibility",
                       })}
                     </li>
                     <li>
                       {intl.formatMessage({
-                        defaultMessage: "Improving colour accessibility",
-                        id: "tZmXOj",
+                        defaultMessage: "improving colour accessibility",
+                        id: "OIa3Ii",
                         description:
                           "List item two, things designers consider for accessibility",
                       })}
@@ -390,16 +353,17 @@ export const Component = () => {
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Building accessible features and tools like dark mode",
-                        id: "NdvdT2",
+                          "building accessible features and tools, such as dark mode",
+                        id: "rNmFAg",
                         description:
                           "List item three, things designers consider for accessibility",
                       })}
                     </li>
                     <li>
                       {intl.formatMessage({
-                        defaultMessage: "Optimizing UX research results",
-                        id: "dAopan",
+                        defaultMessage:
+                          "applying findings from user experience research",
+                        id: "Xf4v0H",
                         description:
                           "List item four, things designers consider for accessibility",
                       })}
@@ -408,8 +372,8 @@ export const Component = () => {
                 </li>
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Our developers pay attention to:",
-                    id: "Wi4tia",
+                    defaultMessage: "our developers pay attention to:",
+                    id: "Gh1CF5",
                     description:
                       "Intro to list of items developers consider for accessibility",
                   })}
@@ -418,8 +382,8 @@ export const Component = () => {
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "<wcagLink>WCAG 2.1</wcagLink> conformance",
-                          id: "KXEuON",
+                            "meeting <wcagLink>WCAG 2.1</wcagLink> requirements",
+                          id: "ylP4yv",
                           description:
                             "List item one, things developers consider for accessibility",
                         },
@@ -430,8 +394,8 @@ export const Component = () => {
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "<atagLink>ATAG 2.0</atagLink> conformance",
-                          id: "9LyLWf",
+                            "meeting <atagLink>Authoring Tools Accessibility Guidelines (ATAG) 2.0</atagLink> requirements, including:",
+                          id: "wYWwe4",
                           description:
                             "List item two, things developers consider for accessibility",
                         },
@@ -439,19 +403,61 @@ export const Component = () => {
                           atagLink,
                         },
                       )}
+                      <Ul space="sm">
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "ensuring tools for publishing content on the platform are accessible",
+                            id: "cGYqB+",
+                            description:
+                              "List item two, sub item one things developers consider for accessibility",
+                          })}
+                        </li>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "adding safeguards to ensure published content is accessible",
+                            id: "AbpMpF",
+                            description:
+                              "List item two, sub item two things developers consider for accessibility",
+                          })}
+                        </li>
+                      </Ul>
                     </li>
                     <li>
                       {intl.formatMessage({
-                        defaultMessage: "Automated accessibility test results",
-                        id: "V9XmLH",
+                        defaultMessage:
+                          "conducting and reviewing automated accessibility testing, including:",
+                        id: "5LTlSA",
                         description:
                           "List item three, things developers consider for accessibility",
                       })}
+                      <Ul space="sm">
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "testing all new code with axe-core, a tool that flags common issues such as missing headings and alternative text for images",
+                            id: "f6TtsZ",
+                            description:
+                              "List item three, sub item one things developers consider for accessibility",
+                          })}
+                        </li>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "fixing all issues flagged by automatic testing before deploying to the platform",
+                            id: "UE5Xw9",
+                            description:
+                              "List item three, sub item two things developers consider for accessibility",
+                          })}
+                        </li>
+                      </Ul>
                     </li>
                     <li>
                       {intl.formatMessage({
-                        defaultMessage: "User acceptance test results",
-                        id: "bBz/OJ",
+                        defaultMessage:
+                          "reviewing user acceptance test results",
+                        id: "3zbSfP",
                         description:
                           "List item four, things developers consider for accessibility",
                       })}
@@ -470,8 +476,8 @@ export const Component = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "Before we consider anything to be ready for release, we work with <fableLink>Fable Tech Labs</fableLink> to get our products and features evaluated by users who require adaptive technologies to access the web. This is an important step to make sure our products work for real people.",
-                    id: "gEnOmo",
+                      "We work with <fableLink>Fable Tech Labs</fableLink> to get our products and features evaluated by users who require adaptive technologies to access the web. This is an important step to make sure our products work for real people.",
+                    id: "sozTPf",
                     description:
                       "Text describing our user testing for accessibility",
                   },
@@ -484,24 +490,25 @@ export const Component = () => {
                 {sections[2].title}
               </TableOfContents.Heading>
               <p className="my-3">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Despite all efforts to make our website fully accessible, if you encounter a problem we missed, or require a different format, we encourage you to contact us at:",
-                  id: "Txu5Yq",
-                  description:
-                    "Lead in text for accessibility contact information",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Despite all efforts to make our website fully accessible, if you encounter a problem we missed, or require a different format, we encourage you to contact us at <supportMailLink>{emailAddress}</supportMailLink>.",
+                    id: "4Hyg4Y",
+                    description:
+                      "Lead in text for accessibility contact information",
+                  },
+                  {
+                    supportMailLink,
+                    emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
+                  },
+                )}
               </p>
               <p className="my-3">
-                <Link external href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>
-                  {TALENTSEARCH_SUPPORT_EMAIL}
-                </Link>
-              </p>
-              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
-                    "We try to reply to inquiries within five business days. We also welcome your feedback on our accessibility efforts.",
-                  id: "hTeiV1",
+                    "We reply to inquiries within two business days.",
+                  id: "5CFRjU",
                   description: "Disclaimer for support email response time",
                 })}
               </p>
@@ -513,9 +520,9 @@ export const Component = () => {
               <p className="my-3">
                 {intl.formatMessage(
                   {
-                    id: "WSo3Y/",
+                    id: "QBUhi7",
                     defaultMessage:
-                      "The Accessibility Commissioner is responsible for enforcing the <acaLink>Accessible Canada Act</acaLink> and the <acrLink>Accessible Canada Regulations</acrLink>  in the federal public service. They will also deal with certain <complaintsLink>accessibility complaints</complaintsLink>. The Accessibility Commissioner is a member of the Canadian Human Rights Commission.",
+                      "The Accessibility Commissioner is responsible for enforcing the <acaLink>Accessible Canada Act</acaLink> and the <acrLink>Accessible Canada Regulations</acrLink> in the federal public service. They will also deal with certain <complaintsLink>accessibility complaints</complaintsLink>. The Accessibility Commissioner is a member of the Canadian Human Rights Commission (CHRC).",
                     description: "Text describing accessibility commissioner",
                   },
                   {
@@ -540,24 +547,8 @@ export const Component = () => {
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "The <crtcLink>Canadian Radio-television and Telecommunications Commission</crtcLink> (CRTC) deals with broadcasting and telecommunications provider complaints under the <crtcActLink>Canadian Radio-television and Telecommunications Commission Act</crtcActLink>",
-                      id: "+G/4Zs",
-                      description:
-                        "Description of complaints to the Canadian Radio-television and Telecommunications Commission",
-                    },
-                    {
-                      crtcLink: (chunks: ReactNode) => crtcLink(locale, chunks),
-                      crtcActLink: (chunks: ReactNode) =>
-                        crtcActLink(locale, chunks),
-                    },
-                  )}
-                </li>
-                <li>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "The <chrcLink>Canadian Human Rights Commission</chrcLink> (CHRC) deals with discrimination complaints under the <chraLink>Canadian Human Rights Act</chraLink>.",
-                      id: "UoZLL/",
+                        "The <chrcLink>Canadian Human Rights Commission</chrcLink> deals with discrimination complaints under the <chraLink>Canadian Human Rights Act</chraLink>",
+                      id: "Mmz8u3",
                       description:
                         "Description of complaints to the Canadian Human Rights Commission",
                     },
@@ -571,24 +562,10 @@ export const Component = () => {
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "The <ctaLink>Canadian Transportation Agency</ctaLink> (CTA) deals with federal transportation complaints.",
-                      id: "/fysAY",
+                        "The <relationsLink>Federal Public Sector Labour Relations and Employment Board</relationsLink> deals with complaints from some federal public service employees, RCMP members and employees of Parliament",
+                      id: "zesjuQ",
                       description:
-                        "Description of complaints to the Canadian Transportation Agency",
-                    },
-                    {
-                      ctaLink: (chunks: ReactNode) => ctaLink(locale, chunks),
-                    },
-                  )}
-                </li>
-                <li>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "The <relationsLink>Federal Public Sector Labour Relations and Employment Board</relationsLink> deals with complaints from some federal public service employees, RCMP members and employees of Parliament.",
-                      id: "ZgeBBn",
-                      description:
-                        "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<",
+                        "Description of complaints to the Federal Public Sector Labour Relations and Employment Board",
                     },
                     {
                       relationsLink: (chunks: ReactNode) =>
@@ -600,8 +577,8 @@ export const Component = () => {
               <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you are not happy with how we respond to your complaint, reach out to the CHRC at the coordinates below:",
-                  id: "Zre7E9",
+                    "If you're not happy with how we respond to your complaint, contact the CHRC:",
+                  id: "V3phA5",
                   description:
                     "Description of what to do if users are not content with complaint response",
                 })}
@@ -640,8 +617,8 @@ export const Component = () => {
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "<strong>VRS:</strong> CHRC accepts video relay service calls made through <relayServiceLink>Canada VRS</relayServiceLink>.",
-                      id: "8M2Tbu",
+                        "<strong>VRS:</strong> CHRC accepts video relay service calls made through <relayServiceLink>Canada VRS</relayServiceLink>",
+                      id: "qYUgTT",
                       description: "VRS contact info",
                     },
                     {
@@ -655,14 +632,6 @@ export const Component = () => {
                     defaultMessage: "<strong>Fax:</strong> 613-996-9661",
                     id: "Yln61n",
                     description: "Fax contact info",
-                  })}
-                </li>
-                <li>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "<strong>Hours:</strong> Monday to Friday, 8:00 a.m. to 8:00 p.m. (Eastern Time)",
-                    id: "Q79qKT",
-                    description: "Hours of operation info",
                   })}
                 </li>
                 <li>
@@ -680,8 +649,16 @@ export const Component = () => {
               <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
-                    "This statement was prepared on November 8, 2022.",
-                  id: "om2bZu",
+                    "<strong>Hours:</strong> Monday to Friday, 8:00 a.m. to 8:00 p.m. (Eastern Time)",
+                  id: "Q79qKT",
+                  description: "Hours of operation info",
+                })}
+              </p>
+              <p className="my-3">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This statement was prepared on November 8, 2022, and updated on December 17, 2025.",
+                  id: "CtCzeT",
                   description:
                     "Disclaimer for the when the accessibility statement was last updated",
                 })}

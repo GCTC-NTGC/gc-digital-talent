@@ -120,7 +120,7 @@ const JobPlacementDialog = ({
   const placementType =
     status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
       ? (status.value as unknown as PlacementType)
-      : "NOT_PLACED";
+      : PlacementType.NotPlaced;
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -140,7 +140,10 @@ const JobPlacementDialog = ({
   ) => {
     let mutationPromise: Promise<void> | null = null;
 
-    if (values.placementType && values.placementType !== "NOT_PLACED") {
+    if (
+      values.placementType &&
+      values.placementType !== PlacementType.NotPlaced
+    ) {
       mutationPromise = executePlaceCandidate({
         id: poolCandidateId,
         ...formValuesToPlaceCandidateInput(values),
