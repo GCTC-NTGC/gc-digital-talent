@@ -304,7 +304,7 @@ const ManagerHomePage = () => {
                 </p>
               ),
               link: {
-                path: paths.browsePools(), // Note: Update once we have a manager specific page
+                path: paths.jobs(), // Note: Update once we have a manager specific page
                 label: intl.formatMessage(navigationMessages.browseJobs),
               },
             }}
