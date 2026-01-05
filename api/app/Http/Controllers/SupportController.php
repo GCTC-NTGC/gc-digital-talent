@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ExternalServiceException;
 use App\Support\Freshdesk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -87,7 +88,7 @@ class SupportController extends Controller
 
         try {
             Freshdesk::createTicket($parameters);
-        } catch (Throwable $error) {
+        } catch (ExternalServiceException $error) {
             return response([
                 'serviceResponse' => 'error',
                 'errorDetail' => $error->getMessage(),

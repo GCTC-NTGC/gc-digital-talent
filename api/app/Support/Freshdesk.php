@@ -2,11 +2,14 @@
 
 namespace App\Support;
 
+use App\Exceptions\ApiKeyNotFoundException;
+use App\Exceptions\ExternalServiceException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use InvalidArgumentException;
 
 /**
  * Freshdesk
@@ -26,7 +29,7 @@ class Freshdesk
     {
         $apiEndpoint = config('freshdesk.api.endpoint');
         if (empty($apiEndpoint)) {
-            throw new \Error('Missing Freshdesk API endpoint');
+            throw new ApiKeyNotFoundException('Missing Freshdesk API endpoint');
         }
 
         return $apiEndpoint;
@@ -37,7 +40,7 @@ class Freshdesk
     {
         $apiKey = config('freshdesk.api.key');
         if (empty($apiKey)) {
-            throw new \Error('Missing Freshdesk API key');
+            throw new ApiKeyNotFoundException('Missing Freshdesk API key');
         }
 
         return $apiKey;
@@ -99,12 +102,12 @@ class Freshdesk
         });
         if (! empty($invalidEmailErrors)) {
             // some invalid values were sent
-            throw new \Exception('invalid_email');
+            throw new ExternalServiceException('invalid_email');
         }
 
         // we don't recognize an error so don't add a message
         Log::error('Error when trying to create a ticket: '.$response->getBody());
-        throw new \Exception();
+        throw new ExternalServiceException();
     }
 
     /**
@@ -131,7 +134,7 @@ class Freshdesk
 
         // we don't recognize an error so don't add a message
         Log::error('Error when trying to create a ticket: '.$response->getBody());
-        throw new \Exception();
+        throw new ExternalServiceException();
     }
 
     /**
@@ -150,7 +153,7 @@ class Freshdesk
             'email' => 'email',
         ]);
         if (! $validator->passes()) {
-            throw new \Exception(Arr::join($validator->messages()->toArray(), ' '));
+            throw new InvalidArgumentException(Arr::join($validator->messages()->toArray(), ' '));
         }
 
         $response = Http::withBasicAuth(self::getApiKey(), self::getPassword())
@@ -163,7 +166,7 @@ class Freshdesk
 
         // we don't recognize an error so don't add a message
         Log::error('Error when trying to find a contact by email: '.$response->getBody());
-        throw new \Exception();
+        throw new ExternalServiceException();
     }
 
     /**
@@ -190,6 +193,6 @@ class Freshdesk
 
         // we don't recognize an error so don't add a message
         Log::error('Error when trying to create a ticket: '.$response->getBody());
-        throw new \Exception();
+        throw new ExternalServiceException();
     }
 }
