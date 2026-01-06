@@ -19,7 +19,9 @@ const ProcessPreviwLink = ({ id, status, ...rest }: ProcessPreviwLinkProps) => {
     <Link
       mode="inline"
       color="primary"
-      href={status === "submitted" ? paths.pool(id) : paths.poolPreview(id)}
+      href={
+        status === "submitted" ? paths.jobPoster(id) : paths.poolPreview(id)
+      }
       newTab
       {...rest}
     >

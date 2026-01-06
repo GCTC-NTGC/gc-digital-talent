@@ -199,7 +199,7 @@ export const Component = () => {
             </Link>
           </li>
           <li>
-            <Link href={paths.browsePools()}>
+            <Link href={paths.jobs()}>
               {intl.formatMessage({
                 defaultMessage: "View open pools",
                 id: "FtlwFY",
