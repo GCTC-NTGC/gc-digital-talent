@@ -22,6 +22,7 @@ enum CandidateStatus
     case UNSUCCESSFUL;
     case QUALIFIED;
 
+    // Removed
     case WITHDREW;
     case NOT_RESPONSIVE;
     case INELIGIBLE;
