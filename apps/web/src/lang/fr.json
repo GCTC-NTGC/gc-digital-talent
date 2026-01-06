@@ -540,7 +540,7 @@
     "description": "Alert displayed to the user when failing to (un-)flag a candidate."
   },
   "07sCDh": {
-    "defaultMessage": "Utilisez le bouton « Créez un processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un processus » pour commencer.",
     "description": "Instructions for adding a process item."
   },
   "07xB/W": {
@@ -716,7 +716,7 @@
     "description": "Simplified status label for a complete process advertisement or assessment"
   },
   "0jwdac": {
-    "defaultMessage": "Utilisez le bouton « Créez une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer une compétence » pour commencer.",
     "description": "Instructions for adding a skill item."
   },
   "0m1utE": {
@@ -1760,7 +1760,7 @@
     "description": "Null message for nominee profile"
   },
   "4ujx9e": {
-    "defaultMessage": "Utilisez le bouton « Créez un groupe de compétences » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un groupe de compétences » pour commencer.",
     "description": "Instructions for adding a skill family item."
   },
   "4v9y7U": {
@@ -2220,7 +2220,7 @@
     "description": "Indigenous Apprenticeship hero image text alternative"
   },
   "71mPNh": {
-    "defaultMessage": "Créez une compétence",
+    "defaultMessage": "Créer une compétence",
     "description": "Title for Create skill"
   },
   "72pd2Z": {
@@ -2716,7 +2716,7 @@
     "description": "First paragraph for the pool closing date dialog"
   },
   "9HEVBb": {
-    "defaultMessage": "Utilisez le bouton « Créez un volet de travail » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un volet de travail » pour commencer.",
     "description": "Instructions for adding a work stream item."
   },
   "9HXOU+": {
@@ -3564,7 +3564,7 @@
     "description": "Disclaimer for the when the accessibility statement was last updated"
   },
   "Cu+CH3": {
-    "defaultMessage": "Utilisez le bouton « Créez une collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
   },
   "CuHYqt": {
@@ -3972,7 +3972,7 @@
     "description": "External link message for the EX graduation with degree requirement."
   },
   "Eb/yFU": {
-    "defaultMessage": "1. <createLink>Créez un compte</createLink> ou <signInLink>connectez-vous</signInLink>.",
+    "defaultMessage": "1. <createLink>Créer un compte</createLink> ou <signInLink>connectez-vous</signInLink>.",
     "description": "Text for workforce adjustment -> create step."
   },
   "Ed+xy1": {
@@ -5200,7 +5200,7 @@
     "description": "A date at which data will expire, in the local time zone"
   },
   "KHmf+e": {
-    "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer une classification » pour commencer.",
     "description": "Instructions for adding a classification item."
   },
   "KIQzbR": {
@@ -5924,7 +5924,7 @@
     "description": "Paragraph two, description of the managers community"
   },
   "NW7sCE": {
-    "defaultMessage": "Créez une classification",
+    "defaultMessage": "Créer une classification",
     "description": "Button text to create classification"
   },
   "NWDow2": {
@@ -6356,7 +6356,7 @@
     "description": "Heading for the `just education` option for EC education requirements"
   },
   "PdkgWB": {
-    "defaultMessage": "Créez une possibilité de formation",
+    "defaultMessage": "Créer une possibilité de formation",
     "description": "Title for link to page to create a training opportunity (imperative in French)"
   },
   "Pe1kas": {
@@ -6408,7 +6408,7 @@
     "description": "Link text for public service collective agreements"
   },
   "PrTwov": {
-    "defaultMessage": "Créez une collectivité",
+    "defaultMessage": "Créer une collectivité",
     "description": "Text to create a community (action)"
   },
   "Ps929U": {
@@ -6892,7 +6892,7 @@
     "description": "Message displayed when a user successfully updates the key tasks"
   },
   "RjKlKz": {
-    "defaultMessage": "Créez un volet de travail",
+    "defaultMessage": "Créer un volet de travail",
     "description": "Text to create a work stream"
   },
   "Rk1i9Q": {
@@ -7168,7 +7168,7 @@
     "description": "Sub title for the pool essential skills"
   },
   "TFAsYS": {
-    "defaultMessage": "Créez la possibilité de formation",
+    "defaultMessage": "Créer la possibilité de formation",
     "description": "Button label to submit the create an opportunity form"
   },
   "THBjEx": {
@@ -7827,7 +7827,7 @@
     "description": "Title for information about core public administration employees related to workforce adjustment"
   },
   "WIbjog": {
-    "defaultMessage": "Créez un ministère",
+    "defaultMessage": "Créer un ministère",
     "description": "Heading displayed above the Create Department form."
   },
   "WJSfQl": {
@@ -8587,7 +8587,7 @@
     "description": "Fallback for first name value"
   },
   "ZN9OsN": {
-    "defaultMessage": "Créez une autre demande de talents",
+    "defaultMessage": "Créer une autre demande de talents",
     "description": "Link text to start a new talent request"
   },
   "ZNgKK4": {
@@ -8683,7 +8683,7 @@
     "description": "Application step to begin working on career timeline, paragraph one"
   },
   "ZqjOM/": {
-    "defaultMessage": "Créez le ministère",
+    "defaultMessage": "Créer le ministère",
     "description": "Button label to create a department"
   },
   "ZuFBx5": {
@@ -11038,7 +11038,7 @@
     "description": "Heading of section describing skill categories"
   },
   "jkY75T": {
-    "defaultMessage": "Créez le volet de travail",
+    "defaultMessage": "Créer le volet de travail",
     "description": "Button text to create a work stream"
   },
   "jnd5HF": {
@@ -11250,7 +11250,7 @@
     "description": "Button text displayed for Indigenous languages dropdown"
   },
   "kiJviy": {
-    "defaultMessage": "Utilisez le bouton « Créez un ministère » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un ministère » pour commencer.",
     "description": "Instructions for adding a department item."
   },
   "kkZZfT": {
@@ -12078,7 +12078,7 @@
     "description": "Button label to return to the skills table"
   },
   "oDDr9J": {
-    "defaultMessage": "Créez un groupe de compétences",
+    "defaultMessage": "Créer un groupe de compétences",
     "description": "Heading displayed above the Create Skill family form."
   },
   "oDnMMb": {
@@ -12314,7 +12314,7 @@
     "description": "Placeholder message when there is no skill family selected"
   },
   "pDlEip": {
-    "defaultMessage": "Créez la compétence",
+    "defaultMessage": "Créer la compétence",
     "description": "Button label to create a skill"
   },
   "pDqhbX": {
@@ -12690,7 +12690,7 @@
     "description": "Message displayed to user after pool fails to get archived."
   },
   "qkuRs8": {
-    "defaultMessage": "Créez le groupe de compétences",
+    "defaultMessage": "Créer le groupe de compétences",
     "description": "Button text to create a skill family"
   },
   "qlVBtp": {
@@ -13914,7 +13914,7 @@
     "description": "Placeholder displayed on the skill form families field."
   },
   "wP9+aN": {
-    "defaultMessage": "Créez un processus",
+    "defaultMessage": "Créer un processus",
     "description": "Heading displayed above the Create process form."
   },
   "wPpvvm": {
@@ -14810,7 +14810,7 @@
     "description": "Title for the accessible by design section"
   },
   "ztzRUG": {
-    "defaultMessage": "Créez une classification",
+    "defaultMessage": "Créer une classification",
     "description": "Button text to create a classification"
   },
   "zu/X7H": {
