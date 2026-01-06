@@ -109,13 +109,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add individual role",
-    "fr": [
-      "Ajouter un rôle individuel",
-      "Ajouter un rôle individue"
-    ]
-  },
-  {
     "en": "Submit",
     "fr": [
       "Soumettre",
