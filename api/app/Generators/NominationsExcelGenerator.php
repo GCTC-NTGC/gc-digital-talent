@@ -685,54 +685,43 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function buildQuery()
     {
         $query = TalentNominationGroup::with([
-            'nominee' => [
-                'department',
-                'currentClassification',
-                'userSkills' => function ($query) {
-                    $query->with([
-                        'skill' => function ($query) {
-                            $query->select('id', 'key', 'name');
-                        },
-                    ]);
-                },
-                'personalExperiences',
-                'personalExperiences.userSkills.skill',
-                'employeeProfile' => [
-                    'nextRoleWorkStreams',
-                    'nextRoleDepartments',
-                    'careerObjectiveWorkStreams',
-                    'careerObjectiveDepartments',
-                    'nextRoleClassification',
-                    'careerObjectiveClassification',
-                    'nextRoleCommunity',
-                    'careerObjectiveCommunity',
-                ],
-                'poolCandidates' => function ($query) {
-                    $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId]);
-                },
-                'poolCandidates.pool',
-                'poolCandidates.pool.classification',
-                'offPlatformRecruitmentProcesses',
-                'offPlatformRecruitmentProcesses.classification',
-                'offPlatformRecruitmentProcesses.department',
-            ],
+            'nominee' => function ($query) {
+                $query->with([
+                    'department',
+                    'currentClassification',
+                    'userSkills.skill:id,key,name',
+                    'personalExperiences',
+                    'personalExperiences.userSkills.skill',
+                    'employeeProfile' => [
+                        'nextRoleWorkStreams',
+                        'nextRoleDepartments',
+                        'careerObjectiveWorkStreams',
+                        'careerObjectiveDepartments',
+                        'nextRoleClassification',
+                        'careerObjectiveClassification',
+                        'nextRoleCommunity',
+                        'careerObjectiveCommunity',
+                    ],
+                    'poolCandidates' => function ($query) {
+                        $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+                            ->with('pool.classification');
+                    },
+                    'offPlatformRecruitmentProcesses.classification',
+                    'offPlatformRecruitmentProcesses.department',
+                ]);
+            },
             'nominations' => [
-                'nominator' => [
-                    'department',
-                    'currentClassification',
-                ],
+                'nominator.department',
+                'nominator.currentClassification',
                 'submitter',
-                'advancementReference' => [
-                    'department',
-                    'currentClassification',
-                ],
+                'advancementReference.department',
+                'advancementReference.currentClassification',
                 'nominatorFallbackClassification',
                 'nominatorFallbackDepartment',
                 'advancementReferenceFallbackClassification',
                 'advancementReferenceFallbackDepartment',
                 'developmentPrograms',
                 'skills',
-
             ],
         ])->where('talent_nomination_event_id', $this->talentNominationEventId);
 
