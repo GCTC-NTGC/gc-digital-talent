@@ -204,7 +204,7 @@ const newJobPostedNotificationToInfo = (
       id: "OlSnME",
       description: "Message for new job posted notification",
     }),
-    href: notification.poolId ? paths.pool(notification.poolId) : "",
+    href: notification.poolId ? paths.jobPoster(notification.poolId) : "",
     label: intl.formatMessage({
       defaultMessage:
         "A new opportunity is now available! Find out if this is a fit for you and apply.",

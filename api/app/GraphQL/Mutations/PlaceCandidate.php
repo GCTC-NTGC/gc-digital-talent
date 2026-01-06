@@ -17,8 +17,6 @@ final class PlaceCandidate
 
         $candidate->place($placementType, $departmentId);
 
-        $candidate->save();
-
         return $candidate;
     }
 }

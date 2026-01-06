@@ -27,7 +27,7 @@ const closedPool = {
   closingReason: null,
   closingDate: FAR_PAST_DATE,
 };
-const nullPool: Pool = {
+const nullPool = {
   id: "uuid",
 };
 nullPool.id = fakePool.id; // pool will never have a null id

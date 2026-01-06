@@ -1,14 +1,14 @@
-import { Page } from "@playwright/test";
-
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   Classification,
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
+  Language,
   OperationalRequirement,
   PoolCandidateStatus,
   Skill,
   SkillCategory,
+  User,
   WorkRegion,
   WorkStream,
 } from "@gc-digital-talent/graphql";
@@ -19,13 +19,18 @@ import {
   createAndSubmitApplication,
   updateCandidateStatus,
 } from "~/utils/applications";
-import { createUserWithRoles, me } from "~/utils/user";
-import graphql from "~/utils/graphql";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import graphql, { GraphQLContext } from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
-import { generateUniqueTestId } from "~/utils/id";
-
+import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
+import TalentSearch from "~/fixtures/TalentSearch";
+import { loginBySub } from "~/utils/auth";
+import testConfig from "~/constants/config";
+import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
+import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
+import { getCommunities } from "~/utils/communities";
 test.describe("Talent search", () => {
   let uniqueTestId: string;
   let sub: string;
@@ -33,41 +38,35 @@ test.describe("Talent search", () => {
   let classification: Classification;
   let workStream: WorkStream;
   let skill: Skill | undefined;
+  let talentSearch: TalentSearch;
+  let user: User | undefined;
+  let adminCtx: GraphQLContext;
 
-  const expectNoCandidate = async (page: Page) => {
-    await expect(
-      page.getByRole("article", { name: new RegExp(poolName, "i") }),
-    ).toBeHidden();
-  };
-
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     poolName = `Search pool ${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext();
 
     const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
     skill = technicalSkill;
 
-    await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
         emailVerifiedAt: PAST_DATE,
         sub,
+        preferredLang: Language.Fr,
         isWoman: true,
         lookingForFrench: true,
-        lookingForBilingual: true,
         estimatedLanguageAbility: EstimatedLanguageAbility.Intermediate,
         acceptedOperationalRequirements: [
           OperationalRequirement.OvertimeOccasional,
         ],
         locationPreferences: [WorkRegion.Ontario],
-        flexibleWorkLocations: [
-          FlexibleWorkLocation.Onsite,
-          FlexibleWorkLocation.Remote,
-        ],
+        flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
         personalExperiences: {
           create: [
             {
@@ -90,6 +89,10 @@ test.describe("Talent search", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
+    const communityId = await getCommunities(adminCtx, {}).then(
+      (communities) => communities[0]?.id,
+    );
+
     const classifications = await getClassifications(adminCtx, {});
     classification = classifications[0];
 
@@ -101,6 +104,7 @@ test.describe("Talent search", () => {
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
+      communityId: communityId,
       classificationId: classification.id,
       workStreamId: workStream.id,
       name: {
@@ -123,151 +127,60 @@ test.describe("Talent search", () => {
       id: application.id,
       status: PoolCandidateStatus.QualifiedAvailable,
     });
+    user = createdUser;
+  });
+
+  test.afterEach(async () => {
+    if (user) {
+      await deleteUser(adminCtx, { id: user.id });
+    }
   });
 
   test("Search and submit request", async ({ appPage }) => {
-    await appPage.page.goto("/en/search");
-    await appPage.waitForGraphqlResponse("SearchForm");
-
-    const poolCard = appPage.page.getByRole("article", {
-      name: new RegExp(poolName, "i"),
-    });
-
-    await expect(poolCard).toBeVisible();
-    await expect(poolCard).toContainText(/1 approximate match/i);
-
-    const classificationFilter = appPage.page.getByRole("combobox", {
-      name: /classification/i,
-    });
-
-    await classificationFilter.selectOption({ index: 2 });
-
-    await expectNoCandidate(appPage.page);
-
-    await classificationFilter.selectOption({
-      value: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
-    });
-
-    const streamFilter = appPage.page.getByRole("combobox", {
-      name: /stream/i,
-    });
-
-    await streamFilter.selectOption({ label: "Database Management" });
-    await expectNoCandidate(appPage.page);
-
-    await streamFilter.selectOption({
-      label: workStream.name?.en ?? "",
-    });
-
-    await expect(poolCard).toBeVisible();
-
-    // Update in #13844
-    await appPage.page.getByRole("checkbox", { name: /ontario/i }).click();
-
-    await expectNoCandidate(appPage.page);
-
-    await appPage.page.getByRole("checkbox", { name: /atlantic/i }).click();
-
-    await expect(poolCard).toBeVisible();
-
-    await appPage.page.getByRole("checkbox", { name: /woman/i }).click();
-
-    const skillFilter = appPage.page.getByRole("combobox", {
-      name: /^skill$/i,
-    });
-
-    await skillFilter.fill(`${skill?.name.en}`);
-    await skillFilter.press("ArrowDown");
-    await skillFilter.press("Enter");
-
-    await appPage.page.getByRole("radio", { name: /french only/i }).click();
-
-    await appPage.page
-      .getByRole("button", { name: /expand all advanced filters/i })
-      .click();
-
-    await appPage.page
-      .getByRole("radio", {
-        name: /required diploma from post-secondary institution/i,
-      })
-      .click();
-
-    await appPage.page
-      .getByRole("radio", { name: /indeterminate duration/i })
-      .click();
-
-    await appPage.page
-      .getByRole("checkbox", { name: /overtime \(occasionally\)/i })
-      .click();
-
-    await appPage.waitForGraphqlResponse("CandidateCount");
-    await expect(poolCard).toBeVisible();
-
-    await poolCard.getByRole("button", { name: /request candidates/i }).click();
+    talentSearch = new TalentSearch(appPage.page);
+    await talentSearch.goToIndex();
+    await talentSearch.fillSearchFormAndRequestCandidates(
+      poolName,
+      classification,
+      workStream,
+      skill!,
+    );
     await appPage.waitForGraphqlResponse("RequestForm_SearchRequestData");
-
-    await appPage.page
-      .getByRole("textbox", { name: /full name/i })
-      .fill("Test user");
-    await appPage.page
-      .getByRole("textbox", { name: /government of canada email/i })
-      .fill("test@tbs-sct.gc.ca");
-    await appPage.page
-      .getByRole("textbox", { name: /what is your job title/i })
-      .fill("Manager");
-    await appPage.page
-      .getByRole("textbox", {
-        name: /what is the job title for this position/i,
-      })
-      .fill("Test job title");
-    await appPage.page
-      .getByRole("radio", { name: /general interest/i })
-      .click();
-    await appPage.page
-      .getByRole("textbox", { name: /additional comments/i })
-      .fill("Test comments");
-    const departmentInput = appPage.page.getByRole("combobox", {
-      name: /department/i,
-    });
-    await departmentInput.press("ArrowDown");
-    await departmentInput.press("Enter");
-
-    await expect(
-      appPage.page.getByText(
-        new RegExp(
-          `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}: search pool`,
-          "i",
-        ),
-      ),
-    ).toBeVisible();
-
-    await expect(
-      appPage.page.getByText(workStream?.name?.en ?? ""),
-    ).toBeVisible();
-
-    await expect(
-      appPage.page.getByText(new RegExp(skill?.name.en ?? "")),
-    ).toBeVisible();
-
-    await expect(appPage.page.getByText(/required diploma/i)).toBeVisible();
-    await expect(appPage.page.getByText(/french only/i)).toBeVisible();
-    await expect(
-      appPage.page.getByText(/indeterminate duration/i),
-    ).toBeVisible();
-    await expect(
-      appPage.page.getByText(/overtime \(occasionally\)/i),
-    ).toBeVisible();
-
-    await expect(appPage.page.getByText(/woman/i)).toBeVisible();
-    await expect(
-      appPage.page.getByText(/1 estimated candidate/i),
-    ).toBeVisible();
-
-    await appPage.page.getByRole("button", { name: /submit request/i }).click();
-    await appPage.waitForGraphqlResponse("RequestForm_CreateRequest");
-
+    await talentSearch.submitSearchForm(classification, workStream, skill!);
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /request created successfully/i,
     );
+  });
+
+  test("Validate location preference update in Talent table", async ({
+    appPage,
+  }) => {
+    talentSearch = new TalentSearch(appPage.page);
+    const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
+    const tableValidation = new GenericTableValidationFixture(appPage.page);
+    await talentSearch.goToIndex();
+    await talentSearch.fillSearchFormAndRequestCandidates(
+      poolName,
+      classification,
+      workStream,
+      skill!,
+    );
+    await appPage.waitForGraphqlResponse("RequestForm_SearchRequestData");
+    await talentSearch.submitSearchForm(classification, workStream, skill!);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
+      /request created successfully/i,
+    );
+    const requestId = fetchIdentificationNumber(appPage.page.url(), "request");
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+    await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
+    await locationPrefUpdate.validateSelectedFlexWorkLocOptions();
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: /Candidate results/i,
+        level: 2,
+      }),
+    ).toBeVisible({ timeout: 10000 });
+    await tableValidation.setFlexibleWorkLocationColumn();
+    await tableValidation.verifyFlexibleWorkLocationOnTalentTable();
   });
 });

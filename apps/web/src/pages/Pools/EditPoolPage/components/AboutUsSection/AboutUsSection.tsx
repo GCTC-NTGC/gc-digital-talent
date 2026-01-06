@@ -87,7 +87,9 @@ const AboutUsSection = ({
     optional: true,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
+  const dataToFormValues = (
+    initialData: Pick<Pool, "aboutUs">,
+  ): FormValues => ({
     aboutUsEn: initialData.aboutUs?.en ?? "",
     aboutUsFr: initialData.aboutUs?.fr ?? "",
   });

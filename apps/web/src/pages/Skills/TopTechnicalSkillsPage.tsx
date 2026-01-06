@@ -233,4 +233,4 @@ export const Component = () => (
 
 Component.displayName = "TopTechnicalSkillsPage";
 
-export default TopTechnicalSkillsPage;
+export default Component;

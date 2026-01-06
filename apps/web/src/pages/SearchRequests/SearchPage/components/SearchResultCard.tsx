@@ -209,7 +209,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         <Link
           mode="inline"
           color="primary"
-          href={paths.pool(pool.id || "")}
+          href={paths.jobPoster(pool.id || "")}
           newTab
         >
           {intl.formatMessage(

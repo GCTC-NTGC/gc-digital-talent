@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { ReactNode, useId } from "react";
+import { tv } from "tailwind-variants";
 
 import { Card, Heading, HeadingRank, Notice } from "@gc-digital-talent/ui";
 
@@ -32,13 +33,19 @@ const Empty = () => {
   );
 };
 
-interface RootProps {
-  children: ReactNode;
-}
+const root = tv({ base: "flex flex-col gap-y-12" });
 
-const Root = ({ children }: RootProps) => (
-  <div className="flex flex-col gap-y-12">{children}</div>
-);
+const Root = ({
+  children,
+  className,
+  ...rest
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={root({ className })} {...rest}>
+      {children}
+    </div>
+  );
+};
 
 interface ListProps {
   heading: ReactNode;

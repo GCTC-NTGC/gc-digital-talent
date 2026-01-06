@@ -13,7 +13,7 @@ jobs:
       PNPM_VERSION: "10.17.0"
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -21,7 +21,7 @@ jobs:
           version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: "./.nvmrc"
           cache: "pnpm"
@@ -45,7 +45,7 @@ jobs:
 
       - name: Upload Report Artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: external-link-check-results
           path: |

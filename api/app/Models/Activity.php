@@ -24,6 +24,13 @@ class Activity extends SpatieActivity
         });
     }
 
+    protected function event(): Attribute
+    {
+        return Attribute::get(function ($value) {
+            return ! is_null($value) ? strtoupper($value) : $value;
+        });
+    }
+
     public function scopeWhereIsPoolActivity(Builder $query)
     {
         return $query->where('subject_type', Pool::class);

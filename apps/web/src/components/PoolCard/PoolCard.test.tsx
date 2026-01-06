@@ -10,7 +10,7 @@ import { makeFragmentData, Pool } from "@gc-digital-talent/graphql";
 import PoolCard, { PoolCardProps, PoolCard_Fragment } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];
-const nullPool: Pool = {
+const nullPool: Omit<Pool, "activities"> = {
   __typename: "Pool",
   id: "uuid",
 };
@@ -44,10 +44,7 @@ describe("PoolCard", () => {
     const applyLink = screen.getByRole("link", {
       name: /apply to this recruitment/i,
     });
-    expect(applyLink).toHaveAttribute(
-      "href",
-      `/en/browse/pools/${fakedPool.id}`,
-    );
+    expect(applyLink).toHaveAttribute("href", `/en/jobs/${fakedPool.id}`);
   });
 
   it("should render the null state correctly", () => {

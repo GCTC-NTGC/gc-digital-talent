@@ -71,7 +71,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
                 [
                     'applicant name' => $notifiable->first_name,
                     'opportunity title' => $this->poolNameEn,
-                    'job advertisement link' => config('app.url').'/en/browse/pools/'.$this->poolId,
+                    'job advertisement link' => config('app.url').'/en/jobs/'.$this->poolId,
                 ]
             );
         } else {
@@ -82,7 +82,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
                 [
                     'applicant name' => $notifiable->first_name,
                     'opportunity title' => $this->poolNameFr,
-                    'job advertisement link' => config('app.url').'/fr/browse/pools/'.$this->poolId,
+                    'job advertisement link' => config('app.url').'/fr/jobs/'.$this->poolId,
                 ]
             );
         }

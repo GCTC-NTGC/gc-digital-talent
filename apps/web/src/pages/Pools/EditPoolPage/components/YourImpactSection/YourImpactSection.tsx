@@ -86,7 +86,9 @@ const YourImpactSection = ({
     fallbackIcon: PresentationChartBarIcon,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
+  const dataToFormValues = (
+    initialData: Pick<Pool, "yourImpact">,
+  ): FormValues => ({
     yourImpactEn: initialData.yourImpact?.en ?? "",
     yourImpactFr: initialData.yourImpact?.fr ?? "",
   });

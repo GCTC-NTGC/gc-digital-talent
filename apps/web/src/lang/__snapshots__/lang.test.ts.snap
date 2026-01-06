@@ -109,13 +109,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add individual role",
-    "fr": [
-      "Ajoutez un rôle individuel",
-      "Ajouter un rôle individue"
-    ]
-  },
-  {
     "en": "Submit",
     "fr": [
       "Soumettre",
@@ -179,17 +172,17 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add member",
-    "fr": [
-      "Ajouter un membre",
-      "Ajoutez un membre"
-    ]
-  },
-  {
     "en": "Apply now",
     "fr": [
       "Postulez dès maintenant",
-      "Présentez votre demande"
+      "Présenter une demande"
+    ]
+  },
+  {
+    "en": "Sign up",
+    "fr": [
+      "S'inscrire",
+      "S'enregistrer"
     ]
   },
   {
@@ -214,6 +207,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Contact us",
+    "fr": [
+      "Pour nous joindre",
+      "Nous joindre"
+    ]
+  },
+  {
     "en": "Create work stream",
     "fr": [
       "Créez un volet de travail",
@@ -223,7 +223,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Add process role",
     "fr": [
-      "Ajoutez un rôle dans le processus",
+      "Ajouter un rôle dans le processus",
       "Ajouter des rôles dans des processus"
     ]
   },
@@ -249,13 +249,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add community role",
-    "fr": [
-      "Ajouter un rôle dans la collectivité",
-      "Ajoutez un rôle dans la collectivité"
-    ]
-  },
-  {
     "en": "Work location preferences",
     "fr": [
       "Préférences pour le lieu de travail",
@@ -272,8 +265,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Add work streams",
     "fr": [
-      "Ajoutez des volets de travail",
-      "Ajoutez les volets de travail"
+      "Ajouter des volets de travail",
+      "Ajouter les volets de travail"
     ]
   },
   {
@@ -281,13 +274,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Demander un bon",
       "Demandez un bon"
-    ]
-  },
-  {
-    "en": "Add a community",
-    "fr": [
-      "Ajoutez une collectivité",
-      "Ajouter une collectivité"
     ]
   },
   {
@@ -323,6 +309,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "La personne candidate",
       "Personne candidate"
+    ]
+  },
+  {
+    "en": "Browse jobs",
+    "fr": [
+      "Parcourir les emplois",
+      "Parcourir les possibilités d'emploi"
     ]
   },
   {

@@ -83,7 +83,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 [
                     'closing date' => $localizedClosingDateString,
                     'opportunity title' => $this->poolNameEn,
-                    'job advertisement link' => config('app.url').'/en/browse/pools/'.$this->poolId,
+                    'job advertisement link' => config('app.url').'/en/jobs/'.$this->poolId,
                     'application link' => config('app.url').'/en/applications/'.$this->poolCandidateId,
                 ]
             );
@@ -95,7 +95,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 [
                     'closing date' => $localizedClosingDateString,
                     'opportunity title' => $this->poolNameFr,
-                    'job advertisement link' => config('app.url').'/fr/browse/pools/'.$this->poolId,
+                    'job advertisement link' => config('app.url').'/fr/jobs/'.$this->poolId,
                     'application link' => config('app.url').'/fr/applications/'.$this->poolCandidateId,
                 ]
             );

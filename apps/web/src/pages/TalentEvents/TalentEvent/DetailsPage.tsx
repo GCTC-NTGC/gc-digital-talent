@@ -275,3 +275,5 @@ export const Component = () => (
 );
 
 Component.displayName = "TalentEventDetailsPage";
+
+export default Component;
