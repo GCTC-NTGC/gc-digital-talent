@@ -6,8 +6,8 @@ use App\Enums\CafRank;
 use App\Enums\EmploymentCategory;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\Classification;
 use App\Models\Department;
 use App\Models\User;
@@ -164,7 +164,7 @@ class WorkExperienceTest extends TestCase
                 'userId' => $this->admin->id,
                 'workExperience' => [
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'govEmploymentType' => WorkExperienceGovEmployeeType::TERM->name,
+                    'govEmploymentType' => GovEmployeeType::TERM->name,
                     'govPositionType' => GovPositionType::SUBSTANTIVE->name,
                 ],
             ]
@@ -193,7 +193,7 @@ class WorkExperienceTest extends TestCase
                 'userId' => $this->admin->id,
                 'workExperience' => [
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'govEmploymentType' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    'govEmploymentType' => GovEmployeeType::INDETERMINATE->name,
                     'govPositionType' => GovPositionType::ACTING->name,
                     'classificationId' => $classification->id,
                     'department' => ['connect' => $department->id],

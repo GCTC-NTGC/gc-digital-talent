@@ -5,7 +5,7 @@ namespace App\GraphQL\Validators;
 use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\GovContractorType;
-use App\Enums\WorkExperienceGovEmployeeType;
+use App\Enums\GovEmployeeType;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -62,12 +62,12 @@ final class CreateUpdateWorkExperienceValidator extends Validator
             'workExperience.govPositionType' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
+                        $this->arg('workExperience.govEmploymentType') === GovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') !== WorkExperienceGovEmployeeType::INDETERMINATE->name
+                        $this->arg('workExperience.govEmploymentType') !== GovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -79,7 +79,7 @@ final class CreateUpdateWorkExperienceValidator extends Validator
             'workExperience.govContractorRoleSeniority' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CONTRACTOR->name
+                        $this->arg('workExperience.govEmploymentType') === GovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -91,7 +91,7 @@ final class CreateUpdateWorkExperienceValidator extends Validator
             'workExperience.govContractorType' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CONTRACTOR->name
+                        $this->arg('workExperience.govEmploymentType') === GovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -153,13 +153,13 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                     $this->arg('workExperience.employmentCategory') === EmploymentCategory::GOVERNMENT_OF_CANADA->name
                       &&
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
+                        $this->arg('workExperience.govEmploymentType') === GovEmployeeType::CASUAL->name
                     ) ||
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name
+                        $this->arg('workExperience.govEmploymentType') === GovEmployeeType::TERM->name
                     ) ||
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
+                        $this->arg('workExperience.govEmploymentType') === GovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 // This does not work without proper connect/disconnect in the schema

@@ -20,9 +20,9 @@ import {
   EmploymentCategory,
   FragmentType,
   getFragment,
+  GovEmployeeType,
   graphql,
   Skill,
-  WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -426,7 +426,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.GovernmentOfCanada &&
           experience.govEmploymentType?.value ===
-            WorkExperienceGovEmployeeType.Contractor && (
+            GovEmployeeType.Contractor && (
             <>
               <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
