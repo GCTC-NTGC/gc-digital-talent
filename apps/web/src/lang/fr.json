@@ -3271,6 +3271,14 @@
     "defaultMessage": "Sélectionnez la langue de travail du poste à pourvoir. Celle-ci sera comparée à celle indiquée par les personnes candidates dans leur demande. Les personnes candidates ayant sélectionné « bilingue » pourraient ne pas avoir obtenu des résultats à l’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
   },
+  "BTY2jZ": {
+    "defaultMessage": "Vous avez été écarté de ce processus de recrutement parce vous n'avez pas répondu dans le délai imparti lorsque vous avez été contacté. Vous avez maintenant dépassé le délai imparti pour poursuivre le processus. Si vous n’aviez pas l’intention de vous retirer de ce processus, nous vous encourageons à vérifier vos coordonnées afin de vous assurer qu’elles sont à jour pour de futurs processus de candidature.",
+    "description": "Status description for an application that was removed from a pool due to unresponsiveness from the applicant"
+  },
+  "BUz+Ml": {
+    "defaultMessage": "Vous avez indiqué ne pas souhaiter poursuivre ce processus. Cette candidature ne sera pas évaluée comme répondant aux exigences du processus, et aucune autre communication ne sera transmise. S’il s’agit d’une erreur, vous disposez d’une semaine pour contacter notre équipe d’assistance à compter de l’attribution de ce statut.",
+    "description": "Status description for an application that was withdrawn from a pool"
+  },
   "BVlGhZ": {
     "defaultMessage": "Avancement<hidden> nomination non retenue</hidden>",
     "description": "Status description when the nomination doest not include the advancement option"
@@ -13993,6 +14001,10 @@
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
   },
+  "wjyoQN": {
+    "defaultMessage": "Cette procédure est réservée aux candidates et candidats qui répondent à certains critères. Par exemple, ce processus peut être restreint aux fonctionnaires, à certains ministères ou aux personnes occupant un emploi de la fonction publique d’une classification ou d’un niveau particulier. Sur la base de votre profil et de votre candidature, vous ne remplissez pas les conditions requises pour participer à ce processus. Votre candidature ne sera pas prise en compte.",
+    "description": "Status description for an application that was removed from a pool due to due the applicant being ineligible"
+  },
   "wlfZcP": {
     "defaultMessage": "Pour en savoir plus sur les nouveaux services qui peuvent vous aider.",
     "description": "Link text to the workforce adjustment information page"
@@ -14004,6 +14016,10 @@
   "wmSeI8": {
     "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
     "description": "Contact email card description on account settings page"
+  },
+  "wqcWdN": {
+    "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
+    "description": "Status description for an application that was removed from a pool"
   },
   "wqzCx3": {
     "defaultMessage": "Mise à l'essai d'une nouvelle recherche dans le tableau",
