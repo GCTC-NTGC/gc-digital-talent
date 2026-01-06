@@ -427,6 +427,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $lateralMovementOptionsStr = $this->getLateralMovementOptions($nomination);
                     $developmentProgramsStr = $this->getDevelopmentPrograms($nomination);
                     $referenceDetails = $this->getReferenceDetails($nomination);
+                    $leadershipCompetenciesStr = $this->getLeadershipCompetencies($nomination);
 
                     $values = [
                         $user->id,
@@ -437,8 +438,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $nominator ? $nominator->getFullName() : $nomination->nominator_fallback_name, // nominator
                         $nomination->nominee_relationship_to_nominator ? $this->localizeEnum($nomination->nominee_relationship_to_nominator, TalentNominationNomineeRelationshipToNominator::class) : '', // Nominee's relationship to nominator
                         $nominator ? $nominator->work_email : $nomination->nominator_fallback_work_email,  // nominators work email
-                        $nominator->currentClassification ? $nominator->currentClassification->formattedGroupAndLevel : '', // nominator classification
-                        $nominator->department ? ($nominator->department->name[$this->lang] ?? '') : '', // nominator department
+                        $nominator && $nominator->currentClassification ? $nominator->currentClassification->formattedGroupAndLevel : '', // nominator classification
+                        $nominator && $nominator->department ? ($nominator->department->name[$this->lang] ?? '') : '', // nominator department
                         $submitter ? $submitter->getFullName() : '', // submitter's name
                         $submitter ? $submitter->work_email : '', // submitter's work email
                         $submitterRelationshipStr, // submitter's relationship to nominator
@@ -451,7 +452,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $this->canShare($consentToShare, $developmentProgramsStr),   // development program recommendations
                         $this->canShare($consentToShare, $nomination->development_program_options_other ?? ''), // other development program experience
                         $this->canShare($consentToShare, $nomination->nomination_rationale ?? ''), // rationale
-                        '', // TODO top 3 leadership competencies
+                        $leadershipCompetenciesStr, // leadership competencies
                         $this->canShare($consentToShare, $nomination->additional_comments ?? ''), // additional comments
                     ];
 
@@ -460,6 +461,25 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                 }
             }
         });
+    }
+
+    /**
+     * Get leadership competencies from nomination skills
+     */
+    private function getLeadershipCompetencies(TalentNomination $nomination): string
+    {
+        if (! $nomination->relationLoaded('skills')) {
+            $nomination->load('skills');
+        }
+
+        if ($nomination->skills->isEmpty()) {
+            return '';
+        }
+
+        return $nomination->skills
+            ->map(fn ($skill) => $skill->name[$this->lang] ?? '')
+            ->filter()
+            ->implode(', ');
     }
 
     /**
@@ -524,7 +544,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             return $nomination->advancementReferenceFallbackClassification->formattedGroupAndLevel;
         }
 
-        if ($nomination->advancement_reference_fallback_classification_group &&
+        if (isset($nomination->advancement_reference_fallback_classification_group) &&
+            isset($nomination->advancement_reference_fallback_classification_level) &&
+            $nomination->advancement_reference_fallback_classification_group &&
             $nomination->advancement_reference_fallback_classification_level) {
             return $nomination->advancement_reference_fallback_classification_group.'-'.
                    $nomination->advancement_reference_fallback_classification_level;
@@ -542,7 +564,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             return $nomination->advancementReferenceFallbackDepartment->name[$this->lang] ?? '';
         }
 
-        if ($nomination->advancement_reference_fallback_department_name) {
+        if (isset($nomination->advancement_reference_fallback_department_name) &&
+        $nomination->advancement_reference_fallback_department_name) {
             return $nomination->advancement_reference_fallback_department_name;
         }
 
@@ -623,20 +646,18 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function getSubmitterRelationship(TalentNomination $nomination): string
     {
-        $submitterRelationshipStr = '';
-        if ($nomination->submitter_relationship_to_nominator) {
-            if ($nomination->submitter_relationship_to_nominator_other) {
-                $submitterRelationshipStr = $nomination->submitter_relationship_to_nominator_other;
-            } else {
-                $submitterRelationship = $nomination->submitter_relationship_to_nominator;
-                $submitterRelationshipValue = $submitterRelationship instanceof \BackedEnum
-                    ? $submitterRelationship->value
-                    : (string) $submitterRelationship;
-                $submitterRelationshipStr = $this->localizeEnum($submitterRelationshipValue, TalentNominationSubmitterRelationshipToNominator::class);
-            }
+        if ($nomination->submitter_relationship_to_nominator_other) {
+            return $nomination->submitter_relationship_to_nominator_other;
         }
 
-        return $submitterRelationshipStr;
+        if (! $nomination->submitter_relationship_to_nominator) {
+            return '';
+        }
+
+        return $this->localizeEnum(
+            $nomination->submitter_relationship_to_nominator->name,
+            TalentNominationSubmitterRelationshipToNominator::class
+        );
     }
 
     /**
