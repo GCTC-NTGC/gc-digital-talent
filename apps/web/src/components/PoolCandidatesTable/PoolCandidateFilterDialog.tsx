@@ -29,7 +29,6 @@ import {
 import { Heading } from "@gc-digital-talent/ui";
 
 import adminMessages from "~/messages/adminMessages";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import applicationMessages from "~/messages/applicationMessages";
 
 import FilterDialog, {
@@ -354,14 +353,10 @@ const PoolCandidateFilterDialog = ({
             options={assessmentSteps.map((step) => ({
               value: String(step.sortOrder ?? 0),
               label:
-                intl.formatMessage(poolCandidateMessages.assessmentStepNumber, {
-                  stepNumber: step.sortOrder,
-                }) +
-                intl.formatMessage(commonMessages.dividingColon) +
                 // NOTE: we do want to pass on empty strings
                 // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-                ((step.title?.localized || step.type?.label.localized) ??
-                  notAvailable),
+                (step.title?.localized || step.type?.label.localized) ??
+                notAvailable,
             }))}
           />
         )}
