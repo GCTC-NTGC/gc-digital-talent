@@ -100,14 +100,14 @@ export default [
         ]),
 
         // Browse jobs
-        ...prefix("browse", [
-          route("pools", "./pages/Pools/BrowsePoolsPage/BrowsePoolsPage.tsx"),
+        ...prefix("jobs", [
+          index("./pages/Pools/BrowsePoolsPage/BrowsePoolsPage.tsx"),
           route(
-            "pools/:poolId",
+            ":poolId",
             "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
           ),
           route(
-            "pools/:poolId/create-application",
+            ":poolId/create-application",
             "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
           ),
         ]),
