@@ -2436,7 +2436,7 @@
     "description": "Null message for essential behavioural skills form"
   },
   "81Bib7": {
-    "defaultMessage": "Vous pouvez ajouter des expériences spécifiques en matière d’études en sélectionnant l’option « Études et certificats » lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
+    "defaultMessage": "Vous pouvez ajouter des expériences spécifiques en matière d’études en sélectionnant l’option « Études et certificats » lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add education experience in application education page."
   },
   "81Zt0T": {
@@ -4268,7 +4268,7 @@
     "description": "Text explaining the importance of starting an application early"
   },
   "G1OWMo": {
-    "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
+    "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add experience in application education page."
   },
   "G1jegJ": {
