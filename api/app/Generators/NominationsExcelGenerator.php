@@ -426,6 +426,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $submitterRelationshipStr = $this->getSubmitterRelationship($nomination);
                     $lateralMovementOptionsStr = $this->getLateralMovementOptions($nomination);
                     $developmentProgramsStr = $this->getDevelopmentPrograms($nomination);
+                    $referenceDetails = $this->getReferenceDetails($nomination);
 
                     $values = [
                         $user->id,
@@ -441,10 +442,10 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $submitter ? $submitter->getFullName() : '', // submitter's name
                         $submitter ? $submitter->work_email : '', // submitter's work email
                         $submitterRelationshipStr, // submitter's relationship to nominator
-                        '', // TODO reference name
-                        '', // TODO reference work email
-                        '', // TODO reference classification
-                        '', // TODO reference department
+                        $referenceDetails['name'], // reference name
+                        $referenceDetails['email'], // reference email
+                        $referenceDetails['classification'], // reference classification
+                        $referenceDetails['department'], // reference department
                         $this->canShare($consentToShare, $lateralMovementOptionsStr),  // lateral experience recommendations
                         $this->canShare($consentToShare, $nomination->lateral_movement_options_other ?? ''), // other lateral experience
                         $this->canShare($consentToShare, $developmentProgramsStr),   // development program recommendations
@@ -459,6 +460,93 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                 }
             }
         });
+    }
+
+    /**
+     * Helper to get reference details
+     */
+    private function getReferenceDetails(TalentNomination $nomination): array
+    {
+        $details = $this->getDetailsFromReferenceUser($nomination);
+
+        if (empty($details['name']) && $nomination->advancement_reference_fallback_name) {
+            $details['name'] = $nomination->advancement_reference_fallback_name;
+        }
+
+        if (empty($details['email']) && $nomination->advancement_reference_fallback_work_email) {
+            $details['email'] = $nomination->advancement_reference_fallback_work_email;
+        }
+
+        if (empty($details['classification'])) {
+            $details['classification'] = $this->getFallbackClassification($nomination);
+        }
+
+        if (empty($details['department'])) {
+            $details['department'] = $this->getFallbackDepartment($nomination);
+        }
+
+        return $details;
+    }
+
+    /**
+     * Helper to get reference details from reference user
+     */
+    private function getDetailsFromReferenceUser(TalentNomination $nomination): array
+    {
+        $details = [
+            'name' => '',
+            'email' => '',
+            'classification' => '',
+            'department' => '',
+        ];
+
+        $reference = $nomination->advancementReference
+            ?? ($nomination->advancement_reference_id
+                ? User::with(['currentClassification', 'department'])->find($nomination->advancement_reference_id)
+                : null);
+
+        if ($reference) {
+            $details['name'] = $reference->getFullName();
+            $details['email'] = $reference->work_email ?? $reference->email ?? '';
+            $details['classification'] = $reference->currentClassification?->formattedGroupAndLevel ?? '';
+            $details['department'] = $reference->department?->name[$this->lang] ?? '';
+        }
+
+        return $details;
+    }
+
+    /**
+     * Helper to get fallback classification from nomination
+     */
+    private function getFallbackClassification(TalentNomination $nomination): string
+    {
+        if ($nomination->advancementReferenceFallbackClassification) {
+            return $nomination->advancementReferenceFallbackClassification->formattedGroupAndLevel;
+        }
+
+        if ($nomination->advancement_reference_fallback_classification_group &&
+            $nomination->advancement_reference_fallback_classification_level) {
+            return $nomination->advancement_reference_fallback_classification_group.'-'.
+                   $nomination->advancement_reference_fallback_classification_level;
+        }
+
+        return '';
+    }
+
+    /**
+     * Helper to get fallback department from nomination
+     */
+    private function getFallbackDepartment(TalentNomination $nomination): string
+    {
+        if ($nomination->advancementReferenceFallbackDepartment) {
+            return $nomination->advancementReferenceFallbackDepartment->name[$this->lang] ?? '';
+        }
+
+        if ($nomination->advancement_reference_fallback_department_name) {
+            return $nomination->advancement_reference_fallback_department_name;
+        }
+
+        return '';
     }
 
     /**
