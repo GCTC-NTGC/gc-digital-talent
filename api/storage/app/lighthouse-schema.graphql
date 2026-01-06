@@ -3586,6 +3586,10 @@ enum CandidateStatus {
   UNDER_ASSESSMENT
   UNSUCCESSFUL
   QUALIFIED
+  WITHDREW
+  NOT_RESPONSIVE
+  INELIGIBLE
+  REMOVED
 }
 
 enum CandidateSuspendedFilter {
