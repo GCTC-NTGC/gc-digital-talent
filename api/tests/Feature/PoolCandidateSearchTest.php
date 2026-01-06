@@ -10,6 +10,7 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\Facades\Notify;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
@@ -153,9 +154,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginatedAdminView (
-                    orderByBase: $orderByBase,
                     orderBy: [
                   { column: "status_weight", order: ASC }
                   { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
@@ -171,7 +171,6 @@ class PoolCandidateSearchTest extends TestCase
         // candidate one not present due to being DRAFT
         $this->actingAs($this->processOperator, 'api')
             ->graphQL($query, [
-                'orderByBase' => [],
                 'where' => [],
             ])
             ->assertJson([
@@ -194,7 +193,6 @@ class PoolCandidateSearchTest extends TestCase
             ->graphQL(
                 $query,
                 [
-                    'orderByBase' => [],
                     'where' => [
                         'applicantFilter' => [
                             'hasDiploma' => true,
@@ -250,9 +248,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginatedAdminView (
-                  orderByBase: $orderByBase,
                   where: $where
                   orderBy: [
                   { column: "status_weight", order: ASC }
@@ -269,7 +266,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
                 ],
@@ -288,7 +284,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'expiryStatus' => CandidateExpiryFilter::EXPIRED->name,
                 ],
@@ -307,7 +302,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'expiryStatus' => CandidateExpiryFilter::ALL->name,
                 ],
@@ -353,9 +347,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginatedAdminView (
-                  orderByBase: $orderByBase,
                   where: $where
                   orderBy: [
                   { column: "status_weight", order: ASC }
@@ -372,7 +365,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'suspendedStatus' => null, // default active for the scope
                 ],
@@ -391,7 +383,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
                 ],
@@ -410,7 +401,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'suspendedStatus' => CandidateSuspendedFilter::SUSPENDED->name,
                 ],
@@ -429,7 +419,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'suspendedStatus' => CandidateSuspendedFilter::ALL->name,
                 ],
@@ -466,9 +455,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginatedAdminView (
-                  orderByBase: $orderByBase,
                   where: $where
                   orderBy: [
                   { column: "status_weight", order: ASC }
@@ -485,7 +473,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'isGovEmployee' => null,
                 ],
@@ -504,7 +491,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'isGovEmployee' => true,
                 ],
@@ -564,9 +550,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginatedAdminView (
-                  orderByBase: $orderByBase,
                   where: $where
                   ) {
                     paginatorInfo {
@@ -580,7 +565,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'appliedClassifications' => null,
                 ],
@@ -599,7 +583,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'appliedClassifications' => [
                         [
@@ -623,7 +606,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'applicantFilter' => [
                         'qualifiedInClassifications' => [
@@ -660,9 +642,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-        query poolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
+        query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
             poolCandidatesPaginatedAdminView(
-                orderByBase: $orderByBase,
                 where: $where
             ) {
                 paginatorInfo {
@@ -675,7 +656,6 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
-                'orderByBase' => [],
                 'where' => [
                     'generalSearch' => 'test notes',
                 ],
@@ -694,8 +674,8 @@ class PoolCandidateSearchTest extends TestCase
     public function testScopeDepartmentsIn(): void
     {
         $query = <<<'GRAPHQL'
-        query PoolCandidates( $orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
                 data {
                     id
                 }
@@ -722,7 +702,6 @@ class PoolCandidateSearchTest extends TestCase
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
-                'orderByBase' => [],
                 'where' => [
                     'departments' => [$expectedCandidate->user->department->id],
                 ],
@@ -743,8 +722,8 @@ class PoolCandidateSearchTest extends TestCase
     public function testScopeAssessmentStepIn(): void
     {
         $query = <<<'GRAPHQL'
-        query PoolCandidates( $orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
                 data {
                     id
                 }
@@ -780,7 +759,6 @@ class PoolCandidateSearchTest extends TestCase
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
-                'orderByBase' => [],
                 'where' => [
                     'assessmentSteps' => [$expectedAssessmentStep->sort_order],
                 ],
@@ -801,8 +779,8 @@ class PoolCandidateSearchTest extends TestCase
     public function testScopeFinalDecisionIn(): void
     {
         $query = <<<'GRAPHQL'
-        query PoolCandidates($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
                 data {
                     id
                 }
@@ -836,7 +814,6 @@ class PoolCandidateSearchTest extends TestCase
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
-                'orderByBase' => [],
                 'where' => [
                     'finalDecisions' => [$expectedDecision],
                 ],
@@ -857,8 +834,8 @@ class PoolCandidateSearchTest extends TestCase
     public function testScopePlacementTypesIn(): void
     {
         $query = <<<'GRAPHQL'
-        query PoolCandidates($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
                 data {
                     id
                 }
@@ -894,7 +871,6 @@ class PoolCandidateSearchTest extends TestCase
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
-                'orderByBase' => [],
                 'where' => [
                     'placementTypes' => [$expectedPlacement],
                 ],
@@ -914,8 +890,8 @@ class PoolCandidateSearchTest extends TestCase
     public function testScopeRemovalReasonIn(): void
     {
         $query = <<<'GRAPHQL'
-        query PoolCandidates($orderByBase: PoolCandidatesBaseSort! $where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, where: $where) {
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
                 data {
                     id
                 }
@@ -945,7 +921,6 @@ class PoolCandidateSearchTest extends TestCase
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
-                'orderByBase' => [],
                 'where' => [
                     'removalReasons' => [CandidateRemovalReason::INELIGIBLE->name],
                 ],
@@ -960,5 +935,63 @@ class PoolCandidateSearchTest extends TestCase
                         ],
                     ],
                 ]]);
+    }
+
+    public function testScopeScreeningStageIn(): void
+    {
+        $query = <<<'GRAPHQL'
+        query PoolCandidates($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Create 10 unexpected candidates
+        $unexpected = PoolCandidate::factory(10)
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        foreach ($unexpected as $candidate) {
+            $candidate->screening_stage = Arr::random(Arr::where(
+                array_column(ScreeningStage::cases(), 'name'),
+                fn ($status) => $status !== ScreeningStage::UNDER_ASSESSMENT->name,
+            ));
+            $candidate->save();
+        }
+
+        $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        $expectedCandidate->screening_stage = ScreeningStage::UNDER_ASSESSMENT->name;
+        $expectedCandidate->save();
+
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'screeningStages' => [ScreeningStage::UNDER_ASSESSMENT->name],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    'poolCandidatesPaginatedAdminView' => [
+                        'data' => [
+                            ['id' => $expectedCandidate->id],
+                        ],
+                        'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                    ],
+                ]]);
+
     }
 }

@@ -2,29 +2,32 @@ import { useIntl } from "react-intl";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  PoolCandidateFilter,
-  ApplicantFilter,
   PoolCandidateSearchInput,
-  PoolCandidateStatus,
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
+  FinalDecision,
+  PlacementType,
 } from "@gc-digital-talent/graphql";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import adminMessages from "~/messages/adminMessages";
+import {
+  PartialApplicantFilter,
+  PartialPoolCandidateFilter,
+} from "~/types/searchRequest";
 
-type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
+type AbstractFilter = PartialPoolCandidateFilter | PartialApplicantFilter;
 
 function isPoolCandidateFilter(
   filter: AbstractFilter,
-): filter is PoolCandidateFilter {
+): filter is PartialPoolCandidateFilter {
   if (filter.__typename === "PoolCandidateFilter") return true;
 
   return false;
 }
 
 const transformApplicantFilterToPoolCandidateSearchInput = (
-  applicantFilter: ApplicantFilter,
+  applicantFilter: PartialApplicantFilter,
 ): PoolCandidateSearchInput => {
   return {
     applicantFilter: {
@@ -60,10 +63,11 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
         id,
       }),
     ),
-    poolCandidateStatus: [
-      PoolCandidateStatus.QualifiedAvailable,
-      PoolCandidateStatus.PlacedCasual,
-      PoolCandidateStatus.PlacedTentative,
+    finalDecisions: [FinalDecision.QualifiedPlaced, FinalDecision.Qualified],
+    placementTypes: [
+      PlacementType.NotPlaced,
+      PlacementType.PlacedTentative,
+      PlacementType.PlacedCasual,
     ],
   };
 };

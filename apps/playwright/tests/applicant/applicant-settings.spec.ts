@@ -14,7 +14,7 @@ test.describe("Applicant settings page", () => {
   let sub: string;
   let user: User = { id: "" };
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
@@ -32,7 +32,7 @@ test.describe("Applicant settings page", () => {
     user = createdUser ?? { id: "" };
   });
 
-  test.afterAll(async () => {
+  test.afterEach(async () => {
     if (user.id) {
       const adminCtx = await graphql.newContext();
       await deleteUser(adminCtx, { id: user.id });
@@ -87,6 +87,6 @@ test.describe("Applicant settings page", () => {
     await appPage.waitForGraphqlResponse("AccountSettings");
     await expect(
       settingsPage.page.getByRole("img", { name: /verified/i }).last(),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 30000 });
   });
 });

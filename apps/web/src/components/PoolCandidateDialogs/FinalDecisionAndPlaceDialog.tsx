@@ -4,7 +4,12 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Submit } from "@gc-digital-talent/forms";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  PlacementType,
+} from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
@@ -119,7 +124,10 @@ const FinalDecisionAndPlaceDialog = ({
     if (values.finalAssessmentDecision === "qualified") {
       // We're going to qualify them with an expiry date.  We may or may not place them.
 
-      if (values.placementType && values.placementType !== "NOT_PLACED") {
+      if (
+        values.placementType &&
+        values.placementType !== PlacementType.NotPlaced
+      ) {
         // We have a placement so we will both qualify and place.
         mutationPromise = executeQualifyAndPlaceMutation({
           id: poolCandidate.id,

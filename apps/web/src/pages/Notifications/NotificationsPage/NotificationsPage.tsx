@@ -112,4 +112,4 @@ export const Component = () => {
 
 Component.displayName = "NotificationsPage";
 
-export default NotificationsPage;
+export default Component;

@@ -49,7 +49,7 @@ test.describe("Footer", () => {
       await expect(
         page
           .getByRole("navigation", { name: /politique et rétroaction/i })
-          .getByRole("link", { name: /pour nous joindre/i }),
+          .getByRole("link", { name: /nous joindre/i }),
       ).toHaveAttribute("href", "/fr/support");
     });
     test("links to Terms and conditions (French)", async ({ page }) => {

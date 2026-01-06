@@ -80,7 +80,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
           <CTALink
             color="warning"
             icon={MagnifyingGlassIcon}
-            href={paths.browsePools()}
+            href={paths.jobs()}
           >
             {intl.formatMessage(navigationMessages.browseJobs)}
           </CTALink>

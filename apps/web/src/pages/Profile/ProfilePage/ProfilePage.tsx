@@ -203,4 +203,4 @@ export const Component = () => (
 
 Component.displayName = "ProfilePage";
 
-export default ProfilePage;
+export default Component;

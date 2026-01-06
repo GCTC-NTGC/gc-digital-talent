@@ -493,6 +493,7 @@ type Query {
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
+    orderByScreeningStage: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -503,10 +504,11 @@ type Query {
   ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
-    orderByBase: PoolCandidatesBaseSort!
+    orderByBase: PoolCandidatesBaseSort
     orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderByClaimVerification: ClaimVerificationSort
     orderByEmployeeDepartment: SortOrder
+    orderByScreeningStage: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1059,7 +1061,7 @@ type Activity {
   subjectId: UUID
   properties: ActivityProperties
   logName: String
-  event: String
+  event: ActivityEvent
   description: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -1116,7 +1118,16 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
-  activities: [Activity!]
+  applicantsCount: Int
+  activities(
+    orderBy: [OrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 50
+
+    "The offset from which items are returned."
+    page: Int
+  ): ActivityPaginator!
 }
 
 type GeneralQuestionResponse {
@@ -1779,6 +1790,7 @@ input PoolCandidateSearchInput {
   finalDecisions: [FinalDecision!]
   placementTypes: [PlacementType!]
   removalReasons: [CandidateRemovalReason!]
+  screeningStages: [ScreeningStage!]
 }
 
 input PoolCandidateSearchRequestInput {
@@ -2944,6 +2956,15 @@ type PaginatorInfo {
   total: Int!
 }
 
+"A paginated list of Activity items."
+type ActivityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Activity items."
+  data: [Activity!]!
+}
+
 "A paginated list of User items."
 type UserPaginator {
   "Pagination information about the list of items."
@@ -3411,6 +3432,19 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum ActivityEvent {
+  CREATED
+  UPDATED
+  DELETED
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  REMOVED
+  REINSTATED
+  REVERTED
+}
+
 enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
@@ -3552,6 +3586,10 @@ enum CandidateStatus {
   UNDER_ASSESSMENT
   UNSUCCESSFUL
   QUALIFIED
+  WITHDREW
+  NOT_RESPONSIVE
+  INELIGIBLE
+  REMOVED
 }
 
 enum CandidateSuspendedFilter {
@@ -3960,6 +3998,7 @@ enum OverallAssessmentStatus {
 }
 
 enum PlacementType {
+  NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
   PLACED_CASUAL

@@ -170,6 +170,14 @@ export const ENUM_SORT_ORDER = {
     FlexibleWorkLocation.Hybrid,
     FlexibleWorkLocation.Onsite,
   ],
+  PLACEMENT_TYPE: [
+    PlacementType.NotPlaced,
+    PlacementType.UnderConsideration,
+    PlacementType.PlacedTentative,
+    PlacementType.PlacedCasual,
+    PlacementType.PlacedTerm,
+    PlacementType.PlacedIndeterminate,
+  ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
     PriorityWeight.Veteran,
@@ -322,6 +330,7 @@ export function sortOpportunityLength(
 export function sortPlacementType(placementTypes?: MaybeLocalizedEnums) {
   return sortLocalizedEnums(
     [
+      PlacementType.NotPlaced,
       PlacementType.UnderConsideration,
       PlacementType.PlacedTentative,
       PlacementType.PlacedCasual,

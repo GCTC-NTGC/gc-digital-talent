@@ -21,8 +21,6 @@ final class ReinstateCandidate
             throw ValidationException::withMessages(['id' => $e->getMessage()]);
         }
 
-        $candidate->save();
-
         return $candidate;
     }
 }

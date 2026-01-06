@@ -1,18 +1,17 @@
 import { useIntl } from "react-intl";
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { useQuery } from "urql";
+import { useSearchParams } from "react-router";
 
+import { graphql, Scalars } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
-import { Container, Heading, NotFound, Pending } from "@gc-digital-talent/ui";
+  Container,
+  Heading,
+  Loading,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import ActivityLog from "~/components/Activity/ActivityLog";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -21,35 +20,100 @@ import {
   formatActivityDayGroup,
   groupByDay,
 } from "~/components/Activity/utils";
+import Pagination from "~/components/Pagination";
+import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
-const PoolActivity_Fragment = graphql(/** GraphQL */ `
-  fragment PoolActivity on Pool {
-    publishedAt
-    activities {
-      id
-      createdAt
-      ...ActivityItem
+function safeGetPageState(
+  key: string,
+  params: URLSearchParams,
+  defaultVal: number,
+) {
+  if (!params.has(key)) return defaultVal;
+
+  const param = params.get(key);
+  if (isNaN(Number(param))) return defaultVal;
+
+  return Number(param);
+}
+
+function getTotalPages(total: number, pageSize: number) {
+  return Math.ceil(total / pageSize);
+}
+
+interface RouteParams extends Record<string, string> {
+  poolId: Scalars["ID"]["output"];
+}
+
+const PoolActivityPage_Query = graphql(/* GraphQL */ `
+  query PoolActivityPage($id: UUID!, $page: Int, $first: Int!) {
+    pool(id: $id) {
+      publishedAt
+      activities(
+        first: $first
+        page: $page
+        orderBy: [{ column: "created_at", order: DESC }]
+      ) {
+        data {
+          id
+          createdAt
+          ...ActivityItem
+        }
+        paginatorInfo {
+          currentPage
+          perPage
+          total
+        }
+      }
     }
   }
 `);
 
-interface PoolActivityProps {
-  query: FragmentType<typeof PoolActivity_Fragment>;
-}
-
-const PoolActivity = ({ query }: PoolActivityProps) => {
+const PoolActivityPage = () => {
   const intl = useIntl();
-  const pool = getFragment(PoolActivity_Fragment, query);
-  const groups = groupByDay(
-    unpackMaybes(pool.activities).sort((a, b) => {
-      const aCreatedAt = a?.createdAt ? new Date(a.createdAt) : MAX_DATE;
-      const bCreatedAt = b?.createdAt ? new Date(b.createdAt) : MAX_DATE;
-      return bCreatedAt.getTime() - aCreatedAt.getTime();
-    }),
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageSize = safeGetPageState(
+    SEARCH_PARAM_KEY.PAGE_SIZE,
+    searchParams,
+    50,
   );
+  const currentPage = safeGetPageState(SEARCH_PARAM_KEY.PAGE, searchParams, 1);
+
+  const [{ data, fetching }] = useQuery({
+    query: PoolActivityPage_Query,
+    variables: { id: poolId, first: pageSize, page: currentPage },
+  });
+
+  if (fetching) return <Loading inline />;
+
+  if (!data?.pool) {
+    return <ThrowNotFound />;
+  }
+  const totalItems = data.pool.activities.paginatorInfo.total;
+
+  const totalPages = getTotalPages(totalItems, pageSize);
+
+  const groups = groupByDay(unpackMaybes(data?.pool?.activities.data));
+
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(SEARCH_PARAM_KEY.PAGE, String(page));
+    setSearchParams(params);
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(SEARCH_PARAM_KEY.PAGE_SIZE, String(size));
+    const newTotalPages = getTotalPages(totalItems, size);
+    if (currentPage > newTotalPages) {
+      params.set(SEARCH_PARAM_KEY.PAGE, String(newTotalPages));
+    }
+    setSearchParams(params);
+  };
 
   return (
-    <>
+    <Container className="my-18">
       <Heading
         level="h2"
         icon={RectangleStackIcon}
@@ -64,72 +128,43 @@ const PoolActivity = ({ query }: PoolActivityProps) => {
       </Heading>
 
       {groups.length > 0 ? (
-        <ActivityLog.Root>
-          {groups.map((group) => (
-            <ActivityLog.List
-              key={group.day}
-              heading={formatActivityDayGroup(group.day, intl)}
-            >
-              {group.activities.map((item, index) => (
-                <ActivityLog.PoolItem
-                  key={item.id}
-                  query={item}
-                  border={index > 0}
-                  publishedAt={pool.publishedAt}
-                />
-              ))}
-            </ActivityLog.List>
-          ))}
-        </ActivityLog.Root>
+        <>
+          <ActivityLog.Root className="mb-6">
+            {groups.map((group) => (
+              <ActivityLog.List
+                key={group.day}
+                heading={formatActivityDayGroup(group.day, intl)}
+              >
+                {group.activities.map((item, index) => (
+                  <ActivityLog.PoolItem
+                    key={item.id}
+                    query={item}
+                    border={index > 0}
+                    publishedAt={data?.pool?.publishedAt}
+                  />
+                ))}
+              </ActivityLog.List>
+            ))}
+          </ActivityLog.Root>
+          <Pagination
+            color="black"
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "Process activity page navigation",
+              id: "I7qIfR",
+              description: "Label for activity pagination",
+            })}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            totalPages={totalPages}
+            totalCount={totalItems}
+            onCurrentPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            pageSizes={[50, 100, 500]}
+          />
+        </>
       ) : (
         <ActivityLog.Empty />
       )}
-    </>
-  );
-};
-
-interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
-}
-
-const PoolActivityPage_Query = graphql(/* GraphQL */ `
-  query PoolActivityPage($id: UUID!) {
-    pool(id: $id) {
-      ...PoolActivity
-    }
-  }
-`);
-
-const PoolActivityPage = () => {
-  const intl = useIntl();
-  const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const [{ data, fetching, error }] = useQuery({
-    query: PoolActivityPage_Query,
-    variables: { id: poolId },
-  });
-
-  return (
-    <Container className="my-18">
-      <Pending fetching={fetching} error={error}>
-        {poolId && data?.pool ? (
-          <PoolActivity query={data.pool} />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Pool {poolId} not found.",
-                  id: "Sb2fEr",
-                  description: "Message displayed for pool not found.",
-                },
-                { poolId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
     </Container>
   );
 };
@@ -148,4 +183,4 @@ export const Component = () => (
 
 Component.displayName = "AdminPoolActivityPage";
 
-export default PoolActivityPage;
+export default Component;

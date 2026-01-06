@@ -11,6 +11,7 @@ use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
+use App\Enums\ScreeningStage;
 use App\Models\Skill;
 use App\Models\User;
 use Database\Helpers\TeamHelpers as HelpersTeamHelpers;
@@ -447,6 +448,14 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
+        // NOTE: Temporary fix until we properly decouple this from status
+        //      Replaces `NOT_PLACED` with the equivalent status of `QUALIFIED_AVAILABLE`
+        //      as opposed to any of the placed statuses
+        $key = array_search(PlacementType::NOT_PLACED->name, $placementTypes);
+        if ($key !== false) {
+            $placementTypes[$key] = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        }
+
         return $this->whereIn('pool_candidate_status', $placementTypes);
     }
 
@@ -566,20 +575,30 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
+    public function whereScreeningStageIn(?array $screeningStages): self
+    {
+        if (empty($screeningStages)) {
+            return $this;
+        }
+
+        return $this->whereIn('screening_stage', $screeningStages);
+    }
+
     /**
      * Group some default ordering to handle or acknowledge
      * Govern in one group, with a non-nullable input so this block can always be hit
      * The one place for flags and bookmarks, and anything else special with elevated importance
      */
-    public function orderByBase(array $args): self
+    public function orderByBase(?array $args): self
     {
+        if (empty($args)) {
+            return $this;
+        }
+
         /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if ($user &&
-            isset($args['useBookmark'])
-            && $args['useBookmark']
-        ) {
+        if ($user && ! empty($args['useBookmark'])) {
             $this->orderBy(
                 $user->selectRaw('1')
                     ->join('pool_candidate_user_bookmarks', 'pool_candidate_user_bookmarks.user_id', '=', 'users.id')
@@ -588,7 +607,7 @@ class PoolCandidateBuilder extends Builder
             );
         }
 
-        if (isset($args['useFlag']) && $args['useFlag']) {
+        if (! empty($args['useFlag'])) {
             $this->orderBy('is_flagged', 'DESC');
         }
 
@@ -673,6 +692,22 @@ class PoolCandidateBuilder extends Builder
             ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
             ->orderByRaw("departments.name->>'$locale' $order")
             ->orderBy('submitted_at', 'ASC');
+    }
+
+    public function orderByScreeningStage(?string $order): self
+    {
+        if (! $order || ! in_array($order, ['ASC', 'DESC'])) {
+            return $this;
+        }
+
+        $enumOrder = [
+            ScreeningStage::NEW_APPLICATION->name,
+            ScreeningStage::APPLICATION_REVIEW->name,
+            ScreeningStage::SCREENED_IN->name,
+            ScreeningStage::UNDER_ASSESSMENT->name,
+        ];
+
+        return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$order, $enumOrder);
     }
 
     /**

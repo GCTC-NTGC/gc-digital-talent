@@ -156,7 +156,7 @@
     "description": "Student selection for government employee type."
   },
   "2wKf2U": {
-    "defaultMessage": "Modifiez",
+    "defaultMessage": "Modifier",
     "description": "Text to trigger edit action"
   },
   "3I0zLF": {
@@ -972,7 +972,7 @@
     "description": "Error message that the assessment steps must belong to the same pool."
   },
   "XZl6Ks": {
-    "defaultMessage": "Modifiez cette section",
+    "defaultMessage": "Modifier cette section",
     "description": "Text to trigger edit of section action"
   },
   "XiECLl": {
@@ -1040,7 +1040,7 @@
     "description": "Option for education requirement, graduation with degree"
   },
   "atqjXB": {
-    "defaultMessage": "Annulez",
+    "defaultMessage": "Annuler",
     "description": "Stop the current action"
   },
   "ayG2k7": {
@@ -1168,7 +1168,7 @@
     "description": "Name of the fourth month"
   },
   "fMcKtJ": {
-    "defaultMessage": "Annulez et revenez en arrière",
+    "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
   },
   "fO0cRR": {
@@ -1592,7 +1592,7 @@
     "description": "Full name of abbreviation for GC"
   },
   "sQt/7l": {
-    "defaultMessage": "Pour nous joindre",
+    "defaultMessage": "Nous joindre",
     "description": "Name of contact us page"
   },
   "sVsZmT": {
