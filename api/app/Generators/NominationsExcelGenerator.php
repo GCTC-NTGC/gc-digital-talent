@@ -518,13 +518,13 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     {
         $options = [];
         if ($talentNominationGroup->advancement_nomination_count > 0) {
-            array_push($options, $this->localizeHeading('advancement'));
+            $options[] = $this->localizeHeading('advancement')." ({$talentNominationGroup->advancement_nomination_count})";
         }
         if ($talentNominationGroup->lateral_movement_nomination_count > 0) {
-            array_push($options, $this->localizeHeading('lateral_movement'));
+            $options[] = $this->localizeHeading('lateral_movement')." ({$talentNominationGroup->lateral_movement_nomination_count})";
         }
         if ($talentNominationGroup->development_programs_nomination_count > 0) {
-            array_push($options, $this->localizeHeading('development_programs'));
+            $options[] = $this->localizeHeading('development_programs')." ({$talentNominationGroup->development_programs_nomination_count})";
         }
 
         return implode(', ', $options);
