@@ -350,6 +350,7 @@ const PoolCandidateFilterDialog = ({
             name="assessmentSteps"
             isMulti
             label={intl.formatMessage(applicationMessages.assessmentStage)}
+            doNotSort
             options={assessmentSteps.map((step) => ({
               value: String(step.sortOrder ?? 0),
               label:
