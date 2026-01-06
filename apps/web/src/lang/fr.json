@@ -1595,6 +1595,10 @@
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
   },
+  "4LMyAD": {
+    "defaultMessage": "S'inscrire avec CléGC",
+    "description": "GCKey sign up link text on the sign up page"
+  },
   "4LN+P9": {
     "defaultMessage": "Niveau de classification visé",
     "description": "Label for a employee profile target classification level field"
@@ -5935,10 +5939,6 @@
     "defaultMessage": "Les compétences techniques essentielles ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the essential technical skills"
   },
-  "Nd1bIG": {
-    "defaultMessage": "Continuez vers CléGC et inscrivez-vous",
-    "description": "GCKey sign up link text on the sign up page"
-  },
   "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list"
@@ -6178,10 +6178,6 @@
   "OvL68O": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
-  },
-  "Ovlh3a": {
-    "defaultMessage": "Inscrivez-vous plutôt",
-    "description": "Sign in link text on the registration page."
   },
   "OvusdX": {
     "defaultMessage": "Confirmer une adresse courriel professionnelle",
