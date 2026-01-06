@@ -528,7 +528,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         if ($reference) {
             $details['name'] = $reference->getFullName();
             $details['email'] = $reference->work_email ?? $reference->email ?? '';
-            $details['classification'] = $reference->currentClassification?->formattedGroupAndLevel ?? '';
+            $details['classification'] = $reference->currentClassification->formattedGroupAndLevel ?? '';
             $details['department'] = $reference->department?->name[$this->lang] ?? '';
         }
 
