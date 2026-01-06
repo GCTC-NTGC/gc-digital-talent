@@ -68,9 +68,11 @@ server {
     location = /en/applicant/profile-and-applications/skills/showcase { return 301 /en/applicant/skills/showcase$is_args$args; }
     location = /fr/applicant/profile-and-applications/skills/showcase { return 301 /fr/applicant/skills/showcase$is_args$args; }
     location ~ ^/(en|fr)/users/(.+)(/|$) { return 301 /$1/applicant$is_args$args; }
+    location ~ ^/(en|fr)/browse/pools/(.+)/?$ {
+      rewrite ^/(en|fr)/browse/pools/(.+)/?$ /$1/jobs/$2 permanent;
+    }
     location = /en/browse/pools { return 301 /en/jobs$is_args$args; }
     location = /fr/browse/pools { return 301 /fr/jobs$is_args$args; }
-    location ~ ^/(en|fr)/browse/pools/(.+)(/|$) { return 301 /$1/jobs$is_args$args; }
     # permanent redirect for documents moved to static hosting
     location = "/documents/Arbre_decisionnel_PDF_FR.pdf" { return 301 "/static/documents/Arbre_decisionnel_PDF_FR.pdf$is_args$args"; }
     location = "/documents/Arbre_decisionnel_texte_FR.docx" { return 301 "/static/documents/Arbre_decisionnel_texte_FR.docx$is_args$args"; }
