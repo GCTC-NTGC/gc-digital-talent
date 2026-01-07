@@ -3912,6 +3912,7 @@ enum GovEmployeeType {
   CASUAL
   TERM
   INDETERMINATE
+  CONTRACTOR
 }
 
 enum GovPositionType {
