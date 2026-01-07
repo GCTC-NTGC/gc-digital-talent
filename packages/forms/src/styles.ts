@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 export const checkboxRadioStyles = tv({
   slots: {
     input:
-      "m-0 grid size-6 shrink-0 transform appearance-none place-content-center border border-gray-700 bg-white leading-6 text-current before:size-3 before:scale-0 before:bg-secondary checked:before:scale-100 focus-visible:bg-focus focus-visible:before:bg-black dark:border-gray-100 dark:bg-gray-700 dark:before:bg-secondary-200",
+      "m-0 grid size-6 shrink-0 transform appearance-none place-content-center border border-gray-700 bg-white leading-6 text-current before:size-3 before:scale-0 before:bg-secondary before:forced-color-adjust-none checked:before:scale-100 focus-visible:bg-focus focus-visible:before:bg-black dark:border-gray-100 dark:bg-gray-700 dark:before:bg-secondary-200",
   },
   variants: {
     shouldReduceMotion: {
