@@ -48,4 +48,7 @@ return [
     'nominations' => 'Nominations',
     'skill_requirements' => 'Skill requirements',
     'expired' => 'Expired',
+    'interested_in_program' => 'Interested in this program',
+    'currently_enrolled' => 'Currently enrolled',
+    'completed_in' => 'Completed in ',
 ];

@@ -10,6 +10,7 @@ use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
 use App\Enums\DepartmentSize;
+use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
@@ -38,6 +39,7 @@ use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\CommunityInterest;
+use App\Models\DevelopmentProgram;
 use App\Models\EducationExperience;
 use App\Models\ExperienceSkill;
 use App\Models\PersonalExperience;
@@ -194,7 +196,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'department_type',
     ];
 
-    protected array $communityInterestLocaleKeys = [
+    protected array $communityInterestLocaleKeys1 = [
         'id',
         'first_name',
         'last_name',
@@ -203,7 +205,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'training_interest',
         'work_streams',
         'additional_info',
-        // TODO: Add leadership and professional development options as their own columns
+    ];
+
+    protected array $communityInterestLocaleKeys2 = [
         'cfo_status',
         'additional_duties',
         'other_roles',
@@ -1008,27 +1012,51 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function generateCommunityInterestSheet(Worksheet $sheet): void
     {
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->communityInterestLocaleKeys);
-
-        $sheet->fromArray($localizedHeaders, null, 'A1');
-
         $userIds = $this->userIds;
 
         if (empty($userIds)) {
             return;
         }
 
+        $localizedHeadersPart1 = array_map(function ($key) {
+            return $this->localizeHeading($key);
+        }, $this->communityInterestLocaleKeys1);
+        $localizedHeadersPart2 = array_map(function ($key) {
+            return $this->localizeHeading($key);
+        }, $this->communityInterestLocaleKeys2);
+
+        $communityIds = CommunityInterest::whereIn('user_id', $userIds)
+            ->authorizedToView(['userId' => $this->authenticatedUserId])
+            ->isVerifiedGovEmployee()
+            ->get('community_id')
+            ->pluck('community_id')
+            ->unique();
+        $developmentPrograms = DevelopmentProgram::whereIn('community_id', $communityIds)
+            ->orderByDesc('community_id')
+            ->get();
+
+        $generatedHeaders = [];
+        $developmentProgramIds = [];
+        foreach ($developmentPrograms as $program) {
+            $generatedHeaders[] = $program->name[$this->lang];
+            $developmentProgramIds[] = $program->id;
+        }
+
+        $sheet->fromArray([
+            ...$localizedHeadersPart1,
+            ...$generatedHeaders,
+            ...$localizedHeadersPart2,
+        ], null, 'A1');
+
         $currentRow = 2;
 
         CommunityInterest::whereIn('user_id', $userIds)
             ->authorizedToView(['userId' => $this->authenticatedUserId])
             ->isVerifiedGovEmployee()
-            ->with(['user', 'community', 'workStreams'])
-            ->chunk(200, function ($interests) use ($sheet, &$currentRow) {
+            ->with(['user', 'community', 'workStreams', 'interestInDevelopmentPrograms'])
+            ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds) {
                 foreach ($interests as $interest) {
-                    $rowData = $this->buildCommunityInterestRow($interest);
+                    $rowData = $this->buildCommunityInterestRow($interest, $developmentProgramIds);
                     $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
                     $currentRow++;
                 }
@@ -1038,9 +1066,12 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Build community interest row
      */
-    private function buildCommunityInterestRow(CommunityInterest $interest): array
+    private function buildCommunityInterestRow(CommunityInterest $interest, array $developmentPrograms): array
     {
         $workStreams = $this->getWorkStreams($interest);
+        $developmentProgramInterests = array_map(function ($program) use ($interest) {
+            return $this->getDevelopmentProgramInterest($program, $interest);
+        }, $developmentPrograms);
 
         return [
             $interest->user->id, // user id
@@ -1051,12 +1082,37 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $interest->training_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // training interest
             $workStreams, // Work streams: workstreams linked to the community interest separated by commas
             $interest->additional_information, // additional information
-            // Generated leadership and development columns
+            ...$developmentProgramInterests, // Generated leadership and development columns
             $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '', // CFO status
             $this->localizeEnumArray($interest->finance_additional_duties ?? [], FinanceChiefDuty::class), // additional duties
             $this->localizeEnumArray($interest->finance_other_roles ?? [], FinanceChiefRole::class), // other roles
             $interest->finance_other_roles_other, // other SDO position
         ];
+    }
+
+    /**
+     * Get interest in a development program
+     */
+    private function getDevelopmentProgramInterest(string $programId, CommunityInterest $communityInterest)
+    {
+        $programInterest = $communityInterest->interestInDevelopmentPrograms->first(function ($interest) use ($programId) {
+            return $interest->development_program_id === $programId;
+        });
+
+        if (is_null($programInterest)) {
+            return null;
+        }
+
+        switch ($programInterest->participation_status) {
+            case DevelopmentProgramParticipationStatus::NOT_INTERESTED:
+                return $this->localize('common.not_interested');
+            case DevelopmentProgramParticipationStatus::INTERESTED:
+                return $this->localize('common.interested_in_program');
+            case DevelopmentProgramParticipationStatus::ENROLLED:
+                return $this->localize('common.currently_enrolled');
+            case DevelopmentProgramParticipationStatus::COMPLETED:
+                return $this->localize('common.completed_in').$programInterest->completion_date->format('F Y');
+        }
     }
 
     /**

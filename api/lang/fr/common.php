@@ -49,4 +49,7 @@ return [
     'nominations' => 'Nominations',
     'skill_requirements' => 'Exigences en matière de compétences',
     'expired' => 'Expiré',
+    'interested_in_program' => 'Ce programme m\'intéresse',
+    'currently_enrolled' => 'Programme en cours',
+    'completed_in' => 'Achevé en ',
 ];
