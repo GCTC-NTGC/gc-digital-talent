@@ -1720,7 +1720,7 @@
     "description": "Message displayed to users to sign in to the application"
   },
   "4nP41q": {
-    "defaultMessage": "Sauvegardez et ajouter cette compétence",
+    "defaultMessage": "Enregistrer et ajouter cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
   "4p0QdF": {
@@ -3204,7 +3204,7 @@
     "description": "Label for an employee profile career development preference field"
   },
   "B6SqfX": {
-    "defaultMessage": "Sauvegardez le changement d'état",
+    "defaultMessage": "Enregistrer le changement d'état",
     "description": "Button label displayed that saves the users status selection."
   },
   "B6VbYI": {
@@ -4032,7 +4032,7 @@
     "description": "Descriptive text about the list of pool candidates in the admin portal."
   },
   "Ey0mXe": {
-    "defaultMessage": "Sauvegardez l'ébauche",
+    "defaultMessage": "Enregistrer l'ébauche",
     "description": "Button text to save a draft"
   },
   "Ey8cB4": {
@@ -4992,7 +4992,7 @@
     "description": "Heading for the 'Additional information' section"
   },
   "JGC9Pp": {
-    "defaultMessage": "Sauvegardez et soumettez",
+    "defaultMessage": "Enregistrer et soumettez",
     "description": "Text for the submit button"
   },
   "JGRer4": {
@@ -6376,7 +6376,7 @@
     "description": "Number of job poster templates being displayed in the list"
   },
   "PkE/Ir": {
-    "defaultMessage": "Sauvegardez les objectifs et le style de travail",
+    "defaultMessage": "Enregistrer les objectifs et le style de travail",
     "description": "Text on a button to save goals and work style form"
   },
   "PmDeul": {
@@ -7336,7 +7336,7 @@
     "description": "Message displayed if employee hasn't filled out next role"
   },
   "U86N4g": {
-    "defaultMessage": "Pour l’instant, sauvegardez et quittez",
+    "defaultMessage": "Pour l’instant, enregistrer et quittez",
     "description": "Action button to save and exit an application"
   },
   "U8ZQ2g": {
@@ -9439,7 +9439,7 @@
     "description": "Description for the caf employment category option in work experience"
   },
   "dRJLsv": {
-    "defaultMessage": "Sauvegardez votre prochain type de poste",
+    "defaultMessage": "Enregistrer votre prochain type de poste",
     "description": "Text on a button to save your next role form"
   },
   "dT/c1r": {
@@ -11594,7 +11594,7 @@
     "description": "The award title is issued by some group, HTML"
   },
   "mKrj0x": {
-    "defaultMessage": "Sauvegardez et ajouter un membre",
+    "defaultMessage": "Enregistrer et ajouter un membre",
     "description": "Label for add member to a community form"
   },
   "mKzQwr": {
@@ -11958,7 +11958,7 @@
     "description": "Message displayed when candidate is on hold at a specific assessment step"
   },
   "ngHHmI": {
-    "defaultMessage": "Sauvegardez la décision finale",
+    "defaultMessage": "Enregistrer la décision finale",
     "description": "Button to click on to fill out a final decision form"
   },
   "ngYP95": {
@@ -12778,7 +12778,7 @@
     "description": "Error message when updating a users account information"
   },
   "rBtIUo": {
-    "defaultMessage": "Sauvegardez les préférences en matière de développement de carrière",
+    "defaultMessage": "Enregistrer les préférences en matière de développement de carrière",
     "description": "Text on a button to save career development preferences form"
   },
   "rCpVpZ": {
@@ -13582,7 +13582,7 @@
     "description": "Link text for the account settings page"
   },
   "v+AFQT": {
-    "defaultMessage": "Sauvegardez votre objectif de carrière",
+    "defaultMessage": "Enregistrer votre objectif de carrière",
     "description": "Text on a button to your career objective form"
   },
   "v0EVPQ": {
