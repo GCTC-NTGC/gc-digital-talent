@@ -636,7 +636,7 @@
     "description": "Question about job advertisement templates"
   },
   "0PeEzR": {
-    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
+    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
   },
   "0Q89Cz": {
@@ -1008,7 +1008,7 @@
     "description": "Paragraph two, answer about job advertisement templates"
   },
   "1xI8uo": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
   },
   "1yMApi": {
@@ -1720,7 +1720,7 @@
     "description": "Message displayed to users to sign in to the application"
   },
   "4nP41q": {
-    "defaultMessage": "Sauvegardez et ajoutez cette compétence",
+    "defaultMessage": "Sauvegardez et ajouter cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
   "4p0QdF": {
@@ -2904,7 +2904,7 @@
     "description": "Title for a column that displays the number of assessments planned for a skill."
   },
   "9ufudR": {
-    "defaultMessage": "Ajoutez un rôle individuel",
+    "defaultMessage": "Ajouter un rôle individuel",
     "description": "Label for the button to add a role to a user"
   },
   "9vQj8o": {
@@ -3032,7 +3032,7 @@
     "description": "Label for user expressing interest in a specific work stream"
   },
   "ARFz8L": {
-    "defaultMessage": "Ajoutez une nouvelle expérience",
+    "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
   "ARdTh3": {
@@ -3270,6 +3270,14 @@
   "BSfL03": {
     "defaultMessage": "Sélectionnez la langue de travail du poste à pourvoir. Celle-ci sera comparée à celle indiquée par les personnes candidates dans leur demande. Les personnes candidates ayant sélectionné « bilingue » pourraient ne pas avoir obtenu des résultats à l’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
+  },
+  "BTY2jZ": {
+    "defaultMessage": "Vous avez été écarté de ce processus de recrutement parce vous n'avez pas répondu dans le délai imparti lorsque vous avez été contacté. Vous avez maintenant dépassé le délai imparti pour poursuivre le processus. Si vous n’aviez pas l’intention de vous retirer de ce processus, nous vous encourageons à vérifier vos coordonnées afin de vous assurer qu’elles sont à jour pour de futurs processus de candidature.",
+    "description": "Status description for an application that was removed from a pool due to unresponsiveness from the applicant"
+  },
+  "BUz+Ml": {
+    "defaultMessage": "Vous avez indiqué ne pas souhaiter poursuivre ce processus. Cette candidature ne sera pas évaluée comme répondant aux exigences du processus, et aucune autre communication ne sera transmise. S’il s’agit d’une erreur, vous disposez d’une semaine pour contacter notre équipe d’assistance à compter de l’attribution de ce statut.",
+    "description": "Status description for an application that was withdrawn from a pool"
   },
   "BVlGhZ": {
     "defaultMessage": "Avancement<hidden> nomination non retenue</hidden>",
@@ -3784,7 +3792,7 @@
     "description": "A _what to expect_ point on the sign up page"
   },
   "DrR/rp": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
     "description": "Instructions for adding a member to a community."
   },
   "DsUtfO": {
@@ -4352,7 +4360,7 @@
     "description": "Subtitle for form to update a candidates screening stage"
   },
   "GMbOaT": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter une compétence » pour commencer.",
     "description": "Null message description for asset skills table."
   },
   "GMglI5": {
@@ -4968,7 +4976,7 @@
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "JCZlxS": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans le processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
   },
   "JEKihk": {
@@ -5732,7 +5740,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajoutez un membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -5800,7 +5808,7 @@
     "description": "Label for language for bilingual field"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans la collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mz7sON": {
@@ -6484,7 +6492,7 @@
     "description": "Text describing accessibility commissioner"
   },
   "QCesvO": {
-    "defaultMessage": "Ajouter un rôle individue",
+    "defaultMessage": "Ajouter un rôle individuel",
     "description": "Header for the form to add a role to a user"
   },
   "QDDnVO": {
@@ -6836,7 +6844,7 @@
     "description": "Label for the table pagination"
   },
   "RSUgO3": {
-    "defaultMessage": "Ajoutez une compétence",
+    "defaultMessage": "Ajouter une compétence",
     "description": "Button text to open the skill dialog and add a skill"
   },
   "RW0Ukc": {
@@ -7196,7 +7204,7 @@
     "description": "Comments or contributions list item"
   },
   "TSYfZE": {
-    "defaultMessage": "Ajoutez un rôle dans le processus",
+    "defaultMessage": "Ajouter un rôle dans le processus",
     "description": "Button label for the form to add a process membership to a user"
   },
   "TU9sk7": {
@@ -7619,7 +7627,7 @@
     "description": "Message displayed to admins when a process is in draft mode"
   },
   "VaToft": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter une compétence » pour commencer.",
     "description": "Null message description for essential skills table."
   },
   "VaVo2t": {
@@ -8943,7 +8951,7 @@
     "description": "Header for the form to add a process membership to a user"
   },
   "bOAF9o": {
-    "defaultMessage": "Ajoutez une nouvelle expérience",
+    "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "Title for adding a new experience"
   },
   "bPN0EF": {
@@ -9447,7 +9455,7 @@
     "description": "Text for education accepted information context in screening decision dialog"
   },
   "dXRajZ": {
-    "defaultMessage": "Ajoutez des volets de travail",
+    "defaultMessage": "Ajouter des volets de travail",
     "description": "Button label for Add work streams"
   },
   "dY3Qr4": {
@@ -9527,7 +9535,7 @@
     "description": "GCKey question and answer for more support"
   },
   "dnKWUf": {
-    "defaultMessage": "Ajoutez des compétences à cette liste.",
+    "defaultMessage": "Ajouter des compétences à cette liste.",
     "description": "Text displayed when no skills have been added to a ranking"
   },
   "dotl8X": {
@@ -10011,7 +10019,7 @@
     "description": "Contact email title paragraph"
   },
   "fdSRLv": {
-    "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajoutez des volets de travail ».",
+    "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajouter des volets de travail ».",
     "description": "Subtitle when no work streams have been attached to experience"
   },
   "ffSxnV": {
@@ -10219,7 +10227,7 @@
     "description": "Detailed message saying the page to view is not authorized."
   },
   "gL8LDB": {
-    "defaultMessage": "Ajoutez les volets de travail",
+    "defaultMessage": "Ajouter les volets de travail",
     "description": "Link text to update work streams for an experience"
   },
   "gLNQYB": {
@@ -10231,7 +10239,7 @@
     "description": "Commercial reproduction list in ownership and usage section"
   },
   "gNxa7i": {
-    "defaultMessage": "5. <link>Ajoutez votre collectivité fonctionnelle dans votre profil</link>.",
+    "defaultMessage": "5. <link>Ajouter votre collectivité fonctionnelle dans votre profil</link>.",
     "description": "Text for workforce adjustment -> adding communities step."
   },
   "gOy6PW": {
@@ -11138,7 +11146,7 @@
     "description": "Title for basic profile information section"
   },
   "kBEib8": {
-    "defaultMessage": "Ajoutez une collectivité",
+    "defaultMessage": "Ajouter une collectivité",
     "description": "Link to a page to add a functional community"
   },
   "kCsQFc": {
@@ -11430,7 +11438,7 @@
     "description": "Non commercial reproduction list item"
   },
   "ldgukM": {
-    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajoutez une collectivité ».",
+    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajouter une collectivité ».",
     "description": "Body for notice when there are no functional communities a user is a part of"
   },
   "lgF8zK": {
@@ -11586,7 +11594,7 @@
     "description": "The award title is issued by some group, HTML"
   },
   "mKrj0x": {
-    "defaultMessage": "Sauvegardez et ajoutez un membre",
+    "defaultMessage": "Sauvegardez et ajouter un membre",
     "description": "Label for add member to a community form"
   },
   "mKzQwr": {
@@ -13706,7 +13714,7 @@
     "description": "Filter by option on instructor training page."
   },
   "vY031f": {
-    "defaultMessage": "Ajoutez une compétence ({numOfSkills}/{maxSkills})",
+    "defaultMessage": "Ajouter une compétence ({numOfSkills}/{maxSkills})",
     "description": "Label for skill dialog trigger on skills showcase section."
   },
   "vYi5/y": {
@@ -13993,6 +14001,10 @@
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
   },
+  "wjyoQN": {
+    "defaultMessage": "Cette procédure est réservée aux candidates et candidats qui répondent à certains critères. Par exemple, ce processus peut être restreint aux fonctionnaires, à certains ministères ou aux personnes occupant un emploi de la fonction publique d’une classification ou d’un niveau particulier. Sur la base de votre profil et de votre candidature, vous ne remplissez pas les conditions requises pour participer à ce processus. Votre candidature ne sera pas prise en compte.",
+    "description": "Status description for an application that was removed from a pool due to due the applicant being ineligible"
+  },
   "wlfZcP": {
     "defaultMessage": "Pour en savoir plus sur les nouveaux services qui peuvent vous aider.",
     "description": "Link text to the workforce adjustment information page"
@@ -14004,6 +14016,10 @@
   "wmSeI8": {
     "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
     "description": "Contact email card description on account settings page"
+  },
+  "wqcWdN": {
+    "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
+    "description": "Status description for an application that was removed from a pool"
   },
   "wqzCx3": {
     "defaultMessage": "Mise à l'essai d'une nouvelle recherche dans le tableau",
@@ -14222,7 +14238,7 @@
     "description": "Header for the form to remove a community role from a user"
   },
   "xkJAuq": {
-    "defaultMessage": "Ajoutez cette compétence",
+    "defaultMessage": "Ajouter cette compétence",
     "description": "Button text to select a specific skill in the skill dialog"
   },
   "xle+7f": {
@@ -14538,7 +14554,7 @@
     "description": "Status description for a reviewed application awaiting assessment"
   },
   "yzvT6g": {
-    "defaultMessage": "Ajoutez un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans la collectivité",
     "description": "Button label for the form to add a community membership to a user"
   },
   "z+Pc2D": {

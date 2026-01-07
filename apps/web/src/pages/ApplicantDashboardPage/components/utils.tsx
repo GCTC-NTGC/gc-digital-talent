@@ -92,6 +92,10 @@ const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
     applicationStatusDescriptions.UNDER_ASSESSMENT,
   ],
   [CandidateStatus.Qualified, applicationStatusDescriptions.UNDER_ASSESSMENT],
+  [CandidateStatus.Withdrew, applicationStatusDescriptions.WITHDREW],
+  [CandidateStatus.NotResponsive, applicationStatusDescriptions.NOT_RESPONSIVE],
+  [CandidateStatus.Ineligible, applicationStatusDescriptions.INELIGIBLE],
+  [CandidateStatus.Removed, applicationStatusDescriptions.REMOVED],
 ]);
 
 export const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
@@ -118,7 +122,6 @@ export const candidateStatusDesc = ({
   intl,
 }: CandidateStatusDescArgs): ReactNode | null => {
   if (!status) return null;
-
   // Special handling for unsuccessful applications
   if (status === CandidateStatus.Unsuccessful) {
     return employeesOnly

@@ -94,7 +94,7 @@ export const Component = () => {
     crumbs: [
       {
         label: title,
-        url: paths.browsePools(),
+        url: paths.jobs(),
       },
     ],
   });

@@ -24,6 +24,10 @@ const SUBMITTED_STATUSES = [
 const ASSESSED_STATUSES = [
   CandidateStatus.Qualified,
   CandidateStatus.Unsuccessful,
+  CandidateStatus.Withdrew,
+  CandidateStatus.Ineligible,
+  CandidateStatus.NotResponsive,
+  CandidateStatus.Removed,
 ];
 
 interface ApplicationDateProps {

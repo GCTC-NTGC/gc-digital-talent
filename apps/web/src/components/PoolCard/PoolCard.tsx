@@ -329,7 +329,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
         </div>
         <div className="mt-7.5">
           {pool.id && (
-            <Link color="primary" mode="solid" href={paths.pool(pool.id)}>
+            <Link color="primary" mode="solid" href={paths.jobPoster(pool.id)}>
               <span>
                 {intl.formatMessage(
                   {
