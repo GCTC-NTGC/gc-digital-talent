@@ -8,8 +8,8 @@ use App\Enums\CafRank;
 use App\Enums\EmploymentCategory;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\CommunityInterest;
@@ -83,7 +83,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
                 'userId' => $this->user->id,
                 'workExperience' => [
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'govEmploymentType' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    'govEmploymentType' => GovEmployeeType::INDETERMINATE->name,
                     'govPositionType' => GovPositionType::ACTING->name,
                     'classificationId' => $this->classification->id,
                     'department' => ['connect' => $this->department->id],
@@ -116,7 +116,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         WorkExperience::factory()->create([
             'user_id' => $this->user->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-            'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::ACTING->name,
             'classification_id' => $this->classification->id,
             'department_id' => $this->department->id,
@@ -128,7 +128,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         WorkExperience::factory()->create([
             'user_id' => $this->user->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-            'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
+            'gov_employment_type' => GovEmployeeType::TERM->name,
             'classification_id' => $this->classification->id,
             'department_id' => $this->department->id,
             'start_date' => config('constants.past_date'),
@@ -192,7 +192,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         WorkExperience::factory()->create([
             'user_id' => $this->user->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-            'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::ACTING->name,
             'classification_id' => $this->classification->id,
             'department_id' => $this->department->id,
@@ -221,7 +221,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         WorkExperience::factory()->create([
             'user_id' => $userVerifiedEmail->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-            'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::ACTING->name,
             'classification_id' => $this->classification->id,
             'department_id' => $this->department->id,
@@ -233,7 +233,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         WorkExperience::factory()->create([
             'user_id' => $userVerifiedEmail->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-            'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
+            'gov_employment_type' => GovEmployeeType::TERM->name,
             'classification_id' => $this->classification->id,
             'department_id' => $this->department->id,
             'start_date' => config('constants.past_date'),

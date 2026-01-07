@@ -393,11 +393,6 @@ type LocalizedWfaInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedWorkExperienceGovEmployeeType implements LocalizedEnumOption {
-  value: WorkExperienceGovEmployeeType!
-  label: LocalizedString!
-}
-
 type LocalizedWorkRegion implements LocalizedEnumOption {
   value: WorkRegion!
   label: LocalizedString!
@@ -1556,7 +1551,7 @@ type WorkExperience implements Experience {
   employmentCategory: LocalizedEmploymentCategory
   extSizeOfOrganization: LocalizedExternalSizeOfOrganization
   extRoleSeniority: LocalizedExternalRoleSeniority
-  govEmploymentType: LocalizedWorkExperienceGovEmployeeType
+  govEmploymentType: LocalizedGovEmployeeType
   govPositionType: LocalizedGovPositionType
   govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
   govContractorType: LocalizedGovContractorType
@@ -2526,7 +2521,7 @@ input WorkExperienceInput {
   employmentCategory: EmploymentCategory
   extSizeOfOrganization: ExternalSizeOfOrganization
   extRoleSeniority: ExternalRoleSeniority
-  govEmploymentType: WorkExperienceGovEmployeeType
+  govEmploymentType: GovEmployeeType
   govPositionType: GovPositionType
   govContractorRoleSeniority: GovContractorRoleSeniority
   govContractorType: GovContractorType
@@ -4241,14 +4236,6 @@ enum WfaInterest {
 enum WhenSkillUsed {
   CURRENT
   PAST
-}
-
-enum WorkExperienceGovEmployeeType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-  CONTRACTOR
 }
 
 enum WorkRegion {

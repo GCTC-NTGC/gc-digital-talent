@@ -17,9 +17,9 @@ import {
   EducationType,
   EducationStatus,
   EmploymentCategory,
-  WorkExperienceGovEmployeeType,
   GovContractorType,
   CSuiteRoleTitle,
+  GovEmployeeType,
 } from "@gc-digital-talent/graphql";
 
 import fakeDepartments from "./fakeDepartments";
@@ -181,9 +181,7 @@ const generateWork = (): GeneratedWorkExperience => {
     },
     department: fakeDepartments()[5],
     employmentCategory: toLocalizedEnum(EmploymentCategory.GovernmentOfCanada),
-    govEmploymentType: toLocalizedEnum(
-      WorkExperienceGovEmployeeType.Contractor,
-    ),
+    govEmploymentType: toLocalizedEnum(GovEmployeeType.Contractor),
     govContractorType: toLocalizedEnum(GovContractorType.SelfEmployed),
     contractorFirmAgencyName: faker.company.name(),
     supervisoryPosition: true,

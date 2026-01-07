@@ -6,12 +6,12 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\EmploymentCategory;
 use App\Enums\ErrorCode;
 use App\Enums\FlexibleWorkLocation;
+use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
@@ -2242,7 +2242,7 @@ class UserTest extends TestCase
             ->create([
                 'user_id' => $user->id,
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+                'gov_employment_type' => GovEmployeeType::CASUAL->name,
             ]);
 
         $exp1 = WorkExperience::factory()
@@ -2275,7 +2275,7 @@ class UserTest extends TestCase
             ->create([
                 'user_id' => $user->id,
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+                'gov_employment_type' => GovEmployeeType::CASUAL->name,
             ]);
 
         $this->actingAs($user, 'api')

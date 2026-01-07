@@ -1153,7 +1153,7 @@ type WorkExperience implements Experience {
     @rename(attribute: "ext_size_of_organization")
   extRoleSeniority: LocalizedExternalRoleSeniority
     @rename(attribute: "ext_role_seniority")
-  govEmploymentType: LocalizedWorkExperienceGovEmployeeType
+  govEmploymentType: LocalizedGovEmployeeType
     @rename(attribute: "gov_employment_type")
   govPositionType: LocalizedGovPositionType
     @rename(attribute: "gov_position_type")
@@ -2658,8 +2658,7 @@ input WorkExperienceInput {
     @rename(attribute: "ext_size_of_organization")
   extRoleSeniority: ExternalRoleSeniority
     @rename(attribute: "ext_role_seniority")
-  govEmploymentType: WorkExperienceGovEmployeeType
-    @rename(attribute: "gov_employment_type")
+  govEmploymentType: GovEmployeeType @rename(attribute: "gov_employment_type")
   govPositionType: GovPositionType @rename(attribute: "gov_position_type")
   govContractorRoleSeniority: GovContractorRoleSeniority
     @rename(attribute: "gov_contractor_role_seniority")

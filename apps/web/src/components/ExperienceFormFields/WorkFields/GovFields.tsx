@@ -23,10 +23,10 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   CSuiteRoleTitle,
   GovContractorType,
+  GovEmployeeType,
   GovFieldOptionsQuery,
   GovPositionType,
   graphql,
-  WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 import { nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -52,9 +52,7 @@ const GovFieldOptions_Query = graphql(/* GraphQL */ `
       group
       level
     }
-    govEmploymentTypes: localizedEnumStrings(
-      enumName: "WorkExperienceGovEmployeeType"
-    ) {
+    govEmploymentTypes: localizedEnumStrings(enumName: "GovEmployeeType") {
       value
       label {
         en
@@ -192,7 +190,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   }, [resetField, watchGroupSelection]);
 
   const isIndeterminate =
-    watchGovEmploymentType === WorkExperienceGovEmployeeType.Indeterminate;
+    watchGovEmploymentType === GovEmployeeType.Indeterminate;
   const indeterminateActing =
     isIndeterminate && watchGovPositionType === GovPositionType.Acting;
   const indeterminateAssignment =
@@ -202,9 +200,9 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
 
   const expectedEndDate =
     watchCurrentRole &&
-    (watchGovEmploymentType === WorkExperienceGovEmployeeType.Student ||
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Casual ||
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Term ||
+    (watchGovEmploymentType === GovEmployeeType.Student ||
+      watchGovEmploymentType === GovEmployeeType.Casual ||
+      watchGovEmploymentType === GovEmployeeType.Term ||
       indeterminateActing ||
       indeterminateAssignment ||
       indeterminateSecondment);
@@ -219,27 +217,25 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     };
 
     if (
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Student ||
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Contractor
+      watchGovEmploymentType === GovEmployeeType.Student ||
+      watchGovEmploymentType === GovEmployeeType.Contractor
     ) {
       resetDirtyField("classificationGroup");
       resetDirtyField("classificationLevel");
     }
 
-    if (
-      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
-    ) {
+    if (watchGovEmploymentType !== GovEmployeeType.Indeterminate) {
       resetDirtyField("govPositionType");
     }
 
-    if (watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor) {
+    if (watchGovEmploymentType !== GovEmployeeType.Contractor) {
       resetDirtyField("govContractorRoleSeniority");
       resetDirtyField("govContractorType");
     }
 
     if (
       watchGovContractorType === GovContractorType.SelfEmployed ||
-      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor
+      watchGovEmploymentType !== GovEmployeeType.Contractor
     ) {
       resetDirtyField("contractorFirmAgencyName");
     }
@@ -329,8 +325,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          {watchGovEmploymentType ===
-            WorkExperienceGovEmployeeType.Indeterminate && (
+          {watchGovEmploymentType === GovEmployeeType.Indeterminate && (
             <div className="col-span-2">
               <RadioGroup
                 idPrefix="govPositionType"
@@ -341,8 +336,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               />
             </div>
           )}
-          {watchGovEmploymentType ===
-            WorkExperienceGovEmployeeType.Contractor && (
+          {watchGovEmploymentType === GovEmployeeType.Contractor && (
             <>
               <div className="col-span-2">
                 <RadioGroup
@@ -382,10 +376,9 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               />
             </div>
           )}
-          {(watchGovEmploymentType === WorkExperienceGovEmployeeType.Casual ||
-            watchGovEmploymentType ===
-              WorkExperienceGovEmployeeType.Indeterminate ||
-            watchGovEmploymentType === WorkExperienceGovEmployeeType.Term) && (
+          {(watchGovEmploymentType === GovEmployeeType.Casual ||
+            watchGovEmploymentType === GovEmployeeType.Indeterminate ||
+            watchGovEmploymentType === GovEmployeeType.Term) && (
             <>
               <div>
                 <Select

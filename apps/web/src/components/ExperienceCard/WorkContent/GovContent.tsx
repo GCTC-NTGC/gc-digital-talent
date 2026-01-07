@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   GovContractorType,
+  GovEmployeeType,
   WorkExperience,
-  WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { Separator, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
@@ -28,7 +28,7 @@ const GovContent = ({
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 
-  if (govEmploymentType?.value === WorkExperienceGovEmployeeType.Student) {
+  if (govEmploymentType?.value === GovEmployeeType.Student) {
     return (
       <>
         <ContentSection
@@ -48,9 +48,7 @@ const GovContent = ({
         </ContentSection>
       </>
     );
-  } else if (
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Casual
-  ) {
+  } else if (govEmploymentType?.value === GovEmployeeType.Casual) {
     return (
       <>
         <ContentSection
@@ -87,9 +85,7 @@ const GovContent = ({
         </div>
       </>
     );
-  } else if (
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate
-  ) {
+  } else if (govEmploymentType?.value === GovEmployeeType.Indeterminate) {
     return (
       <>
         <ContentSection
@@ -133,7 +129,7 @@ const GovContent = ({
         </div>
       </>
     );
-  } else if (govEmploymentType?.value === WorkExperienceGovEmployeeType.Term) {
+  } else if (govEmploymentType?.value === GovEmployeeType.Term) {
     return (
       <>
         <ContentSection
@@ -170,9 +166,7 @@ const GovContent = ({
         </div>
       </>
     );
-  } else if (
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Contractor
-  ) {
+  } else if (govEmploymentType?.value === GovEmployeeType.Contractor) {
     return (
       <>
         <ContentSection

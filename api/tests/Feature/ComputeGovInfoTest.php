@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enums\EmploymentCategory;
+use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\WorkExperience;
@@ -65,13 +65,13 @@ class ComputeGovInfoTest extends TestCase
 
         $expectedExperience = WorkExperience::factory()->create([
             ...$sharedState,
-            'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
+            'gov_employment_type' => GovEmployeeType::TERM->name,
             'gov_position_type' => GovPositionType::ACTING->name,
         ]);
 
         WorkExperience::factory()->create([
             ...$sharedState,
-            'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
         ]);
 
@@ -138,45 +138,45 @@ class ComputeGovInfoTest extends TestCase
             'student government' => [
                 [
                     'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'gov_employment_type' => WorkExperienceGovEmployeeType::STUDENT->name,
+                    'gov_employment_type' => GovEmployeeType::STUDENT->name,
                 ],
                 $nullState,
             ],
             'casual government' => [
                 [
                     'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+                    'gov_employment_type' => GovEmployeeType::CASUAL->name,
                 ],
                 $nullState,
             ],
             'conrtractor government' => [
                 [
                     'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'gov_employment_type' => WorkExperienceGovEmployeeType::CONTRACTOR->name,
+                    'gov_employment_type' => GovEmployeeType::CONTRACTOR->name,
                 ],
                 $nullState,
             ],
             'term government' => [
                 [
                     'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
+                    'gov_employment_type' => GovEmployeeType::TERM->name,
                     'gov_position_type' => GovPositionType::ACTING->name,
                 ],
                 [
                     'computed_is_gov_employee' => true,
-                    'computed_gov_employee_type' => WorkExperienceGovEmployeeType::TERM->name,
+                    'computed_gov_employee_type' => GovEmployeeType::TERM->name,
                     'computed_gov_position_type' => GovPositionType::ACTING->name,
                 ],
             ],
             'indeterminate government' => [
                 [
                     'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
                     'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
                 ],
                 [
                     'computed_is_gov_employee' => true,
-                    'computed_gov_employee_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    'computed_gov_employee_type' => GovEmployeeType::INDETERMINATE->name,
                     'computed_gov_position_type' => GovPositionType::SUBSTANTIVE->name,
                 ],
             ],
