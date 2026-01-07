@@ -116,7 +116,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         WorkExperience::factory()->create([
             'user_id' => $this->user->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-            'gov_employment_type' => GovEmploymentType::INDETERMINATE->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::ACTING->name,
             'classification_id' => $this->classification->id,
             'department_id' => $this->department->id,
