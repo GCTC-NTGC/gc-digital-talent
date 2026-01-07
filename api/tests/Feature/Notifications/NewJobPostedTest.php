@@ -118,7 +118,7 @@ class NewJobPostedTest extends TestCase
         assertEquals([
             'applicant name' => 'firstname',
             'opportunity title' => 'poolNameEn',
-            'job advertisement link' => config('app.url').'/en/browse/pools/1',
+            'job advertisement link' => config('app.url').'/en/jobs/1',
         ],
             $message->messageVariables);
     }
@@ -140,7 +140,7 @@ class NewJobPostedTest extends TestCase
         assertEquals([
             'applicant name' => 'firstname',
             'opportunity title' => 'poolNameFr',
-            'job advertisement link' => config('app.url').'/fr/browse/pools/1',
+            'job advertisement link' => config('app.url').'/fr/jobs/1',
         ],
             $message->messageVariables);
     }

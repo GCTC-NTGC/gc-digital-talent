@@ -83,8 +83,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Create skill",
     "fr": [
-      "Créez une compétence",
-      "Créez la compétence"
+      "Créer une compétence",
+      "Créer la compétence"
     ]
   },
   {
@@ -106,13 +106,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "la cybersécurité;",
       "cybersécurité"
-    ]
-  },
-  {
-    "en": "Add individual role",
-    "fr": [
-      "Ajoutez un rôle individuel",
-      "Ajouter un rôle individue"
     ]
   },
   {
@@ -179,13 +172,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add member",
-    "fr": [
-      "Ajouter un membre",
-      "Ajoutez un membre"
-    ]
-  },
-  {
     "en": "Apply now",
     "fr": [
       "Postulez dès maintenant",
@@ -209,15 +195,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Create training opportunity",
     "fr": [
-      "Créez une possibilité de formation",
-      "Créez la possibilité de formation"
-    ]
-  },
-  {
-    "en": "Create community",
-    "fr": [
-      "Créez une collectivité",
-      "Créer une collectivité"
+      "Créer une possibilité de formation",
+      "Créer la possibilité de formation"
     ]
   },
   {
@@ -230,14 +209,14 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Create work stream",
     "fr": [
-      "Créez un volet de travail",
-      "Créez le volet de travail"
+      "Créer un volet de travail",
+      "Créer le volet de travail"
     ]
   },
   {
     "en": "Add process role",
     "fr": [
-      "Ajoutez un rôle dans le processus",
+      "Ajouter un rôle dans le processus",
       "Ajouter des rôles dans des processus"
     ]
   },
@@ -251,8 +230,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Create department",
     "fr": [
-      "Créez un ministère",
-      "Créez le ministère"
+      "Créer un ministère",
+      "Créer le ministère"
     ]
   },
   {
@@ -260,13 +239,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Restaurez le ministère",
       "Restauration du ministère"
-    ]
-  },
-  {
-    "en": "Add community role",
-    "fr": [
-      "Ajouter un rôle dans la collectivité",
-      "Ajoutez un rôle dans la collectivité"
     ]
   },
   {
@@ -286,8 +258,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Add work streams",
     "fr": [
-      "Ajoutez des volets de travail",
-      "Ajoutez les volets de travail"
+      "Ajouter des volets de travail",
+      "Ajouter les volets de travail"
     ]
   },
   {
@@ -298,24 +270,10 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add a community",
-    "fr": [
-      "Ajoutez une collectivité",
-      "Ajouter une collectivité"
-    ]
-  },
-  {
     "en": "Create skill family",
     "fr": [
-      "Créez un groupe de compétences",
-      "Créez le groupe de compétences"
-    ]
-  },
-  {
-    "en": "Create process",
-    "fr": [
-      "Créer un processus",
-      "Créez un processus"
+      "Créer un groupe de compétences",
+      "Créer le groupe de compétences"
     ]
   },
   {

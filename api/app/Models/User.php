@@ -7,11 +7,11 @@ use App\Casts\LanguageCode;
 use App\Enums\EmailType;
 use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
+use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
@@ -519,8 +519,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     {
         return Attribute::make(get: function () {
             $employmentTypeOrder = [
-                WorkExperienceGovEmployeeType::INDETERMINATE->name,
-                WorkExperienceGovEmployeeType::TERM->name,
+                GovEmployeeType::INDETERMINATE->name,
+                GovEmployeeType::TERM->name,
                 null,
             ];
 
@@ -535,9 +535,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             $currentExperiences = $this->workExperiences()
                 ->whereIn('employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
                 ->whereNotIn('gov_employment_type', [
-                    WorkExperienceGovEmployeeType::STUDENT->name,
-                    WorkExperienceGovEmployeeType::CASUAL->name,
-                    WorkExperienceGovEmployeeType::CONTRACTOR->name,
+                    GovEmployeeType::STUDENT->name,
+                    GovEmployeeType::CASUAL->name,
+                    GovEmployeeType::CONTRACTOR->name,
                 ])
                 ->where(function (Builder $query) {
                     $query->whereNull('end_date')
@@ -577,8 +577,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     {
         return Attribute::make(get: function () {
             $employmentTypeOrder = [
-                WorkExperienceGovEmployeeType::INDETERMINATE->name,
-                WorkExperienceGovEmployeeType::TERM->name,
+                GovEmployeeType::INDETERMINATE->name,
+                GovEmployeeType::TERM->name,
             ];
 
             $positionTypeOrder = [
@@ -595,11 +595,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     $exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name;
                 $isCurrent = is_null($exp->end_date) || $exp->end_date->isFuture();
                 $isTermOrIndeterminate =
-                    $exp->gov_employment_type === WorkExperienceGovEmployeeType::INDETERMINATE->name;
+                    $exp->gov_employment_type === GovEmployeeType::INDETERMINATE->name;
                 $isSubstantiveOrTerm = false;
                 if ($isTermOrIndeterminate) {
                     $isSubstantiveOrTerm = $exp->gov_position_type === GovPositionType::SUBSTANTIVE->name;
-                } elseif ($exp->gov_employment_type === WorkExperienceGovEmployeeType::TERM->name) {
+                } elseif ($exp->gov_employment_type === GovEmployeeType::TERM->name) {
                     $isTermOrIndeterminate = true;
                     $isSubstantiveOrTerm = true;
                 }

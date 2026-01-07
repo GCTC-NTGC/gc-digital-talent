@@ -364,7 +364,7 @@ export const Component = () => {
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
-      await navigate(paths.browsePools());
+      await navigate(paths.jobs());
       return;
     }
     const newCommunities = formValuesToApiCommunities(formValues);

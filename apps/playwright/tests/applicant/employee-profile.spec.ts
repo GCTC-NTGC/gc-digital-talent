@@ -1,8 +1,8 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import {
   EmploymentCategory,
+  GovEmployeeType,
   GovPositionType,
-  WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -365,7 +365,7 @@ test.describe("Employee Profile", () => {
                 ...defaultWorkExperience,
                 startDate: "2020-01-01",
                 employmentCategory: EmploymentCategory.GovernmentOfCanada,
-                govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
+                govEmploymentType: GovEmployeeType.Indeterminate,
                 govPositionType: GovPositionType.Substantive,
                 department: { connect: nonCPADept?.id },
                 classificationId: classifications[0].id,
@@ -415,7 +415,7 @@ test.describe("Employee Profile", () => {
                 ...defaultWorkExperience,
                 startDate: "2020-01-01",
                 employmentCategory: EmploymentCategory.GovernmentOfCanada,
-                govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
+                govEmploymentType: GovEmployeeType.Indeterminate,
                 govPositionType: GovPositionType.Substantive,
                 department: { connect: departments[0].id },
                 classificationId: classifications[0].id,
