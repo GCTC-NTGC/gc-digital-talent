@@ -46,4 +46,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexSkillFamilyPage";
 
-export default IndexSkillFamilyPage;
+export default Component;

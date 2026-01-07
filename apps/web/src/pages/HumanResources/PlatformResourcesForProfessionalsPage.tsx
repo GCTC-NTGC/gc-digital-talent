@@ -469,3 +469,5 @@ export const Component = () => {
 };
 
 Component.displayName = "PlatformResourcesForProfessionalsPage";
+
+export default Component;

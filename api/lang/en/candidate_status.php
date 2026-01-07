@@ -10,5 +10,9 @@ return [
     'under_assessment' => 'Under assessment',
     'unsuccessful' => 'Unsuccessful',
     'qualified' => 'Qualified in process',
+    'withdrew' => 'Withdrawn',
+    'not_responsive' => 'Unresponsive',
+    'ineligible' => 'Ineligible',
+    'removed' => 'Removed',
     'expired' => Lang::get('common.expired', [], 'en'),
 ];

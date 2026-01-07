@@ -155,19 +155,19 @@ class CandidateFacingStatusTest extends TestCase
             ]],
 
             // Removed
-            'removed (withdrew)' => [CandidateStatus::UNSUCCESSFUL->name, [
+            'removed (withdrew)' => [CandidateStatus::WITHDREW->name, [
                 ...$removed,
                 'removal_reason' => CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name,
             ]],
-            'removed (not responsive)' => [CandidateStatus::UNSUCCESSFUL->name, [
+            'removed (not responsive)' => [CandidateStatus::NOT_RESPONSIVE->name, [
                 ...$removed,
                 'removal_reason' => CandidateRemovalReason::NOT_RESPONSIVE->name,
             ]],
-            'removed (inelgible)' => [CandidateStatus::UNSUCCESSFUL->name, [
+            'removed (ineligible)' => [CandidateStatus::INELIGIBLE->name, [
                 ...$removed,
                 'removal_reason' => CandidateRemovalReason::INELIGIBLE->name,
             ]],
-            'removed (other)' => [CandidateStatus::UNSUCCESSFUL->name, [
+            'removed (other)' => [CandidateStatus::REMOVED->name, [
                 ...$removed,
                 'removal_reason' => CandidateRemovalReason::OTHER->name,
             ]],

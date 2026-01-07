@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
+import { ClientLoaderFunction, redirect } from "react-router";
 
 import {
   AlertDialog,
@@ -13,9 +14,11 @@ import {
 import {
   LOGOUT_REASON_KEY,
   LogoutReason,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
   useAuthentication,
 } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { getLogger } from "@gc-digital-talent/logger";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -23,12 +26,37 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
 import useReturnPath from "~/hooks/useReturnPath";
+import { urlMatchesAppHostName } from "~/utils/utils";
 
 const supportLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }} color="black">
     {chunks}
   </Link>
 );
+
+export const clientLoader: ClientLoaderFunction = ({ request }) => {
+  const logger = getLogger();
+  const url = new URL(request.url);
+  const from = url.searchParams.get("from");
+  if (from && (urlMatchesAppHostName(from) || from.startsWith("/"))) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
+    throw redirect(from);
+  }
+
+  const overridePath = sessionStorage.getItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
+  if (overridePath) {
+    sessionStorage.removeItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
+    if (overridePath.startsWith("/")) {
+      window.location.href = overridePath; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
+      return null;
+    }
+    logger.warning(
+      `Retrieved an unsafe uri from POST_LOGOUT_URI: ${overridePath}`,
+    );
+  }
+
+  return null;
+};
 
 export const Component = () => {
   const intl = useIntl();
@@ -171,7 +199,7 @@ export const Component = () => {
             </Link>
           </li>
           <li>
-            <Link href={paths.browsePools()}>
+            <Link href={paths.jobs()}>
               {intl.formatMessage({
                 defaultMessage: "View open pools",
                 id: "FtlwFY",

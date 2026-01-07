@@ -5,6 +5,7 @@
 !/etc/ssl/.gitkeep
 /report
 .env
+.react-router
 
 /.idea
 

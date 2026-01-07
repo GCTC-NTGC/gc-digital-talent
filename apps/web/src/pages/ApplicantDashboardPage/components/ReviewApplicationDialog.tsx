@@ -410,7 +410,7 @@ const ReviewApplicationDialog = ({
                 description: "Label for view application link",
               })}
             </Link>
-            <Link href={paths.pool(pool.id)} mode="inline" color="primary">
+            <Link href={paths.jobPoster(pool.id)} mode="inline" color="primary">
               {intl.formatMessage({
                 defaultMessage: "View job advertisement",
                 id: "eZlUrp",

@@ -407,3 +407,5 @@ export const Component = () => (
 );
 
 Component.displayName = "EmployeeProfilePage";
+
+export default Component;

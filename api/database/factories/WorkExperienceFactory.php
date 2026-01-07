@@ -11,8 +11,8 @@ use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
+use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\Classification;
 use App\Models\Department;
 use App\Models\User;
@@ -64,18 +64,18 @@ class WorkExperienceFactory extends Factory
             },
             'gov_employment_type' => function (array $attributes) {
                 return $attributes['employment_category'] === EmploymentCategory::GOVERNMENT_OF_CANADA->name ?
-                    $this->faker->randomElement(WorkExperienceGovEmployeeType::cases())->name : null;
+                    $this->faker->randomElement(GovEmployeeType::cases())->name : null;
             },
             'gov_position_type' => function (array $attributes) {
-                return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::INDETERMINATE->name ?
+                return $attributes['gov_employment_type'] === GovEmployeeType::INDETERMINATE->name ?
                     $this->faker->randomElement(GovPositionType::cases())->name : null;
             },
             'gov_contractor_role_seniority' => function (array $attributes) {
-                return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::CONTRACTOR->name ?
+                return $attributes['gov_employment_type'] === GovEmployeeType::CONTRACTOR->name ?
                     $this->faker->randomElement(GovContractorRoleSeniority::cases())->name : null;
             },
             'gov_contractor_type' => function (array $attributes) {
-                return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::CONTRACTOR->name ?
+                return $attributes['gov_employment_type'] === GovEmployeeType::CONTRACTOR->name ?
                     $this->faker->randomElement(GovContractorType::cases())->name : null;
             },
             'contractor_firm_agency_name' => function (array $attributes) {
@@ -97,8 +97,8 @@ class WorkExperienceFactory extends Factory
             'classification_id' => function (array $attributes) {
                 if (
                     $attributes['employment_category'] === EmploymentCategory::GOVERNMENT_OF_CANADA->name &&
-                    $attributes['gov_employment_type'] !== WorkExperienceGovEmployeeType::STUDENT->name &&
-                    $attributes['gov_employment_type'] !== WorkExperienceGovEmployeeType::CONTRACTOR->name
+                    $attributes['gov_employment_type'] !== GovEmployeeType::STUDENT->name &&
+                    $attributes['gov_employment_type'] !== GovEmployeeType::CONTRACTOR->name
                 ) {
                     $classification = Classification::inRandomOrder()->first();
                     if (! $classification) {
@@ -181,7 +181,7 @@ class WorkExperienceFactory extends Factory
             return [
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
                 'end_date' => null,
-                'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
                 'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
             ];
         });

@@ -432,3 +432,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ApplicationEducationPage";
+
+export default Component;
