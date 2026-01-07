@@ -34,6 +34,7 @@ class UserTestSeeder extends Seeder
                 'first_name' => 'Dale',
                 'last_name' => 'Monroe',
                 'email' => 'admin@test.com',
+                'email_verified_at' => '2026-01-01',
                 'sub' => 'admin@test.com',
             ]);
 
@@ -56,6 +57,7 @@ class UserTestSeeder extends Seeder
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',
                 'email' => 'applicant@test.com',
+                'email_verified_at' => '2026-01-01',
                 'sub' => 'applicant@test.com',
             ]);
 
@@ -67,6 +69,7 @@ class UserTestSeeder extends Seeder
                 'first_name' => 'Jaime',
                 'last_name' => 'Bilodeau',
                 'email' => 'applicant-employee@test.com',
+                'email_verified_at' => '2026-01-01',
                 'sub' => 'applicant-employee@test.com',
             ]);
 
