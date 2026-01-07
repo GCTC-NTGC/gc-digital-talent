@@ -34,7 +34,6 @@ use App\Enums\ProvinceOrTerritory;
 use App\Enums\SkillLevel;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -530,7 +529,7 @@ trait GeneratesUserDoc
                     $headingRank
                 );
                 $section->addText(
-                    $experience->gov_employment_type === WorkExperienceGovEmployeeType::CONTRACTOR->name ?
+                    $experience->gov_employment_type === GovEmployeeType::CONTRACTOR->name ?
                     $this->localize('headings.contractor')
                     : $this->localize('headings.government_of_canada')
                 );
@@ -539,16 +538,16 @@ trait GeneratesUserDoc
                 $this->addLabelText(
                     $section,
                     $this->localize('headings.employment_type'),
-                    $this->localizeEnum($experience->gov_employment_type, WorkExperienceGovEmployeeType::class)
+                    $this->localizeEnum($experience->gov_employment_type, GovEmployeeType::class)
                 );
-                if ($experience->gov_employment_type === WorkExperienceGovEmployeeType::INDETERMINATE->name) {
+                if ($experience->gov_employment_type === GovEmployeeType::INDETERMINATE->name) {
                     $this->addLabelText(
                         $section,
                         $this->localize('headings.position_type'),
                         $this->localizeEnum($experience->gov_position_type, GovPositionType::class)
                     );
                 }
-                if ($experience->gov_employment_type === WorkExperienceGovEmployeeType::CONTRACTOR->name) {
+                if ($experience->gov_employment_type === GovEmployeeType::CONTRACTOR->name) {
                     $this->addLabelText(
                         $section,
                         $this->localize('headings.seniority_role'),
@@ -568,8 +567,8 @@ trait GeneratesUserDoc
                     }
                 }
                 if (
-                    $experience->gov_employment_type !== WorkExperienceGovEmployeeType::CONTRACTOR->name &&
-                    $experience->gov_employment_type !== WorkExperienceGovEmployeeType::STUDENT->name
+                    $experience->gov_employment_type !== GovEmployeeType::CONTRACTOR->name &&
+                    $experience->gov_employment_type !== GovEmployeeType::STUDENT->name
                 ) {
                     /** @var Classification | null $classification */
                     $classification = Classification::find($experience->classification_id);

@@ -18,6 +18,7 @@ import {
   EducationExperience,
   EducationType,
   EmploymentCategory,
+  GovEmployeeType,
   GovPositionType,
   LocalizedCafForce,
   LocalizedEducationType,
@@ -27,7 +28,6 @@ import {
   PersonalExperience,
   Skill,
   WorkExperience,
-  WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
@@ -730,7 +730,7 @@ const getWorkExperienceDefaultValues = (
   } = experience;
 
   const isIndeterminate =
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate;
+    govEmploymentType?.value === GovEmployeeType.Indeterminate;
   const indeterminateActing =
     isIndeterminate && govPositionType?.value === GovPositionType.Acting;
   const indeterminateAssignment =
@@ -739,9 +739,9 @@ const getWorkExperienceDefaultValues = (
     isIndeterminate && govPositionType?.value === GovPositionType.Secondment;
 
   const expectedEndDate =
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Student ||
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Casual ||
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Term ||
+    govEmploymentType?.value === GovEmployeeType.Student ||
+    govEmploymentType?.value === GovEmployeeType.Casual ||
+    govEmploymentType?.value === GovEmployeeType.Term ||
     indeterminateActing ||
     indeterminateAssignment ||
     indeterminateSecondment;
@@ -986,8 +986,7 @@ export const getExperienceDate = (
 
   if (isWorkExperience(experience)) {
     const isIndeterminate =
-      experience.govEmploymentType?.value ===
-      WorkExperienceGovEmployeeType.Indeterminate;
+      experience.govEmploymentType?.value === GovEmployeeType.Indeterminate;
     const indeterminateActing =
       isIndeterminate &&
       experience.govPositionType?.value === GovPositionType.Acting;
@@ -1002,12 +1001,9 @@ export const getExperienceDate = (
     const expectedEndDate =
       endDate &&
       endDate >= todayDate &&
-      (experience.govEmploymentType?.value ===
-        WorkExperienceGovEmployeeType.Student ||
-        experience.govEmploymentType?.value ===
-          WorkExperienceGovEmployeeType.Casual ||
-        experience.govEmploymentType?.value ===
-          WorkExperienceGovEmployeeType.Term ||
+      (experience.govEmploymentType?.value === GovEmployeeType.Student ||
+        experience.govEmploymentType?.value === GovEmployeeType.Casual ||
+        experience.govEmploymentType?.value === GovEmployeeType.Term ||
         indeterminateActing ||
         indeterminateAssignment ||
         indeterminateSecondment);

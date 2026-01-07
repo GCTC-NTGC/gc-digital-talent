@@ -4,13 +4,13 @@ import {
   CitizenshipStatus,
   EmploymentCategory,
   FlexibleWorkLocation,
+  GovEmployeeType,
   GovPositionType,
   PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
   User,
-  WorkExperienceGovEmployeeType,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
@@ -265,7 +265,7 @@ test.describe("Location Preference update for Community Talent", () => {
               ...defaultWorkExperience,
               startDate: "2020-01-01",
               employmentCategory: EmploymentCategory.GovernmentOfCanada,
-              govEmploymentType: WorkExperienceGovEmployeeType.Indeterminate,
+              govEmploymentType: GovEmployeeType.Indeterminate,
               govPositionType: GovPositionType.Substantive,
               department: { connect: nonCPADept?.id },
               classificationId: classifications[0].id,
