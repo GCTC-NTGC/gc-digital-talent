@@ -83,7 +83,7 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
                 'userId' => $this->user->id,
                 'workExperience' => [
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'govEmploymentType' => GovEmploymentType::INDETERMINATE->name,
+                    'govEmploymentType' => GovEmployeeType::INDETERMINATE->name,
                     'govPositionType' => GovPositionType::ACTING->name,
                     'classificationId' => $this->classification->id,
                     'department' => ['connect' => $this->department->id],
