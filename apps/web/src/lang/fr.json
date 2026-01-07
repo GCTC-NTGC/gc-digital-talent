@@ -6668,7 +6668,7 @@
     "description": "Paragraph two, instructions on how to submit a nomination"
   },
   "QsWizb": {
-    "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créez-en un</a>.",
+    "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créer un compte</a>.",
     "description": "Instruction on what to do if user does not have a GCKey"
   },
   "Qt9Q8k": {
