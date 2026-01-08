@@ -145,6 +145,7 @@ export const Component = () => {
               width={209}
               height={167}
               className="block h-auto w-full object-cover object-center"
+              alt=""
             />
           </div>
           <div className="sm:grow">
