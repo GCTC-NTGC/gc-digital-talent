@@ -374,8 +374,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_planning_exec_interest)),
                     $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status ?? [], ExecCoaching::class)),
                     $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_interest ?? [], ExecCoaching::class)),
-                    $this->canShare($consentToShare, $employeeProfile->nextRoleClassification?->group ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile->nextRoleClassification?->level ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->nextRoleClassification->group ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->nextRoleClassification->level ?? ''),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->next_role_target_role, TargetRole::class)),
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->next_role_is_c_suite_role)),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class)),
@@ -384,8 +384,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $this->canShare($consentToShare, $nextRoleWorkStreams->join(',')),
                     $this->canShare($consentToShare, $nextRoleDepartments->join(', ')),
                     $this->canShare($consentToShare, $employeeProfile->next_role_additional_information ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile->careerObjectiveClassification?->group ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile->careerObjectiveClassification?->level ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->careerObjectiveClassification->group ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->careerObjectiveClassification->level ?? ''),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_objective_target_role, TargetRole::class)),
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_objective_is_c_suite_role)),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class)),
@@ -445,7 +445,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $nominator?->getFullName() ?? $nomination->nominator_fallback_name, // nominator
                         $nomination->nominee_relationship_to_nominator ? $this->localizeEnum($nomination->nominee_relationship_to_nominator, TalentNominationNomineeRelationshipToNominator::class) : '', // Nominee's relationship to nominator
                         $nominator->work_email ?? $nomination->nominator_fallback_work_email,
-                        $nominator->currentClassification?->formattedGroupAndLevel ?? '', // nominator classification
+                        $nominator->currentClassification->formattedGroupAndLevel ?? '', // nominator classification
                         $nominator->department?->name[$this->lang] ?? '', // nominator department
                         $submitter->getFullName() ?? '', // submitter's name
                         $submitter->work_email ?? '', // submitter's work email
