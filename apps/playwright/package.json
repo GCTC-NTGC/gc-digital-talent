@@ -23,7 +23,7 @@
     "@gc-digital-talent/graphql": "workspace:*",
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
-    "axe-core": "^4.11.0",
+    "axe-core": "^4.11.1",
     "dotenv": "^17.2.3",
     "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.4.0",
