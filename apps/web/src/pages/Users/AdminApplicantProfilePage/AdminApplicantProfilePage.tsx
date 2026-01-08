@@ -278,3 +278,5 @@ export const Component = () => (
 );
 
 Component.displayName = "AdminApplicantProfilePage";
+
+export default Component;

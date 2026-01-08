@@ -158,7 +158,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
             })}
           </Button>
         </form>
-        <Link mode="inline" href={paths.pool(application.pool.id)}>
+        <Link mode="inline" href={paths.jobPoster(application.pool.id)}>
           {intl.formatMessage({
             defaultMessage: "Return to the advertisement",
             id: "RWvojd",
@@ -176,3 +176,5 @@ export const Component = () => (
 );
 
 Component.displayName = "ApplicationWelcomePage";
+
+export default Component;

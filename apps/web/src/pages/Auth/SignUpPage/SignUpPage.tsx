@@ -38,6 +38,7 @@ import mfaStep3ImageDark from "~/assets/img/mfa-step-3-dark.webp";
 import mfaStep4ImageDark from "~/assets/img/mfa-step-4-dark.webp";
 import Instructions from "~/components/Instructions";
 import gckeyMessages from "~/messages/gckeyMessages";
+import authMessages from "~/messages/authMessages";
 
 const helpLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }}>
@@ -150,8 +151,8 @@ export const Component = () => {
             </Ul>
             <Link href={loginPath} mode="solid" color="primary" external>
               {intl.formatMessage({
-                defaultMessage: "Continue to GCKey and sign up",
-                id: "Nd1bIG",
+                defaultMessage: "Sign up with GCKey",
+                id: "4LMyAD",
                 description: "GCKey sign up link text on the sign up page",
               })}
             </Link>
@@ -556,17 +557,13 @@ export const Component = () => {
         <div className="flex flex-col items-center gap-6 sm:flex-row">
           <Link href={loginPath} mode="solid" color="primary" external>
             {intl.formatMessage({
-              defaultMessage: "Continue to GCKey and sign up",
-              id: "Nd1bIG",
+              defaultMessage: "Sign up with GCKey",
+              id: "4LMyAD",
               description: "GCKey sign up link text on the sign up page",
             })}
           </Link>
           <Link href={loginPath} mode="inline" external>
-            {intl.formatMessage({
-              defaultMessage: "Sign in instead",
-              id: "Ovlh3a",
-              description: "Sign in link text on the registration page.",
-            })}
+            {intl.formatMessage(authMessages.signIn)}
           </Link>
         </div>
       </Container>

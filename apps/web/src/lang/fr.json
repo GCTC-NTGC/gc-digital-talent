@@ -335,10 +335,6 @@
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
   },
-  "/JDxnh": {
-    "defaultMessage": "Votre relation avec l'auteur(trice) de la mise en candidature ",
-    "description": "Label for a nomination sumitters relationship to the nominator"
-  },
   "/K1/1n": {
     "defaultMessage": "Groupe de classifications actuel",
     "description": "Label displayed on classification group input"
@@ -540,7 +536,7 @@
     "description": "Alert displayed to the user when failing to (un-)flag a candidate."
   },
   "07sCDh": {
-    "defaultMessage": "Utilisez le bouton « Créez un processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un processus » pour commencer.",
     "description": "Instructions for adding a process item."
   },
   "07xB/W": {
@@ -636,7 +632,7 @@
     "description": "Question about job advertisement templates"
   },
   "0PeEzR": {
-    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
+    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
   },
   "0Q89Cz": {
@@ -716,7 +712,7 @@
     "description": "Simplified status label for a complete process advertisement or assessment"
   },
   "0jwdac": {
-    "defaultMessage": "Utilisez le bouton « Créez une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer une compétence » pour commencer.",
     "description": "Instructions for adding a skill item."
   },
   "0m1utE": {
@@ -736,7 +732,7 @@
     "description": "Label displayed on an Experience form for expected end date input"
   },
   "0r1Pr3": {
-    "defaultMessage": "Modifiez les détails de la mise en candidature",
+    "defaultMessage": "Modifier les détails de la mise en candidature",
     "description": "Link text to edit a nominations details information"
   },
   "0tNrAw": {
@@ -1008,7 +1004,7 @@
     "description": "Paragraph two, answer about job advertisement templates"
   },
   "1xI8uo": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
   },
   "1yMApi": {
@@ -1212,7 +1208,7 @@
     "description": "Paragraph 3, importance of self-declaration"
   },
   "2m5USi": {
-    "defaultMessage": "Utilisez le bouton « Modifiez » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Modifier » pour commencer.",
     "description": "Null message on sections for edit pool page."
   },
   "2n0e2i": {
@@ -1595,6 +1591,10 @@
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
   },
+  "4LMyAD": {
+    "defaultMessage": "S'inscrire avec CléGC",
+    "description": "GCKey sign up link text on the sign up page"
+  },
   "4LN+P9": {
     "defaultMessage": "Niveau de classification visé",
     "description": "Label for a employee profile target classification level field"
@@ -1684,7 +1684,7 @@
     "description": "Lead in text for a decisions reason"
   },
   "4f81Y1": {
-    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
+    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
     "description": "Warning message when selecting the only-canadian-citizens limitation option"
   },
   "4f9Xsc": {
@@ -1716,7 +1716,7 @@
     "description": "Message displayed to users to sign in to the application"
   },
   "4nP41q": {
-    "defaultMessage": "Sauvegardez et ajoutez cette compétence",
+    "defaultMessage": "Enregistrer et ajouter cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
   "4p0QdF": {
@@ -1756,7 +1756,7 @@
     "description": "Null message for nominee profile"
   },
   "4ujx9e": {
-    "defaultMessage": "Utilisez le bouton « Créez un groupe de compétences » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un groupe de compétences » pour commencer.",
     "description": "Instructions for adding a skill family item."
   },
   "4v9y7U": {
@@ -1795,10 +1795,6 @@
     "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
     "description": "The lateral move interest described as not interested."
   },
-  "56Mvji": {
-    "defaultMessage": "vous occupez un poste permanent et vous aimeriez recevoir <strong>une indemnité de départ pour quitter volontairement la fonction publique</strong>.",
-    "description": "Indicator three, you would likle to leave voluntarily"
-  },
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
     "description": "Button text to set no theme mode"
@@ -1824,7 +1820,7 @@
     "description": "Legend for location preferences filter on search form."
   },
   "5A0a7w": {
-    "defaultMessage": "Modifiez la liste des questions de sélection",
+    "defaultMessage": "Modifier la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
   },
   "5CFRjU": {
@@ -2076,7 +2072,7 @@
     "description": "Message before skills list in application education page."
   },
   "6QGFk9": {
-    "defaultMessage": "Modifiez la liste des compétences requises",
+    "defaultMessage": "Modifier la liste des compétences requises",
     "description": "Edit link text for skill requirements section of the application review page."
   },
   "6RGluQ": {
@@ -2216,7 +2212,7 @@
     "description": "Indigenous Apprenticeship hero image text alternative"
   },
   "71mPNh": {
-    "defaultMessage": "Créez une compétence",
+    "defaultMessage": "Créer une compétence",
     "description": "Title for Create skill"
   },
   "72pd2Z": {
@@ -2432,7 +2428,7 @@
     "description": "Null message for essential behavioural skills form"
   },
   "81Bib7": {
-    "defaultMessage": "Vous pouvez ajouter des expériences spécifiques en matière d’études en sélectionnant l’option « Études et certificats » lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
+    "defaultMessage": "Vous pouvez ajouter des expériences spécifiques en matière d’études en sélectionnant l’option « Études et certificats » lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add education experience in application education page."
   },
   "81Zt0T": {
@@ -2520,7 +2516,7 @@
     "description": "Text telling users that their search produced no candidates"
   },
   "8R8ip4": {
-    "defaultMessage": "Enregistrez les commentaires",
+    "defaultMessage": "Enregistrer les commentaires",
     "description": "Label for saving comments"
   },
   "8T/Szk": {
@@ -2570,6 +2566,10 @@
   "8hnMtx": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to update a profile when signed in"
+  },
+  "8i3Ec8": {
+    "defaultMessage": "L’expérience d’apprentissage personnelle permet de montrer comment d’autres événements de vie vous ont aidé à grandir et à développer vos compétences, notamment la famille, les loisirs et les activités parascolaires.",
+    "description": "Description for personal experience card header"
   },
   "8ii/QN": {
     "defaultMessage": "{workStreamCount, plural, =0 {0 volet de travail lié} one {# volet de travail lié} other {# volets de travail liés}}",
@@ -2712,7 +2712,7 @@
     "description": "First paragraph for the pool closing date dialog"
   },
   "9HEVBb": {
-    "defaultMessage": "Utilisez le bouton « Créez un volet de travail » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un volet de travail » pour commencer.",
     "description": "Instructions for adding a work stream item."
   },
   "9HXOU+": {
@@ -2788,7 +2788,7 @@
     "description": "Description for the goc employment category option in work experience"
   },
   "9Y3w6l": {
-    "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
+    "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifier » pour examiner les champs obligatoires et répondre aux questions.",
     "description": "Message for unanswered questions in this section"
   },
   "9aW0M6": {
@@ -2900,7 +2900,7 @@
     "description": "Title for a column that displays the number of assessments planned for a skill."
   },
   "9ufudR": {
-    "defaultMessage": "Ajoutez un rôle individuel",
+    "defaultMessage": "Ajouter un rôle individuel",
     "description": "Label for the button to add a role to a user"
   },
   "9vQj8o": {
@@ -3028,7 +3028,7 @@
     "description": "Label for user expressing interest in a specific work stream"
   },
   "ARFz8L": {
-    "defaultMessage": "Ajoutez une nouvelle expérience",
+    "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
   "ARdTh3": {
@@ -3200,7 +3200,7 @@
     "description": "Label for an employee profile career development preference field"
   },
   "B6SqfX": {
-    "defaultMessage": "Sauvegardez le changement d'état",
+    "defaultMessage": "Enregistrer le changement d'état",
     "description": "Button label displayed that saves the users status selection."
   },
   "B6VbYI": {
@@ -3266,6 +3266,14 @@
   "BSfL03": {
     "defaultMessage": "Sélectionnez la langue de travail du poste à pourvoir. Celle-ci sera comparée à celle indiquée par les personnes candidates dans leur demande. Les personnes candidates ayant sélectionné « bilingue » pourraient ne pas avoir obtenu des résultats à l’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
+  },
+  "BTY2jZ": {
+    "defaultMessage": "Vous avez été écarté de ce processus de recrutement parce vous n'avez pas répondu dans le délai imparti lorsque vous avez été contacté. Vous avez maintenant dépassé le délai imparti pour poursuivre le processus. Si vous n’aviez pas l’intention de vous retirer de ce processus, nous vous encourageons à vérifier vos coordonnées afin de vous assurer qu’elles sont à jour pour de futurs processus de candidature.",
+    "description": "Status description for an application that was removed from a pool due to unresponsiveness from the applicant"
+  },
+  "BUz+Ml": {
+    "defaultMessage": "Vous avez indiqué ne pas souhaiter poursuivre ce processus. Cette candidature ne sera pas évaluée comme répondant aux exigences du processus, et aucune autre communication ne sera transmise. S’il s’agit d’une erreur, vous disposez d’une semaine pour contacter notre équipe d’assistance à compter de l’attribution de ce statut.",
+    "description": "Status description for an application that was withdrawn from a pool"
   },
   "BVlGhZ": {
     "defaultMessage": "Avancement<hidden> nomination non retenue</hidden>",
@@ -3552,7 +3560,7 @@
     "description": "Disclaimer for the when the accessibility statement was last updated"
   },
   "Cu+CH3": {
-    "defaultMessage": "Utilisez le bouton « Créez une collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
   },
   "CuHYqt": {
@@ -3740,7 +3748,7 @@
     "description": "Page title for the request confirmation page."
   },
   "DePuGA": {
-    "defaultMessage": "Modifiez les infos sur la personne candidate",
+    "defaultMessage": "Modifier les infos sur la personne candidate",
     "description": "Link text to edit a nominations nominee information"
   },
   "DgMIfz": {
@@ -3780,7 +3788,7 @@
     "description": "A _what to expect_ point on the sign up page"
   },
   "DrR/rp": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
     "description": "Instructions for adding a member to a community."
   },
   "DsUtfO": {
@@ -3912,7 +3920,7 @@
     "description": "Label for removing the skill family filter"
   },
   "EInfnR": {
-    "defaultMessage": "Modifiez les informations sur la possibilité de formation",
+    "defaultMessage": "Modifier les informations sur la possibilité de formation",
     "description": "Link to edit the currently viewed training opportunity"
   },
   "EJ09b7": {
@@ -3944,7 +3952,7 @@
     "description": "Label for preferred lang for interviews in profile details box."
   },
   "EVkmeA": {
-    "defaultMessage": "Modifiez les principales compétences comportementales",
+    "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
   "EWq+u3": {
@@ -3960,7 +3968,7 @@
     "description": "External link message for the EX graduation with degree requirement."
   },
   "Eb/yFU": {
-    "defaultMessage": "1. <createLink>Créez un compte</createLink> ou <signInLink>connectez-vous</signInLink>.",
+    "defaultMessage": "1. <createLink>Créer un compte</createLink> ou <signInLink>connectez-vous</signInLink>.",
     "description": "Text for workforce adjustment -> create step."
   },
   "Ed+xy1": {
@@ -3980,7 +3988,7 @@
     "description": "Subtitle for goals and work style section"
   },
   "EhRf8u": {
-    "defaultMessage": "Retirer le drapeau de {candidatename} pour les utilisateurs autorisés.",
+    "defaultMessage": "Retirer le drapeau de {candidateName} pour les utilisateurs autorisés.",
     "description": "Un-flag button label for applicant assessment tracking."
   },
   "ElnCxi": {
@@ -4020,7 +4028,7 @@
     "description": "Descriptive text about the list of pool candidates in the admin portal."
   },
   "Ey0mXe": {
-    "defaultMessage": "Sauvegardez l'ébauche",
+    "defaultMessage": "Enregistrer l'ébauche",
     "description": "Button text to save a draft"
   },
   "Ey8cB4": {
@@ -4172,7 +4180,7 @@
     "description": "Subtitle for Assessment details dialog"
   },
   "FhWYXz": {
-    "defaultMessage": "Annulez",
+    "defaultMessage": "Annuler",
     "description": "Label for close general question dialog."
   },
   "Fj98cE": {
@@ -4256,7 +4264,7 @@
     "description": "Text explaining the importance of starting an application early"
   },
   "G1OWMo": {
-    "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
+    "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add experience in application education page."
   },
   "G1jegJ": {
@@ -4348,7 +4356,7 @@
     "description": "Subtitle for form to update a candidates screening stage"
   },
   "GMbOaT": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter une compétence » pour commencer.",
     "description": "Null message description for asset skills table."
   },
   "GMglI5": {
@@ -4964,7 +4972,7 @@
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "JCZlxS": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans le processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
   },
   "JEKihk": {
@@ -4980,7 +4988,7 @@
     "description": "Heading for the 'Additional information' section"
   },
   "JGC9Pp": {
-    "defaultMessage": "Sauvegardez et soumettez",
+    "defaultMessage": "Enregistrer et soumettez",
     "description": "Text for the submit button"
   },
   "JGRer4": {
@@ -5188,7 +5196,7 @@
     "description": "A date at which data will expire, in the local time zone"
   },
   "KHmf+e": {
-    "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer une classification » pour commencer.",
     "description": "Instructions for adding a classification item."
   },
   "KIQzbR": {
@@ -5728,7 +5736,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajoutez un membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -5796,7 +5804,7 @@
     "description": "Label for language for bilingual field"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans la collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mz7sON": {
@@ -5815,6 +5823,10 @@
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
   },
+  "N/c1Yg": {
+    "defaultMessage": "vous occupez un poste permanent et vous aimeriez recevoir <strong>une indemnité de départ pour quitter volontairement la fonction publique</strong>.",
+    "description": "Indicator three, you would like to leave voluntarily"
+  },
   "N2/Y9w": {
     "defaultMessage": "Non réclamée",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
@@ -5828,12 +5840,16 @@
     "description": "Instructions on requiring information for skills"
   },
   "N5swJ7": {
-    "defaultMessage": "L'auteur(trice) de la mise en candidature ",
+    "defaultMessage": "L'auteur(trice) de la mise en candidature",
     "description": "Link text for nominator step of a talent nomination"
   },
   "N6DlK/": {
-    "defaultMessage": "Modifiez les compétences techniques de haut niveau",
+    "defaultMessage": "Modifier les compétences techniques de haut niveau",
     "description": "Link text for editing a users top technical skills"
+  },
+  "N6jHMK": {
+    "defaultMessage": "Ajouter une participation communautaire",
+    "description": "Link text to add a community experience on experience card header"
   },
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
@@ -5912,7 +5928,7 @@
     "description": "Paragraph two, description of the managers community"
   },
   "NW7sCE": {
-    "defaultMessage": "Créez une classification",
+    "defaultMessage": "Créer une classification",
     "description": "Button text to create classification"
   },
   "NWDow2": {
@@ -5934,10 +5950,6 @@
   "Nc751o": {
     "defaultMessage": "Les compétences techniques essentielles ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the essential technical skills"
-  },
-  "Nd1bIG": {
-    "defaultMessage": "Continuez vers CléGC et inscrivez-vous",
-    "description": "GCKey sign up link text on the sign up page"
   },
   "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
@@ -6080,7 +6092,7 @@
     "description": "Placeholder text for community selection input"
   },
   "OU/MkT": {
-    "defaultMessage": "Annulez et revenez aux possibilités de formation",
+    "defaultMessage": "Annuler et revenir aux possibilités de formation",
     "description": "Button label to return to the opportunities table"
   },
   "OU3MYy": {
@@ -6179,10 +6191,6 @@
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
   },
-  "Ovlh3a": {
-    "defaultMessage": "Inscrivez-vous plutôt",
-    "description": "Sign in link text on the registration page."
-  },
   "OvusdX": {
     "defaultMessage": "Confirmer une adresse courriel professionnelle",
     "description": "Label to go to email verification"
@@ -6244,7 +6252,7 @@
     "description": "Label for selector to choose experience filter options"
   },
   "PEH7og": {
-    "defaultMessage": "Cette section contient des questions facultatives qui sont actuellement sans réponse. Cliquez sur le bouton « Modifiez » pour réviser vos réponses dans les champs pertinents.",
+    "defaultMessage": "Cette section contient des questions facultatives qui sont actuellement sans réponse. Cliquez sur le bouton « Modifier » pour réviser vos réponses dans les champs pertinents.",
     "description": "Message for unanswered optional questions in this section"
   },
   "PFoM2I": {
@@ -6352,7 +6360,7 @@
     "description": "Heading for the `just education` option for EC education requirements"
   },
   "PdkgWB": {
-    "defaultMessage": "Créez une possibilité de formation",
+    "defaultMessage": "Créer une possibilité de formation",
     "description": "Title for link to page to create a training opportunity (imperative in French)"
   },
   "Pe1kas": {
@@ -6372,7 +6380,7 @@
     "description": "Number of job poster templates being displayed in the list"
   },
   "PkE/Ir": {
-    "defaultMessage": "Sauvegardez les objectifs et le style de travail",
+    "defaultMessage": "Enregistrer les objectifs et le style de travail",
     "description": "Text on a button to save goals and work style form"
   },
   "PmDeul": {
@@ -6404,7 +6412,7 @@
     "description": "Link text for public service collective agreements"
   },
   "PrTwov": {
-    "defaultMessage": "Créez une collectivité",
+    "defaultMessage": "Créer une collectivité",
     "description": "Text to create a community (action)"
   },
   "Ps929U": {
@@ -6488,7 +6496,7 @@
     "description": "Text describing accessibility commissioner"
   },
   "QCesvO": {
-    "defaultMessage": "Ajouter un rôle individue",
+    "defaultMessage": "Ajouter un rôle individuel",
     "description": "Header for the form to add a role to a user"
   },
   "QDDnVO": {
@@ -6512,7 +6520,7 @@
     "description": "Message for a candidates priority status claim"
   },
   "QJi1ZQ": {
-    "defaultMessage": "Annulez la décision et mettez le statut à jour",
+    "defaultMessage": "Annuler la décision et mettez le statut à jour",
     "description": "Button label to revert final decision on view pool candidate page"
   },
   "QKGmDP": {
@@ -6544,7 +6552,7 @@
     "description": "Status description for a draft application"
   },
   "QRI/bf": {
-    "defaultMessage": "Modifiez votre expérience",
+    "defaultMessage": "Modifier votre expérience",
     "description": "Page title for the application career timeline edit experience page"
   },
   "QSbP/J": {
@@ -6664,7 +6672,7 @@
     "description": "Paragraph two, instructions on how to submit a nomination"
   },
   "QsWizb": {
-    "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créez-en un</a>.",
+    "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créer un compte</a>.",
     "description": "Instruction on what to do if user does not have a GCKey"
   },
   "Qt9Q8k": {
@@ -6840,7 +6848,7 @@
     "description": "Label for the table pagination"
   },
   "RSUgO3": {
-    "defaultMessage": "Ajoutez une compétence",
+    "defaultMessage": "Ajouter une compétence",
     "description": "Button text to open the skill dialog and add a skill"
   },
   "RW0Ukc": {
@@ -6888,7 +6896,7 @@
     "description": "Message displayed when a user successfully updates the key tasks"
   },
   "RjKlKz": {
-    "defaultMessage": "Créez un volet de travail",
+    "defaultMessage": "Créer un volet de travail",
     "description": "Text to create a work stream"
   },
   "Rk1i9Q": {
@@ -7164,7 +7172,7 @@
     "description": "Sub title for the pool essential skills"
   },
   "TFAsYS": {
-    "defaultMessage": "Créez la possibilité de formation",
+    "defaultMessage": "Créer la possibilité de formation",
     "description": "Button label to submit the create an opportunity form"
   },
   "THBjEx": {
@@ -7200,7 +7208,7 @@
     "description": "Comments or contributions list item"
   },
   "TSYfZE": {
-    "defaultMessage": "Ajoutez un rôle dans le processus",
+    "defaultMessage": "Ajouter un rôle dans le processus",
     "description": "Button label for the form to add a process membership to a user"
   },
   "TU9sk7": {
@@ -7332,7 +7340,7 @@
     "description": "Message displayed if employee hasn't filled out next role"
   },
   "U86N4g": {
-    "defaultMessage": "Pour l’instant, sauvegardez et quittez",
+    "defaultMessage": "Pour l’instant, enregistrer et quittez",
     "description": "Action button to save and exit an application"
   },
   "U8ZQ2g": {
@@ -7603,7 +7611,7 @@
     "description": "Label for First Nations community"
   },
   "VUsGFc": {
-    "defaultMessage": "Modifiez les infos sur l'auteur(trice) de la mise en candidature",
+    "defaultMessage": "Modifier les infos sur l'auteur(trice) de la mise en candidature",
     "description": "Link text to edit a nominations nominator information"
   },
   "VWEwki": {
@@ -7623,7 +7631,7 @@
     "description": "Message displayed to admins when a process is in draft mode"
   },
   "VaToft": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter une compétence » pour commencer.",
     "description": "Null message description for essential skills table."
   },
   "VaVo2t": {
@@ -7707,7 +7715,7 @@
     "description": "Text notifying user which role will be removed from the user"
   },
   "VvOx9a": {
-    "defaultMessage": "Modifiez les informations sur la classification",
+    "defaultMessage": "Modifier les informations sur la classification",
     "description": "Link text to edit a classification"
   },
   "Vw7bLe": {
@@ -7823,7 +7831,7 @@
     "description": "Title for information about core public administration employees related to workforce adjustment"
   },
   "WIbjog": {
-    "defaultMessage": "Créez un ministère",
+    "defaultMessage": "Créer un ministère",
     "description": "Heading displayed above the Create Department form."
   },
   "WJSfQl": {
@@ -8117,6 +8125,10 @@
   "Xb11ag": {
     "defaultMessage": "Une personne tierce a soumis cette candidature au nom de l’autrice ou l’auteur de la mise en candidature. Vous trouverez leurs coordonnées ici.",
     "description": "Information in dialog about submitter being different from nominator"
+  },
+  "XbsYGW": {
+    "defaultMessage": "L’expérience de formation vous permet de présenter vos diplômes, certificats, cours en ligne, apprentissages, permis ou autres titres de compétences obtenus auprès d’établissements d’enseignement.",
+    "description": "Description for education experience card header"
   },
   "Xc3Y7t": {
     "defaultMessage": "Modifier l'adresse courriel de correspondance",
@@ -8419,7 +8431,7 @@
     "description": "Message when a claim as yet to be verified"
   },
   "YjDiUu": {
-    "defaultMessage": "Annulez et revenez aux groupes de compétences",
+    "defaultMessage": "Annuler et revenir aux groupes de compétences",
     "description": "Link text to return to skill family table"
   },
   "YjKKrR": {
@@ -8583,7 +8595,7 @@
     "description": "Fallback for first name value"
   },
   "ZN9OsN": {
-    "defaultMessage": "Créez une autre demande de talents",
+    "defaultMessage": "Créer une autre demande de talents",
     "description": "Link text to start a new talent request"
   },
   "ZNgKK4": {
@@ -8679,7 +8691,7 @@
     "description": "Application step to begin working on career timeline, paragraph one"
   },
   "ZqjOM/": {
-    "defaultMessage": "Créez le ministère",
+    "defaultMessage": "Créer le ministère",
     "description": "Button label to create a department"
   },
   "ZuFBx5": {
@@ -8934,6 +8946,10 @@
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
+  "bLaMGb": {
+    "defaultMessage": "L’expérience communautaire est l’endroit où expliquer comment votre participation à la collectivité vous a aidé à évoluer, notamment par le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
+    "description": "Description for community experience card header"
+  },
   "bMM+wm": {
     "defaultMessage": "Sélectionnez les options de lieu de travail flexibles offertes dans le cadre de ce poste.",
     "description": "Message describing the flexible work locations filter in the search form."
@@ -8947,7 +8963,7 @@
     "description": "Header for the form to add a process membership to a user"
   },
   "bOAF9o": {
-    "defaultMessage": "Ajoutez une nouvelle expérience",
+    "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "Title for adding a new experience"
   },
   "bPN0EF": {
@@ -9382,6 +9398,10 @@
     "defaultMessage": "Ce membre du personnel a accepté de partager son profil avec les collectivités fonctionnelles suivantes pour des possibilités d’emploi ou de formation.",
     "description": "Description for Community interest section of user employee information page"
   },
+  "dB4fUm": {
+    "defaultMessage": "Ajouter une formation ou un certificat",
+    "description": "Link text to add a education experience on experience card header"
+  },
   "dBpcNA": {
     "defaultMessage": "Forces armées canadiennes",
     "description": "Label for caf employment category on work experience card metadata"
@@ -9435,7 +9455,7 @@
     "description": "Description for the caf employment category option in work experience"
   },
   "dRJLsv": {
-    "defaultMessage": "Sauvegardez votre prochain type de poste",
+    "defaultMessage": "Enregistrer votre prochain type de poste",
     "description": "Text on a button to save your next role form"
   },
   "dT/c1r": {
@@ -9451,7 +9471,7 @@
     "description": "Text for education accepted information context in screening decision dialog"
   },
   "dXRajZ": {
-    "defaultMessage": "Ajoutez des volets de travail",
+    "defaultMessage": "Ajouter des volets de travail",
     "description": "Button label for Add work streams"
   },
   "dY3Qr4": {
@@ -9531,7 +9551,7 @@
     "description": "GCKey question and answer for more support"
   },
   "dnKWUf": {
-    "defaultMessage": "Ajoutez des compétences à cette liste.",
+    "defaultMessage": "Ajouter des compétences à cette liste.",
     "description": "Text displayed when no skills have been added to a ranking"
   },
   "dotl8X": {
@@ -9687,7 +9707,7 @@
     "description": "Title for banner about workforce adjustment"
   },
   "eJPU4G": {
-    "defaultMessage": "Modifiez les informations sur la compétence",
+    "defaultMessage": "Modifier les informations sur la compétence",
     "description": "Link to edit the currently viewed skill"
   },
   "eKPE3F": {
@@ -10015,7 +10035,7 @@
     "description": "Contact email title paragraph"
   },
   "fdSRLv": {
-    "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajoutez des volets de travail ».",
+    "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajouter des volets de travail ».",
     "description": "Subtitle when no work streams have been attached to experience"
   },
   "ffSxnV": {
@@ -10063,7 +10083,7 @@
     "description": "Page title for the work stream creation page"
   },
   "fqEh4+": {
-    "defaultMessage": "Modifiez les informations sur le volet de travail",
+    "defaultMessage": "Modifier les informations sur le volet de travail",
     "description": "Link to edit the currently viewed work stream"
   },
   "fqa45V": {
@@ -10119,7 +10139,7 @@
     "description": "Opening paragraph for accessibility statement"
   },
   "fzuAHN": {
-    "defaultMessage": "Enregistrez les notes",
+    "defaultMessage": "Enregistrer les notes",
     "description": "Button label displayed on the search request form which saves the users personal notes."
   },
   "g+JcDC": {
@@ -10223,7 +10243,7 @@
     "description": "Detailed message saying the page to view is not authorized."
   },
   "gL8LDB": {
-    "defaultMessage": "Ajoutez les volets de travail",
+    "defaultMessage": "Ajouter les volets de travail",
     "description": "Link text to update work streams for an experience"
   },
   "gLNQYB": {
@@ -10235,7 +10255,7 @@
     "description": "Commercial reproduction list in ownership and usage section"
   },
   "gNxa7i": {
-    "defaultMessage": "5. <link>Ajoutez votre collectivité fonctionnelle dans votre profil</link>.",
+    "defaultMessage": "5. <link>Ajouter votre collectivité fonctionnelle dans votre profil</link>.",
     "description": "Text for workforce adjustment -> adding communities step."
   },
   "gOy6PW": {
@@ -10561,6 +10581,10 @@
     "defaultMessage": "Êtes-vous un(e) dirigeant(E) qui cherche à attirer ou à promouvoir des talents à fort potentiel au sein de la collectivité du numérique (domaines de la GI, de la TI ou des données)? Y a-t-il des employés talentueux que vous souhaitez nommer au niveau EX moins un vers le groupe et le niveau EX-03? Vous faites partie de la collectivité des ressources humaines et vous voulez créer des possibilités interministérielles pour votre main-d’œuvre numérique?",
     "description": "Paragraph one, about who is eligible for exposition"
   },
+  "hq5u5/": {
+    "defaultMessage": "Votre relation avec l'auteur(trice) de la mise en candidature",
+    "description": "Label for a nomination submitter's relationship to the nominator"
+  },
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
@@ -10774,7 +10798,7 @@
     "description": "Alert displayed to the user when they un-flag a candidate."
   },
   "ifVyI/": {
-    "defaultMessage": "Modifiez les informations sur le groupe de compétences",
+    "defaultMessage": "Modifier les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
   },
   "ifqj46": {
@@ -10994,7 +11018,7 @@
     "description": "Title for to go to the search page on Browse IT jobs page"
   },
   "jV/FG1": {
-    "defaultMessage": "Modifiez la formation requise",
+    "defaultMessage": "Modifier la formation requise",
     "description": "Edit link text for education requirements section of the application review page."
   },
   "jXUnrt": {
@@ -11034,7 +11058,7 @@
     "description": "Heading of section describing skill categories"
   },
   "jkY75T": {
-    "defaultMessage": "Créez le volet de travail",
+    "defaultMessage": "Créer le volet de travail",
     "description": "Button text to create a work stream"
   },
   "jnd5HF": {
@@ -11042,7 +11066,7 @@
     "description": "Link text for details about a nomination event"
   },
   "jno96W": {
-    "defaultMessage": "Modifiez la planification de carrière",
+    "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
   },
   "joXPYW": {
@@ -11142,7 +11166,7 @@
     "description": "Title for basic profile information section"
   },
   "kBEib8": {
-    "defaultMessage": "Ajoutez une collectivité",
+    "defaultMessage": "Ajouter une collectivité",
     "description": "Link to a page to add a functional community"
   },
   "kCsQFc": {
@@ -11234,7 +11258,7 @@
     "description": "Link text to go report a missing page on the 404"
   },
   "kh9KTx": {
-    "defaultMessage": "Annulez et revenez aux volets de travail",
+    "defaultMessage": "Annuler et revenir aux volets de travail",
     "description": "Link text to cancel updating a work stream"
   },
   "khfdlt": {
@@ -11246,7 +11270,7 @@
     "description": "Button text displayed for Indigenous languages dropdown"
   },
   "kiJviy": {
-    "defaultMessage": "Utilisez le bouton « Créez un ministère » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un ministère » pour commencer.",
     "description": "Instructions for adding a department item."
   },
   "kkZZfT": {
@@ -11397,6 +11421,10 @@
     "defaultMessage": "Recherche par mot-clé",
     "description": "Label for the pool candidates table search input"
   },
+  "lNrsD+": {
+    "defaultMessage": "Ajouter une expérience personnelle ou un certificat",
+    "description": "Link text to add a personal experience on experience card header"
+  },
   "lPuC3S": {
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
@@ -11434,7 +11462,7 @@
     "description": "Non commercial reproduction list item"
   },
   "ldgukM": {
-    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajoutez une collectivité ».",
+    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajouter une collectivité ».",
     "description": "Body for notice when there are no functional communities a user is a part of"
   },
   "lgF8zK": {
@@ -11590,7 +11618,7 @@
     "description": "The award title is issued by some group, HTML"
   },
   "mKrj0x": {
-    "defaultMessage": "Sauvegardez et ajoutez un membre",
+    "defaultMessage": "Enregistrer et ajouter un membre",
     "description": "Label for add member to a community form"
   },
   "mKzQwr": {
@@ -11610,7 +11638,7 @@
     "description": "Trigger to edit the essential technical skills"
   },
   "mMiZ3q": {
-    "defaultMessage": "Cette section contient des questions qui sont actuellement sans réponse. Cliquez sur le bouton « Modifiez » pour réviser vos réponses dans les champs pertinents.",
+    "defaultMessage": "Cette section contient des questions qui sont actuellement sans réponse. Cliquez sur le bouton « Modifier » pour réviser vos réponses dans les champs pertinents.",
     "description": "Message for unanswered required questions in this section"
   },
   "mNNgEF": {
@@ -11954,7 +11982,7 @@
     "description": "Message displayed when candidate is on hold at a specific assessment step"
   },
   "ngHHmI": {
-    "defaultMessage": "Sauvegardez la décision finale",
+    "defaultMessage": "Enregistrer la décision finale",
     "description": "Button to click on to fill out a final decision form"
   },
   "ngYP95": {
@@ -12046,7 +12074,7 @@
     "description": "Label displayed on education form for institution input"
   },
   "o1qvlP": {
-    "defaultMessage": "Modifiez la justification",
+    "defaultMessage": "Modifier la justification",
     "description": "Link text to edit a nominations rationale"
   },
   "o3wN8Q": {
@@ -12070,11 +12098,11 @@
     "description": "Heading for the 'create a skill' form"
   },
   "oCL/sl": {
-    "defaultMessage": "Annulez et revenez à l'éditeur de compétence",
+    "defaultMessage": "Annuler et revenir à l'éditeur de compétence",
     "description": "Button label to return to the skills table"
   },
   "oDDr9J": {
-    "defaultMessage": "Créez un groupe de compétences",
+    "defaultMessage": "Créer un groupe de compétences",
     "description": "Heading displayed above the Create Skill family form."
   },
   "oDnMMb": {
@@ -12218,7 +12246,7 @@
     "description": "Label for the submitter's department/agency"
   },
   "om9QYn": {
-    "defaultMessage": "Annulez et revenez aux classifications",
+    "defaultMessage": "Annuler et revenir aux classifications",
     "description": "Link text to return to classification table"
   },
   "opkSia": {
@@ -12230,7 +12258,7 @@
     "description": "Button text to save a general question"
   },
   "os2TYf": {
-    "defaultMessage": "Modifiez les informations sur le ministère",
+    "defaultMessage": "Modifier les informations sur le ministère",
     "description": "Link to edit the currently viewed department"
   },
   "osGGIt": {
@@ -12310,7 +12338,7 @@
     "description": "Placeholder message when there is no skill family selected"
   },
   "pDlEip": {
-    "defaultMessage": "Créez la compétence",
+    "defaultMessage": "Créer la compétence",
     "description": "Button label to create a skill"
   },
   "pDqhbX": {
@@ -12466,7 +12494,7 @@
     "description": "Indication a specific permission is allowed for a specific role"
   },
   "phS+TP": {
-    "defaultMessage": "Modifiez les informations sur la collectivité",
+    "defaultMessage": "Modifier les informations sur la collectivité",
     "description": "Link to edit the currently viewed community"
   },
   "piZjS+": {
@@ -12686,7 +12714,7 @@
     "description": "Message displayed to user after pool fails to get archived."
   },
   "qkuRs8": {
-    "defaultMessage": "Créez le groupe de compétences",
+    "defaultMessage": "Créer le groupe de compétences",
     "description": "Button text to create a skill family"
   },
   "qlVBtp": {
@@ -12774,7 +12802,7 @@
     "description": "Error message when updating a users account information"
   },
   "rBtIUo": {
-    "defaultMessage": "Sauvegardez les préférences en matière de développement de carrière",
+    "defaultMessage": "Enregistrer les préférences en matière de développement de carrière",
     "description": "Text on a button to save career development preferences form"
   },
   "rCpVpZ": {
@@ -13193,6 +13221,10 @@
     "defaultMessage": "Examinez et vérifiez le statut de vétéran du candidat",
     "description": "Subtitle for verifying a candidate's veteran claim"
   },
+  "tD+jQR": {
+    "defaultMessage": "Ajouter une expérience de travail",
+    "description": "Link text to add a work experience on experience card header"
+  },
   "tD99Wf": {
     "defaultMessage": "Sélectionnez une classification",
     "description": "Placeholder displayed on the pool form classification field."
@@ -13304,6 +13336,10 @@
   "tj5pn8": {
     "defaultMessage": "2. Cours et camps d’entrainement dirigés par un instructeur ou une instructrice",
     "description": "Title for instructor-led classes card"
+  },
+  "tj7eTS": {
+    "defaultMessage": "Ajouter une récompense ou une reconnaissance",
+    "description": "Link text to add an award experience on experience card header"
   },
   "tj90+D": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière d’éducation et de certificats} one {# expérience en matière d’éducation et de certificats} other {# expériences en matière d’éducation et de certificats}}",
@@ -13542,7 +13578,7 @@
     "description": "Contact email subtitle"
   },
   "uqI3Vf": {
-    "defaultMessage": "Annulez et revenez aux ministères",
+    "defaultMessage": "Annuler et revenir aux ministères",
     "description": "Button label to return to the departments table"
   },
   "usRTou": {
@@ -13578,7 +13614,7 @@
     "description": "Link text for the account settings page"
   },
   "v+AFQT": {
-    "defaultMessage": "Sauvegardez votre objectif de carrière",
+    "defaultMessage": "Enregistrer votre objectif de carrière",
     "description": "Text on a button to your career objective form"
   },
   "v0EVPQ": {
@@ -13710,7 +13746,7 @@
     "description": "Filter by option on instructor training page."
   },
   "vY031f": {
-    "defaultMessage": "Ajoutez une compétence ({numOfSkills}/{maxSkills})",
+    "defaultMessage": "Ajouter une compétence ({numOfSkills}/{maxSkills})",
     "description": "Label for skill dialog trigger on skills showcase section."
   },
   "vYi5/y": {
@@ -13910,7 +13946,7 @@
     "description": "Placeholder displayed on the skill form families field."
   },
   "wP9+aN": {
-    "defaultMessage": "Créez un processus",
+    "defaultMessage": "Créer un processus",
     "description": "Heading displayed above the Create process form."
   },
   "wPpvvm": {
@@ -13926,7 +13962,7 @@
     "description": "Role at organization"
   },
   "wUqfbl": {
-    "defaultMessage": "Placement professionnel : {placement}. Modifiez.",
+    "defaultMessage": "Placement professionnel : {placement}. Modifier.",
     "description": "Button text to edit the placement of a candidate"
   },
   "wW4ymk": {
@@ -13997,6 +14033,10 @@
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
   },
+  "wjyoQN": {
+    "defaultMessage": "Cette procédure est réservée aux candidates et candidats qui répondent à certains critères. Par exemple, ce processus peut être restreint aux fonctionnaires, à certains ministères ou aux personnes occupant un emploi de la fonction publique d’une classification ou d’un niveau particulier. Sur la base de votre profil et de votre candidature, vous ne remplissez pas les conditions requises pour participer à ce processus. Votre candidature ne sera pas prise en compte.",
+    "description": "Status description for an application that was removed from a pool due to due the applicant being ineligible"
+  },
   "wlfZcP": {
     "defaultMessage": "Pour en savoir plus sur les nouveaux services qui peuvent vous aider.",
     "description": "Link text to the workforce adjustment information page"
@@ -14009,6 +14049,10 @@
     "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
     "description": "Contact email card description on account settings page"
   },
+  "wqcWdN": {
+    "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
+    "description": "Status description for an application that was removed from a pool"
+  },
   "wqzCx3": {
     "defaultMessage": "Mise à l'essai d'une nouvelle recherche dans le tableau",
     "description": "Title for a note around testing new search"
@@ -14018,7 +14062,7 @@
     "description": "First part of education experience title for other type"
   },
   "wrQN7E": {
-    "defaultMessage": "Modifiez les commentaires",
+    "defaultMessage": "Modifier les commentaires",
     "description": "Button text to start editing talent nomination group comments"
   },
   "wrg4fw": {
@@ -14141,6 +14185,10 @@
     "defaultMessage": "Les droits de priorité ont été mis à jour avec succès.",
     "description": "Message displayed when a user successfully updates their priority entitlements."
   },
+  "xQSZ+V": {
+    "defaultMessage": "Les récompenses et reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",
+    "description": "Description for award experience card header"
+  },
   "xQXV5W": {
     "defaultMessage": "La personne candidate",
     "description": "Link text for nominee step of a talent nomination"
@@ -14226,7 +14274,7 @@
     "description": "Header for the form to remove a community role from a user"
   },
   "xkJAuq": {
-    "defaultMessage": "Ajoutez cette compétence",
+    "defaultMessage": "Ajouter cette compétence",
     "description": "Button text to select a specific skill in the skill dialog"
   },
   "xle+7f": {
@@ -14320,6 +14368,10 @@
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
+  },
+  "yBpua7": {
+    "defaultMessage": "L’expérience de travail est un excellent endroit pour présenter vos expériences à temps partiel, à temps plein, de travail autonome, dans le secteur sans but lucratif ou de stage.",
+    "description": "Description for work experience card header"
   },
   "yC4xI6": {
     "defaultMessage": "Erreur : l’envoi de la candidature a échoué",
@@ -14542,7 +14594,7 @@
     "description": "Status description for a reviewed application awaiting assessment"
   },
   "yzvT6g": {
-    "defaultMessage": "Ajoutez un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans la collectivité",
     "description": "Button label for the form to add a community membership to a user"
   },
   "z+Pc2D": {
@@ -14570,7 +14622,7 @@
     "description": "Instructions on how to add a question when there are none"
   },
   "z4xCCg": {
-    "defaultMessage": "Date d'expiration : {date}. Modifiez.",
+    "defaultMessage": "Date d'expiration : {date}. Modifier.",
     "description": "Button text to edit an expiry date"
   },
   "z59tbA": {
@@ -14702,7 +14754,7 @@
     "description": "Label for the nominator's name"
   },
   "zYSicn": {
-    "defaultMessage": "Ajouter un drapeau à {candidatename} pour les utilisateurs autorisés.",
+    "defaultMessage": "Ajouter un drapeau à {candidateName} pour les utilisateurs autorisés.",
     "description": "Flag button label for applicant assessment tracking."
   },
   "zahHKE": {
@@ -14766,7 +14818,7 @@
     "description": "Label displayed for supervisory position false"
   },
   "zpr5ny": {
-    "defaultMessage": "Modifiez cette collectivité",
+    "defaultMessage": "Modifier cette collectivité",
     "description": "Link text for edit interest in a community"
   },
   "zpwZSQ": {
@@ -14798,7 +14850,7 @@
     "description": "Title for the accessible by design section"
   },
   "ztzRUG": {
-    "defaultMessage": "Créez une classification",
+    "defaultMessage": "Créer une classification",
     "description": "Button text to create a classification"
   },
   "zu/X7H": {

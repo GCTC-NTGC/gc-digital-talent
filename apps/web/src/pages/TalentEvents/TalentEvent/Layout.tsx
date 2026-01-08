@@ -131,3 +131,5 @@ export const Component = () => (
 );
 
 Component.displayName = "TalentEventLayout";
+
+export default Component;

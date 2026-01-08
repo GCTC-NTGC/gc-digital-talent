@@ -62,10 +62,10 @@ class ExperiencePage extends AppPage {
       .click();
 
     let organization = this.page.getByRole("textbox", {
-      name: "Organization",
+      name: /organization/i,
     });
     if ((await organization.count()) === 0) {
-      organization = this.page.getByRole("combobox", { name: "Organization" });
+      organization = this.page.getByRole("combobox", { name: /organization/i });
     }
     await organization.fill(input.organization ?? "test org");
 
@@ -113,7 +113,6 @@ class ExperiencePage extends AppPage {
         name: /security/i,
       })
       .click();
-
     await this.page.getByRole("button", { name: /add work streams/i }).click();
 
     await this.save();
@@ -670,7 +669,9 @@ class ExperiencePage extends AppPage {
   }
 
   async save() {
-    await this.page.getByRole("button", { name: /save and return/i }).click();
+    await this.page
+      .getByRole("button", { name: /Save and return to my career timeline/i })
+      .click();
   }
 
   async fillDate(d?: InputMaybe<string>, end?: boolean, label?: RegExp) {

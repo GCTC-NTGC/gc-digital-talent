@@ -46,4 +46,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexWorkStreamPage";
 
-export default IndexWorkStreamPage;
+export default Component;
