@@ -1354,7 +1354,7 @@
           "value": "TECHNICAL"
         },
         "description": {
-          "en": "Demonstrated ability to build server-side logic, modeling, and data services for applications. This includes using programming languages such as, but not limited to Python, Java, C#, PHP, or JavaScript (Node.js), along with frameworks such as but not limited to ASP.NET, Django, Spring or Express.js.",
+          "en": "Demonstrated ability to build server-side logic, modeling, and data services for applications. This includes using programing languages such as, but not limited to Python, Java, C#, PHP, or JavaScript (Node.js), along with frameworks such as but not limited to ASP.NET, Django, Spring or Express.js.",
           "fr": "Capacité démontrée à créer des services de logique, de modélisation et de données côté serveur pour les applications. Cela inclut l’utilisation de langages de programmation tels que Python, Java, C#, PHP ou JavaScript (Node.js), ainsi que des cadres tels qu’ASP.NET, Django, Spring ou Express.js."
         },
         "families": [
@@ -1443,7 +1443,7 @@
             "key": "technical_advising"
           }
         ],
-        "key": "business_process_modeling",
+        "key": "bsiness_process_modeling",
         "keywords": {
           "en": ["BPM", "Business", "Modeling", "Process"],
           "fr": ["BPM", "d'affaires", "Modélisation", "processus"]
@@ -4850,7 +4850,7 @@
             "key": "executive_leadership"
           }
         ],
-        "key": "executive_leadership_digital_business_line_advisory",
+        "key": "executive_leadership_digtial_business_line_advisory",
         "keywords": {
           "en": ["Executive", "Leadership"],
           "fr": ["exécutif", "Leadership"]
@@ -4948,7 +4948,7 @@
             "key": "executive_leadership"
           }
         ],
-        "key": "executive_leadership_infrastructure_operations",
+        "key": "executive_leadership_instrastructure_operations",
         "keywords": {
           "en": ["Executive", "Leadership"],
           "fr": ["exécutif", "Leadership"]
@@ -5844,7 +5844,7 @@
           "value": "TECHNICAL"
         },
         "description": {
-          "en": "Demonstrated ability to develop, configure, and manage a web-based platform to provide access to geospatial data, tools, and services for visualization, analysis, and decision-making purposes.",
+          "en": "Demonstrated ability to develop, configure, and manage a web-based platform to provide access to  geospatial data, tools, and services for visualization, analysis, and decision-making purposes.",
           "fr": "Capacité démontrée à développer, configurer et gérer des portails SIG, facilitant l'accès aux données géospatiales, aux outils et aux services pour la visualisation, l'analyse et la prise de décision."
         },
         "families": [
@@ -9469,7 +9469,7 @@
             "key": "atip"
           }
         ],
-        "key": "policies_procedures_guidelines_development",
+        "key": "policies_procedures_quidelines_development",
         "keywords": {
           "en": null,
           "fr": null
