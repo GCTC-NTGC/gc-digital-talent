@@ -2,7 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useQuery } from "urql";
-import { ReactNode, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Button,
