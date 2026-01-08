@@ -20,7 +20,7 @@ These values are read by the API in `api/config/freshdesk.php`. The API logic fo
 
 #### `api/.env`
 
-- Set value of `FRESHDESK_API_TICKETS_ENDPOINT` to "https://_domain_.freshdesk.com/api/v2/tickets" where the _domain_ value can be found in [Freshdesk account](https://support.freshdesk.com/en/support/solutions/articles/237264-how-do-i-find-my-freshdesk-account-url-using-my-email-address-)
+- Set value of `FRESHDESK_API_ENDPOINT` to "https://_domain_.freshdesk.com/api/v2" where the _domain_ value can be found in [Freshdesk account](https://support.freshdesk.com/en/support/solutions/articles/237264-how-do-i-find-my-freshdesk-account-url-using-my-email-address-)
 - Set value of `FRESHDESK_API_KEY` to string found in [Freshdesk account](https://support.freshdesk.com/en/support/solutions/articles/215517-how-to-find-your-api-key)
 - Set value of `FRESHDESK_API_TICKET_TAG` to "test"
 
