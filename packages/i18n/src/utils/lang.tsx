@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
 
 import { commonMessages } from "../messages";
 import { Locales } from "../types";
