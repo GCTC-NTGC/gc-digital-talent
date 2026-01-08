@@ -38,7 +38,7 @@
     "tailwind-variants": "^3.2.2"
   },
   "devDependencies": {
-    "@faker-js/faker": "^10.1.0",
+    "@faker-js/faker": "^10.2.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
