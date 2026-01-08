@@ -1684,7 +1684,7 @@
     "description": "Lead in text for a decisions reason"
   },
   "4f81Y1": {
-    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
+    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
     "description": "Warning message when selecting the only-canadian-citizens limitation option"
   },
   "4f9Xsc": {
