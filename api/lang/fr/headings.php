@@ -265,4 +265,5 @@ return [
     'cfo_status' => 'Statut de DPF',
     'additional_duties' => 'Tâches supplémentaires',
     'other_roles' => 'Autres rôles',
+    'other_sdo_position' => 'Autre poste de CSD',
 ];
