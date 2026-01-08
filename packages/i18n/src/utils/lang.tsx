@@ -19,16 +19,24 @@ export const appendLanguageName = ({
   lang: Locales;
   intl: IntlShape;
   formatted?: boolean;
-}): ReactNode => {
-  const Wrapper = formatted ? Gray : Fragment;
-  return (
-    <>
-      {label}{" "}
-      <Wrapper>
-        {lang === "en"
-          ? intl.formatMessage(commonMessages.englishLabel)
-          : intl.formatMessage(commonMessages.frenchLabel)}
-      </Wrapper>
-    </>
-  );
+}): ReactNode | string => {
+  if (formatted) {
+    return (
+      <>
+        {label}{" "}
+        <Gray>
+          {lang === "en"
+            ? intl.formatMessage(commonMessages.englishLabel)
+            : intl.formatMessage(commonMessages.frenchLabel)}
+        </Gray>
+      </>
+    );
+  }
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+  return `${label} ${
+    lang === "en"
+      ? intl.formatMessage(commonMessages.englishLabel)
+      : intl.formatMessage(commonMessages.frenchLabel)
+  }
+  `;
 };
