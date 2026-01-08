@@ -33,7 +33,7 @@ class SyncScreeningStage extends Command
                     WHEN pool_candidate_status = 'APPLICATION_REVIEW' THEN 'APPLICATION_REVIEW'
                     WHEN pool_candidate_status = 'SCREENED_IN' THEN 'SCREENED_IN'
                     WHEN pool_candidate_status = 'UNDER_ASSESSMENT' THEN 'UNDER_ASSESSMENT'
-                    WHEN pool_candidate_status NOT IN ('NEW_APPLICATION', 'APPLICATION_REVIEW', 'SCREENED_IN', 'DRAFT', 'DRAFT_EXPIRED')
+                    WHEN pool_candidate_status NOT IN ('NEW_APPLICATION', 'APPLICATION_REVIEW', 'SCREENED_IN', 'DRAFT', 'DRAFT_EXPIRED', 'UNDER_ASSESSMENT')
                         AND (computed_final_decision IS NULL OR computed_final_decision = 'TO_ASSESS')
                         AND removed_at IS NULL THEN 'UNDER_ASSESSMENT'
                     ELSE NULL
