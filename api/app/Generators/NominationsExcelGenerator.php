@@ -170,21 +170,28 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         parent::__construct($fileName, $dir);
     }
 
+    private function getExcelSheetTitle(string $key): string
+    {
+        $title = Lang::get($key, [], $this->lang);
+
+        return substr($title, 0, 31);
+    }
+
     public function generate(): self
     {
         $this->spreadsheet = new Spreadsheet;
 
         // Nominations overview sheet
         $overviewSheet = $this->spreadsheet->getActiveSheet();
-        $overviewSheet->setTitle(Lang::get('headings.nominations_overview', [], $this->lang));
+        $overviewSheet->setTitle($this->getExcelSheetTitle('headings.nominations_overview'));
 
         // Nominee Profiles sheet
         $nomineeProfilesSheet = $this->spreadsheet->createSheet();
-        $nomineeProfilesSheet->setTitle(Lang::get('headings.nominee_profiles', [], $this->lang));
+        $nomineeProfilesSheet->setTitle($this->getExcelSheetTitle('headings.nominee_profiles'));
 
         // Nomination Details sheet
         $nominationDetailsSheet = $this->spreadsheet->createSheet();
-        $nominationDetailsSheet->setTitle(Lang::get('headings.nominations_details', [], $this->lang));
+        $nominationDetailsSheet->setTitle($this->getExcelSheetTitle('headings.nominations_details'));
 
         // Generate data for sheets
         $this->generateOverviewTab($overviewSheet);
