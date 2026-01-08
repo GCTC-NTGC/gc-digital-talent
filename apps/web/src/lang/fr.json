@@ -3984,7 +3984,7 @@
     "description": "Subtitle for goals and work style section"
   },
   "EhRf8u": {
-    "defaultMessage": "Retirer le drapeau de {candidatename} pour les utilisateurs autorisés.",
+    "defaultMessage": "Retirer le drapeau de {candidateName} pour les utilisateurs autorisés.",
     "description": "Un-flag button label for applicant assessment tracking."
   },
   "ElnCxi": {
@@ -14714,7 +14714,7 @@
     "description": "Label for the nominator's name"
   },
   "zYSicn": {
-    "defaultMessage": "Ajouter un drapeau à {candidatename} pour les utilisateurs autorisés.",
+    "defaultMessage": "Ajouter un drapeau à {candidateName} pour les utilisateurs autorisés.",
     "description": "Flag button label for applicant assessment tracking."
   },
   "zahHKE": {
