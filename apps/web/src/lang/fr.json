@@ -1795,10 +1795,6 @@
     "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
     "description": "The lateral move interest described as not interested."
   },
-  "56Mvji": {
-    "defaultMessage": "vous occupez un poste permanent et vous aimeriez recevoir <strong>une indemnité de départ pour quitter volontairement la fonction publique</strong>.",
-    "description": "Indicator three, you would likle to leave voluntarily"
-  },
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
     "description": "Button text to set no theme mode"
@@ -5822,6 +5818,10 @@
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
+  },
+  "N/c1Yg": {
+    "defaultMessage": "vous occupez un poste permanent et vous aimeriez recevoir <strong>une indemnité de départ pour quitter volontairement la fonction publique</strong>.",
+    "description": "Indicator three, you would like to leave voluntarily"
   },
   "N2/Y9w": {
     "defaultMessage": "Non réclamée",
