@@ -1849,7 +1849,7 @@
           "fr": "Développement dorsal"
         },
         "description": {
-          "en": "Demonstrated ability to build server-side logic, modeling, and data services for applications. This includes using programing languages such as, but not limited to Python, Java, C#, PHP, or JavaScript (Node.js), along with frameworks such as but not limited to ASP.NET, Django, Spring or Express.js.",
+          "en": "Demonstrated ability to build server-side logic, modeling, and data services for applications. This includes using programming languages such as, but not limited to Python, Java, C#, PHP, or JavaScript (Node.js), along with frameworks such as but not limited to ASP.NET, Django, Spring or Express.js.",
           "fr": "Capacité démontrée à créer des services de logique, de modélisation et de données côté serveur pour les applications. Cela inclut l’utilisation de langages de programmation tels que Python, Java, C#, PHP ou JavaScript (Node.js), ainsi que des cadres tels qu’ASP.NET, Django, Spring ou Express.js."
         },
         "keywords": {
@@ -6068,7 +6068,7 @@
       },
       {
         "id": "4f8f7a97-6948-4a5a-9d1d-18607894c681",
-        "key": "executive_leadership_digtial_business_line_advisory",
+        "key": "executive_leadership_digital_business_line_advisory",
         "name": {
           "en": "Executive Leadership of Digital Business Line Advisory Services",
           "fr": "Leadership exécutif des services consultatifs auprès des secteurs de la numérique"
@@ -6200,7 +6200,7 @@
       },
       {
         "id": "a2d533a2-8479-492a-9653-9be2cc377508",
-        "key": "executive_leadership_instrastructure_operations",
+        "key": "executive_leadership_infrastructure_operations",
         "name": {
           "en": "Executive Leadership of Infrastructure Operations",
           "fr": "Leadership exécutif des opérations d’infrastructure"
@@ -10909,7 +10909,7 @@
       },
       {
         "id": "d4592e6c-5f50-4793-b739-583d3bfa0d99",
-        "key": "policies_procedures_quidelines_development",
+        "key": "policies_procedures_guidelines_development",
         "name": {
           "en": "Policies, Procedures, or Guidelines development",
           "fr": "Élaboration de politiques, de procédures ou de lignes directrices."
