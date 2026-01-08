@@ -28,6 +28,7 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import { FormValues } from "./types";
 import CandidateFacingScreeningStageNotice from "./CandidateFacingScreeningStageNotice";
+import MoveToPreviousStepNotice from "./MoveToPreviousStepNotice";
 
 const UpdateScreeningStageDialog_Fragment = graphql(/** GraphQL */ `
   fragment UpdateScreeningStageDialog on PoolCandidate {
@@ -178,6 +179,9 @@ const UpdateScreeningStageDialog = ({
                   value: screeningStage.value,
                   label: `${index + 1}. ${screeningStage.label.localized ?? notAvailable}`,
                 }))}
+              />
+              <MoveToPreviousStepNotice
+                screeningStage={candidate?.screeningStage?.value}
               />
               <CandidateFacingScreeningStageNotice />
               <Dialog.Footer>
