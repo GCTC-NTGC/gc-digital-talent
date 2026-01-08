@@ -24,7 +24,7 @@ const MoveToPreviousStepNotice = ({
     return null;
 
   return (
-    <Notice.Root small color="warning" className="mt-3">
+    <Notice.Root small color="warning" className="mt-3" role="alert">
       <Notice.Title as="h4">
         {intl.formatMessage({
           defaultMessage: "Moving to a previous step",
