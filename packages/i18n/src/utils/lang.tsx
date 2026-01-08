@@ -20,23 +20,17 @@ export const appendLanguageName = ({
   intl: IntlShape;
   formatted?: boolean;
 }): ReactNode | string => {
+  const labels = {
+    en: intl.formatMessage(commonMessages.englishLabel),
+    fr: intl.formatMessage(commonMessages.frenchLabel),
+  };
   if (formatted) {
     return (
       <>
-        {label}{" "}
-        <Gray>
-          {lang === "en"
-            ? intl.formatMessage(commonMessages.englishLabel)
-            : intl.formatMessage(commonMessages.frenchLabel)}
-        </Gray>
+        {label} <Gray>{labels[lang]}</Gray>
       </>
     );
   }
   // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
-  return `${label} ${
-    lang === "en"
-      ? intl.formatMessage(commonMessages.englishLabel)
-      : intl.formatMessage(commonMessages.frenchLabel)
-  }
-  `;
+  return `${label} ${labels[lang]}`;
 };
