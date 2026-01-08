@@ -604,7 +604,7 @@
     "description": "Name of the skill showcase page"
   },
   "MQB4IA": {
-    "defaultMessage": "Sauvegardez et continuez",
+    "defaultMessage": "Enregistrer et continuez",
     "description": "Button text to save a form step and continue to the next one"
   },
   "Mco0Km": {
@@ -920,7 +920,7 @@
     "description": "Label when an item is selected"
   },
   "WGoaKQ": {
-    "defaultMessage": "Sauvegardez les modifications",
+    "defaultMessage": "Enregistrer les modifications",
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {

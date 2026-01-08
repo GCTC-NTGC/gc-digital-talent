@@ -36,7 +36,6 @@ return [
     'desired_community' => 'Desired functional community',
     'desired_work_streams' => 'Desired work streams',
     'preferred_departments' => 'Preferred departments or agencies',
-    'additional_info' => 'Additional information',
 
     // Career Objective Section
     'career_objective' => 'Career objective',
