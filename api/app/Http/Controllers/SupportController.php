@@ -2,27 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ExternalServiceException;
+use App\Support\Freshdesk;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 use function Safe\parse_url;
 
 class SupportController extends Controller
 {
-    private static $MAX_URL_LENGTH = 255;
-
-    private static $MAX_USER_AGENT_LENGTH = 255;
-
     public function createTicket(Request $request)
     {
-        if (! config('freshdesk.api.tickets_endpoint') || ! config('freshdesk.api.key')) {
-            Log::error('Attempted to create a ticket with missing config values.');
+        // what language does the user want to use?
+        $requestedLanguage = $request->header('Accept-Language');
 
-            return response([
-                'apiResponse' => 'Missing parameters',
-            ], 500);
+        // if they requested a language, ensure the Freshdesk contact is correctly set
+        if (! empty($requestedLanguage)) {
+            // what is the current language of the contact?
+            $currentContactAttributes = Freshdesk::findContactByEmail($request->input('email'));
+            $currentContactId = $currentContactAttributes['id'] ?? null;
+            $currentLanguage = $currentContactAttributes['language'] ?? null;
+
+            // if there is a current contact but the language is not set correctly, update it
+            if (is_int($currentContactId) && strcasecmp($requestedLanguage, $currentLanguage) != 0) {
+                try {
+                    Freshdesk::updateContact($currentContactId, ['language' => $requestedLanguage]);
+                } catch (Throwable $error) {
+                    // setting language is best effort only
+                    Log::error('Failed to update Freshdesk contact language: '.$error->getMessage());
+                }
+            }
+
+            // if there is no current contact and the user requested a non-default language, create it with the right language
+            if (is_null($currentContactId) && strcasecmp($requestedLanguage, Freshdesk::$DEFAULT_LANGUAGE) != 0) {
+                try {
+                    Freshdesk::createContact([
+                        'name' => $request->input('name'),
+                        'email' => $request->input('email'),
+                        'language' => $requestedLanguage,
+                    ]);
+                } catch (Throwable $error) {
+                    // setting language is best effort only
+                    Log::error('Failed to create Freshdesk contact with language: '.$error->getMessage());
+                }
+            }
         }
+
         // string values available from type field via /api/v2/ticket_fields.
         $type_map =
         [
@@ -37,7 +63,6 @@ class SupportController extends Controller
             'name' => $request->input('name'),
             'priority' => 1, // Required by Freshdesk API. Priority of the ticket. The default value is 1.
             'status' => 2, // Required by Freshdesk API. Status of the ticket. The default value is 2.
-            'tags' => [config('freshdesk.api.ticket_tag')],
             'type' => array_key_exists($request->input('subject'), $type_map) ? $type_map[$request->input('subject')] : null,
         ];
         if ($request->input('previous_url')) {
@@ -46,17 +71,10 @@ class SupportController extends Controller
             if (isset($url['query'])) {
                 $path .= '?'.$url['query'];
             }
-            if (strlen($path) > self::$MAX_URL_LENGTH) {
-                $path = substr($path, 0, self::$MAX_URL_LENGTH);
-            }
             $parameters['custom_fields']['cf_page_url'] = $path;
         }
         if ($request->input('user_agent')) {
-            $user_agent = (string) $request->input('user_agent');
-            if (strlen($request->input('user_agent')) > self::$MAX_USER_AGENT_LENGTH) {
-                $user_agent = substr($request->input('user_agent'), 0, self::$MAX_USER_AGENT_LENGTH);
-            }
-            $parameters['custom_fields']['cf_user_agent'] = $user_agent;
+            $parameters['custom_fields']['cf_user_agent'] = (string) $request->input('user_agent');
         }
         if ($request->cookie('ai_user')) {
             $parameters['custom_fields']['cf_application_insights_user_id'] = (string) $request->cookie('ai_user');
@@ -67,40 +85,19 @@ class SupportController extends Controller
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
         }
-        if (config('freshdesk.api.product_id')) {
-            $parameters['product_id'] = (int) config('freshdesk.api.product_id');
-        }
-        $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
-            ->post(
-                config('freshdesk.api.tickets_endpoint'),
-                $parameters
-            );
-        if ($response->status() == 201) { // status code 201 = created.
-            return response([
-                'serviceResponse' => 'success',
-            ], 200);
-        }
 
-        // we didn't get a 201 so let's see if we recognize an error
-        $responseBody = $response->json();
-        $errors = $responseBody['errors'] ?? [];
-        $invalidEmailErrors = array_filter($errors, function ($error) {
-            return $error['code'] === 'invalid_value' && $error['field'] === 'email';
-        });
-        if (! empty($invalidEmailErrors)) {
-            // some invalid values were sent
+        try {
+            Freshdesk::createTicket($parameters);
+        } catch (ExternalServiceException $error) {
             return response([
                 'serviceResponse' => 'error',
-                'errorDetail' => 'invalid_email',
+                'errorDetail' => $error->getMessage(),
             ], 400);
         }
 
-        // we don't recognize an error so send a generic 500
-        Log::error('Error when trying to create a ticket: '.$response->getBody());
-
         return response([
-            'serviceResponse' => 'error',
-        ], 500);
+            'serviceResponse' => 'success',
+        ], 200);
 
     }
 }
