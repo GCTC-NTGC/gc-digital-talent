@@ -122,21 +122,21 @@ class ApplicantDashboardPage extends AppPage {
       const normalized = rawText.replace(/\s+/g, " ").trim();
       const lowered = normalized.toLowerCase();
 
-      switch (true) {
-        case lowered.startsWith("not provided"):
-        case lowered.startsWith("not available"): {
-          const subSectionName = normalized
-            .replace(/^not (provided|available)\s*[-–—]?\s*/i, "")
-            .trim();
-          const safe = subSectionName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      if (
+        lowered.startsWith("not provided") ||
+        lowered.startsWith("not available")
+      ) {
+        const subSectionName = normalized
+          .replace(/^not (provided|available)\s*[-–—]?\s*/i, "")
+          .trim();
+        const safe = subSectionName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-          await subSections
-            .getByRole("button", { name: new RegExp(safe, "i") })
-            .click();
+        await subSections
+          .getByRole("button", { name: new RegExp(safe, "i") })
+          .click();
 
-          await employeeProfilePage.verifyUnlockEmployeeToolsDialog();
-          continue;
-        }
+        await employeeProfilePage.verifyUnlockEmployeeToolsDialog();
+        break;
       }
     }
   }
@@ -159,16 +159,15 @@ class ApplicantDashboardPage extends AppPage {
     for (const rawText of status) {
       const trimmed = rawText.trim().toLowerCase();
 
-      switch (true) {
-        case trimmed.startsWith("complete"):
-          continue;
-
-        case trimmed.startsWith("incomplete"):
-        case trimmed.startsWith("missing optional information"): {
-          const subSectionName = rawText.split("-").slice(1).join("-").trim();
-          await this.fillInCompleteAndMissingSections([subSectionName]);
-          continue;
-        }
+      if (trimmed.startsWith("complete")) {
+        continue;
+      } else if (
+        trimmed.startsWith("incomplete") ||
+        trimmed.startsWith("missing optional information")
+      ) {
+        const subSectionName = rawText.split("-").slice(1).join("-").trim();
+        await this.fillInCompleteAndMissingSections([subSectionName]);
+        continue;
       }
     }
   }
