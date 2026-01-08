@@ -2575,6 +2575,10 @@
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to update a profile when signed in"
   },
+  "8i3Ec8": {
+    "defaultMessage": "L’expérience d’apprentissage personnelle permet de montrer comment d’autres événements de vie vous ont aidé à grandir et à développer vos compétences, notamment la famille, les loisirs et les activités parascolaires.",
+    "description": "Description for personal experience card header"
+  },
   "8ii/QN": {
     "defaultMessage": "{workStreamCount, plural, =0 {0 volet de travail lié} one {# volet de travail lié} other {# volets de travail liés}}",
     "description": "Count of work streams for work experience"
@@ -5847,6 +5851,10 @@
     "defaultMessage": "Modifier les compétences techniques de haut niveau",
     "description": "Link text for editing a users top technical skills"
   },
+  "N6jHMK": {
+    "defaultMessage": "Ajouter une participation communautaire",
+    "description": "Link text to add a community experience on experience card header"
+  },
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
     "description": "Descriptive text explaining the language profile section of the application profile"
@@ -8122,6 +8130,10 @@
     "defaultMessage": "Une personne tierce a soumis cette candidature au nom de l’autrice ou l’auteur de la mise en candidature. Vous trouverez leurs coordonnées ici.",
     "description": "Information in dialog about submitter being different from nominator"
   },
+  "XbsYGW": {
+    "defaultMessage": "L’expérience de formation vous permet de présenter vos diplômes, certificats, cours en ligne, apprentissages, permis ou autres titres de compétences obtenus auprès d’établissements d’enseignement.",
+    "description": "Description for education experience card header"
+  },
   "Xc3Y7t": {
     "defaultMessage": "Modifier l'adresse courriel de correspondance",
     "description": "Link to update the contact email"
@@ -8938,6 +8950,10 @@
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
+  "bLaMGb": {
+    "defaultMessage": "L’expérience communautaire est l’endroit où expliquer comment votre participation à la collectivité vous a aidé à évoluer, notamment par le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
+    "description": "Description for community experience card header"
+  },
   "bMM+wm": {
     "defaultMessage": "Sélectionnez les options de lieu de travail flexibles offertes dans le cadre de ce poste.",
     "description": "Message describing the flexible work locations filter in the search form."
@@ -9385,6 +9401,10 @@
   "d8HawO": {
     "defaultMessage": "Ce membre du personnel a accepté de partager son profil avec les collectivités fonctionnelles suivantes pour des possibilités d’emploi ou de formation.",
     "description": "Description for Community interest section of user employee information page"
+  },
+  "dB4fUm": {
+    "defaultMessage": "Ajouter une formation ou un certificat",
+    "description": "Link text to add a education experience on experience card header"
   },
   "dBpcNA": {
     "defaultMessage": "Forces armées canadiennes",
@@ -11401,6 +11421,10 @@
     "defaultMessage": "Recherche par mot-clé",
     "description": "Label for the pool candidates table search input"
   },
+  "lNrsD+": {
+    "defaultMessage": "Ajouter une expérience personnelle ou un certificat",
+    "description": "Link text to add a personal experience on experience card header"
+  },
   "lPuC3S": {
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
@@ -13197,6 +13221,10 @@
     "defaultMessage": "Examinez et vérifiez le statut de vétéran du candidat",
     "description": "Subtitle for verifying a candidate's veteran claim"
   },
+  "tD+jQR": {
+    "defaultMessage": "Ajouter une expérience de travail",
+    "description": "Link text to add a work experience on experience card header"
+  },
   "tD99Wf": {
     "defaultMessage": "Sélectionnez une classification",
     "description": "Placeholder displayed on the pool form classification field."
@@ -13308,6 +13336,10 @@
   "tj5pn8": {
     "defaultMessage": "2. Cours et camps d’entrainement dirigés par un instructeur ou une instructrice",
     "description": "Title for instructor-led classes card"
+  },
+  "tj7eTS": {
+    "defaultMessage": "Ajouter une récompense ou une reconnaissance",
+    "description": "Link text to add an award experience on experience card header"
   },
   "tj90+D": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière d’éducation et de certificats} one {# expérience en matière d’éducation et de certificats} other {# expériences en matière d’éducation et de certificats}}",
@@ -14153,6 +14185,10 @@
     "defaultMessage": "Les droits de priorité ont été mis à jour avec succès.",
     "description": "Message displayed when a user successfully updates their priority entitlements."
   },
+  "xQSZ+V": {
+    "defaultMessage": "Les récompenses et reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",
+    "description": "Description for award experience card header"
+  },
   "xQXV5W": {
     "defaultMessage": "La personne candidate",
     "description": "Link text for nominee step of a talent nomination"
@@ -14332,6 +14368,10 @@
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
+  },
+  "yBpua7": {
+    "defaultMessage": "L’expérience de travail est un excellent endroit pour présenter vos expériences à temps partiel, à temps plein, de travail autonome, dans le secteur sans but lucratif ou de stage.",
+    "description": "Description for work experience card header"
   },
   "yC4xI6": {
     "defaultMessage": "Erreur : l’envoi de la candidature a échoué",

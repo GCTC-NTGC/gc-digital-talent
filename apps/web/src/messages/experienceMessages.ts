@@ -69,8 +69,8 @@ const messages = defineMessages({
     description: "Description for personal experience card header",
   },
   addPersonal: {
-    defaultMessage: "Add personal or a certificate",
-    id: "xD+kuC",
+    defaultMessage: "Add personal experience or a certificate",
+    id: "lNrsD+",
     description:
       "Link text to add a personal experience on experience card header",
   },
