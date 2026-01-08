@@ -14,13 +14,12 @@ const MoveToPreviousStepNotice = ({
 }) => {
   const intl = useIntl();
   const selectedStage = useWatch<FormValues>({ name: "screeningStage" });
-  const screeningStageOrder = ENUM_SORT_ORDER.SCREENING_STAGE;
 
   if (
     !screeningStage ||
     !selectedStage ||
-    screeningStageOrder.findIndex((i) => i === screeningStage) <=
-      screeningStageOrder.findIndex((i) => i === selectedStage)
+    ENUM_SORT_ORDER.SCREENING_STAGE.indexOf(screeningStage) <=
+      ENUM_SORT_ORDER.SCREENING_STAGE.indexOf(selectedStage)
   )
     return null;
 
