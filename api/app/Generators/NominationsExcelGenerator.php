@@ -363,40 +363,40 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $this->canShare($consentToShare, $userSkills->join(', ')),
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_planning_lateral_move_interest)),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_planning_lateral_move_time_frame, TimeFrame::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_lateral_move_organization_type ?? [], OrganizationTypeInterest::class)),
+                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_lateral_move_organization_type ?? [], OrganizationTypeInterest::class)),
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_planning_promotion_move_interest)),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_planning_promotion_move_time_frame, TimeFrame::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_promotion_move_organization_type ?? [], OrganizationTypeInterest::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_learning_opportunities_interest ?? [], LearningOpportunitiesInterest::class)),
+                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_promotion_move_organization_type ?? [], OrganizationTypeInterest::class)),
+                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_learning_opportunities_interest ?? [], LearningOpportunitiesInterest::class)),
                     $this->canShare($consentToShare, $employeeProfile?->eligible_retirement_year?->format('Y') ?? ''),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_status ?? [], Mentorship::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_interest ?? [], Mentorship::class)),
+                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_mentorship_status ?? [], Mentorship::class)),
+                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_mentorship_interest ?? [], Mentorship::class)),
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_planning_exec_interest)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_status ?? [], ExecCoaching::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_interest ?? [], ExecCoaching::class)),
-                    $this->canShare($consentToShare, $employeeProfile?->nextRoleClassification?->group ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->nextRoleClassification?->level ?? ''),
+                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status ?? [], ExecCoaching::class)),
+                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_interest ?? [], ExecCoaching::class)),
+                    $this->canShare($consentToShare, $employeeProfile->nextRoleClassification?->group ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->nextRoleClassification?->level ?? ''),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->next_role_target_role, TargetRole::class)),
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->next_role_is_c_suite_role)),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class)),
-                    $this->canShare($consentToShare, $employeeProfile?->next_role_job_title ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->next_role_job_title ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->nextRoleCommunity?->name[$this->lang] ?? ''),
                     $this->canShare($consentToShare, $nextRoleWorkStreams->join(',')),
                     $this->canShare($consentToShare, $nextRoleDepartments->join(', ')),
-                    $this->canShare($consentToShare, $employeeProfile?->next_role_additional_information ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->careerObjectiveClassification?->group ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->careerObjectiveClassification?->level ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->next_role_additional_information ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->careerObjectiveClassification?->group ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->careerObjectiveClassification?->level ?? ''),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_objective_target_role, TargetRole::class)),
                     $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_objective_is_c_suite_role)),
                     $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class)),
-                    $this->canShare($consentToShare, $employeeProfile?->career_objective_job_title ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->careerObjectiveCommunity?->name[$this->lang] ?? ' '),
+                    $this->canShare($consentToShare, $employeeProfile->career_objective_job_title ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->careerObjectiveCommunity?->name[$this->lang] ?? ' '),
                     $this->canShare($consentToShare, $careerObjectiveWorkStreams->join(', ')),
                     $this->canShare($consentToShare, $careerObjectiveDepartments->join(', ')),
-                    $this->canShare($consentToShare, $employeeProfile?->career_objective_additional_information ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->career_planning_about_you ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->career_planning_learning_goals ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->career_planning_work_style ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->career_objective_additional_information ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->career_planning_about_you ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->career_planning_learning_goals ?? ''),
+                    $this->canShare($consentToShare, $employeeProfile->career_planning_work_style ?? ''),
                     $this->canShare($consentToShare, $appliedPools->join(', ')),
                     $this->canShare($consentToShare, $offPlatformProcesses->join(', ')),
                 ];
@@ -444,11 +444,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $optionsStr, // nomination options
                         $nominator?->getFullName() ?? $nomination->nominator_fallback_name, // nominator
                         $nomination->nominee_relationship_to_nominator ? $this->localizeEnum($nomination->nominee_relationship_to_nominator, TalentNominationNomineeRelationshipToNominator::class) : '', // Nominee's relationship to nominator
-                        $nominator?->work_email ?? $nomination->nominator_fallback_work_email,
-                        $nominator?->currentClassification?->formattedGroupAndLevel ?? '', // nominator classification
-                        $nominator?->department?->name[$this->lang] ?? '', // nominator department
-                        $submitter?->getFullName() ?? '', // submitter's name
-                        $submitter?->work_email ?? '', // submitter's work email
+                        $nominator->work_email ?? $nomination->nominator_fallback_work_email,
+                        $nominator->currentClassification?->formattedGroupAndLevel ?? '', // nominator classification
+                        $nominator->department?->name[$this->lang] ?? '', // nominator department
+                        $submitter->getFullName() ?? '', // submitter's name
+                        $submitter->work_email ?? '', // submitter's work email
                         $submitterRelationshipStr, // submitter's relationship to nominator
                         $referenceDetails['name'], // reference name
                         $referenceDetails['email'], // reference email
@@ -576,7 +576,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
         if ($reference) {
             $details['name'] = $reference->getFullName();
-            $details['email'] = $reference?->work_email ?? $reference?->email ?? '';
+            $details['email'] = $reference->work_email ?? $reference->email ?? '';
             $details['classification'] = $reference->currentClassification->formattedGroupAndLevel ?? '';
             $details['department'] = $reference->department?->name[$this->lang] ?? '';
         }
