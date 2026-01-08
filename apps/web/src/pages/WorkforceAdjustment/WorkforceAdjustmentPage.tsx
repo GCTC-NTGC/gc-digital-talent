@@ -145,6 +145,7 @@ export const Component = () => {
               width={209}
               height={167}
               className="block h-auto w-full object-cover object-center"
+              alt=""
             />
           </div>
           <div className="sm:grow">
@@ -179,9 +180,9 @@ export const Component = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "you're an <strong>indeterminate employee</strong> interested in <strong>a package to leave the public service voluntarily</strong>",
-                  id: "56Mvji",
+                  id: "N/c1Yg",
                   description:
-                    "Indicator three, you would likle to leave voluntarily",
+                    "Indicator three, you would like to leave voluntarily",
                 })}
               </li>
             </Ul>

@@ -335,10 +335,6 @@
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
   },
-  "/JDxnh": {
-    "defaultMessage": "Votre relation avec l'auteur(trice) de la mise en candidature ",
-    "description": "Label for a nomination sumitters relationship to the nominator"
-  },
   "/K1/1n": {
     "defaultMessage": "Groupe de classifications actuel",
     "description": "Label displayed on classification group input"
@@ -1688,7 +1684,7 @@
     "description": "Lead in text for a decisions reason"
   },
   "4f81Y1": {
-    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
+    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
     "description": "Warning message when selecting the only-canadian-citizens limitation option"
   },
   "4f9Xsc": {
@@ -1798,10 +1794,6 @@
   "55IkTu": {
     "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
     "description": "The lateral move interest described as not interested."
-  },
-  "56Mvji": {
-    "defaultMessage": "vous occupez un poste permanent et vous aimeriez recevoir <strong>une indemnité de départ pour quitter volontairement la fonction publique</strong>.",
-    "description": "Indicator three, you would likle to leave voluntarily"
   },
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
@@ -3996,7 +3988,7 @@
     "description": "Subtitle for goals and work style section"
   },
   "EhRf8u": {
-    "defaultMessage": "Retirer le drapeau de {candidatename} pour les utilisateurs autorisés.",
+    "defaultMessage": "Retirer le drapeau de {candidateName} pour les utilisateurs autorisés.",
     "description": "Un-flag button label for applicant assessment tracking."
   },
   "ElnCxi": {
@@ -5831,6 +5823,10 @@
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
   },
+  "N/c1Yg": {
+    "defaultMessage": "vous occupez un poste permanent et vous aimeriez recevoir <strong>une indemnité de départ pour quitter volontairement la fonction publique</strong>.",
+    "description": "Indicator three, you would like to leave voluntarily"
+  },
   "N2/Y9w": {
     "defaultMessage": "Non réclamée",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
@@ -5844,7 +5840,7 @@
     "description": "Instructions on requiring information for skills"
   },
   "N5swJ7": {
-    "defaultMessage": "L'auteur(trice) de la mise en candidature ",
+    "defaultMessage": "L'auteur(trice) de la mise en candidature",
     "description": "Link text for nominator step of a talent nomination"
   },
   "N6DlK/": {
@@ -10585,6 +10581,10 @@
     "defaultMessage": "Êtes-vous un(e) dirigeant(E) qui cherche à attirer ou à promouvoir des talents à fort potentiel au sein de la collectivité du numérique (domaines de la GI, de la TI ou des données)? Y a-t-il des employés talentueux que vous souhaitez nommer au niveau EX moins un vers le groupe et le niveau EX-03? Vous faites partie de la collectivité des ressources humaines et vous voulez créer des possibilités interministérielles pour votre main-d’œuvre numérique?",
     "description": "Paragraph one, about who is eligible for exposition"
   },
+  "hq5u5/": {
+    "defaultMessage": "Votre relation avec l'auteur(trice) de la mise en candidature",
+    "description": "Label for a nomination submitter's relationship to the nominator"
+  },
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
@@ -14754,7 +14754,7 @@
     "description": "Label for the nominator's name"
   },
   "zYSicn": {
-    "defaultMessage": "Ajouter un drapeau à {candidatename} pour les utilisateurs autorisés.",
+    "defaultMessage": "Ajouter un drapeau à {candidateName} pour les utilisateurs autorisés.",
     "description": "Flag button label for applicant assessment tracking."
   },
   "zahHKE": {
