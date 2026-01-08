@@ -14809,8 +14809,8 @@
     "defaultMessage": "Télécharger la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
   },
-  "zvnzds": {
-    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<strong>#</strong> candidat correspondant} one {<strong>#</strong> candidat correspondant} other {<strong>#</strong> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<strong>#</strong> bassin} one {<strong>#</strong> bassin} other {<strong>#</strong> bassins} }",
+  "58n1gP": {
+    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<heavyPrimary>#</heavyPrimary> candidat correspondant} one {<heavyPrimary>#</heavyPrimary> candidat correspondant} other {<heavyPrimary>#</heavyPrimary> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<heavyPrimary>#</heavyPrimary> bassin} one {<heavyPrimary>#</heavyPrimary> bassin} other {<heavyPrimary>#</heavyPrimary> bassins} }",
     "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "zxLL3N": {
