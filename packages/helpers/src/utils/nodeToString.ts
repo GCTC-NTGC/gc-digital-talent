@@ -12,8 +12,10 @@ function nodeToString(node: ReactNode): string {
 
   const div = document.createElement("div");
   const root = createRoot(div);
-  flushSync(() => {
-    root.render(node);
+  queueMicrotask(() => {
+    flushSync(() => {
+      root.render(node);
+    });
   });
 
   return div.innerHTML;
