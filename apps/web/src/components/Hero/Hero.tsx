@@ -11,6 +11,7 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { uiMessages } from "@gc-digital-talent/i18n";
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import BackgroundGraphic from "./BackgroundPattern";
 import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
@@ -102,7 +103,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
   const intl = useIntl();
 
   const headingRef = useRef<HeadingRef>(null);
-  const showImg = imgPath && !children;
+  const showImg = !useIsSmallScreen("xs") && imgPath && !children;
   const applyOverlap = overlap && !navTabs;
 
   useEffect(() => {
@@ -168,7 +169,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
           </div>
           {showImg ? (
             <div
-              className="right-0 h-[50vh] w-full bg-size-[auto_50vh] bg-position-[50%_110%] bg-no-repeat xs:absolute xs:top-6 xs:h-full xs:bg-size-[auto_110%] xs:bg-position-[140%_100%] sm:bg-position-[115%_100%] md:bg-position-[110%_100%] lg:bg-position-[105%_100%]"
+              className="right-0 h-[50vh] w-full bg-size-[60%_150%] bg-position-[80%_30%] bg-no-repeat xs:absolute xs:top-0 xs:h-full sm:bg-size-[50%_200%] sm:bg-position-[100%_35%]"
               style={{ backgroundImage: `url('${imgPath}')` }}
             />
           ) : (
@@ -200,14 +201,14 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
         )}
         {additionalContent ? (
           <>
-            <Container size="lg" className="relative z-[3]">
+            <Container size="lg" className="relative z-3">
               {additionalContent}
             </Container>
           </>
         ) : null}
       </div>
       {children ? (
-        <Container size="lg" className="relative z-[3] mx-auto -mt-30 mb-0">
+        <Container size="lg" className="relative z-3 mx-auto -mt-30 mb-0">
           {children}
         </Container>
       ) : null}
