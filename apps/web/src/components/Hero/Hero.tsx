@@ -169,7 +169,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
           </div>
           {showImg ? (
             <div
-              className="right-0 h-[50vh] w-full bg-size-[60%_150%] bg-position-[80%_30%] bg-no-repeat xs:absolute xs:top-0 xs:h-full sm:bg-size-[50%_200%] sm:bg-position-[100%_35%]"
+              className="right-0 h-[50vh] w-full bg-size-[60%_150%] bg-position-[80%_30%] bg-no-repeat xs:absolute xs:top-0 xs:h-full sm:bg-size-[50%_190%] sm:bg-position-[100%_40%]"
               style={{ backgroundImage: `url('${imgPath}')` }}
             />
           ) : (
