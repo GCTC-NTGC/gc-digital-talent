@@ -475,13 +475,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function isNominatedForAdvancement(TalentNominationGroup $group): bool
     {
-        foreach ($group->nominations as $nomination) {
-            if ($nomination->nominate_for_advancement) {
-                return true;
-            }
-        }
-
-        return false;
+        return $group->advancement_nomination_count > 0;
     }
 
     /**
@@ -489,13 +483,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function isNominatedForLateralMovement(TalentNominationGroup $group): bool
     {
-        foreach ($group->nominations as $nomination) {
-            if ($nomination->nominate_for_lateral_movement) {
-                return true;
-            }
-        }
-
-        return false;
+        return $group->lateral_movement_nomination_count > 0;
     }
 
     /**
@@ -503,13 +491,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function isNominatedForDevelopmentPrograms(TalentNominationGroup $group): bool
     {
-        foreach ($group->nominations as $nomination) {
-            if ($nomination->nominate_for_development_programs) {
-                return true;
-            }
-        }
-
-        return false;
+        return $group->development_programs_nomination_count > 0;
     }
 
     /**
@@ -517,9 +499,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function getLeadershipCompetencies(TalentNomination $nomination): string
     {
-        if (! $nomination->relationLoaded('skills')) {
-            $nomination->load('skills');
-        }
+        $nomination->loadMissing('skills');
 
         if ($nomination->skills->isEmpty()) {
             return '';
@@ -677,13 +657,13 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function getNominationOptions(TalentNominationGroup $talentNominationGroup): string
     {
         $options = [];
-        if ($talentNominationGroup->advancement_nomination_count > 0) {
+        if ($this->isNominatedForAdvancement($talentNominationGroup)) {
             $options[] = $this->localizeHeading('advancement')." ({$talentNominationGroup->advancement_nomination_count})";
         }
-        if ($talentNominationGroup->lateral_movement_nomination_count > 0) {
+        if ($this->isNominatedForLateralMovement($talentNominationGroup)) {
             $options[] = $this->localizeHeading('lateral_movement')." ({$talentNominationGroup->lateral_movement_nomination_count})";
         }
-        if ($talentNominationGroup->development_programs_nomination_count > 0) {
+        if ($this->isNominatedForDevelopmentPrograms($talentNominationGroup)) {
             $options[] = $this->localizeHeading('development_programs')." ({$talentNominationGroup->development_programs_nomination_count})";
         }
 
