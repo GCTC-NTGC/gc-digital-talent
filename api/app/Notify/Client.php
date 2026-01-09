@@ -44,9 +44,9 @@ class Client
      * @param  array<mixed>  $personalisation  (optional) Array of key => value pairs to be replaced in template
      * @param  string  $reference  (optional) Add a reference key to identify the message
      * @param  string  $replyTo  (optional) ID for a reply to email address
-     * @return \Illuminate\Http\Client\Response
+     * @param  array<mixed>  $attachment  (optional) Array of key => value pairs to be replaced in template
      */
-    public function sendEmail($to, $template, $personalisation = [], $reference = null, $replyTo = null, $attachment = null)
+    public function sendEmail($to, $template, $personalisation = [], $reference = null, $replyTo = null, $attachment = null): Response
     {
         return $this->post(
             self::ENDPOINT_NOTIFICATION_EMAIL,
@@ -415,7 +415,10 @@ class Client
      */
     private function post(string $endpoint, array $payload, array $headers = []): Response
     {
-        return Http::withHeaders($this->buildHeaders($headers))
+        $response = Http::withHeaders($this->buildHeaders($headers))
             ->post(self::BASE_URL.$endpoint, $payload);
+        assert($response instanceof Response); // type narrow away PromiseInterface
+
+        return $response;
     }
 }
