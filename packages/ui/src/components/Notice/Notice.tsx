@@ -303,7 +303,7 @@ const footer = tv({
     },
     small: {
       true: { base: "-mx-3", separator: "mt-4.5 mb-3" },
-      false: { base: "-mx-6 pl-1.5", separator: "mt-6 mb-4.5" },
+      false: { base: "-mx-4.5", separator: "mt-6 mb-4.5" },
     },
     dismissible: {
       true: "",
@@ -328,6 +328,11 @@ const footer = tv({
       small: false,
       dismissible: true,
       class: "-mr-16.75 -ml-6 group-has-[>svg]:-ml-4.5",
+    },
+    {
+      small: false,
+      dismissible: false,
+      class: { base: "-mx-6 pl-1.5" },
     },
     {
       mode: "inline",
