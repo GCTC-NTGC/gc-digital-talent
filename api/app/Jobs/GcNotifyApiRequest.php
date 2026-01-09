@@ -71,7 +71,7 @@ class GcNotifyApiRequest implements ShouldQueue
             $response->clientError() &&
             Str::startsWith($response->json('errors.0.message'), 'Can’t send to this recipient using a team-only API key')
         ) {
-            Log::channel('jobs')->debug($response->body());
+            Log::channel('jobs')->debug($response->body(), [$this->message->emailAddress]);
 
             return; // pretend job was successful
         }
