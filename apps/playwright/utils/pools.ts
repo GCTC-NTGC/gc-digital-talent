@@ -55,6 +55,9 @@ const Test_CreatePoolMutationDocument = /* GraphQL */ `
         en
         fr
       }
+      community {
+        id
+      }
     }
   }
 `;
@@ -231,10 +234,15 @@ export const createAndPublishPool: GraphQLRequestFunc<
     classificationId,
     departmentId,
   }).then(async (pool) => {
-    let workStream = workStreamId;
-    if (!workStream) {
+    let selectedWorkStreamId = workStreamId;
+    if (!selectedWorkStreamId) {
       const workStreams = await getWorkStreams(ctx, {});
-      workStream = workStreams[0].id;
+      selectedWorkStreamId = workStreams.find(
+        (ws) => ws.community?.id == pool.community?.id,
+      )?.id;
+    }
+    if (!selectedWorkStreamId) {
+      throw new Error("Failed to pick a work stream for the new pool.");
     }
 
     await updatePool(ctx, {
@@ -246,7 +254,7 @@ export const createAndPublishPool: GraphQLRequestFunc<
           fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
         },
         ...input,
-        workStream: { connect: workStream },
+        workStream: { connect: selectedWorkStreamId },
       },
     });
 
