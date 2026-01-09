@@ -1,3 +1,4 @@
+import { Locales } from "@gc-digital-talent/i18n";
 import { Logger } from "@gc-digital-talent/logger";
 
 import { API_SUPPORT_ENDPOINT } from "~/constants/talentSearchConstants";
@@ -39,11 +40,13 @@ interface JSONResponse {
 export async function submitTicket(
   values: FormValues,
   logger: Logger,
+  locale: Locales,
 ): Promise<boolean> {
   const response = await fetch(API_SUPPORT_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Accept-Language": locale,
     },
     body: JSON.stringify(values),
   });

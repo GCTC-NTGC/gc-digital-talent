@@ -25,6 +25,7 @@ return [
     'not_found' => 'Introuvable',
     'step' => 'Étape',
     'open_to_job_offers' => 'Ouvert(e) aux offres d\'emploi',
+    'interested' => 'Intérêt',
     'not_interested' => 'Non intéressé(e)',
     'essential_skills' => 'Compétences essentielles',
     'nonessential_skills' => 'Compétences constituant un atout',
@@ -48,4 +49,7 @@ return [
     'nominations' => 'Nominations',
     'skill_requirements' => 'Exigences en matière de compétences',
     'expired' => 'Expiré',
+    'interested_in_program' => 'Ce programme m\'intéresse',
+    'currently_enrolled' => 'Programme en cours',
+    'completed_in' => 'Achevé en ',
 ];
