@@ -53,13 +53,19 @@ trait GeneratesFile
 
     /**
      *  Convert a boolean value into a localized
-     *  "yes" or "no" statement
+     *  "yes", "no", "" statement
      *
      * @param  ?bool  $value  The value being converted
-     * @return string "Yes" if true, "No" if false
+     * @param  mixed  $default  Default value if null
+     * @return string "Yes" if true, "No" if false, $default if null
      */
-    public function yesOrNo(?bool $value): string
+    public function yesOrNo(?bool $value, mixed $default = ''): string
     {
+
+        if (is_null($value)) {
+            return $default;
+        }
+
         return $value ? Lang::get('common.yes', [], $this->lang) : Lang::get('common.no', [], $this->lang);
     }
 
