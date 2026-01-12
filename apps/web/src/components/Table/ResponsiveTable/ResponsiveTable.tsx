@@ -133,7 +133,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     },
     getRowId: rowSelect?.getRowId,
     autoResetPageIndex: false,
-    enableGlobalFilter: isInternalSearch,
+    manualFiltering: !isInternalSearch,
     enableRowSelection: !!rowSelect,
     enableSorting: !!sort,
     manualSorting: !sort?.internal,
