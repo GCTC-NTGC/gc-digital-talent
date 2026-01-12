@@ -332,7 +332,7 @@ const footer = tv({
     {
       small: false,
       dismissible: false,
-      class: { base: "-mx-6 pl-1.5" },
+      class: { base: "-mr-6 -ml-4.5" },
     },
     {
       mode: "inline",
