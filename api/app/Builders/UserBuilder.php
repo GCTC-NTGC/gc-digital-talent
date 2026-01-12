@@ -459,8 +459,8 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($splitName) {
             foreach ($splitName as $value) {
-                $query->where('first_name', 'ilike', "%{$value}%")
-                    ->orWhere('last_name', 'ilike', "%{$value}%");
+                $query->whereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $value)
+                    ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $value);
             }
         });
     }
@@ -480,7 +480,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where('email', 'ilike', "%{$email}%");
+        return $this->whereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $email);
     }
 
     public function whereWorkEmail(?string $email): self
@@ -489,7 +489,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where('work_email', 'ilike', "%{$email}%");
+        return $this->whereRaw("unaccent(work_email) ilike ('%' || unaccent(?) || '%')", $email);
     }
 
     public function whereExactWorkEmail(string $email): self
