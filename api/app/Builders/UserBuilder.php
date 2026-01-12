@@ -774,7 +774,7 @@ class UserBuilder extends Builder
                 ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
                     $query->selectRaw(
                         'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
-                        ['english', $combinedSearchTerm]
+                        [config('scout.pgsql.config'), $combinedSearchTerm]
                     );
                 }, 'calculations')
                 // add the calculated rank column to allow for ordering by text search rank
@@ -811,12 +811,12 @@ class UserBuilder extends Builder
                 if ($arrayed) {
                     foreach ($arrayed as $index => $value) {
                         $query->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
-                            $query->whereAny([
-                                'first_name',
-                                'last_name',
-                                'email',
-                            ], 'ilike', "%{$value}%"
-                            );
+                            $this->where(function ($queryAny) use ($value) {
+                                $queryAny
+                                    ->whereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $value)
+                                    ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $value)
+                                    ->orWhereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $value);
+                            });
                             $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
                                 $query->whereNameAndEmailNotIn($matchesWithoutOperatorOrStartingSpace);
                             });
@@ -842,11 +842,11 @@ class UserBuilder extends Builder
                 ->crossJoinSub(function ($query) use ($queryTextPrefixMatch, $queryTextExactMatch) {
                     $query->selectRaw(
                         'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS prefix_match_query',
-                        ['english', $queryTextPrefixMatch]
+                        [config('scout.pgsql.config'), $queryTextPrefixMatch]
                     );
                     $query->selectRaw(
                         'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS exact_match_query',
-                        ['english', $queryTextExactMatch]
+                        [config('scout.pgsql.config'), $queryTextExactMatch]
                     );
                 }, 'calculations')
                 // filter rows against the queries (OR)
