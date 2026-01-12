@@ -328,7 +328,6 @@ export const NoIcon: StoryObj<typeof Notice.Root> = {
 export const NonDismissible: StoryObj<typeof Notice.Root> = {
   args: {
     small: false,
-    dismissible: false,
     color: "gray",
   },
   render: (args) => (
