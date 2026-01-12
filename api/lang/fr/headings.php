@@ -267,9 +267,9 @@ return [
     'other_roles' => 'Autres rôles',
     'other_sdo_position' => 'Autre poste de CSD',
 
-    'nominations_overview' => 'Aperçu des mises en candidature',
-    'nominee_profiles' => 'Profils des personnes candidates',
-    'nominations_details' => 'Détails de la mise en candidature',
+    'nominations_overview' => 'Aperçu des candidatures',
+    'nominee_profiles' => 'Profil des candidats',
+    'nominations_details' => 'Détails de la candidature',
     'nominee_first_name' => 'Nominee\'s first name',
     'nominee_last_name' => 'Nominee\'s last name',
     'nominee_user_id' => 'Identifiant utilisateur de la personne candidate',
