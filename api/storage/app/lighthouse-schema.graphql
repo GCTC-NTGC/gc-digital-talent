@@ -1228,6 +1228,9 @@ type PoolCandidate {
   assessmentStep: AssessmentStep
   finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
+  qualifiedAt: DateTime
+  disqualifiedAt: DateTime
+  placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
   veteranVerification: ClaimVerificationResult

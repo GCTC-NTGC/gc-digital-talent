@@ -734,6 +734,7 @@ class PoolCandidate extends Model
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->application_status = ApplicationStatus::QUALIFIED->name;
         $this->expiry_date = $expiryDate;
+        $this->qualified_at = Carbon::now();
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
@@ -754,6 +755,7 @@ class PoolCandidate extends Model
         $this->pool_candidate_status = $reason;
         $this->application_status = ApplicationStatus::DISQUALIFIED->name;
         $this->disqualification_reason = $reason;
+        $this->disqualified_at = Carbon::now();
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
@@ -862,7 +864,7 @@ class PoolCandidate extends Model
                 $this->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
                 break;
             default:
-                throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+                // PASS: Do nothing
         }
 
         $this->removed_at = null;

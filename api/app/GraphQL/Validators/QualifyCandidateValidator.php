@@ -24,11 +24,7 @@ final class QualifyCandidateValidator extends Validator
         $candidate = PoolCandidate::findOrFail($id);
         $startOfDay = Carbon::now()->startOfDay();
 
-        $statusesArray = [
-            ApplicationStatus::DRAFT->name,
-        ];
-
-        if (! (in_array($candidate->application_status, $statusesArray))) {
+        if ($candidate->application_status === ApplicationStatus::DRAFT->name) {
             throw ValidationException::withMessages(['id' => ErrorCode::INVALID_STATUS_QUALIFICATION->name]);
         }
 

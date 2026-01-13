@@ -717,6 +717,15 @@ type PoolCandidate {
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
+  qualifiedAt: DateTime
+    @rename(attribute: "qualified_at")
+    @canRoot(ability: "viewStatus")
+  disqualifiedAt: DateTime
+    @rename(attribute: "disqualified_at")
+    @canRoot(ability: "viewStatus")
+  placementType: LocalizedPlacementType
+    @rename(attribute: "placement_type")
+    @canRoot(ability: "viewStatus")
   placedAt: DateTime
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")

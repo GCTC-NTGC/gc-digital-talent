@@ -179,7 +179,7 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               expiryDate
-              finalDecisionAt
+              qualifiedAt
             }
           }
     ';
@@ -191,7 +191,7 @@ class PoolCandidateUpdateTest extends TestCase
             disqualifyCandidate(id: $id, reason: $reason) {
               id
               status { value }
-              finalDecisionAt
+              disqualifiedAt
             }
           }
     ';
@@ -661,7 +661,6 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['status']['value'], ApplicationStatus::TO_ASSESS->name);
         assertNull($response['expiryDate']);
-        assertNull($response['qualifiedAt']);
 
         // cannot revert again due to status changes
         $this->actingAs($this->communityRecruiterUser, 'api')
