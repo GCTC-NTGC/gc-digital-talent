@@ -28,6 +28,7 @@ jobs:
       GCNOTIFY_TEMPLATE_APPLICATION_RECEIVED_FR: ${{ vars.GCNOTIFY_TEMPLATE_APPLICATION_RECEIVED_FR }}
       GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_EXTENDED_EN: ${{ vars.GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_EXTENDED_EN }}
       GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_EXTENDED_FR: ${{ vars.GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_EXTENDED_FR }}
+      DB_HOST: localhost
 
     services:
       postgres:
@@ -35,7 +36,6 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password1234
-          POSTGRES_DB: gctalent
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
@@ -43,6 +43,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+
+      # The init scripts aren't checked out yet when the database is initialized.  Run the ones we need manually afterwards.
+      - name: Initialize database
+        working-directory: infrastructure/db
+        run: |
+          PGPASSWORD=password1234 psql -h localhost -U postgres -a -f 2_template1.sql
+          PGPASSWORD=password1234 psql -h localhost -U postgres -a -f 3_create-tc-db.sql
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -61,14 +68,13 @@ jobs:
 
       - name: PHPUnit tests
         working-directory: api
-        env:
-          DB_HOST: localhost
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
             php artisan test --parallel --processes=2 --coverage-clover=coverage.xml
           else
             php artisan test
           fi
+
       - name: Upload coverage report to Codecov
         if: github.actor != 'dependabot[bot]'
         uses: codecov/codecov-action@v5
@@ -77,3 +83,12 @@ jobs:
           files: coverage.xml
           flags: integrationtests
           fail_ci_if_error: false
+
+      # - name: Create upterm session for debug
+      #   uses: owenthereal/action-upterm@v1
+      #   with:
+      #     # Restrict to the user who triggered the workflow.
+      #     limit-access-to-actor: true
+      #     # Shut down the server if unconnected after a few minutes.
+      #     wait-timeout-minutes: 15
+      #   if: ${{ always() }}
