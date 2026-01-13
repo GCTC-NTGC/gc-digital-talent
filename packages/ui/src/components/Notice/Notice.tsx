@@ -330,6 +330,11 @@ const footer = tv({
       class: "-mr-16.75 -ml-6 group-has-[>svg]:-ml-4.5",
     },
     {
+      small: false,
+      dismissible: false,
+      class: { base: "-mr-6 -ml-4.5" },
+    },
+    {
       mode: "inline",
       color: "primary",
       class: { separator: "bg-primary-600 dark:bg-primary-200" },
