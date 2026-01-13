@@ -2,3 +2,4 @@ pnpm-lock.yaml
 **/*Compiled.json
 dist
 src/gql/**
+.react-router
