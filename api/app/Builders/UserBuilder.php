@@ -422,19 +422,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereNameAndEmailNotIn(?array $negationArray): self
-    {
-        if (isset($negationArray) && count($negationArray) > 0) {
-            foreach ($negationArray as $value) {
-                $this->whereNot('first_name', 'ilike', $value);
-                $this->whereNot('last_name', 'ilike', $value);
-                $this->whereNot('email', 'ilike', $value);
-            }
-        }
-
-        return $this;
-    }
-
     public function wherePublicProfileSearch(?string $search): self
     {
         if ($search) {
@@ -808,21 +795,29 @@ class UserBuilder extends Builder
                 $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery');
 
                 // clause 2: add "ilike" filters
-                if ($arrayed) {
-                    foreach ($arrayed as $index => $value) {
-                        $query->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
-                            $this->where(function ($queryAny) use ($value) {
-                                $queryAny
-                                    ->whereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $value)
-                                    ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $value)
-                                    ->orWhereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $value);
-                            });
-                            $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
-                                $query->whereNameAndEmailNotIn($matchesWithoutOperatorOrStartingSpace);
-                            });
-                        });
-                    }
-                }
+                $query->orWhere(function ($ilikeSubquery) use ($arrayed, $matchesWithoutOperatorOrStartingSpace) {
+
+                    // positive matching ilike filters
+                    $ilikeSubquery->where(function ($positiveIlikeSubquery) use ($arrayed) {
+                        foreach ($arrayed ?? [] as $term) {
+                            $positiveIlikeSubquery
+                                ->orWhereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $term)
+                                ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $term)
+                                ->orWhereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $term);
+                        }
+                    });
+
+                    //  negative ilike filters
+                    $ilikeSubquery->whereNot(function ($negativeIlikeSubquery) use ($matchesWithoutOperatorOrStartingSpace) {
+                        foreach ($matchesWithoutOperatorOrStartingSpace ?? [] as $term) {
+                            $negativeIlikeSubquery
+                                ->orWhereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $term)
+                                ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $term)
+                                ->orWhereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $term);
+                        }
+                    });
+                });
+
             });
 
         }
