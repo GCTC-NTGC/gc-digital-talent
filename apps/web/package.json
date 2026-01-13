@@ -27,7 +27,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "tsc": "tsc --project tsconfig.json --noEmit",
+    "tsc": "pnpm typegen && tsc --project tsconfig.json --noEmit",
+    "typegen": "react-router typegen",
     "watch": "react-router dev"
   },
   "sideEffects": [

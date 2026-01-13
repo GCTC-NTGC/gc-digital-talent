@@ -5,14 +5,16 @@
     "paths": {
       "@gc-digital-talent/*": ["../../../packages/*/src"],
       "~/*": ["./*"]
-    }
+    },
+    "rootDirs": [".", "./.react-router/types"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "vite.config.ts",
     "globals.d.ts",
-    "jest.config.ts"
+    "jest.config.ts",
+    ".react-router/types/**/*"
   ],
   "exclude": ["**/node_modules", "**/.*/", "dist", "**/src/gql"]
 }

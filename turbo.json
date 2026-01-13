@@ -10,7 +10,8 @@
       "dependsOn": [
         "^intl-compile",
         "intl-compile",
-        "^codegen"
+        "^codegen",
+        "typegen"
       ],
       "inputs": [
         "src/**",
@@ -36,11 +37,22 @@
       "cache": false,
       "outputLogs": "new-only"
     },
+    "typegen": {
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+      ],
+      "outputs": [
+        ".react-router/**"
+      ],
+      "outputLogs": "new-only"
+    },
     "dev": {
       "dependsOn": [
         "intl-compile",
         "^intl-compile",
-        "^codegen"
+        "^codegen",
+        "typegen"
       ],
       "inputs": [
         "src/**/*.ts",
