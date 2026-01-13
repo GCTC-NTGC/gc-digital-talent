@@ -13,6 +13,9 @@ const Test_WorkStreamQueryDocument = /* GraphQL */ `
         en
         fr
       }
+      community {
+        id
+      }
     }
   }
 `;

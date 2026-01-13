@@ -178,10 +178,6 @@ class PoolFactory extends Factory
             // the base state is draft already
             $hasSpecialNote = $this->faker->boolean();
             $isRemote = $this->faker->boolean();
-            $workStream = WorkStream::inRandomOrder()->first();
-            if (! $workStream) {
-                $workStream = WorkStream::factory()->create();
-            }
 
             return [
                 'published_at' => null,
@@ -196,7 +192,15 @@ class PoolFactory extends Factory
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $this->faker->boolean,
-                'work_stream_id' => $workStream->id,
+                'work_stream_id' => function ($attributes) {
+                    $community = Community::find($attributes['community_id']);
+
+                    return $community
+                        ->workStreams()
+                        ->inRandomOrder()
+                        ->firstOr(fn () => WorkStream::factory()->for($community)->create())
+                        ->id;
+                },
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
@@ -225,13 +229,6 @@ class PoolFactory extends Factory
         return $this->state(function (array $attributes) {
             $isRemote = $this->faker->boolean();
             $hasSpecialNote = $this->faker->boolean();
-            $workStreamId = WorkStream::inRandomOrder()
-                ->limit(1)
-                ->pluck('id')
-                ->first();
-            if (is_null($workStreamId)) {
-                $workStreamId = WorkStream::factory()->create()->id;
-            }
 
             return [
                 // published in the past, closes in the future
@@ -247,7 +244,15 @@ class PoolFactory extends Factory
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $isRemote,
-                'work_stream_id' => $workStreamId,
+                'work_stream_id' => function ($attributes) {
+                    $community = Community::find($attributes['community_id']);
+
+                    return $community
+                        ->workStreams()
+                        ->inRandomOrder()
+                        ->firstOr(fn () => WorkStream::factory()->for($community)->create())
+                        ->id;
+                },
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
