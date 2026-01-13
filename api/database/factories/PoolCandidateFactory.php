@@ -6,9 +6,9 @@ use App\Enums\ApplicationStatus;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentResultType;
-use App\Enums\CandidateDisqualificationReason;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EmploymentCategory;
 use App\Enums\PlacementType;
@@ -63,7 +63,7 @@ class PoolCandidateFactory extends Factory
             },
             'disqualification_reason' => function (array $attributes) {
                 if ($attributes['application_status'] === ApplicationStatus::DISQUALIFIED->name) {
-                    return $this->faker->randomElement(CandidateDisqualificationReason::cases())->name;
+                    return $this->faker->randomElement(DisqualificationReason::cases())->name;
                 }
 
                 return null;

@@ -68,11 +68,6 @@ type LocalizedCafRank implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedCandidateDisqualificationReason implements LocalizedEnumOption {
-  value: CandidateDisqualificationReason!
-  label: LocalizedString!
-}
-
 type LocalizedCandidateExpiryFilter implements LocalizedEnumOption {
   value: CandidateExpiryFilter!
   label: LocalizedString!
@@ -120,6 +115,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
 
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
+  label: LocalizedString!
+}
+
+type LocalizedDisqualificationReason implements LocalizedEnumOption {
+  value: DisqualificationReason!
   label: LocalizedString!
 }
 
@@ -1201,7 +1201,7 @@ type PoolCandidate {
   user: User!
   expiryDate: Date
   category: PoolCandidateCategory
-  status: LocalizedPoolCandidateStatus
+  status: LocalizedApplicationStatus
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
@@ -1248,7 +1248,7 @@ type PoolCandidateAdminView {
   user: User!
   submittedAt: DateTime
   suspendedAt: DateTime
-  status: LocalizedPoolCandidateStatus
+  status: LocalizedApplicationStatus
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage
@@ -1688,7 +1688,7 @@ input IdInput {
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [ApplicationStatus!]
   suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
@@ -2195,7 +2195,7 @@ input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
   expiryDate: Date
-  status: PoolCandidateStatus = NEW_APPLICATION
+  status: ApplicationStatus = TO_ASSESS
   notes: String
   isFlagged: Boolean
 }
@@ -2211,7 +2211,7 @@ input UpdateClassificationInput {
 
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date
-  status: PoolCandidateStatus
+  status: ApplicationStatus
 }
 
 input UpdatePoolCandidateClaimVerificationInput {
@@ -3568,11 +3568,6 @@ enum CafRank {
   SUBORDINATE_OFFICER
   WARRANT_PETTY_SENIOR_NCO
   JUNIOR_NON_COMMISSIONED
-}
-
-enum CandidateDisqualificationReason {
-  APPLICATION
-  ASSESSMENT
 }
 
 enum CandidateExpiryFilter {

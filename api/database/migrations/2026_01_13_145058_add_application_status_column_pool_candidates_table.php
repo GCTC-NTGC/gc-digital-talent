@@ -62,7 +62,7 @@ return new class extends Migration
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET disqualification_reason = pool_candidate_status
-            WHERE pool_candidate_status IN ('SCREENED_OUT_ASSESSMENT', 'SCREENED_OUT_APPLICATION)
+            WHERE pool_candidate_status IN ('SCREENED_OUT_ASSESSMENT', 'SCREENED_OUT_APPLICATION')
         SQL);
 
         // 4. removal_reason
