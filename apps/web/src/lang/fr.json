@@ -3943,6 +3943,10 @@
     "defaultMessage": "Notes",
     "description": "Title for admin notes shorthand"
   },
+  "EKsn4N": {
+    "defaultMessage": "Êtes-vous sûr de vouloir ramener cette personne candidate à une étape précédente du processus?",
+    "description": "Content for move to previous step in screening stage notice"
+  },
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
@@ -8241,6 +8245,10 @@
   "Y555u5": {
     "defaultMessage": "Bilingue intermédiaire (B B B)",
     "description": "Bilingual intermediate language requirement"
+  },
+  "Y5BHHb": {
+    "defaultMessage": "Retour à une étape précédente",
+    "description": "Title for move to previous step in screening stage notice"
   },
   "Y5Z216": {
     "defaultMessage": "d’indiquer le titre complet du contenu reproduit, ainsi que son auteur (s’il y a lieu)",
