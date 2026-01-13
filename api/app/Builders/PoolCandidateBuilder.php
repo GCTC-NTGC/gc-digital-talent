@@ -303,12 +303,12 @@ class PoolCandidateBuilder extends Builder
     {
         $expiryStatus = isset($expiryStatus) ? $expiryStatus : CandidateExpiryFilter::ACTIVE->name;
         if ($expiryStatus == CandidateExpiryFilter::ACTIVE->name) {
-            $this->where(function ($query) {
+            return $this->where(function ($query) {
                 $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                     ->orWhereNull('expiry_date');
             });
         } elseif ($expiryStatus == CandidateExpiryFilter::EXPIRED->name) {
-            $this->whereDate('expiry_date', '<', date('Y-m-d'));
+            return $this->whereDate('expiry_date', '<', date('Y-m-d'));
         }
 
         return $this;

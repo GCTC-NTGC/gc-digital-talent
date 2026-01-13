@@ -97,7 +97,6 @@ class UserTest extends TestCase
         ]);
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
             'expiry_date' => config('constants.past_datetime'),
         ]);
@@ -168,7 +167,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 13,
+                        'total' => 9,
                     ],
                 ],
             ],
@@ -191,8 +190,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                            // NOTE: Not sure how to do this
-                            'expired' => true,
+                            'expiryStatus' => CandidateExpiryFilter::EXPIRED->name,
                         ],
                     ],
                 ],
@@ -1715,6 +1713,7 @@ class UserTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'referring' => false,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
