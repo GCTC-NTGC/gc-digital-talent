@@ -8,6 +8,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedApplicationStatus implements LocalizedEnumOption {
+  value: ApplicationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -60,6 +65,11 @@ type LocalizedCafForce implements LocalizedEnumOption {
 
 type LocalizedCafRank implements LocalizedEnumOption {
   value: CafRank!
+  label: LocalizedString!
+}
+
+type LocalizedCandidateDisqualificationReason implements LocalizedEnumOption {
+  value: CandidateDisqualificationReason!
   label: LocalizedString!
 }
 
@@ -3440,6 +3450,14 @@ enum ActivityEvent {
   REVERTED
 }
 
+enum ApplicationStatus {
+  DRAFT
+  TO_ASSESS
+  REMOVED
+  DISQUALIFIED
+  QUALIFIED
+}
+
 enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
@@ -3550,6 +3568,11 @@ enum CafRank {
   SUBORDINATE_OFFICER
   WARRANT_PETTY_SENIOR_NCO
   JUNIOR_NON_COMMISSIONED
+}
+
+enum CandidateDisqualificationReason {
+  APPLICATION
+  ASSESSMENT
 }
 
 enum CandidateExpiryFilter {
