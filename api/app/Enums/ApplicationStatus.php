@@ -14,6 +14,14 @@ enum ApplicationStatus
     case DISQUALIFIED;
     case QUALIFIED;
 
+    public static function assessedGroup(): array
+    {
+        return [
+            ApplicationStatus::QUALIFIED->name,
+            ApplicationStatus::DISQUALIFIED->name,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'application_status';

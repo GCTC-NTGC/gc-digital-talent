@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -214,7 +214,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->applicantUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
@@ -263,7 +263,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->applicantUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
@@ -311,7 +311,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->applicantUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();

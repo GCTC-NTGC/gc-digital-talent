@@ -2,14 +2,18 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\CitizenshipStatus;
+use App\Enums\DisqualificationReason;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
+use App\Enums\ScreeningStage;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -72,34 +76,35 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $ITPool2['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
         // Unqualified candidate - should not appear in searches
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::SCREENED_IN->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::SCREENED_IN->name,
         ]);
 
         // Expired candidate- should not appear in searches
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.past_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
         // Executive pool - should not appear in searches
         PoolCandidate::factory()->create([
             'pool_id' => $EXPool['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
         // Assert empty filter returns only available applicants in IT pools
@@ -152,7 +157,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -164,7 +169,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'is_woman' => true,
                 'has_disability' => false,
@@ -176,7 +181,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => true,
@@ -188,7 +193,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -200,7 +205,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -212,7 +217,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -224,7 +229,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -341,7 +346,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -352,7 +357,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => true,
@@ -363,7 +368,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => false,
@@ -448,7 +453,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'has_diploma' => false,
             ]),
@@ -457,7 +462,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'has_diploma' => true,
             ]),
@@ -518,7 +523,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'position_duration' => [PositionDuration::PERMANENT->name],
             ]),
@@ -527,7 +532,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'position_duration' => array_column(PositionDuration::cases(), 'name'),
             ]),
@@ -536,7 +541,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'position_duration' => null,
             ]),
@@ -619,7 +624,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => [],
             ]),
@@ -628,7 +633,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ['SHIFT_WORK'],
             ]),
@@ -637,7 +642,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ['SHIFT_WORK', 'TRAVEL'],
             ]),
@@ -724,14 +729,14 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([]),
         ]);
 
         PoolCandidate::factory()->count(2)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
                 AwardExperience::factory()
                     ->for($user)
@@ -749,7 +754,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
                 CommunityExperience::factory()
                     ->for($user)
@@ -894,14 +899,14 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([]),
         ]);
 
         PoolCandidate::factory()->count(2)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
                 AwardExperience::factory()
                     ->for($user)
@@ -914,7 +919,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
                 CommunityExperience::factory()
                     ->for($user)
@@ -1153,7 +1158,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool->id,
             'user_id' => $this->adminUser->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
 
         $query =
@@ -1176,7 +1181,7 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 10,
                         'status' => [
-                            'value' => PoolCandidateStatus::DRAFT->name,
+                            'value' => ApplicationStatus::DRAFT->name,
                         ],
                     ],
                 ],
@@ -1184,7 +1189,6 @@ class ApplicantTest extends TestCase
 
         $candidate->update([
             'expiry_date' => config('constants.past_date'),
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT_EXPIRED->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_DRAFT_EXPIRED is 20
@@ -1194,7 +1198,7 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 20,
                         'status' => [
-                            'value' => PoolCandidateStatus::DRAFT_EXPIRED->name,
+                            'value' => ApplicationStatus::DRAFT->name,
                         ],
                     ],
                 ],
@@ -1203,7 +1207,8 @@ class ApplicantTest extends TestCase
         $candidate->update([
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_NEW_APPLICATION is 30
@@ -1213,14 +1218,14 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 30,
                         'status' => [
-                            'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                            'value' => ApplicationStatus::TO_ASSESS->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+            'screening_stage' => ScreeningStage::APPLICATION_REVIEW->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_APPLICATION_REVIEW is 40
@@ -1230,14 +1235,14 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 40,
                         'status' => [
-                            'value' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                            'value' => ApplicationStatus::TO_ASSESS->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::SCREENED_IN->name,
+            'screening_stage' => ScreeningStage::SCREENED_IN->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_SCREENED_IN is 50
@@ -1247,14 +1252,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 50,
                         'status' => [
-                            'value' => PoolCandidateStatus::SCREENED_IN->name,
+                            'value' => ApplicationStatus::TO_ASSESS->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+            'application_status' => ApplicationStatus::DISQUALIFIED->name,
+            'disqualification_reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_SCREENED_OUT_APPLICATION is 60
@@ -1264,14 +1270,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 60,
                         'status' => [
-                            'value' => PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                            'value' => ApplicationStatus::DISQUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::UNDER_ASSESSMENT->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_UNDER_ASSESSMENT is 70
@@ -1281,14 +1288,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 70,
                         'status' => [
-                            'value' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
+                            'value' => ApplicationStatus::DISQUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+            'application_status' => ApplicationStatus::DISQUALIFIED->name,
+            'disqualification_reason' => DisqualificationReason::SCREENED_OUT_ASSESSMENT->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT is 80
@@ -1298,14 +1306,14 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 80,
                         'status' => [
-                            'value' => PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                            'value' => ApplicationStatus::DISQUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_QUALIFIED_AVAILABLE is 90
@@ -1315,14 +1323,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 90,
                         'status' => [
-                            'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                            'value' => ApplicationStatus::QUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'referring' => false,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE is 100
@@ -1332,14 +1341,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 100,
                         'status' => [
-                            'value' => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                            'value' => ApplicationStatus::QUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            'application_status' => ApplicationStatus::REMOVED->name,
+            'removal_reason' => CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_QUALIFIED_WITHDREW is 110
@@ -1349,14 +1359,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 110,
                         'status' => [
-                            'value' => PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                            'value' => ApplicationStatus::REMOVED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
+            'status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_PLACED_CASUAL is 120
@@ -1366,14 +1377,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 120,
                         'status' => [
-                            'value' => PoolCandidateStatus::PLACED_CASUAL->name,
+                            'value' => ApplicationStatus::QUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            'status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_TERM->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_PLACED_TERM is 130
@@ -1383,14 +1395,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 130,
                         'status' => [
-                            'value' => PoolCandidateStatus::PLACED_TERM->name,
+                            'value' => ApplicationStatus::QUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            'status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_INDETERMINATE->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_PLACED_INDETERMINATE is 140
@@ -1400,14 +1413,15 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 140,
                         'status' => [
-                            'value' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                            'value' => ApplicationStatus::QUALIFIED->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::EXPIRED->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'expiry_date' => config('constants.past_datetime'),
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_EXPIRED is 150
@@ -1417,14 +1431,14 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 150,
                         'status' => [
-                            'value' => PoolCandidateStatus::EXPIRED->name,
+                            'value' => ApplicationStatus::TO_ASSESS->name,
                         ],
                     ],
                 ],
             ]);
 
         $candidate->update([
-            'pool_candidate_status' => PoolCandidateStatus::REMOVED->name,
+            'application_status' => ApplicationStatus::REMOVED->name,
         ]);
 
         // Assert candidate one CANDIDATE_STATUS_REMOVED is 160
@@ -1434,7 +1448,7 @@ class ApplicantTest extends TestCase
                     'poolCandidate' => [
                         'statusWeight' => 160,
                         'status' => [
-                            'value' => PoolCandidateStatus::REMOVED->name,
+                            'value' => ApplicationStatus::REMOVED->name,
                         ],
                     ],
                 ],
@@ -1453,7 +1467,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
@@ -1466,7 +1480,8 @@ class ApplicantTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
@@ -1479,7 +1494,8 @@ class ApplicantTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::APPLICATION_REVIEW->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
@@ -1493,7 +1509,8 @@ class ApplicantTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
@@ -1506,7 +1523,7 @@ class ApplicantTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
@@ -1565,7 +1582,7 @@ class ApplicantTest extends TestCase
                 }
             }
             ',
-            )->assertDontSeeText(PoolCandidateStatus::DRAFT->name);
+            )->assertDontSeeText(ApplicationStatus::DRAFT->name);
     }
 
     public function testNullFilterEqualsUndefinedPoolCandidate()
@@ -1582,7 +1599,7 @@ class ApplicantTest extends TestCase
                     'user_id' => $user->id,
                     'expiry_date' => config('constants.far_future_date'),
                     'submitted_at' => config('constants.past_date'),
-                    'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name, // ensuring this passes the notDraft scope
+                    'application_status' => ApplicationStatus::QUALIFIED->name, // ensuring this passes the notDraft scope
                 ])->create();
             })
             ->create();

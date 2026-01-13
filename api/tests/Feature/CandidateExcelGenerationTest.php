@@ -2,7 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
+use App\Enums\ScreeningStage;
 use App\Jobs\GenerateUserFile;
 use App\Models\Community;
 use App\Models\Pool;
@@ -53,7 +54,8 @@ class CandidateExcelGenerationTest extends TestCase
 
         $this->candidate = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
         ]);
 
     }

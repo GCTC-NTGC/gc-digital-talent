@@ -36,7 +36,7 @@ class PoolObserver
         ) {
 
             $pool->poolCandidates
-                ->where('pool_candidate_status', 'DRAFT') // Only send notification to draft applications
+                ->where('application_status', 'DRAFT') // Only send notification to draft applications
                 ->each(function ($poolCandidate) use ($newClosingDate) {
                     $poolCandidate->load('user', 'pool');
 

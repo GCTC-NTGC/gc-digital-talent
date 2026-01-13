@@ -2,14 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\DisqualificationReason;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PlacementType;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
+use App\Enums\ScreeningStage;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
@@ -31,8 +32,6 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
-
-use function PHPUnit\Framework\assertEquals;
 
 class CandidateAssessmentStatusTest extends TestCase
 {
@@ -925,45 +924,6 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    /** Event ComputeCandidateAssessmentStatus can change the pool_candidate_status field
-     * Assert it is changed when the initial status is NEW_APPLICATION and unchanged otherwise
-     */
-    public function testComputeCandidateAssessmentStatusUpdatesPoolCandidateStatus(): void
-    {
-        $step = $this->pool->assessmentSteps[0];
-        $statuses = array_merge(
-            PoolCandidateStatus::toAssessGroup(),
-            PoolCandidateStatus::finalDecisionGroup(),
-        );
-
-        foreach ($statuses as $status) {
-            $candidate = PoolCandidate::factory()->create([
-                'pool_id' => $this->pool->id,
-                'pool_candidate_status' => $status,
-                'submitted_at' => config('constants.past_date'),
-                'expiry_date' => config('constants.far_future_date'),
-                'removed_at' => null,
-                'final_decision_at' => null,
-            ]);
-
-            AssessmentResult::factory()
-                ->withResultType(AssessmentResultType::EDUCATION)
-                ->create([
-                    'assessment_step_id' => $step->id,
-                    'pool_candidate_id' => $candidate->id,
-                    'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
-                ]);
-
-            $candidate->refresh();
-
-            if ($status === PoolCandidateStatus::NEW_APPLICATION->name) {
-                assertEquals($candidate->pool_candidate_status, PoolCandidateStatus::UNDER_ASSESSMENT->name);
-            } else {
-                assertEquals($candidate->pool_candidate_status, $status);
-            }
-        }
-    }
-
     // step through the ROD mutations (qualify, revert, etc) and check what they set the current step to
     public function testRODMutationsAndTheirEffectOnCurrentStep(): void
     {
@@ -1058,7 +1018,8 @@ class CandidateAssessmentStatusTest extends TestCase
             ->create();
         $candidate = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
             'removed_at' => null,

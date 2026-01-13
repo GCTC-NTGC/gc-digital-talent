@@ -659,8 +659,8 @@ type PoolCandidate {
   expiryDate: Date @rename(attribute: "expiry_date")
 
   category: PoolCandidateCategory @with(relation: "user")
-  status: LocalizedPoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
+  status: LocalizedApplicationStatus
+    @rename(attribute: "application_status")
     @canRoot(ability: "viewStatus")
   candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
@@ -751,8 +751,7 @@ type PoolCandidateAdminView {
   user: User! @belongsTo(relation: "user")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
-  status: LocalizedPoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
+  status: LocalizedApplicationStatus @rename(attribute: "application_status")
   candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
@@ -1297,7 +1296,7 @@ input IdInput {
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [ApplicationStatus!]
   suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
@@ -2240,8 +2239,7 @@ input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
   expiryDate: Date @rename(attribute: "expiry_date")
-  status: PoolCandidateStatus = NEW_APPLICATION
-    @rename(attribute: "pool_candidate_status")
+  status: ApplicationStatus = TO_ASSESS @rename(attribute: "application_status")
   notes: String
   isFlagged: Boolean
 }
@@ -2263,7 +2261,7 @@ input UpdatePoolCandidateStatusInput {
   expiryDate: Date
     @rename(attribute: "expiry_date")
     @rules(apply: ["after_or_equal:today"])
-  status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+  status: ApplicationStatus @rename(attribute: "application_status")
 }
 
 input UpdatePoolCandidateClaimVerificationInput @validator {

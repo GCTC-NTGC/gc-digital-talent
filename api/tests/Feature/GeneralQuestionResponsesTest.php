@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
 use App\Models\Community;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
@@ -68,7 +68,7 @@ class GeneralQuestionResponsesTest extends TestCase
     public function testCreatingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();
@@ -115,7 +115,7 @@ class GeneralQuestionResponsesTest extends TestCase
     public function testUpdatingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();
@@ -161,7 +161,7 @@ class GeneralQuestionResponsesTest extends TestCase
     public function testDeletingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();

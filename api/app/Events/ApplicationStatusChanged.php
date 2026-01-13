@@ -6,7 +6,7 @@ use App\Models\PoolCandidate;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CandidateStatusChanged
+class ApplicationStatusChanged
 {
     use Dispatchable, SerializesModels;
 

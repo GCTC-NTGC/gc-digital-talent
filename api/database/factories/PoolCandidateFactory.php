@@ -55,8 +55,8 @@ class PoolCandidateFactory extends Factory
                 $this->faker->randomElement(PoolCandidateStatus::cases())->name,
             'application_status' => $this->faker->randomElement(ApplicationStatus::cases())->name,
             'screening_stage' => function (array $attributes) {
-                if (in_array($attributes['pool_candidate_status'], PoolCandidateStatus::screeningStageGroup())) {
-                    return $attributes['pool_candidate_status'];
+                if ($attributes['application_status'] === ApplicationStatus::TO_ASSESS->name) {
+                    return $this->faker->randomElement(ScreeningStage::cases())->name;
                 }
 
                 return null;
@@ -132,7 +132,7 @@ class PoolCandidateFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (PoolCandidate $poolCandidate) {
-            // after setting pool_candidate_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT or DRAFT_EXPIRED
+            // after setting application_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT or DRAFT_EXPIRED
             // add a signature in the above case too
             // grab status from database directly, bypassing the Accessor in order to avoid the Accessor overriding in some cases
             $candidateId = $poolCandidate->id;

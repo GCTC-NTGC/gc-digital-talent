@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentStepType;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\ErrorCode;
 use App\Enums\PoolAreaOfSelection;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
 use App\Enums\SkillCategory;
 use App\Facades\Notify;
@@ -197,7 +197,7 @@ class PoolApplicationTest extends TestCase
                         'id' => $pool->id,
                     ],
                     'status' => [
-                        'value' => PoolCandidateStatus::DRAFT->name,
+                        'value' => ApplicationStatus::DRAFT->name,
                     ],
                 ],
             ],
@@ -208,7 +208,7 @@ class PoolApplicationTest extends TestCase
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert creating a pool application succeeds
-        // returns DRAFT as a result of pool_candidate_status Accessor and unexpired pool
+        // returns DRAFT as a result of application_status Accessor and unexpired pool
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($this->createMutationDocument, $variables)
             ->assertJson($result);
@@ -298,7 +298,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -383,7 +383,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -459,7 +459,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
 
         // Refresh the data from the database to ensure it is correctly loaded
@@ -498,7 +498,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
 
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
@@ -544,7 +544,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -559,7 +559,7 @@ class PoolApplicationTest extends TestCase
                 ]
             )->assertJsonFragment([
                 'status' => [
-                    'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                    'value' => ApplicationStatus::TO_ASSESS->name,
                 ],
             ]);
     }
@@ -577,7 +577,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -643,7 +643,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
@@ -701,7 +701,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
@@ -751,7 +751,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'expiry_date' => config('constants.far_future_date'),
         ]);
 
@@ -770,7 +770,7 @@ class PoolApplicationTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => PoolCandidateStatus::DRAFT->name,
+                            'value' => ApplicationStatus::DRAFT->name,
                         ],
                     ],
                 ],
@@ -805,107 +805,21 @@ class PoolApplicationTest extends TestCase
         // RECYCLING FROM ABOVE TESTS
         // array of statuses that should fail the test, as they should not allow deletion
         $statusesThatShouldFail = [
-            PoolCandidateStatus::NEW_APPLICATION->name,
-            PoolCandidateStatus::APPLICATION_REVIEW->name,
-            PoolCandidateStatus::SCREENED_IN->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::UNDER_ASSESSMENT->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::EXPIRED->name,
-            PoolCandidateStatus::REMOVED->name,
+            ApplicationStatus::QUALIFIED->name,
+            ApplicationStatus::DISQUALIFIED->name,
+            ApplicationStatus::TO_ASSESS->name,
+            ApplicationStatus::REMOVED->name,
         ];
 
-        // Create pool candidates
-        $candidateOne = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[0],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateTwo = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[1],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateThree = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[2],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateFour = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[3],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateFive = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[4],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateSix = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[5],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateSeven = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[6],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateEight = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[7],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateNine = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[8],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateTen = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[9],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateEleven = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[10],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateTwelve = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[11],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        $candidateThirteen = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[12],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.past_date'),
-        ]);
-        $candidateFourteen = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[13],
-            'user_id' => $this->applicantUser->id,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.past_date'),
-        ]);
+        $candidates = [];
+        foreach ($statusesThatShouldFail as $status) {
+            $candidates[] = PoolCandidate::factory()->create([
+                'application_status' => $status,
+                'user_id' => $this->applicantUser->id,
+                'submitted_at' => config('constants.past_date'),
+                'expiry_date' => config('constants.far_future_date'),
+            ]);
+        }
 
         $result = [
             'errors' => [[
@@ -913,89 +827,13 @@ class PoolApplicationTest extends TestCase
             ]],
         ];
 
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateOne->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateTwo->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateThree->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateFour->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateFive->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateSix->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateSeven->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateEight->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateNine->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateTen->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateEleven->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateTwelve->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateThirteen->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->deleteMutationDocument,
-                ['id' => $candidateFourteen->id]
-            )->assertJson($result);
+        foreach ($candidates as $candidate) {
+            $this->actingAs($this->applicantUser, 'api')
+                ->graphQL(
+                    $this->deleteMutationDocument,
+                    ['id' => $candidate->id]
+                )->assertJson($result);
+        }
     }
 
     public function testApplicationSuspension(): void
@@ -1009,7 +847,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -1030,7 +868,7 @@ class PoolApplicationTest extends TestCase
                 ]
             )->assertJsonFragment([
                 'status' => [
-                    'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                    'value' => ApplicationStatus::TO_ASSESS->name,
                 ],
             ]);
 
@@ -1075,7 +913,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
         $newPoolCandidate->update(['education_requirement_option' => null]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([]);
@@ -1142,7 +980,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
 
@@ -1183,7 +1021,7 @@ class PoolApplicationTest extends TestCase
         $candidateWithNoVerifiedWorkEmail = PoolCandidate::factory()->create([
             'user_id' => $this->nonGovEmployee->id,
             'pool_id' => $pool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
 
@@ -1199,7 +1037,7 @@ class PoolApplicationTest extends TestCase
         $candidateWithVerifiedWorkEmail = PoolCandidate::factory()->create([
             'user_id' => $this->govEmployee->id,
             'pool_id' => $pool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
 

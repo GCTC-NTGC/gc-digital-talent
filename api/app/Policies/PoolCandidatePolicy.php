@@ -310,12 +310,12 @@ class PoolCandidatePolicy
      * Parent function to handle assessing status update authorization
      * Branches depending on input status
      *
-     * @param  array{id: ?string, expiry_date: ?string, pool_candidate_status: ?string }  $args
+     * @param  array{id: ?string, expiry_date: ?string, application_status: ?string }  $args
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function updateStatus(User $user, PoolCandidate $poolCandidate, $args)
     {
-        $inputStatus = $args['pool_candidate_status'] ?? null;
+        $inputStatus = $args['application_status'] ?? null;
 
         if ($inputStatus) {
 
