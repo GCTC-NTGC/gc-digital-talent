@@ -795,6 +795,18 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
+        if ($this->application_status === ApplicationStatus::DRAFT->name) {
+            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+        }
+
+        if ($this->application_status === ApplicationStatus::REMOVED->name) {
+            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
+        }
+
+        if (! empty($this->placement_type)) {
+            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
+        }
+
         $this->removed_at = Carbon::now();
         $this->removal_reason = $reason;
         if ($reason === CandidateRemovalReason::OTHER->name) {
@@ -821,20 +833,8 @@ class PoolCandidate extends Model
             case PoolCandidateStatus::UNDER_ASSESSMENT->name:
                 $this->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
                 break;
-            case PoolCandidateStatus::UNDER_CONSIDERATION->name:
-            case PoolCandidateStatus::PLACED_TENTATIVE->name:
-            case PoolCandidateStatus::PLACED_CASUAL->name:
-            case PoolCandidateStatus::PLACED_TERM->name:
-            case PoolCandidateStatus::PLACED_INDETERMINATE->name:
-                throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
-            case PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name:
-            case PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name:
-            case PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name:
-            case PoolCandidateStatus::QUALIFIED_WITHDREW->name:
-            case PoolCandidateStatus::REMOVED->name:
-                throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
             default:
-                throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+                // PASS: Do nothing
         }
 
         $this->save();
@@ -848,6 +848,10 @@ class PoolCandidate extends Model
     public function reinstate()
     {
         $this->disableLogging();
+
+        if ($this->application_status !== ApplicationStatus::REMOVED->name) {
+            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+        }
 
         // Update the candidates status based on the current status
         // or throw an error if the candidate has an invalid status
