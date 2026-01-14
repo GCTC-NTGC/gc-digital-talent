@@ -156,7 +156,7 @@
     "description": "Student selection for government employee type."
   },
   "2wKf2U": {
-    "defaultMessage": "Modifiez",
+    "defaultMessage": "Modifier",
     "description": "Text to trigger edit action"
   },
   "3I0zLF": {
@@ -604,7 +604,7 @@
     "description": "Name of the skill showcase page"
   },
   "MQB4IA": {
-    "defaultMessage": "Sauvegardez et continuez",
+    "defaultMessage": "Enregistrer et continuez",
     "description": "Button text to save a form step and continue to the next one"
   },
   "Mco0Km": {
@@ -920,7 +920,7 @@
     "description": "Label when an item is selected"
   },
   "WGoaKQ": {
-    "defaultMessage": "Sauvegardez les modifications",
+    "defaultMessage": "Enregistrer les modifications",
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {
@@ -972,7 +972,7 @@
     "description": "Error message that the assessment steps must belong to the same pool."
   },
   "XZl6Ks": {
-    "defaultMessage": "Modifiez cette section",
+    "defaultMessage": "Modifier cette section",
     "description": "Text to trigger edit of section action"
   },
   "XiECLl": {

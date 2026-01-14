@@ -179,3 +179,5 @@ export const Component = () => (
 );
 
 Component.displayName = "ApplicationSuccessPage";
+
+export default Component;

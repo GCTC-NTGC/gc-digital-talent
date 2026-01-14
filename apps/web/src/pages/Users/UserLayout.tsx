@@ -166,4 +166,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUserLayout";
 
-export default UserLayout;
+export default Component;

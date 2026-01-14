@@ -120,7 +120,7 @@ export const Component = () => {
           })}
         </p>
         <div className="my-6 flex flex-col flex-wrap items-center gap-6 sm:flex-row">
-          <Link mode="solid" href={paths.browsePools()}>
+          <Link mode="solid" href={paths.jobs()}>
             {intl.formatMessage({
               defaultMessage: "View available jobs",
               id: "ivG/Sh",
@@ -335,7 +335,7 @@ export const Component = () => {
           </Card.Grid>
           <Card.Separator className="my-6" />
           <div className="flex flex-col flex-wrap items-center gap-6 sm:flex-row">
-            <Link mode="solid" href={paths.browsePools()}>
+            <Link mode="solid" href={paths.jobs()}>
               {intl.formatMessage({
                 defaultMessage: "Browse jobs on GC Digital Talent",
                 id: "2jApk/",
@@ -461,7 +461,7 @@ export const Component = () => {
                   "Link text to start an email to the innovation corps",
               })}
             </Link>
-            <Link mode="inline" href={paths.browsePools()}>
+            <Link mode="inline" href={paths.jobs()}>
               {intl.formatMessage({
                 defaultMessage: "Browse jobs on GC Digital Talent",
                 id: "2jApk/",
@@ -529,3 +529,7 @@ export const Component = () => {
     </>
   );
 };
+
+Component.displayName = "DNDDigitalCareersPage";
+
+export default Component;

@@ -52,4 +52,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexCommunityPage";
 
-export default IndexCommunityPage;
+export default Component;

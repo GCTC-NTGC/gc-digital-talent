@@ -155,4 +155,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCommunityLayout";
 
-export default CommunityLayout;
+export default Component;

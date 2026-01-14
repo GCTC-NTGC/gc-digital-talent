@@ -48,4 +48,4 @@ export const Component = () => (
 
 Component.displayName = "AdminIndexTrainingOpportunitiesPage";
 
-export default IndexTrainingOpportunitiesPage;
+export default Component;

@@ -360,4 +360,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUpdateCommunityPage";
 
-export default UpdateCommunity;
+export default Component;

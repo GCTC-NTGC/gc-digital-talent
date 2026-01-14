@@ -400,3 +400,5 @@ export const Component = () => (
 );
 
 Component.displayName = "CommunityDashboardPage";
+
+export default Component;

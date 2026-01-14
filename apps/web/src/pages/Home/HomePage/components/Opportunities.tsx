@@ -38,7 +38,7 @@ const Opportunities = () => {
           })}
           links={[
             {
-              href: paths.browsePools(),
+              href: paths.jobs(),
               mode: "solid",
               label: intl.formatMessage(navigationMessages.browseJobs),
             },

@@ -504,4 +504,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUpdateSkillPage";
 
-export default UpdateSkill;
+export default Component;

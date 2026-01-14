@@ -258,4 +258,12 @@ return [
     'process_name' => 'Nom du processus',
     'nominators' => 'Auteur(trice)s de mise en candidature',
     'options' => 'Options',
+    'community_interest' => 'Intérêt pour les collectivités',
+    'job_interest' => "Intérêt pour l'emploi",
+    'training_interest' => 'Intérêt pour la formation',
+    'additional_info' => 'Renseignements supplémentaires sur votre prochain type de poste',
+    'cfo_status' => 'Statut de DPF',
+    'additional_duties' => 'Tâches supplémentaires',
+    'other_roles' => 'Autres rôles',
+    'other_sdo_position' => 'Autre poste de CSD',
 ];

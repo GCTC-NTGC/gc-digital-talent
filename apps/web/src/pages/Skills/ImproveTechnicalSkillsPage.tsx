@@ -230,4 +230,4 @@ export const Component = () => (
 
 Component.displayName = "ImproveTechnicalSkills";
 
-export default ImproveTechnicalSkillsPage;
+export default Component;

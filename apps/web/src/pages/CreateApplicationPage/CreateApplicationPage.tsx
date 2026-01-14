@@ -68,7 +68,7 @@ const CreateApplication = () => {
   });
 
   // Store path to redirect to later on
-  let redirectPath = paths.pool(poolId);
+  let redirectPath = paths.jobPoster(poolId);
 
   const genericErrorMessage = intl.formatMessage({
     defaultMessage: "Error application creation failed",
@@ -155,7 +155,7 @@ const CreateApplication = () => {
 
   if (!haveRequiredDataToCreateNewApplication) {
     if (!poolId) {
-      redirectPath = paths.browsePools();
+      redirectPath = paths.jobs();
     }
     void navigateWithToast(redirectPath, () =>
       toast.error(genericErrorMessage),

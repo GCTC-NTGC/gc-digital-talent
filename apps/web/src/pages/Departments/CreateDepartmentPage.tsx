@@ -218,4 +218,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCreateDepartmentPage";
 
-export default CreateDepartmentPage;
+export default Component;

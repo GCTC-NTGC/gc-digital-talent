@@ -372,4 +372,4 @@ export const Component = () => (
 
 Component.displayName = "AdminUpdateClassificationPage";
 
-export default UpdateClassification;
+export default Component;

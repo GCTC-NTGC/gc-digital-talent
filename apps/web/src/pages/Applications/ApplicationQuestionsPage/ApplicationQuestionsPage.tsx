@@ -240,3 +240,5 @@ export const Component = () => (
 );
 
 Component.displayName = "ApplicationQuestionsPage";
+
+export default Component;

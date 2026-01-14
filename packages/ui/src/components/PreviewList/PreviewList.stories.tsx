@@ -65,6 +65,29 @@ const previewDetailsThree: MetaDataProps[] = [
   },
 ];
 
+const experienceDetails: MetaDataProps[] = [
+  {
+    key: "type",
+    type: "text",
+    children: "Work experience",
+  },
+  {
+    key: "duration",
+    type: "text",
+    children: (
+      <>
+        <span>September 2022 - Present </span>
+        <span className="whitespace-nowrap">(1 year, 8 months)</span>
+      </>
+    ),
+  },
+  {
+    key: "skill-count",
+    type: "text",
+    children: "13 skills",
+  },
+];
+
 export default {
   component: PreviewList.Root,
   parameters: {
@@ -75,13 +98,22 @@ export default {
         dark: allModes.dark,
       },
     },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/tam2tiCQQeZoGiQ9jMM58c/Career-experience--Applicants-?node-id=5-3199&m=dev",
+    },
   },
 } as Meta<typeof PreviewList.Root>;
 
 const Template: StoryFn<typeof PreviewList.Root> = (args) => {
   const { children } = args;
 
-  return <PreviewList.Root>{children}</PreviewList.Root>;
+  return (
+    // something like TaskCard
+    <div className="bg-white dark:bg-gray-600">
+      <PreviewList.Root>{children}</PreviewList.Root>
+    </div>
+  );
 };
 
 export const Default = Template.bind({});
@@ -137,5 +169,96 @@ WithChildren.args = {
     >
       <p>{faker.lorem.paragraph()}</p>
     </PreviewList.Item>
+  ),
+};
+
+export const SingleTimelineExperience = Template.bind({});
+SingleTimelineExperience.args = {
+  children: (
+    <>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={experienceDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={0}
+        groupLength={1}
+      >
+        <p>{faker.lorem.sentence()}</p>
+      </PreviewList.Item>
+    </>
+  ),
+};
+
+export const MultipleTimelineExperiences = Template.bind({});
+MultipleTimelineExperiences.args = {
+  children: (
+    <>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={experienceDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={0}
+        groupLength={4}
+      >
+        <p>{faker.lorem.sentence()}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={experienceDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={1}
+        groupLength={4}
+      >
+        <p>{faker.lorem.sentences(2)}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={experienceDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={2}
+        groupLength={4}
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+      <PreviewList.Item
+        title="IT-01: Junior application developer"
+        metaData={experienceDetails}
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
+        mode="experience"
+        index={3}
+        groupLength={4}
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+    </>
   ),
 };

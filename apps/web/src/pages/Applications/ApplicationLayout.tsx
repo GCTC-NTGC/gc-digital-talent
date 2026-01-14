@@ -98,11 +98,11 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        url: paths.browsePools(),
+        url: paths.jobs(),
         label: intl.formatMessage(navigationMessages.browseJobs),
       },
       {
-        url: paths.pool(application.pool.id),
+        url: paths.jobPoster(application.pool.id),
         label: title.html,
       },
       ...currentCrumbs,

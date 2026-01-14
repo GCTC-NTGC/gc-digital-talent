@@ -339,4 +339,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCreateWorkStreamPage";
 
-export default CreateWorkStreamPage;
+export default Component;

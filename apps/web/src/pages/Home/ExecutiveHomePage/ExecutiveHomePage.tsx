@@ -189,7 +189,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               })}
               links={[
                 {
-                  href: paths.browsePools(),
+                  href: paths.jobs(),
                   mode: "solid",
                   label: intl.formatMessage(navigationMessages.browseJobs),
                 },
@@ -468,3 +468,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ExecutiveHomePage";
+
+export default Component;

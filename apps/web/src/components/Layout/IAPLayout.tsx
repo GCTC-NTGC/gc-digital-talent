@@ -94,3 +94,5 @@ export const Component = () => {
 };
 
 Component.displayName = "IAPLayout";
+
+export default Component;

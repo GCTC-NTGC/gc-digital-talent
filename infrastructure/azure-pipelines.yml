@@ -59,8 +59,8 @@ jobs:
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
           source ~/.bash_profile
-          nvm install v22.17.0
-          npm install -g pnpm@10.17.0
+          nvm install v24.12.0
+          npm install -g pnpm@10.27.0
           cd $(System.DefaultWorkingDirectory)
           pnpm install --frozen-lockfile
           pnpm run build

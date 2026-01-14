@@ -441,11 +441,11 @@ export const PoolPoster = ({
     crumbs: [
       {
         label: intl.formatMessage(navigationMessages.browseJobs),
-        url: paths.browsePools(),
+        url: paths.jobs(),
       },
       {
         label: poolTitle,
-        url: paths.pool(pool.id),
+        url: paths.jobPoster(pool.id),
       },
     ],
   });

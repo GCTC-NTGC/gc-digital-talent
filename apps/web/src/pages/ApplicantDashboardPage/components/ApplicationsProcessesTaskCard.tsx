@@ -57,7 +57,7 @@ const ApplicationsProcessesTaskCard = ({
     {
       key: "browse-jobs-key",
       type: "link",
-      href: paths.browsePools(),
+      href: paths.jobs(),
       color: "primary",
       children: <>{intl.formatMessage(navigationMessages.browseJobs)}</>,
     },

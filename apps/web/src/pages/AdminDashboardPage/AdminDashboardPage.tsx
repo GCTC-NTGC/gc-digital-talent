@@ -392,3 +392,5 @@ export const Component = () => (
 );
 
 Component.displayName = "AdminDashboardPage";
+
+export default Component;

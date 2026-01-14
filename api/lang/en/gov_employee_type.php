@@ -5,4 +5,5 @@ return [
     'casual' => 'Casual',
     'term' => 'Term',
     'indeterminate' => 'Indeterminate',
+    'contractor' => 'Contractor',
 ];

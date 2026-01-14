@@ -42,7 +42,7 @@ jobs:
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
-      PNPM_VERSION: "10.17.0"
+      PNPM_VERSION: "10.27.0"
       GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
       GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN: ${{ vars.GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN }}
       GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN: ${{ vars.GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN }}
@@ -101,7 +101,7 @@ jobs:
     needs: [playwright]
     runs-on: ubuntu-24.04
     env:
-      PNPM_VERSION: "10.17.0"
+      PNPM_VERSION: "10.27.0"
     steps:
       - uses: pnpm/action-setup@v4
         with:

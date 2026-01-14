@@ -32,12 +32,23 @@ const hiddenSteps = [
   null,
 ];
 
-function getStepLabel(title?: Maybe<string>, order?: Maybe<number>) {
-  if (order && title) {
-    return `${order}. ${title}`;
+function getStepLabel(
+  title?: Maybe<string>,
+  typeLocalized?: Maybe<string>,
+  order?: Maybe<number>,
+): string | null {
+  if (!title && !typeLocalized) {
+    return null;
   }
 
-  return title;
+  // should always be defined if reaching this point, second nullish coalesce is for TypeScript
+  const name = title ?? typeLocalized ?? "";
+
+  if (order && name) {
+    return `${order}. ${name}`;
+  }
+
+  return name;
 }
 
 const UpdateAssessmentStageDialog_Fragment = graphql(/** GraphQL */ `
@@ -60,6 +71,9 @@ const UpdateAssessmentStageDialog_Fragment = graphql(/** GraphQL */ `
         sortOrder
         type {
           value
+          label {
+            localized
+          }
         }
         title {
           localized
@@ -103,8 +117,11 @@ const UpdateAssessmentStageDialog = ({
   if (defaultStep < 0) defaultStep = 0;
 
   const label =
-    getStepLabel(steps[defaultStep]?.title?.localized, defaultStep + 1) ??
-    notAvailable;
+    getStepLabel(
+      steps[defaultStep]?.title?.localized,
+      steps[defaultStep]?.type?.label?.localized,
+      defaultStep + 1,
+    ) ?? notAvailable;
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -189,10 +206,14 @@ const UpdateAssessmentStageDialog = ({
                 nullSelection={intl.formatMessage(
                   uiMessages.nullSelectionOption,
                 )}
-                options={steps.map(({ id, title }, index) => ({
+                options={steps.map(({ id, title, type }, index) => ({
                   value: id,
                   label:
-                    getStepLabel(title?.localized, index + 1) ?? notAvailable,
+                    getStepLabel(
+                      title?.localized,
+                      type?.label?.localized,
+                      index + 1,
+                    ) ?? notAvailable,
                 }))}
               />
               <Dialog.Footer>

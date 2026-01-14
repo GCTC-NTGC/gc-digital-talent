@@ -57,3 +57,5 @@ export const Component = () => (
 );
 
 Component.displayName = "AdminIndexPoolPage";
+
+export default Component;

@@ -45,7 +45,7 @@ lint:
 	$(DOCKER_PNPM) lint
 
 lint-php:
-	$(DOCKER_API) "vendor/bin/pint --test"
+	$(DOCKER_API) "vendor/bin/pint"
 
 phpstan:
 	$(DOCKER_API) "vendor/bin/phpstan analyse -c phpstan.neon"

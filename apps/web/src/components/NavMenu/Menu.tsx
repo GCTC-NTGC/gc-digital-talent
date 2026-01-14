@@ -12,7 +12,6 @@ import {
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
-import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 import { tv } from "tailwind-variants";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
@@ -146,19 +145,9 @@ const Menu = ({
                 <Container
                   center
                   size={{ sm: "lg" }}
-                  className="items-center px-0 sm:flex sm:justify-between sm:px-6"
+                  className="items-center px-0 sm:flex sm:justify-between sm:px-6 [&>div]:w-full"
                 >
                   <div className="flex items-center justify-center gap-x-6 sm:m-0 sm:hidden">
-                    <NavMenu.IconLink
-                      ref={homeLinkRef}
-                      href={homeLink?.href ?? paths.home()}
-                      icon={HomeIcon}
-                      label={
-                        homeLink?.label ??
-                        intl.formatMessage(navigationMessages.home)
-                      }
-                    />
-
                     <div className="flex justify-center sm:flex-auto sm:justify-normal">
                       <ThemeSwitcher />
                     </div>
@@ -179,21 +168,23 @@ const Menu = ({
 
                   <MenuSeparator orientation="horizontal" />
 
-                  <div className="flex flex-col sm:flex-row sm:items-center">
+                  <NavMenu.List type="main" className="flex">
+                    <NavItem
+                      className="sm:hidden"
+                      href={homeLink?.href ?? paths.home()}
+                      title={intl.formatMessage(navigationMessages.home)}
+                    />
+
                     {children}
-                  </div>
-
-                  <MenuSeparator orientation="horizontal" />
-
-                  <NavMenu.List type="main">
                     {accountLinks}
                     {loggedIn && (
                       <>
                         <NavMenu.Item
-                          className={borderItem({
+                          className={`m-[0] ${borderItem({
                             borderLeft: true,
-                            class: "hidden before:mr-3 sm:inline-flex",
-                          })}
+                            class:
+                              "sm:ml-initial hidden before:mr-3 sm:inline-flex",
+                          })}`}
                         >
                           <NotificationDialog
                             open={isNotificationDialogOpen}
@@ -208,6 +199,7 @@ const Menu = ({
                           key="signIn"
                           href={`${paths.login()}${authParams ?? ""}`}
                           title={intl.formatMessage(authMessages.signIn)}
+                          className="sm:ml-initial ml-auto"
                         />
                         <NavItem
                           key="signUp"

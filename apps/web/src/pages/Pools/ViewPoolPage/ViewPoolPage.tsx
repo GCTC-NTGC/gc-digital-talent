@@ -541,4 +541,4 @@ export const Component = () => (
 
 Component.displayName = "AdminViewPoolPage";
 
-export default ViewPoolPage;
+export default Component;

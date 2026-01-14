@@ -234,4 +234,4 @@ export const Component = () => (
 
 Component.displayName = "ImproveBehaviouralSkillsPage";
 
-export default ImproveBehaviouralSkillsPage;
+export default Component;

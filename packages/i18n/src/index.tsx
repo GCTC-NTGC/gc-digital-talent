@@ -15,7 +15,7 @@ import {
   localizeCurrency,
   localizeSalaryRange,
 } from "./utils/localize";
-import { combineMessages } from "./utils/utils";
+import { combineMessages, getDesiredLocale } from "./utils/utils";
 import {
   apiMessages,
   commonMessages,
@@ -91,6 +91,7 @@ export {
   getLocale,
   oppositeLocale,
   changeLocale,
+  getDesiredLocale,
   localizePath,
   localeRedirect,
   getLocalizedName,

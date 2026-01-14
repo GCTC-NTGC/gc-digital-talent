@@ -243,3 +243,5 @@ export const Component = () => (
 );
 
 Component.displayName = "TalentNominationGroupProfilePage";
+
+export default Component;

@@ -87,4 +87,4 @@ export const Component = () => (
 
 Component.displayName = "IndexJobPosterTemplatePage";
 
-export default IndexJobPosterTemplatePage;
+export default Component;

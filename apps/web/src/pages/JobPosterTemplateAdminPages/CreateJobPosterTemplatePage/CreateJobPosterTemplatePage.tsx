@@ -355,3 +355,5 @@ export const Component = () => (
 );
 
 Component.displayName = "CreateJobPosterTemplatePage";
+
+export default Component;

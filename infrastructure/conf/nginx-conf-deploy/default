@@ -55,6 +55,11 @@ server {
     location = /en/applicant/profile-and-applications/skills/showcase { return 301 /en/applicant/skills/showcase$is_args$args; }
     location = /fr/applicant/profile-and-applications/skills/showcase { return 301 /fr/applicant/skills/showcase$is_args$args; }
     location ~ ^/(en|fr)/users/(.+)(/|$) { return 301 /$1/applicant$is_args$args; }
+    location ~ ^/(en|fr)/browse/pools/(.+)/?$ {
+      rewrite ^/(en|fr)/browse/pools/(.+)/?$ /$1/jobs/$2 permanent;
+    }
+    location = /en/browse/pools { return 301 /en/jobs$is_args$args; }
+    location = /fr/browse/pools { return 301 /fr/jobs$is_args$args; }
 # permanent redirect for documents moved to static hosting
     location = "/documents/Arbre_decisionnel_PDF_FR.pdf" { return 301 "/static/documents/Arbre_decisionnel_PDF_FR.pdf$is_args$args"; }
     location = "/documents/Arbre_decisionnel_texte_FR.docx" { return 301 "/static/documents/Arbre_decisionnel_texte_FR.docx$is_args$args"; }
@@ -100,7 +105,7 @@ server {
         alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
     }
     location = /restricted.html {
-        alias /home/site/wwwroot/apps/web/dist/restricted.html;
+        alias /home/site/wwwroot/apps/web/dist/client/restricted.html;
     }
     # For debugging FPM.  Only accessible locally.
     location ~ ^/(fpm-status)$ {
@@ -181,12 +186,12 @@ server {
         # contenthashed asset files get cached for a year
         location ~ "-[A-z0-9-]{8}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
             add_header Cache-Control "public, max-age=31536000"; # 1 year
-            try_files /apps/web/dist/$uri =404;
+            try_files /apps/web/dist/client/$uri =404;
         }
 
         # unhashed assets get cached for an hour
         add_header Cache-Control "public, max-age=3600"; # 1 hour
-        try_files /apps/web/dist/$uri =404;
+        try_files /apps/web/dist/client/$uri =404;
     }
 
     # for all other uris, serve SPA index with no caching

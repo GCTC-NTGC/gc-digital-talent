@@ -12,6 +12,7 @@ enum GovEmployeeType
     case CASUAL;
     case TERM;
     case INDETERMINATE;
+    case CONTRACTOR;
 
     public static function getLangFilename(): string
     {

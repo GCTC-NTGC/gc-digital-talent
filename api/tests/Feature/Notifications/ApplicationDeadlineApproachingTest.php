@@ -117,7 +117,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         assertEquals([
             'closing date' => 'December 31, 2999',
             'opportunity title' => 'poolNameEn',
-            'job advertisement link' => config('app.url').'/en/browse/pools/1',
+            'job advertisement link' => config('app.url').'/en/jobs/1',
             'application link' => config('app.url').'/en/applications/2'],
             $message->messageVariables);
     }
@@ -138,7 +138,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         assertEquals([
             'closing date' => '31 décembre 2999',
             'opportunity title' => 'poolNameFr',
-            'job advertisement link' => config('app.url').'/fr/browse/pools/1',
+            'job advertisement link' => config('app.url').'/fr/jobs/1',
             'application link' => config('app.url').'/fr/applications/2'],
             $message->messageVariables);
     }

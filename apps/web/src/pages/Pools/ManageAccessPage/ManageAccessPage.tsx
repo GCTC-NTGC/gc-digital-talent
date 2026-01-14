@@ -194,4 +194,4 @@ export const Component = () => (
 
 Component.displayName = "ManageAccessPoolPage";
 
-export default ManageAccessPoolPage;
+export default Component;

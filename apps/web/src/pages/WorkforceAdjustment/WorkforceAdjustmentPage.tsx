@@ -19,6 +19,8 @@ import {
   LinkProps,
 } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
+import { getFeatureFlags } from "@gc-digital-talent/env";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -56,6 +58,15 @@ const commonFeatureImgProps = {
 const inlineLink = (chunks: ReactNode, props: LinkProps) => (
   <Link {...props}>{chunks}</Link>
 );
+
+export const clientLoader = () => {
+  // You can move this loader to the module if preferred
+  const featureFlags = getFeatureFlags();
+  if (!featureFlags.workforceAdjustment) {
+    throw new NotFoundError();
+  }
+  return null;
+};
 
 export const Component = () => {
   const intl = useIntl();
@@ -134,6 +145,7 @@ export const Component = () => {
               width={209}
               height={167}
               className="block h-auto w-full object-cover object-center"
+              alt=""
             />
           </div>
           <div className="sm:grow">
@@ -168,9 +180,9 @@ export const Component = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "you're an <strong>indeterminate employee</strong> interested in <strong>a package to leave the public service voluntarily</strong>",
-                  id: "56Mvji",
+                  id: "N/c1Yg",
                   description:
-                    "Indicator three, you would likle to leave voluntarily",
+                    "Indicator three, you would like to leave voluntarily",
                 })}
               </li>
             </Ul>
@@ -751,3 +763,5 @@ export const Component = () => {
     </>
   );
 };
+
+export default Component;

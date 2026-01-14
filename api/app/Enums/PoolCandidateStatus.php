@@ -51,7 +51,6 @@ enum PoolCandidateStatus
         return [
             PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
             PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-            PoolCandidateStatus::REMOVED->name,
         ];
     }
 

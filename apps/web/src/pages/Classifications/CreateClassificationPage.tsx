@@ -273,4 +273,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCreateClassificationPage";
 
-export default CreateClassification;
+export default Component;

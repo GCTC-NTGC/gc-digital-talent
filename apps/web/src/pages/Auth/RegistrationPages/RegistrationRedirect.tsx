@@ -78,3 +78,5 @@ export const Component = () => {
 };
 
 Component.displayName = "RegistrationRedirect";
+
+export default Component;

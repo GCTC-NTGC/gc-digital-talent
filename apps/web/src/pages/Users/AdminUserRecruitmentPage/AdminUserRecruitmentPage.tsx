@@ -140,3 +140,5 @@ export const Component = () => (
 );
 
 Component.displayName = "AdminUserRecruitmentPage";
+
+export default Component;

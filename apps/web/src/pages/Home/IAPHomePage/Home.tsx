@@ -811,3 +811,5 @@ export const Component = () => {
 };
 
 Component.displayName = "IAPHomePage";
+
+export default Component;

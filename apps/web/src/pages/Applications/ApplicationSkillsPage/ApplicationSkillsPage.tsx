@@ -375,3 +375,5 @@ export const Component = () => {
 };
 
 Component.displayName = "ApplicationSkillsPage";
+
+export default Component;

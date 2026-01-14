@@ -175,11 +175,11 @@ const getRoutes = (lang: Locales) => {
     iap: () => [baseUrl, "indigenous-it-apprentice"].join("/"),
     iapManager: () => [baseUrl, "indigenous-it-apprentice", "hire"].join("/"),
 
-    // Pools
-    browsePools: () => [baseUrl, "browse", "pools"].join("/"),
-    pool: (poolId: string) => [baseUrl, "browse", "pools", poolId].join("/"),
-    createApplication: (poolId: string) =>
-      [baseUrl, "browse", "pools", poolId, "create-application"].join("/"),
+    // Jobs
+    jobs: () => `${baseUrl}/jobs`,
+    jobPoster: (processId: string) => `${baseUrl}/jobs/${processId}`,
+    createApplication: (processId: string) =>
+      `${baseUrl}/jobs/${processId}/create-application`,
 
     // Applications
     application: (applicationId: string) =>

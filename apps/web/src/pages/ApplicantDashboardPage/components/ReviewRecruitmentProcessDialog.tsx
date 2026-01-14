@@ -402,7 +402,7 @@ const ReviewRecruitmentProcessDialog = ({
                     })}
                   </Link>
                   <Link
-                    href={paths.pool(pool.id)}
+                    href={paths.jobPoster(pool.id)}
                     mode="inline"
                     color="primary"
                   >

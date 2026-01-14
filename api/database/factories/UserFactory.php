@@ -23,7 +23,6 @@ use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WfaInterest;
-use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
@@ -235,8 +234,8 @@ class UserFactory extends Factory
                 'end_date' => null,
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
                 'gov_employment_type' => $this->faker->randomElement([
-                    WorkExperienceGovEmployeeType::INDETERMINATE->name,
-                    WorkExperienceGovEmployeeType::TERM->name,
+                    GovEmployeeType::INDETERMINATE->name,
+                    GovEmployeeType::TERM->name,
                 ]),
             ])->asSubstantive()->create();
 

@@ -656,3 +656,5 @@ export const Component = () => (
     <RolesAndPermissionsPage />
   </RequireAuth>
 );
+
+export default Component;

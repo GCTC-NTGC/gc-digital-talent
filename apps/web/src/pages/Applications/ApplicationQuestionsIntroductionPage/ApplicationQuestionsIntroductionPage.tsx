@@ -106,3 +106,5 @@ export const Component = () => (
 );
 
 Component.displayName = "ApplicationQuestionsIntroductionPage";
+
+export default Component;

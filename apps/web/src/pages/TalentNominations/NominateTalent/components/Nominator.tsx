@@ -199,9 +199,9 @@ const NominatorFields = ({
         rules={{ required: intl.formatMessage(errorMessages.required) }}
         legend={intl.formatMessage({
           defaultMessage: "Your relationship to the nominator",
-          id: "/JDxnh",
+          id: "hq5u5/",
           description:
-            "Label for a nomination sumitters relationship to the nominator",
+            "Label for a nomination submitter's relationship to the nominator",
         })}
         items={localizedEnumToOptions(
           options?.relationshipToSubmitterOptions,

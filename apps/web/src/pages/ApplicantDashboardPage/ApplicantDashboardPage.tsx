@@ -598,3 +598,5 @@ export const Component = () => (
   </RequireAuth>
 );
 Component.displayName = "ApplicantDashboardPage";
+
+export default Component;

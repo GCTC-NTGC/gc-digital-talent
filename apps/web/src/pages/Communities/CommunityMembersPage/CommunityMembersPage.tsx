@@ -244,4 +244,4 @@ export const Component = () => (
 
 Component.displayName = "AdminCommunityMembersPage";
 
-export default CommunityMembersPage;
+export default Component;

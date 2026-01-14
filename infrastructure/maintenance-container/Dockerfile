@@ -1,5 +1,5 @@
 # aliased image used in build
-FROM node:22.17.0 AS node
+FROM node:24.12.0 AS node
 
 # base
 FROM ubuntu:24.04
@@ -33,7 +33,7 @@ RUN cd /usr/local/bin \
 RUN git config --global --add safe.directory /var/www/html
 
 # bump pnpm version
-RUN npm install --location=global pnpm@10.17.0
+RUN npm install --location=global pnpm@10.27.0
 
 # install composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer

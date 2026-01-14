@@ -44,10 +44,7 @@ describe("PoolCard", () => {
     const applyLink = screen.getByRole("link", {
       name: /apply to this recruitment/i,
     });
-    expect(applyLink).toHaveAttribute(
-      "href",
-      `/en/browse/pools/${fakedPool.id}`,
-    );
+    expect(applyLink).toHaveAttribute("href", `/en/jobs/${fakedPool.id}`);
   });
 
   it("should render the null state correctly", () => {

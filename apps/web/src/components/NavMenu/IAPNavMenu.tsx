@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { NavMenu } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -35,26 +34,25 @@ const IAPNavMenu = () => {
             href={paths.loggedOut()}
             title={intl.formatMessage(authMessages.signOut)}
             state={{ from: pathname }}
+            className="ml-auto"
           />
         ) : null
       }
     >
-      <NavMenu.List type="main">
-        <HomeLink {...homeLinkProps} />
-        <MenuItem
-          href={paths.iapManager()}
-          title={intl.formatMessage({
-            defaultMessage: "Hire an IT apprentice",
-            id: "39RER8",
-            description: "Page title for IAP manager homepage",
-          })}
-        />
-        <MenuItem
-          href={paths.home()}
-          title={intl.formatMessage(commonMessages.projectTitle)}
-          end
-        />
-      </NavMenu.List>
+      <HomeLink {...homeLinkProps} />
+      <MenuItem
+        href={paths.iapManager()}
+        title={intl.formatMessage({
+          defaultMessage: "Hire an IT apprentice",
+          id: "39RER8",
+          description: "Page title for IAP manager homepage",
+        })}
+      />
+      <MenuItem
+        href={paths.home()}
+        title={intl.formatMessage(commonMessages.projectTitle)}
+        end
+      />
     </Menu>
   );
 };

@@ -58,4 +58,4 @@ export const Component = () => (
 
 Component.displayName = "CommunityTalentPage";
 
-export default CommunityTalentPage;
+export default Component;
