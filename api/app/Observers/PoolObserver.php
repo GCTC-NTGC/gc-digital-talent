@@ -35,8 +35,12 @@ class PoolObserver
             && $newClosingDate->gte($oldClosingDate)
         ) {
 
-            $pool->poolCandidates
+            $pool->poolCandidates()
                 ->where('application_status', 'DRAFT') // Only send notification to draft applications
+                ->where(function ($query) {
+                    $query->whereDate('expiry_date', '>=', date('Y-m-d'))
+                        ->orWhereNull('expiry_date');
+                })
                 ->each(function ($poolCandidate) use ($newClosingDate) {
                     $poolCandidate->load('user', 'pool');
 

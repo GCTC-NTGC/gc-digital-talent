@@ -111,6 +111,7 @@ class SendApplicationDeadlineExtendedTest extends TestCase
             ->for($this->publishedPool)
             ->for($this->draftUser)
             ->create([
+                'expiry_date' => config('constants.far_future_date'),
                 'application_status' => ApplicationStatus::DRAFT->name,
             ]);
 
@@ -119,7 +120,7 @@ class SendApplicationDeadlineExtendedTest extends TestCase
             ->for($this->draftExpiredUser)
             ->create([
                 'application_status' => ApplicationStatus::DRAFT->name,
-                'expiry_date' => config('constants.past_datetime'),
+                'expiry_date' => config('constants.past_date'),
             ]);
 
         $this->applicationReview = PoolCandidate::factory()

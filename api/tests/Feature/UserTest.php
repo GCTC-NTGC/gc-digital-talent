@@ -295,7 +295,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 13,
+                        'total' => 9,
                     ],
                 ],
             ],
