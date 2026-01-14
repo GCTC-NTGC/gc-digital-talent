@@ -814,9 +814,9 @@ class UserBuilder extends Builder
                         $ilikeSubquery->whereNot(function ($negativeIlikeSubquery) use ($matchesWithoutOperatorOrStartingSpace) {
                             foreach ($matchesWithoutOperatorOrStartingSpace as $term) {
                                 $negativeIlikeSubquery
-                                    ->orWhereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $term);
+                                    ->orWhereRaw('unaccent(first_name) ilike unaccent(?)', $term)
+                                    ->orWhereRaw('unaccent(last_name) ilike unaccent(?)', $term)
+                                    ->orWhereRaw('unaccent(email) ilike unaccent(?)', $term);
                             }
                         });
                     }
