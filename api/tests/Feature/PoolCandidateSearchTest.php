@@ -861,31 +861,51 @@ class PoolCandidateSearchTest extends TestCase
         }
         GRAPHQL;
 
-        $expectedPlacement = PlacementType::UNDER_CONSIDERATION->name;
-
-        // Create 10 unexpected candidates
-        PoolCandidate::factory(10)
+        PoolCandidate::factory()
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
-            ])->each(function ($candidate) use ($expectedPlacement) {
-                $candidate->placement_type = Arr::random(Arr::where(array_column(PlacementType::cases(), 'name'), function ($placementType) use ($expectedPlacement) {
-                    return $placementType !== $expectedPlacement;
-                }));
+                'placement_type' => PlacementType::NOT_PLACED->name,
+            ]);
 
-                $candidate->save();
-            });
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'placement_type' => PlacementType::PLACED_TENTATIVE->name,
+            ]);
+
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'placement_type' => PlacementType::PLACED_CASUAL->name,
+            ]);
+
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'placement_type' => PlacementType::PLACED_TERM->name,
+            ]);
+
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $this->pool->id,
+                'placement_type' => PlacementType::PLACED_INDETERMINATE->name,
+            ]);
 
         $expectedCandidate = PoolCandidate::factory()
             ->create([
                 'pool_id' => $this->pool->id,
-                'placement_type' => $expectedPlacement,
+                'placement_type' => PlacementType::UNDER_CONSIDERATION->name,
             ]);
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
                 'where' => [
-                    'placementTypes' => [$expectedPlacement],
+                    'placementTypes' => [$expectedCandidate->placement_type],
                 ],
             ])->assertJsonFragment([
                 'data' => [
