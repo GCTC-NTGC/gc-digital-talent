@@ -446,8 +446,8 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($splitName) {
             foreach ($splitName as $value) {
-                $query->whereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $value)
-                    ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $value);
+                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $value)
+                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $value);
             }
         });
     }
@@ -467,7 +467,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
     public function whereWorkEmail(?string $email): self
@@ -476,7 +476,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("unaccent(work_email) ilike ('%' || unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
     public function whereExactWorkEmail(string $email): self
@@ -802,9 +802,9 @@ class UserBuilder extends Builder
                         $ilikeSubquery->where(function ($positiveIlikeSubquery) use ($arrayed) {
                             foreach ($arrayed as $term) {
                                 $positiveIlikeSubquery
-                                    ->orWhereRaw("unaccent(first_name) ilike ('%' || unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("unaccent(last_name) ilike ('%' || unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("unaccent(email) ilike ('%' || unaccent(?) || '%')", $term);
+                                    ->orWhereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $term)
+                                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $term)
+                                    ->orWhereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $term);
                             }
                         });
                     }
@@ -814,9 +814,9 @@ class UserBuilder extends Builder
                         $ilikeSubquery->whereNot(function ($negativeIlikeSubquery) use ($matchesWithoutOperatorOrStartingSpace) {
                             foreach ($matchesWithoutOperatorOrStartingSpace as $term) {
                                 $negativeIlikeSubquery
-                                    ->orWhereRaw('unaccent(first_name) ilike unaccent(?)', $term)
-                                    ->orWhereRaw('unaccent(last_name) ilike unaccent(?)', $term)
-                                    ->orWhereRaw('unaccent(email) ilike unaccent(?)', $term);
+                                    ->orWhereRaw('f_unaccent(first_name) ilike f_unaccent(?)', $term)
+                                    ->orWhereRaw('f_unaccent(last_name) ilike f_unaccent(?)', $term)
+                                    ->orWhereRaw('f_unaccent(email) ilike f_unaccent(?)', $term);
                             }
                         });
                     }
