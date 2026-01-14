@@ -31,7 +31,6 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
@@ -321,10 +320,6 @@ export const UpdateClassificationForm = ({
     </>
   );
 };
-
-interface RouteParams extends Record<string, string> {
-  classificationId: Scalars["ID"]["output"];
-}
 
 const Classification_Query = graphql(/* GraphQL */ `
   query Classification($id: UUID!) {
