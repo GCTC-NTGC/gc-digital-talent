@@ -18,7 +18,7 @@ final class DeleteApplicationValidator extends Validator
     {
         return [
             // application status check, must be one of these to be deleted
-            'applicatioin_status' => [Rule::in([
+            'application_status' => [Rule::in([
                 ApplicationStatus::DRAFT->name,
             ])],
         ];
