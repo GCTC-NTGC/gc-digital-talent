@@ -785,7 +785,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         foreach ($unavailableStatuses as $status) {
             PoolCandidate::factory()->create([
                 'pool_id' => $pool,
-                'application_status' => $status,
+                'application_status' => $status->name,
                 'expiry_date' => config('constants.far_future_date'),
             ]);
         }
