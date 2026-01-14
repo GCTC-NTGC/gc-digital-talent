@@ -733,6 +733,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function buildQuery()
     {
         $query = TalentNominationGroup::with([
+            'talentNominationEvent',
             'nominee' => function ($query) {
                 $query->with([
                     'department',
