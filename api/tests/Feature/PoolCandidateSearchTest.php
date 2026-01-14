@@ -227,28 +227,28 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
         $candidateActive2 = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
         $candidateExpired = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.past_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
         $candidateNullExpiry = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => null,
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
 
@@ -330,28 +330,28 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => null,
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => config('constants.far_past_datetime'),
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => Carbon::now()->subMinutes(1),
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => Carbon::now()->addMinutes(1),
         ]);
 
@@ -451,7 +451,7 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => null,
             'user_id' => User::factory()->withGovEmployeeProfile(),
         ]);
@@ -460,7 +460,7 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => null,
             'user_id' => User::factory()->withNonGovProfile(),
         ]);
@@ -534,7 +534,7 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $poolIT1->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => null,
         ]);
 
@@ -551,7 +551,7 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $poolIT2->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_Type' => PlacementType::PLACED_CASUAL->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'suspended_at' => null,
         ]);
 
@@ -881,10 +881,8 @@ class PoolCandidateSearchTest extends TestCase
         $expectedCandidate = PoolCandidate::factory()
             ->create([
                 'pool_id' => $this->pool->id,
+                'placement_type' => $expectedPlacement,
             ]);
-
-        $expectedCandidate->placement_type = $expectedPlacement;
-        $expectedCandidate->save();
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
