@@ -174,6 +174,10 @@ class AssessmentStep extends Model
             $step->logActivity(ActivityEvent::ADDED, $step->only($atts));
         });
 
+        static::updated(function (AssessmentStep $step) use ($atts) {
+            $step->logActivity(ActivityEvent::UPDATED, $step->only($atts));
+        });
+
         static::deleted(function (AssessmentStep $step) use ($atts) {
             // If this was the screening question step delete all screening questions as well
             if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
