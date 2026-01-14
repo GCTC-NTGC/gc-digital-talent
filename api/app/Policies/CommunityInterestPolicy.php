@@ -12,6 +12,11 @@ class CommunityInterestPolicy
      */
     public function view(User $user, CommunityInterest $communityInterest): bool
     {
+        // if they can see any community interest, shortcut to allow
+        if ($user->isAbleTo('view-any-communityInterest')) {
+            return true;
+        }
+
         $communityInterest->loadMissing('community.team');
 
         return ($user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id) ||
