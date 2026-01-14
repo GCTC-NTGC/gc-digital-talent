@@ -33,7 +33,7 @@ class SyncScreeningStage extends Command
                     WHEN pool_candidate_status = 'APPLICATION_REVIEW' THEN 'APPLICATION_REVIEW'
                     WHEN pool_candidate_status = 'SCREENED_IN' THEN
                         CASE
-                            WHEN assessment_step_id IS NOT NULL AND (
+                            WHEN assessment_step_id IS NULL OR (
                                 (SELECT type FROM assessment_steps WHERE assessment_steps.id = pool_candidates.assessment_step_id)
                                 IN ('APPLICATION_SCREENING', 'SCREENING_QUESTIONS_AT_APPLICATION')
                             ) THEN 'SCREENED_IN'
