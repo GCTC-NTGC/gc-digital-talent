@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Enums\ApplicationStatus;
 use App\Events\ApplicationStatusChanged;
+use App\Events\CandidateStatusChanged;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -15,7 +16,7 @@ class PoolCandidateObserver
      */
     public function created(PoolCandidate $poolCandidate): void
     {
-        ApplicationStatusChanged::dispatchIf(isset($poolCandidate->application_status), $poolCandidate);
+        CandidateStatusChanged::dispatchIf(isset($poolCandidate->application_status), $poolCandidate);
     }
 
     /**
@@ -26,7 +27,7 @@ class PoolCandidateObserver
         $oldStatus = $poolCandidate->getOriginal('application_status');
         $newStatus = $poolCandidate->application_status;
 
-        ApplicationStatusChanged::dispatchIf($poolCandidate->wasChanged('application_status'), $poolCandidate);
+        CandidateStatusChanged::dispatchIf($poolCandidate->wasChanged('application_status'), $poolCandidate);
 
         if (
             ($oldStatus != $newStatus) &&

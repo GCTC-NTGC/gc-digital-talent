@@ -28,8 +28,8 @@ final class Notification
      */
     public function __invoke($rootValue, GraphQLContext $context, ResolveInfo $resolveInfo): Type
     {
-        // The notification type field contains the class name, like "App\Notifications\ApplicationStatusChanged".
-        // By convention, the GraphQL type name will be the base name with the Notification suffix, like "ApplicationStatusChangedNotification".
+        // The notification type field contains the class name, like "App\Notifications\PoolCandidateStatusChanged".
+        // By convention, the GraphQL type name will be the base name with the Notification suffix, like "PoolCandidateStatusChangedNotification".
         return $this->typeRegistry->get(class_basename($rootValue->type).'Notification');
     }
 }
