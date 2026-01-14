@@ -59,7 +59,6 @@ const BaseItem = ({
   const intl = useIntl();
   const logger = getLogger();
   const item = getFragment(BaseItem_Fragment, query);
-  const properties = normalizePropKeys(intl, item?.properties, keyMap, logger);
 
   if (!info) {
     return null;
@@ -68,6 +67,13 @@ const BaseItem = ({
   const Icon = info.icon;
   let desc = description;
   if (!desc) {
+    const properties = normalizePropKeys(
+      intl,
+      item?.properties,
+      keyMap,
+      logger,
+    );
+
     desc =
       properties.length > 0
         ? properties.join(", ")
