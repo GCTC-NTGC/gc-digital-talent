@@ -99,6 +99,10 @@ return new class extends Migration
             WHERE pool_candidate_status = 'QUALIFIED_UNAVAILABLE'
         SQL);
 
+        Schema::table('pool_candidates', function (Blueprint $table) {
+            $table->string('application_status')->default('DRAFT')->nullable(false)->change();
+        });
+
         // 7. Add status_weight with new statuses
         DB::statement(<<<'SQL'
             ALTER TABLE pool_candidates
@@ -115,10 +119,6 @@ return new class extends Migration
             ) STORED;
             SQL
         );
-
-        Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->string('application_status')->default('DRAFT')->nullable(false)->change();
-        });
     }
 
     /**
