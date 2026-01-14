@@ -10,7 +10,6 @@ use App\Enums\DisqualificationReason;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
-use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
@@ -1188,107 +1187,20 @@ class ApplicantTest extends TestCase
             ]);
 
         $candidate->update([
-            'expiry_date' => config('constants.past_date'),
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_DRAFT_EXPIRED is 20
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 20,
-                        'status' => [
-                            'value' => ApplicationStatus::DRAFT->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
             'application_status' => ApplicationStatus::TO_ASSESS->name,
             'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
         ]);
 
-        // Assert candidate one CANDIDATE_STATUS_NEW_APPLICATION is 30
+        // Assert candidate one TO_ASSESS is 20
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 30,
+                        'statusWeight' => 20,
                         'status' => [
                             'value' => ApplicationStatus::TO_ASSESS->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'screening_stage' => ScreeningStage::APPLICATION_REVIEW->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_APPLICATION_REVIEW is 40
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 40,
-                        'status' => [
-                            'value' => ApplicationStatus::TO_ASSESS->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'screening_stage' => ScreeningStage::SCREENED_IN->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_SCREENED_IN is 50
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 50,
-                        'status' => [
-                            'value' => ApplicationStatus::TO_ASSESS->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'application_status' => ApplicationStatus::DISQUALIFIED->name,
-            'disqualification_reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_SCREENED_OUT_APPLICATION is 60
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 60,
-                        'status' => [
-                            'value' => ApplicationStatus::DISQUALIFIED->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::UNDER_ASSESSMENT->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_UNDER_ASSESSMENT is 70
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 70,
-                        'status' => [
-                            'value' => ApplicationStatus::DISQUALIFIED->name,
                         ],
                     ],
                 ],
@@ -1299,12 +1211,12 @@ class ApplicantTest extends TestCase
             'disqualification_reason' => DisqualificationReason::SCREENED_OUT_ASSESSMENT->name,
         ]);
 
-        // Assert candidate one CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT is 80
+        // Assert candidate one DISQUALIFIED is 30
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 80,
+                        'statusWeight' => 30,
                         'status' => [
                             'value' => ApplicationStatus::DISQUALIFIED->name,
                         ],
@@ -1316,30 +1228,12 @@ class ApplicantTest extends TestCase
             'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
-        // Assert candidate one CANDIDATE_STATUS_QUALIFIED_AVAILABLE is 90
+        // Assert candidate one QUALIFIED is 40
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 90,
-                        'status' => [
-                            'value' => ApplicationStatus::QUALIFIED->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'referring' => false,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE is 100
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 100,
+                        'statusWeight' => 40,
                         'status' => [
                             'value' => ApplicationStatus::QUALIFIED->name,
                         ],
@@ -1352,101 +1246,12 @@ class ApplicantTest extends TestCase
             'removal_reason' => CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name,
         ]);
 
-        // Assert candidate one CANDIDATE_STATUS_QUALIFIED_WITHDREW is 110
+        // Assert candidate one REMOVED is 50
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 110,
-                        'status' => [
-                            'value' => ApplicationStatus::REMOVED->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_PLACED_CASUAL is 120
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 120,
-                        'status' => [
-                            'value' => ApplicationStatus::QUALIFIED->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_TERM->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_PLACED_TERM is 130
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 130,
-                        'status' => [
-                            'value' => ApplicationStatus::QUALIFIED->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_INDETERMINATE->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_PLACED_INDETERMINATE is 140
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 140,
-                        'status' => [
-                            'value' => ApplicationStatus::QUALIFIED->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'expiry_date' => config('constants.past_datetime'),
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_EXPIRED is 150
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 150,
-                        'status' => [
-                            'value' => ApplicationStatus::TO_ASSESS->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        $candidate->update([
-            'application_status' => ApplicationStatus::REMOVED->name,
-        ]);
-
-        // Assert candidate one CANDIDATE_STATUS_REMOVED is 160
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, $variables)->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'statusWeight' => 160,
+                        'statusWeight' => 50,
                         'status' => [
                             'value' => ApplicationStatus::REMOVED->name,
                         ],

@@ -109,6 +109,7 @@ class CandidateFacingStatusTest extends TestCase
 
         $removed = [
             ...$submitted,
+            'application_status' => ApplicationStatus::REMOVED->name,
             'removed_at' => $past,
             'screening_stage' => null,
         ];

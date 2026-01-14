@@ -145,6 +145,8 @@ class PoolCandidate extends Model
         'is_flagged',
         'screening_stage',
         'assessment_step_id',
+        'removal_reason',
+        'disqualification_reason',
     ];
 
     protected $touches = ['user'];
@@ -810,6 +812,7 @@ class PoolCandidate extends Model
             throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
         }
 
+        $this->application_status = ApplicationStatus::REMOVED->name;
         $this->removed_at = Carbon::now();
         $this->removal_reason = $reason;
         if ($reason === CandidateRemovalReason::OTHER->name) {

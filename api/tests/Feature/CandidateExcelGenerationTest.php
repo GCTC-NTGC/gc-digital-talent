@@ -54,7 +54,7 @@ class CandidateExcelGenerationTest extends TestCase
 
         $this->candidate = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
-            'status' => ApplicationStatus::TO_ASSESS->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
             'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
         ]);
 
