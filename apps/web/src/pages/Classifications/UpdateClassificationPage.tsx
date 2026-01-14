@@ -22,7 +22,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  Scalars,
   UpdateClassificationInput,
   FragmentType,
   getFragment,
