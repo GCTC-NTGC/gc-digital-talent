@@ -28,6 +28,7 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -40,6 +41,7 @@ import Hero from "~/components/Hero";
 
 import messages from "./messages";
 import { getClassificationLevels } from "./helpers";
+import type { Route } from "./+types/UpdateClassificationPage";
 
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {
@@ -333,13 +335,15 @@ const Classification_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const UpdateClassification = () => {
+interface UpdateClassificationProps {
+  id: string;
+}
+
+const UpdateClassification = ({ id }: UpdateClassificationProps) => {
   const intl = useIntl();
-  const { classificationId } =
-    useRequiredParams<RouteParams>("classificationId");
   const [{ data, fetching, error }] = useQuery({
     query: Classification_Query,
-    variables: { id: classificationId },
+    variables: { id },
   });
 
   return (
@@ -355,7 +359,7 @@ const UpdateClassification = () => {
                 id: "b3VnhM",
                 description: "Message displayed for classification not found.",
               },
-              { classificationId },
+              { classificationId: id },
             )}
           </p>
         </NotFound>
@@ -364,11 +368,17 @@ const UpdateClassification = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <UpdateClassification />
-  </RequireAuth>
-);
+export function clientLoader({ params }: Route.ClientLoaderArgs) {
+  return { id: params.classificationId };
+}
+
+export function Component({ loaderData }: Route.ComponentProps) {
+  return (
+    <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+      <UpdateClassification id={loaderData.id} />
+    </RequireAuth>
+  );
+}
 
 Component.displayName = "AdminUpdateClassificationPage";
 
