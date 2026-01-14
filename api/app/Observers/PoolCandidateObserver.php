@@ -3,9 +3,9 @@
 namespace App\Observers;
 
 use App\Enums\ApplicationStatus;
-use App\Events\ApplicationStatusChanged;
 use App\Events\CandidateStatusChanged;
 use App\Models\PoolCandidate;
+use App\Notifications\ApplicationStatusChanged;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 

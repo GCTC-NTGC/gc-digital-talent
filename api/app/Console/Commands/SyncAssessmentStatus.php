@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Events\ApplicationStatusChanged;
+use App\Events\CandidateStatusChanged;
 use App\Models\PoolCandidate;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
@@ -38,7 +38,7 @@ class SyncAssessmentStatus extends Command
                 $candidate->save();
 
                 // If assessment status changes, "final decision" may as well.
-                ApplicationStatusChanged::dispatch($candidate);
+                CandidateStatusChanged::dispatch($candidate);
             }
         });
     }

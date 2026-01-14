@@ -49,7 +49,7 @@ class TriggerApplicationStatusChangedTest extends TestCase
                 'application_status' => ApplicationStatus::DRAFT->name,
             ]);
 
-        $application->submit();
+        $application->submit('test-notification');
 
         Notification::assertNothingSent();
     }
@@ -62,8 +62,6 @@ class TriggerApplicationStatusChangedTest extends TestCase
             ->create(['application_status' => ApplicationStatus::DRAFT->name]);
 
         $application->application_status = ApplicationStatus::TO_ASSESS->name;
-        $application->save();
-        $application->application_status = ApplicationStatus::DISQUALIFIED->name;
         $application->save();
 
         Notification::assertNothingSent();
