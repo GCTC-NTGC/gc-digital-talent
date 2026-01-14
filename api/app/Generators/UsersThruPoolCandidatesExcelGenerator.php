@@ -183,7 +183,7 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
             'notes' => 'whereNotesLike',
             'isGovEmployee' => 'whereIsGovEmployee',
             'departments' => 'whereDepartmentsIn',
-            'poolCandidateStatus' => 'whereStatusIn',
+            'statuses' => 'whereStatusIn',
             'priorityWeight' => 'whereCandidateCategoryIn',
             'expiryStatus' => 'whereExpiryStatus',
             'suspendedStatus' => 'whereSuspendedStatus',
@@ -193,7 +193,6 @@ class UsersThruPoolCandidatesExcelGenerator extends ExcelGenerator implements Fi
             'processNumber' => 'whereProcessNumber',
             'flexibleWorkLocations' => 'whereFlexibleWorkLocationsIn',
             'assessmentSteps' => 'whereAssessmentStepsIn',
-            'finalDecisions' => 'whereFinalDecisionsIn',
             'placementTypes' => 'wherePlacementTypeIn',
             'removalReason' => 'whereRemovalReasonIn',
 

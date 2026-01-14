@@ -712,11 +712,6 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
-  finalDecision: LocalizedFinalDecision
-    @rename(attribute: "computed_final_decision")
-  finalDecisionAt: DateTime
-    @rename(attribute: "final_decision_at")
-    @canRoot(ability: "viewStatus")
   qualifiedAt: DateTime
     @rename(attribute: "qualified_at")
     @canRoot(ability: "viewStatus")
@@ -773,8 +768,6 @@ type PoolCandidateAdminView {
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
-  finalDecision: LocalizedFinalDecision
-    @rename(attribute: "computed_final_decision")
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
   removedAt: DateTime @rename(attribute: "removed_at")
@@ -1416,7 +1409,7 @@ input PoolCandidateSearchInput {
   isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
-  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "whereStatusIn")
+  statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
   expiryStatus: CandidateExpiryFilter @scope(name: "whereExpiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
   publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
@@ -1431,7 +1424,6 @@ input PoolCandidateSearchInput {
   flexibleWorkLocations: [FlexibleWorkLocation]
     @scope(name: "whereFlexibleWorkLocationsIn")
   assessmentSteps: [Int!] @scope(name: "whereAssessmentStepIn")
-  finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
   placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
   removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
   screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")

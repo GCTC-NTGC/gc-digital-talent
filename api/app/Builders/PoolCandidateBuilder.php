@@ -7,7 +7,6 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\FinalDecision;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
@@ -278,14 +277,9 @@ class PoolCandidateBuilder extends Builder
     }
 
     // filter for qualified recruitments similar to frontend in `RecruitmentProcesses.tsx`
-    // based off final_decision_at AND computed_final_decision
     public function whereQualified(): self
     {
-        return $this->where(function ($query) {
-            $query
-                ->whereNotNull('final_decision_at')
-                ->whereIn('computed_final_decision', FinalDecision::applicableToQualifiedRecruitment());
-        });
+        return $this->where('application_status', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereHasDiploma(?bool $hasDiploma): self
@@ -412,16 +406,6 @@ class PoolCandidateBuilder extends Builder
         return $this->whereHas('user', function ($userQuery) use ($positionDuration) {
             $userQuery->wherePositionDurationIn($positionDuration);
         });
-    }
-
-    public function whereFinalDecisionIn(?array $finalDecisions): self
-    {
-
-        if (empty($finalDecisions)) {
-            return $this;
-        }
-
-        return $this->whereIn('computed_final_decision', $finalDecisions);
     }
 
     public function whereRemovalReasonIn(?array $removalReasons): self

@@ -8,7 +8,6 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
-use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
 use App\Enums\ScreeningStage;
 use App\Facades\Notify;
@@ -794,7 +793,7 @@ class PoolCandidateSearchTest extends TestCase
 
     }
 
-    public function testScopeFinalDecisionIn(): void
+    public function testScopeWhereStatusIn(): void
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
@@ -809,15 +808,15 @@ class PoolCandidateSearchTest extends TestCase
         }
         GRAPHQL;
 
-        $expectedDecision = FinalDecision::TO_ASSESS->name;
+        $expectedStatus = ApplicationStatus::TO_ASSESS->name;
 
         // Create 10 unexpected candidates
         PoolCandidate::factory(10)
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
-                'computed_final_decision' => Arr::random(Arr::where(array_column(FinalDecision::cases(), 'name'), function ($finalDecision) use ($expectedDecision) {
-                    return $finalDecision !== $expectedDecision;
+                'application_status' => Arr::random(Arr::where(array_column(ApplicationStatus::cases(), 'name'), function ($status) use ($expectedStatus) {
+                    return $status !== $expectedStatus;
                 })),
             ]);
 
@@ -825,15 +824,13 @@ class PoolCandidateSearchTest extends TestCase
             ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
+                'application_status' => $expectedStatus,
             ]);
-
-        $expectedCandidate->computed_final_decision = $expectedDecision;
-        $expectedCandidate->save();
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
                 'where' => [
-                    'finalDecisions' => [$expectedDecision],
+                    'statuses' => [$expectedStatus],
                 ],
             ])->assertJsonFragment([
                 'data' => [
