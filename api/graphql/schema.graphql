@@ -3450,6 +3450,7 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateDraft", find: "id")
+    @validator(class: "Mutation\\UpdatePoolValidator")
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput! @spread): Pool
     @update
     @guard
