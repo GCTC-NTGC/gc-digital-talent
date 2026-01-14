@@ -429,7 +429,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $nominator = $nomination->nominator;
                     $submitter = $nomination->submitter;
 
-                    $optionsStr = $this->getNominationOptions($talentNominationGroup);
+                    $optionsStr = $this->getNominationOptionsForNomination($nomination);
                     $submitterRelationshipStr = $this->getSubmitterRelationship($nomination);
                     $lateralMovementOptionsStr = $this->getLateralMovementOptions($nomination);
                     $developmentProgramsStr = $this->getDevelopmentPrograms($nomination);
@@ -665,6 +665,25 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         }
         if ($this->isNominatedForDevelopmentPrograms($talentNominationGroup)) {
             $options[] = $this->localizeHeading('development_programs')." ({$talentNominationGroup->development_programs_nomination_count})";
+        }
+
+        return implode(', ', $options);
+    }
+
+    /**
+     * Helper to extract nomination options for a single nomination
+     */
+    private function getNominationOptionsForNomination(TalentNomination $nomination): string
+    {
+        $options = [];
+        if ($nomination->nominate_for_advancement) {
+            $options[] = $this->localizeHeading('advancement');
+        }
+        if ($nomination->nominate_for_lateral_movement) {
+            $options[] = $this->localizeHeading('lateral_movement');
+        }
+        if ($nomination->nominate_for_development_programs) {
+            $options[] = $this->localizeHeading('development_programs');
         }
 
         return implode(', ', $options);
