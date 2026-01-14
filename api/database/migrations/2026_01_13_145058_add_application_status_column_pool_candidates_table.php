@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dateTime('qualified_at')->nullable();
             $table->string('placement_type')->default(PlacementType::NOT_PLACED->name)->nullable();
             $table->boolean('referring')->default(true);
+            $table->dropColumn('status_weight');
         });
 
         // 1. application_status for EXPIRED using computed_final_decision
@@ -97,6 +98,23 @@ return new class extends Migration
             SET referring = false
             WHERE pool_candidate_status = 'QUALIFIED_UNAVAILABLE'
         SQL);
+
+        // 7. Add status_weight with new statuses
+        DB::statement(<<<'SQL'
+            ALTER TABLE pool_candidates
+            ADD COLUMN status_weight integer GENERATED ALWAYS AS (
+            CASE
+                WHEN ((application_status)::text = 'DRAFT'::text) THEN 10
+                WHEN ((application_status)::text = 'NEW_APPLICATION'::text) THEN 20
+                WHEN ((application_status)::text = 'TO_ASSESS'::text) THEN 30
+                WHEN ((application_status)::text = 'DISQUALIFIED'::text) THEN 40
+                WHEN ((application_status)::text = 'QUALIFIED'::text) THEN 50
+                WHEN ((application_status)::text = 'REMOVED'::text) THEN 60
+                ELSE NULL::integer
+            END
+            ) STORED;
+            SQL
+        );
 
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->string('application_status')->default('DRAFT')->nullable(false)->change();
