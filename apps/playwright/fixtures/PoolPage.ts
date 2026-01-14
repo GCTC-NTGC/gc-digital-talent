@@ -1,3 +1,5 @@
+import { expect } from "~/fixtures";
+
 import AppPage from "./AppPage";
 import ExperiencePage from "./ExperiencePage";
 
@@ -28,7 +30,7 @@ class PoolPage extends AppPage {
     workStream: string,
   ) {
     await this.poolCreation(community, groupAndLevel);
-    await this.updateBasicInformation(processTitle, workStream);
+    await this.editBasicInformation(processTitle, workStream);
   }
 
   async poolCreation(community: string, groupAndLevel: string) {
@@ -52,9 +54,18 @@ class PoolPage extends AppPage {
 
     await this.page.getByRole("button", { name: /create process/i }).click();
     await this.waitForGraphqlResponse("CreatePool");
+    await this.verifyAlertUponSave(/recruitment process created successfully/i);
   }
 
-  async updateBasicInformation(processTitle: string, workStream: string) {
+  async editBasicInformation(processTitle: string, workStream: string) {
+    await this.waitForGraphqlResponse("EditPoolPage");
+    await this.waitForGraphqlResponse("CoreRequirementOptions");
+    await expect(
+      this.page.getByRole("heading", {
+        name: /advertisement information/i,
+      }),
+    ).toBeVisible();
+
     await this.page
       .getByRole("button", { name: /edit advertisement details/i })
       .click();
@@ -83,6 +94,20 @@ class PoolPage extends AppPage {
     await this.page
       .getByRole("button", { name: /save advertisement details/i })
       .click();
+    await this.verifyAlertUponSave(/process updated successfully/i);
+  }
+
+  async editProcessNumber() {
+    await this.page
+      .getByRole("button", { name: /edit process number/i })
+      .click();
+    await this.page
+      .getByRole("textbox", { name: /processNumber/i })
+      .fill("123456");
+    await this.page
+      .getByRole("button", { name: /save process number/i })
+      .click();
+    await this.verifyAlertUponSave(/process updated successfully/i);
   }
 
   async updateClosingDate() {
@@ -96,36 +121,61 @@ class PoolPage extends AppPage {
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
     await closingDate.getByRole("spinbutton", { name: /day/i }).fill("1");
-
     await this.page.getByRole("button", { name: /save closing date/i }).click();
+    await this.verifyAlertUponSave(/process updated successfully/i);
   }
   async updateCoreRequirements() {
     await this.page
       .getByRole("button", { name: /edit core requirements/i })
       .click();
-
     await this.page
       .getByRole("combobox", { name: /language requirement/i })
       .selectOption({ label: "Bilingual intermediate (B B B)" });
-
     await this.page
       .getByRole("combobox", { name: /security requirement/i })
       .selectOption({ label: "Reliability or higher" });
-
     await this.page
       .getByRole("button", { name: /save core requirements/i })
       .click();
+    await this.verifyAlertUponSave(/process updated successfully/i);
   }
 
-  async addSkillsToPool(skillName: string) {
+  async addEssentialSkills(skills: string[], skillLevel: string) {
     const experiencePageFixture = new ExperiencePage(this.page);
-    await experiencePageFixture.addANewSkillToProfile(skillName);
-    await this.page.getByRole("button", { name: /Add this skill/i }).click();
+    for (const skill of skills) {
+      await experiencePageFixture.addANewSkillToProfile(skill, skillLevel);
+      await this.page.getByRole("button", { name: /Add this skill/i }).click();
+    }
   }
 
-  async updateAboutThisRole() {
+  async addAboutThisRole() {
     // Add your impact
-    await this.page.getByRole("button", { name: /Edit/i }).click();
+    await this.page.getByRole("button", { name: /edit Your impact/i }).click();
+    await this.page
+      .getByRole("textbox", { name: /your impact (english)/i })
+      .fill("Playwright Test process (EN)");
+    await this.page
+      .getByRole("textbox", { name: /your impact (french)/i })
+      .fill("Playwright Test process (FR)");
+    await this.page.getByRole("button", { name: /save your impact/i }).click();
+    await this.verifyAlertUponSave(/process updated successfully/i);
+
+    // Add work tasks
+    await this.page.getByRole("button", { name: /edit Work tasks/i }).click();
+    await this.page
+      .getByRole("textbox", { name: /common tasks in this role (English)/i })
+      .fill("Playwright Test work tasks (EN)");
+    await this.page
+      .getByRole("textbox", { name: /common tasks in this role (French)/i })
+      .fill("Playwright Test work tasks (FR)");
+    await this.page.getByRole("button", { name: /save work tasks/i }).click();
+    await this.verifyAlertUponSave(/process updated successfully/i);
+  }
+
+  async verifyAlertUponSave(alertMessage: string | RegExp) {
+    await expect(this.page.getByRole("alert").last()).toContainText(
+      alertMessage,
+    );
   }
 
   async publishProcess() {

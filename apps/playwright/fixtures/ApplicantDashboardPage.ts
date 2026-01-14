@@ -199,7 +199,10 @@ class ApplicantDashboardPage extends AppPage {
           break;
 
         case "skills portfolio":
-          await experiencePage.addANewSkillToProfile("Functional Testing");
+          await experiencePage.addANewSkillToProfile(
+            "Functional Testing",
+            "Intermediate",
+          );
           break;
 
         case "employee verification":
