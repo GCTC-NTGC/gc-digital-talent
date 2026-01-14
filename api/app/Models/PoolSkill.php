@@ -54,6 +54,14 @@ class PoolSkill extends Model
             ]);
         });
 
+        static::updated(function (PoolSkill $poolSkill) use ($atts) {
+            $poolSkill->logActivity(ActivityEvent::UPDATED, [
+                ...$poolSkill->only($atts),
+                'skill' => $poolSkill->skill->name,
+                'category' => $poolSkill->skill->category,
+            ]);
+        });
+
         static::deleted(function (PoolSkill $poolSkill) use ($atts) {
             $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
             $poolSkill->logActivity(ActivityEvent::REMOVED, [
