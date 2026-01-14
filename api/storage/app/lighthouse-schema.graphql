@@ -1226,7 +1226,6 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
-  finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
   qualifiedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
@@ -1261,7 +1260,6 @@ type PoolCandidateAdminView {
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
-  finalDecision: LocalizedFinalDecision
   placedDepartment: Department
   closingDate: DateTime
   removedAt: DateTime
@@ -1787,7 +1785,7 @@ input PoolCandidateSearchInput {
   isGovEmployee: Boolean
   departments: [UUID!]
   priorityWeight: [PriorityWeight]
-  poolCandidateStatus: [PoolCandidateStatus]
+  statuses: [ApplicationStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
@@ -1796,7 +1794,6 @@ input PoolCandidateSearchInput {
   processNumber: String
   flexibleWorkLocations: [FlexibleWorkLocation]
   assessmentSteps: [Int!]
-  finalDecisions: [FinalDecision!]
   placementTypes: [PlacementType!]
   removalReasons: [CandidateRemovalReason!]
   screeningStages: [ScreeningStage!]

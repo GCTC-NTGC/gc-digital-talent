@@ -712,6 +712,9 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
+  finalDecisionAt: DateTime
+    @rename(attribute: "final_decision_at")
+    @canRoot(ability: "viewStatus")
   qualifiedAt: DateTime
     @rename(attribute: "qualified_at")
     @canRoot(ability: "viewStatus")

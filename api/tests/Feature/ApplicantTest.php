@@ -1465,7 +1465,7 @@ class ApplicantTest extends TestCase
                         'name' => null,
                         'email' => null,
                         'priorityWeight' => null,
-                        'poolCandidateStatus' => null,
+                        'statuses' => null,
 
                     ],
                 ]
