@@ -109,11 +109,10 @@ return new class extends Migration
             ADD COLUMN status_weight integer GENERATED ALWAYS AS (
             CASE
                 WHEN ((application_status)::text = 'DRAFT'::text) THEN 10
-                WHEN ((application_status)::text = 'NEW_APPLICATION'::text) THEN 20
-                WHEN ((application_status)::text = 'TO_ASSESS'::text) THEN 30
-                WHEN ((application_status)::text = 'DISQUALIFIED'::text) THEN 40
-                WHEN ((application_status)::text = 'QUALIFIED'::text) THEN 50
-                WHEN ((application_status)::text = 'REMOVED'::text) THEN 60
+                WHEN ((application_status)::text = 'TO_ASSESS'::text) THEN 20
+                WHEN ((application_status)::text = 'DISQUALIFIED'::text) THEN 30
+                WHEN ((application_status)::text = 'QUALIFIED'::text) THEN 40
+                WHEN ((application_status)::text = 'REMOVED'::text) THEN 50
                 ELSE NULL::integer
             END
             ) STORED;
