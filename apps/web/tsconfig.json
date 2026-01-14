@@ -1,18 +1,19 @@
 {
   "extends": "tsconfig/app.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@gc-digital-talent/*": ["../../../packages/*/src"],
-      "~/*": ["./*"]
-    }
+      "~/*": ["./src/*"],
+      "./+types/*": ["./.react-router/types/src/+types/*"]
+    },
+    "rootDirs": [".", "./.react-router/types"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "vite.config.ts",
-    "globals.d.ts",
-    "jest.config.ts"
+    "routes.ts",
+    ".react-router/types/**/*"
   ],
-  "exclude": ["**/node_modules", "**/.*/", "dist", "**/src/gql"]
+  "exclude": ["**/node_modules", "dist"]
 }
