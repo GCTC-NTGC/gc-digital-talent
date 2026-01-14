@@ -1346,6 +1346,7 @@ class ApplicantTest extends TestCase
                     orderBy: [
                     { column: "status_weight", order: ASC }
                     { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                    { column: "id", order: ASC }
                   ])
                 {
                     data
