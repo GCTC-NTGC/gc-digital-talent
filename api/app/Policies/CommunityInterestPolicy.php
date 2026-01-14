@@ -54,6 +54,11 @@ class CommunityInterestPolicy
      */
     public function viewUser(User $user, CommunityInterest $communityInterest): bool
     {
+        // if they can see any user, shortcut to allow seeing attached user
+        if ($user->isAbleTo('view-any-user')) {
+            return true;
+        }
+
         // if it is the user's own community interest, shortcut to allow seeing attached user
         if (($user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id)) {
             return true;
