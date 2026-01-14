@@ -299,6 +299,7 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationPlacement')) {
             return true;
         }
+
         $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->community->team);

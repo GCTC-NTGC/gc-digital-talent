@@ -148,6 +148,7 @@ class PoolCandidateUpdateTest extends TestCase
             placeCandidate(id: $id, poolCandidate: $poolCandidate) {
                 id
                 status { value }
+                placementType { value }
                 placedAt
                 placedDepartment {
                     id
@@ -163,6 +164,7 @@ class PoolCandidateUpdateTest extends TestCase
             revertPlaceCandidate(id: $id) {
                 id
                 status { value }
+                placementType { value }
                 placedAt
                 placedDepartment {
                     id
@@ -191,6 +193,7 @@ class PoolCandidateUpdateTest extends TestCase
             disqualifyCandidate(id: $id, reason: $reason) {
               id
               status { value }
+              disqualificationReason { value }
               disqualifiedAt
             }
           }
@@ -396,6 +399,7 @@ class PoolCandidateUpdateTest extends TestCase
     {
         $department = Department::factory()->create();
         $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->placement_type = PlacementType::PLACED_INDETERMINATE->name;
         $this->poolCandidate->save();
 
         // candidate may not update own status with the ROD status mutations
@@ -480,7 +484,8 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_PLACING->name);
 
-        $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
+        $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->placement_type = PlacementType::NOT_PLACED->name;
         $this->poolCandidate->save();
 
         // candidate was placed successfully
@@ -505,6 +510,7 @@ class PoolCandidateUpdateTest extends TestCase
     {
         $department = Department::factory()->create();
         $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
+        $this->poolCandidate->placement_type = PlacementType::NOT_PLACED->name;
         $this->poolCandidate->placed_department_id = $department->id;
         $this->poolCandidate->placed_at = config('constants.far_past_date');
         $this->poolCandidate->save();

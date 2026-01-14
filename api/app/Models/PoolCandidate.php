@@ -899,6 +899,7 @@ class PoolCandidate extends Model
 
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->computed_final_decision_weight = 10;
+        $this->placement_type = null;
         $this->placed_at = null;
         $this->placed_department_id = null;
 

@@ -23,7 +23,7 @@ final class PlaceCandidateValidator extends Validator
         $id = $this->arg('id');
         $candidate = PoolCandidate::findOrFail($id);
 
-        if ($candidate->application_status === ApplicationStatus::QUALIFIED->name) {
+        if ($candidate->application_status !== ApplicationStatus::QUALIFIED->name) {
             throw ValidationException::withMessages(['id' => ErrorCode::INVALID_STATUS_PLACING->name]);
         }
 

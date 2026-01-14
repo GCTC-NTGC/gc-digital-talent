@@ -720,6 +720,9 @@ type PoolCandidate {
   qualifiedAt: DateTime
     @rename(attribute: "qualified_at")
     @canRoot(ability: "viewStatus")
+  disqualificationReason: LocalizedDisqualificationReason
+    @rename(attribute: "disqualification_reason")
+    @canRoot(ability: "viewStatus")
   disqualifiedAt: DateTime
     @rename(attribute: "disqualified_at")
     @canRoot(ability: "viewStatus")

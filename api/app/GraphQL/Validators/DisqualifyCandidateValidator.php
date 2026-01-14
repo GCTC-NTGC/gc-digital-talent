@@ -22,7 +22,7 @@ final class DisqualifyCandidateValidator extends Validator
         $id = $this->arg('id');
         $candidate = PoolCandidate::findOrFail($id);
 
-        if ($candidate->application_status === ApplicationStatus::TO_ASSESS->name) {
+        if ($candidate->application_status !== ApplicationStatus::TO_ASSESS->name) {
             throw ValidationException::withMessages(['status' => ErrorCode::INVALID_STATUS_DISQUALIFICATION->name]);
         }
 

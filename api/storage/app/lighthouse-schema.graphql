@@ -1229,6 +1229,7 @@ type PoolCandidate {
   finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
   qualifiedAt: DateTime
+  disqualificationReason: LocalizedDisqualificationReason
   disqualifiedAt: DateTime
   placementType: LocalizedPlacementType
   placedAt: DateTime
