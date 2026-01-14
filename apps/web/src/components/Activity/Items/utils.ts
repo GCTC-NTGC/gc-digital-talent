@@ -266,7 +266,8 @@ export function normalizePropKeys(
     }
 
     // Updated at always appears so seems useless to show it
-    if (k !== "updated_at") {
+    // Created should always be identical to log time so also useless
+    if (k !== "updated_at" && k !== "created_at") {
       modified = [...modified, localizedKey];
     }
   });
