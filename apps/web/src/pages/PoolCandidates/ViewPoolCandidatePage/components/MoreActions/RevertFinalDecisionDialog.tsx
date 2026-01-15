@@ -36,7 +36,7 @@ export const RevertFinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment RevertFinalDecisionDialog on PoolCandidate {
     id
     expiryDate
-    finalDecisionAt
+    statusUpdatedAt
     status {
       value
       label {
@@ -61,7 +61,7 @@ const RevertFinalDecisionDialog = ({
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeMutation] = useMutation(RevertFinalDecision_Mutation);
-  const { id, expiryDate, finalDecisionAt, status } = getFragment(
+  const { id, expiryDate, statusUpdatedAt, status } = getFragment(
     RevertFinalDecisionDialog_Fragment,
     revertFinalDecisionQuery,
   );
@@ -101,9 +101,9 @@ const RevertFinalDecisionDialog = ({
 
   const isQualified = status?.value === ApplicationStatus.Qualified;
 
-  const finalDecisionDate = finalDecisionAt
+  const finalDecisionDate = statusUpdatedAt
     ? formatDate({
-        date: parseDateTimeUtc(finalDecisionAt),
+        date: parseDateTimeUtc(statusUpdatedAt),
         formatString: DATE_FORMAT_STRING,
         intl,
       })

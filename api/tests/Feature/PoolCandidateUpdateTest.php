@@ -181,7 +181,6 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               expiryDate
-              qualifiedAt
             }
           }
     ';
@@ -194,7 +193,6 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               disqualificationReason { value }
-              disqualifiedAt
             }
           }
     ';
@@ -207,7 +205,6 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               expiryDate
-              finalDecisionAt
             }
           }
     ';
@@ -222,7 +219,6 @@ class PoolCandidateUpdateTest extends TestCase
                 removalReasonOther: $removalReasonOther
             ){
                 status { value }
-                removedAt
                 removalReason { value }
                 removalReasonOther
             }
@@ -235,7 +231,6 @@ class PoolCandidateUpdateTest extends TestCase
         mutation reinstateTest($id: UUID!) {
             reinstateCandidate (id: $id){
                 status { value }
-                removedAt
                 removalReason { value }
                 removalReasonOther
             }
@@ -547,8 +542,8 @@ class PoolCandidateUpdateTest extends TestCase
     public function testQualifyCandidateMutation(): void
     {
         $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->status_updated_at = null;
         $this->poolCandidate->expiry_date = null;
-        $this->poolCandidate->final_decision_at = null;
         $this->poolCandidate->save();
 
         // cannot qualify candidate due to status
@@ -594,7 +589,6 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
-        assertNotNull($response['qualifiedAt']);
     }
 
     public function testDisqualifyCandidateMutation(): void
@@ -629,7 +623,6 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['status']['value'], ApplicationStatus::DISQUALIFIED->name);
         assertSame($response['disqualificationReason']['value'], DisqualificationReason::SCREENED_OUT_APPLICATION->name);
-        assertNotNull($response['disqualifiedAt']);
     }
 
     public function testRevertFinalDecisionMutation(): void
@@ -654,7 +647,6 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
-        assertNotNull($response['qualifiedAt']);
 
         // candidate reverted successfully
         $response = $this->actingAs($this->communityRecruiterUser, 'api')
@@ -688,7 +680,6 @@ class PoolCandidateUpdateTest extends TestCase
             'user_id' => $this->applicantUser->id,
         ]);
 
-        $this->assertNotNull($candidate->removed_at);
         $this->assertNotNull($candidate->removal_reason);
         $this->assertNotNull($candidate->removal_reason_other);
 
@@ -702,7 +693,6 @@ class PoolCandidateUpdateTest extends TestCase
             ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
             ->assertSuccessful()
             ->assertJsonFragment([
-                'removedAt' => null,
                 'removalReason' => null,
                 'removalReasonOther' => null,
             ]);

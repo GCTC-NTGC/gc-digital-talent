@@ -21,7 +21,7 @@ const RecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentProcessDialog on PoolCandidate {
     id
     expiryDate
-    finalDecisionAt
+    statusUpdatedAt
     suspendedAt
     placedAt
     status {
@@ -168,9 +168,9 @@ const RecruitmentProcessDialog = ({
               {pool.department?.name.localized}
             </FieldDisplay>
             <FieldDisplay label={intl.formatMessage(commonMessages.qualified)}>
-              {recruitmentProcess.finalDecisionAt
+              {recruitmentProcess.statusUpdatedAt
                 ? formatDate({
-                    date: parseDateTimeUtc(recruitmentProcess.finalDecisionAt),
+                    date: parseDateTimeUtc(recruitmentProcess.statusUpdatedAt),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })

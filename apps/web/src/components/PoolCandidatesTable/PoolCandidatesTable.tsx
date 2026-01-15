@@ -236,7 +236,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               localized
             }
           }
-          finalDecisionAt
+          statusUpdatedAt
           assessmentStep {
             sortOrder
             title {
@@ -332,7 +332,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           }
           submittedAt
           suspendedAt
-          removedAt
         }
         skillCount
       }

@@ -678,9 +678,6 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
-  removedAt: DateTime
-    @rename(attribute: "removed_at")
-    @canRoot(ability: "viewStatus")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -712,17 +709,11 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
-  finalDecisionAt: DateTime
-    @rename(attribute: "final_decision_at")
-    @canRoot(ability: "viewStatus")
-  qualifiedAt: DateTime
-    @rename(attribute: "qualified_at")
+  statusUpdatedAt: DateTime
+    @rename(attribute: "status_updated_at")
     @canRoot(ability: "viewStatus")
   disqualificationReason: LocalizedDisqualificationReason
     @rename(attribute: "disqualification_reason")
-    @canRoot(ability: "viewStatus")
-  disqualifiedAt: DateTime
-    @rename(attribute: "disqualified_at")
     @canRoot(ability: "viewStatus")
   placementType: LocalizedPlacementType
     @rename(attribute: "placement_type")
@@ -773,8 +764,7 @@ type PoolCandidateAdminView {
   assessmentStep: AssessmentStep @belongsTo
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
-  removedAt: DateTime @rename(attribute: "removed_at")
-  finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 }
 
 type PoolCandidateAdminViewWithSkillCount {

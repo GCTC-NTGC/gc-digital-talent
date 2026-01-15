@@ -29,7 +29,6 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
       ...RecruitmentProcessDialog
       id
       expiryDate
-      finalDecisionAt
       suspendedAt
       placedAt
       status {

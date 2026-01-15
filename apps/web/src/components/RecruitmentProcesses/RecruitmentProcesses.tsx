@@ -18,7 +18,6 @@ const RecruitmentProcesses_Fragment = graphql(/* GraphQL */ `
       status {
         value
       }
-      finalDecisionAt
       pool {
         id
         community {

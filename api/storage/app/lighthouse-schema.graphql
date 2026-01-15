@@ -1212,7 +1212,6 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isFlagged: Boolean
-  removedAt: DateTime
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
   profileSnapshot: JSON
@@ -1226,10 +1225,8 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
-  finalDecisionAt: DateTime
-  qualifiedAt: DateTime
+  statusUpdatedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
-  disqualifiedAt: DateTime
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
@@ -1262,8 +1259,7 @@ type PoolCandidateAdminView {
   assessmentStep: AssessmentStep
   placedDepartment: Department
   closingDate: DateTime
-  removedAt: DateTime
-  finalDecisionAt: DateTime
+  statusUpdatedAt: DateTime
 }
 
 type PoolCandidateAdminViewWithSkillCount {

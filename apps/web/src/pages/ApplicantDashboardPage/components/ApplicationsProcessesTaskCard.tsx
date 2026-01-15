@@ -34,7 +34,6 @@ const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
       status {
         value
       }
-      finalDecisionAt
     }
     ...ReviewRecruitmentProcessPreviewList
   }

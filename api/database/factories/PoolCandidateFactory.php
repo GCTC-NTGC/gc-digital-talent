@@ -68,13 +68,6 @@ class PoolCandidateFactory extends Factory
 
                 return null;
             },
-            'disqualified_at' => function (array $attributes) {
-                if ($attributes['application_status'] === ApplicationStatus::DISQUALIFIED->name) {
-                    return $this->faker->dateTimeBetween('-3 months', 'now');
-                }
-
-                return null;
-            },
             'placement_type' => function (array $attributes) {
                 if ($attributes['application_status'] === ApplicationStatus::QUALIFIED->name) {
                     return $this->faker->randomElement(PlacementType::cases())->name;
@@ -100,8 +93,8 @@ class PoolCandidateFactory extends Factory
             'placed_department_id' => function (array $attributes) use ($placedDepartmentId) {
                 return ! is_null($attributes['placement_type']) ? $placedDepartmentId : null;
             },
-            'removed_at' => function (array $attributes) {
-                return $attributes['application_status'] === ApplicationStatus::REMOVED->name ?
+            'status_updated_at' => function (array $attributes) {
+                return ! is_null($attributes['application_status']) && $attributes['application_status'] !== ApplicationStatus::DRAFT->name ?
                 $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
             },
             'removal_reason' => function (array $attributes) {

@@ -38,7 +38,7 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       ...ReviewRecruitmentProcessDialog
       id
-      finalDecisionAt
+      statusUpdatedAt
       candidateInterest {
         value
         label {
@@ -100,7 +100,7 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, finalDecisionAt, candidateInterest } =
+            const { id, pool, statusUpdatedAt, candidateInterest } =
               recruitmentProcess;
             const interestChip = candidateInterestChip(candidateInterest);
 
@@ -133,7 +133,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 type: "text",
                 children: (
                   <RecruitmentDate
-                    finalDecisionAt={finalDecisionAt}
+                    statusUpdatedAt={statusUpdatedAt}
                     interest={candidateInterest?.value}
                   />
                 ),

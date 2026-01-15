@@ -117,12 +117,12 @@ export const ApplicationDate = ({
 };
 
 interface RecruitmentDateProps {
-  finalDecisionAt?: string | null;
+  statusUpdatedAt?: string | null;
   interest?: Maybe<CandidateInterest>;
 }
 
 export const RecruitmentDate = ({
-  finalDecisionAt,
+  statusUpdatedAt,
   interest,
 }: RecruitmentDateProps) => {
   const intl = useIntl();
@@ -134,9 +134,9 @@ export const RecruitmentDate = ({
     <span>
       {intl.formatMessage(commonMessages.qualified)}
       {intl.formatMessage(commonMessages.dividingColon)}
-      {finalDecisionAt
+      {statusUpdatedAt
         ? formatDate({
-            date: parseDateTimeUtc(finalDecisionAt),
+            date: parseDateTimeUtc(statusUpdatedAt),
             formatString: DATE_FORMAT_LOCALIZED,
             intl,
           })

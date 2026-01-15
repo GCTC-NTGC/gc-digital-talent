@@ -110,8 +110,6 @@ class CandidateFacingStatusTest extends TestCase
         $removed = [
             ...$submitted,
             'application_status' => ApplicationStatus::REMOVED->name,
-            'removed_at' => $past,
-            'screening_stage' => null,
         ];
 
         return [
@@ -220,7 +218,6 @@ class CandidateFacingStatusTest extends TestCase
             'submitted_at' => $past,
             'suspended_at' => null,
             'placed_at' => null,
-            'removed_at' => null,
             'expiry_date' => null,
             'application_status' => ApplicationStatus::QUALIFIED->name,
         ];

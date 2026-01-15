@@ -80,7 +80,7 @@ const generatePoolCandidate = (
       assessmentStepStatuses: [],
       overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
     },
-    finalDecisionAt: faker.date
+    statusUpdatedAt: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()
       .substring(0, 10),

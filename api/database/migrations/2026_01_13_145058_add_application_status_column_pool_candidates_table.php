@@ -18,14 +18,13 @@ return new class extends Migration
             // Set nullable at first until we move data over
             $table->string('application_status')->default(ApplicationStatus::DRAFT->name)->nullable();
             $table->string('disqualification_reason')->nullable();
-            $table->dateTime('disqualified_at')->nullable();
-            $table->dateTime('qualified_at')->nullable();
+            $table->dateTime('status_updated_at')->nullable();
             $table->string('placement_type')->default(PlacementType::NOT_PLACED->name)->nullable();
             $table->boolean('referring')->default(true);
             $table->dropColumn('status_weight');
         });
 
-        // 1. application_status for EXPIRED using computed_final_decision
+        // application_status for EXPIRED using computed_final_decision
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET application_status = CASE
@@ -38,7 +37,7 @@ return new class extends Migration
             WHERE pool_candidate_status = 'EXPIRED'
         SQL);
 
-        // 2. application_status for non-EXPIRED using pool_candidate_status
+        // application_status for non-EXPIRED using pool_candidate_status
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET application_status = CASE pool_candidate_status
@@ -59,14 +58,14 @@ return new class extends Migration
             WHERE pool_candidate_status != 'EXPIRED'
         SQL);
 
-        // 3. disqualification_reason
+        // disqualification_reason
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET disqualification_reason = pool_candidate_status
             WHERE pool_candidate_status IN ('SCREENED_OUT_ASSESSMENT', 'SCREENED_OUT_APPLICATION')
         SQL);
 
-        // 4. removal_reason
+        // removal_reason
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET removal_reason = 'REQUESTED_TO_BE_WITHDRAWN'
@@ -80,7 +79,7 @@ return new class extends Migration
                 AND removal_reason IS NULL
         SQL);
 
-        // 5. placement_type (UNDER_CONSIDERATION first)
+        // placement_type (UNDER_CONSIDERATION first)
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET placement_type = 'UNDER_CONSIDERATION'
@@ -92,18 +91,29 @@ return new class extends Migration
             WHERE pool_candidate_status LIKE 'PLACED_%'
         SQL);
 
-        // 6. referring (QUALIFIED_WITHDREW  = false)
+        // referring (QUALIFIED_WITHDREW  = false)
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET referring = false
             WHERE pool_candidate_status = 'QUALIFIED_UNAVAILABLE'
         SQL);
 
+        DB::statement(<<<'SQL'
+            UPDATE pool_candidates
+            SET status_updated_at =
+                CASE
+                    WHEN removed_at IS NOT NULL THEN removed_at
+                    ELSE final_decision_at
+                END
+        SQL);
+
         Schema::table('pool_candidates', function (Blueprint $table) {
+            $table->dropColumn('final_decision_at');
+            $table->dropColumn('removed_at');
             $table->string('application_status')->default('DRAFT')->nullable(false)->change();
         });
 
-        // 7. Add status_weight with new statuses
+        // Add status_weight with new statuses
         DB::statement(<<<'SQL'
             ALTER TABLE pool_candidates
             ADD COLUMN status_weight integer GENERATED ALWAYS AS (
@@ -125,11 +135,27 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        Schema::table('pool_candidates', function (Blueprint $table) {
+            $table->timestamp('final_decision_at')->nullable();
+            $table->timestamp('removed_at')->nullable();
+        });
+
+        DB::statement(<<<'SQL'
+            UPDATE pool_candidates
+            SET
+                removed_at = CASE WHEN application_status = 'REMOVED' THEN status_updated_at ELSE NULL END,
+                final_decision_at = CASE
+                    WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED') THEN status_updated_at
+                    ELSE NULL
+                END,
+                removed_at = NULL
+        SQL);
+
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn('application_status');
             $table->dropColumn('disqualification_reason');
-            $table->dropColumn('disqualified_at');
-            $table->dropColumn('qualified_at');
+            $table->dropColumn('status_updated_at');
             $table->dropColumn('placement_type');
         });
     }
