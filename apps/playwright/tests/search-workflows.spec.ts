@@ -1,4 +1,8 @@
-import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+  PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
 import {
   ApplicationStatus,
   Classification,
@@ -126,6 +130,7 @@ test.describe("Talent search", () => {
     await updateCandidateStatus(adminCtx, {
       id: application.id,
       status: ApplicationStatus.Qualified,
+      expiryDate: FAR_FUTURE_DATE,
     });
     user = createdUser;
   });

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use App\Enums\ApplicationStatus;
+use App\Enums\FinalDecision;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 
@@ -42,6 +43,31 @@ final readonly class UpdatePoolCandidateStatus
                 default => null// no-op
             };
 
+            $finalDecision = match ($status) {
+                PoolCandidateStatus::NEW_APPLICATION->name,
+                PoolCandidateStatus::APPLICATION_REVIEW->name,
+                PoolCandidateStatus::SCREENED_IN->name,
+                PoolCandidateStatus::UNDER_ASSESSMENT->name => FinalDecision::TO_ASSESS->name,
+
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name => FinalDecision::DISQUALIFIED->name,
+
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name => FinalDecision::QUALIFIED->name,
+
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name,
+
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                PoolCandidateStatus::PLACED_TERM->name,
+                PoolCandidateStatus::PLACED_INDETERMINATE->name => FinalDecision::QUALIFIED_PLACED->name,
+
+                default => null
+            };
+
             if ($timestamps) {
                 foreach ($timestamps as $timestamp) {
                     $values[$timestamp] = $now;
@@ -56,6 +82,7 @@ final readonly class UpdatePoolCandidateStatus
                 ApplicationStatus::REMOVED->name => ApplicationStatus::REMOVED->name,
             };
 
+            $values['computed_final_decision'] = $finalDecision;
             $values['pool_candidate_status'] = $legacyStatus;
             $values['application_status'] = $status;
         }

@@ -136,6 +136,7 @@ const Test_UpdateApplicationStatusMutationDocument = /* GraphQL */ `
 interface UpdateStatusArgs {
   id: string;
   status: ApplicationStatus;
+  expiryDate: string;
 }
 
 /**
@@ -144,13 +145,13 @@ interface UpdateStatusArgs {
 export const updateCandidateStatus: GraphQLRequestFunc<
   PoolCandidate,
   UpdateStatusArgs
-> = async (ctx, { id, status }) => {
+> = async (ctx, { id, status, expiryDate }) => {
   return ctx
     .post(Test_UpdateApplicationStatusMutationDocument, {
       isPrivileged: true,
       variables: {
         id,
-        input: { status },
+        input: { status, expiryDate },
       },
     })
     .then(
