@@ -19,6 +19,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedApplicationStatus implements LocalizedEnumOption {
+  value: ApplicationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -79,8 +84,18 @@ type LocalizedCandidateExpiryFilter implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateInterest implements LocalizedEnumOption {
+  value: CandidateInterest!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
+  label: LocalizedString!
+}
+
+type LocalizedCandidateStatus implements LocalizedEnumOption {
+  value: CandidateStatus!
   label: LocalizedString!
 }
 
@@ -111,6 +126,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
 
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
+  label: LocalizedString!
+}
+
+type LocalizedDisqualificationReason implements LocalizedEnumOption {
+  value: DisqualificationReason!
   label: LocalizedString!
 }
 
@@ -146,6 +166,11 @@ type LocalizedEvaluatedLanguageAbility implements LocalizedEnumOption {
 
 type LocalizedExecCoaching implements LocalizedEnumOption {
   value: ExecCoaching!
+  label: LocalizedString!
+}
+
+type LocalizedExperienceType implements LocalizedEnumOption {
+  value: ExperienceType!
   label: LocalizedString!
 }
 
@@ -389,11 +414,6 @@ type LocalizedWfaInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedWorkExperienceGovEmployeeType implements LocalizedEnumOption {
-  value: WorkExperienceGovEmployeeType!
-  label: LocalizedString!
-}
-
 type LocalizedWorkRegion implements LocalizedEnumOption {
   value: WorkRegion!
   label: LocalizedString!
@@ -442,6 +462,15 @@ type PaginatorInfo {
 
   "Number of total available items."
   total: Int!
+}
+
+"A paginated list of Activity items."
+type ActivityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Activity items."
+  data: [Activity!]!
 }
 
 "A paginated list of User items."
@@ -841,6 +870,27 @@ input WhereConditions {
   HAS: WhereConditionsRelation
 }
 
+"Dynamic WHERE conditions for HAS conditions."
+input WhereConditionsHasCondition {
+  "The column that is used for the condition."
+  column: String
+
+  "The operator that is used for the condition."
+  operator: SQLOperator = EQ
+
+  "The value that is used for the condition."
+  value: Mixed
+
+  "A set of conditions that requires all conditions to match."
+  AND: [WhereConditionsHasCondition!]
+
+  "A set of conditions that requires at least one condition to match."
+  OR: [WhereConditionsHasCondition!]
+
+  "Check whether a relation exists. Extra conditions or a minimum amount can be applied."
+  HAS: WhereConditionsRelation
+}
+
 "Dynamic HAS conditions for WHERE condition queries."
 input WhereConditionsRelation {
   "The relation that is checked."
@@ -853,7 +903,7 @@ input WhereConditionsRelation {
   amount: Int = 1
 
   "Additional condition logic."
-  condition: WhereConditions
+  condition: WhereConditionsHasCondition
 }
 
 "The available SQL operators that are used to filter query results."
@@ -910,6 +960,27 @@ as they may not be parsed correctly on the server side. Use `String` literals if
 dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
+
+enum ActivityEvent {
+  CREATED
+  UPDATED
+  DELETED
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  REMOVED
+  REINSTATED
+  REVERTED
+}
+
+enum ApplicationStatus {
+  DRAFT
+  TO_ASSESS
+  REMOVED
+  DISQUALIFIED
+  QUALIFIED
+}
 
 enum ApplicationStep {
   WELCOME
@@ -1029,11 +1100,33 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateInterest {
+  OPEN_TO_JOBS
+  NOT_INTERESTED
+  HIRED
+  EXPIRED
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
   INELIGIBLE
   OTHER
+}
+
+enum CandidateStatus {
+  DRAFT
+  EXPIRED
+  RECEIVED
+  UNDER_REVIEW
+  APPLICATION_REVIEWED
+  UNDER_ASSESSMENT
+  UNSUCCESSFUL
+  QUALIFIED
+  WITHDREW
+  NOT_RESPONSIVE
+  INELIGIBLE
+  REMOVED
 }
 
 enum CandidateSuspendedFilter {
@@ -1262,6 +1355,14 @@ enum ExecCoaching {
   LEARNING
 }
 
+enum ExperienceType {
+  WORK
+  EDUCATION
+  AWARD
+  COMMUNITY
+  PERSONAL
+}
+
 enum ExternalRoleSeniority {
   INTERN_COOP
   JUNIOR
@@ -1348,6 +1449,7 @@ enum GovEmployeeType {
   CASUAL
   TERM
   INDETERMINATE
+  CONTRACTOR
 }
 
 enum GovPositionType {
@@ -1434,6 +1536,7 @@ enum OverallAssessmentStatus {
 }
 
 enum PlacementType {
+  NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
   PLACED_CASUAL
@@ -1675,14 +1778,6 @@ enum WfaInterest {
 enum WhenSkillUsed {
   CURRENT
   PAST
-}
-
-enum WorkExperienceGovEmployeeType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-  CONTRACTOR
 }
 
 enum WorkRegion {
