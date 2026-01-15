@@ -15,7 +15,7 @@ final readonly class UpdatePoolCandidateStatus
         $candidate = PoolCandidate::findOrFail($args['id']);
         $values = [];
 
-        if (isset($args['pool_candidate_status']) && $args['pool_candidate_status'] !== $candidate->pool_candidate_status) {
+        if (isset($args['application_status']) && $args['application_status'] !== $candidate->application_status) {
             $status = $args['application_status'];
 
             $now = now();
