@@ -5,7 +5,6 @@ import ExperiencePage from "./ExperiencePage";
 import CommunityInterest from "./CommunityInterest";
 import EmployeeProfile from "./EmployeeProfile";
 import ProfilePage from "./ProfilePage";
-import AccountSettings from "./AccountSettings";
 
 const FIELD = {
   JOB_APPLICATIONS: "jobApplications",
@@ -80,33 +79,6 @@ class ApplicantDashboardPage extends AppPage {
       await this.VerifyAndFillSectionDetails(sectionName);
     } else {
       await this.verifyNonGCEmployeeSections(sectionName);
-    }
-  }
-
-  async verifySettingsPage(contactEmail: string, gcEmail?: string) {
-    const accountSettingsPage = new AccountSettings(this.page);
-    await accountSettingsPage.goToSettings();
-    await expect(
-      this.page.getByRole("heading", { name: /account settings/i }),
-    ).toBeVisible({ timeout: 10000 });
-    await expect(
-      accountSettingsPage.page.getByText(new RegExp(contactEmail, "i")).first(),
-    ).toBeVisible({ timeout: 5000 });
-
-    if (gcEmail) {
-      await expect(
-        accountSettingsPage.page.getByText(new RegExp(gcEmail, "i")).first(),
-      ).toBeVisible();
-      await expect(
-        accountSettingsPage.page.getByRole("img", { name: /verified/i }).last(),
-      ).toBeVisible();
-    } else {
-      await expect(
-        this.page.getByText(/no work email provided/i),
-      ).toBeVisible();
-      await expect(
-        accountSettingsPage.page.getByRole("img", { name: /verified/i }),
-      ).toBeHidden();
     }
   }
 
