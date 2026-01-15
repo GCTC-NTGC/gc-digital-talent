@@ -91,8 +91,8 @@ importers:
         specifier: ^9.20.1
         version: 9.36.0(jiti@2.6.1)
       eslint-plugin-playwright:
-        specifier: ^2.4.0
-        version: 2.4.0(eslint@9.36.0(jiti@2.6.1))
+        specifier: ^2.5.0
+        version: 2.5.0(eslint@9.36.0(jiti@2.6.1))
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
@@ -5237,8 +5237,8 @@ packages:
     peerDependencies:
       eslint: '>=5.16.0'
 
-  eslint-plugin-playwright@2.4.0:
-    resolution: {integrity: sha512-MWNXfXlLfwXAjj4Z80PvCCFCXgCYy5OCHan57Z/beGrjkJ3maG1GanuGX8Ck6T6fagplBx2ZdkifxSfByftaTQ==}
+  eslint-plugin-playwright@2.5.0:
+    resolution: {integrity: sha512-1ckFw7Abdz+l23wtw5Tg4GTK3Y+MgEQQNjEr7FTJP3wwmIOj8DkbJ6G655aPc09c0Kfn/NoGA4xpMZzeSO4NWw==}
     engines: {node: '>=16.9.0'}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -13019,7 +13019,7 @@ snapshots:
       resolve: 1.22.10
       semver: 6.3.1
 
-  eslint-plugin-playwright@2.4.0(eslint@9.36.0(jiti@2.6.1)):
+  eslint-plugin-playwright@2.5.0(eslint@9.36.0(jiti@2.6.1)):
     dependencies:
       eslint: 9.36.0(jiti@2.6.1)
       globals: 16.5.0
