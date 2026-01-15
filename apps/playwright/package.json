@@ -30,7 +30,7 @@
     "exceljs": "^4.4.0",
     "mammoth": "^1.2.5",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.52.0"
+    "typescript-eslint": "^8.53.0"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0"
