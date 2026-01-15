@@ -80,11 +80,15 @@ final readonly class UpdatePoolCandidateStatus
                 ApplicationStatus::DISQUALIFIED->name => ApplicationStatus::DISQUALIFIED->name,
                 ApplicationStatus::QUALIFIED->name => ApplicationStatus::QUALIFIED->name,
                 ApplicationStatus::REMOVED->name => ApplicationStatus::REMOVED->name,
+                default => null
             };
 
             $values['computed_final_decision'] = $finalDecision;
-            $values['pool_candidate_status'] = $legacyStatus;
             $values['application_status'] = $status;
+
+            if ($legacyStatus) {
+                $values['pool_candidate_status'] = $legacyStatus;
+            }
         }
 
         if (isset($args['expiry_date'])) {
