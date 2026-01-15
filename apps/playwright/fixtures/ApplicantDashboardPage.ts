@@ -1,6 +1,10 @@
 import { Locator, type Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
+import ExperiencePage from "./ExperiencePage";
+import CommunityInterest from "./CommunityInterest";
+import EmployeeProfile from "./EmployeeProfile";
+import ProfilePage from "./ProfilePage";
 
 const FIELD = {
   JOB_APPLICATIONS: "jobApplications",
@@ -36,6 +40,172 @@ class ApplicantDashboardPage extends AppPage {
 
   async toggleJobApplications() {
     await this.locators[FIELD.JOB_APPLICATIONS].click();
+  }
+
+  async verifyDashboardUpdate(isGovEmployee: boolean) {
+    await expect(this.locators[FIELD.YOUR_ACCOUNT]).toBeVisible();
+    await this.verifyApplicantProfile();
+    await this.verifyGCEmployeeProfile(isGovEmployee);
+  }
+
+  async verifyApplicantProfile() {
+    await expect(this.locators[FIELD.APPLICANT_PROFILE]).toBeVisible();
+    const sectionName = "Applicant profile";
+    await this.VerifyAndFillSectionDetails(sectionName);
+  }
+
+  async verifyGCEmployeeProfile(isGovEmployee: boolean) {
+    await expect(this.locators[FIELD.GC_EMPLOYEE_PROFILE]).toBeVisible();
+    const sectionName = "GC employee profile";
+    if (isGovEmployee) {
+      await this.VerifyAndFillSectionDetails(sectionName);
+    } else {
+      await this.verifyNonGCEmployeeSections(sectionName);
+    }
+  }
+
+  async verifySettingsPage(contactEmail: string, gcEmail?: string) {
+    const accountSettingsPage = new AccountSettings(this.page);
+    await accountSettingsPage.goToSettings();
+    await expect(
+      this.page.getByRole("heading", { name: /account settings/i }),
+    ).toBeVisible();
+    await expect(
+      accountSettingsPage.page.getByText(new RegExp(contactEmail, "i")).first(),
+    ).toBeVisible();
+
+    if (gcEmail) {
+      await expect(
+        accountSettingsPage.page.getByText(new RegExp(gcEmail, "i")).first(),
+      ).toBeVisible();
+      await expect(
+        accountSettingsPage.page.getByRole("img", { name: /verified/i }).last(),
+      ).toBeVisible();
+    } else {
+      await expect(
+        this.page.getByText(/no work email provided/i),
+      ).toBeVisible();
+      await expect(
+        accountSettingsPage.page.getByRole("img", { name: /verified/i }),
+      ).toBeHidden();
+    }
+    await this.goToDashboard();
+  }
+
+  async verifyNonGCEmployeeSections(sectionName: string) {
+    const employeeProfilePage = new EmployeeProfile(this.page);
+    const { subSections, status } = await this.fetchYourAccountSubSections(
+      sectionName,
+      "button",
+    );
+
+    for (const rawText of status) {
+      const normalized = rawText.replace(/\s+/g, " ").trim();
+      const lowered = normalized.toLowerCase();
+
+      if (
+        lowered.startsWith("not provided") ||
+        lowered.startsWith("not available")
+      ) {
+        const subSectionName = normalized
+          .replace(/^not (provided|available)\s*[-–—]?\s*/i, "")
+          .trim();
+        const safe = subSectionName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+        await subSections
+          .getByRole("button", { name: new RegExp(safe, "i") })
+          .click();
+
+        await employeeProfilePage.verifyUnlockEmployeeToolsDialog();
+        break;
+      }
+    }
+  }
+
+  async fetchYourAccountSubSections(
+    sectionName: string,
+    locatorType: "link" | "button",
+  ) {
+    const subSections = this.page.getByRole("listitem").filter({
+      has: this.page.getByRole("heading", { name: sectionName }),
+    });
+    const sectionLink = subSections.getByRole(locatorType);
+    const status = (await sectionLink.allTextContents()).map((t) => t.trim());
+    return { subSections, status };
+  }
+
+  async VerifyAndFillSectionDetails(section: string) {
+    const { status } = await this.fetchYourAccountSubSections(section, "link");
+
+    for (const rawText of status) {
+      const trimmed = rawText.trim().toLowerCase();
+
+      if (trimmed.startsWith("complete")) {
+        continue;
+      } else if (
+        trimmed.startsWith("incomplete") ||
+        trimmed.startsWith("missing optional information")
+      ) {
+        const subSectionName = rawText.split("-").slice(1).join("-").trim();
+        await this.fillInCompleteAndMissingSections([subSectionName]);
+        continue;
+      }
+    }
+  }
+
+  async fillInCompleteAndMissingSections(subSectionNames: string[]) {
+    const experiencePage = new ExperiencePage(this.page);
+    const employeeProfilePage = new EmployeeProfile(this.page);
+    const profilePage = new ProfilePage(this.page);
+
+    for (const subSectionName of subSectionNames) {
+      const subSectionLink = this.page.getByRole("link", {
+        name: new RegExp(`${subSectionName}`, "i"),
+      });
+      await expect(subSectionLink.first()).toBeVisible();
+      await subSectionLink.first().click();
+
+      switch (subSectionName.toLowerCase()) {
+        case "personal information":
+          await profilePage.updateWorkPreferences();
+          await profilePage.updatePriorityEntitlements();
+          await profilePage.updateLanguagePreferences();
+          break;
+
+        case "career experience":
+          await experiencePage.addPersonalExperience({
+            title: "Test Role Playwright",
+            startDate: "2001-01",
+          });
+          break;
+
+        case "skills portfolio":
+          await experiencePage.addANewSkillToProfile("Functional Testing");
+          break;
+
+        case "employee verification":
+          await employeeProfilePage.verifyUnlockEmployeeToolsDialog();
+          break;
+
+        case "functional communities": {
+          await this.goToCreateCommunityInterest();
+          const communityInterest = new CommunityInterest(this.page);
+          await communityInterest.createCommunityInterest(
+            "Digital Community",
+            "Software Solutions",
+          );
+          await expect(this.page.getByRole("alert")).toContainText(
+            /community interest created successfully/i,
+          );
+          break;
+        }
+
+        case "career planning":
+          await employeeProfilePage.fillCareerPlanningSection();
+          break;
+      }
+      await this.goToDashboard();
+    }
   }
 }
 export default ApplicantDashboardPage;
