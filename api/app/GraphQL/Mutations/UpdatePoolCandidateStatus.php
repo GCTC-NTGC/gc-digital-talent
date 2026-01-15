@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 
@@ -15,7 +16,7 @@ final readonly class UpdatePoolCandidateStatus
         $values = [];
 
         if (isset($args['pool_candidate_status']) && $args['pool_candidate_status'] !== $candidate->pool_candidate_status) {
-            $status = $args['pool_candidate_status'];
+            $status = $args['application_status'];
 
             $now = now();
             $values = [
@@ -47,12 +48,16 @@ final readonly class UpdatePoolCandidateStatus
                 }
             }
 
-            if ($status === PoolCandidateStatus::QUALIFIED_WITHDREW->name) {
-                $values['suspended_at'] = $now;
-            }
+            $legacyStatus = match ($status) {
+                ApplicationStatus::DRAFT->name => PoolCandidateStatus::DRAFT->name,
+                ApplicationStatus::TO_ASSESS->name => PoolCandidateStatus::NEW_APPLICATION->name,
+                ApplicationStatus::DISQUALIFIED->name => ApplicationStatus::DISQUALIFIED->name,
+                ApplicationStatus::QUALIFIED->name => ApplicationStatus::QUALIFIED->name,
+                ApplicationStatus::REMOVED->name => ApplicationStatus::REMOVED->name,
+            };
 
-            $values['pool_candidate_status'] = $status;
-
+            $values['pool_candidate_status'] = $legacyStatus;
+            $values['application_status'] = $status;
         }
 
         if (isset($args['expiry_date'])) {
