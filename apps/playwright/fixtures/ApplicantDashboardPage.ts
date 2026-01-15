@@ -5,7 +5,6 @@ import ExperiencePage from "./ExperiencePage";
 import CommunityInterest from "./CommunityInterest";
 import EmployeeProfile from "./EmployeeProfile";
 import ProfilePage from "./ProfilePage";
-import AccountSettings from "./AccountSettings";
 
 const FIELD = {
   JOB_APPLICATIONS: "jobApplications",
@@ -83,34 +82,6 @@ class ApplicantDashboardPage extends AppPage {
     }
   }
 
-  async verifySettingsPage(contactEmail: string, gcEmail?: string) {
-    const accountSettingsPage = new AccountSettings(this.page);
-    await accountSettingsPage.goToSettings();
-    await expect(
-      this.page.getByRole("heading", { name: /account settings/i }),
-    ).toBeVisible();
-    await expect(
-      accountSettingsPage.page.getByText(new RegExp(contactEmail, "i")).first(),
-    ).toBeVisible();
-
-    if (gcEmail) {
-      await expect(
-        accountSettingsPage.page.getByText(new RegExp(gcEmail, "i")).first(),
-      ).toBeVisible();
-      await expect(
-        accountSettingsPage.page.getByRole("img", { name: /verified/i }).last(),
-      ).toBeVisible();
-    } else {
-      await expect(
-        this.page.getByText(/no work email provided/i),
-      ).toBeVisible();
-      await expect(
-        accountSettingsPage.page.getByRole("img", { name: /verified/i }),
-      ).toBeHidden();
-    }
-    await this.goToDashboard();
-  }
-
   async verifyNonGCEmployeeSections(sectionName: string) {
     const employeeProfilePage = new EmployeeProfile(this.page);
     const { subSections, status } = await this.fetchYourAccountSubSections(
@@ -160,14 +131,14 @@ class ApplicantDashboardPage extends AppPage {
       const trimmed = rawText.trim().toLowerCase();
 
       if (trimmed.startsWith("complete")) {
-        continue;
+        break;
       } else if (
         trimmed.startsWith("incomplete") ||
         trimmed.startsWith("missing optional information")
       ) {
         const subSectionName = rawText.split("-").slice(1).join("-").trim();
         await this.fillInCompleteAndMissingSections([subSectionName]);
-        continue;
+        break;
       }
     }
   }

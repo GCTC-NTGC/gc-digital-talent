@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
 
 import { commonMessages } from "../messages";
 import { Locales } from "../types";
@@ -19,16 +19,18 @@ export const appendLanguageName = ({
   lang: Locales;
   intl: IntlShape;
   formatted?: boolean;
-}): ReactNode => {
-  const Wrapper = formatted ? Gray : Fragment;
-  return (
-    <>
-      {label}{" "}
-      <Wrapper>
-        {lang === "en"
-          ? intl.formatMessage(commonMessages.englishLabel)
-          : intl.formatMessage(commonMessages.frenchLabel)}
-      </Wrapper>
-    </>
-  );
+}): ReactNode | string => {
+  const labels = {
+    en: intl.formatMessage(commonMessages.englishLabel),
+    fr: intl.formatMessage(commonMessages.frenchLabel),
+  };
+  if (formatted) {
+    return (
+      <>
+        {label} <Gray>{labels[lang]}</Gray>
+      </>
+    );
+  }
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+  return `${label} ${labels[lang]}`;
 };
