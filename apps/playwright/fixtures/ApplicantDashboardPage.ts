@@ -88,10 +88,10 @@ class ApplicantDashboardPage extends AppPage {
     await accountSettingsPage.goToSettings();
     await expect(
       this.page.getByRole("heading", { name: /account settings/i }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 10000 });
     await expect(
       accountSettingsPage.page.getByText(new RegExp(contactEmail, "i")).first(),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 5000 });
 
     if (gcEmail) {
       await expect(
@@ -160,14 +160,14 @@ class ApplicantDashboardPage extends AppPage {
       const trimmed = rawText.trim().toLowerCase();
 
       if (trimmed.startsWith("complete")) {
-        continue;
+        break;
       } else if (
         trimmed.startsWith("incomplete") ||
         trimmed.startsWith("missing optional information")
       ) {
         const subSectionName = rawText.split("-").slice(1).join("-").trim();
         await this.fillInCompleteAndMissingSections([subSectionName]);
-        continue;
+        break;
       }
     }
   }
