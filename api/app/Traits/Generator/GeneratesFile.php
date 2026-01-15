@@ -21,45 +21,73 @@ trait GeneratesFile
     /**
      *  Localize an enum value
      *
-     * @param  string  $value  of the enum
+     * @param  string|null  $value  of the enum
      * @param  class-string  $enum  The enum class
+     * @param  string|null  $subKey  Optional subkey for localization
+     * @param  mixed  $default  Default value to return if null
+     * @return string Localized enum value or $default if value is null
      */
-    protected function localizeEnum(?string $value, string $enum, ?string $subKey = null): string
+    protected function localizeEnum(?string $value, string $enum, ?string $subKey = null, mixed $default = ''): string
     {
-        if (! class_exists($enum) || ! $value) {
-            return '';
+        // if null return default
+        if ($value === null) {
+            return $default;
+        }
+
+        // if enum class does not exist return default
+        if (! class_exists($enum)) {
+            return $default;
         }
 
         /** @use \App\Traits\HasLocalization<UnitEnum> $enum */
-        return $enum::localizedString($value, $subKey)[$this->lang] ?? '';
+        return $enum::localizedString($value, $subKey)[$this->lang] ?? $default;
     }
 
     /**
      * Localize an array of enum values
      *
-     * @param  array{string}  $values  Array of the enum values are strings
+     * @param  array<string>|null  $values  Array of the enum values are strings
      * @param  class-string  $enum  The enum class being localized
+     * @param  mixed  $default  Default value to return if null
+     * @return string Comma separated localized enum values or $default if values is null
      */
-    protected function localizeEnumArray(?array $values, string $enum): string
+    protected function localizeEnumArray(?array $values, string $enum, mixed $default = ''): string
     {
-        if (! $values) {
+        // if null return default
+        if ($values === null) {
+            return $default;
+        }
+
+        // if array is empty return empty string
+        if (empty($values)) {
             return '';
         }
 
-        return implode(', ', array_map(function ($value) use ($enum) {
-            return $this->localizeEnum($value, $enum);
-        }, $values));
+        // convert each enum value to localized string
+        $localizedValues = array_map(
+            fn ($value) => $this->localizeEnum($value, $enum),
+            $values
+        );
+
+        // return join localized values with commas, filter out any empty strings to avoid trailing commas in output
+        return implode(', ', array_filter($localizedValues));
     }
 
     /**
      *  Convert a boolean value into a localized
-     *  "yes" or "no" statement
+     *  "yes", "no", "" statement
      *
      * @param  ?bool  $value  The value being converted
-     * @return string "Yes" if true, "No" if false
+     * @param  mixed  $default  Default value if null
+     * @return string "Yes" if true, "No" if false, $default if null
      */
-    public function yesOrNo(?bool $value): string
+    public function yesOrNo(?bool $value, mixed $default = ''): string
     {
+
+        if (is_null($value)) {
+            return $default;
+        }
+
         return $value ? Lang::get('common.yes', [], $this->lang) : Lang::get('common.no', [], $this->lang);
     }
 
