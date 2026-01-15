@@ -137,6 +137,7 @@ class PoolCandidate extends Model
         'is_flagged',
         'screening_stage',
         'assessment_step_id',
+        'computed_final_decision',
     ];
 
     protected $touches = ['user'];
