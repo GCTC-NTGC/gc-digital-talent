@@ -1,8 +1,8 @@
 import {
+  ApplicationStatus,
   CandidateRemovalReason,
   EducationRequirementOption,
   PoolCandidate,
-  PoolCandidateStatus,
   Scalars,
 } from "@gc-digital-talent/graphql";
 
@@ -135,7 +135,7 @@ const Test_UpdateApplicationStatusMutationDocument = /* GraphQL */ `
 
 interface UpdateStatusArgs {
   id: string;
-  status: PoolCandidateStatus;
+  status: ApplicationStatus;
 }
 
 /**

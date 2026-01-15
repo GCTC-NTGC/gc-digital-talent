@@ -5,20 +5,19 @@ import { useMutation } from "urql";
 
 import { Submit } from "@gc-digital-talent/forms";
 import {
+  ApplicationStatus,
   FragmentType,
   PlacementType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
-import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
-import { PLACEMENT_TYPE_STATUSES } from "~/constants/poolCandidate";
 import { formValuesToPlaceCandidateInput } from "~/components/PoolCandidateDialogs/formUtils";
 
 import JobPlacementForm, {
@@ -51,8 +50,13 @@ export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
     status {
       value
       label {
-        en
-        fr
+        localized
+      }
+    }
+    placementType {
+      value
+      label {
+        localized
       }
     }
     placedDepartment {
@@ -111,25 +115,22 @@ const JobPlacementDialog = ({
     roleAssignments,
   );
 
-  const {
-    id: poolCandidateId,
-    status,
-    placedDepartment,
-  } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
+  const candidate = getFragment(
+    JobPlacementDialog_Fragment,
+    jobPlacementDialogQuery,
+  );
 
   const placementType =
-    status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
-      ? (status.value as unknown as PlacementType)
-      : PlacementType.NotPlaced;
+    candidate.placementType?.value ?? PlacementType.NotPlaced;
 
   const methods = useForm<FormValues>({
     defaultValues: {
       placementType,
-      placedDepartment: placedDepartment?.id,
+      placedDepartment: candidate.placedDepartment?.id,
     },
   });
 
-  if (!isQualifiedStatus(status?.value)) {
+  if (candidate.status?.value === ApplicationStatus.Qualified) {
     return <span>{intl.formatMessage(commonMessages.notAvailable)}</span>;
   }
 
@@ -145,7 +146,7 @@ const JobPlacementDialog = ({
       values.placementType !== PlacementType.NotPlaced
     ) {
       mutationPromise = executePlaceCandidate({
-        id: poolCandidateId,
+        id: candidate.id,
         ...formValuesToPlaceCandidateInput(values),
       }).then((result) => {
         if (result.data?.placeCandidate) {
@@ -156,7 +157,7 @@ const JobPlacementDialog = ({
       });
     } else {
       mutationPromise = executeRevertPlacedCandidate({
-        id: poolCandidateId,
+        id: candidate.id,
       }).then((result) => {
         if (result.data?.revertPlaceCandidate) {
           return Promise.resolve();
@@ -192,14 +193,15 @@ const JobPlacementDialog = ({
   };
 
   let label = intl.formatMessage(commonMessages.notAvailable);
-  if (status) {
-    if (isNotPlacedStatus(status.value)) {
-      label = intl.formatMessage(poolCandidateMessages.notPlaced);
-    }
-
-    if (status.value && PLACEMENT_TYPE_STATUSES.includes(status.value)) {
-      label = getLocalizedName(status.label, intl);
-    }
+  if (
+    !candidate.placementType ||
+    candidate.placementType.value === PlacementType.NotPlaced
+  ) {
+    label = intl.formatMessage(poolCandidateMessages.notPlaced);
+  } else {
+    label =
+      candidate.placementType.label.localized ??
+      intl.formatMessage(commonMessages.notAvailable);
   }
 
   if (!canPlace) {

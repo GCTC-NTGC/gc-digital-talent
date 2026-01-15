@@ -4,8 +4,8 @@ import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
+  ApplicationStatus,
   FragmentType,
-  PoolCandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -23,7 +23,6 @@ import {
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
-import { isDisqualifiedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 
 const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
   mutation RevertFinalDecision_Mutation($id: UUID!) {
@@ -100,9 +99,7 @@ const RevertFinalDecisionDialog = ({
       });
   };
 
-  const isQualified =
-    isQualifiedStatus(status?.value) ||
-    status?.value === PoolCandidateStatus.Expired;
+  const isQualified = status?.value === ApplicationStatus.Qualified;
 
   const finalDecisionDate = finalDecisionAt
     ? formatDate({
@@ -112,7 +109,7 @@ const RevertFinalDecisionDialog = ({
       })
     : intl.formatMessage(commonMessages.notAvailable);
 
-  if (!isQualified || !isDisqualifiedStatus(status?.value)) {
+  if (!isQualified || status?.value === ApplicationStatus.Disqualified) {
     intl.formatMessage(commonMessages.notApplicable);
   }
   return (

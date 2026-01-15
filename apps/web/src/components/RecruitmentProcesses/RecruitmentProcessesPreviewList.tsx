@@ -1,6 +1,11 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
@@ -15,8 +20,6 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
-
 import OffPlatformRecruitmentProcessList from "./OffPlatformRecruitmentProcessList";
 import RecruitmentProcessDialog from "./RecruitmentProcessDialog";
 
@@ -30,9 +33,6 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
       suspendedAt
       placedAt
       status {
-        value
-      }
-      finalDecision {
         value
       }
       pool {
@@ -83,9 +83,7 @@ const RecruitmentProcessPreviewList = ({
   );
   const recruitmentProcessesFiltered = recruitmentProcesses
     ? recruitmentProcesses.filter(
-        (recruitmentProcess) =>
-          recruitmentProcess.finalDecisionAt &&
-          isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+        ({ status }) => status?.value === ApplicationStatus.Qualified,
       )
     : []; // filter for qualified recruitment processes
 

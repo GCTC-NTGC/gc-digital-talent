@@ -60,7 +60,6 @@ import {
   candidacyStatusAccessor,
   candidateNameCell,
   currentLocationAccessor,
-  finalDecisionCell,
   notesCell,
   priorityCell,
   transformFormValuesToFilterState,
@@ -76,6 +75,7 @@ import {
   getBaseSort,
   poolCandidateBookmarkHeader,
   poolCandidateBookmarkCell,
+  applicationStatusCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -207,8 +207,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           status {
             value
             label {
-              en
-              fr
+              localized
             }
           }
           candidateStatus {
@@ -238,9 +237,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             }
           }
           finalDecisionAt
-          finalDecision {
-            value
-          }
           assessmentStep {
             sortOrder
             title {
@@ -292,13 +288,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             }
             screeningQuestionsCount
             contactEmail
-          }
-          finalDecision {
-            value
-            label {
-              en
-              fr
-            }
           }
           assessmentStatus {
             overallAssessmentStatus
@@ -431,7 +420,7 @@ const defaultState = {
     publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
     assessmentSteps: [],
-    finalDecisions: [],
+    statuses: [],
     removalReasons: [],
     placementTypes: [],
     screeningStages: [],
@@ -461,7 +450,7 @@ const PoolCandidatesTable = ({
   const apiRoutes = useApiRoutes();
 
   const defaultSortState = currentPool
-    ? [{ id: "finalDecision", desc: false }]
+    ? [{ id: "status", desc: false }]
     : [{ id: "dateReceived", desc: true }];
   const initialState = getTableStateFromSearchParams({
     ...defaultState,
@@ -901,25 +890,15 @@ const PoolCandidatesTable = ({
     columnHelper.accessor(
       ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
-        id: "finalDecision",
+        id: "applicationStatus",
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({
           row: {
             original: {
-              poolCandidate: {
-                finalDecision,
-                assessmentStatus,
-                assessmentStep,
-              },
+              poolCandidate: { status },
             },
           },
-        }) =>
-          finalDecisionCell(
-            finalDecision,
-            assessmentStep?.sortOrder,
-            assessmentStatus,
-            intl,
-          ),
+        }) => applicationStatusCell(status, intl),
       },
     ),
     columnHelper.accessor(

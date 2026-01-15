@@ -5,8 +5,8 @@ import {
   PoolCandidateSearchInput,
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
-  FinalDecision,
   PlacementType,
+  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
@@ -63,7 +63,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
         id,
       }),
     ),
-    finalDecisions: [FinalDecision.QualifiedPlaced, FinalDecision.Qualified],
+    statuses: [ApplicationStatus.Qualified],
     placementTypes: [
       PlacementType.NotPlaced,
       PlacementType.PlacedTentative,

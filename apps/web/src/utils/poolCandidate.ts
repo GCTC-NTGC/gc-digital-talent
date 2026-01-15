@@ -5,29 +5,18 @@
  * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
  */
 import { IntlShape, defineMessages } from "react-intl";
-import { isPast } from "date-fns/isPast";
 import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
 import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import {
-  commonMessages,
-  ENUM_SORT_ORDER,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
 import { ChipProps } from "@gc-digital-talent/ui";
 import {
   Maybe,
-  PoolCandidate,
-  PoolCandidateStatus,
-  OverallAssessmentStatus,
-  AssessmentResultStatus,
   ClaimVerificationResult,
   CitizenshipStatus,
   AssessmentStep,
-  FinalDecision,
-  LocalizedFinalDecision,
   Pool,
   ScreeningStage,
   AssessmentStepType,
@@ -35,115 +24,25 @@ import {
   CandidateStatus,
   CandidateInterest,
   LocalizedCandidateInterest,
+  ApplicationStatus,
+  LocalizedApplicationStatus,
 } from "@gc-digital-talent/graphql";
 
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
-  QUALIFIED_STATUSES,
-  DISQUALIFIED_STATUSES,
-  REMOVED_STATUSES,
-  TO_ASSESS_STATUSES,
-  PLACED_STATUSES,
-  NOT_PLACED_STATUSES,
-  DRAFT_STATUSES,
-  INACTIVE_STATUSES,
-  SUSPENDABLE_STATUSES,
-  RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
-  PLACEMENT_TYPE_STATUSES,
   LEGACY_ASSESSMENT_STEP_TYPES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
 
-export const isDisqualifiedStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? DISQUALIFIED_STATUSES.includes(status) : false);
-
-export const isRemovedStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? REMOVED_STATUSES.includes(status) : false);
-
-export const isQualifiedStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? QUALIFIED_STATUSES.includes(status) : false);
-
-export const isDraftStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? DRAFT_STATUSES.includes(status) : false);
-
-export const isToAssessStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? TO_ASSESS_STATUSES.includes(status) : false);
-
-export const isPlacedStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? PLACED_STATUSES.includes(status) : false);
-
-export const isNotPlacedStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? NOT_PLACED_STATUSES.includes(status) : false);
-
-export const isInactiveStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
-
-export const isRODStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? RECORD_DECISION_STATUSES.includes(status) : false);
-
 export const isRevertableStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean =>
-  status
-    ? [...REVERT_DECISION_STATUSES, ...PLACEMENT_TYPE_STATUSES].includes(status)
-    : false;
-
-export const isSuspendedStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-  suspendedAt: PoolCandidate["suspendedAt"],
-): boolean => {
-  const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
-
-  return !!(
-    isSuspended && (status ? SUSPENDABLE_STATUSES.includes(status) : false)
-  );
-};
+  status: Maybe<ApplicationStatus> | undefined,
+): boolean => (status ? REVERT_DECISION_STATUSES.includes(status) : false);
 
 export const isLegacyAssessmentStepType = (
   type?: Maybe<AssessmentStepType>,
 ): boolean => {
   return !!(type ? LEGACY_ASSESSMENT_STEP_TYPES.includes(type) : false);
-};
-
-export const isDraft = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => {
-  return status === PoolCandidateStatus.Draft;
-};
-
-export const isExpired = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-  expirationDate: Maybe<string> | undefined,
-): boolean => {
-  if (status === PoolCandidateStatus.Expired) {
-    return true;
-  }
-  return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
-};
-
-// if changing below, also check `FinalDecision.php` enum
-export const isQualifiedFinalDecision = (
-  status: Maybe<FinalDecision> | undefined,
-): boolean => {
-  return status
-    ? [
-        FinalDecision.Qualified,
-        FinalDecision.QualifiedExpired,
-        FinalDecision.QualifiedPlaced,
-        FinalDecision.QualifiedRemoved,
-      ].includes(status)
-    : false;
 };
 
 export const formatSubmittedAt = (
@@ -165,78 +64,20 @@ export type ResultDecisionCounts = Record<NullableDecision, number>;
 export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
   sortBy(assessmentSteps, (step) => step.sortOrder);
 
-const getFinalDecisionChipColor = (
-  finalDecision?: Maybe<FinalDecision>,
+const applicationStatusColourMap = new Map<
+  ApplicationStatus,
+  ChipProps["color"]
+>([
+  [ApplicationStatus.ToAssess, "warning"],
+  [ApplicationStatus.Disqualified, "error"],
+  [ApplicationStatus.Qualified, "success"],
+]);
+
+const getApplicationStatusChipColor = (
+  status?: Maybe<ApplicationStatus>,
 ): ChipProps["color"] => {
-  switch (finalDecision) {
-    case FinalDecision.ToAssess:
-      return "warning";
-    case FinalDecision.Disqualified:
-    case FinalDecision.DisqualifiedPending:
-      return "error";
-    case FinalDecision.Removed:
-    case FinalDecision.DisqualifiedRemoved:
-    case FinalDecision.QualifiedRemoved:
-    case FinalDecision.QualifiedExpired:
-    case FinalDecision.ToAssessRemoved:
-      return "gray";
-    case FinalDecision.Qualified:
-    case FinalDecision.QualifiedPlaced:
-    case FinalDecision.QualifiedPending:
-      return "success";
-    default:
-      return "gray";
-  }
-};
-
-/**
- * The inAssessment statuses have extra business logic for deciding how to present the status chip,
- * since the candidate may or may not be ready for a final decision.
- */
-const computeInAssessmentStatusChip = (
-  assessmentStep: Maybe<number> | undefined,
-  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
-  intl: IntlShape,
-): StatusChip => {
-  if (!assessmentStatus?.overallAssessmentStatus) {
-    // This escape hatch mostly applies to Pools created before Record of Decision.
-    return {
-      label: intl.formatMessage(poolCandidateMessages.toAssess),
-      color: "warning",
-    };
-  }
-
-  if (
-    assessmentStatus?.overallAssessmentStatus ===
-    OverallAssessmentStatus.Disqualified
-  ) {
-    return {
-      label:
-        intl.formatMessage(poolCandidateMessages.disqualified) +
-        intl.formatMessage(commonMessages.dividingColon) +
-        intl.formatMessage(poolCandidateMessages.pendingDecision),
-      color: "error",
-    };
-  }
-
-  const currentStep =
-    typeof assessmentStep === "undefined" ? 1 : assessmentStep;
-
-  // currentStep of null means that the candidate has passed all steps and is tentatively qualified!
-  if (currentStep === null) {
-    return {
-      label:
-        intl.formatMessage(poolCandidateMessages.qualified) +
-        intl.formatMessage(commonMessages.dividingColon) +
-        intl.formatMessage(poolCandidateMessages.pendingDecision),
-      color: "success",
-    };
-  }
-
-  return {
-    label: intl.formatMessage(poolCandidateMessages.toAssess),
-    color: "warning",
-  };
+  if (!status) return "gray";
+  return applicationStatusColourMap.get(status) ?? "gray";
 };
 
 /** Application statuses */
@@ -251,7 +92,7 @@ export const applicationStatus = {
   SUCCESSFUL: "SUCCESSFUL",
 } as const;
 
-type ApplicationStatus =
+type LegacyApplicationStatus =
   (typeof applicationStatus)[keyof typeof applicationStatus];
 
 /** Qualified recruitment statuses */
@@ -271,33 +112,22 @@ interface StatusChip {
 
 export interface StatusChipWithDescription extends StatusChip {
   description?: ReactNode;
-  value: ApplicationStatus | QualifiedRecruitmentStatus;
+  value: LegacyApplicationStatus | QualifiedRecruitmentStatus;
 }
 
 /**
  * Returns a status chip for displaying to assessors. Contains more specific information about
  * assessment progress than that shown to applicants.
  */
-export const getCandidateStatusChip = (
-  finalDecision: Maybe<LocalizedFinalDecision> | undefined,
-  assessmentStep: Maybe<number> | undefined,
-  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
+export const getApplicationStatusChip = (
+  status: Maybe<LocalizedApplicationStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
-  if (
-    finalDecision?.value === FinalDecision.ToAssess ||
-    !finalDecision?.value
-  ) {
-    return computeInAssessmentStatusChip(
-      assessmentStep,
-      assessmentStatus,
-      intl,
-    );
-  }
-
   return {
-    label: getLocalizedName(finalDecision?.label, intl),
-    color: getFinalDecisionChipColor(finalDecision?.value),
+    label:
+      status?.label.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
+    color: getApplicationStatusChipColor(status?.value),
   };
 };
 

@@ -1,11 +1,11 @@
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
+  ApplicationStatus,
   Classification,
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
   Language,
   OperationalRequirement,
-  PoolCandidateStatus,
   Skill,
   SkillCategory,
   User,
@@ -125,7 +125,7 @@ test.describe("Talent search", () => {
 
     await updateCandidateStatus(adminCtx, {
       id: application.id,
-      status: PoolCandidateStatus.QualifiedAvailable,
+      status: ApplicationStatus.Qualified,
     });
     user = createdUser;
   });

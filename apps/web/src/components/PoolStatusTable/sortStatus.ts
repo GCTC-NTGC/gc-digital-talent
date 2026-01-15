@@ -1,47 +1,22 @@
-import { SortingFnOption } from "@tanstack/react-table";
-
-import {
-  PoolCandidateStatus,
-  PoolStatusTable_PoolCandidateFragment as PoolStatusTablePoolCandidateFragmentType,
-} from "@gc-digital-talent/graphql";
+import { ApplicationStatus } from "@gc-digital-talent/graphql";
 
 const sortOrder = [
-  PoolCandidateStatus.PlacedIndeterminate,
-  PoolCandidateStatus.PlacedTerm,
-  PoolCandidateStatus.PlacedCasual,
-  PoolCandidateStatus.PlacedTentative,
-  PoolCandidateStatus.UnderConsideration,
-  PoolCandidateStatus.QualifiedAvailable,
-  PoolCandidateStatus.QualifiedUnavailable,
-  PoolCandidateStatus.QualifiedWithdrew,
-  PoolCandidateStatus.UnderAssessment,
-  PoolCandidateStatus.ScreenedIn,
-  PoolCandidateStatus.ScreenedOutAssessment,
-  PoolCandidateStatus.ScreenedOutNotInterested,
-  PoolCandidateStatus.ScreenedOutNotResponsive,
-  PoolCandidateStatus.ScreenedOutApplication,
-  PoolCandidateStatus.ApplicationReview,
-  PoolCandidateStatus.NewApplication,
-  PoolCandidateStatus.Removed,
-  PoolCandidateStatus.Draft,
-  PoolCandidateStatus.DraftExpired,
-  PoolCandidateStatus.Expired,
+  ApplicationStatus.Qualified,
+  ApplicationStatus.ToAssess,
+  ApplicationStatus.Disqualified,
+  ApplicationStatus.Removed,
+  ApplicationStatus.Draft,
 ];
 
-const sortStatus: SortingFnOption<PoolStatusTablePoolCandidateFragmentType> = (
-  { original: a },
-  { original: b },
-) => {
+const sortStatus = (a?: ApplicationStatus, b?: ApplicationStatus) => {
   const aPosition = sortOrder.indexOf(
-    a.status?.value ?? PoolCandidateStatus.Expired, // if status undefined fallback to treating as last status in ordering
+    a ?? ApplicationStatus.Draft, // if status undefined fallback to treating as last status in ordering
   );
-  const bPosition = sortOrder.indexOf(
-    b.status?.value ?? PoolCandidateStatus.Expired,
-  );
+  const bPosition = sortOrder.indexOf(b ?? ApplicationStatus.Draft);
   if (aPosition >= 0 && bPosition >= 0)
     return (
-      sortOrder.indexOf(a.status?.value ?? PoolCandidateStatus.Expired) -
-      sortOrder.indexOf(b.status?.value ?? PoolCandidateStatus.Expired)
+      sortOrder.indexOf(a ?? ApplicationStatus.Draft) -
+      sortOrder.indexOf(b ?? ApplicationStatus.Draft)
     );
   if (aPosition >= 0 && bPosition < 0) return -1;
   if (aPosition < 0 && bPosition >= 0) return 1;
