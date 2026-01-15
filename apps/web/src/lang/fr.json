@@ -2535,10 +2535,6 @@
     "defaultMessage": "Acceptation des mises en candidature du {openDate} au {closeDate}.",
     "description": "Text for date range values for Accepting nominations"
   },
-  "8V8WwR": {
-    "defaultMessage": "Bassins additionnels",
-    "description": "Label displayed on the additional pools field of the change candidate status dialog"
-  },
   "8VQWN3": {
     "defaultMessage": "n’est pas en mesure de publier des processus de recrutement;",
     "description": "Description of the limitation of publishing a process"
@@ -3315,17 +3311,9 @@
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
     "description": "Paragraph two, summary on getting hiring experience"
   },
-  "Bkxf6p": {
-    "defaultMessage": "Sélectionnez un statut de bassin",
-    "description": "Placeholder displayed on the status field of the change candidate status dialog."
-  },
   "BlFUsz": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about instructor-led classes"
-  },
-  "BnSa6Y": {
-    "defaultMessage": "Échec de la mise à jour du statut",
-    "description": "Toast for failed status update on view-user page"
   },
   "Bpr9Cs": {
     "defaultMessage": "Travaillez avec notre équipe pour exécuter votre propre processus de recrutement sur la plateforme Talents numériques du GC et profitez de fonctionnalités modernes telles que notre système de suivi des candidats, l’embauche fondée sur les compétences et les approches d’avancement tenant compte de l’équité.",
@@ -3646,10 +3634,6 @@
   "DEdQkH": {
     "defaultMessage": "{count, plural, one {# évaluation} other {# évaluations}}",
     "description": "Number of assessments for a skill"
-  },
-  "DG4c6M": {
-    "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
-    "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
   "DHIa69": {
     "defaultMessage": "Recommandations pour des programmes de perfectionnement",
@@ -4158,10 +4142,6 @@
   "FSvySJ": {
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
-  },
-  "FUxE8S": {
-    "defaultMessage": "À partir du bassin suivant :",
-    "description": "Second section of text on the change candidate status dialog"
   },
   "FVAQCH": {
     "defaultMessage": "Oui, j'ai un droit de priorité.",
@@ -6979,10 +6959,6 @@
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
     "description": "Default team for pool"
   },
-  "SARjte": {
-    "defaultMessage": "Modifier le statut",
-    "description": "title for change status dialog on view-user page"
-  },
   "SEdLz1": {
     "defaultMessage": "Lien établi avec l’expérience!",
     "description": "Success message displayed after linking an experience to a skill"
@@ -8653,10 +8629,6 @@
   "ZatPPs": {
     "defaultMessage": "Chercher les utilisateurs",
     "description": "Label for the user table search input"
-  },
-  "Zbk4zf": {
-    "defaultMessage": "Choisir un statut :",
-    "description": "Third section of text on the change candidate status dialog"
   },
   "Zd02bf": {
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
@@ -10853,10 +10825,6 @@
     "defaultMessage": "Commentaires",
     "description": "Support form subject field feedback option label"
   },
-  "iuve97": {
-    "defaultMessage": "Modifier le statut",
-    "description": "Confirmation button for change status dialog"
-  },
   "ivG/Sh": {
     "defaultMessage": "Consulter les emplois offerts",
     "description": "Link text to the page to find jobs"
@@ -11869,10 +11837,6 @@
     "defaultMessage": "Responsables de l’approvisionnement",
     "description": "Title for procurement officer resource card"
   },
-  "n9YPWe": {
-    "defaultMessage": "Statut du bassin",
-    "description": "Label displayed on the status field of the change candidate status dialog"
-  },
   "nBBKe/": {
     "defaultMessage": "Une combinaison acceptable d’études, de formation et d’expérience, ou une note satisfaisante à l’examen de la Commission de la fonction publique qui est approuvé comme équivalence d’un diplôme d’études secondaires.",
     "description": "Descriptive text explaining valid a applied work experience for the PM classification group."
@@ -11972,10 +11936,6 @@
   "nYEPMG": {
     "defaultMessage": "Non, il ne s'agit pas d'un poste de supervision",
     "description": "Checkbox selection that confirms a job opportunity will not have supervising duties. "
-  },
-  "nYriNg": {
-    "defaultMessage": "Statut mis à jour avec succès",
-    "description": "Toast for successful status update on view-user page"
   },
   "nZ8ZLR": {
     "defaultMessage": "sont rédigés dans une autre langue que le français ou l’anglais",
@@ -12296,10 +12256,6 @@
   "ozb92E": {
     "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
     "description": "title for alert about changed collection"
-  },
-  "p+YRN1": {
-    "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
-    "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
   },
   "p+rROQ": {
     "defaultMessage": "Cela indiquera aux candidats que seuls les employés à niveau ou de niveau équivalent seront pris en considération pour cette possibilité.",
@@ -14032,10 +13988,6 @@
   "wgIThY": {
     "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",
     "description": "IAP Requirement list item two"
-  },
-  "wiUfZL": {
-    "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",
-    "description": "Header for section to add additional pools to the change status operation"
   },
   "wim0F6": {
     "defaultMessage": "Au sujet de ce rôle",
