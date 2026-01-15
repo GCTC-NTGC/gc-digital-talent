@@ -108,7 +108,6 @@ class ApplicantDashboardPage extends AppPage {
         accountSettingsPage.page.getByRole("img", { name: /verified/i }),
       ).toBeHidden();
     }
-    await this.goToDashboard();
   }
 
   async verifyNonGCEmployeeSections(sectionName: string) {
