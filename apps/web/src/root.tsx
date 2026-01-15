@@ -1,14 +1,6 @@
 /* eslint-disable formatjs/no-literal-string-in-jsx */
 import { ReactNode } from "react";
-import {
-  Links,
-  LinksFunction,
-  Meta,
-  MetaFunction,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import { Loading } from "@gc-digital-talent/ui";
 
@@ -16,6 +8,7 @@ import ContextContainer from "~/components/Context/ContextProvider";
 import messages from "~/lang/frCompiled.json";
 import "~/assets/css/tailwind.css";
 
+import type { Route } from "./+types/root";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
 import { makeServerConfigJS } from "./utils/runtime";
 
@@ -33,7 +26,7 @@ const DEFAULT_DESCRIPTION: string =
 const APP_URL = "https://talent.canada.ca";
 const DEFAULT_IMAGE = `${APP_URL}/images/digital-talent/banner.jpg`;
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
   return [
     { title: DEFAULT_TITLE },
     { name: "description", content: DEFAULT_DESCRIPTION, "data-rh": "true" },
@@ -62,7 +55,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const links: LinksFunction = () => [
+export const links: Route.LinksFunction = () => [
   // Favicons
   {
     rel: "icon",
