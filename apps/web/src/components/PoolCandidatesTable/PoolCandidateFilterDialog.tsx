@@ -15,6 +15,7 @@ import {
   WorkRegion,
   AssessmentStep,
   AssessmentStepType,
+  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -306,14 +307,17 @@ const PoolCandidateFilterDialog = ({
           id="statuses"
           name="statuses"
           isMulti
+          doNotSort
           label={intl.formatMessage(applicationMessages.finalDecision)}
-          options={narrowEnumType(
-            unpackMaybes(data?.statuses),
-            "ApplicationStatus",
-          ).map((status) => ({
-            value: status.value,
-            label: status.label?.localized ?? notAvailable,
-          }))}
+          options={sortLocalizedEnumOptions(
+            ENUM_SORT_ORDER.APPLICATION_STATUS,
+            narrowEnumType(unpackMaybes(data?.statuses), "ApplicationStatus"),
+          )
+            .filter((status) => status.value !== ApplicationStatus.Draft)
+            .map((status) => ({
+              value: status.value,
+              label: status.label?.localized ?? notAvailable,
+            }))}
         />
         <Combobox
           id="screeningStages"
