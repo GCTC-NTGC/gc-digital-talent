@@ -105,6 +105,7 @@ const supportLink = (chunks: ReactNode, locale: string) => (
     href={`/${locale}/support`}
     state={{ referrer: window.location.href }}
     newTab
+    color="error"
   >
     {chunks}
   </Link>
@@ -141,10 +142,11 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
     return invalidFieldNames.length > 0 ? (
       <Notice.Root
         color="error"
-        mode="card"
+        mode="inline"
         role="alert"
         ref={forwardedRef}
         tabIndex={-1}
+        className="mb-6"
       >
         <Notice.Title defaultIcon>
           {intl.formatMessage(errorMessages.summaryTitle)}
