@@ -7,6 +7,7 @@ namespace App\GraphQL\Validators;
 use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
+use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -32,7 +33,12 @@ final class DisqualifyCandidateValidator extends Validator
             throw ValidationException::withMessages(['status' => ErrorCode::INVALID_STATUS_DISQUALIFICATION->name]);
         }
 
-        return [];
+        return [
+            'reason' => [
+                'required',
+                Rule::in(array_column(PoolCandidateStatus::cases(), 'name')),
+            ],
+        ];
     }
 
     public function messages(): array
