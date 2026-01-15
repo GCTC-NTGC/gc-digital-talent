@@ -1257,6 +1257,7 @@ type PoolCandidateAdminView {
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
+  placementType: LocalizedPlacementType
   placedDepartment: Department
   closingDate: DateTime
   statusUpdatedAt: DateTime

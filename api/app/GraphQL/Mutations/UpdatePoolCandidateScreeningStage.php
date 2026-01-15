@@ -28,7 +28,7 @@ final readonly class UpdatePoolCandidateScreeningStage
         };
 
         if ($status) {
-            $values['application_status'] = $status;
+            $values['pool_candidate_status'] = $status;
         }
 
         if (! empty($args['assessmentStep']['connect'])) {

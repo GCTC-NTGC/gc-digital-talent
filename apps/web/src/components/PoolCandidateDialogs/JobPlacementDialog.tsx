@@ -49,9 +49,6 @@ export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
-      label {
-        localized
-      }
     }
     placementType {
       value
@@ -74,9 +71,11 @@ export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+    }
+    placementType {
+      value
       label {
-        en
-        fr
+        localized
       }
     }
     placedDepartment {
@@ -130,7 +129,7 @@ const JobPlacementDialog = ({
     },
   });
 
-  if (candidate.status?.value === ApplicationStatus.Qualified) {
+  if (candidate.status?.value !== ApplicationStatus.Qualified) {
     return <span>{intl.formatMessage(commonMessages.notAvailable)}</span>;
   }
 

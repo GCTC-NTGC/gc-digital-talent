@@ -805,7 +805,7 @@ class PoolCandidate extends Model
             throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
         }
 
-        if (! empty($this->placement_type)) {
+        if (! empty($this->placement_type) && $this->placement_type !== PlacementType::NOT_PLACED->name) {
             throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
         }
 

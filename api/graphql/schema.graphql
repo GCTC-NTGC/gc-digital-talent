@@ -762,6 +762,7 @@ type PoolCandidateAdminView {
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
+  placementType: LocalizedPlacementType @rename(attribute: "placement_type")
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
   statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
