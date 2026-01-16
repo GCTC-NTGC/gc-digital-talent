@@ -20,9 +20,9 @@ trait LogsCustomActivity
     private ?string $nextLogName = null;
 
     /**
-     * Flag for suppressing logging the next update.
+     * Flag for suppressing a number of logging updates.
      */
-    protected bool $disableNextLogEvent = false;
+    protected int $suppressLoggingCount = 0;
 
     /**
      * Set a custom log name for the next call to logActivity().
@@ -45,14 +45,11 @@ trait LogsCustomActivity
      */
     public function disableCustomLogging(Closure $callback)
     {
-        $original = $this->disableNextLogEvent;
-        $this->disableNextLogEvent = true;
-
+        $this->suppressLoggingCount++;
         try {
             return $callback($this);
         } finally {
-            // Always restore the original value, even if exception occurs.
-            $this->disableNextLogEvent = $original;
+            $this->suppressLoggingCount--;
         }
     }
 
@@ -77,9 +74,7 @@ trait LogsCustomActivity
      */
     public function logActivity(ActivityEvent $event, ?array $atts = [], ?array $old = []): void
     {
-        if ($this->disableNextLogEvent) {
-            $this->disableNextLogEvent = false;
-
+        if ($this->suppressLoggingCount > 0) {
             return;
         }
 
