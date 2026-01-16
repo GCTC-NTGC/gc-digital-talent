@@ -6,6 +6,17 @@ use App\Models\Pool;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Sync process log
+ *
+ * Takes existing logs in the "default" log where the subject is a Pool
+ * and copies them to the new "process" log to be used in process specific
+ * activity log pages
+ *
+ * Should be ran anytime after releasing #15466
+ * Can be ran multiple times because of the `AND NOT EXISTS` so duplicate logs are not copied
+ * Delete once this has been ran in prod at least once
+ */
 class SyncProcessLog extends Command
 {
     /**
