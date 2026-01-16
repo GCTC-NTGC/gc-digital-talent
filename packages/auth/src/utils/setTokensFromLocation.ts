@@ -15,21 +15,23 @@ export interface TokenSet {
   idToken: string | null;
 }
 
-function clearQueryParams() {
-  window.history.pushState({}, "", `${window.location.pathname}`);
-}
-
 /**
  * Extract tokens from location search params
+ *
+ * @returns boolean to notify caller that tokens were found and stored
  */
-export function setTokensFromLocation(): TokenSet | null {
+export function setTokensFromLocation(url: URL): boolean {
   const logger = getLogger();
-  const params = new URLSearchParams(window.location.search);
-  const accessToken: string | null = params.get("access_token") ?? null;
-  const refreshToken: string | null = params.get("refresh_token") ?? null;
-  const idToken: string | null = params.get("id_token") ?? null;
+  const accessToken = url.searchParams.get("access_token");
   let newTokens: TokenSet | null = null;
-  if (accessToken && params.get("token_type")?.toUpperCase() === "BEARER") {
+
+  if (
+    accessToken &&
+    url.searchParams.get("token_type")?.toUpperCase() === "BEARER"
+  ) {
+    const refreshToken = url.searchParams.get("refresh_token");
+    const idToken = url.searchParams.get("id_token");
+
     newTokens = {
       accessToken,
       refreshToken,
@@ -66,9 +68,10 @@ export function setTokensFromLocation(): TokenSet | null {
       localStorage.removeItem(LOGOUT_REASON_KEY);
     }
 
-    // saved in local storage, then clear query parameters.
-    clearQueryParams();
+    // saved in local storage
+    return true;
   }
 
-  return newTokens;
+  // Nothing to save
+  return false;
 }
