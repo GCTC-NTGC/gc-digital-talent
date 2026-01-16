@@ -22,10 +22,8 @@ use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkStream;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PoolFactory extends Factory
+class PoolFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.
@@ -41,47 +39,116 @@ class PoolFactory extends Factory
      */
     public function definition()
     {
-        $adminUserId = User::whereHas('roles', function (Builder $query) {
-            $query->where('name', 'platform_admin');
-        })->limit(1)
-            ->pluck('id')
-            ->first();
+
+        $adminUserId = User::whereHas('roles', fn ($q) => $q->where('name', 'platform_admin'))->value('id');
         if (is_null($adminUserId)) {
             $adminUserId = User::factory()->asAdmin()->create()->id;
         }
 
-        $classification = Classification::inRandomOrder()->first();
-        if (! $classification) {
-            $classification = Classification::factory()->create();
-        }
+        $classification = $this->firstOrCreate(Classification::class);
+        $department = $this->firstOrCreate(Department::class);
+        $community = $this->firstOrCreate(Community::class);
 
         $name = $this->faker->unique()->company();
 
-        $departmentId = Department::inRandomOrder()
-            ->limit(1)
-            ->pluck('id')
-            ->first();
-        if (is_null($departmentId)) {
-            $departmentId = Department::factory()->create()->id;
-        }
-
-        $communityId = Community::inRandomOrder()
-            ->limit(1)
-            ->pluck('id')
-            ->first();
-        if (is_null($communityId)) {
-            $communityId = Community::factory()->create()->id;
-        }
-
         // this is essentially the draft state
         return [
-            'name' => ['en' => $name, 'fr' => $name],
+            'name' => $this->localizedString($name),
             'user_id' => $adminUserId,
             'classification_id' => $classification->id,
-            'department_id' => $departmentId,
-            'community_id' => $communityId,
+            'department_id' => $department->id,
+            'community_id' => $community->id,
             'contact_email' => $this->faker->email(),
         ];
+    }
+
+    /**
+     * Indicate that the pool is draft.
+     */
+    public function draft(): self
+    {
+        return $this->state(function (array $attributes) {
+            $hasSpecialNote = $this->faker->boolean();
+
+            return [
+                'published_at' => null,
+                'process_number' => $this->faker->word(),
+                'publishing_group' => $this->randomEnum(PublishingGroup::class),
+                'opportunity_length' => $this->randomEnum(PoolOpportunityLength::class),
+                'area_of_selection' => $this->randomEnum(PoolAreaOfSelection::class),
+                'operational_requirements' => $this->randomEnum(OperationalRequirement::class, 2),
+                'key_tasks' => $this->localizedString(null, 'paragraph', true),
+                'your_impact' => $this->localizedString(null, 'paragraph', true),
+                'what_to_expect' => $this->localizedString(null, 'paragraph', true),
+                'what_to_expect_admission' => $this->localizedString(null, 'paragraph', true),
+                'about_us' => $this->localizedString(null, 'paragraph', true),
+                'special_note' => $hasSpecialNote ? $this->localizedString(null, 'paragraph', true) : null,
+                'security_clearance' => $this->randomEnum(SecurityStatus::class),
+                'advertisement_language' => $this->randomEnum(PoolLanguage::class),
+                'is_remote' => $this->faker->boolean(),
+                'advertisement_location' => function ($attributes) {
+                    if ($attributes['is_remote']) {
+                        return null;
+                    }
+
+                    return $this->localizedString(null, 'country');
+                },
+                'work_stream_id' => function ($attributes) {
+                    $community = Community::find($attributes['community_id']);
+
+                    return $community
+                        ->workStreams()
+                        ->inRandomOrder()
+                        ->firstOr(fn () => WorkStream::factory()->for($community)->create())
+                        ->id;
+                },
+                'selection_limitations' => function (array $attributes) {
+                    $possibleLimitations = match ($attributes['area_of_selection']) {
+                        PoolAreaOfSelection::EMPLOYEES->name => PoolSelectionLimitation::limitationsForEmployees(),
+                        PoolAreaOfSelection::PUBLIC->name => PoolSelectionLimitation::limitationsForPublic(),
+                        default => []
+                    };
+
+                    return $this->faker->randomElements(
+                        array_column($possibleLimitations, 'name'),
+                        $this->faker->numberBetween(0, count($possibleLimitations))
+                    );
+                },
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the pool is published.
+     */
+    public function published(): self
+    {
+        return $this->draft()->state([
+            'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
+        ]);
+    }
+
+    /**
+     * Indicate that the pool is closed.
+     */
+    public function closed(): self
+    {
+        return $this->published()->state([
+            'published_at' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
+            'closing_date' => $this->faker->dateTimeBetween('-1 months', '-1 day'),
+        ]);
+    }
+
+    /**
+     * Indicate that the pool is archived.
+     */
+    public function archived(): self
+    {
+        return $this->closed()->state([
+            'published_at' => $this->faker->dateTimeBetween('-12 months', '-6 months'),
+            'closing_date' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
+            'archived_at' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
+        ]);
     }
 
     public function withPoolSkills($essentialCount, $nonEssentialCount)
@@ -167,138 +234,6 @@ class PoolFactory extends Factory
                     'pool_id' => $poolId,
                 ]);
         }
-    }
-
-    /**
-     * Indicate that the pool is draft.
-     */
-    public function draft(): Factory
-    {
-        return $this->state(function (array $attributes) {
-            // the base state is draft already
-            $hasSpecialNote = $this->faker->boolean();
-            $isRemote = $this->faker->boolean();
-
-            return [
-                'published_at' => null,
-                'operational_requirements' => $this->faker->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
-                'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'what_to_expect_admission' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'about_us' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
-                'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
-                'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
-                'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
-                'is_remote' => $this->faker->boolean,
-                'work_stream_id' => function ($attributes) {
-                    $community = Community::find($attributes['community_id']);
-
-                    return $community
-                        ->workStreams()
-                        ->inRandomOrder()
-                        ->firstOr(fn () => WorkStream::factory()->for($community)->create())
-                        ->id;
-                },
-                'process_number' => $this->faker->word(),
-                'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
-                'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
-                'area_of_selection' => $this->faker->optional()->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
-                'selection_limitations' => function (array $attributes) {
-                    $possibleLimitations = match ($attributes['area_of_selection']) {
-                        PoolAreaOfSelection::EMPLOYEES->name => PoolSelectionLimitation::limitationsForEmployees(),
-                        PoolAreaOfSelection::PUBLIC->name => PoolSelectionLimitation::limitationsForPublic(),
-                        default => []
-                    };
-
-                    return $this->faker->randomElements(
-                        array_column($possibleLimitations, 'name'),
-                        $this->faker->numberBetween(0, count($possibleLimitations))
-                    );
-                },
-            ];
-        });
-    }
-
-    /**
-     * Indicate that the pool is published.
-     */
-    public function published(): Factory
-    {
-        return $this->state(function (array $attributes) {
-            $isRemote = $this->faker->boolean();
-            $hasSpecialNote = $this->faker->boolean();
-
-            return [
-                // published in the past, closes in the future
-                'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
-                'operational_requirements' => $this->faker->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
-                'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'what_to_expect_admission' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'about_us' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
-                'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
-                'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
-                'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
-                'is_remote' => $isRemote,
-                'work_stream_id' => function ($attributes) {
-                    $community = Community::find($attributes['community_id']);
-
-                    return $community
-                        ->workStreams()
-                        ->inRandomOrder()
-                        ->firstOr(fn () => WorkStream::factory()->for($community)->create())
-                        ->id;
-                },
-                'process_number' => $this->faker->word(),
-                'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
-                'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
-                'change_justification' => $this->faker->boolean(50) ? $this->faker->paragraph() : null,
-                'area_of_selection' => $this->faker->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
-                'selection_limitations' => function (array $attributes) {
-                    $possibleLimitations = match ($attributes['area_of_selection']) {
-                        PoolAreaOfSelection::EMPLOYEES->name => PoolSelectionLimitation::limitationsForEmployees(),
-                        PoolAreaOfSelection::PUBLIC->name => PoolSelectionLimitation::limitationsForPublic(),
-                        default => []
-                    };
-
-                    return $this->faker->randomElements(
-                        array_column($possibleLimitations, 'name'),
-                        $this->faker->numberBetween(0, count($possibleLimitations))
-                    );
-                },
-            ];
-        });
-    }
-
-    /**
-     * Indicate that the pool is closed.
-     */
-    public function closed(): Factory
-    {
-        return $this->published()->state(function (array $attributes) {
-            return [
-                'published_at' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
-                'closing_date' => $this->faker->dateTimeBetween('-1 months', '-1 day'),
-            ];
-        });
-    }
-
-    /**
-     * Indicate that the pool is archived.
-     */
-    public function archived(): Factory
-    {
-        return $this->closed()->state(function (array $attributes) {
-            return [
-                'published_at' => $this->faker->dateTimeBetween('-12 months', '-6 months'),
-                'closing_date' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
-                'archived_at' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
-            ];
-        });
     }
 
     /**
