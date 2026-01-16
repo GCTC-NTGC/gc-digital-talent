@@ -191,7 +191,7 @@ const SkillMatchDialog = ({
             { poolCandidateName },
           )}
         </p>
-        <p>
+        <p aria-hidden="true">
           {intl.formatMessage({
             defaultMessage: "0 of 0",
             id: "gkLEbN",
