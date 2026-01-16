@@ -11,8 +11,8 @@ use App\Enums\PoolSelectionLimitation;
 use App\Enums\PoolSkillType;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
+use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
-use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -58,7 +58,6 @@ class PoolFactory extends BaseFactory
             'classification_id' => $classification->id,
             'department_id' => $department->id,
             'community_id' => $community->id,
-            'contact_email' => $this->faker->email(),
         ];
     }
 
@@ -73,6 +72,7 @@ class PoolFactory extends BaseFactory
             return [
                 'published_at' => null,
                 'process_number' => $this->faker->word(),
+                'contact_email' => $this->faker->email(),
                 'publishing_group' => $this->randomEnum(PublishingGroup::class),
                 'opportunity_length' => $this->randomEnum(PoolOpportunityLength::class),
                 'area_of_selection' => $this->randomEnum(PoolAreaOfSelection::class),
@@ -125,7 +125,19 @@ class PoolFactory extends BaseFactory
     {
         return $this->draft()->state([
             'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
-        ]);
+            'closing_date' => $this->faker->dateTimeBetween('+1 month', '+6 months'),
+        ])->afterCreating(function (Pool $pool) {
+            // Need one essential technical skill for accurate published pool
+            $skill = Skill::where('category', SkillCategory::TECHNICAL->name)
+                ->inRandomOrder()
+                ->value('id');
+
+            $pool->poolSkills()->create([
+                'skill_id' => $skill,
+                'type' => PoolSkillType::ESSENTIAL->name,
+                'required_skill_level' => $this->randomEnum(SkillLevel::class),
+            ]);
+        });
     }
 
     /**
@@ -151,91 +163,6 @@ class PoolFactory extends BaseFactory
         ]);
     }
 
-    public function withPoolSkills($essentialCount, $nonEssentialCount)
-    {
-        return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
-            $skills = Skill::inRandomOrder()->limit(10)->get();
-            // slice first set of skills as essential skills
-            $essentialSkills = $skills->slice(0, $essentialCount);
-            // slice next set of  skills as non essential skills
-            $nonEssentialSkills = $skills->slice($essentialCount, $nonEssentialCount);
-            $this->createPoolSkills($pool, $essentialSkills, PoolSkillType::ESSENTIAL->name);
-            $this->createPoolSkills($pool, $nonEssentialSkills, PoolSkillType::NONESSENTIAL->name);
-        });
-    }
-
-    private function createPoolSkills($pool, $skills, $type)
-    {
-        // for each skills create it as pool skill
-        foreach ($skills as $skill) {
-            $pool->poolSkills()->create([
-                'skill_id' => $skill->id,
-                'type' => $type,
-                'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
-            ]);
-        }
-    }
-
-    public function withQuestions($generalQuestionsCount, $screeningQuestionsCount)
-    {
-        return $this->afterCreating(function (Pool $pool) use ($generalQuestionsCount, $screeningQuestionsCount) {
-            $this->createQuestions(GeneralQuestion::class, $generalQuestionsCount, $pool->id);
-            $this->createQuestions(ScreeningQuestion::class, $screeningQuestionsCount, $pool->id, $this->createAssessmentStepWithPoolSkills($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name)->id);
-        });
-    }
-
-    private function createAssessmentStep($pool, $type, $sortOrder = 1)
-    {
-        return AssessmentStep::factory()
-            ->create([
-                'pool_id' => $pool->id,
-                'type' => $type,
-                'sort_order' => $sortOrder,
-            ]);
-    }
-
-    private function createAssessmentStepWithPoolSkills($pool, $type, $stepNumber = 1)
-    {
-        $step = $this->createAssessmentStep($pool, $type, $stepNumber);
-        $poolSkillArray = $pool->poolSkills->pluck('id')->toArray();
-        $step->poolSkills()->sync($poolSkillArray);
-
-        return $step;
-    }
-
-    public function withAssessmentStepAndWithoutPoolSkills()
-    {
-        return $this->afterCreating(function (Pool $pool) {
-            $step = $this->createAssessmentStep($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name);
-
-            return $step;
-        });
-    }
-
-    private function createQuestions($factory, $count, $poolId, $assessmentStepId = null)
-    {
-        $sequence = [];
-        for ($i = 1; $i <= $count; $i++) {
-            $sequence[] = ['sort_order' => $i];
-        }
-        if ($assessmentStepId !== null) {
-            $factory::factory()
-                ->count($count)
-                ->sequence(...$sequence)
-                ->create([
-                    'pool_id' => $poolId,
-                    'assessment_step_id' => $assessmentStepId,
-                ]);
-        } else {
-            $factory::factory()
-                ->count($count)
-                ->sequence(...$sequence)
-                ->create([
-                    'pool_id' => $poolId,
-                ]);
-        }
-    }
-
     /**
      * Pool Candidates for this pool will appear in search results
      *
@@ -245,62 +172,159 @@ class PoolFactory extends BaseFactory
      */
     public function candidatesAvailableInSearch()
     {
-        return $this->published()->state(function () {
-            return [
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
-            ];
-        });
+        return $this->published()->state([
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
+        ]);
     }
 
-    /** Add assessment steps to the pool with pool skills for a complete assessment plan
+    /**
+     * Add essential and non-essential pool skills to the pool.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @param  int|null  $essentialCount  How many essential skills to add (default: 1)
+     * @param  int|null  $nonEssentialCount  How many non-essential skills to add (default: 1)
+     * @return static
      */
-    public function withAssessments($noOfAssessmentSteps = 2)
+    public function withPoolSkills(?int $essentialCount = 2, ?int $nonEssentialCount = 2): self
     {
-        return $this->afterCreating(function (Pool $pool) use ($noOfAssessmentSteps) {
-            $steps = [];
+        return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
+            $totalCount = $essentialCount + $nonEssentialCount;
+            $skills = Skill::inRandomOrder()->limit($totalCount)->get()->values();
 
-            // Only select from steps that do not appear in the first two positions
-            // First position created automatically, second step should be created via `withQuestions`
-            $availableTypes = AssessmentStepType::uncontrolledStepTypes();
+            foreach ($skills as $i => $skill) {
+                $type = $i < $essentialCount
+                    ? PoolSkillType::ESSENTIAL->name
+                    : PoolSkillType::NONESSENTIAL->name;
 
-            for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
-                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement($availableTypes)->name, $i + 3); // 1 and 2 are reserved so start at 3
+                // Avoid duplicate
+                $exists = $pool->poolSkills()
+                    ->where('skill_id', $skill->id)
+                    ->where('type', $type)
+                    ->exists();
+
+                if (! $exists) {
+                    $pool->poolSkills()->create([
+                        'skill_id' => $skill->id,
+                        'type' => $type,
+                        'required_skill_level' => $this->randomEnum(SkillLevel::class),
+                    ]);
+                }
             }
         });
     }
 
-    // Add a single assessment step to the pool for the given assessment step type
-    public function WithAssessmentStep(AssessmentStepType $type)
+    /**
+     * Add additional assessment steps to the pool.
+     * Ensures every essential PoolSkill is linked to at least one step.
+     *
+     * @param  int  $count  Number of additional (not total) steps to create (default 1).
+     * @param  array|null  $types  Optional array of types to cycle/choose from.
+     * @param  bool  $assignSkills  If true (default), assign all essentials to at least one step
+     * @param  int  $screeningQuestionsCount  Number of screening questions to add to a screening step (default 0, skips if 0).
+     * @return static
+     */
+    public function withAssessmentSteps(int $count = 1, ?array $types = null, bool $assignSkills = true, int $screeningQuestionsCount = 0): self
     {
-        return $this->afterCreating(function (Pool $pool) use ($type) {
+        return $this->afterCreating(function (Pool $pool) use ($count, $types, $assignSkills, $screeningQuestionsCount) {
+            // Add a screening step if requested
+            $screeningStep = null;
+            if ($screeningQuestionsCount > 0) {
+                $screeningStep = $pool->assessmentSteps()
+                    ->where('type', AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name)
+                    ->first();
 
-            $step = $this->createAssessmentStep($pool, $type->name);
-            $poolSkillArray = $pool->poolSkills()->pluck('id')->toArray();
-            $step->poolSkills()->sync($poolSkillArray);
+                // If not found, create it (sort_order handled by boot)
+                if (! $screeningStep) {
+                    $screeningStep = $pool->assessmentSteps()->create([
+                        'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+                        'title' => $this->localizedString(),
+                    ]);
+                }
 
-            return $step;
+                $this->createQuestions(
+                    ScreeningQuestion::class,
+                    $screeningQuestionsCount,
+                    $pool->id,
+                    $screeningStep->id
+                );
+            }
+
+            // Define allowed types if not given
+            $defaultTypes = AssessmentStepType::uncontrolledStepTypes();
+            $allTypes = $types ?: $defaultTypes;
+
+            $sortOrder = $pool->assessmentSteps()->max('sort_order') ?? 1;
+
+            for ($i = 0; $i < $count; $i++) {
+                $stepType = $this->faker->randomElement(
+                    array_map(fn ($enum) => $enum->name, $allTypes)
+                );
+                $pool->assessmentSteps()->create([
+                    'type' => $stepType,
+                    'sort_order' => ++$sortOrder,
+                    'title' => $this->localizedString(),
+                ]);
+            }
+
+            // Assign skills only if $assignSkills === true and there is more than one step
+            if ($assignSkills && $pool->assessmentSteps()->count() > 1) {
+                $steps = $pool->assessmentSteps()->with(['poolSkills'])->get();
+                $essentialSkillIds = $pool->poolSkills()->where('type', PoolSkillType::ESSENTIAL->name)->pluck('id')->all();
+
+                foreach ($essentialSkillIds as $skillId) {
+                    // If skill not already assigned a step, assign it to one
+                    $found = $steps->contains(function ($step) use ($skillId) {
+                        return $step->poolSkills->contains('id', $skillId);
+                    });
+                    if (! $found) {
+                        $step = $steps->random();
+                        $step->poolSkills()->attach($skillId);
+                    }
+                }
+            }
         });
     }
 
     /**
-     * Create a new pool or get an existing pool based on the given attributes.
+     * Add general questions to the pool.
      *
-     * @param  array  $attributes  The attributes of the pool.
-     * @return Pool The created or existing pool.
+     * Creates the specified number of GeneralQuestion records associated with the given pool.
+     * Each general question is assigned a sequential sort order starting from 1.
+     * General questions are not associated with any assessment step.
+     *
+     * @param  int  $count  Number of general questions to add (default: 2)
+     * @return static
+     *
+     * @see createQuestions() Uses internal helper to perform batch creation and sort order assignment.
      */
-    public function createOrGetExisting($attributes = [])
+    public function withGeneralQuestions(int $count = 2): self
     {
-        $pool = Pool::where('name->en', $attributes['name']['en'])
-            ->where('name->fr', $attributes['name']['fr'])
-            ->first();
+        return $this->afterCreating(function (Pool $pool) use ($count) {
+            $this->createQuestions(GeneralQuestion::class, $count, $pool->id);
+        });
+    }
 
-        if ($pool) {
-            return $pool;
+    /**
+     * Helper for creating questions with per-question sort_order.
+     *
+     * @param  class-string  $factory  Model factory (GeneralQuestion or ScreeningQuestion)
+     * @param  int  $count  Number to create
+     * @param  int  $poolId
+     * @param  int|null  $assessmentStepId
+     */
+    private function createQuestions($factory, $count, $poolId, $assessmentStepId = null)
+    {
+        $sequence = [];
+        for ($i = 1; $i <= $count; $i++) {
+            $sequence[] = ['sort_order' => $i];
         }
-
-        return $this->create($attributes);
+        $attributes = ['pool_id' => $poolId];
+        if ($assessmentStepId !== null) {
+            $attributes['assessment_step_id'] = $assessmentStepId;
+        }
+        $factory::factory()
+            ->count($count)
+            ->sequence(...$sequence)
+            ->create($attributes);
     }
 
     // Add a pool bookmark attached to user
@@ -331,5 +355,24 @@ class PoolFactory extends BaseFactory
                 }
             }
         });
+    }
+
+    /**
+     * Create a new pool or get an existing pool based on the given attributes.
+     *
+     * @param  array  $attributes  The attributes of the pool.
+     * @return Pool The created or existing pool.
+     */
+    public function createOrGetExisting($attributes = [])
+    {
+        $pool = Pool::where('name->en', $attributes['name']['en'])
+            ->where('name->fr', $attributes['name']['fr'])
+            ->first();
+
+        if ($pool) {
+            return $pool;
+        }
+
+        return $this->create($attributes);
     }
 }
