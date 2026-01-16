@@ -1,5 +1,6 @@
 import { MessageDescriptor, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
+import { ReactNode } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -15,17 +16,11 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { ActivityEventInfo, icon, normalizePropKeys } from "./utils";
 
 const activityItem = tv({
-  base: "flex flex-col justify-between gap-6 py-6 sm:flex-row",
-  variants: {
-    border: {
-      true: "border-t-2 border-gray-200 dark:border-gray-500",
-      false: "",
-    },
-  },
+  base: "flex flex-col justify-between gap-6 border-gray-200 py-6 not-first:border-t-2 sm:flex-row dark:border-gray-500",
 });
 
-export const ActivityItem_Fragment = graphql(/** GraphQL */ `
-  fragment ActivityItem on Activity {
+export const BaseItem_Fragment = graphql(/** GraphQL */ `
+  fragment BaseActivityItem on Activity {
     id
     causer {
       id
@@ -41,34 +36,52 @@ export const ActivityItem_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-export interface ActivityItemProps {
-  query: FragmentType<typeof ActivityItem_Fragment>;
+export interface CommonItemProps {
+  query?: FragmentType<typeof BaseItem_Fragment>;
   className?: string;
-  border?: boolean;
   keyMap?: Map<string, MessageDescriptor>;
-  info: ActivityEventInfo;
 }
 
-const ActivityItem = ({
+interface BaseItemProps extends CommonItemProps {
+  info: ActivityEventInfo;
+  // Pass in custom description
+  // If nothing passed, it will use the properties
+  description?: ReactNode;
+}
+
+const BaseItem = ({
   query,
   className,
-  border,
   info,
   keyMap,
-}: ActivityItemProps) => {
+  description,
+}: BaseItemProps) => {
   const intl = useIntl();
   const logger = getLogger();
-  const item = getFragment(ActivityItem_Fragment, query);
-  const properties = normalizePropKeys(intl, item.properties, keyMap, logger);
+  const item = getFragment(BaseItem_Fragment, query);
 
   if (!info) {
     return null;
   }
 
   const Icon = info.icon;
+  let desc = description;
+  if (!desc) {
+    const properties = normalizePropKeys(
+      intl,
+      item?.properties,
+      keyMap,
+      logger,
+    );
+
+    desc =
+      properties.length > 0
+        ? properties.join(", ")
+        : intl.formatMessage(commonMessages.notAvailable);
+  }
 
   return (
-    <li className={activityItem({ class: className, border })}>
+    <li className={activityItem({ class: className })}>
       <div className="flex items-start gap-3">
         <div className={icon({ color: info.color })}>
           <Icon className="size-full" />
@@ -76,17 +89,17 @@ const ActivityItem = ({
         <span>
           {intl.formatMessage(info.message, {
             name: getFullNameLabel(
-              item.causer?.firstName,
-              item.causer?.lastName,
+              item?.causer?.firstName,
+              item?.causer?.lastName,
               intl,
             ),
           })}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {properties.join(", ")}
+          {desc}
         </span>
       </div>
       <div className="shrink-0 pl-8.5 text-gray-600 sm:pl-0 dark:text-gray-200">
-        {item.createdAt
+        {item?.createdAt
           ? formatDate({
               date: parseDateTimeUtc(item.createdAt),
               formatString: TIME_FORMAT_LOCALIZED,
@@ -98,4 +111,4 @@ const ActivityItem = ({
   );
 };
 
-export default ActivityItem;
+export default BaseItem;

@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\PublishPoolValidator;
 use App\Models\Pool;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -32,8 +31,8 @@ final class PublishPool
         if ($validator->fails()) {
             throw new ValidationException($validator->errors()->first(), $validator);
         }
-        $dateNow = Carbon::now();
-        $pool->update(['published_at' => $dateNow]);
+
+        $pool->publish();
 
         return $pool;
     }

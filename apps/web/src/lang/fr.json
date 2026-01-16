@@ -307,6 +307,10 @@
     "defaultMessage": "Autorisation de sécurité de niveau très secret",
     "description": "Top secret security clearance level of security clearance"
   },
+  "/9xGUH": {
+    "defaultMessage": "<strong>{name}</strong> a qualifié",
+    "description": "Label for activity log item qualified action"
+  },
   "/AH0m5": {
     "defaultMessage": "Si vous avez un profil sur Talents numériques du GC, l'information qu'il contient sera automatiquement ajoutée à la demande d'emploi. Vous pourrez revoir et modifier cette information et ajouter toute information manquante. Toute modification apportée à votre profil aux fins de la demande d'emploi sera sauvegardée dans votre profil afin que vous puissiez utiliser l'information ultérieurement.",
     "description": "Description of how user profiles assist in application completion"
@@ -1859,6 +1863,10 @@
     "defaultMessage": "Paramètres des notifications",
     "description": "Title for managing notification settings"
   },
+  "5HSzQ4": {
+    "defaultMessage": "Nouvelle candidature",
+    "description": "Event description when application is submitted"
+  },
   "5HhVG9": {
     "defaultMessage": "Courriel professionnel de l'auteur(trice) de la mise en candidature",
     "description": "Label for the text input for the nominators work email"
@@ -2114,6 +2122,10 @@
   "6aCiD3": {
     "defaultMessage": "Nous ne donnons que des exemples de compétences comportementales essentielles dans les modèles d’offre d’emploi.",
     "description": "Lead in for a list of essential behavioural skills"
+  },
+  "6bGWe5": {
+    "defaultMessage": "<strong>{name}</strong> a publié",
+    "description": "Label for activity log item published action"
   },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
@@ -4314,6 +4326,10 @@
   "GDCKBX": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for goals and work style section"
+  },
+  "GDP+Rx": {
+    "defaultMessage": "<strong>{name}</strong> a disqualifié",
+    "description": "Label for activity log item disqualified action"
   },
   "GEULvE": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} one {# expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
@@ -8018,6 +8034,10 @@
     "defaultMessage": "personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
   },
+  "XBN7Po": {
+    "defaultMessage": "<strong>{name}</strong> a réintégré",
+    "description": "Label for activity log item reinstated action"
+  },
   "XBWnI6": {
     "defaultMessage": "Renseignements relatifs au réaménagement des effectifs",
     "description": "Title for the information specifically related to workforce adjustment"
@@ -10833,6 +10853,10 @@
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
   },
+  "iy3pRH": {
+    "defaultMessage": "<strong>{name}</strong> a restauré",
+    "description": "Label for activity log item reverted action"
+  },
   "izAPZA": {
     "defaultMessage": "Ajouter une expérience professionnelle du GC",
     "description": "Label to go to adding experiences"
@@ -11132,6 +11156,10 @@
   "k5bZg7": {
     "defaultMessage": "Parlez-nous de votre expérience",
     "description": "Link text for application survey"
+  },
+  "k78t5J": {
+    "defaultMessage": "<strong>{name}</strong> a retiré",
+    "description": "Label for activity log item removed action"
   },
   "k7n43+": {
     "defaultMessage": "Les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas strictement requises, mais qui seraient utiles pour le poste. Il peut s’agir de combler des lacunes au sein de votre équipe ou de posséder des compétences connexes susceptibles de renforcer le travail de la personne candidate. Mentionnez toutes les compétences que vous estimez utiles pour le poste, mais n’oubliez pas que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler ou se qualifier.",
@@ -13549,6 +13577,10 @@
     "defaultMessage": "Annuler et revenir aux ministères",
     "description": "Button label to return to the departments table"
   },
+  "uqZ99p": {
+    "defaultMessage": "<strong>{name}</strong> a placé",
+    "description": "Label for activity log item placed action"
+  },
   "usRTou": {
     "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is not employed by government"
@@ -13736,6 +13768,10 @@
   "vc9lfk": {
     "defaultMessage": "Raison d’être de la bibliothèque de compétences",
     "description": "Heading for section describing the purpose of the skills library"
+  },
+  "veZI+j": {
+    "defaultMessage": "<strong>{name}</strong> a soumis",
+    "description": "Label for activity log item submitted action"
   },
   "vfXTEA": {
     "defaultMessage": "3. Bons pour examens de certification",

@@ -1,7 +1,13 @@
 import { IntlShape, MessageDescriptor } from "react-intl";
 import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
+import MinusIcon from "@heroicons/react/16/solid/MinusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/16/solid/ClipboardDocumentCheckIcon";
+import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
+import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
+import BriefcaseIcon from "@heroicons/react/16/solid/BriefcaseIcon";
+import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
 import { tv, VariantProps } from "tailwind-variants";
 import { isValid } from "date-fns/isValid";
 import { format } from "date-fns/format";
@@ -28,6 +34,7 @@ export const icon = tv({
   variants: {
     color: {
       primary: "bg-primary-500",
+      secondary: "bg-secondary-500",
       success: "bg-success-500",
       warning: "bg-warning-500",
     },
@@ -70,6 +77,78 @@ const eventInfoMap = new Map<ActivityEvent, ActivityEventInfo>([
       color: "primary",
     },
   ],
+  [
+    ActivityEvent.Submitted,
+    {
+      message: activityMessages.submitted,
+      icon: ClipboardDocumentCheckIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Qualified,
+    {
+      message: activityMessages.qualified,
+      icon: UserPlusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Disqualified,
+    {
+      message: activityMessages.disqualified,
+      icon: UserMinusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Placed,
+    {
+      message: activityMessages.placed,
+      icon: BriefcaseIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Removed,
+    {
+      message: activityMessages.removed,
+      icon: MinusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Added,
+    {
+      message: activityMessages.added,
+      icon: PlusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Reinstated,
+    {
+      message: activityMessages.reinstated,
+      icon: UserPlusIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Reverted,
+    {
+      message: activityMessages.reverted,
+      icon: ArrowPathIcon,
+      color: "secondary",
+    },
+  ],
+  [
+    ActivityEvent.Published,
+    {
+      message: activityMessages.published,
+      icon: DocumentArrowUpIcon,
+      color: "success",
+    },
+  ],
 ]);
 
 export function getEventInfo(
@@ -106,6 +185,21 @@ export function parseAttributes(attr: unknown): JSONRecord {
     }
   }
   return {};
+}
+
+export function getDeepAttribute(
+  obj: unknown,
+  ...path: string[]
+): string | null {
+  let curr: unknown = obj;
+  for (const p of path) {
+    if (isRecord(curr) && p in curr) {
+      curr = curr[p];
+    } else {
+      return null;
+    }
+  }
+  return typeof curr === "string" ? curr : null;
 }
 
 const commonKeyMap = new Map<string, MessageDescriptor>([
@@ -172,7 +266,8 @@ export function normalizePropKeys(
     }
 
     // Updated at always appears so seems useless to show it
-    if (k !== "updated_at") {
+    // Created should always be identical to log time so also useless
+    if (k !== "updated_at" && k !== "created_at") {
       modified = [...modified, localizedKey];
     }
   });

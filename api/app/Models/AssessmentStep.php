@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use App\Casts\LocalizedString;
+use App\Enums\ActivityEvent;
+use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
+use App\Traits\LogsCustomActivity;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +24,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $type
  * @property int $sort_order
  * @property array $title
+ * @property ?array $name
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
@@ -27,8 +32,11 @@ class AssessmentStep extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use LogsCustomActivity;
 
     protected $keyType = 'string';
+
+    protected $customLogName = ActivityLog::PROCESS->value;
 
     /**
      * The attributes that should be cast.
@@ -53,6 +61,11 @@ class AssessmentStep extends Model
             ->logOnly((['*']))
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+    protected function customizeActivityProperties(array &$properties, ActivityEvent $event): void
+    {
+        $properties['attributes']['name'] = $this->name;
     }
 
     /** @return BelongsTo<Pool, $this> */
@@ -81,6 +94,44 @@ class AssessmentStep extends Model
         return $this->hasMany(ScreeningQuestion::class);
     }
 
+    public function name(): Attribute
+    {
+        return Attribute::get(function () {
+            $title = $this->title ?? [];
+            $type = $this->type ? AssessmentStepType::localizedString($this->type) : ['en' => null, 'fr' => null];
+
+            $titleEn = $title['en'] ?? null;
+            $titleFr = $title['fr'] ?? null;
+            $typeEn = $type['en'] ?? null;
+            $typeFr = $type['fr'] ?? null;
+
+            if (! empty($titleEn) || ! empty($titleFr)) {
+                if ($typeEn || $typeFr) {
+                    return [
+                        'en' => $this->formatName($titleEn, $typeEn),
+                        'fr' => $this->formatName($titleFr, $typeFr),
+                    ];
+                }
+
+                return $title;
+            }
+
+            return $type;
+        });
+    }
+
+    /**
+     * Formats the name from title and type.
+     */
+    private function formatName(?string $title, ?string $type): ?string
+    {
+        if ($title && $type) {
+            return sprintf('%s (%s)', $title, $type);
+        }
+
+        return $title ?? $type ?? null;
+    }
+
     /**
      * Boot function for using with AssessmentStep Events
      *
@@ -89,6 +140,8 @@ class AssessmentStep extends Model
     protected static function boot()
     {
         parent::boot();
+
+        $loggedAttributes = ['pool_id', 'sort_order', 'type', 'title'];
 
         static::creating(function (AssessmentStep $step) {
 
@@ -114,9 +167,18 @@ class AssessmentStep extends Model
                 $sortOrder = $highestSortOrder + 1;
             }
             $step['sort_order'] = $sortOrder;
+
         });
 
-        static::deleted(function (AssessmentStep $step) {
+        static::created(function (AssessmentStep $step) use ($loggedAttributes) {
+            $step->logActivity(ActivityEvent::ADDED, $step->only($loggedAttributes));
+        });
+
+        static::updated(function (AssessmentStep $step) use ($loggedAttributes) {
+            $step->logActivity(ActivityEvent::UPDATED, $step->only($loggedAttributes));
+        });
+
+        static::deleted(function (AssessmentStep $step) use ($loggedAttributes) {
             // If this was the screening question step delete all screening questions as well
             if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
                 $questions = ScreeningQuestion::where('pool_id', '=', $step->pool_id)->get();
@@ -134,6 +196,8 @@ class AssessmentStep extends Model
                     $existingStep->save();
                 }
             }
+
+            $step->logActivity(ActivityEvent::REMOVED, $step->only($loggedAttributes));
         });
     }
 }

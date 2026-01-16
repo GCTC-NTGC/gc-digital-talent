@@ -46,7 +46,11 @@ class PoolCandidateActivityEventTest extends TestCase
 
         $properties = $activity->properties;
 
-        $this->assertEquals(['signature' => 'test-submitted'], $properties['attributes']);
+        $this->assertEqualsCanonicalizing([
+            'signature' => 'test-submitted',
+            'user_name' => $this->application->user->fullName,
+            'pool_id' => $this->application->pool->id,
+        ], $properties['attributes']);
     }
 
     public function testQualifiedEvent()
@@ -64,7 +68,11 @@ class PoolCandidateActivityEventTest extends TestCase
 
         $properties = $activity->properties;
 
-        $this->assertEquals(['expiry_date' => $date->format('Y-m-d H:i:s')], $properties['attributes']);
+        $this->assertEqualsCanonicalizing([
+            'expiry_date' => $date->format('Y-m-d H:i:s'),
+            'user_name' => $this->application->user->fullName,
+            'pool_id' => $this->application->pool->id,
+        ], $properties['attributes']);
     }
 
     public function testDisqualifiedEvent()
@@ -95,9 +103,11 @@ class PoolCandidateActivityEventTest extends TestCase
 
         $properties = $activity->properties;
 
-        $this->assertEquals([
+        $this->assertEqualsCanonicalizing([
             'placement_type' => $type,
             'placed_department_id' => $department->id,
+            'user_name' => $this->application->user->fullName,
+            'pool_id' => $this->application->pool->id,
         ], $properties['attributes']);
     }
 
@@ -123,9 +133,11 @@ class PoolCandidateActivityEventTest extends TestCase
 
         $properties = $activity->properties;
 
-        $this->assertEquals([
+        $this->assertEqualsCanonicalizing([
             'removal_reason' => $reason,
             'removal_reason_other' => $other,
+            'user_name' => $this->application->user->fullName,
+            'pool_id' => $this->application->pool->id,
         ], $properties['attributes']);
     }
 

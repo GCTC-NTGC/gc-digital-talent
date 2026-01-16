@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Builders\PoolCandidateBuilder;
 use App\Enums\ActivityEvent;
+use App\Enums\ActivityLog;
 use App\Enums\ApplicationStatus;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
@@ -26,6 +27,7 @@ use App\Enums\ScreeningStage;
 use App\Enums\SkillCategory;
 use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
+use App\Traits\LogsCustomActivity;
 use App\ValueObjects\ProfileSnapshot;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -40,7 +42,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -94,9 +95,12 @@ class PoolCandidate extends Model
     use EnrichedNotifiable;
     use HasFactory;
     use LogsActivity;
+    use LogsCustomActivity;
     use SoftDeletes;
 
     protected $keyType = 'string';
+
+    protected $customLogName = ActivityLog::PROCESS->value;
 
     /**
      * The attributes that should be cast.
@@ -958,22 +962,9 @@ class PoolCandidate extends Model
         );
     }
 
-    public function logActivity(ActivityEvent $event, ?array $atts = [], ?array $old = [])
+    protected function customizeActivityProperties(array &$properties, ActivityEvent $event): void
     {
-        $properties = [];
-        if (! empty($atts)) {
-            $properties['attributes'] = $atts;
-        }
-
-        if (! empty($old)) {
-            $properties['old'] = $old;
-        }
-
-        activity()
-            ->causedBy(Auth::user())
-            ->performedOn($this)
-            ->event($event->value)
-            ->withProperties($properties)
-            ->log($event->value);
+        $properties['attributes']['user_name'] = $this->user->fullName ?? null;
+        $properties['attributes']['pool_id'] = $this->pool->id ?? null;
     }
 }
