@@ -34,9 +34,8 @@ const userMiddleware: Route.ClientMiddlewareFunction = async (
   { context },
   next,
 ) => {
-  // User is not logged in so set undefined
+  // User is not logged in so set null
   if (!localStorage.getItem(ACCESS_TOKEN)) {
-    console.log("no user");
     context.set(userContext, null);
     return next();
   }
@@ -44,8 +43,6 @@ const userMiddleware: Route.ClientMiddlewareFunction = async (
   const client = context.get(graphqlClientContext);
 
   const user = await client.query(UserMiddleware_Query, {}).toPromise();
-
-  console.log(user);
 
   context.set(userContext, user.data?.myAuth ?? null);
 
