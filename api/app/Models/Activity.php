@@ -41,7 +41,10 @@ class Activity extends SpatieActivity
 
         return $query->where('log_name', ActivityLog::PROCESS->value)
             ->where(function (Builder $subQuery) use ($poolId) {
-                $subQuery->where('subject_id', $poolId)
+                $subQuery->where(function (Builder $poolQuery) use ($poolId) {
+                    $poolQuery->where('subject_type', Pool::class)
+                        ->where('subject_id', $poolId);
+                })
                     ->orWhereJsonContains('properties->attributes->pool_id', $poolId);
             });
 
