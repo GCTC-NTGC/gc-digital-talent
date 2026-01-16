@@ -1,7 +1,7 @@
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 
-import { graphqlClientContext, userContext } from "~/middleware/context";
+import { graphqlClientContext, userContext } from "~/routing/context";
 
 import type { Route } from "./+types/RootRoute";
 

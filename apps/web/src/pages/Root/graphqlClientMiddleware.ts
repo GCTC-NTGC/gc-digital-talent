@@ -1,6 +1,6 @@
 import { getClient } from "@gc-digital-talent/client";
 
-import { graphqlClientContext, intlContext } from "~/middleware/context";
+import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import type { Route } from "./+types/RootRoute";
 

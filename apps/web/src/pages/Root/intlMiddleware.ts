@@ -3,7 +3,7 @@ import { redirect } from "react-router";
 import { getDesiredLocale, getIntl } from "@gc-digital-talent/i18n";
 
 import messages from "~/lang/frCompiled.json";
-import { intlContext } from "~/middleware/context";
+import { intlContext } from "~/routing/context";
 
 import type { Route } from "./+types/RootRoute";
 
