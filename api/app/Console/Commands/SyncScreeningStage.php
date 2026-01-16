@@ -31,14 +31,29 @@ class SyncScreeningStage extends Command
                 CASE
                     WHEN pool_candidate_status = 'NEW_APPLICATION' THEN 'NEW_APPLICATION'
                     WHEN pool_candidate_status = 'APPLICATION_REVIEW' THEN 'APPLICATION_REVIEW'
-                    WHEN pool_candidate_status = 'SCREENED_IN' THEN 'SCREENED_IN'
+                    WHEN pool_candidate_status = 'SCREENED_IN' THEN
+                        CASE
+                            WHEN assessment_step_id IS NULL OR (
+                                (SELECT type FROM assessment_steps WHERE assessment_steps.id = pool_candidates.assessment_step_id)
+                                IN ('APPLICATION_SCREENING', 'SCREENING_QUESTIONS_AT_APPLICATION')
+                            ) THEN 'SCREENED_IN'
+                            ELSE 'UNDER_ASSESSMENT'
+                        END
                     WHEN pool_candidate_status = 'UNDER_ASSESSMENT' THEN 'UNDER_ASSESSMENT'
-                    WHEN pool_candidate_status NOT IN ('NEW_APPLICATION', 'APPLICATION_REVIEW', 'SCREENED_IN', 'DRAFT', 'DRAFT_EXPIRED', 'UNDER_ASSESSMENT')
+                    WHEN pool_candidate_status NOT IN (
+                        'NEW_APPLICATION',
+                        'APPLICATION_REVIEW',
+                        'SCREENED_IN',
+                        'DRAFT',
+                        'DRAFT_EXPIRED',
+                        'UNDER_ASSESSMENT',
+                        'REMOVED'
+                    )
                         AND (computed_final_decision IS NULL OR computed_final_decision = 'TO_ASSESS')
                         AND removed_at IS NULL THEN 'UNDER_ASSESSMENT'
                     ELSE NULL
                 END
-            SQL),
+                SQL),
         ]);
     }
 }
