@@ -56,7 +56,7 @@
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
-    "motion": "^12.24.11",
+    "motion": "^12.26.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-helmet-async": "^2.0.5",
