@@ -108,6 +108,7 @@ class PoolCandidateActivityEventTest extends TestCase
 
         $this->application->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->application->screening_stage = ScreeningStage::NEW_APPLICATION->name;
+        $this->application->placement_type = null;
         $this->application->saveQuietly();
 
         $this->application->remove($reason, $other);
