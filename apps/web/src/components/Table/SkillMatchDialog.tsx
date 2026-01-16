@@ -179,24 +179,27 @@ const SkillMatchDialog = ({
 
   if (filteredSkills.length === 0)
     return (
-      <p
-        aria-label={intl.formatMessage(
-          {
-            defaultMessage: "{poolCandidateName} has 0 of 0 skills",
-            id: "4SNVtn",
+      <>
+        <p className="sr-only">
+          {intl.formatMessage(
+            {
+              defaultMessage: "{poolCandidateName} has 0 of 0 skills",
+              id: "4SNVtn",
+              description:
+                "Aria-label for the title displayed on the candidate skill count column.",
+            },
+            { poolCandidateName },
+          )}
+        </p>
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "0 of 0",
+            id: "gkLEbN",
             description:
-              "Aria-label for the title displayed on the candidate skill count column.",
-          },
-          { poolCandidateName },
-        )}
-      >
-        {intl.formatMessage({
-          defaultMessage: "0 of 0",
-          id: "gkLEbN",
-          description:
-            "Title displayed on the candidate skill count column when no skills are selected.",
-        })}
-      </p>
+              "Title displayed on the candidate skill count column when no skills are selected.",
+          })}
+        </p>
+      </>
     );
 
   return (
