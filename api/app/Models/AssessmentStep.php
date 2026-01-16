@@ -141,7 +141,7 @@ class AssessmentStep extends Model
     {
         parent::boot();
 
-        $atts = ['pool_id', 'sort_order', 'type', 'title'];
+        $loggedAttributes = ['pool_id', 'sort_order', 'type', 'title'];
 
         static::creating(function (AssessmentStep $step) {
 
@@ -170,15 +170,15 @@ class AssessmentStep extends Model
 
         });
 
-        static::created(function (AssessmentStep $step) use ($atts) {
-            $step->logActivity(ActivityEvent::ADDED, $step->only($atts));
+        static::created(function (AssessmentStep $step) use ($loggedAttributes) {
+            $step->logActivity(ActivityEvent::ADDED, $step->only($loggedAttributes));
         });
 
-        static::updated(function (AssessmentStep $step) use ($atts) {
-            $step->logActivity(ActivityEvent::UPDATED, $step->only($atts));
+        static::updated(function (AssessmentStep $step) use ($loggedAttributes) {
+            $step->logActivity(ActivityEvent::UPDATED, $step->only($loggedAttributes));
         });
 
-        static::deleted(function (AssessmentStep $step) use ($atts) {
+        static::deleted(function (AssessmentStep $step) use ($loggedAttributes) {
             // If this was the screening question step delete all screening questions as well
             if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
                 $questions = ScreeningQuestion::where('pool_id', '=', $step->pool_id)->get();
@@ -197,7 +197,7 @@ class AssessmentStep extends Model
                 }
             }
 
-            $step->logActivity(ActivityEvent::REMOVED, $step->only($atts));
+            $step->logActivity(ActivityEvent::REMOVED, $step->only($loggedAttributes));
         });
     }
 }

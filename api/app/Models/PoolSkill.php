@@ -43,29 +43,29 @@ class PoolSkill extends Model
     {
         parent::boot();
 
-        $atts = ['pool_id', 'type', 'required_skill_level'];
+        $loggedAttributes = ['pool_id', 'type', 'required_skill_level'];
 
-        static::created(function (PoolSkill $poolSkill) use ($atts) {
+        static::created(function (PoolSkill $poolSkill) use ($loggedAttributes) {
             $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
             $poolSkill->logActivity(ActivityEvent::ADDED, [
-                ...$poolSkill->only($atts),
+                ...$poolSkill->only($loggedAttributes),
                 'skill' => $poolSkill->skill->name,
                 'category' => $poolSkill->skill->category,
             ]);
         });
 
-        static::updated(function (PoolSkill $poolSkill) use ($atts) {
+        static::updated(function (PoolSkill $poolSkill) use ($loggedAttributes) {
             $poolSkill->logActivity(ActivityEvent::UPDATED, [
-                ...$poolSkill->only($atts),
+                ...$poolSkill->only($loggedAttributes),
                 'skill' => $poolSkill->skill->name,
                 'category' => $poolSkill->skill->category,
             ]);
         });
 
-        static::deleted(function (PoolSkill $poolSkill) use ($atts) {
+        static::deleted(function (PoolSkill $poolSkill) use ($loggedAttributes) {
             $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
             $poolSkill->logActivity(ActivityEvent::REMOVED, [
-                ...$poolSkill->only($atts),
+                ...$poolSkill->only($loggedAttributes),
                 'skill' => $poolSkill->skill->name,
                 'category' => $poolSkill->skill->category,
             ]);
