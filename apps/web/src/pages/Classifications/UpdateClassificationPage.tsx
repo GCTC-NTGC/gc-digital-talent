@@ -30,7 +30,6 @@ import { getClassificationName } from "~/utils/poolUtils";
 import Hero from "~/components/Hero";
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
-import { createMeta } from "~/routing/meta";
 
 import messages from "./messages";
 import { getClassificationLevels } from "./helpers";
