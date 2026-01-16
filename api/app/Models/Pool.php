@@ -519,8 +519,9 @@ class Pool extends Model
 
     public function publish()
     {
-        $dateNow = Carbon::now();
-        $this->disableCustomLogging()->update(['published_at' => $dateNow]);
+        $this->disableCustomLogging(function ($pool) {
+            $pool->update(['published_at' => Carbon::now()]);
+        });
 
         $this->logActivity(ActivityEvent::PUBLISHED);
     }

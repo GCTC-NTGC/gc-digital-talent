@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
+use Closure;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -42,11 +43,17 @@ trait LogsCustomActivity
      *
      * @return $this
      */
-    public function disableCustomLogging(): self
+    public function disableCustomLogging(Closure $callback)
     {
+        $original = $this->disableNextLogEvent;
         $this->disableNextLogEvent = true;
 
-        return $this;
+        try {
+            return $callback($this);
+        } finally {
+            // Always restore the original value, even if exception occurs.
+            $this->disableNextLogEvent = $original;
+        }
     }
 
     /**
