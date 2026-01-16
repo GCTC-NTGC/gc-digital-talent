@@ -16,6 +16,7 @@ use App\Enums\CandidateStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\ErrorCode;
+use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
@@ -140,6 +141,7 @@ class PoolCandidate extends Model
         'is_flagged',
         'screening_stage',
         'assessment_step_id',
+        'computed_final_decision',
     ];
 
     protected $touches = ['user'];
@@ -750,6 +752,7 @@ class PoolCandidate extends Model
 
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->expiry_date = $expiryDate;
+        $this->computed_final_decision = FinalDecision::QUALIFIED->name;
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
@@ -770,6 +773,7 @@ class PoolCandidate extends Model
         $this->disableLogging();
 
         $this->pool_candidate_status = $reason;
+        $this->computed_final_decision = FinalDecision::DISQUALIFIED->name;
         $this->final_decision_at = Carbon::now();
 
         $this->screening_stage = null;
@@ -794,6 +798,7 @@ class PoolCandidate extends Model
         $this->screening_stage = null;
         $this->assessment_step_id = null;
 
+        $this->computed_final_decision = FinalDecision::QUALIFIED_PLACED->name;
         $this->computed_final_decision_weight = 30;
 
         $this->save();
@@ -817,6 +822,14 @@ class PoolCandidate extends Model
         $this->screening_stage = null;
         $this->assessment_step_id = null;
 
+        $decision = match ($this->computed_final_decision) {
+            FinalDecision::TO_ASSESS->name => FinalDecision::TO_ASSESS_REMOVED->name,
+            FinalDecision::DISQUALIFIED->name, FinalDecision::DISQUALIFIED_PENDING->name => FinalDecision::DISQUALIFIED_REMOVED->name,
+            FinalDecision::QUALIFIED->name, FinalDecision::QUALIFIED_PLACED->name, FinalDecision::QUALIFIED_EXPIRED->name, FinalDecision::QUALIFIED_PENDING->name => FinalDecision::QUALIFIED_REMOVED->name,
+            default => FinalDecision::REMOVED->name
+        };
+
+        $this->computed_final_decision = $decision;
         $this->computed_final_decision_weight = 240;
 
         // Update the candidates status based on the current status
@@ -890,6 +903,15 @@ class PoolCandidate extends Model
         $this->removal_reason_other = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
 
+        $decision = match ($this->computed_final_decision) {
+            FinalDecision::TO_ASSESS_REMOVED->name => FinalDecision::TO_ASSESS->name,
+            FinalDecision::DISQUALIFIED_REMOVED->name => FinalDecision::DISQUALIFIED->name,
+            FinalDecision::QUALIFIED_REMOVED->name => FinalDecision::QUALIFIED->name,
+            default => FinalDecision::TO_ASSESS->name
+        };
+
+        $this->computed_final_decision = $decision;
+
         $this->save();
 
         $this->logActivity(ActivityEvent::REINSTATED);
@@ -903,6 +925,7 @@ class PoolCandidate extends Model
         $old = $this->only($atts);
 
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->computed_final_decision = FinalDecision::QUALIFIED->name;
         $this->computed_final_decision_weight = 10;
         $this->placed_at = null;
         $this->placed_department_id = null;
@@ -925,6 +948,7 @@ class PoolCandidate extends Model
 
         $this->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $this->expiry_date = null;
+        $this->computed_final_decision = FinalDecision::TO_ASSESS->name;
         $this->final_decision_at = null;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
         $this->computed_final_decision_weight = 40;

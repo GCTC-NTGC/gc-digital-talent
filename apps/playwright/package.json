@@ -22,7 +22,7 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
     "@playwright/test": "^1.57.0",
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.0.8",
     "axe-core": "^4.11.1",
     "dotenv": "^17.2.3",
     "eslint": "^9.20.1",
@@ -30,7 +30,7 @@
     "exceljs": "^4.4.0",
     "mammoth": "^1.2.5",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.52.0"
+    "typescript-eslint": "^8.53.0"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0"
