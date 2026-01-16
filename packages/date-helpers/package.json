@@ -21,7 +21,7 @@
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "date-fns": "^4.1.0",
-    "react-intl": "^8.0.9"
+    "react-intl": "^8.0.11"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",

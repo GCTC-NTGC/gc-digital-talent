@@ -12,68 +12,70 @@
 * on things like media queries, class names, etc.
 *
 * We need to prefix them with gcdt to avoid
-* collision with the variables in the actual config
+* collision with the variables in the actual config.
+*
+* See: https://www.figma.com/design/guHeIIh8dqFVCks310Wv0G/Component-library?node-id=4329-315&view=variables&var-set-id=5-901&m=dev
 */
 :root {
   /* Colours */
-  --gcdt-color-primary-100: oklch(0.93 0.055 190.62);
-  --gcdt-color-primary-200: oklch(0.87 0.1001 189.96);
-  --gcdt-color-primary-300: oklch(0.83 0.1299 188.15);
-  --gcdt-color-primary-400: oklch(0.74 0.128478 187.0122);
-  --gcdt-color-primary-500: oklch(0.64 0.111759 186.2965);
-  --gcdt-color-primary-600: oklch(0.48 0.082996 186.9555);
-  --gcdt-color-primary-700: oklch(0.3 0.052371 186.8285);
+  --gcdt-color-primary-100: #d2f3f1;
+  --gcdt-color-primary-200: #a6e6e4;
+  --gcdt-color-primary-300: #79d9da;
+  --gcdt-color-primary-400: #4cc9cd;
+  --gcdt-color-primary-500: #39949a;
+  --gcdt-color-primary-600: #266167;
+  --gcdt-color-primary-700: #133033;
 
-  --gcdt-color-secondary-100: oklch(0.91 0.0421 302.22);
-  --gcdt-color-secondary-200: oklch(0.82 0.086 301.31);
-  --gcdt-color-secondary-300: oklch(0.73 0.1318 301.66);
-  --gcdt-color-secondary-400: oklch(0.65 0.177 301.69);
-  --gcdt-color-secondary-500: oklch(0.53 0.1409 303.52);
-  --gcdt-color-secondary-600: oklch(0.4 0.1016 304.56);
-  --gcdt-color-secondary-700: oklch(0.26 0.0575 305.85);
+  --gcdt-color-secondary-100: #e6dbf9;
+  --gcdt-color-secondary-200: #ceb8f4;
+  --gcdt-color-secondary-300: #b894ee;
+  --gcdt-color-secondary-400: #a470e8;
+  --gcdt-color-secondary-500: #7e54ae;
+  --gcdt-color-secondary-600: #553874;
+  --gcdt-color-secondary-700: #2b1c3a;
 
-  --gcdt-color-success-100: oklch(0.93 0.0405 147.5);
-  --gcdt-color-success-200: oklch(0.86 0.079 147.56);
-  --gcdt-color-success-300: oklch(0.79 0.1167 147.68);
-  --gcdt-color-success-400: oklch(0.72 0.1508 147.24);
-  --gcdt-color-success-500: oklch(0.59 0.1172 148.09);
-  --gcdt-color-success-600: oklch(0.44 0.0837 149.13);
-  --gcdt-color-success-700: oklch(0.28 0.0469 150.25);
+  --gcdt-color-success-100: #d6efd8;
+  --gcdt-color-success-200: #aedfb3;
+  --gcdt-color-success-300: #85cf8f;
+  --gcdt-color-success-400: #5cbf6c;
+  --gcdt-color-success-500: #458f53;
+  --gcdt-color-success-600: #2e6039;
+  --gcdt-color-success-700: #17301d;
 
-  --gcdt-color-warning-100: oklch(0.95 0.0336 68.84);
-  --gcdt-color-warning-200: oklch(0.9 0.0699 72.34);
-  --gcdt-color-warning-300: oklch(0.86 0.1032 73.71);
-  --gcdt-color-warning-400: oklch(0.83 0.1328 75.22);
-  --gcdt-color-warning-500: oklch(0.65 0.1054 68.2);
-  --gcdt-color-warning-600: oklch(0.48 0.0766 60.72);
-  --gcdt-color-warning-700: oklch(0.29 0.045 53.78);
+  --gcdt-color-warning-100: #fdead6;
+  --gcdt-color-warning-200: #fcd8ac;
+  --gcdt-color-warning-300: #fac783;
+  --gcdt-color-warning-400: #f8b95a;
+  --gcdt-color-warning-500: #ba8343;
+  --gcdt-color-warning-600: #7c522d;
+  --gcdt-color-warning-700: #3e2616;
 
-  --gcdt-color-error-100: oklch(0.9 0.0451 2.49);
-  --gcdt-color-error-200: oklch(0.8 0.0956 5.36);
-  --gcdt-color-error-300: oklch(0.71 0.1452 9.64);
-  --gcdt-color-error-400: oklch(0.63 0.1925 15.09);
-  --gcdt-color-error-500: oklch(0.51 0.1519 16.49);
-  --gcdt-color-error-600: oklch(0.39 0.1095 17.95);
-  --gcdt-color-error-700: oklch(0.25 0.0621 18.26);
+  --gcdt-color-error-100: #f9d2db;
+  --gcdt-color-error-200: #f3a4b5;
+  --gcdt-color-error-300: #ec778d;
+  --gcdt-color-error-400: #e64963;
+  --gcdt-color-error-500: #ac3747;
+  --gcdt-color-error-600: #73252d;
+  --gcdt-color-error-700: #391215;
 
   --gcdt-color-focus-100: oklch(0.91 0.0425 264.99);
   --gcdt-color-focus-200: oklch(0.82 0.087268 265.1505);
   --gcdt-color-focus-300: oklch(0.74 0.1333 263.66);
-  --gcdt-color-focus-400: oklch(0.68 0.1687 265.02);
+  --gcdt-color-focus-400: #769cf7;
   --gcdt-color-focus-500: oklch(0.54 0.1427 262.9);
   --gcdt-color-focus-600: oklch(0.4 0.1034 263.15);
   --gcdt-color-focus-700: oklch(0.26 0.058 263.44);
 
-  --gcdt-color-gray-100: oklch(0.9137 0.0224 272.04);
-  --gcdt-color-gray-200: oklch(0.831 0.0377 270.4);
-  --gcdt-color-gray-300: oklch(0.7501 0.046 271.17);
-  --gcdt-color-gray-400: oklch(0.6755 0.0459 270.65);
-  --gcdt-color-gray-500: oklch(0.5511 0.0435 270.51);
-  --gcdt-color-gray-600: oklch(0.4224 0.0362 270.42);
-  --gcdt-color-gray-700: oklch(0.2859 0.025 268.38);
+  --gcdt-color-gray-100: #dde2f2;
+  --gcdt-color-gray-200: #bec7e1;
+  --gcdt-color-gray-300: #a3adcc;
+  --gcdt-color-gray-400: #8c96b4;
+  --gcdt-color-gray-500: #68718c;
+  --gcdt-color-gray-600: #464d62;
+  --gcdt-color-gray-700: #252a37;
 
-  --gcdt-color-black: oklch(0.13 0.0078 268.54);
-  --gcdt-color-white: oklch(1 0 0);
+  --gcdt-color-black: #06070a;
+  --gcdt-color-white: #ffffff;
 
   /* Shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);

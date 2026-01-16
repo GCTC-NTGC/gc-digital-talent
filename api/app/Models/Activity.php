@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ActivityLog;
 use Database\Helpers\TeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -31,9 +32,22 @@ class Activity extends SpatieActivity
         });
     }
 
-    public function scopeWhereIsPoolActivity(Builder $query)
+    public function scopeWhereIsAggregatePoolActivity(Builder $query, array $args, Pool $pool)
     {
-        return $query->where('subject_type', Pool::class);
+        $poolId = $pool->id;
+        if (! $poolId) {
+            return $query->whereRaw('0 = 1');
+        }
+
+        return $query->where('log_name', ActivityLog::PROCESS->value)
+            ->where(function (Builder $subQuery) use ($poolId) {
+                $subQuery->where(function (Builder $poolQuery) use ($poolId) {
+                    $poolQuery->where('subject_type', Pool::class)
+                        ->where('subject_id', $poolId);
+                })
+                    ->orWhereJsonContains('properties->attributes->pool_id', $poolId);
+            });
+
     }
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)

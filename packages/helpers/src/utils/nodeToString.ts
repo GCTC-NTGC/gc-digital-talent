@@ -12,8 +12,15 @@ function nodeToString(node: ReactNode): string {
 
   const div = document.createElement("div");
   const root = createRoot(div);
-  flushSync(() => {
-    root.render(node);
+  queueMicrotask(() => {
+    /**
+     * React cannot flushSync in the middle of a render.
+     *
+     * REF: https://react.dev/reference/react-dom/flushSync#im-getting-an-error-flushsync-was-called-from-inside-a-lifecycle-method
+     */
+    flushSync(() => {
+      root.render(node);
+    });
   });
 
   return div.innerHTML;

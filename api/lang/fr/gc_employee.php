@@ -36,7 +36,6 @@ return [
     'desired_community' => 'Collectivité fonctionnelle souhaitée',
     'desired_work_streams' => 'Volets de travail souhaités',
     'preferred_departments' => 'Ministères ou organismes préférés',
-    'additional_info' => 'Renseignements supplémentaires sur votre prochain type de poste',
 
     // Career Objective Section
     'career_objective' => 'Objectif de carrière',

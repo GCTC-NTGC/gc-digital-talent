@@ -90,7 +90,6 @@ export default defineConfig(({ command }) => ({
     noExternal: ["react-helmet-async"],
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".json", ".js"],
     alias: {
       "~": path.resolve(__dirname, "src"),
     },

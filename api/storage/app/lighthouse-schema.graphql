@@ -674,7 +674,6 @@ type Mutation {
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
-  downloadUsersThruPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
   downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
@@ -699,7 +698,7 @@ scalar PhoneNumber
 "A human readable ID"
 scalar KeyString
 
-"Arbitrary data encoded in JavaScript Object Notation. See https:\/\/www.json.org."
+"Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
 scalar JSON
 
 "128 bit universally unique identifier (UUID)"
@@ -3353,6 +3352,27 @@ input WhereConditions {
   HAS: WhereConditionsRelation
 }
 
+"Dynamic WHERE conditions for HAS conditions."
+input WhereConditionsHasCondition {
+  "The column that is used for the condition."
+  column: String
+
+  "The operator that is used for the condition."
+  operator: SQLOperator = EQ
+
+  "The value that is used for the condition."
+  value: Mixed
+
+  "A set of conditions that requires all conditions to match."
+  AND: [WhereConditionsHasCondition!]
+
+  "A set of conditions that requires at least one condition to match."
+  OR: [WhereConditionsHasCondition!]
+
+  "Check whether a relation exists. Extra conditions or a minimum amount can be applied."
+  HAS: WhereConditionsRelation
+}
+
 "Dynamic HAS conditions for WHERE condition queries."
 input WhereConditionsRelation {
   "The relation that is checked."
@@ -3365,7 +3385,7 @@ input WhereConditionsRelation {
   amount: Int = 1
 
   "Additional condition logic."
-  condition: WhereConditions
+  condition: WhereConditionsHasCondition
 }
 
 "The available SQL operators that are used to filter query results."
@@ -3431,9 +3451,16 @@ enum ActivityEvent {
   QUALIFIED
   DISQUALIFIED
   PLACED
+  ADDED
   REMOVED
   REINSTATED
   REVERTED
+  PUBLISHED
+}
+
+enum ActivityLog {
+  DEFAULT
+  PROCESS
 }
 
 enum ApplicationStep {

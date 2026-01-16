@@ -1007,7 +1007,7 @@ trait GeneratesUserDoc
 
         // Additional Info
         $this->addLabelText(
-            $section, $this->localize('gc_employee.additional_info'), $profile->next_role_additional_information ?? ''
+            $section, $this->localize('headings.additional_info'), $profile->next_role_additional_information ?? ''
         );
     }
 
@@ -1065,7 +1065,7 @@ trait GeneratesUserDoc
         }
 
         // Additional Info
-        $this->addLabelText($section, $this->localize('gc_employee.additional_info'),
+        $this->addLabelText($section, $this->localize('headings.additional_info'),
             $profile->career_objective_additional_information ?? ''
         );
     }

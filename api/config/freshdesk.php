@@ -19,10 +19,10 @@ return [
         | Freshdesk tickets endpoint
         |--------------------------------------------------------------------------
         |
-        | Example: "https://domain.freshdesk.com/api/v2/tickets"
+        | Example: "https://domain.freshdesk.com/api/v2"
         |
         */
-        'tickets_endpoint' => env('FRESHDESK_API_TICKETS_ENDPOINT', ''),
+        'endpoint' => env('FRESHDESK_API_ENDPOINT'),
         /*
         |--------------------------------------------------------------------------
         | Freshdesk
@@ -34,7 +34,7 @@ return [
         | Example: "abcdefghij1234567890"
         |
         */
-        'key' => env('FRESHDESK_API_KEY', ''),
+        'key' => env('FRESHDESK_API_KEY'),
         /*
         |--------------------------------------------------------------------------
         | Freshdesk
@@ -46,7 +46,7 @@ return [
         | Example: "test"
         |
         */
-        'ticket_tag' => env('FRESHDESK_API_TICKET_TAG', ''),
+        'ticket_tag' => env('FRESHDESK_API_TICKET_TAG'),
         /*
         |--------------------------------------------------------------------------
         | Freshdesk
@@ -58,6 +58,6 @@ return [
         | Example: 1234567890
         |
         */
-        'product_id' => env('FRESHDESK_API_PRODUCT_ID', ''),
+        'product_id' => env('FRESHDESK_API_PRODUCT_ID'),
     ],
 ];
