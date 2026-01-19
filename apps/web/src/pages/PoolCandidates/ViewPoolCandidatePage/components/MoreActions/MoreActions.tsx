@@ -25,7 +25,7 @@ import {
   isDisqualifiedStatus,
   isQualifiedStatus,
   isRemovedStatus,
-  isRevertableStatus,
+  isRevertibleStatus,
   isRODStatus,
 } from "~/utils/poolCandidate";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
@@ -107,6 +107,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         level
       }
     }
+    removedAt
   }
 `);
 
@@ -225,7 +226,7 @@ const MoreActions = ({
           </>
         )}
 
-        {isRemovedStatus(status) && (
+        {isRemovedStatus(status) && !!poolCandidate.removedAt && (
           <div>
             <StatusLabel>
               <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
@@ -238,7 +239,7 @@ const MoreActions = ({
           </div>
         )}
 
-        {isRevertableStatus(status) &&
+        {isRevertibleStatus(status) &&
           !(poolCandidate.finalDecision?.value === FinalDecision.Removed) && (
             <StatusLabel>
               <RevertFinalDecisionDialog
