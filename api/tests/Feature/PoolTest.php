@@ -896,8 +896,8 @@ class PoolTest extends TestCase
             'category' => SkillCategory::BEHAVIOURAL->name,
         ]);
         $completePool = Pool::factory()
+            ->withPoolSkills(0, 1)
             ->published()
-            ->withPoolSkills(2, 2)
             ->create([
                 'closing_date' => config('constants.far_future_date'),
                 'published_at' => null,
@@ -1753,7 +1753,7 @@ class PoolTest extends TestCase
         $originalSkills = array_map([$this, 'filterSkillKeys'], $original->poolSkills->toArray());
         $duplicatedSkills = array_map([$this, 'filterSkillKeys'], $duplicated->poolSkills->toArray());
 
-        $this->assertEquals($originalSkills, $duplicatedSkills);
+        $this->assertEqualsCanonicalizing($originalSkills, $duplicatedSkills);
     }
 
     private function filterSkillKeys(array $poolSkill)

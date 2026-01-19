@@ -19,6 +19,7 @@ use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
+use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -253,32 +254,46 @@ class PoolCandidateFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function withAssessmentResults()
+    public function withAssessmentResults(): self
     {
         return $this->afterCreating(function (PoolCandidate $poolCandidate) {
             $poolSkillIds = $poolCandidate->pool->poolSkills()->pluck('id')->toArray();
 
+            // Create one EDUCATION result (simple)
+            $educationStep = AssessmentStep::factory()->create([
+                'pool_id' => $poolCandidate->pool_id,
+            ]);
+
             AssessmentResult::factory()
                 ->withResultType(AssessmentResultType::EDUCATION)
-                ->count(1)
                 ->create([
-                    'assessment_step_id' => AssessmentStep::factory()->create([
-                        'pool_id' => $poolCandidate->pool_id,
-                    ]),
+                    'assessment_step_id' => $educationStep->id,
                     'pool_candidate_id' => $poolCandidate->id,
                 ]);
 
-            AssessmentResult::factory()
-                ->withResultType(AssessmentResultType::SKILL)
-                ->count(4)
-                ->create([
-                    'assessment_step_id' => AssessmentStep::factory()->create([
-                        'pool_id' => $poolCandidate->pool_id,
-                    ]),
-                    'pool_candidate_id' => $poolCandidate->id,
-                    'pool_skill_id' => count($poolSkillIds) > 0 ?
-                        array_rand(array_flip($poolSkillIds)) : null,
-                ]);
+            $skillStep = AssessmentStep::factory()->create([
+                'pool_id' => $poolCandidate->pool_id,
+            ]);
+
+            $assignedSkillIds = collect($poolSkillIds)
+                ->shuffle()
+                ->take(4)
+                ->all();
+
+            // Ensure at least one skill exists
+            if (empty($assignedSkillIds)) {
+                $assignedSkillIds[] = Skill::factory()->create()->id;
+            }
+
+            foreach ($assignedSkillIds as $skillId) {
+                AssessmentResult::factory()
+                    ->withResultType(AssessmentResultType::SKILL)
+                    ->create([
+                        'assessment_step_id' => $skillStep->id,
+                        'pool_candidate_id' => $poolCandidate->id,
+                        'pool_skill_id' => $skillId,
+                    ]);
+            }
         });
     }
 

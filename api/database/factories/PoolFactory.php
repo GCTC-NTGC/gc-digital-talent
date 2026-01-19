@@ -18,6 +18,7 @@ use App\Models\Community;
 use App\Models\Department;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
+use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\User;
@@ -128,13 +129,30 @@ class PoolFactory extends BaseFactory
             'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
             'closing_date' => $this->faker->dateTimeBetween('+1 month', '+6 months'),
         ])->afterCreating(function (Pool $pool) {
-            // Need one essential technical skill for accurate published pool
+            $hasEssentialTechnical = $pool->poolSkills()
+                ->where('type', PoolSkillType::ESSENTIAL->name)
+                ->whereHas('skill', fn ($q) => $q->where('category', SkillCategory::TECHNICAL->name))
+                ->exists();
+
+            if ($hasEssentialTechnical) {
+                return; // already satisfied
+            }
+
+            $existingSkillIds = $pool->poolSkills()->pluck('skill_id')->all();
+
             $skill = Skill::where('category', SkillCategory::TECHNICAL->name)
+                ->whereNotIn('id', $existingSkillIds)
                 ->inRandomOrder()
-                ->value('id');
+                ->first();
+
+            if (! $skill) {
+                $skill = Skill::factory()->create([
+                    'category' => SkillCategory::TECHNICAL->name,
+                ]);
+            }
 
             $pool->poolSkills()->create([
-                'skill_id' => $skill,
+                'skill_id' => $skill->id,
                 'type' => PoolSkillType::ESSENTIAL->name,
                 'required_skill_level' => $this->randomEnum(SkillLevel::class),
             ]);
@@ -224,26 +242,36 @@ class PoolFactory extends BaseFactory
     {
         return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
             $totalCount = $essentialCount + $nonEssentialCount;
-            $skills = Skill::inRandomOrder()->limit($totalCount)->get()->values();
 
-            foreach ($skills as $i => $skill) {
+            // Track skills already attached
+            $existingSkillIds = $pool->poolSkills()->pluck('skill_id')->all();
+
+            for ($i = 0; $i < $totalCount; $i++) {
                 $type = $i < $essentialCount
                     ? PoolSkillType::ESSENTIAL->name
                     : PoolSkillType::NONESSENTIAL->name;
 
-                // Avoid duplicate
-                $exists = $pool->poolSkills()
-                    ->where('skill_id', $skill->id)
-                    ->where('type', $type)
-                    ->exists();
+                // Pick a random skill not already attached
+                $skillId = Skill::whereNotIn('id', $existingSkillIds)
+                    ->inRandomOrder()
+                    ->value('id');
 
-                if (! $exists) {
-                    $pool->poolSkills()->create([
-                        'skill_id' => $skill->id,
+                // If none available, create a new one
+                if (! $skillId) {
+                    $skillId = Skill::factory()->create()->id;
+                }
+
+                // Attach safely
+                $pool->poolSkills()->firstOrCreate(
+                    ['skill_id' => $skillId],
+                    [
                         'type' => $type,
                         'required_skill_level' => $this->randomEnum(SkillLevel::class),
-                    ]);
-                }
+                    ]
+                );
+
+                // Track this skill to avoid duplicates in this loop
+                $existingSkillIds[] = $skillId;
             }
         });
     }
@@ -379,7 +407,20 @@ class PoolFactory extends BaseFactory
 
         $essentialSkillIds = $pool->poolSkills()
             ->where('type', PoolSkillType::ESSENTIAL->name)
-            ->pluck('id');
+            ->pluck('id')
+            ->values();
+
+        if ($essentialSkillIds->isEmpty()) {
+            $skill = $this->firstOrCreate(Skill::class);
+
+            $poolSkill = $pool->poolSkills()->create([
+                'skill_id' => $skill->id,
+                'type' => PoolSkillType::ESSENTIAL->name,
+                'required_skill_level' => $this->randomEnum(SkillLevel::class),
+            ]);
+
+            $essentialSkillIds = collect([$poolSkill->id]);
+        }
 
         foreach ($essentialSkillIds as $skillId) {
             $alreadyAssigned = $steps->contains(
