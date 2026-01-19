@@ -3680,10 +3680,6 @@ type Mutation {
     ids: [UUID!]
     where: CommunityInterestFilterInput
   ): Boolean! @guard
-  downloadUsersThruPoolCandidatesExcel(
-    ids: [UUID!]
-    where: PoolCandidateSearchInput
-  ): Boolean! @guard
   downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!
