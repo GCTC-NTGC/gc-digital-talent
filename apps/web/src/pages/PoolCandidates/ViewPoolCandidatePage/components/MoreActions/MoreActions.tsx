@@ -97,7 +97,6 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         level
       }
     }
-    removedAt
   }
 `);
 
