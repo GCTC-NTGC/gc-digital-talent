@@ -10,6 +10,12 @@ assignees: ''
 ## Overview
 * *A high level summary of the problem or opportunity we want to address*
 
+## Requirements from above
+- Nice to have
+- Need to have
+- Red lines for Lauren
+- Need to be specifically like this
+
 ## Framing
 * *This section is typically filled in by the product owner.*
 
