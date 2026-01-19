@@ -827,11 +827,11 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
 
         $unaccosiatedStream = WorkStream::factory()->create();
-        $unaccosiatedPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $unassociatedPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'work_stream_id' => $unaccosiatedStream->id,
         ]);
         PoolCandidate::factory()->create([
-            'pool_id' => $unaccosiatedPool->id,
+            'pool_id' => $unassociatedPool->id,
             'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'expiry_date' => config('constants.far_future_date'),
         ]);
