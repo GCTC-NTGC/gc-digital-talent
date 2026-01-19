@@ -19,7 +19,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import {
   formatActivityDayGroup,
   groupByDay,
-} from "~/components/Activity/utils";
+} from "~/components/Activity/Items/utils";
 import Pagination from "~/components/Pagination";
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
@@ -90,8 +90,8 @@ const PoolActivityPage = () => {
   if (!data?.pool) {
     return <ThrowNotFound />;
   }
-  const totalItems = data.pool.activities.paginatorInfo.total;
 
+  const totalItems = data.pool.activities.paginatorInfo.total;
   const totalPages = getTotalPages(totalItems, pageSize);
 
   const groups = groupByDay(unpackMaybes(data?.pool?.activities.data));
@@ -135,12 +135,11 @@ const PoolActivityPage = () => {
                 key={group.day}
                 heading={formatActivityDayGroup(group.day, intl)}
               >
-                {group.activities.map((item, index) => (
-                  <ActivityLog.PoolItem
+                {group.activities.map((item) => (
+                  <ActivityLog.Item
                     key={item.id}
                     query={item}
-                    border={index > 0}
-                    publishedAt={data?.pool?.publishedAt}
+                    itemProps={{ publishedAt: data?.pool?.publishedAt }}
                   />
                 ))}
               </ActivityLog.List>

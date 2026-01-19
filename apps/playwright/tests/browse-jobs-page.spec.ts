@@ -7,6 +7,7 @@ test.describe("Browse jobs page", () => {
       page.getByRole("heading", { name: /browse jobs/i, level: 1 }),
     ).toBeVisible();
   });
+
   test("has no accessibility violations", async ({ page, makeAxeBuilder }) => {
     await page.goto("/en/jobs");
     const accessibilityScanResults = await makeAxeBuilder().analyze();

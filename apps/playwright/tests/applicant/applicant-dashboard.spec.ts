@@ -105,6 +105,7 @@ test.describe("Applicant dashboard update", () => {
       isGovEmployee: nonGovCreatedUser?.isGovEmployee ?? false,
     };
   });
+
   test.afterAll(async () => {
     adminCtx = await graphql.newContext();
     await deleteUser(adminCtx, { id: govUser.id });
