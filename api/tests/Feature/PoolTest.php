@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
+use App\Enums\SkillLevel;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -889,21 +891,39 @@ class PoolTest extends TestCase
     {
 
         Classification::factory()->create();
-        Skill::factory()->create([
+        $technicalSkill = Skill::factory()->create([
             'category' => SkillCategory::TECHNICAL->name,
         ]);
-        Skill::factory()->create([
+        $behaviouralSkill = Skill::factory()->create([
             'category' => SkillCategory::BEHAVIOURAL->name,
         ]);
+
         $completePool = Pool::factory()
-            ->withPoolSkills(0, 1)
             ->published()
             ->create([
                 'closing_date' => config('constants.far_future_date'),
                 'published_at' => null,
             ]);
 
-        $poolStepSkills = $completePool->assessmentSteps()->first()->poolSkills()->get()->toArray();
+        $completePool->poolSkills()->delete();
+        $completePool->poolSkills()->createMany([
+            [
+                'skill_id' => $technicalSkill->id,
+                'type' => PoolSkillType::ESSENTIAL->name,
+                'required_skill_level' => SkillLevel::BEGINNER->name,
+            ],
+            [
+                'skill_id' => $behaviouralSkill->id,
+                'type' => PoolSkillType::ESSENTIAL->name,
+                'required_skill_level' => SkillLevel::BEGINNER->name,
+            ],
+        ]);
+
+        $assessmentStep = $completePool->assessmentSteps()->first();
+        $assessmentStep->poolSkills()->sync([
+            $completePool->poolSkills()->where('skill_id', $technicalSkill->id)->first()->id,
+        ]);
+        $poolStepSkills = $assessmentStep->poolSkills()->get()->toArray();
 
         // confirm application screening missing one skill seeded that isn't technical
         assertEquals(1, count($poolStepSkills));
