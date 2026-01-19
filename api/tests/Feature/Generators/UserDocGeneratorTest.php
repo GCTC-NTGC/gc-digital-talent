@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Generators;
 
+use App\Enums\SkillLevel;
 use App\Generators\UserDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
@@ -57,10 +58,10 @@ class UserDocGeneratorTest extends TestCase
         $targetUser->userSkills()->delete();
 
         $targetUser->userSkills()->createMany([
-            ['skill_id' => $skills[0]->id, 'top_skills_rank' => 1, 'improve_skills_rank' => null],
-            ['skill_id' => $skills[1]->id, 'top_skills_rank' => 2, 'improve_skills_rank' => null],
-            ['skill_id' => $skills[2]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 1],
-            ['skill_id' => $skills[3]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 2],
+            ['skill_id' => $skills[0]->id, 'top_skills_rank' => 1, 'improve_skills_rank' => null, 'skill_level' => SkillLevel::ADVANCED->name],
+            ['skill_id' => $skills[1]->id, 'top_skills_rank' => 2, 'improve_skills_rank' => null, 'skill_level' => SkillLevel::LEAD->name],
+            ['skill_id' => $skills[2]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 1, 'skill_level' => SkillLevel::BEGINNER->name],
+            ['skill_id' => $skills[3]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 2, 'skill_level' => SkillLevel::INTERMEDIATE->name],
         ]);
 
         $targetUser->refresh();
