@@ -33,7 +33,8 @@ class PoolTestSeeder extends Seeder
         $createdPool = Pool::factory()
             ->withPoolSkills(4, 4)
             ->withGeneralQuestions()
-            ->withAssessmentSteps(screeningQuestionsCount: 2)
+            ->withScreeningQuestions()
+            ->withAssessmentSteps()
             ->withBookmark($adminUserId)
             ->published()
             ->createOrGetExisting([
@@ -98,7 +99,8 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->draft()
             ->withPoolSkills(2, 2)
-            ->withAssessmentSteps(types: [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], screeningQuestionsCount: 1)
+            ->withScreeningQuestions(1)
+            ->withAssessmentSteps(types: [AssessmentStepType::TECHNICAL_EXAM_AT_SITE])
             ->createOrGetExisting( // IT-02  - Simple
                 [
                     'name' => [
@@ -121,7 +123,8 @@ class PoolTestSeeder extends Seeder
             ->published()
             ->withPoolSkills(6, 6)
             ->withGeneralQuestions(3)
-            ->withAssessmentSteps(types: [AssessmentStepType::INTERVIEW_INDIVIDUAL], screeningQuestionsCount: 3)
+            ->withScreeningQuestions(3)
+            ->withAssessmentSteps(types: [AssessmentStepType::INTERVIEW_INDIVIDUAL])
             ->withAssessmentSteps(types: [AssessmentStepType::TECHNICAL_EXAM_AT_SITE])
             ->withAssessmentSteps(types: [AssessmentStepType::REFERENCE_CHECK])
             ->createOrGetExisting([
@@ -144,7 +147,7 @@ class PoolTestSeeder extends Seeder
             ->published()
             ->withPoolSkills()
             ->withGeneralQuestions(3)
-            ->withAssessmentSteps(count: 0, screeningQuestionsCount: 3)
+            ->withScreeningQuestions(3)
             ->withAssessmentSteps(types: [AssessmentStepType::INTERVIEW_INDIVIDUAL])
             ->withAssessmentSteps(types: [AssessmentStepType::TECHNICAL_EXAM_AT_SITE])
             ->withAssessmentSteps(types: [AssessmentStepType::REFERENCE_CHECK])
@@ -167,7 +170,7 @@ class PoolTestSeeder extends Seeder
             ->published()
             ->withPoolSkills()
             ->withGeneralQuestions(2)
-            ->withAssessmentSteps(count: 0, screeningQuestionsCount: 1)
+            ->withScreeningQuestions(1)
             ->withAssessmentSteps(types: [AssessmentStepType::INTERVIEW_INDIVIDUAL])
             ->withAssessmentSteps(types: [AssessmentStepType::TECHNICAL_EXAM_AT_SITE])
             ->withAssessmentSteps(types: [AssessmentStepType::REFERENCE_CHECK])
@@ -192,7 +195,7 @@ class PoolTestSeeder extends Seeder
             ->published()
             ->withPoolSkills(6, 6)
             ->withGeneralQuestions(3)
-            ->withAssessmentSteps(count: 0, screeningQuestionsCount: 3)
+            ->withScreeningQuestions(3)
             ->withAssessmentSteps(types: [AssessmentStepType::INTERVIEW_INDIVIDUAL])
             ->withAssessmentSteps(types: [AssessmentStepType::TECHNICAL_EXAM_AT_SITE])
             ->withAssessmentSteps(types: [AssessmentStepType::REFERENCE_CHECK])
@@ -216,7 +219,7 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills()
             ->published()
-            ->withAssessmentSteps(count: 0, screeningQuestionsCount: 3)
+            ->withScreeningQuestions(3)
             ->withAssessmentSteps(types: [AssessmentStepType::TECHNICAL_EXAM_AT_SITE])
             ->createOrGetExisting([
                 'name' => [

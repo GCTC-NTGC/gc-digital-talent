@@ -54,7 +54,7 @@ class ScreeningStageTest extends TestCase
 
         $pool = Pool::factory()
             ->published()
-            ->withAssessments(3)
+            ->withAssessmentSteps(3)
             ->create();
 
         $this->application = PoolCandidate::factory()->create([

@@ -42,7 +42,8 @@ class BigSeederPoolCandidateUser extends Seeder
             ->published()
             ->withPoolSkills(4, 4)
             ->withGeneralQuestions(2)
-            ->withAssessmentSteps(count: 3, screeningQuestionCount: 3)
+            ->withScreeningQuestions(3)
+            ->withAssessmentSteps(count: 3)
             ->create();
         $poolIds = $pools->pluck('id')->toArray();
 

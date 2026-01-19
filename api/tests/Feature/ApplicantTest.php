@@ -1659,7 +1659,7 @@ class ApplicantTest extends TestCase
 
     public function testOnlyItJobsAppear()
     {
-        $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+        $itPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
         ]);
         PoolCandidate::factory()->availableInSearch()->create([
@@ -1692,7 +1692,7 @@ class ApplicantTest extends TestCase
 
     public function testEmploymentEquity(): void
     {
-        $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+        $itPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
         ]);
 

@@ -208,7 +208,7 @@ class SnapshotShapeTest extends TestCase
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();
-        $pool = Pool::factory()->withAssessments(3)->published()->create();
+        $pool = Pool::factory()->published()->withAssessmentSteps(3)->create();
         $poolCandidate = PoolCandidate::factory()
             ->withAssessmentResults()
             ->withSnapshot()
