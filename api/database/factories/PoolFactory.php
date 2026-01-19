@@ -277,7 +277,7 @@ class PoolFactory extends BaseFactory
             }
 
             // Assign skills only if $assignSkills === true and there is more than one step
-            if ($assignSkills && $pool->assessmentSteps()->count() > 1) {
+            if ($assignSkills) {
                 $this->ensureEssentialSkillsAssigned($pool);
             }
         });
@@ -369,17 +369,23 @@ class PoolFactory extends BaseFactory
      */
     private function ensureEssentialSkillsAssigned(Pool $pool): void
     {
-        $steps = $pool->assessmentSteps()->with(['poolSkills'])->get();
-        $essentialSkillIds = $pool->poolSkills()->where('type', PoolSkillType::ESSENTIAL->name)->pluck('id')->all();
+        if ($pool->assessmentSteps()->count() <= 1) {
+            return;
+        }
+
+        $steps = $pool->assessmentSteps()->with('poolSkills')->get();
+
+        $essentialSkillIds = $pool->poolSkills()
+            ->where('type', PoolSkillType::ESSENTIAL->name)
+            ->pluck('id');
 
         foreach ($essentialSkillIds as $skillId) {
-            // If skill not already assigned a step, assign it to one
-            $found = $steps->contains(function ($step) use ($skillId) {
-                return $step->poolSkills->contains('id', $skillId);
-            });
-            if (! $found) {
-                $step = $steps->random();
-                $step->poolSkills()->attach($skillId);
+            $alreadyAssigned = $steps->contains(
+                fn ($step) => $step->poolSkills->contains('id', $skillId)
+            );
+
+            if (! $alreadyAssigned) {
+                $steps->random()->poolSkills()->attach($skillId);
             }
         }
     }
