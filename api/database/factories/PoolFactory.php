@@ -22,6 +22,7 @@ use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkStream;
+use LogicException;
 
 class PoolFactory extends BaseFactory
 {
@@ -278,7 +279,8 @@ class PoolFactory extends BaseFactory
 
             // Assign skills only if $assignSkills === true and there is more than one step
             if ($assignSkills) {
-                $this->ensureEssentialSkillsAssigned($pool);
+                $this->ensureEssentialSkillsAssignedToSteps($pool);
+                $this->ensureEachStepHasAnEssentialSkill($pool);
             }
         });
     }
@@ -367,7 +369,7 @@ class PoolFactory extends BaseFactory
      *
      * @param  Pool  $pool  The pool being created
      */
-    private function ensureEssentialSkillsAssigned(Pool $pool): void
+    private function ensureEssentialSkillsAssignedToSteps(Pool $pool): void
     {
         if ($pool->assessmentSteps()->count() <= 1) {
             return;
@@ -387,6 +389,43 @@ class PoolFactory extends BaseFactory
             if (! $alreadyAssigned) {
                 $steps->random()->poolSkills()->attach($skillId);
             }
+        }
+    }
+
+    /**
+     * Ensure each assessment step has at least one essential skill attached
+     *
+     * @param  Pool  $pool  The pool being created
+     */
+    private function ensureEachStepHasAnEssentialSkill(Pool $pool): void
+    {
+        $steps = $pool->assessmentSteps()->with('poolSkills')->get();
+
+        $essentialSkillIds = $pool->poolSkills()
+            ->where('type', PoolSkillType::ESSENTIAL->name)
+            ->pluck('id')
+            ->values();
+
+        if ($essentialSkillIds->isEmpty()) {
+            throw new LogicException('Cannot assign assessment steps without essential skills.');
+        }
+
+        // Track which essential skills have already been used
+        $unusedSkillIds = $essentialSkillIds->shuffle()->values();
+
+        foreach ($steps as $step) {
+            $hasEssential = $step->poolSkills
+                ->where('type', PoolSkillType::ESSENTIAL->name)
+                ->isNotEmpty();
+
+            if ($hasEssential) {
+                continue;
+            }
+
+            // Prefer an unused essential skill if possible
+            $skillId = $unusedSkillIds->shift() ?? $essentialSkillIds->random();
+
+            $step->poolSkills()->attach($skillId);
         }
     }
 
