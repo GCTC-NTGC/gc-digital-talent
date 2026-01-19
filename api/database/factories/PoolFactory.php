@@ -18,7 +18,6 @@ use App\Models\Community;
 use App\Models\Department;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
-use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\User;
@@ -151,11 +150,13 @@ class PoolFactory extends BaseFactory
                 ]);
             }
 
-            $pool->poolSkills()->create([
-                'skill_id' => $skill->id,
-                'type' => PoolSkillType::ESSENTIAL->name,
-                'required_skill_level' => $this->randomEnum(SkillLevel::class),
-            ]);
+            $pool->poolSkills()->firstOrCreate(
+                ['skill_id' => $skill->id],
+                [
+                    'type' => PoolSkillType::ESSENTIAL->name,
+                    'required_skill_level' => $this->randomEnum(SkillLevel::class),
+                ]
+            );
         });
     }
 

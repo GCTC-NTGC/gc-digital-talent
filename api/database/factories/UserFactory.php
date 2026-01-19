@@ -493,20 +493,33 @@ class UserFactory extends Factory
      */
     private function getUserSkills(User $user, $count = 10, array $skills = [])
     {
-        $allSkills = $skills;
-        if (empty($skills)) {
-            $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->inRandomOrder()->take($count)->get();
-            if (! $allSkills->count()) {
-                $allSkills = Skill::factory($count)->create();
+        $availableSkills = collect($skills);
+
+        if ($availableSkills->isEmpty()) {
+            $availableSkills = Skill::whereDoesntHave('userSkills', fn ($q) => $q->where('user_id', $user->id))
+                ->inRandomOrder()
+                ->take($count)
+                ->get();
+
+            $toCreate = $count - $availableSkills->count();
+            if ($toCreate > 0) {
+                $createdSkills = Skill::factory($toCreate)->create();
+                $availableSkills = $availableSkills->concat($createdSkills);
             }
         }
-        $skillSequence = $allSkills->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
-        $userSkills = UserSkill::factory($count)->for($user)
-            ->sequence(...$skillSequence)
-            ->create();
+        $availableSkills = $availableSkills->filter(fn ($s) => $s && $s->id)->shuffle()->take($count);
+
+        if ($availableSkills->isEmpty()) {
+            throw new \LogicException('No skills available to attach to user.');
+        }
+
+        $userSkills = collect();
+        foreach ($availableSkills as $skill) {
+            $userSkills->push(UserSkill::factory()->for($user)->create([
+                'skill_id' => $skill->id,
+            ]));
+        }
 
         return $userSkills->map(fn ($us) => $us->skill);
 
