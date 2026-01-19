@@ -178,6 +178,41 @@ class PoolFactory extends BaseFactory
     }
 
     /**
+     * Add a bookmark for a specific user
+     *
+     * @param  string  $userId  The user to attach the bookmark to
+     * @return static
+     */
+    public function withBookmark(string $userId)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($userId) {
+            $pool->poolBookmarks()->attach($userId);
+
+            return $pool;
+        });
+    }
+
+    /**
+     * Attach the users to the related pool.
+     * Creates a new user if no userIds passed in.
+     *
+     * @param  array|null  $userIds  - Id of the users to attach the role to
+     * @return void
+     */
+    public function withProcessOperators(?array $userIds = null)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($userIds) {
+            if (is_null($userIds) || count($userIds) === 0) {
+                $pool->addProcessOperators(User::factory()->create()->id);
+            } else {
+                foreach ($userIds as $userId) {
+                    $pool->addProcessOperators($userId);
+                }
+            }
+        });
+    }
+
+    /**
      * Add essential and non-essential pool skills to the pool.
      *
      * @param  int|null  $essentialCount  How many essential skills to add (default: 1)
@@ -219,35 +254,11 @@ class PoolFactory extends BaseFactory
      * @param  int  $count  Number of additional (not total) steps to create (default 1).
      * @param  array|null  $types  Optional array of types to cycle/choose from.
      * @param  bool  $assignSkills  If true (default), assign all essentials to at least one step
-     * @param  int  $screeningQuestionsCount  Number of screening questions to add to a screening step (default 0, skips if 0).
      * @return static
      */
-    public function withAssessmentSteps(int $count = 1, ?array $types = null, bool $assignSkills = true, int $screeningQuestionsCount = 0): self
+    public function withAssessmentSteps(int $count = 1, ?array $types = null, bool $assignSkills = true): self
     {
-        return $this->afterCreating(function (Pool $pool) use ($count, $types, $assignSkills, $screeningQuestionsCount) {
-            // Add a screening step if requested
-            $screeningStep = null;
-            if ($screeningQuestionsCount > 0) {
-                $screeningStep = $pool->assessmentSteps()
-                    ->where('type', AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name)
-                    ->first();
-
-                // If not found, create it (sort_order handled by boot)
-                if (! $screeningStep) {
-                    $screeningStep = $pool->assessmentSteps()->create([
-                        'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
-                        'title' => $this->localizedString(),
-                    ]);
-                }
-
-                $this->createQuestions(
-                    ScreeningQuestion::class,
-                    $screeningQuestionsCount,
-                    $pool->id,
-                    $screeningStep->id
-                );
-            }
-
+        return $this->afterCreating(function (Pool $pool) use ($count, $types, $assignSkills) {
             // Define allowed types if not given
             $defaultTypes = AssessmentStepType::uncontrolledStepTypes();
             $allTypes = $types ?: $defaultTypes;
@@ -267,20 +278,44 @@ class PoolFactory extends BaseFactory
 
             // Assign skills only if $assignSkills === true and there is more than one step
             if ($assignSkills && $pool->assessmentSteps()->count() > 1) {
-                $steps = $pool->assessmentSteps()->with(['poolSkills'])->get();
-                $essentialSkillIds = $pool->poolSkills()->where('type', PoolSkillType::ESSENTIAL->name)->pluck('id')->all();
-
-                foreach ($essentialSkillIds as $skillId) {
-                    // If skill not already assigned a step, assign it to one
-                    $found = $steps->contains(function ($step) use ($skillId) {
-                        return $step->poolSkills->contains('id', $skillId);
-                    });
-                    if (! $found) {
-                        $step = $steps->random();
-                        $step->poolSkills()->attach($skillId);
-                    }
-                }
+                $this->ensureEssentialSkillsAssigned($pool);
             }
+        });
+    }
+
+    /**
+     * Add screening questions to the pool.
+     *
+     * Creates the specified number of ScreeningQuestion records associated with the given pool.
+     * Each screening question is assigned a sequential sort order starting from 1.
+     * Screening questions are associated with the second assessment step.
+     *
+     * @param  int  $count  Number of screening questions to add (default: 2)
+     * @return static
+     *
+     * @see createQuestions() Uses internal helper to perform batch creation and sort order assignment.
+     */
+    public function withScreeningQuestions(int $count = 2): self
+    {
+        return $this->afterCreating(function (Pool $pool) use ($count) {
+            $screeningStep = $pool->assessmentSteps()
+                ->where('type', AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name)
+                ->first();
+
+            // If not found, create it (sort_order handled by boot)
+            if (! $screeningStep) {
+                $screeningStep = $pool->assessmentSteps()->create([
+                    'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+                    'title' => $this->localizedString(),
+                ]);
+            }
+
+            $this->createQuestions(
+                ScreeningQuestion::class,
+                $count,
+                $pool->id,
+                $screeningStep->id
+            );
         });
     }
 
@@ -327,34 +362,26 @@ class PoolFactory extends BaseFactory
             ->create($attributes);
     }
 
-    // Add a pool bookmark attached to user
-    public function withBookmark(string $user_id)
-    {
-        return $this->afterCreating(function (Pool $pool) use ($user_id) {
-            $pool->poolBookmarks()->attach($user_id);
-
-            return $pool;
-        });
-    }
-
     /**
-     * Attach the users to the related pool.
-     * Creates a new user if no userIds passed in.
+     * Ensure assessment steps have assigned skills
      *
-     * @param  array|null  $userIds  - Id of the users to attach the role to
-     * @return void
+     * @param  Pool  $pool  The pool being created
      */
-    public function withProcessOperators(?array $userIds = null)
+    private function ensureEssentialSkillsAssigned(Pool $pool): void
     {
-        return $this->afterCreating(function (Pool $pool) use ($userIds) {
-            if (is_null($userIds) || count($userIds) === 0) {
-                $pool->addProcessOperators(User::factory()->create()->id);
-            } else {
-                foreach ($userIds as $userId) {
-                    $pool->addProcessOperators($userId);
-                }
+        $steps = $pool->assessmentSteps()->with(['poolSkills'])->get();
+        $essentialSkillIds = $pool->poolSkills()->where('type', PoolSkillType::ESSENTIAL->name)->pluck('id')->all();
+
+        foreach ($essentialSkillIds as $skillId) {
+            // If skill not already assigned a step, assign it to one
+            $found = $steps->contains(function ($step) use ($skillId) {
+                return $step->poolSkills->contains('id', $skillId);
+            });
+            if (! $found) {
+                $step = $steps->random();
+                $step->poolSkills()->attach($skillId);
             }
-        });
+        }
     }
 
     /**
