@@ -115,6 +115,8 @@ test.describe("Applicant dashboard update", () => {
     appPage,
   }) => {
     dashboardPage = new ApplicantDashboardPage(appPage.page);
+    const userEmail = govUser.sub;
+    const userWorkEmail = govUser.sub;
     const isGovEmployee = Boolean(govUser.isGovEmployee);
     await loginBySub(appPage.page, govUser.sub);
     await dashboardPage.goToDashboard();
@@ -122,12 +124,14 @@ test.describe("Applicant dashboard update", () => {
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
     await dashboardPage.verifyDashboardUpdate(isGovEmployee);
+    await dashboardPage.verifySettingsPage(userEmail, userWorkEmail);
   });
 
   test("validate applicant dashboard update for non-government employee", async ({
     appPage,
   }) => {
     dashboardPage = new ApplicantDashboardPage(appPage.page);
+    const userEmail = nonGovUser.sub;
     const isGovEmployee = Boolean(nonGovUser.isGovEmployee);
     await loginBySub(appPage.page, nonGovUser.sub);
     await dashboardPage.goToDashboard();
@@ -135,5 +139,6 @@ test.describe("Applicant dashboard update", () => {
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
     await dashboardPage.verifyDashboardUpdate(isGovEmployee);
+    await dashboardPage.verifySettingsPage(userEmail);
   });
 });

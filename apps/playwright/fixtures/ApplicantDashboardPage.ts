@@ -1,13 +1,18 @@
-import { Locator, type Page } from "@playwright/test";
+import { expect, Locator, type Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
 import ExperiencePage from "./ExperiencePage";
 import CommunityInterest from "./CommunityInterest";
 import EmployeeProfile from "./EmployeeProfile";
 import ProfilePage from "./ProfilePage";
+import AccountSettings from "./AccountSettings";
 
 const FIELD = {
   JOB_APPLICATIONS: "jobApplications",
+  YOUR_ACCOUNT: "yourAccount",
+  APPLICANT_PROFILE: "applicantProfile",
+  GC_EMPLOYEE_PROFILE: "gcEmployeeProfile",
+  GC_WORK_EMAIL: "gcWorkEmail",
 } as const;
 type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
@@ -25,9 +30,23 @@ class ApplicantDashboardPage extends AppPage {
       [FIELD.JOB_APPLICATIONS]: this.page.getByRole("button", {
         name: /job applications/i,
       }),
+      [FIELD.YOUR_ACCOUNT]: this.page.getByRole("heading", {
+        name: /your account/i,
+        level: 2,
+      }),
+      [FIELD.APPLICANT_PROFILE]: this.page.getByRole("heading", {
+        name: /applicant profile/i,
+        level: 3,
+      }),
+      [FIELD.GC_EMPLOYEE_PROFILE]: this.page.getByRole("heading", {
+        name: /gc employee profile/i,
+        level: 3,
+      }),
+      [FIELD.GC_WORK_EMAIL]: this.page.getByRole("group", {
+        name: /Government of Canada work email/i,
+      }),
     };
   }
-
   async goToDashboard() {
     await this.page.goto("/en/applicant");
   }
@@ -62,6 +81,34 @@ class ApplicantDashboardPage extends AppPage {
     } else {
       await this.verifyNonGCEmployeeSections(sectionName);
     }
+  }
+
+  async verifySettingsPage(contactEmail: string, gcEmail?: string) {
+    const accountSettingsPage = new AccountSettings(this.page);
+    await accountSettingsPage.goToSettings();
+    await expect(
+      this.page.getByRole("heading", { name: /account settings/i }),
+    ).toBeVisible();
+    await expect(
+      accountSettingsPage.page.getByText(new RegExp(contactEmail, "i")).first(),
+    ).toBeVisible();
+
+    if (gcEmail) {
+      await expect(
+        accountSettingsPage.page.getByText(new RegExp(gcEmail, "i")).first(),
+      ).toBeVisible();
+      await expect(
+        accountSettingsPage.page.getByRole("img", { name: /verified/i }).last(),
+      ).toBeVisible();
+    } else {
+      await expect(
+        this.page.getByText(/no work email provided/i),
+      ).toBeVisible();
+      await expect(
+        accountSettingsPage.page.getByRole("img", { name: /verified/i }),
+      ).toBeHidden();
+    }
+    await this.goToDashboard();
   }
 
   async verifyNonGCEmployeeSections(sectionName: string) {
@@ -113,14 +160,14 @@ class ApplicantDashboardPage extends AppPage {
       const trimmed = rawText.trim().toLowerCase();
 
       if (trimmed.startsWith("complete")) {
-        break;
+        continue;
       } else if (
         trimmed.startsWith("incomplete") ||
         trimmed.startsWith("missing optional information")
       ) {
         const subSectionName = rawText.split("-").slice(1).join("-").trim();
         await this.fillInCompleteAndMissingSections([subSectionName]);
-        break;
+        continue;
       }
     }
   }
